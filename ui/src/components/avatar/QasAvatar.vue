@@ -37,7 +37,7 @@ export default {
     },
 
     icon: {
-      default: 'o_error_outline',
+      default: 'o_error',
       type: String
     },
 
