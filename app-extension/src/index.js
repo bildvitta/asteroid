@@ -6,27 +6,42 @@
  * API: https://github.com/quasarframework/quasar/blob/master/app/lib/app-extension/IndexAPI.js
  */
 
-function extendConf (conf) {
-  // register our boot file
-  conf.boot.push('~quasar-app-extension-asteroid/src/boot/register.js')
+const sourcePath = '~quasar-app-extension-asteroid/src/'
+const resolve = (...paths) => paths.map(path => sourcePath + path)
 
-  // make sure app extension files & ui package gets transpiled
-  conf.build.transpileDependencies.push(/quasar-app-extension-asteroid[\\/]src/)
+function extendQuasar (quasar) {
+  // Boot
+  quasar.boot.push(
+    ...resolve(
+      'boot/api.js',
+      'boot/force-https.js',
+      'boot/history.js',
+      'boot/register.js',
+      'boot/router.js',
+      'boot/store.js'
+    )
+  )
+
+  // Transpile!
+  quasar.build.transpileDependencies.push(/quasar-app-extension-asteroid[\\/]src/)
 
   // make sure the stylesheet goes through webpack to avoid SSR issues
-  conf.css.push('~quasar-ui-asteroid/src/index.sass')
+  // quasar.css.push('~quasar-ui-asteroid/src/index.sass')
+
+  // Settings
+  quasar.extras.push(
+    'material-icons-outlined'
+  )
+
+  quasar.framework.iconSet = 'material-icons-outlined'
+  quasar.framework.lang = 'pt-br'
 }
 
 module.exports = function (api) {
-  // Quasar compatibility check; you may need
-  // hard dependencies, as in a minimum version of the "quasar"
-  // package or a minimum version of "@quasar/app" CLI
   api.compatibleWith('quasar', '^1.1.1')
   api.compatibleWith('@quasar/app', '^1.1.0 || ^2.0.0')
 
-  // Uncomment the line below if you provide a JSON API for your component
-  // api.registerDescribeApi('Asteroid', '~quasar-ui-asteroid/src/components/Asteroid.json')
+  api.compatibleWith('humps', '^2.0.1')
 
-  // We extend /quasar.conf.js
-  api.extendQuasarConf(extendConf)
+  api.extendQuasarConf(extendQuasar)
 }
