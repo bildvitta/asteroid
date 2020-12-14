@@ -2,6 +2,7 @@ import { version } from '../package.json'
 
 import Avatar from './components/avatar/QasAvatar'
 import BreakLine from './components/break-line/QasBreakLine'
+import SearchBox from './components/searchbox/QasSearchBox'
 
 import Test from './directives/Test'
 
@@ -13,6 +14,7 @@ export {
 
   Avatar,
   BreakLine,
+  SearchBox,
 
   Test
 }
@@ -22,6 +24,7 @@ export default {
 
   Avatar,
   BreakLine,
+  SearchBox,
 
   Test,
 

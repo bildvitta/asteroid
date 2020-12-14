@@ -5,12 +5,16 @@ import Quasar, {
   QAvatar,
   QIcon,
   QImg,
+  QInput,
+  QPage
 } from 'quasar'
 
 Vue.use(Quasar, {
   components: {
     QAvatar,
     QIcon,
-    QImg
+    QImg,
+    QInput,
+    QPage
   }
 })
