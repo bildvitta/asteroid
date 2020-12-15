@@ -49,31 +49,34 @@ export default {
     },
 
     // slot 
-    empty:{
+    empty: {
       description: 'Slot showing result not found',
-      table:{
+      table: {
         type: { summary: null },
         disable: false
       }
     },
 
-    default:{
+    default: {
       description: 'Scoped Slot that receives the result in Results',
-      table:{
-         disable: false
+      table: {
+        subcategory: 'Scoped Slot',
+        type: { summary: null },
+        disable: false,
+        defaultValue: { summary: 'Results' }
       }
     },
 
     // events
-    input:{
-      table:{
+    input: {
+      table: {
         disable: true
       }
     },
     
-    emptyResult:{
+    emptyResult: {
       description: 'Emits emptyResult event if there is no value to be searched',
-      table:{
+      table: {
         disable: false
       }
     }
@@ -95,8 +98,8 @@ const Template = (args, { argTypes }) => ({
 export const Default = Template.bind({})
 
 Default.args = {
-   list: [{label: 'Paul', value: 1 },{label:'Walker', value: 2 }],
-   fuseOptions: {keys: ['label']},
+   list: [{ label: 'Paul', value: 1 },{ label:'Walker', value: 2 }],
+   fuseOptions: { keys: ['label'] },
    placeholder: undefined,
    height: undefined
 }
