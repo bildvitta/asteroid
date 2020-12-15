@@ -48,7 +48,7 @@ export default {
 
     textColor: {
       default: '',
-      type: String 
+      type: String
     },
 
     title: {

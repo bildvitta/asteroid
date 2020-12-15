@@ -44,10 +44,6 @@ export default {
       description: 'placeholder of input'
     },
 
-    height: {
-      description: 'Component height'
-    },
-
     value: {
       description: 'value of search'
     },
@@ -67,6 +63,7 @@ export default {
          disable: false
       }
     },
+
     // events
     input:{
       table:{
@@ -89,7 +86,7 @@ const Template = (args, { argTypes }) => ({
   template:
    `<qas-search-box v-bind="$props" > 
       <template v-slot="{ results }">
-      {{ results }}
+        {{ results }}
       </template>
     </qas-search-box>
     `
@@ -98,7 +95,7 @@ const Template = (args, { argTypes }) => ({
 export const Default = Template.bind({})
 
 Default.args = {
-   list: [{label: 'Paul', value: 1 },{"label":"Walker","value":2}],
+   list: [{label: 'Paul', value: 1 },{label:'Walker', value: 2 }],
    fuseOptions: {keys: ['label']},
    placeholder: undefined,
    height: undefined
