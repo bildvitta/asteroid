@@ -2,6 +2,7 @@ import { version } from '../package.json'
 
 import Avatar from './components/avatar/QasAvatar'
 import BreakLine from './components/break-line/QasBreakLine'
+import Sortable from './components/sortable/QasSortable'
 
 import Test from './directives/Test'
 
@@ -13,6 +14,7 @@ export {
 
   Avatar,
   BreakLine,
+  Sortable,
 
   Test
 }
@@ -22,12 +24,14 @@ export default {
 
   Avatar,
   BreakLine,
+  Sortable,
 
   Test,
 
   install (Vue) {
     Vue.component('qas-avatar', Avatar)
     Vue.component('qas-breakline', BreakLine)
+    Vue.component('qas-sortable', Sortable)
 
     Vue.directive(Test.name, Test)
 
