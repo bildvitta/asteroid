@@ -6,7 +6,6 @@
       </template>
     </q-input>
     <div class="overflow-auto q-mt-xs relative-position" :style="contentStyle">
-       <!-- @slot Default to label prop -->
       <slot v-if="hasResults" :results="results" />
       <slot v-else name="empty">
         <div class="absolute-center text-center">
