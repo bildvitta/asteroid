@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test QasBox component Mount component 1`] = `
+<div
+  class="box rounded-borders q-pa-md box__shadow"
+/>
+`;

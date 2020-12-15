@@ -18,9 +18,14 @@
 </template>
 
 <script>
+import QasBox from '../box/QasBox.vue'
 import Fuse from 'fuse.js'
 
 export default {
+  components: {
+    QasBox
+  },
+
   props: {
     placeholder: {
       type: String,

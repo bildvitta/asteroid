@@ -1,0 +1,70 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test QasSettingsMenu component Mount component 1`] = `
+<qas-btn-stub
+  align="center"
+  class="settings-menu"
+  color="primary"
+  hidemobilelabel="true"
+  icon="o_settings"
+  label="Configurações"
+  nocaps="true"
+  outline="true"
+  ripple="true"
+  unelevated="true"
+>
+  <q-menu-stub
+    class="settings-menu__menu"
+    persistent="true"
+    target="true"
+    transitionhide="fade"
+    transitionshow="fade"
+  >
+    <q-list-stub
+      class="settings-menu__list"
+      separator="true"
+    >
+      <q-item-stub
+        class="text-primary text-bold"
+        clickable="true"
+        tag="div"
+      >
+        <q-item-section-stub>
+          <div
+            class="flex justify-center items-center q-gutter-x-md"
+          >
+            <q-icon-stub
+              name="o_lock"
+              tag="i"
+            />
+             
+            <div>
+              Block
+            </div>
+          </div>
+        </q-item-section-stub>
+      </q-item-stub>
+      <q-item-stub
+        class="text-primary text-bold"
+        clickable="true"
+        tag="div"
+      >
+        <q-item-section-stub>
+          <div
+            class="flex justify-center items-center q-gutter-x-md"
+          >
+            <q-icon-stub
+              name="o_delete"
+              tag="i"
+            />
+             
+            <div>
+              Delete
+            </div>
+          </div>
+        </q-item-section-stub>
+      </q-item-stub>
+    </q-list-stub>
+  </q-menu-stub>
+</qas-btn-stub>
+`;

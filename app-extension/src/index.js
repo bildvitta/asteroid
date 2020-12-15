@@ -18,7 +18,8 @@ function extendQuasar (quasar) {
       'boot/history.js',
       'boot/register.js',
       'boot/router.js',
-      'boot/store.js'
+      'boot/store.js',
+      'boot/register-components.js'
     )
   )
 
