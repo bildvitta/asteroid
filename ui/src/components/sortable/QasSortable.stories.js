@@ -1,7 +1,7 @@
 import QasSortable from './QasSortable.vue'
 
 export default {
-  title: 'Components/Break Line',
+  title: 'Components/Sortable',
   component: QasSortable
 }
 
@@ -14,5 +14,5 @@ const Template = (args, { argTypes }) => ({
 
 export const Default = Template.bind({})
 Default.args = {
-  
+    results: [{ label:'rafa', value: 1 }]
 }

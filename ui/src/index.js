@@ -31,7 +31,6 @@ export default {
   install (Vue) {
     Vue.component('qas-avatar', Avatar)
     Vue.component('qas-breakline', BreakLine)
-    Vue.component('qas-sortable', Sortable)
 
     Vue.directive(Test.name, Test)
 
