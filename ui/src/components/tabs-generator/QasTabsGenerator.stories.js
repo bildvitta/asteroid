@@ -180,8 +180,7 @@ const TemplateModifiedTabs = (args, { argTypes }) => ({
 export const ModifiedTabs = TemplateModifiedTabs.bind({})
 ModifiedTabs.args = {
   tabs: { tab: 'label', tab2: 'label-2' },
-  counters: { tab: 2 },
-  // modifiedTabs: { ...tabs, test2: { label: 'test2-2', icon: 'email' } }  
+  counters: { tab: 2 }
 }
 
 ModifiedTabs.parameters = {
