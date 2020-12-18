@@ -1,4 +1,4 @@
-import { shallowMount } from '@vue/test-utils'
+import { shallowMount, mount } from '@vue/test-utils'
 
 import '@/index.js'
 import QasSettingsMenu from './QasSettingsMenu.vue'
@@ -11,11 +11,12 @@ describe('Test QasSettingsMenu component', () => {
   }
 
   const list = {
-    block: { label: 'Block', icon: 'o_lock', handle: test1 },
-    delete: { label: 'Delete', icon: 'o_delete', handle: test1 }
+    block: { label: 'Block', icon: 'o_lock', handle: fn },
+    delete: { label: 'Delete', icon: 'o_delete', handle: fn }
   }
 
   const wrapper = shallowMount(QasSettingsMenu, { propsData: { list } })
+  const wrapperMount = mount(QasSettingsMenu, { propsData: { list } })
 
   it('Mount component', async () => {
     expect(wrapper.exists()).toBe(true)
@@ -39,12 +40,16 @@ describe('Test QasSettingsMenu component', () => {
   })
 
   it('Test handle function', async () => {
-    // const qItem = await wrapper.findAllComponents({ name: 'QItem' }).at(1)
+    await wrapperMount.trigger('click')
+    // console.log(wrapperMount.element.outerHTML)
+    // expect(wrapperMountMount.element).toMatchSnapshot()
+    console.log(document)
+    const qItem = await wrapperMount.find('.settings-menu__list')
+    console.log(qItem)
 
     // expect(qItem.exists()).toBe(true)
+    await wrapperMount.trigger('click')
     // await qItem.trigger('click')
-    // await wrapper.vm.$nextTick()
-
-    // expect(test1.called).toBe(true)
+    expect(fn).toHaveBeenCalled()
   })
 })
