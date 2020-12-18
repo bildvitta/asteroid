@@ -2,6 +2,7 @@ import { version } from '../package.json'
 
 import Avatar from './components/avatar/QasAvatar'
 import BreakLine from './components/break-line/QasBreakLine'
+import Profile from './components/profile/QasProfile'
 
 import Test from './directives/Test'
 
@@ -13,6 +14,7 @@ export {
 
   Avatar,
   BreakLine,
+  Profile,
 
   Test
 }
@@ -22,12 +24,14 @@ export default {
 
   Avatar,
   BreakLine,
+  Profile,
 
   Test,
 
   install (Vue) {
     Vue.component('qas-avatar', Avatar)
     Vue.component('qas-breakline', BreakLine)
+    Vue.component('qas-profile', Profile)
 
     Vue.directive(Test.name, Test)
 
