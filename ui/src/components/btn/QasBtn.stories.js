@@ -3,6 +3,14 @@ import QasBtn from './QasBtn.vue'
 export default {
   title: 'Components/Button',
   component: QasBtn,
+  parameters: {
+    docs: { 
+      description: { 
+        component: 'Button component'
+        + '<br> This component implements QBtn https://quasar.dev/vue-components/button'
+      } 
+    }
+  },
 
   argTypes: {
     noCaps: {
