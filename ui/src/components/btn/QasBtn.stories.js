@@ -7,17 +7,17 @@ export default {
   argTypes: {
     noCaps: {
       name: 'noCaps',
-      description: 'Boolean for caps in label'
+      description: 'Avoid turning label text into caps (which happens by default)'
     },
 
     color: {
       name: 'color',
-      description: 'Receives a string for the button color'
+      description: 'Color name for component from the Quasar Color Palette https://quasar.dev/style/color-palette#Color-List'
     },
 
     unelevated: {
       name: 'unelevated',
-      description: 'Boolean for elevation'
+      description: 'Remove shadow'
     },
 
     hideMobileLabel: {
@@ -31,10 +31,7 @@ const Template = (args, { argTypes }) => ({
   props: Object.keys(argTypes),
   components: { QasBtn },
   template:
-   `
-   <qas-btn v-bind="$props" />
-   
-    `
+   `<qas-btn v-bind="$props" />`
 })
 
 export const Default = Template.bind({})
