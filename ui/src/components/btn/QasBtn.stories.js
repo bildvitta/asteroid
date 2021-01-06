@@ -32,11 +32,12 @@ const Template = (args, { argTypes }) => ({
   components: { QasBtn },
   template:
    `
-   <qas-btn v-bind="$props">
-      Click Here
-   </qas-btn>
+   <qas-btn v-bind="$props" />
    
     `
 })
 
 export const Default = Template.bind({})
+Default.args = {
+  label: 'Click Here'
+}
