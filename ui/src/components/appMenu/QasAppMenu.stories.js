@@ -6,7 +6,7 @@ export default {
   parameters: {
     docs: { 
       description: { 
-        component: 'Button component'
+        component: 'Component that creates a dynamic menu receiving an array'
       } 
     }
   },
