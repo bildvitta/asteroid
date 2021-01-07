@@ -5,12 +5,26 @@ import Quasar, {
   QAvatar,
   QIcon,
   QImg,
+  QDrawer,
+  QScrollArea,
+  QList,
+  QExpansionItem,
+  QItem,
+  QItemSection,
+  QItemLabel
 } from 'quasar'
 
 Vue.use(Quasar, {
   components: {
     QAvatar,
     QIcon,
-    QImg
+    QImg,
+    QDrawer,
+    QScrollArea,
+    QList,
+    QExpansionItem,
+    QItem,
+    QItemSection,
+    QItemLabel
   }
 })
