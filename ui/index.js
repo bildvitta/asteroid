@@ -11,7 +11,8 @@ import Quasar, {
   QExpansionItem,
   QItem,
   QItemSection,
-  QItemLabel
+  QItemLabel,
+  QLayout
 } from 'quasar'
 
 Vue.use(Quasar, {
@@ -25,6 +26,7 @@ Vue.use(Quasar, {
     QExpansionItem,
     QItem,
     QItemSection,
-    QItemLabel
+    QItemLabel,
+    QLayout
   }
 })
