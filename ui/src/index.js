@@ -26,8 +26,8 @@ export default {
   Test,
 
   install (Vue) {
-    Vue.component('qas-avatar', Avatar)
-    Vue.component('qas-breakline', BreakLine)
+    Vue.component('QasAvatar', Avatar)
+    Vue.component('QasBreakline', BreakLine)
 
     Vue.directive(Test.name, Test)
 

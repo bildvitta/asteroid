@@ -4,7 +4,7 @@ import Vue from 'vue'
 import Quasar, {
   QAvatar,
   QIcon,
-  QImg,
+  QImg
 } from 'quasar'
 
 Vue.use(Quasar, {

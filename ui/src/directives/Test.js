@@ -5,7 +5,7 @@ export default {
     if (element && argument) {
       element.dataset.test = argument
     }
-  
+
     if (element && value) {
       element.dataset.testKey = value
     }
