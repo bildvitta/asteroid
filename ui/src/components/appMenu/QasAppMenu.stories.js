@@ -16,17 +16,26 @@ export default {
       name: 'items',
       description: 'Array of items in menu, can have icons and children'
     },
+
     value: {
       name: 'value',
       description: 'Controls component value'
     },
+
     scrollAreaClass: {
       name: 'scrollAreaClass',
       description: 'Class for the scroll area'
     },
+
     itemClass: {
       name: 'itemClass',
       description: 'Class for the menu items'
+    },
+
+    input: {
+      table: {
+        disable: true
+      }
     }
   }
 }
