@@ -1,10 +1,21 @@
+const ESLintPlugin = require('eslint-webpack-plugin')
+
 module.exports = {
-  "stories": [
-    "../**/*.stories.mdx",
-    "../**/*.stories.@(js|jsx|ts|tsx)"
+  addons: [
+    '@storybook/addon-essentials',
+    '@storybook/addon-links'
   ],
-  "addons": [
-    "@storybook/addon-links",
-    "@storybook/addon-essentials"
-  ]
+
+  stories: [
+    '../**/*.stories.mdx',
+    '../**/*.stories.js'
+  ],
+
+  webpackFinal: webpack => {
+    webpack.plugins.push(
+      new ESLintPlugin({ extensions: ['js', 'vue'] })
+    )
+
+    return webpack
+  }
 }
