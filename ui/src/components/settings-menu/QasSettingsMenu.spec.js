@@ -40,16 +40,15 @@ describe('Test QasSettingsMenu component', () => {
   })
 
   it('Test handle function', async () => {
-    await wrapperMount.trigger('click')
-    // console.log(wrapperMount.element.outerHTML)
-    // expect(wrapperMountMount.element).toMatchSnapshot()
-    console.log(document)
-    const qItem = await wrapperMount.find('.settings-menu__list')
-    console.log(qItem)
+    await wrapper.trigger('click').then()
 
-    // expect(qItem.exists()).toBe(true)
-    await wrapperMount.trigger('click')
-    // await qItem.trigger('click')
+    const qItems = wrapper.findAllComponents({ name: 'qItem' })
+    const qItem = qItems.at(0)
+
+    expect(qItem.exists()).toBe(true)
+    expect(qItem.text()).toContain('Block')
+    await qItem.vm.$emit('click')
+
     expect(fn).toHaveBeenCalled()
   })
 })
