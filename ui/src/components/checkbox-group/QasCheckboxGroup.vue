@@ -33,14 +33,14 @@ export default {
     }
   },
 
-  created () {
-    this.handleParent()
-  },
-
   watch: {
     options () {
       this.handleParent()
     }
+  },
+
+  created () {
+    this.handleParent()
   },
 
   methods: {
@@ -54,7 +54,7 @@ export default {
     },
 
     hasChildren (option) {
-      return option.hasOwnProperty('children')
+      return Object.prototype.hasOwnProperty.call(option, 'children')
     },
 
     setGroupIntersection (value, option, index) {
