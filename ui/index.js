@@ -4,13 +4,29 @@ import Vue from 'vue'
 import Quasar, {
   QAvatar,
   QIcon,
-  QImg
+  QImg,
+  QDrawer,
+  QScrollArea,
+  QList,
+  QExpansionItem,
+  QItem,
+  QItemSection,
+  QItemLabel,
+  QLayout
 } from 'quasar'
 
 Vue.use(Quasar, {
   components: {
     QAvatar,
     QIcon,
-    QImg
+    QImg,
+    QDrawer,
+    QScrollArea,
+    QList,
+    QExpansionItem,
+    QItem,
+    QItemSection,
+    QItemLabel,
+    QLayout
   }
 })
