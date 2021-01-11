@@ -6,18 +6,19 @@ import Quasar, {
   QBtn,
   QDrawer,
   QExpansionItem,
+  QField,
   QIcon,
   QImg,
-  QField,
-  QUploader,
-  QSpinner,
-  QList,
   QItem,
-  QItemSection,
   QItemLabel,
-  QUploaderAddTrigger,
+  QItemSection,
   QLayout,
-  QScrollArea
+  QList,
+  QScrollArea,
+  QSpinner,
+  QTooltip,
+  QUploader,
+  QUploaderAddTrigger
 } from 'quasar'
 
 Vue.use(Quasar, {
@@ -26,17 +27,18 @@ Vue.use(Quasar, {
     QBtn,
     QDrawer,
     QExpansionItem,
+    QField,
     QIcon,
     QImg,
-    QField,
-    QUploader,
-    QSpinner,
-    QList,
     QItem,
-    QItemSection,
     QItemLabel,
-    QUploaderAddTrigger,
+    QItemSection,
     QLayout,
-    QScrollArea
+    QList,
+    QScrollArea,
+    QSpinner,
+    QTooltip,
+    QUploader,
+    QUploaderAddTrigger
   }
 })
