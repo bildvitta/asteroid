@@ -3,6 +3,9 @@ import Vue from 'vue'
 // TODO: Importar tudo para fins de testes e Storybook.
 import Quasar, {
   QAvatar,
+  QBtn,
+  QDrawer,
+  QExpansionItem,
   QIcon,
   QImg,
   QField,
@@ -13,13 +16,17 @@ import Quasar, {
   QItemSection,
   QItemLabel,
   QBtn,
-  QUploaderAddTrigger
-
+  QUploaderAddTrigger,
+  QLayout,
+  QScrollArea
 } from 'quasar'
 
 Vue.use(Quasar, {
   components: {
     QAvatar,
+    QBtn,
+    QDrawer,
+    QExpansionItem,
     QIcon,
     QImg,
     QField,
@@ -30,6 +37,8 @@ Vue.use(Quasar, {
     QItemSection,
     QItemLabel,
     QBtn,
-    QUploaderAddTrigger
+    QUploaderAddTrigger,
+    QLayout,
+    QScrollArea
   }
 })
