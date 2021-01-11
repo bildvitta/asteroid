@@ -1,14 +1,15 @@
 import QasSortable from './QasSortable.vue'
 
+const descriptionSortable = 'This component is for sorting elements when dragged, it uses the SortableJS library: https://github.com/SortableJS/Sortable'
+
 export default {
   title: 'Components/Sortable',
   component: QasSortable,
   parameters: {
-    docs: { 
-      description: { 
-        component: 'This component is for sorting elements when dragged,'
-                    + '<br> it uses the SortableJS library: https://github.com/SortableJS/Sortable' 
-      } 
+    docs: {
+      description: {
+        component: descriptionSortable
+      }
     }
   },
 
@@ -23,7 +24,7 @@ export default {
     options: {
       description: 'Library options SortableJS.'
     },
-    
+
     results: {
       description: 'List of elements to be ordered.'
     },
@@ -40,14 +41,14 @@ export default {
     default: {
       table: {
         type: { summary: '{ sorted: Object }' },
-        defaultValue: { summary: '[]'}
+        defaultValue: { summary: '[]' }
       },
       description: 'Returns the array with the ordered data.'
     },
-    
+
     // event
     sort: {
-      description: `Trigger the library's native event, which is triggered when the element is ordered.`
+      description: 'Trigger the library\'s native event, which is triggered when the element is ordered.'
     },
 
     success: {
@@ -69,9 +70,9 @@ const Template = (args, { argTypes }) => ({
 
 export const Default = Template.bind({})
 Default.args = {
-    results: [
-        { photo: 'https://via.placeholder.com/150', id: '1w312w' },
-        { photo: 'https://via.placeholder.com/150', id: '2w4312w' }
-      ],
-      options: { animation: 700 }
+  results: [
+    { photo: 'https://via.placeholder.com/150', id: '1w312w' },
+    { photo: 'https://via.placeholder.com/150', id: '2w4312w' }
+  ],
+  options: { animation: 700 }
 }

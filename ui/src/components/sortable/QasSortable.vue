@@ -24,7 +24,7 @@ export default {
 
     entity: {
       type: String,
-      required: false
+      default: ''
     },
 
     url: {
@@ -41,6 +41,12 @@ export default {
   data () {
     return {
       sorted: null
+    }
+  },
+
+  computed: {
+    identifiers () {
+      return this.sorted.map(({ id }) => id)
     }
   },
 
@@ -70,10 +76,8 @@ export default {
     })
   },
 
-  computed: {
-    identifiers () {
-      return this.sorted.map(({ id }) => id)
-    }
+  beforeDestroy () {
+    sortable.destroy()
   },
 
   methods: {
@@ -109,12 +113,8 @@ export default {
       const { response } = error
       const exception = get(response, 'data.exception') || error.message
 
-      this.$qs.error('Ops! Erro ao ordernar itens.', exception)
+      this.$qas.notifyError('Ops! Erro ao ordernar itens.', exception)
     }
-  },
-
-  beforeDestroy () {
-    sortable.destroy()
   }
 }
 </script>
