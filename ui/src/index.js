@@ -4,11 +4,14 @@ import AppMenu from './components/break-line/QasAppMenu'
 import Avatar from './components/avatar/QasAvatar'
 import BreakLine from './components/break-line/QasBreakLine'
 import Btn from './components/btn/QasBtn'
+import Copy from './components/btn/QasCopy'
 
 import Test from './directives/Test'
 
-import NotifyError from './plugins/NotifyError'
-import NotifySuccess from './plugins/NotifySuccess'
+import {
+  NotifyError,
+  NotifySuccess
+} from './plugins'
 
 export {
   version,
@@ -17,6 +20,7 @@ export {
   Avatar,
   BreakLine,
   Btn,
+  Copy,
 
   Test
 }
@@ -28,19 +32,22 @@ export default {
   Avatar,
   BreakLine,
   Btn,
+  Copy,
 
   Test,
 
   install (Vue) {
+    Vue.prototype.$qas = {
+      error: NotifyError,
+      success: NotifySuccess
+    }
+
     Vue.component('QasAppMenu', AppMenu)
     Vue.component('QasAvatar', Avatar)
     Vue.component('QasBreakline', BreakLine)
     Vue.component('QasBtn', Btn)
+    Vue.component('QasCopy', Copy)
 
     Vue.directive(Test.name, Test)
-
-    Vue.prototype.$qas = {}
-    Vue.prototype.$qas.notifyError = NotifyError
-    Vue.prototype.$qas.notifySuccess = NotifySuccess
   }
 }
