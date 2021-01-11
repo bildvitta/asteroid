@@ -37,7 +37,7 @@
     "vue-template-compiler": "^2.6.12"
   },
   "dependencies": {
-    "@quasar/extras": "^1.9.11",
+    "@quasar/extras": "^1.9.13",
     "quasar": "^1.14.7",
     "vue": "^2.6.12"
   }
