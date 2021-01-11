@@ -15,7 +15,6 @@ import Quasar, {
   QItem,
   QItemSection,
   QItemLabel,
-  QBtn,
   QUploaderAddTrigger,
   QLayout,
   QScrollArea
@@ -36,7 +35,6 @@ Vue.use(Quasar, {
     QItem,
     QItemSection,
     QItemLabel,
-    QBtn,
     QUploaderAddTrigger,
     QLayout,
     QScrollArea

@@ -1,7 +1,7 @@
 <template>
-  <q-field :error="$attrs.error" :error-message="$attrs.errorMessage" borderless>
+  <q-field borderless :error="$attrs.error" :error-message="$attrs.errorMessage">
     <q-uploader v-bind="$attrs" auto-upload bordered class="fit" :factory="factory" flat method="PUT" :readonly="readOnly" v-on="$listeners" @removed="removed" @uploaded="uploaded">
-      <template v-slot:header="scope">
+      <template #header="scope">
         <div class="flex flex-center no-wrap q-gutter-xs q-pa-sm">
           <q-spinner v-if="scope.isUploading" size="24px" />
 
@@ -19,7 +19,7 @@
         </div>
       </template>
 
-      <template v-slot:list="scope">
+      <template #list="scope">
         <q-list separator>
           <q-item v-if="hasAPIValue && !scope.isUploading" class="q-pa-none">
             <q-item-section avatar top>
@@ -119,7 +119,7 @@ export default {
     hasAPIValue () {
       return this.value.startsWith('https://s3.amazonaws.com/')
     },
-    
+
     imageName () {
       return `${this.value}`.split('/').pop()
     }
@@ -167,6 +167,7 @@ export default {
           filename
         })
         return data
+      // eslint-disable-next-line no-useless-catch
       } catch (error) {
         throw error
       } finally {
