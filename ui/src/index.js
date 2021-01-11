@@ -1,8 +1,10 @@
 import { version } from '../package.json'
 
+import AppMenu from './components/break-line/QasAppMenu'
 import Avatar from './components/avatar/QasAvatar'
 import BreakLine from './components/break-line/QasBreakLine'
 import TabsGenerator from './components/tabs-generator/QasTabsGenerator'
+import Btn from './components/btn/QasBtn'
 
 import Test from './directives/Test'
 
@@ -12,9 +14,11 @@ import NotifySuccess from './plugins/NotifySuccess'
 export {
   version,
 
+  AppMenu,
   Avatar,
   BreakLine,
   TabsGenerator,
+  Btn,
 
   Test
 }
@@ -22,16 +26,21 @@ export {
 export default {
   version,
 
+  AppMenu,
   Avatar,
   BreakLine,
   TabsGenerator,
+  Btn,
 
   Test,
 
   install (Vue) {
-    Vue.component('qas-avatar', Avatar)
-    Vue.component('qas-breakline', BreakLine)
-    Vue.component('qas-tabs-generator', TabsGenerator)
+    Vue.component('QasTabsGenerator', TabsGenerator)
+    Vue.component('QasAppMenu', AppMenu)
+    Vue.component('QasAvatar', Avatar)
+    Vue.component('QasBreakline', BreakLine)
+    Vue.component('QasBtn', Btn)
+
     Vue.directive(Test.name, Test)
 
     Vue.prototype.$qas = {}
