@@ -25,9 +25,8 @@ export default {
     },
 
     value: {
-      table: {
-        disable: true
-      }
+      description: 'Marks the tab as selected',
+      control: null
     },
 
     // slots
@@ -67,9 +66,7 @@ export default {
 
     // event
     input: {
-      table: {
-        disable: true
-      }
+      description: 'fires when selecting a tab'
     }
   }
 }
