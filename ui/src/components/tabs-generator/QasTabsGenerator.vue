@@ -1,8 +1,8 @@
 <template>
   <q-tabs v-model="currentTab" v-bind="$attrs" v-on="$listeners">
-    <slot v-for="(tab, key) in formattedTabs" :name="`tab-${tab.label}`" :item="tab">
-      <q-tab :name="key" :label="tab.label" :key="key" v-bind="tab">
-        <slot :name="`tab-slot-${tab.label}`" :item="tab">
+    <slot v-for="(tab, key) in formattedTabs" :item="tab" :name="`tab-${tab.label}`">
+      <q-tab :key="key" :label="tab.label" :name="key" v-bind="tab">
+        <slot :item="tab" :name="`tab-slot-${tab.label}`">
           <q-badge v-if="counters[key]" color="negative" floating :label="counters[key]" />
         </slot>
       </q-tab>
