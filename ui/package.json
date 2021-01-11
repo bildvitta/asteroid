@@ -38,7 +38,7 @@
   },
   "dependencies": {
     "@quasar/extras": "^1.9.13",
-    "quasar": "^1.14.7",
+    "quasar": "^1.15.0",
     "vue": "^2.6.12"
   }
 }
