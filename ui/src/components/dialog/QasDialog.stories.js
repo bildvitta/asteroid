@@ -7,51 +7,73 @@ export default {
   parameters: {
     docs: {
       description: {
-        component: 'Extends [Dialog](https://quasar.dev/vue-components/dialog#Introduction).'
+        component: 'Extends [Dialog](https://quasar.dev/vue-components/dialog#Introduction), receive all props, events and methods from QDialog from quasar.'
       }
     }
   },
 
   argTypes: {
-    color: {
-      description: 'Color name for component from the [Quasar Color Palette](https://quasar.dev/style/color-palette#Color-List).',
+    value: {
+      description: 'model value to show/hide the component.'
+    },
+
+    card: {
+      description: 'Content of [QCard](https://quasar.dev/vue-components/card#Installation), mast have key <strong>title</strong> and <strong>description</strong>'
+    },
+
+    maxWidth: {
+      description: 'QCard\'s max width.',
       table: {
-        type: {
-          summary: null
-        }
+        defaultValue: { summary: '600px' }
       }
     },
 
-    hideMobileLabel: {
-      description: 'Hides label in mobile, showing only the icon.'
-    },
-
-    noCaps: {
-      description: 'Avoid turning label text into caps (which happens by default).'
-    },
-
-    unelevated: {
-      description: 'Removes shadow.'
-    },
-
-    test: {
+    minWidth: {
+      description: 'QCard\'s min width.',
       table: {
-        disable: true
+        defaultValue: { summary: '400px' }
       }
     },
 
-    onClick: { value: true }
+    ok: {
+      description: 'Configuration of btn <strong>ok</strong>, for sending props use key <strong>props</strong> and events use key <strong>events</strong> and for hide this btn pass value <strong>false</strong>',
+      table: {
+        defaultValue: { summary: { label: 'Ok' } }
+      }
+    },
+
+    cancel: {
+      description: 'Configuration of btn <strong>cancel</strong>, for sending props use key <strong>props</strong> and events use key <strong>events</strong> and for hide this btn pass value <strong>false</strong>',
+      table: {
+        defaultValue: { summary: { label: 'Cancelar', outline: true } }
+      }
+    },
+
+    cardProps: {
+      description: '$attrs send to <strong>QCard</strong>'
+    },
+
+    btnActions: {
+      description: '$attrs send to <strong>QasBtnActions</strong>'
+    }
+
+    // dialog: {
+    //   table: {
+    //     disable: true
+    //   }
+    // }
   }
 }
 
 const Template = (args, { argTypes }) => ({
   props: Object.keys(argTypes),
   components: { QasDialog, QasBtn },
+  data: () => ({ dialog: false }),
   template:
    (`
     <div>
-      <qas-btn label="Open dialog!" @click="test = !test"/>
-      <qas-dialog v-bind="$props" v-model="test" />
+      <qas-btn label="Open dialog!" @click="dialog = !dialog"/>
+      <qas-dialog v-bind="$props" v-model="dialog" />
     </div>
    `)
 })
@@ -59,7 +81,19 @@ const Template = (args, { argTypes }) => ({
 export const Default = Template.bind({})
 Default.args = {
   label: 'Click here!',
-  test: false
+  card: {
+    title: 'This is a title.',
+    description: 'this is an description.'
+  },
+  ok: {
+    props: { label: 'Ok' },
+    events: undefined
+  },
+  cancel: {
+    props: { label: 'Cancelar', outline: true },
+    events: undefined
+  }
+  // dialog: false
 }
 
 const template = '<qas-dialog v-model="dialog" />'
