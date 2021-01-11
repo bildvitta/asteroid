@@ -4,6 +4,7 @@ import Vue from 'vue'
 import Quasar, {
   QAvatar,
   QBtn,
+  QDialog,
   QDrawer,
   QExpansionItem,
   QIcon,
@@ -20,6 +21,7 @@ Vue.use(Quasar, {
   components: {
     QAvatar,
     QBtn,
+    QDialog,
     QDrawer,
     QExpansionItem,
     QIcon,

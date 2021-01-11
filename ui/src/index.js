@@ -4,6 +4,7 @@ import AppMenu from './components/break-line/QasAppMenu'
 import Avatar from './components/avatar/QasAvatar'
 import BreakLine from './components/break-line/QasBreakLine'
 import Btn from './components/btn/QasBtn'
+import Dialog from './components/dialog/QasDialog'
 
 import Test from './directives/Test'
 
@@ -17,6 +18,7 @@ export {
   Avatar,
   BreakLine,
   Btn,
+  Dialog,
 
   Test
 }
@@ -28,6 +30,7 @@ export default {
   Avatar,
   BreakLine,
   Btn,
+  Dialog,
 
   Test,
 
@@ -36,6 +39,7 @@ export default {
     Vue.component('QasAvatar', Avatar)
     Vue.component('QasBreakline', BreakLine)
     Vue.component('QasBtn', Btn)
+    Vue.component('QasDialog', Dialog)
 
     Vue.directive(Test.name, Test)
 
