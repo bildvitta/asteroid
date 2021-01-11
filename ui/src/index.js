@@ -8,8 +8,10 @@ import Copy from './components/btn/QasCopy'
 
 import Test from './directives/Test'
 
-import NotifyError from './plugins/NotifyError'
-import NotifySuccess from './plugins/NotifySuccess'
+import {
+  NotifyError,
+  NotifySuccess
+} from './plugins'
 
 export {
   version,
@@ -35,9 +37,10 @@ export default {
   Test,
 
   install (Vue) {
-    Vue.prototype.$qas = {}
-    Vue.prototype.$qas.error = NotifyError
-    Vue.prototype.$qas.success = NotifySuccess
+    Vue.prototype.$qas = {
+      error: NotifyError,
+      success: NotifySuccess
+    }
 
     Vue.component('QasAppMenu', AppMenu)
     Vue.component('QasAvatar', Avatar)
