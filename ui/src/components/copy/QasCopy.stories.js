@@ -6,7 +6,7 @@ export default {
   parameters: {
     docs: {
       description: {
-        component: 'Copy label to clipboard.'
+        component: 'Copy some text to clipboard.'
       }
     }
   },
@@ -17,7 +17,7 @@ export default {
     },
 
     label: {
-      description: 'Text to clipboard.'
+      description: 'Text to be copied.'
     }
   }
 }
