@@ -33,14 +33,14 @@
     "react-is": "^17.0.1",
     "standard": "^16.0.3",
     "vue-jest": "^3.0.7",
-    "vue-loader": "^15.9.5",
+    "vue-loader": "^15.9.6",
     "vue-template-compiler": "^2.6.12"
   },
   "dependencies": {
     "lodash": "^4.17.20",
     "@quasar/extras": "^1.9.13",
-    "quasar": "^1.14.7",
     "sortablejs": "^1.12.0",
+    "quasar": "^1.15.0",
     "vue": "^2.6.12"
   }
 }
