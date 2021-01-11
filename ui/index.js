@@ -14,8 +14,7 @@ import Quasar, {
   QItemLabel,
   QBtn,
   QUploaderAddTrigger
-  
-  
+
 } from 'quasar'
 
 Vue.use(Quasar, {

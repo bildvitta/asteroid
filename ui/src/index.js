@@ -15,7 +15,6 @@ export {
   Avatar,
   BreakLine,
   Uploader,
-
   Test
 }
 
