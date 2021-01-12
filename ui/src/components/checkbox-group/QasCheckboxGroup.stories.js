@@ -21,15 +21,14 @@ export default {
     },
 
     value: {
-      table: {
-        disable: true
+      description: 'value receives the value of the checkbox state',
+      control: {
+        type: null
       }
     },
 
     input: {
-      table: {
-        disable: true
-      }
+      description: 'issues the input event by passing value, updating the checkbox state'
     }
   }
 }
