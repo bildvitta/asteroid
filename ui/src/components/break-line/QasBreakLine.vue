@@ -26,7 +26,7 @@ export default {
 
     tagStyle: {
       default: null,
-      type: [Array, Object, String]
+      type: [Object, String]
     },
 
     text: {

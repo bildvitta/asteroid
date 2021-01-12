@@ -6,6 +6,7 @@ import BreakLine from './components/break-line/QasBreakLine'
 import Btn from './components/btn/QasBtn'
 import BtnActions from './components/btn-actions/BtnActions'
 import Copy from './components/btn/QasCopy'
+import DateTimeInput from './components/date-time-input/DateTimeInput'
 
 import Test from './directives/Test'
 
@@ -14,8 +15,12 @@ import {
   NotifySuccess
 } from './plugins'
 
+// Por que é necessário exportar duas vezes?
 export {
   version,
+
+  NotifyError,
+  NotifySuccess,
 
   AppMenu,
   Avatar,
@@ -23,6 +28,7 @@ export {
   Btn,
   BtnActions,
   Copy,
+  DateTimeInput,
 
   Test
 }
@@ -30,12 +36,16 @@ export {
 export default {
   version,
 
+  NotifyError,
+  NotifySuccess,
+
   AppMenu,
   Avatar,
   BreakLine,
   Btn,
   BtnActions,
   Copy,
+  DateTimeInput,
 
   Test,
 
@@ -50,6 +60,7 @@ export default {
     Vue.component('QasBreakline', BreakLine)
     Vue.component('QasBtn', Btn)
     Vue.component('QasCopy', Copy)
+    Vue.component('QasDateTimeInput', DateTimeInput)
 
     Vue.directive(Test.name, Test)
   }
