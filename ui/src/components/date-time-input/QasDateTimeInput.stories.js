@@ -3,10 +3,11 @@ import QasDateTimeInput from './QasDateTimeInput.vue'
 export default {
   component: QasDateTimeInput,
   title: 'Components/DateTimeInput',
+
   parameters: {
     docs: {
       description: {
-        component: 'Creates a component that provides a method to input date and/or time.'
+        component: 'Field to input or select date and time.'
       }
     }
   },
@@ -14,40 +15,40 @@ export default {
   argTypes: {
     // Props
     dateMask: {
-      description: 'Mask (formatting string) used for parsing and formatting date value.'
+      description: 'Mask string to parse and format date value.'
     },
 
     dateOnly: {
-      description: 'Shows only date input.'
+      description: 'For date only mode.'
     },
 
     dateOptions: {
-      description: 'Optionally configure the days that are selectable.'
+      description: 'Bypass [QDate](https://quasar.dev/vue-components/date) props.'
     },
 
     timeMask: {
-      description: 'Mask (formatting string) used for parsing and formatting time value.'
+      description: 'Mask string to parse and format time value.'
     },
 
     timeOnly: {
-      description: 'Shows only time input.'
+      description: 'For time only mode.'
     },
 
     timeOptions: {
-      description: 'Optionally configure the time that are selectable.'
+      description: 'Bypass [QTime](https://quasar.dev/vue-components/time) props'
     },
 
     value: {
-      description: 'Sets the input value in ISO 8601.'
+      description: 'Sets the input value by ISO 8601.'
     },
 
     // Events
     input: {
-      description: 'Gets the input value.'
+      description: 'Fires when the value changes.'
     },
 
     mounted: {
-      description: 'Create component.'
+      description: 'Fires when the component mounts.'
     }
   }
 }
@@ -56,7 +57,7 @@ const Template = (args, { argTypes }) => ({
   props: Object.keys(argTypes),
   components: { QasDateTimeInput },
   template:
-   '<qas-date-time-input v-bind="$props" />'
+    '<qas-date-time-input v-bind="$props" />'
 })
 
 export const Default = Template.bind({})
