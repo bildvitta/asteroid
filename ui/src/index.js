@@ -5,6 +5,7 @@ import Avatar from './components/avatar/QasAvatar'
 import BreakLine from './components/break-line/QasBreakLine'
 import Btn from './components/btn/QasBtn'
 import Copy from './components/btn/QasCopy'
+import Label from './components/label//Label'
 
 import Test from './directives/Test'
 
@@ -25,6 +26,7 @@ export {
   BreakLine,
   Btn,
   Copy,
+  Label,
 
   Test
 }
@@ -40,6 +42,7 @@ export default {
   BreakLine,
   Btn,
   Copy,
+  Label,
 
   Test,
 
