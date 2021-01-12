@@ -4,6 +4,7 @@ import AppMenu from './components/break-line/QasAppMenu'
 import Avatar from './components/avatar/QasAvatar'
 import BreakLine from './components/break-line/QasBreakLine'
 import Btn from './components/btn/QasBtn'
+import BtnActions from './components/btn-actions/BtnActions'
 import Copy from './components/btn/QasCopy'
 
 import Test from './directives/Test'
@@ -20,6 +21,7 @@ export {
   Avatar,
   BreakLine,
   Btn,
+  BtnActions,
   Copy,
 
   Test
@@ -32,6 +34,7 @@ export default {
   Avatar,
   BreakLine,
   Btn,
+  BtnActions,
   Copy,
 
   Test,
