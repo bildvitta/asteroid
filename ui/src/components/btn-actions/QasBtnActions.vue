@@ -22,11 +22,11 @@ export default {
       type: String,
       default: 'end',
       validator: value => [
-        'end',
         'start',
-        'center',
+        'around',
         'between',
-        'around'
+        'center',
+        'end'
       ].includes(value)
     },
 
@@ -49,7 +49,7 @@ export default {
     },
 
     btnActionsClass () {
-      return `q-col-gutter-${this.gutter} justify-${this.align}`
+      return `justify-${this.align} q-col-gutter-${this.gutter}`
     },
 
     primaryClass () {

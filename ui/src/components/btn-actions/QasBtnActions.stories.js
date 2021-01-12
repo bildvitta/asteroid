@@ -1,78 +1,69 @@
-import QasBtn from '../btn//QasBtn.vue'
+import QasBtn from '../btn/QasBtn.vue'
 import QasBtnActions from './QasBtnActions.vue'
+
+const noSummary = {
+  type: { summary: null }
+}
 
 export default {
   component: QasBtnActions,
   title: 'Components/BtnActions',
+
   parameters: {
     docs: {
       description: {
-        component: 'Handle button with primary and secondary actions (on mobile the order of buttons is changed).'
+        component: 'Actions for pages that deals with primary and secondary buttons, like a form or dialog.'
       }
     }
   },
 
   argTypes: {
-    btnCol: {
-      description: 'col classes for both buttons.'
+    // Props
+    align: {
+      description: 'Actions alignment.'
     },
 
-    align: {
-      description: 'Alignment of buttons.'
+    btnCol: {
+      description: 'Col sizes for actions wrapper.'
     },
 
     gutter: {
-      description: 'Space among buttons.'
+      description: 'Distance between actions.'
     },
 
-    // slots
+    // Slots
     primary: {
-      description: 'Primary action button',
-      table: {
-        type: { summary: null }
-      }
+      description: 'Primary action slot.',
+      table: noSummary
     },
 
     secondary: {
-      description: 'secondary action button',
-      table: {
-        type: { summary: null }
-      }
+      description: 'Secondary action slot.',
+      table: noSummary
     }
   }
 }
 
-const template = (`
-<qas-btn-actions>
+const templates = `
   <template v-slot:primary>
     <qas-btn label="Confirm" />
   </template>
   <template v-slot:secondary>
-    <qas-btn label="Cancel" />
+    <qas-btn color="white" label="Cancel" outline text-color="primary" />
   </template>
-</qas-btn-actions>
-`)
+`
 
 const Template = (args, { argTypes }) => ({
   props: Object.keys(argTypes),
   components: { QasBtnActions, QasBtn },
   template:
-    (`
-    <qas-btn-actions v-bind="$props">
-      <template v-slot:primary>
-        <qas-btn label="Confirm" />
-      </template>
-      <template v-slot:secondary>
-        <qas-btn label="Cancel" />
-      </template>
-    </qas-btn-actions>
-    `)
+    `<qas-btn-actions v-bind="$props">${templates}</qas-btn-actions>`
 })
 
 export const Default = Template.bind({})
 
 Default.parameters = {
   docs: {
-    source: { code: template }
+    source: { code: `<qas-btn-actions>${templates}</qas-btn-actions>` }
   }
 }
