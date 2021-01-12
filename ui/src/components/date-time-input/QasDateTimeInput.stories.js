@@ -6,7 +6,7 @@ export default {
   parameters: {
     docs: {
       description: {
-        component: 'Creates a date/time input.'
+        component: 'Creates a component that provides a method to input date and/or time.'
       }
     }
   },
