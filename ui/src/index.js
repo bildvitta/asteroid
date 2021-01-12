@@ -13,8 +13,12 @@ import {
   NotifySuccess
 } from './plugins'
 
+// Por que é necessário exportar duas vezes?
 export {
   version,
+
+  NotifyError,
+  NotifySuccess,
 
   AppMenu,
   Avatar,
@@ -27,6 +31,9 @@ export {
 
 export default {
   version,
+
+  NotifyError,
+  NotifySuccess,
 
   AppMenu,
   Avatar,
