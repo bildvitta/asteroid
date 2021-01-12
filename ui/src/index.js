@@ -7,6 +7,7 @@ import Btn from './components/btn/QasBtn'
 import BtnActions from './components/btn-actions/BtnActions'
 import Copy from './components/btn/QasCopy'
 import DateTimeInput from './components/date-time-input/DateTimeInput'
+import Input from './components/input/Input'
 
 import Test from './directives/Test'
 
@@ -29,6 +30,7 @@ export {
   BtnActions,
   Copy,
   DateTimeInput,
+  Input,
 
   Test
 }
@@ -46,6 +48,7 @@ export default {
   BtnActions,
   Copy,
   DateTimeInput,
+  Input,
 
   Test,
 
@@ -61,6 +64,7 @@ export default {
     Vue.component('QasBtn', Btn)
     Vue.component('QasCopy', Copy)
     Vue.component('QasDateTimeInput', DateTimeInput)
+    Vue.component('QasInput', Input)
 
     Vue.directive(Test.name, Test)
   }
