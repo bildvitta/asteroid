@@ -1,5 +1,5 @@
 import QasDialog from './QasDialog.vue'
-import QasBtn from '../btn//QasBtn.vue'
+import QasBtn from '../btn/QasBtn.vue'
 
 const noSummary = {
   type: { summary: null }
@@ -8,25 +8,33 @@ const noSummary = {
 export default {
   component: QasDialog,
   title: 'Components/Dialog',
+
   parameters: {
     docs: {
       description: {
-        component: 'Extends [QDialog](https://quasar.dev/vue-components/dialog#Introduction), receive all props, events and methods from QDialog from quasar.'
+        component: 'Extends [QDialog](https://quasar.dev/vue-components/dialog).'
       }
     }
   },
 
   argTypes: {
-    value: {
-      description: 'model value to show/hide the component.',
+    btnActions: {
+      description: '$attrs send to <strong>BtnActions</strong>'
+    },
+
+    cancel: {
+      description: 'Configuration of btn <strong>cancel</strong>, for sending props use key <strong>props</strong> and events use key <strong>events</strong> and for hide this btn pass value <strong>false</strong>',
       table: {
-        defaultValue: { summary: true },
-        control: { summary: null }
+        defaultValue: { summary: { label: 'Cancelar', outline: true } }
       }
     },
 
     card: {
       description: 'Content of [QCard](https://quasar.dev/vue-components/card#Installation), mast have key <strong>title</strong> and <strong>description</strong>'
+    },
+
+    cardProps: {
+      description: '$attrs send to <strong>QCard</strong>'
     },
 
     maxWidth: {
@@ -50,24 +58,25 @@ export default {
       }
     },
 
-    cancel: {
-      description: 'Configuration of btn <strong>cancel</strong>, for sending props use key <strong>props</strong> and events use key <strong>events</strong> and for hide this btn pass value <strong>false</strong>',
+    value: {
+      description: 'model value to show/hide the component.',
       table: {
-        defaultValue: { summary: { label: 'Cancelar', outline: true } }
+        control: { summary: null },
+        defaultValue: { summary: true }
       }
     },
 
-    cardProps: {
-      description: '$attrs send to <strong>QCard</strong>'
+    // Events
+    input: {
+      description: 'handle model value to show/hide dialog',
+      table: {
+        defaultValue: { summary: 'boolean' }
+      }
     },
 
-    btnActions: {
-      description: '$attrs send to <strong>BtnActions</strong>'
-    },
-
-    // slots
-    header: {
-      description: 'header slot',
+    // Slots
+    actions: {
+      description: 'actions slot',
       table: noSummary
     },
 
@@ -76,45 +85,39 @@ export default {
       table: noSummary
     },
 
-    actions: {
-      description: 'actions slot',
+    header: {
+      description: 'header slot',
       table: noSummary
-    },
-
-    // events
-    input: {
-      description: 'handle model value to show/hide dialog',
-      table: {
-        defaultValue: { summary: 'boolean' }
-      }
     }
   }
 }
 
 const Template = (args, { argTypes }) => ({
+  components: { QasBtn, QasDialog },
   props: Object.keys(argTypes),
-  components: { QasDialog, QasBtn },
-  data: () => ({ dialog: false }),
+  data () {
+    return {
+      dialog: false
+    }
+  },
   template:
-   (`
-    <div>
+   `<div>
       <qas-btn label="Open dialog!" @click="dialog = !dialog"/>
       <qas-dialog v-bind="$props" v-model="dialog" />
-    </div>
-   `)
+    </div>`
 })
 
 export const Default = Template.bind({})
 Default.args = {
+  cancel: {
+    props: { label: 'Cancelar', outline: true }
+  },
   card: {
-    title: 'This is a title.',
-    description: 'this is an description.'
+    description: 'this is an description.',
+    title: 'This is a title.'
   },
   ok: {
     props: { label: 'Ok' }
-  },
-  cancel: {
-    props: { label: 'Cancelar', outline: true }
   }
 }
 

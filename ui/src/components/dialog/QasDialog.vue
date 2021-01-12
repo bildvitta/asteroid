@@ -30,74 +30,101 @@
 </template>
 
 <script>
-import QasBtnActions from '../btn-actions/QasBtnActions.vue'
 import QasBtn from '../btn/QasBtn.vue'
+import QasBtnActions from '../btn-actions/QasBtnActions.vue'
 
 export default {
   components: {
-    QasBtnActions,
-    QasBtn
+    QasBtn,
+    QasBtnActions
   },
 
   props: {
-    value: {
-      type: Boolean
-    },
-
-    persistent: {
-      type: Boolean,
-      default: true
-    },
-
-    card: {
-      type: Object,
-      default: () => ({})
-    },
-
-    maxWidth: {
-      type: String,
-      default: ''
-    },
-
-    minWidth: {
-      type: String,
-      default: ''
-    },
-
-    ok: {
-      type: [Object, Boolean],
-      default: () => ({})
+    btnActions: {
+      default: () => ({}),
+      type: Object
     },
 
     cancel: {
-      type: [Object, Boolean],
-      default: () => ({})
+      default: () => ({}),
+      type: [Boolean, Object]
+    },
+
+    card: {
+      default: () => ({}),
+      type: Object
     },
 
     cardProps: {
-      type: Object,
-      default: () => ({})
+      default: () => ({}),
+      type: Object
     },
 
-    btnActions: {
-      type: Object,
-      default: () => ({})
+    maxWidth: {
+      default: '',
+      type: String
+    },
+
+    minWidth: {
+      default: '',
+      type: String
+    },
+
+    ok: {
+      default: () => ({}),
+      type: [Object, Boolean]
+    },
+
+    persistent: {
+      default: true,
+      type: Boolean
     }
   },
 
   data () {
     return {
       dialogMethods: {
-        show: null,
-        hide: null,
-        toggle: null,
         focus: null,
-        shake: null
+        hide: null,
+        shake: null,
+        show: null,
+        toggle: null
       }
     }
   },
 
   computed: {
+    defaultCancel () {
+      return {
+        events: this.cancel?.events,
+
+        props: {
+          label: 'Cancelar',
+          outline: true,
+          ...this.cancel?.props
+        }
+      }
+    },
+
+    defaultDialogMethods () {
+      return this.dialogMethods
+    },
+
+    defaultOk () {
+      return {
+        events: this.ok?.events,
+
+        props: {
+          label: 'Ok',
+          ...this.ok?.props
+        }
+      }
+    },
+
+    isSmallScreen () {
+      return this.$q.screen.xs
+    },
+
     model: {
       get () {
         return this.value
@@ -106,37 +133,6 @@ export default {
       set (value) {
         return this.$emit('input', value)
       }
-    },
-
-    defaultOk () {
-      return {
-        props: {
-          label: 'Ok',
-          ...this.ok?.props
-        },
-
-        events: this.ok?.events
-      }
-    },
-
-    defaultCancel () {
-      return {
-        props: {
-          label: 'Cancelar',
-          outline: true,
-          ...this.cancel?.props
-        },
-
-        events: this.cancel?.events
-      }
-    },
-
-    defaultDialogMethods () {
-      return this.dialogMethods
-    },
-
-    isSmallScreen () {
-      return this.$q.screen.xs
     },
 
     style () {
