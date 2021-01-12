@@ -101,7 +101,7 @@ const Template = (args, { argTypes }) => ({
     }
   },
   template:
-   `<div>
+    `<div>
       <qas-btn label="Open dialog!" @click="dialog = !dialog"/>
       <qas-dialog v-bind="$props" v-model="dialog" />
     </div>`
@@ -112,19 +112,19 @@ Default.args = {
   cancel: {
     props: { label: 'Cancelar', outline: true }
   },
+
   card: {
     description: 'this is an description.',
     title: 'This is a title.'
   },
+
   ok: {
     props: { label: 'Ok' }
   }
 }
 
-const template = '<qas-dialog v-model="dialog" />'
-
 Default.parameters = {
   docs: {
-    source: { code: template }
+    source: { code: '<qas-dialog v-model="dialog" />' }
   }
 }

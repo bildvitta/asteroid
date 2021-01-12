@@ -72,11 +72,15 @@ export default {
 
     ok: {
       default: () => ({}),
-      type: [Object, Boolean]
+      type: [Boolean, Object]
     },
 
     persistent: {
       default: true,
+      type: Boolean
+    },
+
+    value: {
       type: Boolean
     }
   },
