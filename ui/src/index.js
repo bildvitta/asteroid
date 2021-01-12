@@ -65,6 +65,7 @@ export default {
     Vue.component('QasDialog', Dialog)
     Vue.component('QasCopy', Copy)
     Vue.component('QasDateTimeInput', DateTimeInput)
+    Vue.component('QasBtnActions', BtnActions)
 
     Vue.directive(Test.name, Test)
   }

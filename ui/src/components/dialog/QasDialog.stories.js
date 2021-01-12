@@ -1,20 +1,28 @@
 import QasDialog from './QasDialog.vue'
 import QasBtn from '../btn//QasBtn.vue'
 
+const noSummary = {
+  type: { summary: null }
+}
+
 export default {
   component: QasDialog,
   title: 'Components/Dialog',
   parameters: {
     docs: {
       description: {
-        component: 'Extends [Dialog](https://quasar.dev/vue-components/dialog#Introduction), receive all props, events and methods from QDialog from quasar.'
+        component: 'Extends [QDialog](https://quasar.dev/vue-components/dialog#Introduction), receive all props, events and methods from QDialog from quasar.'
       }
     }
   },
 
   argTypes: {
     value: {
-      description: 'model value to show/hide the component.'
+      description: 'model value to show/hide the component.',
+      table: {
+        defaultValue: { summary: true },
+        control: { summary: null }
+      }
     },
 
     card: {
@@ -54,14 +62,32 @@ export default {
     },
 
     btnActions: {
-      description: '$attrs send to <strong>QasBtnActions</strong>'
-    }
+      description: '$attrs send to <strong>BtnActions</strong>'
+    },
 
-    // dialog: {
-    //   table: {
-    //     disable: true
-    //   }
-    // }
+    // slots
+    header: {
+      description: 'header slot',
+      table: noSummary
+    },
+
+    description: {
+      description: 'description slot',
+      table: noSummary
+    },
+
+    actions: {
+      description: 'actions slot',
+      table: noSummary
+    },
+
+    // events
+    input: {
+      description: 'handle model value to show/hide dialog',
+      table: {
+        defaultValue: { summary: 'boolean' }
+      }
+    }
   }
 }
 
@@ -80,20 +106,16 @@ const Template = (args, { argTypes }) => ({
 
 export const Default = Template.bind({})
 Default.args = {
-  label: 'Click here!',
   card: {
     title: 'This is a title.',
     description: 'this is an description.'
   },
   ok: {
-    props: { label: 'Ok' },
-    events: undefined
+    props: { label: 'Ok' }
   },
   cancel: {
-    props: { label: 'Cancelar', outline: true },
-    events: undefined
+    props: { label: 'Cancelar', outline: true }
   }
-  // dialog: false
 }
 
 const template = '<qas-dialog v-model="dialog" />'

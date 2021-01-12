@@ -15,14 +15,14 @@
 
       <q-card-section>
         <slot name="actions">
-          <qs-btn-actions v-bind="btnActions">
+          <qas-btn-actions v-bind="btnActions">
             <template #primary>
-              <qs-btn v-if="ok" v-close-popup class="full-width" v-bind="defaultOk.props" v-on="defaultOk.events" />
+              <qas-btn v-if="ok" v-close-popup class="full-width" v-bind="defaultOk.props" v-on="defaultOk.events" />
             </template>
             <template #secondary>
-              <qs-btn v-if="cancel" v-close-popup class="full-width" v-bind="defaultCancel.props" v-on="defaultCancel.events" />
+              <qas-btn v-if="cancel" v-close-popup class="full-width" v-bind="defaultCancel.props" v-on="defaultCancel.events" />
             </template>
-          </qs-btn-actions>
+          </qas-btn-actions>
         </slot>
       </q-card-section>
     </q-card>
@@ -30,7 +30,15 @@
 </template>
 
 <script>
+import QasBtnActions from '../btn-actions/QasBtnActions.vue'
+import QasBtn from '../btn/QasBtn.vue'
+
 export default {
+  components: {
+    QasBtnActions,
+    QasBtn
+  },
+
   props: {
     value: {
       type: Boolean
