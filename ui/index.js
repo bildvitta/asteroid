@@ -18,7 +18,8 @@ import Quasar, {
   QPopupProxy,
   QScrollArea,
   QTime,
-  QTooltip
+  QTooltip,
+  QDialog
 } from 'quasar'
 
 Vue.use(Quasar, {
@@ -39,6 +40,7 @@ Vue.use(Quasar, {
     QPopupProxy,
     QScrollArea,
     QTime,
-    QTooltip
+    QTooltip,
+    QDialog
   }
 })
