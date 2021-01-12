@@ -1,7 +1,7 @@
 import QasTabsGenerator from './QasTabsGenerator.vue'
 
 const descriptionTabs = `Component to generate Tabs dynamically.
-                          This component implements QTabs e QTAb https://quasar.dev/vue-components/tabs#Introduction`
+                         This component implements [QTabs](https://quasar.dev/vue-components/tabs#QTabs-API) e [QTab](https://quasar.dev/vue-components/tabs#Introduction)`
 
 export default {
   title: 'Components/Tabs Generator',
@@ -127,7 +127,7 @@ Dynamic.parameters = {
 
 // Into Tab
 
-const divTextIntoTab = '\'I\'m inside the tab!\''
+const divTextIntoTab = 'I\'m inside the tab!'
 
 const TemplateIntoTab = (args, { argTypes }) => ({
   props: Object.keys(argTypes),
@@ -167,17 +167,14 @@ IntoTab.parameters = {
 }
 
 // ModifiedTabs
-
-const template = `
-<div style="background-color: black; color: white;">
-  modifiedTabs: { ...tabs, test2: { label: 'test2-2', icon: 'email' } }
-</div
-`
-
 const TemplateModifiedTabs = (args, { argTypes }) => ({
   props: Object.keys(argTypes),
   components: { QasTabsGenerator },
-  template: template
+  template: `
+  <div style="background-color: black; color: white;">
+    modifiedTabs: { ...tabs, test2: { label: 'test2-2', icon: 'email' } }
+  </div
+  `
 })
 
 export const ModifiedTabs = TemplateModifiedTabs.bind({})
