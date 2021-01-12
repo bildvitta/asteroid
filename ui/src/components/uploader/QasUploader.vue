@@ -167,9 +167,6 @@ export default {
           filename
         })
         return data
-      // eslint-disable-next-line no-useless-catch
-      } catch (error) {
-        throw error
       } finally {
         this.isFetching = false
       }

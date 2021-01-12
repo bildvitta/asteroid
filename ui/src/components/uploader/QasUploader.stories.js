@@ -20,14 +20,14 @@ export default {
   argTypes: {
     // props
     entity: {
-      description: 'Vuex entity. more info: https://vuex.vuejs.org/',
+      description: 'entity is used by the backend to know the type of file that is being sent to the bucket, the backend configures what these entities will be.Vuex entity.',
       defaultValue: {
         summary: null
       }
     },
 
     hint: {
-      description: 'hint message'
+      description: 'The hint message is displayed when there are errors and an error message'
     },
 
     maxFiles: {
@@ -49,15 +49,15 @@ export default {
     },
 
     value: {
-      table: {
-        disable: true
-      }
+      description: 'value stores the type and name of the uploaded file',
+      control: null
     },
 
     // event
     input: {
-      table: {
-        disable: true
+      description: 'raises an event that checks if a file exists if it does not return an empty array or \'\' ',
+      defaultValue: {
+        summary: '\'\''
       }
     }
   }
