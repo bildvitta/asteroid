@@ -24,7 +24,7 @@ export default {
 
   argTypes: {
     emptyListHeight: {
-      description: 'test'
+      description: 'list height when empty'
     },
 
     fuseOptions: {
