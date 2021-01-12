@@ -1,26 +1,24 @@
 <template>
-  <div>
-    <q-input v-model="search" outlined :placeholder="placeholder" clearable>
-      <template v-slot:append>
-        <q-icon name="o_search" />
+  <qs-box v-bind="$attrs">
+    <q-input v-model="search" clearable :disable="!list.length" outlined :placeholder="placeholder">
+      <template #append>
+        <q-icon color="primary" name="o_search" />
       </template>
     </q-input>
     <div class="overflow-auto q-mt-xs relative-position" :style="contentStyle">
       <slot v-if="hasResults" :results="results" />
-      <slot v-else name="empty">
+      <slot v-else-if="!hideEmptySlot" name="empty">
         <div class="absolute-center text-center">
-          <q-icon class="text-center q-mb-sm" color="grey-6" name="o_search" size="38px" />
-          <div class="text-grey-6">Nenhum resultado encontrado.</div>
+          <q-icon class="q-mb-sm text-center" color="primary" name="o_search" size="38px" />
+          <div>Não há resultados disponíveis.</div>
         </div>
       </slot>
     </div>
-  </div>
+  </qs-box>
 </template>
 
 <script>
 import Fuse from 'fuse.js'
-
-let fuse = null
 
 export default {
   props: {
@@ -44,45 +42,26 @@ export default {
       default: '300px'
     },
 
+    emptyListHeight: {
+      type: String,
+      default: '100px'
+    },
+
     value: {
       type: String,
       default: ''
+    },
+
+    hideEmptySlot: {
+      type: Boolean
     }
   },
 
   data () {
     return {
       search: '',
-      results: this.list
-    }
-  },
-
-  created () {
-    this.search = this.value
-    fuse = new Fuse(this.list, this.defaultFuseOptions)
-  },
-
-  watch: {
-    search: {
-      handler (value) {
-        this.setResults(value)
-        this.$emit('input', value)
-      },
-
-      immediate: true
-    },
-
-    defaultFuseOptions (value) {
-      fuse.options = { ...fuse.options, ...value }
-    },
-
-    list (value) {
-      fuse.list = value
-      this.setResults(this.search)
-    },
-
-    hasResults (value) {
-      !value && this.$emit('emptyResult')
+      results: this.list,
+      fuse: null
     }
   },
 
@@ -105,13 +84,42 @@ export default {
     },
 
     contentStyle () {
-      return { height: this.height }
+      return { height: this.list.length ? this.height : this.emptyListHeight }
     }
+  },
+
+  watch: {
+    search: {
+      handler (value) {
+        this.setResults(value)
+        this.$emit('input', value)
+      },
+
+      immediate: true
+    },
+
+    defaultFuseOptions (value) {
+      this.fuse.options = { ...this.fuse.options, ...value }
+    },
+
+    list (value) {
+      this.fuse.list = value
+      this.setResults(this.search)
+    },
+
+    hasResults (value) {
+      !value && this.$emit('emptyResult')
+    }
+  },
+
+  created () {
+    this.search = this.value
+    this.fuse = new Fuse(this.list, this.defaultFuseOptions)
   },
 
   methods: {
     setResults (value) {
-      this.results = value ? fuse.search(value) : this.list
+      this.results = value ? this.fuse.search(value) : this.list
     }
   }
 }
