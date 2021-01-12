@@ -4,6 +4,7 @@ import AppMenu from './components/break-line/QasAppMenu'
 import Avatar from './components/avatar/QasAvatar'
 import BreakLine from './components/break-line/QasBreakLine'
 import Btn from './components/btn/QasBtn'
+import BtnActions from './components/btn-actions/BtnActions'
 import Copy from './components/btn/QasCopy'
 import DateTimeInput from './components/date-time-input/DateTimeInput'
 import Uploader from './components/uploader/QasUploader'
@@ -26,6 +27,7 @@ export {
   Avatar,
   BreakLine,
   Btn,
+  BtnActions,
   Copy,
   DateTimeInput,
   Uploader,
@@ -43,6 +45,7 @@ export default {
   Avatar,
   BreakLine,
   Btn,
+  BtnActions,
   Copy,
   DateTimeInput,
   Uploader,
