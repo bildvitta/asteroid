@@ -4,31 +4,41 @@ import Vue from 'vue'
 import Quasar, {
   QAvatar,
   QBtn,
+  QDate,
   QDrawer,
   QExpansionItem,
   QIcon,
   QImg,
+  QInput,
   QItem,
   QItemLabel,
   QItemSection,
   QLayout,
   QList,
-  QScrollArea
+  QPopupProxy,
+  QScrollArea,
+  QTime,
+  QTooltip
 } from 'quasar'
 
 Vue.use(Quasar, {
   components: {
     QAvatar,
     QBtn,
+    QDate,
     QDrawer,
     QExpansionItem,
     QIcon,
     QImg,
+    QInput,
     QItem,
     QItemLabel,
     QItemSection,
     QLayout,
     QList,
-    QScrollArea
+    QPopupProxy,
+    QScrollArea,
+    QTime,
+    QTooltip
   }
 })
