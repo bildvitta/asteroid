@@ -19,47 +19,51 @@ export default {
 
   argTypes: {
     btnActions: {
-      description: '$attrs send to <strong>BtnActions</strong>'
+      description: 'Props of QasBtnActions component.'
     },
 
     cancel: {
-      description: 'Configuration of btn <strong>cancel</strong>, for sending props use key <strong>props</strong> and events use key <strong>events</strong> and for hide this btn pass value <strong>false</strong>',
+      description: '[QBtn](https://quasar.dev/vue-components/button) props and events for "Cancel" button. Use `props` and `events` keys to configure the component, or use `false` to hide the button.',
       table: {
-        defaultValue: { summary: { label: 'Cancelar', outline: true } }
+        defaultValue: { summary: JSON.stringify({ props: { label: 'Cancel', outline: true } }) }
       }
     },
 
     card: {
-      description: 'Content of [QCard](https://quasar.dev/vue-components/card#Installation), mast have key <strong>title</strong> and <strong>description</strong>'
+      description: 'Content of [QCard](https://quasar.dev/vue-components/card), mast have key <strong>title</strong> and <strong>description</strong>'
     },
 
     cardProps: {
-      description: '$attrs send to <strong>QCard</strong>'
+      description: 'Props of [QCard](https://quasar.dev/vue-components/card) component.'
     },
 
     maxWidth: {
-      description: 'QCard\'s max width.',
+      description: 'Max width of QCard.',
       table: {
         defaultValue: { summary: '600px' }
       }
     },
 
     minWidth: {
-      description: 'QCard\'s min width.',
+      description: 'Min width of QCard.',
       table: {
         defaultValue: { summary: '400px' }
       }
     },
 
     ok: {
-      description: 'Configuration of btn <strong>ok</strong>, for sending props use key <strong>props</strong> and events use key <strong>events</strong> and for hide this btn pass value <strong>false</strong>',
+      description: '[QBtn](https://quasar.dev/vue-components/button) props and events for "Ok" button. Use `props` and `events` keys to configure the component, or use `false` to hide the button.',
       table: {
-        defaultValue: { summary: { label: 'Ok' } }
+        defaultValue: { summary: JSON.stringify({ props: { label: 'Ok' } }) }
       }
     },
 
+    persistent: {
+      description: 'User cannot dismiss [QDialog](https://quasar.dev/vue-components/dialog) if clicking outside of it or hitting ESC key. Also, an app route change won\'t dismiss it.'
+    },
+
     value: {
-      description: 'model value to show/hide the component.',
+      description: 'Model value to toggle the visibility of the dialog.',
       table: {
         control: { summary: null },
         defaultValue: { summary: true }
@@ -68,25 +72,22 @@ export default {
 
     // Events
     input: {
-      description: 'handle model value to show/hide dialog',
-      table: {
-        defaultValue: { summary: 'boolean' }
-      }
+      description: 'Fires when toggles the dialog\'s visibility.'
     },
 
     // Slots
     actions: {
-      description: 'actions slot',
+      description: 'Actions slot.',
       table: noSummary
     },
 
     description: {
-      description: 'description slot',
+      description: 'Description slot.',
       table: noSummary
     },
 
     header: {
-      description: 'header slot',
+      description: 'Header slot',
       table: noSummary
     }
   }
@@ -95,11 +96,13 @@ export default {
 const Template = (args, { argTypes }) => ({
   components: { QasBtn, QasDialog },
   props: Object.keys(argTypes),
+
   data () {
     return {
       dialog: false
     }
   },
+
   template:
     `<div>
       <qas-btn label="Open dialog!" @click="dialog = !dialog"/>
@@ -114,17 +117,11 @@ Default.args = {
   },
 
   card: {
-    description: 'this is an description.',
+    description: 'This is a description.',
     title: 'This is a title.'
   },
 
   ok: {
-    props: { label: 'Ok' }
-  }
-}
-
-Default.parameters = {
-  docs: {
-    source: { code: '<qas-dialog v-model="dialog" />' }
+    props: { label: 'Ok, thanks!' }
   }
 }
