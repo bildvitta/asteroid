@@ -1,5 +1,5 @@
 <template>
-  <q-field borderless :error="$attrs.error" :error-message="$attrs.errorMessage">
+  <q-field borderless :error="$attrs.error" :error-message="$attrs.errorMessage" :hint="hint || undefined">
     <q-uploader v-bind="$attrs" auto-upload bordered class="fit" :factory="factory" flat method="PUT" :readonly="readOnly" v-on="$listeners" @removed="removed" @uploaded="uploaded">
       <template #header="scope">
         <div class="flex flex-center no-wrap q-gutter-xs q-pa-sm">
