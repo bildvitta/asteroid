@@ -5,6 +5,7 @@ import Avatar from './components/avatar/QasAvatar'
 import BreakLine from './components/break-line/QasBreakLine'
 import Btn from './components/btn/QasBtn'
 import Copy from './components/btn/QasCopy'
+import DateTimeInput from './components/date-time-input/DateTimeInput'
 
 import Test from './directives/Test'
 
@@ -25,6 +26,7 @@ export {
   BreakLine,
   Btn,
   Copy,
+  DateTimeInput,
 
   Test
 }
@@ -40,6 +42,7 @@ export default {
   BreakLine,
   Btn,
   Copy,
+  DateTimeInput,
 
   Test,
 
@@ -54,6 +57,7 @@ export default {
     Vue.component('QasBreakline', BreakLine)
     Vue.component('QasBtn', Btn)
     Vue.component('QasCopy', Copy)
+    Vue.component('QasDateTimeInput', DateTimeInput)
 
     Vue.directive(Test.name, Test)
   }
