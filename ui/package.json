@@ -38,6 +38,7 @@
   },
   "dependencies": {
     "@quasar/extras": "^1.9.13",
+    "humps": "^2.0.1",
     "quasar": "^1.15.0",
     "vue": "^2.6.12"
   }

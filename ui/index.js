@@ -14,7 +14,9 @@ import Quasar, {
   QLayout,
   QList,
   QScrollArea,
-  QTooltip
+  QTooltip,
+  QInnerLoading,
+  QSpinner
 } from 'quasar'
 
 Vue.use(Quasar, {
@@ -31,6 +33,8 @@ Vue.use(Quasar, {
     QLayout,
     QList,
     QScrollArea,
-    QTooltip
+    QTooltip,
+    QInnerLoading,
+    QSpinner
   }
 })

@@ -4,7 +4,8 @@ import AppMenu from './components/break-line/QasAppMenu'
 import Avatar from './components/avatar/QasAvatar'
 import BreakLine from './components/break-line/QasBreakLine'
 import Btn from './components/btn/QasBtn'
-import Copy from './components/btn/QasCopy'
+import Copy from './components/copy/QasCopy'
+import SingleView from './components/single-view/QasSingleView'
 
 import Test from './directives/Test'
 
@@ -25,6 +26,7 @@ export {
   BreakLine,
   Btn,
   Copy,
+  SingleView,
 
   Test
 }
@@ -40,6 +42,7 @@ export default {
   BreakLine,
   Btn,
   Copy,
+  SingleView,
 
   Test,
 
@@ -54,6 +57,7 @@ export default {
     Vue.component('QasBreakline', BreakLine)
     Vue.component('QasBtn', Btn)
     Vue.component('QasCopy', Copy)
+    Vue.component('QasSingleView', SingleView)
 
     Vue.directive(Test.name, Test)
   }
