@@ -31,7 +31,6 @@ export default {
         await copyToClipboard(this.label)
         NotifySuccess('Copiado!', this.label)
       } catch (error) {
-        console.log(this.$qas)
         NotifyError('Não foi possível copiar.', this.label)
       }
     }

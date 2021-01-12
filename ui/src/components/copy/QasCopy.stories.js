@@ -26,7 +26,7 @@ const Template = (args, { argTypes }) => ({
   props: Object.keys(argTypes),
   components: { QasCopy },
   template:
-   '<qas-copy v-bind="$props" />'
+    '<qas-copy v-bind="$props" />'
 })
 
 export const Default = Template.bind({})
