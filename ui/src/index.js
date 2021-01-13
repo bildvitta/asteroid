@@ -9,6 +9,7 @@ import Copy from './components/btn/QasCopy'
 import DateTimeInput from './components/date-time-input/DateTimeInput'
 import Delete from './components/delete/QasDelete'
 import Dialog from './components/dialog/QasDialog'
+import Input from './components/input/Input'
 
 import Test from './directives/Test'
 
@@ -33,6 +34,7 @@ export {
   DateTimeInput,
   Delete,
   Dialog,
+  Input,
 
   Test
 }
@@ -52,6 +54,7 @@ export default {
   DateTimeInput,
   Delete,
   Dialog,
+  Input,
 
   Test,
 
@@ -66,10 +69,12 @@ export default {
     Vue.component('QasBreakline', BreakLine)
     Vue.component('QasBtn', Btn)
     Vue.component('QasBtnActions', BtnActions)
+    Vue.component('QasBtnActions', BtnActions)
     Vue.component('QasCopy', Copy)
     Vue.component('QasDateTimeInput', DateTimeInput)
     Vue.component('QasDelete', Delete)
     Vue.component('QasDialog', Dialog)
+    Vue.component('QasInput', Input)
 
     Vue.directive(Test.name, Test)
   }
