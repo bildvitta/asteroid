@@ -17,12 +17,28 @@ export default {
       description: 'recebe as configurações do dialog'
     },
     customId: {
-      description: 'teste'
+      description: 'CustomID receives a customized id of the item to be deleted or if not the id to be used will be from the route'
     },
     entity: {
-      description: 'teste'
+      description: 'The entity is used by vuex as a url to define which element will be deleted from the store. has as parameter the ID.'
     },
     label: {
+      description: 'teste'
+    },
+    tag: {
+      description: 'The tag defines what is the element type in the DOM'
+    },
+
+    // events
+    success: {
+      description: 'teste'
+    },
+    error: {
+      description: 'teste'
+    },
+
+    // slots
+    default: {
       description: 'teste'
     }
   }

@@ -1,12 +1,18 @@
 <template>
   <component :is="tag" v-bind="$attrs" v-on="events">
     <slot />
-    <q-dialog v-model="showDialog" v-bind="dialogConfig" />
+    <qas-dialog v-model="showDialog" v-bind="dialogConfig" />
   </component>
 </template>
 
 <script>
+import QasDialog from '../dialog/QasDialog'
+
 export default {
+  components: {
+    QasDialog
+  },
+
   props: {
     customId: {
       default: '',
