@@ -21,8 +21,7 @@ export default {
   parameters: {
     docs: {
       description: {
-        component: 'Component that receives a list and searches with properties that can be customized' +
-                    '<br> Dependencies: https://fusejs.io/'
+        component: 'Filters items in the provided list.<br />Search algorithm powered by [Fuse.js](https://fusejs.io).'
       }
     }
   },
@@ -30,59 +29,60 @@ export default {
   argTypes: {
     // Props
     emptyListHeight: {
-      description: 'list height when empty'
+      description: 'List height when there is no results.'
     },
 
     fuseOptions: {
-      description: 'Indicates which parameter to use for the filter https://fusejs.io/api/options.html',
+      description: '[Fuse.js options](https://fusejs.io/api/options.html)',
       table: {
-        type: { summary: 'Object' },
         defaultValue: {
-          detail: `${options}`,
-          summary: '{...options}'
+          detail: options
         }
       }
     },
 
     height: {
-      description: 'height that the list and the component occupies on the screen'
+      description: 'List height (without search field).'
     },
 
     hideEmptySlot: {
-      description: 'hides the empty named slot, which is shown when the search returns no results'
+      description: 'Hides empty slot.'
     },
 
     list: {
-      description: 'Array of objects containing label and value'
+      description: 'Array of objects with `label` and `value` each, to be searched.'
     },
 
     placeholder: {
-      description: 'describes what will be shown in the input field'
+      description: 'Display temporary message when search field in empty.'
     },
 
     value: {
-      description: 'input value that will be used for the list filter'
+      description: 'Search field value.'
     },
 
     // Events
     emptyResult: {
-      description: 'Emits emptyResult event if there is no value to be searched',
+      description: 'Fires when there is no results.',
       table: noSummary
     },
 
     input: {
-      description: 'Triggers the input event with the assigned value and sets the results to the value.',
+      description: 'Fires when the result changes.',
       table: noSummary
     },
 
     // Slots
     default: {
-      description: 'Scoped Slot that receives the result in Results',
-      table: noSummary
+      description: 'To format results. Receives the filtered list.',
+      table: {
+        defaultValue: { summary: JSON.stringify({ results: 'array' }) },
+        ...noSummary
+      }
     },
 
     empty: {
-      description: 'Slot showing result not found',
+      description: 'To be displayed when there is no results.',
       table: noSummary
     }
   }
