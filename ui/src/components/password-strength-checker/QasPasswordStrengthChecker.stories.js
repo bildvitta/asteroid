@@ -44,6 +44,6 @@ const Template = (args, { argTypes }) => ({
 
 export const Default = Template.bind({})
 Default.args = {
-  pattern: '/w/',
-  value: 'exemple'
+  pattern: '^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$./!%*?&])[A-Za-z\\d@$./!%*?&]{8,}$',
+  value: 'Exemple@321'
 }
