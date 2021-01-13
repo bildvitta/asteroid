@@ -4,7 +4,11 @@ import AppMenu from './components/break-line/QasAppMenu'
 import Avatar from './components/avatar/QasAvatar'
 import BreakLine from './components/break-line/QasBreakLine'
 import Btn from './components/btn/QasBtn'
+import BtnActions from './components/btn-actions/BtnActions'
 import Copy from './components/btn/QasCopy'
+import DateTimeInput from './components/date-time-input/DateTimeInput'
+import Dialog from './components/dialog/QasDialog'
+import Input from './components/input/Input'
 import Label from './components/label//Label'
 
 import Test from './directives/Test'
@@ -25,7 +29,11 @@ export {
   Avatar,
   BreakLine,
   Btn,
+  BtnActions,
   Copy,
+  DateTimeInput,
+  Dialog,
+  Input,
   Label,
 
   Test
@@ -41,7 +49,11 @@ export default {
   Avatar,
   BreakLine,
   Btn,
+  BtnActions,
   Copy,
+  DateTimeInput,
+  Dialog,
+  Input,
   Label,
 
   Test,
@@ -56,7 +68,12 @@ export default {
     Vue.component('QasAvatar', Avatar)
     Vue.component('QasBreakline', BreakLine)
     Vue.component('QasBtn', Btn)
+    Vue.component('QasBtnActions', BtnActions)
+    Vue.component('QasBtnLabel', Label)
     Vue.component('QasCopy', Copy)
+    Vue.component('QasDateTimeInput', DateTimeInput)
+    Vue.component('QasDialog', Dialog)
+    Vue.component('QasInput', Input)
 
     Vue.directive(Test.name, Test)
   }
