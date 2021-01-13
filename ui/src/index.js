@@ -7,6 +7,8 @@ import Btn from './components/btn/QasBtn'
 import BtnActions from './components/btn-actions/BtnActions'
 import Copy from './components/btn/QasCopy'
 import DateTimeInput from './components/date-time-input/DateTimeInput'
+import Dialog from './components/dialog/QasDialog'
+import Input from './components/input/Input'
 import PasswordStrengthChecker from './components/password-strength-checker/PasswordStrengthChecker'
 
 import Test from './directives/Test'
@@ -30,6 +32,8 @@ export {
   BtnActions,
   Copy,
   DateTimeInput,
+  Dialog,
+  Input,
   PasswordStrengthChecker,
 
   Test
@@ -48,6 +52,8 @@ export default {
   BtnActions,
   Copy,
   DateTimeInput,
+  Dialog,
+  Input,
   PasswordStrengthChecker,
 
   Test,
@@ -62,8 +68,11 @@ export default {
     Vue.component('QasAvatar', Avatar)
     Vue.component('QasBreakline', BreakLine)
     Vue.component('QasBtn', Btn)
+    Vue.component('QasBtnActions', BtnActions)
     Vue.component('QasCopy', Copy)
     Vue.component('QasDateTimeInput', DateTimeInput)
+    Vue.component('QasDialog', Dialog)
+    Vue.component('QasInput', Input)
     Vue.component('QasPasswordStrengthChecker', PasswordStrengthChecker)
 
     Vue.directive(Test.name, Test)
