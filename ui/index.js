@@ -2,12 +2,14 @@ import Vue from 'vue'
 
 // TODO: Importar tudo para fins de testes e Storybook.
 import Quasar, {
+  QAjaxBar,
   QAvatar,
+  QBadge,
   QBtn,
   QCard,
   QCardSection,
-  QDialog,
   QDate,
+  QDialog,
   QDrawer,
   QExpansionItem,
   QIcon,
@@ -21,17 +23,21 @@ import Quasar, {
   QPopupProxy,
   QScrollArea,
   QTime,
+  QToolbar,
+  QToolbarTitle,
   QTooltip
 } from 'quasar'
 
 Vue.use(Quasar, {
   components: {
+    QAjaxBar,
     QAvatar,
+    QBadge,
     QBtn,
     QCard,
     QCardSection,
-    QDialog,
     QDate,
+    QDialog,
     QDrawer,
     QExpansionItem,
     QIcon,
@@ -45,6 +51,8 @@ Vue.use(Quasar, {
     QPopupProxy,
     QScrollArea,
     QTime,
+    QToolbar,
+    QToolbarTitle,
     QTooltip
   }
 })
