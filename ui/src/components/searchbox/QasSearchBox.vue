@@ -1,12 +1,14 @@
 <template>
-  <qs-box v-bind="$attrs">
+  <qas-box v-bind="$attrs">
     <q-input v-model="search" clearable :disable="!list.length" outlined :placeholder="placeholder">
       <template #append>
         <q-icon color="primary" name="o_search" />
       </template>
     </q-input>
+
     <div class="overflow-auto q-mt-xs relative-position" :style="contentStyle">
       <slot v-if="hasResults" :results="results" />
+
       <slot v-else-if="!hideEmptySlot" name="empty">
         <div class="absolute-center text-center">
           <q-icon class="q-mb-sm text-center" color="primary" name="o_search" size="38px" />
@@ -14,58 +16,68 @@
         </div>
       </slot>
     </div>
-  </qs-box>
+  </qas-box>
 </template>
 
 <script>
+import QasBox from '../box/QasBox.vue'
+
 import Fuse from 'fuse.js'
 
 export default {
-  props: {
-    placeholder: {
-      type: String,
-      default: 'Pesquisar'
-    },
+  components: {
+    QasBox
+  },
 
-    list: {
-      type: Array,
-      default: () => []
+  props: {
+    emptyListHeight: {
+      default: '100px',
+      type: String
     },
 
     fuseOptions: {
-      type: Object,
-      default: () => ({})
+      default: () => ({}),
+      type: Object
     },
 
     height: {
-      type: String,
-      default: '300px'
-    },
-
-    emptyListHeight: {
-      type: String,
-      default: '100px'
-    },
-
-    value: {
-      type: String,
-      default: ''
+      default: '300px',
+      type: String
     },
 
     hideEmptySlot: {
       type: Boolean
+    },
+
+    list: {
+      default: () => [],
+      type: Array
+    },
+
+    placeholder: {
+      default: 'Pesquisar',
+      type: String
+    },
+
+    value: {
+      default: '',
+      type: String
     }
   },
 
   data () {
     return {
-      search: '',
+      fuse: null,
       results: this.list,
-      fuse: null
+      search: ''
     }
   },
 
   computed: {
+    contentStyle () {
+      return { height: this.list.length ? this.height : this.emptyListHeight }
+    },
+
     defaultFuseOptions () {
       return {
         distance: 100,
@@ -75,31 +87,23 @@ export default {
         shouldSort: true,
         threshold: 0.1,
         tokenize: true,
+
         ...this.fuseOptions
       }
     },
 
     hasResults () {
       return !!this.results.length
-    },
-
-    contentStyle () {
-      return { height: this.list.length ? this.height : this.emptyListHeight }
     }
   },
 
   watch: {
-    search: {
-      handler (value) {
-        this.setResults(value)
-        this.$emit('input', value)
-      },
-
-      immediate: true
-    },
-
     defaultFuseOptions (value) {
       this.fuse.options = { ...this.fuse.options, ...value }
+    },
+
+    hasResults (value) {
+      !value && this.$emit('emptyResult')
     },
 
     list (value) {
@@ -107,8 +111,13 @@ export default {
       this.setResults(this.search)
     },
 
-    hasResults (value) {
-      !value && this.$emit('emptyResult')
+    search: {
+      handler (value) {
+        this.setResults(value)
+        this.$emit('input', value)
+      },
+
+      immediate: true
     }
   },
 

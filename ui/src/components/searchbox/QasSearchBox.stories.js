@@ -1,5 +1,9 @@
 import QasSearchBox from './QasSearchBox.vue'
 
+const noSummary = {
+  type: { summary: null }
+}
+
 const options = `{
   distance: 100,
   location: 0,
@@ -11,8 +15,9 @@ const options = `{
 }`
 
 export default {
-  title: 'Components/SearchBox',
   component: QasSearchBox,
+  title: 'Components/SearchBox',
+
   parameters: {
     docs: {
       description: {
@@ -23,20 +28,20 @@ export default {
   },
 
   argTypes: {
+    // Props
     emptyListHeight: {
       description: 'list height when empty'
     },
 
     fuseOptions: {
+      description: 'Indicates which parameter to use for the filter https://fusejs.io/api/options.html',
       table: {
         type: { summary: 'Object' },
         defaultValue: {
           detail: `${options}`,
           summary: '{...options}'
         }
-      },
-      name: 'fuseOptions',
-      description: 'Indicates which parameter to use for the filter https://fusejs.io/api/options.html'
+      }
     },
 
     height: {
@@ -48,7 +53,6 @@ export default {
     },
 
     list: {
-      name: 'list',
       description: 'Array of objects containing label and value'
     },
 
@@ -60,53 +64,44 @@ export default {
       description: 'input value that will be used for the list filter'
     },
 
-    // slot
-    empty: {
-      description: 'Slot showing result not found',
-      table: {
-        type: { summary: null },
-        disable: false
-      }
+    // Events
+    emptyResult: {
+      description: 'Emits emptyResult event if there is no value to be searched'
     },
 
-    default: {
-      description: 'Scoped Slot that receives the result in Results',
-      table: {
-        subcategory: 'Scoped Slot',
-        type: { summary: null },
-        disable: false,
-        defaultValue: { summary: 'Results' }
-      }
-    },
-
-    // events
     input: {
       description: 'Triggers the input event with the assigned value and sets the results to the value.'
     },
 
-    emptyResult: {
-      description: 'Emits emptyResult event if there is no value to be searched'
+    // Slots
+    default: {
+      description: 'Scoped Slot that receives the result in Results',
+      table: noSummary
+    },
+
+    empty: {
+      description: 'Slot showing result not found',
+      table: noSummary
     }
   }
 }
 
 const Template = (args, { argTypes }) => ({
-  props: Object.keys(argTypes),
   components: { QasSearchBox },
+  props: Object.keys(argTypes),
   template:
-   `<qas-search-box v-bind="$props" > 
+    `<qas-search-box v-bind="$props" > 
       <template v-slot="{ results }">
-        {{ results }}
+        <pre>{{ results }}</pre>
       </template>
-    </qas-search-box>
-    `
+    </qas-search-box>`
 })
 
 export const Default = Template.bind({})
-
 Default.args = {
-  list: [{ label: 'Paul', value: 1 }, { label: 'Walker', value: 2 }],
   fuseOptions: { keys: ['label'] },
-  placeholder: undefined,
-  height: undefined
+  list: [
+    { label: 'Paul', value: 1 },
+    { label: 'Walker', value: 2 }
+  ]
 }
