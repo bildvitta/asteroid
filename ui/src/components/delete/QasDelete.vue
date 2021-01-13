@@ -6,10 +6,15 @@
 </template>
 
 <script>
+import { Loading } from 'quasar'
+import { NotifyError, NotifySuccess } from '../../plugins'
+
+import QasBtn from '../btn/QasBtn'
 import QasDialog from '../dialog/QasDialog'
 
 export default {
   components: {
+    QasBtn,
     QasDialog
   },
 
@@ -30,7 +35,7 @@ export default {
     },
 
     tag: {
-      default: 'q-btn',
+      default: 'qas-btn',
       type: String
     }
   },
@@ -42,15 +47,6 @@ export default {
   },
 
   computed: {
-    events () {
-      const { click, ...events } = this.$listeners
-      return { click: this.confirm, ...events }
-    },
-
-    id () {
-      return this.customId || this.$route.params.id
-    },
-
     dialogConfig () {
       return {
         card: {
@@ -58,32 +54,41 @@ export default {
           description: 'Tem certeza que deseja excluir este item?'
         },
         ok: {
-          props: { label: 'Excluir' },
-          events: { click: this.destroy }
+          events: { click: this.destroy },
+          props: { label: 'Excluir' }
         },
         ...this.dialog
       }
+    },
+
+    events () {
+      const { click, ...events } = this.$listeners
+      return { click: this.confirm, ...events }
+    },
+
+    id () {
+      return this.customId || this.$route.params.id
     }
   },
 
   methods: {
+    confirm () {
+      this.showDialog = true
+    },
+
     async destroy () {
-      this.$q.loading.show()
+      Loading.show()
 
       try {
         await this.$store.dispatch(`${this.entity}/destroy`, { id: this.id })
-        this.$qas.success('Item deletado com sucesso!')
+        NotifySuccess('Item deletado com sucesso!')
         this.$emit('success')
       } catch (error) {
-        this.$qas.error('Ops! Não foi possível deletar o item.')
+        NotifyError('Ops! Não foi possível deletar o item.')
         this.$emit('error', error)
       } finally {
-        this.$q.loading.hide()
+        Loading.hide()
       }
-    },
-
-    confirm () {
-      this.showDialog = true
     }
   }
 }

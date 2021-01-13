@@ -1,5 +1,9 @@
 import QasDelete from './QasDelete.vue'
 
+const noSummary = {
+  type: { summary: null }
+}
+
 export default {
   component: QasDelete,
   title: 'Components/Delete',
@@ -7,61 +11,52 @@ export default {
   parameters: {
     docs: {
       description: {
-        component: 'Component to delete a record from the click event.'
+        component: 'Button to delete an entity\'s entry.'
       }
     }
   },
 
   argTypes: {
-    dialog: {
-      description: 'receives dialog settings.'
+    // Props
+    color: {
+      table: { disable: true }
     },
 
     customId: {
-      description: 'Identifier to be deleted (if not sended the component will get id param of route).'
+      description: 'Custom identifier to be deleted (by default, the component will get the `id` route\'s param).'
+    },
+
+    dialog: {
+      description: 'Events and props of QasDialog component.'
     },
 
     entity: {
-      description: 'Entity of vuex.'
+      description: '[VuexStoreModule](https://github.com/bildvitta/vuex-store-module) entity.'
     },
 
     label: {
-      table: {
-        disable: true
-      }
+      table: { disable: true }
     },
 
     tag: {
-      description: 'HTML tag.'
+      description: 'Vue component or HTML element tag.'
     },
 
-    // events
-    success: {
-      description: 'Trigger when item is successfully deleted.',
-      table: {
-        type: {
-          summary: null
-        }
-      }
-    },
-
+    // Events
     error: {
-      description: '\'Trigger when item isn\'t successfully deleted.\'',
-      table: {
-        type: {
-          summary: null
-        }
-      }
+      description: 'Fires when occur an error deleting item.',
+      table: noSummary
     },
 
-    // slots
+    success: {
+      description: 'Fires when item is successfully deleted.',
+      table: noSummary
+    },
+
+    // Slots
     default: {
-      description: 'Field main content.',
-      table: {
-        type: {
-          summary: null
-        }
-      }
+      description: 'Main content.',
+      table: noSummary
     }
   }
 }
@@ -75,5 +70,6 @@ const Template = (args, { argTypes }) => ({
 
 export const Default = Template.bind({})
 Default.args = {
+  color: 'negative',
   label: 'Delete'
 }
