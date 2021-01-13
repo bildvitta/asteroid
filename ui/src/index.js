@@ -1,13 +1,14 @@
 import { version } from '../package.json'
 
 import AppMenu from './components/break-line/QasAppMenu'
+import AppsMenu from './components/apps-menu/AppsMenu'
 import Avatar from './components/avatar/QasAvatar'
 import BreakLine from './components/break-line/QasBreakLine'
 import Btn from './components/btn/QasBtn'
-import Dialog from './components/dialog/QasDialog'
 import BtnActions from './components/btn-actions/BtnActions'
 import Copy from './components/btn/QasCopy'
 import DateTimeInput from './components/date-time-input/DateTimeInput'
+import Dialog from './components/dialog/QasDialog'
 import Input from './components/input/Input'
 
 import Test from './directives/Test'
@@ -25,13 +26,14 @@ export {
   NotifySuccess,
 
   AppMenu,
+  AppsMenu,
   Avatar,
   BreakLine,
   Btn,
-  Dialog,
   BtnActions,
   Copy,
   DateTimeInput,
+  Dialog,
   Input,
 
   Test
@@ -44,13 +46,14 @@ export default {
   NotifySuccess,
 
   AppMenu,
+  AppsMenu,
   Avatar,
   BreakLine,
   Btn,
-  Dialog,
   BtnActions,
   Copy,
   DateTimeInput,
+  Dialog,
   Input,
 
   Test,
@@ -62,14 +65,15 @@ export default {
     }
 
     Vue.component('QasAppMenu', AppMenu)
+    Vue.component('QasAppsMenu', AppsMenu)
     Vue.component('QasAvatar', Avatar)
     Vue.component('QasBreakline', BreakLine)
     Vue.component('QasBtn', Btn)
-    Vue.component('QasDialog', Dialog)
+    Vue.component('QasBtnActions', BtnActions)
     Vue.component('QasCopy', Copy)
     Vue.component('QasDateTimeInput', DateTimeInput)
+    Vue.component('QasDialog', Dialog)
     Vue.component('QasInput', Input)
-    Vue.component('QasBtnActions', BtnActions)
 
     Vue.directive(Test.name, Test)
   }
