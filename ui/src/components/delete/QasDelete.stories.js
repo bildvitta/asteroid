@@ -7,39 +7,46 @@ export default {
   parameters: {
     docs: {
       description: {
-        component: 'Insert line breaks where newlines `\n` occur in the string.'
+        component: 'Component to delete a record from the click event.'
       }
     }
   },
 
   argTypes: {
     dialog: {
-      description: 'recebe as configurações do dialog'
+      description: 'receives dialog settings.'
     },
+
     customId: {
-      description: 'CustomID receives a customized id of the item to be deleted or if not the id to be used will be from the route'
+      description: 'Identifier to be deleted (if not sended the component will get id param of route).'
     },
+
     entity: {
-      description: 'The entity is used by vuex as a url to define which element will be deleted from the store. has as parameter the ID.'
+      description: 'Entity of vuex.'
     },
+
     label: {
-      description: 'Label is an attribute for the element to display text in its content'
+      table: {
+        disable: true
+      }
     },
+
     tag: {
-      description: 'The tag defines what is the element type in the DOM'
+      description: 'HTML tag.'
     },
 
     // events
     success: {
-      description: 'event triggered when the item is successfully deleted',
+      description: 'Trigger when item is successfully deleted.',
       table: {
         type: {
           summary: null
         }
       }
     },
+
     error: {
-      description: 'event triggered when the item was not deleted',
+      description: '\'Trigger when item isn\'t successfully deleted.\'',
       table: {
         type: {
           summary: null
@@ -49,7 +56,7 @@ export default {
 
     // slots
     default: {
-      description: 'A standard slot that is populated by past content',
+      description: 'Field main content.',
       table: {
         type: {
           summary: null
@@ -63,10 +70,10 @@ const Template = (args, { argTypes }) => ({
   props: Object.keys(argTypes),
   components: { QasDelete },
   template:
-    '<qas-delete v-bind="$props">'
+    '<qas-delete v-bind="$props" />'
 })
 
 export const Default = Template.bind({})
 Default.args = {
-  label: 'Delete Button'
+  label: 'Delete'
 }

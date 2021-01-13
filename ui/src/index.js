@@ -69,7 +69,6 @@ export default {
     Vue.component('QasBreakline', BreakLine)
     Vue.component('QasBtn', Btn)
     Vue.component('QasBtnActions', BtnActions)
-    Vue.component('QasBtnActions', BtnActions)
     Vue.component('QasCopy', Copy)
     Vue.component('QasDateTimeInput', DateTimeInput)
     Vue.component('QasDelete', Delete)
