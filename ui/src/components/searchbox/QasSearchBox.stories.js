@@ -66,11 +66,13 @@ export default {
 
     // Events
     emptyResult: {
-      description: 'Emits emptyResult event if there is no value to be searched'
+      description: 'Emits emptyResult event if there is no value to be searched',
+      table: noSummary
     },
 
     input: {
-      description: 'Triggers the input event with the assigned value and sets the results to the value.'
+      description: 'Triggers the input event with the assigned value and sets the results to the value.',
+      table: noSummary
     },
 
     // Slots

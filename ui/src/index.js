@@ -7,6 +7,7 @@ import Btn from './components/btn/QasBtn'
 import BtnActions from './components/btn-actions/BtnActions'
 import Copy from './components/btn/QasCopy'
 import DateTimeInput from './components/date-time-input/DateTimeInput'
+import Delete from './components/delete/QasDelete'
 import Dialog from './components/dialog/QasDialog'
 import Input from './components/input/Input'
 import SearchBox from './components/searchbox/QasSearchBox'
@@ -32,9 +33,11 @@ export {
   BtnActions,
   Copy,
   DateTimeInput,
+  Delete,
   Dialog,
   Input,
   SearchBox,
+
   Test
 }
 
@@ -51,6 +54,7 @@ export default {
   BtnActions,
   Copy,
   DateTimeInput,
+  Delete,
   Dialog,
   Input,
   SearchBox,
@@ -68,9 +72,9 @@ export default {
     Vue.component('QasBreakline', BreakLine)
     Vue.component('QasBtn', Btn)
     Vue.component('QasBtnActions', BtnActions)
-    Vue.component('QasBtnActions', BtnActions)
     Vue.component('QasCopy', Copy)
     Vue.component('QasDateTimeInput', DateTimeInput)
+    Vue.component('QasDelete', Delete)
     Vue.component('QasDialog', Dialog)
     Vue.component('QasInput', Input)
     Vue.component('QasSearchBox', SearchBox)
