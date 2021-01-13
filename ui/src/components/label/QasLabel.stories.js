@@ -17,7 +17,7 @@ export default {
     },
 
     quantity: {
-      description: 'Number inside parentheses next to the label. Ex: Groups (9)'
+      description: 'Number inside parentheses next to the label. Ex: Groups (9).'
     },
 
     // slots
