@@ -3,26 +3,28 @@ import QasLabel from './QasLabel.vue'
 export default {
   component: QasLabel,
   title: 'Components/Label',
+
   parameters: {
     docs: {
       description: {
-        component: 'Handle label.'
+        component: 'Standardizes the display of labels for a form\'s field.'
       }
     }
   },
 
   argTypes: {
+    // Events
     label: {
-      description: 'Label to display.'
+      description: 'Text to be displayed.'
     },
 
     quantity: {
-      description: 'Number inside parentheses next to the label. Ex: Groups (9).'
+      description: 'Number to be displayed after label, inside parentheses. E.g. Groups (9).'
     },
 
-    // slots
+    // Slots
     default: {
-      description: 'Field main content.',
+      description: 'Main content, will be replace label prop.',
       table: {
         defaultValue: { summary: JSON.stringify({ formattedLabel: 'string' }) },
         type: { summary: null }
@@ -32,10 +34,10 @@ export default {
 }
 
 const Template = (args, { argTypes }) => ({
-  props: Object.keys(argTypes),
   components: { QasLabel },
+  props: Object.keys(argTypes),
   template:
-   '<qas-label v-bind="$props" />'
+    '<qas-label v-bind="$props" />'
 })
 
 export const Default = Template.bind({})
@@ -45,6 +47,6 @@ Default.args = {
 
 export const Quantity = Template.bind({})
 Quantity.args = {
-  label: 'My label with quantity',
+  label: 'My label, but with quantity!',
   quantity: 10
 }

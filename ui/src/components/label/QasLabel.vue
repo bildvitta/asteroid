@@ -12,14 +12,14 @@ import formatLabel from '../../helpers/label'
 export default {
   props: {
     label: {
-      type: String,
+      default: '',
       required: true,
-      default: ''
+      type: String
     },
 
     quantity: {
-      type: Number,
-      default: 0
+      default: 0,
+      type: Number
     }
   },
 
