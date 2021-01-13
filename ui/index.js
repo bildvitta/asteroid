@@ -6,8 +6,8 @@ import Quasar, {
   QBtn,
   QCard,
   QCardSection,
-  QDialog,
   QDate,
+  QDialog,
   QDrawer,
   QExpansionItem,
   QIcon,
@@ -20,6 +20,7 @@ import Quasar, {
   QList,
   QPopupProxy,
   QScrollArea,
+  QSeparator,
   QTime,
   QTooltip
 } from 'quasar'
@@ -30,8 +31,8 @@ Vue.use(Quasar, {
     QBtn,
     QCard,
     QCardSection,
-    QDialog,
     QDate,
+    QDialog,
     QDrawer,
     QExpansionItem,
     QIcon,
@@ -44,6 +45,7 @@ Vue.use(Quasar, {
     QList,
     QPopupProxy,
     QScrollArea,
+    QSeparator,
     QTime,
     QTooltip
   }
