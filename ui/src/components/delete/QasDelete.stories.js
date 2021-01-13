@@ -23,7 +23,7 @@ export default {
       description: 'The entity is used by vuex as a url to define which element will be deleted from the store. has as parameter the ID.'
     },
     label: {
-      description: 'teste'
+      description: 'Label is an attribute for the element to display text in its content'
     },
     tag: {
       description: 'The tag defines what is the element type in the DOM'
@@ -31,15 +31,30 @@ export default {
 
     // events
     success: {
-      description: 'teste'
+      description: 'event triggered when the item is successfully deleted',
+      table: {
+        type: {
+          summary: null
+        }
+      }
     },
     error: {
-      description: 'teste'
+      description: 'event triggered when the item was not deleted',
+      table: {
+        type: {
+          summary: null
+        }
+      }
     },
 
     // slots
     default: {
-      description: 'teste'
+      description: 'A standard slot that is populated by past content',
+      table: {
+        type: {
+          summary: null
+        }
+      }
     }
   }
 }
