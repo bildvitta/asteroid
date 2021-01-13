@@ -13,7 +13,7 @@ export default {
 
   argTypes: {
     label: {
-      description: 'Label to show.'
+      description: 'Label to display.'
     },
 
     quantity: {
