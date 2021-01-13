@@ -26,7 +26,10 @@ export default {
 
     // events
     input: {
-      description: 'Emitted when the component needs to change the model; Is also used by v-model'
+      description: 'Emitted when the component needs to change the model; Is also used by v-model',
+      table: {
+        defaultValue: { summary: JSON.stringify({ value: 'number' }) }
+      }
     },
 
     mount: {
@@ -40,13 +43,23 @@ export default {
 const Template = (args, { argTypes }) => ({
   props: Object.keys(argTypes),
   components: { QasDecimalInput },
+  data () {
+    return {
+      model: 0
+    }
+  },
   template:
-    '<qas-decimal-input v-bind="$props" />'
+    `
+    <div>
+      <qas-decimal-input v-bind="$props" v-model="model" />
+      value: {{ model }}
+    </div>
+    `
 })
 
 export const Default = Template.bind({})
 Default.parameters = {
   docs: {
-    source: { code: '<qas-decimal-input v-model="value" />' }
+    source: { code: '<qas-decimal-input v-model="model" />' }
   }
 }
