@@ -84,7 +84,7 @@ export default {
       description: 'Triggers the input event with the assigned value and sets the results to the value.'
     },
 
-    emptyResult: {
+    'empty-result': {
       description: 'Emits emptyResult event if there is no value to be searched'
     }
   }

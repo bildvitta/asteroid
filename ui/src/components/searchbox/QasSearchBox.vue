@@ -1,5 +1,5 @@
 <template>
-  <qs-box v-bind="$attrs">
+  <qas-box v-bind="$attrs">
     <q-input v-model="search" clearable :disable="!list.length" outlined :placeholder="placeholder">
       <template #append>
         <q-icon color="primary" name="o_search" />
@@ -14,7 +14,7 @@
         </div>
       </slot>
     </div>
-  </qs-box>
+  </qas-box>
 </template>
 
 <script>
@@ -108,7 +108,7 @@ export default {
     },
 
     hasResults (value) {
-      !value && this.$emit('emptyResult')
+      !value && this.$emit('empty-result')
     }
   },
 
