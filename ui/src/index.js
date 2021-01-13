@@ -10,6 +10,7 @@ import DateTimeInput from './components/date-time-input/DateTimeInput'
 import Delete from './components/delete/QasDelete'
 import Dialog from './components/dialog/QasDialog'
 import Input from './components/input/Input'
+import SearchBox from './components/searchbox/QasSearchBox'
 
 import Test from './directives/Test'
 
@@ -35,6 +36,7 @@ export {
   Delete,
   Dialog,
   Input,
+  SearchBox,
 
   Test
 }
@@ -55,6 +57,7 @@ export default {
   Delete,
   Dialog,
   Input,
+  SearchBox,
 
   Test,
 
@@ -74,6 +77,7 @@ export default {
     Vue.component('QasDelete', Delete)
     Vue.component('QasDialog', Dialog)
     Vue.component('QasInput', Input)
+    Vue.component('QasSearchBox', SearchBox)
 
     Vue.directive(Test.name, Test)
   }
