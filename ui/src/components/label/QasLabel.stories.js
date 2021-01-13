@@ -20,32 +20,12 @@ export default {
       description: 'Number inside parentheses next to the label. Ex: Groups (9)'
     },
 
-    // formattedLabel: {
-    //   table: {
-    //     category: 'Slots',
-    //     subcategory: 'default'
-    //   }
-    // },
-
+    // slots
     default: {
-      description: 'default slot.'
-    },
-
-    formattedLabel: {
-      description: 'default slot.',
+      description: 'Field main content.',
       table: {
-        category: 'Scoped Slots',
-        subcategory: 'default',
-        type: { summary: 'string' }
-      }
-    },
-
-    test: {
-      description: 'default slot.',
-      table: {
-        category: 'Scoped Slots',
-        subcategory: 'default',
-        type: { summary: 'string' }
+        defaultValue: { summary: JSON.stringify({ formattedLabel: 'string' }) },
+        type: { summary: null }
       }
     }
   }
@@ -61,4 +41,10 @@ const Template = (args, { argTypes }) => ({
 export const Default = Template.bind({})
 Default.args = {
   label: 'My label!'
+}
+
+export const Quantity = Template.bind({})
+Quantity.args = {
+  label: 'My label with quantity',
+  quantity: 10
 }
