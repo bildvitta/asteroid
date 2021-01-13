@@ -11,24 +11,27 @@
 export default {
   props: {
     value: {
-      type: String,
-      default: ''
+      default: '',
+      type: String
     }
   },
 
   computed: {
     mask () {
       const { mask } = this.$attrs
-      return Object.prototype.hasOwnProperty.call(this.masks, mask) ? this.masks[mask]() : mask
+
+      return Object.prototype.hasOwnProperty.call(this.masks, mask)
+        ? this.masks[mask]()
+        : mask
     },
 
     masks () {
       return {
-        phone: () => this.maskLenght(10, '(##) ####-#####', '(##) #####-####'),
-        'personal-document': () => '###.###.###-##',
         'company-document': () => '##.###.###/####-##',
+        'personal-document': () => '###.###.###-##',
+        'postal-code': () => '#####-###',
         document: () => this.maskLenght(11, '###.###.###-###', '##.###.###/####-##'),
-        'postal-code': () => '#####-###'
+        phone: () => this.maskLenght(10, '(##) ####-#####', '(##) #####-####')
       }
     }
   },
@@ -36,7 +39,10 @@ export default {
   watch: {
     mask () {
       const input = this.$refs.mask.$refs.input
-      requestAnimationFrame(() => (input.selectionStart = input.value ? input.value.length : ''))
+
+      requestAnimationFrame(() => {
+        input.selectionStart = input.value ? input.value.length : ''
+      })
     }
   },
 
