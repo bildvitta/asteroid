@@ -1,5 +1,9 @@
 import QasProfile from './QasProfile.vue'
 
+const noSummary = {
+  type: { summary: null }
+}
+
 export default {
   component: QasProfile,
   title: 'Components/Profile',
@@ -30,15 +34,18 @@ export default {
 
     // slots
     afterTitle: {
-      description: 'Slot to access after the title.'
+      description: 'Slot to access after the title.',
+      table: noSummary
     },
 
     beforeTitle: {
-      description: 'Slot to access before the title.'
+      description: 'Slot to access before the title.',
+      table: noSummary
     },
 
     meta: {
-      description: 'Slot to access meta.'
+      description: 'Slot to access meta.',
+      table: noSummary
     }
   }
 }
