@@ -14,16 +14,16 @@ export default {
 
   argTypes: {
     list: {
-      description: 'List of settings, it\'s a object of objects containing <strong>label, icon, props</strong> and for handle event click use key <strong>handle</strong> containing a function'
+      description: 'List of settings, it\'s a object of objects containing <strong>label, icon, props</strong> and for handle event click use key <strong>handle</strong> containing a function.'
     },
 
     label: {
-      description: 'Button label'
+      description: 'Button label.'
     },
 
     // slots
     '[dynamic-name]': {
-      description: 'Each <strong>key</strong> inside prop <strong>list</strong> it\'s a name of <strong>slot</strong>',
+      description: 'Each <strong>key</strong> inside prop <strong>list</strong> it\'s a name of <strong>slot</strong>.',
       table: {
         defaultValue: { summary: '{ item: \'string\' }' },
         category: 'Slots'
