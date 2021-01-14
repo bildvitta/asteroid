@@ -6,60 +6,72 @@ export default {
   parameters: {
     docs: {
       description: {
-        component: 'Extends [QInput](https://quasar.dev/vue-components/input), receive <strong>props</strong> and <strong>events</strong> from QInput, component for working with decimal values.'
+        component: 'Extends [QInput](https://quasar.dev/vue-components/input), but with decimal mask.'
       }
     }
   },
 
   argTypes: {
-    value: {
-      description: 'Model value'
+    comma: {
+      description: 'Use comma instead of period as decimal separator.'
     },
 
     places: {
       description: 'Number of decimal places.'
     },
 
-    comma: {
-      description: 'Separation of decimal places using a comma instead of periods.'
+    value: {
+      description: 'Model value.'
     },
 
     // events
     input: {
-      description: 'Emitted when the component needs to change the model; Is also used by v-model',
+      description: 'Emitted when the component needs to change the model. Is also used by `v-model`.',
       table: {
         defaultValue: { summary: JSON.stringify({ value: 'number' }) }
       }
     },
 
     mount: {
-      table: {
-        disable: true
-      }
+      table: { disable: true }
     }
   }
 }
 
 const Template = (args, { argTypes }) => ({
-  props: Object.keys(argTypes),
   components: { QasDecimalInput },
+  props: Object.keys(argTypes),
+
   data () {
     return {
       model: 0
     }
   },
+
   template:
-    `
-    <div>
+    `<div>
       <qas-decimal-input v-bind="$props" v-model="model" />
-      value: {{ model }}
-    </div>
-    `
+      <pre>{{ model }}</pre>
+    </div>`
 })
 
 export const Default = Template.bind({})
+
 Default.parameters = {
   docs: {
     source: { code: '<qas-decimal-input v-model="model" />' }
+  }
+}
+
+export const BrazilianReal = Template.bind({})
+
+BrazilianReal.args = {
+  comma: true,
+  prefix: 'R$'
+}
+
+BrazilianReal.parameters = {
+  docs: {
+    source: { code: '<qas-decimal-input v-model="model" comma prefix="R$" />' }
   }
 }

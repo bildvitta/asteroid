@@ -1,5 +1,5 @@
 <template>
-  <q-input v-bind="$attrs" :mask="mask" :value="inputValue" v-on="events" @input="input" />
+  <q-input v-bind="$attrs" fill-mask="0" :mask="mask" reverse-fill-mask :value="inputValue" v-on="events" @input="input" />
 </template>
 
 <script>
@@ -35,12 +35,12 @@ export default {
       return events
     },
 
-    separator () {
-      return this.comma ? ',' : '.'
-    },
-
     mask () {
       return `#${this.separator}${'#'.repeat(this.places)}`
+    },
+
+    separator () {
+      return this.comma ? ',' : '.'
     }
   },
 
