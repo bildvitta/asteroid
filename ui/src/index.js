@@ -1,6 +1,7 @@
 import { version } from '../package.json'
 
 import AppMenu from './components/app-menu/QasAppMenu'
+import AppsMenu from './components/apps-menu/AppsMenu'
 import Avatar from './components/avatar/QasAvatar'
 import BreakLine from './components/break-line/QasBreakLine'
 import Btn from './components/btn/QasBtn'
@@ -30,6 +31,7 @@ export {
   NotifySuccess,
 
   AppMenu,
+  AppsMenu,
   Avatar,
   BreakLine,
   Btn,
@@ -41,8 +43,8 @@ export {
   Input,
   Label,
   PasswordStrengthChecker,
-  SettingsMenu,
   SearchBox,
+  SettingsMenu,
 
   Test
 }
@@ -54,6 +56,7 @@ export default {
   NotifySuccess,
 
   AppMenu,
+  AppsMenu,
   Avatar,
   BreakLine,
   Btn,
@@ -77,6 +80,7 @@ export default {
     }
 
     Vue.component('QasAppMenu', AppMenu)
+    Vue.component('QasAppsMenu', AppsMenu)
     Vue.component('QasAvatar', Avatar)
     Vue.component('QasBreakline', BreakLine)
     Vue.component('QasBtn', Btn)
