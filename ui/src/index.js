@@ -17,6 +17,7 @@ import PasswordStrengthChecker from './components/password-strength-checker/QasP
 import Profile from './components/profile/QasProfile'
 import SearchBox from './components/search-box/QasSearchBox'
 import SettingsMenu from './components/settings-menu/QasSettingsMenu'
+import Transfer from './components/transfer/QasTransfer'
 
 import Test from './directives/Test'
 
@@ -49,6 +50,7 @@ export {
   Profile,
   SearchBox,
   SettingsMenu,
+  Transfer,
 
   Test
 }
@@ -76,6 +78,7 @@ export default {
   Profile,
   SearchBox,
   SettingsMenu,
+  Transfer,
 
   Test,
 
@@ -102,6 +105,7 @@ export default {
     Vue.component('QasProfile', Profile)
     Vue.component('QasSearchBox', SearchBox)
     Vue.component('QasSettingsMenu', SettingsMenu)
+    Vue.component('QasTransfer', Transfer)
 
     Vue.directive(Test.name, Test)
   }
