@@ -1,20 +1,21 @@
 import { version } from '../package.json'
 
 import AppMenu from './components/app-menu/QasAppMenu'
-import AppsMenu from './components/apps-menu/AppsMenu'
+import AppsMenu from './components/apps-menu/QasAppsMenu'
 import Avatar from './components/avatar/QasAvatar'
 import BreakLine from './components/break-line/QasBreakLine'
 import Btn from './components/btn/QasBtn'
-import BtnActions from './components/btn-actions/BtnActions'
+import BtnActions from './components/btn-actions/QasBtnActions'
 import Copy from './components/copy/QasCopy'
-import DateTimeInput from './components/date-time-input/DateTimeInput'
+import DateTimeInput from './components/date-time-input/QasDateTimeInput'
+import DecimalInput from './components/decimal-input/QasDecimalInput'
 import Delete from './components/delete/QasDelete'
 import Dialog from './components/dialog/QasDialog'
-import Input from './components/input/Input'
-import Label from './components/label/Label'
-import PasswordStrengthChecker from './components/password-strength-checker/PasswordStrengthChecker'
+import Input from './components/input/QasInput'
+import Label from './components/label/QasLabel'
+import PasswordStrengthChecker from './components/password-strength-checker/QasPasswordStrengthChecker'
 import SearchBox from './components/search-box/QasSearchBox'
-import SettingsMenu from './components/settings-menu/SettingsMenu'
+import SettingsMenu from './components/settings-menu/QasSettingsMenu'
 
 import Test from './directives/Test'
 
@@ -38,6 +39,7 @@ export {
   BtnActions,
   Copy,
   DateTimeInput,
+  DecimalInput,
   Delete,
   Dialog,
   Input,
@@ -63,6 +65,7 @@ export default {
   BtnActions,
   Copy,
   DateTimeInput,
+  DecimalInput,
   Delete,
   Dialog,
   Input,
@@ -87,6 +90,7 @@ export default {
     Vue.component('QasBtnActions', BtnActions)
     Vue.component('QasCopy', Copy)
     Vue.component('QasDateTimeInput', DateTimeInput)
+    Vue.component('QasDecimalInput', DecimalInput)
     Vue.component('QasDelete', Delete)
     Vue.component('QasDialog', Dialog)
     Vue.component('QasInput', Input)
