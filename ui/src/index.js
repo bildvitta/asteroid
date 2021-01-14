@@ -11,6 +11,7 @@ import Delete from './components/delete/QasDelete'
 import Dialog from './components/dialog/QasDialog'
 import Input from './components/input/Input'
 import Label from './components/label/Label'
+import PasswordStrengthChecker from './components/password-strength-checker/PasswordStrengthChecker'
 import SearchBox from './components/search-box/QasSearchBox'
 
 import Test from './directives/Test'
@@ -38,6 +39,7 @@ export {
   Dialog,
   Input,
   Label,
+  PasswordStrengthChecker,
   SearchBox,
 
   Test
@@ -60,6 +62,7 @@ export default {
   Dialog,
   Input,
   Label,
+  PasswordStrengthChecker,
   SearchBox,
 
   Test,
@@ -81,6 +84,7 @@ export default {
     Vue.component('QasDialog', Dialog)
     Vue.component('QasInput', Input)
     Vue.component('QasLabel', Label)
+    Vue.component('QasPasswordStrengthChecker', PasswordStrengthChecker)
     Vue.component('QasSearchBox', SearchBox)
 
     Vue.directive(Test.name, Test)
