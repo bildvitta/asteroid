@@ -11,6 +11,7 @@ import DateTimeInput from './components/date-time-input/QasDateTimeInput'
 import DecimalInput from './components/decimal-input/QasDecimalInput'
 import Delete from './components/delete/QasDelete'
 import Dialog from './components/dialog/QasDialog'
+import DialogRouter from './components/dialog-router/QasDialogRouter'
 import Input from './components/input/QasInput'
 import Label from './components/label/QasLabel'
 import PasswordStrengthChecker from './components/password-strength-checker/QasPasswordStrengthChecker'
@@ -43,6 +44,7 @@ export {
   DecimalInput,
   Delete,
   Dialog,
+  DialogRouter,
   Input,
   Label,
   PasswordStrengthChecker,
@@ -70,6 +72,7 @@ export default {
   DecimalInput,
   Delete,
   Dialog,
+  DialogRouter,
   Input,
   Label,
   PasswordStrengthChecker,
@@ -96,6 +99,7 @@ export default {
     Vue.component('QasDecimalInput', DecimalInput)
     Vue.component('QasDelete', Delete)
     Vue.component('QasDialog', Dialog)
+    Vue.component('QasDialogRouter', DialogRouter)
     Vue.component('QasInput', Input)
     Vue.component('QasLabel', Label)
     Vue.component('QasPasswordStrengthChecker', PasswordStrengthChecker)
