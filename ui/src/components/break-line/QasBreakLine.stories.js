@@ -7,7 +7,7 @@ export default {
   parameters: {
     docs: {
       description: {
-        component: 'Insert line breaks where newlines `\n` occur in the string.'
+        component: 'Insert line breaks where newlines `\\n` occur in the string.'
       }
     }
   },
@@ -44,7 +44,9 @@ const Template = (args, { argTypes }) => ({
   components: { QasBreakLine },
   template:
     `<qas-break-line v-bind="$props">
-      Hello, world!
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam tincidunt consequat luctus.
+      Curabitur ultrices maximus erat, et egestas enim mollis vitae.
+      Proin quis enim eu ex volutpat elementum quis eu nisl.
     </qas-break-line>`
 })
 

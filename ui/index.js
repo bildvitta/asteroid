@@ -1,5 +1,7 @@
 import Vue from 'vue'
+import Quasar from 'quasar'
 
+<<<<<<< HEAD
 // TODO: Importar tudo para fins de testes e Storybook.
 import Quasar, {
   QAjaxBar,
@@ -56,3 +58,6 @@ Vue.use(Quasar, {
     QTooltip
   }
 })
+=======
+Vue.use(Quasar)
+>>>>>>> 3699b674e9b5dc23059de4844c18a2667a2c5068
