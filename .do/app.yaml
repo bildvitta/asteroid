@@ -8,6 +8,6 @@ static_sites:
       deploy_on_push: true
     source_dir: ui
     build_command: npm run storybook:build
-    output_dir: ui/storybook-static
+    output_dir: storybook-static
     routes:
       - path: /

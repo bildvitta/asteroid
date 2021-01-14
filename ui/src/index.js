@@ -1,15 +1,21 @@
 import { version } from '../package.json'
 
-import AppMenu from './components/break-line/QasAppMenu'
+import AppMenu from './components/app-menu/QasAppMenu'
+import AppsMenu from './components/apps-menu/QasAppsMenu'
 import Avatar from './components/avatar/QasAvatar'
 import BreakLine from './components/break-line/QasBreakLine'
 import Btn from './components/btn/QasBtn'
-import BtnActions from './components/btn-actions/BtnActions'
-import Copy from './components/btn/QasCopy'
-import DateTimeInput from './components/date-time-input/DateTimeInput'
-import DecimalInput from './components/decimal-input/DecimalInput'
+import BtnActions from './components/btn-actions/QasBtnActions'
+import Copy from './components/copy/QasCopy'
+import DateTimeInput from './components/date-time-input/QasDateTimeInput'
+import DecimalInput from './components/decimal-input/QasDecimalInput'
+import Delete from './components/delete/QasDelete'
 import Dialog from './components/dialog/QasDialog'
-import Input from './components/input/Input'
+import Input from './components/input/QasInput'
+import Label from './components/label/QasLabel'
+import PasswordStrengthChecker from './components/password-strength-checker/QasPasswordStrengthChecker'
+import SearchBox from './components/search-box/QasSearchBox'
+import SettingsMenu from './components/settings-menu/QasSettingsMenu'
 
 import Test from './directives/Test'
 
@@ -26,6 +32,7 @@ export {
   NotifySuccess,
 
   AppMenu,
+  AppsMenu,
   Avatar,
   BreakLine,
   Btn,
@@ -33,8 +40,13 @@ export {
   Copy,
   DateTimeInput,
   DecimalInput,
+  Delete,
   Dialog,
   Input,
+  Label,
+  PasswordStrengthChecker,
+  SearchBox,
+  SettingsMenu,
 
   Test
 }
@@ -46,6 +58,7 @@ export default {
   NotifySuccess,
 
   AppMenu,
+  AppsMenu,
   Avatar,
   BreakLine,
   Btn,
@@ -53,8 +66,13 @@ export default {
   Copy,
   DateTimeInput,
   DecimalInput,
+  Delete,
   Dialog,
   Input,
+  Label,
+  PasswordStrengthChecker,
+  SearchBox,
+  SettingsMenu,
 
   Test,
 
@@ -65,6 +83,7 @@ export default {
     }
 
     Vue.component('QasAppMenu', AppMenu)
+    Vue.component('QasAppsMenu', AppsMenu)
     Vue.component('QasAvatar', Avatar)
     Vue.component('QasBreakline', BreakLine)
     Vue.component('QasBtn', Btn)
@@ -72,8 +91,13 @@ export default {
     Vue.component('QasCopy', Copy)
     Vue.component('QasDateTimeInput', DateTimeInput)
     Vue.component('QasDecimalInput', DecimalInput)
+    Vue.component('QasDelete', Delete)
     Vue.component('QasDialog', Dialog)
     Vue.component('QasInput', Input)
+    Vue.component('QasLabel', Label)
+    Vue.component('QasPasswordStrengthChecker', PasswordStrengthChecker)
+    Vue.component('QasSearchBox', SearchBox)
+    Vue.component('QasSettingsMenu', SettingsMenu)
 
     Vue.directive(Test.name, Test)
   }
