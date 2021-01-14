@@ -14,7 +14,7 @@ import Dialog from './components/dialog/QasDialog'
 import Input from './components/input/QasInput'
 import Label from './components/label/QasLabel'
 import PasswordStrengthChecker from './components/password-strength-checker/QasPasswordStrengthChecker'
-import Profile from './components/profile/Profile'
+import Profile from './components/profile/QasProfile'
 import SearchBox from './components/search-box/QasSearchBox'
 import SettingsMenu from './components/settings-menu/QasSettingsMenu'
 

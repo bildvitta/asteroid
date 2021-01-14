@@ -7,21 +7,23 @@ const noSummary = {
 export default {
   component: QasProfile,
   title: 'Components/Profile',
+
   parameters: {
     docs: {
       description: {
-        component: 'Component for creating profile structure.'
+        component: 'Profile structure.'
       }
     }
   },
 
   argTypes: {
+    // Props
     icon: {
       description: 'Avatar icon.'
     },
 
     iconic: {
-      description: 'Force Icon in Avatar.'
+      description: 'Force to be an icon in the avatar.'
     },
 
     image: {
@@ -29,30 +31,26 @@ export default {
     },
 
     title: {
-      description: 'Profile title..'
+      description: 'Profile title.'
     },
 
-    // slots
+    // Slots
     afterTitle: {
-      description: 'Slot to access after the title.',
       table: noSummary
     },
 
     beforeTitle: {
-      description: 'Slot to access before the title.',
       table: noSummary
     },
 
     meta: {
-      description: 'Slot to access meta.',
       table: noSummary
     }
   }
 }
 
 const template =
-  `
-    <template v-slot:afterTitle>
+  `<template v-slot:afterTitle>
       Here is <strong>afterTitle</strong> slot.
     </template>
     <template v-slot:beforeTitle>
@@ -60,8 +58,7 @@ const template =
     </template>
     <template v-slot:meta>
       Here is <strong>meta</strong> slot.
-    </template>
-  `
+    </template>`
 
 const Template = (args, { argTypes }) => ({
   props: Object.keys(argTypes),
@@ -71,10 +68,13 @@ const Template = (args, { argTypes }) => ({
 })
 
 export const Default = Template.bind({})
+
 Default.args = { title: 'Profile title!' }
 
 Default.parameters = {
   docs: {
-    source: { code: `<qas-profile>${template}</qas-profile>` }
+    source: {
+      code: `<qas-profile>${template}</qas-profile>`
+    }
   }
 }
