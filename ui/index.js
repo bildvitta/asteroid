@@ -19,10 +19,12 @@ import Quasar, {
   QLayout,
   QLinearProgress,
   QList,
+  QPage,
   QPopupProxy,
   QScrollArea,
   QTime,
   QTooltip
+
 } from 'quasar'
 
 Vue.use(Quasar, {
@@ -44,6 +46,7 @@ Vue.use(Quasar, {
     QLayout,
     QLinearProgress,
     QList,
+    QPage,
     QPopupProxy,
     QScrollArea,
     QTime,
