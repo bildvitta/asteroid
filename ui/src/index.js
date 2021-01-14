@@ -11,7 +11,7 @@ import Delete from './components/delete/QasDelete'
 import Dialog from './components/dialog/QasDialog'
 import Input from './components/input/Input'
 import Label from './components/label/Label'
-import SearchBox from './components/searchbox/QasSearchBox'
+import SearchBox from './components/search-box/QasSearchBox'
 
 import Test from './directives/Test'
 
