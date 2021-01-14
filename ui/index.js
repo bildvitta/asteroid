@@ -17,12 +17,15 @@ import Quasar, {
   QItemLabel,
   QItemSection,
   QLayout,
+  QLinearProgress,
   QList,
   QMenu,
+  QPage,
   QPopupProxy,
   QScrollArea,
   QTime,
   QTooltip
+
 } from 'quasar'
 
 Vue.use(Quasar, {
@@ -31,9 +34,8 @@ Vue.use(Quasar, {
     QBtn,
     QCard,
     QCardSection,
-    QDialog,
     QDate,
-    QMenu,
+    QDialog,
     QDrawer,
     QExpansionItem,
     QIcon,
@@ -43,7 +45,10 @@ Vue.use(Quasar, {
     QItemLabel,
     QItemSection,
     QLayout,
+    QLinearProgress,
     QList,
+    QMenu,
+    QPage,
     QPopupProxy,
     QScrollArea,
     QTime,
