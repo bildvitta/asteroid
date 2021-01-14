@@ -1,7 +1,7 @@
 <template>
-  <qas-btn class="settings-menu" color="primary" v-bind="$attrs" hide-mobile-label icon="o_settings" :label="label" outline v-on="$listeners">
-    <q-menu class="settings-menu__menu" persistent>
-      <q-list class="settings-menu__list" separator>
+  <qas-btn class="qas-settings-menu" color="primary" v-bind="$attrs" hide-mobile-label icon="o_settings" :label="label" outline v-on="$listeners">
+    <q-menu class="qas-settings-menu__menu" persistent>
+      <q-list class="qas-settings-menu__list" separator>
         <slot v-for="(item, key) in list" :item="item" :name="key">
           <q-item :key="key" class="text-bold text-primary" clickable v-bind="item.props" @click="onClick(item)">
             <q-item-section>
@@ -26,14 +26,14 @@ export default {
   },
 
   props: {
-    list: {
-      type: Object,
-      default: () => ({})
+    label: {
+      default: 'Settings',
+      type: String
     },
 
-    label: {
-      type: String,
-      default: 'Configurações'
+    list: {
+      default: () => ({}),
+      type: Object
     }
   },
 
@@ -41,7 +41,6 @@ export default {
     onClick (item) {
       if (typeof item.handle === 'function') {
         const { handle, ...filtered } = item
-
         item.handle(filtered)
       }
     }
@@ -50,7 +49,7 @@ export default {
 </script>
 
 <style lang="scss">
-.settings-menu {
+.qas-settings-menu {
   &__list {
     width: 265px;
   }

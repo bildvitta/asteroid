@@ -4,17 +4,18 @@ import { Notify } from 'quasar'
 export default {
   component: QasSettingsMenu,
   title: 'Components/SettingsMenu',
+
   parameters: {
     docs: {
       description: {
-        component: 'Menu that list settings and trigger a function when clicked.'
+        component: 'Settings menu.'
       }
     }
   },
 
   argTypes: {
     list: {
-      description: 'List of settings, it\'s a object of objects containing <strong>label, icon, props</strong> and for handle event click use key <strong>handle</strong> containing a function.'
+      description: 'Settings list as an object containing `label`, `icon`, `props` and `handle` click event.'
     },
 
     label: {
@@ -23,24 +24,22 @@ export default {
 
     // slots
     '[dynamic-name]': {
-      description: 'Each <strong>key</strong> inside prop <strong>list</strong> it\'s a name of <strong>slot</strong>.',
+      description: 'Each key inside `list` have your own slot to be customized.',
       table: {
-        defaultValue: { summary: '{ item: \'string\' }' },
-        category: 'Slots'
+        category: 'slots',
+        defaultValue: { summary: JSON.stringify({ item: 'string' }) }
       }
     },
 
     default: {
-      table: {
-        disable: true
-      }
+      table: { disable: true }
     }
   }
 }
 
 const Template = (args, { argTypes }) => ({
-  props: Object.keys(argTypes),
   components: { QasSettingsMenu },
+  props: Object.keys(argTypes),
   template:
     '<qas-settings-menu v-bind="$props" />'
 })
