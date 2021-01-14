@@ -16,6 +16,7 @@ import Label from './components/label/QasLabel'
 import PasswordStrengthChecker from './components/password-strength-checker/QasPasswordStrengthChecker'
 import Profile from './components/profile/QasProfile'
 import SearchBox from './components/search-box/QasSearchBox'
+import SelectList from './components/select-list/QasSelectList'
 import SettingsMenu from './components/settings-menu/QasSettingsMenu'
 
 import Test from './directives/Test'
@@ -48,6 +49,7 @@ export {
   PasswordStrengthChecker,
   Profile,
   SearchBox,
+  SelectList,
   SettingsMenu,
 
   Test
@@ -75,6 +77,7 @@ export default {
   PasswordStrengthChecker,
   Profile,
   SearchBox,
+  SelectList,
   SettingsMenu,
 
   Test,
@@ -101,6 +104,7 @@ export default {
     Vue.component('QasPasswordStrengthChecker', PasswordStrengthChecker)
     Vue.component('QasProfile', Profile)
     Vue.component('QasSearchBox', SearchBox)
+    Vue.component('QasSelectList', SelectList)
     Vue.component('QasSettingsMenu', SettingsMenu)
 
     Vue.directive(Test.name, Test)
