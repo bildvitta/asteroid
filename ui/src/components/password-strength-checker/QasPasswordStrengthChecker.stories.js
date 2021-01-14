@@ -3,10 +3,11 @@ import QasPasswordStrengthChecker from './QasPasswordStrengthChecker.vue'
 export default {
   component: QasPasswordStrengthChecker,
   title: 'Components/PasswordStrengthChecker',
+
   parameters: {
     docs: {
       description: {
-        component: 'Creates a password strenght checker with customizable parameters.'
+        component: 'Password strenght checker.'
       }
     }
   },
@@ -17,33 +18,33 @@ export default {
       description: 'Sets the pattern for the input strenght with RegExp and string.'
     },
 
-    veryWeak: {
-      description: 'Sets the value for very weak password in numbers.'
-    },
-
-    weak: {
-      description: 'Sets the value for weak password in numbers.'
+    trackColor: {
+      description: 'Color name for component\'s track from the Quasar Color Palette.'
     },
 
     value: {
-      description: 'Sets the input value.'
+      description: 'Password field value.'
+    },
+
+    weak: {
+      description: 'Define weak password level.'
     },
 
     // Events
     'password-success': {
-      description: 'Indicates when a password is successful.'
+      description: 'Fires when a password meets requirements.'
     }
   }
 }
 
 const Template = (args, { argTypes }) => ({
-  props: Object.keys(argTypes),
   components: { QasPasswordStrengthChecker },
+  props: Object.keys(argTypes),
   template: '<qas-password-strength-checker v-bind="$props" />'
 })
 
 export const Default = Template.bind({})
 Default.args = {
-  pattern: '^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$./!%*?&])[A-Za-z\\d@$./!%*?&]{8,}$',
-  value: 'Exemple@321'
+  pattern: /(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/,
+  value: 'Example@321'
 }
