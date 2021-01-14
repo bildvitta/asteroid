@@ -13,6 +13,7 @@ import Delete from './components/delete/QasDelete'
 import Dialog from './components/dialog/QasDialog'
 import Input from './components/input/QasInput'
 import Label from './components/label/QasLabel'
+import PasswordInput from './components/password-input/QasPasswordInput'
 import PasswordStrengthChecker from './components/password-strength-checker/QasPasswordStrengthChecker'
 import Profile from './components/profile/QasProfile'
 import SearchBox from './components/search-box/QasSearchBox'
@@ -45,6 +46,7 @@ export {
   Dialog,
   Input,
   Label,
+  PasswordInput,
   PasswordStrengthChecker,
   Profile,
   SearchBox,
@@ -72,6 +74,7 @@ export default {
   Dialog,
   Input,
   Label,
+  PasswordInput,
   PasswordStrengthChecker,
   Profile,
   SearchBox,
@@ -98,6 +101,7 @@ export default {
     Vue.component('QasDialog', Dialog)
     Vue.component('QasInput', Input)
     Vue.component('QasLabel', Label)
+    Vue.component('QasPasswordInput', PasswordInput)
     Vue.component('QasPasswordStrengthChecker', PasswordStrengthChecker)
     Vue.component('QasProfile', Profile)
     Vue.component('QasSearchBox', SearchBox)
