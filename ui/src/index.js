@@ -18,6 +18,7 @@ import PasswordStrengthChecker from './components/password-strength-checker/QasP
 import Profile from './components/profile/QasProfile'
 import SearchBox from './components/search-box/QasSearchBox'
 import SettingsMenu from './components/settings-menu/QasSettingsMenu'
+import TableGenerator from './components/table/QasTableGenerator'
 
 import Test from './directives/Test'
 
@@ -51,6 +52,7 @@ export {
   Profile,
   SearchBox,
   SettingsMenu,
+  TableGenerator,
 
   Test
 }
@@ -79,6 +81,7 @@ export default {
   Profile,
   SearchBox,
   SettingsMenu,
+  TableGenerator,
 
   Test,
 
@@ -106,6 +109,7 @@ export default {
     Vue.component('QasProfile', Profile)
     Vue.component('QasSearchBox', SearchBox)
     Vue.component('QasSettingsMenu', SettingsMenu)
+    Vue.component('QasTableGenerator', TableGenerator)
 
     Vue.directive(Test.name, Test)
   }
