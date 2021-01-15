@@ -1,3 +1,5 @@
+import greatestCommonDivisor from './greatestCommonDivisor.js'
+
 import {
   asset,
   booleanLabel,
@@ -26,5 +28,7 @@ export {
   humanDate,
   money,
   optionLabel,
-  percent
+  percent,
+
+  greatestCommonDivisor
 }
