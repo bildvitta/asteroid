@@ -1,3 +1,5 @@
+import { history, handleHistory } from './historyHandler'
+
 import {
   asset,
   booleanLabel,
@@ -26,5 +28,9 @@ export {
   humanDate,
   money,
   optionLabel,
-  percent
+  percent,
+
+  // history
+  handleHistory,
+  history
 }
