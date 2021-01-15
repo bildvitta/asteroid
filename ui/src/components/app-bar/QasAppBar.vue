@@ -16,13 +16,13 @@
       <q-badge color="red" floating>4</q-badge>
     </q-btn>
 
-    <qs-apps-menu v-if="hasApps" :apps="apps" />
+    <qas-apps-menu v-if="hasApps" :apps="apps" />
 
     <div class="items-center no-wrap q-gutter-md row">
       <slot name="tools" />
 
       <div v-if="isAuth" class="cursor-pointer items-center q-mr-sm qas-toolbar__user row" :title="user.name || user.givenName">
-        <qs-avatar color="white" :image="asset(user.photo)" rounded size="36px" :title="user.name || user.givenName" />
+        <qas-avatar color="white" :image="asset(user.photo)" rounded size="36px" :title="user.name || user.givenName" />
 
         <div class="cursor-pointer q-pl-xs q-pr-sm qas-toolbar__user-data qs-lh-sm">
           <div class="ellipsis">{{ user.name || user.givenName }}</div>
@@ -32,12 +32,12 @@
         <q-menu anchor="bottom middle" max-height="400px" self="top middle">
           <div class="qas-toolbar__user-menu">
             <div class="q-pa-lg text-center">
-              <qs-avatar class="cursor-pointer" :image="asset(user.photo)" rounded size="145px" :title="user.name || user.givenName" @click="goToProfile" />
+              <qas-avatar class="cursor-pointer" :image="asset(user.photo)" rounded size="145px" :title="user.name || user.givenName" @click="goToProfile" />
               <div class="ellipsis q-mt-lg qs-lh-sm text-bold text-subtitle1">{{ user.name || user.givenName }}</div>
               <div class="ellipsis q-mt-xs text-caption">{{ user.email }}</div>
 
               <div class="q-mb-lg q-mt-xs">
-                <qs-btn flat icon="o_edit" label="Editar" :to="user.to" />
+                <qas-btn flat icon="o_edit" label="Editar" :to="user.to" />
               </div>
 
               <div>
@@ -54,13 +54,17 @@
 </template>
 
 <script>
-import { asset } from 'steroids'
+import { asset } from '../../helpers'
 
 import QasBtn from '../btn/QasBtn'
+import QasAppsMenu from '../apps-menu/QasAppsMenu'
+import QasAvatar from '../avatar/QasAvatar'
 
 export default {
   components: {
-    QasBtn
+    QasAvatar,
+    QasBtn,
+    QasAppsMenu
   },
 
   props: {

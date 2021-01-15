@@ -1,5 +1,6 @@
 import { version } from '../package.json'
 
+import AppBar from './components/app-bar/QasAppBar'
 import AppMenu from './components/app-menu/QasAppMenu'
 import AppsMenu from './components/apps-menu/QasAppsMenu'
 import Avatar from './components/avatar/QasAvatar'
@@ -33,6 +34,7 @@ export {
   NotifyError,
   NotifySuccess,
 
+  AppBar,
   AppMenu,
   AppsMenu,
   Avatar,
@@ -61,6 +63,7 @@ export default {
   NotifyError,
   NotifySuccess,
 
+  AppBar,
   AppMenu,
   AppsMenu,
   Avatar,
@@ -88,6 +91,7 @@ export default {
       success: NotifySuccess
     }
 
+    Vue.component('QasAppBar', AppBar)
     Vue.component('QasAppMenu', AppMenu)
     Vue.component('QasAppsMenu', AppsMenu)
     Vue.component('QasAvatar', Avatar)
