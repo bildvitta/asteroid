@@ -10,10 +10,10 @@
       <slot v-if="!readOnly" :errors="errors" :fields="fields" :metadata="metadata" name="actions">
         <div class="justify-end q-col-gutter-md q-my-lg row">
           <div v-if="hasCancelButton" class="col-12 col-sm-2" :class="cancelButtonClass">
-            <qs-btn v-close-popup="dialog" class="full-width" :disable="disable || isSubmiting" :label="cancelButton" outline type="button" @click="cancel" />
+            <qas-btn v-close-popup="dialog" class="full-width" :disable="disable || isSubmiting" :label="cancelButton" outline type="button" @click="cancel" />
           </div>
           <div class="col-12 col-sm-2" :class="saveButtonClass">
-            <qs-btn class="full-width" :disable="disable" :label="submitButton" :loading="isSubmiting" type="submit" />
+            <qas-btn class="full-width" :disable="disable" :label="submitButton" :loading="isSubmiting" type="submit" />
           </div>
         </div>
       </slot>
@@ -23,7 +23,7 @@
       <slot :errors="errors" :fields="fields" :metadata="metadata" name="footer" />
     </footer>
 
-    <qs-dialog v-model="showDialog" v-bind="dialogConfig" />
+    <qas-dialog v-model="showDialog" v-bind="dialogConfig" />
 
     <q-inner-loading :showing="isFetching">
       <q-spinner color="grey" size="3em" />
@@ -34,11 +34,20 @@
 <script>
 import { get, isEqual, cloneDeep } from 'lodash'
 import { extend } from 'quasar'
-import { handleHistory } from '../helpers/historyHandler'
+import { handleHistory } from '../../helpers/historyHandler'
+import { NotifyError, NotifySuccess } from '../../plugins'
 
-import viewMixin from '../mixins/view'
+import QasDialog from '../dialog/QasDialog'
+import QasBtn from '../btn/QasBtn'
+
+import viewMixin from '../../mixins/view'
 
 export default {
+  components: {
+    QasDialog,
+    QasBtn
+  },
+
   mixins: [viewMixin],
 
   props: {
@@ -235,7 +244,7 @@ export default {
         }
 
         this.setErrors()
-        this.$qs.success(response.data.status.text || 'Item salvo com sucesso!')
+        NotifySuccess(response.data.status.text || 'Item salvo com sucesso!')
         this.$emit('submit-success', response, this.value)
       } catch (error) {
         const errors = get(error, 'response.data.errors')
@@ -246,7 +255,7 @@ export default {
           : get(error, 'response.data.exception') || error.message
 
         this.setErrors(errors)
-        this.$qs.error(message || 'Ops! Erro ao salvar item.', exception)
+        NotifyError(message || 'Ops! Erro ao salvar item.', exception)
 
         this.$emit('submit-error', error)
       } finally {
