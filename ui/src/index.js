@@ -11,6 +11,7 @@ import DateTimeInput from './components/date-time-input/QasDateTimeInput'
 import DecimalInput from './components/decimal-input/QasDecimalInput'
 import Delete from './components/delete/QasDelete'
 import Dialog from './components/dialog/QasDialog'
+import FormView from './components/form-view/QasFormView'
 import GridGenerator from './components/settings-menu/QasGridGenerator'
 import Input from './components/input/QasInput'
 import Label from './components/label/QasLabel'
@@ -45,6 +46,7 @@ export {
   DecimalInput,
   Delete,
   Dialog,
+  FormView,
   GridGenerator,
   Input,
   Label,
@@ -74,6 +76,7 @@ export default {
   DecimalInput,
   Delete,
   Dialog,
+  FormView,
   GridGenerator,
   Input,
   Label,
@@ -102,6 +105,7 @@ export default {
     Vue.component('QasDecimalInput', DecimalInput)
     Vue.component('QasDelete', Delete)
     Vue.component('QasDialog', Dialog)
+    Vue.component('QasFormView', FormView)
     Vue.component('QasGridGenerator', GridGenerator)
     Vue.component('QasInput', Input)
     Vue.component('QasLabel', Label)
