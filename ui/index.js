@@ -20,6 +20,7 @@ import Quasar, {
   QList,
   QPopupProxy,
   QScrollArea,
+  QSelect,
   QTime,
   QTooltip
 
@@ -45,7 +46,9 @@ Vue.use(Quasar, {
     QList,
     QPopupProxy,
     QScrollArea,
+    QSelect,
     QTime,
     QTooltip
+
   }
 })
