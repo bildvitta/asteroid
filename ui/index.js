@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import Quasar from 'quasar'
 
 // TODO: Importar tudo para fins de testes e Storybook.
 import Quasar, {
@@ -52,3 +53,4 @@ Vue.use(Quasar, {
 
   }
 })
+Vue.use(Quasar)

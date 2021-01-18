@@ -41,7 +41,10 @@
   "dependencies": {
     "@quasar/extras": "^1.9.13",
     "fuse.js": "^6.4.6",
+    "date-fns": "^2.16.1",
+    "humps": "^2.0.1",
     "quasar": "^1.15.0",
-    "vue": "^2.6.12"
+    "vue": "^2.6.12",
+    "vuex": "^3.6.0"
   }
 }
