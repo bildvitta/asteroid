@@ -1,4 +1,5 @@
 import user from './json/user.json'
+import users from './json/users.json'
 import usersNew from './json/users-new.json'
 
 export default {
@@ -28,6 +29,14 @@ export default {
       const single = { data: { ...user } }
 
       return single
+    },
+
+    fetchList ({ commit }) {
+      const list = { data: { ...users } }
+
+      commit('setList', list.data.results)
+
+      return list
     },
 
     create () {

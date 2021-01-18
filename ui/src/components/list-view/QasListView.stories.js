@@ -1,4 +1,20 @@
 import QasListView from './QasListView.vue'
+import QasDebugger from '../debugger/QasDebugger'
+
+import Vuex from 'vuex'
+import VueRouter from 'vue-router'
+
+import users from '../../mocks/storeModule'
+
+const slotDefaults = {
+  defaultValue: {
+    summary: JSON.stringify({ errors: 'object', fields: 'object', metadata: 'object' })
+  },
+
+  type: {
+    summary: null
+  }
+}
 
 export default {
   component: QasListView,
@@ -7,7 +23,7 @@ export default {
   parameters: {
     docs: {
       description: {
-        component: 'This component returns a list of objects based on a request.'
+        component: 'This component returns a list of objects based on <strong>vuex entity</strong>.'
       }
     }
   },
@@ -18,7 +34,8 @@ export default {
     },
 
     entity: {
-      description: 'Vuex Entity'
+      description: 'Entity of vuex.',
+      control: null
     },
 
     url: {
@@ -30,48 +47,54 @@ export default {
     },
 
     disableRefresh: {
-      description: 'Disables q-pull-to-refresh, normally used in conjunction with sortable.'
+      description: 'Disables [q-pull-to-refresh](https://quasar.dev/vue-components/pull-to-refresh#Introduction), usually used in conjunction with sortable.'
     },
 
     // events
     'fetch-success': {
-      description: 'Fires when the request is successful.'
+      description: 'Emitted when get\'s the value successfully.',
+      table: {
+        defaultValue: { summary: JSON.stringify({ response: 'object' }) }
+      }
     },
 
     'fetch-error': {
-      description: 'Fires when the request fails.'
+      description: 'Emitted when can\'t get the value successfully.',
+      table: {
+        defaultValue: { summary: JSON.stringify({ error: 'object' }) }
+      }
     },
 
     // slots
     header: {
-      description: 'Slot to access the header.',
+      description: 'Page header content.',
       table: {
-        type: {
-          summary: 'Scope: { fields: [Array, Object], metadata: Object, results: Array }'
-        }
+        ...slotDefaults
       }
     },
 
     filter: {
-      description: 'Slot to access the filter component.',
+      description: 'Slot to access the <strong>Filter</strong> component.',
       table: {
+        defaultValue: {
+          summary: JSON.stringify({ errors: 'object', fields: 'object', metadata: 'object', entity: 'string' })
+        },
+
         type: {
-          summary: 'Scope: { fields: [Array, Object], metadata: Object, results: Array, entity: String, errors: [Array, Object] }'
+          summary: null
         }
       }
     },
 
     default: {
-      description: 'Slot Default.',
+      description: 'Page main content.',
       table: {
-        type: {
-          summary: 'Scope: { fields: [Array, Object], metadata: Object, results: Array }'
-        }
+        ...slotDefaults
       }
     },
 
     footer: {
-      description: 'Slot to access the footer.',
+      description: 'Page footer content.',
       table: {
         type: {
           summary: null
@@ -83,13 +106,47 @@ export default {
 
 const Template = (args, { argTypes }) => ({
   props: Object.keys(argTypes),
-  components: { QasListView },
+  components: { QasListView, QasDebugger },
+  store: new Vuex.Store({
+    modules: { users }
+  }),
+  router: new VueRouter(),
   template:
-    '<qas-list-view v-bind="$props"> '
-
+    `
+    <q-layout>
+      <q-page-container>
+        <qas-list-view v-bind="$props">
+          <template v-slot="{ results, fields }">
+            <div>
+              Results:<qas-debugger :inspect="[results]" />
+              Fields:<qas-debugger :inspect="[fields]" />
+            </div>
+          </template>
+        </qas-list-view>
+      </q-page-container>
+    </q-layout>
+    `
 })
+
+const template =
+  `
+  <qas-list-view entity="users">
+    <template v-slot="{ results, fields }">
+      <div>
+        Results:<qas-debugger :inspect="[results]" />
+        Fields:<qas-debugger :inspect="[fields]" />
+      </div>
+    </template>
+  </qas-list-view>
+  `
 
 export const Default = Template.bind({})
 Default.args = {
-  // entity: ''
+  entity: 'users'
+}
+
+Default.parameters = {
+  docs: {
+    source: { code: template }
+  }
 }

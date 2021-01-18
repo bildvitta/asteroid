@@ -40,13 +40,13 @@
   },
   "dependencies": {
     "@quasar/extras": "^1.9.13",
-    "humps": "^2.0.1",
-    "lodash": "^4.17.20",
     "date-fns": "^2.16.1",
     "fuse.js": "^6.4.3",
     "humps": "^2.0.1",
+    "lodash": "^4.17.20",
     "quasar": "^1.15.0",
     "vue": "^2.6.12",
+    "vue-router": "^3.4.9",
     "vuex": "^3.6.0"
   }
 }
