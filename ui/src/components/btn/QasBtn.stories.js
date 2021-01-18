@@ -34,7 +34,7 @@ const Template = (args, { argTypes }) => ({
   props: Object.keys(argTypes),
   components: { QasBtn },
   template:
-   '<qas-btn v-bind="$props" />'
+    '<qas-btn v-bind="$props" />'
 })
 
 export const Default = Template.bind({})
