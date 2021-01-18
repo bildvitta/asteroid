@@ -1,5 +1,6 @@
 import { camelize } from 'humps'
 import { get } from 'lodash'
+import { NotifyError } from '../plugins'
 
 export default {
   props: {
@@ -47,7 +48,7 @@ export default {
       const { response } = error
       const exception = get(response, 'data.exception') || error.message
 
-      this.$qs.error('Ops! Erro ao obter os dados.', exception)
+      NotifyError('Ops! Erro ao obter os dados.', exception)
 
       const status = get(response, 'status')
       const redirect = ({ 403: 'Forbidden', 404: 'NotFound' })[status]
