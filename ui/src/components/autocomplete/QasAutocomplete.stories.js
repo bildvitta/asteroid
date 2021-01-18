@@ -81,15 +81,11 @@ const Template = (args, { argTypes }) => ({
   },
 
   template:
-    '<qas-autocomplete v-bind="$props" v-model="valueOption" />'
+    '<qas-autocomplete v-bind="$props" :multiple=false  v-model="valueOption" />'
 
 })
 
 export const Default = Template.bind({})
 Default.args = {
-  options: [
-    { label: 'Option 1', value: '1' },
-    { label: 'Option 2', value: '2' },
-    { label: 'Option 3', value: '3' }
-  ]
+  options: [{ label: 'teste 1', value: '1' }, { label: 'teste2', value: '2' }]
 }

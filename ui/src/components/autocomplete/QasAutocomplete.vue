@@ -20,7 +20,6 @@
 
 <script>
 import Fuse from 'fuse.js'
-let fuse = null
 
 export default {
   props: {
@@ -52,15 +51,17 @@ export default {
 
   data () {
     return {
+      fuse: null,
       valueOption: '',
       filteredOptions: [],
-      results: [],
+      results: [], // esté em uma verificação mais não esta sendo usado
       search: '',
       selectModel: null
     }
   },
 
   computed: {
+    // não esta sendo usado
     hasResult () {
       return this.results.length
     },
@@ -75,15 +76,16 @@ export default {
 
     formattedResult () {
       if (!this.labelKey && !this.valueKey) {
-        console.log(this.options)
         return this.options
       }
+
       return this.options.map(item => this.renameKey(item))
     },
 
     defaultFuseOptions () {
       return {
         distance: 100,
+        includeScore: true,
         keys: ['label', 'value'],
         location: 0,
         maxPatternLength: 32,
@@ -91,6 +93,7 @@ export default {
         shouldSort: true,
         threshold: 0.1,
         tokenize: true,
+
         ...this.fuseOptions
       }
     }
@@ -98,11 +101,11 @@ export default {
 
   watch: {
     search (value) {
-      this.filter(value)
+      this.filterOptions(value)
     },
 
     defaultFuseOptions (value) {
-      fuse.options = { ...fuse.options, ...value }
+      this.fuse.options = { ...this.fuse.options, ...value }
     },
 
     options (value) {
@@ -110,7 +113,7 @@ export default {
         this.filteredOptions = value
       }
 
-      fuse.list = value
+      this.fuse.list = value
     },
 
     value (value) {
@@ -123,7 +126,7 @@ export default {
       this.selectModel = this.multiple ? [this.value] : this.value
     }
 
-    fuse = new Fuse(this.options, this.defaultFuseOptions)
+    this.fuse = new Fuse(this.options, this.defaultFuseOptions)
   },
 
   methods: {
@@ -145,8 +148,9 @@ export default {
         if (value === '') {
           this.filteredOptions = this.formattedResult
         } else {
-          console.log(value)
-          this.filteredOptions = fuse.search(value)
+          const results = this.fuse.search(value)
+
+          this.filteredOptions = results.map(item => item.item)
         }
       })
     }
