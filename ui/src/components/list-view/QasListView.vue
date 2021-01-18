@@ -6,7 +6,7 @@
       </header>
 
       <slot v-if="!noFilter" :entity="entity" :errors="errors" :fields="fields" :metadata="metadata" name="filter" :results="results">
-        <qs-filters :entity="entity" />
+        <qas-filters :entity="entity" />
       </slot>
 
       <main class="relative-position">
