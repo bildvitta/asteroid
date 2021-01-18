@@ -1,8 +1,16 @@
 import QasFormView from './QasFormView.vue'
+import QasDebugger from '../debugger/QasDebugger'
+
+import Vuex from 'vuex'
+import users from '../../mocks/storeModule'
 
 const slotDefaults = {
   defaultValue: {
     summary: JSON.stringify({ errors: 'object', fields: 'object', metadata: 'object' })
+  },
+
+  type: {
+    summary: null
   }
 }
 
@@ -12,7 +20,7 @@ export default {
   parameters: {
     docs: {
       description: {
-        component: 'Extends [QBtn](https://quasar.dev/vue-components/button).'
+        component: 'Form component, used in <strong>create</strong> and <strong>edit</strong> page, handles vuex directly. Usually used together with <strong>FormGenerator</strong>.'
       }
     }
   },
@@ -27,7 +35,8 @@ export default {
     },
 
     customId: {
-      description: 'The component gets the id from route, but you can set a custom id with this prop.'
+      description: 'The component gets the id from route, but you can set a custom id with this prop.',
+      control: null
     },
 
     disable: {
@@ -35,7 +44,8 @@ export default {
     },
 
     mode: {
-      description: 'Sets the component mode, for a creation page: <strong>create</strong> (POST), for an edit page: <strong>replace</strong> (PUT) or <strong>update</strong> (PATCH).'
+      description: 'Sets the component mode, for a creation page: <strong>create</strong> (POST), for an edit page: <strong>replace</strong> (PUT) or <strong>update</strong> (PATCH).',
+      control: { type: 'select', options: ['create', 'replace', 'update'] }
     },
 
     readOnly: {
@@ -55,19 +65,21 @@ export default {
     },
 
     entity: {
-      description: 'Entity of vuex.'
+      description: 'Entity of vuex.',
+      control: null
     },
 
     url: {
-      description: 'If the entity is different from the endpoint, you can use this property to specify what the endpoint is.'
+      description: 'If the entity is different from the endpoint, you can use this property to specify what the endpoint is.',
+      control: null
     },
 
     dialog: {
-      description: 'Page route.'
+      description: 'Set FormView to Dialog mode.'
     },
 
     route: {
-      description: 'If the entity is different from the endpoint, you can use this property to specify what the endpoint is.'
+      description: 'Page route.'
     },
 
     // events
@@ -139,15 +151,24 @@ export default {
 
 const Template = (args, { argTypes }) => ({
   props: Object.keys(argTypes),
-  components: { QasFormView },
+  components: { QasFormView, QasDebugger },
+  store: new Vuex.Store({
+    modules: { users }
+  }),
+  data () {
+    return {
+      values: {}
+    }
+  },
   template:
     `
     <q-layout>
       <q-page-container>
-        <qas-form-view v-bind="$props">
+        <qas-form-view v-model="values" v-bind="$props">
           <template v-slot="{ errors, fields, metadata }">
             <div>
-              Lorem ipsum dolor sit, amet consectetur adipisicing elit. Libero, suscipit repellat esse minima temporibus ipsum similique quos vel reiciendis ut delectus consectetur eum dicta. Impedit tempora sequi eos autem quidem?
+              Fields:<qas-debugger :inspect="[fields]" />
+              Values:<qas-debugger :inspect="[values]" />
             </div>
           </template>
         </qas-form-view>
@@ -156,7 +177,40 @@ const Template = (args, { argTypes }) => ({
     `
 })
 
-export const Default = Template.bind({})
-Default.args = {
-  entity: 'users'
+const template =
+  `
+  <qas-form-view v-model="values" entity="users">
+    <template v-slot="{ errors, fields, metadata }">
+      <div>
+        Fields:<qas-debugger :inspect="[fields]" />
+        Values:<qas-debugger :inspect="[values]" />
+      </div>
+    </template>
+  </qas-form-view>
+  `
+
+export const CreateMode = Template.bind({})
+CreateMode.args = {
+  entity: 'users',
+  url: 'users',
+  customId: '123'
+}
+
+CreateMode.parameters = {
+  docs: {
+    source: { code: template }
+  }
+}
+
+export const EditMode = Template.bind({})
+EditMode.args = {
+  entity: 'users',
+  mode: 'replace',
+  customId: 'a755a6d1-fc4a-4961-a8cc-b2293fe5b81c'
+}
+
+EditMode.parameters = {
+  docs: {
+    source: { code: template }
+  }
 }
