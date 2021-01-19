@@ -27,7 +27,7 @@
 
             <q-form v-else class="q-gutter-y-md q-pa-md" @submit.prevent="filter()">
               <div v-for="(field, index) in fields" :key="index">
-                <qs-field v-model="filters[field.name]" dense :field="field" />
+                <qas-field v-model="filters[field.name]" dense :field="field" />
               </div>
 
               <div class="text-right">

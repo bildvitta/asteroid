@@ -12,21 +12,57 @@ export default {
   },
 
   argTypes: {
-    color: {
-      description: 'Color name for component from the [Quasar Color Palette](https://quasar.dev/style/color-palette#Color-List).'
+    // Props
+    badges: {
+      description: 'Shows badges.'
     },
 
-    hideMobileLabel: {
-      description: 'Hides label in mobile, showing only the icon.'
+    entity: {
+      description: 'Receives API entity.'
     },
 
-    noCaps: {
-      description: 'Avoid turning label text into caps (which happens by default).'
+    noFilterButton: {
+      description: 'Disable filter button.'
     },
 
-    unelevated: {
-      description: 'Removes shadow.'
+    noSearch: {
+      description: 'Disable search bar.'
+    },
+
+    searchPlaceholder: {
+      description: 'Text for search bar placeholder.'
+    },
+
+    url: {
+      description: 'Receives API url.'
+    },
+
+    searchOnType: {
+      description: 'Enables type search.'
+    },
+
+    // Events
+    'fetch-success': {
+      description: 'Fires when occur an success fetching value.'
+    },
+
+    'fetch-error': {
+      description: 'Fires when occur an error fetching value.'
+    },
+
+    // Slots
+    search: {
+      description: 'Search slot.'
+    },
+
+    'filter-button': {
+      description: 'Filter button slot.'
+    },
+
+    default: {
+      description: 'Default slot.'
     }
+
   }
 }
 
@@ -39,5 +75,4 @@ const Template = (args, { argTypes }) => ({
 
 export const Default = Template.bind({})
 Default.args = {
-  label: 'Click here!'
 }
