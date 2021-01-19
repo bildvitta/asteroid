@@ -11,8 +11,11 @@ import DateTimeInput from './components/date-time-input/QasDateTimeInput'
 import DecimalInput from './components/decimal-input/QasDecimalInput'
 import Delete from './components/delete/QasDelete'
 import Dialog from './components/dialog/QasDialog'
+import FormView from './components/form-view/QasFormView'
+import GridGenerator from './components/settings-menu/QasGridGenerator'
 import Input from './components/input/QasInput'
 import Label from './components/label/QasLabel'
+import PageHeader from './components/page-header/PageHeader'
 import PasswordInput from './components/password-input/QasPasswordInput'
 import PasswordStrengthChecker from './components/password-strength-checker/QasPasswordStrengthChecker'
 import Profile from './components/profile/QasProfile'
@@ -44,8 +47,11 @@ export {
   DecimalInput,
   Delete,
   Dialog,
+  FormView,
+  GridGenerator,
   Input,
   Label,
+  PageHeader,
   PasswordInput,
   PasswordStrengthChecker,
   Profile,
@@ -72,8 +78,11 @@ export default {
   DecimalInput,
   Delete,
   Dialog,
+  FormView,
+  GridGenerator,
   Input,
   Label,
+  PageHeader,
   PasswordInput,
   PasswordStrengthChecker,
   Profile,
@@ -99,8 +108,11 @@ export default {
     Vue.component('QasDecimalInput', DecimalInput)
     Vue.component('QasDelete', Delete)
     Vue.component('QasDialog', Dialog)
+    Vue.component('QasFormView', FormView)
+    Vue.component('QasGridGenerator', GridGenerator)
     Vue.component('QasInput', Input)
     Vue.component('QasLabel', Label)
+    Vue.component('QasPageHeader', PageHeader)
     Vue.component('QasPasswordInput', PasswordInput)
     Vue.component('QasPasswordStrengthChecker', PasswordStrengthChecker)
     Vue.component('QasProfile', Profile)
