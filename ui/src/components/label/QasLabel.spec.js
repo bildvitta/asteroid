@@ -20,7 +20,7 @@ describe('Test QasLabel component', () => {
     expect(wrapper.text()).toBe('My label! (10)')
   })
 
-  it('Test scoped slot', async () => {
+  it('Test scoped slot', () => {
     const wrapperWithSlots = mount(QasLabel, {
       propsData: { label: 'My label with slot!', quantity: 2 },
       scopedSlots: {
