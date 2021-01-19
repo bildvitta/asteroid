@@ -5,6 +5,11 @@ const noSummary = {
   type: { summary: null }
 }
 
+// Options
+// TODO: Importar de um futuro arquivo constraints.js
+const alignOptions = ['start', 'around', 'between', 'center', 'end']
+const gutterOptions = ['xs', 'sm', 'md', 'lg', 'xl']
+
 export default {
   component: QasBtnActions,
   title: 'Components/BtnActions',
@@ -20,14 +25,17 @@ export default {
   argTypes: {
     // Props
     align: {
+      control: { type: 'select', options: alignOptions },
       description: 'Actions alignment.'
     },
 
+    // TODO: Rever necessidade.
     btnCol: {
       description: 'Col sizes for actions wrapper.'
     },
 
     gutter: {
+      control: { type: 'select', options: gutterOptions },
       description: 'Distance between actions.'
     },
 
@@ -54,8 +62,8 @@ const templates = `
 `
 
 const Template = (args, { argTypes }) => ({
+  components: { QasBtn, QasBtnActions },
   props: Object.keys(argTypes),
-  components: { QasBtnActions, QasBtn },
   template:
     `<qas-btn-actions v-bind="$props">${templates}</qas-btn-actions>`
 })
