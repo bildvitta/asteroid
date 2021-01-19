@@ -105,3 +105,13 @@ Default.args = {
     { label: 'options 2', value: '2' }
   ]
 }
+
+const defaultCode = '<qas-autocomplete v-model="valueOption" :options="options" />'
+
+Default.parameters = {
+  docs: {
+    source: {
+      code: defaultCode
+    }
+  }
+}
