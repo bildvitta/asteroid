@@ -101,7 +101,7 @@ export default {
 
   watch: {
     search (value) {
-      this.filterOptions(value)
+      this.filter(value)
     },
 
     defaultFuseOptions (value) {
