@@ -1,4 +1,4 @@
-import QasAutocomplete from './QasAutocomplete.vue'
+import QasAutoComplete from './QasAutoComplete.vue'
 
 const noSummary = {
   type: { summary: null }
@@ -13,12 +13,12 @@ const options = `{
   minMatchCharLength: 1,
   shouldSort: true,
   threshold: 0.1,
-  tokenize: true,
+  tokenize: true
 }`
 
 export default {
-  component: QasAutocomplete,
-  title: 'Components/Autocomplete',
+  component: QasAutoComplete,
+  title: 'Components/AutoComplete',
 
   parameters: {
     docs: {
@@ -42,7 +42,7 @@ export default {
     },
 
     fuseOptions: {
-      description: 'Library options [Fuse.js](https://fusejs.io/).',
+      description: 'Options of [Fuse.js](https://fusejs.io/).',
       table: {
         defaultValue: {
           detail: options
@@ -51,12 +51,12 @@ export default {
     },
 
     value: {
-      description: 'Value receives the value of the Input and can be multiple.'
+      description: 'Value to filter.'
     },
 
     // events
     input: {
-      description: 'Raises the input event by passing the value parameter.'
+      description: 'Fires when model changes. Is also used by v-model.'
     },
 
     // slots
@@ -85,7 +85,7 @@ export default {
 
 const Template = (args, { argTypes }) => ({
   props: Object.keys(argTypes),
-  components: { QasAutocomplete },
+  components: { QasAutoComplete },
 
   data () {
     return {
@@ -93,8 +93,7 @@ const Template = (args, { argTypes }) => ({
     }
   },
 
-  template:
-    '<qas-autocomplete v-bind="$props" v-model="valueOption" />'
+  template: '<qas-auto-complete v-bind="$props" v-model="valueOption" />'
 
 })
 

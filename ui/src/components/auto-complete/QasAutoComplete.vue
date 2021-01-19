@@ -54,18 +54,12 @@ export default {
       fuse: null,
       valueOption: '',
       filteredOptions: [],
-      // results: [], // esté em uma verificação mais não esta sendo usado
       search: '',
       selectModel: null
     }
   },
 
   computed: {
-    // não esta sendo usado
-    // hasResult () {
-    //   return this.results.length
-    // },
-
     multiple () {
       return this.$attrs.multiple || this.$attrs.multiple === ''
     },
