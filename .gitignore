@@ -1,5 +1,11 @@
+# Project
+storybook-static
+
+# OS
 .DS_Store
 .thumbs.db
+
+# Node
 node_modules
 dist
 yarn.lock
