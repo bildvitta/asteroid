@@ -11,7 +11,7 @@ describe('Test QasBox component', () => {
     expect(wrapper.classes()).toContain('qas-box__elevated')
   })
 
-  it('Set form-mode', async () => {
+  it('Display mode as form', async () => {
     await wrapper.setProps({ formMode: true })
     expect(wrapper.classes()).toContain('qas-box__outlined')
   })
