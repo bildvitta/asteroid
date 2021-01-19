@@ -1,5 +1,21 @@
 import QasAutocomplete from './QasAutocomplete.vue'
 
+const noSummary = {
+  type: { summary: null }
+}
+
+const options = `{
+  distance: 100,
+  includeScore: true,
+  keys: ['label', 'value'],
+  location: 0,
+  maxPatternLength: 32,
+  minMatchCharLength: 1,
+  shouldSort: true,
+  threshold: 0.1,
+  tokenize: true,
+}`
+
 export default {
   component: QasAutocomplete,
   title: 'Components/Autocomplete',
@@ -26,7 +42,12 @@ export default {
     },
 
     fuseOptions: {
-      description: 'Opções da biblioteca [Fuse.js](https://fusejs.io/).'
+      description: 'Opções da biblioteca [Fuse.js](https://fusejs.io/).',
+      table: {
+        defaultValue: {
+          detail: options
+        }
+      }
     },
 
     value: {
@@ -43,9 +64,7 @@ export default {
       description: 'Attach to the inner field.',
       table: {
         category: 'slots',
-        type: {
-          summary: null
-        }
+        noSummary
       }
     },
 
@@ -53,19 +72,13 @@ export default {
       description: 'By default, when there are no options, the menu does not appear. But you can customize this scenario and specify what the menu should display.',
       table: {
         category: 'slots',
-        type: {
-          summary: null
-        }
+        noSummary
       }
     },
 
     option: {
       description: 'Option slot is displayed when there is an option to be displayed.',
-      table: {
-        type: {
-          summary: null
-        }
-      }
+      table: noSummary
     }
   }
 }
@@ -87,5 +100,5 @@ const Template = (args, { argTypes }) => ({
 
 export const Default = Template.bind({})
 Default.args = {
-  options: [{ label: 'teste 1', value: '1' }, { label: 'teste2', value: '2' }]
+  options: [{ label: 'option 1', value: '1' }, { label: 'options 2', value: '2' }]
 }
