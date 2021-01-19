@@ -42,7 +42,7 @@ export default {
     },
 
     fuseOptions: {
-      description: 'Opções da biblioteca [Fuse.js](https://fusejs.io/).',
+      description: 'Library options [Fuse.js](https://fusejs.io/).',
       table: {
         defaultValue: {
           detail: options
@@ -59,7 +59,7 @@ export default {
       description: 'Raises the input event by passing the value parameter.'
     },
 
-    // slot
+    // slots
     append: {
       description: 'Attach to the inner field.',
       table: {
@@ -94,11 +94,14 @@ const Template = (args, { argTypes }) => ({
   },
 
   template:
-    '<qas-autocomplete v-bind="$props" :multiple=false  v-model="valueOption" />'
+    '<qas-autocomplete v-bind="$props" v-model="valueOption" />'
 
 })
 
 export const Default = Template.bind({})
 Default.args = {
-  options: [{ label: 'option 1', value: '1' }, { label: 'options 2', value: '2' }]
+  options: [
+    { label: 'option 1', value: '1' },
+    { label: 'options 2', value: '2' }
+  ]
 }
