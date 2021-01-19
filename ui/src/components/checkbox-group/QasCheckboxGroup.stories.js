@@ -10,7 +10,7 @@ export default {
   parameters: {
     docs: {
       description: {
-        component: 'Component to list a collection of checkbox type fields, implements <a href="https://quasar.dev/vue-components/option-group">QOptionGroup</a> and <a href="https://quasar.dev/vue-components/checkbox">QCheckbox.</a>'
+        component: 'Component to list a collection of checkbox type fields, implements [QOptionGroup](https://quasar.dev/vue-components/option-group) and [QCheckbox](https://quasar.dev/vue-components/checkbox).'
       }
     }
   },
@@ -21,14 +21,15 @@ export default {
     },
 
     value: {
-      description: 'value receives the value of the checkbox state',
+      description: 'Value receives the value of the checkbox state.',
       control: {
         type: null
       }
     },
 
+    // events
     input: {
-      description: 'issues the input event by passing value, updating the checkbox state'
+      description: 'Issues the input event by passing value, updating the checkbox state.'
     }
   }
 }
@@ -51,4 +52,14 @@ Default.args = {
       ]
     }
   ]
+}
+
+const defaultCode = '<qas-checkbox-group v-model="value" :options="options" />'
+
+Default.parameters = {
+  docs: {
+    source: {
+      code: defaultCode
+    }
+  }
 }
