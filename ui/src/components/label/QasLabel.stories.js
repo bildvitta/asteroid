@@ -36,6 +36,7 @@ export default {
 const Template = (args, { argTypes }) => ({
   components: { QasLabel },
   props: Object.keys(argTypes),
+
   template:
     '<qas-label v-bind="$props" />'
 })

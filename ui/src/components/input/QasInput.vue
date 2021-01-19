@@ -28,10 +28,10 @@ export default {
     masks () {
       return {
         'company-document': () => '##.###.###/####-##',
+        document: () => this.toggleMask('###.###.###-###', '##.###.###/####-##'),
         'personal-document': () => '###.###.###-##',
-        'postal-code': () => '#####-###',
-        document: () => this.maskLenght(11, '###.###.###-###', '##.###.###/####-##'),
-        phone: () => this.maskLenght(10, '(##) ####-#####', '(##) #####-####')
+        phone: () => this.toggleMask('(##) ####-#####', '(##) #####-####'),
+        'postal-code': () => '#####-###'
       }
     }
   },
@@ -47,7 +47,8 @@ export default {
   },
 
   methods: {
-    maskLenght (length, first, second) {
+    toggleMask (first, second) {
+      const length = first.split('#').length - 2
       return this.value.length > length ? second : first
     }
   }

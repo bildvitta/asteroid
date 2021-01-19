@@ -10,7 +10,6 @@ function __format (value, token, options = {}) {
   }
 
   value = value instanceof Date ? value : parseISO(value)
-
   return format(value, token, { locale: ptBR, ...options })
 }
 
@@ -50,23 +49,35 @@ function percent (value = 0, places = 2) {
   return value ? (value / 100).toLocaleString('pt-BR', { style: 'percent', minimumFractionDigits: places }) : ''
 }
 
-function formatPersonalDocument (value) {
-  return value.replace(/^(\d{3})\D*(\d{3})\D*(\d{3})\D*(\d{2})$/g, '$1.$2.$3-$4')
-}
-
 function formatCompanyDocument (value) {
   return value.replace(/^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/g, '$1.$2.$3/$4-$5')
 }
 
-function handleDocument (value) {
-  return value.length <= 11 ? formatPersonalDocument(value) : formatCompanyDocument(value)
+function formatDocument (value) {
+  return value.length < 12
+    ? formatPersonalDocument(value)
+    : formatCompanyDocument(value)
+}
+
+function formatPersonalDocument (value) {
+  return value.replace(/^(\d{3})\D*(\d{3})\D*(\d{3})\D*(\d{2})$/g, '$1.$2.$3-$4')
+}
+
+function formatPhone (value) {
+  return value.replace(/^(\d{2})\D*(\d{5}|\d{4})\D*(\d{4})$/g, '($1) $2-$3')
+}
+
+function formatPostalCode (value) {
+  return value.replace(/^(\d{5})\D*(\d{3})$/g, '$1-$2')
 }
 
 function handleMasks (value) {
   return {
-    'personal-document': () => formatPersonalDocument(value),
     'company-document': () => formatCompanyDocument(value),
-    document: () => handleDocument(value)
+    document: () => formatDocument(value),
+    'personal-document': () => formatPersonalDocument(value),
+    phone: () => formatPhone(value),
+    'postal-code': formatPostalCode(value)
   }
 }
 
@@ -114,8 +125,10 @@ export {
   date,
   dateTime,
   formatCompanyDocument,
+  formatDocument,
   formatPersonalDocument,
-  handleDocument,
+  formatPhone,
+  formatPostalCode,
   handleMasks,
   humanDate,
   humanize,

@@ -49,20 +49,21 @@ export default {
   }
 }
 
-const template =
-  `<template v-slot:afterTitle>
-      Here is <strong>afterTitle</strong> slot.
-    </template>
-    <template v-slot:beforeTitle>
-      Here is <strong>beforeTitle</strong> slot.
-    </template>
-    <template v-slot:meta>
-      Here is <strong>meta</strong> slot.
-    </template>`
+const template = `
+  <template v-slot:afterTitle>
+    Here is <strong>afterTitle</strong> slot.
+  </template>
+  <template v-slot:beforeTitle>
+    Here is <strong>beforeTitle</strong> slot.
+  </template>
+  <template v-slot:meta>
+    Here is <strong>meta</strong> slot.
+  </template>
+`
 
 const Template = (args, { argTypes }) => ({
-  props: Object.keys(argTypes),
   components: { QasProfile },
+  props: Object.keys(argTypes),
   template:
     `<qas-profile v-bind="$props">${template}</qas-profile>`
 })

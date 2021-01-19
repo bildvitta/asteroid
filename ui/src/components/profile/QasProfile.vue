@@ -8,14 +8,14 @@
       <div class="col-12 col-md-auto">
         <div class="wrap">
           <div v-if="hasBeforeTitle" class="text-grey-6">
-            <!-- TODO remover camelcase -->
+            <!-- TODO: Remover camelCase. -->
             <slot name="beforeTitle" />
           </div>
 
           <h2 class="q-my-none text-black text-h5">{{ title }}</h2>
 
           <div v-if="hasAfterTitle" class="text-grey-6">
-            <!-- TODO remover camelcase -->
+            <!-- TODO: Remover camelCase. -->
             <slot name="afterTitle" />
           </div>
         </div>
@@ -68,16 +68,16 @@ export default {
       return this.iconic ? '' : this.title
     },
 
-    hasMeta () {
-      return !!this.$slots.meta
+    hasAfterTitle () {
+      return !!this.$slots.afterTitle
     },
 
     hasBeforeTitle () {
       return !!this.$slots.beforeTitle
     },
 
-    hasAfterTitle () {
-      return !!this.$slots.afterTitle
+    hasMeta () {
+      return !!this.$slots.meta
     },
 
     showAvatar () {

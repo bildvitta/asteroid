@@ -24,8 +24,8 @@ export default {
 
   data () {
     return {
-      inputedValue: 0,
-      inputValue: this.toMask(this.value)
+      inputValue: this.toMask(this.value),
+      inputedValue: 0
     }
   },
 

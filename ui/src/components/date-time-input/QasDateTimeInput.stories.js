@@ -54,12 +54,10 @@ export default {
 }
 
 const Template = (args, { argTypes }) => ({
-  props: Object.keys(argTypes),
   components: { QasDateTimeInput },
+  props: Object.keys(argTypes),
   template:
     '<qas-date-time-input v-bind="$props" />'
 })
 
 export const Default = Template.bind({})
-Default.args = {
-}

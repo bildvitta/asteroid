@@ -14,6 +14,11 @@ export default {
       type: String
     },
 
+    split: {
+      default: '\n',
+      type: String
+    },
+
     tag: {
       default: 'div',
       type: String
@@ -31,11 +36,6 @@ export default {
 
     text: {
       default: '',
-      type: String
-    },
-
-    split: {
-      default: '\n',
       type: String
     }
   },

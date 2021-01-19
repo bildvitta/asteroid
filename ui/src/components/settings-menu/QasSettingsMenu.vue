@@ -39,6 +39,7 @@ export default {
 
   methods: {
     onClick (item) {
+      // TODO: Alterar para "handler".
       if (typeof item.handle === 'function') {
         const { handle, ...filtered } = item
         item.handle(filtered)

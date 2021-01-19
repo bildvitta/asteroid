@@ -30,8 +30,8 @@ export default {
 }
 
 const Template = (args, { argTypes }) => ({
-  props: Object.keys(argTypes),
   components: { QasInput },
+  props: Object.keys(argTypes),
 
   data () {
     return {

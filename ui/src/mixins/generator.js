@@ -2,9 +2,9 @@ const irregularClasses = ['col', 'col-auto', 'fit']
 
 export default {
   props: {
-    gutter: {
-      default: 'md',
-      type: [String, Boolean]
+    columns: {
+      default: () => [],
+      type: [Array, String, Object]
     },
 
     fields: {
@@ -12,9 +12,10 @@ export default {
       type: Object
     },
 
-    columns: {
-      default: () => [],
-      type: [Array, String, Object]
+    // TODO: Validar entrada e mudar documentação para seletor.
+    gutter: {
+      default: 'md',
+      type: [String, Boolean]
     }
   },
 

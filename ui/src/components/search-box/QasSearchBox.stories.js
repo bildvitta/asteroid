@@ -100,6 +100,7 @@ const Template = (args, { argTypes }) => ({
 })
 
 export const Default = Template.bind({})
+// TODO: Inserir um mock maior e criar exemplos mais visuais.
 Default.args = {
   fuseOptions: { keys: ['label'] },
   list: [

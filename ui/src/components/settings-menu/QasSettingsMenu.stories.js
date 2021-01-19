@@ -14,12 +14,12 @@ export default {
   },
 
   argTypes: {
-    list: {
-      description: 'Settings list as an object containing `label`, `icon`, `props` and `handle` click event.'
-    },
-
     label: {
       description: 'Button label.'
+    },
+
+    list: {
+      description: 'Settings list as an object containing `label`, `icon`, `props` and `handle` click event.'
     },
 
     // slots
@@ -46,17 +46,17 @@ const Template = (args, { argTypes }) => ({
 
 export const Default = Template.bind({})
 Default.args = {
+  block: {
+    handle: () => Notify.create('Block clicked!'),
+    icon: 'o_locked',
+    label: 'Block'
+  },
+
   list: {
     delete: {
+      handle: () => Notify.create('Delete clicked!'),
       icon: 'o_delete',
-      label: 'Delete',
-      handle: () => Notify.create('Delete clicked!')
-    },
-
-    block: {
-      icon: 'o_locked',
-      label: 'Block',
-      handle: () => Notify.create('Block clicked!')
+      label: 'Delete'
     }
   }
 }

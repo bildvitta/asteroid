@@ -1,0 +1,20 @@
+{
+  "fields": {
+    "name": {
+      "name": "name",
+      "type": "text"
+    },
+    "email": {
+      "name": "email",
+      "type": "email"
+    },
+    "nickname": {
+      "name": "nickname",
+      "type": "text"
+    }
+  },
+
+  "status": {
+    "code": 200
+  }
+}

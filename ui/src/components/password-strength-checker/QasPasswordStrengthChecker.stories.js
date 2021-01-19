@@ -32,7 +32,10 @@ export default {
 
     // Events
     'password-success': {
-      description: 'Fires when a password meets requirements.'
+      description: 'Fires when a password meets requirements.',
+      table: {
+        type: { summary: null }
+      }
     }
   }
 }
@@ -44,6 +47,7 @@ const Template = (args, { argTypes }) => ({
 })
 
 export const Default = Template.bind({})
+
 Default.args = {
   pattern: /(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/,
   value: 'Example@321'
