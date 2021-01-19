@@ -7,7 +7,7 @@ const descriptionUploader = `Uploading files through a component.<br>
                              Require axios https://www.npmjs.com/package/axios`
 
 export default {
-  title: 'Components/QasUpload',
+  title: 'Components/Upload',
   component: QasUploader,
   parameters: {
     docs: {
@@ -18,7 +18,6 @@ export default {
   },
 
   argTypes: {
-    // props
     entity: {
       description: 'entity is used by the backend to know the type of file that is being sent to the bucket, the backend configures what these entities will be.Vuex entity.',
       defaultValue: {
@@ -53,7 +52,7 @@ export default {
       control: null
     },
 
-    // event
+    // events
     input: {
       description: 'raises an event that checks if a file exists if it does not return an empty array or \'\' ',
       defaultValue: {
