@@ -1,6 +1,6 @@
 import { version } from '../package.json'
 
-import AppMenu from './components/break-line/QasAppMenu'
+import AppMenu from './components/app-menu/QasAppMenu'
 import AppsMenu from './components/apps-menu/QasAppsMenu'
 import Autocomplete from './components/autocomplete/QasAutocomplete'
 import Avatar from './components/avatar/QasAvatar'
