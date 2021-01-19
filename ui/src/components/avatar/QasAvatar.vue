@@ -92,12 +92,12 @@ export default {
       return !this.hasImageError && !!this.image
     },
 
-    hasTitle () {
-      return !!this.title
-    },
-
     hasTextColor () {
       return !!this.textColor
+    },
+
+    hasTitle () {
+      return !!this.title
     },
 
     mainColor () {

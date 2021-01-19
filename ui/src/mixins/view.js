@@ -1,5 +1,6 @@
 import { camelize } from 'humps'
 import { get } from 'lodash'
+
 import { NotifyError } from '../plugins'
 
 export default {
@@ -34,12 +35,12 @@ export default {
       return this.dialog ? 'div' : 'q-page'
     },
 
-    hasHeaderSlot () {
-      return !!(this.$slots.header || this.$scopedSlots.header)
-    },
-
     hasFooterSlot () {
       return !!(this.$slots.footer || this.$scopedSlots.footer)
+    },
+
+    hasHeaderSlot () {
+      return !!(this.$slots.header || this.$scopedSlots.header)
     }
   },
 

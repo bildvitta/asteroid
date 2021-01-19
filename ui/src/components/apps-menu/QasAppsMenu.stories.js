@@ -27,27 +27,28 @@ const Template = (args, { argTypes }) => ({
 })
 
 export const Default = Template.bind({})
+
 Default.args = {
   apps: [
     {
-      label: 'Company 1',
       href: 'https://google.com',
-      image: '//placehold.it/100'
+      image: '//placehold.it/100',
+      label: 'Company 1'
     },
     {
-      label: 'Company 2',
       href: 'https://google.com',
-      image: '//placehold.it/100'
+      image: '//placehold.it/100',
+      label: 'Company 2'
     },
     {
-      label: 'Company 3',
       href: 'https://google.com',
-      image: '//placehold.it/100'
+      image: '//placehold.it/100',
+      label: 'Company 3'
     },
     {
-      label: 'Company 4',
       href: 'https://google.com',
-      image: '//placehold.it/100'
+      image: '//placehold.it/100',
+      label: 'Company 4'
     }
   ]
 }
