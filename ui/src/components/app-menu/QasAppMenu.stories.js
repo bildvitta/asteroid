@@ -3,6 +3,7 @@ import QasAppMenu from './QasAppMenu.vue'
 export default {
   component: QasAppMenu,
   title: 'Components/AppMenu',
+
   parameters: {
     docs: {
       description: {
@@ -37,8 +38,8 @@ export default {
 }
 
 const Template = (args, { argTypes }) => ({
-  props: Object.keys(argTypes),
   components: { QasAppMenu },
+  props: Object.keys(argTypes),
   template:
     `<q-layout class="shadow-1" container style="height: 300px" view="hHh Lpr lff">
       <qas-app-menu v-bind="$props" />

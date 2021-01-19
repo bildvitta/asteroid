@@ -4,10 +4,11 @@ import QasBtn from '../btn/QasBtn.vue'
 export default {
   component: QasPageHeader,
   title: 'Components/PageHeader',
+
   parameters: {
     docs: {
       description: {
-        component: 'Creates a header structure with breadcrumbs. Extends [QBreadcrumbs](https://quasar.dev/vue-components/breadcrumbs#Introduction) and [QToolbar](https://quasar.dev/vue-components/toolbar#Introduction).'
+        component: 'Page header structure with breadcrumbs, using [QToolbar](https://quasar.dev/vue-components/toolbar) and [QBreadcrumbs](https://quasar.dev/vue-components/breadcrumbs).'
       }
     }
   },
@@ -15,15 +16,15 @@ export default {
   argTypes: {
     // Props
     breadcrumbs: {
-      description: 'Creates breadcrumbs through array or string.'
+      description: 'Breadcrumbs structure.'
     },
 
     noBreadcrumbs: {
-      description: 'Disable breadcrumbs option.'
+      description: 'Disable breadcrumbs.'
     },
 
     root: {
-      description: 'Breadcrumbs root.'
+      description: 'Breadcrumbs root route.'
     },
 
     title: {
@@ -32,7 +33,7 @@ export default {
 
     // Slots
     default: {
-      description: 'Slot inside [QToolbar](https://quasar.dev/vue-components/toolbar#Introduction).',
+      description: 'Main slot inside [QToolbar](https://quasar.dev/vue-components/toolbar).',
       table: {
         type: { summary: null }
       }
@@ -41,20 +42,20 @@ export default {
 }
 
 const Template = (args, { argTypes }) => ({
+  components: { QasBtn, QasPageHeader },
   props: Object.keys(argTypes),
-  components: { QasPageHeader, QasBtn },
+
   template:
-    `
-    <div>
+    `<div>
       <qas-page-header v-bind="$props">
-        <qas-btn label="Here my default template!" />
+        <qas-btn label="This is my default template!" />
       </qas-page-header>
-    </div>
-    `
+    </div>`
 })
 
 export const Default = Template.bind({})
+
 Default.args = {
-  title: 'Asteroids title!',
-  root: 'home'
+  root: { label: 'Home', route: '/' },
+  title: 'Asteroid'
 }
