@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test QasBreakLine component test defaults 1`] = `
+<div>
+  <div
+    class="my-class"
+  >
+    
+    Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+  
+  </div>
+  <div
+    class="my-class"
+  >
+    
+     Error tempora vero aspernatur facere. Deserunt delectus amet eveniet velit reprehenderit itaque
+  
+  </div>
+</div>
+`;
