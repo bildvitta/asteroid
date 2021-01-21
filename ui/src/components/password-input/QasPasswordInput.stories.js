@@ -62,11 +62,15 @@ export default {
 const Template = (args, { argTypes }) => ({
   components: { QasPasswordInput },
   props: Object.keys(argTypes),
-  template: '<qas-password-input v-bind="$props" />'
+  data () {
+    return {
+      model: 'Example@321'
+    }
+  },
+  template: '<qas-password-input v-model="model" v-bind="$props" />'
 })
 
 export const Default = Template.bind({})
 Default.args = {
-  pattern: /(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/,
-  value: 'Example@321'
+  pattern: /(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/
 }
