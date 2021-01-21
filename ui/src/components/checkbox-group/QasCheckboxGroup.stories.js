@@ -39,7 +39,7 @@ const Template = (args, { argTypes }) => ({
 
   template:
     `<div>
-      <qas-checkbox-group v-bind="$props" v-model="model" />
+      <qas-checkbox-group v-model="model" v-bind="$props" />
       <pre>{{model}}</pre>
     </div>`
 })
