@@ -1,47 +1,51 @@
 import QasCheckboxGroup from './QasCheckboxGroup.vue'
 
-const descriptionOption = `List of objects with <strong> label </strong> keys (checkbox label) and <strong>
-                           value </strong> keys (Checkbox value).<br>Accepts Option Tree Creation using the
-                           <strong>children</strong> key, which must contain an object with a similar structure.`
-
 export default {
-  title: 'Components/Checkbox Group',
   component: QasCheckboxGroup,
+  title: 'Components/CheckboxGroup',
+
   parameters: {
     docs: {
       description: {
-        component: 'Component to list a collection of checkbox type fields, implements [QOptionGroup](https://quasar.dev/vue-components/option-group) and [QCheckbox](https://quasar.dev/vue-components/checkbox).'
+        component: 'List a collection of checkbox fields, implements [QOptionGroup](https://quasar.dev/vue-components/option-group) and [QCheckbox](https://quasar.dev/vue-components/checkbox).'
       }
     }
   },
 
   argTypes: {
+    // Props
     options: {
-      description: descriptionOption
+      description: 'List of checkbox groups with your children. Each group item has `label` and `children` array, and each checkbox has a `label` and a `value`.'
     },
 
     value: {
-      description: 'Value receives the value of the checkbox state.',
-      control: {
-        type: null
-      }
+      description: 'An array with all selected checkboxes value.'
     },
 
-    // events
+    // Events
     input: {
-      description: 'Issues the input event by passing value, updating the checkbox state.'
+      description: 'Fires when any checkbox changes.'
     }
   }
 }
 
 const Template = (args, { argTypes }) => ({
-  props: Object.keys(argTypes),
   components: { QasCheckboxGroup },
+  props: Object.keys(argTypes),
+
+  data () {
+    return { model: [] }
+  },
+
   template:
-    '<qas-checkbox-group v-bind="$props" v-model="value" />'
+    `<div>
+      <qas-checkbox-group v-bind="$props" v-model="model" />
+      <pre>{{model}}</pre>
+    </div>`
 })
 
 export const Default = Template.bind({})
+
 Default.args = {
   options: [
     {
@@ -52,14 +56,4 @@ Default.args = {
       ]
     }
   ]
-}
-
-const defaultCode = '<qas-checkbox-group v-model="value" :options="options" />'
-
-Default.parameters = {
-  docs: {
-    source: {
-      code: defaultCode
-    }
-  }
 }
