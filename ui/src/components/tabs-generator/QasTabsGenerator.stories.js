@@ -4,8 +4,9 @@ const descriptionTabs = `Component to generate Tabs dynamically.
                          This component implements [QTabs](https://quasar.dev/vue-components/tabs#QTabs-API) e [QTab](https://quasar.dev/vue-components/tabs#Introduction).`
 
 export default {
-  title: 'Components/Tabs Generator',
   component: QasTabsGenerator,
+  title: 'Components/TabsGenerator',
+
   parameters: {
     docs: {
       description: {
@@ -15,6 +16,7 @@ export default {
   },
 
   argTypes: {
+    // Props
     counters: {
       description: 'Badge number that will appear on the tab.'
     },
@@ -28,7 +30,7 @@ export default {
       control: null
     },
 
-    // slots
+    // Slots
     DefaultTab: {
       name: 'Tab-dynamicName',
       description: 'Scope with dynamic name can be accessed through the obj label. In this slot you replace the entire tab.',
