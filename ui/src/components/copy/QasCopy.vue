@@ -13,6 +13,8 @@ import { copyToClipboard } from 'quasar'
 import { NotifyError, NotifySuccess } from '../../plugins'
 
 export default {
+  name: 'QasCopy',
+
   props: {
     icon: {
       default: 'o_file_copy',

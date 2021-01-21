@@ -1,0 +1,34 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test QasCopy component test defaults 1`] = `
+<span>
+  Click here to copy! 
+  <button
+    class="q-btn q-btn-item non-selectable no-outline q-ml-xs q-btn--flat q-btn--round text-grey-5 q-btn--actionable q-focusable q-hoverable q-btn--wrap"
+    role="button"
+    style="font-size: 8px;"
+    tabindex="0"
+    type="button"
+  >
+    <span
+      class="q-focus-helper"
+    />
+    <span
+      class="q-btn__wrapper col row q-anchor--skip"
+    >
+      <span
+        class="q-btn__content text-center col items-center q-anchor--skip justify-center row"
+      >
+        <i
+          aria-hidden="true"
+          class="material-icons-outlined q-icon notranslate"
+          role="img"
+        >
+          file_copy
+        </i>
+        <!---->
+      </span>
+    </span>
+  </button>
+</span>
+`;
