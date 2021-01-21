@@ -7,7 +7,7 @@ export default {
   parameters: {
     docs: {
       description: {
-        component: 'Insert line breaks where newlines `\n` occur in the string.'
+        component: 'Insert line breaks where newlines `\\n` occur in the string.'
       }
     }
   },
@@ -15,6 +15,10 @@ export default {
   argTypes: {
     parentTag: {
       description: 'Tag to wrap all lines.'
+    },
+
+    split: {
+      description: 'Characters to split text.'
     },
 
     tag: {
@@ -31,24 +35,23 @@ export default {
 
     text: {
       description: 'Text to be splitted into lines.'
-    },
-
-    split: {
-      description: 'Characters to split text.'
     }
   }
 }
 
 const Template = (args, { argTypes }) => ({
-  props: Object.keys(argTypes),
   components: { QasBreakLine },
+  props: Object.keys(argTypes),
   template:
     `<qas-break-line v-bind="$props">
-      Hello, world!
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam tincidunt consequat luctus.
+      Curabitur ultrices maximus erat, et egestas enim mollis vitae.
+      Proin quis enim eu ex volutpat elementum quis eu nisl.
     </qas-break-line>`
 })
 
 export const Default = Template.bind({})
+
 Default.args = {
   tag: 'div'
 }
