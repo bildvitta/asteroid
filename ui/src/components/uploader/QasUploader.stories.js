@@ -1,10 +1,9 @@
 import QasUploader from './QasUploader.vue'
 
 const descriptionUploader = `Uploading files through a component.<br>
-                             This component implements QUploader https://quasar.dev/vue-components/uploader#Introduction <br>
+                             This component implements [QUploader](https://quasar.dev/vue-components/uploader#Introduction).<br>
                              Requires a back-end server to receive the files.<br>
-                             Drag-and-drop compatible.<br>
-                             Require axios https://www.npmjs.com/package/axios`
+                             Require [axios](https://www.npmjs.com/package/axios).`
 
 export default {
   title: 'Components/Upload',
@@ -19,48 +18,47 @@ export default {
 
   argTypes: {
     entity: {
-      description: 'entity is used by the backend to know the type of file that is being sent to the bucket, the backend configures what these entities will be.Vuex entity.',
+      description: 'Entity is used by the backend to know the type of file that is being sent to the bucket, the backend configures what these entities will be.',
       defaultValue: {
         summary: null
       }
     },
 
     hint: {
-      description: 'The hint message is displayed when there are errors and an error message'
+      description: 'The hint message is displayed when there are errors and an error message.'
     },
 
     maxFiles: {
-      description: 'Maximum number of files to contain'
+      description: 'Maximum number of files to contain.'
     },
 
     label: {
-      description: 'Label for the uploader',
+      description: 'Label for the uploader.',
       defaultValue: {
         summary: '\'\''
       }
     },
 
     accept: {
-      description: 'Comma separated list of unique file type specifiers. Maps to \'accept\' attribute of native input type=file element',
+      description: 'Comma separated list of unique file type specifiers. Maps to \'accept\' attribute of native input type=file element.',
       defaultValue: {
         summary: null
       }
     },
 
     value: {
-      description: 'value stores the type and name of the uploaded file',
+      description: 'Value stores the type and name of the uploaded file.',
       control: null
     },
 
     // events
     input: {
-      description: 'raises an event that checks if a file exists if it does not return an empty array or \'\' ',
+      description: 'Raises an event that checks if a file exists if it does not return an empty array or \' \'.',
       defaultValue: {
-        summary: '\'\''
+        summary: '\'\' or []'
       }
     }
   }
-
 }
 
 const Template = (args, { argTypes }) => ({
@@ -75,4 +73,14 @@ Default.args = {
   entity: 'posts/image',
   label: 'image',
   accept: '.jpeg,.jpg,.png'
+}
+
+const defaultCode = '<qas-uploader entity="posts/image" :maxFiles="1" accept=".jpeg,.jpg,.png" label="image"/>'
+
+Default.parameters = {
+  docs: {
+    source: {
+      code: defaultCode
+    }
+  }
 }
