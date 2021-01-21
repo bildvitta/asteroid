@@ -40,7 +40,7 @@
     "vue-template-compiler": "^2.6.12"
   },
   "dependencies": {
-    "@quasar/extras": "^1.9.13",
+    "@quasar/extras": "^1.9.14",
     "date-fns": "^2.16.1",
     "fuse.js": "^6.4.3",
     "humps": "^2.0.1",
