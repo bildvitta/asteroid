@@ -6,6 +6,7 @@ import Avatar from './components/avatar/QasAvatar'
 import BreakLine from './components/break-line/QasBreakLine'
 import Btn from './components/btn/QasBtn'
 import BtnActions from './components/btn-actions/QasBtnActions'
+import CheckboxGroup from './components/checkbox-group/QasCheckboxGroup'
 import Copy from './components/copy/QasCopy'
 import DateTimeInput from './components/date-time-input/QasDateTimeInput'
 import DecimalInput from './components/decimal-input/QasDecimalInput'
@@ -41,6 +42,7 @@ export {
   BreakLine,
   Btn,
   BtnActions,
+  CheckboxGroup,
   Copy,
   DateTimeInput,
   DecimalInput,
@@ -71,6 +73,7 @@ export default {
   BreakLine,
   Btn,
   BtnActions,
+  CheckboxGroup,
   Copy,
   DateTimeInput,
   DecimalInput,
@@ -97,9 +100,12 @@ export default {
     Vue.component('QasAppMenu', AppMenu)
     Vue.component('QasAppsMenu', AppsMenu)
     Vue.component('QasAvatar', Avatar)
+    Vue.component('QasAvatar', Avatar)
+    Vue.component('QasBreakline', BreakLine)
     Vue.component('QasBreakline', BreakLine)
     Vue.component('QasBtn', Btn)
     Vue.component('QasBtnActions', BtnActions)
+    Vue.component('QasCheckboxGroup', CheckboxGroup)
     Vue.component('QasCopy', Copy)
     Vue.component('QasDateTimeInput', DateTimeInput)
     Vue.component('QasDecimalInput', DecimalInput)
