@@ -3,20 +3,17 @@ import QasPasswordInput from './QasPasswordInput.vue'
 export default {
   component: QasPasswordInput,
   title: 'Components/PasswordInput',
+
   parameters: {
     docs: {
       description: {
-        component: 'Creates a password input.'
+        component: 'Creates a password input with strength checker.'
       }
     }
   },
 
   argTypes: {
     // Props
-    value: {
-      description: 'Password field value.'
-    },
-
     hideStrengthChecker: {
       description: 'Hides the password strength check component.'
     },
@@ -29,30 +26,42 @@ export default {
       description: 'Sets the pattern for the input strenght with RegExp and string.'
     },
 
+    value: {
+      description: 'Password field value.'
+    },
+
     weak: {
       description: 'Define weak password level.'
     },
 
     // Events
-    'password-success': {
-      description: 'Fires when a password meets requirements.'
+    input: {
+      description: 'Fires when the value changes.',
+      table: {
+        type: { summary: null }
+      }
     },
 
-    input: {
-      description: 'Fires when the value changes.'
+    'password-success': {
+      description: 'Fires when a password meets requirements.',
+      table: {
+        type: { summary: null }
+      }
     },
 
     // Slots
-
     default: {
-      description: 'Main content.'
+      description: 'Main content.',
+      table: {
+        type: { summary: null }
+      }
     }
   }
 }
 
 const Template = (args, { argTypes }) => ({
-  props: Object.keys(argTypes),
   components: { QasPasswordInput },
+  props: Object.keys(argTypes),
   template: '<qas-password-input v-bind="$props" />'
 })
 

@@ -17,17 +17,17 @@
 </template>
 
 <script>
-import password from '../../mixins/password'
+import passwordMixin from '../../mixins/password.js'
+import QasPasswordStrengthChecker from '../password-strength-checker/QasPasswordStrengthChecker.vue'
 
 export default {
-  mixins: [password],
+  components: {
+    QasPasswordStrengthChecker
+  },
+
+  mixins: [passwordMixin],
 
   props: {
-    value: {
-      type: String,
-      default: ''
-    },
-
     hideStrengthChecker: {
       type: Boolean
     },
@@ -35,6 +35,11 @@ export default {
     iconColor: {
       type: String,
       default: 'primary'
+    },
+
+    value: {
+      type: String,
+      default: ''
     }
   },
 
@@ -45,16 +50,6 @@ export default {
   },
 
   computed: {
-    model: {
-      get () {
-        return this.value
-      },
-
-      set (value) {
-        return this.$emit('input', value)
-      }
-    },
-
     events () {
       const { input, ...events } = this.$listeners
 
@@ -63,6 +58,16 @@ export default {
 
     icon () {
       return this.toggleType ? 'o_visibility_off' : 'o_visibility'
+    },
+
+    model: {
+      get () {
+        return this.value
+      },
+
+      set (value) {
+        return this.$emit('input', value)
+      }
     },
 
     type () {
