@@ -7,12 +7,12 @@ describe('Test QasAppsMenu component', () => {
   const wrapper = mount(QasAppsMenu)
 
   it('Mount component', async () => {
-    expect(wrapper.exists()).toBe(true)
-    expect(wrapper.classes()).toContain('qas-box__elevated')
-  })
+    const menu = wrapper.findComponent({ name: 'QMenu' })
+    wrapper.vm.$emit('click')
+    await wrapper.vm.$nextTick()
+    console.log(wrapper.emitted())
+    expect(menu.emitted().input).toBeTruthy()
 
-  it('Display mode as form', async () => {
-    await wrapper.setProps({ formMode: true })
-    expect(wrapper.classes()).toContain('qas-box__outlined')
+    expect(menu.exists()).toBe(true)
   })
 })
