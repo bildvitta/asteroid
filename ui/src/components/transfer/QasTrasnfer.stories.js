@@ -25,7 +25,13 @@ export default {
     },
 
     fuseOptions: {
-      description: 'Options of [fuse.js](https://fusejs.io).'
+      description: 'Options of [fuse.js](https://fusejs.io).',
+      table: {
+        defaultValue: {
+          summary: '{}',
+          detail: '{ keys: [\'label\'] }'
+        }
+      }
     },
 
     hideEmptySlot: {
@@ -52,7 +58,10 @@ export default {
     input: {
       description: 'Emitted when the component needs to change the model. Is also used by `v-model`.',
       table: {
-        defaultValue: { summary: JSON.stringify({ value: 'array' }) }
+        defaultValue: {
+          summary: '{}',
+          detail: '{ value: \'array\' }'
+        }
       }
     },
 
