@@ -26,7 +26,13 @@ export default {
     },
 
     fuseOptions: {
-      description: 'Options of [fuse.js](https://fusejs.io).'
+      description: 'Options of [fuse.js](https://fusejs.io).',
+      table: {
+        defaultValue: {
+          summary: '{}',
+          detail: '{ keys: [\'label\'] }'
+        }
+      }
     },
 
     deleteOnly: {
@@ -48,7 +54,10 @@ export default {
     input: {
       description: 'Emitted when the component needs to change the model. Is also used by `v-model`.',
       table: {
-        defaultValue: { summary: JSON.stringify({ value: 'array' }) }
+        defaultValue: {
+          summary: '{}',
+          detail: '{ value: \'array\' }'
+        }
       }
     },
 
@@ -58,7 +67,10 @@ export default {
       defaultValue: 'aaaaa',
       table: {
         ...noSummary,
-        defaultValue: { summary: JSON.stringify({ context: 'SelectList' }) }
+        defaultValue: {
+          summary: '{}',
+          detail: '{ context: \'SelectList\' }'
+        }
       }
     },
 
@@ -66,7 +78,10 @@ export default {
       description: 'Slot encompassing [QItemSection](https://quasar.dev/vue-components/list-and-list-items#QItemSection).',
       table: {
         ...noSummary,
-        defaultValue: { summary: JSON.stringify({ result: 'object' }) }
+        defaultValue: {
+          summary: '{}',
+          detail: '{ result: \'object\' }'
+        }
       }
     },
 
@@ -74,7 +89,10 @@ export default {
       description: 'Slot inside [QItemSection](https://quasar.dev/vue-components/list-and-list-items#QItemSection) encompassing action button.',
       table: {
         ...noSummary,
-        defaultValue: { summary: JSON.stringify({ context: 'SelectList' }) }
+        defaultValue: {
+          summary: '{}',
+          detail: '{ context: \'SelectList\' }'
+        }
       }
     }
   }
