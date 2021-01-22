@@ -18,6 +18,7 @@ export default {
   },
 
   argTypes: {
+    // Props
     btnActions: {
       description: 'Props of QasBtnActions component.'
     },
@@ -111,9 +112,10 @@ const Template = (args, { argTypes }) => ({
 })
 
 export const Default = Template.bind({})
+
 Default.args = {
   cancel: {
-    props: { label: 'Cancelar', outline: true }
+    props: { label: 'Cancel', outline: true }
   },
 
   card: {

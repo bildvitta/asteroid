@@ -53,10 +53,12 @@ export default {
           title: 'Confirmar',
           description: 'Tem certeza que deseja excluir este item?'
         },
+
         ok: {
           events: { click: this.destroy },
           props: { label: 'Excluir' }
         },
+
         ...this.dialog
       }
     },

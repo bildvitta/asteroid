@@ -41,12 +41,13 @@ export default {
 }
 
 const Template = (args, { argTypes }) => ({
-  props: Object.keys(argTypes),
   components: { QasAvatar },
+  props: Object.keys(argTypes),
   template: '<qas-avatar v-bind="$props" />'
 })
 
 export const Default = Template.bind({})
+
 Default.args = {
   title: 'John Appleseed'
 }
