@@ -60,6 +60,7 @@
 
                 <q-icon v-if="isFileFailed(file)" color="negative" name="warning" size="20px" />
 
+                <!-- TODO: Retirar essa linha comentada? -->
                 <!-- <q-btn v-if="isFileUploaded(file)" dense flat icon="o_cloud_download" round /> -->
                 <q-btn dense flat :icon="isFileUploaded(file) ? 'o_delete' : 'o_clear'" round @click="scope.removeFile(file)" />
               </div>
@@ -102,26 +103,26 @@ export default {
   data () {
     return {
       files: [],
-      paths: {},
-      isFetching: false
+      isFetching: false,
+      paths: {}
     }
   },
 
   computed: {
-    hasBottom () {
-      return !!this.error || !!this.errorMessage || !!this.hint
-    },
-
-    readOnly () {
-      return this.files.length >= this.maxFiles
-    },
-
     hasAPIValue () {
       return this.value.startsWith('https://s3.amazonaws.com/')
     },
 
+    hasBottom () {
+      return !!this.error || !!this.errorMessage || !!this.hint
+    },
+
     imageName () {
       return `${this.value}`.split('/').pop()
+    },
+
+    readOnly () {
+      return this.files.length >= this.maxFiles
     }
   },
 
@@ -135,7 +136,9 @@ export default {
     async factory ([file]) {
       const name = `${uid()}.${file.name.split('.').pop()}`
       const { endpoint, path } = await this.fetch(name)
+
       this.paths[file.name] = path
+
       return {
         headers: [{ name: 'Content-Type', value: file.type || 'image/jpeg' }],
         sendRaw: true,
@@ -145,6 +148,20 @@ export default {
 
     factoryFailed () {
       this.$notify('The file could not be sent.')
+    },
+
+    async fetch (filename) {
+      this.isFetching = true
+
+      try {
+        const { data } = await api.post('/upload-credentials/', {
+          entity: this.entity,
+          filename
+        })
+        return data
+      } finally {
+        this.isFetching = false
+      }
     },
 
     isFileFailed (file) {
@@ -159,23 +176,6 @@ export default {
       return file.__status === 'uploading'
     },
 
-    async fetch (filename) {
-      this.isFetching = true
-      try {
-        const { data } = await api.post('/upload-credentials/', {
-          entity: this.entity,
-          filename
-        })
-        return data
-      } finally {
-        this.isFetching = false
-      }
-    },
-
-    uploaded ({ files }) {
-      this.files.push(this.paths[files[0].name])
-    },
-
     removed ([file]) {
       const path = this.paths[file.name]
       this.files = this.files.filter(item => item !== path)
@@ -183,6 +183,10 @@ export default {
 
     resetValue () {
       this.$emit('input', '')
+    },
+
+    uploaded ({ files }) {
+      this.files.push(this.paths[files[0].name])
     }
   }
 }
