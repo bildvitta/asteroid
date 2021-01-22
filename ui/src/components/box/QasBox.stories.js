@@ -20,8 +20,8 @@ export default {
 }
 
 const Template = (args, { argTypes }) => ({
-  props: Object.keys(argTypes),
   components: { QasBox },
+  props: Object.keys(argTypes),
   template:
     `<qas-box v-bind="$props">
       Hello, world!
