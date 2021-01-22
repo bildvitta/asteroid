@@ -4,7 +4,10 @@ const slotDefaults = {
   table: {
     type: { summary: null },
     category: 'Slots',
-    defaultValue: { summary: JSON.stringify({ field: 'object' }) }
+    defaultValue: {
+      summary: '{}',
+      detail: '{ field: \'object\' }'
+    }
   }
 }
 
