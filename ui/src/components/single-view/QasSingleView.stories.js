@@ -6,7 +6,13 @@ import users from '../../mocks/storeModule'
 
 const slotDefaults = {
   defaultValue: {
-    summary: JSON.stringify({ errors: 'object', fields: 'object', metadata: 'object', result: 'object' })
+    summary: '{}',
+    detail: `{
+ errors: 'object'
+ fields: 'object'
+ metadata: 'object'
+ result: 'object' 
+}`
   },
 
   type: {
@@ -51,14 +57,20 @@ export default {
     'fetch-error': {
       description: 'Fires when occur an error fetching value.',
       table: {
-        defaultValue: { summary: JSON.stringify({ error: 'object' }) }
+        defaultValue: {
+          summary: '{}',
+          detail: '{ error: \'object\' }'
+        }
       }
     },
 
     'fetch-success': {
       description: 'Fires when successfully get the value.',
       table: {
-        defaultValue: { summary: JSON.stringify({ response: 'object', value: 'object' }) }
+        defaultValue: {
+          summary: '{}',
+          detail: '{ response: \'object\', value: \'object\' }'
+        }
       }
     },
 
