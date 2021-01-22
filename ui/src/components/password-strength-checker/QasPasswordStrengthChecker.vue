@@ -6,10 +6,10 @@
 </template>
 
 <script>
-import password from '../../mixins/password'
+import passwordMixin from '../../mixins/password.js'
 
 export default {
-  mixins: [password],
+  mixins: [passwordMixin],
 
   props: {
     trackColor: {
