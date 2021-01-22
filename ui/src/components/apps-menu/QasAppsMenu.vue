@@ -18,6 +18,7 @@
 </template>
 
 <script>
+// TODO ver uma forma de adicionar globalmente as diretivas
 import test from '../../directives/Test'
 
 export default {
