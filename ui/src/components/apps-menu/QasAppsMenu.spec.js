@@ -1,18 +1,58 @@
-import { mount } from '@vue/test-utils'
+import { mount, shallowMount } from '@vue/test-utils'
 
 import '@/index.js'
 import QasAppsMenu from './QasAppsMenu.vue'
 
 describe('Test QasAppsMenu component', () => {
-  const wrapper = mount(QasAppsMenu)
+  const apps = [
+    {
+      image: '//placehold.it/100',
+      label: 'My image',
+      href: 'https://www.google.com'
+    },
+    {
+      image: 'aaaaaaaaa//placehold.it/100',
+      label: 'My image',
+      href: 'https://www.google.com'
+    },
+    {
+      image: '//placehold.it/100',
+      label: 'My image',
+      href: 'https://www.google.com'
+    }
+  ]
 
-  it('Mount component', async () => {
-    const menu = wrapper.findComponent({ name: 'QMenu' })
-    wrapper.vm.$emit('click')
-    await wrapper.vm.$nextTick()
-    console.log(wrapper.emitted())
-    expect(menu.emitted().input).toBeTruthy()
+  const shallowWrapper = shallowMount(QasAppsMenu, {
+    propsData: {
+      apps
+    }
+  })
 
-    expect(menu.exists()).toBe(true)
+  const wrapper = mount(QasAppsMenu, {
+    propsData: {
+      apps
+    }
+  })
+
+  it('Open menu', async () => {
+    await wrapper.trigger('click')
+    const menuElement = document.querySelector('.q-menu')
+
+    expect(menuElement).toBeVisible()
+  })
+
+  it('check links', async () => {
+    const links = shallowWrapper.findAll('[data-test]')
+
+    expect(links).toHaveLength(3)
+
+    for (let index = 1; index < links.length; index++) {
+      const linkWrapper = links.at(index)
+      const avatarWrapper = linkWrapper.get('img')
+
+      expect(avatarWrapper.isVisible()).toBe(true)
+      expect(linkWrapper.text()).toBe('My image')
+      expect(linkWrapper.attributes().href).toBe('https://www.google.com')
+    }
   })
 })
