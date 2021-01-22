@@ -4,7 +4,7 @@
 
 <script>
 import QasInput from '../input/QasInput.vue'
-import QasDatetimeInput from '../datetime-input/QasDatetimeInput.vue'
+import QasDateTimeInput from '../date-time-input/QasDateTimeInput.vue'
 import QasDecimalInput from '../decimal-input/QasDecimalInput.vue'
 import QasPasswordInput from '../password-input/QasPasswordInput.vue'
 import QasCheckboxGroup from '../checkbox-group/QasCheckboxGroup.vue'
@@ -19,7 +19,7 @@ const attributesProfile = {
 export default {
   components: {
     QasInput,
-    QasDatetimeInput,
+    QasDateTimeInput,
     QasDecimalInput,
     QasPasswordInput,
     QasCheckboxGroup,
@@ -118,7 +118,7 @@ export default {
         prefix
       }
 
-      const datetimeInput = { is: 'qas-datetime-input', ...input }
+      const datetimeInput = { is: 'qas-date-time-input', ...input }
       const decimalInput = { is: 'qas-decimal-input', comma: true, fillMask: '0', reverseFillMask: true, ...input }
 
       // It'll generate a list of acceptable files extensions.
