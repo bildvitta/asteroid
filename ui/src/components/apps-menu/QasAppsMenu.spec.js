@@ -42,7 +42,7 @@ describe('Test QasAppsMenu component', () => {
   })
 
   it('check links', async () => {
-    const links = shallowWrapper.findAll('[data-test]')
+    const links = shallowWrapper.findAll('[data-test="apps-menu-link"]')
 
     expect(links).toHaveLength(3)
 
