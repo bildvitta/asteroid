@@ -1,26 +1,24 @@
 import QasSortable from './QasSortable.vue'
 
 export default {
-  title: 'Components/Sortable',
   component: QasSortable,
+  title: 'Components/Sortable',
+
   parameters: {
     docs: {
       description: {
-        component: 'This component is for sorting elements when dragged, it uses the SortableJS library: https://github.com/SortableJS/Sortable'
+        component: 'Sort elements by drag and drop. Uses [SortableJS](https://sortablejs.github.io/Sortable/).'
       }
     }
   },
 
   argTypes: {
     entity: {
-      description: 'Vuex Entity.',
-      control: {
-        type: null
-      }
+      description: '[VuexStoreModule](https://github.com/bildvitta/vuex-store-module) entity.'
     },
 
     options: {
-      description: 'Library options SortableJS.'
+      description: '[SortableJS](https://sortablejs.github.io/Sortable/) library options.'
     },
 
     results: {
@@ -28,49 +26,54 @@ export default {
     },
 
     tag: {
-      description: 'Tag of component.'
+      description: 'Component wrapper tag.'
     },
 
     url: {
-      description: 'If the Entity is different from the endpoint, you can use this property to specify which endpoint is.'
+      description: 'Ignore entity and specify another endpoint.'
     },
 
     // Events
     sort: {
-      description: 'Trigger the library\'s native event, which is triggered when the element is ordered.'
+      description: 'Fires when an element is ordered (library\'s native event).'
     },
 
     success: {
-      description: 'Fires when it finishes sorting and the API returns success.'
+      description: 'Fires after sorting and API returns success.'
     },
 
     // Slots
     default: {
       description: 'Returns the array with the ordered data.',
       table: {
-        type: { summary: '{ sorted: Object }' },
-        defaultValue: { summary: '[]' }
+        defaultValue: { summary: '[]' },
+        type: { summary: '{ sorted: Object }' }
       }
     }
   }
 }
 
 const Template = (args, { argTypes }) => ({
-  props: Object.keys(argTypes),
   components: { QasSortable },
+  props: Object.keys(argTypes),
+
   template:
-    `<qas-sortable v-bind="$props" >
+    `<qas-sortable v-bind="$props" class="flex">
       <template v-slot="{ sorted }">
-        <div v-for="result in sorted" :key="result.id"> <img :src="result.photo" /></div>
+        <div v-for="result in sorted" :key="result.id">
+          <img :src="result.photo" />
+        </div>
       </template>
     </qas-sortable>`
 })
 
 export const Default = Template.bind({})
+
 Default.args = {
   options: { animation: 700 },
   results: [
-    { photo: 'https://via.placeholder.com/150', id: '1w312w' },
-    { photo: 'https://via.placeholder.com/150', id: '2w4312w' }
+    { photo: 'https://placehold.it/150/f00', id: '1w312l' },
+    { photo: 'https://placehold.it/150/0f0', id: '2y927s' },
+    { photo: 'https://placehold.it/150/00f', id: '3x432q' }
   ]
 }

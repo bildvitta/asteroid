@@ -12,29 +12,29 @@ let sortable = null
 
 export default {
   props: {
-    results: {
-      type: Array,
-      default: () => []
-    },
-
-    tag: {
-      type: String,
-      default: 'div'
-    },
-
     entity: {
-      type: String,
-      default: ''
-    },
-
-    url: {
-      type: String,
-      default: ''
+      default: '',
+      type: String
     },
 
     options: {
-      type: Object,
-      default: () => ({ animation: 500 })
+      default: () => ({ animation: 500 }),
+      type: Object
+    },
+
+    results: {
+      default: () => [],
+      type: Array
+    },
+
+    tag: {
+      default: 'div',
+      type: String
+    },
+
+    url: {
+      default: '',
+      type: String
     }
   },
 
@@ -51,13 +51,13 @@ export default {
   },
 
   watch: {
+    options (value) {
+      sortable.options = { ...sortable.options, ...value }
+    },
+
     results (value) {
       this.updateValue(value)
       sortable.sort(sortable.toArray())
-    },
-
-    options (value) {
-      sortable.options = { ...sortable.options, ...value }
     }
   },
 
@@ -81,15 +81,11 @@ export default {
   },
 
   methods: {
-    updateOrder ({ oldIndex, newIndex }) {
-      const deleted = this.sorted.splice(oldIndex, 1)
-      this.sorted.splice(newIndex, 0, deleted[0])
+    handleError (error) {
+      const { response } = error
+      const exception = get(response, 'data.exception') || error.message
 
-      this.replace()
-    },
-
-    updateValue (value) {
-      this.sorted = cloneDeep(value || this.results)
+      this.$qas.notifyError('Ops! Erro ao ordernar itens.', exception)
     },
 
     async replace () {
@@ -109,11 +105,15 @@ export default {
       }
     },
 
-    handleError (error) {
-      const { response } = error
-      const exception = get(response, 'data.exception') || error.message
+    updateOrder ({ oldIndex, newIndex }) {
+      const deleted = this.sorted.splice(oldIndex, 1)
+      this.sorted.splice(newIndex, 0, deleted[0])
 
-      this.$qas.notifyError('Ops! Erro ao ordernar itens.', exception)
+      this.replace()
+    },
+
+    updateValue (value) {
+      this.sorted = cloneDeep(value || this.results)
     }
   }
 }
