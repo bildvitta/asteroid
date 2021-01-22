@@ -21,6 +21,8 @@
 import test from '../../directives/Test'
 
 export default {
+  name: 'QasAppsMenu',
+
   directives: {
     test
   },
