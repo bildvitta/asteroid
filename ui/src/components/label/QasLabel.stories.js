@@ -26,7 +26,10 @@ export default {
     default: {
       description: 'Main content, will be replace label prop.',
       table: {
-        defaultValue: { summary: JSON.stringify({ formattedLabel: 'string' }) },
+        defaultValue: {
+          summary: '{}',
+          detail: '{ formattedLabel: \'string\' }'
+        },
         type: { summary: null }
       }
     }
