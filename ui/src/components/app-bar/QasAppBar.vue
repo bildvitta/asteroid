@@ -12,6 +12,7 @@
       </div>
     </q-toolbar-title>
 
+    <!-- TODO: Notificações. -->
     <q-btn dense icon="notifications_none" round unelevated>
       <q-badge color="red" floating>4</q-badge>
     </q-btn>
@@ -56,42 +57,42 @@
 <script>
 import { asset } from '../../helpers'
 
-import QasBtn from '../btn/QasBtn'
 import QasAppsMenu from '../apps-menu/QasAppsMenu'
 import QasAvatar from '../avatar/QasAvatar'
+import QasBtn from '../btn/QasBtn'
 
 export default {
   components: {
+    QasAppsMenu,
     QasAvatar,
-    QasBtn,
-    QasAppsMenu
+    QasBtn
   },
 
   props: {
-    title: {
-      required: true,
-      type: String
+    apps: {
+      default: () => [],
+      type: Array
     },
 
-    user: {
-      require: true,
-      type: Object,
-      default: () => ({})
+    brand: {
+      default: '',
+      required: true,
+      type: String
     },
 
     isAuth: {
       type: Boolean
     },
 
-    brand: {
+    title: {
       required: true,
-      type: String,
-      default: ''
+      type: String
     },
 
-    apps: {
-      type: Array,
-      default: () => []
+    user: {
+      default: () => ({}),
+      require: true,
+      type: Object
     }
   },
 
@@ -102,14 +103,6 @@ export default {
   },
 
   computed: {
-    fullscreenIcon () {
-      return this.isFullscreen ? 'o_fullscreen_exit' : 'o_fullscreen'
-    },
-
-    isFullscreen () {
-      return !!this.$q.fullscreen.isActive
-    },
-
     developmentBadgeLabel () {
       const hosts = {
         localhost: 'Local',
@@ -128,36 +121,44 @@ export default {
       return current ? hosts[current] : ''
     },
 
-    hasDevelopmentBadge () {
-      return !!this.developmentBadgeLabel
+    fullscreenIcon () {
+      return this.isFullscreen ? 'o_fullscreen_exit' : 'o_fullscreen'
     },
 
     hasApps () {
       return !!this.apps.length
+    },
+
+    hasDevelopmentBadge () {
+      return !!this.developmentBadgeLabel
+    },
+
+    isFullscreen () {
+      return !!this.$q.fullscreen.isActive
     }
   },
 
   methods: {
     asset,
 
-    goToProfile () {
-      return this.$router.push(this.user.to)
-    },
-
     fullscreen () {
       this.$q.fullscreen.toggle()
+    },
+
+    goToProfile () {
+      return this.$router.push(this.user.to)
     },
 
     goToRoot () {
       this.$router.push({ name: 'Root' })
     },
 
-    toggleMenuDrawer () {
-      this.$emit('toggle-menu')
-    },
-
     signOut () {
       this.$emit('sign-out')
+    },
+
+    toggleMenuDrawer () {
+      this.$emit('toggle-menu')
     }
   }
 }
