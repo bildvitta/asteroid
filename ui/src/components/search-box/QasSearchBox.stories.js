@@ -76,7 +76,10 @@ export default {
     default: {
       description: 'To format results. Receives the filtered list.',
       table: {
-        defaultValue: { summary: JSON.stringify({ results: 'array' }) },
+        defaultValue: {
+          summary: '{}',
+          detail: '{ results: \'array\' }'
+        },
         ...noSummary
       }
     },
