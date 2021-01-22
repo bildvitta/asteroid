@@ -62,13 +62,14 @@ export default {
 }
 
 const Template = (args, { argTypes }) => ({
-  props: Object.keys(argTypes),
   components: { QasDelete },
+  props: Object.keys(argTypes),
   template:
     '<qas-delete v-bind="$props" />'
 })
 
 export const Default = Template.bind({})
+
 Default.args = {
   color: 'negative',
   label: 'Delete'
