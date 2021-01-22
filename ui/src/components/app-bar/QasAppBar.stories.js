@@ -11,7 +11,7 @@ export default {
   parameters: {
     docs: {
       description: {
-        component: 'This component is responsible for creating the top bar of the application and includes space for the menu through a [QDrawer](https://quasar.dev/layout/drawer#Introduction) and for the information of the authenticated user, such as photo and name.'
+        component: 'Creates application header with [QDrawer](https://quasar.dev/layout/drawer) menu and authenticated user data, such as name and photo.'
       }
     }
   },
