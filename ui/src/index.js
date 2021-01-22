@@ -18,7 +18,7 @@ import PasswordStrengthChecker from './components/password-strength-checker/QasP
 import Profile from './components/profile/QasProfile'
 import SearchBox from './components/search-box/QasSearchBox'
 import SettingsMenu from './components/settings-menu/QasSettingsMenu'
-import TableGenerator from './components/table/QasTableGenerator'
+import TableGenerator from './components/table-generator/QasTableGenerator'
 
 import Test from './directives/Test'
 

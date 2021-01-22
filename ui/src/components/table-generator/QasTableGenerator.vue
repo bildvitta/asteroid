@@ -2,6 +2,7 @@
   <q-table class="bg-transparent qas-table" v-bind="attributes">
     <template v-for="(slot, key) in $scopedSlots" #[key]="context">
       <slot v-if="hasBodySlot" name="body" :props="context" />
+
       <q-td v-else :key="key">
         <slot :name="key" v-bind="context" />
       </q-td>
@@ -45,28 +46,15 @@ export default {
   computed: {
     attributes () {
       const attributes = {
-        flat: true,
         columns: this.columnsByFields,
         data: this.resultsByFields,
+        flat: true,
         hideBottom: true,
         pagination: { rowsPerPage: 0 },
         rowKey: this.rowKey
       }
 
       return attributes
-    },
-
-    resultsByFields () {
-      const results = extend(true, [], this.results)
-
-      return results.map((result, index) => {
-        for (const key in result) {
-          result.default = this.results[index]
-          result[key] = humanize(this.fields[key], result[key])
-        }
-
-        return result
-      })
     },
 
     columnsByFields () {
@@ -109,16 +97,29 @@ export default {
       return columns
     },
 
+    hasBodySlot () {
+      return !!(this.$slots.body || this.$scopedSlots.body)
+    },
+
     hasFields () {
       return Object.keys(this.fields).length
     },
 
-    rowsPerPage () {
-      return this.results.length
+    resultsByFields () {
+      const results = extend(true, [], this.results)
+
+      return results.map((result, index) => {
+        for (const key in result) {
+          result.default = this.results[index]
+          result[key] = humanize(this.fields[key], result[key])
+        }
+
+        return result
+      })
     },
 
-    hasBodySlot () {
-      return !!(this.$slots.body || this.$scopedSlots.body)
+    rowsPerPage () {
+      return this.results.length
     }
   }
 }
