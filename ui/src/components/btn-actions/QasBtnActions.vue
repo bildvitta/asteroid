@@ -11,45 +11,35 @@
 </template>
 
 <script>
+// TODO: Renomear componente.
 export default {
   props: {
+    align: {
+      type: String,
+      default: 'end',
+      validator:
+        value => ['start', 'around', 'between', 'center', 'end'].includes(value)
+    },
+
     btnCol: {
       type: String,
       default: ''
     },
 
-    align: {
-      type: String,
-      default: 'end',
-      validator: value => [
-        'start',
-        'around',
-        'between',
-        'center',
-        'end'
-      ].includes(value)
-    },
-
     gutter: {
       type: String,
       default: 'md',
-      validator: value => [
-        'xs',
-        'sm',
-        'md',
-        'lg',
-        'xl'
-      ].includes(value)
+      validator: value => ['xs', 'sm', 'md', 'lg', 'xl'].includes(value)
     }
   },
 
   computed: {
-    isSmallScreen () {
-      return this.$q.screen.xs
-    },
-
     btnActionsClass () {
       return `justify-${this.align} q-col-gutter-${this.gutter}`
+    },
+
+    isSmallScreen () {
+      return this.$q.screen.xs
     },
 
     primaryClass () {

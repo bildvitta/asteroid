@@ -3,6 +3,7 @@ import QasCopy from './QasCopy.vue'
 export default {
   component: QasCopy,
   title: 'Components/Copy',
+
   parameters: {
     docs: {
       description: {
@@ -23,13 +24,14 @@ export default {
 }
 
 const Template = (args, { argTypes }) => ({
-  props: Object.keys(argTypes),
   components: { QasCopy },
+  props: Object.keys(argTypes),
   template:
     '<qas-copy v-bind="$props" />'
 })
 
 export const Default = Template.bind({})
+
 Default.args = {
   label: 'Click here!'
 }
