@@ -40,9 +40,11 @@
     "vue-template-compiler": "^2.6.12"
   },
   "dependencies": {
-    "axios": "^0.21.1",
     "@quasar/extras": "^1.9.14",
+    "axios": "^0.21.1",
     "date-fns": "^2.16.1",
+    "lodash": "^4.17.20",
+    "sortablejs": "^1.12.0",
     "fuse.js": "^6.4.3",
     "humps": "^2.0.1",
     "quasar": "^1.15.0",
