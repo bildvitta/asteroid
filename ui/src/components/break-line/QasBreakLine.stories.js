@@ -17,6 +17,10 @@ export default {
       description: 'Tag to wrap all lines.'
     },
 
+    split: {
+      description: 'Characters to split text.'
+    },
+
     tag: {
       description: 'Tag to wrap each line'
     },
@@ -31,17 +35,13 @@ export default {
 
     text: {
       description: 'Text to be splitted into lines.'
-    },
-
-    split: {
-      description: 'Characters to split text.'
     }
   }
 }
 
 const Template = (args, { argTypes }) => ({
-  props: Object.keys(argTypes),
   components: { QasBreakLine },
+  props: Object.keys(argTypes),
   template:
     `<qas-break-line v-bind="$props">
       Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam tincidunt consequat luctus.
@@ -51,6 +51,7 @@ const Template = (args, { argTypes }) => ({
 })
 
 export const Default = Template.bind({})
+
 Default.args = {
   tag: 'div'
 }

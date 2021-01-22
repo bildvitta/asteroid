@@ -2,7 +2,6 @@ import QasGridGenerator from './QasGridGenerator.vue'
 
 const slotDefaults = {
   table: {
-    type: { summary: null },
     category: 'Slots',
     defaultValue: {
       summary: '{}',
@@ -14,73 +13,73 @@ const slotDefaults = {
 export default {
   component: QasGridGenerator,
   title: 'Components/GridGenerator',
+
   parameters: {
     docs: {
       description: {
-        component: 'Generates grid with label and content by <strong>fields and result</strong>, works similar to <strong>FormGenerator</strong>.'
+        component: 'Generates a grid with header (as `fields`) and content (as `results`).'
       }
     }
   },
 
   argTypes: {
-    fields: {
-      description: 'Object of object, must contain <strong>name, label and type</strong>.'
-    },
-
-    result: {
-      description: 'Object containing the same keys as the <strong>field</strong> keys object.'
-    },
-
-    headerClass: {
-      description: 'Header class.'
-    },
-
-    contentClass: {
-      description: 'Content class.'
-    },
-
-    hideEmptyResult: {
-      description: 'If true, when result key has no value it will be removed from grid.'
-    },
-
-    gutter: {
-      description: 'Space of gutter, q-col-gutter-{<strong>gutter</strong>}.'
-    },
-
+    // Props
     columns: {
-      description: 'Grid column for define size of each column.',
+      description: 'Define size of each column.',
       table: {
         defaultValue: { summary: '[]' }
       }
     },
 
-    // slots
+    contentClass: {
+      description: 'CSS classes for each result value.'
+    },
+
+    fields: {
+      description: 'Define header value for each `field`.'
+    },
+
+    gutter: {
+      description: 'Gutter space by Quasar convention. `q-col-gutter-{$gutter}`.'
+    },
+
+    headerClass: {
+      description: 'CSS classes for each header value.'
+    },
+
+    hideEmptyResult: {
+      description: 'Omits cell when result value is empty.'
+    },
+
+    result: {
+      description: 'Define result value for each `field`.'
+    },
+
+    // Slots
     default: {
-      table: {
-        disable: true
-      }
+      table: { disable: true }
+    },
+
+    content: {
+      description: 'Content value defaults.',
+      ...slotDefaults
     },
 
     'field-[field.name]': {
-      description: 'Dynamic main field content, each key inside prop <strong>fields</strong> is a slot.',
+      description: 'Each cell inside `fields` is a slot.',
       ...slotDefaults
     },
 
     header: {
-      description: 'Header of each grid.',
-      ...slotDefaults
-    },
-
-    content: {
-      description: 'Content of each grid.',
+      description: 'Header value defaults.',
       ...slotDefaults
     }
   }
 }
 
 const Template = (args, { argTypes }) => ({
-  props: Object.keys(argTypes),
   components: { QasGridGenerator },
+  props: Object.keys(argTypes),
   template:
     '<qas-grid-generator v-bind="$props" />'
 })
@@ -88,17 +87,17 @@ const Template = (args, { argTypes }) => ({
 const fields = {
   name: { name: 'name', label: 'Full name', type: 'text' },
   email: { name: 'email', label: 'E-mail', type: 'email' },
-  phone: { name: 'phone', label: 'Phone', type: 'text' },
+  phone: { name: 'phone', label: 'Phone', type: 'text', mask: 'phone' },
   gender: { name: 'gender', label: 'Gender', type: 'text' },
   document: { name: 'document', label: 'Document', type: 'text', mask: 'document' },
   address: { name: 'address', label: 'Address', type: 'text' }
 }
 
 const result = {
-  name: 'Jon Snow',
-  email: 'jon-snow@email.com',
+  name: 'John Appleseed',
+  email: 'john.appleseed@example.com',
   phone: '99999999999',
-  gender: 'male',
+  gender: 'Male',
   document: '99999999999',
   address: '747 Austen View'
 }
@@ -114,9 +113,9 @@ const columns = {
 
 export const Default = Template.bind({})
 Default.args = {
+  columns: [],
   fields,
-  result,
-  columns: []
+  result
 }
 
 Default.parameters = {
@@ -125,14 +124,14 @@ Default.parameters = {
   }
 }
 
-export const PersonalizedColumns = Template.bind({})
-PersonalizedColumns.args = {
+export const CustomColumns = Template.bind({})
+CustomColumns.args = {
+  columns,
   fields,
-  result,
-  columns
+  result
 }
 
-PersonalizedColumns.parameters = {
+CustomColumns.parameters = {
   docs: {
     source: { code: `<qas-grid-generator :field="fields" :result="result" :columns="${JSON.stringify(columns)}" />` }
   }

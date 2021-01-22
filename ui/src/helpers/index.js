@@ -1,15 +1,21 @@
+import { history, handleHistory } from './historyHandler'
+
 import {
   asset,
   booleanLabel,
   date,
   dateTime,
   formatCompanyDocument,
+  formatDocument,
   formatPersonalDocument,
-  handleDocument,
+  formatPhone,
+  formatPostalCode,
   handleMasks,
   humanDate,
+  humanize,
   money,
   optionLabel,
+  parseValue,
   percent
 } from './filters.js'
 
@@ -20,11 +26,19 @@ export {
   date,
   dateTime,
   formatCompanyDocument,
+  formatDocument,
   formatPersonalDocument,
-  handleDocument,
+  formatPhone,
+  formatPostalCode,
   handleMasks,
   humanDate,
+  humanize,
   money,
   optionLabel,
-  percent
+  parseValue,
+  percent,
+
+  // history
+  handleHistory,
+  history
 }

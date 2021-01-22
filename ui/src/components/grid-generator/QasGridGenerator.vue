@@ -15,31 +15,31 @@
 </template>
 
 <script>
-import generator from '../../mixins/generator'
+import generatorMixin from '../../mixins/generator'
 import { humanize } from '../../helpers/filters'
 import { extend } from 'quasar'
 
 export default {
-  mixins: [generator],
+  mixins: [generatorMixin],
 
   props: {
-    result: {
-      type: Object,
-      default: () => ({})
+    contentClass: {
+      default: '',
+      type: [Array, Object, String]
     },
 
     headerClass: {
-      type: String,
-      default: 'text-bold'
-    },
-
-    contentClass: {
-      type: String,
-      default: ''
+      default: 'text-bold',
+      type: [Array, Object, String]
     },
 
     hideEmptyResult: {
       type: Boolean
+    },
+
+    result: {
+      default: () => ({}),
+      type: Object
     }
   },
 
@@ -50,23 +50,6 @@ export default {
   },
 
   computed: {
-    resultsByFields () {
-      const result = extend(true, {}, this.result)
-
-      const formattedResult = {}
-
-      for (const key in result) {
-        if (this.formattedFields[key]?.type) {
-          formattedResult[key] = humanize(this.formattedFields[key], result[key])
-          // TODO rever
-          // eslint-disable-next-line vue/no-side-effects-in-computed-properties
-          this.slotValue[key] = { ...this.formattedFields[key], formattedResult: formattedResult[key] }
-        }
-      }
-
-      return formattedResult
-    },
-
     formattedFields () {
       if (!this.hideEmptyResult) {
         return this.fields
@@ -81,6 +64,22 @@ export default {
       }
 
       return fields
+    },
+
+    resultsByFields () {
+      const formattedResult = {}
+      const result = extend(true, {}, this.result)
+
+      for (const key in result) {
+        if (this.formattedFields[key]?.type) {
+          formattedResult[key] = humanize(this.formattedFields[key], result[key])
+          // TODO: Rever.
+          // eslint-disable-next-line vue/no-side-effects-in-computed-properties
+          this.slotValue[key] = { ...this.formattedFields[key], formattedResult: formattedResult[key] }
+        }
+      }
+
+      return formattedResult
     }
   }
 }
