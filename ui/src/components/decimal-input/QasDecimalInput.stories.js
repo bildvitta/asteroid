@@ -28,7 +28,10 @@ export default {
     input: {
       description: 'Emitted when the component needs to change the model. Is also used by `v-model`.',
       table: {
-        defaultValue: { summary: JSON.stringify({ value: 'number' }) }
+        defaultValue: {
+          summary: '{}',
+          detail: '{ value: \'number\' }'
+        }
       }
     },
 
