@@ -6,7 +6,12 @@ import users from '../../mocks/storeModule'
 
 const slotDefaults = {
   defaultValue: {
-    summary: JSON.stringify({ errors: 'object', fields: 'object', metadata: 'object' })
+    summary: '{}',
+    detail: `{
+  errors: 'object'
+  fields: 'object'
+  metadata: 'object'
+}`
   },
 
   type: {
@@ -86,35 +91,50 @@ export default {
     input: {
       description: 'Emitted when the component needs to change the model. Is also used by `v-model`.',
       table: {
-        defaultValue: { summary: JSON.stringify({ value: 'object' }) }
+        defaultValue: {
+          summary: '{}',
+          detail: '{ value: \'object\' }'
+        }
       }
     },
 
     'fetch-success': {
       description: 'Emitted when get\'s the value successfully.',
       table: {
-        defaultValue: { summary: JSON.stringify({ response: 'object', value: 'object' }) }
+        defaultValue: {
+          summary: '{}',
+          detail: '{ response: \'object\', value: \'object\' }'
+        }
       }
     },
 
     'fetch-error': {
       description: 'Emitted when can\'t get the value successfully.',
       table: {
-        defaultValue: { summary: JSON.stringify({ error: 'object' }) }
+        defaultValue: {
+          summary: '{}',
+          detail: '{ error: \'object\' }'
+        }
       }
     },
 
     'submit-success': {
       description: 'Emitted when the value is updated successfully.',
       table: {
-        defaultValue: { summary: JSON.stringify({ response: 'object', value: 'object' }) }
+        defaultValue: {
+          summary: '{}',
+          detail: '{ response: \'object\', value: \'object\' }'
+        }
       }
     },
 
     'submit-error': {
       description: 'Emitted when the value can\'t be updated successfully.',
       table: {
-        defaultValue: { summary: JSON.stringify({ error: 'object', value: 'object' }) }
+        defaultValue: {
+          summary: '{}',
+          detail: '{ error: \'object\', value: \'object\' }'
+        }
       }
     },
 
