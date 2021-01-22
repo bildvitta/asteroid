@@ -8,13 +8,25 @@ import users from '../../mocks/storeModule'
 
 const slotDefaults = {
   defaultValue: {
-    summary: JSON.stringify({ errors: 'object', fields: 'object', metadata: 'object' })
+    summary: '{}',
+    detail: `{ 
+  errors: 'object' 
+  fields: 'object' 
+  metadata: 'object' 
+}`
   },
 
   type: {
     summary: null
   }
 }
+
+const defaultFilterValues = `{
+ errors: 'object'
+ fields: 'object'
+ metadata: 'object'
+ entity: 'string'
+}`
 
 export default {
   component: QasListView,
@@ -54,14 +66,20 @@ export default {
     'fetch-success': {
       description: 'Emitted when get\'s the value successfully.',
       table: {
-        defaultValue: { summary: JSON.stringify({ response: 'object' }) }
+        defaultValue: {
+          summary: '{}',
+          detail: '{ response: \'object\' }'
+        }
       }
     },
 
     'fetch-error': {
       description: 'Emitted when can\'t get the value successfully.',
       table: {
-        defaultValue: { summary: JSON.stringify({ error: 'object' }) }
+        defaultValue: {
+          summary: '{}',
+          detail: '{ error: \'object\' }'
+        }
       }
     },
 
@@ -77,7 +95,8 @@ export default {
       description: 'Slot to access the <strong>Filter</strong> component.',
       table: {
         defaultValue: {
-          summary: JSON.stringify({ errors: 'object', fields: 'object', metadata: 'object', entity: 'string' })
+          summary: '{}',
+          detail: defaultFilterValues
         },
 
         type: {
