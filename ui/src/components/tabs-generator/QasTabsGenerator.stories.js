@@ -1,8 +1,5 @@
 import QasTabsGenerator from './QasTabsGenerator.vue'
 
-const descriptionTabs = `Component to generate Tabs dynamically.
-                         This component implements [QTabs](https://quasar.dev/vue-components/tabs#QTabs-API) e [QTab](https://quasar.dev/vue-components/tabs#Introduction).`
-
 export default {
   component: QasTabsGenerator,
   title: 'Components/TabsGenerator',
@@ -10,7 +7,7 @@ export default {
   parameters: {
     docs: {
       description: {
-        component: descriptionTabs
+        component: 'Generates tabs dynamically. Implements [QTabs](https://quasar.dev/vue-components/tabs) e [QTab](https://quasar.dev/vue-components/tabs).'
       }
     }
   },
@@ -18,175 +15,111 @@ export default {
   argTypes: {
     // Props
     counters: {
-      description: 'Badge number that will appear on the tab.'
+      description: 'Number that will appear on the badge for each tab.'
     },
 
     tabs: {
-      description: 'key is equivalent to the value and value of the object equivalent to the label.'
+      description: 'Tabs list.'
     },
 
     value: {
-      description: 'Marks the tab as selected.',
-      control: null
+      control: null,
+      description: 'Selected tab.'
+    },
+
+    // Events
+    input: {
+      description: 'Fires when a tab is selected.'
     },
 
     // Slots
-    DefaultTab: {
-      name: 'Tab-dynamicName',
-      description: 'Scope with dynamic name can be accessed through the obj label. In this slot you replace the entire tab.',
-      table: {
-        type: {
-          summary: 'Scope: { item: Object }'
-        },
-        defaultValue: {
-          summary: null
-        },
-        category: 'Slots'
-      }
-    },
-
     default: {
+      table: { disable: true }
+    },
+
+    'tab-[label]': {
+      description: 'Replace entire tab.',
       table: {
-        disable: true
+        category: 'slots',
+        defaultValue: { summary: null },
+        type: { summary: JSON.stringify({ item: 'object' }) }
       }
     },
 
-    Tab: {
-      name: 'tab-slot-{label}',
-      description: 'Scope with dynamic name, accessible through the obj label. In this slot you replace what is inside the tab.',
+    'tab-slot-[label]': {
+      description: 'Put a tag or a component after [QTab](https://quasar.dev/vue-components/tabs).',
       table: {
-        type: {
-          summary: 'Scope: { item: Object }'
-        },
-        defaultValue: {
-          summary: null
-        },
-        category: 'Slots'
+        category: 'slots',
+        defaultValue: { summary: null },
+        type: { summary: JSON.stringify({ item: 'object' }) }
       }
-    },
-
-    // event
-    input: {
-      description: 'Fires when selecting a tab.'
     }
   }
 }
 
 const Template = (args, { argTypes }) => ({
-  props: Object.keys(argTypes),
   components: { QasTabsGenerator },
+  props: Object.keys(argTypes),
   template:
-    '<qas-tabs-generator v-bind="$props" v-model="value" class="bg-primary text-white"/>'
+    '<qas-tabs-generator v-model="value" v-bind="$props" class="bg-primary text-white"/>'
 })
 
 export const Default = Template.bind({})
+
 Default.args = {
-  tabs: { tab: 'label', tab2: 'label-2' },
-  counters: { tab: 2 }
-}
-
-const defaultCode = '<qas-tabs-generator class="bg-primary text-white" v-model="value" :tabs="tabs" :counters="counters"/>'
-
-Default.parameters = {
-  docs: {
-    source: {
-      code: defaultCode
-    }
-  }
+  counters: { tab: 2 },
+  tabs: { tab1: 'tab1', tab2: 'tab2' }
 }
 
 // Dynamic
 const TemplateDynamic = (args, { argTypes }) => ({
-  props: Object.keys(argTypes),
   components: { QasTabsGenerator },
+  props: Object.keys(argTypes),
   template:
-  `<qas-tabs-generator class="bg-primary text-white" v-bind="$props" v-model="value">
-  <template v-slot:tab-${Dynamic.args.tabs.tab}>
-  <div>It is now a div and not a tab!</div>
-  </template>
-  </qas-tabs-generator>`
+    `<qas-tabs-generator class="bg-primary text-white" v-bind="$props" v-model="value">
+      <template v-slot:tab-tab1>
+        <div>Now it's a div, not a tab!</div>
+      </template>
+    </qas-tabs-generator>`
 })
 
 export const Dynamic = TemplateDynamic.bind({})
-Dynamic.storyName = 'Dynamic'
-Dynamic.args = {
-  tabs: { tab: 'label', tab2: 'label-2' }
-}
 
-const dynamicCode = `
-<qas-tabs-generator class="bg-primary text-white" v-model="value" :tabs="tabs" :counters="counters">
-  <template v-slot:tab-${Dynamic.args.tabs.tab}>
-    <div>It is now a div and not a tab!</div>
-  </template>
-</qas-tabs-generator>`
+Dynamic.args = {
+  tabs: { tab1: 'tab1', tab2: 'tab2' }
+}
 
 Dynamic.parameters = {
   docs: {
     description: {
-      story: 'Using template for the entire <strong>tab</strong>:'
-    },
-    source: {
-      code: dynamicCode
+      story: 'Template for a specific tab:'
     }
   }
 }
 
-// Into Tab
-const TemplateIntoTab = (args, { argTypes }) => ({
-  props: Object.keys(argTypes),
+// AfterTabSlot
+const TemplateAfterTabSlot = (args, { argTypes }) => ({
   components: { QasTabsGenerator },
+  props: Object.keys(argTypes),
+
   template:
-  `<qas-tabs-generator class="bg-primary text-white" v-bind="$props" v-model="value">
-  <template v-slot:tab-slot-${IntoTab.args.tabs.tab}>
-  <div>I'm inside the tab!</div>
-  </template>
-  </qas-tabs-generator>`
+    `<qas-tabs-generator v-model="value" v-bind="$props" class="bg-primary text-white">
+      <template v-slot:tab-slot-tab1>
+        <div>I'm inside the tab!</div>
+      </template>
+    </qas-tabs-generator>`
 })
 
-export const IntoTab = TemplateIntoTab.bind({})
-IntoTab.storyName = 'Into Tab'
-IntoTab.args = {
-  tabs: { tab: 'label', tab2: 'label-2' }
+export const AfterTabSlot = TemplateAfterTabSlot.bind({})
+
+AfterTabSlot.args = {
+  tabs: { tab1: 'tab1', tab2: 'tab2' }
 }
 
-const intoTabCode = `
-<qas-tabs-generator class="bg-primary text-white" v-model="value" :tabs="tabs" :counters="counters">
-  <template v-slot:tab-slot-${IntoTab.args.tabs.tab}>
-    <div>I'm inside the tab!</div>
-  </template>
-</qas-tabs-generator>`
-
-IntoTab.parameters = {
+AfterTabSlot.parameters = {
   docs: {
     description: {
-      story: 'Using template to replace Tab content:'
-    },
-    source: {
-      code: intoTabCode
-    }
-  }
-}
-
-// ModifiedTabs
-const TemplateModifiedTabs = (args, { argTypes }) => ({
-  props: Object.keys(argTypes),
-  components: { QasTabsGenerator },
-  template: `
-  <div style="background-color: black; color: white;">
-    modifiedTabs: { ...tabs, test2: { label: 'test2-2', icon: 'email' } }
-  </div>`
-})
-
-export const ModifiedTabs = TemplateModifiedTabs.bind({})
-ModifiedTabs.args = {}
-
-ModifiedTabs.parameters = {
-  docs: {
-    description: {
-      story: 'If you need to pass properties for each tab individually without having to open a template, you can modify the tabs as in the modifiedTabs example. Remembering that it is necessary to pass the label.'
-    },
-    source: {
-      code: 'modifiedTabs: { ...tabs, test2: { label: \'test2-2\', icon: \'email\' } }'
+      story: 'Use after slot to put something, like a badge.'
     }
   }
 }
