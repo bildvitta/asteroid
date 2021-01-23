@@ -28,6 +28,7 @@ import SettingsMenu from './components/settings-menu/QasSettingsMenu'
 import SingleView from './components/single-view/QasSingleView'
 import Sortable from './components/sortable/QasSortable'
 import TableGenerator from './components/table-generator/QasTableGenerator'
+import Transfer from './components/transfer/QasTransfer'
 import Uploader from './components/uploader/QasUploader'
 
 import Test from './directives/Test'
@@ -72,6 +73,7 @@ export {
   SingleView,
   Sortable,
   TableGenerator,
+  Transfer,
   Uploader,
 
   Test
@@ -111,6 +113,7 @@ export default {
   SingleView,
   Sortable,
   TableGenerator,
+  Transfer,
   Uploader,
 
   Test,
@@ -151,6 +154,7 @@ export default {
     Vue.component('QasSingleView', SingleView)
     Vue.component('QasSortable', Sortable)
     Vue.component('QasTableGenerator', TableGenerator)
+    Vue.component('QasTransfer', Transfer)
     Vue.component('QasUploader', Uploader)
 
     Vue.directive(Test.name, Test)

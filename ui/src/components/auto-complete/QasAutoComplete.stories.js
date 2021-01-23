@@ -45,12 +45,12 @@ export default {
       description: 'Select options.'
     },
 
-    valueKey: {
-      description: 'Key to be used instead of `value`.'
-    },
-
     value: {
       description: 'String to filter results.'
+    },
+
+    valueKey: {
+      description: 'Key to be used instead of `value`.'
     },
 
     // Events
