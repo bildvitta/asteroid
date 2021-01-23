@@ -28,8 +28,8 @@ export default {
       table: {
         category: 'slots',
         defaultValue: {
-          summary: '{}',
-          detail: '{ item: \'string\' }'
+          detail: JSON.stringify({ item: 'string' }),
+          summary: '{}'
         }
       }
     },
