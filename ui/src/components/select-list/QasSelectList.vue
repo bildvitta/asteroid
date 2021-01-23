@@ -25,33 +25,33 @@
 <script>
 import { sortBy } from 'lodash'
 
-import QasSearchBox from '../search-box/QasSearchBox'
 import QasBtn from '../btn/QasBtn'
+import QasSearchBox from '../search-box/QasSearchBox'
 
 export default {
   components: {
-    QasSearchBox,
-    QasBtn
+    QasBtn,
+    QasSearchBox
   },
 
   props: {
-    value: {
-      type: Array,
-      default: () => []
-    },
-
-    options: {
-      type: Array,
-      default: () => []
-    },
-
     deleteOnly: {
       type: Boolean
     },
 
+    fuseOptions: {
+      default: () => ({ keys: ['label'] }),
+      type: Object
+    },
+
+    options: {
+      default: () => [],
+      type: Array
+    },
+
     to: {
-      type: Object,
-      default: () => ({})
+      default: () => ({}),
+      type: Object
     },
 
     toIdentifier: {
@@ -59,11 +59,9 @@ export default {
       default: 'value'
     },
 
-    fuseOptions: {
-      type: Object,
-      default: () => ({
-        keys: ['label']
-      })
+    value: {
+      type: Array,
+      default: () => []
     }
   },
 
@@ -75,10 +73,7 @@ export default {
   },
 
   computed: {
-    self () {
-      return this
-    },
-
+    // TODO: parar de usar "mobile".
     isMobile () {
       return this.$q.screen.xs
     },
@@ -89,14 +84,14 @@ export default {
 
     labelClass () {
       return this.isRedirectEnabled ? 'cursor-pointer' : ''
+    },
+
+    self () {
+      return this
     }
   },
 
   watch: {
-    value (value) {
-      this.values = [...value]
-    },
-
     options: {
       handler (value) {
         if (!this.sortedOptions.length) {
@@ -105,6 +100,10 @@ export default {
       },
 
       immediate: true
+    },
+
+    value (value) {
+      this.values = [...value]
     }
   },
 
@@ -115,15 +114,13 @@ export default {
   },
 
   methods: {
-    setButtonProps ({ value }) {
-      const isSelected = this.values.includes(value)
+    add (item) {
+      this.values.push(item.value)
+      this.updateModel()
+    },
 
-      return {
-        label: isSelected ? 'Remover' : 'Adicionar',
-        icon: !this.isMobile ? undefined : isSelected ? 'o_close' : 'o_add',
-        dense: this.isMobile,
-        outline: isSelected
-      }
+    handleClick (item) {
+      return this.values.includes(item.value) ? this.remove(item) : this.add(item)
     },
 
     handleOptions () {
@@ -139,19 +136,11 @@ export default {
       })
     },
 
-    sortOptions () {
-      this.sortedOptions = this.deleteOnly
-        ? this.options.filter(option => this.value.includes(option.value))
-        : sortBy(this.options, option => !this.value.includes(option.value))
-    },
-
-    handleClick (item) {
-      return this.values.includes(item.value) ? this.remove(item) : this.add(item)
-    },
-
-    add (item) {
-      this.values.push(item.value)
-      this.updateModel()
+    redirectRoute (item) {
+      return this.isRedirectEnabled && this.$router.push({
+        params: { id: item[this.toIdentifier] },
+        ...this.to
+      })
     },
 
     remove (item) {
@@ -161,15 +150,25 @@ export default {
       this.updateModel()
     },
 
-    updateModel () {
-      this.$emit('input', this.values)
+    setButtonProps ({ value }) {
+      const isSelected = this.values.includes(value)
+
+      return {
+        dense: this.isMobile,
+        icon: !this.isMobile ? undefined : isSelected ? 'o_close' : 'o_add',
+        label: isSelected ? 'Remover' : 'Adicionar',
+        outline: isSelected
+      }
     },
 
-    redirectRoute (item) {
-      return this.isRedirectEnabled && this.$router.push({
-        params: { id: item[this.toIdentifier] },
-        ...this.to
-      })
+    sortOptions () {
+      this.sortedOptions = this.deleteOnly
+        ? this.options.filter(option => this.value.includes(option.value))
+        : sortBy(this.options, option => !this.value.includes(option.value))
+    },
+
+    updateModel () {
+      this.$emit('input', this.values)
     }
   }
 }

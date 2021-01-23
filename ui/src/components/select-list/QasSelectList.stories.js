@@ -7,34 +7,16 @@ const noSummary = {
 export default {
   component: QasSelectList,
   title: 'Components/SelectList',
+
   parameters: {
     docs: {
       description: {
-        component: 'Extends <strong>SearchBox</strong>. Filter and select items inside a list and return a list of value as an array.'
+        component: 'Extends `SearchBox`. Filter and select items and return selected items.'
       }
     }
   },
 
   argTypes: {
-    value: {
-      description: 'Model value, it\'s an array of strings or numbers.',
-      control: { type: null }
-    },
-
-    options: {
-      description: 'Must be an array of objects containing label and value.'
-    },
-
-    fuseOptions: {
-      description: 'Options of [fuse.js](https://fusejs.io).',
-      table: {
-        defaultValue: {
-          summary: '{}',
-          detail: '{ keys: [\'label\'] }'
-        }
-      }
-    },
-
     deleteOnly: {
       description: 'Remove options by value model.',
       table: {
@@ -42,77 +24,95 @@ export default {
       }
     },
 
+    fuseOptions: {
+      description: '[Fuse.js](https://fusejs.io) options.',
+      table: {
+        defaultValue: {
+          detail: JSON.stringify({ keys: ['label'] }),
+          summary: '{}'
+        }
+      }
+    },
+
+    options: {
+      description: 'Array of objects containing `label` and `value` each.'
+    },
+
     to: {
-      description: 'Object sended to <strong>$router.push(to)</strong> for each item in list.'
+      description: 'Object sended to `$router.push(to)` for each item.'
     },
 
     toIdentifier: {
       description: 'Key to be used as identifier.'
     },
 
+    value: {
+      control: { type: null },
+      description: 'Array of selected items.'
+    },
+
     // events
     input: {
-      description: 'Emitted when the component needs to change the model. Is also used by `v-model`.',
+      description: 'Fires when model changes. Also used by `v-model`.',
       table: {
         defaultValue: {
-          summary: '{}',
-          detail: '{ value: \'array\' }'
+          detail: JSON.stringify({ value: 'array' }),
+          summary: '{}'
         }
       }
     },
 
-    // slots
+    // Slots
     item: {
-      description: 'Slot inside [QItem](https://quasar.dev/vue-components/list-and-list-items#Introduction).',
-      defaultValue: 'aaaaa',
+      description: '[QItem](https://quasar.dev/vue-components/list-and-list-items) slot.',
       table: {
-        ...noSummary,
         defaultValue: {
-          summary: '{}',
-          detail: '{ context: \'SelectList\' }'
-        }
-      }
-    },
-
-    'item-section': {
-      description: 'Slot encompassing [QItemSection](https://quasar.dev/vue-components/list-and-list-items#QItemSection).',
-      table: {
-        ...noSummary,
-        defaultValue: {
-          summary: '{}',
-          detail: '{ result: \'object\' }'
-        }
+          detail: JSON.stringify({ context: 'SelectList' }),
+          summary: '{}'
+        },
+        ...noSummary
       }
     },
 
     'item-action': {
       description: 'Slot inside [QItemSection](https://quasar.dev/vue-components/list-and-list-items#QItemSection) encompassing action button.',
       table: {
-        ...noSummary,
         defaultValue: {
-          summary: '{}',
-          detail: '{ context: \'SelectList\' }'
-        }
+          detail: JSON.stringify({ context: 'SelectList' }),
+          summary: '{}'
+        },
+        ...noSummary
+      }
+    },
+
+    'item-section': {
+      description: '[QItemSection](https://quasar.dev/vue-components/list-and-list-items#QItemSection) wrapper slot.',
+      table: {
+        defaultValue: {
+          detail: JSON.stringify({ result: 'object' }),
+          summary: '{}'
+        },
+        ...noSummary
       }
     }
   }
 }
 
 const Template = (args, { argTypes }) => ({
-  props: Object.keys(argTypes),
   components: { QasSelectList },
+  props: Object.keys(argTypes),
+
   data () {
     return {
       model: []
     }
   },
+
   template:
-    `
-    <div>
+    `<div>
       <qas-select-list v-model="model" v-bind="$props" />
-      value: {{ model }}
-    </div>
-    `
+      <pre>{{ model }}</pre>
+    </div>`
 })
 
 export const Default = Template.bind({})
@@ -130,10 +130,4 @@ Default.args = {
     { label: 'Item 9', value: 9 },
     { label: 'Item 10', value: 10 }
   ]
-}
-
-Default.parameters = {
-  docs: {
-    source: { code: '<qas-select-list :options="options" v-model="model" />' }
-  }
 }
