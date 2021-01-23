@@ -3,6 +3,7 @@ import { version } from '../package.json'
 import AppBar from './components/app-bar/QasAppBar'
 import AppMenu from './components/app-menu/QasAppMenu'
 import AppsMenu from './components/apps-menu/QasAppsMenu'
+import AutoComplete from './components/auto-complete/QasAutocomplete'
 import Avatar from './components/avatar/QasAvatar'
 import BreakLine from './components/break-line/QasBreakLine'
 import Btn from './components/btn/QasBtn'
@@ -22,7 +23,9 @@ import PasswordInput from './components/password-input/QasPasswordInput'
 import PasswordStrengthChecker from './components/password-strength-checker/QasPasswordStrengthChecker'
 import Profile from './components/profile/QasProfile'
 import SearchBox from './components/search-box/QasSearchBox'
+import SelectList from './components/select-list/QasSelectList'
 import SettingsMenu from './components/settings-menu/QasSettingsMenu'
+import SingleView from './components/single-view/QasSingleView'
 import Sortable from './components/sortable/QasSortable'
 import TableGenerator from './components/table-generator/QasTableGenerator'
 import Transfer from './components/transfer/QasTransfer'
@@ -45,6 +48,7 @@ export {
   AppBar,
   AppMenu,
   AppsMenu,
+  AutoComplete,
   Avatar,
   BreakLine,
   Btn,
@@ -64,7 +68,9 @@ export {
   PasswordStrengthChecker,
   Profile,
   SearchBox,
+  SelectList,
   SettingsMenu,
+  SingleView,
   Sortable,
   TableGenerator,
   Transfer,
@@ -82,6 +88,7 @@ export default {
   AppBar,
   AppMenu,
   AppsMenu,
+  AutoComplete,
   Avatar,
   BreakLine,
   Btn,
@@ -101,7 +108,9 @@ export default {
   PasswordStrengthChecker,
   Profile,
   SearchBox,
+  SelectList,
   SettingsMenu,
+  SingleView,
   Sortable,
   TableGenerator,
   Transfer,
@@ -118,6 +127,7 @@ export default {
     Vue.component('QasAppBar', AppBar)
     Vue.component('QasAppMenu', AppMenu)
     Vue.component('QasAppsMenu', AppsMenu)
+    Vue.component('QasAutoComplete', AutoComplete)
     Vue.component('QasAvatar', Avatar)
     Vue.component('QasAvatar', Avatar)
     Vue.component('QasBreakline', BreakLine)
@@ -139,7 +149,9 @@ export default {
     Vue.component('QasPasswordStrengthChecker', PasswordStrengthChecker)
     Vue.component('QasProfile', Profile)
     Vue.component('QasSearchBox', SearchBox)
+    Vue.component('QasSelectList', SelectList)
     Vue.component('QasSettingsMenu', SettingsMenu)
+    Vue.component('QasSingleView', SingleView)
     Vue.component('QasSortable', Sortable)
     Vue.component('QasTableGenerator', TableGenerator)
     Vue.component('QasTransfer', Transfer)
