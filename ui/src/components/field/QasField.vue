@@ -3,11 +3,11 @@
 </template>
 
 <script>
-import QasInput from '../input/QasInput.vue'
+import QasCheckboxGroup from '../checkbox-group/QasCheckboxGroup.vue'
 import QasDateTimeInput from '../date-time-input/QasDateTimeInput.vue'
 import QasDecimalInput from '../decimal-input/QasDecimalInput.vue'
+import QasInput from '../input/QasInput.vue'
 import QasPasswordInput from '../password-input/QasPasswordInput.vue'
-import QasCheckboxGroup from '../checkbox-group/QasCheckboxGroup.vue'
 import QasUploader from '../uploader/QasUploader.vue'
 
 const attributesProfile = {
@@ -18,67 +18,28 @@ const attributesProfile = {
 
 export default {
   components: {
-    QasInput,
+    QasCheckboxGroup,
     QasDateTimeInput,
     QasDecimalInput,
+    QasInput,
     QasPasswordInput,
-    QasCheckboxGroup,
     QasUploader
   },
 
   props: {
     error: {
       default: '',
-      type: [String, Array]
+      type: [Array, String]
     },
 
     field: {
       default: () => ({}),
-      type: Object,
-      required: true
+      required: true,
+      type: Object
     }
   },
 
   computed: {
-    formattedValue () {
-      const { value } = this.$attrs
-
-      if (!this.isBoolean) {
-        return value
-      }
-
-      if (this.isEmptyValue) {
-        return !!value
-      }
-
-      return JSON.parse(value)
-    },
-
-    isEmptyValue () {
-      const { value } = this.$attrs
-
-      if (!this.isBoolean) {
-        return false
-      }
-
-      return !this.value && (value === undefined || typeof value === 'string')
-    },
-
-    isBoolean () {
-      return this.field.type === 'boolean'
-    },
-
-    // This computed will change the key name when the server sends different key.
-    formatedField () {
-      const field = {}
-
-      for (const key in this.field) {
-        field[attributesProfile[key] || key] = this.field[key]
-      }
-
-      return field
-    },
-
     component () {
       const {
         entity,
@@ -167,14 +128,52 @@ export default {
       return Array.isArray(this.error) ? this.error.join(' ') : this.error
     },
 
+    events () {
+      const { input, ...events } = this.$listeners
+      return events
+    },
+
+    // This computed will change the key name when the server sends different key.
+    formatedField () {
+      const field = {}
+
+      for (const key in this.field) {
+        field[attributesProfile[key] || key] = this.field[key]
+      }
+
+      return field
+    },
+
+    formattedValue () {
+      const { value } = this.$attrs
+
+      if (!this.isBoolean) {
+        return value
+      }
+
+      if (this.isEmptyValue) {
+        return !!value
+      }
+
+      return JSON.parse(value)
+    },
+
     hasError () {
       return !!(Array.isArray(this.error) ? this.error.length : this.error)
     },
 
-    events () {
-      const { input, ...events } = this.$listeners
+    isBoolean () {
+      return this.field.type === 'boolean'
+    },
 
-      return events
+    isEmptyValue () {
+      const { value } = this.$attrs
+
+      if (!this.isBoolean) {
+        return false
+      }
+
+      return !this.value && (value === undefined || typeof value === 'string')
     }
   },
 
