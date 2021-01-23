@@ -23,59 +23,43 @@ import Fuse from 'fuse.js'
 
 export default {
   props: {
+    fuseOptions: {
+      default: () => ({}),
+      type: Object
+    },
+
     labelKey: {
-      type: String,
-      default: ''
-    },
-
-    valueKey: {
-      type: String,
-      default: ''
-    },
-
-    value: {
-      type: [String, Object, Array],
-      default: ''
+      default: '',
+      type: String
     },
 
     options: {
-      type: Array,
-      default: () => []
+      default: () => [],
+      type: Array
     },
 
-    fuseOptions: {
-      type: Object,
-      default: () => ({})
+    value: {
+      default: '',
+      type: [Array, Object, String]
+    },
+
+    valueKey: {
+      default: '',
+      type: String
     }
   },
 
   data () {
     return {
-      fuse: null,
-      valueOption: '',
       filteredOptions: [],
+      fuse: null,
       search: '',
-      selectModel: null
+      selectModel: null,
+      valueOption: ''
     }
   },
 
   computed: {
-    multiple () {
-      return this.$attrs.multiple || this.$attrs.multiple === ''
-    },
-
-    hasOptionSlot () {
-      return !!(this.$slots.option || this.$scopedSlots.option)
-    },
-
-    formattedResult () {
-      if (!this.labelKey && !this.valueKey) {
-        return this.options
-      }
-
-      return this.options.map(item => this.renameKey(item))
-    },
-
     defaultFuseOptions () {
       return {
         distance: 100,
@@ -90,14 +74,26 @@ export default {
 
         ...this.fuseOptions
       }
+    },
+
+    formattedResult () {
+      if (!this.labelKey && !this.valueKey) {
+        return this.options
+      }
+
+      return this.options.map(item => this.renameKey(item))
+    },
+
+    hasOptionSlot () {
+      return !!(this.$slots.option || this.$scopedSlots.option)
+    },
+
+    multiple () {
+      return this.$attrs.multiple || this.$attrs.multiple === ''
     }
   },
 
   watch: {
-    search (value) {
-      this.filter(value)
-    },
-
     defaultFuseOptions (value) {
       this.fuse.options = { ...this.fuse.options, ...value }
     },
@@ -108,6 +104,10 @@ export default {
       }
 
       this.fuse.list = value
+    },
+
+    search (value) {
+      this.filter(value)
     },
 
     value (value) {
@@ -124,6 +124,17 @@ export default {
   },
 
   methods: {
+    filterOptions (value, update) {
+      update(() => {
+        if (value === '') {
+          this.filteredOptions = this.formattedResult
+        } else {
+          const results = this.fuse.search(value)
+          this.filteredOptions = results.map(item => item.item)
+        }
+      })
+    },
+
     renameKey (item) {
       const mapKeys = { label: this.labelKey, value: this.valueKey }
 
@@ -135,18 +146,6 @@ export default {
       }
 
       return item
-    },
-
-    filterOptions (value, update) {
-      update(() => {
-        if (value === '') {
-          this.filteredOptions = this.formattedResult
-        } else {
-          const results = this.fuse.search(value)
-
-          this.filteredOptions = results.map(item => item.item)
-        }
-      })
     }
   }
 }

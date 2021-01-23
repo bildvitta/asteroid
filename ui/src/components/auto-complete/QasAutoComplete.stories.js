@@ -4,7 +4,7 @@ const noSummary = {
   type: { summary: null }
 }
 
-const options = `{
+const options = JSON.stringify({
   distance: 100,
   includeScore: true,
   keys: ['label', 'value'],
@@ -14,7 +14,7 @@ const options = `{
   shouldSort: true,
   threshold: 0.1,
   tokenize: true
-}`
+})
 
 export default {
   component: QasAutoComplete,
@@ -23,69 +23,68 @@ export default {
   parameters: {
     docs: {
       description: {
-        component: 'Component for select text search that implements [Fuse](https://fusejs.io/) and [QSelect](https://quasar.dev/vue-components/select#Introduction) (all QSelect events are available).'
+        component: 'Filter options by text. Uses [Fuse.js](https://fusejs.io/) and extends [QSelect](https://quasar.dev/vue-components/select).'
       }
     }
   },
 
   argTypes: {
-    labelKey: {
-      description: 'Object key to be replaced by label if there is no key label on any object.'
+    // Props
+    fuseOptions: {
+      description: '[Fuse.js](https://fusejs.io/) options.',
+      table: {
+        defaultValue: { detail: options }
+      }
     },
 
-    valueKey: {
-      description: 'Object key to be replaced with value if there is no value key in the object.'
+    labelKey: {
+      description: 'Key to be used instead of `label`.'
     },
 
     options: {
       description: 'Select options.'
     },
 
-    fuseOptions: {
-      description: 'Options of [Fuse.js](https://fusejs.io/).',
-      table: {
-        defaultValue: {
-          detail: options
-        }
-      }
+    valueKey: {
+      description: 'Key to be used instead of `value`.'
     },
 
     value: {
-      description: 'Value to filter.'
+      description: 'String to filter results.'
     },
 
-    // events
+    // Events
     input: {
-      description: 'Fires when model changes. Is also used by v-model.'
+      description: 'Fires when model changes. Also used by `v-model`.'
     },
 
-    // slots
+    // Slots
     append: {
       description: 'Attach to the inner field.',
       table: {
         category: 'slots',
-        noSummary
+        ...noSummary
       }
     },
 
     'no-option': {
-      description: 'By default, when there are no options, the menu does not appear. But you can customize this scenario and specify what the menu should display.',
+      description: 'Customize display when there is no options to show. By default, the results box does not appear.',
       table: {
         category: 'slots',
-        noSummary
+        ...noSummary
       }
     },
 
     option: {
-      description: 'Option slot is displayed when there is an option to be displayed.',
+      description: 'Replace an option defaults.',
       table: noSummary
     }
   }
 }
 
 const Template = (args, { argTypes }) => ({
-  props: Object.keys(argTypes),
   components: { QasAutoComplete },
+  props: Object.keys(argTypes),
 
   data () {
     return {
@@ -94,23 +93,13 @@ const Template = (args, { argTypes }) => ({
   },
 
   template: '<qas-auto-complete v-bind="$props" v-model="valueOption" />'
-
 })
 
 export const Default = Template.bind({})
+
 Default.args = {
   options: [
-    { label: 'option 1', value: '1' },
-    { label: 'options 2', value: '2' }
+    { label: 'Option 1', value: '1' },
+    { label: 'Option 2', value: '2' }
   ]
-}
-
-const defaultCode = '<qas-autocomplete v-model="valueOption" :options="options" />'
-
-Default.parameters = {
-  docs: {
-    source: {
-      code: defaultCode
-    }
-  }
 }
