@@ -1,5 +1,5 @@
 <template>
-  <div class="row transfer" :class="gutterClass">
+  <div class="qas-transfer row" :class="gutterClass">
     <div class="col-12 col-sm">
       <qas-label :label="label" :quantity="optionsList.length" />
 
@@ -20,13 +20,13 @@
       <div>
         <div>
           <qas-btn :class="iconClass" dense :disabled="!firstQueue.length" flat icon="o_arrow_circle_down" rounded @click="setSelectedFromClick(true)" />
-          <q-tooltip anchor="top middle" self="center middle">Transferir</q-tooltip>
+          <q-tooltip anchor="top middle" self="center middle">Selectionar</q-tooltip>
         </div>
       </div>
       <div>
         <div>
           <qas-btn :class="iconClass" dense :disabled="!secondQueue.length" flat icon="o_arrow_circle_up" rounded @click="setSelectedFromClick()" />
-          <q-tooltip anchor="bottom middle" self="center middle">Transferir</q-tooltip>
+          <q-tooltip anchor="bottom middle" self="center middle">Remover</q-tooltip>
         </div>
       </div>
     </div>
@@ -52,95 +52,97 @@
 <script>
 import { extend } from 'quasar'
 
+import QasBtn from '../btn/QasBtn'
 import QasLabel from '../label/QasLabel'
 import QasSearchBox from '../search-box/QasSearchBox'
-import QasBtn from '../btn/QasBtn'
 
 export default {
   components: {
+    QasBtn,
     QasLabel,
-    QasSearchBox,
-    QasBtn
+    QasSearchBox
   },
 
   props: {
-    value: {
-      type: Array,
-      default: () => []
-    },
-
     emitValue: {
       type: Boolean
     },
 
     fuseOptions: {
-      type: Object,
-      default: () => ({ keys: ['label'] })
+      default: () => ({ keys: ['label'] }),
+      type: Object
     },
 
     hideEmptySlot: {
-      type: Boolean,
-      default: true
+      default: true,
+      type: Boolean
+    },
+
+    // TODO: Criar o "toLabel" para o slugar de selecionados.
+    label: {
+      default: '',
+      required: true,
+      type: String
     },
 
     labelKey: {
-      type: String,
-      default: 'label'
-    },
-
-    valueKey: {
-      type: String,
-      default: 'value'
+      default: 'label',
+      type: String
     },
 
     options: {
-      type: Array,
-      default: () => []
+      default: () => [],
+      type: Array
     },
 
-    label: {
-      type: String,
-      required: true,
-      default: ''
+    value: {
+      default: () => [],
+      type: Array
+    },
+
+    valueKey: {
+      default: 'value',
+      type: String
     }
   },
 
   data () {
     return {
       firstQueue: [],
+      optionsList: [],
       secondQueue: [],
-      selectedList: [],
-      optionsList: []
+      selectedList: []
     }
   },
 
   computed: {
-    isSmall () {
-      return this.$q.screen.xs
-    },
-
-    iconClass () {
-      return !this.isSmall && 'transfer__icon'
-    },
-
     actionsClass () {
       return !this.isSmall && 'column'
     },
 
-    searchBoxProps () {
-      return {
-        list: this.options,
-        fuseOptions: this.fuseOptions,
-        hideEmptySlot: this.hideEmptySlot
-      }
+    gutterClass () {
+      return `q-col-gutter-${this.isMedium ? 'md' : 'xl'}`
+    },
+
+    iconClass () {
+      return !this.isSmall && 'qas-transfer__icon'
     },
 
     isMedium () {
       return this.$q.screen.lt.md
     },
 
-    gutterClass () {
-      return `q-col-gutter-${this.isMedium ? 'md' : 'xl'}`
+    // TODO: Small seria se fosse sm.
+    isSmall () {
+      return this.$q.screen.xs
+    },
+
+    searchBoxProps () {
+      return {
+        fuseOptions: this.fuseOptions,
+        hideEmptySlot: this.hideEmptySlot,
+        list: this.options
+      }
     }
   },
 
@@ -163,11 +165,49 @@ export default {
   },
 
   methods: {
+    deleteItemsFromList (isFirst) {
+      this[isFirst ? 'firstQueue' : 'secondQueue'].forEach(item => {
+        const model = isFirst ? 'optionsList' : 'selectedList'
+        const index = this[model].findIndex(itemValue => {
+          return (itemValue[this.valueKey] || itemValue) === item[this.valueKey]
+        })
+
+        if (~index) {
+          this[model].splice(index, 1)
+        }
+      })
+    },
+
+    handleEmit () {
+      const selectedList = extend(true, [], this.selectedList)
+      return this.emitValue ? selectedList.map(item => item[this.valueKey]) : selectedList
+    },
+
+    handleSelectedList (isFirst) {
+      const model = isFirst ? 'firstQueue' : 'secondQueue'
+
+      this[isFirst ? 'selectedList' : 'optionsList'].push(...this[model])
+      this.deleteItemsFromList(isFirst)
+      this[model] = []
+    },
+
+    itemClass (object, isFirst) {
+      return this[isFirst
+        ? 'firstQueue'
+        : 'secondQueue'
+      ].some(item => item[this.valueKey] === object[this.valueKey]) && 'bg-secondary'
+    },
+
     onSelectQueue (item, isFirst) {
       const model = isFirst ? 'firstQueue' : 'secondQueue'
       const index = this[model].findIndex(selected => selected[this.valueKey] === item[this.valueKey])
 
       return ~index ? this[model].splice(index, 1) : this[model].push(item)
+    },
+
+    setSelectedFromClick (isFirst) {
+      this.handleSelectedList(isFirst)
+      this.updateValue()
     },
 
     setSelectedFromValue (isFirst) {
@@ -184,56 +224,15 @@ export default {
       this.handleSelectedList(isFirst)
     },
 
-    setSelectedFromClick (isFirst) {
-      this.handleSelectedList(isFirst)
-      this.updateValue()
-    },
-
-    itemClass (object, isFirst) {
-      return this[isFirst
-        ? 'firstQueue'
-        : 'secondQueue'
-      ].some(item => item[this.valueKey] === object[this.valueKey]) && 'bg-secondary'
-    },
-
-    handleSelectedList (isFirst) {
-      const model = isFirst ? 'firstQueue' : 'secondQueue'
-
-      this[isFirst ? 'selectedList' : 'optionsList'].push(...this[model])
-
-      this.deleteItemsFromList(isFirst)
-
-      this[model] = []
-    },
-
-    handleEmit () {
-      const selectedList = extend(true, [], this.selectedList)
-
-      return this.emitValue ? selectedList.map(item => item[this.valueKey]) : selectedList
-    },
-
     updateValue () {
       return this.$emit('input', this.handleEmit())
-    },
-
-    deleteItemsFromList (isFirst) {
-      this[isFirst ? 'firstQueue' : 'secondQueue'].forEach(item => {
-        const model = isFirst ? 'optionsList' : 'selectedList'
-        const index = this[model].findIndex(itemValue => {
-          return (itemValue[this.valueKey] || itemValue) === item[this.valueKey]
-        })
-
-        if (~index) {
-          this[model].splice(index, 1)
-        }
-      })
     }
   }
 }
 </script>
 
 <style lang="scss">
-.transfer {
+.qas-transfer {
   &__icon {
     transform: rotate(-90deg);
   }
