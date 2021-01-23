@@ -3,6 +3,7 @@ import { version } from '../package.json'
 import AppBar from './components/app-bar/QasAppBar'
 import AppMenu from './components/app-menu/QasAppMenu'
 import AppsMenu from './components/apps-menu/QasAppsMenu'
+import AutoComplete from './components/auto-complete/QasAutocomplete'
 import Avatar from './components/avatar/QasAvatar'
 import BreakLine from './components/break-line/QasBreakLine'
 import Btn from './components/btn/QasBtn'
@@ -45,6 +46,7 @@ export {
   AppBar,
   AppMenu,
   AppsMenu,
+  AutoComplete,
   Avatar,
   BreakLine,
   Btn,
@@ -82,6 +84,7 @@ export default {
   AppBar,
   AppMenu,
   AppsMenu,
+  AutoComplete,
   Avatar,
   BreakLine,
   Btn,
@@ -118,6 +121,7 @@ export default {
     Vue.component('QasAppBar', AppBar)
     Vue.component('QasAppMenu', AppMenu)
     Vue.component('QasAppsMenu', AppsMenu)
+    Vue.component('QasAutoComplete', AutoComplete)
     Vue.component('QasAvatar', Avatar)
     Vue.component('QasAvatar', Avatar)
     Vue.component('QasBreakline', BreakLine)
