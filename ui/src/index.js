@@ -23,6 +23,7 @@ import PasswordStrengthChecker from './components/password-strength-checker/QasP
 import Profile from './components/profile/QasProfile'
 import SearchBox from './components/search-box/QasSearchBox'
 import SettingsMenu from './components/settings-menu/QasSettingsMenu'
+import SingleView from './components/single-view/QasSingleView'
 import Sortable from './components/sortable/QasSortable'
 import TableGenerator from './components/table-generator/QasTableGenerator'
 import Uploader from './components/uploader/QasUploader'
@@ -64,6 +65,7 @@ export {
   Profile,
   SearchBox,
   SettingsMenu,
+  SingleView,
   Sortable,
   TableGenerator,
   Uploader,
@@ -100,6 +102,7 @@ export default {
   Profile,
   SearchBox,
   SettingsMenu,
+  SingleView,
   Sortable,
   TableGenerator,
   Uploader,
@@ -137,6 +140,7 @@ export default {
     Vue.component('QasProfile', Profile)
     Vue.component('QasSearchBox', SearchBox)
     Vue.component('QasSettingsMenu', SettingsMenu)
+    Vue.component('QasSingleView', SingleView)
     Vue.component('QasSortable', Sortable)
     Vue.component('QasTableGenerator', TableGenerator)
     Vue.component('QasUploader', Uploader)
