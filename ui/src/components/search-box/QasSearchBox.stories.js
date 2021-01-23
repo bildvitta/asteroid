@@ -4,15 +4,15 @@ const noSummary = {
   type: { summary: null }
 }
 
-const options = `{
+const options = JSON.stringify({
   distance: 100,
   location: 0,
   maxPatternLength: 32,
   minMatchCharLength: 1,
-  shouldSort: true, 
-  threshold: 0.1, 
-  tokenize: true 
-}`
+  shouldSort: true,
+  threshold: 0.1,
+  tokenize: true
+})
 
 export default {
   component: QasSearchBox,
@@ -35,9 +35,7 @@ export default {
     fuseOptions: {
       description: '[Fuse.js options](https://fusejs.io/api/options.html)',
       table: {
-        defaultValue: {
-          detail: options
-        }
+        defaultValue: { detail: options }
       }
     },
 
@@ -77,8 +75,8 @@ export default {
       description: 'To format results. Receives the filtered list.',
       table: {
         defaultValue: {
-          summary: '{}',
-          detail: '{ results: \'array\' }'
+          detail: JSON.stringify({ results: 'array' }),
+          summary: '{}'
         },
         ...noSummary
       }
