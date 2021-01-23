@@ -1,32 +1,31 @@
-import QasListView from './QasListView.vue'
-import QasDebugger from '../debugger/QasDebugger'
-
 import Vuex from 'vuex'
 import VueRouter from 'vue-router'
 
 import users from '../../mocks/storeModule'
 
+import QasDebugger from '../debugger/QasDebugger'
+import QasListView from './QasListView.vue'
+
+const defaultFilterValues = JSON.stringify({
+  entity: 'string',
+  errors: 'object',
+  fields: 'object',
+  metadata: 'object'
+})
+
 const slotDefaults = {
   defaultValue: {
-    summary: '{}',
-    detail: `{ 
-  errors: 'object' 
-  fields: 'object' 
-  metadata: 'object' 
-}`
+    detail: JSON.stringify({
+      errors: 'object',
+      fields: 'object',
+      metadata: 'object'
+    }),
+
+    summary: '{}'
   },
 
-  type: {
-    summary: null
-  }
+  type: { summary: null }
 }
-
-const defaultFilterValues = `{
- errors: 'object'
- fields: 'object'
- metadata: 'object'
- entity: 'string'
-}`
 
 export default {
   component: QasListView,
@@ -35,137 +34,113 @@ export default {
   parameters: {
     docs: {
       description: {
-        component: 'This component returns a list of objects based on <strong>vuex entity</strong>.'
+        component: 'List of entity rows.'
       }
     }
   },
 
   argTypes: {
+    // Props
     dialog: {
-      description: 'Used to change the tag of the component if used within any modal becomes div and not QPage.'
-    },
-
-    entity: {
-      description: 'Entity of vuex.',
-      control: null
-    },
-
-    url: {
-      description: 'If the entity is different from the endpoint, you can use this property to specify what the endpoint is.'
-    },
-
-    noFilter: {
-      description: 'Disables filter.'
+      description: 'Use when the component is inside a dialog.'
     },
 
     disableRefresh: {
-      description: 'Disables [q-pull-to-refresh](https://quasar.dev/vue-components/pull-to-refresh#Introduction), usually used in conjunction with sortable.'
+      description: 'Disables [QPullToRefresh](https://quasar.dev/vue-components/pull-to-refresh). Usually used in conjunction with sortable.'
     },
 
-    // events
-    'fetch-success': {
-      description: 'Emitted when get\'s the value successfully.',
-      table: {
-        defaultValue: {
-          summary: '{}',
-          detail: '{ response: \'object\' }'
-        }
-      }
+    entity: {
+      control: null,
+      description: '[VuexStoreModule](https://github.com/bildvitta/vuex-store-module) entity.'
     },
 
+    noFilter: {
+      description: 'Hide filters.'
+    },
+
+    url: {
+      control: null,
+      description: 'Ignore entity and specify another endpoint.'
+    },
+
+    // Events
     'fetch-error': {
-      description: 'Emitted when can\'t get the value successfully.',
+      description: 'Fires when occur an error fetching value.',
       table: {
         defaultValue: {
-          summary: '{}',
-          detail: '{ error: \'object\' }'
+          detail: JSON.stringify({ error: 'object' }),
+          summary: '{}'
         }
       }
     },
 
-    // slots
-    header: {
-      description: 'Page header content.',
+    'fetch-success': {
+      description: 'Fires when successfully get the value.',
       table: {
-        ...slotDefaults
+        defaultValue: {
+          detail: JSON.stringify({ response: 'object' }),
+          summary: '{}'
+        }
       }
+    },
+
+    // Slots
+    default: {
+      description: 'Main content.',
+      table: slotDefaults
     },
 
     filter: {
-      description: 'Slot to access the <strong>Filter</strong> component.',
+      description: 'Replace `QasFilter` component.',
       table: {
         defaultValue: {
-          summary: '{}',
-          detail: defaultFilterValues
+          detail: defaultFilterValues,
+          summary: '{}'
         },
 
-        type: {
-          summary: null
-        }
-      }
-    },
-
-    default: {
-      description: 'Page main content.',
-      table: {
-        ...slotDefaults
+        type: { summary: null }
       }
     },
 
     footer: {
-      description: 'Page footer content.',
+      description: 'Page\'s footer content.',
       table: {
-        type: {
-          summary: null
-        }
+        type: { summary: null }
       }
+    },
+
+    header: {
+      description: 'Page\'s header content.',
+      table: slotDefaults
     }
   }
 }
 
 const Template = (args, { argTypes }) => ({
+  components: { QasDebugger, QasListView },
   props: Object.keys(argTypes),
-  components: { QasListView, QasDebugger },
+
+  router: new VueRouter(),
+
   store: new Vuex.Store({
     modules: { users }
   }),
-  router: new VueRouter(),
+
   template:
-    `
-    <q-layout>
+    `<q-layout>
       <q-page-container>
         <qas-list-view v-bind="$props">
           <template v-slot="{ results, fields }">
-            <div>
-              Results:<qas-debugger :inspect="[results]" />
-              Fields:<qas-debugger :inspect="[fields]" />
-            </div>
+            Results: <qas-debugger :inspect="[results]" />
+            Fields: <qas-debugger :inspect="[fields]" />
           </template>
         </qas-list-view>
       </q-page-container>
-    </q-layout>
-    `
+    </q-layout>`
 })
 
-const template =
-  `
-  <qas-list-view entity="users">
-    <template v-slot="{ results, fields }">
-      <div>
-        Results:<qas-debugger :inspect="[results]" />
-        Fields:<qas-debugger :inspect="[fields]" />
-      </div>
-    </template>
-  </qas-list-view>
-  `
-
 export const Default = Template.bind({})
+
 Default.args = {
   entity: 'users'
-}
-
-Default.parameters = {
-  docs: {
-    source: { code: template }
-  }
 }

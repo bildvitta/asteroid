@@ -38,19 +38,19 @@
 </template>
 
 <script>
-import contextMixin from '../../mixins/contex'
+import contextMixin from '../../mixins/context'
 import viewMixin from '../../mixins/view'
 
 export default {
   mixins: [contextMixin, viewMixin],
 
   props: {
-    noFilter: {
-      default: false,
+    disableRefresh: {
       type: Boolean
     },
 
-    disableRefresh: {
+    noFilter: {
+      default: false,
       type: Boolean
     }
   },
@@ -71,12 +71,12 @@ export default {
       return !!(this.$slots.header || this.$scopedSlots.header)
     },
 
-    hasResults () {
-      return !!(this.results || []).length
-    },
-
     hasPages () {
       return this.totalPages > 1
+    },
+
+    hasResults () {
+      return !!(this.results || []).length
     },
 
     results () {
