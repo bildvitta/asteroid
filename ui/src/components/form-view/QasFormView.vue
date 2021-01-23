@@ -34,18 +34,19 @@
 <script>
 import { get, isEqual, cloneDeep } from 'lodash'
 import { extend } from 'quasar'
+
 import { handleHistory } from '../../helpers/historyHandler'
 import { NotifyError, NotifySuccess } from '../../plugins'
 
-import QasDialog from '../dialog/QasDialog'
 import QasBtn from '../btn/QasBtn'
+import QasDialog from '../dialog/QasDialog'
 
 import viewMixin from '../../mixins/view'
 
 export default {
   components: {
-    QasDialog,
-    QasBtn
+    QasBtn,
+    QasDialog
   },
 
   mixins: [viewMixin],
@@ -54,6 +55,11 @@ export default {
     cancelButton: {
       default: 'Cancelar',
       type: String
+    },
+
+    cancelRoute: {
+      default: '',
+      type: [Boolean, Object, String]
     },
 
     customId: {
@@ -79,6 +85,11 @@ export default {
       type: Object
     },
 
+    showDialogOnUnsavedChanges: {
+      default: true,
+      type: Boolean
+    },
+
     submitButton: {
       default: 'Salvar',
       type: String
@@ -87,34 +98,27 @@ export default {
     value: {
       default: () => ({}),
       type: Object
-    },
-
-    showDialogOnUnsavedChanges: {
-      default: true,
-      type: Boolean
-    },
-
-    cancelRoute: {
-      default: '',
-      type: [Boolean, String, Object]
     }
   },
 
   data () {
     return {
-      isSubmiting: false,
       cachedResult: {},
       hasResult: false,
+      isSubmiting: false,
       showDialog: false,
+
       dialogConfig: {
         card: {
           title: 'Atenção!',
           description: 'Você está deixando a página e suas alterações serão perdidas. Tem certeza que deseja sair sem salvar?'
         },
+
         ok: {
           props: { label: 'Continuar editando' },
           events: null
         },
+
         cancel: {
           props: { label: 'Sair' },
           events: null
@@ -124,8 +128,16 @@ export default {
   },
 
   computed: {
+    cancelButtonClass () {
+      return this.isMobile && 'order-last'
+    },
+
     fetchURL () {
       return this.url ? (`${this.url}/${this.isCreateMode ? 'new' : 'edit'}`) : ''
+    },
+
+    hasCancelButton () {
+      return !(typeof this.cancelRoute === 'boolean' && !this.cancelRoute)
     },
 
     id () {
@@ -136,6 +148,10 @@ export default {
       return this.mode === 'create'
     },
 
+    isMobile () {
+      return this.$q.screen.xs
+    },
+
     resolvedRoute () {
       if (this.route && Object.keys(this.route).length) {
         return this.route
@@ -144,20 +160,8 @@ export default {
       return this.$route
     },
 
-    hasCancelButton () {
-      return !(typeof this.cancelRoute === 'boolean' && !this.cancelRoute)
-    },
-
-    isMobile () {
-      return this.$q.screen.xs
-    },
-
     saveButtonClass () {
       return this.isMobile && 'order-first'
-    },
-
-    cancelButtonClass () {
-      return this.isMobile && 'order-last'
     }
   },
 
@@ -177,6 +181,18 @@ export default {
   },
 
   methods: {
+    beforeRouteLeave (to, from, next) {
+      if (!this.showDialogOnUnsavedChanges) {
+        return null
+      }
+
+      if (isEqual(this.value, this.cachedResult)) {
+        return next()
+      }
+
+      this.handleDialog(next)
+    },
+
     cancel () {
       if (!this.dialog) {
         this.handleCancelRoute()
@@ -222,6 +238,28 @@ export default {
       return models
     },
 
+    handleCancelRoute () {
+      if (this.cancelRoute) {
+        return this.$router.push(this.cancelRoute)
+      }
+
+      const [, path] = this.$route.path.split('/')
+      const resolvedPath = this.$router.resolve(`/${path}`).route.path
+
+      this.$router.push(resolvedPath)
+    },
+
+    handleDialog (fn) {
+      this.openDialog()
+
+      this.dialogConfig.ok.events = { click: () => handleHistory().push(this.$route) }
+      this.dialogConfig.cancel.events = { click: fn }
+    },
+
+    openDialog () {
+      this.showDialog = true
+    },
+
     async submit (event) {
       if (event) {
         event.preventDefault()
@@ -261,40 +299,6 @@ export default {
       } finally {
         this.isSubmiting = false
       }
-    },
-
-    openDialog () {
-      this.showDialog = true
-    },
-
-    handleDialog (fn) {
-      this.openDialog()
-
-      this.dialogConfig.ok.events = { click: () => handleHistory().push(this.$route) }
-      this.dialogConfig.cancel.events = { click: fn }
-    },
-
-    beforeRouteLeave (to, from, next) {
-      if (!this.showDialogOnUnsavedChanges) {
-        return null
-      }
-
-      if (isEqual(this.value, this.cachedResult)) {
-        return next()
-      }
-
-      this.handleDialog(next)
-    },
-
-    handleCancelRoute () {
-      if (this.cancelRoute) {
-        return this.$router.push(this.cancelRoute)
-      }
-
-      const [, path] = this.$route.path.split('/')
-      const resolvedPath = this.$router.resolve(`/${path}`).route.path
-
-      this.$router.push(resolvedPath)
     }
   }
 }

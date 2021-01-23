@@ -17,131 +17,133 @@ const slotDefaults = {
 export default {
   component: QasFormView,
   title: 'Components/FormView',
+
   parameters: {
     docs: {
       description: {
-        component: 'Form component, used in <strong>create</strong> and <strong>edit</strong> page, handles vuex directly. Usually used together with <strong>FormGenerator</strong>.'
+        component: 'Create forms like a magic, you can use this component with create and edit mode.'
       }
     }
   },
 
   argTypes: {
-    value: {
-      description: 'Model value.'
-    },
-
+    // Props
     cancelButton: {
       description: 'Cancel button label.'
     },
 
+    cancelRoute: {
+      description: 'Cancel button route.'
+    },
+
     customId: {
-      description: 'The component gets the id from route, but you can set a custom id with this prop.',
-      control: null
+      control: null,
+      description: 'Sets a custom id to `entity`. When not set, will use the `:id` route param.'
+    },
+
+    dialog: {
+      description: 'Use when the component is inside a dialog.'
     },
 
     disable: {
-      description: 'Set the action buttons to disable.'
+      description: 'Disable actions buttons.'
+    },
+
+    entity: {
+      control: null,
+      description: '[VuexStoreModule](https://github.com/bildvitta/vuex-store-module) entity.'
     },
 
     mode: {
-      description: 'Sets the component mode, for a creation page: <strong>create</strong> (POST), for an edit page: <strong>replace</strong> (PUT) or <strong>update</strong> (PATCH).',
-      control: { type: 'select', options: ['create', 'replace', 'update'] }
+      control: { type: 'select', options: ['create', 'replace', 'update'] },
+      description: 'Sets the component mode, for a creation page: <strong>create</strong> (POST), for an edit page: <strong>replace</strong> (PUT) or <strong>update</strong> (PATCH).'
     },
 
     readOnly: {
       description: 'Disable action buttons and submit method.'
     },
 
-    submitButton: {
-      description: 'Submit button.'
+    route: {
+      description: 'Page route.'
     },
 
     showDialogOnUnsavedChanges: {
       description: 'Enable dialog when leave page without save changes.'
     },
 
-    cancelRoute: {
-      description: 'Route config to button cancel.'
-    },
-
-    entity: {
-      description: 'Entity of vuex.',
-      control: null
+    submitButton: {
+      description: 'Submit button label.'
     },
 
     url: {
-      description: 'If the entity is different from the endpoint, you can use this property to specify what the endpoint is.',
-      control: null
+      control: null,
+      description: 'Ignore entity and specify another endpoint.'
     },
 
-    dialog: {
-      description: 'Set FormView to Dialog mode.'
+    value: {
+      description: 'Model value.'
     },
 
-    route: {
-      description: 'Page route.'
-    },
-
-    // events
-    input: {
-      description: 'Emitted when the component needs to change the model. Is also used by `v-model`.',
-      table: {
-        defaultValue: { summary: JSON.stringify({ value: 'object' }) }
-      }
-    },
-
-    'fetch-success': {
-      description: 'Emitted when get\'s the value successfully.',
-      table: {
-        defaultValue: { summary: JSON.stringify({ response: 'object', value: 'object' }) }
-      }
-    },
-
+    // Events
     'fetch-error': {
-      description: 'Emitted when can\'t get the value successfully.',
+      description: 'Fires when occur an error fetching value.',
       table: {
         defaultValue: { summary: JSON.stringify({ error: 'object' }) }
       }
     },
 
-    'submit-success': {
-      description: 'Emitted when the value is updated successfully.',
+    'fetch-success': {
+      description: 'Fires when successfully get the value.',
       table: {
         defaultValue: { summary: JSON.stringify({ response: 'object', value: 'object' }) }
       }
     },
 
+    input: {
+      description: 'Fires when model changes. Is also used by `v-model`.',
+      table: {
+        defaultValue: { summary: JSON.stringify({ value: 'object' }) }
+      }
+    },
+
     'submit-error': {
-      description: 'Emitted when the value can\'t be updated successfully.',
+      description: 'Fires when occur an error updating value.',
       table: {
         defaultValue: { summary: JSON.stringify({ error: 'object', value: 'object' }) }
       }
     },
 
-    // slots
+    'submit-success': {
+      description: 'Fires when the value is successfully updated.',
+      table: {
+        defaultValue: { summary: JSON.stringify({ response: 'object', value: 'object' }) }
+      }
+    },
+
+    // Slots
     default: {
-      description: 'Page main content.',
+      description: 'Main content.',
       table: {
         ...slotDefaults
       }
     },
 
     actions: {
-      description: 'Actions button content.',
-      table: {
-        ...slotDefaults
-      }
-    },
-
-    header: {
-      description: 'Page header content.',
+      description: 'Actions buttons content.',
       table: {
         ...slotDefaults
       }
     },
 
     footer: {
-      description: 'Page footer content.',
+      description: 'Page\'s footer content.',
+      table: {
+        ...slotDefaults
+      }
+    },
+
+    header: {
+      description: 'Page\'s header content.',
       table: {
         ...slotDefaults
       }
@@ -150,35 +152,35 @@ export default {
 }
 
 const Template = (args, { argTypes }) => ({
-  props: Object.keys(argTypes),
   components: { QasFormView, QasDebugger },
+  props: Object.keys(argTypes),
+
   store: new Vuex.Store({
     modules: { users }
   }),
+
   data () {
     return {
       values: {}
     }
   },
+
   template:
-    `
-    <q-layout>
+    `<q-layout>
       <q-page-container>
         <qas-form-view v-model="values" v-bind="$props">
           <template v-slot="{ errors, fields, metadata }">
             <div>
-              Fields:<qas-debugger :inspect="[fields]" />
-              Values:<qas-debugger :inspect="[values]" />
+              Fields: <qas-debugger :inspect="[fields]" />
+              Values: <qas-debugger :inspect="[values]" />
             </div>
           </template>
         </qas-form-view>
       </q-page-container>
-    </q-layout>
-    `
+    </q-layout>`
 })
 
-const template =
-  `
+const template = `
   <qas-form-view v-model="values" entity="users">
     <template v-slot="{ errors, fields, metadata }">
       <div>
@@ -187,13 +189,14 @@ const template =
       </div>
     </template>
   </qas-form-view>
-  `
+`
 
 export const CreateMode = Template.bind({})
+
 CreateMode.args = {
+  customId: '123',
   entity: 'users',
-  url: 'users',
-  customId: '123'
+  url: 'users'
 }
 
 CreateMode.parameters = {
@@ -203,10 +206,11 @@ CreateMode.parameters = {
 }
 
 export const EditMode = Template.bind({})
+
 EditMode.args = {
+  customId: 'a755a6d1-fc4a-4961-a8cc-b2293fe5b81c',
   entity: 'users',
-  mode: 'replace',
-  customId: 'a755a6d1-fc4a-4961-a8cc-b2293fe5b81c'
+  mode: 'replace'
 }
 
 EditMode.parameters = {
