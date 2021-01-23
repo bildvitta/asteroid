@@ -77,7 +77,7 @@ export default {
 
     url: {
       control: null,
-      description: 'If the entity is different from the endpoint, you can use this property to specify what the endpoint is.'
+      description: 'Ignore entity and specify another endpoint.'
     },
 
     value: {
