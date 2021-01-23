@@ -2,10 +2,10 @@ import QasGridGenerator from './QasGridGenerator.vue'
 
 const slotDefaults = {
   table: {
-    category: 'Slots',
+    category: 'slots',
     defaultValue: {
-      summary: '{}',
-      detail: '{ field: \'object\' }'
+      detail: JSON.stringify({ field: 'object' }),
+      summary: '{}'
     }
   }
 }
