@@ -3,6 +3,7 @@ import QasBtn from './QasBtn.vue'
 export default {
   component: QasBtn,
   title: 'Components/Btn',
+
   parameters: {
     docs: {
       description: {
@@ -31,13 +32,14 @@ export default {
 }
 
 const Template = (args, { argTypes }) => ({
-  props: Object.keys(argTypes),
   components: { QasBtn },
+  props: Object.keys(argTypes),
   template:
     '<qas-btn v-bind="$props" />'
 })
 
 export const Default = Template.bind({})
+
 Default.args = {
   label: 'Click here!'
 }
