@@ -23,6 +23,7 @@ import PasswordInput from './components/password-input/QasPasswordInput'
 import PasswordStrengthChecker from './components/password-strength-checker/QasPasswordStrengthChecker'
 import Profile from './components/profile/QasProfile'
 import SearchBox from './components/search-box/QasSearchBox'
+import SelectList from './components/select-list/QasSelectList'
 import SettingsMenu from './components/settings-menu/QasSettingsMenu'
 import SingleView from './components/single-view/QasSingleView'
 import Sortable from './components/sortable/QasSortable'
@@ -66,6 +67,7 @@ export {
   PasswordStrengthChecker,
   Profile,
   SearchBox,
+  SelectList,
   SettingsMenu,
   SingleView,
   Sortable,
@@ -104,6 +106,7 @@ export default {
   PasswordStrengthChecker,
   Profile,
   SearchBox,
+  SelectList,
   SettingsMenu,
   SingleView,
   Sortable,
@@ -143,6 +146,7 @@ export default {
     Vue.component('QasPasswordStrengthChecker', PasswordStrengthChecker)
     Vue.component('QasProfile', Profile)
     Vue.component('QasSearchBox', SearchBox)
+    Vue.component('QasSelectList', SelectList)
     Vue.component('QasSettingsMenu', SettingsMenu)
     Vue.component('QasSingleView', SingleView)
     Vue.component('QasSortable', Sortable)
