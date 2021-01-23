@@ -1,23 +1,22 @@
-import QasSingleView from './QasSingleView.vue'
-import QasDebugger from '../debugger/QasDebugger'
-
 import Vuex from 'vuex'
 import users from '../../mocks/storeModule'
 
+import QasDebugger from '../debugger/QasDebugger'
+import QasSingleView from './QasSingleView.vue'
+
 const slotDefaults = {
   defaultValue: {
-    summary: '{}',
-    detail: `{
- errors: 'object'
- fields: 'object'
- metadata: 'object'
- result: 'object' 
-}`
+    detail: JSON.stringify({
+      errors: 'object',
+      fields: 'object',
+      metadata: 'object',
+      result: 'object'
+    }),
+
+    summary: '{}'
   },
 
-  type: {
-    summary: null
-  }
+  type: { summary: null }
 }
 
 export default {
@@ -34,6 +33,11 @@ export default {
 
   argTypes: {
     // Props
+    customId: {
+      control: null,
+      description: 'Sets a custom id to `entity`. When not set, will use the `:id` route param.'
+    },
+
     dialog: {
       description: 'Use when the component is inside a dialog.'
     },
@@ -45,12 +49,7 @@ export default {
 
     url: {
       control: null,
-      description: 'If the entity is different from the endpoint, you can use this property to specify what the endpoint is.'
-    },
-
-    customId: {
-      control: null,
-      description: 'Sets a custom id to `entity`. When not set, will use the `:id` route param.'
+      description: 'Ignore entity and specify another endpoint.'
     },
 
     // Events
@@ -58,8 +57,8 @@ export default {
       description: 'Fires when occur an error fetching value.',
       table: {
         defaultValue: {
-          summary: '{}',
-          detail: '{ error: \'object\' }'
+          detail: JSON.stringify({ error: 'object' }),
+          summary: '{}'
         }
       }
     },
@@ -68,8 +67,8 @@ export default {
       description: 'Fires when successfully get the value.',
       table: {
         defaultValue: {
-          summary: '{}',
-          detail: '{ response: \'object\', value: \'object\' }'
+          detail: JSON.stringify({ response: 'object', value: 'object' }),
+          summary: '{}'
         }
       }
     },
@@ -77,71 +76,47 @@ export default {
     // Slots
     default: {
       description: 'Main content.',
-      table: {
-        ...slotDefaults
-      }
+      table: slotDefaults
     },
 
     footer: {
       description: 'Page\'s footer content.',
       table: {
-        type: {
-          summary: null
-        }
+        type: { summary: null }
       }
     },
 
     header: {
       description: 'Page\'s header content.',
-      table: {
-        ...slotDefaults
-      }
+      table: slotDefaults
     }
   }
 }
 
 const Template = (args, { argTypes }) => ({
+  components: { QasDebugger, QasSingleView },
   props: Object.keys(argTypes),
-  components: { QasSingleView, QasDebugger },
+
   store: new Vuex.Store({
     modules: { users }
   }),
+
   template:
-   `
-   <q-layout>
-    <q-page-container>
-      <qas-single-view v-bind="$props">
-        <template v-slot="{ fields, result }">
-          <div>
-            Fields:<qas-debugger :inspect="[fields]" />
-            Results:<qas-debugger :inspect="[result]" />
-          </div>
-        </template>
-      </qas-single-view>
-    </q-page-container>
-  </q-layout>
-   `
+    `<q-layout>
+      <q-page-container>
+        <qas-single-view v-bind="$props">
+          <template v-slot="{ fields, result }">
+            Fields: <qas-debugger :inspect="[fields]" />
+            Results: <qas-debugger :inspect="[result]" />
+          </template>
+        </qas-single-view>
+      </q-page-container>
+    </q-layout>`
 })
 
-const template = `
-  <qas-single-view entity="users">
-    <template v-slot="{ errors, fields, metadata, result }">
-      <div>
-        Fields:<qas-debugger :inspect="[fields]" />
-        Result:<qas-debugger :inspect="[result]" />
-      </div>
-    </template>
-  </qas-single-view>
-`
-
 export const Default = Template.bind({})
-Default.args = {
-  entity: 'users',
-  customId: 'a755a6d1-fc4a-4961-a8cc-b2293fe5b81c'
-}
 
-Default.parameters = {
-  docs: {
-    source: { code: template }
-  }
+Default.args = {
+  customId: 'a755a6d1-fc4a-4961-a8cc-b2293fe5b81c',
+  entity: 'users'
 }

@@ -37,12 +37,12 @@ export default {
   },
 
   computed: {
-    id () {
-      return this.customId || this.$route.params.id
-    },
-
     hasResult () {
       return !!this.result
+    },
+
+    id () {
+      return this.customId || this.$route.params.id
     },
 
     result () {
