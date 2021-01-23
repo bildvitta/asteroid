@@ -2,7 +2,7 @@ import QasFormGenerator from './QasFormGenerator.vue'
 
 const slotDefaults = {
   table: {
-    category: 'Slots',
+    category: 'slots',
     defaultValue: { summary: JSON.stringify({ field: 'object' }) },
     type: { summary: null }
   }
@@ -15,41 +15,41 @@ export default {
   parameters: {
     docs: {
       description: {
-        component: 'Generates dynamic components by passing props.'
+        component: 'Generates form fields like a magic!'
       }
     }
   },
 
   argTypes: {
-    value: {
-      description: 'Model value.'
-    },
-
     columns: {
-      description: 'Define size of each column.',
+      description: 'Define size of each field column.',
       table: {
         defaultValue: { summary: '[] || {}' }
       }
-    },
-
-    gutter: {
-      description: 'Gutter space by Quasar convention. `q-col-gutter-{$gutter}`.'
-    },
-
-    fields: {
-      description: 'Fields to be dynamic generated, it\'s an object of object containing <strong>type</strong> and others components props.'
     },
 
     errors: {
       description: 'Each field error.'
     },
 
-    fieldsProps: {
-      description: 'You can send in this prop each field prop.'
+    fields: {
+      description: 'Fields to be dynamic generated.'
     },
 
     fieldsEvents: {
-      description: 'You can send in this prop each field events.'
+      description: 'Defines each field events.'
+    },
+
+    fieldsProps: {
+      description: 'Defines each field prop.'
+    },
+
+    gutter: {
+      description: 'Gutter space by Quasar convention. `q-col-gutter-{$gutter}`.'
+    },
+
+    value: {
+      description: 'Model value.'
     },
 
     // Events
@@ -75,6 +75,7 @@ export default {
 const Template = (args, { argTypes }) => ({
   components: { QasFormGenerator },
   props: Object.keys(argTypes),
+
   data () {
     return {
       values: {}
@@ -82,12 +83,10 @@ const Template = (args, { argTypes }) => ({
   },
 
   template:
-    `
-    <div>
+    `<div>
       <qas-form-generator v-model="values" v-bind="$props" />
-      Values: {{ values }}
-    </div>
-    `
+      <pre>{{ values }}</pre>
+    </div>`
 })
 
 const fields = {
@@ -111,6 +110,6 @@ const columns = {
 export const Default = Template.bind({})
 
 Default.args = {
-  fields,
-  columns
+  columns,
+  fields
 }

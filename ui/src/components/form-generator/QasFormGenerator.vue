@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import generator from '../../mixins/generator'
+import generatorMixin from '../../mixins/generator'
 
 import QasField from '../field/QasField'
 
@@ -26,10 +26,20 @@ export default {
     QasField
   },
 
-  mixins: [generator],
+  mixins: [generatorMixin],
 
   props: {
     errors: {
+      default: () => ({}),
+      type: Object
+    },
+
+    fieldsEvents: {
+      default: () => ({}),
+      type: Object
+    },
+
+    fieldsProps: {
       default: () => ({}),
       type: Object
     },
@@ -41,17 +51,7 @@ export default {
 
     value: {
       default: () => ({}),
-      type: Object,
-      required: true
-    },
-
-    fieldsProps: {
-      default: () => ({}),
-      type: Object
-    },
-
-    fieldsEvents: {
-      default: () => ({}),
+      required: true,
       type: Object
     }
   },
