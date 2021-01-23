@@ -122,7 +122,7 @@ export default {
       const decimalInput = { is: 'qas-decimal-input', comma: true, fillMask: '0', reverseFillMask: true, ...input }
 
       // It'll generate a list of acceptable files extensions.
-      const accept = extensions && extensions.length ? extensions.map(extension => `.${extension}`).join(',') : false
+      const accept = extensions && extensions.length ? extensions.map(extension => `.${extension}`).join(',') : ''
 
       // Editor default toolbar.
       const toolbar = [
