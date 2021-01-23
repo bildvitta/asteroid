@@ -27,7 +27,10 @@ export default {
       description: 'Each key inside `list` have your own slot to be customized.',
       table: {
         category: 'slots',
-        defaultValue: { summary: JSON.stringify({ item: 'string' }) }
+        defaultValue: {
+          detail: JSON.stringify({ item: 'string' }),
+          summary: '{}'
+        }
       }
     },
 
