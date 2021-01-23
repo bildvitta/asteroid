@@ -15,6 +15,7 @@ import DecimalInput from './components/decimal-input/QasDecimalInput'
 import Delete from './components/delete/QasDelete'
 import Dialog from './components/dialog/QasDialog'
 import Field from './components/field/QasField'
+import FormGenerator from './components/form-generator/QasFormGenerator'
 import FormView from './components/form-view/QasFormView'
 import GridGenerator from './components/settings-menu/QasGridGenerator'
 import Input from './components/input/QasInput'
@@ -61,6 +62,7 @@ export {
   Delete,
   Dialog,
   Field,
+  FormGenerator,
   FormView,
   GridGenerator,
   Input,
@@ -102,6 +104,7 @@ export default {
   Delete,
   Dialog,
   Field,
+  FormGenerator,
   FormView,
   GridGenerator,
   Input,
@@ -144,6 +147,7 @@ export default {
     Vue.component('QasDelete', Delete)
     Vue.component('QasDialog', Dialog)
     Vue.component('QasField', Field)
+    Vue.component('QasFormGenerator', FormGenerator)
     Vue.component('QasFormView', FormView)
     Vue.component('QasGridGenerator', GridGenerator)
     Vue.component('QasInput', Input)
