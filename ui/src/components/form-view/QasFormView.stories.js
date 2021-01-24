@@ -6,7 +6,12 @@ import users from '../../mocks/storeModule'
 
 const slotDefaults = {
   defaultValue: {
-    summary: JSON.stringify({ results: 'object', fields: 'object', metadata: 'object' })
+    detail: JSON.stringify({
+      errors: 'object',
+      fields: 'object',
+      metadata: 'object'
+    }),
+    summary: '{}'
   },
 
   type: {
@@ -56,7 +61,7 @@ export default {
 
     mode: {
       control: { type: 'select', options: ['create', 'replace', 'update'] },
-      description: 'Sets the component mode, for a creation page: <strong>create</strong> (POST), for an edit page: <strong>replace</strong> (PUT) or <strong>update</strong> (PATCH).'
+      description: 'Use `create` when you want to create a new entry (`POST`). To edit an existing entry, use `replace` (`PUT`) or `update` (`PATCH`).'
     },
 
     readOnly: {
@@ -88,35 +93,50 @@ export default {
     'fetch-error': {
       description: 'Fires when occur an error fetching value.',
       table: {
-        defaultValue: { summary: JSON.stringify({ error: 'object' }) }
+        defaultValue: {
+          detail: JSON.stringify({ value: 'object' }),
+          summary: '{}'
+        }
       }
     },
 
     'fetch-success': {
       description: 'Fires when successfully get the value.',
       table: {
-        defaultValue: { summary: JSON.stringify({ response: 'object', value: 'object' }) }
+        defaultValue: {
+          detail: JSON.stringify({ response: 'object', value: 'object' }),
+          summary: '{}'
+        }
       }
     },
 
     input: {
       description: 'Fires when model changes. Is also used by `v-model`.',
       table: {
-        defaultValue: { summary: JSON.stringify({ value: 'object' }) }
+        defaultValue: {
+          detail: JSON.stringify({ error: 'object' }),
+          summary: '{}'
+        }
       }
     },
 
     'submit-error': {
       description: 'Fires when occur an error updating value.',
       table: {
-        defaultValue: { summary: JSON.stringify({ error: 'object', value: 'object' }) }
+        defaultValue: {
+          detail: JSON.stringify({ response: 'object', value: 'object' }),
+          summary: '{}'
+        }
       }
     },
 
     'submit-success': {
       description: 'Fires when the value is successfully updated.',
       table: {
-        defaultValue: { summary: JSON.stringify({ response: 'object', value: 'object' }) }
+        defaultValue: {
+          detail: JSON.stringify({ error: 'object', value: 'object' }),
+          summary: '{}'
+        }
       }
     },
 
@@ -170,10 +190,8 @@ const Template = (args, { argTypes }) => ({
       <q-page-container>
         <qas-form-view v-model="values" v-bind="$props">
           <template v-slot="{ errors, fields, metadata }">
-            <div>
-              Fields: <qas-debugger :inspect="[fields]" />
-              Values: <qas-debugger :inspect="[values]" />
-            </div>
+            Fields: <qas-debugger :inspect="[fields]" />
+            Values: <qas-debugger :inspect="[values]" />
           </template>
         </qas-form-view>
       </q-page-container>
@@ -183,10 +201,8 @@ const Template = (args, { argTypes }) => ({
 const template = `
   <qas-form-view v-model="values" entity="users">
     <template v-slot="{ errors, fields, metadata }">
-      <div>
-        Fields:<qas-debugger :inspect="[fields]" />
-        Values:<qas-debugger :inspect="[values]" />
-      </div>
+      Fields: <qas-debugger :inspect="[fields]" />
+      Values: <qas-debugger :inspect="[values]" />
     </template>
   </qas-form-view>
 `
