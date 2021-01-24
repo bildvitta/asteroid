@@ -66,10 +66,9 @@ export default {
     },
 
     fetchFilters ({ commit }) {
-      const filters = { data: { ...usersNew } }
-      commit('setFilters', filters.fields)
+      commit('setFilters', usersNew.fields)
 
-      return filters
+      return usersNew
     }
   }
 }
