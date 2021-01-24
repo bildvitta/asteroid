@@ -38,10 +38,16 @@
 </template>
 
 <script>
-import contextMixin from '../../mixins/context'
-import viewMixin from '../../mixins/view'
+import contextMixin from '../../mixins/context.js'
+import viewMixin from '../../mixins/view.js'
+
+import QasFilters from '../filters/QasFilters.vue'
 
 export default {
+  components: {
+    QasFilters
+  },
+
   mixins: [contextMixin, viewMixin],
 
   props: {
