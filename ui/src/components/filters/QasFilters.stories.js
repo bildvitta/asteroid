@@ -1,8 +1,9 @@
-import QasFilters from './QasFilters.vue'
-
 import Vuex from 'vuex'
-import users from '../../mocks/storeModule'
 import VueRouter from 'vue-router'
+
+import users from '../../mocks/storeModule'
+
+import QasFilters from './QasFilters.vue'
 
 const noSummary = {
   type: { summary: null }
@@ -15,14 +16,14 @@ export default {
   parameters: {
     docs: {
       description: {
-        component: 'Generates dynamic fileds to be used as filters, used in <strong>ListView</strong>.'
+        component: 'Generates fields to be used as filters. Used by `QasListView`.'
       }
     }
   },
 
   argTypes: {
     badges: {
-      description: 'Enables active filters as badges.'
+      description: 'Show current filters as badges.'
     },
 
     entity: {
@@ -31,11 +32,15 @@ export default {
     },
 
     noFilterButton: {
-      description: 'Controls button filter.'
+      description: 'Hides filter button.'
     },
 
     noSearch: {
-      description: 'Removes search field.'
+      description: 'Hides search field.'
+    },
+
+    searchOnType: {
+      description: 'Search on type.'
     },
 
     searchPlaceholder: {
@@ -45,10 +50,6 @@ export default {
     url: {
       control: null,
       description: 'Ignore entity and specify another endpoint.'
-    },
-
-    searchOnType: {
-      description: 'Search on type.'
     },
 
     // Events
@@ -73,28 +74,28 @@ export default {
         ...noSummary,
         defaultValue: {
           summary: JSON.stringify({
-            filters: 'object',
             context: 'object',
             filter: 'function',
+            filters: 'object',
             removeFilter: 'function'
           })
         }
       }
     },
 
-    search: {
-      description: 'Search input content.',
-      table: {
-        ...noSummary,
-        defaultValue: { summary: JSON.stringify({ filter: 'function' }) }
-      }
-    },
-
     'filter-button': {
       description: 'Filter button content.',
       table: {
-        ...noSummary,
-        defaultValue: { summary: JSON.stringify({ filter: 'function' }) }
+        defaultValue: { summary: JSON.stringify({ filter: 'function' }) },
+        ...noSummary
+      }
+    },
+
+    search: {
+      description: 'Search input content.',
+      table: {
+        defaultValue: { summary: JSON.stringify({ filter: 'function' }) },
+        ...noSummary
       }
     }
   }
@@ -103,12 +104,14 @@ export default {
 const Template = (args, { argTypes }) => ({
   components: { QasFilters },
   props: Object.keys(argTypes),
+
   router: new VueRouter(),
+
   store: new Vuex.Store({
     modules: { users }
   }),
-  template:
-    '<qas-filters v-bind="$props" />'
+
+  template: '<qas-filters v-bind="$props" />'
 })
 
 export const Default = Template.bind({})

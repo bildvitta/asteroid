@@ -82,6 +82,11 @@ export default {
       type: Boolean
     },
 
+    searchOnType: {
+      default: true,
+      type: Boolean
+    },
+
     searchPlaceholder: {
       default: 'Pesquisar...',
       type: String
@@ -90,20 +95,15 @@ export default {
     url: {
       default: '',
       type: String
-    },
-
-    searchOnType: {
-      default: true,
-      type: Boolean
     }
   },
 
   data () {
     return {
       filters: {},
-      search: '',
       hasFetchError: false,
-      isFetching: false
+      isFetching: false,
+      search: ''
     }
   },
 
@@ -130,6 +130,10 @@ export default {
       }
 
       return activeFilters
+    },
+
+    debounce () {
+      return this.searchOnType ? '500' : ''
     },
 
     fields () {
@@ -166,10 +170,6 @@ export default {
 
     showSearch () {
       return !!this.$scopedSlots.search || !this.noSearch
-    },
-
-    debounce () {
-      return this.searchOnType ? '500' : ''
     }
   },
 
