@@ -16,6 +16,7 @@ import Delete from './components/delete/QasDelete'
 import Dialog from './components/dialog/QasDialog'
 import Field from './components/field/QasField'
 import Filters from './components/filters/QasFilters'
+import FormGenerator from './components/form-generator/QasFormGenerator'
 import FormView from './components/form-view/QasFormView'
 import GridGenerator from './components/settings-menu/QasGridGenerator'
 import Input from './components/input/QasInput'
@@ -30,6 +31,7 @@ import SettingsMenu from './components/settings-menu/QasSettingsMenu'
 import SingleView from './components/single-view/QasSingleView'
 import Sortable from './components/sortable/QasSortable'
 import TableGenerator from './components/table-generator/QasTableGenerator'
+import TabsGenerator from './components/tabs-generator/QasTabsGenerator'
 import Transfer from './components/transfer/QasTransfer'
 import Uploader from './components/uploader/QasUploader'
 
@@ -63,6 +65,7 @@ export {
   Dialog,
   Field,
   Filters,
+  FormGenerator,
   FormView,
   GridGenerator,
   Input,
@@ -77,6 +80,7 @@ export {
   SingleView,
   Sortable,
   TableGenerator,
+  TabsGenerator,
   Transfer,
   Uploader,
 
@@ -105,6 +109,7 @@ export default {
   Dialog,
   Field,
   Filters,
+  FormGenerator,
   FormView,
   GridGenerator,
   Input,
@@ -119,6 +124,7 @@ export default {
   SingleView,
   Sortable,
   TableGenerator,
+  TabsGenerator,
   Transfer,
   Uploader,
 
@@ -148,6 +154,7 @@ export default {
     Vue.component('QasDialog', Dialog)
     Vue.component('QasField', Field)
     Vue.component('QasFilters', Filters)
+    Vue.component('QasFormGenerator', FormGenerator)
     Vue.component('QasFormView', FormView)
     Vue.component('QasGridGenerator', GridGenerator)
     Vue.component('QasInput', Input)
@@ -162,6 +169,7 @@ export default {
     Vue.component('QasSingleView', SingleView)
     Vue.component('QasSortable', Sortable)
     Vue.component('QasTableGenerator', TableGenerator)
+    Vue.component('QasTabsGenerator', TabsGenerator)
     Vue.component('QasTransfer', Transfer)
     Vue.component('QasUploader', Uploader)
 
