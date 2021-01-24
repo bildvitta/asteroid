@@ -27,8 +27,8 @@ export default {
       description: '[QBtn](https://quasar.dev/vue-components/button) props and events for "Cancel" button. Use `props` and `events` keys to configure the component, or use `false` to hide the button.',
       table: {
         defaultValue: {
-          summary: '{}',
-          detail: '{ props: { label: \'Cancel\', outline: true } }'
+          detail: JSON.stringify({ props: { label: 'Cancel', outline: true } }),
+          summary: '{}'
         }
       }
     },
@@ -59,8 +59,8 @@ export default {
       description: '[QBtn](https://quasar.dev/vue-components/button) props and events for "Ok" button. Use `props` and `events` keys to configure the component, or use `false` to hide the button.',
       table: {
         defaultValue: {
-          summary: '{}',
-          detail: '{ props: { label: \'Ok\' } }'
+          detail: JSON.stringify({ props: { label: 'Ok' } }),
+          summary: '{}'
         }
       }
     },
