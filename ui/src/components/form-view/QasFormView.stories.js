@@ -6,7 +6,7 @@ import users from '../../mocks/storeModule'
 
 const slotDefaults = {
   defaultValue: {
-    summary: JSON.stringify({ errors: 'object', fields: 'object', metadata: 'object' })
+    summary: JSON.stringify({ results: 'object', fields: 'object', metadata: 'object' })
   },
 
   type: {

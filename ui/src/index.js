@@ -21,6 +21,7 @@ import FormView from './components/form-view/QasFormView'
 import GridGenerator from './components/settings-menu/QasGridGenerator'
 import Input from './components/input/QasInput'
 import Label from './components/label/QasLabel'
+import ListView from './components/list-view/QasListView'
 import PageHeader from './components/page-header/PageHeader'
 import PasswordInput from './components/password-input/QasPasswordInput'
 import PasswordStrengthChecker from './components/password-strength-checker/QasPasswordStrengthChecker'
@@ -70,6 +71,7 @@ export {
   GridGenerator,
   Input,
   Label,
+  ListView,
   PageHeader,
   PasswordInput,
   PasswordStrengthChecker,
@@ -114,6 +116,7 @@ export default {
   GridGenerator,
   Input,
   Label,
+  ListView,
   PageHeader,
   PasswordInput,
   PasswordStrengthChecker,
@@ -159,6 +162,7 @@ export default {
     Vue.component('QasGridGenerator', GridGenerator)
     Vue.component('QasInput', Input)
     Vue.component('QasLabel', Label)
+    Vue.component('QasListView', ListView)
     Vue.component('QasPageHeader', PageHeader)
     Vue.component('QasPasswordInput', PasswordInput)
     Vue.component('QasPasswordStrengthChecker', PasswordStrengthChecker)
