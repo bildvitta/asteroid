@@ -6,11 +6,13 @@ export default {
   namespaced: true,
 
   state: {
-    list: []
+    list: [],
+    filters: {}
   },
 
   getters: {
     byId: state => id => state.list.find(item => item.uuid === id),
+    filters: state => state.filters,
     list: state => state.list
   },
 
@@ -22,6 +24,10 @@ export default {
     setSingle (state, single) {
       const index = state.list.findIndex(item => item.uuid === single.uuid)
       ~index ? state.list.splice(index, 1, single) : state.list.push(single)
+    },
+
+    setFilters (state, filters) {
+      state.filters = filters
     }
   },
 
@@ -54,6 +60,12 @@ export default {
       return {
         data: { status: 200 }
       }
+    },
+
+    fetchFilters ({ commit }) {
+      commit('setFilters', usersNew.fields)
+
+      return usersNew
     }
   }
 }
