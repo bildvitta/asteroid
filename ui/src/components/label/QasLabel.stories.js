@@ -26,7 +26,10 @@ export default {
     default: {
       description: 'Main content, will be replace label prop.',
       table: {
-        defaultValue: { summary: JSON.stringify({ formattedLabel: 'string' }) },
+        defaultValue: {
+          detail: JSON.stringify({ formattedLabel: 'string' }),
+          summary: '{}'
+        },
         type: { summary: null }
       }
     }
@@ -36,6 +39,7 @@ export default {
 const Template = (args, { argTypes }) => ({
   components: { QasLabel },
   props: Object.keys(argTypes),
+
   template:
     '<qas-label v-bind="$props" />'
 })

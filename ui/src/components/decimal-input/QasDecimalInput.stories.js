@@ -3,6 +3,7 @@ import QasDecimalInput from './QasDecimalInput.vue'
 export default {
   component: QasDecimalInput,
   title: 'Components/DecimalInput',
+
   parameters: {
     docs: {
       description: {
@@ -12,6 +13,7 @@ export default {
   },
 
   argTypes: {
+    // Props
     comma: {
       description: 'Use comma instead of period as decimal separator.'
     },
@@ -24,11 +26,14 @@ export default {
       description: 'Model value.'
     },
 
-    // events
+    // Events
     input: {
       description: 'Emitted when the component needs to change the model. Is also used by `v-model`.',
       table: {
-        defaultValue: { summary: JSON.stringify({ value: 'number' }) }
+        defaultValue: {
+          detail: JSON.stringify({ value: 'number' }),
+          summary: '{}'
+        }
       }
     },
 

@@ -21,12 +21,13 @@ export default {
 }
 
 const Template = (args, { argTypes }) => ({
-  props: Object.keys(argTypes),
   components: { QasDebugger },
+  props: Object.keys(argTypes),
   template: '<qas-debugger v-bind="$props" />'
 })
 
 export const Default = Template.bind({})
+
 Default.args = {
   inspect: ['A string', 43110, ['An', 'array'], { An: 'object' }, true]
 }

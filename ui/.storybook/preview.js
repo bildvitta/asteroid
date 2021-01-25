@@ -13,3 +13,12 @@ export const parameters = {
   actions: { argTypesRegex: "^on[A-Z].*" },
   viewMode: 'docs'
 }
+
+import Vue from 'vue'
+import storeModule from '../src/mocks/storeModule'
+
+import VueRouter from 'vue-router'
+Vue.use(VueRouter)
+
+import Vuex from 'vuex'
+Vue.use(Vuex)
