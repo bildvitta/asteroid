@@ -32,7 +32,7 @@ export default {
       this.parentRoute = ''
       this.route = null
 
-      this.$emit('hide-1')
+      this.$emit('hide')
     },
 
     resolveRoute (path) {

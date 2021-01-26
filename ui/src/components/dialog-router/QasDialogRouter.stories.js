@@ -3,6 +3,7 @@ import QasDialogRouter from './QasDialogRouter.vue'
 export default {
   component: QasDialogRouter,
   title: 'Components/DialogRouter',
+
   parameters: {
     docs: {
       description: {
@@ -12,20 +13,21 @@ export default {
   },
 
   argTypes: {
-    // Events
-    'hide-2': {
+    hide: {
       description: 'Controls dialog\'s visibility.'
     }
   }
 }
 
 const Template = (args, { argTypes }) => ({
-  props: Object.keys(argTypes),
   components: { QasDialogRouter },
-  template: '<q-btn><qas-dialog-router v-bind="$props" /></q-btn>'
+  props: Object.keys(argTypes),
+  template:
+    '<qas-DialogRouter v-bind="$props" route="https://quasar.dev/"/>'
 })
 
 export const Default = Template.bind({})
+
 Default.args = {
-  // route:
+  label: 'Click here!'
 }
