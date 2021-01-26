@@ -1,0 +1,13 @@
+name: asteroid
+
+static_sites:
+  - name: ui
+    github:
+      repo: bildvitta/asteroid
+      branch: main
+      deploy_on_push: true
+    source_dir: ui
+    build_command: npm run storybook:build
+    output_dir: storybook-static
+    routes:
+      - path: /

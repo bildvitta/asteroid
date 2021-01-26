@@ -1,0 +1,5 @@
+@for $index from 1 through 9 {
+  .opacity-#{$index}0 {
+    opacity: #{'0.' + $index};
+  }
+}
