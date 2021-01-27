@@ -1,4 +1,4 @@
 import Vue from 'vue'
-import VuePlugin from 'quasar-ui-asteroid'
+import VuePlugin from '@bildvitta/quasar-ui-asteroid'
 
 Vue.use(VuePlugin)

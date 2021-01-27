@@ -6,7 +6,7 @@
  * API: https://github.com/quasarframework/quasar/blob/master/app/lib/app-extension/IndexAPI.js
  */
 
-const sourcePath = '~quasar-app-extension-asteroid/src/'
+const sourcePath = '~@bildvitta/quasar-app-extension-asteroid/src/'
 const resolve = (...paths) => paths.map(path => sourcePath + path)
 
 function extendQuasar (quasar) {
