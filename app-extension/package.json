@@ -9,11 +9,19 @@
     "access": "public",
     "registry": "https://registry.npmjs.org/"
   },
+  "keys": [
+    "quasar",
+    "extension",
+    "vue",
+    "design-system",
+    "helpers",
+    "components"
+  ],
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "https://github.com/bildvitta/asteroid/"
   },
-  "bugs": "",
+  "bugs": "https://github.com/bildvitta/asteroid/issues",
   "homepage": "",
   "dependencies": {
     "@bildvitta/quasar-ui-asteroid": "latest"

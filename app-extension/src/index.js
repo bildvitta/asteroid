@@ -26,18 +26,6 @@ function extendQuasar (quasar) {
   quasar.build.transpileDependencies.push(/quasar-app-extension-asteroid[\\/]src/)
 
   quasar.css.push(...resolve('index.scss'))
-    // TODO preciso lanaçar versão para testar...
-    // Styles
-    // quasar.css.push(...resolve(
-    //   'css/container.scss',
-    //   'css/line-height.scss',
-    //   'css/opacity.scss',
-    //   'css/steroids.scss',
-    //   'css/text.scss'
-    // ))
-
-  // make sure the stylesheet goes through webpack to avoid SSR issues
-  // quasar.css.push('~quasar-ui-asteroid/src/index.sass')
 
   // Settings
   quasar.extras.push(

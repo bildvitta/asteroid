@@ -15,7 +15,15 @@
     "access": "public",
     "registry": "https://registry.npmjs.org/"
   },
-  "author": "",
+  "keys": [
+    "quasar",
+    "extension",
+    "vue",
+    "design-system",
+    "helpers",
+    "components"
+  ],
+  "author": "Douglas Calora <douglascalora123@gmail.com>",
   "license": "ISC",
   "devDependencies": {
     "@babel/core": "^7.12.10",
