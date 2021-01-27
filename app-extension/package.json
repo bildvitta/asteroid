@@ -1,6 +1,6 @@
 {
   "name": "@bildvitta/quasar-app-extension-asteroid",
-  "version": "0.0.1",
+  "version": "0.1.1",
   "description": "A Quasar App Extension",
   "author": "Caio Tarifa <caiotarifa@gmail.com>",
   "license": "MIT",
