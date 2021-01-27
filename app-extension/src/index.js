@@ -25,6 +25,17 @@ function extendQuasar (quasar) {
   // Transpile!
   quasar.build.transpileDependencies.push(/quasar-app-extension-asteroid[\\/]src/)
 
+  quasar.css.push(...resolve('index.scss'))
+    // TODO preciso lanaçar versão para testar...
+    // Styles
+    // quasar.css.push(...resolve(
+    //   'css/container.scss',
+    //   'css/line-height.scss',
+    //   'css/opacity.scss',
+    //   'css/steroids.scss',
+    //   'css/text.scss'
+    // ))
+
   // make sure the stylesheet goes through webpack to avoid SSR issues
   // quasar.css.push('~quasar-ui-asteroid/src/index.sass')
 
@@ -41,7 +52,13 @@ module.exports = function (api) {
   api.compatibleWith('quasar', '^1.1.1')
   api.compatibleWith('@quasar/app', '^1.1.0 || ^2.0.0')
 
-  api.compatibleWith('humps', '^2.0.1')
+  // TODO aparentemente não precisa
+  // api.compatibleWith('axios', '^0.21.1')
+  // api.compatibleWith('date-fns', '^2.16.1')
+  // api.compatibleWith('fuse.js', '^6.4.3')
+  // api.compatibleWith('humps', '^2.0.1')
+  // api.compatibleWith('lodash', '^4.17.20')
+  // api.compatibleWith('sortablejs', '^1.12.0')
 
   api.extendQuasarConf(extendQuasar)
 }

@@ -57,6 +57,7 @@ const Template = (args, { argTypes }) => ({
   components: { QasSortable },
   props: Object.keys(argTypes),
 
+  // TODO template deveria aparecer com a img
   template:
     `<qas-sortable v-bind="$props" class="flex">
       <template v-slot="{ sorted }">

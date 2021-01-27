@@ -1,4 +1,5 @@
 import { camelizeKeys, decamelizeKeys } from 'humps'
+import axios from 'axios'
 
 export default async ({ Vue }) => {
   const api = Vue.prototype.$axios
