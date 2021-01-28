@@ -23,7 +23,7 @@ $ quasar ext add @bildvitta/asteroid
 ```
 
 ## Usage
-After the installation the app-extension is ready to be used, check [here](asteroid-og52m.ondigitalocean.app) the documentation.
+After the installation the app-extension is ready to be used, check [here](https://asteroid-og52m.ondigitalocean.app) the documentation.
 
 ## Develop usage
 ```
