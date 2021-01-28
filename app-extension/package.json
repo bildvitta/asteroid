@@ -1,18 +1,30 @@
 {
-  "name": "quasar-app-extension-asteroid",
-  "version": "0.0.1",
+  "name": "@bildvitta/quasar-app-extension-asteroid",
+  "version": "0.2.1",
   "description": "A Quasar App Extension",
   "author": "Caio Tarifa <caiotarifa@gmail.com>",
   "license": "MIT",
   "main": "src/index.js",
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "keys": [
+    "quasar",
+    "extension",
+    "vue",
+    "design-system",
+    "helpers",
+    "components"
+  ],
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "https://github.com/bildvitta/asteroid/"
   },
-  "bugs": "",
+  "bugs": "https://github.com/bildvitta/asteroid/issues",
   "homepage": "",
   "dependencies": {
-    "quasar-ui-asteroid": "latest"
+    "@bildvitta/quasar-ui-asteroid": "latest"
   },
   "engines": {
     "node": ">= 8.9.0",
