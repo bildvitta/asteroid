@@ -4,6 +4,8 @@
 # Asteroid
 This `App Extension` contains methods, components and styles that will assist in building a C.R.U.D. using *Vue* and *Quasar*. It was initially designed to be used in accordance with [Django REST framework] standards (https://www.django-rest-framework.org/), but can be adapted to any _back-end_ as long as it maintains the original standards.
 
+Note: Some Quasar components must be imported manually inside [quasar.config.js](https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-framework) (e.g., when you are using `QasFormView` you have to import [QPage](https://quasar.dev/layout/page#Introduction)).
+
 
 ## Structure
 * [/ui](ui) - standalone npm package
@@ -50,7 +52,7 @@ Now go to your project that you are using this `app-extension`:
 $ npm link @bildvitta/quasar-app-extension-asteroid
 ```
 
-Now your project is linked with asteroid directory and not anymore with is installed within node_module's project.
+Now your project is linked with asteroid directory and not anymore with is installed within node_modules of project.
 For unlink asteroid directory, inside your project:
 ```
 $ npm i

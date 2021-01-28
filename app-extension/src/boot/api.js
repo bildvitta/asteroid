@@ -1,12 +1,12 @@
 import { camelizeKeys, decamelizeKeys } from 'humps'
-import axios from 'axios'
 
 export default async ({ Vue }) => {
   const api = Vue.prototype.$axios
+  const environment = Vue.prototype.$environment
 
   // Defaults
-  axios.defaults.baseURL = process.env.SERVER_BASE_URL || '/'
-  axios.defaults.timeout = process.env.SERVER_TIMEOUT || 10000
+  api.defaults.baseURL = process.env.SERVER_BASE_URL || (environment ? environment.serverBaseURL : '/')
+  api.defaults.timeout = process.env.SERVER_TIMEOUT || 10000
 
   // Transformers
   api.defaults.transformResponse = [

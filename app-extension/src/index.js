@@ -13,6 +13,7 @@ function extendQuasar (quasar) {
   // Boot
   quasar.boot.push(
     ...resolve(
+      'boot/environment.js',
       'boot/api.js',
       'boot/force-https.js',
       'boot/history.js',
@@ -26,6 +27,15 @@ function extendQuasar (quasar) {
   quasar.build.transpileDependencies.push(/quasar-app-extension-asteroid[\\/]src/)
 
   quasar.css.push(...resolve('index.scss'))
+
+  const plugins = [
+    'Notify',
+    'Dialog',
+    'Loading'
+  ]
+
+  // Add all required quasar plugins
+  plugins.forEach(plugin => quasar.framework.plugins.push(plugin))
 
   // Settings
   quasar.extras.push(
@@ -49,4 +59,13 @@ module.exports = function (api) {
   // api.compatibleWith('sortablejs', '^1.12.0')
 
   api.extendQuasarConf(extendQuasar)
+
+  api.extendWebpack(webpack => {
+
+    webpack.resolve.alias = {
+      ...webpack.resolve.alias,
+
+      extensions: api.resolve.app('quasar.extensions.json')
+    }
+  })
 }
