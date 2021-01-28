@@ -98,7 +98,7 @@ But now you have lost the link, run again:
 $ npm link
 ```
 
-## Desinstallation
+## Uninstall
 
 ```
 $ quasar ext remove @bildvitta/asteroid
