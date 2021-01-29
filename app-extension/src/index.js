@@ -50,21 +50,15 @@ module.exports = function (api) {
   api.compatibleWith('quasar', '^1.1.1')
   api.compatibleWith('@quasar/app', '^1.1.0 || ^2.0.0')
 
-  // TODO aparentemente não precisa
-  // api.compatibleWith('axios', '^0.21.1')
-  // api.compatibleWith('date-fns', '^2.16.1')
-  // api.compatibleWith('fuse.js', '^6.4.3')
-  // api.compatibleWith('humps', '^2.0.1')
-  // api.compatibleWith('lodash', '^4.17.20')
-  // api.compatibleWith('sortablejs', '^1.12.0')
-
   api.extendQuasarConf(extendQuasar)
 
   api.extendWebpack(webpack => {
+    const helpers = 'node_modules/@bildvitta/quasar-ui-asteroid/src/helpers/index.js'
 
     webpack.resolve.alias = {
       ...webpack.resolve.alias,
 
+      asteroid: api.resolve.app(helpers),
       extensions: api.resolve.app('quasar.extensions.json')
     }
   })

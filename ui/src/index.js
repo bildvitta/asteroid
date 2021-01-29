@@ -5,12 +5,14 @@ import QasAppMenu from './components/app-menu/QasAppMenu'
 import QasAppsMenu from './components/apps-menu/QasAppsMenu'
 import QasAutoComplete from './components/auto-complete/QasAutoComplete'
 import QasAvatar from './components/avatar/QasAvatar'
+import QasBox from './components/box/QasBox'
 import QasBreakLine from './components/break-line/QasBreakLine'
 import QasBtn from './components/btn/QasBtn'
 import QasBtnActions from './components/btn-actions/QasBtnActions'
 import QasCheckboxGroup from './components/checkbox-group/QasCheckboxGroup'
 import QasCopy from './components/copy/QasCopy'
 import QasDateTimeInput from './components/date-time-input/QasDateTimeInput'
+import QasDebugger from './components/debugger/QasDebugger'
 import QasDecimalInput from './components/decimal-input/QasDecimalInput'
 import QasDelete from './components/delete/QasDelete'
 import QasDialog from './components/dialog/QasDialog'
@@ -55,12 +57,14 @@ export {
   QasAppsMenu,
   QasAutoComplete,
   QasAvatar,
+  QasBox,
   QasBreakLine,
   QasBtn,
   QasBtnActions,
   QasCheckboxGroup,
   QasCopy,
   QasDateTimeInput,
+  QasDebugger,
   QasDecimalInput,
   QasDelete,
   QasDialog,
@@ -100,12 +104,14 @@ export default {
   QasAppsMenu,
   QasAutoComplete,
   QasAvatar,
+  QasBox,
   QasBreakLine,
   QasBtn,
   QasBtnActions,
   QasCheckboxGroup,
   QasCopy,
   QasDateTimeInput,
+  QasDebugger,
   QasDecimalInput,
   QasDelete,
   QasDialog,
@@ -144,14 +150,14 @@ export default {
     Vue.component('QasAppsMenu', QasAppsMenu)
     Vue.component('QasAutoComplete', QasAutoComplete)
     Vue.component('QasAvatar', QasAvatar)
-    Vue.component('QasAvatar', QasAvatar)
-    Vue.component('QasBreakline', QasBreakLine)
-    Vue.component('QasBreakline', QasBreakLine)
+    Vue.component('QasBox', QasBox)
+    Vue.component('QasBreakLine', QasBreakLine)
     Vue.component('QasBtn', QasBtn)
     Vue.component('QasBtnActions', QasBtnActions)
     Vue.component('QasCheckboxGroup', QasCheckboxGroup)
     Vue.component('QasCopy', QasCopy)
     Vue.component('QasDateTimeInput', QasDateTimeInput)
+    Vue.component('QasDebugger', QasDebugger)
     Vue.component('QasDecimalInput', QasDecimalInput)
     Vue.component('QasDelete', QasDelete)
     Vue.component('QasDialog', QasDialog)
