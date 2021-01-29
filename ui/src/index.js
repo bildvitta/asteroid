@@ -16,6 +16,7 @@ import QasDebugger from './components/debugger/QasDebugger'
 import QasDecimalInput from './components/decimal-input/QasDecimalInput'
 import QasDelete from './components/delete/QasDelete'
 import QasDialog from './components/dialog/QasDialog'
+import QasDialogRouter from './components/dialog-router/QasDialogRouter'
 import QasField from './components/field/QasField'
 import QasFilters from './components/filters/QasFilters'
 import QasFormGenerator from './components/form-generator/QasFormGenerator'
@@ -28,6 +29,7 @@ import QasPageHeader from './components/page-header/QasPageHeader'
 import QasPasswordInput from './components/password-input/QasPasswordInput'
 import QasPasswordStrengthChecker from './components/password-strength-checker/QasPasswordStrengthChecker'
 import QasProfile from './components/profile/QasProfile'
+import QasResizer from './components/resizer/QasResizer'
 import QasSearchBox from './components/search-box/QasSearchBox'
 import QasSelectList from './components/select-list/QasSelectList'
 import QasSettingsMenu from './components/settings-menu/QasSettingsMenu'
@@ -68,6 +70,7 @@ export {
   QasDecimalInput,
   QasDelete,
   QasDialog,
+  QasDialogRouter,
   QasField,
   QasFilters,
   QasFormGenerator,
@@ -80,6 +83,7 @@ export {
   QasPasswordInput,
   QasPasswordStrengthChecker,
   QasProfile,
+  QasResizer,
   QasSearchBox,
   QasSelectList,
   QasSettingsMenu,
@@ -115,6 +119,7 @@ export default {
   QasDecimalInput,
   QasDelete,
   QasDialog,
+  QasDialogRouter,
   QasField,
   QasFilters,
   QasFormGenerator,
@@ -127,6 +132,7 @@ export default {
   QasPasswordInput,
   QasPasswordStrengthChecker,
   QasProfile,
+  QasResizer,
   QasSearchBox,
   QasSelectList,
   QasSettingsMenu,
@@ -161,6 +167,7 @@ export default {
     Vue.component('QasDecimalInput', QasDecimalInput)
     Vue.component('QasDelete', QasDelete)
     Vue.component('QasDialog', QasDialog)
+    Vue.component('QasDialogRouter', QasDialogRouter)
     Vue.component('QasField', QasField)
     Vue.component('QasFilters', QasFilters)
     Vue.component('QasFormGenerator', QasFormGenerator)
@@ -173,6 +180,7 @@ export default {
     Vue.component('QasPasswordInput', QasPasswordInput)
     Vue.component('QasPasswordStrengthChecker', QasPasswordStrengthChecker)
     Vue.component('QasProfile', QasProfile)
+    Vue.component('QasResizer', QasResizer)
     Vue.component('QasSearchBox', QasSearchBox)
     Vue.component('QasSelectList', QasSelectList)
     Vue.component('QasSettingsMenu', QasSettingsMenu)

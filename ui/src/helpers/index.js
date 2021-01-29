@@ -1,3 +1,4 @@
+import greatestCommonDivisor from './greatestCommonDivisor.js'
 import { history, handleHistory } from './historyHandler'
 
 import {
@@ -40,5 +41,7 @@ export {
 
   // history
   handleHistory,
-  history
+  history,
+
+  greatestCommonDivisor
 }
