@@ -7,11 +7,13 @@
 </template>
 
 <script>
-import { greatestCommonDivisor } from '../../helpers/greatestCommonDivisor'
+import { greatestCommonDivisor } from '../../helpers'
 
 const baseURL = 'https://d17ouzaofz81f3.cloudfront.net/'
 
 export default {
+  name: 'QasResizer',
+
   props: {
     size: {
       default: '',
@@ -37,7 +39,7 @@ export default {
 
     imageParameters () {
       const parameters = {
-        bucket: this.$environment.bucket,
+        bucket: this.$environment?.bucket,
         key: this.source,
         edits: {}
       }
