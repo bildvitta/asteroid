@@ -1,4 +1,5 @@
 import greatestCommonDivisor from './greatestCommonDivisor.js'
+import { history, handleHistory } from './historyHandler'
 
 import {
   asset,
@@ -6,12 +7,16 @@ import {
   date,
   dateTime,
   formatCompanyDocument,
+  formatDocument,
   formatPersonalDocument,
-  handleDocument,
+  formatPhone,
+  formatPostalCode,
   handleMasks,
   humanDate,
+  humanize,
   money,
   optionLabel,
+  parseValue,
   percent
 } from './filters.js'
 
@@ -22,13 +27,21 @@ export {
   date,
   dateTime,
   formatCompanyDocument,
+  formatDocument,
   formatPersonalDocument,
-  handleDocument,
+  formatPhone,
+  formatPostalCode,
   handleMasks,
   humanDate,
+  humanize,
   money,
   optionLabel,
+  parseValue,
   percent,
+
+  // history
+  handleHistory,
+  history,
 
   greatestCommonDivisor
 }

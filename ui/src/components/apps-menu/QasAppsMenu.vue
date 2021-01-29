@@ -2,8 +2,8 @@
   <q-btn class="q-mx-md" v-bind="$attrs" dense icon="apps" round unelevated>
     <q-menu anchor="bottom middle" max-width="400px" self="top middle">
       <div class="q-col-gutter-md q-pa-md row">
-        <!-- TODO rever se é desta forma mesmo que é para deixar os links -->
-        <a v-for="(app, index) in apps" :key="index" class="col-6 col-sm-4 flex justify-center text-undecoration" :href="app.href">
+        <!-- TODO: Revisitar os estilos dos links. -->
+        <a v-for="(app, index) in apps" :key="index" v-test:apps-menu-link class="col-6 col-sm-4 flex justify-center text-undecoration" :href="app.href">
           <div>
             <q-avatar class="q-m-x-auto" :size="avatarSize">
               <img :alt="app.label" class="rounded-borders" :src="app.image">
@@ -18,7 +18,16 @@
 </template>
 
 <script>
+// TODO ver uma forma de adicionar globalmente as diretivas
+import test from '../../directives/Test'
+
 export default {
+  name: 'QasAppsMenu',
+
+  directives: {
+    test
+  },
+
   props: {
     apps: {
       default: () => [],

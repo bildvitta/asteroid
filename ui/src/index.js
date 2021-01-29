@@ -1,23 +1,40 @@
 import { version } from '../package.json'
 
-import AppMenu from './components/app-menu/QasAppMenu'
-import AppsMenu from './components/apps-menu/QasAppsMenu'
-import Avatar from './components/avatar/QasAvatar'
-import BreakLine from './components/break-line/QasBreakLine'
-import Btn from './components/btn/QasBtn'
-import BtnActions from './components/btn-actions/QasBtnActions'
-import Copy from './components/copy/QasCopy'
-import DateTimeInput from './components/date-time-input/QasDateTimeInput'
-import DecimalInput from './components/decimal-input/QasDecimalInput'
-import Delete from './components/delete/QasDelete'
-import Dialog from './components/dialog/QasDialog'
-import GridGenerator from './components/settings-menu/QasGridGenerator'
-import Input from './components/input/QasInput'
-import Label from './components/label/QasLabel'
-import PasswordStrengthChecker from './components/password-strength-checker/QasPasswordStrengthChecker'
-import Profile from './components/profile/QasProfile'
-import SearchBox from './components/search-box/QasSearchBox'
-import SettingsMenu from './components/settings-menu/QasSettingsMenu'
+import QasAppBar from './components/app-bar/QasAppBar'
+import QasAppMenu from './components/app-menu/QasAppMenu'
+import QasAppsMenu from './components/apps-menu/QasAppsMenu'
+import QasAutoComplete from './components/auto-complete/QasAutoComplete'
+import QasAvatar from './components/avatar/QasAvatar'
+import QasBreakLine from './components/break-line/QasBreakLine'
+import QasBtn from './components/btn/QasBtn'
+import QasBtnActions from './components/btn-actions/QasBtnActions'
+import QasCheckboxGroup from './components/checkbox-group/QasCheckboxGroup'
+import QasCopy from './components/copy/QasCopy'
+import QasDateTimeInput from './components/date-time-input/QasDateTimeInput'
+import QasDecimalInput from './components/decimal-input/QasDecimalInput'
+import QasDelete from './components/delete/QasDelete'
+import QasDialog from './components/dialog/QasDialog'
+import QasField from './components/field/QasField'
+import QasFilters from './components/filters/QasFilters'
+import QasFormGenerator from './components/form-generator/QasFormGenerator'
+import QasFormView from './components/form-view/QasFormView'
+import QasGridGenerator from './components/grid-generator/QasGridGenerator'
+import QasInput from './components/input/QasInput'
+import QasLabel from './components/label/QasLabel'
+import QasListView from './components/list-view/QasListView'
+import QasPageHeader from './components/page-header/QasPageHeader'
+import QasPasswordInput from './components/password-input/QasPasswordInput'
+import QasPasswordStrengthChecker from './components/password-strength-checker/QasPasswordStrengthChecker'
+import QasProfile from './components/profile/QasProfile'
+import QasSearchBox from './components/search-box/QasSearchBox'
+import QasSelectList from './components/select-list/QasSelectList'
+import QasSettingsMenu from './components/settings-menu/QasSettingsMenu'
+import QasSingleView from './components/single-view/QasSingleView'
+import QasSortable from './components/sortable/QasSortable'
+import QasTableGenerator from './components/table-generator/QasTableGenerator'
+import QasTabsGenerator from './components/tabs-generator/QasTabsGenerator'
+import QasTransfer from './components/transfer/QasTransfer'
+import QasUploader from './components/uploader/QasUploader'
 
 import Test from './directives/Test'
 
@@ -33,24 +50,41 @@ export {
   NotifyError,
   NotifySuccess,
 
-  AppMenu,
-  AppsMenu,
-  Avatar,
-  BreakLine,
-  Btn,
-  BtnActions,
-  Copy,
-  DateTimeInput,
-  DecimalInput,
-  Delete,
-  Dialog,
-  GridGenerator,
-  Input,
-  Label,
-  PasswordStrengthChecker,
-  Profile,
-  SearchBox,
-  SettingsMenu,
+  QasAppBar,
+  QasAppMenu,
+  QasAppsMenu,
+  QasAutoComplete,
+  QasAvatar,
+  QasBreakLine,
+  QasBtn,
+  QasBtnActions,
+  QasCheckboxGroup,
+  QasCopy,
+  QasDateTimeInput,
+  QasDecimalInput,
+  QasDelete,
+  QasDialog,
+  QasField,
+  QasFilters,
+  QasFormGenerator,
+  QasFormView,
+  QasGridGenerator,
+  QasInput,
+  QasLabel,
+  QasListView,
+  QasPageHeader,
+  QasPasswordInput,
+  QasPasswordStrengthChecker,
+  QasProfile,
+  QasSearchBox,
+  QasSelectList,
+  QasSettingsMenu,
+  QasSingleView,
+  QasSortable,
+  QasTableGenerator,
+  QasTabsGenerator,
+  QasTransfer,
+  QasUploader,
 
   Test
 }
@@ -61,24 +95,41 @@ export default {
   NotifyError,
   NotifySuccess,
 
-  AppMenu,
-  AppsMenu,
-  Avatar,
-  BreakLine,
-  Btn,
-  BtnActions,
-  Copy,
-  DateTimeInput,
-  DecimalInput,
-  Delete,
-  Dialog,
-  GridGenerator,
-  Input,
-  Label,
-  PasswordStrengthChecker,
-  Profile,
-  SearchBox,
-  SettingsMenu,
+  QasAppBar,
+  QasAppMenu,
+  QasAppsMenu,
+  QasAutoComplete,
+  QasAvatar,
+  QasBreakLine,
+  QasBtn,
+  QasBtnActions,
+  QasCheckboxGroup,
+  QasCopy,
+  QasDateTimeInput,
+  QasDecimalInput,
+  QasDelete,
+  QasDialog,
+  QasField,
+  QasFilters,
+  QasFormGenerator,
+  QasFormView,
+  QasGridGenerator,
+  QasInput,
+  QasLabel,
+  QasListView,
+  QasPageHeader,
+  QasPasswordInput,
+  QasPasswordStrengthChecker,
+  QasProfile,
+  QasSearchBox,
+  QasSelectList,
+  QasSettingsMenu,
+  QasSingleView,
+  QasSortable,
+  QasTableGenerator,
+  QasTabsGenerator,
+  QasTransfer,
+  QasUploader,
 
   Test,
 
@@ -88,24 +139,43 @@ export default {
       success: NotifySuccess
     }
 
-    Vue.component('QasAppMenu', AppMenu)
-    Vue.component('QasAppsMenu', AppsMenu)
-    Vue.component('QasAvatar', Avatar)
-    Vue.component('QasBreakline', BreakLine)
-    Vue.component('QasBtn', Btn)
-    Vue.component('QasBtnActions', BtnActions)
-    Vue.component('QasCopy', Copy)
-    Vue.component('QasDateTimeInput', DateTimeInput)
-    Vue.component('QasDecimalInput', DecimalInput)
-    Vue.component('QasDelete', Delete)
-    Vue.component('QasDialog', Dialog)
-    Vue.component('QasGridGenerator', GridGenerator)
-    Vue.component('QasInput', Input)
-    Vue.component('QasLabel', Label)
-    Vue.component('QasPasswordStrengthChecker', PasswordStrengthChecker)
-    Vue.component('QasProfile', Profile)
-    Vue.component('QasSearchBox', SearchBox)
-    Vue.component('QasSettingsMenu', SettingsMenu)
+    Vue.component('QasAppBar', QasAppBar)
+    Vue.component('QasAppMenu', QasAppMenu)
+    Vue.component('QasAppsMenu', QasAppsMenu)
+    Vue.component('QasAutoComplete', QasAutoComplete)
+    Vue.component('QasAvatar', QasAvatar)
+    Vue.component('QasAvatar', QasAvatar)
+    Vue.component('QasBreakline', QasBreakLine)
+    Vue.component('QasBreakline', QasBreakLine)
+    Vue.component('QasBtn', QasBtn)
+    Vue.component('QasBtnActions', QasBtnActions)
+    Vue.component('QasCheckboxGroup', QasCheckboxGroup)
+    Vue.component('QasCopy', QasCopy)
+    Vue.component('QasDateTimeInput', QasDateTimeInput)
+    Vue.component('QasDecimalInput', QasDecimalInput)
+    Vue.component('QasDelete', QasDelete)
+    Vue.component('QasDialog', QasDialog)
+    Vue.component('QasField', QasField)
+    Vue.component('QasFilters', QasFilters)
+    Vue.component('QasFormGenerator', QasFormGenerator)
+    Vue.component('QasFormView', QasFormView)
+    Vue.component('QasGridGenerator', QasGridGenerator)
+    Vue.component('QasInput', QasInput)
+    Vue.component('QasLabel', QasLabel)
+    Vue.component('QasListView', QasListView)
+    Vue.component('QasPageHeader', QasPageHeader)
+    Vue.component('QasPasswordInput', QasPasswordInput)
+    Vue.component('QasPasswordStrengthChecker', QasPasswordStrengthChecker)
+    Vue.component('QasProfile', QasProfile)
+    Vue.component('QasSearchBox', QasSearchBox)
+    Vue.component('QasSelectList', QasSelectList)
+    Vue.component('QasSettingsMenu', QasSettingsMenu)
+    Vue.component('QasSingleView', QasSingleView)
+    Vue.component('QasSortable', QasSortable)
+    Vue.component('QasTableGenerator', QasTableGenerator)
+    Vue.component('QasTabsGenerator', QasTabsGenerator)
+    Vue.component('QasTransfer', QasTransfer)
+    Vue.component('QasUploader', QasUploader)
 
     Vue.directive(Test.name, Test)
   }
