@@ -7,7 +7,7 @@ export default {
   parameters: {
     docs: {
       description: {
-        component: 'Extends [QInput](https://quasar.dev/vue-components/input#Introduction). Can mask raw values by default.'
+        component: 'Extends [QInput](https://quasar.dev/vue-components/input). Can mask raw values by default.'
       }
     }
   },

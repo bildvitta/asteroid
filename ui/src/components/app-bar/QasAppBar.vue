@@ -121,29 +121,17 @@ export default {
       return current ? hosts[current] : ''
     },
 
-    fullscreenIcon () {
-      return this.isFullscreen ? 'o_fullscreen_exit' : 'o_fullscreen'
-    },
-
     hasApps () {
       return !!this.apps.length
     },
 
     hasDevelopmentBadge () {
       return !!this.developmentBadgeLabel
-    },
-
-    isFullscreen () {
-      return !!this.$q.fullscreen.isActive
     }
   },
 
   methods: {
     asset,
-
-    fullscreen () {
-      this.$q.fullscreen.toggle()
-    },
 
     goToProfile () {
       return this.$router.push(this.user.to)
