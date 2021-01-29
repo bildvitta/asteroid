@@ -14,6 +14,7 @@ import QasDateTimeInput from './components/date-time-input/QasDateTimeInput'
 import QasDecimalInput from './components/decimal-input/QasDecimalInput'
 import QasDelete from './components/delete/QasDelete'
 import QasDialog from './components/dialog/QasDialog'
+import QasDialogRouter from './components/dialog-router/QasDialogRouter'
 import QasField from './components/field/QasField'
 import QasFilters from './components/filters/QasFilters'
 import QasFormGenerator from './components/form-generator/QasFormGenerator'
@@ -64,6 +65,7 @@ export {
   QasDecimalInput,
   QasDelete,
   QasDialog,
+  QasDialogRouter,
   QasField,
   QasFilters,
   QasFormGenerator,
@@ -109,6 +111,7 @@ export default {
   QasDecimalInput,
   QasDelete,
   QasDialog,
+  QasDialogRouter,
   QasField,
   QasFilters,
   QasFormGenerator,
@@ -154,6 +157,7 @@ export default {
     Vue.component('QasDecimalInput', QasDecimalInput)
     Vue.component('QasDelete', QasDelete)
     Vue.component('QasDialog', QasDialog)
+    Vue.component('QasDialogRouter', QasDialogRouter)
     Vue.component('QasField', QasField)
     Vue.component('QasFilters', QasFilters)
     Vue.component('QasFormGenerator', QasFormGenerator)
