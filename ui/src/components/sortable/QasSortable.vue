@@ -6,6 +6,7 @@
 
 <script>
 import { cloneDeep, get } from 'lodash'
+import { Loading } from 'quasar'
 import Sortable from 'sortablejs'
 
 let sortable = null
@@ -89,7 +90,7 @@ export default {
     },
 
     async replace () {
-      this.$q.loading.show()
+      Loading.show()
 
       try {
         const response = await this.$store.dispatch(`${this.entity}/replace`, {
@@ -101,7 +102,7 @@ export default {
       } catch (error) {
         this.handleError(error)
       } finally {
-        this.$q.loading.hide()
+        Loading.hide()
       }
     },
 
