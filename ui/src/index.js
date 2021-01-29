@@ -27,6 +27,7 @@ import QasPageHeader from './components/page-header/QasPageHeader'
 import QasPasswordInput from './components/password-input/QasPasswordInput'
 import QasPasswordStrengthChecker from './components/password-strength-checker/QasPasswordStrengthChecker'
 import QasProfile from './components/profile/QasProfile'
+import QasResizer from './components/resizer/QasResizer'
 import QasSearchBox from './components/search-box/QasSearchBox'
 import QasSelectList from './components/select-list/QasSelectList'
 import QasSettingsMenu from './components/settings-menu/QasSettingsMenu'
@@ -78,6 +79,7 @@ export {
   QasPasswordInput,
   QasPasswordStrengthChecker,
   QasProfile,
+  QasResizer,
   QasSearchBox,
   QasSelectList,
   QasSettingsMenu,
@@ -124,6 +126,7 @@ export default {
   QasPasswordInput,
   QasPasswordStrengthChecker,
   QasProfile,
+  QasResizer,
   QasSearchBox,
   QasSelectList,
   QasSettingsMenu,
@@ -170,6 +173,7 @@ export default {
     Vue.component('QasPasswordInput', QasPasswordInput)
     Vue.component('QasPasswordStrengthChecker', QasPasswordStrengthChecker)
     Vue.component('QasProfile', QasProfile)
+    Vue.component('QasResizer', QasResizer)
     Vue.component('QasSearchBox', QasSearchBox)
     Vue.component('QasSelectList', QasSelectList)
     Vue.component('QasSettingsMenu', QasSettingsMenu)
