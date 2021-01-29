@@ -9,6 +9,9 @@
 </template>
 
 <script>
+import { Loading } from 'quasar'
+import { NotifyError } from '../../plugins'
+
 export default {
   data () {
     return {
@@ -48,8 +51,7 @@ export default {
       }
 
       try {
-        this.$q.loading.show()
-
+        Loading.show()
         const component = [...this.route.matched].pop().components.default
 
         if (typeof component !== 'function') {
@@ -57,15 +59,15 @@ export default {
           this.$refs.dialog.show()
         } else {
           const componentFn = (await component()).default
-
           this.component = componentFn
+
           this.$refs.dialog.show()
         }
       } catch (error) {
-        this.$qs.error('Ops! Erro ao carregar item.')
-        this.emit('error', error)
+        NotifyError('Ops! Erro ao carregar item.')
+        this.$emit('error', error)
       } finally {
-        this.$q.loading.hide()
+        Loading.hide()
       }
     }
   }

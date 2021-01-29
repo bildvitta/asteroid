@@ -1,3 +1,6 @@
+import VueRouter from 'vue-router'
+
+import QasBtn from '../btn/QasBtn.vue'
 import QasDialogRouter from './QasDialogRouter.vue'
 
 export default {
@@ -7,7 +10,7 @@ export default {
   parameters: {
     docs: {
       description: {
-        component: 'Creates a dialog when open directly, otherwise opens as a page.'
+        component: 'Open an Vue component (like a page) inside [QDialog](https://quasar.dev/vue-components/dialog).'
       }
     }
   },
@@ -19,15 +22,17 @@ export default {
   }
 }
 
+// TODO: Fazer um mock de componente na rota para o exemplo funcionar.
 const Template = (args, { argTypes }) => ({
-  components: { QasDialogRouter },
+  components: { QasBtn, QasDialogRouter },
   props: Object.keys(argTypes),
+  router: new VueRouter(),
   template:
-    '<qas-DialogRouter v-bind="$props" route="https://quasar.dev/"/>'
+    `<div>
+      <qas-btn label="Open dialog" @click="$refs.dialog.show('')" />
+      <qas-dialog-router ref="dialog" v-bind="$props" />
+    </div>`
 })
 
 export const Default = Template.bind({})
-
-Default.args = {
-  label: 'Click here!'
-}
+Default.args = {}
