@@ -3,17 +3,19 @@ import QasResizer from './QasResizer.vue'
 export default {
   component: QasResizer,
   title: 'Components/Resizer',
+
   parameters: {
     docs: {
       description: {
-        component: 'Component for resizing images.'
+        component: 'Resize images on cloud.'
       }
     }
   },
 
   argTypes: {
     resize: {
-      description: 'Options to resize: cover, contain, fill, inside, outside.'
+      control: { type: 'select', options: ['cover', 'contain', 'fill', 'inside', 'outside'] },
+      description: 'Resizer fit format.'
     },
 
     size: {
@@ -34,6 +36,8 @@ const Template = (args, { argTypes }) => ({
 })
 
 export const Default = Template.bind({})
+
 Default.args = {
+  size: '100x100',
   source: '//placehold.it/1000'
 }

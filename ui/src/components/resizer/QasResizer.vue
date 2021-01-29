@@ -28,7 +28,8 @@ export default {
     resize: {
       default: 'cover',
       type: String,
-      validator: value => ['cover', 'contain', 'fill', 'inside', 'outside'].includes(value)
+      validator: value =>
+        ['cover', 'contain', 'fill', 'inside', 'outside'].includes(value)
     }
   },
 
@@ -43,6 +44,8 @@ export default {
         key: this.source,
         edits: {}
       }
+
+      console.log(this.height, this.width)
 
       if (this.height || this.width) {
         parameters.edits.resize = {
