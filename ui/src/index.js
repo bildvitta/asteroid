@@ -144,7 +144,6 @@ export default {
     Vue.component('QasAppsMenu', QasAppsMenu)
     Vue.component('QasAutoComplete', QasAutoComplete)
     Vue.component('QasAvatar', QasAvatar)
-    Vue.component('QasAvatar', QasAvatar)
     Vue.component('QasBreakline', QasBreakLine)
     Vue.component('QasBreakline', QasBreakLine)
     Vue.component('QasBtn', QasBtn)
