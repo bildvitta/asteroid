@@ -16,16 +16,16 @@ describe('Test QasDebugger component', () => {
     }
   })
 
-  it('check prop render', async () => {
+  it('check render component', () => {
     expect(wrapper.exists()).toBe(true)
     expect(wrapper.props().inspect).toHaveLength(5)
     expect(wrapper.text()).toContain('A string')
   })
 
-  it('component render loop', async () => {
-    expect(shallowWrapper.exists()).toBe(true)
-
+  it('component render loop', () => {
     const inspectArray = shallowWrapper.findAll('[data-test="debugger-item"]')
+
+    expect(shallowWrapper.exists()).toBe(true)
     expect(inspectArray).toHaveLength(5)
   })
 })
