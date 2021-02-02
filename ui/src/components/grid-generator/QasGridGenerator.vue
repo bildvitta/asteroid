@@ -1,6 +1,6 @@
 <template>
   <div :class="classes">
-    <div v-for="(field, key) in formattedFields" :key="key" :class="getFieldClass(key, true)">
+    <div v-for="(field, key) in formattedFields" :key="key" v-test:grid-generator :class="getFieldClass(key, true)">
       <slot :field="slotValue[key]" :name="`field-${field.name}`">
         <slot :field="slotValue[key]" name="header">
           <div :class="headerClass">{{ field.label }}</div>
@@ -18,8 +18,14 @@
 import generatorMixin from '../../mixins/generator'
 import { humanize } from '../../helpers/filters'
 import { extend } from 'quasar'
+import test from '../../directives/Test'
 
 export default {
+
+  directives: {
+    test
+  },
+
   mixins: [generatorMixin],
 
   props: {
