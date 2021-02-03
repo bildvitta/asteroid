@@ -19,7 +19,7 @@ describe('Test QasProfile component', () => {
     }
   })
 
-  it('Mount component', async () => {
+  it('Check component and slots', async () => {
     expect(wrapper.exists()).toBe(true)
     expect(wrapper.text()).toContain('P')
     expect(wrapper.text()).toContain('slot afterTitle text')
@@ -27,7 +27,7 @@ describe('Test QasProfile component', () => {
     expect(wrapper.text()).toContain('slot meta')
   })
 
-  it('avatar display', async () => {
+  it('Avatar display', async () => {
     wrapper.vm.$q.screen.gt.sm = false
     await wrapper.vm.$nextTick()
 
