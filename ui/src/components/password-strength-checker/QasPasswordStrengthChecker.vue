@@ -1,14 +1,20 @@
 <template>
   <div v-if="length">
-    <q-linear-progress :color="option.color" rounded :track-color="trackColor" :value="option.progress" />
+    <q-linear-progress v-test:QasPasswordStrengthChecker :color="option.color" rounded :track-color="trackColor" :value="option.progress" />
     <div class="q-mt-xs text-subtitle2" :class="option.textClass">{{ option.label }}</div>
   </div>
 </template>
 
 <script>
 import passwordMixin from '../../mixins/password.js'
+import test from '../../directives/Test'
 
 export default {
+
+  directives: {
+    test
+  },
+
   mixins: [passwordMixin],
 
   props: {
