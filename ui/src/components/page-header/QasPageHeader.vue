@@ -7,7 +7,7 @@
       </q-toolbar-title>
 
       <q-breadcrumbs v-if="!noBreadcrumbs" class="text-caption text-grey-6">
-        <q-breadcrumbs-el v-for="item in transformedBreadcrumbs" :key="item.label" :label="item.label" :to="item.route" />
+        <q-breadcrumbs-el v-for="item in transformedBreadcrumbs" :key="item.label" v-test:page-header :label="item.label" :to="item.route" />
       </q-breadcrumbs>
     </div>
 
@@ -18,8 +18,14 @@
 <script>
 import { castArray, get } from 'lodash'
 import { history, handleHistory } from '../../helpers/historyHandler'
+import test from '../../directives/Test'
 
 export default {
+
+  directives: {
+    test
+  },
+
   props: {
     breadcrumbs: {
       default: '',
