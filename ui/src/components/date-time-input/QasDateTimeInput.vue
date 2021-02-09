@@ -2,13 +2,13 @@
   <div>
     <q-input ref="input" v-bind="attributes" v-on="events">
       <template #append>
-        <q-icon v-if="!timeOnly" class="cursor-pointer" name="o_event">
+        <q-icon v-if="!timeOnly" v-test:date-input class="cursor-pointer" name="o_event">
           <q-popup-proxy ref="dateProxy" transition-hide="scale" transition-show="scale">
             <q-date v-model="currentValue" v-bind="dateOptions" :mask="maskDate" @input="input" />
           </q-popup-proxy>
         </q-icon>
 
-        <q-icon v-if="!dateOnly" class="cursor-pointer q-ml-md" name="o_access_time">
+        <q-icon v-if="!dateOnly" v-test:time-input class="cursor-pointer q-ml-md" name="o_access_time">
           <q-popup-proxy ref="timeProxy" transition-hide="scale" transition-show="scale">
             <q-time v-model="currentValue" v-bind="timeOptions" format24h :mask="maskDate" @input="input" />
           </q-popup-proxy>
@@ -20,8 +20,14 @@
 
 <script>
 import { date } from 'quasar'
+import test from '../../directives/Test'
 
 export default {
+
+  directives: {
+    test
+  },
+
   props: {
     dateMask: {
       default: 'DD/MM/YYYY',
