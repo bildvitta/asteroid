@@ -1,14 +1,20 @@
 <template>
   <div>
-    <div v-for="(option, index) in options" :key="index">
-      <q-checkbox :class="hasChildren(option) ? titleClass : []" :label="option.label" :value="hasChildren(option) ? group[index] : option.value" @input="updateCheckbox($event, option, index)" />
+    <div v-for="(option, index) in options" :key="index" v-test:checkbox-group>
+      <q-checkbox v-test:checkbox-group-checkbox :class="hasChildren(option) ? titleClass : []" :label="option.label" :value="hasChildren(option) ? group[index] : option.value" @input="updateCheckbox($event, option, index)" />
       <q-option-group v-if="hasChildren(option)" class="q-ml-sm" inline :options="option.children" type="checkbox" :value="value" @input="updateChildren($event, option, index)" />
     </div>
   </div>
 </template>
 
 <script>
+import test from '../../directives/Test'
+
 export default {
+  directives: {
+    test
+  },
+
   props: {
     options: {
       default: () => [],
