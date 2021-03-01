@@ -36,7 +36,7 @@ import { get, isEqual, cloneDeep } from 'lodash'
 import { extend } from 'quasar'
 
 import { handleHistory } from '../../helpers/historyHandler'
-import { NotifyError, NotifySuccess } from '../../plugins'
+import { notifyError, notifySuccess } from '../../helpers'
 
 import QasBtn from '../btn/QasBtn'
 import QasDialog from '../dialog/QasDialog'
@@ -282,7 +282,7 @@ export default {
         }
 
         this.setErrors()
-        NotifySuccess(response.data.status.text || 'Item salvo com sucesso!')
+        notifySuccess(response.data.status.text || 'Item salvo com sucesso!')
         this.$emit('submit-success', response, this.value)
       } catch (error) {
         const errors = get(error, 'response.data.errors')
@@ -293,7 +293,7 @@ export default {
           : get(error, 'response.data.exception') || error.message
 
         this.setErrors(errors)
-        NotifyError(message || 'Ops! Erro ao salvar item.', exception)
+        notifyError(message || 'Ops! Erro ao salvar item.', exception)
 
         this.$emit('submit-error', error)
       } finally {

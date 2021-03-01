@@ -42,6 +42,15 @@ import QasUploader from './components/uploader/QasUploader'
 
 import Test from './directives/Test'
 
+import Quasar, { Notify } from 'quasar'
+import Vue from 'vue'
+
+Vue.use(Quasar, {
+  plugins: {
+    Notify
+  }
+})
+
 import {
   NotifyError,
   NotifySuccess
