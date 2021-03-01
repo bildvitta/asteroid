@@ -14,8 +14,6 @@
     {"type": "ci", "section":"CI", "hidden":false}
   ],
   "skip": {
-    "bump": true,
-    "commit": true,
     "tag": true
   }
 }
