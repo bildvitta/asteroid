@@ -32,28 +32,34 @@ After the installation the app-extension is ready to be used, check [here](https
 $ git clone https://github.com/bildvitta/asteroid
 ```
 
-Go to `/ui` folder:
+In `root` folder:
 ```
 $ npm i
 ```
 
-Now you have to link this app-extension with your project. Inside `/ui` folder:
+Go to `/app-extension` folder:
 ```
+$ npm i
 $ npm link
 ```
 
-Go to `/app-extension` folder:
+Now go to `/ui` folder:
 ```
-$ npm link @bildvitta/quasar-ui-asteroid
+$ npm i
+$ npm link
 ```
 
-Now go to your project that you are using this `app-extension`:
+You have linked your app-extension and ui folder,  go to the project that you are using `asteroid` and link them.
+Inside your project:
+
 ```
 $ npm link @bildvitta/quasar-app-extension-asteroid
+$ npm link @bildvitta/quasar-ui-asteroid
 ```
 
 Now your project is linked with asteroid directory and not anymore with is installed within node_modules of project.
 For unlink asteroid directory, inside your project:
+
 ```
 $ npm i
 ```
