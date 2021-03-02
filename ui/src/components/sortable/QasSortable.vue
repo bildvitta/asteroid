@@ -7,6 +7,7 @@
 <script>
 import { cloneDeep, get } from 'lodash'
 import { Loading } from 'quasar'
+import { NotifyError } from '../../plugins'
 import Sortable from 'sortablejs'
 
 let sortable = null
@@ -86,7 +87,7 @@ export default {
       const { response } = error
       const exception = get(response, 'data.exception') || error.message
 
-      this.$qas.notifyError('Ops! Erro ao ordernar itens.', exception)
+      NotifyError('Ops! Erro ao ordernar itens.', exception)
     },
 
     async replace () {

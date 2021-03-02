@@ -10,7 +10,7 @@
 
 <script>
 import { copyToClipboard } from 'quasar'
-import { notifyError, notifySuccess } from '../../helpers'
+import { NotifyError, NotifySuccess } from '../../plugins'
 
 export default {
   props: {
@@ -29,9 +29,9 @@ export default {
     async copy () {
       try {
         await copyToClipboard(this.label)
-        notifySuccess('Copiado!', this.label)
+        NotifySuccess('Copiado!', this.label)
       } catch (error) {
-        notifyError('Não foi possível copiar.', this.label)
+        NotifyError('Não foi possível copiar.', this.label)
       }
     }
   }

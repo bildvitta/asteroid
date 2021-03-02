@@ -1,6 +1,5 @@
 import greatestCommonDivisor from './greatestCommonDivisor.js'
 import { history, handleHistory } from './historyHandler'
-import { notifyError, notifySuccess } from './notify'
 
 import {
   asset,
@@ -45,8 +44,4 @@ export {
   history,
 
   greatestCommonDivisor,
-
-  // notify
-  notifySuccess,
-  notifyError
 }
