@@ -2,14 +2,14 @@
 <img src="https://img.shields.io/npm/v/@bildvitta/quasar-app-extension-asteroid.svg?label=quasar-app-extension-asteroid">
 
 # Asteroid
-This `App Extension` contains methods, components and styles that will assist in building a C.R.U.D. using *Vue* and *Quasar*. It was initially designed to be used in accordance with [our API] standards (http://github.com/bildvitta/api), but can be adapted to any _back-end_ as long as it maintains the original standards.
+This `App Extension` contains methods, components and styles that will assist in building a C.R.U.D. using *Vue* and *Quasar*. It was initially designed to be used in accordance with [Django REST framework] standards (https://www.django-rest-framework.org/), but can be adapted to any _back-end_ as long as it maintains the original standards.
 
 Note: Some Quasar components must be imported manually inside [quasar.config.js](https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-framework) (e.g., when you are using `QasFormView` you have to import [QPage](https://quasar.dev/layout/page#Introduction)).
 
 
 ## Structure
-* [/app-extension](app-extension) - Quasar app extension
 * [/ui](ui) - standalone npm package
+* [/app-extension](app-extension) - Quasar app extension
 
 ## Environment variables
 
@@ -32,34 +32,28 @@ After the installation the app-extension is ready to be used, check [here](https
 $ git clone https://github.com/bildvitta/asteroid
 ```
 
-In `root` folder:
+Go to `/ui` folder:
 ```
 $ npm i
+```
+
+Now you have to link this app-extension with your project. Inside `/ui` folder:
+```
+$ npm link
 ```
 
 Go to `/app-extension` folder:
 ```
-$ npm i
-$ npm link
+$ npm link @bildvitta/quasar-ui-asteroid
 ```
 
-Now go to `/ui` folder:
-```
-$ npm i
-$ npm link
-```
-
-You have linked your app-extension and ui folder,  go to the project that you are using `asteroid` and link them.
-Inside your project:
-
+Now go to your project that you are using this `app-extension`:
 ```
 $ npm link @bildvitta/quasar-app-extension-asteroid
-$ npm link @bildvitta/quasar-ui-asteroid
 ```
 
 Now your project is linked with asteroid directory and not anymore with is installed within node_modules of project.
 For unlink asteroid directory, inside your project:
-
 ```
 $ npm i
 ```
