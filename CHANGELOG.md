@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 1.4.1 (2021-03-02)
+
+
+### Docs
+* update doc for develop usage ([76c4cb9](https://github.com/bildvitta/asteroid/commit/76c4cb9e3efa8c5331afae1d6a25309fb2c62a6b))
+
+
+### Build System
+
+* added quasar-ui-asteroid as dependency ([70b444c](https://github.com/bildvitta/asteroid/commit/70b444c97441981fa97773a45326e5fcae647c1f))
+
 ## 1.4.0 (2021-03-02)
 
 
