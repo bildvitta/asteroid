@@ -45,8 +45,6 @@ export default {
         edits: {}
       }
 
-      console.log(this.height, this.width)
-
       if (this.height || this.width) {
         parameters.edits.resize = {
           fit: this.resize,
