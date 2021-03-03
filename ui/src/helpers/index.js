@@ -43,5 +43,5 @@ export {
   handleHistory,
   history,
 
-  greatestCommonDivisor,
+  greatestCommonDivisor
 }
