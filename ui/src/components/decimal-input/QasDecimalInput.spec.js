@@ -26,7 +26,7 @@ describe('Test QasDecimalInput component', () => {
   it('Check v-model', () => {
     const parent = mount({
       components: { 'qas-decimal-input': QasDecimalInput },
-      data: { model: null },
+      data () { return { model: 0 } },
       template: '<div><qas-decimal-input v-model="model" /></div>'
     })
 
