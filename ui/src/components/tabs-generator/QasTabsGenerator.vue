@@ -1,8 +1,8 @@
 <template>
-  <q-tabs v-model="currentTab" v-bind="$attrs" v-on="$listeners">
+  <q-tabs active-color="primary" class="tabs-generator" indicator-color="primary" v-model="currentTab" v-bind="$attrs" v-on="$listeners">
     <!-- TODO: O name slot da aba não pode ser o label, pois pode conter espaço. -->
     <slot v-for="(tab, key) in formattedTabs" :item="tab" :name="`tab-${tab.label}`">
-      <q-tab :key="key" :label="tab.label" :name="key" v-bind="tab">
+      <q-tab class="text-primary" :key="key" :label="tab.label" :name="key" v-bind="tab">
         <!-- TODO: Renomear para tab-after- -->
         <slot :item="tab" :name="`tab-slot-${tab.label}`">
           <q-badge v-if="counters[key]" color="negative" floating :label="counters[key]" />
@@ -59,3 +59,13 @@ export default {
   }
 }
 </script>
+
+<style lang="scss">
+.tabs-generator {
+  .q-tab--active {
+    .q-tab__label{
+      font-weight: bold;
+    }
+  } 
+}
+</style>

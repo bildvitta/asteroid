@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## 1.4.2 - 2021-03-03
 
+### Changed
+- Primary color is default color for all labels in qas-tabs-generetor
+- Default class is text-bold for selected label in qas-tabs-generator 
+
 ### Added
 - added vue to dependencies (`/ui`)
 
