@@ -44,7 +44,7 @@ export default {
     },
 
     classColor: {
-      default: 'primary',
+      default: 'text-primary',
       type: String
     }
   },
