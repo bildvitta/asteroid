@@ -27,6 +27,26 @@ export default {
       description: 'Selected tab.'
     },
 
+    activeColor: {
+      descritpion: 'The color to be attributed to the text of the active tab.',
+      default: 'primary'
+    },
+
+    indicatorColor: {
+      description: 'The color to be attributed to the indicator (the underline) of the active tab.',
+      default: 'primary'
+    },
+
+    colorClass: {
+      description: 'The color class to be attributed to the text of all tabs.',
+      default: 'text-primary'
+    },
+
+    bgColorClass: {
+      description: 'The color class to be attributed to the background of tab.',
+      default: 'transparent'
+    },
+
     // Events
     input: {
       description: 'Fires when a tab is selected.'
@@ -61,7 +81,7 @@ const Template = (args, { argTypes }) => ({
   components: { QasTabsGenerator },
   props: Object.keys(argTypes),
   template:
-    '<qas-tabs-generator v-model="value" v-bind="$props" class="bg-primary text-white"/>'
+    '<qas-tabs-generator v-model="value" v-bind="$props" />'
 })
 
 export const Default = Template.bind({})
