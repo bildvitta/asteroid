@@ -2,7 +2,7 @@
   <q-toolbar class="qas-toolbar">
     <q-ajax-bar color="white" position="top" size="2px" />
 
-    <q-btn dense flat icon="o_menu" round @click="toggleMenuDrawer" />
+    <q-btn ref="dataTestQbtn" dense flat icon="o_menu" round @click="toggleMenuDrawer" />
 
     <q-toolbar-title class="flex">
       <div class="cursor-pointer" @click="goToRoot">
@@ -17,13 +17,13 @@
       <q-badge color="red" floating>4</q-badge>
     </q-btn>
 
-    <qas-apps-menu v-if="hasApps" :apps="apps" />
+    <qas-apps-menu v-if="hasApps" ref="dataTest-AppsMenu" :apps="apps" />
 
     <div class="items-center no-wrap q-gutter-md row">
       <slot name="tools" />
 
       <div v-if="isAuth" class="cursor-pointer items-center q-mr-sm qas-toolbar__user row" :title="user.name || user.givenName">
-        <qas-avatar color="white" :image="asset(user.photo)" rounded size="36px" :title="user.name || user.givenName" />
+        <qas-avatar ref="dataTest-Avatar" color="white" :image="asset(user.photo)" rounded size="36px" :title="user.name || user.givenName" />
 
         <div class="cursor-pointer q-pl-xs q-pr-sm qas-toolbar__user-data qs-lh-sm">
           <div class="ellipsis">{{ user.name || user.givenName }}</div>
