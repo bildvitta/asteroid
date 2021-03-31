@@ -14,8 +14,28 @@ export default {
 
   argTypes: {
     // Props
+    activeColor: {
+      descritpion: 'The color to be attributed to the text of the active tab.',
+      default: 'primary'
+    },
+
+    bgColorClass: {
+      description: 'The color class to be attributed to the background of tab.',
+      default: 'transparent'
+    },
+
+    colorClass: {
+      description: 'The color class to be attributed to the text of all tabs.',
+      default: 'text-primary'
+    },
+
     counters: {
       description: 'Number that will appear on the badge for each tab.'
+    },
+
+    indicatorColor: {
+      description: 'The color to be attributed to the indicator (the underline) of the active tab.',
+      default: 'primary'
     },
 
     tabs: {
@@ -25,26 +45,6 @@ export default {
     value: {
       control: null,
       description: 'Selected tab.'
-    },
-
-    activeColor: {
-      descritpion: 'The color to be attributed to the text of the active tab.',
-      default: 'primary'
-    },
-
-    indicatorColor: {
-      description: 'The color to be attributed to the indicator (the underline) of the active tab.',
-      default: 'primary'
-    },
-
-    colorClass: {
-      description: 'The color class to be attributed to the text of all tabs.',
-      default: 'text-primary'
-    },
-
-    bgColorClass: {
-      description: 'The color class to be attributed to the background of tab.',
-      default: 'transparent'
     },
 
     // Events
