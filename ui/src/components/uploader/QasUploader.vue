@@ -2,21 +2,20 @@
   <q-field borderless :error="$attrs.error" :error-message="$attrs.errorMessage" :hint="hint || undefined">
     <q-uploader v-bind="$attrs" auto-upload bordered class="fit" :factory="factory" flat method="PUT" :readonly="readOnly" v-on="$listeners" @removed="removed" @uploaded="uploaded">
       <template #header="scope">
-        <button class="flex flex-center no-border no-wrap q-gutter-xs q-pa-sm text-white transparent" @click="scope.pickFiles">
+        <button class="flex flex-center full-width justify-between no-border no-wrap q-gutter-xs q-pa-sm text-white transparent" unelevated @click="scope.pickFiles">
           <q-spinner v-if="scope.isUploading" size="24px" />
 
-          <div class="col column justify-center">
+          <div class="col column items-start justify-center">
             <div v-if="scope.label" class="q-uploader__title">{{ scope.label }}</div>
             <div class="q-uploader__subtitle">{{ scope.uploadProgressLabel }} ({{ scope.uploadSizeLabel }})</div>
           </div>
 
-          <q-btn v-if="!scope.hideUploadBtn && scope.canAddFiles" dense flat icon="o_add" round>
-            <q-uploader-add-trigger />
-          </q-btn>
+          <q-btn v-if="!scope.hideUploadBtn && scope.canAddFiles" dense flat icon="o_add" round />
 
           <q-btn v-if="scope.canUpload" dense flat icon="o_cloud_upload" round @click="scope.upload" />
           <q-btn v-if="scope.isUploading" dense flat icon="o_clear" round @click="scope.abort" />
         </button>
+        <q-uploader-add-trigger />
       </template>
 
       <template #list="scope">
