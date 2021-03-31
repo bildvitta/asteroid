@@ -2,7 +2,7 @@
   <q-field borderless :error="$attrs.error" :error-message="$attrs.errorMessage" :hint="hint || undefined">
     <q-uploader v-bind="$attrs" auto-upload bordered class="fit" :factory="factory" flat method="PUT" :readonly="readOnly" v-on="$listeners" @removed="removed" @uploaded="uploaded">
       <template #header="scope">
-        <div class="flex flex-center no-wrap q-gutter-xs q-pa-sm">
+        <div class="cursor-pointer flex flex-center no-wrap q-gutter-xs q-pa-sm" @click="scope.pickFiles">
           <q-spinner v-if="scope.isUploading" size="24px" />
 
           <div class="col column justify-center">
@@ -20,8 +20,8 @@
       </template>
 
       <template #list="scope">
-        <q-list separator>
-          <q-item v-if="hasAPIValue && !scope.isUploading" class="q-pa-none">
+        <q-list class="row">
+          <q-item v-if="hasAPIValue && !scope.isUploading" class="col-auto items-center q-mb-lg q-mx-lg q-pa-none">
             <q-item-section avatar top>
               <q-avatar v-if="value" rounded>
                 <img :src="value">
@@ -40,7 +40,7 @@
               </div>
             </q-item-section>
           </q-item>
-          <q-item v-for="file in scope.files" :key="file.name" class="q-pa-none">
+          <q-item v-for="file in scope.files" :key="file.name" class="col-auto items-center q-mb-lg q-mx-lg q-pa-none">
             <q-item-section avatar top>
               <q-avatar v-if="file.__img" rounded>
                 <img :alt="file.name" :src="file.__img.src">
