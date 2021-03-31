@@ -81,11 +81,7 @@ export default {
 </script>
 
 <style lang="scss">
-.qas-tabs-generator {
-  .q-tab--active{
-    .q-tab__label{
-      font-weight: bold;
-    }
-  }
+.qas-tabs-generator .q-tab--active .q-tab__label {
+  font-weight: bold;
 }
 </style>
