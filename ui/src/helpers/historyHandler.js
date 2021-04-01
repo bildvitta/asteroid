@@ -6,17 +6,6 @@ const history = Vue.observable({
   list: []
 })
 
-function pushHandler (route) {
-  const routeExistsInList = history.list.find(item => item.name === route.name)
-
-  if (routeExistsInList) {
-    return null
-  }
-
-  history.list.push(route)
-  history.hasPreviousRoute = history.list.length > 1
-}
-
 function handleHistory () {
   return {
     getPreviousRoute (currentRoute) {
@@ -31,7 +20,14 @@ function handleHistory () {
     },
 
     push (route) {
-      pushHandler(route)
+      const routeExistsInList = history.list.find(item => item.name === route.name)
+
+      if (routeExistsInList) {
+        return null
+      }
+
+      history.list.push(route)
+      history.hasPreviousRoute = history.list.length > 1
     }
   }
 }
