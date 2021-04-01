@@ -15,7 +15,7 @@
         </div>
 
         <div v-else-if="!isFetching">
-          <slot name="empty-results" :fields="fields" :metadata="metadata">
+          <slot :fields="fields" :metadata="metadata" name="empty-results">
             <div class="q-my-xl text-center">
               <q-icon class="q-mb-sm text-center" color="grey-6" name="o_search" size="38px" />
               <div class="text-grey-6">Nenhum item encontrado.</div>
