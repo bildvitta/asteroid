@@ -12,8 +12,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - New prop added indicatorColor to be attributed to the indicator (the underline) of the active tab
 - Add handleHistory in history.js
 - Quasar project inside `ui/src/dev` for develop usage (don't need npm link anymore)
-- Added new slot `empty-slot` inside `QasListView`
+- Added new slot `empty-results` inside `QasListView`
 - Added `.npmignore` inside `ui/src/dev`
+
 ### Changed
 - Primary color is default color for all labels in qas-tabs-generetor
 - Default class is text-bold for selected label in qas-tabs-generator 
