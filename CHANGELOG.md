@@ -11,12 +11,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - New prop added colorClass to be attributed to the text of all tabs.
 - New prop added indicatorColor to be attributed to the indicator (the underline) of the active tab.
 - Add handleHistory in history.js
-- click event in all header section
+- Click event in all header section
 
 ### Changed
 - Primary color is default color for all labels in qas-tabs-generetor
 - Default class is text-bold for selected label in qas-tabs-generator
-- direction of item in file list 
+- Direction of item in file list 
 
 ### Removed 
 - Method pushHandler in historyHandler.js
