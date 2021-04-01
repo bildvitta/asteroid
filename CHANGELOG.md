@@ -4,13 +4,26 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## 1.x.x - 2021-03-30
+## 1.x.x - 2021-3-30
 
 ### Added
+- New prop added bgColorClass to be attributed to the background of tab.
+- New prop added colorClass to be attributed to the text of all tabs.
+- New prop added indicatorColor to be attributed to the indicator (the underline) of the active tab.
+- Add handleHistory in history.js
 - click event in all header section
 
 ### Changed
-- direction of item in file list
+- Primary color is default color for all labels in qas-tabs-generetor
+- Default class is text-bold for selected label in qas-tabs-generator
+- direction of item in file list 
+
+### Removed 
+- Method pushHandler in historyHandler.js
+
+### Fixed
+- Method push in historyHandler
+
 
 ## 1.4.2 - 2021-03-03
 
