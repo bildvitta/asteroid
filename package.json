@@ -1,6 +1,6 @@
 {
   "name": "asteroid",
-  "version": "1.4.2",
+  "version": "1.5.0",
   "description": "<img src=\"https://img.shields.io/npm/v/@bildvitta/quasar-ui-asteroid.svg?label=quasar-ui-asteroid\"> <img src=\"https://img.shields.io/npm/v/@bildvitta/quasar-app-extension-asteroid.svg?label=quasar-app-extension-asteroid\">",
   "main": "commitlint.config.js",
   "scripts": {

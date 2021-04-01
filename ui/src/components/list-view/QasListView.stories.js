@@ -112,6 +112,24 @@ export default {
     header: {
       description: 'Page\'s header content.',
       table: slotDefaults
+    },
+
+    'empty-results': {
+      description: 'Main content when has no results.',
+      table: {
+        defaultValue: {
+          detail: JSON.stringify({
+            fields: 'object',
+            metadata: 'object'
+          }),
+
+          summary: '{}'
+        },
+
+        type: { summary: null }
+      },
+
+      type: { summary: null }
     }
   }
 }

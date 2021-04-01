@@ -14,9 +14,13 @@
           <slot :fields="fields" :metadata="metadata" :results="results" />
         </div>
 
-        <div v-else-if="!isFetching" class="q-my-xl text-center">
-          <q-icon class="q-mb-sm text-center" color="grey-6" name="o_search" size="38px" />
-          <div class="text-grey-6">Nenhum item encontrado.</div>
+        <div v-else-if="!isFetching">
+          <slot :fields="fields" :metadata="metadata" name="empty-results">
+            <div class="q-my-xl text-center">
+              <q-icon class="q-mb-sm text-center" color="grey-6" name="o_search" size="38px" />
+              <div class="text-grey-6">Nenhum item encontrado.</div>
+            </div>
+          </slot>
         </div>
 
         <div v-else class="q-py-lg text-center">

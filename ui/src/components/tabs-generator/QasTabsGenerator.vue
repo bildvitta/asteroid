@@ -31,7 +31,7 @@ export default {
       default: 'text-primary',
       type: String
     },
-    
+
     counters: {
       default: () => ({}),
       type: Object
