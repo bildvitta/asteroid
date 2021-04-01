@@ -17,9 +17,29 @@ import { extend } from 'quasar'
 
 export default {
   props: {
+    activeColor: {
+      default: 'primary',
+      type: String
+    },
+
+    bgColorClass: {
+      default: 'transparent',
+      type: String
+    },
+
+    colorClass: {
+      default: 'text-primary',
+      type: String
+    },
+    
     counters: {
       default: () => ({}),
       type: Object
+    },
+
+    indicatorColor: {
+      default: 'primary',
+      type: String
     },
 
     tabs: {
@@ -30,26 +50,6 @@ export default {
 
     value: {
       default: '',
-      type: String
-    },
-
-    activeColor: {
-      default: 'primary',
-      type: String
-    },
-
-    indicatorColor: {
-      default: 'primary',
-      type: String
-    },
-
-    colorClass: {
-      default: 'text-primary',
-      type: String
-    },
-
-    bgColorClass: {
-      default: 'transparent',
       type: String
     }
   },
