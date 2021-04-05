@@ -13,11 +13,11 @@ function extendQuasar (quasar) {
   // Boot
   quasar.boot.push(
     ...resolve(
+      'boot/register.js',
       'boot/environment.js',
       'boot/api.js',
       'boot/force-https.js',
       'boot/history.js',
-      'boot/register.js',
       'boot/router.js',
       'boot/store.js'
     )
