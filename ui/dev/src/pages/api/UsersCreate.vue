@@ -4,8 +4,7 @@
       <qas-page-header no-breadcrumbs :title="title" />
     </template>
     <template v-slot="{ fields, errors }">
-      {{ values }}
-      <qas-form-generator v-model="values" :errors="errors" :fields="fields" :fields-props="fieldsProps" />
+      <qas-form-generator v-model="values" :errors="errors" :fields="fields" />
     </template>
   </qas-form-view>
 </template>
@@ -14,36 +13,13 @@
 export default {
   data () {
     return {
-      values: {
-      },
-      test: ''
+      values: {}
     }
   },
 
   computed: {
     title () {
       return 'Criar'
-    },
-
-    fieldsProps () {
-      return {
-        gender: {
-          // autofocus: true,
-          // name: 'test-input',
-          rules: [val => {
-            console.log(val, '>>>>> val')
-            return !!val || '* Required'
-          }]
-       },
-        name: {
-          name: 'test-input',
-          lazyRules: true,
-          rules: [val => {
-            console.log(val, '>>>>> val')
-            return !!val || '* Required'
-          }]
-        }
-      }
     }
   }
 }
