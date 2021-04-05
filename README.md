@@ -32,21 +32,40 @@ After the installation the app-extension is ready to be used, check [here](https
 $ git clone https://github.com/bildvitta/asteroid
 ```
 
+Go to `/app-extension` folder:
+```
+$ npm i
+```
+
+Go to `/ui` folder:
+```
+$ npm i
+```
+
+Now in `ui/dev` folder:
+```
+$ npm i
+$ quasar dev
+```
+Inside `ui/dev` you can test the app-extension.
+
+#### Testing with npm link
 In `root` folder:
 ```
 $ npm i
 ```
 
-Go to `/app-extension` folder:
+Go to `/ui` folder:
 ```
 $ npm i
 $ npm link
 ```
 
-Now go to `/ui` folder:
+Now go to `/app-extension` folder:
 ```
 $ npm i
 $ npm link
+$ npm link @bildvitta/quasar-ui-asteroid
 ```
 
 You have linked your app-extension and ui folder,  go to the project that you are using `asteroid` and link them.

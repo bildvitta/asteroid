@@ -17,6 +17,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Changes in `ui/dev` for suporte `VuexStoreModule`
 - Changed root element of `QasField` and `QasInput` to `div` for validations reasons
 - `QasInput` refactored code
+- Changed documentation
+
+### Removed
+- `commitlint.config.js`
+- `.versionrc.json`
 
 ## 1.5.0 - 2021-04-01
 
