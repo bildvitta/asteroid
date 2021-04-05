@@ -5,6 +5,9 @@ storybook-static
 .DS_Store
 .thumbs.db
 
+# Dev
+ui/dev/api/database.sqlite
+
 # Node
 node_modules
 dist
