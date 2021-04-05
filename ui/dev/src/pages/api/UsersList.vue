@@ -20,8 +20,6 @@
 <script>
 
 export default {
-  name: 'TreesList',
-
   computed: {
     columns () {
       return [
