@@ -1,5 +1,7 @@
 <template>
-  <component :is="component.is" v-bind="component" :value="formattedValue" v-on="events" @input="emitValue" />
+  <div>
+    <component :is="component.is" v-bind="component" :value="formattedValue" v-on="events" @input="emitValue" />
+  </div>
 </template>
 
 <script>
@@ -17,6 +19,8 @@ const attributesProfile = {
 }
 
 export default {
+  name: 'QasField',
+
   components: {
     QasCheckboxGroup,
     QasDateTimeInput,
