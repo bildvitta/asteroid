@@ -12,12 +12,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added `VuexStoreModule` in `ui/dev`
 - Added `UsersCreate.vue` and `UsersList.vue` in `ui/dev`
 - Added new computed and methods for working with validations internally in `QasInput`
+- Click event in all header section
 
 ### Changed
 - Changes in `ui/dev` for suporte `VuexStoreModule`
 - Changed root element of `QasField` and `QasInput` to `div` for validations reasons
 - `QasInput` refactored code
 - Changed documentation
+- Default class is text-bold for selected label in qas-tabs-generator
+- Direction of item in file list 
 
 ### Removed
 - `commitlint.config.js`
@@ -30,15 +33,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - New prop added colorClass to be attributed to the text of all tabs
 - New prop added indicatorColor to be attributed to the indicator (the underline) of the active tab
 - Add handleHistory in history.js
-- Click event in all header section
 - Quasar project inside `ui/src/dev` for develop usage (don't need npm link anymore)
 - Added new slot `empty-results` inside `QasListView`
 - Added `.npmignore` inside `ui/src/dev`
 
 ### Changed
 - Primary color is default color for all labels in qas-tabs-generetor
-- Default class is text-bold for selected label in qas-tabs-generator
-- Direction of item in file list 
+
 
 ### Removed 
 - Method pushHandler in historyHandler.js
