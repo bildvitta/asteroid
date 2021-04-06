@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## 1.6.0 - 2021-04-05
+## 1.6.0 - 2021-04-06
 
 ### Added
 - Added navpi in `ui/dev`. Now it possible use CRUD Components of asteroid like `QasFormView`
@@ -20,7 +20,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `QasInput` refactored code
 - Changed documentation
 - Default class is text-bold for selected label in qas-tabs-generator
-- Direction of item in file list 
+- Direction of item in file list
 
 ### Removed
 - `commitlint.config.js`
