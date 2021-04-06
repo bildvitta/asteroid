@@ -12,9 +12,13 @@
     "dev:electron": "quasar dev -m electron"
   },
   "dependencies": {
+    "@bildvitta/vuex-store-module": "0.0.22",
     "@quasar/extras": "^1.0.0",
-    "core-js": "^3.0.0",
-    "quasar": "^1.0.0"
+    "axios": "^0.21.1",
+    "core-js": "^3.6.5",
+    "navpi": "^1.1.4",
+    "quasar": "^1.0.0",
+    "vuex": "^3.6.2"
   },
   "devDependencies": {
     "@quasar/app": "^2.0.0"

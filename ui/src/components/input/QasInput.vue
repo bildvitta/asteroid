@@ -1,14 +1,18 @@
 <template>
-  <q-input ref="mask" v-bind="$attrs" bottom-slots :mask="mask" unmasked-value :value="value" v-on="$listeners">
-    <slot v-for="(slot, key) in $slots" :slot="key" :name="key" />
-    <template v-for="(slot, key) in $scopedSlots" :slot="key" slot-scope="scope">
-      <slot :name="key" v-bind="scope" />
-    </template>
-  </q-input>
+  <div>
+    <q-input ref="mask" v-bind="$attrs" bottom-slots :mask="mask" unmasked-value v-model="model" v-on="listeners">
+      <slot v-for="(slot, key) in $slots" :slot="key" :name="key" />
+      <template v-for="(slot, key) in $scopedSlots" :slot="key" slot-scope="scope">
+        <slot :name="key" v-bind="scope" />
+      </template>
+    </q-input>
+  </div>
 </template>
 
 <script>
 export default {
+  name: 'QasInput',
+
   props: {
     value: {
       default: '',
@@ -17,6 +21,29 @@ export default {
   },
 
   computed: {
+    model: {
+      get () {
+        return this.value
+      },
+
+      set (value) {
+        return this.$emit('input', value)
+      }
+    },
+
+    listeners () {
+      const { input, ...listeners } = this.$listeners
+      return listeners
+    },
+
+    inputReference () {
+      return this.$refs.mask
+    },
+
+    hasError () {
+      return this.inputReference.hasError
+    },
+
     mask () {
       const { mask } = this.$attrs
 
@@ -50,6 +77,14 @@ export default {
     toggleMask (first, second) {
       const length = first.split('#').length - 2
       return this.value.length > length ? second : first
+    },
+
+    validate (value) {
+      return this.inputReference.validate(value)
+    },
+
+    resetValidation () {
+      return this.inputReference.resetValidation()
     }
   }
 }

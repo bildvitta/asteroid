@@ -8,7 +8,9 @@ module.exports = function (ctx) {
     // app boot file (/src/boot)
     // --> boot files are part of "main.js"
     boot: [
-      'register.js'
+      'register.js',
+      'store.js',
+      'axios.js'
     ],
 
     css: [
@@ -36,6 +38,10 @@ module.exports = function (ctx) {
       // * 'auto' - (DEFAULT) Auto-import needed Quasar components & directives
       // * 'all'  - Manually specify what to import
       importStrategy: '',
+
+      components: [
+        'QPage'
+      ],
 
       // Quasar plugins
       plugins: []

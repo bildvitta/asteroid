@@ -1,0 +1,27 @@
+fields:
+  name:
+    name: name
+    type: text
+    label: Nome
+
+  email:
+    name: email
+    type: email
+    label: Email
+
+  age:
+    name: age
+    type: number
+    label: Idade
+
+  gender:
+    name: gender
+    type: select
+    label: Genero
+    options:
+      - label: 'masculino'
+        value: 0
+      - label: 'feminino'
+        value: 1
+      - label: 'outro'
+        value: 2

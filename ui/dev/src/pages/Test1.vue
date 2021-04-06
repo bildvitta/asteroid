@@ -1,8 +1,11 @@
 <template>
   <q-page padding>
-    <qas-avatar icon="o_error" title="John Appleseed" />
   </q-page>
 </template>
+
+<script>
+export default {}
+</script>
 
 <style lang="sass" scoped>
 .directive-target
