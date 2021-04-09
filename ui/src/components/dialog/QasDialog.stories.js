@@ -77,6 +77,10 @@ export default {
       }
     },
 
+    useForm: {
+      description: 'Generate form and trigger validate based input rules',
+    },
+
     // Events
     input: {
       description: 'Fires when toggles the dialog\'s visibility.'
