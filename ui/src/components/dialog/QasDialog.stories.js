@@ -78,7 +78,7 @@ export default {
     },
 
     useForm: {
-      description: 'Generate form and trigger validate based input rules',
+      description: 'Generate form and trigger validate based input rules'
     },
 
     // Events
