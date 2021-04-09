@@ -64,9 +64,6 @@ export default {
     }
   },
   methods: {
-    resetModels () {
-      console.log('### hide >', hide)
-    },
     handlerValidate (value) {
       this.showDialogForm = !value
     }
