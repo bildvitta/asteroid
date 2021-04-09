@@ -6,8 +6,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## 1.x.x - 2021-04-09
 
-### Changed
-- Changed `#q-app` background-color to `transparent` 
+### Removed
+- Removed `#q-app` background-color 
 
 ## 1.6.0 - 2021-04-06
 
