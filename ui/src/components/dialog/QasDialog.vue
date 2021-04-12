@@ -83,7 +83,6 @@ export default {
     },
 
     useForm: {
-      default: false,
       type: Boolean
     },
 
@@ -171,9 +170,7 @@ export default {
     },
 
     async submitHandler () {
-      if (this.useForm) {
-        this.$emit('validate', await this.$refs.form.validate())
-      }
+      this.useForm && this.$emit('validate', await this.$refs.form.validate())
     }
   }
 }

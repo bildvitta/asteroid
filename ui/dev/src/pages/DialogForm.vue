@@ -1,21 +1,21 @@
 <template>
   <q-page padding>
     <!-- Default -->
-    <q-btn @click.native="showDialogDefault = true">
+    <q-btn @click="openDialogDefault">
       Open Dialog Default
     </q-btn>
 
-    <qas-dialog v-model="showDialogDefault" v-bind="dialogConfigDefault" />
+    <qas-dialog v-model="isDialogDefault" v-bind="dialogConfigDefault" />
 
     <!-- Form -->
-    <q-btn @click.native="showDialogForm = true">
+    <q-btn @click="openDialogForm">
       Open Dialog Form
     </q-btn>
 
-    <qas-dialog v-model="showDialogForm" v-bind="dialogConfigForm" use-form @validate="handlerValidate">
+    <qas-dialog v-model="isDialogForm" v-bind="dialogConfigForm" use-form @validate="handlerValidate">
       <template v-slot:description>
-        <qas-input v-model="model.name" label="Nome" :rules="[val => !!val || 'Nome é obrigatório']" />
-        <qas-input v-model="model.email" label="E-mail" :rules="[val => !!val || 'E-mail é obrigatório']" />
+        <qas-input v-model="model.name" label="Nome" :rules="[validateField(value, 'Nome é obrigatório')]" />
+        <qas-input v-model="model.email" label="E-mail" :rules="[validateField(value, 'Nome é obrigatório')]" />
       </template>
     </qas-dialog>
   </q-page>
@@ -25,8 +25,8 @@
 export default {
   data () {
     return {
-      showDialogDefault: false,
-      showDialogForm: false,
+      isDialogDefault: false,
+      isDialogForm: false,
       model: {
         name: '',
         email: ''
@@ -64,15 +64,21 @@ export default {
     }
   },
   methods: {
+    openDialogDefault () {
+      this.isDialogDefault = !this.isDialogDefault
+    },
+
+    openDialogForm () {
+      this.isDialogForm = !this.isDialogForm
+    },
+
     handlerValidate (value) {
-      this.showDialogForm = !value
+      this.isDialogForm = !value
+    },
+
+    validateField (value, message) {
+      return value => !!value || message
     }
   }
 }
 </script>
-
-<style lang="sass" scoped>
-.directive-target
-  width: 50px
-  height: 50px
-</style>
