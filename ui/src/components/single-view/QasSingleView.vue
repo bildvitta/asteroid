@@ -53,6 +53,13 @@ export default {
   watch: {
     $route () {
       this.fetchSingle()
+    },
+
+    fields: {
+      handler (data) {
+        this.$emit('input', data)
+      },
+      deep: true
     }
   },
 
