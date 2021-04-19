@@ -1,6 +1,6 @@
 <template>
   <div>
-    <qas-single-view entity="users" v-model="values" v-bind="$attrs">
+    <qas-single-view entity="users" v-model="values" :customId="customId">
       <template v-slot="{ fields, result }">
         Fields: <qas-debugger :inspect="[fields]" />
         Results: <qas-debugger :inspect="[result]" />
@@ -11,7 +11,7 @@
 
 <script>
 export default {
-  name: 'UserSingle',
+  name: 'UsersSingleView',
 
   data () {
     return {
@@ -20,16 +20,22 @@ export default {
   },
 
   watch: {
-    values (value) {
-      console.log('value =>', value)
+    // values (value) {
+    //   console.log('value =>', value)
+    // }
+    values: {
+      handler (value) {
+        console.log('### value =>', value)
+      },
+      immediate: true
     }
   },
 
   computed: {
-    getUrl () {
-      return 'https://jsonplaceholder.typicode.com/todos/1'
+    customId () {
+      return 'a755a6d1-fc4a-4961-a8cc-b2293fe5b81c'
     },
-        
+
     gridFields () {
       return [
         'uuid',
