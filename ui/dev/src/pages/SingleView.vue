@@ -11,7 +11,7 @@
 
 <script>
 export default {
-  name: 'UsersSingleView',
+  name: 'SingleView',
 
   data () {
     return {
@@ -20,20 +20,14 @@ export default {
   },
 
   watch: {
-    // values (value) {
-    //   console.log('value =>', value)
-    // }
-    values: {
-      handler (value) {
-        console.log('### value =>', value)
-      },
-      immediate: true
+    values (value) {
+      console.log('# watch => value =>', value)
     }
   },
 
   computed: {
     customId () {
-      return 'a755a6d1-fc4a-4961-a8cc-b2293fe5b81c'
+      return 'b0c57379-f81c-4f67-af7c-9cb836c365c1'
     },
 
     gridFields () {

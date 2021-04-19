@@ -1,5 +1,5 @@
 <template>
-  <component v-model="result" :is="componentTag">
+  <component :is="componentTag">
     <header v-if="hasHeaderSlot">
       <slot :errors="errors" :fields="fields" :metadata="metadata" name="header" :result="result" />
     </header>
@@ -45,25 +45,21 @@ export default {
       return this.customId || this.$route.params.id
     },
 
-    // result () {
-    //   return this.$store.getters[`${this.entity}/byId`](this.id) || {}
-    // },
-
-    result: {
-      get () {
-        return this.$store.getters[`${this.entity}/byId`](this.id) || {}
-      },
-
-      set (value) {
-        console.log('### set ')
-        return this.$emit('input', value)
-      }
+    result () {
+      return this.$store.getters[`${this.entity}/byId`](this.id) || {}
     }
   },
 
   watch: {
     $route () {
       this.fetchSingle()
+    },
+
+    result: {
+      handler (data) {
+        this.$emit('input', data)
+      },
+      deep: true
     }
   },
 
