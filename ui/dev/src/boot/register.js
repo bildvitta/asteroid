@@ -1,4 +1,4 @@
 import Vue from 'vue'
-import VuePlugin from 'ui' // "ui" is aliased in quasar.conf.js
+import VuePlugin from 'ui'
 
 Vue.use(VuePlugin)

@@ -8,16 +8,18 @@
       </q-card-section>
 
       <q-card-section class="q-pt-none">
-        <slot name="description">
-          <div v-if="card.description">{{ card.description }}</div>
-        </slot>
+        <component :is="componentTag" ref="form">
+          <slot name="description">
+            <div v-if="card.description">{{ card.description }}</div>
+          </slot>
+        </component>
       </q-card-section>
 
       <q-card-section>
         <slot name="actions">
           <qas-btn-actions v-bind="btnActions">
             <template #primary>
-              <qas-btn v-if="ok" v-close-popup class="full-width" v-bind="defaultOk.props" v-on="defaultOk.events" />
+              <qas-btn v-if="ok" v-close-popup="!useForm" class="full-width" v-bind="defaultOk.props" v-on="defaultOk.events" @click="submitHandler" />
             </template>
             <template #secondary>
               <qas-btn v-if="cancel" v-close-popup class="full-width" v-bind="defaultCancel.props" v-on="defaultCancel.events" />
@@ -80,6 +82,10 @@ export default {
       type: Boolean
     },
 
+    useForm: {
+      type: Boolean
+    },
+
     value: {
       type: Boolean
     }
@@ -120,6 +126,7 @@ export default {
 
         props: {
           label: 'Ok',
+          type: this.ok?.props.type || this.useForm ? 'submit' : 'button',
           ...this.ok?.props
         }
       }
@@ -144,6 +151,10 @@ export default {
         maxWidth: this.maxWidth || (this.isSmallScreen ? '' : '600px'),
         minWidth: this.minWidth || (this.isSmallScreen ? '' : '400px')
       }
+    },
+
+    componentTag () {
+      return this.useForm ? 'q-form' : 'div'
     }
   },
 
@@ -156,6 +167,10 @@ export default {
       for (const key in this.dialogMethods) {
         this.dialogMethods[key] = this.$refs.dialog[key]
       }
+    },
+
+    async submitHandler () {
+      this.useForm && this.$emit('validate', await this.$refs.form.validate())
     }
   }
 }

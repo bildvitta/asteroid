@@ -1,9 +1,10 @@
 <template>
   <qas-form-view v-model="values" class="container spaced" entity="users">
-    <template v-slot:header>
+    <template #header>
       <qas-page-header no-breadcrumbs :title="title" />
     </template>
-    <template v-slot="{ fields, errors }">
+
+    <template #default="{ fields, errors }">
       <qas-form-generator v-model="values" :errors="errors" :fields="fields" />
     </template>
   </qas-form-view>
