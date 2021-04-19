@@ -29,9 +29,9 @@ function extendQuasar (quasar) {
   quasar.css.push(...resolve('index.scss'))
 
   const plugins = [
-    'Notify',
     'Dialog',
-    'Loading'
+    'Loading',
+    'Notify'
   ]
 
   // Add all required quasar plugins

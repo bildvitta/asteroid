@@ -1,0 +1,9 @@
+/.quasar
+/dist
+/node_modules
+
+/src-bex/www
+/src-capacitor
+/src-cordova
+
+.eslintrc.js
