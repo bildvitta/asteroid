@@ -14,6 +14,7 @@ module.exports = function (/* quasar */) {
     // https://v1.quasar.dev/quasar-cli/boot-files
     boot: [
       'register',
+      'error-pages',
       'store',
       'axios',
       'i18n'
@@ -44,7 +45,7 @@ module.exports = function (/* quasar */) {
           .use(ESLintPlugin, [{ extensions: ['js', 'vue'] }])
 
         chain.resolve.alias
-          .set('ui', path.resolve(__dirname, '../src/index.js'))
+          .set('ui', path.resolve(__dirname, '../src'))
 
           .set('helpers', path.resolve(__dirname, './src/helpers'))
           .set('mixins', path.resolve(__dirname, './src/mixins'))
