@@ -6,14 +6,14 @@
 
     <q-toolbar-title class="flex">
       <div class="cursor-pointer" @click="goToRoot">
-        <img :alt="title" class="qas-toolbar__brand" :src="brand">
+        <img v-if="brand" :alt="title" class="qas-toolbar__brand" :src="brand">
         {{ title }}
         <q-badge v-if="hasDevelopmentBadge" align="middle" color="negative" :label="developmentBadgeLabel" />
       </div>
     </q-toolbar-title>
 
     <!-- TODO: Notificações. -->
-    <q-btn dense icon="notifications_none" round unelevated>
+    <q-btn dense icon="o_notifications" round unelevated>
       <q-badge color="red" floating>4</q-badge>
     </q-btn>
 
@@ -76,7 +76,6 @@ export default {
 
     brand: {
       default: '',
-      required: true,
       type: String
     },
 
