@@ -33,6 +33,11 @@ export default {
     customId: {
       default: '',
       type: [Number, String]
+    },
+
+    value: {
+      default: () => ({}),
+      type: Object
     }
   },
 
@@ -53,6 +58,10 @@ export default {
   watch: {
     $route () {
       this.fetchSingle()
+    },
+
+    result (value) {
+      this.$emit('input', value)
     }
   },
 
