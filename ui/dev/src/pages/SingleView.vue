@@ -21,7 +21,7 @@ export default {
 
   watch: {
     values (value) {
-      console.log('# watch => value =>', value)
+      // print value
     }
   },
 
