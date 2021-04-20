@@ -18,39 +18,30 @@ export default {
 
   argTypes: {
     // Props
-    buttonColor: {
-      description: 'Color name for tip\'s buttons.'
-    },
-
-    color: {
+    bgColor: {
       description: 'Color name for tip\'s background.'
     },
 
-    label: {
-      description: 'Tip\'s title.'
+    color: {
+      description: 'Color name for the content tip.'
     },
 
     text: {
       description: 'Text that will be displayed on the tip.'
     },
 
-    textColor: {
-      description: 'Color name for the content tip.'
+    title: {
+      description: 'Tip\'s title.'
     },
 
     // Slots
-    actions: {
-      description: 'Tip\'s actions buttons.',
-      table: noSummary
-    },
-
     default: {
       description: 'Main content.',
       table: noSummary
     },
 
-    title: {
-      description: 'Tip\'s title.',
+    header: {
+      description: 'Tip\'s header.',
       table: noSummary
     }
 
@@ -60,7 +51,7 @@ export default {
 const Template = (args, { argTypes }) => ({
   components: { QasTip },
   props: Object.keys(argTypes),
-  template: '<qas-tip v-bind="$props" text="Text example" label="Title" />'
+  template: '<qas-tip v-bind="$props" text="Text example" title="Title" />'
 })
 
 export const Default = Template.bind({})

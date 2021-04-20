@@ -1,14 +1,13 @@
 <template>
-  <div v-if="isOpened" class="q-pa-lg relative-position rounded-borders tip" :class="bgColorClass">
-    <q-btn class="absolute-top-right q-mr-md q-mt-sm" :color="buttonColor" dense flat icon="close" rounded @click="toggleTip" />
-    <div class="q-gutter-md q-mr-lg">
-      <slot name="title">
-        <div class="text-bold text-h5" :class="colorClass">{{ label }}</div>
+  <div v-if="isOpened" class="q-pa-lg qas-tip relative-position rounded-borders" :class="classes" :style="styles">
+    <q-btn class="absolute-top-right q-mr-md q-mt-sm" :color="color" dense flat icon="close" rounded @click="close" />
+    <div class="q-gutter-md q-mr-lg" :class="colorClass">
+      <slot name="header">
+        <div v-if="title" class="text-bold text-h5">{{ title }}</div>
       </slot>
       <slot>
-        <p :class="colorClass">{{ text }}</p>
+        <p>{{ text }}</p>
       </slot>
-      <slot name="actions" />
     </div>
   </div>
 </template>
@@ -16,27 +15,22 @@
 <script>
 export default {
   props: {
-    color: {
+    bgColor: {
       type: String,
       default: 'transparent'
     },
 
-    buttonColor: {
+    color: {
       type: String,
       default: 'primary'
     },
 
-    label: {
+    text: {
       type: String,
       default: ''
     },
 
-    textColor: {
-      type: String,
-      default: 'dark'
-    },
-
-    text: {
+    title: {
       type: String,
       default: ''
     }
@@ -49,27 +43,26 @@ export default {
   },
 
   computed: {
-    bgColorClass () {
-      return `bg-${this.color}`
+    classes () {
+      return [`bg-${this.bgColor}`, `text-${this.color}`]
     },
 
-    colorClass () {
-      return `text-${this.textColor}`
+    styles () {
+      return { borderColor: this.color }
     }
   },
 
   methods: {
-    toggleTip () {
-      this.isOpened = !this.isOpened
+    close () {
+      this.isOpened = false
     }
   }
 }
 </script>
 
 <style lang="scss">
-.tip {
-  border-width: 0 10px;
+.qas-tip {
   border-style: solid;
-  border-color: $primary;
+  border-width: 0 10px;
 }
 </style>
