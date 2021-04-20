@@ -33,6 +33,11 @@ export default {
     customId: {
       default: '',
       type: [Number, String]
+    },
+
+    value: {
+      default: () => ({}),
+      type: Object
     }
   },
 
@@ -55,11 +60,8 @@ export default {
       this.fetchSingle()
     },
 
-    result: {
-      handler (data) {
-        this.$emit('input', data)
-      },
-      deep: true
+    result (value) {
+      this.$emit('input', value)
     }
   },
 
