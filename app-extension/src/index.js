@@ -16,6 +16,7 @@ function extendQuasar (quasar) {
       'boot/register.js',
       'boot/environment.js',
       'boot/api.js',
+      'boot/error-pages.js',
       'boot/force-https.js',
       'boot/history.js',
       'boot/router.js',
