@@ -6,8 +6,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## 1.x.x - 2021-04-09
 
+### Added
+- Added Montserrat as default font
+
 ### Removed
 - Removed `#q-app` background-color 
+
 ## 1.7.0 - 2021-04-13
 
 ### Added
