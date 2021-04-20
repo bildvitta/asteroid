@@ -73,6 +73,10 @@ export default {
       }
     },
 
+    input: {
+      description: 'Fires when successfully get the result.'
+    },
+
     // Slots
     default: {
       description: 'Main content.',
