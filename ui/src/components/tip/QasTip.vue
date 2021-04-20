@@ -1,6 +1,6 @@
 <template>
   <div v-if="isOpened" class="q-pa-lg relative-position rounded-borders tip" :class="bgColorClass">
-    <q-btn class="absolute-top-right q-mr-md q-mt-sm tip__btn" :color="buttonColor" dense flat icon="close" rounded @click="toggleTip" />
+    <q-btn class="absolute-top-right q-mr-md q-mt-sm" :color="buttonColor" dense flat icon="close" rounded @click="toggleTip" />
     <div class="q-gutter-md q-mr-lg">
       <slot name="title">
         <div class="text-bold text-h5" :class="colorClass">{{ label }}</div>
