@@ -1,69 +1,159 @@
-// Configuration for your app
-// https://quasar.dev/quasar-cli/quasar-conf-js
+/* eslint-env node */
 
+const ESLintPlugin = require('eslint-webpack-plugin')
 const path = require('path')
 
-module.exports = function (ctx) {
+module.exports = function (/* quasar */) {
   return {
-    // app boot file (/src/boot)
-    // --> boot files are part of "main.js"
+    // https://v1.quasar.dev/quasar-cli/supporting-ts
+    supportTS: false,
+
+    // https://v1.quasar.dev/quasar-cli/prefetch-feature
+    // preFetch: true,
+
+    // https://v1.quasar.dev/quasar-cli/boot-files
     boot: [
-      'register.js',
-      'store.js',
-      'axios.js'
+      'register',
+      'store',
+      'axios',
+      'i18n'
     ],
 
+    // https://v1.quasar.dev/quasar-cli/quasar-conf-js#Property%3A-css
     css: [
+      'app.scss'
     ],
 
+    // https://github.com/quasarframework/quasar/tree/dev/extras
     extras: [
-      // 'ionicons-v4',
-      // 'mdi-v5',
-      // 'fontawesome-v5',
-      // 'eva-icons',
-      // 'themify',
-      // 'line-awesome',
-      // 'roboto-font-latin-ext', // this or either 'roboto-font', NEVER both!
-
-      'roboto-font', // optional, you are not bound to it
-      'material-icons' // optional, you are not bound to it
+      'material-icons-outlined'
     ],
 
+    // https://v1.quasar.dev/quasar-cli/quasar-conf-js#Property%3A-build
+    build: {
+      vueRouterMode: 'history',
+
+      // https://v1.quasar.dev/quasar-cli/handling-process-env
+      env: {
+        SERVER_BASE_URL: process.env.SERVER_BASE_URL
+      },
+
+      // https://v1.quasar.dev/quasar-cli/handling-webpack
+      chainWebpack (chain) {
+        chain.plugin('eslint-webpack-plugin')
+          .use(ESLintPlugin, [{ extensions: ['js', 'vue'] }])
+
+        chain.resolve.alias
+          .set('ui', path.resolve(__dirname, '../src/index.js'))
+
+          .set('helpers', path.resolve(__dirname, './src/helpers'))
+          .set('mixins', path.resolve(__dirname, './src/mixins'))
+      }
+    },
+
+    // https://v1.quasar.dev/quasar-cli/quasar-conf-js#Property%3A-devServer
+    devServer: {
+      https: false,
+      port: 8080,
+      open: true
+    },
+
+    // https://v1.quasar.dev/quasar-cli/quasar-conf-js#Property%3A-framework
     framework: {
-      iconSet: 'material-icons', // Quasar icon set
-      lang: 'en-us', // Quasar language pack
+      lang: 'pt-br',
+      iconSet: 'material-icons-outlined',
+
       config: {},
 
-      // Possible values for "importStrategy":
-      // * 'auto' - (DEFAULT) Auto-import needed Quasar components & directives
-      // * 'all'  - Manually specify what to import
-      importStrategy: '',
+      importStrategy: 'auto',
 
       components: [
         'QPage'
       ],
 
-      // Quasar plugins
-      plugins: []
+      directives: [],
+
+      plugins: [
+        'Dialog',
+        'Loading',
+        'Notify'
+      ]
     },
 
-    // animations: 'all', // --- includes all animations
+    // https://v1.quasar.dev/options/animations
     animations: [],
 
-    // Full list of options: https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-build
-    build: {
-      vueRouterMode: 'history',
+    // https://v1.quasar.dev/quasar-cli/developing-ssr/configuring-ssr
+    ssr: {
+      pwa: false
+    },
 
-      chainWebpack (chain) {
-        chain.resolve.alias.merge({
-          'ui': path.resolve(__dirname, '../src/index.js')
-        })
+    // https://v1.quasar.dev/quasar-cli/developing-pwa/configuring-pwa
+    pwa: {
+      workboxPluginMode: 'GenerateSW',
+      workboxOptions: {},
+
+      manifest: {
+        name: 'Asteroid App',
+        short_name: 'Asteroid App',
+        description: 'An Asteroid app',
+
+        display: 'standalone',
+        background_color: '#ffffff',
+        theme_color: '#027be3',
+
+        icons: [
+          {
+            src: 'icons/icon-128x128.png',
+            sizes: '128x128',
+            type: 'image/png'
+          },
+          {
+            src: 'icons/icon-192x192.png',
+            sizes: '192x192',
+            type: 'image/png'
+          },
+          {
+            src: 'icons/icon-256x256.png',
+            sizes: '256x256',
+            type: 'image/png'
+          },
+          {
+            src: 'icons/icon-384x384.png',
+            sizes: '384x384',
+            type: 'image/png'
+          },
+          {
+            src: 'icons/icon-512x512.png',
+            sizes: '512x512',
+            type: 'image/png'
+          }
+        ]
       }
     },
 
-    devServer: {
-      // port: 8080,
-      open: true // opens browser window automatically
+    // https://v1.quasar.dev/quasar-cli/developing-cordova-apps/configuring-cordova
+    cordova: {},
+
+    // https://v1.quasar.dev/quasar-cli/developing-capacitor-apps/configuring-capacitor
+    capacitor: {},
+
+    // https://v1.quasar.dev/quasar-cli/developing-electron-apps/configuring-electron
+    electron: {
+      bundler: 'packager',
+
+      // https://github.com/electron-userland/electron-packager/blob/master/docs/api.md#options
+      packager: {},
+
+      builder: {
+        // https://www.electron.build/configuration/configuration
+        appId: 'dev'
+      },
+
+      // https://v1.quasar.dev/quasar-cli/developing-electron-apps/node-integration
+      nodeIntegration: true,
+
+      extendWebpack (/* webpack */) {}
     }
   }
 }

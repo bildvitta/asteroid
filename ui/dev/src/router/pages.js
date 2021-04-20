@@ -1,19 +1,14 @@
-/*
- * Export files list for /pages folder
- */
-
-function kebabCase (str) {
-  const result = str.replace(
+function kebabCase (string) {
+  const result = string.replace(
     /[A-Z\u00C0-\u00D6\u00D8-\u00DE]/g,
     match => '-' + match.toLowerCase()
   )
-  return (str[0] === str[0].toUpperCase())
-    ? result.substring(1)
-    : result
+
+  return (string[0] === string[0].toUpperCase()) ? result.substring(1) : result
 }
 
-function slugify (str) {
-  return encodeURIComponent(String(str).trim().replace(/\s+/g, '-'))
+function slugify (string) {
+  return encodeURIComponent(String(string).trim().replace(/\s+/g, '-'))
 }
 
 export default require.context('../pages', true, /^\.\/.*\.vue$/)

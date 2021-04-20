@@ -1,13 +1,13 @@
 <template>
   <qas-list-view class="container spaced" entity="users" no-filter>
-    <template v-slot:header>
+    <template #header>
       <qas-page-header no-breadcrumbs title="Lista" />
     </template>
 
-    <template v-slot="{ fields, results }">
+    <template #default="{ fields, results }">
       <qas-table-generator :columns="columns" :fields="fields" :results="results" row-key="uuid">
-        <template v-slot:body-cell-actions="{ row }">
-          <div class="flex no-wrap justify-end q-gutter-x-sm">
+        <template #body-cell-actions="{ row }">
+          <div class="flex justify-end no-wrap q-gutter-x-sm">
             <qas-btn dense flat label="o_visibility" rounded size="sm" :to="{ name: 'TreesSingle', params: { id: row.uuid } }" />
             <qas-btn dense flat icon="o_edit" rounded size="sm" :to="{ name: 'TreesEdit', params: { id: row.uuid } }" />
           </div>

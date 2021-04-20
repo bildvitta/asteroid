@@ -13,7 +13,7 @@
     </q-btn>
 
     <qas-dialog v-model="isDialogForm" v-bind="dialogConfigForm" use-form @validate="handlerValidate">
-      <template v-slot:description>
+      <template #description>
         <qas-input v-model="model.name" label="Nome" :rules="[validateField(value, 'Nome é obrigatório')]" />
         <qas-input v-model="model.email" label="E-mail" :rules="[validateField(value, 'Nome é obrigatório')]" />
       </template>
@@ -27,6 +27,7 @@ export default {
     return {
       isDialogDefault: false,
       isDialogForm: false,
+
       model: {
         name: '',
         email: ''
@@ -51,6 +52,7 @@ export default {
         }
       }
     },
+
     dialogConfigForm () {
       return {
         cancel: {
@@ -63,6 +65,7 @@ export default {
       }
     }
   },
+
   methods: {
     openDialogDefault () {
       this.isDialogDefault = !this.isDialogDefault
