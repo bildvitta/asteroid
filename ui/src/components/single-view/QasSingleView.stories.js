@@ -52,6 +52,10 @@ export default {
       description: 'Ignore entity and specify another endpoint.'
     },
 
+    value: {
+      description: 'Model value'
+    },
+
     // Events
     'fetch-error': {
       description: 'Fires when occur an error fetching value.',
@@ -71,6 +75,10 @@ export default {
           summary: '{}'
         }
       }
+    },
+
+    input: {
+      description: 'Fires when successfully get the result.'
     },
 
     // Slots
