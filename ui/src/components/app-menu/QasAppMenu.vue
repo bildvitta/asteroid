@@ -3,7 +3,7 @@
     <q-scroll-area class="fit" :class="scrollAreaClass">
       <q-list padding>
         <div v-for="(header, index) in items" :key="index">
-          <q-expansion-item v-if="hasChildren(header)" expand-separator :icon="header.icon" :label="header.label">
+          <q-expansion-item v-if="hasChildren(header)" expand-icon="o_keyboard_arrow_down" expand-separator :icon="header.icon" :label="header.label">
             <q-item v-for="(item, itemIndex) in header.children" :key="itemIndex" v-ripple :class="itemClass" clickable :to="item.to">
               <q-item-section v-if="item.icon" avatar>
                 <q-icon :name="item.icon" />

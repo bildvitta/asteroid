@@ -11,8 +11,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added `Forbidden` and `NotFound` error pages
 - Automatic import of error pages
 
+### Changed
+- Start using `expanded-icon` on `QasAppMenu`
+
 ### Removed
-- Removed `#q-app` background-color 
+- Removed `#q-app` background-color
+
+### Fixed
+- Prefix all icons with `o_` to force Material Icons Outlined
 
 ## 1.7.0 - 2021-04-13
 

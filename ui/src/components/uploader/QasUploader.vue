@@ -57,7 +57,7 @@
               <div class="q-gutter-xs text-grey-8">
                 <q-circular-progress v-if="isFileUploading(file)" :indeterminate="!file.__progress" :max="1" :min="0" :value="file.__progress" />
 
-                <q-icon v-if="isFileFailed(file)" color="negative" name="warning" size="20px" />
+                <q-icon v-if="isFileFailed(file)" color="negative" name="o_warning" size="20px" />
 
                 <!-- TODO: Retirar essa linha comentada? -->
                 <!-- <q-btn v-if="isFileUploaded(file)" dense flat icon="o_cloud_download" round /> -->
