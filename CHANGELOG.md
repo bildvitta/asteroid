@@ -9,10 +9,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Added QasTextTruncate component in `ui/src/component`
 
-## 1.x.x - 2021-04-09
+## 1.8.0 - 2021-04-22
+
+### Added
+- Added component `qas-tip` in `ui/src/components`
+- Added Montserrat as default font
+- Added `Forbidden` and `NotFound` error pages
+- Automatic import of error pages
+- Added `v-model` in `QasSingleView`
+
+### Changed
+- Start using `expanded-icon` on `QasAppMenu`
+- Changes in `ui/dev`
 
 ### Removed
-- Removed `#q-app` background-color 
+- Removed `#q-app` background-color
+
+### Fixed
+- Prefix all icons with `o_` to force Material Icons Outlined
+
 ## 1.7.0 - 2021-04-13
 
 ### Added
