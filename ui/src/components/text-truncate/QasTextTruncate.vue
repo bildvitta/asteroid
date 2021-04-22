@@ -1,10 +1,10 @@
 <template>
-  <div class="w-full">
+  <div ref="parent" class="full-width">
     <div class="justify-between no-wrap row text-no-wrap">
       <div ref="truncate" :class="truncateText">{{ text }}</div>
       <div v-if="hasTruncate" class="cursor-pointer text-primary" @click="toggleDialog">Ver mais</div>
     </div>
-    <qas-dialog v-model="showDialog" :cancel="false" :ok="false">
+    <qas-dialog v-model="showDialog" :cancel="false" :ok="false" v-bind="dialog">
       <template #header>
         <div class="justify-between row">
           <div class="text-bold text-subtitle1">{{ dialogTitle }}</div>
@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import screen from '../../mixins/screen.js'
+import screen from '../../mixins/screen'
 import QasDialog from '../dialog/QasDialog.vue'
 import QasBtn from '../btn/QasBtn.vue'
 
@@ -28,12 +28,25 @@ export default {
     QasDialog,
     QasBtn
   },
+
   mixins: [screen],
 
   props: {
+    dialog: {
+      type: Object,
+      default: () => ({
+        persistent: false
+      })
+    },
+
     dialogTitle: {
       type: String,
       default: ''
+    },
+
+    maxWidth: {
+      type: Number,
+      default: 0
     },
 
     text: {
@@ -60,14 +73,22 @@ export default {
     }
   },
 
+  watch: {
+    maxWidth () {
+      this.getElementsWidth()
+    }
+  },
+
   mounted () {
     this.getElementsWidth()
   },
 
   methods: {
     getElementsWidth () {
+      this.$refs.parent.style.maxWidth = '100%'
       this.textWidth = this.$refs.truncate.clientWidth
-      this.maxPossibleWidth = this.$refs.truncate.parentElement.clientWidth * 0.90
+      this.maxPossibleWidth = this.maxWidth || this.$refs.truncate.parentElement.clientWidth * 0.90
+      this.$refs.parent.style.maxWidth = `${this.maxPossibleWidth}px`
     },
 
     toggleDialog () {
