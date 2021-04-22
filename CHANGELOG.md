@@ -4,20 +4,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## 1.x.x - 2021-04-20
+## 1.8.0 - 2021-04-22
 
 ### Added
 - Added component `qas-tip` in `ui/src/components`
-
-## 1.x.x - 2021-04-09
-
-### Added
 - Added Montserrat as default font
 - Added `Forbidden` and `NotFound` error pages
 - Automatic import of error pages
+- Added `v-model` in `QasSingleView`
 
 ### Changed
 - Start using `expanded-icon` on `QasAppMenu`
+- Changes in `ui/dev`
 
 ### Removed
 - Removed `#q-app` background-color

@@ -14,8 +14,8 @@
 
     <qas-dialog v-model="isDialogForm" v-bind="dialogConfigForm" use-form @validate="handlerValidate">
       <template #description>
-        <qas-input v-model="model.name" label="Nome" :rules="[validateField(value, 'Nome é obrigatório')]" />
-        <qas-input v-model="model.email" label="E-mail" :rules="[validateField(value, 'Nome é obrigatório')]" />
+        <qas-input v-model="model.name" label="Nome" :rules="[validateField(model.name, 'Nome é obrigatório')]" />
+        <qas-input v-model="model.email" label="E-mail" :rules="[validateField(model.email, 'Nome é obrigatório')]" />
       </template>
     </qas-dialog>
   </q-page>
