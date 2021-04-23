@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## 1.x.x - 2021-04-22
 
 ### Added
+- Added mixin `screen`
 - Added QasTextTruncate component in `ui/src/component`
 
 ## 1.8.0 - 2021-04-22

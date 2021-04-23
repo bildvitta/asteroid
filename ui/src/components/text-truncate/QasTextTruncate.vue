@@ -1,8 +1,10 @@
 <template>
   <div ref="parent" class="full-width">
     <div class="justify-between no-wrap row text-no-wrap">
-      <div ref="truncate" :class="truncateText">{{ text }}</div>
-      <div v-if="hasTruncate" class="cursor-pointer text-primary" @click="toggleDialog">Ver mais</div>
+      <div ref="truncate" :class="truncateTextClass">
+        <slot>{{ text }}</slot>
+      </div>
+      <div v-if="hasTruncate" class="cursor-pointer text-primary" @click="toggleDialog">{{ seeMoreLabel }}</div>
     </div>
     <qas-dialog v-model="showDialog" :cancel="false" :ok="false" v-bind="dialog">
       <template #header>
@@ -12,7 +14,9 @@
         </div>
       </template>
       <template #description>
-        <div>{{ text }}</div>
+        <slot>
+          <div>{{ text }}</div>
+        </slot>
       </template>
     </qas-dialog>
   </div>
@@ -20,8 +24,8 @@
 
 <script>
 import screen from '../../mixins/screen'
-import QasDialog from '../dialog/QasDialog.vue'
-import QasBtn from '../btn/QasBtn.vue'
+import QasDialog from '../dialog/QasDialog'
+import QasBtn from '../btn/QasBtn'
 
 export default {
   components: {
@@ -49,6 +53,11 @@ export default {
       default: 0
     },
 
+    seeMoreLabel: {
+      type: String,
+      default: 'Ver mais'
+    },
+
     text: {
       type: String,
       default: ''
@@ -57,14 +66,14 @@ export default {
 
   data () {
     return {
-      textWidth: '',
       maxPossibleWidth: '',
-      showDialog: false
+      showDialog: false,
+      textWidth: ''
     }
   },
 
   computed: {
-    truncateText () {
+    truncateTextClass () {
       return (this.hasTruncate || this.$_isSmall) && 'ellipsis q-pr-sm'
     },
 
@@ -75,16 +84,16 @@ export default {
 
   watch: {
     maxWidth () {
-      this.getElementsWidth()
+      this.truncateText()
     }
   },
 
   mounted () {
-    this.getElementsWidth()
+    this.truncateText()
   },
 
   methods: {
-    getElementsWidth () {
+    truncateText () {
       this.$refs.parent.style.maxWidth = '100%'
       this.textWidth = this.$refs.truncate.clientWidth
       this.maxPossibleWidth = this.maxWidth || this.$refs.truncate.parentElement.clientWidth * 0.90
