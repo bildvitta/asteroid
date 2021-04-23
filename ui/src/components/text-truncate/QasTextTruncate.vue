@@ -8,8 +8,8 @@
     </div>
     <qas-dialog v-model="showDialog" :cancel="false" :ok="false" v-bind="dialog">
       <template #header>
-        <div class="justify-between row">
-          <div class="text-bold text-subtitle1">{{ dialogTitle }}</div>
+        <div class="row" :class="headerClass">
+          <div v-if="dialogTitle" class="text-bold text-subtitle1">{{ dialogTitle }}</div>
           <qas-btn v-close-popup dense flat icon="close" rounded />
         </div>
       </template>
@@ -79,6 +79,10 @@ export default {
 
     hasTruncate () {
       return this.textWidth > this.maxPossibleWidth
+    },
+
+    headerClass () {
+      return this.dialogTitle ? 'justify-between' : 'justify-end'
     }
   },
 
