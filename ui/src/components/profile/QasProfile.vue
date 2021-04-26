@@ -1,87 +1,143 @@
 <template>
-  <div>
-    <div class="items-center row">
-      <div v-if="showAvatar" class="col-12 col-md-auto q-mb-sm q-mr-lg">
-        <qas-avatar :icon="icon" :image="image" size="70px" :title="avatarTitle" />
-      </div>
-
-      <div class="col-12 col-md-auto">
-        <div class="wrap">
-          <div v-if="hasBeforeTitle" class="text-grey-6">
-            <!-- TODO: Remover camelCase. -->
-            <slot name="beforeTitle" />
+  <component :is="tag">
+    <div class="q-col-gutter-md row">
+      <div class="col-lg-5 col-xs-12">
+        <div class="no-wrap q-col-gutter-md" :class="infoDirectionClass">
+          <div class="lg:q-mb-none md:q-mr-lg xs:q-mb-md xs:text-center">
+            <div class="inline-block">
+              <qas-avatar :image="userAvatarImage" rounded :size="avatarSize()" :title="userName" />
+            </div>
           </div>
-
-          <h2 class="q-my-none text-black text-h5">{{ title }}</h2>
-
-          <div v-if="hasAfterTitle" class="text-grey-6">
-            <!-- TODO: Remover camelCase. -->
-            <slot name="afterTitle" />
+          <div>
+            <q-badge v-if="showStatus(result.status, hideStatus)" class="badge-radius-xs" :color="setStatusLabel(result.status, 'color')" :label="setStatusLabel(result.status, 'label')" />
+            <h6 class="text-bold text-h6">{{ userName }}</h6>
+            <!-- <div v-if="!hideType">{{  }}</div> -->
           </div>
         </div>
       </div>
-
-      <div v-if="hasMeta" class="col items-center no-wrap q-ml-lg row">
-        <q-separator class="q-mr-lg" vertical />
-
-        <div class="q-py-lg">
-          <slot name="meta" />
-        </div>
-      </div>
+      <qas-grid-generator class="col-lg-7 col-xs-12 items-center" :columns="infoColumns" :fields="filterObject(fields, infoList)" hide-empty-result :result="result">
+        <template #field-privateKey>
+          <div class="text-bold">Chave privada</div>
+          <qas-copy :label="result.privateKey" />
+        </template>
+        <template v-if="shortenDescription" #field-description>
+          <div class="text-bold">Descrição</div>
+          <div>
+            <span :class="shortenString">{{ result.description }}</span>
+            <span v-if="showSeeMore()" class="cursor-pointer text-primary" @click="openDialog"> Ver mais </span>
+          </div>
+        </template>
+      </qas-grid-generator>
+      <qas-dialog v-model="showDialog" :cancel="false" :card="cardDialog" :ok="false">
+        <template #header>
+          <div class="justify-between row">
+            <div class="text-bold text-subtitle1">Descrição</div>
+            <qas-btn v-close-popup dense flat icon="close" rounded />
+          </div>
+        </template>
+      </qas-dialog>
     </div>
-  </div>
+  </component>
 </template>
 
 <script>
-import QasAvatar from '../avatar/QasAvatar'
+import { setStatusLabel, showStatus } from '../../helpers/status'
+import avatarSize from '../../helpers/avatar-size'
+import filterObject from '../../helpers/filter-object'
+
+import screen from '../../mixins/screen'
 
 export default {
-  components: {
-    QasAvatar
-  },
+  mixins: [screen],
 
   props: {
-    icon: {
-      default: '',
-      type: String
+    result: {
+      type: Object,
+      default: () => ({})
     },
 
-    iconic: {
-      default: false,
+    fields: {
+      type: Object,
+      default: () => ({})
+    },
+
+    infoList: {
+      type: Array,
+      default: () => ([])
+    },
+
+    infoColumns: {
+      type: Object,
+      default: () => ({})
+    },
+
+    hideStatus: {
       type: Boolean
     },
 
-    image: {
-      default: '',
-      type: String
+    hideType: {
+      type: Boolean
     },
 
-    title: {
-      default: '',
-      required: true,
-      type: String
+    tag: {
+      type: String,
+      default: 'qas-box'
+    },
+
+    shortenDescription: {
+      type: Boolean
+    }
+  },
+
+  data () {
+    return {
+      showDialog: false
     }
   },
 
   computed: {
-    avatarTitle () {
-      return this.iconic ? '' : this.title
+    infoDirectionClass () {
+      return this.$_untilMedium ? 'col' : 'row items-center'
     },
 
-    hasAfterTitle () {
-      return !!this.$slots.afterTitle
+    userAvatarImage () {
+      return this.result.kind?.image
     },
 
-    hasBeforeTitle () {
-      return !!this.$slots.beforeTitle
+    userName () {
+      return this.result.nickname || this.result.name
     },
 
-    hasMeta () {
-      return !!this.$slots.meta
+    cardDialog () {
+      return {
+        description: this.result.description
+      }
     },
 
-    showAvatar () {
-      return this.iconic ? this.$q.screen.gt.sm : true
+    shortenString () {
+      return this.showSeeMore() && 'ellipsis'
+    }
+  },
+
+  methods: {
+    avatarSize,
+
+    filterObject,
+
+    setStatusLabel,
+
+    showStatus,
+
+    isEmployee (kind) {
+      return kind === 'employee'
+    },
+
+    openDialog () {
+      this.showDialog = true
+    },
+
+    showSeeMore () {
+      return this.result.description?.length > 10
     }
   }
 }
