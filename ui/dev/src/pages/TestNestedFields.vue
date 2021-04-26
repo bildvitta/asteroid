@@ -81,13 +81,13 @@ export default {
       errors: errors,
       model: [
         {
-          name: 'douglas',
-          email: 'douglas@teste.com',
+          name: 'John',
+          email: 'john@teste.com',
           select: 'a'
         },
         {
-          name: 'douglas',
-          email: 'douglas@teste.com',
+          name: 'John 2',
+          email: 'john@teste.com',
           select: 'b'
         }
       ]

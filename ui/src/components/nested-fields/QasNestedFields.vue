@@ -42,7 +42,7 @@
       </component>
 
       <slot :add="add" name="add-input">
-        <div class="cursor-pointer items-center q-col-gutter-x-md q-mt-md row teste" @click="add()">
+        <div class="cursor-pointer items-center q-col-gutter-x-md q-mt-md row" @click="add()">
           <qas-input class="col disabled no-pointer-events" hide-bottom-space :label="addInputLabel" outlined @focus="add()" />
 
           <div>
