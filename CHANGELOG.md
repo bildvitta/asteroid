@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Added mixin `screen`
 - Added QasTextTruncate component in `ui/src/component`
+- Added `QasNestedFields`
 
 ## 1.8.0 - 2021-04-22
 
