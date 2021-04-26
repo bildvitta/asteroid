@@ -5,37 +5,19 @@
         <div class="no-wrap q-col-gutter-md" :class="infoDirectionClass">
           <div class="lg:q-mb-none md:q-mr-lg xs:q-mb-md xs:text-center">
             <div class="inline-block">
-              <qas-avatar :image="userAvatarImage" rounded :size="avatarSize()" :title="userName" />
+              <qas-avatar :image="userAvatarImage" rounded :size="avatarSize()" :title="title" />
             </div>
           </div>
           <div>
             <q-badge v-if="showStatus(result.status, hideStatus)" class="badge-radius-xs" :color="setStatusLabel(result.status, 'color')" :label="setStatusLabel(result.status, 'label')" />
-            <h6 class="text-bold text-h6">{{ userName }}</h6>
-            <!-- <div v-if="!hideType">{{  }}</div> -->
+            <h6 class="text-bold text-h6">{{ title }}</h6>
+            <div>{{ subtitle }}</div>
           </div>
         </div>
       </div>
-      <qas-grid-generator class="col-lg-7 col-xs-12 items-center" :columns="infoColumns" :fields="filterObject(fields, infoList)" hide-empty-result :result="result">
-        <template #field-privateKey>
-          <div class="text-bold">Chave privada</div>
-          <qas-copy :label="result.privateKey" />
-        </template>
-        <template v-if="shortenDescription" #field-description>
-          <div class="text-bold">Descrição</div>
-          <div>
-            <span :class="shortenString">{{ result.description }}</span>
-            <span v-if="showSeeMore()" class="cursor-pointer text-primary" @click="openDialog"> Ver mais </span>
-          </div>
-        </template>
-      </qas-grid-generator>
-      <qas-dialog v-model="showDialog" :cancel="false" :card="cardDialog" :ok="false">
-        <template #header>
-          <div class="justify-between row">
-            <div class="text-bold text-subtitle1">Descrição</div>
-            <qas-btn v-close-popup dense flat icon="close" rounded />
-          </div>
-        </template>
-      </qas-dialog>
+      <slot name="grid">
+        <qas-grid-generator class="col-lg-7 col-xs-12 items-center" :columns="columns" :fields="filterObject(fields, list)" hide-empty-result :result="result" />
+      </slot>
     </div>
   </component>
 </template>
@@ -44,14 +26,22 @@
 import { setStatusLabel, showStatus } from '../../helpers/status'
 import avatarSize from '../../helpers/avatar-size'
 import filterObject from '../../helpers/filter-object'
-
 import screen from '../../mixins/screen'
+import QasAvatar from '../avatar/QasAvatar'
+import QasBox from '../box/QasBox'
+import QasGridGenerator from '../grid-generator/QasGridGenerator'
 
 export default {
+  components: {
+    QasAvatar,
+    QasBox,
+    QasGridGenerator
+  },
+
   mixins: [screen],
 
   props: {
-    result: {
+    columns: {
       type: Object,
       default: () => ({})
     },
@@ -61,22 +51,23 @@ export default {
       default: () => ({})
     },
 
-    infoList: {
-      type: Array,
-      default: () => ([])
-    },
-
-    infoColumns: {
-      type: Object,
-      default: () => ({})
-    },
-
     hideStatus: {
       type: Boolean
     },
 
-    hideType: {
-      type: Boolean
+    list: {
+      type: Array,
+      default: () => ([])
+    },
+
+    result: {
+      type: Object,
+      default: () => ({})
+    },
+
+    subtitle: {
+      type: String,
+      default: ''
     },
 
     tag: {
@@ -84,8 +75,9 @@ export default {
       default: 'qas-box'
     },
 
-    shortenDescription: {
-      type: Boolean
+    title: {
+      type: String,
+      default: ''
     }
   },
 
@@ -101,17 +93,7 @@ export default {
     },
 
     userAvatarImage () {
-      return this.result.kind?.image
-    },
-
-    userName () {
-      return this.result.nickname || this.result.name
-    },
-
-    cardDialog () {
-      return {
-        description: this.result.description
-      }
+      return this.result.image
     },
 
     shortenString () {
@@ -126,19 +108,7 @@ export default {
 
     setStatusLabel,
 
-    showStatus,
-
-    isEmployee (kind) {
-      return kind === 'employee'
-    },
-
-    openDialog () {
-      this.showDialog = true
-    },
-
-    showSeeMore () {
-      return this.result.description?.length > 10
-    }
+    showStatus
   }
 }
 </script>

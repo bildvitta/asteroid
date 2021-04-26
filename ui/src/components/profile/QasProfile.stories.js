@@ -1,9 +1,5 @@
 import QasProfile from './QasProfile.vue'
 
-const noSummary = {
-  type: { summary: null }
-}
-
 export default {
   component: QasProfile,
   title: 'Components/Profile',
@@ -11,71 +7,110 @@ export default {
   parameters: {
     docs: {
       description: {
-        component: 'Profile structure.'
+        component: '.'
       }
     }
   },
 
   argTypes: {
     // Props
-    icon: {
-      description: 'Avatar icon.'
+    columns: {
+      description: 'Define size of each column.',
+      table: {
+        defaultValue: { summary: '[]' }
+      }
     },
 
-    iconic: {
-      description: 'Force to be an icon in the avatar.'
+    fields: {
+      description: 'Define header value for each `field`.'
     },
 
-    image: {
-      description: 'Avatar image.'
+    hideStatus: {
+      description: 'Show the status badge.'
+    },
+
+    list: {
+      description: 'List of the fields to listed in grid.'
+    },
+
+    result: {
+      description: 'Define result value for each `field`.'
+    },
+
+    subtitle: {
+      description: 'Component subtitle.'
+    },
+
+    tag: {
+      description: 'Type of main element.'
     },
 
     title: {
-      description: 'Profile title.'
-    },
-
-    // Slots
-    afterTitle: {
-      table: noSummary
-    },
-
-    beforeTitle: {
-      table: noSummary
-    },
-
-    meta: {
-      table: noSummary
+      description: 'Component title.'
     }
   }
 }
-
-const template = `
-  <template v-slot:afterTitle>
-    Here is <strong>afterTitle</strong> slot.
-  </template>
-  <template v-slot:beforeTitle>
-    Here is <strong>beforeTitle</strong> slot.
-  </template>
-  <template v-slot:meta>
-    Here is <strong>meta</strong> slot.
-  </template>
-`
 
 const Template = (args, { argTypes }) => ({
   components: { QasProfile },
   props: Object.keys(argTypes),
   template:
-    `<qas-profile v-bind="$props">${template}</qas-profile>`
+    '<qas-profile v-bind="$props" :title="result.name" />'
 })
 
-export const Default = Template.bind({})
+const fields = {
+  name: { name: 'name', label: 'Full name', type: 'text' },
+  email: { name: 'email', label: 'E-mail', type: 'email' },
+  phone: { name: 'phone', label: 'Phone', type: 'text', mask: 'phone' },
+  gender: { name: 'gender', label: 'Gender', type: 'text' },
+  document: { name: 'document', label: 'Document', type: 'text', mask: 'document' },
+  address: { name: 'address', label: 'Address', type: 'text' }
+}
 
-Default.args = { title: 'Profile title!' }
+const list = ['name', 'phone', 'gender', 'document', 'address', 'email']
+
+const result = {
+  name: 'John Appleseed',
+  phone: '99999999999',
+  gender: 'Male',
+  document: '99999999999',
+  address: '747 Austen View',
+  email: 'john.appleseed@example.com'
+}
+
+const columns = {
+  name: { col: 12, sm: 6 },
+  phone: { col: 12, sm: 6 },
+  gender: { col: 12, sm: 6 },
+  document: { col: 12, sm: 6 },
+  address: { col: 6 },
+  email: { col: 12, sm: 6 }
+}
+
+export const Default = Template.bind({})
+Default.args = {
+  columns,
+  fields,
+  list,
+  result
+}
 
 Default.parameters = {
   docs: {
-    source: {
-      code: `<qas-profile>${template}</qas-profile>`
-    }
+    source: { code: `<qas-profile :fields="fields" :list="list" :result="result" :columns="${JSON.stringify(columns)}" />` }
+  }
+}
+
+export const CustomColumns = Template.bind({})
+CustomColumns.args = {
+  columns,
+  fields,
+  list,
+  result
+}
+
+CustomColumns.parameters = {
+  docs: {
+    source: { code: `<qas-profile :fields="fields" :list="list" :result="result" :columns="${JSON.stringify(columns)}" />` }
   }
 }
