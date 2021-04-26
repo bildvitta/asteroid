@@ -298,16 +298,6 @@ export default {
 </script>
 
 <style lang="scss">
-.fade-enter-active, .fade-leave-active {
-  transform: translateY(0);
-  transition: opacity .3s, transform .3s;
-}
-
-.fade-enter, .fade-leave-to {
-  opacity: 0;
-  transform: translateY(-100%);
-}
-
 .qas-nested-fields {
   &__actions {
     height: 56px;
