@@ -11,7 +11,7 @@
             <div v-if="!row[destroyKey]" :key="index" class="col-12 q-mt-md">
               <div>
                 <div class="flex items-center justify-between q-py-xs">
-                  <qas-label v-if="!useSingleLabel" :label="fieldLabel" />
+                  <qas-label v-if="!useSingleLabel" :label="label" />
 
                   <div v-if="!useInlineActions" class="q-gutter-x-sm">
                     <qas-btn v-if="useDuplicate" v-bind="btnDuplicateProps" @click="add(row)" />
@@ -192,14 +192,6 @@ export default {
       return this.field?.label
     },
 
-    fieldLabel () {
-      return this.field?.label
-    },
-
-    hasField () {
-      return Object.keys(this.field).length
-    },
-
     children () {
       return this.field?.children
     },
@@ -213,12 +205,6 @@ export default {
         'col',
         `q-col-gutter-x-${this.formGutter}`
       ]
-    },
-
-    breakPointSize () {
-      const breakpoints = { xs: 4, sm: 8, md: 16, lg: 24, xl: 48 }
-
-      return breakpoints[this.formGutter]
     },
 
     componentIs () {
