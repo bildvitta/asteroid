@@ -124,7 +124,6 @@ export default {
           label: 'Remover',
           icon: 'o_cancel',
           flat: true,
-          hideMobileLabel: true,
           dense: true
         }
       }
@@ -201,10 +200,14 @@ export default {
     },
 
     formClasses () {
-      return [
-        'col',
-        `q-col-gutter-x-${this.formGutter}`
-      ]
+      return {
+        col: true,
+        [`q-col-gutter-x-${this.formGutter}`]: this.useInlineActions
+      }
+      // return [
+      //   'col',
+      //   `q-col-gutter-x-${this.formGutter}`
+      // ]
     },
 
     componentIs () {

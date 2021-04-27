@@ -49,26 +49,26 @@ const nested = {
       name: 'email',
       type: 'email',
       label: 'E-mail'
-    },
-    cities: {
-      name: 'cities',
-      type: 'select',
-      multiple: true,
-      options: [
-        {
-          label: 'Cidade 1',
-          value: 1
-        },
-        {
-          label: 'Cidade 2',
-          value: 2
-        },
-        {
-          label: 'Cidade 3',
-          value: 3
-        }
-      ]
     }
+    // cities: {
+    //   name: 'cities',
+    //   type: 'select',
+    //   multiple: true,
+    //   options: [
+    //     {
+    //       label: 'Cidade 1',
+    //       value: 1
+    //     },
+    //     {
+    //       label: 'Cidade 2',
+    //       value: 2
+    //     },
+    //     {
+    //       label: 'Cidade 3',
+    //       value: 3
+    //     }
+    //   ]
+    // }
   }
 }
 
