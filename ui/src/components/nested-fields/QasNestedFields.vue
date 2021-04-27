@@ -64,6 +64,8 @@ import { extend } from 'quasar'
 import { set } from 'lodash'
 
 export default {
+  name: 'QasNestedFields',
+
   components: {
     QasBtn,
     QasFormGenerator,
@@ -204,10 +206,6 @@ export default {
         col: true,
         [`q-col-gutter-x-${this.formGutter}`]: this.useInlineActions
       }
-      // return [
-      //   'col',
-      //   `q-col-gutter-x-${this.formGutter}`
-      // ]
     },
 
     componentIs () {
