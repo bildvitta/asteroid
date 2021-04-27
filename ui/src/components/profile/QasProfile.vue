@@ -2,16 +2,14 @@
   <component :is="tag">
     <div class="q-col-gutter-md row">
       <div class="col-lg-5 col-xs-12">
-        <div class="no-wrap q-col-gutter-md" :class="infoDirectionClass">
-          <div class="lg:q-mb-none md:q-mr-lg xs:q-mb-md xs:text-center">
-            <div class="inline-block">
-              <qas-avatar :image="userAvatarImage" rounded :size="avatarSize()" :title="title" />
-            </div>
+        <div class="no-wrap q-col-gutter-md" :class="directionClasses">
+          <div class="justify-center lg:q-mb-none md:q-mr-lg row xs:q-mb-md">
+            <qas-avatar :image="userAvatarImage" rounded :size="getAvatarSize" :title="title" />
           </div>
           <div>
             <q-badge v-if="showStatus(result.status, hideStatus)" class="badge-radius-xs" :color="setStatusLabel(result.status, 'color')" :label="setStatusLabel(result.status, 'label')" />
             <h6 class="text-bold text-h6">{{ title }}</h6>
-            <div>{{ subtitle }}</div>
+            <div v-if="subtitle">{{ subtitle }}</div>
           </div>
         </div>
       </div>
@@ -24,7 +22,6 @@
 
 <script>
 import { setStatusLabel, showStatus } from '../../helpers/status'
-import avatarSize from '../../helpers/avatar-size'
 import filterObject from '../../helpers/filter-object'
 import screen from '../../mixins/screen'
 import QasAvatar from '../avatar/QasAvatar'
@@ -77,7 +74,8 @@ export default {
 
     title: {
       type: String,
-      default: ''
+      default: '',
+      require: true
     }
   },
 
@@ -88,7 +86,7 @@ export default {
   },
 
   computed: {
-    infoDirectionClass () {
+    directionClasses () {
       return this.$_untilMedium ? 'col' : 'row items-center'
     },
 
@@ -98,12 +96,14 @@ export default {
 
     shortenString () {
       return this.showSeeMore() && 'ellipsis'
+    },
+
+    getAvatarSize () {
+      return this.$_isSmall ? '145px' : '188px'
     }
   },
 
   methods: {
-    avatarSize,
-
     filterObject,
 
     setStatusLabel,

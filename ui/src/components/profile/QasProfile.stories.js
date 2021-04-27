@@ -7,7 +7,7 @@ export default {
   parameters: {
     docs: {
       description: {
-        component: '.'
+        component: 'Profile view.'
       }
     }
   },
@@ -30,7 +30,7 @@ export default {
     },
 
     list: {
-      description: 'List of the fields to listed in grid.'
+      description: 'List of the fields to be listed in grid.'
     },
 
     result: {
