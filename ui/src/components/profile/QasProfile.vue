@@ -79,12 +79,6 @@ export default {
     }
   },
 
-  data () {
-    return {
-      showDialog: false
-    }
-  },
-
   computed: {
     directionClasses () {
       return this.$_untilMedium ? 'col' : 'row items-center'
@@ -92,10 +86,6 @@ export default {
 
     userAvatarImage () {
       return this.result.image
-    },
-
-    shortenString () {
-      return this.showSeeMore() && 'ellipsis'
     },
 
     getAvatarSize () {
