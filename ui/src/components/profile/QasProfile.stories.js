@@ -1,5 +1,9 @@
 import QasProfile from './QasProfile.vue'
 
+const noSummary = {
+  type: { summary: null }
+}
+
 export default {
   component: QasProfile,
   title: 'Components/Profile',
@@ -47,6 +51,12 @@ export default {
 
     title: {
       description: 'Component title.'
+    },
+
+    // Slot
+    grid: {
+      description: 'Grid custom fields.',
+      table: noSummary
     }
   }
 }
