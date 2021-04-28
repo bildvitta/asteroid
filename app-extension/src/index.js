@@ -54,12 +54,12 @@ module.exports = function (api) {
   api.extendQuasarConf(extendQuasar)
 
   api.extendWebpack(webpack => {
-    const helpers = 'node_modules/@bildvitta/quasar-ui-asteroid/src/helpers/index.js'
+    const asteroid = 'node_modules/@bildvitta/quasar-ui-asteroid/src/asteroid.js'
 
     webpack.resolve.alias = {
       ...webpack.resolve.alias,
 
-      asteroid: api.resolve.app(helpers),
+      asteroid: api.resolve.app(asteroid),
       extensions: api.resolve.app('quasar.extensions.json')
     }
   })

@@ -4,6 +4,21 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 1.x.x - 2021-04-28
+
+### Added
+- Added `index.js` in `/mixins` for importing mixins.
+- Added `asteroid.js` in `in ui/src` for importing mixins and helpers.
+
+### Changed
+- Changed in `app-extension/src/index.js` new path for mixins and helpers.
+
+### Removed
+- Removed `.join(\n)` in `/helpers/filters.js`.
+
+### Fixed
+- Fixed imports of news components, `QasTip` and `QasTextTruncate`.
+
 ## 1.x.x - 2021-04-22
 
 ### Added
