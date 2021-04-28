@@ -6,7 +6,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## 1.x.x - 2021-04-2228
 
-### Added
+### Changed
 - Added method in historyHandler for destroy routes by names list
 
 ## 1.x.x - 2021-04-22
