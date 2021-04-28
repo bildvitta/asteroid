@@ -35,7 +35,7 @@ function handleHistory () {
         return null
       }
 
-      routes.forEach((route) => {
+      routes.forEach(route => {
         const index = history.list.findIndex(item => item.name === route)
 
         if (~index) {
