@@ -74,46 +74,6 @@ export default {
   },
 
   props: {
-    value: {
-      type: Array,
-      default: () => []
-    },
-
-    field: {
-      type: Object,
-      default: () => ({})
-    },
-
-    fieldsProps: {
-      type: Object,
-      default: () => ({})
-    },
-
-    errors: {
-      type: Array,
-      default: () => []
-    },
-
-    fieldsEvents: {
-      type: Object,
-      default: () => ({})
-    },
-
-    formColumns: {
-      type: Object,
-      default: () => ({})
-    },
-
-    destroyKey: {
-      type: String,
-      default: 'destroyed'
-    },
-
-    rowObject: {
-      type: Object,
-      default: () => ({})
-    },
-
     addInputLabel: {
       type: String,
       default: 'Inserir novo campo'
@@ -144,26 +104,34 @@ export default {
       }
     },
 
-    useDuplicate: {
-      type: Boolean,
-      default: true
+    destroyKey: {
+      type: String,
+      default: 'destroyed'
     },
 
-    useAnimation: {
-      type: Boolean,
-      default: true
+    errors: {
+      type: Array,
+      default: () => []
     },
 
-    useInlineActions: {
-      type: Boolean
+    field: {
+      type: Object,
+      default: () => ({})
     },
 
-    useDestroyAlways: {
-      type: Boolean
+    fieldsEvents: {
+      type: Object,
+      default: () => ({})
     },
 
-    useSingleLabel: {
-      type: Boolean
+    fieldsProps: {
+      type: Object,
+      default: () => ({})
+    },
+
+    formColumns: {
+      type: Object,
+      default: () => ({})
     },
 
     formGutter: {
@@ -178,6 +146,38 @@ export default {
           'xl'
         ].includes(value)
       }
+    },
+
+    rowObject: {
+      type: Object,
+      default: () => ({})
+    },
+
+    useAnimation: {
+      type: Boolean,
+      default: true
+    },
+
+    useDestroyAlways: {
+      type: Boolean
+    },
+
+    useDuplicate: {
+      type: Boolean,
+      default: true
+    },
+
+    useInlineActions: {
+      type: Boolean
+    },
+
+    useSingleLabel: {
+      type: Boolean
+    },
+
+    value: {
+      type: Array,
+      default: () => []
     }
   },
 

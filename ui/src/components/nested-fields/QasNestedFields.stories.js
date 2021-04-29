@@ -14,39 +14,6 @@ export default {
 
   argTypes: {
     // Props
-    value: {
-      description: 'Model value.',
-      control: { type: Array }
-    },
-
-    field: {
-      description: 'Nested fields'
-    },
-
-    fieldsProps: {
-      description: 'Defines each field prop.'
-    },
-
-    fieldsEvents: {
-      description: 'Defines each field events.'
-    },
-
-    errors: {
-      description: 'Each field error.'
-    },
-
-    formColumns: {
-      description: 'Grid col class of each field.'
-    },
-
-    destroyKey: {
-      description: 'Key identifier to destroy the field.'
-    },
-
-    rowObject: {
-      description: 'Defines the default value to each field.'
-    },
-
     addInputLabel: {
       description: 'Label of add input.'
     },
@@ -59,28 +26,61 @@ export default {
       description: 'Props of duplicate btn (not from inline actions).'
     },
 
-    useDuplicate: {
-      description: 'Enable duplicate btn.'
+    destroyKey: {
+      description: 'Key identifier to destroy the field.'
+    },
+
+    errors: {
+      description: 'Each field error.'
+    },
+
+    field: {
+      description: 'Nested fields'
+    },
+
+    fieldsEvents: {
+      description: 'Defines each field events.'
+    },
+
+    fieldsProps: {
+      description: 'Defines each field prop.'
+    },
+
+    formColumns: {
+      description: 'Grid col class of each field.'
+    },
+
+    formGutter: {
+      description: 'Gutter of form fields.'
+    },
+
+    rowObject: {
+      description: 'Defines the default value to each field.'
     },
 
     useAnimation: {
       description: 'Enable animation when add and destroy a field.'
     },
 
-    useInlineActions: {
-      description: 'Enable inline actions.'
-    },
-
     useDestroyAlways: {
       description: 'Enable always destroy btn.'
+    },
+
+    useDuplicate: {
+      description: 'Enable duplicate btn.'
+    },
+
+    useInlineActions: {
+      description: 'Enable inline actions.'
     },
 
     useSingleLabel: {
       description: 'Enable only one label on component.'
     },
 
-    formGutter: {
-      description: 'Gutter of form fields.'
+    value: {
+      description: 'Model value.',
+      control: { type: Array }
     },
 
     // events
@@ -92,11 +92,15 @@ export default {
     },
 
     // Slots
-    'field-[field.name]': {
-      description: 'Each field inside `fields` is a slot.',
+    'add-input': {
+      description: 'slot for change add input',
       table: {
         category: 'slots',
-        defaultValue: { summary: JSON.stringify({ field: 'object' }) },
+        defaultValue: {
+          summary: JSON.stringify({
+            add: 'function'
+          })
+        },
         type: { summary: null }
       }
     },
@@ -116,15 +120,11 @@ export default {
       }
     },
 
-    'add-input': {
-      description: 'slot for change add input',
+    'field-[field.name]': {
+      description: 'Each field inside `fields` is a slot.',
       table: {
         category: 'slots',
-        defaultValue: {
-          summary: JSON.stringify({
-            add: 'function'
-          })
-        },
+        defaultValue: { summary: JSON.stringify({ field: 'object' }) },
         type: { summary: null }
       }
     }
