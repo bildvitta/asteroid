@@ -20,7 +20,7 @@
                 </div>
 
                 <div class="col-12 justify-between q-col-gutter-x-md row">
-                  <qas-form-generator v-model="nested[index]" :class="formClasses" :columns="formColumns" :errors="errors[index]" :fields="children" :fields-events="fieldsEvents" :fields-props="defaultFieldsProps" @input="updateValuesFromInput($event, index)">
+                  <qas-form-generator ref="formGenerator" v-model="nested[index]" :class="formClasses" :columns="formColumns" :errors="errors[index]" :fields="children" :fields-events="fieldsEvents" :fields-props="fieldsProps" @input="updateValuesFromInput($event, index)">
                     <template v-for="(slot, key) in $scopedSlots" :slot="key" slot-scope="scope">
                       <slot :name="key" v-bind="scope" />
                     </template>
@@ -42,12 +42,16 @@
       </component>
 
       <slot :add="add" name="add-input">
-        <div class="cursor-pointer items-center q-col-gutter-x-md q-mt-md row" @click="add()">
+        <div v-if="useInlineActions" class="cursor-pointer items-center q-col-gutter-x-md q-mt-md row" @click="add()">
           <qas-input class="col disabled no-pointer-events" hide-bottom-space :label="addInputLabel" outlined @focus="add()" />
 
           <div>
             <qas-btn class="col-auto" color="green" flat icon="o_add_circle_outline" round />
           </div>
+        </div>
+
+        <div v-else class="q-mt-lg">
+          <qas-btn ref="test" icon="o_add" class="full-width q-py-sm" outline @click="add()">{{ addInputLabel }}</qas-btn>
         </div>
       </slot>
     </div>
@@ -183,8 +187,7 @@ export default {
 
   data () {
     return {
-      nested: [],
-      defaultFieldsProps: {}
+      nested: []
     }
   },
 
@@ -226,27 +229,26 @@ export default {
         !this.value.length && this.setDefaultValue()
       },
       immediate: true
-    },
-
-    fieldsProps: {
-      handler (value) {
-        this.defaultFieldsProps = { ...value }
-      },
-      immediate: true
     }
   },
 
   methods: {
     add (row = {}) {
       this.nested.push({ ...this.rowObject, ...row })
-      this.setFocus()
 
-      this.$nextTick(() => this.useAnimation && this.setScroll())
+      this.$nextTick(() => {
+        this.useAnimation && this.setScroll()
+        this.setFocus()
+      })
+
       return this.emitter()
     },
 
     setFocus () {
-      return set(this.defaultFieldsProps, `${Object.keys(this.rowObject)[0]}.autofocus`, true)
+      const formGenerator = this.$refs.formGenerator
+      const firstElementToBeFocused = formGenerator[formGenerator.length - 1].$children[0].$children[0]
+
+      return firstElementToBeFocused?.focus && firstElementToBeFocused.focus()
     },
 
     emitter (value) {
