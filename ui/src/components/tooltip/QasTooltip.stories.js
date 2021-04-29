@@ -15,23 +15,23 @@ export default {
   argTypes: {
     // Props
     color: {
-      description: 'Icon\'s color name.'
+      description: 'Icon color name.'
     },
 
     icon: {
-      description: 'Icon\'s name.'
+      description: 'Icon name.'
     },
 
     message: {
-      description: 'Tooltip\'s message.'
+      description: 'Tooltip message.'
     },
 
     messageIcon: {
-      description: 'Message\'s icon name.'
+      description: 'Message icon name.'
     },
 
     messageIconSize: {
-      description: 'Message\'s icon size.'
+      description: 'Message icon size.'
     },
 
     mobileMessageProps: {
