@@ -18,6 +18,10 @@ export default {
       description: 'Icon\'s color name.'
     },
 
+    icon: {
+      description: 'Icon\'s name.'
+    },
+
     message: {
       description: 'Tooltip\'s message.'
     },
