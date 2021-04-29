@@ -10,6 +10,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added mixin `screen`
 - Added QasTextTruncate component in `ui/src/component`
 
+### Changed
+- Added method in historyHandler for destroy routes by names list
+
 ## 1.8.0 - 2021-04-22
 
 ### Added
