@@ -28,6 +28,20 @@ function handleHistory () {
 
       history.list.push(route)
       history.hasPreviousRoute = history.list.length > 1
+    },
+
+    destroy (routes) {
+      if (!history.list.length) {
+        return null
+      }
+
+      routes.forEach(route => {
+        const index = history.list.findIndex(item => item.name === route)
+
+        if (~index) {
+          history.list.splice(index, 1)
+        }
+      })
     }
   }
 }
