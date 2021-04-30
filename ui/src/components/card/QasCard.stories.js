@@ -1,13 +1,7 @@
 import QasCard from './QasCard.vue'
 
-const slotDefaults = {
-  table: {
-    category: 'slots',
-    defaultValue: {
-      detail: JSON.stringify({ field: 'object' }),
-      summary: '{}'
-    }
-  }
+const noSummary = {
+  type: { summary: null }
 }
 
 export default {
@@ -17,7 +11,7 @@ export default {
   parameters: {
     docs: {
       description: {
-        component: 'Card component.'
+        component: 'Simple card component.'
       }
     }
   },
@@ -56,23 +50,19 @@ export default {
     },
 
     // Slots
+    actions: {
+      description: 'Bottom section for actions.',
+      table: noSummary
+    },
+
     default: {
-      table: { disable: true }
-    },
-
-    content: {
-      description: 'Content value defaults.',
-      ...slotDefaults
-    },
-
-    'field-[field.name]': {
-      description: 'Each cell inside `fields` is a slot.',
-      ...slotDefaults
+      description: 'Main content.',
+      table: noSummary
     },
 
     header: {
-      description: 'Header value defaults.',
-      ...slotDefaults
+      description: 'Header content.',
+      table: noSummary
     }
   }
 }
@@ -81,12 +71,40 @@ const Template = (args, { argTypes }) => ({
   components: { QasCard },
   props: Object.keys(argTypes),
   template:
-    '<qas-card v-bind="$props" />'
+  `<template>
+  <div class="q-col-gutter-md q-pa-md row">
+    <qas-card :fields="fields" has-actions :result="result">
+      <template #default>
+        <div>{{ result.name }}</div>
+        <div>{{ result.email }}</div>
+      </template>
+      <template #actions>
+        <q-icon color="primary" class="col-grow" name="o_edit" />
+        <q-icon color="primary" class="col-grow" name="o_delete" />
+        <q-icon color="primary" class="col-grow" name="o_photo_camera" />
+      </template>
+    </qas-card>
+    <qas-card :fields="fields" :result="result">
+      <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+    </qas-card>
+    <qas-card :fields="fields" has-actions :result="result">
+      <template #default>
+        <div>{{ result.name }}</div>
+        <div>{{ result.email }}</div>
+      </template>
+      <template #actions>
+        <div class="full-width">
+          <div class="text-blue text-bold text-center">Ver mais</div>
+        </div>
+      </template>
+    </qas-card>
+  </div>
+</template>`
 })
 
 const fields = {
   name: { name: 'name', label: 'Full name', type: 'text' },
-  images: ['https://englishlive.ef.com/pt-br/blog/wp-content/uploads/sites/16/2014/07/beagle-lindo.jpg']
+  images: ['https://cdn.pixabay.com/photo/2016/10/10/12/54/space-1728314_960_720.jpg']
 }
 
 const result = {
