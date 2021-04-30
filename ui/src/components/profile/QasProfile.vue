@@ -1,88 +1,98 @@
 <template>
-  <div>
-    <div class="items-center row">
-      <div v-if="showAvatar" class="col-12 col-md-auto q-mb-sm q-mr-lg">
-        <qas-avatar :icon="icon" :image="image" size="70px" :title="avatarTitle" />
-      </div>
-
-      <div class="col-12 col-md-auto">
-        <div class="wrap">
-          <div v-if="hasBeforeTitle" class="text-grey-6">
-            <!-- TODO: Remover camelCase. -->
-            <slot name="beforeTitle" />
+  <component :is="tag">
+    <div class="q-col-gutter-md row">
+      <div class="col-lg-5 col-xs-12">
+        <div class="no-wrap q-col-gutter-md" :class="directionClasses">
+          <div class="justify-center lg:q-mb-none md:q-mr-lg row xs:q-mb-md">
+            <qas-avatar :image="userAvatarImage" rounded :size="getAvatarSize" :title="title" />
           </div>
-
-          <h2 class="q-my-none text-black text-h5">{{ title }}</h2>
-
-          <div v-if="hasAfterTitle" class="text-grey-6">
-            <!-- TODO: Remover camelCase. -->
-            <slot name="afterTitle" />
-          </div>
+          <slot>
+            <h6 class="text-bold text-h6">{{ title }}</h6>
+            <div v-if="subtitle">{{ subtitle }}</div>
+          </slot>
         </div>
       </div>
-
-      <div v-if="hasMeta" class="col items-center no-wrap q-ml-lg row">
-        <q-separator class="q-mr-lg" vertical />
-
-        <div class="q-py-lg">
-          <slot name="meta" />
-        </div>
-      </div>
+      <slot name="grid">
+        <qas-grid-generator class="col-lg-7 col-xs-12 items-center" :columns="columns" :fields="filterObject(fields, list)" hide-empty-result :result="result" />
+      </slot>
     </div>
-  </div>
+  </component>
 </template>
 
 <script>
+import filterObject from '../../helpers/filter-object'
+import screen from '../../mixins/screen'
 import QasAvatar from '../avatar/QasAvatar'
+import QasBox from '../box/QasBox'
+import QasGridGenerator from '../grid-generator/QasGridGenerator'
 
 export default {
   components: {
-    QasAvatar
+    QasAvatar,
+    QasBox,
+    QasGridGenerator
   },
 
+  mixins: [screen],
+
   props: {
-    icon: {
-      default: '',
-      type: String
+    columns: {
+      type: Object,
+      default: () => ({})
     },
 
-    iconic: {
-      default: false,
+    fields: {
+      type: Object,
+      default: () => ({})
+    },
+
+    hideStatus: {
       type: Boolean
     },
 
-    image: {
-      default: '',
-      type: String
+    list: {
+      type: Array,
+      default: () => ([])
+    },
+
+    result: {
+      type: Object,
+      default: () => ({})
+    },
+
+    subtitle: {
+      type: String,
+      default: ''
+    },
+
+    tag: {
+      type: String,
+      default: 'qas-box'
     },
 
     title: {
+      type: String,
       default: '',
-      required: true,
-      type: String
+      required: true
     }
   },
 
   computed: {
-    avatarTitle () {
-      return this.iconic ? '' : this.title
+    directionClasses () {
+      return this.$_untilMedium ? 'col' : 'row items-center'
     },
 
-    hasAfterTitle () {
-      return !!this.$slots.afterTitle
+    userAvatarImage () {
+      return this.result.image
     },
 
-    hasBeforeTitle () {
-      return !!this.$slots.beforeTitle
-    },
-
-    hasMeta () {
-      return !!this.$slots.meta
-    },
-
-    showAvatar () {
-      return this.iconic ? this.$q.screen.gt.sm : true
+    getAvatarSize () {
+      return this.$_isSmall ? '145px' : '188px'
     }
+  },
+
+  methods: {
+    filterObject
   }
 }
 </script>
