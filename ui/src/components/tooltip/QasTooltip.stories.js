@@ -34,7 +34,7 @@ export default {
       description: 'Message icon size.'
     },
 
-    mobileMessageProps: {
+    notifyProps: {
       description: 'Props of $q.notify plugin'
     },
 
