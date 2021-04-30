@@ -104,7 +104,7 @@ function selectLabel (options, value, multiple) {
 }
 
 function multipleOptionsLabel (options, value) {
-  return value.map(itemValue => optionLabel(options, itemValue)).join('\n')
+  return value.map(itemValue => optionLabel(options, itemValue))
 }
 
 function optionLabel (options = [], value) {
