@@ -11,6 +11,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 - Changed QasProfile layout and structure
+## 1.x.x - 2021-04-29
+
+### Added
+- Added `QasTooltip` component
+
+### Changed
+- Layout arrows in `QasTabs`  
 
 ## 1.9.0 - 2021-04-29
 
