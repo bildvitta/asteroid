@@ -83,6 +83,10 @@ export default {
       return this.inputReference.validate(value)
     },
 
+    focus () {
+      return this.inputReference.focus()
+    },
+
     resetValidation () {
       return this.inputReference.resetValidation()
     }
