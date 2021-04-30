@@ -71,8 +71,7 @@ const Template = (args, { argTypes }) => ({
   components: { QasCard },
   props: Object.keys(argTypes),
   template:
-  `<template>
-  <div class="q-col-gutter-md q-pa-md row">
+  `<div class="q-col-gutter-md q-pa-md row">
     <qas-card :fields="fields" has-actions :result="result">
       <template #default>
         <div>{{ result.name }}</div>
@@ -98,13 +97,17 @@ const Template = (args, { argTypes }) => ({
         </div>
       </template>
     </qas-card>
-  </div>
-</template>`
+  </div>`
 })
 
 const fields = {
   name: { name: 'name', label: 'Full name', type: 'text' },
-  images: ['https://cdn.pixabay.com/photo/2016/10/10/12/54/space-1728314_960_720.jpg']
+  images: [
+    'https://cdn.pixabay.com/photo/2016/10/10/12/54/space-1728314_960_720.jpg',
+    'https://cdn.pixabay.com/photo/2011/12/14/12/21/orion-nebula-11107_960_720.jpg',
+    'https://cdn.pixabay.com/photo/2016/10/10/12/54/space-1728314_960_720.jpg',
+    'https://cdn.pixabay.com/photo/2011/12/14/12/21/orion-nebula-11107_960_720.jpg'
+  ]
 }
 
 const result = {

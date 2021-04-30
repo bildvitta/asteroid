@@ -4,9 +4,6 @@
       <div class="overflow-hidden relative-position">
         <slot name="header">
           <q-carousel v-model="slideImage" animated class="cursor-pointer" height="205px" infinite :navigation="hasImages" navigation-icon="fiber_manual_record" swipeable>
-            <template #navigation-icon="{ btnProps, onClick }">
-              <q-btn color="white" dense flat :icon="btnProps.icon" round size="sm" @click.stop="onClick" />
-            </template>
             <q-carousel-slide v-for="(item, index) in cardItemImages" :key="index" class="bg-no-repeat" :class="bgImagePositionClass" :img-src="setImage(item)" :name="index" />
           </q-carousel>
         </slot>
