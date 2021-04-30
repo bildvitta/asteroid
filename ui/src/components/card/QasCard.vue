@@ -1,16 +1,16 @@
 <template>
   <div class="col-12 col-lg-3 col-md-4 col-sm-6 qas-card">
-    <q-card class="border-radius-lg column full-height" :class="cardClass">
+    <q-card class="border-radius-lg column full-height" :class="cardClasses">
       <div class="overflow-hidden relative-position">
         <slot name="header">
           <q-carousel v-model="slideImage" animated class="cursor-pointer" height="205px" infinite :navigation="hasImages" navigation-icon="fiber_manual_record" swipeable>
-            <q-carousel-slide v-for="(item, index) in cardItemImages" :key="index" class="bg-no-repeat" :class="bgImagePositionClass" :img-src="setImage(item)" :name="index" />
+            <q-carousel-slide v-for="(item, index) in images" :key="index" class="bg-no-repeat" :class="bgImagePositionClasses" :img-src="setImage(item)" :name="index" />
           </q-carousel>
         </slot>
       </div>
 
       <q-card-section class="card__description col-grow column justify-between">
-        <div :class="gutterClass">
+        <div :class="gutterClasses">
           <slot />
         </div>
       </q-card-section>
@@ -31,9 +31,9 @@ export default {
   mixins: [screen],
 
   props: {
-    result: {
-      type: Object,
-      default: () => ({})
+    bgImagePosition: {
+      type: String,
+      default: 'center'
     },
 
     defaultImage: {
@@ -46,27 +46,22 @@ export default {
       default: () => ({})
     },
 
-    cardOptions: {
-      type: Object,
-      default: () => ({})
-    },
-
     formMode: {
-      type: Boolean
-    },
-
-    bgImagePosition: {
-      type: String,
-      default: 'center'
-    },
-
-    hasActions: {
       type: Boolean
     },
 
     gutter: {
       type: String,
       default: 'sm'
+    },
+
+    hasActions: {
+      type: Boolean
+    },
+
+    result: {
+      type: Object,
+      default: () => ({})
     }
   },
 
@@ -77,7 +72,7 @@ export default {
   },
 
   computed: {
-    bgImagePositionClass () {
+    bgImagePositionClasses () {
       return `bg-position-${this.bgImagePosition}`
     },
 
@@ -85,31 +80,27 @@ export default {
       return this.result?.uuid
     },
 
-    cardItemImages () {
+    images () {
       if (!Object.keys(this.fields).length) return []
 
-      if (this.cardImagesLength) return this.fields.images.slice(0, 3)
+      if (this.imagesLength) return this.fields.images.slice(0, 3)
 
       return [this.defaultImage]
     },
 
     hasImages () {
-      return this.cardItemImages.length > 1
+      return this.images.length > 1
     },
 
-    cardOptionsAlignment () {
-      return this.result.status ? 'justify-between' : 'justify-end'
-    },
-
-    cardImagesLength () {
+    imagesLength () {
       return this.fields.images?.length
     },
 
-    cardClass () {
+    cardClasses () {
       return this.formMode ? 'card--outlined bg-white no-shadow' : 'box-shadow-1'
     },
 
-    gutterClass () {
+    gutterClasses () {
       return `q-col-gutter-${this.gutter}`
     }
   },

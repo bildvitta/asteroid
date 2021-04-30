@@ -18,15 +18,16 @@ export default {
 
   argTypes: {
     // Props
-    columns: {
-      description: 'Define size of each column.',
-      table: {
-        defaultValue: { summary: '[]' }
-      }
+    bgImagePosition: {
+      description: 'Define a position of the background image.'
     },
 
-    contentClass: {
-      description: 'CSS classes for each result value.'
+    defaultImage: {
+      description: 'Defines a default image when haven\'t a list of images'
+    },
+
+    formMode: {
+      description: 'Changes the component style.'
     },
 
     fields: {
@@ -37,12 +38,8 @@ export default {
       description: 'Gutter space by Quasar convention. `q-col-gutter-{$gutter}`.'
     },
 
-    headerClass: {
-      description: 'CSS classes for each header value.'
-    },
-
-    hideEmptyResult: {
-      description: 'Omits cell when result value is empty.'
+    hasActions: {
+      description: 'Shows the actions section.'
     },
 
     result: {

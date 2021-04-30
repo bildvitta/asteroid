@@ -51,7 +51,7 @@
         </div>
 
         <div v-else class="q-mt-lg">
-          <qas-btn ref="test" icon="o_add" class="full-width q-py-sm" outline @click="add()">{{ addInputLabel }}</qas-btn>
+          <qas-btn ref="test" class="full-width q-py-sm" icon="o_add" outline @click="add()">{{ addInputLabel }}</qas-btn>
         </div>
       </slot>
     </div>
@@ -65,7 +65,6 @@ import QasInput from '../input/QasInput'
 import QasLabel from '../label/QasLabel'
 
 import { extend } from 'quasar'
-import { set } from 'lodash'
 
 export default {
   name: 'QasNestedFields',
