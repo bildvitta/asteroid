@@ -9,6 +9,7 @@ import QasBox from './components/box/QasBox'
 import QasBreakLine from './components/break-line/QasBreakLine'
 import QasBtn from './components/btn/QasBtn'
 import QasBtnActions from './components/btn-actions/QasBtnActions'
+import QasCard from './components/card/QasCard'
 import QasCheckboxGroup from './components/checkbox-group/QasCheckboxGroup'
 import QasCopy from './components/copy/QasCopy'
 import QasDateTimeInput from './components/date-time-input/QasDateTimeInput'
@@ -45,16 +46,16 @@ import Test from './directives/Test'
 import Quasar, { Notify } from 'quasar'
 import Vue from 'vue'
 
+import {
+  NotifyError,
+  NotifySuccess
+} from './plugins'
+
 Vue.use(Quasar, {
   plugins: {
     Notify
   }
 })
-
-import {
-  NotifyError,
-  NotifySuccess
-} from './plugins'
 
 // Por que é necessário exportar duas vezes?
 export {
@@ -72,6 +73,7 @@ export {
   QasBreakLine,
   QasBtn,
   QasBtnActions,
+  QasCard,
   QasCheckboxGroup,
   QasCopy,
   QasDateTimeInput,
@@ -121,6 +123,7 @@ export default {
   QasBreakLine,
   QasBtn,
   QasBtnActions,
+  QasCard,
   QasCheckboxGroup,
   QasCopy,
   QasDateTimeInput,
@@ -169,6 +172,7 @@ export default {
     Vue.component('QasBreakLine', QasBreakLine)
     Vue.component('QasBtn', QasBtn)
     Vue.component('QasBtnActions', QasBtnActions)
+    Vue.component('QasCard', QasCard)
     Vue.component('QasCheckboxGroup', QasCheckboxGroup)
     Vue.component('QasCopy', QasCopy)
     Vue.component('QasDateTimeInput', QasDateTimeInput)
