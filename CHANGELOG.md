@@ -19,6 +19,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 - Fixed imports of news components, `QasTip` and `QasTextTruncate`.
 
+## 1.x.x - 2021-04-27
+
+### Added
+- Added helper filter-object
+
+### Changed
+- Changed QasProfile layout and structure
+- Added modifier class `qas-table--mobile`
+## 1.x.x - 2021-04-29
+
+### Added
+- Added `QasTooltip` component
+
+### Changed
+- Layout arrows in `QasTabs`  
+
 ## 1.9.0 - 2021-04-29
 
 ### Added
