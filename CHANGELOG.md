@@ -9,6 +9,37 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Added `qas-card` component.
 
+## 1.x.x - 2021-04-28
+
+### Added
+- Added `index.js` in `/mixins` for importing mixins.
+- Added `asteroid.js` in `in ui/src` for importing mixins and helpers.
+
+### Changed
+- Changed in `app-extension/src/index.js` new path for mixins and helpers.
+
+### Removed
+- Removed `.join(\n)` in `/helpers/filters.js`.
+
+### Fixed
+- Fixed imports of news components, `QasTip` and `QasTextTruncate`.
+
+## 1.x.x - 2021-04-27
+
+### Added
+- Added helper filter-object
+
+### Changed
+- Changed QasProfile layout and structure
+- Added modifier class `qas-table--mobile`
+## 1.x.x - 2021-04-29
+
+### Added
+- Added `QasTooltip` component
+
+### Changed
+- Layout arrows in `QasTabs`  
+
 ## 1.9.0 - 2021-04-29
 
 ### Added

@@ -1,5 +1,5 @@
 import greatestCommonDivisor from './greatestCommonDivisor.js'
-import { history, handleHistory } from './historyHandler'
+import { history, handleHistory } from './historyHandler.js'
 
 import {
   asset,

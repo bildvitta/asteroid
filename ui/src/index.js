@@ -39,6 +39,9 @@ import QasSingleView from './components/single-view/QasSingleView'
 import QasSortable from './components/sortable/QasSortable'
 import QasTableGenerator from './components/table-generator/QasTableGenerator'
 import QasTabsGenerator from './components/tabs-generator/QasTabsGenerator'
+import QasTextTruncate from './components/text-truncate/QasTextTruncate'
+import QasTip from './components/tip/QasTip'
+import QasTooltip from './components/tooltip/QasTooltip'
 import QasTransfer from './components/transfer/QasTransfer'
 import QasUploader from './components/uploader/QasUploader'
 
@@ -104,6 +107,9 @@ export {
   QasSortable,
   QasTableGenerator,
   QasTabsGenerator,
+  QasTextTruncate,
+  QasTip,
+  QasTooltip,
   QasTransfer,
   QasUploader,
 
@@ -155,6 +161,9 @@ export default {
   QasSortable,
   QasTableGenerator,
   QasTabsGenerator,
+  QasTextTruncate,
+  QasTip,
+  QasTooltip,
   QasTransfer,
   QasUploader,
 
@@ -205,6 +214,9 @@ export default {
     Vue.component('QasSortable', QasSortable)
     Vue.component('QasTableGenerator', QasTableGenerator)
     Vue.component('QasTabsGenerator', QasTabsGenerator)
+    Vue.component('QasTextTruncate', QasTextTruncate)
+    Vue.component('QasTip', QasTip)
+    Vue.component('QasTooltip', QasTooltip)
     Vue.component('QasTransfer', QasTransfer)
     Vue.component('QasUploader', QasUploader)
 
