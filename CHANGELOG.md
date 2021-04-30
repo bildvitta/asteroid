@@ -9,11 +9,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Added modifier class `qas-table--mobile`
 
-## 1.x.x - 2021-04-22
+## 1.9.0 - 2021-04-29
 
 ### Added
 - Added mixin `screen`
-- Added QasTextTruncate component in `ui/src/component`
+- Added `QasTextTruncate` component in `ui/src/component`
+- Added `QasNestedFields` in `ui/src/component`
+- Added method in historyHandler for destroy routes by names list
 
 ## 1.8.0 - 2021-04-22
 
