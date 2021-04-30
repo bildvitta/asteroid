@@ -6,11 +6,10 @@
           <div class="justify-center lg:q-mb-none md:q-mr-lg row xs:q-mb-md">
             <qas-avatar :image="userAvatarImage" rounded :size="getAvatarSize" :title="title" />
           </div>
-          <div>
-            <q-badge v-if="showStatus(result.status, hideStatus)" class="badge-radius-xs" :color="setStatusLabel(result.status, 'color')" :label="setStatusLabel(result.status, 'label')" />
+          <slot>
             <h6 class="text-bold text-h6">{{ title }}</h6>
             <div v-if="subtitle">{{ subtitle }}</div>
-          </div>
+          </slot>
         </div>
       </div>
       <slot name="grid">
@@ -21,7 +20,6 @@
 </template>
 
 <script>
-import { setStatusLabel, showStatus } from '../../helpers/status'
 import filterObject from '../../helpers/filter-object'
 import screen from '../../mixins/screen'
 import QasAvatar from '../avatar/QasAvatar'
@@ -75,7 +73,7 @@ export default {
     title: {
       type: String,
       default: '',
-      require: true
+      required: true
     }
   },
 
@@ -94,11 +92,7 @@ export default {
   },
 
   methods: {
-    filterObject,
-
-    setStatusLabel,
-
-    showStatus
+    filterObject
   }
 }
 </script>

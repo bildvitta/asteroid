@@ -54,6 +54,11 @@ export default {
     },
 
     // Slot
+    default: {
+      description: 'Main content.',
+      table: noSummary
+    },
+
     grid: {
       description: 'Grid custom fields.',
       table: noSummary
