@@ -1,5 +1,5 @@
 <template>
-  <q-table class="bg-transparent qas-table" v-bind="attributes">
+  <q-table class="bg-transparent qas-table" :class="tableClasses" v-bind="attributes">
     <template v-for="(slot, key) in $scopedSlots" #[key]="context">
       <slot v-if="hasBodySlot" name="body" :props="context" />
 
@@ -13,8 +13,11 @@
 <script>
 import { extend } from 'quasar'
 import { humanize } from '../../helpers/filters'
+import screen from '../../mixins/screen'
 
 export default {
+  mixins: [screen],
+
   props: {
     columns: {
       default: () => [],
@@ -120,6 +123,10 @@ export default {
 
     rowsPerPage () {
       return this.results.length
+    },
+
+    tableClasses () {
+      return this.$_isSmall && 'qas-table--mobile'
     }
   }
 }
@@ -129,6 +136,14 @@ export default {
 .qas-table {
   .q-table th {
     font-weight: bold;
+  }
+
+  &--mobile {
+    margin: 0 -10px;
+
+    .q-table {
+      margin-left: 10px;
+    }
   }
 }
 </style>
