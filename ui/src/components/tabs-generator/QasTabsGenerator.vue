@@ -86,7 +86,6 @@ export default {
     font-weight: bold;
   }
 
-  //TODO provisório (precisa ser dinâmico)
   .q-tabs__arrow {
     color: $primary;
   }

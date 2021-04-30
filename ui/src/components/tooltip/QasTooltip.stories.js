@@ -47,7 +47,14 @@ export default {
 const Template = (args, { argTypes }) => ({
   components: { QasTooltip },
   props: Object.keys(argTypes),
-  template: '<qas-tooltip v-bind="$props" message-icon="o_assignment_late" :mobile-message-props="{message: `Mobile notify example!`, icon:`o_assignment_late`}" messageIcon="o_assignment_late" icon="o_assignment_late" message="Message!" />'
+  template:
+      `<qas-tooltip 
+        v-bind="$props" 
+        :mobile-message-props="{message: 'Mobile notify example!', icon:'o_assignment_late'}"
+        message-icon="o_assignment_late"
+        messageIcon="o_assignment_late" icon="o_assignment_late"
+        message="Message!" 
+      />`
 })
 
 export const Default = Template.bind({})
