@@ -50,7 +50,6 @@ const Template = (args, { argTypes }) => ({
   template:
       `<qas-tooltip 
         v-bind="$props" 
-        :mobile-message-props="{message: 'Mobile notify example!', icon:'o_assignment_late'}"
         message-icon="o_assignment_late"
         messageIcon="o_assignment_late" icon="o_assignment_late"
         message="Message!" 

@@ -1,8 +1,8 @@
 <template>
-  <q-icon :color="color" :name="icon" :size="size" @click="showMobileNotify(mobileMessageProps)">
+  <q-icon :color="color" :name="icon" :size="size" @click="showNotify(notifyProps)">
     <q-tooltip v-if="!$_isSmall" anchor="top middle" self="bottom middle">
       <div class="no-wrap row">
-        <q-icon v-if="messageIcon" :name="messageIcon" :size="messageIconSize" />
+        <q-icon v-if="messageIcon" :name="messageIcon" :size="iconSize" />
         <div class="q-ml-sm text-subtitle2">{{ message }}</div>
       </div>
     </q-tooltip>
@@ -38,12 +38,12 @@ export default {
       type: String
     },
 
-    messageIconSize: {
+    iconSize: {
       default: '20px',
       type: String
     },
 
-    mobileMessageProps: {
+    notifyProps: {
       default: () => ({}),
       type: Object
     },
@@ -55,9 +55,10 @@ export default {
   },
 
   methods: {
-    showMobileNotify (attrs) {
+    showNotify (attrs) {
       if (this.$_isSmall) {
         this.$q.notify({
+          message: this.message,
           ...attrs
         })
       }
