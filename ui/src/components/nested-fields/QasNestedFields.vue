@@ -65,6 +65,7 @@ import QasInput from '../input/QasInput'
 import QasLabel from '../label/QasLabel'
 
 import { extend } from 'quasar'
+import { camelize } from 'humps'
 import { set } from 'lodash'
 
 export default {
@@ -198,7 +199,7 @@ export default {
 
     children () {
      for (const key in this.field?.children) {
-       this.field.children[key].name = this.camelize(this.field.children[key].name)
+       this.field.children[key].name = camelize(this.field.children[key].name)
      }
 
       return this.field?.children
@@ -237,13 +238,6 @@ export default {
   },
 
   methods: {
-    camelize(str){
-      return str.replace(/([-_][a-z])/g, (group) => group.toUpperCase()
-        .replace('-', '')
-        .replace('_', '')
-      )
-    },
-
     add (row = {}) {
       this.nested.push({ ...this.rowObject, ...row })
 
