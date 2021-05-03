@@ -197,6 +197,10 @@ export default {
     },
 
     children () {
+     for (const key in this.field?.children) {
+       this.field.children[key].name = this.camelize(this.field.children[key].name)
+     }
+
       return this.field?.children
     },
 
@@ -233,6 +237,13 @@ export default {
   },
 
   methods: {
+    camelize(str){
+      return str.replace(/([-_][a-z])/g, (group) => group.toUpperCase()
+        .replace('-', '')
+        .replace('_', '')
+      )
+    },
+
     add (row = {}) {
       this.nested.push({ ...this.rowObject, ...row })
 
