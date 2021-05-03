@@ -20,7 +20,7 @@
       <div>
         <div>
           <qas-btn :class="iconClass" dense :disabled="!firstQueue.length" flat icon="o_arrow_circle_down" rounded @click="setSelectedFromClick(true)" />
-          <q-tooltip anchor="top middle" self="center middle">Selectionar</q-tooltip>
+          <q-tooltip anchor="top middle" self="center middle">Selecionar</q-tooltip>
         </div>
       </div>
       <div>
