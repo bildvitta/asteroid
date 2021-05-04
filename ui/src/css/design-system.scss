@@ -1,6 +1,14 @@
+// Quasar variables
 $primary: var(--q-color-primary);
-$background-color: $grey-2;
-$generic-border-radius: 8px;
+
+:root {
+  --qas-background-color: #fcfcff;
+  --qas-generic-border-radius: 8px;
+}
+
+// Asteroid variables
+$background-color: var(--qas-background-color);
+$generic-border-radius: var(--qas-generic-border-radius);
 
 body {
   background-color: $background-color;
