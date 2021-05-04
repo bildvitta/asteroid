@@ -1,12 +1,13 @@
 @import 'quasar/src/css/variables.sass';
 
+@import './css/background.scss';
+@import './css/border-radius.scss';
 @import './css/container.scss';
 @import './css/fonts.scss';
 @import './css/line-height.scss';
 @import './css/opacity.scss';
+@import './css/shadow.scss';
 @import './css/text.scss';
 @import './css/transitions.scss';
 
-.q-field--outlined .q-field__inner {
-  background-color: white;
-}
+@import './css/design-system.scss';
