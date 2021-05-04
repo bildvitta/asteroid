@@ -7,15 +7,29 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## Unreleased
 
 ### Added
+- Added `QasTooltip` component
+- Added `filterObject` helper
+- Added `index.js` in `/mixins` for importing mixins
+- Added `asteroid.js` in `in ui/src` for importing mixins and helpers
 - Added background CSS classes: `.bg-no-repeat`, `.bg-size-contain`, `.bg-size-cover`, `.bg-position-bottom`, `.bg-position-center`, `.bg-position-left`, `.bg-position-right` and `.bg-position-top`.
 - Added border CSS classes: `.rounded-borders-sm` and `.rounded-borders-lg`.
 - Added design system's specific styles, like gradients.
 
 ### Changed
+- Layout arrows in `QasTabs`
+- Changed `QasProfile` layout and structure
+- Added class `.qas-table--mobile` modifier
+- Changed `app-extension/src/index.js` path for mixins and helpers
 - Renamed `.text-decoration-none` to `.text-no-decoration`
 - Renamed `.border-radius-sm` to `.rounded-borders`
 - Renamed `.border-radius-xs` to `.rounded-borders-sm`
 - Renamed `.border-radius-lg` to `.rounded-borders-lg`
+
+### Removed
+- Removed `.join(\n)` in `/helpers/filters.js`
+
+### Fixed
+- Fixed imports of news components, `QasTip` and `QasTextTruncate`
 
 ## 1.9.0 - 2021-04-29
 

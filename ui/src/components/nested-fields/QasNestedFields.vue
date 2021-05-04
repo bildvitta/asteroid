@@ -65,6 +65,7 @@ import QasInput from '../input/QasInput'
 import QasLabel from '../label/QasLabel'
 
 import { extend } from 'quasar'
+import { camelize } from 'humps'
 import { set } from 'lodash'
 
 export default {
@@ -197,6 +198,10 @@ export default {
     },
 
     children () {
+     for (const key in this.field?.children) {
+       this.field.children[key].name = camelize(this.field.children[key].name)
+     }
+
       return this.field?.children
     },
 

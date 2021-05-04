@@ -38,6 +38,9 @@ import QasSingleView from './components/single-view/QasSingleView'
 import QasSortable from './components/sortable/QasSortable'
 import QasTableGenerator from './components/table-generator/QasTableGenerator'
 import QasTabsGenerator from './components/tabs-generator/QasTabsGenerator'
+import QasTextTruncate from './components/text-truncate/QasTextTruncate'
+import QasTip from './components/tip/QasTip'
+import QasTooltip from './components/tooltip/QasTooltip'
 import QasTransfer from './components/transfer/QasTransfer'
 import QasUploader from './components/uploader/QasUploader'
 
@@ -46,16 +49,16 @@ import Test from './directives/Test'
 import Quasar, { Notify } from 'quasar'
 import Vue from 'vue'
 
+import {
+  NotifyError,
+  NotifySuccess
+} from './plugins'
+
 Vue.use(Quasar, {
   plugins: {
     Notify
   }
 })
-
-import {
-  NotifyError,
-  NotifySuccess
-} from './plugins'
 
 // Por que é necessário exportar duas vezes?
 export {
@@ -102,6 +105,9 @@ export {
   QasSortable,
   QasTableGenerator,
   QasTabsGenerator,
+  QasTextTruncate,
+  QasTip,
+  QasTooltip,
   QasTransfer,
   QasUploader,
 
@@ -152,6 +158,9 @@ export default {
   QasSortable,
   QasTableGenerator,
   QasTabsGenerator,
+  QasTextTruncate,
+  QasTip,
+  QasTooltip,
   QasTransfer,
   QasUploader,
 
@@ -201,6 +210,9 @@ export default {
     Vue.component('QasSortable', QasSortable)
     Vue.component('QasTableGenerator', QasTableGenerator)
     Vue.component('QasTabsGenerator', QasTabsGenerator)
+    Vue.component('QasTextTruncate', QasTextTruncate)
+    Vue.component('QasTip', QasTip)
+    Vue.component('QasTooltip', QasTooltip)
     Vue.component('QasTransfer', QasTransfer)
     Vue.component('QasUploader', QasUploader)
 
