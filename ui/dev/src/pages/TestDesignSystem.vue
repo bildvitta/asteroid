@@ -1,5 +1,7 @@
 <template>
   <q-page class="container flex flex-center spaced">
+    <div class="shadow-primary">box shadow</div>
+
     <q-radio v-model="radio" label="Radio" val="1" />
     <q-radio v-model="radio" label="Ou não?" val="2" />
 
