@@ -4,6 +4,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## Unreleased
+
+### Added
+- Added background CSS classes: `.bg-no-repeat`, `.bg-size-contain`, `.bg-size-cover`, `.bg-position-bottom`, `.bg-position-center`, `.bg-position-left`, `.bg-position-right` and `.bg-position-top`.
+- Added border CSS classes: `.rounded-borders-sm` and `.rounded-borders-lg`.
+- Added design system's specific styles, like gradients.
+
+### Changed
+- Renamed `.text-decoration-none` to `.text-no-decoration`
+- Renamed `.border-radius-sm` to `.rounded-borders`
+- Renamed `.border-radius-xs` to `.rounded-borders-sm`
+- Renamed `.border-radius-lg` to `.rounded-borders-lg`
+
 ## 1.9.0 - 2021-04-29
 
 ### Added
