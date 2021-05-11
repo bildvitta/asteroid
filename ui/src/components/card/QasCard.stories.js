@@ -38,12 +38,16 @@ export default {
       description: 'Gutter space by Quasar convention. `q-col-gutter-{$gutter}`.'
     },
 
-    hasActions: {
+    result: {
+      description: 'Define result value for each `field`.'
+    },
+
+    useActions: {
       description: 'Shows the actions section.'
     },
 
-    result: {
-      description: 'Define result value for each `field`.'
+    useHeader: {
+      description: 'Shows the header section.'
     },
 
     // Slots
@@ -69,7 +73,7 @@ const Template = (args, { argTypes }) => ({
   props: Object.keys(argTypes),
   template:
   `<div class="q-col-gutter-md q-pa-md row">
-    <qas-card :fields="fields" has-actions :result="result">
+    <qas-card useHeader :fields="fields" has-actions :result="result">
       <template #default>
         <div>{{ result.name }}</div>
         <div>{{ result.email }}</div>
@@ -80,10 +84,10 @@ const Template = (args, { argTypes }) => ({
         <q-icon color="primary" class="col-grow" name="o_photo_camera" />
       </template>
     </qas-card>
-    <qas-card :fields="fields" :result="result">
+    <qas-card useHeader :fields="fields" :result="result">
       <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
     </qas-card>
-    <qas-card :fields="fields" has-actions :result="result">
+    <qas-card useHeader :fields="fields" has-actions :result="result">
       <template #default>
         <div>{{ result.name }}</div>
         <div>{{ result.email }}</div>

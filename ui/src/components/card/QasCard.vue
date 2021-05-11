@@ -1,10 +1,10 @@
 <template>
   <div class="col-12 col-lg-3 col-md-4 col-sm-6 qas-card">
     <q-card class="border-radius-lg column full-height" :class="cardClasses">
-      <div class="overflow-hidden relative-position">
+      <div v-if="useHeader" class="overflow-hidden relative-position">
         <slot name="header">
           <q-carousel v-model="slideImage" animated class="cursor-pointer" height="205px" infinite :navigation="hasImages" navigation-icon="fiber_manual_record" swipeable>
-            <q-carousel-slide v-for="(item, index) in images" :key="index" class="bg-no-repeat" :class="bgImagePositionClasses" :img-src="setImage(item)" :name="index" />
+            <q-carousel-slide v-for="(item, index) in images" :key="index" class="bg-no-repeat" :class="bgImagePositionClasses" :img-src="getImage(item)" :name="index" />
           </q-carousel>
         </slot>
       </div>
@@ -15,7 +15,7 @@
         </div>
       </q-card-section>
 
-      <div v-if="hasActions" class="card__details-link overflow-hidden q-pa-sm row">
+      <div v-if="useActions" class="card__details-link overflow-hidden q-pa-sm row">
         <slot name="actions" />
       </div>
     </q-card>
@@ -55,13 +55,17 @@ export default {
       default: 'sm'
     },
 
-    hasActions: {
-      type: Boolean
-    },
-
     result: {
       type: Object,
       default: () => ({})
+    },
+
+    useActions: {
+      type: Boolean
+    },
+
+    useHeader: {
+      type: Boolean
     }
   },
 
@@ -73,7 +77,7 @@ export default {
 
   computed: {
     bgImagePositionClasses () {
-      return `bg-position-${this.bgImagePosition}`
+      return [`bg-position-${this.bgImagePosition}`]
     },
 
     cardItemId () {
@@ -81,8 +85,6 @@ export default {
     },
 
     images () {
-      if (!Object.keys(this.fields).length) return []
-
       if (this.imagesLength) return this.fields.images.slice(0, 3)
 
       return [this.defaultImage]
@@ -97,16 +99,16 @@ export default {
     },
 
     cardClasses () {
-      return this.formMode ? 'card--outlined bg-white no-shadow' : 'box-shadow-1'
+      return [this.formMode ? 'card--outlined bg-white no-shadow' : 'box-shadow-1']
     },
 
     gutterClasses () {
-      return `q-col-gutter-${this.gutter}`
+      return [`q-col-gutter-${this.gutter}`]
     }
   },
 
   methods: {
-    setImage (imagesList) {
+    getImage (imagesList) {
       return imagesList.data?.image || imagesList
     }
   }
