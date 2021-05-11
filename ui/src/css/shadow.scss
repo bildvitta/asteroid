@@ -1,0 +1,23 @@
+%shadow-pseudo-element {
+  bottom: 0;
+  content: '';
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+@mixin set-shadow($name, $shadow, $opacity) {
+  .shadow-#{$name} {
+    box-shadow: none;
+    position: relative;
+  
+    &::before {
+      @extend %shadow-pseudo-element;
+      box-shadow: $shadow;
+      opacity: $opacity;
+    }
+  }
+}
+
+@include set-shadow('primary', 0 8px 25px $primary, 0.2)

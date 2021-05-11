@@ -65,6 +65,7 @@ import QasInput from '../input/QasInput'
 import QasLabel from '../label/QasLabel'
 
 import { extend } from 'quasar'
+import { camelize } from 'humps'
 
 export default {
   name: 'QasNestedFields',
@@ -196,6 +197,12 @@ export default {
     },
 
     children () {
+      for (const key in this.field?.children) {
+        // FIXME: não alterar diretamente uma prop, precisa fazer uma cópia.
+        // eslint-disable-next-line
+        this.field.children[key].name = camelize(this.field.children[key].name)
+      }
+
       return this.field?.children
     },
 
