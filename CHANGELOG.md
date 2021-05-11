@@ -7,16 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## Unreleased
 
 ### Added
-- Added `qas-card` component.
-- Added icon size in `qas-settings-menu `
-
-### Added
 - Added `border-primary` and `border-secondary` classes to create a outlined 1px border.
+- Added `qas-card` component.
+- Added icon size in `qas-settings-menu`.
 
 ### Changes
 - `QasBox` now uses border and shadow global CSS classes.
 - Now arrow colors is primary for all `QTabs` instead of `QasTabsGenerator` only.
-
+- Style QasSettingsMenu.
 ## 2.0.0 - 2021-05-04
 
 ### Added
