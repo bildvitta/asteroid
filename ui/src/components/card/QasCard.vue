@@ -82,7 +82,9 @@ export default {
     },
 
     images () {
-      if (this.imagesLength) return this.fields.images.slice(0, 3)
+      if (this.imagesLength) {
+        return this.fields.images.slice(0, 3)
+      }
 
       return [this.defaultImage]
     },
