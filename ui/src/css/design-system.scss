@@ -1,15 +1,3 @@
-// Quasar variables
-$primary: var(--q-color-primary);
-
-:root {
-  --qas-background-color: #fcfcff;
-  --qas-generic-border-radius: 8px;
-}
-
-// Asteroid variables
-$background-color: var(--qas-background-color);
-$generic-border-radius: var(--qas-generic-border-radius);
-
 body {
   background-color: $background-color;
 }
@@ -49,6 +37,11 @@ body {
 }
 
 .q-radio__inner::before {
+  color: $primary;
+}
+
+// Tabs
+.q-tabs__arrow {
   color: $primary;
 }
 
