@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 - Added `qas-card` component.
+- Added icon size in `qas-settings-menu `
 
 ### Added
 - Added `border-primary` and `border-secondary` classes to create a outlined 1px border.

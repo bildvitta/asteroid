@@ -6,7 +6,7 @@
           <q-item :key="key" class="text-bold text-primary" clickable v-bind="item.props" @click="onClick(item)">
             <q-item-section>
               <div class="flex items-center justify-center q-gutter-x-md">
-                <q-icon :name="item.icon" />
+                <q-icon :name="item.icon" :size="icon.size" />
                 <div>{{ item.label }}</div>
               </div>
             </q-item-section>
