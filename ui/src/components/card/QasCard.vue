@@ -23,12 +23,9 @@
 </template>
 
 <script>
-import screen from '../../mixins/screen'
 
 export default {
   name: 'QasCard',
-
-  mixins: [screen],
 
   props: {
     bgImagePosition: {
