@@ -1,12 +1,12 @@
 <template>
   <qas-btn class="qas-settings-menu" color="primary" v-bind="$attrs" hide-mobile-label icon="o_settings" :label="label" outline v-on="$listeners">
-    <q-menu class="qas-settings-menu__menu" persistent>
+    <q-menu class="qas-settings-menu__menu">
       <q-list class="qas-settings-menu__list" separator>
         <slot v-for="(item, key) in list" :item="item" :name="key">
           <q-item :key="key" class="text-bold text-primary" clickable v-bind="item.props" @click="onClick(item)">
             <q-item-section>
               <div class="flex items-center justify-center q-gutter-x-md">
-                <q-icon :name="item.icon" />
+                <q-icon :name="item.icon" :size="icon.size" />
                 <div>{{ item.label }}</div>
               </div>
             </q-item-section>
@@ -52,7 +52,10 @@ export default {
 <style lang="scss">
 .qas-settings-menu {
   &__list {
+    position:absolute;
     width: 265px;
+    z-index: 1;
+
   }
 }
 </style>
