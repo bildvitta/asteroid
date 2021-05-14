@@ -1,5 +1,5 @@
 <template>
-  <q-avatar :class="classes" :color="backgroundColor" v-bind="$attrs" v-on="$listeners">
+  <q-avatar :class="classes" rounded v-bind="$attrs" v-on="$listeners">
     <q-img v-if="hasImage" :alt="title" :ratio="1" spinner-color="primary" spinner-size="16px" :src="image" @error="onImageLoadedError" />
     <template v-else-if="hasTitle">{{ firstLetter }}</template>
     <q-icon v-else :name="icon" />
@@ -7,58 +7,31 @@
 </template>
 
 <script>
-export const colors = [
-  'amber',
-  'blue',
-  'blue-grey',
-  'brown',
-  'cyan',
-  'deep-orange',
-  'deep-purple',
-  'green',
-  'grey',
-  'indigo',
-  'light-blue',
-  'light-green',
-  'lime',
-  'orange',
-  'pink',
-  'purple',
-  'red',
-  'teal',
-  'yellow'
-]
-
 export default {
   props: {
+    color: {
+      default: 'primary',
+      type: String
+    },
+
     dark: {
       default: false,
       type: Boolean
     },
-
+  
     icon: {
       default: 'o_error',
       type: String
     },
-
+  
     image: {
       default: '',
       type: String
     },
-
-    textColor: {
-      default: '',
-      type: String
-    },
-
+  
     title: {
       default: '',
       type: String
-    },
-
-    token: {
-      default: 0,
-      type: Number
     }
   },
 
@@ -69,21 +42,17 @@ export default {
   },
 
   computed: {
-    backgroundColor () {
-      if (this.color) {
-        return this.color
-      }
-      return this.dark ? this.mainColor : `${this.mainColor}-2`
-    },
-
     classes () {
-      return [this.textColorClass]
+      return [
+        this.dark ? `bg-${this.color}` : `bg-${this.contrastColor}`,
+        this.dark ? `text-${this.contrastColor}` : `text-${this.color}`
+      ]
     },
 
-    color () {
-      return this.$attrs.color
+    contrastColor () {
+      return `${this.color}-contrast`
     },
-
+  
     firstLetter () {
       return this.title[0].toUpperCase()
     },
@@ -92,31 +61,8 @@ export default {
       return !this.hasImageError && !!this.image
     },
 
-    hasTextColor () {
-      return !!this.textColor
-    },
-
     hasTitle () {
       return !!this.title
-    },
-
-    mainColor () {
-      if (!this.title && !this.token) {
-        return 'grey'
-      }
-
-      const dividend = this.title ? this.title.length : this.token
-      return colors[dividend % colors.length]
-    },
-
-    textColorClass () {
-      if (this.hasTextColor) {
-        return `text-${this.textColor}`
-      }
-
-      return (this.color === 'black' || this.dark)
-        ? `text-${this.mainColor}-2`
-        : `text-${this.mainColor}`
     }
   },
 

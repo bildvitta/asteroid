@@ -22,6 +22,7 @@
 <script>
 import filterObject from '../../helpers/filter-object'
 import screen from '../../mixins/screen'
+
 import QasAvatar from '../avatar/QasAvatar'
 import QasBox from '../box/QasBox'
 import QasGridGenerator from '../grid-generator/QasGridGenerator'
