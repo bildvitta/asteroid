@@ -4,7 +4,7 @@
       <div v-if="useHeader" class="overflow-hidden relative-position">
         <slot name="header">
           <q-carousel v-model="slideImage" animated class="cursor-pointer" height="205px" infinite :navigation="hasImages" navigation-icon="fiber_manual_record" swipeable>
-            <q-carousel-slide v-for="(item, index) in images" :key="index" class="bg-no-repeat" :class="bgImagePositionClasses" :img-src="getImage(item)" :name="index" />
+            <q-carousel-slide v-for="(item, index) in listImages" :key="index" class="bg-no-repeat" :class="bgImagePositionClasses" :img-src="item" :name="index" />
           </q-carousel>
         </slot>
       </div>
@@ -15,7 +15,7 @@
         </div>
       </q-card-section>
 
-      <div v-if="useActions" class="card__details-link overflow-hidden q-pa-sm row">
+      <div v-if="useActions" class="border-top-primary card__details-link overflow-hidden q-pa-sm row">
         <slot name="actions" />
       </div>
     </q-card>
@@ -32,32 +32,23 @@ export default {
       default: 'center'
     },
 
-    defaultImage: {
-      type: String,
-      default: ''
-    },
-
-    fields: {
-      type: Object,
-      default: () => ({})
-    },
-
-    formMode: {
-      type: Boolean
-    },
-
     gutter: {
       type: String,
       default: 'sm'
     },
 
+    images: {
+      type: Array,
+      default: () => ([])
+    },
+
+    outlined: {
+      type: Boolean
+    },
+
     result: {
       type: Object,
       default: () => ({})
-    },
-
-    useActions: {
-      type: Boolean
     },
 
     useHeader: {
@@ -76,16 +67,8 @@ export default {
       return [`bg-position-${this.bgImagePosition}`]
     },
 
-    cardItemId () {
-      return this.result?.uuid
-    },
-
-    images () {
-      if (this.imagesLength) {
-        return this.fields.images.slice(0, 3)
-      }
-
-      return [this.defaultImage]
+    listImages () {
+      return this.imagesLength && this.images.slice(0, 3)
     },
 
     hasImages () {
@@ -93,7 +76,7 @@ export default {
     },
 
     imagesLength () {
-      return this.fields.images?.length
+      return this.images?.length
     },
 
     cardClasses () {
@@ -102,12 +85,10 @@ export default {
 
     gutterClasses () {
       return [`q-col-gutter-${this.gutter}`]
-    }
-  },
+    },
 
-  methods: {
-    getImage (imagesList) {
-      return imagesList.data?.image || imagesList
+    useActions () {
+      return !!(this.$slots.actions || this.$scopedSlots.actions)
     }
   }
 }
@@ -115,12 +96,8 @@ export default {
 
 <style lang="scss">
 .qas-card {
-  &__details-link {
-    border-top: 1px solid $secondary;
-  }
-
   &--outlined {
-    border: 1px solid $secondary;
+    border: 1px solid $primary;
   }
 }
 </style>
