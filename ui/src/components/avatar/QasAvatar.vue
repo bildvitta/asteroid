@@ -15,7 +15,6 @@ export default {
     },
 
     dark: {
-      default: false,
       type: Boolean
     },
   
@@ -44,8 +43,9 @@ export default {
   computed: {
     classes () {
       return [
-        this.dark ? `bg-${this.color}` : `bg-${this.contrastColor}`,
-        this.dark ? `text-${this.contrastColor}` : `text-${this.color}`
+        this.dark
+          ? `bg-${this.color} text-${this.contrastColor}`
+          : `bg-${this.contrastColor} text-${this.color}`
       ]
     },
 
