@@ -8,7 +8,7 @@
 @mixin setBorderColor($name, $color) {
   .border-#{$name} {
     @extend %border-color;
-    border: 0 solid $primary;
+    border: 0 solid $color;
   }
 }
 

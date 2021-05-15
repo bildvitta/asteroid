@@ -34,10 +34,6 @@ export default {
       description: 'Changes the component style.'
     },
 
-    result: {
-      description: 'Define result value for each `field`.'
-    },
-
     useHeader: {
       description: 'Shows the header section.'
     },
@@ -65,7 +61,7 @@ const Template = (args, { argTypes }) => ({
   props: Object.keys(argTypes),
   template:
   `<div class="q-col-gutter-md q-pa-md row">
-    <qas-card useHeader :images="images" has-actions :result="result">
+    <qas-card :images="images" use-header>
       <template #default>
         <div>{{ result.name }}</div>
         <div>{{ result.email }}</div>
@@ -76,10 +72,10 @@ const Template = (args, { argTypes }) => ({
         <q-icon color="primary" class="col-grow" name="o_photo_camera" />
       </template>
     </qas-card>
-    <qas-card useHeader :images="images" :result="result">
+    <qas-card :images="images" use-header>
       <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
     </qas-card>
-    <qas-card useHeader :images="images" has-actions :result="result">
+    <qas-card :images="images" use-header>
       <template #default>
         <div>{{ result.name }}</div>
         <div>{{ result.email }}</div>
@@ -119,7 +115,7 @@ Default.parameters = {
   docs: {
     source: {
       code:
-      '<qas-card :images="images" has-actions :result="result" />'
+      '<qas-card :images="images" :result="result" />'
     }
   }
 }
