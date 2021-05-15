@@ -4,7 +4,7 @@
       <div class="col-lg-5 col-xs-12">
         <div class="no-wrap q-col-gutter-md" :class="directionClasses">
           <div class="justify-center lg:q-mb-none md:q-mr-lg row xs:q-mb-md">
-            <qas-avatar :image="userAvatarImage" rounded :size="getAvatarSize" :title="title" />
+            <qas-avatar :image="userAvatarImage" :size="getAvatarSize" :title="title" />
           </div>
           <slot>
             <h6 class="text-bold text-h6">{{ title }}</h6>
@@ -22,6 +22,7 @@
 <script>
 import filterObject from '../../helpers/filter-object'
 import screen from '../../mixins/screen'
+
 import QasAvatar from '../avatar/QasAvatar'
 import QasBox from '../box/QasBox'
 import QasGridGenerator from '../grid-generator/QasGridGenerator'

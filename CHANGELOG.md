@@ -4,13 +4,29 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## unreleased - 2021-05-06
+## Unreleased
 
 ### Added
-- New type `Object` to prop `errors` in `QasNestedFields`
+- Added `primary-contrast` and `secondary-contrast` colors.
+- Added `unset` CSS class to reset styles of an element (useful for buttons).
+- Added `border-top`, `border-left`, `border-bottom` and `border-right` CSS classes.
+- Added type `Object` to prop `errors` in `QasNestedFields`.
 
-### Changed
-- Adjustments on nestedFields error types
+### Changes
+- New `QasAvatar` to respect design system.
+- Changed `QasCard` image prop name.
+
+## 2.0.1 - 2021-05-13
+
+### Added
+- Added `border-primary` and `border-secondary` classes to create a outlined 1px border.
+- Added `QasCard` component.
+- Added icon size in `QasSettingsMenu`.
+
+### Changes
+- `QasBox` now uses border and shadow global CSS classes.
+- Now arrow colors is primary for all `QTabs` instead of `QasTabsGenerator` only.
+- Style `QasSettingsMenu`.
 
 ## 2.0.0 - 2021-05-04
 

@@ -1,4 +1,4 @@
-import QasAvatar, { colors } from './QasAvatar.vue'
+import QasAvatar from './QasAvatar.vue'
 
 export default {
   component: QasAvatar,
@@ -13,6 +13,10 @@ export default {
   },
 
   argTypes: {
+    color: {
+      description: 'Set the main color.'
+    },
+
     dark: {
       description: 'Enables dark mode.'
     },
@@ -26,16 +30,11 @@ export default {
     },
 
     textColor: {
-      control: { type: 'select', options: ['', ...colors] },
       description: 'Overrides text color (if needed).'
     },
 
     title: {
-      description: 'Defines the first letter when there is no image and serves as a token for the background color.'
-    },
-
-    token: {
-      description: 'Overrides default token, useful for set a random background color when there is no title.'
+      description: 'Defines the first letter.'
     }
   }
 }

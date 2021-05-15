@@ -1,5 +1,5 @@
 <template>
-  <q-tabs v-model="currentTab" v-bind="$attrs" :active-color="activeColor" class="qas-tabs-generator" :class="bgColorClass" :indicator-color="indicatorColor" outside-arrows v-on="$listeners">
+  <q-tabs v-model="currentTab" v-bind="$attrs" :active-color="activeColor" :class="bgColorClass" :indicator-color="indicatorColor" outside-arrows v-on="$listeners">
     <!-- TODO: O name slot da aba não pode ser o label, pois pode conter espaço. -->
     <slot v-for="(tab, key) in formattedTabs" :item="tab" :name="`tab-${tab.label}`">
       <q-tab :key="key" v-bind="tab" :class="colorClass" :label="tab.label" :name="key">
@@ -79,16 +79,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss">
-.qas-tabs-generator {
-  .q-tab--active .q-tab__label {
-    font-weight: bold;
-  }
-
-  .q-tabs__arrow {
-    color: $primary;
-  }
-}
-
-</style>

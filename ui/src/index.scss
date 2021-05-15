@@ -1,6 +1,23 @@
 @import 'quasar/src/css/variables.sass';
 
+// Quasar variables
+$primary: var(--q-color-primary);
+$primary-contrast: var(--q-color-primary-contrast);
+
+$secondary: var(--q-color-secondary);
+$secondary-contrast: var(--q-color-secondary-contrast);
+
+// Asteroid variables
+:root {
+  --qas-background-color: #fcfcff;
+  --qas-generic-border-radius: 8px;
+}
+
+$background-color: var(--qas-background-color);
+$generic-border-radius: var(--qas-generic-border-radius);
+
 @import './css/background.scss';
+@import './css/border.scss';
 @import './css/border-radius.scss';
 @import './css/container.scss';
 @import './css/fonts.scss';
@@ -9,5 +26,6 @@
 @import './css/shadow.scss';
 @import './css/text.scss';
 @import './css/transitions.scss';
+@import './css/unset.scss';
 
 @import './css/design-system.scss';

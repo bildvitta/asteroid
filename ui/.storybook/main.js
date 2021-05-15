@@ -26,7 +26,7 @@ module.exports = {
     })
 
     webpack.plugins.push(
-      new ESLintPlugin({ extensions: ['js', 'vue'] })
+      new ESLintPlugin({ extensions: ['vue'] })
     )
 
     return webpack

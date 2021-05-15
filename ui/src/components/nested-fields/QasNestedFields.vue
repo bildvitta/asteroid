@@ -51,7 +51,7 @@
         </div>
 
         <div v-else class="q-mt-lg">
-          <qas-btn ref="test" icon="o_add" class="full-width q-py-sm" outline @click="add()">{{ addInputLabel }}</qas-btn>
+          <qas-btn ref="test" class="full-width q-py-sm" icon="o_add" outline @click="add()">{{ addInputLabel }}</qas-btn>
         </div>
       </slot>
     </div>
@@ -66,7 +66,6 @@ import QasLabel from '../label/QasLabel'
 
 import { extend } from 'quasar'
 import { camelize } from 'humps'
-import { set } from 'lodash'
 
 export default {
   name: 'QasNestedFields',
@@ -198,9 +197,11 @@ export default {
     },
 
     children () {
-     for (const key in this.field?.children) {
-       this.field.children[key].name = camelize(this.field.children[key].name)
-     }
+      for (const key in this.field?.children) {
+        // FIXME: não alterar diretamente uma prop, precisa fazer uma cópia.
+        // eslint-disable-next-line
+        this.field.children[key].name = camelize(this.field.children[key].name)
+      }
 
       return this.field?.children
     },

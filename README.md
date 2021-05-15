@@ -24,6 +24,33 @@ Note: Some Quasar components must be imported manually inside [quasar.config.js]
 $ quasar ext add @bildvitta/asteroid
 ```
 
+Open you `css`/`quasar.variables.scss` and put it at end of file:
+
+``` scss
+// Asteroid
+@mixin setBrand($name, $color) {
+  :root {
+    --q-color-#{$name}: #{$color};
+  }
+
+  .text-#{$name} {
+    color: $color !important;
+    color: var(--q-color-#{$name}) !important;
+  }
+
+  .bg-#{$name} {
+    background: $color !important;
+    background: var(--q-color-#{$name}) !important;
+  }
+}
+
+$primary-contrast: #eaeaff;
+$secondary-contrast: #ecffea;
+
+@include setBrand(primary-contrast, $primary-contrast);
+@include setBrand(secondary-contrast, $secondary-contrast);
+```
+
 ## Usage
 After the installation the app-extension is ready to be used, check [here](https://asteroid-og52m.ondigitalocean.app) the documentation.
 

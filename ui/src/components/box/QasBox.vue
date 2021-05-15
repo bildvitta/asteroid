@@ -1,5 +1,5 @@
 <template>
-  <div v-bind="$attrs" class="q-px-md q-py-lg qas-box rounded-borders" :class="boxClass" v-on="$listeners">
+  <div v-bind="$attrs" class="q-px-md q-py-lg rounded-borders" :class="boxClass" v-on="$listeners">
     <slot />
   </div>
 </template>
@@ -15,22 +15,8 @@ export default {
 
   computed: {
     boxClass () {
-      return this.formMode ? 'qas-box__outlined bg-white' : 'qas-box__elevated'
+      return this.formMode ? 'bg-white border-primary-contrast' : 'shadow-primary'
     }
   }
 }
 </script>
-
-<style lang="scss">
-.qas-box {
-  $shadow-color: rgba($primary, 0.15);
-
-  &__outlined {
-    border: 1px solid $secondary;
-  }
-
-  &__elevated {
-    box-shadow: 0px 9px 27px $shadow-color;
-  }
-}
-</style>
