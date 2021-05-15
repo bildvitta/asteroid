@@ -17,17 +17,22 @@ export default {
     dark: {
       type: Boolean
     },
-  
+
     icon: {
       default: 'o_error',
       type: String
     },
-  
+
     image: {
       default: '',
       type: String
     },
-  
+
+    textColor: {
+      default: '',
+      type: String
+    },
+
     title: {
       default: '',
       type: String
@@ -42,17 +47,19 @@ export default {
 
   computed: {
     classes () {
+      const contrastColor = this.textColor ? this.textColor : this.contrastColor
+
       return [
         this.dark
-          ? `bg-${this.color} text-${this.contrastColor}`
-          : `bg-${this.contrastColor} text-${this.color}`
+          ? `bg-${this.color} text-${contrastColor}`
+          : `bg-${contrastColor} text-${this.color}`
       ]
     },
 
     contrastColor () {
       return `${this.color}-contrast`
     },
-  
+
     firstLetter () {
       return this.title[0].toUpperCase()
     },

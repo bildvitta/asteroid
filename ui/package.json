@@ -1,6 +1,6 @@
 {
   "name": "@bildvitta/quasar-ui-asteroid",
-  "version": "2.0.1",
+  "version": "2.1.0",
   "description": "",
   "main": "./src/index.js",
   "scripts": {
@@ -23,7 +23,7 @@
     "helpers",
     "components"
   ],
-  "author": "Douglas Calora <douglascalora123@gmail.com>",
+  "author": "Inovação Bild & Vitta <inova@bild.com.br>",
   "license": "ISC",
   "devDependencies": {
     "@babel/core": "^7.12.10",
