@@ -27,7 +27,7 @@ $warning: #F2C037;
 }
 
 $primary-contrast: #eaeaff;
-$secondary-contrast: #26a69a;
+$secondary-contrast: #ecffea;
 
 @include setBrand(primary-contrast, $primary-contrast);
 @include setBrand(secondary-contrast, $secondary-contrast);
