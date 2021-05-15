@@ -3,27 +3,28 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
-## 2.x.x - 2021-05-14
+
+## Unreleased
 
 ### Added
-
-- Class `border-top-primary`
-
-### Changed
-
-- Changed prop name and slot `actions` validation.
+- Added `primary-contrast` and `secondary-contrast` colors.
+- Added `unset` CSS class to reset styles of an element (useful for buttons).
+- Added `border-top`, `border-left`, `border-bottom` and `border-right` CSS classes.
+### Changes
+- New `QasAvatar` to respect design system.
+- Changed `QasCard` image prop name.
 
 ## 2.0.1 - 2021-05-13
 
 ### Added
 - Added `border-primary` and `border-secondary` classes to create a outlined 1px border.
-- Added `qas-card` component.
-- Added icon size in `qas-settings-menu`.
+- Added `QasCard` component.
+- Added icon size in `QasSettingsMenu`.
 
 ### Changes
 - `QasBox` now uses border and shadow global CSS classes.
 - Now arrow colors is primary for all `QTabs` instead of `QasTabsGenerator` only.
-- Style QasSettingsMenu.
+- Style `QasSettingsMenu`.
 ## 2.0.0 - 2021-05-04
 
 ### Added
