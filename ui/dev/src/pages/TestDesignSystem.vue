@@ -1,7 +1,7 @@
 <template>
   <q-page class="container flex flex-center spaced">
     <div>
-      <qas-box class="rounded-borders-lg" form-mode>
+      <qas-box class="border-left border-top rounded-borders-lg" form-mode>
         <div class="q-mb-md">
           <qas-avatar class="q-mr-sm" title="Teste" />
           <qas-avatar dark title="Outro" />

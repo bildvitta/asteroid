@@ -52,7 +52,7 @@ export default {
 <style lang="scss">
 .qas-settings-menu {
   &__list {
-    position:absolute;
+    position: absolute;
     width: 265px;
     z-index: 1;
 

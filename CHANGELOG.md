@@ -9,8 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Added `primary-contrast` and `secondary-contrast` colors.
 - Added `unset` CSS class to reset styles of an element (useful for buttons).
+- Added `border-top`, `border-left`, `border-bottom` and `border-right` CSS classes.
 ### Changes
 - New `QasAvatar` to respect design system.
+- Changed `QasCard` image prop name.
 
 ## 2.0.1 - 2021-05-13
 
@@ -22,7 +24,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changes
 - `QasBox` now uses border and shadow global CSS classes.
 - Now arrow colors is primary for all `QTabs` instead of `QasTabsGenerator` only.
-- Style QasSettingsMenu.
+- Style `QasSettingsMenu`.
 ## 2.0.0 - 2021-05-04
 
 ### Added

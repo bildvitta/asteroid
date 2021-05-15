@@ -1,21 +1,21 @@
 <template>
-  <div class="col-12 col-lg-3 col-md-4 col-sm-6 qas-card">
+  <div class="col-12 col-lg-3 col-md-4 col-sm-6">
     <q-card class="border-radius-lg column full-height" :class="cardClasses">
       <div v-if="useHeader" class="overflow-hidden relative-position">
         <slot name="header">
-          <q-carousel v-model="slideImage" animated class="cursor-pointer" height="205px" infinite :navigation="hasImages" navigation-icon="fiber_manual_record" swipeable>
-            <q-carousel-slide v-for="(item, index) in images" :key="index" class="bg-no-repeat" :class="bgImagePositionClasses" :img-src="getImage(item)" :name="index" />
+          <q-carousel v-model="slideImage" animated class="cursor-pointer" height="205px" infinite :navigation="hasImages" navigation-icon="o_fiber_manual_record" swipeable>
+            <q-carousel-slide v-for="(item, index) in imagesList" :key="index" class="bg-no-repeat" :class="bgImagePositionClasses" :img-src="item" :name="index" />
           </q-carousel>
         </slot>
       </div>
 
-      <q-card-section class="card__description col-grow column justify-between">
+      <q-card-section class="col-grow column justify-between">
         <div :class="gutterClasses">
           <slot />
         </div>
       </q-card-section>
 
-      <div v-if="useActions" class="card__details-link overflow-hidden q-pa-sm row">
+      <div v-if="useActions" class="border-primary-contrast border-top overflow-hidden q-pa-sm row">
         <slot name="actions" />
       </div>
     </q-card>
@@ -24,26 +24,10 @@
 
 <script>
 export default {
-  name: 'QasCard',
-
   props: {
     bgImagePosition: {
       type: String,
       default: 'center'
-    },
-
-    defaultImage: {
-      type: String,
-      default: ''
-    },
-
-    fields: {
-      type: Object,
-      default: () => ({})
-    },
-
-    formMode: {
-      type: Boolean
     },
 
     gutter: {
@@ -51,13 +35,18 @@ export default {
       default: 'sm'
     },
 
+    images: {
+      type: Array,
+      default: () => ([])
+    },
+
+    outlined: {
+      type: Boolean
+    },
+
     result: {
       type: Object,
       default: () => ({})
-    },
-
-    useActions: {
-      type: Boolean
     },
 
     useHeader: {
@@ -76,51 +65,29 @@ export default {
       return [`bg-position-${this.bgImagePosition}`]
     },
 
-    cardItemId () {
-      return this.result?.uuid
-    },
-
-    images () {
-      if (this.imagesLength) {
-        return this.fields.images.slice(0, 3)
-      }
-
-      return [this.defaultImage]
-    },
-
     hasImages () {
       return this.images.length > 1
     },
 
     imagesLength () {
-      return this.fields.images?.length
+      return this.images?.length
+    },
+
+    imagesList () {
+      return this.imagesLength && this.images.slice(0, 3)
     },
 
     cardClasses () {
-      return [this.formMode ? 'card--outlined bg-white no-shadow' : 'box-shadow-1']
+      return [this.formMode ? 'bg-white border-primary no-shadow' : 'box-shadow-1']
     },
 
     gutterClasses () {
       return [`q-col-gutter-${this.gutter}`]
-    }
-  },
+    },
 
-  methods: {
-    getImage (imagesList) {
-      return imagesList.data?.image || imagesList
+    useActions () {
+      return !!(this.$slots.actions || this.$scopedSlots.actions)
     }
   }
 }
 </script>
-
-<style lang="scss">
-.qas-card {
-  &__details-link {
-    border-top: 1px solid $secondary;
-  }
-
-  &--outlined {
-    border: 1px solid $secondary;
-  }
-}
-</style>
