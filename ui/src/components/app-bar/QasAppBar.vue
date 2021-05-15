@@ -23,9 +23,9 @@
       <slot name="tools" />
 
       <div v-if="isAuth" class="cursor-pointer items-center q-mr-sm qas-toolbar__user row" :title="user.name || user.givenName">
-        <qas-avatar color="white" :image="asset(user.photo)" rounded size="36px" :title="user.name || user.givenName" />
+        <qas-avatar color="white" dark :image="asset(user.photo)" rounded size="36px" text-color="primary" :title="user.name || user.givenName" />
 
-        <div class="cursor-pointer q-pl-xs q-pr-sm qas-toolbar__user-data qs-lh-sm">
+        <div class="q-pl-xs q-pr-sm qas-toolbar__user-data qs-lh-sm">
           <div class="ellipsis">{{ user.name || user.givenName }}</div>
           <div class="ellipsis opacity-60 qs-lh-sm text-caption">{{ user.email }}</div>
         </div>
@@ -33,7 +33,10 @@
         <q-menu anchor="bottom middle" max-height="400px" self="top middle">
           <div class="qas-toolbar__user-menu">
             <div class="q-pa-lg text-center">
-              <qas-avatar class="cursor-pointer" :image="asset(user.photo)" rounded size="145px" :title="user.name || user.givenName" @click="goToProfile" />
+              <button class="unset" @click="goToProfile">
+                <qas-avatar :image="asset(user.photo)" size="145px" :title="user.name || user.givenName" />
+              </button>
+
               <div class="ellipsis q-mt-lg qs-lh-sm text-bold text-subtitle1">{{ user.name || user.givenName }}</div>
               <div class="ellipsis q-mt-xs text-caption">{{ user.email }}</div>
 

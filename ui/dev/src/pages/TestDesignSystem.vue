@@ -1,9 +1,17 @@
 <template>
   <q-page class="container flex flex-center spaced">
     <div>
-      <qas-box form-mode>
+      <qas-box class="rounded-borders-lg" form-mode>
+        <div class="q-mb-md">
+          <qas-avatar class="q-mr-sm" title="Teste" />
+          <qas-avatar dark title="Outro" />
+        </div>
+
         <div>Primary: <input v-model="primaryColor" type="color"> ({{ primaryColor }})</div>
-        <div>Secondary: <input v-model="secondaryColor" type="color"> ({{ secondaryColor }}</div>
+        <div>Primary contrast: <input v-model="primaryContrastColor" type="color"> ({{ primaryContrastColor }})</div>
+        <hr>
+        <div>Secondary: <input v-model="secondaryColor" type="color"> ({{ secondaryColor }})</div>
+        <div>Secondary contrast: <input v-model="secondaryContrastColor" type="color"> ({{ secondaryContrastColor }})</div>
       </qas-box>
 
       <qas-box>
@@ -27,7 +35,9 @@ export default {
   data () {
     return {
       primaryColor: '',
+      primaryContrastColor: '',
       secondaryColor: '',
+      secondaryContrastColor: '',
 
       radio: ''
     }
@@ -36,17 +46,25 @@ export default {
   watch: {
     primaryColor () {
       colors.setBrand('primary', this.primaryColor)
+      colors.setBrand('primary-contrast', this.primaryContrastColor)
     },
 
     secondaryColor () {
       colors.setBrand('secondary', this.secondaryColor)
+      colors.setBrand('secondary-contrast', this.secondaryContrastColor)
     }
   },
 
   methods: {
     changeColor () {
-      this.primaryColor = '#' + this.getRandomColor()
-      this.secondaryColor = '#' + this.getRandomColor()
+      const primary = `#${this.getRandomColor()}`
+      const secondary = `#${this.getRandomColor()}`
+
+      this.primaryColor = primary
+      this.primaryContrastColor = colors.lighten(primary, 85)
+
+      this.secondaryColor = secondary
+      this.secondaryContrastColor = colors.lighten(secondary, 85)
     },
 
     getRandomColor () {

@@ -2,6 +2,14 @@
   border: 1px solid $primary;
 }
 
+.border-primary-contrast {
+  border: 1px solid $primary-contrast;
+}
+
 .border-secondary {
   border: 1px solid $secondary;
+}
+
+.border-secondary-contrast {
+  border: 1px solid $secondary-contrast;
 }
