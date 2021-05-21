@@ -42,6 +42,19 @@ export default {
     // Events
     input: {
       description: 'Fires when files change.'
+    },
+
+    // Slots
+    'custom-upload': {
+      description: 'Replace `QasUploader` component. The `context` will give access to all the functions and attributes of the component.',
+      table: {
+        defaultValue: {
+          detail: JSON.stringify({ context: 'object' }),
+          summary: '{}'
+        },
+
+        type: { summary: null }
+      }
     }
   }
 }
