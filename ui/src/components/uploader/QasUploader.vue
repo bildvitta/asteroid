@@ -1,5 +1,5 @@
 <template>
-  <q-field borderless :error="error" :error-message="errorMessage" :hint="hint || undefined">
+  <q-field borderless :error="error" :error-message="errorMessage" :hint="hintValue">
     <q-uploader v-bind="$attrs" auto-upload bordered :class="uploaderClass" :factory="factory" flat :max-files="maxFiles" method="PUT" :readonly="readonly" v-on="$listeners" @factory-failed="factoryFailed" @uploaded="uploaded">
       <template #header="scope">
         <div class="flex flex-center full-width justify-between no-border no-wrap q-gutter-xs q-pa-sm text-white transparent">
@@ -22,48 +22,42 @@
       </template>
 
       <template #list="scope">
-        <q-list class="full-width row">
-          <q-item v-for="(item, index) in pathsLoop" :key="index" class="q-pa-none q-pr-md" :class="itemClass">
-            <q-item-section avatar class="justify-center" top>
-              <q-avatar v-if="isImage" rounded>
-                <img :src="item" @error="onImageLoadedError">
-              </q-avatar>
+        <div class="full-width row">
+          <div v-for="(item, index) in pathList" :key="index" class="q-pa-none q-pr-md row" :class="itemClass">
+            <q-avatar v-if="isImage" class="q-mr-sm" rounded>
+              <img :src="item" @error="onImageLoadedError">
+            </q-avatar>
 
-              <q-avatar v-else color="grey-3" icon="o_attach_file" rounded />
-            </q-item-section>
+            <q-avatar v-else class="q-mr-sm" color="grey-3" icon="o_attach_file" rounded />
 
-            <q-item-section>
-              <div class="full-width items-center no-wrap row">
-                <q-item-label class="ellipsis text-black">{{ imageName(item) }}</q-item-label>
-                <q-item-label caption>{{ progressUpload(scope.files[index]) }}</q-item-label>
-                <div v-if="!scope.readonly" class="q-gutter-xs text-grey-8">
-                  <q-btn dense flat icon="o_delete" round @click="removeItem(index)" />
-                </div>
+            <div class="col items-center no-wrap row">
+              <div class="col column no-wrap" :class="{ col: isMultiple }">
+                <div class="ellipsis text-black">{{ imageName(item) }}</div>
+                <div class="text-caption">{{ uploadProgress(scope.files[index]) }}</div>
               </div>
-            </q-item-section>
-          </q-item>
+              <q-btn v-if="!scope.readonly" class="text-grey-8" dense flat icon="o_delete" round @click="removeItem(index)" />
+            </div>
+          </div>
 
-          <q-item v-for="file in filesFailed(scope.files)" :key="file.name" class="q-pa-none q-pr-md" :class="itemClass">
-            <q-item-section avatar top>
-              <q-avatar v-if="file.__img" rounded>
-                <img :alt="file.name" :src="file.__img.src">
-              </q-avatar>
+          <div v-for="(file, index) in failedFiles(scope.files)" :key="index" class="q-pa-none q-pr-md row" :class="itemClass">
+            <q-avatar v-if="file.__img" class="q-mr-sm" rounded>
+              <img :alt="file.name" :src="file.__img.src">
+            </q-avatar>
 
-              <q-avatar v-else color="grey-3" icon="o_attach_file" rounded text-color="negative" />
-            </q-item-section>
+            <q-avatar v-else class="q-mr-sm" color="grey-3" icon="o_attach_file" rounded text-color="negative" />
 
-            <q-item-section>
-              <div class="full-width items-center no-wrap row">
-                <q-item-label class="ellipsis text-negative">{{ file.name }}</q-item-label>
-                <q-item-label caption>{{ file.__progressLabel }} ({{ file.__sizeLabel }})</q-item-label>
-                <div class="q-gutter-xs text-grey-8">
-                  <q-icon color="negative" name="o_warning" size="20px" />
-                  <q-btn dense flat icon="o_delete" round @click="scope.removeFile(file)" />
-                </div>
+            <div class="col items-center no-wrap row">
+              <div class="column no-wrap" :class="{ col: isMultiple }">
+                <div class="ellipsis text-negative">{{ file.name }}</div>
+                <div class="text-caption">{{ file.__progressLabel }} ({{ file.__sizeLabel }})</div>
               </div>
-            </q-item-section>
-          </q-item>
-        </q-list>
+              <div class="items-center q-ml-sm row">
+                <q-icon color="negative" name="o_warning" size="20px" />
+                <q-btn dense flat icon="o_delete" round @click="scope.removeFile(file)" />
+              </div>
+            </div>
+          </div>
+        </div>
       </template>
     </q-uploader>
     <slot :context="self" name="custom-upload" />
@@ -127,7 +121,7 @@ export default {
       return this.hasCustomUpload ? 'hidden' : 'fit'
     },
 
-    pathsLoop () {
+    pathList () {
       return Array.isArray(this.value) ? this.value : (this.value ? [this.value] : [])
     },
 
@@ -145,11 +139,15 @@ export default {
     },
 
     hasCustomUpload () {
-      return this.$scopedSlots['custom-upload']
+      return this.$slots['custom-upload'] || this.$scopedSlots['custom-upload']
     },
 
     itemClass () {
       return this.isMultiple ? 'col-12 col-md-3 col-sm-4' : 'col-12'
+    },
+
+    hintValue () {
+      return this.hint || undefined
     }
   },
 
@@ -193,20 +191,20 @@ export default {
       return file.__status === 'failed'
     },
 
-    progressUpload (file) {
+    uploadProgress (file) {
       return file && `${file.__progressLabel} (${file.__sizeLabel})`
     },
 
     removeItem (index) {
-      let newValue = ''
+      let valueToBeEmitted = ''
 
       if (this.isMultiple) {
-        const valueCloned = extend(true, [], this.value)
-        valueCloned.splice(index, 1)
-        newValue = valueCloned
+        const clonedValue = extend(true, [], this.value)
+        clonedValue.splice(index, 1)
+        valueToBeEmitted = clonedValue
       }
 
-      this.$emit('input', newValue)
+      this.$emit('input', valueToBeEmitted)
     },
 
     dispatchUpload () {
@@ -222,7 +220,7 @@ export default {
       return `${value}`.split('/').pop()
     },
 
-    filesFailed (files) {
+    failedFiles (files) {
       return files.filter(file => this.isFileFailed(file))
     }
 
