@@ -1,6 +1,6 @@
 <template>
   <q-field borderless :error="error" :error-message="errorMessage" :hint="hintValue">
-    <q-uploader v-bind="$attrs" ref="uploader" auto-upload bordered :class="uploaderClass" :factory="factory" flat :max-files="maxFiles" method="PUT" :readonly="readonly" v-on="$listeners" @factory-failed="factoryFailed" @uploaded="uploaded">
+    <q-uploader v-bind="$attrs" auto-upload bordered :class="uploaderClass" :factory="factory" flat :max-files="maxFiles" method="PUT" :readonly="readonly" v-on="$listeners" @factory-failed="factoryFailed" @uploaded="uploaded">
       <template #header="scope">
         <div class="flex flex-center full-width justify-between no-border no-wrap q-gutter-xs q-pa-sm text-white transparent">
           <q-spinner v-if="scope.isUploading" size="24px" />
