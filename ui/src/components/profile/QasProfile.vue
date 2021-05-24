@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import filterObjectMixin from '../../mixins/filter-object'
+import filterObject from '../../helpers/filter-object'
 import screenMixin from '../../mixins/screen'
 
 import QasAvatar from '../avatar/QasAvatar'
@@ -34,7 +34,7 @@ export default {
     QasGridGenerator
   },
 
-  mixins: [screenMixin, filterObjectMixin],
+  mixins: [screenMixin],
 
   props: {
     columns: {
