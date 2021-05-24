@@ -13,6 +13,12 @@
     </div>
 
     <div class="q-mt-xl">
+      <div>UPLOAD MULTIPLO</div>
+      <pre>model: {{ uploadMultiple }}</pre>
+      <qas-uploader v-model="uploadMultiple" entity="portal-app/problems/photo" hint="cleyton" label="cleyton" multiple />
+    </div>
+
+    <div class="q-mt-xl">
       <div>USANDO FORM GENERATOR</div>
       <pre>model: {{ formGenerator.values }}</pre>
       <qas-form-generator v-model="formGenerator.values" columns="fit" :fields="formGenerator.fields" />
@@ -27,7 +33,7 @@
     <div class="q-mt-xl">
       <div>UPLOAD MULTIPLO COM VALOR</div>
       <pre>model: {{ uploadMultipleWithValue }}</pre>
-      <qas-uploader v-model="uploadMultipleWithValue" entity="portal-app/problems/photo" multiple />
+      <qas-uploader v-model="uploadMultipleWithValue" entity="portal-app/problems/photo" label="teste" multiple readonly />
     </div>
 
     <div class="q-my-xl">
@@ -52,14 +58,14 @@
 export default {
   data () {
     return {
-      uploadDefault: '',
+      uploadDefault: 'https://s3.amazonaws.com/develop-portal-cms.bivilabs.com.br/uploads/portal-app/problems/photo/47751626-8e24-4e3f-8ac7-1aa837550336.png',
       uploadMultiple: [],
       uploadWithValue: 'https://s3.amazonaws.com/develop-portal-cms.bivilabs.com.br/uploads/portal-app/problems/photo/47751626-8e24-4e3f-8ac7-1aa837550336.png',
       uploadMultipleWithValue: [
         'https://www.bild.com.br/uploads/photo/file/11974/content_BILD-VISION-5626.jpg',
         'https://s3.amazonaws.com/develop-portal-cms.bivilabs.com.br/uploads/portal-app/problems/photo/8043b545-30c7-47e4-91c4-16a74ffc4380.jpeg',
         'https://s3.amazonaws.com/develop-portal-cms.bivilabs.com.br/uploads/portal-app/problems/photo/27aa1255-1bca-47b5-8b60-bab5491566b3.jpg',
-        'https://www.bild.com.br/uploads/photo/file/11974/content_BILD-VISION-5626.jpg'
+        'https://s3.amazonaws.com/develop-portal-cms.bivilabs.com.br/uploads/portal-app/problems/photo/43818845-9e7d-4fdc-bbdd-d79f0f91a690.jpg'
       ],
       customUpload: '',
 

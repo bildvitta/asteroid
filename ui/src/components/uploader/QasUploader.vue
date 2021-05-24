@@ -1,13 +1,13 @@
 <template>
   <q-field borderless :error="error" :error-message="errorMessage" :hint="hintValue">
-    <q-uploader v-bind="$attrs" auto-upload bordered :class="uploaderClass" :factory="factory" flat :max-files="maxFiles" method="PUT" :readonly="readonly" v-on="$listeners" @factory-failed="factoryFailed" @uploaded="uploaded">
+    <q-uploader v-bind="$attrs" ref="uploader" auto-upload bordered :class="uploaderClass" :factory="factory" flat :max-files="maxFiles" method="PUT" :readonly="readonly" v-on="$listeners" @factory-failed="factoryFailed" @uploaded="uploaded">
       <template #header="scope">
         <div class="flex flex-center full-width justify-between no-border no-wrap q-gutter-xs q-pa-sm text-white transparent">
           <q-spinner v-if="scope.isUploading" size="24px" />
 
           <div class="col column items-start justify-center">
             <div v-if="scope.label" class="q-uploader__title">{{ scope.label }}</div>
-            <div class="q-uploader__subtitle">{{ scope.uploadProgressLabel }} ({{ scope.uploadSizeLabel }})</div>
+            <div v-if="scope.files.length" class="q-uploader__subtitle">{{ scope.uploadProgressLabel }} ({{ scope.uploadSizeLabel }})</div>
           </div>
 
           <q-btn v-if="showAddFile" ref="buttonUpload" dense flat icon="o_add" round />
@@ -22,38 +22,22 @@
       </template>
 
       <template #list="scope">
-        <div class="full-width row">
-          <div v-for="(item, index) in pathList" :key="index" class="q-pa-none q-pr-md row" :class="itemClass">
-            <q-avatar v-if="isImage" class="q-mr-sm" rounded>
-              <img :src="item" @error="onImageLoadedError">
-            </q-avatar>
-
-            <q-avatar v-else class="q-mr-sm" color="grey-3" icon="o_attach_file" rounded />
-
-            <div class="col items-center no-wrap row">
-              <div class="col column no-wrap" :class="{ col: isMultiple }">
-                <div class="ellipsis text-black">{{ imageName(item) }}</div>
-                <div class="text-caption">{{ uploadProgress(scope.files[index]) }}</div>
-              </div>
-              <q-btn v-if="!scope.readonly" class="text-grey-8" dense flat icon="o_delete" round @click="removeItem(index)" />
-            </div>
-          </div>
-
-          <div v-for="(file, index) in failedFiles(scope.files)" :key="index" class="q-pa-none q-pr-md row" :class="itemClass">
-            <q-avatar v-if="file.__img" class="q-mr-sm" rounded>
-              <img :alt="file.name" :src="file.__img.src">
+        <div class="col-12 q-col-gutter-md row">
+          <div v-for="(file, index) in filesList(scope.files)" :key="index" class="row" :class="itemClass">
+            <q-avatar v-if="file.image" class="q-mr-sm" rounded>
+              <img :alt="file.name" :src="file.image">
             </q-avatar>
 
             <q-avatar v-else class="q-mr-sm" color="grey-3" icon="o_attach_file" rounded text-color="negative" />
 
             <div class="col items-center no-wrap row">
               <div class="column no-wrap" :class="{ col: isMultiple }">
-                <div class="ellipsis text-negative">{{ file.name }}</div>
-                <div class="text-caption">{{ file.__progressLabel }} ({{ file.__sizeLabel }})</div>
+                <div class="ellipsis" :class="fileNameClass(file.isFailed)">{{ file.name }}</div>
+                <div v-if="file.isUploaded" class="text-caption">{{ file.progressLabel }} ({{ file.sizeLabel }})</div>
               </div>
               <div class="items-center q-ml-sm row">
-                <q-icon color="negative" name="o_warning" size="20px" />
-                <q-btn dense flat icon="o_delete" round @click="scope.removeFile(file)" />
+                <q-icon v-if="file.isFailed" color="negative" name="o_warning" size="20px" />
+                <q-btn v-if="!scope.readonly" dense flat icon="o_delete" round @click="removeItem(index, scope, file)" />
               </div>
             </div>
           </div>
@@ -126,12 +110,9 @@ export default {
     },
 
     showAddFile () {
-      return !this.readonly &&
-        (
-          this.maxFiles
-            ? this.value.length < this.maxFiles
-            : true
-        )
+      if (this.readonly) return
+
+      return this.maxFiles ? this.value.length < this.maxFiles : true
     },
 
     isMultiple () {
@@ -153,6 +134,10 @@ export default {
 
   methods: {
     async factory ([file]) {
+      if (this.isFailed(file)) {
+        this.$refs.buttonCleanFiles.$el.click()
+      }
+
       const name = `${uid()}.${file.name.split('.').pop()}`
       const { endpoint } = await this.fetch(name)
 
@@ -187,20 +172,17 @@ export default {
       }
     },
 
-    isFileFailed (file) {
-      return file.__status === 'failed'
-    },
+    removeItem (index, scope, file) {
+      if (file.isUploaded) {
+        scope.removeFile(scope.files[file.indexToDelete])
+      }
 
-    uploadProgress (file) {
-      return file && `${file.__progressLabel} (${file.__sizeLabel})`
-    },
-
-    removeItem (index) {
       let valueToBeEmitted = ''
 
       if (this.isMultiple) {
         const clonedValue = extend(true, [], this.value)
-        clonedValue.splice(index, 1)
+        const numberIndex = this.value.findIndex(file => this.imageName(file) === index)
+        clonedValue.splice(numberIndex, 1)
         valueToBeEmitted = clonedValue
       }
 
@@ -220,8 +202,53 @@ export default {
       return `${value}`.split('/').pop()
     },
 
-    failedFiles (files) {
-      return files.filter(file => this.isFileFailed(file))
+    filesList (uploadedFiles) {
+      const pathsList = Array.isArray(this.value) ? this.value : (this.value ? [this.value] : [])
+
+      uploadedFiles = uploadedFiles.map((file, indexToDelete) => {
+        return {
+          isUploaded: true,
+          image: file.__img?.src,
+          name: file.name,
+          progressLabel: file.__progressLabel,
+          sizeLabel: file.__sizeLabel,
+          indexToDelete: indexToDelete,
+          fullPath: file.xhr ? `${file.xhr.responseURL}`.split('?').shift() : '',
+          isFailed: this.isFailed(file)
+        }
+      })
+
+      const mergedList = [...pathsList, ...uploadedFiles]
+
+      const files = {}
+
+      mergedList.forEach(file => {
+        if (file.isFailed) {
+          files[file.name] = file
+          return
+        }
+
+        if (typeof file === 'string') {
+          const imageName = this.imageName(file)
+          files[imageName] = { image: file, isUploaded: false, name: imageName }
+          return
+        }
+
+        if (file.fullPath) {
+          const imageName = this.imageName(file.fullPath)
+          files[imageName] = file
+        }
+      })
+
+      return files
+    },
+
+    fileNameClass (isFailed) {
+      return isFailed ? 'text-negative' : 'text-grey-8'
+    },
+
+    isFailed (file) {
+      return file.__status === 'failed'
     }
 
   }
