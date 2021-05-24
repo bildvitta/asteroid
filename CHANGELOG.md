@@ -6,14 +6,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## 2.x.x - 2021-05-21
 
-### Added 
-
-- Import helper filter-object
-
 ### Removed
 
 - Remove q-pa-sm actions slot in QasCard
 - Remove require prop QasLabel 
+
+### Fixed 
+
+- Fixed mport helper filter-object
 
 ## 2.1.0 - 2021-05-15
 
