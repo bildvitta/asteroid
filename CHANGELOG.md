@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Removed
 
+- Remove q-pa-sm actions slot in QasCard
 - Remove require prop QasLabel 
 
 ## 2.1.0 - 2021-05-15
