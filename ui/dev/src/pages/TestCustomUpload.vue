@@ -3,6 +3,12 @@
     <div class="q-mt-xl">
       <div>UPLOAD PADRÃO</div>
       <pre>model: {{ uploadDefault }}</pre>
+      <qas-uploader v-model="uploadDefault" entity="documents/file" />
+    </div>
+
+    <div class="q-mt-xl">
+      <div>UPLOAD PADRÃO</div>
+      <pre>model: {{ uploadDefault }}</pre>
       <qas-uploader v-model="uploadDefault" entity="portal-app/problems/photo" />
     </div>
 

@@ -24,11 +24,11 @@
       <template #list="scope">
         <div class="col-12 q-col-gutter-md row">
           <div v-for="(file, index) in filesList(scope.files)" :key="index" class="row" :class="itemClass">
-            <q-avatar v-if="file.image" class="q-mr-sm" rounded>
-              <img :alt="file.name" :src="file.image">
+            <q-avatar v-if="isImage" class="q-mr-sm" rounded>
+              <img :alt="file.name" :src="file.image" @error="onImageLoadedError">
             </q-avatar>
 
-            <q-avatar v-else class="q-mr-sm" color="grey-3" icon="o_attach_file" rounded text-color="negative" />
+            <q-avatar v-else class="q-mr-sm" color="grey-3" icon="o_attach_file" rounded :text-color="colorFileIcon(file)" />
 
             <div class="col items-center no-wrap row">
               <div class="column no-wrap" :class="{ col: isMultiple }">
@@ -134,12 +134,10 @@ export default {
 
   methods: {
     async factory ([file]) {
-      if (this.isFailed(file)) {
-        this.$refs.buttonCleanFiles.$el.click()
-      }
-
       const name = `${uid()}.${file.name.split('.').pop()}`
       const { endpoint } = await this.fetch(name)
+
+      this.$refs.buttonCleanFiles.$el.click()
 
       return {
         headers: [{ name: 'Content-Type', value: file.type || 'image/jpeg' }],
@@ -249,6 +247,10 @@ export default {
 
     isFailed (file) {
       return file.__status === 'failed'
+    },
+
+    colorFileIcon (file) {
+      return this.isFailed(file) ? 'negative' : 'primary'
     }
 
   }
