@@ -8,6 +8,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changes
 - Change the avatar image prop, not running into asset function
+- Change qas-avatar letter weight to bold
+
 ## 2.1.0 - 2021-05-15
 
 ### Added

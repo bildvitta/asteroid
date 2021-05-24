@@ -51,8 +51,8 @@ export default {
 
       return [
         this.dark
-          ? `bg-${this.color} text-${contrastColor}`
-          : `bg-${contrastColor} text-${this.color}`
+          ? `bg-${this.color} text-${contrastColor} text-bold`
+          : `bg-${contrastColor} text-${this.color} text-bold`
       ]
     },
 
