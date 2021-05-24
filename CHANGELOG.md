@@ -8,7 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added 
 
-- Import helper filter-object
+- Import mixin filter-object
 
 ## 2.1.0 - 2021-05-15
 

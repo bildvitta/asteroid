@@ -1,6 +1,5 @@
 import greatestCommonDivisor from './greatestCommonDivisor.js'
 import { history, handleHistory } from './historyHandler.js'
-import filterObject from './filter-object.js'
 
 import {
   asset,
@@ -44,6 +43,5 @@ export {
   handleHistory,
   history,
 
-  greatestCommonDivisor,
-  filterObject
+  greatestCommonDivisor
 }
