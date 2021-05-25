@@ -14,7 +14,7 @@
 
           <q-uploader-add-trigger v-if="showAddFile" ref="uploaderTrigger" />
 
-          <q-btn ref="buttonCleanFiles" class="hidden" @click="scope.removeQueuedFiles" />
+          <q-btn ref="buttonCleanFiles" class="hidden" @click="scope.removeUploadedFiles" />
 
           <q-btn v-if="scope.canUpload" dense flat icon="o_cloud_upload" round @click="scope.upload" />
           <q-btn v-if="scope.isUploading" dense flat icon="o_clear" round @click="scope.abort" />
@@ -23,7 +23,7 @@
 
       <template #list="scope">
         <div class="col-12 q-col-gutter-md row">
-          <div v-for="(file, index) in filesList(scope.files)" :key="index" class="row" :class="itemClass">
+          <div v-for="(file, index) in filesList(scope.files, scope)" :key="index" class="row" :class="itemClass">
             <q-avatar v-if="isImage(file)" class="q-mr-sm" rounded>
               <img :alt="file.name" :src="file.image">
             </q-avatar>
@@ -49,7 +49,7 @@
 </template>
 
 <script>
-import api from 'axios'
+// import api from 'axios'
 import { uid, extend } from 'quasar'
 
 export default {
@@ -129,13 +129,18 @@ export default {
 
   methods: {
     async factory ([file]) {
+      if (!this.isMultiple) {
+        this.$refs.buttonCleanFiles.$el.click()
+      }
+
       const name = `${uid()}.${file.name.split('.').pop()}`
       const { endpoint } = await this.fetch(name)
 
-      this.$refs.buttonCleanFiles.$el.click()
-
       return {
-        headers: [{ name: 'Content-Type', value: file.type || 'image/jpeg' }],
+        headers: [
+          { name: 'Content-Type', value: file.type || 'image/jpeg' }
+          // { name: 'Content-Disposition', value: 'Attachment' }
+        ],
         sendRaw: true,
         url: endpoint
       }
@@ -155,7 +160,7 @@ export default {
       this.isFetching = true
 
       try {
-        const { data } = await api.post('/upload-credentials/', {
+        const { data } = await this.$axios.post('/upload-credentials/', {
           entity: this.entity,
           filename
         })
@@ -199,12 +204,11 @@ export default {
       uploadedFiles = uploadedFiles.map((file, indexToDelete) => {
         return {
           isUploaded: true,
-          image: file.__img?.src,
+          image: file.xhr ? `${file.xhr.responseURL}`.split('?').shift() : '',
           name: file.name,
           progressLabel: file.__progressLabel,
           sizeLabel: file.__sizeLabel,
-          indexToDelete: indexToDelete,
-          fullPath: file.xhr ? `${file.xhr.responseURL}`.split('?').shift() : '',
+          indexToDelete,
           isFailed: this.isFailed(file)
         }
       })
@@ -225,8 +229,8 @@ export default {
           return
         }
 
-        if (file.fullPath) {
-          const imageName = this.imageName(file.fullPath)
+        if (file.image) {
+          const imageName = this.imageName(file.image)
           files[imageName] = file
         }
       })
@@ -247,10 +251,12 @@ export default {
     },
 
     isImage (file) {
+      if (file.isFailed) return
+
       const imagesExtensions = ['jpg', 'jpeg', 'png']
       const fileExtension = file.image.split('.').pop()
 
-      return !file.isFailed && imagesExtensions.includes(fileExtension)
+      return imagesExtensions.includes(fileExtension)
     }
 
   }
