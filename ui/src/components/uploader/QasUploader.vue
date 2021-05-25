@@ -171,6 +171,8 @@ export default {
         scope.removeFile(scope.files[file.indexToDelete])
       }
 
+      if (file.isFailed) return
+
       let valueToBeEmitted = ''
 
       if (this.isMultiple) {
