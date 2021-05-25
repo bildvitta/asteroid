@@ -1,7 +1,7 @@
 <template>
   <div class="col-12 container">
     <div class="q-mt-xl">
-      <div>UPLOAD PADRÃO</div>
+      <div>UPLOAD PADRÃO DOCUMENTO</div>
       <pre>model: {{ uploadDefault }}</pre>
       <qas-uploader v-model="uploadDefault" entity="documents/file" />
     </div>

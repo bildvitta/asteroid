@@ -24,8 +24,8 @@
       <template #list="scope">
         <div class="col-12 q-col-gutter-md row">
           <div v-for="(file, index) in filesList(scope.files)" :key="index" class="row" :class="itemClass">
-            <q-avatar v-if="isImage" class="q-mr-sm" rounded>
-              <img :alt="file.name" :src="file.image" @error="onImageLoadedError">
+            <q-avatar v-if="isImage(file)" class="q-mr-sm" rounded>
+              <img :alt="file.name" :src="file.image">
             </q-avatar>
 
             <q-avatar v-else class="q-mr-sm" color="grey-3" icon="o_attach_file" rounded :text-color="colorFileIcon(file)" />
@@ -49,7 +49,7 @@
 </template>
 
 <script>
-import api from 'axios'
+// import api from 'axios'
 import { uid, extend } from 'quasar'
 
 export default {
@@ -91,8 +91,7 @@ export default {
   data () {
     return {
       isFetching: false,
-      isUploading: false,
-      isImage: true
+      isUploading: false
     }
   },
 
@@ -156,7 +155,7 @@ export default {
       this.isFetching = true
 
       try {
-        const { data } = await api.post('/upload-credentials/', {
+        const { data } = await this.$axios.post('/upload-credentials/', {
           entity: this.entity,
           filename
         })
@@ -188,10 +187,6 @@ export default {
     dispatchUpload () {
       this.$refs.buttonCleanFiles.$el.click()
       this.$refs.uploaderTrigger.$el.click()
-    },
-
-    onImageLoadedError () {
-      this.isImage = false
     },
 
     imageName (value) {
@@ -249,6 +244,13 @@ export default {
 
     colorFileIcon (file) {
       return this.isFailed(file) ? 'negative' : 'primary'
+    },
+
+    isImage (file) {
+      const imagesExtensions = ['jpg', 'jpeg', 'png']
+      const fileExtension = file.image.split('.').pop()
+
+      return !file.isFailed && imagesExtensions.includes(fileExtension)
     }
 
   }
