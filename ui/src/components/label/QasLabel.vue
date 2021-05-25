@@ -1,5 +1,5 @@
 <template>
-  <div class="q-mb-sm text-bold text-subtitle2" v-bind="$attrs" v-on="$listeners">
+  <div class="text-bold text-subtitle2" v-bind="$attrs" v-on="$listeners">
     <!-- TODO: Remover camelCase. -->
     <slot :formattedLabel="formattedLabel">
       {{ formattedLabel }}

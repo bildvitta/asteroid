@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Remove q-pa-sm actions slot in QasCard
 - Remove require prop QasLabel 
+- Remove margin in QasLabel
 - Remove position absolute in QasSettings
 ### Fixed 
 - iconSize in QasSettings
