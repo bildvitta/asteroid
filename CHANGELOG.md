@@ -6,11 +6,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## 2.x.x - 2021-05-21
 
+### Added
+
+- Added margin prop in QasLabel
+
 ### Removed
 
 - Remove q-pa-sm actions slot in QasCard
 - Remove require prop QasLabel 
-- Remove margin in QasLabel
 - Remove position absolute in QasSettings
 ### Fixed 
 - iconSize in QasSettings
