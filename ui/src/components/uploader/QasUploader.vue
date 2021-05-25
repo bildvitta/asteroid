@@ -105,10 +105,6 @@ export default {
       return this.hasCustomUpload ? 'hidden' : 'fit'
     },
 
-    pathList () {
-      return Array.isArray(this.value) ? this.value : (this.value ? [this.value] : [])
-    },
-
     showAddFile () {
       if (this.readonly) return
 
