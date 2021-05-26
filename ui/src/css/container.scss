@@ -20,17 +20,17 @@
 }
 
 .container-xs {
-  max-width: $breakpoint-xs;
+  max-width: $breakpoint-xs !important;
 }
 
 .container-sm {
-  max-width: $breakpoint-sm;
+  max-width: $breakpoint-sm !important;
 }
 
 .container-md {
-  max-width: $breakpoint-md;
+  max-width: $breakpoint-md !important;
 }
 
 .container-lg {
-  max-width: $breakpoint-lg;
+  max-width: $breakpoint-lg !important;
 }
