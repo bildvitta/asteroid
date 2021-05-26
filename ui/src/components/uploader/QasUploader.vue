@@ -45,7 +45,7 @@
 </template>
 
 <script>
-// import api from 'axios'
+import api from 'axios'
 import { uid, extend } from 'quasar'
 
 export default {
@@ -156,7 +156,7 @@ export default {
       this.isFetching = true
 
       try {
-        const { data } = await this.$axios.post('/upload-credentials/', {
+        const { data } = await api.post('/upload-credentials/', {
           entity: this.entity,
           filename
         })
