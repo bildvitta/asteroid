@@ -1,6 +1,6 @@
 <template>
   <q-field borderless :error="error" :error-message="errorMessage" :hint="hintValue">
-    <q-uploader v-bind="$attrs" auto-upload bordered :class="uploaderClass" :factory="factory" flat :max-files="maxFiles" method="PUT" :readonly="readonly" v-on="$listeners" @factory-failed="factoryFailed" @uploaded="uploaded">
+    <q-uploader v-bind="$attrs" auto-upload bordered :class="uploaderClasses" :factory="factory" flat :max-files="maxFiles" method="PUT" :readonly="readonly" v-on="$listeners" @factory-failed="factoryFailed" @uploaded="uploaded">
       <template #header="scope">
         <div class="flex flex-center full-width justify-between no-border no-wrap q-gutter-xs q-pa-sm text-white transparent">
           <q-spinner v-if="scope.isUploading" size="24px" />
@@ -24,11 +24,7 @@
       <template #list="scope">
         <div class="col-12 q-col-gutter-md row">
           <div v-for="(file, index) in filesList(scope.files, scope)" :key="index" class="row" :class="itemClass">
-            <q-avatar v-if="isImage(file)" class="q-mr-sm" rounded>
-              <img :alt="file.name" :src="file.image">
-            </q-avatar>
-
-            <q-avatar v-else class="q-mr-sm" color="grey-3" icon="o_attach_file" rounded :text-color="colorFileIcon(file)" />
+            <qas-avatar class="q-mr-sm" color="grey-3" icon="o_attach_file" :image="file.image" rounded :text-color="colorFileIcon(file)" />
 
             <div class="col items-center no-wrap row">
               <div class="column no-wrap" :class="{ col: isMultiple }">
@@ -49,7 +45,7 @@
 </template>
 
 <script>
-import api from 'axios'
+// import api from 'axios'
 import { uid, extend } from 'quasar'
 
 export default {
@@ -59,32 +55,32 @@ export default {
       type: String
     },
 
+    error: {
+      type: Boolean
+    },
+
+    errorMessage: {
+      default: '',
+      type: String
+    },
+
     hint: {
       default: '',
       type: String
     },
 
-    value: {
-      default: '',
-      type: [Array, String]
-    },
-
-    errorMessage: {
-      type: String,
-      default: ''
-    },
-
-    error: {
-      type: Boolean
+    maxFiles: {
+      default: undefined,
+      type: Number
     },
 
     readonly: {
       type: Boolean
     },
 
-    maxFiles: {
-      type: Number,
-      default: undefined
+    value: {
+      default: '',
+      type: [Array, String]
     }
   },
 
@@ -100,7 +96,7 @@ export default {
       return this
     },
 
-    uploaderClass () {
+    uploaderClasses () {
       return this.hasCustomUpload ? 'hidden' : 'fit'
     },
 
@@ -151,7 +147,7 @@ export default {
     },
 
     uploaded (response) {
-      const fullPath = `${response.xhr.responseURL}`.split('?').shift()
+      const fullPath = response.xhr.responseURL.split('?').shift()
 
       this.$emit('input', this.isMultiple ? [...this.value, fullPath] : fullPath || '')
     },
@@ -160,7 +156,7 @@ export default {
       this.isFetching = true
 
       try {
-        const { data } = await api.post('/upload-credentials/', {
+        const { data } = await this.$axios.post('/upload-credentials/', {
           entity: this.entity,
           filename
         })
@@ -177,16 +173,14 @@ export default {
 
       if (file.isFailed) return
 
-      let valueToBeEmitted = ''
-
-      if (this.isMultiple) {
-        const clonedValue = extend(true, [], this.value)
-        const numberIndex = this.value.findIndex(file => this.imageName(file) === index)
-        clonedValue.splice(numberIndex, 1)
-        valueToBeEmitted = clonedValue
+      if (!this.isMultiple) {
+        return this.$emit('input')
       }
 
-      this.$emit('input', valueToBeEmitted)
+      const clonedValue = extend(true, [], this.value)
+      const numberIndex = this.value.findIndex(file => this.imageName(file) === index)
+      clonedValue.splice(numberIndex, 1)
+      this.$emit('input', clonedValue)
     },
 
     dispatchUpload () {
@@ -195,7 +189,7 @@ export default {
     },
 
     imageName (value) {
-      return `${value}`.split('/').pop()
+      return value.split('/').pop()
     },
 
     filesList (uploadedFiles) {
@@ -204,7 +198,7 @@ export default {
       uploadedFiles = uploadedFiles.map((file, indexToDelete) => {
         return {
           isUploaded: true,
-          image: file.xhr ? `${file.xhr.responseURL}`.split('?').shift() : '',
+          image: file.xhr ? file.xhr.responseURL.split('?').shift() : '',
           name: file.name,
           progressLabel: file.__progressLabel,
           sizeLabel: file.__sizeLabel,
@@ -248,15 +242,6 @@ export default {
 
     colorFileIcon (file) {
       return this.isFailed(file) ? 'negative' : 'primary'
-    },
-
-    isImage (file) {
-      if (file.isFailed) return
-
-      const imagesExtensions = ['jpg', 'jpeg', 'png']
-      const fileExtension = file.image.split('.').pop()
-
-      return imagesExtensions.includes(fileExtension)
     }
 
   }
