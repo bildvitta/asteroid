@@ -11,28 +11,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added new slot `custom-slot` inside `QasUploader`.
 - Added `readonly` and` maxFiles` properties in` QasField` for `QasUploader`.
 - Header added `Content-Disposition: Attachment` for all uploads made with `QasUploader`.
-- Added margin prop in QasLabel
+- Added margin prop in `QasLabel`.
+
+### Changed
+- Adjustments on `QasCopy` icon size to respect design system.
+- Change the `QasAvatar` image prop, not running into asset function.
+- Change `QasAvatar` letter weight to bold.
+- CSS classes now have `!important` flag.
 
 ### Removed
-- Remove q-pa-sm actions slot in QasCard
-- Remove require prop QasLabel 
-- Remove position absolute in QasSettings
+- Remove `.q-pa-sm` actions slot in `QasCard`.
+- Remove require prop `QasLabel`.
+- Remove position absolute in `QasSettings`.
 
 ### Fixed
-- `QasUploader` support multiple uploads.
-- iconSize in QasSettings
-- Fixed mport helper filter-object
+- `QasUploader` now support multiple uploads.
+- iconSize in `QasSettings`.
+- Fixed import of `filterObject` helper.
 
-## 2.1.2 - 2021-05-24
-
-### Changes
-- Change the avatar image prop, not running into asset function
-- Change qas-avatar letter weight to bold
-
-## 2.1.1 - 2021-05-21
-
-### Changes
-- Adjustments on `QasCopy` icon size to respect design system
 ## 2.1.0 - 2021-05-15
 
 ### Added

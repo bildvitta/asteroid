@@ -1,14 +1,14 @@
 // Colors
 %border-color {
   &:not(.border-top):not(.border-left):not(.border-bottom):not(.border-right) {
-    border-width: 1px;
+    border-width: 1px !important;
   }
 }
 
 @mixin setBorderColor($name, $color) {
   .border-#{$name} {
     @extend %border-color;
-    border: 0 solid $color;
+    border: 0 solid $color !important;
   }
 }
 
@@ -19,17 +19,17 @@
 
 // Direction
 .border-top {
-  border-top-width: 1px;
+  border-top-width: 1px !important;
 }
 
 .border-left {
-  border-left-width: 1px;
+  border-left-width: 1px !important;
 }
 
 .border-bottom {
-  border-bottom-width: 1px;
+  border-bottom-width: 1px !important;
 }
 
 .border-right {
-  border-right-width: 1px;
+  border-right-width: 1px !important;
 }
