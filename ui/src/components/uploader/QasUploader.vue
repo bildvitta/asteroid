@@ -134,8 +134,8 @@ export default {
 
       return {
         headers: [
-          { name: 'Content-Type', value: file.type || 'image/jpeg' }
-          // { name: 'Content-Disposition', value: 'Attachment' }
+          { name: 'Content-Type', value: file.type || 'image/jpeg' },
+          { name: 'Content-Disposition', value: 'Attachment' }
         ],
         sendRaw: true,
         url: endpoint
