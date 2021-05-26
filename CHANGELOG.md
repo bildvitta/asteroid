@@ -4,22 +4,34 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## 2.x.x - 2021-05-21
+## Unreleased
 
 ### Added
-
+- Added new slot `custom-slot` inside `QasUploader`.
+- Added `readonly` and` maxFiles` properties in` QasField` for `QasUploader`.
+- Header added `Content-Disposition: Attachment` for all uploads made with `QasUploader`.
 - Added margin prop in QasLabel
 
 ### Removed
-
 - Remove q-pa-sm actions slot in QasCard
 - Remove require prop QasLabel 
 - Remove position absolute in QasSettings
 
-### Fixed 
+### Fixed
+- `QasUploader` support multiple uploads.
 - iconSize in QasSettings
 - Fixed mport helper filter-object
 
+## 2.1.2 - 2021-05-24
+
+### Changes
+- Change the avatar image prop, not running into asset function
+- Change qas-avatar letter weight to bold
+
+## 2.1.1 - 2021-05-21
+
+### Changes
+- Adjustments on `QasCopy` icon size to respect design system
 ## 2.1.0 - 2021-05-15
 
 ### Added
