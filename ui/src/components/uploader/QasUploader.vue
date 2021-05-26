@@ -178,7 +178,7 @@ export default {
       }
 
       const clonedValue = extend(true, [], this.value)
-      const numberIndex = this.value.findIndex(file => this.imageName(file) === index)
+      const numberIndex = this.value.findIndex(file => this.fileName(file) === index)
       clonedValue.splice(numberIndex, 1)
       this.$emit('input', clonedValue)
     },
@@ -188,7 +188,7 @@ export default {
       this.$refs.uploaderTrigger.$el.click()
     },
 
-    imageName (value) {
+    fileName (value) {
       return value.split('/').pop()
     },
 
@@ -218,14 +218,14 @@ export default {
         }
 
         if (typeof file === 'string') {
-          const imageName = this.imageName(file)
-          files[imageName] = { image: file, isUploaded: false, name: imageName }
+          const fileName = this.fileName(file)
+          files[fileName] = { image: file, isUploaded: false, name: fileName }
           return
         }
 
         if (file.image) {
-          const imageName = this.imageName(file.image)
-          files[imageName] = file
+          const fileName = this.fileName(file.image)
+          files[fileName] = file
         }
       })
 
