@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Added new slot `custom-slot` inside `QasUploader`.
 - Added `readonly` and` maxFiles` properties in` QasField` for `QasUploader`.
-- header added `Content-Disposition: Attachment` for all uploads made with `QasUploader`.
+- Header added `Content-Disposition: Attachment` for all uploads made with `QasUploader`.
 
 ### Fixed
 - `QasUploader` support multiple uploads.
