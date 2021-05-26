@@ -18,6 +18,10 @@ export default {
       description: 'Text to be displayed.'
     },
 
+    margin: {
+      description: 'Margin spaces.'
+    },
+
     quantity: {
       description: 'Number to be displayed after label, inside parentheses. E.g. Groups (9).'
     },

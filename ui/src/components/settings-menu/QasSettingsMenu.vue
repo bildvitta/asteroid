@@ -6,7 +6,7 @@
           <q-item :key="key" class="text-bold text-primary" clickable v-bind="item.props" @click="onClick(item)">
             <q-item-section>
               <div class="flex items-center justify-center q-gutter-x-md">
-                <q-icon :name="item.icon" :size="icon.size" />
+                <q-icon :name="item.icon" :size="item.iconSize" />
                 <div>{{ item.label }}</div>
               </div>
             </q-item-section>
@@ -52,7 +52,6 @@ export default {
 <style lang="scss">
 .qas-settings-menu {
   &__list {
-    position: absolute;
     width: 265px;
     z-index: 1;
 

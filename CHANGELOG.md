@@ -10,9 +10,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added new slot `custom-slot` inside `QasUploader`.
 - Added `readonly` and` maxFiles` properties in` QasField` for `QasUploader`.
 - Header added `Content-Disposition: Attachment` for all uploads made with `QasUploader`.
+- Added margin prop in QasLabel
+
+### Removed
+- Remove q-pa-sm actions slot in QasCard
+- Remove require prop QasLabel 
+- Remove position absolute in QasSettings
 
 ### Fixed
 - `QasUploader` support multiple uploads.
+- iconSize in QasSettings
+- Fixed mport helper filter-object
 
 ## 2.1.2 - 2021-05-24
 

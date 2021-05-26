@@ -15,7 +15,7 @@
         </div>
       </q-card-section>
 
-      <div v-if="useActions" class="border-primary-contrast border-top overflow-hidden q-pa-sm row">
+      <div v-if="useActions" class="border-primary-contrast border-top overflow-hidden row">
         <slot name="actions" />
       </div>
     </q-card>
