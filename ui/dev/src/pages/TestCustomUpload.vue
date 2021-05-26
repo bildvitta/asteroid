@@ -15,13 +15,7 @@
     <div class="q-mt-xl">
       <div>UPLOAD MULTIPLO</div>
       <pre>model: {{ uploadMultiple }}</pre>
-      <qas-uploader v-model="uploadMultiple" entity="portal-app/problems/photo" hint="cleyton" label="cleyton" multiple />
-    </div>
-
-    <div class="q-mt-xl">
-      <div>UPLOAD MULTIPLO</div>
-      <pre>model: {{ uploadMultiple }}</pre>
-      <qas-uploader v-model="uploadMultiple" entity="portal-app/problems/photo" hint="cleyton" label="cleyton" multiple />
+      <qas-uploader v-model="uploadMultiple" entity="documents/file" hint="cleyton" label="cleyton" multiple />
     </div>
 
     <div class="q-mt-xl">
