@@ -40,6 +40,10 @@ export default {
 
     size: {
       description: 'Tooltip\'s icon size.'
+    },
+
+    width: {
+      description: 'Tooltip\'s width.'
     }
   }
 }
