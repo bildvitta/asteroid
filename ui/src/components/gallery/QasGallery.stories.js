@@ -19,31 +19,37 @@ export default {
   argTypes: {
     // Props
     carouselNextIcon: {
-      description: 'Define a next image icon for carousel.'
+      description: 'Define the next image icon for carousel.'
     },
 
-    carouselPrevIcon: {
-      description: 'Define a previous image icon for carousel.'
+    carouselPreviousIcon: {
+      description: 'Define the previous image icon for carousel.'
     },
 
-    imageHeight: {
-      description: 'Define the height of image.'
+    height: {
+      description: 'Define the height of item.'
     },
 
-    initialPhotosQuantity: {
-      description: 'Define the initial quantity of photos.'
+    initialLength: {
+      description: 'Define the initial quantity of items.'
     },
 
-    labelShowMore: {
-      description: 'Text that will show for load more photos.'
+    items: {
+      description: 'List of items.'
     },
 
-    photos: {
-      description: 'List of photos.'
+    loadLength: {
+      description: 'Define the quantity of items to load.'
     },
 
-    photosQuantityToLoad: {
-      description: 'Define the quantity of photos to load.'
+    showMoreLabel: {
+      description: 'Text that will show for load more items.'
+    },
+
+    // Slots
+    default: {
+      description: 'Main content.',
+      table: noSummary
     },
   }
 }
@@ -73,9 +79,7 @@ const images = [
 ]
 
 export const Default = Template.bind({})
-Default.args = {
-  images
-}
+Default.args = { images }
 
 Default.parameters = {
   docs: {

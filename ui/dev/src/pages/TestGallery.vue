@@ -2,7 +2,7 @@
   <q-page class="container  spaced">
     <div>
       <qas-label label="Fotos" />
-      <qas-gallery :photos="images" />
+      <qas-gallery :items="images" />
     </div>
   </q-page>
 </template>
