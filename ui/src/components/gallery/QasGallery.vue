@@ -1,28 +1,30 @@
 <template>
-  <div class="col-12 gallery q-col-gutter-md row">
-    <div v-for="(photo, index) in initialPhotos" :key="index" :class="galleryColumns">
-      <q-img class="cursor-pointer rounded-borders" :height="photoHeight" :src="photo" @click="toggleCarouselDialog(index)" />
+  <qas-box class="q-pa-lg">
+    <div class="col-12 gallery q-col-gutter-md row">
+      <div v-for="(photo, index) in initialPhotos" :key="index" :class="galleryColumns">
+        <q-img class="cursor-pointer rounded-borders" :height="photoHeight" :src="photo" @click="toggleCarouselDialog(index)" />
+      </div>
+      <div v-if="!hideShowMore" class="justify-center row w-full">
+        <span class="cursor-pointer justify-center text-primary text-weight-bolder" @click="showMore">{{ labelShowMore }}</span>
+      </div>
+      <qas-dialog v-model="carouselDialog" :cancel="false" class="q-pa-xl" min-width="1100px" :ok="false" :persistent="false">
+        <template #header>
+          <div class="justify-end row">
+            <qas-btn v-close-popup dense flat icon="o_close" rounded @click="toggleCarouselDialog" />
+          </div>
+        </template>
+        <template #description>
+          <q-carousel v-model="photoIndex" animated :arrows="!$_isSmall" control-text-color="primary" :fullscreen="$_isSmall" :height="carouselPhotoHeight" :next-icon="carouselNextIcon" :prev-icon="carouselPrevIcon" swipeable :thumbnails="showThumbnails">
+            <q-carousel-slide v-for="(photo, index) in photos" :key="index" class="bg-no-repeat bg-size-contain" :img-src="photo" :name="index">
+              <div v-if="$_isSmall" class="justify-end row w-full">
+                <qas-btn dense flat icon="o_close" @click="toggleCarouselDialog" />
+              </div>
+            </q-carousel-slide>
+          </q-carousel>
+        </template>
+      </qas-dialog>
     </div>
-    <div v-if="!hideShowMore" class="justify-center row w-full">
-      <span class="cursor-pointer justify-center text-primary text-weight-bolder" @click="showMore">{{ labelShowMore }}</span>
-    </div>
-    <qas-dialog v-model="carouselDialog" :cancel="false" class="q-pa-xl" min-width="1100px" :ok="false" :persistent="false">
-      <template #header>
-        <div class="justify-end row">
-          <qas-btn v-close-popup dense flat icon="o_close" rounded @click="toggleCarouselDialog" />
-        </div>
-      </template>
-      <template #description>
-        <q-carousel v-model="photoIndex" animated :arrows="!$_isSmall" control-text-color="primary" :fullscreen="$_isSmall" :height="carouselPhotoHeight" :next-icon="carouselNextIcon" :prev-icon="carouselPrevIcon" swipeable :thumbnails="showThumbnails">
-          <q-carousel-slide v-for="(photo, index) in photos" :key="index" class="bg-no-repeat bg-size-contain" :img-src="photo" :name="index">
-            <div v-if="$_isSmall" class="justify-end row w-full">
-              <qas-btn dense flat icon="o_close" @click="toggleCarouselDialog" />
-            </div>
-          </q-carousel-slide>
-        </q-carousel>
-      </template>
-    </qas-dialog>
-  </div>
+  </qas-box>  
 </template>
 
 <script>

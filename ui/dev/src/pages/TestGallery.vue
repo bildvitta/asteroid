@@ -2,9 +2,7 @@
   <q-page class="container  spaced">
     <div>
       <qas-label label="Fotos" />
-      <qas-box class="q-pa-lg">
-        <qas-gallery :photos="images" />
-      </qas-box>
+      <qas-gallery :photos="images" />
     </div>
   </q-page>
 </template>
