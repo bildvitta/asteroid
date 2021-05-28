@@ -178,12 +178,16 @@ export default {
       }
 
       return !this.value && (value === undefined || typeof value === 'string')
+    },
+
+    isNumberType () {
+      return this.field.type === 'number'
     }
   },
 
   methods: {
     emitValue (value) {
-      this.$emit('input', value)
+      this.$emit('input', this.isNumberType ? Number(value) : value)
     }
   }
 }
