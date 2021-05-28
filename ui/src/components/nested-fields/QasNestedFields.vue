@@ -197,13 +197,13 @@ export default {
     },
 
     children () {
-      for (const key in this.field?.children) {
-        // FIXME: não alterar diretamente uma prop, precisa fazer uma cópia.
-        // eslint-disable-next-line
-        this.field.children[key].name = camelize(this.field.children[key].name)
+      const field = extend(true, {}, this.field)
+
+      for (const key in field?.children) {
+        field.children[key].name = camelize(field?.children[key].name)
       }
 
-      return this.field?.children
+      return field?.children
     },
 
     showDestroyBtn () {
