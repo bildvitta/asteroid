@@ -47,6 +47,11 @@ export default {
       default: ''
     },
 
+    initialPhotosQuantity: {
+      type: Number,
+      default: 6
+    },
+
     labelShowMore: {
       type: String,
       default: 'Ver mais'
@@ -57,12 +62,7 @@ export default {
       default: () => ([])
     },
 
-    photosQuantityToShow: {
-      type: Number,
-      default: 6
-    },
-
-    photosQuantityToShowMore: {
+    photosQuantityToLoad: {
       type: Number,
       default: 6
     }
@@ -72,7 +72,7 @@ export default {
     return {
       carouselDialog: false,
       photoIndex: [],
-      displayedPhotos: this.photosQuantityToShow
+      displayedPhotos: this.initialPhotosQuantity
     }
   },
 
@@ -119,7 +119,7 @@ export default {
     },
 
     showMore () {
-      this.displayedPhotos = this.displayedPhotos + this.photosQuantityToShowMore
+      this.displayedPhotos = this.displayedPhotos + this.photosQuantityToLoad
     },
 
     // TODO Implementar funcao generica para getImage

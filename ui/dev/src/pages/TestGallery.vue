@@ -3,7 +3,7 @@
     <div>
       <qas-label label="Fotos" />
       <qas-box class="q-pa-lg">
-        <qas-gallery label-show-more="carregar mais fotos" :photos="images" :photos-quantity-to-show="4" :photos-quantity-to-show-more="2" />
+        <qas-gallery :photos="images" />
       </qas-box>
     </div>
   </q-page>
@@ -14,6 +14,14 @@ export default {
   computed: {
     images () {
       return [
+        'https://cdn.pixabay.com/photo/2016/10/10/12/54/space-1728314_960_720.jpg',
+        'https://cdn.pixabay.com/photo/2016/10/10/12/54/space-1728314_960_720.jpg',
+        'https://cdn.pixabay.com/photo/2016/10/10/12/54/space-1728314_960_720.jpg',
+        'https://cdn.pixabay.com/photo/2016/10/10/12/54/space-1728314_960_720.jpg',
+        'https://cdn.pixabay.com/photo/2016/10/10/12/54/space-1728314_960_720.jpg',
+        'https://cdn.pixabay.com/photo/2016/10/10/12/54/space-1728314_960_720.jpg',
+        'https://cdn.pixabay.com/photo/2016/10/10/12/54/space-1728314_960_720.jpg',
+        'https://cdn.pixabay.com/photo/2016/10/10/12/54/space-1728314_960_720.jpg',
         'https://cdn.pixabay.com/photo/2016/10/10/12/54/space-1728314_960_720.jpg'
       ]
     },
