@@ -6,8 +6,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
-## Changes
-- `Qas-Field` changed to return number when needed to return a number.
+### Changes
+- `QasField` changed emit value when field is type number.
 
 ## 2.1.0 - 2021-05-15
 
