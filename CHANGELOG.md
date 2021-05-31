@@ -8,13 +8,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- `rounded-borders-top`, `rounded-borders-right`, `rounded-borders-bottom` and `rounded-borders-left` CSS classes.
+- Added `rounded-borders-top`, `rounded-borders-right`, `rounded-borders-bottom` and `rounded-borders-left` CSS classes.
+- Added `QasGallery`.
+- Added `width` prop in `QasTooltip`.
 
 ### Changed
 
 - `QasAppBar` and `QasAppMenu` default style.
+- `QasField` emits value as a `Number` when it is originally a number.
+
 ### Fixed
 
+- Fix import filterObject in helpers
 - Added cloned value for `field` in computed `children` inside `QasNestedFields`
 - System scrollbar height.
 
