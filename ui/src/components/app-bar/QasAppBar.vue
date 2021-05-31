@@ -30,7 +30,7 @@
           <div class="ellipsis text-bold">{{ user.email }}</div>
         </div>
 
-        <q-menu anchor="bottom end" content-class="shadow-primary" max-height="400px" self="top end" :offset="[0, 5]">
+        <q-menu anchor="bottom end" content-class="shadow-primary" max-height="400px" :offset="[0, 5]" self="top end">
           <div class="qas-toolbar__user-menu">
             <div class="q-pa-lg text-center">
               <button class="unset" @click="goToProfile">

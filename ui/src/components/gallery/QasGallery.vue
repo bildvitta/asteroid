@@ -26,7 +26,7 @@
         </template>
       </qas-dialog>
     </div>
-  </qas-box>  
+  </qas-box>
 </template>
 
 <script>
@@ -86,7 +86,7 @@ export default {
     },
 
     itemHeight () {
-      if(this.isSingleItem) {
+      if (this.isSingleItem) {
         return this.height || 'auto'
       }
 
