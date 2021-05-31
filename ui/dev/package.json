@@ -14,7 +14,8 @@
     "axios": "^0.21.1",
     "core-js": "^3.6.5",
     "quasar": "^1.15.13",
-    "vue-i18n": "^8.0.0"
+    "vue-i18n": "^8.0.0",
+    "vue2-google-maps": "^0.10.7"
   },
   "devDependencies": {
     "@bildvitta/quasar-app-extension-responsive": "^0.0.6",
