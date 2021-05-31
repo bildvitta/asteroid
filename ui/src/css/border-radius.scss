@@ -6,3 +6,24 @@
 .rounded-borders-lg {
   border-radius: calc(#{$generic-border-radius} * 2) !important;
 }
+
+// Compositions
+.rounded-borders-top {
+  border-bottom-left-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
+}
+
+.rounded-borders-right {
+  border-bottom-left-radius: 0 !important;
+  border-top-left-radius: 0 !important;
+}
+
+.rounded-borders-bottom {
+  border-top-left-radius: 0 !important;
+  border-top-right-radius: 0 !important;
+}
+
+.rounded-borders-left {
+  border-bottom-right-radius: 0 !important;
+  border-top-right-radius: 0 !important;
+}

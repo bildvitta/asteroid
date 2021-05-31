@@ -6,18 +6,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
-### Changes
-- `QasField` changed emit value when field is type number.
-
 ### Added
 
-- Added `QasGallery`
-- Width prop in QasTooltip
+- Added `rounded-borders-top`, `rounded-borders-right`, `rounded-borders-bottom` and `rounded-borders-left` CSS classes.
+- Added `QasGallery`.
+- Added `width` prop in `QasTooltip`.
+
+### Changed
+
+- `QasAppBar` and `QasAppMenu` default style.
+- `QasField` emits value as a `Number` when it is originally a number.
 
 ### Fixed
 
 - Fix import filterObject in helpers
 - Added cloned value for `field` in computed `children` inside `QasNestedFields`
+- System scrollbar height.
 
 ## 2.2.0 - 2021-05-26
 

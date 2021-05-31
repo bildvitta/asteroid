@@ -1,35 +1,37 @@
 <template>
-  <q-drawer v-model="model" bordered>
-    <q-scroll-area class="fit" :class="scrollAreaClass">
-      <q-list padding>
-        <div v-for="(header, index) in items" :key="index">
-          <q-expansion-item v-if="hasChildren(header)" expand-icon="o_keyboard_arrow_down" expand-separator :icon="header.icon" :label="header.label">
-            <q-item v-for="(item, itemIndex) in header.children" :key="itemIndex" v-ripple :class="itemClass" clickable :to="item.to">
-              <q-item-section v-if="item.icon" avatar>
-                <q-icon :name="item.icon" />
-              </q-item-section>
-              <q-item-section>
-                <q-item-label>{{ item.label }}</q-item-label>
-              </q-item-section>
-            </q-item>
-          </q-expansion-item>
-
-          <q-item v-else :key="index" v-ripple :class="itemClass" clickable :to="header.to">
-            <q-item-section v-if="header.icon" avatar>
-              <q-icon :name="header.icon" />
+  <q-drawer v-model="model" content-class="bg-primary-contrast" :mini="miniMode" :width="230" @before-hide="beforeHide">
+    <q-list class="text-primary" padding>
+      <div v-for="(header, index) in items" :key="index">
+        <q-expansion-item v-if="hasChildren(header)" expand-icon="o_keyboard_arrow_down" expand-icon-class="opacity-20 text-primary" expand-separator :icon="header.icon" :label="header.label">
+          <q-item v-for="(item, itemIndex) in header.children" :key="itemIndex" v-ripple clickable :exact-active-class="activeItemClasses" :to="item.to">
+            <q-item-section v-if="item.icon" avatar>
+              <q-icon :name="item.icon" />
             </q-item-section>
             <q-item-section>
-              <q-item-label>{{ header.label }}</q-item-label>
+              <q-item-label>{{ item.label }}</q-item-label>
             </q-item-section>
           </q-item>
-        </div>
-      </q-list>
-    </q-scroll-area>
+        </q-expansion-item>
+
+        <q-item v-else :key="index" v-ripple clickable :exact-active-class="activeItemClasses" :to="header.to">
+          <q-item-section v-if="header.icon" avatar>
+            <q-icon :name="header.icon" />
+          </q-item-section>
+          <q-item-section>
+            <q-item-label>{{ header.label }}</q-item-label>
+          </q-item-section>
+        </q-item>
+      </div>
+    </q-list>
   </q-drawer>
 </template>
 
 <script>
+import { screenMixin } from '../../mixins'
+
 export default {
+  mixins: [screenMixin],
+
   props: {
     itemClass: {
       default: '',
@@ -41,18 +43,23 @@ export default {
       type: Array
     },
 
-    scrollAreaClass: {
-      default: '',
-      type: [Array, Object, String]
-    },
-
     value: {
       default: true,
       type: Boolean
     }
   },
 
+  data () {
+    return {
+      miniMode: false
+    }
+  },
+
   computed: {
+    activeItemClasses () {
+      return ['bg-prymary', 'text-primary-contrast']
+    },
+
     model: {
       get () {
         return this.value
@@ -67,6 +74,13 @@ export default {
   methods: {
     hasChildren ({ children }) {
       return !!(children || []).length
+    },
+
+    beforeHide () {
+      if (this.$_isLarge) {
+        this.model = true
+        this.miniMode = !this.miniMode
+      }
     }
   }
 }

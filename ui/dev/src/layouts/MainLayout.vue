@@ -1,6 +1,6 @@
 <template>
   <q-layout view="hHh Lpr lFf">
-    <q-header>
+    <q-header height-hint="70">
       <qas-app-bar :apps="apps" :is-auth="true" :title="`quasar-ui-asteroid v${version}`" :user="user" @sign-out="signOut" @toggle-menu="toggleMenuDrawer" />
     </q-header>
 
@@ -14,6 +14,7 @@
 
 <script>
 import { version } from 'ui'
+import pages from '../router/pages'
 
 const apps = [
   {
@@ -44,28 +45,15 @@ const apps = [
 
 const menuList = [
   {
-    label: 'Usuários',
-    icon: 'o_people_alt',
-    children: [
-      {
-        label: 'Lista de usuários',
-        to: { name: 'UsersList' }
-      },
-      {
-        label: 'Grupos',
-        to: { name: 'GroupsList' }
-      },
-      {
-        label: 'Aprovação de cadastro',
-        to: { name: 'ApprovalsList' }
-      }
-    ]
+    label: 'Início',
+    icon: 'o_home',
+    to: { name: 'Root' }
   },
 
   {
-    label: 'Políticas',
-    icon: 'o_supervised_user_circle',
-    to: { name: 'PoliciesList' }
+    label: 'Páginas',
+    icon: 'o_layers',
+    children: pages.map(page => ({ label: page.title, to: '/' + page.path }))
   }
 ]
 
