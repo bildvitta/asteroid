@@ -87,7 +87,7 @@ export default {
 
     itemHeight () {
       if(this.isSingleItem) {
-        return this.height ? this.height : 'auto'
+        return this.height || 'auto'
       }
 
       return this.$_isSmall ? '90px' : '120px'
