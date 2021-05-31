@@ -57,7 +57,7 @@ export default {
 
   computed: {
     activeItemClasses () {
-      return ['bg-prymary', 'text-primary-contrast']
+      return 'bg-prymary text-primary-contrast'
     },
 
     model: {
