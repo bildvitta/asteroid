@@ -6,6 +6,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+### Changes
+- `QasField` changed emit value when field is type number.
+
 ### Added
 
 - Added `QasGallery`
