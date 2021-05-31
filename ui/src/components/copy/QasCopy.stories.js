@@ -19,6 +19,10 @@ export default {
 
     label: {
       description: 'Text to be copied.'
+    },
+
+    size: {
+      description: 'Size of your icon'
     }
   }
 }

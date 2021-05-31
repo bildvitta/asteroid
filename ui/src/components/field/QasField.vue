@@ -60,7 +60,8 @@ export default {
         prefix,
         type,
         mask,
-        pattern
+        pattern,
+        maxFiles
       } = this.formatedField
 
       // Default error attributes for Quasar.
@@ -121,7 +122,7 @@ export default {
         radio: { is: 'q-option-group', label, options, type: 'radio', ...error },
 
         select: { is: 'q-select', emitValue: true, mapOptions: true, multiple, options, ...input },
-        upload: { is: 'qas-uploader', accept, autoUpload: true, entity, label, multiple, ...error },
+        upload: { is: 'qas-uploader', accept, autoUpload: true, entity, label, multiple, readonly, maxFiles, ...error },
         editor: { is: 'q-editor', toolbar, ...error }
       }
 

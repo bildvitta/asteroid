@@ -1,8 +1,8 @@
 // https://quasar.dev/style/other-helper-classes#border-related
 .rounded-borders-sm {
-  border-radius: calc(#{$generic-border-radius} / 2);
+  border-radius: calc(#{$generic-border-radius} / 2) !important;
 }
 
 .rounded-borders-lg {
-  border-radius: calc(#{$generic-border-radius} * 2);
+  border-radius: calc(#{$generic-border-radius} * 2) !important;
 }

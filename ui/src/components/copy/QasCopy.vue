@@ -2,7 +2,7 @@
   <span>
     <slot>{{ label }}</slot>
 
-    <q-btn class="q-ml-xs" color="grey-5" flat :icon="icon" round size="xs" @click="copy">
+    <q-btn class="q-ml-xs" color="grey-5" flat :icon="icon" round :size="size" @click="copy">
       <q-tooltip>Copiar</q-tooltip>
     </q-btn>
   </span>
@@ -21,6 +21,11 @@ export default {
 
     label: {
       required: true,
+      type: String
+    },
+
+    size: {
+      default: 'sm',
       type: String
     }
   },

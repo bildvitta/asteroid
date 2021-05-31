@@ -1,15 +1,15 @@
 .text-baseline {
-  vertical-align: baseline;
+  vertical-align: baseline !important;
 }
 
 .text-break {
-  word-break: break-all;
+  word-break: break-all !important;
 }
 
 .text-underline {
-  text-decoration: underline;
+  text-decoration: underline !important;
 }
 
 .text-no-decoration {
-  text-decoration: none;
+  text-decoration: none !important;
 }

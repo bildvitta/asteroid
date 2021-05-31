@@ -1,84 +1,66 @@
 <template>
-  <q-field borderless :error="$attrs.error" :error-message="$attrs.errorMessage" :hint="hint || undefined">
-    <q-uploader v-bind="$attrs" auto-upload bordered class="fit" :factory="factory" flat method="PUT" :readonly="readOnly" v-on="$listeners" @removed="removed" @uploaded="uploaded">
+  <q-field borderless :error="error" :error-message="errorMessage" :hint="hintValue">
+    <q-uploader v-bind="$attrs" auto-upload bordered :class="uploaderClasses" :factory="factory" flat :max-files="maxFiles" method="PUT" :readonly="readonly" v-on="$listeners" @factory-failed="factoryFailed" @uploaded="uploaded">
       <template #header="scope">
-        <button class="flex flex-center full-width justify-between no-border no-wrap q-gutter-xs q-pa-sm text-white transparent" unelevated @click="scope.pickFiles">
+        <div class="flex flex-center full-width justify-between no-border no-wrap q-gutter-xs q-pa-sm text-white transparent">
           <q-spinner v-if="scope.isUploading" size="24px" />
 
           <div class="col column items-start justify-center">
             <div v-if="scope.label" class="q-uploader__title">{{ scope.label }}</div>
-            <div class="q-uploader__subtitle">{{ scope.uploadProgressLabel }} ({{ scope.uploadSizeLabel }})</div>
+            <div v-if="scope.files.length" class="q-uploader__subtitle">{{ scope.uploadProgressLabel }} ({{ scope.uploadSizeLabel }})</div>
           </div>
 
-          <q-btn v-if="!scope.hideUploadBtn && scope.canAddFiles" dense flat icon="o_add" round />
+          <q-btn v-if="showAddFile" ref="buttonUpload" dense flat icon="o_add" round />
+
+          <q-uploader-add-trigger v-if="showAddFile" ref="uploaderTrigger" />
+
+          <q-btn ref="buttonCleanFiles" class="hidden" @click="scope.removeUploadedFiles" />
 
           <q-btn v-if="scope.canUpload" dense flat icon="o_cloud_upload" round @click="scope.upload" />
           <q-btn v-if="scope.isUploading" dense flat icon="o_clear" round @click="scope.abort" />
-        </button>
-        <q-uploader-add-trigger />
+        </div>
       </template>
 
       <template #list="scope">
-        <q-list class="row">
-          <q-item v-if="hasAPIValue && !scope.isUploading" class="col-auto items-center q-mb-lg q-mx-lg q-pa-none">
-            <q-item-section avatar top>
-              <q-avatar v-if="value" rounded>
-                <img :src="value">
-              </q-avatar>
+        <div class="col-12 q-col-gutter-md row">
+          <div v-for="(file, index) in filesList(scope.files, scope)" :key="index" class="row" :class="itemClass">
+            <qas-avatar class="q-mr-sm" color="grey-3" icon="o_attach_file" :image="file.image" rounded :text-color="colorFileIcon(file)" />
 
-              <q-avatar v-else color="grey-3" icon="o_attach_file" rounded :text-color="isFileFailed(file) ? 'negative' : 'primary'" />
-            </q-item-section>
-
-            <q-item-section>
-              <q-item-label class="text-black">{{ imageName }}</q-item-label>
-            </q-item-section>
-
-            <q-item-section side>
-              <div class="q-gutter-xs text-grey-8">
-                <q-btn dense flat icon="o_delete" round @click="resetValue" />
+            <div class="col items-center no-wrap row">
+              <div class="column no-wrap" :class="{ col: isMultiple }">
+                <div class="ellipsis" :class="fileNameClass(file.isFailed)">{{ file.name }}</div>
+                <div v-if="file.isUploaded" class="text-caption">{{ file.progressLabel }} ({{ file.sizeLabel }})</div>
               </div>
-            </q-item-section>
-          </q-item>
-          <q-item v-for="file in scope.files" :key="file.name" class="col-auto items-center q-mb-lg q-mx-lg q-pa-none">
-            <q-item-section avatar top>
-              <q-avatar v-if="file.__img" rounded>
-                <img :alt="file.name" :src="file.__img.src">
-              </q-avatar>
-
-              <q-avatar v-else color="grey-3" icon="o_attach_file" rounded :text-color="isFileFailed(file) ? 'negative' : 'primary'" />
-            </q-item-section>
-
-            <q-item-section>
-              <q-item-label class="text-black" :class="{ 'text-negative': isFileFailed(file) }">{{ file.name }}</q-item-label>
-              <q-item-label caption>{{ file.__progressLabel }} ({{ file.__sizeLabel }})</q-item-label>
-            </q-item-section>
-
-            <q-item-section side>
-              <div class="q-gutter-xs text-grey-8">
-                <q-circular-progress v-if="isFileUploading(file)" :indeterminate="!file.__progress" :max="1" :min="0" :value="file.__progress" />
-
-                <q-icon v-if="isFileFailed(file)" color="negative" name="o_warning" size="20px" />
-
-                <!-- TODO: Retirar essa linha comentada? -->
-                <!-- <q-btn v-if="isFileUploaded(file)" dense flat icon="o_cloud_download" round /> -->
-                <q-btn dense flat :icon="isFileUploaded(file) ? 'o_delete' : 'o_clear'" round @click="scope.removeFile(file)" />
+              <div class="items-center q-ml-sm row">
+                <q-icon v-if="file.isFailed" color="negative" name="o_warning" size="20px" />
+                <q-btn v-if="!scope.readonly" dense flat icon="o_delete" round @click="removeItem(index, scope, file)" />
               </div>
-            </q-item-section>
-          </q-item>
-        </q-list>
+            </div>
+          </div>
+        </div>
       </template>
     </q-uploader>
+    <slot :context="self" name="custom-upload" />
   </q-field>
 </template>
 
 <script>
 import api from 'axios'
-import { uid } from 'quasar'
+import { uid, extend } from 'quasar'
 
 export default {
   props: {
     entity: {
       required: true,
+      type: String
+    },
+
+    error: {
+      type: Boolean
+    },
+
+    errorMessage: {
+      default: '',
       type: String
     },
 
@@ -88,58 +70,73 @@ export default {
     },
 
     maxFiles: {
-      default: 1,
+      default: undefined,
       type: Number
+    },
+
+    readonly: {
+      type: Boolean
     },
 
     value: {
       default: '',
       type: [Array, String]
     }
-
   },
 
   data () {
     return {
-      files: [],
       isFetching: false,
-      paths: {}
+      isUploading: false
     }
   },
 
   computed: {
-    hasAPIValue () {
-      return this.value.startsWith('https://s3.amazonaws.com/')
+    self () {
+      return this
     },
 
-    hasBottom () {
-      return !!this.error || !!this.errorMessage || !!this.hint
+    uploaderClasses () {
+      return this.hasCustomUpload ? 'hidden' : 'fit'
     },
 
-    imageName () {
-      return `${this.value}`.split('/').pop()
+    showAddFile () {
+      if (this.readonly) return
+
+      return this.maxFiles ? this.value.length < this.maxFiles : true
     },
 
-    readOnly () {
-      return this.files.length >= this.maxFiles
-    }
-  },
+    isMultiple () {
+      return this.$attrs.multiple || this.$attrs.multiple === ''
+    },
 
-  watch: {
-    files (files) {
-      this.$emit('input', files.length > 1 ? files : files[0] || '')
+    hasCustomUpload () {
+      return this.$slots['custom-upload'] || this.$scopedSlots['custom-upload']
+    },
+
+    itemClass () {
+      return this.isMultiple ? 'col-12 col-md-3 col-sm-4' : 'col-12'
+    },
+
+    hintValue () {
+      return this.hint || undefined
     }
   },
 
   methods: {
     async factory ([file]) {
-      const name = `${uid()}.${file.name.split('.').pop()}`
-      const { endpoint, path } = await this.fetch(name)
+      if (!this.isMultiple) {
+        this.$refs.buttonCleanFiles.$el.click()
+      }
 
-      this.paths[file.name] = path
+      const name = `${uid()}.${file.name.split('.').pop()}`
+      const { endpoint } = await this.fetch(name)
 
       return {
-        headers: [{ name: 'Content-Type', value: file.type || 'image/jpeg' }],
+        headers: [
+          { name: 'Content-Type', value: file.type || 'image/jpeg' },
+          { name: 'Content-Disposition', value: 'Attachment' }
+        ],
         sendRaw: true,
         url: endpoint
       }
@@ -147,6 +144,12 @@ export default {
 
     factoryFailed () {
       this.$notify('The file could not be sent.')
+    },
+
+    uploaded (response) {
+      const fullPath = response.xhr.responseURL.split('?').shift()
+
+      this.$emit('input', this.isMultiple ? [...this.value, fullPath] : fullPath || '')
     },
 
     async fetch (filename) {
@@ -163,30 +166,84 @@ export default {
       }
     },
 
-    isFileFailed (file) {
+    removeItem (index, scope, file) {
+      if (file.isUploaded) {
+        scope.removeFile(scope.files[file.indexToDelete])
+      }
+
+      if (file.isFailed) return
+
+      if (!this.isMultiple) {
+        return this.$emit('input')
+      }
+
+      const clonedValue = extend(true, [], this.value)
+      const numberIndex = this.value.findIndex(file => this.fileName(file) === index)
+      clonedValue.splice(numberIndex, 1)
+      this.$emit('input', clonedValue)
+    },
+
+    dispatchUpload () {
+      this.$refs.buttonCleanFiles.$el.click()
+      this.$refs.uploaderTrigger.$el.click()
+    },
+
+    fileName (value) {
+      return value.split('/').pop()
+    },
+
+    filesList (uploadedFiles) {
+      const pathsList = Array.isArray(this.value) ? this.value : (this.value ? [this.value] : [])
+
+      uploadedFiles = uploadedFiles.map((file, indexToDelete) => {
+        return {
+          isUploaded: true,
+          image: file.xhr ? file.xhr.responseURL.split('?').shift() : '',
+          name: file.name,
+          progressLabel: file.__progressLabel,
+          sizeLabel: file.__sizeLabel,
+          indexToDelete,
+          isFailed: this.isFailed(file)
+        }
+      })
+
+      const mergedList = [...pathsList, ...uploadedFiles]
+
+      const files = {}
+
+      mergedList.forEach(file => {
+        if (file.isFailed) {
+          files[file.name] = file
+          return
+        }
+
+        if (typeof file === 'string') {
+          const fileName = this.fileName(file)
+          files[fileName] = { image: file, isUploaded: false, name: fileName }
+          return
+        }
+
+        if (file.image) {
+          const fileName = this.fileName(file.image)
+          files[fileName] = file
+        }
+      })
+
+      return files
+    },
+
+    fileNameClass (isFailed) {
+      return isFailed ? 'text-negative' : 'text-grey-8'
+    },
+
+    isFailed (file) {
       return file.__status === 'failed'
     },
 
-    isFileUploaded (file) {
-      return file.__status === 'uploaded'
-    },
-
-    isFileUploading (file) {
-      return file.__status === 'uploading'
-    },
-
-    removed ([file]) {
-      const path = this.paths[file.name]
-      this.files = this.files.filter(item => item !== path)
-    },
-
-    resetValue () {
-      this.$emit('input', '')
-    },
-
-    uploaded ({ files }) {
-      this.files.push(this.paths[files[0].name])
+    colorFileIcon (file) {
+      return this.isFailed(file) ? 'negative' : 'primary'
     }
+
   }
 }
 </script>

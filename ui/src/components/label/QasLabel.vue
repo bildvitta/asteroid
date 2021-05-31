@@ -1,5 +1,5 @@
 <template>
-  <div class="q-mb-sm text-bold text-subtitle2" v-bind="$attrs" v-on="$listeners">
+  <div class="text-bold text-subtitle2" :class="labelClasses" v-bind="$attrs" v-on="$listeners">
     <!-- TODO: Remover camelCase. -->
     <slot :formattedLabel="formattedLabel">
       {{ formattedLabel }}
@@ -14,7 +14,11 @@ export default {
   props: {
     label: {
       default: '',
-      required: true,
+      type: String
+    },
+
+    margin: {
+      default: 'sm',
       type: String
     },
 
@@ -27,6 +31,10 @@ export default {
   computed: {
     formattedLabel () {
       return formatLabel(this.quantity, this.label)
+    },
+
+    labelClasses () {
+      return `q-mb-${this.margin}`
     }
   }
 }

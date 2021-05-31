@@ -23,7 +23,7 @@
       <slot name="tools" />
 
       <div v-if="isAuth" class="cursor-pointer items-center q-mr-sm qas-toolbar__user row" :title="user.name || user.givenName">
-        <qas-avatar color="white" dark :image="asset(user.photo)" rounded size="36px" text-color="primary" :title="user.name || user.givenName" />
+        <qas-avatar color="white" dark :image="user.photo" rounded size="36px" text-color="primary" :title="user.name || user.givenName" />
 
         <div class="q-pl-xs q-pr-sm qas-toolbar__user-data qs-lh-sm">
           <div class="ellipsis">{{ user.name || user.givenName }}</div>
@@ -34,7 +34,7 @@
           <div class="qas-toolbar__user-menu">
             <div class="q-pa-lg text-center">
               <button class="unset" @click="goToProfile">
-                <qas-avatar :image="asset(user.photo)" size="145px" :title="user.name || user.givenName" />
+                <qas-avatar :image="user.photo" size="145px" :title="user.name || user.givenName" />
               </button>
 
               <div class="ellipsis q-mt-lg qs-lh-sm text-bold text-subtitle1">{{ user.name || user.givenName }}</div>
@@ -58,8 +58,6 @@
 </template>
 
 <script>
-import { asset } from '../../helpers'
-
 import QasAppsMenu from '../apps-menu/QasAppsMenu'
 import QasAvatar from '../avatar/QasAvatar'
 import QasBtn from '../btn/QasBtn'
@@ -133,8 +131,6 @@ export default {
   },
 
   methods: {
-    asset,
-
     goToProfile () {
       return this.$router.push(this.user.to)
     },
