@@ -22,6 +22,7 @@ import QasField from './components/field/QasField'
 import QasFilters from './components/filters/QasFilters'
 import QasFormGenerator from './components/form-generator/QasFormGenerator'
 import QasFormView from './components/form-view/QasFormView'
+import QasGallery from './components/gallery/QasGallery'
 import QasGridGenerator from './components/grid-generator/QasGridGenerator'
 import QasInput from './components/input/QasInput'
 import QasLabel from './components/label/QasLabel'
@@ -90,6 +91,7 @@ export {
   QasFilters,
   QasFormGenerator,
   QasFormView,
+  QasGallery,
   QasGridGenerator,
   QasInput,
   QasLabel,
@@ -144,6 +146,7 @@ export default {
   QasFilters,
   QasFormGenerator,
   QasFormView,
+  QasGallery,
   QasGridGenerator,
   QasInput,
   QasLabel,
@@ -197,6 +200,7 @@ export default {
     Vue.component('QasFilters', QasFilters)
     Vue.component('QasFormGenerator', QasFormGenerator)
     Vue.component('QasFormView', QasFormView)
+    Vue.component('QasGallery', QasGallery)
     Vue.component('QasGridGenerator', QasGridGenerator)
     Vue.component('QasInput', QasInput)
     Vue.component('QasLabel', QasLabel)
