@@ -7,10 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## Unreleased
 
 ### Added
+
 - Added `QasGallery`
+- Width prop in QasTooltip
 
 ### Fixed
 
+- Fix import filterObject in helpers
 - Added cloned value for `field` in computed `children` inside `QasNestedFields`
 
 ## 2.2.0 - 2021-05-26
