@@ -6,9 +6,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+### Added
+
+- `rounded-borders-top`, `rounded-borders-right`, `rounded-borders-bottom` and `rounded-borders-left` CSS classes.
+
+### Changed
+
+- `QasAppBar` and `QasAppMenu` default style.
 ### Fixed
 
 - Added cloned value for `field` in computed `children` inside `QasNestedFields`
+- System scrollbar height.
 
 ## 2.2.0 - 2021-05-26
 

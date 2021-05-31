@@ -1,14 +1,14 @@
 <template>
-  <q-toolbar class="qas-toolbar">
+  <q-toolbar class="qas-toolbar shadow-primary">
     <q-ajax-bar color="white" position="top" size="2px" />
 
     <q-btn dense flat icon="o_menu" round @click="toggleMenuDrawer" />
 
     <q-toolbar-title class="flex">
       <div class="cursor-pointer" @click="goToRoot">
-        <img v-if="brand" :alt="title" class="qas-toolbar__brand" :src="brand">
-        {{ title }}
-        <q-badge v-if="hasDevelopmentBadge" align="middle" color="negative" :label="developmentBadgeLabel" />
+        <img v-if="brand" :alt="title" class="q-mr-sm qas-toolbar__brand" :src="brand">
+        <span class="text-bold text-primary-contrast text-subtitle1 text-uppercase">{{ title }}</span>
+        <q-badge v-if="hasDevelopmentBadge" align="middle" class="q-ml-sm" color="negative" :label="developmentBadgeLabel" />
       </div>
     </q-toolbar-title>
 
@@ -22,15 +22,15 @@
     <div class="items-center no-wrap q-gutter-md row">
       <slot name="tools" />
 
-      <div v-if="isAuth" class="cursor-pointer items-center q-mr-sm qas-toolbar__user row" :title="user.name || user.givenName">
-        <qas-avatar color="white" dark :image="user.photo" rounded size="36px" text-color="primary" :title="user.name || user.givenName" />
+      <div v-if="isAuth" class="cursor-pointer items-center q-mr-sm qas-toolbar__user rounded-borders row" :title="user.name || user.givenName">
+        <qas-avatar class="rounded-borders-left" color="white" dark :image="user.photo" rounded size="42px" text-color="primary" :title="user.name || user.givenName" />
 
-        <div class="q-pl-xs q-pr-sm qas-toolbar__user-data qs-lh-sm">
+        <div class="q-px-sm qas-toolbar__user-data qs-lh-lg text-caption">
           <div class="ellipsis">{{ user.name || user.givenName }}</div>
-          <div class="ellipsis opacity-60 qs-lh-sm text-caption">{{ user.email }}</div>
+          <div class="ellipsis text-bold">{{ user.email }}</div>
         </div>
 
-        <q-menu anchor="bottom middle" max-height="400px" self="top middle">
+        <q-menu anchor="bottom end" content-class="shadow-primary" max-height="400px" self="top end" :offset="[0, 5]">
           <div class="qas-toolbar__user-menu">
             <div class="q-pa-lg text-center">
               <button class="unset" @click="goToProfile">
@@ -40,12 +40,12 @@
               <div class="ellipsis q-mt-lg qs-lh-sm text-bold text-subtitle1">{{ user.name || user.givenName }}</div>
               <div class="ellipsis q-mt-xs text-caption">{{ user.email }}</div>
 
-              <div class="q-mb-lg q-mt-xs">
+              <div class="q-mt-sm">
                 <qas-btn flat icon="o_edit" label="Editar" :to="user.to" />
               </div>
 
-              <div>
-                <qas-btn v-close-popup class="q-px-lg q-py-xs" icon="o_exit_to_app" label="Sair" outline @click="signOut" />
+              <div class="q-mt-sm">
+                <qas-btn v-close-popup class="q-px-lg q-py-xs" dense icon="o_exit_to_app" label="Sair" outline @click="signOut" />
               </div>
 
               <slot name="user" :user="user" />
@@ -106,8 +106,8 @@ export default {
     developmentBadgeLabel () {
       const hosts = {
         localhost: 'Local',
-        develop: 'Desenvolvimento',
-        release: 'Homologação'
+        develop: 'Develop',
+        release: 'Release'
       }
 
       if (process.env.DEV) {
@@ -152,8 +152,7 @@ export default {
 
 <style lang="scss">
 .qas-toolbar {
-  box-shadow: 0 0 15px rgba($grey-10, 0.25);
-  height: 64px;
+  height: 70px;
 
   &__brand {
     height: 24px;
@@ -164,7 +163,6 @@ export default {
 
   &__user {
     background-color: rgba(white, 0.1);
-    border-radius: $generic-border-radius;
     transition: background-color $generic-hover-transition;
 
     &:focus,
@@ -174,11 +172,11 @@ export default {
   }
 
   &__user-data {
-    max-width: 150px;
+    max-width: 180px;
   }
 
   &__user-menu {
-    width: 300px;
+    width: 260px;
   }
 
   @media (max-width: $breakpoint-xs) {
