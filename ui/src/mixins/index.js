@@ -3,6 +3,7 @@ import formMixin from './form.js'
 import generatorMixin from './generator.js'
 import passwordMixin from './password.js'
 import screenMixin from './screen.js'
+import unsavedChangesMixin from './unsaved-changes.js'
 import viewMixin from './view.js'
 
 export {
@@ -11,5 +12,6 @@ export {
   generatorMixin,
   passwordMixin,
   screenMixin,
+  unsavedChangesMixin,
   viewMixin
 }
