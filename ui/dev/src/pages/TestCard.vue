@@ -1,5 +1,12 @@
 <template>
   <q-page class="container flex flex-center spaced">
+    <qas-tooltip
+      v-bind="$props"
+      icon="o_assignment_late"
+      :message="message"
+      message-icon="o_assignment_late"
+      width="500px"
+    />
     <qas-card :images="images" use-header>
       <template #default>
         <div>{{ result.name }}</div>
@@ -16,6 +23,12 @@
 
 <script>
 export default {
+  data () {
+    return {
+      message: ' message message message message message message message message message message message message message message message message message message message message message message message message message message message message message message message message message message message message message message'
+    }
+  },
+
   computed: {
     images () {
       return [
