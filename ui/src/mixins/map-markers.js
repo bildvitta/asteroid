@@ -2,7 +2,7 @@ export default {
   methods: {
     $_createMarker (marker, draggable) {
       return [{
-        position: this.$_getPosition(parseFloat(marker.latitude), parseFloat(marker.longitude)),
+        position: this.$_getPosition(marker.latitude, marker.longitude),
         title: marker.title,
         description: marker.description,
         draggable: draggable,
@@ -11,7 +11,7 @@ export default {
     },
 
     $_getPosition (lat, lng) {
-      return { lat: parseFloat(lat) || -21.17663, lng: parseFloat(lng) || -47.820839 }
+      return { lat: lat || -21.17663, lng: lng || -47.820839 }
     },
 
     $_createSecondMarkers (secondMarkers) {
