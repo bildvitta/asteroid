@@ -1,11 +1,11 @@
 <template>
-  <div class="map">
+  <qas-box class="map">
     <div v-if="hasSearch" class="items-center no-wrap row">
       <gmap-autocomplete class="q-field__native q-placeholder" placeholder="Pesquisar..." @place_changed="setPlace" />
       <q-icon color="primary" name="o_search" size="24px" />
     </div>
     <gmap-map ref="map" :center="centerFocus" class="map__map-draw" :zoom="zoom">
-      <gmap-marker v-for="(marker, index) in mainMarkers" :key="index" ref="marker" :draggable="marker.draggable" :icon="marker.icon" :position="marker.position" @dragend="getPosition" @mouseout="closePopup" @mouseover="openPopup(marker)">
+      <gmap-marker v-for="(marker, index) in markers" :key="index" ref="marker" :draggable="marker.draggable" :icon="marker.icon" :position="marker.position" @dragend="getPosition" @mouseout="closePopup" @mouseover="openPopup(marker)">
         <gmap-info-window :opened="canShowInfoWindow">
           <div class="text-weight-bold">{{ marker.title }}</div>
           <div>{{ marker.description }}</div>
@@ -15,7 +15,7 @@
         <gmap-marker v-for="(marker, index) in secondMarkers" :key="index" :draggable="marker.draggable" :icon="marker.icon" :position="marker.position" />
       </div>
     </gmap-map>
-  </div>
+  </qas-box>
 </template>
 
 <script>
@@ -27,32 +27,32 @@ export default {
   ],
 
   props: {
-    mainMarkers: {
-      type: Array,
-      default: () => ([])
-    },
-
-    secondMarkers: {
-      type: Array,
-      default: () => ([])
+    centerFocus: {
+      type: Object,
+      default: () => {}
     },
 
     hasSearch: {
       type: Boolean
     },
 
-    centerFocus: {
-      type: Object,
-      default: () => ({})
+    markers: {
+      type: Array,
+      default: () => []
+    },
+
+    secondMarkers: {
+      type: Array,
+      default: () => []
+    },
+
+    showInfoWindow: {
+      type: Boolean
     },
 
     zoom: {
       type: Number,
       default: 17
-    },
-
-    showInfoWindow: {
-      type: Boolean
     }
   },
   data () {

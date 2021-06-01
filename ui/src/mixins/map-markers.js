@@ -3,8 +3,8 @@ export default {
     $_createMarker (marker, draggable) {
       return [{
         position: this.$_getPosition(parseFloat(marker.latitude), parseFloat(marker.longitude)),
-        title: marker.name,
-        description: marker.city,
+        title: marker.title,
+        description: marker.description,
         draggable: draggable,
         icon: marker.icon
       }]
@@ -14,21 +14,17 @@ export default {
       return { lat: parseFloat(lat) || -21.17663, lng: parseFloat(lng) || -47.820839 }
     },
 
-    $_getSecondMarkers (fields) {
-      return this.$_createSecondMarkers(fields.realEstateDevelopmentsMapsReferences?.options)
-    },
-
     $_createSecondMarkers (secondMarkers) {
       const markers = []
 
       if (secondMarkers) {
         secondMarkers.forEach(secondMarker => {
           markers.push({
-            id: secondMarker.data.uuid,
-            position: { lat: secondMarker.data.latitude, lng: secondMarker.data.longitude },
+            id: secondMarker.uuid,
+            position: { lat: secondMarker.latitude, lng: secondMarker.longitude },
             draggable: false,
-            title: secondMarker.data.name,
-            description: secondMarker.data.address,
+            title: secondMarker.name,
+            description: secondMarker.address,
             icon: secondMarker.icon
           })
         })
