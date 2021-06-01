@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - Adding the tag `disable` on qas-field
+- Adding the tag `hideStrengthChecker` on qas-field
 ## 2.3.2 - 2021-05-31
 
 ### Fixed
