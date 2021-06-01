@@ -6,6 +6,7 @@
 
 <script>
 import mapMarkersMixin from '../../../src/mixins/map-markers.js'
+
 export default {
   mixins: [
     mapMarkersMixin
