@@ -49,7 +49,7 @@
 </template>
 
 <script>
-import api from 'axios'
+// import api from 'axios'
 import { uid, extend } from 'quasar'
 
 export default {
@@ -129,9 +129,10 @@ export default {
 
   methods: {
     async factory ([file]) {
-      if (!this.isMultiple) {
-        this.$refs.buttonCleanFiles.$el.click()
-      }
+      console.log('factory')
+      // if (!this.isMultiple) {
+      //   this.$refs.buttonCleanFiles.$el.click()
+      // }
 
       const name = `${uid()}.${file.name.split('.').pop()}`
       const { endpoint } = await this.fetch(name)
@@ -160,7 +161,7 @@ export default {
       this.isFetching = true
 
       try {
-        const { data } = await api.post('/upload-credentials/', {
+        const { data } = await this.$axios.post('/upload-credentials/', {
           entity: this.entity,
           filename
         })

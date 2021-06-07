@@ -1,6 +1,6 @@
 <template>
   <div>
-    <qas-uploader v-model="uploader" :entity="entity" :label="labelUpload">
+    <qas-uploader v-model="uploader" :entity="entity" :label="labelUpload" ref="uploader">
       <template #header="{ scope }">
          <div class="flex flex-center full-width justify-between no-border no-wrap q-gutter-xs q-pa-sm text-white transparent">
             <div class="col column items-start justify-center">
@@ -9,13 +9,14 @@
 
             <q-btn dense flat icon="o_add" round @click="openDialog"/>
 
-            <!-- <q-btn dense flat icon="o_cloud_upload" round @click="upload(scope)" /> -->
+            <q-btn dense flat icon="o_cloud_upload" round @click="upload(scope)" />
 
           </div>
       </template>
 
       <template #list>
          <div class="col-12 q-col-gutter-md row">
+           <!-- TO DO: TRATAR SE TIVER VALOR NO V-MODEL PARA O EDIT -->
             <div v-if="values" class="row col-12">
               <qas-avatar class="q-mr-sm" color="grey-3" icon="o_attach_file" :image="values" rounded />
 
@@ -98,10 +99,39 @@ export default {
 
     upload (scope) {
       try {
-        scope.upload()
+        console.log(scope,'<----- scope')
+        const blob = this.base64ImageToBlob(this.values)
+        console.log(blob, '<----- blob')
+        const file = new File([blob], "signature.png", { type: 'image/png' })
+        console.log(file, '<----- file')
+        scope.addFiles([file])
       } catch(error) {
         console.log(error, '<---- error')
       }
+    },
+
+    base64ImageToBlob(str) {
+      // extract content type and base64 payload from original string
+      let pos = str.indexOf(';base64,')
+      let type = str.substring(5, pos)
+      let b64 = str.substr(pos + 8)
+
+      // decode base64
+      let imageContent = atob(b64)
+
+      // create an ArrayBuffer and a view (as unsigned 8-bit)
+      let buffer = new ArrayBuffer(imageContent.length)
+      let view = new Uint8Array(buffer)
+
+      // fill the view, using the decoded base64
+      for(var n = 0; n < imageContent.length; n++) {
+        view[n] = imageContent.charCodeAt(n)
+      }
+
+      // convert ArrayBuffer to Blob
+      var blob = new Blob([buffer], { type });
+
+      return blob;
     }
   }
 }
