@@ -2,42 +2,46 @@
   <q-field borderless :error="error" :error-message="errorMessage" :hint="hintValue">
     <q-uploader v-bind="$attrs" auto-upload bordered :class="uploaderClasses" :factory="factory" flat :max-files="maxFiles" method="PUT" :readonly="readonly" v-on="$listeners" @factory-failed="factoryFailed" @uploaded="uploaded">
       <template #header="scope">
-        <div class="flex flex-center full-width justify-between no-border no-wrap q-gutter-xs q-pa-sm text-white transparent">
-          <q-spinner v-if="scope.isUploading" size="24px" />
+        <slot name="header" :scope="scope">
+          <div class="flex flex-center full-width justify-between no-border no-wrap q-gutter-xs q-pa-sm text-white transparent">
+            <q-spinner v-if="scope.isUploading" size="24px" />
 
-          <div class="col column items-start justify-center">
-            <div v-if="scope.label" class="q-uploader__title">{{ scope.label }}</div>
-            <div v-if="scope.files.length" class="q-uploader__subtitle">{{ scope.uploadProgressLabel }} ({{ scope.uploadSizeLabel }})</div>
+            <div class="col column items-start justify-center">
+              <div v-if="scope.label" class="q-uploader__title">{{ scope.label }}</div>
+              <div v-if="scope.files.length" class="q-uploader__subtitle">{{ scope.uploadProgressLabel }} ({{ scope.uploadSizeLabel }})</div>
+            </div>
+
+            <q-btn v-if="showAddFile" ref="buttonUpload" dense flat icon="o_add" round />
+
+            <q-uploader-add-trigger v-if="showAddFile" ref="uploaderTrigger" />
+
+            <q-btn ref="buttonCleanFiles" class="hidden" @click="scope.removeUploadedFiles" />
+
+            <q-btn v-if="scope.canUpload" dense flat icon="o_cloud_upload" round @click="scope.upload" />
+            <q-btn v-if="scope.isUploading" dense flat icon="o_clear" round @click="scope.abort" />
           </div>
-
-          <q-btn v-if="showAddFile" ref="buttonUpload" dense flat icon="o_add" round />
-
-          <q-uploader-add-trigger v-if="showAddFile" ref="uploaderTrigger" />
-
-          <q-btn ref="buttonCleanFiles" class="hidden" @click="scope.removeUploadedFiles" />
-
-          <q-btn v-if="scope.canUpload" dense flat icon="o_cloud_upload" round @click="scope.upload" />
-          <q-btn v-if="scope.isUploading" dense flat icon="o_clear" round @click="scope.abort" />
-        </div>
+        </slot>
       </template>
 
       <template #list="scope">
-        <div class="col-12 q-col-gutter-md row">
-          <div v-for="(file, index) in filesList(scope.files, scope)" :key="index" class="row" :class="itemClass">
-            <qas-avatar class="q-mr-sm" color="grey-3" icon="o_attach_file" :image="file.image" rounded :text-color="colorFileIcon(file)" />
+        <slot name="list" :scope="scope">
+          <div class="col-12 q-col-gutter-md row">
+            <div v-for="(file, index) in filesList(scope.files, scope)" :key="index" class="row" :class="itemClass">
+              <qas-avatar class="q-mr-sm" color="grey-3" icon="o_attach_file" :image="file.image" rounded :text-color="colorFileIcon(file)" />
 
-            <div class="col items-center no-wrap row">
-              <div class="column no-wrap" :class="{ col: isMultiple }">
-                <div class="ellipsis" :class="fileNameClass(file.isFailed)">{{ file.name }}</div>
-                <div v-if="file.isUploaded" class="text-caption">{{ file.progressLabel }} ({{ file.sizeLabel }})</div>
-              </div>
-              <div class="items-center q-ml-sm row">
-                <q-icon v-if="file.isFailed" color="negative" name="o_warning" size="20px" />
-                <q-btn v-if="!scope.readonly" dense flat icon="o_delete" round @click="removeItem(index, scope, file)" />
+              <div class="col items-center no-wrap row">
+                <div class="column no-wrap" :class="{ col: isMultiple }">
+                  <div class="ellipsis" :class="fileNameClass(file.isFailed)">{{ file.name }}</div>
+                  <div v-if="file.isUploaded" class="text-caption">{{ file.progressLabel }} ({{ file.sizeLabel }})</div>
+                </div>
+                <div class="items-center q-ml-sm row">
+                  <q-icon v-if="file.isFailed" color="negative" name="o_warning" size="20px" />
+                  <q-btn v-if="!scope.readonly" dense flat icon="o_delete" round @click="removeItem(index, scope, file)" />
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        </slot>
       </template>
     </q-uploader>
     <slot :context="self" name="custom-upload" />
