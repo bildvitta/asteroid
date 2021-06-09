@@ -1,7 +1,7 @@
 <template>
   <div ref="signatureContainer" class="qas-signature-pad relative-position">
-    <canvas :id="canvasId" :ref="$attrs.ref" :height="height" class="vertical-bottom qas-signature-pad__canvas rounded-borders"/>
-    <q-btn v-if="!isEmpty" icon="o_delete" color="primary" class="qas-signature-pad__clear absolute q-mr-sm q-mb-sm" @click="clearSignature" dense round />
+    <canvas :id="canvasId" :ref="$attrs.ref" class="qas-signature-pad__canvas rounded-borders vertical-bottom" :height="height" />
+    <q-btn v-if="!isEmpty" class="absolute q-mb-sm q-mr-sm qas-signature-pad__clear" color="primary" dense icon="o_delete" round @click="clearSignature" />
   </div>
 </template>
 
@@ -13,7 +13,7 @@ import { isEqual } from 'lodash'
 export default {
   props: {
     options: {
-      default: () => ({ backgroundColor: 'white' }),
+      default: () => ({}),
       type: Object
     },
 
@@ -42,19 +42,20 @@ export default {
 
   watch: {
     options (newValue, oldValue) {
-      if(isEqual(newValue, oldValue)) return
+      console.log(newValue, '<----- new value')
+      if (isEqual(newValue, oldValue)) return
 
       this.newSignaturePad()
       this.signatureIsEmpty()
     }
   },
 
-  destroyed() {
-    window.removeEventListener('resize', this.setWidthCanvas);
+  destroyed () {
+    window.removeEventListener('resize', this.setWidthCanvas)
   },
 
   mounted () {
-    window.addEventListener('resize', this.setWidthCanvas);
+    window.addEventListener('resize', this.setWidthCanvas)
     this.setWidthCanvas()
     this.newSignaturePad()
   },
