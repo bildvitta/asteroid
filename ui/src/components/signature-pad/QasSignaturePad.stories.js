@@ -7,7 +7,7 @@ export default {
   parameters: {
     docs: {
       description: {
-        component: 'Extends the "signature_pad" library(`https://github.com/szimek/signature_pad`). Require library installed.'
+        component: 'Extends the [signature_pad](https://github.com/szimek/signature_pad) library.'
       }
     }
   },
