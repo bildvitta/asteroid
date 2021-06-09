@@ -51,6 +51,7 @@
 <script>
 // import api from 'axios'
 import { uid, extend } from 'quasar'
+import { NotifyError } from '../../plugins'
 
 export default {
   props: {
@@ -124,15 +125,20 @@ export default {
 
     hintValue () {
       return this.hint || undefined
+    },
+
+    hasHeaderSlot () {
+      return this.$slots.header || this.$scopedSlots.header
     }
   },
 
   methods: {
+    NotifyError,
+
     async factory ([file]) {
-      console.log('factory')
-      // if (!this.isMultiple) {
-      //   this.$refs.buttonCleanFiles.$el.click()
-      // }
+      if (!this.isMultiple && !this.hasHeaderSlot) {
+        this.$refs.buttonCleanFiles.$el.click()
+      }
 
       const name = `${uid()}.${file.name.split('.').pop()}`
       const { endpoint } = await this.fetch(name)
@@ -148,7 +154,7 @@ export default {
     },
 
     factoryFailed () {
-      this.$notify('The file could not be sent.')
+      NotifyError('Ops! Erro ao enviar o arquivo.')
     },
 
     uploaded (response) {

@@ -9,16 +9,16 @@
 
             <q-btn dense flat icon="o_add" round @click="openDialog"/>
 
-            <q-btn dense flat icon="o_cloud_upload" round @click="upload(scope)" />
+            <q-btn ref="forceUpload" class="hidden" @click="upload(scope)" />
+            <q-btn ref="buttonCleanFiles" class="hidden" @click="scope.removeUploadedFiles" />
 
           </div>
       </template>
 
       <template #list>
          <div class="col-12 q-col-gutter-md row">
-           <!-- TO DO: TRATAR SE TIVER VALOR NO V-MODEL PARA O EDIT -->
-            <div v-if="values" class="row col-12">
-              <qas-avatar class="q-mr-sm" color="grey-3" icon="o_attach_file" :image="values" rounded />
+            <div v-if="uploader" class="row col-12">
+              <qas-avatar class="q-mr-sm" color="grey-3" icon="o_attach_file" :image="uploader" rounded />
 
               <div class="col items-center no-wrap row">
                 <div class="column no-wrap">
@@ -51,6 +51,9 @@
 </template>
 
 <script>
+import { base64ToBlob } from '../../helpers'
+import { NotifyError } from '../../plugins'
+
 export default {
   props: {
     entity: {
@@ -66,6 +69,11 @@ export default {
     labelSignature: {
       default: 'Assinatura',
       type: String
+    },
+
+    value: {
+      default: '',
+      type: String
     }
   },
 
@@ -73,20 +81,36 @@ export default {
     return {
       dialog: false,
       isEmpty: true,
-      uploader: '',
-      values: ''
+      base64: ''
+    }
+  },
+
+  computed: {
+    uploader: {
+      get() {
+        return this.value
+      },
+
+      set(value) {
+        this.$emit('input', value)
+      }
     }
   },
 
   methods: {
+    base64ToBlob,
+
+    NotifyError,
+
     openDialog () {
       this.dialog = true
     },
 
     saveSignature () {
-      this.values = this.$refs.signaturePadModal.saveSignature()
-      console.log(this.values, '<--- this.values')
+      this.$refs.buttonCleanFiles.$el.click()
+      this.base64 = this.$refs.signaturePadModal.saveSignature()
       this.closeSignature()
+      this.$refs.forceUpload.$el.click()
     },
 
     closeSignature () {
@@ -94,44 +118,18 @@ export default {
     },
 
     removeSignature () {
-      this.values = ''
+      this.$refs.buttonCleanFiles.$el.click()
+      this.$emit('input')
     },
 
     upload (scope) {
       try {
-        console.log(scope,'<----- scope')
-        const blob = this.base64ImageToBlob(this.values)
-        console.log(blob, '<----- blob')
+        const blob = base64ToBlob(this.base64)
         const file = new File([blob], "signature.png", { type: 'image/png' })
-        console.log(file, '<----- file')
         scope.addFiles([file])
       } catch(error) {
-        console.log(error, '<---- error')
+        NotifyError('Ops! Erro ao enviar sua assinatura.')
       }
-    },
-
-    base64ImageToBlob(str) {
-      // extract content type and base64 payload from original string
-      let pos = str.indexOf(';base64,')
-      let type = str.substring(5, pos)
-      let b64 = str.substr(pos + 8)
-
-      // decode base64
-      let imageContent = atob(b64)
-
-      // create an ArrayBuffer and a view (as unsigned 8-bit)
-      let buffer = new ArrayBuffer(imageContent.length)
-      let view = new Uint8Array(buffer)
-
-      // fill the view, using the decoded base64
-      for(var n = 0; n < imageContent.length; n++) {
-        view[n] = imageContent.charCodeAt(n)
-      }
-
-      // convert ArrayBuffer to Blob
-      var blob = new Blob([buffer], { type });
-
-      return blob;
     }
   }
 }

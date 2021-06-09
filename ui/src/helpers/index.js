@@ -1,6 +1,7 @@
+import base64ToBlob from './base64-to-blob'
+import filterObject from './filter-object.js'
 import greatestCommonDivisor from './greatestCommonDivisor.js'
 import { history, handleHistory } from './historyHandler.js'
-import filterObject from './filter-object.js'
 
 import {
   asset,
@@ -44,6 +45,7 @@ export {
   handleHistory,
   history,
 
+  base64ToBlob,
   filterObject,
   greatestCommonDivisor
 }
