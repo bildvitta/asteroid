@@ -14,23 +14,6 @@
 
           </div>
       </template>
-
-      <template #list>
-         <div class="col-12 q-col-gutter-md row">
-            <div v-if="uploader" class="row col-12">
-              <qas-avatar class="q-mr-sm" color="grey-3" icon="o_attach_file" :image="uploader" rounded />
-
-              <div class="col items-center no-wrap row">
-                <div class="column no-wrap">
-                  <div class="ellipsis">{{ labelSignature }}</div>
-                </div>
-                <div class="items-center q-ml-sm row">
-                  <q-btn dense flat icon="o_delete" round @click="removeSignature" />
-                </div>
-              </div>
-            </div>
-          </div>
-      </template>
     </qas-uploader>
 
     <qas-dialog v-model="dialog">
@@ -124,8 +107,9 @@ export default {
 
     upload (scope) {
       try {
+        const fileName = this.labelSignature.split(' ').join('-')
         const blob = base64ToBlob(this.base64)
-        const file = new File([blob], "signature.png", { type: 'image/png' })
+        const file = new File([blob], `${fileName}.png`, { type: 'image/png' })
         scope.addFiles([file])
       } catch(error) {
         NotifyError('Ops! Erro ao enviar sua assinatura.')

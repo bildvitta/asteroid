@@ -3,13 +3,13 @@
     <div class="col-12">
       <qas-signature-pad ref="signaturePad" height="250" :is-empty.sync="isEmpty" :options="{ backgroundColor }" />
       <div v-if="isEmpty" class="q-mt-sm">Está vazio</div>
-      <div class="q-gutter-sm q-mb-md q-mt-sm row">
+      <div class="q-gutter-sm q-mb-xl q-mt-sm row">
         <q-btn color="primary" label="Salvar" no-caps @click="saveSignature" />
         <q-btn color="primary" label="Limpar" no-caps @click="clearSignature" />
         <q-btn color="primary" label="Trocar cor" no-caps @click="changeColor" />
       </div>
 
-      <qas-signature-uploader v-model="signature" class="col-12" entity="documents/file" label-signature="Assinatura do Cleyton" label-upload="Assinatura digital" />
+      <qas-signature-uploader v-model="signature" class="col-12" entity="portal-app/problems/photo" label-signature="Assinatura do Cleyton" label-upload="Assinatura digital" />
       <pre>v-model {{ signature }}</pre>
     </div>
   </q-page>
