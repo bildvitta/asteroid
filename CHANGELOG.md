@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleasded
 
+### Added
+
+- Adding a different logic on button 'voltar' on 404 page
+
 ### Fixed
 
 - Adding empty array check on formattedFields function
