@@ -45,25 +45,25 @@ export default {
       console.log(newValue, '<----- new value')
       if (isEqual(newValue, oldValue)) return
 
-      this.newSignaturePad()
-      this.signatureIsEmpty()
+      this.setupSignaturePad()
+      this.isEmptyEmitter()
     }
   },
 
   destroyed () {
-    window.removeEventListener('resize', this.setWidthCanvas)
+    window.removeEventListener('resize', this.setCanvasWidth)
   },
 
   mounted () {
-    window.addEventListener('resize', this.setWidthCanvas)
-    this.setWidthCanvas()
-    this.newSignaturePad()
+    window.addEventListener('resize', this.setCanvasWidth)
+    this.setCanvasWidth()
+    this.setupSignaturePad()
   },
 
   methods: {
-    newSignaturePad () {
+    setupSignaturePad () {
       this.signaturePad = new SignaturePad(document.getElementById(this.canvasId), this.options)
-      this.signaturePad.onEnd = this.signatureIsEmpty
+      this.signaturePad.onEnd = this.isEmptyEmitter
       this.clearSignature()
     },
 
@@ -73,14 +73,14 @@ export default {
 
     clearSignature () {
       this.signaturePad.clear()
-      this.signatureIsEmpty()
+      this.isEmptyEmitter()
     },
 
-    signatureIsEmpty () {
+    isEmptyEmitter () {
       this.$emit('update:isEmpty', this.signaturePad.isEmpty())
     },
 
-    setWidthCanvas () {
+    setCanvasWidth () {
       const signatureContainer = this.$refs.signatureContainer
       const canvasElement = signatureContainer.querySelector('canvas')
       canvasElement.setAttribute('width', signatureContainer.offsetWidth)
@@ -90,14 +90,14 @@ export default {
 </script>
 
 <style lang="scss">
-  .qas-signature-pad {
-    &__clear {
-      bottom: 0;
-      right: 0;
-    }
-
-    &__canvas {
-      border: 1px solid $grey-3;
-    }
+.qas-signature-pad {
+  &__clear {
+    bottom: 0;
+    right: 0;
   }
+
+  &__canvas {
+    border: 1px solid $grey-3;
+  }
+}
 </style>

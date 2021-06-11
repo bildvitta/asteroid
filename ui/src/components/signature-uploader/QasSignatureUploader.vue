@@ -1,6 +1,6 @@
 <template>
   <div>
-    <qas-uploader ref="uploader" v-model="uploader" :entity="entity" :label="labelUpload">
+    <qas-uploader ref="uploader" v-model="uploader" :entity="entity" :label="uploadLabel">
       <template #header="{ scope }">
         <div class="flex flex-center full-width justify-between no-border no-wrap q-gutter-xs q-pa-sm text-white transparent">
           <div class="col column items-start justify-center">
@@ -52,12 +52,12 @@ export default {
       type: String
     },
 
-    labelUpload: {
+    uploadLabel: {
       default: 'Assinatura digital',
       type: String
     },
 
-    labelSignature: {
+    signatureLabel: {
       default: 'Assinatura',
       type: String
     },
@@ -115,7 +115,7 @@ export default {
 
     upload (scope) {
       try {
-        const fileName = this.labelSignature.split(' ').join('-')
+        const fileName = this.signatureLabel.split(' ').join('-')
         const blob = base64ToBlob(this.base64)
         const file = new File([blob], `${fileName}.png`, { type: 'image/png' })
         scope.addFiles([file])

@@ -15,7 +15,7 @@ export default {
   argTypes: {
     // Props
     options: {
-      description: 'Options you can pass to customize your component. (https://github.com/szimek/signature_pad#options)',
+      description: 'Options you can pass to customize your component [Signature Pad](https://github.com/szimek/signature_pad#options) options.',
       control: 'object'
     },
 
@@ -37,7 +37,7 @@ export default {
 
     // Events
     'update:isEmpty': {
-      description: 'Props passed to the component to control it, if the canvas is empty.'
+      description: 'Props sent to the component to control it, if the canvas is empty.'
     }
   }
 }

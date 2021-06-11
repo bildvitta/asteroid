@@ -9,7 +9,7 @@
         <q-btn color="primary" label="Trocar cor" no-caps @click="changeColor" />
       </div>
 
-      <qas-signature-uploader v-model="signature" class="col-12" entity="portal-app/problems/photo" label-signature="Assinatura do Cleyton" label-upload="Assinatura digital" />
+      <qas-signature-uploader v-model="signature" class="col-12" entity="portal-app/problems/photo" signature-label="Assinatura do Cleyton" upload-label="Assinatura digital" />
       <pre>v-model {{ signature }}</pre>
     </div>
   </q-page>
@@ -28,8 +28,7 @@ export default {
 
   methods: {
     saveSignature () {
-      const values = this.$refs.signaturePad.saveSignature()
-      console.log(values, '<----- values')
+      alert(`base64 gerado: ${this.$refs.signaturePad.saveSignature()}`)
     },
 
     clearSignature () {

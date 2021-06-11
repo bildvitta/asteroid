@@ -1,9 +1,5 @@
 import QasSignatureUploader from './QasSignatureUploader.vue'
 
-const hides = {
-  table: { disable: true }
-}
-
 export default {
   component: QasSignatureUploader,
   title: 'Components/SignatureUploader',
@@ -22,18 +18,22 @@ export default {
       description: 'Used by server to know where to store files in the assets bucket.',
     },
 
-    labelUpload: {
+    uploadLabel: {
       description: 'QasUploader header label.'
     },
 
-    labelSignature: {
+    signatureLabel: {
       description: 'Generated signature label.'
     },
 
-    value: hides,
+    value: {
+      description: 'Model value.'
+    },
 
     // Events
-    input: hides
+    input: {
+      description: 'Fires when model changes. Is also used by `v-model`.'
+    }
   }
 }
 

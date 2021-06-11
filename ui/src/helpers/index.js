@@ -1,4 +1,4 @@
-import base64ToBlob from './base64-to-blob'
+import base64ToBlob from './base64ToBlob.js'
 import filterObject from './filter-object.js'
 import greatestCommonDivisor from './greatestCommonDivisor.js'
 import { history, handleHistory } from './historyHandler.js'
