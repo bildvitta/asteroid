@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Added a new signature component(`QasSignaturePad`).
 - Added a new signature upload component(`QasSignatureUploader`).
+- Added header and list slot in uploader component(`QasUploader`).
 
 ## 2.3.2 - 2021-05-31
 
