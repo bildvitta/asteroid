@@ -1,43 +1,51 @@
 <template>
   <div>
-    <qas-uploader v-model="uploader" :entity="entity" :label="labelUpload" ref="uploader">
+    <qas-uploader ref="uploader" v-model="uploader" :entity="entity" :label="labelUpload">
       <template #header="{ scope }">
-         <div class="flex flex-center full-width justify-between no-border no-wrap q-gutter-xs q-pa-sm text-white transparent">
-            <div class="col column items-start justify-center">
-              <div v-if="scope.label" class="q-uploader__title">{{ scope.label }}</div>
-            </div>
-
-            <q-btn dense flat icon="o_add" round @click="openDialog"/>
-
-            <q-btn ref="forceUpload" class="hidden" @click="upload(scope)" />
-            <q-btn ref="buttonCleanFiles" class="hidden" @click="scope.removeUploadedFiles" />
-
+        <div class="flex flex-center full-width justify-between no-border no-wrap q-gutter-xs q-pa-sm text-white transparent">
+          <div class="col column items-start justify-center">
+            <div v-if="scope.label" class="q-uploader__title">{{ scope.label }}</div>
           </div>
+
+          <q-btn dense flat icon="o_add" round @click="openDialog" />
+
+          <q-btn ref="forceUpload" class="hidden" @click="upload(scope)" />
+          <q-btn ref="buttonCleanFiles" class="hidden" @click="scope.removeUploadedFiles" />
+        </div>
       </template>
     </qas-uploader>
 
     <qas-dialog v-model="dialog">
       <template #header>
-        <div class="text-center text-bold">Insira sua assinatura digital no campo abaixo</div>
-        </template>
+        <div class="text-bold text-center">Insira sua assinatura digital no campo abaixo</div>
+      </template>
 
       <template #description>
         <qas-signature-pad ref="signaturePadModal" height="250" :is-empty.sync="isEmpty" />
       </template>
 
       <template #actions>
-        <q-btn label="Salvar" :disable="isEmpty" @click="saveSignature" class="full-width" no-caps color="primary" />
-        <q-btn label="Cancelar" @click="closeSignature" class="full-width q-mt-sm" flat no-caps color="primary" />
+        <q-btn class="full-width" color="primary" :disable="isEmpty" label="Salvar" no-caps @click="saveSignature" />
+        <q-btn class="full-width q-mt-sm" color="primary" flat label="Cancelar" no-caps @click="closeSignature" />
       </template>
     </qas-dialog>
   </div>
 </template>
 
 <script>
+import QasDialog from '../dialog/QasDialog.vue'
+import QasUploader from '../uploader/QasUploader.vue'
+import QasSignaturePad from '../signature-pad/QasSignaturePad.vue'
 import { base64ToBlob } from '../../helpers'
 import { NotifyError } from '../../plugins'
 
 export default {
+  components: {
+    QasDialog,
+    QasUploader,
+    QasSignaturePad
+  },
+
   props: {
     entity: {
       required: true,
@@ -45,7 +53,7 @@ export default {
     },
 
     labelUpload: {
-      default: '',
+      default: 'Assinatura digital',
       type: String
     },
 
@@ -70,11 +78,11 @@ export default {
 
   computed: {
     uploader: {
-      get() {
+      get () {
         return this.value
       },
 
-      set(value) {
+      set (value) {
         this.$emit('input', value)
       }
     }
@@ -111,7 +119,7 @@ export default {
         const blob = base64ToBlob(this.base64)
         const file = new File([blob], `${fileName}.png`, { type: 'image/png' })
         scope.addFiles([file])
-      } catch(error) {
+      } catch (error) {
         NotifyError('Ops! Erro ao enviar sua assinatura.')
       }
     }

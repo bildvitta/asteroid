@@ -49,11 +49,16 @@
 </template>
 
 <script>
-// import api from 'axios'
+import QasAvatar from '../avatar/QasAvatar'
+import api from 'axios'
 import { uid, extend } from 'quasar'
 import { NotifyError } from '../../plugins'
 
 export default {
+  components: {
+    QasAvatar
+  },
+
   props: {
     entity: {
       required: true,
@@ -167,7 +172,7 @@ export default {
       this.isFetching = true
 
       try {
-        const { data } = await this.$axios.post('/upload-credentials/', {
+        const { data } = await api.post('/upload-credentials/', {
           entity: this.entity,
           filename
         })
