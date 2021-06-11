@@ -42,7 +42,6 @@ export default {
 
   watch: {
     options (newValue, oldValue) {
-      console.log(newValue, '<----- new value')
       if (isEqual(newValue, oldValue)) return
 
       this.setupSignaturePad()
