@@ -30,8 +30,9 @@ export default {
     },
 
     isEmpty: {
-      description: 'Props passed to the component to control it, if the canvas is empty.',
-      control: null
+      table: {
+        disable: true 
+      }
     },
 
     // Events
