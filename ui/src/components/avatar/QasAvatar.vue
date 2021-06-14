@@ -47,9 +47,7 @@ export default {
 
   computed: {
     classes () {
-      if (this.hasImage) {
-        return []
-      }
+      if (this.hasImage) return
 
       const contrastColor = this.textColor ? this.textColor : this.contrastColor
 

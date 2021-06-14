@@ -15,7 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- `QasAvatar` only adds background color when not image.
+- `QasAvatar` only adds background color when it's not image.
 
 ### Fixed
 
