@@ -18,5 +18,8 @@
   "bugs": {
     "url": "https://github.com/bildvitta/asteroid/issues"
   },
-  "homepage": "https://github.com/bildvitta/asteroid#readme"
+  "homepage": "https://github.com/bildvitta/asteroid#readme",
+  "dependencies": {
+    "signature_pad": "^3.0.0-beta.4"
+  }
 }

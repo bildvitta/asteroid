@@ -95,6 +95,7 @@ function humanize (field = {}, value) {
     case 'date': return date(value)
     case 'datetime': return dateTime(value)
     case 'time': return time(value)
+    case 'radio': return selectLabel(field.options, value)
     default: return value
   }
 }
