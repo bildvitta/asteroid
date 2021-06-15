@@ -48,7 +48,6 @@
     "react-is": "^17.0.1",
     "sass": "^1.32.5",
     "sass-loader": "^10.1.1",
-    "signature_pad": "^3.0.0-beta.4",
     "standard": "^16.0.3",
     "vue-jest": "^3.0.7",
     "vue-loader": "^15.9.6",
@@ -64,7 +63,8 @@
     "quasar": "^1.15.0",
     "sortablejs": "^1.12.0",
     "vue-router": "^3.4.9",
-    "vuex": "^3.6.0"
+    "vuex": "^3.6.0",
+    "signature_pad": "^3.0.0-beta.4"
   },
   "peerDependencies": {
     "vue": "^2.6.12"
