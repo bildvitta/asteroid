@@ -12,7 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Removed
 
-- Remove `signature_pad` to the `devDependencies` key of package.json.
+- Removed `signature_pad` to the `devDependencies` key of package.json.
 
 ## 2.4.1 - 2021-06-15
 
