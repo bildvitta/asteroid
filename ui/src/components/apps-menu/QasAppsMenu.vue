@@ -1,5 +1,5 @@
 <template>
-  <q-btn class="q-mx-md" v-bind="$attrs" dense icon="o_apps" round unelevated>
+  <q-btn class="q-mr-md" v-bind="$attrs" dense icon="o_apps" round unelevated>
     <q-menu anchor="bottom middle" max-width="400px" self="top middle">
       <div class="q-col-gutter-md q-pa-md row">
         <!-- TODO: Revisitar os estilos dos links. -->

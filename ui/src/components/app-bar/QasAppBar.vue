@@ -13,9 +13,11 @@
     </q-toolbar-title>
 
     <!-- TODO: Notificações. -->
-    <q-btn dense icon="o_notifications" round unelevated>
-      <q-badge color="red" floating>4</q-badge>
-    </q-btn>
+    <div v-if="notifications">
+      <q-btn class="q-mr-md" dense icon="o_notifications" round unelevated>
+        <q-badge v-if="notifications" color="red" floating>{{notifications.count}}</q-badge>
+      </q-btn>
+    </div>
 
     <qas-apps-menu v-if="hasApps" :apps="apps" />
 
@@ -87,6 +89,11 @@ export default {
     title: {
       required: true,
       type: String
+    },
+
+    notifications: {
+      type: () => ({}),
+      type: Object
     },
 
     user: {
