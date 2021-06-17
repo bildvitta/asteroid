@@ -39,6 +39,10 @@ export default {
       description: 'File object.'
     },
 
+    errorMessage: {
+      description: 'Error messages.'
+    },
+
     // Events
     input: {
       description: 'Fires when files change.'

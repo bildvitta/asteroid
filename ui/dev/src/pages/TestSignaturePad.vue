@@ -9,7 +9,7 @@
         <q-btn color="primary" label="Trocar cor" no-caps @click="changeColor" />
       </div>
 
-      <qas-signature-uploader v-model="signature" class="col-12" entity="portal-app/problems/photo" error error-message="Campo obrigatório" signature-label="Assinatura do Cleyton" upload-label="Assinatura digital" />
+      <qas-signature-uploader v-model="signature" class="col-12" entity="portal-app/problems/photo" signature-label="Assinatura do Cleyton" upload-label="Assinatura digital" />
       <pre class="q-mb-xl">v-model {{ signature }}</pre>
 
       <qas-form-generator v-model="formGenerator.values" columns="fit" :errors="formGenerator.errors" :fields="formGenerator.fields" />
@@ -39,7 +39,7 @@ export default {
             signatureLabel: 'Assinatura do Cleyton',
             uploadLabel: 'Assinatura digital do Cleyton',
             name: 'uploader',
-            type: 'signature'
+            type: 'signatureUploader'
           }
         },
 

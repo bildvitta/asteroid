@@ -1,5 +1,5 @@
 <template>
-  <q-field borderless :error="error" :error-message="errorMessage" :hint="hintValue" no-error-icon>
+  <q-field borderless :error="!!errorMessage.length" :error-message="errorMessage" :hint="hintValue" no-error-icon>
     <q-uploader v-bind="$attrs" auto-upload bordered :class="uploaderClasses" :factory="factory" flat :max-files="maxFiles" method="PUT" :readonly="readonly" v-on="$listeners" @factory-failed="factoryFailed" @uploaded="uploaded">
       <template #header="scope">
         <slot name="header" :scope="scope">
@@ -47,8 +47,8 @@
 
     <slot :context="self" name="custom-upload" />
 
-    <template #after>
-      <q-icon v-if="error" name="o_error" color="negative" />
+    <template v-if="errorMessage.length" #after>
+      <q-icon color="negative" name="o_error" />
     </template>
   </q-field>
 </template>
@@ -68,10 +68,6 @@ export default {
     entity: {
       required: true,
       type: String
-    },
-
-    error: {
-      type: Boolean
     },
 
     errorMessage: {

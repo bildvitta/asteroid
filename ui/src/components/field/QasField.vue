@@ -106,7 +106,7 @@ export default {
         ['print', 'fullscreen']
       ]
 
-      const signature = { signatureLabel, uploadLabel }
+      const signatureUploader = { signatureLabel, uploadLabel }
 
       // Profiles
       const profiles = {
@@ -133,7 +133,7 @@ export default {
         upload: { is: 'qas-uploader', accept, autoUpload: true, entity, label, multiple, readonly, maxFiles, ...error },
         editor: { is: 'q-editor', toolbar, ...error },
 
-        signature: { is: 'qas-signature-uploader', entity, ...signature, ...error}
+        signatureUploader: { is: 'qas-signature-uploader', entity, ...signatureUploader, ...error }
       }
 
       return { ...(profiles[type] || profiles.default), ...this.$attrs }
