@@ -1,8 +1,8 @@
 <template>
   <div>
-    <qas-uploader ref="uploader" v-model="uploader" :entity="entity" :label="uploadLabel">
+    <qas-uploader ref="uploader" v-model="uploader" :entity="entity" :label="uploadLabel" :error="error" :error-message="errorMessage">
       <template #header="{ scope }">
-        <div class="flex flex-center full-width justify-between no-border no-wrap q-gutter-xs q-pa-sm text-white transparent">
+        <div class="flex flex-center full-width justify-between no-border no-wrap q-gutter-xs q-pa-sm text-white transparent cursor-pointer" @click="openDialog">
           <div class="col column items-start justify-center">
             <div v-if="scope.label" class="q-uploader__title">{{ scope.label }}</div>
           </div>
@@ -65,6 +65,15 @@ export default {
     value: {
       default: '',
       type: String
+    },
+
+    error: {
+      type: Boolean
+    },
+
+    errorMessage: {
+      default: '',
+      type: String
     }
   },
 
@@ -100,8 +109,8 @@ export default {
     saveSignature () {
       this.$refs.buttonCleanFiles.$el.click()
       this.base64 = this.$refs.signaturePadModal.saveSignature()
-      this.closeSignature()
       this.$refs.forceUpload.$el.click()
+      this.closeSignature()
     },
 
     closeSignature () {
