@@ -1,6 +1,6 @@
 <template>
   <div>
-    <qas-uploader ref="uploader" v-model="uploader" :entity="entity" :error="error" :error-message="errorMessage" :label="uploadLabel">
+    <qas-uploader ref="uploader" v-model="uploader" :entity="entity" :error-message="errorMessage" :label="uploadLabel">
       <template #header="{ scope }">
         <div class="cursor-pointer flex flex-center full-width justify-between no-border no-wrap q-gutter-xs q-pa-sm text-white transparent" @click="openDialog">
           <div class="col column items-start justify-center">
@@ -65,10 +65,6 @@ export default {
     value: {
       default: '',
       type: String
-    },
-
-    error: {
-      type: Boolean
     },
 
     errorMessage: {
