@@ -38,7 +38,7 @@ export default {
             entity: 'portal-app/problems/photo',
             label: 'Assinatura do Cleytinho',
             name: 'uploader',
-            type: 'signatureUploader'
+            type: 'signature-uploader'
           }
         },
 
