@@ -64,9 +64,7 @@ export default {
         type,
         mask,
         pattern,
-        maxFiles,
-        signatureLabel,
-        uploadLabel
+        maxFiles
       } = this.formatedField
 
       // Default error attributes for Quasar.
@@ -106,8 +104,6 @@ export default {
         ['print', 'fullscreen']
       ]
 
-      const signatureUploader = { signatureLabel, uploadLabel }
-
       // Profiles
       const profiles = {
         default: { is: 'qas-input', ...input, mask },
@@ -133,7 +129,7 @@ export default {
         upload: { is: 'qas-uploader', accept, autoUpload: true, entity, label, multiple, readonly, maxFiles, ...error },
         editor: { is: 'q-editor', toolbar, ...error },
 
-        signatureUploader: { is: 'qas-signature-uploader', entity, ...signatureUploader, ...error }
+        signatureUploader: { is: 'qas-signature-uploader', entity, uploadLabel: label, ...error }
       }
 
       return { ...(profiles[type] || profiles.default), ...this.$attrs }

@@ -36,8 +36,7 @@ export default {
           uploader: {
             default: '',
             entity: 'portal-app/problems/photo',
-            signatureLabel: 'Assinatura do Cleyton',
-            uploadLabel: 'Assinatura digital do Cleyton',
+            label: 'Assinatura do Cleytinho',
             name: 'uploader',
             type: 'signatureUploader'
           }
