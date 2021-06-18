@@ -11,6 +11,7 @@ import QasDecimalInput from '../decimal-input/QasDecimalInput.vue'
 import QasInput from '../input/QasInput.vue'
 import QasPasswordInput from '../password-input/QasPasswordInput.vue'
 import QasUploader from '../uploader/QasUploader.vue'
+import QasSignatureUploader from '../signature-uploader/QasSignatureUploader.vue'
 
 const attributesProfile = {
   maxLength: 'maxlength',
@@ -27,7 +28,8 @@ export default {
     QasDecimalInput,
     QasInput,
     QasPasswordInput,
-    QasUploader
+    QasUploader,
+    QasSignatureUploader
   },
 
   props: {
@@ -125,7 +127,9 @@ export default {
 
         select: { is: 'q-select', emitValue: true, mapOptions: true, multiple, options, ...input },
         upload: { is: 'qas-uploader', accept, autoUpload: true, entity, label, multiple, readonly, maxFiles, ...error },
-        editor: { is: 'q-editor', toolbar, ...error }
+        editor: { is: 'q-editor', toolbar, ...error },
+
+        signatureUploader: { is: 'qas-signature-uploader', entity, uploadLabel: label, ...error }
       }
 
       return { ...(profiles[type] || profiles.default), ...this.$attrs }

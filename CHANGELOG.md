@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## Unrealesed
+
+### Added
+
+- Added new type `signatureUpload` to `QasField`.
+- Handling errors in the `QasSignatureUploader` component.
+- Added the functionality to open the subscription modal by clicking on the header in `QasSignatureUploader` component.
+
 ## 2.4.2 - 2021-06-15
 
 ### Added
