@@ -8,7 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- A field of type `signatureUpload` has been added, for the `QasFormGenerator` to generate the field automatically.
+- Added new type `signatureUpload` to `QasField`.
 - Handling errors in the `QasSignatureUploader` component.
 - Added the functionality to open the subscription modal by clicking on the header in `QasSignatureUploader` component.
 

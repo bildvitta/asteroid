@@ -40,7 +40,7 @@ export default {
     },
 
     errorMessage: {
-      description: 'Error messages.'
+      description: 'Error message.'
     },
 
     // Events
