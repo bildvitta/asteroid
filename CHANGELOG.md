@@ -8,7 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- Simple modifications on notifications, just to not show on hub products
+- MModifications on notifications in AppBar, just to not show on almobi products
 - Added a medium margin left on notifications icon and changed on AppsBar component
 
 ## 2.4.2 - 2021-06-15
