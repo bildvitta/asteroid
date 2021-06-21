@@ -9,19 +9,16 @@
 import { history } from '../helpers/historyHandler'
 
 export default {
-  data () {
-    return {}
-  },
-
   methods: {
     backLink () {
       if (!history.hasPreviousRoute){
         this.$router.push('/')
-      } else {
-        history.list.splice(history.list.length-2,2)
-        const redirect = history.list.pop()
-        this.$router.push(redirect.fullPath)
-      }
+        return
+      } 
+      
+      history.list.splice(history.list.length-2,2)
+      const redirect = history.list.pop()
+      this.$router.push(redirect.fullPath)
     }
   }
 }
