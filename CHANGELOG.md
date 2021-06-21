@@ -6,6 +6,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unrealesed
 
+### Fixed
+
+- Background color on qas-box when is outside forms
 ### Added
 
 - Added new type `signatureUpload` to `QasField`.

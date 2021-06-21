@@ -1,5 +1,5 @@
 <template>
-  <div v-bind="$attrs" class="q-px-md q-py-lg rounded-borders" :class="boxClass" v-on="$listeners">
+  <div v-bind="$attrs" class="q-px-md q-py-lg rounded-borders bg-white" :class="boxClass" v-on="$listeners">
     <slot />
   </div>
 </template>
@@ -15,7 +15,7 @@ export default {
 
   computed: {
     boxClass () {
-      return this.formMode ? 'bg-white border-primary-contrast' : 'shadow-primary'
+      return this.formMode ? ' border-primary-contrast' : 'shadow-primary'
     }
   }
 }
