@@ -13,7 +13,7 @@
     </q-toolbar-title>
 
     <!-- TODO: Notificações. -->
-    <div class="q-mr-md" v-if="haveNotifications">
+    <div class="q-mr-md" v-if="hasNotifications">
       <q-btn class="q-mr-md" dense icon="o_notifications" round unelevated>
         <q-badge v-if="notifications" color="red" floating>{{ notifications.count }}</q-badge>
       </q-btn>
@@ -136,7 +136,7 @@ export default {
       return !!this.developmentBadgeLabel
     },
 
-    haveNotifications () {
+    hasNotifications () {
       return !!Object.keys(notifications).length
     }
   },
