@@ -16,7 +16,7 @@ export default {
         return
       } 
       
-      history.list.splice(history.list.length-2,2)
+      history.list.splice(history.list.length -2, 2)
       const redirect = history.list.pop()
       this.$router.push(redirect.fullPath)
     }
