@@ -13,11 +13,13 @@
     </q-toolbar-title>
 
     <!-- TODO: Notificações. -->
-    <q-btn dense icon="o_notifications" round unelevated>
-      <q-badge color="red" floating>4</q-badge>
-    </q-btn>
+    <div class="q-mr-md" v-if="hasNotifications">
+      <q-btn class="q-mr-md" dense icon="o_notifications" round unelevated>
+        <q-badge v-if="notifications" color="red" floating>{{ notifications.count }}</q-badge>
+      </q-btn>
+    </div>
 
-    <qas-apps-menu v-if="hasApps" :apps="apps" />
+    <qas-apps-menu class="q-mr-md" v-if="hasApps" :apps="apps" />
 
     <div class="items-center no-wrap q-gutter-md row">
       <slot name="tools" />
@@ -89,6 +91,11 @@ export default {
       type: String
     },
 
+    notifications: {
+      default: () => ({}),
+      type: Object
+    },
+
     user: {
       default: () => ({}),
       require: true,
@@ -127,6 +134,10 @@ export default {
 
     hasDevelopmentBadge () {
       return !!this.developmentBadgeLabel
+    },
+
+    hasNotifications () {
+      return !!Object.keys(notifications).length
     }
   },
 

@@ -111,7 +111,7 @@ export default {
         number: { is: 'q-input', type: 'number', ...input },
         hidden: { is: 'input', name, type },
         email: { is: 'q-input', type, ...input },
-        password: { is: 'qas-password-input', type, pattern, hideStrengthChecker: !!pattern, ...input },
+        password: { is: 'qas-password-input', type, pattern, hideStrengthChecker: !pattern, ...input },
 
         decimal: { ...decimalInput },
         money: { ...decimalInput, prefix: 'R$' },
