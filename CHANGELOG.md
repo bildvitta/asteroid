@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Modifications on notifications in AppBar, just to not show on almobi products
 - Added a medium margin left on notifications icon and changed on AppsBar component
 - In Qas-field password input, if it doesn't have pattern as an atribute, it will hide password strength by default
+- Background color on qas-box when is outside forms
 
 ## 2.4.2 - 2021-06-15
 
