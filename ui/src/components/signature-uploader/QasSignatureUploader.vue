@@ -70,6 +70,11 @@ export default {
     errorMessage: {
       default: '',
       type: String
+    },
+
+    type: {
+      default: 'image/png',
+      type: String
     }
   },
 
@@ -121,8 +126,9 @@ export default {
     upload (scope) {
       try {
         const fileName = this.signatureLabel.split(' ').join('-')
+        const extension = this.type.split('/').pop() || 'png'
         const blob = base64ToBlob(this.base64)
-        const file = new File([blob], `${fileName}.png`, { type: 'image/png' })
+        const file = new File([blob], `${fileName}.${extension}`, { type: this.type })
         scope.addFiles([file])
       } catch (error) {
         NotifyError('Ops! Erro ao enviar sua assinatura.')
