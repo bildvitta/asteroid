@@ -11,11 +11,11 @@ import { history } from '../helpers/historyHandler'
 export default {
   methods: {
     backLink () {
-      if (!history.hasPreviousRoute){
+      if (!history.hasPreviousRoute) {
         return this.$router.push('/')
-      } 
-      
-      history.list.splice(history.list.length -2, 2)
+      }
+
+      history.list.splice(history.list.length - 2, 2)
       this.$router.push(history.list.pop().fullPath)
     }
   }
