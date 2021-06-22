@@ -90,7 +90,19 @@ export default {
 const Template = (args, { argTypes }) => ({
   components: { QasUploader },
   props: Object.keys(argTypes),
-  template: '<qas-uploader v-bind="$props" />'
+  template: 
+    `<div>
+      <qas-uploader v-bind="$props" />
+      <qas-uploader v-bind="$props">
+        <template #custom-upload="{ context }">
+          <q-btn color="primary" flat no-caps @click="context.dispatchUpload">
+            <q-circular-progress v-if="context.isFetching" class="q-mr-sm" color="primary" indeterminate size="20px" />
+            <q-icon class="q-mr-sm" name="o_camera_alt" />
+            Fazer upload
+          </q-btn>
+        </template>
+      </qas-uploader>
+    </div>`
 })
 
 export const Default = Template.bind({})

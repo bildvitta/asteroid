@@ -12,12 +12,10 @@ export default function (base64) {
   const view = new Uint8Array(buffer)
 
   // fill the view, using the decoded base64
-  for (let position = 0; position < imageContent.length; position++) {
+  for (const position in [...imageContent]) {
     view[position] = imageContent.charCodeAt(position)
   }
 
   // convert ArrayBuffer to Blob
-  const blob = new Blob([buffer], { type })
-
-  return blob
+  return new Blob([buffer], { type })
 }

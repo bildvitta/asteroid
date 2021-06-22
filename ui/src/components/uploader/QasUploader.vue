@@ -1,5 +1,5 @@
 <template>
-  <q-field borderless :error="!!errorMessage.length" :error-message="errorMessage" :hint="hintValue" no-error-icon>
+  <q-field borderless :error="hasErrorMessage" :error-message="errorMessage" :hint="hintValue" no-error-icon>
     <q-uploader v-bind="$attrs" auto-upload bordered :class="uploaderClasses" :factory="factory" flat :max-files="maxFiles" method="PUT" :readonly="readonly" v-on="$listeners" @factory-failed="factoryFailed" @uploaded="uploaded">
       <template #header="scope">
         <slot name="header" :scope="scope">
@@ -47,7 +47,7 @@
 
     <slot :context="self" name="custom-upload" />
 
-    <template v-if="errorMessage.length" #after>
+    <template v-if="hasErrorMessage" #after>
       <q-icon color="negative" name="o_error" />
     </template>
   </q-field>
@@ -135,6 +135,10 @@ export default {
 
     hasHeaderSlot () {
       return this.$slots.header || this.$scopedSlots.header
+    },
+
+    hasErrorMessage () {
+      return !!this.errorMessage.length
     }
   },
 
