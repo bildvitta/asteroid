@@ -1,6 +1,11 @@
 <template>
   <div>
-    <component :is="component.is" v-bind="component" :value="formattedValue" v-on="events" @input="emitValue" />
+    <component :is="component.is" v-bind="component" :value="formattedValue" v-on="events" @input="emitValue">
+      <slot v-for="(slot, key) in $slots" :slot="key" :name="key" />
+      <template v-for="(slot, key) in $scopedSlots" :slot="key" slot-scope="scope">
+        <slot :name="key" v-bind="scope" />
+      </template>
+    </component>
   </div>
 </template>
 
@@ -111,7 +116,7 @@ export default {
         number: { is: 'q-input', type: 'number', ...input },
         hidden: { is: 'input', name, type },
         email: { is: 'q-input', type, ...input },
-        password: { is: 'qas-password-input', type, pattern, hideStrengthChecker: !!pattern, ...input },
+        password: { is: 'qas-password-input', type, pattern, hideStrengthChecker: !pattern, ...input },
 
         decimal: { ...decimalInput },
         money: { ...decimalInput, prefix: 'R$' },
