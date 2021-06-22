@@ -10,7 +10,10 @@
       </div>
 
       <qas-signature-uploader v-model="signature" class="col-12" entity="portal-app/problems/photo" signature-label="Assinatura do Cleyton" upload-label="Assinatura digital" />
-      <pre>v-model {{ signature }}</pre>
+      <pre class="q-mb-xl">v-model {{ signature }}</pre>
+
+      <qas-form-generator v-model="formGenerator.values" columns="fit" :errors="formGenerator.errors" :fields="formGenerator.fields" />
+      <pre>{{ formGenerator }}</pre>
     </div>
   </q-page>
 </template>
@@ -22,7 +25,29 @@ export default {
     return {
       backgroundColor: 'white',
       isEmpty: true,
-      signature: 'https://s3.amazonaws.com/develop-portal-cms.bivilabs.com.br/uploads/portal-app/problems/photo/b7ce481e-44c4-49ee-8d8b-737feb70bc18.png'
+      signature: 'https://s3.amazonaws.com/develop-portal-cms.bivilabs.com.br/uploads/portal-app/problems/photo/b7ce481e-44c4-49ee-8d8b-737feb70bc18.png',
+
+      formGenerator: {
+        values: {
+          uploader: 'https://s3.amazonaws.com/develop-portal-cms.bivilabs.com.br/uploads/portal-app/problems/photo/b7ce481e-44c4-49ee-8d8b-737feb70bc18.png'
+        },
+
+        fields: {
+          uploader: {
+            default: '',
+            entity: 'portal-app/problems/photo',
+            label: 'Assinatura do Cleytinho',
+            name: 'uploader',
+            type: 'signature-uploader'
+          }
+        },
+
+        errors: {
+          uploader: [
+            'Campo obrigatório'
+          ]
+        }
+      }
     }
   },
 

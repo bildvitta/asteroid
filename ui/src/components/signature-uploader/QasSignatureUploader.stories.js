@@ -30,6 +30,10 @@ export default {
       description: 'Model value.'
     },
 
+    errorMessage: {
+      description: 'Error message.'
+    },
+
     // Events
     input: {
       description: 'Fires when model changes. Is also used by `v-model`.'

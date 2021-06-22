@@ -8,83 +8,78 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- MModifications on notifications in AppBar, just to not show on almobi products
+- Modifications on notifications in AppBar, just to not show on almobi products
 - Added a medium margin left on notifications icon and changed on AppsBar component
+- In Qas-field password input, if it doesn't have pattern as an atribute, it will hide password strength by default
 
 ## 2.4.2 - 2021-06-15
 
 ### Added
+- Added new type `signatureUpload` to `QasField`.
+- Handling errors in the `QasSignatureUploader` component.
+- Added the functionality to open the subscription modal by clicking on the header in `QasSignatureUploader` component.
 
-- Added `signature_pad` to the `dependencies` key of package.json.
+## 2.4.2 - 2021-06-15
+
+### Added
+- Added `signature_pad` to the `dependencies` key of `package.json`.
 
 ### Removed
-
-- Removed `signature_pad` to the `devDependencies` key of package.json.
+- Removed `signature_pad` to the `devDependencies` key of `package.json`.
 
 ## 2.4.1 - 2021-06-15
 
 ### Added
-
-- Added `signature_pad` as dependency in `/ui/`.
+- Added `signature_pad` as a dependency in `/ui/`.
 
 ### Removed
-
-- Removed `signature_pad` as dependency in `/ui/dev/`.
+- Removed `signature_pad` as a dependency in `/ui/dev/`.
 
 ## 2.4.0 - 2021-06-14
 
 ### Added
-
-- Added a new signature component(`QasSignaturePad`).
-- Added a new signature upload component(`QasSignatureUploader`).
-- Added header and list slot in uploader component(`QasUploader`).
-- Added type radio to humanize filter.
+- Added a new signature component (`QasSignaturePad`).
+- Added a new signature upload component (`QasSignatureUploader`).
+- Added header and list slot in uploader component (`QasUploader`).
+- Added type `radio` to humanize filter.
 
 ### Changed
-
 - `QasAvatar` only adds background color when it's not image.
 
 ### Fixed
-
-- Adding empty array check on formattedFields function component(`QasGridGenerator`).
+- Adding empty array check on `formattedFields` function component (`QasGridGenerator`).
 
 ## 2.3.3 - 2021-06-08
 
 ### Fixed
-
-- Adding the tag `disable` on qas-field
-- Adding the tag `hideStrengthChecker` on qas-field
+- Adding the tag `disable` on `QasField`.
+- Adding the tag `hideStrengthChecker` on `QasField`.
 
 ## 2.3.2 - 2021-05-31
 
 ### Fixed
-
 - Fixed `QasAppMenu` bug with router active classes.
 
 ## 2.3.1 - 2021-05-31
 
 ### Fixed
-
 - Fixed `QasAppMenu` error with router active classes.
 
 ## 2.3.0 - 2021-05-31
 
 ### Added
-
 - Added `rounded-borders-top`, `rounded-borders-right`, `rounded-borders-bottom` and `rounded-borders-left` CSS classes.
 - Added `QasGallery`.
 - Added `width` prop in `QasTooltip`.
 - Added `unsavedChangesMixin`.
 
 ### Changed
-
 - `QasAppBar` and `QasAppMenu` default style.
 - `QasField` emits value as a `Number` when it is originally a number.
 
 ### Fixed
-
-- Fix import filterObject in helpers
-- Added cloned value for `field` in computed `children` inside `QasNestedFields`
+- Fix import `filterObject` in helpers.
+- Added cloned value for `field` in computed `children` inside `QasNestedFields`.
 - System scrollbar height.
 
 ## 2.2.0 - 2021-05-26
