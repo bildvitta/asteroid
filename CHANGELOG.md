@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## Unreleasded
+## Unreleased
 
 ### Changed
 
@@ -13,6 +13,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - In Qas-field password input, if it doesn't have pattern as an atribute, it will hide password strength by default
 - Background color on qas-box when is outside forms
 
+### Added
+- Added `type` prop in `QasSignatureUploader`.
+
 ## 2.4.2 - 2021-06-15
 
 ### Added
@@ -20,7 +23,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Handling errors in the `QasSignatureUploader` component.
 - Added the functionality to open the subscription modal by clicking on the header in `QasSignatureUploader` component.
 - Now component (`QasField`) pass along all slots and scoped slots available on it.
-- Added `type` prop in `QasSignatureUploader`.
 
 ## 2.4.2 - 2021-06-15
 
