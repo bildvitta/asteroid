@@ -12,13 +12,11 @@ export default {
   methods: {
     backLink () {
       if (!history.hasPreviousRoute){
-        this.$router.push('/')
-        return
+        return this.$router.push('/')
       } 
       
       history.list.splice(history.list.length -2, 2)
-      const redirect = history.list.pop()
-      this.$router.push(redirect.fullPath)
+      this.$router.push(history.list.pop().fullPath)
     }
   }
 }
