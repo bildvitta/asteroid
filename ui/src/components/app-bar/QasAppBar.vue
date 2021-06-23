@@ -137,7 +137,7 @@ export default {
     },
 
     hasNotifications () {
-      return !!Object.keys(notifications).length
+      return !!Object.keys(this.notifications).length
     }
   },
 
