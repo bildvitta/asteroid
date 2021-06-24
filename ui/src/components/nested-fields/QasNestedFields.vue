@@ -11,7 +11,7 @@
             <div v-if="!row[destroyKey]" :key="index" class="col-12 q-mt-md">
               <div>
                 <div class="flex items-center justify-between q-py-xs">
-                  <qas-label v-if="!useSingleLabel" :label="label" />
+                  <qas-label v-if="!useSingleLabel" :label="setRowLabel(index)" />
 
                   <div v-if="!useInlineActions" class="q-gutter-x-sm">
                     <qas-btn v-if="useDuplicate" v-bind="btnDuplicateProps" @click="add(row)" />
@@ -19,19 +19,20 @@
                   </div>
                 </div>
 
-                <div class="col-12 justify-between q-col-gutter-x-md row">
-                  <qas-form-generator ref="formGenerator" v-model="nested[index]" :class="formClasses" :columns="formColumns" :errors="errors[index]" :fields="children" :fields-events="fieldsEvents" :fields-props="fieldsProps" @input="updateValuesFromInput($event, index)">
-                    <template v-for="(slot, key) in $scopedSlots" :slot="key" slot-scope="scope">
-                      <slot :name="key" v-bind="scope" />
-                    </template>
-                  </qas-form-generator>
+                <slot>
+                  <div class="col-12 justify-between q-col-gutter-x-md row">
+                    <qas-form-generator ref="formGenerator" v-model="nested[index]" :class="formClasses" :columns="formColumns" :errors="errors[index]" :fields="children" :fields-events="fieldsEvents" :fields-props="fieldsProps" @input="updateValuesFromInput($event, index)">
+                      <template v-for="(slot, key) in $scopedSlots" :slot="key" slot-scope="scope">
+                        <slot :name="key" v-bind="scope" />
+                      </template>
+                    </qas-form-generator>
 
-                  <div v-if="useInlineActions" class="flex items-center qas-nested-fields__actions">
-                    <qas-btn v-if="useDuplicate" class="col-auto" color="primary" flat icon="o_content_copy" round @click="add(row)" />
-                    <qas-btn v-if="showDestroyBtn" class="col-auto" color="negative" flat icon="o_cancel" round @click="destroy(index, row)" />
+                    <div v-if="useInlineActions" class="flex items-center qas-nested-fields__actions">
+                      <qas-btn v-if="useDuplicate" class="col-auto" color="primary" flat icon="o_content_copy" round @click="add(row)" />
+                      <qas-btn v-if="showDestroyBtn" class="col-auto" color="negative" flat icon="o_cancel" round @click="destroy(index, row)" />
+                    </div>
                   </div>
-                </div>
-
+                </slot>
                 <div class="col-12">
                   <slot :index="index" :model-value="nested[index]" name="custom-fields" :update-value="updateValuesFromInput" />
                 </div>
@@ -247,7 +248,7 @@ export default {
         this.setFocus()
       })
 
-      return this.emitter()
+      return this.emitter(null, this.nested.length - 1)
     },
 
     setFocus () {
@@ -257,20 +258,21 @@ export default {
       return firstElementToBeFocused?.focus && firstElementToBeFocused.focus()
     },
 
-    emitter (value) {
-      return this.$emit('input', value || this.nested)
+    emitter (value, index) {
+      const payload = { value: value || this.nested, row: index }
+      return this.$emit('input', payload)
     },
 
     destroy (index, row) {
       this.nested.splice(index, 1, { [this.destroyKey]: true, ...row })
 
-      return this.emitter()
+      return this.emitter(null, index)
     },
 
     updateValuesFromInput (value, index) {
       this.nested.splice(index, 1, value)
 
-      return this.emitter()
+      return this.emitter(null, index)
     },
 
     setDefaultValue () {
@@ -287,6 +289,10 @@ export default {
         behavior: 'smooth',
         top: pageOffset + top
       })
+    },
+
+    setRowLabel (rowKey) {
+      return `${this.label} ${rowKey + 1}`
     }
   }
 }
