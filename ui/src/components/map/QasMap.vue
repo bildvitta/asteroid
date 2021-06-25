@@ -12,9 +12,6 @@
           <div>{{ marker.description }}</div>
         </gmap-info-window>
       </gmap-marker>
-      <div v-if="secondMarkers">
-        <gmap-marker v-for="(marker, index) in secondMarkers" :key="index" :draggable="marker.draggable" :icon="marker.icon" :position="marker.position" />
-      </div>
     </gmap-map>
   </qas-box>
 </template>
@@ -38,11 +35,6 @@ export default {
     },
 
     markers: {
-      type: Array,
-      default: () => []
-    },
-
-    secondMarkers: {
       type: Array,
       default: () => []
     },
@@ -81,12 +73,12 @@ export default {
 
     getPosition (mouseEvent) {
       this.$emit('update-position', mouseEvent.latLng.toJSON())
-    },
-
-    setPlace (place) {
-      debugger
-      this.currentPlace = place
     }
+
+    // TODO descomentar quando implementar o input de pesquisa
+    // setPlace (place) {
+    //   this.currentPlace = place
+    // }
   }
 }
 </script>

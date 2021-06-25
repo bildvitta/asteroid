@@ -1,6 +1,6 @@
 <template>
   <q-page class="container spaced">
-    <qas-map :center-position="{lat: -21.17663, lng: -47.820839 }" has-search :markers="$_createMarker(values)" show-popup />
+    <qas-map :center-position="$_position()" has-search :markers="$_createMarker(values)" show-popup />
   </q-page>
 </template>
 

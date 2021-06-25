@@ -26,10 +26,6 @@ export default {
       description: 'The list of objects that define and create the main markers in the map.'
     },
 
-    // secondMarkers: {
-    //   description: 'The list of objects that define and create the second markers in the map.'
-    // },
-
     showPopup: {
       description: 'Shows the popup message on top of the marker.'
     },
