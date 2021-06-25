@@ -1,9 +1,5 @@
 import QasMap from './QasMap.vue'
 
-const noSummary = {
-  type: { summary: null }
-}
-
 export default {
   component: QasMap,
   title: 'Components/Map',
@@ -18,8 +14,8 @@ export default {
 
   argTypes: {
     // Props
-    centerFocus: {
-      description: 'Define the coordinate to centralize the focus.'
+    centerPosition: {
+      description: 'Define the coordinate to centralize the position.'
     },
 
     hasSearch: {
@@ -30,11 +26,11 @@ export default {
       description: 'The list of objects that define and create the main markers in the map.'
     },
 
-    secondMarkers: {
-      description: 'The list of objects that define and create the second markers in the map.'
-    },
+    // secondMarkers: {
+    //   description: 'The list of objects that define and create the second markers in the map.'
+    // },
 
-    showInfoWindow: {
+    showPopup: {
       description: 'Shows the popup message on top of the marker.'
     },
 
@@ -48,7 +44,7 @@ const Template = (args, { argTypes }) => ({
   components: { QasMap },
   props: Object.keys(argTypes),
   template:
-  '<qas-map :center-focus="{lat: -21.17663, lng: -47.820839 }" has-search :markers="$_createMarker(marker, true)" show-info-window />'
+  '<qas-map :center-position="{lat: -21.17663, lng: -47.820839 }" has-search :markers="$_createMarker(marker, true)" show-info-window />'
 })
 
 const marker = {
@@ -67,7 +63,7 @@ Default.parameters = {
   docs: {
     source: {
       code:
-      '<qas-map :center-focus="{lat: -21.17663, lng: -47.820839 }" has-search :markers="$_createMarker(marker, true)" show-info-window  />'
+      '<qas-map :center-position="{lat: -21.17663, lng: -47.820839 }" has-search :markers="$_createMarker(marker, true)" show-info-window  />'
     }
   }
 }

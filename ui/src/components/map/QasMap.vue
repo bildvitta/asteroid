@@ -1,12 +1,13 @@
 <template>
-  <qas-box class="map">
-    <div v-if="hasSearch" class="items-center no-wrap row">
-      <gmap-autocomplete class="q-field__native q-placeholder" placeholder="Pesquisar..." @place_changed="setPlace" />
+  <qas-box class="qas-map">
+    <!-- TODO descomentar quando implementar o input de pesquisa -->
+    <!-- <div v-if="hasSearch" class="items-center no-wrap row">
+      <gmap-autocomplete class="q-field__native q-placeholder" placeholder="Pesquisar..." />
       <q-icon color="primary" name="o_search" size="24px" />
-    </div>
-    <gmap-map ref="map" :center="centerFocus" class="map__map-draw" :zoom="zoom">
-      <gmap-marker v-for="(marker, index) in markers" :key="index" ref="marker" :draggable="marker.draggable" :icon="marker.icon" :position="marker.position" @dragend="getPosition" @mouseout="closePopup" @mouseover="openPopup(marker)">
-        <gmap-info-window :opened="canShowInfoWindow">
+    </div> -->
+    <gmap-map :center="centerPosition" class="qas-map__draw" :zoom="zoom">
+      <gmap-marker v-for="(marker, index) in markers" :key="index" :draggable="marker.draggable" :icon="marker.icon" :position="marker.position" @dragend="getPosition" @mouseout="closePopup" @mouseover="openPopup(marker)">
+        <gmap-info-window :opened="canShowPopup">
           <div class="text-weight-bold">{{ marker.title }}</div>
           <div>{{ marker.description }}</div>
         </gmap-info-window>
@@ -27,7 +28,7 @@ export default {
   ],
 
   props: {
-    centerFocus: {
+    centerPosition: {
       type: Object,
       default: () => {}
     },
@@ -46,7 +47,7 @@ export default {
       default: () => []
     },
 
-    showInfoWindow: {
+    showPopup: {
       type: Boolean
     },
 
@@ -55,6 +56,7 @@ export default {
       default: 17
     }
   },
+
   data () {
     return {
       isPopupDisplayed: false,
@@ -63,14 +65,14 @@ export default {
   },
 
   computed: {
-    canShowInfoWindow () {
-      return this.isPopupDisplayed && this.showInfoWindow
+    canShowPopup () {
+      return this.isPopupDisplayed && this.showPopup
     }
   },
 
   methods: {
-    openPopup (marker) {
-      this.isPopupDisplayed = !!marker.title || !!marker.description
+    openPopup ({ title, description }) {
+      this.isPopupDisplayed = !!(title || description)
     },
 
     closePopup () {
@@ -82,6 +84,7 @@ export default {
     },
 
     setPlace (place) {
+      debugger
       this.currentPlace = place
     }
   }
@@ -89,8 +92,8 @@ export default {
 </script>
 
 <style lang="scss">
-.map {
-  &__map-draw{
+.qas-map {
+  &__draw{
     height: 300px;
     width: 100%;
   }
