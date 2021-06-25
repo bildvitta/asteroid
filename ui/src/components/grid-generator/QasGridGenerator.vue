@@ -18,6 +18,7 @@
 import generatorMixin from '../../mixins/generator'
 import { humanize } from '../../helpers/filters'
 import { extend } from 'quasar'
+import { isObject } from 'lodash'
 
 export default {
   mixins: [generatorMixin],
@@ -58,7 +59,13 @@ export default {
       const fields = {}
 
       for (const key in this.fields) {
-        if (this.result[key]) {
+        const result = this.result[key]
+
+        const validate = Array.isArray(result)
+          ? result.length
+          : isObject(result) ? Object.keys(result).length : result
+
+        if (validate) {
           fields[key] = this.fields[key]
         }
       }

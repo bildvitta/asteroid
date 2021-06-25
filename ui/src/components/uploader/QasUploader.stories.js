@@ -39,6 +39,10 @@ export default {
       description: 'File object.'
     },
 
+    errorMessage: {
+      description: 'Error message.'
+    },
+
     // Events
     input: {
       description: 'Fires when files change.'
@@ -55,6 +59,30 @@ export default {
 
         type: { summary: null }
       }
+    },
+
+    header: {
+      description: 'Slot in case you want to customize the `QasUploader` header.',
+      table: {
+        defaultValue: {
+          detail: JSON.stringify({ scope: 'object' }),
+          summary: '{}'
+        },
+
+        type: { summary: null }
+      }
+    },
+
+    list: {
+      description: 'Slot if you want to customize the content that contains the file listing.',
+      table: {
+        defaultValue: {
+          detail: JSON.stringify({ scope: 'object' }),
+          summary: '{}'
+        },
+
+        type: { summary: null }
+      }
     }
   }
 }
@@ -62,7 +90,19 @@ export default {
 const Template = (args, { argTypes }) => ({
   components: { QasUploader },
   props: Object.keys(argTypes),
-  template: '<qas-uploader v-bind="$props" />'
+  template: 
+    `<div>
+      <qas-uploader v-bind="$props" />
+      <qas-uploader v-bind="$props">
+        <template #custom-upload="{ context }">
+          <q-btn color="primary" flat no-caps @click="context.dispatchUpload">
+            <q-circular-progress v-if="context.isFetching" class="q-mr-sm" color="primary" indeterminate size="20px" />
+            <q-icon class="q-mr-sm" name="o_camera_alt" />
+            Fazer upload
+          </q-btn>
+        </template>
+      </qas-uploader>
+    </div>`
 })
 
 export const Default = Template.bind({})

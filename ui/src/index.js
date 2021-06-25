@@ -37,6 +37,8 @@ import QasResizer from './components/resizer/QasResizer'
 import QasSearchBox from './components/search-box/QasSearchBox'
 import QasSelectList from './components/select-list/QasSelectList'
 import QasSettingsMenu from './components/settings-menu/QasSettingsMenu'
+import QasSignaturePad from './components/signature-pad/QasSignaturePad'
+import QasSignatureUploader from './components/signature-uploader/QasSignatureUploader'
 import QasSingleView from './components/single-view/QasSingleView'
 import QasSortable from './components/sortable/QasSortable'
 import QasTableGenerator from './components/table-generator/QasTableGenerator'
@@ -107,6 +109,8 @@ export {
   QasSearchBox,
   QasSelectList,
   QasSettingsMenu,
+  QasSignaturePad,
+  QasSignatureUploader,
   QasSingleView,
   QasSortable,
   QasTableGenerator,
@@ -163,6 +167,8 @@ export default {
   QasSearchBox,
   QasSelectList,
   QasSettingsMenu,
+  QasSignaturePad,
+  QasSignatureUploader,
   QasSingleView,
   QasSortable,
   QasTableGenerator,
@@ -218,6 +224,8 @@ export default {
     Vue.component('QasSearchBox', QasSearchBox)
     Vue.component('QasSelectList', QasSelectList)
     Vue.component('QasSettingsMenu', QasSettingsMenu)
+    Vue.component('QasSignaturePad', QasSignaturePad)
+    Vue.component('QasSignatureUploader', QasSignatureUploader)
     Vue.component('QasSingleView', QasSingleView)
     Vue.component('QasSortable', QasSortable)
     Vue.component('QasTableGenerator', QasTableGenerator)
