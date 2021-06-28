@@ -1,13 +1,19 @@
 export default {
   methods: {
-    $_createMarker (marker) {
-      return [{
-        position: this.$_position(marker.latitude, marker.longitude),
-        title: marker.title,
-        description: marker.description,
-        draggable: marker.draggable,
-        icon: marker.icon
-      }]
+    $_createMarkers (values) {
+      const markers = []
+
+      values.forEach(value => {
+        markers.push({
+          position: this.$_position(value.latitude, value.longitude),
+          title: value.title,
+          description: value.description,
+          draggable: value.draggable,
+          icon: value.icon
+        })
+      })
+
+      return markers
     },
 
     $_position (lat, lng) {

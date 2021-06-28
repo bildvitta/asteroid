@@ -6,8 +6,8 @@
       <q-icon color="primary" name="o_search" size="24px" />
     </div> -->
     <gmap-map :center="centerPosition" class="qas-map__draw" :zoom="zoom">
-      <gmap-marker v-for="(marker, index) in markers" :key="index" :draggable="marker.draggable" :icon="marker.icon" :position="marker.position" @dragend="getPosition" @mouseout="closePopup" @mouseover="openPopup(marker)">
-        <gmap-info-window :opened="canShowPopup">
+      <gmap-marker v-for="(marker, index) in markers" :key="index" :draggable="marker.draggable" :icon="marker.icon" :position="marker.position" @dragend="getPosition" @mouseout="closePopup" @mouseover="openPopup(marker, index)">
+        <gmap-info-window :opened="canShowPopup(index)">
           <div class="text-weight-bold">{{ marker.title }}</div>
           <div>{{ marker.description }}</div>
         </gmap-info-window>
@@ -52,19 +52,19 @@ export default {
   data () {
     return {
       isPopupDisplayed: false,
-      currentPlace: null
-    }
-  },
-
-  computed: {
-    canShowPopup () {
-      return this.isPopupDisplayed && this.showPopup
+      currentPlace: null,
+      indexMarker: ''
     }
   },
 
   methods: {
-    openPopup ({ title, description }) {
+    openPopup ({ title, description }, index) {
+      this.indexMarker = index
       this.isPopupDisplayed = !!(title || description)
+    },
+
+    canShowPopup (index) {
+      return this.isPopupDisplayed && this.showPopup && index === this.indexMarker
     },
 
     closePopup () {
