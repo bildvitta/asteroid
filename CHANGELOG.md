@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Add
 
+- Create class `.opaque`
 - Plugin Autoprefixer
 
 ### Fixed 
