@@ -62,6 +62,26 @@ export default {
       }
     },
 
+    added: {
+      description: 'Fires when model changes. Also used by `v-model`.',
+      table: {
+        defaultValue: {
+          detail: JSON.stringify({ item: 'object' }),
+          summary: '{}'
+        }
+      }
+    },
+
+    removed: {
+      description: 'Fires when model changes. Also used by `v-model`.',
+      table: {
+        defaultValue: {
+          detail: JSON.stringify({ item: 'object', index: 'string' }),
+          summary: '{}'
+        }
+      }
+    },
+
     // Slots
     item: {
       description: '[QItem](https://quasar.dev/vue-components/list-and-list-items) slot.',

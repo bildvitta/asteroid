@@ -117,6 +117,7 @@ export default {
     add (item) {
       this.values.push(item.value)
       this.updateModel()
+      this.$emit('added', item)
     },
 
     handleClick (item) {
@@ -148,6 +149,8 @@ export default {
 
       this.values.splice(index, 1)
       this.updateModel()
+
+      this.$emit('removed', item, index)
     },
 
     setButtonProps ({ value }) {
