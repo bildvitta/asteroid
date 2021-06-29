@@ -13,13 +13,13 @@
     </q-toolbar-title>
 
     <!-- TODO: Notificações. -->
-    <div class="q-mr-md" v-if="hasNotifications">
+    <div v-if="hasNotifications" class="q-mr-md">
       <q-btn class="q-mr-md" dense icon="o_notifications" round unelevated>
         <q-badge v-if="notifications" color="red" floating>{{ notifications.count }}</q-badge>
       </q-btn>
     </div>
 
-    <qas-apps-menu class="q-mr-md" v-if="hasApps" :apps="apps" />
+    <qas-apps-menu v-if="hasApps" :apps="apps" class="q-mr-md" />
 
     <div class="items-center no-wrap q-gutter-md row">
       <slot name="tools" />

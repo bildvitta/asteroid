@@ -50,7 +50,7 @@ export default {
     default: {
       description: 'Main content.',
       table: noSummary
-    },
+    }
   }
 }
 
