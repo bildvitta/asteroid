@@ -15,7 +15,7 @@ export default {
   argTypes: {
     // Props
     entity: {
-      description: 'Used by server to know where to store files in the assets bucket.',
+      description: 'Used by server to know where to store files in the assets bucket.'
     },
 
     uploadLabel: {
