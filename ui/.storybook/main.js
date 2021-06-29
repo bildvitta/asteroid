@@ -4,7 +4,8 @@ const path = require('path')
 module.exports = {
   addons: [
     '@storybook/addon-essentials',
-    '@storybook/addon-links'
+    '@storybook/addon-links',
+    '@storybook/addon-postcss'
   ],
 
   stories: [
