@@ -8,8 +8,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Create class `.opaque`
-- Plugin Autoprefixer
+- Create class `.opaque`.
+- Plugin Autoprefixer.
+- Added events `added` and `removed` in `QasSelectList` component.
 
 ### Fixed 
 
