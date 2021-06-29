@@ -63,7 +63,7 @@ export default {
     },
 
     added: {
-      description: 'Fires when model changes. Also used by `v-model`.',
+      description: 'Fires when an item is added to the list.',
       table: {
         defaultValue: {
           detail: JSON.stringify({ item: 'object' }),
@@ -73,7 +73,7 @@ export default {
     },
 
     removed: {
-      description: 'Fires when model changes. Also used by `v-model`.',
+      description: 'Fires when removing an item from the list.',
       table: {
         defaultValue: {
           detail: JSON.stringify({ item: 'object', index: 'string' }),

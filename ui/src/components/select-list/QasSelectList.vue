@@ -117,6 +117,7 @@ export default {
     add (item) {
       this.values.push(item.value)
       this.updateModel()
+
       this.$emit('added', item)
     },
 
