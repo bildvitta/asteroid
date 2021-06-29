@@ -6,11 +6,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+### Add
+
+- Plugin Autoprefixer
 ### Fixed 
 
-- Storybook
-- Lint
-- Postcss
+- Storybook fix in npm run storybook
+- Postcss update to version 8.3.5
 
 ## 2.5.1 - 2021-07-23
 
