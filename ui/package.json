@@ -1,6 +1,6 @@
 {
   "name": "@bildvitta/quasar-ui-asteroid",
-  "version": "2.5.1",
+  "version": "2.6.0",
   "description": "",
   "main": "./src/index.js",
   "scripts": {
