@@ -17,8 +17,7 @@ module.exports = function (/* quasar */) {
       'error-pages',
       'store',
       'axios',
-      'i18n',
-      'vue-google-maps'
+      'i18n'
     ],
 
     // https://v1.quasar.dev/quasar-cli/quasar-conf-js#Property%3A-css
