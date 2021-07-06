@@ -90,7 +90,7 @@ export default {
 const Template = (args, { argTypes }) => ({
   components: { QasUploader },
   props: Object.keys(argTypes),
-  template: 
+  template:
     `<div>
       <qas-uploader v-bind="$props" />
       <qas-uploader v-bind="$props">
