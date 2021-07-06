@@ -291,8 +291,8 @@ export default {
       })
     },
 
-    setRowLabel (rowKey) {
-      return `${this.label} ${rowKey + 1}`
+    setRowLabel (rowIndex) {
+      return `${this.label} ${rowIndex + 1}`
     }
   }
 }
