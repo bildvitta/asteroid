@@ -10,9 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `QasNestedFields` returning changed line index.
 - `QasNestedFields` enumerating label.
 
-## 2.5.1 - 2021-07-23
 ### Fixed
-
 - `Qastip` computed and close icon ajusted.
 
 ## 2.6.1 - 2021-07-01
