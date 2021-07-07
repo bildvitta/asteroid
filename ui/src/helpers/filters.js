@@ -77,7 +77,8 @@ function handleMasks (value) {
     document: () => formatDocument(value),
     'personal-document': () => formatPersonalDocument(value),
     phone: () => formatPhone(value),
-    'postal-code': () => formatPostalCode(value)
+    'postal-code': () => formatPostalCode(value),
+    money: () => money(value)
   }
 }
 
