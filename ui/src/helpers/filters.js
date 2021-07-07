@@ -39,6 +39,11 @@ function humanDate (value, token = "dd 'de' MMMM 'de' yyyy 'as' HH:mm:ss", optio
 }
 
 // Number
+function decimal (value = 0) {
+  value = Number(value)
+  return value ? value.toLocaleString('pt-BR') : ''
+}
+
 function money (value = 0, options = { style: 'currency', currency: 'BRL' }) {
   value = Number(value)
   return isNaN(value) ? '' : value.toLocaleString('pt-BR', options)
@@ -47,6 +52,10 @@ function money (value = 0, options = { style: 'currency', currency: 'BRL' }) {
 function percent (value = 0, places = 2) {
   value = Number(value)
   return value ? (value / 100).toLocaleString('pt-BR', { style: 'percent', minimumFractionDigits: places }) : ''
+}
+
+function squareArea (value = 0, suffix = 'm²') {
+  return value ? `${decimal(value)} ${suffix}` : ''
 }
 
 function formatCompanyDocument (value) {
@@ -78,7 +87,9 @@ function handleMasks (value) {
     'personal-document': () => formatPersonalDocument(value),
     phone: () => formatPhone(value),
     'postal-code': () => formatPostalCode(value),
-    money: () => money(value)
+    decimal: () => decimal(value),
+    money: () => money(value),
+    squareArea: () => squareArea(value)
   }
 }
 
@@ -126,6 +137,7 @@ export {
   booleanLabel,
   date,
   dateTime,
+  decimal,
   formatCompanyDocument,
   formatDocument,
   formatPersonalDocument,
@@ -137,5 +149,6 @@ export {
   money,
   optionLabel,
   parseValue,
-  percent
+  percent,
+  squareArea
 }
