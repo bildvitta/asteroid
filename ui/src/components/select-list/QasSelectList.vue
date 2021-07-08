@@ -151,7 +151,7 @@ export default {
       this.values.splice(index, 1)
       this.updateModel()
 
-      this.$emit('removed', item, index)
+      this.$emit('removed', { item, index })
     },
 
     setButtonProps ({ value }) {

@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- `QasSelectList` emit event `removed` returning a object
 - `Qastip` computed and close icon ajusted.
 
 ## 2.6.1 - 2021-07-01
