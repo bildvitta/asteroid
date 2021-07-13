@@ -7,7 +7,17 @@ export default {
   parameters: {
     docs: {
       description: {
-        component: 'Map component. This component\'s library needs to be initialized at boot of your system.'
+        component: `Map component. This component's library needs to be initialized at boot of your system like the example:
+          
+          import * as VueGoogleMaps from 'gmap-vue'
+          export default function ({ Vue }) {
+            Vue.use(VueGoogleMaps, {
+              load: {
+                key: 'AIzaSyDl00zRKG51WWBIJa8yVXqX7jFD5xyqe24',
+                libraries: 'places'
+              }
+            })
+          }`
       }
     }
   },
@@ -40,7 +50,7 @@ const Template = (args, { argTypes }) => ({
   components: { QasMap },
   props: Object.keys(argTypes),
   template:
-  '<qas-map :center-position="{lat: -21.17663, lng: -47.820839 }" has-search :markers="$_createMarker(marker, true)" show-info-window />'
+  '<qas-map :center-position="$_position()" has-search :markers="$_createMarkers(values)" show-popup />'
 })
 
 const marker = {
