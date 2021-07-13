@@ -7,7 +7,7 @@ export default {
   parameters: {
     docs: {
       description: {
-        component: 'Map component.'
+        component: 'Map component. This component\'s library needs to be initialized at boot of your system.'
       }
     }
   },
