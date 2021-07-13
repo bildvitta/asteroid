@@ -89,7 +89,7 @@ function handleMasks (value) {
     'postal-code': () => formatPostalCode(value),
     decimal: () => decimal(value),
     money: () => money(value),
-    squareArea: () => squareArea(value)
+    'square-area': () => squareArea(value)
   }
 }
 
