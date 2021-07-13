@@ -55,7 +55,8 @@ function percent (value = 0, places = 2) {
 }
 
 function squareArea (value = 0, suffix = 'm²') {
-  return value ? `${decimal(value)} ${suffix}` : ''
+  value = decimal(value)
+  return value ? `${value} ${suffix}` : ''
 }
 
 function formatCompanyDocument (value) {
