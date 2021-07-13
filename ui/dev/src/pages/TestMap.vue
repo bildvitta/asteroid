@@ -5,17 +5,7 @@
 </template>
 
 <script>
-import mapMarkersMixin from '../../../src/mixins/map-markers.js'
-// import { VueGoogleMaps } from '../../../src/helpers'
-
-import Vue from 'vue'
-import * as VueGoogleMaps from 'vue2-google-maps'
-VueGoogleMaps.install(Vue, {
-  load: {
-    key: 'AIzaSyDl00zRKG51WWBIJa8yVXqX7jFD5xyqe24',
-    libraries: 'places'
-  }
-})
+import mapMarkersMixin from 'ui/mixins/map-markers.js'
 
 export default {
   mixins: [
@@ -51,14 +41,6 @@ export default {
       ]
     }
   }
-
-  // mounted () {
-  //   this.VueGoogleMaps(Vue)
-  // },
-
-  // methods: {
-  //   VueGoogleMaps
-  // }
 
 }
 </script>
