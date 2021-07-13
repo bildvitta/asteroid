@@ -13,12 +13,29 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Create class `.opaque`
 - Plugin Autoprefixer
 
-### Fixed 
+### Fixed
+
+- `Qastip` computed and close icon ajusted.
+
+## 2.6.1 - 2021-07-01
+
+### Added
+- Added ref `form` to `q-form` in component (`QasFormView`).
+
+## 2.6.0 - 2021-06-29
+
+### Added
+
+- Create class `.opaque`.
+- Plugin Autoprefixer.
+- Added events `added` and `removed` in `QasSelectList` component.
+
+### Fixed
 
 - Storybook fix in npm run storybook
 - Postcss update to version 8.3.5
 
-## 2.5.1 - 2021-07-23
+## 2.5.1 - 2021-06-23
 
 ### Fixed
 

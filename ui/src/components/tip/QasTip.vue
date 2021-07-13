@@ -1,7 +1,7 @@
 <template>
   <div v-if="isOpened" class="q-pa-lg qas-tip relative-position rounded-borders" :class="classes" :style="styles">
-    <q-btn class="absolute-top-right q-mr-md q-mt-sm" :color="color" dense flat icon="close" rounded @click="close" />
-    <div class="q-gutter-md q-mr-lg" :class="colorClass">
+    <q-btn class="absolute-top-right q-mr-md q-mt-sm" :color="color" dense flat icon="o_close" rounded @click="close" />
+    <div class="q-gutter-md q-mr-lg" :class="classes">
       <slot name="header">
         <div v-if="title" class="text-bold text-h5">{{ title }}</div>
       </slot>
