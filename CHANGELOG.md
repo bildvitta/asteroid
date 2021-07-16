@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+### Added
+- Mask money in `filters.js`
+- Mask square area in `filters.js`
+- Mask decimal in `filters.js`
+
 ### Fixed
 
 - `Qastip` computed and close icon ajusted.
