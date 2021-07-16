@@ -153,6 +153,11 @@ export default {
       }
     },
 
+    returnRow: {
+      type: Boolean,
+      default: true
+    },
+
     rowObject: {
       type: Object,
       default: () => ({})
@@ -248,7 +253,7 @@ export default {
         this.setFocus()
       })
 
-      return this.emitter(null, this.nested.length - 1)
+      return this.returnRow ? this.emitter(null, this.nested.length - 1) : this.emitter()
     },
 
     setFocus () {
@@ -266,13 +271,13 @@ export default {
     destroy (index, row) {
       this.nested.splice(index, 1, { [this.destroyKey]: true, ...row })
 
-      return this.emitter(null, index)
+      return this.returnRow ? this.emitter(null, index) : this.emitter()
     },
 
     updateValuesFromInput (value, index) {
       this.nested.splice(index, 1, value)
 
-      return this.emitter(null, index)
+      return this.returnRow ? this.emitter(null, index) : this.emitter()
     },
 
     setDefaultValue () {

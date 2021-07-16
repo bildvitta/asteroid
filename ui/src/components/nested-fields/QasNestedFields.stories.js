@@ -54,6 +54,10 @@ export default {
       description: 'Gutter of form fields.'
     },
 
+    returnRow: {
+      description: 'Return the index of the changed row.'
+    },
+
     rowObject: {
       description: 'Defines the default value to each field.'
     },
