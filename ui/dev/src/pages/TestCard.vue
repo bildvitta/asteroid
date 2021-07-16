@@ -1,13 +1,9 @@
 <template>
   <q-page class="container flex flex-center spaced">
-    <qas-tooltip
-      v-bind="$props"
-      icon="o_assignment_late"
-      :message="message"
-      message-icon="o_assignment_late"
-      width="500px"
-    />
     <qas-card :images="images" use-header>
+      <template #carousel-header>
+        <q-badge class="border-radius-xs card__status-badge q-mr-xs" color="primary" label="Status" />
+      </template>
       <template #default>
         <div>{{ result.name }}</div>
         <div>{{ result.email }}</div>
