@@ -10,6 +10,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `QasNestedFields` new prop returnRow.
 - `QasNestedFields` returning changed line index.
 - `QasNestedFields` enumerating label.
+- Mask money in `filters.js`
+- Mask square area in `filters.js`
+- Mask decimal in `filters.js`
+
+### Fixed
 
 ### Fixed
 - `Qastip` computed and close icon ajusted.
