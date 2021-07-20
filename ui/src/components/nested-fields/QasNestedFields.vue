@@ -1,17 +1,17 @@
 <template>
-  <div class="qas-nested-fields">
+  <div :id="name" class="qas-nested-fields">
     <div class="text-left">
       <qas-label v-if="useSingleLabel" :label="label" />
     </div>
 
     <div>
       <component :is="componentIs" ref="inputContent" name="fade" tag="div">
-        <div v-for="(row, index) in nested" :key="index" class="full-width">
+        <div v-for="(row, index) in nested" :id="`row${index}`" :key="index" class="full-width">
           <component :is="componentIs" name="fade" tag="div">
             <div v-if="!row[destroyKey]" :key="index" class="col-12 q-mt-md">
               <div>
                 <div class="flex items-center justify-between q-py-xs">
-                  <qas-label v-if="!useSingleLabel" :label="setRowLabel(index)" />
+                  <qas-label v-if="!useSingleLabel" :label="label" />
 
                   <div v-if="!useInlineActions" class="q-gutter-x-sm">
                     <qas-btn v-if="useDuplicate" v-bind="btnDuplicateProps" @click="add(row)" />
@@ -19,20 +19,21 @@
                   </div>
                 </div>
 
-                <slot>
-                  <div class="col-12 justify-between q-col-gutter-x-md row">
+                <div class="col-12 justify-between q-col-gutter-x-md row">
+                  <slot :fields="children" :index="index" name="fields">
                     <qas-form-generator ref="formGenerator" v-model="nested[index]" :class="formClasses" :columns="formColumns" :errors="errors[index]" :fields="children" :fields-events="fieldsEvents" :fields-props="fieldsProps" @input="updateValuesFromInput($event, index)">
                       <template v-for="(slot, key) in $scopedSlots" :slot="key" slot-scope="scope">
                         <slot :name="key" v-bind="scope" />
                       </template>
                     </qas-form-generator>
+                  </slot>
 
-                    <div v-if="useInlineActions" class="flex items-center qas-nested-fields__actions">
-                      <qas-btn v-if="useDuplicate" class="col-auto" color="primary" flat icon="o_content_copy" round @click="add(row)" />
-                      <qas-btn v-if="showDestroyBtn" class="col-auto" color="negative" flat icon="o_cancel" round @click="destroy(index, row)" />
-                    </div>
+                  <div v-if="useInlineActions" class="flex items-center qas-nested-fields__actions">
+                    <qas-btn v-if="useDuplicate" class="col-auto" color="primary" flat icon="o_content_copy" round @click="add(row)" />
+                    <qas-btn v-if="showDestroyBtn" class="col-auto" color="negative" flat icon="o_cancel" round @click="destroy(index, row)" />
                   </div>
-                </slot>
+                </div>
+
                 <div class="col-12">
                   <slot :index="index" :model-value="nested[index]" name="custom-fields" :update-value="updateValuesFromInput" />
                 </div>
@@ -153,11 +154,6 @@ export default {
       }
     },
 
-    returnRow: {
-      type: Boolean,
-      default: true
-    },
-
     rowObject: {
       type: Object,
       default: () => ({})
@@ -200,6 +196,10 @@ export default {
   computed: {
     label () {
       return this.field?.label
+    },
+
+    name () {
+      return this.field?.name
     },
 
     children () {
@@ -253,7 +253,7 @@ export default {
         this.setFocus()
       })
 
-      return this.returnRow ? this.emitter(null, this.nested.length - 1) : this.emitter()
+      return this.emitter()
     },
 
     setFocus () {
@@ -264,20 +264,19 @@ export default {
     },
 
     emitter (value, index) {
-      const payload = { value: value || this.nested, row: index }
-      return this.$emit('input', payload)
+      return this.$emit('input', value || this.nested)
     },
 
     destroy (index, row) {
       this.nested.splice(index, 1, { [this.destroyKey]: true, ...row })
 
-      return this.returnRow ? this.emitter(null, index) : this.emitter()
+      return this.emitter()
     },
 
     updateValuesFromInput (value, index) {
       this.nested.splice(index, 1, value)
 
-      return this.returnRow ? this.emitter(null, index) : this.emitter()
+      return this.emitter(null, index)
     },
 
     setDefaultValue () {
@@ -294,10 +293,6 @@ export default {
         behavior: 'smooth',
         top: pageOffset + top
       })
-    },
-
-    setRowLabel (rowIndex) {
-      return `${this.label} ${rowIndex + 1}`
     }
   }
 }
