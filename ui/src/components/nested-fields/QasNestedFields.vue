@@ -6,7 +6,7 @@
 
     <div>
       <component :is="componentIs" ref="inputContent" name="fade" tag="div">
-        <div v-for="(row, index) in nested" :id="`row${index}`" :key="index" class="full-width">
+        <div v-for="(row, index) in nested" :id="`row-${index}`" :key="index" class="full-width">
           <component :is="componentIs" name="fade" tag="div">
             <div v-if="!row[destroyKey]" :key="index" class="col-12 q-mt-md">
               <div>
@@ -198,7 +198,7 @@ export default {
       return this.field?.label
     },
 
-    name () {
+    fieldName () {
       return this.field?.name
     },
 
