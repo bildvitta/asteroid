@@ -8,26 +8,7 @@ import {
   booleanLabel,
   date,
   dateTime,
-  formatCompanyDocument,
-  formatDocument,
-  formatPersonalDocument,
-  formatPhone,
-  formatPostalCode,
-  handleMasks,
-  humanDate,
-  humanize,
-  money,
-  optionLabel,
-  parseValue,
-  percent
-} from './filters.js'
-
-export {
-  // filters
-  asset,
-  booleanLabel,
-  date,
-  dateTime,
+  decimal,
   formatCompanyDocument,
   formatDocument,
   formatPersonalDocument,
@@ -40,6 +21,29 @@ export {
   optionLabel,
   parseValue,
   percent,
+  squareArea
+} from './filters.js'
+
+export {
+  // filters
+  asset,
+  booleanLabel,
+  date,
+  dateTime,
+  decimal,
+  formatCompanyDocument,
+  formatDocument,
+  formatPersonalDocument,
+  formatPhone,
+  formatPostalCode,
+  handleMasks,
+  humanDate,
+  humanize,
+  money,
+  optionLabel,
+  parseValue,
+  percent,
+  squareArea,
 
   // history
   handleHistory,
