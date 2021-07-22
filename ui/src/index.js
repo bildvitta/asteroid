@@ -27,6 +27,7 @@ import QasGridGenerator from './components/grid-generator/QasGridGenerator'
 import QasInput from './components/input/QasInput'
 import QasLabel from './components/label/QasLabel'
 import QasListView from './components/list-view/QasListView'
+import QasMap from './components/map/QasMap'
 import QasNestedFields from './components/nested-fields/QasNestedFields'
 import QasPageHeader from './components/page-header/QasPageHeader'
 import QasPasswordInput from './components/password-input/QasPasswordInput'
@@ -98,6 +99,7 @@ export {
   QasInput,
   QasLabel,
   QasListView,
+  QasMap,
   QasNestedFields,
   QasPageHeader,
   QasPasswordInput,
@@ -155,6 +157,7 @@ export default {
   QasInput,
   QasLabel,
   QasListView,
+  QasMap,
   QasNestedFields,
   QasPageHeader,
   QasPasswordInput,
@@ -211,6 +214,7 @@ export default {
     Vue.component('QasInput', QasInput)
     Vue.component('QasLabel', QasLabel)
     Vue.component('QasListView', QasListView)
+    Vue.component('QasMap', QasMap)
     Vue.component('QasNestedFields', QasNestedFields)
     Vue.component('QasPageHeader', QasPageHeader)
     Vue.component('QasPasswordInput', QasPasswordInput)

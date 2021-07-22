@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## Unreleased
 
 ### Added
+
+- New component QasMap.
+- New mixin mapMarkerMixin
+- Create class `.opaque`
+- Plugin Autoprefixer
 - `QasNestedFields` changes to get row index.
 - Mask money in `filters.js`
 - Mask square area in `filters.js`

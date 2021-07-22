@@ -5,6 +5,7 @@ import passwordMixin from './password.js'
 import screenMixin from './screen.js'
 import unsavedChangesMixin from './unsaved-changes.js'
 import viewMixin from './view.js'
+import mapMarkersMixin from './map-markers.js'
 
 export {
   contextMixin,
@@ -13,5 +14,6 @@ export {
   passwordMixin,
   screenMixin,
   unsavedChangesMixin,
-  viewMixin
+  viewMixin,
+  mapMarkersMixin
 }
