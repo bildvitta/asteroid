@@ -7,12 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## Unreleased
 
 ### Added
+- `QasNestedFields` enumerate labels.
+- Slot carousel header in component (`QasCard`). 
 - `QasNestedFields` changes to get row index.
 - Mask money in `filters.js`
 - Mask square area in `filters.js`
 - Mask decimal in `filters.js`
-
-### Fixed
 
 ### Fixed
 - `Qastip` computed and close icon ajusted.
@@ -20,7 +20,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## 2.6.1 - 2021-07-01
 
 ### Added
-- Slot carousel header in component (`QasCard`). 
 - Added ref `form` to `q-form` in component (`QasFormView`).
 
 ## 2.6.0 - 2021-06-29
