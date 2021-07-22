@@ -1,12 +1,12 @@
 <template>
-  <div class="qas-nested-fields">
+  <div :id="name" class="qas-nested-fields">
     <div class="text-left">
       <qas-label v-if="useSingleLabel" :label="label" />
     </div>
 
     <div>
       <component :is="componentIs" ref="inputContent" name="fade" tag="div">
-        <div v-for="(row, index) in nested" :key="index" class="full-width">
+        <div v-for="(row, index) in nested" :id="`row-${index}`" :key="index" class="full-width">
           <component :is="componentIs" name="fade" tag="div">
             <div v-if="!row[destroyKey]" :key="index" class="col-12 q-mt-md">
               <div>
@@ -20,11 +20,13 @@
                 </div>
 
                 <div class="col-12 justify-between q-col-gutter-x-md row">
-                  <qas-form-generator ref="formGenerator" v-model="nested[index]" :class="formClasses" :columns="formColumns" :errors="errors[index]" :fields="children" :fields-events="fieldsEvents" :fields-props="fieldsProps" @input="updateValuesFromInput($event, index)">
-                    <template v-for="(slot, key) in $scopedSlots" :slot="key" slot-scope="scope">
-                      <slot :name="key" v-bind="scope" />
-                    </template>
-                  </qas-form-generator>
+                  <slot :fields="children" :index="index" name="fields">
+                    <qas-form-generator ref="formGenerator" v-model="nested[index]" :class="formClasses" :columns="formColumns" :errors="errors[index]" :fields="children" :fields-events="fieldsEvents" :fields-props="fieldsProps" @input="updateValuesFromInput($event, index)">
+                      <template v-for="(slot, key) in $scopedSlots" :slot="key" slot-scope="scope">
+                        <slot :name="key" v-bind="scope" />
+                      </template>
+                    </qas-form-generator>
+                  </slot>
 
                   <div v-if="useInlineActions" class="flex items-center qas-nested-fields__actions">
                     <qas-btn v-if="useDuplicate" class="col-auto" color="primary" flat icon="o_content_copy" round @click="add(row)" />
@@ -196,6 +198,10 @@ export default {
       return this.field?.label
     },
 
+    fieldName () {
+      return this.field?.name
+    },
+
     children () {
       const field = extend(true, {}, this.field)
 
@@ -257,7 +263,7 @@ export default {
       return firstElementToBeFocused?.focus && firstElementToBeFocused.focus()
     },
 
-    emitter (value) {
+    emitter (value, index) {
       return this.$emit('input', value || this.nested)
     },
 
@@ -270,7 +276,7 @@ export default {
     updateValuesFromInput (value, index) {
       this.nested.splice(index, 1, value)
 
-      return this.emitter()
+      return this.emitter(null, index)
     },
 
     setDefaultValue () {
