@@ -11,7 +11,7 @@
             <div v-if="!row[destroyKey]" :key="index" class="col-12 q-mt-md">
               <div>
                 <div class="flex items-center justify-between q-py-xs">
-                  <qas-label v-if="!useSingleLabel" :label="label" />
+                  <qas-label v-if="!useSingleLabel" :label="setRowLabel(index)" />
 
                   <div v-if="!useInlineActions" class="q-gutter-x-sm">
                     <qas-btn v-if="useDuplicate" v-bind="btnDuplicateProps" @click="add(row)" />
@@ -293,6 +293,10 @@ export default {
         behavior: 'smooth',
         top: pageOffset + top
       })
+    },
+
+    setRowLabel (rowKey) {
+      return `${this.label} ${rowKey + 1}`
     }
   }
 }
