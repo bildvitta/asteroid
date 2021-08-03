@@ -61,7 +61,7 @@ export default {
     },
 
     activeSecondaryItemClasses () {
-      return 'bg-secondary-contrast text-primary'
+      return 'bg-secondary-contrast text-primary-contrast'
     },
 
     model: {
