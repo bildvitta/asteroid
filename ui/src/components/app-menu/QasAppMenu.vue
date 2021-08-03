@@ -2,8 +2,8 @@
   <q-drawer v-model="model" content-class="bg-primary-contrast" :mini="miniMode" :width="230" @before-hide="beforeHide">
     <q-list class="text-primary" padding>
       <div v-for="(header, index) in items" :key="index">
-        <q-expansion-item v-if="hasChildren(header)" expand-icon="o_keyboard_arrow_down" expand-icon-class="opacity-20 text-primary" expand-separator :icon="header.icon" :label="header.label">
-          <q-item v-for="(item, itemIndex) in header.children" :key="itemIndex" v-ripple clickable :exact-active-class="activeItemClasses" :to="item.to">
+        <q-expansion-item v-if="hasChildren(header)" :active-class="activeSecondaryItemClasses" expand-icon="o_keyboard_arrow_down" expand-icon-class="opacity-20 text-primary" expand-separator :icon="header.icon" :label="header.label" :to="header.to">
+          <q-item v-for="(item, itemIndex) in header.children" :key="itemIndex" :active-class="activeItemClasses"	v-ripple clickable :exact-active-class="activeItemClasses" :to="item.to">
             <q-item-section v-if="item.icon" avatar>
               <q-icon :name="item.icon" />
             </q-item-section>
@@ -13,7 +13,7 @@
           </q-item>
         </q-expansion-item>
 
-        <q-item v-else :key="index" v-ripple clickable :exact-active-class="activeItemClasses" :to="header.to">
+        <q-item v-else :key="index" v-ripple clickable :active-class="activeItemClasses" :exact-active-class="activeItemClasses" :to="header.to">
           <q-item-section v-if="header.icon" avatar>
             <q-icon :name="header.icon" />
           </q-item-section>
@@ -58,6 +58,10 @@ export default {
   computed: {
     activeItemClasses () {
       return 'bg-primary text-primary-contrast'
+    },
+
+    activeSecondaryItemClasses () {
+      return 'bg-secondary-contrast text-primary'
     },
 
     model: {
