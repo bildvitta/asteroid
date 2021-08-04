@@ -8,7 +8,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Unreleased
 
 ### Fixed
-- Fix `time` type format in `filters.js`.
+- Fixed `time` type format in `filters.js`.
+- Fixed props `items` in `QasGallery` documentation.
+- Fixed validation to show button "show more" in `QasGallery`.
 
 ## 2.7.0 - 2021-07-27
 

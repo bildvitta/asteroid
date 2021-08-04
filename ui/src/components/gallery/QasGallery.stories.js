@@ -59,7 +59,7 @@ const Template = (args, { argTypes }) => ({
   props: Object.keys(argTypes),
   template:
   `<qas-box class="q-pa-lg">
-    <qas-gallery :photos="images" />
+    <qas-gallery :items="images" />
   </qas-box>`
 })
 
