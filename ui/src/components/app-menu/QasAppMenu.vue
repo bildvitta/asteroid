@@ -98,12 +98,12 @@ export default {
 .q-expansion-item {
   .active .q-expansion-item__toggle-icon {
     color: white !important;
-    opacity: 100%;
+    opacity: 1;
   }
 
   .q-expansion-item__toggle-icon {
     color: $primary;
-    opacity: 20%;
+    opacity: 0.2;
   }
 }
 </style>
