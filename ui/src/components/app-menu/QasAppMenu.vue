@@ -3,7 +3,7 @@
     <q-list class="text-primary" padding>
       <div v-for="(header, index) in items" :key="index">
         <q-expansion-item v-if="hasChildren(header)" :active-class="activeSecondaryItemClasses" expand-icon="o_keyboard_arrow_down" expand-separator :default-opened="shouldExpand(header)" :icon="header.icon" :label="header.label" :to="header.to">
-          <q-item v-for="(item, itemIndex) in header.children" :key="itemIndex" :active-class="activeItemClasses"	v-ripple clickable :to="item.to">
+          <q-item v-for="(item, itemIndex) in header.children" :key="itemIndex" :active-class="activeItemClasses" v-ripple clickable :to="item.to">
             <q-item-section v-if="item.icon" avatar>
               <q-icon :name="item.icon" />
             </q-item-section>
@@ -100,7 +100,7 @@ export default {
     color: white !important;
     opacity: 100%;
   }
-  
+
   .q-expansion-item__toggle-icon {
     color: var(--q-color-primary);
     opacity: 20%;
