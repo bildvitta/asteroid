@@ -2,7 +2,7 @@
   <q-drawer v-model="model" content-class="bg-primary-contrast" :mini="miniMode" :width="230" @before-hide="beforeHide">
     <q-list class="text-primary" padding>
       <div v-for="(header, index) in items" :key="index">
-        <q-expansion-item v-if="hasChildren(header)" :active-class="activeSecondaryItemClasses" expand-icon="o_keyboard_arrow_down" expand-separator :icon="header.icon" :label="header.label" :to="header.to" :default-opened="shouldBeExpanded(header)">
+        <q-expansion-item v-if="hasChildren(header)" :active-class="activeSecondaryItemClasses" expand-icon="o_keyboard_arrow_down" expand-separator :default-opened="shouldExpand(header)" :icon="header.icon" :label="header.label" :to="header.to">
           <q-item v-for="(item, itemIndex) in header.children" :key="itemIndex" :active-class="activeItemClasses"	v-ripple clickable :to="item.to">
             <q-item-section v-if="item.icon" avatar>
               <q-icon :name="item.icon" />
@@ -61,7 +61,7 @@ export default {
     },
 
     activeSecondaryItemClasses () {
-      return 'bg-secondary-contrast text-primary-contrast'
+      return 'active bg-secondary-contrast text-primary-contrast'
     },
 
     model: {
@@ -80,9 +80,9 @@ export default {
       return !!(children || []).length
     },
 
-    shouldBeExpanded ({ children, to }) {
-      if (!children?.length) { return false }
-      return this.$route.matched.some(item => item.path === to.path)
+    shouldExpand ({ children, to }) {
+      return children?.length &&
+        this.$route.matched.some(item => item.path === to.path)
     },
 
     beforeHide () {
@@ -97,7 +97,7 @@ export default {
 
 <style lang="scss">
 .q-expansion-item {
-  .bg-secondary-contrast .q-expansion-item__toggle-icon {
+  .active .q-expansion-item__toggle-icon {
     color: white !important;
     opacity: 100%;
   }
