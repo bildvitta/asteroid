@@ -81,8 +81,7 @@ export default {
     },
 
     shouldExpand ({ children, to }) {
-      return children?.length &&
-        this.$route.matched.some(item => item.path === to.path)
+      return children?.length && this.$route.matched.some(item => item.path === to.path)
     },
 
     beforeHide () {
@@ -101,6 +100,7 @@ export default {
     color: white !important;
     opacity: 100%;
   }
+  
   .q-expansion-item__toggle-icon {
     color: var(--q-color-primary);
     opacity: 20%;

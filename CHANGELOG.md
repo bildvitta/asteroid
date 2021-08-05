@@ -7,7 +7,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## Unreleased
 
 ### Added
-
 - Menu default expanded when a children is selected
 - Color adjustments
 
