@@ -102,7 +102,7 @@ export default {
   }
 
   .q-expansion-item__toggle-icon {
-    color: var(--q-color-primary);
+    color: $primary;
     opacity: 20%;
   }
 }
