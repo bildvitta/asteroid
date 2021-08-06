@@ -4,7 +4,7 @@
       <slot :errors="errors" :fields="fields" :metadata="metadata" name="header" />
     </header>
 
-    <q-form @submit="submit" ref="form">
+    <q-form ref="form" @submit="submit">
       <slot :errors="errors" :fields="fields" :metadata="metadata" />
 
       <slot v-if="!readOnly" :errors="errors" :fields="fields" :metadata="metadata" name="actions">
