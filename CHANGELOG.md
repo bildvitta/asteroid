@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-### Unreleased
+### 2.7.2 - 2021-08-06
 
 ### Fixed
 - Fixed `time` type format in `filters.js`.
@@ -20,7 +20,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## 2.7.0 - 2021-07-27
 
 ### Added
-
 - New component QasMap.
 - New mixin mapMarkerMixin
 - Create class `.opaque`
@@ -41,20 +40,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## 2.6.0 - 2021-06-29
 
 ### Added
-
 - Create class `.opaque`.
 - Plugin Autoprefixer.
 - Added events `added` and `removed` in `QasSelectList` component.
 
 ### Fixed
-
 - Storybook fix in npm run storybook
 - Postcss update to version 8.3.5
 
 ## 2.5.1 - 2021-06-23
 
 ### Fixed
-
 - Fixed computed `hasNotifications` in component (`QasAppBar`).
 
 ## 2.5.0 - 2021-06-22
@@ -67,7 +63,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added `type` prop in `QasSignatureUploader`.
 
 ### Changed
-
 - Modifications on notifications in AppBar, just to not show on almobi products
 - Added a medium margin left on notifications icon and changed on AppsBar component
 - Background color on qas-box when is outside forms
