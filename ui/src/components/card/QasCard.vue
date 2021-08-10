@@ -1,7 +1,7 @@
 <template>
   <div class="col-12 col-lg-3 col-md-4 col-sm-6">
     <q-card class="border-radius-lg column full-height" :class="cardClasses">
-      <div v-if="useHeader" class="overflow-hidden relative-position">
+      <div v-if="useHeader" class="overflow-hidden relative-position w-full">
         <slot name="header">
           <q-carousel v-model="slideImage" animated class="cursor-pointer" height="205px" infinite :navigation="hasImages" navigation-icon="o_fiber_manual_record" swipeable>
             <q-carousel-slide v-for="(item, index) in imagesList" :key="index" class="bg-no-repeat" :class="bgImagePositionClasses" :img-src="item" :name="index" />
