@@ -10,7 +10,7 @@
       </div>
 
       <q-card-section class="col-grow column justify-between w-full">
-        <div :class="gutterClasses">
+        <div :class="gutterClasses" class="w-full">
           <slot />
         </div>
       </q-card-section>
