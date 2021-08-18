@@ -1,5 +1,5 @@
 <template>
-  <q-toolbar class="qas-toolbar">
+  <q-toolbar class="qas-toolbar bg-accent">
     <q-ajax-bar color="white" position="top" size="2px" />
 
     <q-btn dense flat icon="o_menu" round @click="toggleMenuDrawer" />

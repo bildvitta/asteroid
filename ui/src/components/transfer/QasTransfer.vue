@@ -195,7 +195,7 @@ export default {
       return this[isFirst
         ? 'firstQueue'
         : 'secondQueue'
-      ].some(item => item[this.valueKey] === object[this.valueKey]) && 'bg-secondary'
+      ].some(item => item[this.valueKey] === object[this.valueKey]) && 'bg-primary text-white'
     },
 
     onSelectQueue (item, isFirst) {

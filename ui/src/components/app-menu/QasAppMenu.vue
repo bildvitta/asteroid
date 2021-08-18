@@ -1,9 +1,9 @@
 <template>
-  <q-drawer v-model="model" content-class="bg-primary-contrast" :mini="miniMode" :width="230" @before-hide="beforeHide">
-    <q-list class="text-primary" padding>
+  <q-drawer v-model="model" content-class="bg-secondary" :mini="miniMode" :width="230" @before-hide="beforeHide">
+    <q-list class="text-white">
       <div v-for="(header, index) in items" :key="index">
         <q-expansion-item v-if="hasChildren(header)" :active-class="activeSecondaryItemClasses" expand-icon="o_keyboard_arrow_down" expand-separator :default-opened="shouldExpand(header)" :icon="header.icon" :label="header.label" :to="header.to">
-          <q-item v-for="(item, itemIndex) in header.children" :key="itemIndex" :active-class="activeItemClasses" v-ripple clickable :to="item.to">
+          <q-item v-for="(item, itemIndex) in header.children" :key="itemIndex" class="bg-tertiary" :active-class="activeItemClasses" v-ripple clickable :to="item.to">
             <q-item-section v-if="item.icon" avatar>
               <q-icon :name="item.icon" />
             </q-item-section>
@@ -61,7 +61,7 @@ export default {
     },
 
     activeSecondaryItemClasses () {
-      return 'active bg-secondary-contrast text-primary-contrast'
+      return 'active bg-dark text-primary-contrast'
     },
 
     model: {
@@ -96,14 +96,17 @@ export default {
 
 <style lang="scss">
 .q-expansion-item {
-  .active .q-expansion-item__toggle-icon {
-    color: white !important;
-    opacity: 1;
+  .q-router-link--exact-active { 
+    background: $primary !important; 
   }
 
   .q-expansion-item__toggle-icon {
-    color: $primary;
+    color: white;
     opacity: 0.2;
+  }
+
+  .active .q-expansion-item__toggle-icon {
+    opacity: 1;
   }
 }
 </style>
