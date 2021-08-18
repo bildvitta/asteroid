@@ -154,6 +154,11 @@ export default {
       }
     },
 
+    rowLabel: {
+      type: String,
+      default: ''
+    },
+
     rowObject: {
       type: Object,
       default: () => ({})
@@ -173,6 +178,10 @@ export default {
       default: true
     },
 
+    useIndexLabel: {
+      type: Boolean
+    },
+    
     useInlineActions: {
       type: Boolean
     },
@@ -296,7 +305,10 @@ export default {
     },
 
     setRowLabel (rowKey) {
-      return `${this.label} ${rowKey + 1}`
+      if(this.useIndexLabel)
+        return `${this.rowLabel} ${rowKey + 1}`
+      
+      return `${this.rowLabel}`
     }
   }
 }

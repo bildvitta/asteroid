@@ -45,7 +45,7 @@ export default {
     },
 
     'carousel-header': {
-      desxcription: 'Header of the carousel section',
+      description: 'Header of the carousel section',
       table: noSummary
     },
 
