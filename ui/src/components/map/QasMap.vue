@@ -1,5 +1,5 @@
 <template>
-  <qas-box class="qas-map">
+  <div class="qas-map">
     <!-- TODO descomentar quando implementar o input de pesquisa -->
     <!-- <div v-if="hasSearch" class="items-center no-wrap row">
       <gmap-autocomplete class="q-field__native q-placeholder" placeholder="Pesquisar..." />
@@ -13,7 +13,7 @@
         </gmap-info-window>
       </gmap-marker>
     </gmap-map>
-  </qas-box>
+  </div>
 </template>
 
 <script>
