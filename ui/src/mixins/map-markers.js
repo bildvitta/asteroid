@@ -2,9 +2,9 @@ export default {
   methods: {
     $_createMarkers (referencePoints) {
       const referencePointsList = []
-      
-      for (const index in referencePoints) {
-        const { latitude, longitude, city, name } = referencePoints[index]
+
+      referencePoints.forEach((referencePoint, index) => {
+        const { latitude, longitude, city, name } = referencePoint
 
         referencePointsList.push({
           position: { lat: +latitude, lng: +longitude },
@@ -13,8 +13,8 @@ export default {
           draggable: !index && this.$_isEditMode,
           icon: index ? require('images/marker.png') : ''
         })
-      }
-
+      })
+        
       return referencePointsList
     },
 
