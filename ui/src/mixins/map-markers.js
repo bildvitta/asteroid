@@ -1,9 +1,9 @@
 export default {
   methods: {
     $_createMarkers (referencePoints) {
+      const referencePointsList = []
       
       for (const index in referencePoints) {
-        const referencePointsList = []
         const { latitude, longitude, city, name } = referencePoints[index]
 
         referencePointsList.push({
