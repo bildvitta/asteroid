@@ -6,6 +6,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+### Changed
+- Changed implementation of `$_createMarkers` on `map-markers.js` mixin
+
 ### Added
 - DataCy prop to `qas-field`.
 
