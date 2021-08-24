@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Unreleased
 
 ### Changed
-- Changed implementation of `destroy` on `QasDelete` component. Now it receives an `url prop` to override the destroy URL.D
+- Changed implementation of `destroy` on `QasDelete` component. Now it receives an `url prop` to override the destroy URL.
 - Changed implementation of `$_createMarkers` on `map-markers.js` mixin
 
 ### 2.7.2 - 2021-08-06
