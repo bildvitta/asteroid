@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 - Changed implementation of `$_createMarkers` on `map-markers.js` mixin
 
+### Added
+- DataCy prop to `qas-field`.
+- DataCy prop to buttons at `qas-form-view`
+
 ### 2.7.2 - 2021-08-06
 
 ### Fixed
