@@ -37,6 +37,11 @@ export default {
     tag: {
       default: 'qas-btn',
       type: String
+    },
+
+    url: {
+      default: '',
+      type: String
     }
   },
 
@@ -82,7 +87,7 @@ export default {
       Loading.show()
 
       try {
-        await this.$store.dispatch(`${this.entity}/destroy`, { id: this.id })
+        await this.$store.dispatch(`${this.entity}/destroy`, { id: this.id, url: this.url })
         NotifySuccess('Item deletado com sucesso!')
         this.$emit('success')
       } catch (error) {

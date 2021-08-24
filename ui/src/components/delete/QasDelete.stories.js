@@ -42,6 +42,10 @@ export default {
       description: 'Vue component or HTML element tag.'
     },
 
+    url: {
+      description: 'It changes the default destroy url'
+    },
+
     // Events
     error: {
       description: 'Fires when occur an error deleting item.',
