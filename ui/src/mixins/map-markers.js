@@ -4,14 +4,14 @@ export default {
       const referencePointsList = []
 
       referencePoints.forEach((referencePoint, index) => {
-        const { latitude, longitude, city, name } = referencePoint
+        const { latitude, longitude, city, name, icon } = referencePoint
 
         referencePointsList.push({
           position: { lat: +latitude, lng: +longitude },
           title: name,
           description: city,
           draggable: !index && this.$_isEditMode,
-          icon: referencePoint.icon
+          icon: icon
         })
       })
         
