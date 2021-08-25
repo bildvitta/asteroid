@@ -4,7 +4,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-### 2.7.3 - 2021-08-24
+## Unreleased
+
+### Fixed
+- Fixed `map-markers.js` icon import was breaking build on other applications due to non existing file.
+
+## 2.7.3 - 2021-08-24
 
 ### Added
 - DataCy prop to `qas-field`.
@@ -14,7 +19,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Changed implementation of `destroy` on `QasDelete` component. Now it receives an `url prop` to override the destroy URL.
 - Changed implementation of `$_createMarkers` on `map-markers.js` mixin
 
-### 2.7.2 - 2021-08-06
+## 2.7.2 - 2021-08-06
 
 ### Fixed
 - Fixed `time` type format in `filters.js`.
