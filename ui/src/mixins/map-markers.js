@@ -11,7 +11,7 @@ export default {
           title: name,
           description: city,
           draggable: !index && this.$_isEditMode,
-          icon: icon
+          icon
         })
       })
         
