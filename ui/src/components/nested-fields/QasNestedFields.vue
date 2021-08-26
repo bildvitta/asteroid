@@ -305,7 +305,11 @@ export default {
     },
 
     setRowLabel (rowKey) {
-      return this.useIndexLabel ? `${this.rowLabel} ${rowKey + 1}` : this.rowLabel
+      if (this.rowLabel) {
+        return this.useIndexLabel ? `${this.rowLabel} ${rowKey + 1}` : this.rowLabel
+      }
+
+      return this.label
     }
   }
 }
