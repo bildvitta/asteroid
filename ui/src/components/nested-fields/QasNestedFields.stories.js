@@ -54,6 +54,10 @@ export default {
       description: 'Gutter of form fields.'
     },
 
+    rowLabel: {
+      description: 'Defines a text of row title.'
+    },
+
     rowObject: {
       description: 'Defines the default value to each field.'
     },
@@ -68,6 +72,10 @@ export default {
 
     useDuplicate: {
       description: 'Enable duplicate btn.'
+    },
+
+    useIndexLabel: {
+      description: 'Enable rows enumeration.'
     },
 
     useInlineActions: {
