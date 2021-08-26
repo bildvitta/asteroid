@@ -1,18 +1,18 @@
 <template>
   <q-page class="container row spaced">
     <div class="col-12">
-      <qas-signature-pad ref="signaturePad" height="250" :is-empty.sync="isEmpty" :options="{ backgroundColor }" />
+      <!-- <qas-signature-pad ref="signaturePad" height="250" :is-empty.sync="isEmpty" :options="{ backgroundColor }" />
       <div v-if="isEmpty" class="q-mt-sm">Está vazio</div>
       <div class="q-gutter-sm q-mb-xl q-mt-sm row">
         <q-btn color="primary" label="Salvar" no-caps @click="saveSignature" />
         <q-btn color="primary" label="Limpar" no-caps @click="clearSignature" />
         <q-btn color="primary" label="Trocar cor" no-caps @click="changeColor" />
-      </div>
+      </div> -->
 
       <qas-signature-uploader v-model="signature" class="col-12" entity="portal-app/problems/photo" signature-label="Assinatura do Cleyton" upload-label="Assinatura digital" />
       <pre class="q-mb-xl">v-model {{ signature }}</pre>
 
-      <qas-form-generator v-model="formGenerator.values" columns="fit" :errors="formGenerator.errors" :fields="formGenerator.fields" />
+      <qas-form-generator v-model="formGenerator.values" columns="fit" :errors="formGenerator.errors" :fields="formGenerator.fields" :fields-props="filesFieldsProps" />
       <pre>{{ formGenerator }}</pre>
     </div>
   </q-page>
@@ -47,6 +47,14 @@ export default {
             'Campo obrigatório'
           ]
         }
+      }
+    }
+  },
+
+  computed: {
+    filesFieldsProps () {
+      return {
+        uploader: { readonly: true }
       }
     }
   },

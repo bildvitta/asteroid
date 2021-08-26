@@ -38,6 +38,10 @@ export default {
       description: 'Type of file that the signature is going to be.'
     },
 
+    readonly: {
+      description: 'Disable action buttons.'
+    },
+
     // Events
     input: {
       description: 'Fires when model changes. Is also used by `v-model`.'

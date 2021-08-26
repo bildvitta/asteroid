@@ -1,13 +1,13 @@
 <template>
   <div>
-    <qas-uploader ref="uploader" v-model="uploader" :entity="entity" :error-message="errorMessage" :label="uploadLabel">
+    <qas-uploader ref="uploader" :readonly="readonly" v-model="uploader" v-bind="$attrs" :label="uploadLabel">
       <template #header="{ scope }">
-        <div class="cursor-pointer flex flex-center full-width justify-between no-border no-wrap q-gutter-xs q-pa-sm text-white transparent" @click="openDialog">
+        <div class="cursor-pointer flex flex-center full-width justify-between no-border no-wrap q-gutter-xs text-white transparent" @click="openDialog" :class="headerClasses">
           <div class="col column items-start justify-center">
             <div v-if="scope.label" class="q-uploader__title">{{ scope.label }}</div>
           </div>
 
-          <q-btn dense flat icon="o_add" round @click="openDialog" />
+          <q-btn v-if="!readonly" dense flat icon="o_add" round @click="openDialog" />
 
           <q-btn ref="forceUpload" class="hidden" @click="upload(scope)" />
           <q-btn ref="buttonCleanFiles" class="hidden" @click="scope.removeUploadedFiles" />
@@ -47,11 +47,6 @@ export default {
   },
 
   props: {
-    entity: {
-      required: true,
-      type: String
-    },
-
     uploadLabel: {
       default: 'Assinatura digital',
       type: String
@@ -67,14 +62,13 @@ export default {
       type: String
     },
 
-    errorMessage: {
-      default: '',
-      type: String
-    },
-
     type: {
       default: 'image/png',
       type: String
+    },
+
+    readonly: {
+      type: Boolean
     }
   },
 
@@ -95,6 +89,10 @@ export default {
       set (value) {
         this.$emit('input', value)
       }
+    },
+
+    headerClasses () {
+      return this.readonly ? 'q-pa-md' : 'q-pa-sm'
     }
   },
 
