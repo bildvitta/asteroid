@@ -92,7 +92,7 @@ export default {
     },
 
     headerClasses () {
-      return this.readonly ? 'q-pa-md' : 'q-pa-sm'
+      return `q-pa-${this.readonly ? 'md' : 'sm'}`
     }
   },
 
