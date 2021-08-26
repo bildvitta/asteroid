@@ -7,7 +7,7 @@ function constructObject (name, object) {
     const camelizeKey = camelize(key)
     const startsWith = camelizeKey.startsWith(name)
 
-    if (!startsWith) { continue }
+    if (!startsWith) continue
 
     const nestedKey = camelizeKey.replace(`${name}.`, '')
     const [index, field, next] = nestedKey.split('.')

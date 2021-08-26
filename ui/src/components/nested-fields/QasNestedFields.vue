@@ -231,7 +231,6 @@ export default {
     componentIs () {
       return this.useAnimation ? 'transition-group' : 'div'
     }
-
   },
 
   watch: {
