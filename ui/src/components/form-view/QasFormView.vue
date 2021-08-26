@@ -4,16 +4,16 @@
       <slot :errors="errors" :fields="fields" :metadata="metadata" name="header" />
     </header>
 
-    <q-form @submit="submit" ref="form">
+    <q-form ref="form" @submit="submit">
       <slot :errors="errors" :fields="fields" :metadata="metadata" />
 
       <slot v-if="!readOnly" :errors="errors" :fields="fields" :metadata="metadata" name="actions">
         <div class="justify-end q-col-gutter-md q-my-lg row">
           <div v-if="hasCancelButton" class="col-12 col-sm-2" :class="cancelButtonClass">
-            <qas-btn v-close-popup="dialog" class="full-width" :disable="disable || isSubmiting" :label="cancelButton" outline type="button" @click="cancel" />
+            <qas-btn v-close-popup="dialog" class="full-width" :data-cy="`btnCancel-${entity}`" :disable="disable || isSubmiting" :label="cancelButton" outline type="button" @click="cancel" />
           </div>
           <div class="col-12 col-sm-2" :class="saveButtonClass">
-            <qas-btn class="full-width" :disable="disable" :label="submitButton" :loading="isSubmiting" type="submit" />
+            <qas-btn class="full-width" :disable="disable" :label="submitButton" :data-cy="`btnSave-${entity}`" :loading="isSubmiting" type="submit" />
           </div>
         </div>
       </slot>

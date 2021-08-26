@@ -1,6 +1,6 @@
 import Vue from 'vue'
 
-import { format, parseISO } from 'date-fns'
+import { format, parseISO, isMatch } from 'date-fns'
 import { ptBR } from 'date-fns/locale'
 
 // Private
@@ -31,7 +31,7 @@ function dateTime (value, token = 'dd/MM/yyyy HH:mm:ss', options) {
 }
 
 function time (value, token = 'HH:mm', options) {
-  return __format(value, token, options)
+  return isMatch(value, token) ? value : __format(value, token, options)
 }
 
 function humanDate (value, token = "dd 'de' MMMM 'de' yyyy 'as' HH:mm:ss", options) {

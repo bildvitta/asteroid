@@ -1,5 +1,5 @@
 <template>
-  <div :id="name" class="qas-nested-fields">
+  <div :id="fieldName" class="qas-nested-fields">
     <div class="text-left">
       <qas-label v-if="useSingleLabel" :label="label" />
     </div>
@@ -181,7 +181,7 @@ export default {
     useIndexLabel: {
       type: Boolean
     },
-    
+
     useInlineActions: {
       type: Boolean
     },
@@ -305,10 +305,7 @@ export default {
     },
 
     setRowLabel (rowKey) {
-      if(this.useIndexLabel)
-        return `${this.rowLabel} ${rowKey + 1}`
-      
-      return `${this.rowLabel}`
+      return this.useIndexLabel ? `${this.rowLabel} ${rowKey + 1}` : this.rowLabel
     }
   }
 }

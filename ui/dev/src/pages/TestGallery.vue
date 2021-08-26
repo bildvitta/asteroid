@@ -1,5 +1,5 @@
 <template>
-  <q-page class="container  spaced">
+  <q-page class="container spaced">
     <div>
       <qas-label label="Fotos" />
       <qas-gallery :items="images" />
@@ -22,17 +22,6 @@ export default {
         'https://cdn.pixabay.com/photo/2016/10/10/12/54/space-1728314_960_720.jpg',
         'https://cdn.pixabay.com/photo/2016/10/10/12/54/space-1728314_960_720.jpg'
       ]
-    },
-
-    result () {
-      return {
-        name: 'John Appleseed',
-        email: 'john.appleseed@example.com',
-        phone: '99999999999',
-        gender: 'Male',
-        document: '99999999999',
-        address: '747 Austen View'
-      }
     }
   }
 }
