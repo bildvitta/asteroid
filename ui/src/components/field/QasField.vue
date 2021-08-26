@@ -1,6 +1,6 @@
 <template>
   <div>
-    <component :is="component.is" v-bind="component" :value="formattedValue" v-on="events" :data-cy="field.name" @input="emitValue">
+    <component :is="component.is" v-bind="component" :value="formattedValue" v-on="events" @input="emitValue">
       <slot v-for="(slot, key) in $slots" :slot="key" :name="key" />
       <template v-for="(slot, key) in $scopedSlots" :slot="key" slot-scope="scope">
         <slot :name="key" v-bind="scope" />
@@ -111,7 +111,7 @@ export default {
 
       // Profiles
       const profiles = {
-        default: { is: 'qas-input', ...input, mask },
+        default: { is: 'qas-input', ...input, mask, selectorCypress: this.field.name, 'data-cy': undefined  },
         textarea: { is: 'q-input', type, ...input },
         number: { is: 'q-input', type: 'number', ...input },
         hidden: { is: 'input', name, type },
@@ -137,7 +137,7 @@ export default {
         'signature-uploader': { is: 'qas-signature-uploader', entity, uploadLabel: label, ...error }
       }
 
-      return { ...(profiles[type] || profiles.default), ...this.$attrs }
+      return {'data-cy': this.fields.name, ...(profiles[type] || profiles.default), ...this.$attrs }
     },
 
     errorMessage () {

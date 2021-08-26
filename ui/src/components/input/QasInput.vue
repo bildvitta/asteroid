@@ -1,6 +1,6 @@
 <template>
   <div>
-    <q-input ref="mask" v-model="model" v-bind="$attrs" bottom-slots :mask="mask" unmasked-value v-on="listeners">
+    <q-input ref="mask" v-model="model" v-bind="$attrs" bottom-slots :mask="mask" :data-cy="selectorCypress" unmasked-value v-on="listeners">
       <slot v-for="(slot, key) in $slots" :slot="key" :name="key" />
       <template v-for="(slot, key) in $scopedSlots" :slot="key" slot-scope="scope">
         <slot :name="key" v-bind="scope" />
@@ -15,6 +15,11 @@ export default {
 
   props: {
     value: {
+      default: '',
+      type: String
+    },
+
+    selectorCypress: {
       default: '',
       type: String
     }
