@@ -102,6 +102,8 @@ export default {
     NotifyError,
 
     openDialog () {
+      if (this.readonly) return
+
       this.dialog = true
     },
 
