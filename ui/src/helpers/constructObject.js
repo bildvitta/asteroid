@@ -1,13 +1,13 @@
 import { camelize } from 'humps'
 
-function constructObject (name, object) {
+export default function constructObject (name, object) {
   const response = {}
 
   for (const key in object) {
     const camelizeKey = camelize(key)
     const startsWith = camelizeKey.startsWith(name)
 
-    if (!startsWith) continue
+    if (!startsWith) { continue }
 
     const nestedKey = camelizeKey.replace(`${name}.`, '')
     const [index, field, next] = nestedKey.split('.')
@@ -27,5 +27,3 @@ function constructObject (name, object) {
 
   return response
 }
-
-export default constructObject
