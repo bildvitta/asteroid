@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## Unreleased
 
 ### Added
+- Props `readonly` to `QasSignatureUploader`.
 - Helper to translate plain string object to a complete object
 - Using helper on nested fields to translate errors
 - `QasNestedFields` enumerate labels.
