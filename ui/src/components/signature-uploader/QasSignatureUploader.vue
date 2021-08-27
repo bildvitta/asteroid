@@ -15,7 +15,7 @@
       </template>
     </qas-uploader>
 
-    <qas-dialog v-model="openedDialog">
+    <qas-dialog v-model="isOpenedDialog">
       <template #header>
         <div class="text-bold text-center">Insira sua assinatura digital no campo abaixo</div>
       </template>
@@ -74,7 +74,7 @@ export default {
 
   data () {
     return {
-      openedDialog: false,
+      isOpenedDialog: false,
       isEmpty: true,
       base64: ''
     }
@@ -104,7 +104,7 @@ export default {
     openDialog () {
       if (this.readonly) return
 
-      this.openedDialog = true
+      this.isOpenedDialog = true
     },
 
     saveSignature () {
@@ -115,7 +115,7 @@ export default {
     },
 
     closeSignature () {
-      this.openedDialog = false
+      this.isOpenedDialog = false
     },
 
     removeSignature () {
