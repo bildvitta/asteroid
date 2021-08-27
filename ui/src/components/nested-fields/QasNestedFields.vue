@@ -20,8 +20,8 @@
                 </div>
 
                 <div class="col-12 justify-between q-col-gutter-x-md row">
-                  <slot :fields="children" :index="index" name="fields">
-                    <qas-form-generator ref="formGenerator" v-model="nested[index]" :class="formClasses" :columns="formColumns" :errors="errors[index]" :fields="children" :fields-events="fieldsEvents" :fields-props="fieldsProps" @input="updateValuesFromInput($event, index)">
+                  <slot :errors="transformedErrors" :fields="children" :index="index" name="fields">
+                    <qas-form-generator ref="formGenerator" v-model="nested[index]" :class="formClasses" :columns="formColumns" :errors="transformedErrors[index]" :fields="children" :fields-events="fieldsEvents" :fields-props="fieldsProps" @input="updateValuesFromInput($event, index)">
                       <template v-for="(slot, key) in $scopedSlots" :slot="key" slot-scope="scope">
                         <slot :name="key" v-bind="scope" />
                       </template>
@@ -65,6 +65,7 @@ import QasBtn from '../btn/QasBtn'
 import QasFormGenerator from '../form-generator/QasFormGenerator'
 import QasInput from '../input/QasInput'
 import QasLabel from '../label/QasLabel'
+import { constructObject } from '../../helpers'
 
 import { extend } from 'quasar'
 import { camelize } from 'humps'
@@ -117,7 +118,7 @@ export default {
 
     errors: {
       type: [Array, Object],
-      default: () => []
+      default: () => ({})
     },
 
     field: {
@@ -154,6 +155,11 @@ export default {
       }
     },
 
+    rowLabel: {
+      type: String,
+      default: ''
+    },
+
     rowObject: {
       type: Object,
       default: () => ({})
@@ -171,6 +177,10 @@ export default {
     useDuplicate: {
       type: Boolean,
       default: true
+    },
+
+    useIndexLabel: {
+      type: Boolean
     },
 
     useInlineActions: {
@@ -221,6 +231,10 @@ export default {
         col: true,
         [`q-col-gutter-x-${this.formGutter}`]: this.useInlineActions
       }
+    },
+
+    transformedErrors () {
+      return constructObject(this.fieldName, this.errors)
     },
 
     componentIs () {
@@ -296,7 +310,11 @@ export default {
     },
 
     setRowLabel (rowKey) {
-      return `${this.label} ${rowKey + 1}`
+      if (this.rowLabel) {
+        return this.useIndexLabel ? `${this.rowLabel} ${rowKey + 1}` : this.rowLabel
+      }
+
+      return this.label
     }
   }
 }

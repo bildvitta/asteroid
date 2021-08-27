@@ -44,6 +44,11 @@ export default {
       table: noSummary
     },
 
+    'carousel-header': {
+      description: 'Header of the carousel section',
+      table: noSummary
+    },
+
     default: {
       description: 'Main content.',
       table: noSummary
