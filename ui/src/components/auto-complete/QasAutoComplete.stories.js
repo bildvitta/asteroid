@@ -45,7 +45,7 @@ export default {
       description: 'Select options.'
     },
 
-    noOptionText: {
+    noOptionLabel: {
       description: 'Text for when there are no results for the search.'
     },
 
