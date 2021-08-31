@@ -4,6 +4,10 @@
       <slot :name="key" v-bind="context" />
     </template>
 
+    <template v-for="(slot, key) in $slots" #[key]="context">
+      <slot :name="key" v-bind="context" />
+    </template>
+
     <template #append>
       <slot name="append">
         <q-icon name="o_search" />
