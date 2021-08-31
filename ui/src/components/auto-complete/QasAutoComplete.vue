@@ -18,7 +18,7 @@
       <slot name="no-option">
         <q-item>
           <q-item-section class="text-grey">
-            {{ noOptionText }}
+            {{ noOptionLabel }}
           </q-item-section>
         </q-item>
       </slot>
@@ -57,7 +57,7 @@ export default {
       type: String
     },
 
-    noOptionText: {
+    noOptionLabel: {
       default: 'Nenhum resultado foi encontrado.',
       type: String
     }

@@ -1,7 +1,7 @@
 <template>
   <q-page class="justify-center row" padding>
     <div class="col-12">
-      <qas-auto-complete v-model="values" class="col-12" clear-icon="o_clear" dropdown-icon="o_arrow_drop_down" multiple no-option-text="Selecione um empreendimento." :options="options">
+      <qas-auto-complete v-model="values" class="col-12" clear-icon="o_clear" dropdown-icon="o_arrow_drop_down" multiple no-option-label="Selecione um empreendimento." :options="options">
         <template #option="scope">
           <q-item v-bind="scope.itemProps" v-on="scope.itemEvents">
             <q-item-section>
@@ -26,8 +26,8 @@ export default {
     return {
       values: '',
       options: [
-        { label: 'Apto 1000', value: 1, data: { reference: 'Bloco 9' } },
-        { label: 'Apto 1001', value: 2, data: { reference: 'Bloco 10' } }
+        // { label: 'Apto 1000', value: 1, data: { reference: 'Bloco 9' } },
+        // { label: 'Apto 1001', value: 2, data: { reference: 'Bloco 10' } }
       ],
 
       formGenerator: {
