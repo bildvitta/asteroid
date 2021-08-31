@@ -98,7 +98,7 @@ export default {
       return this.options.map(item => this.renameKey(item))
     },
 
-    multiple () {
+    isMultiple () {
       return this.$attrs.multiple || this.$attrs.multiple === ''
     },
 
@@ -107,7 +107,7 @@ export default {
     },
 
     hasNoCustomValue () {
-      return !this.multiple && !this.hasSelectedSlot
+      return !this.isMultiple && !this.hasSelectedSlot
     }
   },
 
@@ -135,7 +135,7 @@ export default {
 
   created () {
     if (this.value) {
-      this.selectModel = this.multiple ? [this.value] : this.value
+      this.selectModel = this.isMultiple ? [this.value] : this.value
     }
 
     this.fuse = new Fuse(this.options, this.defaultFuseOptions)
