@@ -136,7 +136,7 @@ export default {
 
         'signature-uploader': { is: 'qas-signature-uploader', entity, uploadLabel: label, ...error },
 
-        'search-select': { is: 'qas-auto-complete', multiple, options, ...input }
+        'auto-complete': { is: 'qas-auto-complete', multiple, options, ...input }
       }
 
       return { ...(profiles[type] || profiles.default), ...this.$attrs }

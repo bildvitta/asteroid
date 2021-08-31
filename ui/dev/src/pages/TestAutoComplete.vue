@@ -25,9 +25,15 @@ export default {
   data () {
     return {
       values: '',
+      options: [
+        { label: 'Apto 1000', value: 1, data: { reference: 'Bloco 9' } },
+        { label: 'Apto 1001', value: 2, data: { reference: 'Bloco 10' } }
+      ],
 
       formGenerator: {
-        values: '',
+        values: {
+          autocomplete: ''
+        },
 
         fields: {
           select: {
@@ -38,9 +44,9 @@ export default {
               { label: 'Apto 1000', value: 1, data: { reference: 'Bloco 9' } },
               { label: 'Apto 1001', value: 2, data: { reference: 'Bloco 10' } }
             ],
-            type: 'search-select'
+            type: 'auto-complete',
             // readonly: true
-            // multiple: true
+            multiple: true
           }
         }
       }
