@@ -1,20 +1,25 @@
 <template>
-  <q-select v-model="selectModel" v-bind="$attrs" clearable emit-value :fill-input="!multiple" :hide-selected="!multiple" map-options :options="filteredOptions" outlined use-input v-on="$listeners" @filter="filterOptions">
+  <q-select v-model="selectModel" v-bind="$attrs" clearable emit-value :fill-input="hasNoCustomValue" :hide-selected="hasNoCustomValue" map-options :options="filteredOptions" outlined use-input v-on="$listeners" @filter="filterOptions">
+    <template v-for="(slot, key) in $scopedSlots" #[key]="context">
+      <slot :name="key" v-bind="context" />
+    </template>
+
     <template #append>
-      <q-icon name="o_search" />
+      <slot name="append">
+        <q-icon name="o_search" />
+      </slot>
     </template>
 
     <template #no-option>
-      <q-item>
-        <q-item-section class="text-grey">
-          Nenhum resultado foi encontrado.
-        </q-item-section>
-      </q-item>
+      <slot name="no-option">
+        <q-item>
+          <q-item-section class="text-grey">
+            {{ noOptionText }}
+          </q-item-section>
+        </q-item>
+      </slot>
     </template>
 
-    <template v-if="hasOptionSlot" #option="scope">
-      <slot name="option" :scope="scope" />
-    </template>
   </q-select>
 </template>
 
@@ -40,11 +45,16 @@ export default {
 
     value: {
       default: '',
-      type: [Array, Object, String]
+      type: [Array, Object, String, Number]
     },
 
     valueKey: {
       default: '',
+      type: String
+    },
+
+    noOptionText: {
+      default: 'Nenhum resultado foi encontrado.',
       type: String
     }
   },
@@ -84,12 +94,16 @@ export default {
       return this.options.map(item => this.renameKey(item))
     },
 
-    hasOptionSlot () {
-      return !!(this.$slots.option || this.$scopedSlots.option)
-    },
-
     multiple () {
       return this.$attrs.multiple || this.$attrs.multiple === ''
+    },
+
+    hasSelectedSlot () {
+      return !!(this.$slots['selected-item'] || this.$scopedSlots['selected-item'])
+    },
+
+    hasNoCustomValue () {
+      return !this.multiple && !this.hasSelectedSlot
     }
   },
 

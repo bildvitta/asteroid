@@ -134,7 +134,9 @@ export default {
         upload: { is: 'qas-uploader', accept, autoUpload: true, entity, label, multiple, readonly, maxFiles, ...error },
         editor: { is: 'q-editor', toolbar, ...error },
 
-        'signature-uploader': { is: 'qas-signature-uploader', entity, uploadLabel: label, ...error }
+        'signature-uploader': { is: 'qas-signature-uploader', entity, uploadLabel: label, ...error },
+
+        'search-select': {is: 'qas-auto-complete', multiple, options, ...input }
       }
 
       return { ...(profiles[type] || profiles.default), ...this.$attrs }

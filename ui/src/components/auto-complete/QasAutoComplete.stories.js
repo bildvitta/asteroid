@@ -45,6 +45,10 @@ export default {
       description: 'Select options.'
     },
 
+    noOptionText: {
+      description: 'Text for when there are no results for the search.'
+    },
+
     value: {
       description: 'String to filter results.'
     },
