@@ -1,19 +1,21 @@
 export default {
   methods: {
-    $_createMarkers (values) {
-      const markers = []
+    $_createMarkers (referencePoints) {
+      const referencePointsList = []
 
-      values.forEach(value => {
-        markers.push({
-          position: this.$_position(value.latitude, value.longitude),
-          title: value.title,
-          description: value.description,
-          draggable: value.draggable,
-          icon: value.icon
+      referencePoints.forEach((referencePoint, index) => {
+        const { latitude, longitude, city, name, icon } = referencePoint
+
+        referencePointsList.push({
+          position: { lat: +latitude, lng: +longitude },
+          title: name,
+          description: city,
+          draggable: !index && this.$_isEditMode,
+          icon
         })
       })
-
-      return markers
+        
+      return referencePointsList
     },
 
     $_position (lat, lng) {

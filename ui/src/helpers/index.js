@@ -2,6 +2,7 @@ import base64ToBlob from './base64ToBlob.js'
 import filterObject from './filter-object.js'
 import greatestCommonDivisor from './greatestCommonDivisor.js'
 import { history, handleHistory } from './historyHandler.js'
+import constructObject from './constructObject.js'
 
 import {
   asset,
@@ -28,6 +29,7 @@ export {
   // filters
   asset,
   booleanLabel,
+  constructObject,
   date,
   dateTime,
   decimal,

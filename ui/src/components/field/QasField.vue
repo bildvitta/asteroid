@@ -1,6 +1,6 @@
 <template>
   <div>
-    <component :is="component.is" v-bind="component" :value="formattedValue" v-on="events" @input="emitValue">
+    <component :is="component.is" v-bind="component" :value="formattedValue" v-on="events" :data-cy="field.name" @input="emitValue">
       <slot v-for="(slot, key) in $slots" :slot="key" :name="key" />
       <template v-for="(slot, key) in $scopedSlots" :slot="key" slot-scope="scope">
         <slot :name="key" v-bind="scope" />
