@@ -7,9 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## Unreleased
 
 ### Added
-- Props `noOptionLabel` to `QasAutoComplete`.
-- Added the possibility to pass slots from the quasar select to our `QasAutoComplete` component.
-- Added type `auto-complete` in `QasField` component.
+- Change the component name from `QasAutoComplete` to `QasSelect`.
+- Props `noOptionLabel` to `QasSelect`.
+- Props `searchable` to `QasSelect` to enable the search field.
+- Added the possibility to pass slots from the quasar select to our `QasSelect` component.
 
 ## 2.8.0 - 2021-08-27
 

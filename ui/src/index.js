@@ -3,7 +3,6 @@ import { version } from '../package.json'
 import QasAppBar from './components/app-bar/QasAppBar'
 import QasAppMenu from './components/app-menu/QasAppMenu'
 import QasAppsMenu from './components/apps-menu/QasAppsMenu'
-import QasAutoComplete from './components/auto-complete/QasAutoComplete'
 import QasAvatar from './components/avatar/QasAvatar'
 import QasBox from './components/box/QasBox'
 import QasBreakLine from './components/break-line/QasBreakLine'
@@ -35,6 +34,7 @@ import QasPasswordStrengthChecker from './components/password-strength-checker/Q
 import QasProfile from './components/profile/QasProfile'
 import QasResizer from './components/resizer/QasResizer'
 import QasSearchBox from './components/search-box/QasSearchBox'
+import QasSelect from './components/select/QasSelect'
 import QasSelectList from './components/select-list/QasSelectList'
 import QasSettingsMenu from './components/settings-menu/QasSettingsMenu'
 import QasSignaturePad from './components/signature-pad/QasSignaturePad'
@@ -75,7 +75,6 @@ export {
   QasAppBar,
   QasAppMenu,
   QasAppsMenu,
-  QasAutoComplete,
   QasAvatar,
   QasBox,
   QasBreakLine,
@@ -107,6 +106,7 @@ export {
   QasProfile,
   QasResizer,
   QasSearchBox,
+  QasSelect,
   QasSelectList,
   QasSettingsMenu,
   QasSignaturePad,
@@ -133,7 +133,6 @@ export default {
   QasAppBar,
   QasAppMenu,
   QasAppsMenu,
-  QasAutoComplete,
   QasAvatar,
   QasBox,
   QasBreakLine,
@@ -165,6 +164,7 @@ export default {
   QasProfile,
   QasResizer,
   QasSearchBox,
+  QasSelect,
   QasSelectList,
   QasSettingsMenu,
   QasSignaturePad,
@@ -190,7 +190,6 @@ export default {
     Vue.component('QasAppBar', QasAppBar)
     Vue.component('QasAppMenu', QasAppMenu)
     Vue.component('QasAppsMenu', QasAppsMenu)
-    Vue.component('QasAutoComplete', QasAutoComplete)
     Vue.component('QasAvatar', QasAvatar)
     Vue.component('QasBox', QasBox)
     Vue.component('QasBreakLine', QasBreakLine)
@@ -222,6 +221,7 @@ export default {
     Vue.component('QasProfile', QasProfile)
     Vue.component('QasResizer', QasResizer)
     Vue.component('QasSearchBox', QasSearchBox)
+    Vue.component('QasSelect', QasSelect)
     Vue.component('QasSelectList', QasSelectList)
     Vue.component('QasSettingsMenu', QasSettingsMenu)
     Vue.component('QasSignaturePad', QasSignaturePad)

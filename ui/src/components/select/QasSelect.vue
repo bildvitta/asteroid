@@ -1,16 +1,14 @@
 <template>
-  <q-select v-model="selectModel" v-bind="$attrs" clearable emit-value :fill-input="hasNoCustomValue" :hide-selected="hasNoCustomValue" map-options :options="filteredOptions" outlined use-input v-on="$listeners" @filter="filterOptions">
-    <template v-for="(slot, key) in $scopedSlots" #[key]="context">
-      <slot :name="key" v-bind="context" />
-    </template>
+  <q-select v-model="selectModel" v-bind="$attrs" clearable emit-value :fill-input="hasNoCustomValue" :hide-selected="hasNoCustomValue" map-options :options="filteredOptions" outlined :use-input="searchable" v-on="$listeners" @filter="filterOptions">
+    <slot v-for="(slot, key) in $slots" :slot="key" :name="key" />
 
-    <template v-for="(slot, key) in $slots" #[key]="context">
-      <slot :name="key" v-bind="context" />
+    <template v-for="(slot, key) in $scopedSlots" :slot="key" slot-scope="scope">
+      <slot :name="key" v-bind="scope" />
     </template>
 
     <template #append>
       <slot name="append">
-        <q-icon name="o_search" />
+        <q-icon v-if="searchable" name="o_search" />
       </slot>
     </template>
 
@@ -60,6 +58,10 @@ export default {
     noOptionLabel: {
       default: 'Nenhum resultado foi encontrado.',
       type: String
+    },
+    
+    searchable: {
+      type: Boolean
     }
   },
 
@@ -67,9 +69,7 @@ export default {
     return {
       filteredOptions: [],
       fuse: null,
-      search: '',
-      selectModel: null,
-      valueOption: ''
+      selectModel: null
     }
   },
 
@@ -116,35 +116,42 @@ export default {
       this.fuse.options = { ...this.fuse.options, ...value }
     },
 
-    options (value) {
-      if (!this.filteredOptions.length) {
-        this.filteredOptions = value
-      }
-
-      this.fuse.list = value
+    value: {
+      handler (value) {
+        this.$emit('input', value)
+      },
+      immediate: true
     },
 
-    search (value) {
-      this.filter(value)
-    },
+    options: {
+      handler (value) {
+        if (!this.filteredOptions.length) {
+          this.filteredOptions = value
+        }
 
-    value (value) {
-      this.$emit('input', value)
+        if (!this.fuse) return
+
+        this.fuse.list = value
+        
+      },
+      immediate: true
     }
   },
 
   created () {
     if (this.value) {
-      this.selectModel = this.isMultiple ? [this.value] : this.value
+      this.selectModel = this.value
     }
 
-    this.fuse = new Fuse(this.options, this.defaultFuseOptions)
+    if (this.searchable) {
+      this.fuse = new Fuse(this.options, this.defaultFuseOptions)
+    }
   },
 
   methods: {
     filterOptions (value, update) {
       update(() => {
-        if (value === '') {
+        if (value === '' || !this.searchable) {
           this.filteredOptions = this.formattedResult
         } else {
           const results = this.fuse.search(value)

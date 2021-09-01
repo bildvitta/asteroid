@@ -69,7 +69,8 @@ export default {
         type,
         mask,
         pattern,
-        maxFiles
+        maxFiles,
+        searchable
       } = this.formatedField
 
       // Default error attributes for Quasar.
@@ -130,13 +131,12 @@ export default {
         checkbox: { is: 'qas-checkbox-group', label, options, ...error },
         radio: { is: 'q-option-group', label, options, type: 'radio', ...error },
 
-        select: { is: 'q-select', emitValue: true, mapOptions: true, multiple, options, ...input },
         upload: { is: 'qas-uploader', accept, autoUpload: true, entity, label, multiple, readonly, maxFiles, ...error },
         editor: { is: 'q-editor', toolbar, ...error },
 
         'signature-uploader': { is: 'qas-signature-uploader', entity, uploadLabel: label, ...error },
 
-        'auto-complete': { is: 'qas-auto-complete', multiple, options, ...input }
+        select: { is: 'qas-select', multiple, options, searchable, ...input },
       }
 
       return { ...(profiles[type] || profiles.default), ...this.$attrs }
