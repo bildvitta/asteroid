@@ -46,7 +46,7 @@ export default {
     },
 
     noOptionLabel: {
-      description: 'Text for when there are no results for the search.'
+      description: 'Text for empty result on search.'
     },
 
     value: {

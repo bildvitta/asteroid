@@ -12,6 +12,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Props `searchable` to `QasSelect` to enable the search field.
 - Added the possibility to pass slots from the quasar select to our `QasSelect` component.
 
+## 2.8.1 - 2021-09-01
+
+### Fixed
+- Card image width size
+
 ## 2.8.0 - 2021-08-27
 
 ### Added
