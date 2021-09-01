@@ -1,8 +1,8 @@
 <template>
   <div>
-    <qas-uploader ref="uploader" :readonly="readonly" v-model="uploader" v-bind="$attrs" :label="uploadLabel">
+    <qas-uploader ref="uploader" v-model="uploader" :label="uploadLabel" :readonly="readonly" v-bind="$attrs">
       <template #header="{ scope }">
-        <div class="cursor-pointer flex flex-center full-width justify-between no-border no-wrap q-gutter-xs text-white transparent" @click="openDialog" :class="headerClasses">
+        <div class="cursor-pointer flex flex-center full-width justify-between no-border no-wrap q-gutter-xs text-white transparent" :class="headerClasses" @click="openDialog">
           <div class="col column items-start justify-center">
             <div v-if="scope.label" class="q-uploader__title">{{ scope.label }}</div>
           </div>

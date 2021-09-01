@@ -1,26 +1,30 @@
 <template>
-  <q-select v-model="selectModel" v-bind="$attrs" clearable emit-value :fill-input="!multiple" :hide-selected="!multiple" map-options :options="filteredOptions" outlined use-input v-on="$listeners" @filter="filterOptions">
+  <q-select v-model="selectModel" v-bind="attributes" v-on="$listeners" @filter="filterOptions">
+    <slot v-for="(slot, key) in $slots" :slot="key" :name="key" />
+
+    <template v-for="(slot, key) in $scopedSlots" :slot="key" slot-scope="scope">
+      <slot :name="key" v-bind="scope" />
+    </template>
+
     <template #append>
-      <q-icon name="o_search" />
+      <slot name="append">
+        <q-icon v-if="searchable" name="o_search" />
+      </slot>
     </template>
 
     <template #no-option>
-      <q-item>
-        <q-item-section class="text-grey">
-          Nenhum resultado foi encontrado.
-        </q-item-section>
-      </q-item>
-    </template>
-
-    <template v-if="hasOptionSlot" #option="scope">
-      <slot name="option" :scope="scope" />
+      <slot name="no-option">
+        <q-item>
+          <q-item-section class="text-grey">
+            {{ noOptionLabel }}
+          </q-item-section>
+        </q-item>
+      </slot>
     </template>
   </q-select>
 </template>
 
 <script>
-import Fuse from 'fuse.js'
-
 export default {
   props: {
     fuseOptions: {
@@ -40,12 +44,21 @@ export default {
 
     value: {
       default: '',
-      type: [Array, Object, String]
+      type: [Array, Object, String, Number]
     },
 
     valueKey: {
       default: '',
       type: String
+    },
+
+    noOptionLabel: {
+      default: 'Nenhum resultado foi encontrado.',
+      type: String
+    },
+
+    searchable: {
+      type: Boolean
     }
   },
 
@@ -53,9 +66,7 @@ export default {
     return {
       filteredOptions: [],
       fuse: null,
-      search: '',
-      selectModel: null,
-      valueOption: ''
+      selectModel: null
     }
   },
 
@@ -84,12 +95,20 @@ export default {
       return this.options.map(item => this.renameKey(item))
     },
 
-    hasOptionSlot () {
-      return !!(this.$slots.option || this.$scopedSlots.option)
+    isMultiple () {
+      return this.$attrs.multiple || this.$attrs.multiple === ''
     },
 
-    multiple () {
-      return this.$attrs.multiple || this.$attrs.multiple === ''
+    attributes () {
+      return {
+        emitValue: true,
+        mapOptions: true,
+        outlined: true,
+        clearable: true,
+        ...this.$attrs,
+        options: this.filteredOptions,
+        useInput: this.searchable
+      }
     }
   },
 
@@ -98,34 +117,43 @@ export default {
       this.fuse.options = { ...this.fuse.options, ...value }
     },
 
-    options (value) {
-      if (!this.filteredOptions.length) {
-        this.filteredOptions = value
-      }
-
-      this.fuse.list = value
+    value: {
+      handler (value) {
+        this.$emit('input', value)
+      },
+      immediate: true
     },
 
-    search (value) {
-      this.filter(value)
-    },
+    options: {
+      handler (value) {
+        if (!this.filteredOptions.length) {
+          this.filteredOptions = value
+        }
 
-    value (value) {
-      this.$emit('input', value)
+        if (!this.fuse) return
+
+        this.fuse.list = value
+      },
+      immediate: true
     }
   },
 
-  created () {
+  async created() {
     if (this.value) {
-      this.selectModel = this.multiple ? [this.value] : this.value
+      this.selectModel = this.value
     }
 
-    this.fuse = new Fuse(this.options, this.defaultFuseOptions)
+    if (this.searchable) {
+      const Fuse = (await import('fuse.js')).default
+      this.fuse = new Fuse(this.options, this.defaultFuseOptions)
+    }
   },
 
   methods: {
     filterOptions (value, update) {
       update(() => {
+        if (!this.searchable) return
+
         if (value === '') {
           this.filteredOptions = this.formattedResult
         } else {

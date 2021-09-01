@@ -1,6 +1,6 @@
 <template>
   <div>
-    <component :is="component.is" v-bind="component" :value="formattedValue" v-on="events" :data-cy="field.name" @input="emitValue">
+    <component :is="component.is" v-bind="component" :data-cy="field.name" :value="formattedValue" v-on="events" @input="emitValue">
       <slot v-for="(slot, key) in $slots" :slot="key" :name="key" />
       <template v-for="(slot, key) in $scopedSlots" :slot="key" slot-scope="scope">
         <slot :name="key" v-bind="scope" />
@@ -69,7 +69,8 @@ export default {
         type,
         mask,
         pattern,
-        maxFiles
+        maxFiles,
+        searchable
       } = this.formatedField
 
       // Default error attributes for Quasar.
@@ -130,11 +131,12 @@ export default {
         checkbox: { is: 'qas-checkbox-group', label, options, ...error },
         radio: { is: 'q-option-group', label, options, type: 'radio', ...error },
 
-        select: { is: 'q-select', emitValue: true, mapOptions: true, multiple, options, ...input },
         upload: { is: 'qas-uploader', accept, autoUpload: true, entity, label, multiple, readonly, maxFiles, ...error },
         editor: { is: 'q-editor', toolbar, ...error },
 
-        'signature-uploader': { is: 'qas-signature-uploader', entity, uploadLabel: label, ...error }
+        'signature-uploader': { is: 'qas-signature-uploader', entity, uploadLabel: label, ...error },
+
+        select: { is: 'qas-select', multiple, options, searchable, ...input }
       }
 
       return { ...(profiles[type] || profiles.default), ...this.$attrs }
