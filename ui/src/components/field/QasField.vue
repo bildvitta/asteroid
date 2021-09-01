@@ -1,6 +1,6 @@
 <template>
   <div>
-    <component :is="component.is" v-bind="component" :value="formattedValue" v-on="events" :data-cy="field.name" @input="emitValue">
+    <component :is="component.is" v-bind="component" :data-cy="field.name" :value="formattedValue" v-on="events" @input="emitValue">
       <slot v-for="(slot, key) in $slots" :slot="key" :name="key" />
       <template v-for="(slot, key) in $scopedSlots" :slot="key" slot-scope="scope">
         <slot :name="key" v-bind="scope" />
@@ -136,7 +136,7 @@ export default {
 
         'signature-uploader': { is: 'qas-signature-uploader', entity, uploadLabel: label, ...error },
 
-        select: { is: 'qas-select', multiple, options, searchable, ...input },
+        select: { is: 'qas-select', multiple, options, searchable, ...input }
       }
 
       return { ...(profiles[type] || profiles.default), ...this.$attrs }

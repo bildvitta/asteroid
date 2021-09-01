@@ -1,7 +1,7 @@
 <template>
   <q-page class="justify-center row" padding>
     <div class="col-12">
-      <qas-select v-model="values" class="col-12" clear-icon="o_clear" dropdown-icon="o_arrow_drop_down" label="Select" multiple no-option-label="Selecione um empreendimento." :options="options">
+      <qas-select v-model="slot" class="col-12" clear-icon="o_clear" dropdown-icon="o_arrow_drop_down" label="Select com slot" multiple no-option-label="Selecione um empreendimento." :options="options">
         <template #option="scope">
           <q-item v-bind="scope.itemProps" v-on="scope.itemEvents">
             <q-item-section>
@@ -15,7 +15,13 @@
         </template>
       </qas-select>
 
-      <qas-select v-model="searchable" class="col-12 q-mt-lg" clear-icon="o_clear" dropdown-icon="o_arrow_drop_down" label="Searchable" multiple no-option-label="Selecione um empreendimento." :options="options" searchable />
+      <qas-select v-model="model" class="col-12 q-mt-lg" clear-icon="o_clear" dropdown-icon="o_arrow_drop_down" label="Não multiplo" no-option-label="Selecione um empreendimento." :options="options" />
+
+      <qas-select v-model="multiple" class="col-12 q-mt-lg" clear-icon="o_clear" dropdown-icon="o_arrow_drop_down" label="multiplo" multiple no-option-label="Selecione um empreendimento." :options="options" />
+
+      <qas-select v-model="searchable" class="col-12 q-mt-lg" clear-icon="o_clear" dropdown-icon="o_arrow_drop_down" label="Não multiplo - searchable" no-option-label="Selecione um empreendimento." :options="options" searchable />
+
+      <qas-select v-model="searchableList" class="col-12 q-mt-lg" clear-icon="o_clear" dropdown-icon="o_arrow_drop_down" label="multiplo - searchable" multiple no-option-label="Selecione um empreendimento." :options="options" searchable />
 
       <qas-form-generator v-model="formGenerator.values" class="q-mt-lg" columns="fit" :fields="formGenerator.fields" :fields-props="fieldsProps" />
     </div>
@@ -26,8 +32,12 @@
 export default {
   data () {
     return {
-      values: [6, 7, 4],
-      searchable: [6, 7, 4],
+      slot: [6, 7, 4],
+      model: 7,
+      multiple: [6, 7, 4],
+      searchable: 7,
+      searchableList: [6, 7, 4],
+
       options: [
         { label: 'Apto 1000', value: 1, data: { reference: 'Bloco 9' } },
         { label: 'Apto 1001', value: 2, data: { reference: 'Bloco 10' } },
@@ -47,7 +57,7 @@ export default {
         fields: {
           select: {
             default: '',
-            label: 'Select',
+            label: 'Form generator - searchable',
             name: 'select',
             options: [
               { label: 'Apto 1000', value: 1, data: { reference: 'Bloco 9' } },

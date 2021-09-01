@@ -1,4 +1,4 @@
-import QasAutoComplete from './QasAutoComplete.vue'
+import QasSelect from './QasSelect.vue'
 
 const noSummary = {
   type: { summary: null }
@@ -17,8 +17,8 @@ const options = JSON.stringify({
 })
 
 export default {
-  component: QasAutoComplete,
-  title: 'Components/AutoComplete',
+  component: QasSelect,
+  title: 'Components/Select',
 
   parameters: {
     docs: {
@@ -57,6 +57,10 @@ export default {
       description: 'Key to be used instead of `value`.'
     },
 
+    searchable: {
+      description: 'option to enable the search field.'
+    },
+
     // Events
     input: {
       description: 'Fires when model changes. Also used by `v-model`.'
@@ -86,8 +90,8 @@ export default {
   }
 }
 
-const Template = (args, { argTypes }) => ({
-  components: { QasAutoComplete },
+const Template = ({ options }, { argTypes }) => ({
+  components: { QasSelect },
   props: Object.keys(argTypes),
 
   data () {
@@ -96,7 +100,7 @@ const Template = (args, { argTypes }) => ({
     }
   },
 
-  template: '<qas-auto-complete v-bind="$props" v-model="valueOption" />'
+  template: '<qas-select v-model="valueOption" :options="options" label="Select" />'
 })
 
 export const Default = Template.bind({})

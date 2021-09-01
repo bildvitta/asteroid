@@ -1,5 +1,5 @@
 <template>
-  <q-select v-model="selectModel" v-bind="$attrs" clearable emit-value :fill-input="hasNoCustomValue" :hide-selected="hasNoCustomValue" map-options :options="filteredOptions" outlined :use-input="searchable" v-on="$listeners" @filter="filterOptions">
+  <q-select v-model="selectModel" v-bind="$attrs" clearable emit-value map-options :options="filteredOptions" outlined :use-input="searchable" v-on="$listeners" @filter="filterOptions">
     <slot v-for="(slot, key) in $slots" :slot="key" :name="key" />
 
     <template v-for="(slot, key) in $scopedSlots" :slot="key" slot-scope="scope">
@@ -21,7 +21,6 @@
         </q-item>
       </slot>
     </template>
-
   </q-select>
 </template>
 
@@ -59,7 +58,7 @@ export default {
       default: 'Nenhum resultado foi encontrado.',
       type: String
     },
-    
+
     searchable: {
       type: Boolean
     }
@@ -132,7 +131,6 @@ export default {
         if (!this.fuse) return
 
         this.fuse.list = value
-        
       },
       immediate: true
     }
@@ -151,6 +149,7 @@ export default {
   methods: {
     filterOptions (value, update) {
       update(() => {
+        console.log(value, '<---------- value')
         if (value === '' || !this.searchable) {
           this.filteredOptions = this.formattedResult
         } else {

@@ -5,7 +5,7 @@
         <q-img class="cursor-pointer rounded-borders" :height="itemHeight" :src="item" @click="toggleCarouselDialog(index)" />
       </div>
       <slot name="default">
-        <div v-if="!hideShowMore" class="text-center full-width">
+        <div v-if="!hideShowMore" class="full-width text-center">
           <span class="cursor-pointer justify-center text-primary text-weight-bolder" @click="showMore">{{ showMoreLabel }}</span>
         </div>
       </slot>
@@ -18,7 +18,7 @@
         <template #description>
           <q-carousel v-model="itemIndex" animated :arrows="!$_isSmall" control-text-color="primary" :fullscreen="$_isSmall" :height="carouselitemHeight" :next-icon="carouselNextIcon" :prev-icon="carouselPreviousIcon" swipeable :thumbnails="showThumbnails">
             <q-carousel-slide v-for="(item, index) in items" :key="index" class="bg-no-repeat bg-size-contain" :img-src="item" :name="index">
-              <div v-if="$_isSmall" class="justify-end row full-width">
+              <div v-if="$_isSmall" class="full-width justify-end row">
                 <qas-btn dense flat icon="o_close" @click="toggleCarouselDialog" />
               </div>
             </q-carousel-slide>
