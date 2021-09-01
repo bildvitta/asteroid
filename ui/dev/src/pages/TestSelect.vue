@@ -21,7 +21,7 @@
 
       <qas-select v-model="searchable" class="col-12 q-mt-lg" clear-icon="o_clear" dropdown-icon="o_arrow_drop_down" label="Não multiplo - searchable" no-option-label="Selecione um empreendimento." :options="options" searchable />
 
-      <qas-select v-model="searchableList" class="col-12 q-mt-lg" clear-icon="o_clear" dropdown-icon="o_arrow_drop_down" label="multiplo - searchable" multiple no-option-label="Selecione um empreendimento." :options="options" searchable />
+      <qas-select v-model="searchableList" class="col-12 q-mt-lg" clear-icon="o_clear" :clearable="false" dropdown-icon="o_arrow_drop_down" label="multiplo - searchable" multiple no-option-label="Selecione um empreendimento." :options="options" searchable />
 
       <qas-form-generator v-model="formGenerator.values" class="q-mt-lg" columns="fit" :fields="formGenerator.fields" :fields-props="fieldsProps" />
     </div>
