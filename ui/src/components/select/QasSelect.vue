@@ -99,14 +99,6 @@ export default {
 
     isMultiple () {
       return this.$attrs.multiple || this.$attrs.multiple === ''
-    },
-
-    hasSelectedSlot () {
-      return !!(this.$slots['selected-item'] || this.$scopedSlots['selected-item'])
-    },
-
-    hasNoCustomValue () {
-      return !this.isMultiple && !this.hasSelectedSlot
     }
   },
 
