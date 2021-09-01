@@ -1,5 +1,5 @@
 <template>
-  <q-select v-model="selectModel" v-bind="attributes" :options="filteredOptions" :use-input="searchable" v-on="$listeners" @filter="filterOptions">
+  <q-select v-model="selectModel" v-bind="attributes" v-on="$listeners" @filter="filterOptions">
     <slot v-for="(slot, key) in $slots" :slot="key" :name="key" />
 
     <template v-for="(slot, key) in $scopedSlots" :slot="key" slot-scope="scope">
@@ -107,7 +107,9 @@ export default {
         mapOptions: true,
         outlined: true,
         clearable: true,
-        ...this.$attrs
+        ...this.$attrs,
+        options: this.filteredOptions,
+        useInput: this.searchable
       }
     }
   },
