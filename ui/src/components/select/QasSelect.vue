@@ -25,8 +25,6 @@
 </template>
 
 <script>
-import Fuse from 'fuse.js'
-
 export default {
   props: {
     fuseOptions: {
@@ -140,12 +138,13 @@ export default {
     }
   },
 
-  created () {
+  async created() {
     if (this.value) {
       this.selectModel = this.value
     }
 
     if (this.searchable) {
+      const Fuse = (await import('fuse.js')).default
       this.fuse = new Fuse(this.options, this.defaultFuseOptions)
     }
   },
