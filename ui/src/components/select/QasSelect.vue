@@ -141,7 +141,6 @@ export default {
   methods: {
     filterOptions (value, update) {
       update(() => {
-        console.log(value, '<---------- value')
         if (value === '' || !this.searchable) {
           this.filteredOptions = this.formattedResult
         } else {
