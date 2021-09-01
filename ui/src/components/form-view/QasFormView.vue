@@ -13,7 +13,7 @@
             <qas-btn v-close-popup="dialog" class="full-width" :data-cy="`btnCancel-${entity}`" :disable="disableCancelButton" :label="cancelButton" outline type="button" @click="cancel" />
           </div>
           <div class="col-12 col-sm-2" :class="saveButtonClass">
-            <qas-btn class="full-width" :data-cy="`btnSave-${entity}`" :disable="disableSubmitButton" :label="submitButton" :loading="isSubmiting" type="submit" />
+            <qas-btn class="full-width" :data-cy="`btnSave-${entity}`" :disable="disable" :label="submitButton" :loading="isSubmiting" type="submit" />
           </div>
         </div>
       </slot>
@@ -166,10 +166,6 @@ export default {
 
     disableCancelButton () {
       return this.disable || this.isSubmitting
-    },
-
-    disableSubmitButton () {
-      return this.disable
     }
   },
 
