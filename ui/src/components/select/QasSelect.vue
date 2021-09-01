@@ -140,10 +140,8 @@ export default {
 
   methods: {
     filterOptions (value, update) {
-      if (!this.searchable) return
-
       update(() => {
-        if (value === '') {
+        if (value === '' || !this.searchable) {
           this.filteredOptions = this.formattedResult
         } else {
           const results = this.fuse.search(value)
