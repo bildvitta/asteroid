@@ -146,7 +146,7 @@ export default {
     }
   },
 
-  async created() {
+  async created () {
     if (this.searchable) {
       const Fuse = (await import('fuse.js')).default
       this.fuse = new Fuse(this.options, this.defaultFuseOptions)
