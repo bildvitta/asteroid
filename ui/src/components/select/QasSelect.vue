@@ -1,5 +1,5 @@
 <template>
-  <q-select v-model="selectModel" v-bind="attributes" v-on="$listeners" @filter="filterOptions">
+  <q-select v-model="model" v-bind="attributes" v-on="listeners" @filter="filterOptions">
     <slot v-for="(slot, key) in $slots" :slot="key" :name="key" />
 
     <template v-for="(slot, key) in $scopedSlots" :slot="key" slot-scope="scope">
@@ -65,12 +65,27 @@ export default {
   data () {
     return {
       filteredOptions: [],
-      fuse: null,
-      selectModel: null
+      fuse: null
     }
   },
 
   computed: {
+    model: {
+      get () {
+        return this.value
+      },
+
+      set (value) {
+        this.$emit('input', value)
+      }
+    },
+
+    listeners () {
+      const { input, ...events } = this.$listeners
+
+      return events
+    },
+
     defaultFuseOptions () {
       return {
         distance: 100,
@@ -117,13 +132,6 @@ export default {
       this.fuse.options = { ...this.fuse.options, ...value }
     },
 
-    value: {
-      handler (value) {
-        this.$emit('input', value)
-      },
-      immediate: true
-    },
-
     options: {
       handler (value) {
         if (!this.filteredOptions.length) {
@@ -138,11 +146,7 @@ export default {
     }
   },
 
-  async created() {
-    if (this.value) {
-      this.selectModel = this.value
-    }
-
+  async created () {
     if (this.searchable) {
       const Fuse = (await import('fuse.js')).default
       this.fuse = new Fuse(this.options, this.defaultFuseOptions)

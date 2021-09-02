@@ -96,11 +96,11 @@ const Template = ({ options }, { argTypes }) => ({
 
   data () {
     return {
-      valueOption: ''
+      model: ''
     }
   },
 
-  template: '<qas-select v-model="valueOption" :options="options" label="Select" />'
+  template: '<qas-select v-model="model" v-bind="$props" label="Selecione o item"/>'
 })
 
 export const Default = Template.bind({})
