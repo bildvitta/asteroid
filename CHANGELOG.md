@@ -6,7 +6,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
-### Fixed
+### Changed
 - On `nested-fields`, adjusting the destoy method when row does not have uuid
 
 ## 2.9.1 - 2021-09-02
