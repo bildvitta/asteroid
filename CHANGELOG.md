@@ -6,6 +6,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+### Fixed
+- Fixed default value in `QasSelect`.
+
 ### Changed
 - On `nested-fields`, adjusting the destoy method when row does not have uuid
 

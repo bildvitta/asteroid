@@ -43,7 +43,7 @@ export default {
     },
 
     value: {
-      default: '',
+      default: () => [],
       type: [Array, Object, String, Number]
     },
 
@@ -119,7 +119,7 @@ export default {
         emitValue: true,
         mapOptions: true,
         outlined: true,
-        clearable: true,
+        clearable: this.searchable,
         ...this.$attrs,
         options: this.filteredOptions,
         useInput: this.searchable
