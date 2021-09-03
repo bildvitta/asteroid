@@ -281,8 +281,10 @@ export default {
       return this.$emit('input', value || this.nested)
     },
 
-    destroy (index, row) {
-      this.nested.splice(index, 1, { [this.destroyKey]: true, ...row })
+   destroy (index, row) {
+      row.uuid
+        ? this.nested.splice(index, 1, { [this.destroyKey]: true, ...row })
+        : this.nested.splice(index, 1)
 
       return this.emitter()
     },
