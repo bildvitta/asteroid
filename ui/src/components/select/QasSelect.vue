@@ -134,13 +134,11 @@ export default {
 
     options: {
       handler (value) {
-        if (!this.filteredOptions.length) {
-          this.filteredOptions = value
+        if (this.fuse) {
+          this.fuse.list = value
+        } else {
+          this.filteredOptions = this.formattedResult
         }
-
-        if (!this.fuse) return
-
-        this.fuse.list = value
       },
       immediate: true
     }
