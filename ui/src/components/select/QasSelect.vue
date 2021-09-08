@@ -133,12 +133,12 @@ export default {
     },
 
     options: {
-      handler (value) {
+      handler () {
         if (this.fuse) {
-          this.fuse.list = value
-        } else {
-          this.filteredOptions = this.formattedResult
+          this.fuse.list = this.formattedResult
         }
+
+        this.filteredOptions = this.formattedResult
       },
       immediate: true
     }
