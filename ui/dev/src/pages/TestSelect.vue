@@ -34,11 +34,11 @@
 export default {
   data () {
     return {
-      slot: [6, 7, 4],
-      model: 7,
-      multiple: [6, 7, 4],
-      searchable: 7,
-      searchableList: [6, 7, 4],
+      slot: [123, 7, 4],
+      model: 123,
+      multiple: [123, 7, 4],
+      searchable: 123,
+      searchableList: [123, 7, 4],
 
       options: [
         { label: 'Apto 1000', value: 1, data: { reference: 'Bloco 9' } },
@@ -92,12 +92,18 @@ export default {
     }
   },
 
+  created () {
+    setTimeout(() => {
+      this.changeOptions()
+    }, 2000)
+  },
+
   methods: {
     changeOptions () {
-      this.options = [
-        { label: 'Cleyton 1', value: 1, data: { reference: 'Olha a pedra' } },
-        { label: 'Cleyton 2', value: 2, data: { reference: 'Debochar legal' } }
-      ]
+      this.options.push(
+        { label: 'Cleyton 1', value: 123, data: { reference: 'Olha a pedra' } },
+        { label: 'Cleyton 2', value: 242, data: { reference: 'Debochar legal' } }
+      )
     }
   }
 }
