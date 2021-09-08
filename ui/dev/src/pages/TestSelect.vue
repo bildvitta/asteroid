@@ -24,6 +24,8 @@
       <qas-select v-model="searchableList" class="col-12 q-mt-lg" clear-icon="o_clear" :clearable="false" dropdown-icon="o_arrow_drop_down" label="multiplo - searchable" multiple no-option-label="Selecione um empreendimento." :options="options" searchable />
 
       <qas-form-generator v-model="formGenerator.values" class="q-mt-lg" columns="fit" :fields="formGenerator.fields" :fields-props="fieldsProps" />
+
+      <q-btn class="q-mt-lg" color="primary" label="Trocar options" @click="changeOptions" />
     </div>
   </q-page>
 </template>
@@ -87,6 +89,15 @@ export default {
           clearIcon: 'o_clear'
         }
       }
+    }
+  },
+
+  methods: {
+    changeOptions () {
+      this.options = [
+        { label: 'Cleyton 1', value: 1, data: { reference: 'Olha a pedra' } },
+        { label: 'Cleyton 2', value: 2, data: { reference: 'Debochar legal' } }
+      ]
     }
   }
 }
