@@ -19,9 +19,9 @@
                   </div>
                 </div>
 
-                <div class="col-12 justify-between q-col-gutter-x-md row">
+                <div ref="formGenerator" class="col-12 justify-between q-col-gutter-x-md row">
                   <slot :errors="transformedErrors" :fields="children" :index="index" name="fields">
-                    <qas-form-generator ref="formGenerator" v-model="nested[index]" :class="formClasses" :columns="formColumns" :errors="transformedErrors[index]" :fields="children" :fields-events="fieldsEvents" :fields-props="fieldsProps" @input="updateValuesFromInput($event, index)">
+                    <qas-form-generator v-model="nested[index]" :class="formClasses" :columns="formColumns" :errors="transformedErrors[index]" :fields="children" :fields-events="fieldsEvents" :fields-props="fieldsProps" @input="updateValuesFromInput($event, index)">
                       <template v-for="(slot, key) in $scopedSlots" :slot="key" slot-scope="scope">
                         <slot :name="key" v-bind="scope" />
                       </template>
@@ -271,8 +271,8 @@ export default {
     },
 
     setFocus () {
-      const formGenerator = this.$refs.formGenerator
-      const firstElementToBeFocused = formGenerator[formGenerator.length - 1].$children[0].$children[0]
+      const { formGenerator } = this.$refs
+      const firstElementToBeFocused = formGenerator.pop().querySelector('input, select, textarea')
 
       return firstElementToBeFocused?.focus && firstElementToBeFocused.focus()
     },
