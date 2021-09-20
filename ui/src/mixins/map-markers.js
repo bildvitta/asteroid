@@ -14,7 +14,7 @@ export default {
           icon
         })
       })
-        
+
       return referencePointsList
     },
 
