@@ -8,11 +8,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 - Now when an image has an error in `QasGallery` it will be removed from displayed.
+- Removed required title in `QasAppBar`.
 
 ## 2.9.4 - 2021-09-08
-
-### Changed
-- Removed required title in `QasAppBar`.
 
 ### Fixed
 - Fixed `QasSelect` on updated options list.
