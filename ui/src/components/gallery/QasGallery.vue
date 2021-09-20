@@ -81,10 +81,6 @@ export default {
   },
 
   computed: {
-    // initialitems () {
-    //   return this.items.slice(0, this.displayeditems)
-    // },
-
     itemHeight () {
       if (this.isSingleItem) {
         return this.height || 'auto'
