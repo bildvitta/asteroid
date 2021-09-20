@@ -7,7 +7,7 @@
     <q-toolbar-title class="flex">
       <div class="cursor-pointer" @click="goToRoot">
         <img v-if="brand" :alt="title" class="q-mr-sm qas-toolbar__brand" :src="brand">
-        <span class="text-bold text-primary-contrast text-subtitle1 text-uppercase">{{ title }}</span>
+        <span v-if="title" class="text-bold text-primary-contrast text-subtitle1 text-uppercase">{{ title }}</span>
         <q-badge v-if="hasDevelopmentBadge" align="middle" class="q-ml-sm" color="negative" :label="developmentBadgeLabel" />
       </div>
     </q-toolbar-title>
@@ -87,7 +87,6 @@ export default {
     },
 
     title: {
-      required: true,
       type: String
     },
 
