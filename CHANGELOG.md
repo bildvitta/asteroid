@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## Unchanged 
+
+### Fixed
+- NestedFields reference changes to fix scroll and focus behaviour
+- NestedFields update-value on slot to stop vuex errors
+- On filter objects helper, fields starts with a blank object
+- Lint on map-makers.js
+
 ## 2.9.4 - 2021-09-08
 
 ### Fixed
