@@ -20,7 +20,7 @@
                 </div>
 
                 <div ref="formGenerator" class="col-12 justify-between q-col-gutter-x-md row">
-                  <slot :errors="transformedErrors" :fields="children" :index="index" name="fields">
+                  <slot :errors="transformedErrors" :fields="children" :index="index" name="fields" :update-value="updateValuesFromInput">
                     <qas-form-generator v-model="nested[index]" :class="formClasses" :columns="formColumns" :errors="transformedErrors[index]" :fields="children" :fields-events="fieldsEvents" :fields-props="fieldsProps" @input="updateValuesFromInput($event, index)">
                       <template v-for="(slot, key) in $scopedSlots" :slot="key" slot-scope="scope">
                         <slot :name="key" v-bind="scope" />

@@ -12,7 +12,7 @@
  *  email: { label: 'E-mail', value: 2 }
  * }, ['name'])
  */
-export default function (fields, models) {
+export default function (fields = {}, models) {
   if (!models.length) {
     throw new Error('Please provide an array of model')
   }
