@@ -1,4 +1,10 @@
 export default {
+  data () {
+    return {
+      $_fromDelete: false
+    }
+  },
+
   beforeRouteLeave (to, from, next) {
     if (!this.$refs.formView) {
       throw new Error(
@@ -7,6 +13,12 @@ export default {
       )
     }
 
-    this.$refs.formView.beforeRouteLeave(to, from, next)
+    this.$refs.formView.beforeRouteLeave(to, from, next, this.$_fromDelete)
+  },
+
+  methods: {
+    $_deleteSuccess (param) {
+      this.$_fromDelete = true
+    }
   }
 }
