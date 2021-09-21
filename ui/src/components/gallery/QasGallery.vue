@@ -1,8 +1,8 @@
 <template>
   <qas-box class="col-12 gallery">
     <div class="q-col-gutter-md row">
-      <div v-for="(item, index) in initialitems" :key="index" :class="galleryColumnsClasses">
-        <q-img class="cursor-pointer rounded-borders" :height="itemHeight" :src="item" @click="toggleCarouselDialog(index)" />
+      <div v-for="(item, index) in initialitems()" :key="index" :class="galleryColumnsClasses">
+        <q-img class="cursor-pointer rounded-borders" :height="itemHeight" :src="item" @click="toggleCarouselDialog(index)" @error="onError(item)" />
       </div>
       <slot name="default">
         <div v-if="!hideShowMore" class="full-width text-center">
@@ -81,10 +81,6 @@ export default {
   },
 
   computed: {
-    initialitems () {
-      return this.items.slice(0, this.displayeditems)
-    },
-
     itemHeight () {
       if (this.isSingleItem) {
         return this.height || 'auto'
@@ -124,6 +120,19 @@ export default {
 
     showMore () {
       this.displayeditems += this.loadLength
+    },
+
+    onError (error) {
+      const index = this.items.findIndex(item => item === error)
+
+      if (~index) {
+        this.$delete(this.items, index)
+        this.$forceUpdate()
+      }
+    },
+
+    initialitems () {
+      return this.items.slice(0, this.displayeditems)
     }
   }
 }
