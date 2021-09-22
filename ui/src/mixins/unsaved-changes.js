@@ -17,7 +17,7 @@ export default {
   },
 
   methods: {
-    $_deleteSuccess (param) {
+    $_deleteSuccess () {
       this.$_fromDelete = true
     }
   }
