@@ -7,7 +7,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## Unreleased
 
 ### Added
-
 - Mixin changes on `unsaved-changes` for not show the edit dialog when is a delete action
 
 ## 2.9.5 - 2021-09-21
