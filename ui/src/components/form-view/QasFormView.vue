@@ -185,15 +185,15 @@ export default {
   },
 
   methods: {
-    beforeRouteLeave (to, from, next) {
+    beforeRouteLeave (to, from, next, fromDelete) {
       if (!this.showDialogOnUnsavedChanges) {
         return null
       }
 
-      if (isEqual(this.value, this.cachedResult)) {
+      if (fromDelete || isEqual(this.value, this.cachedResult)) {
         return next()
       }
-
+      
       this.handleDialog(next)
     },
 
