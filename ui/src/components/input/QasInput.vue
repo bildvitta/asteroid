@@ -55,7 +55,7 @@ export default {
     masks () {
       return {
         'company-document': () => '##.###.###/####-##',
-        document: () => this.toggleMask('###.###.###-###', '##.###.###/####-##'),
+        document: () => this.toggleMask('###.###.###-##', '##.###.###/####-##'),
         'personal-document': () => '###.###.###-##',
         phone: () => this.toggleMask('(##) ####-#####', '(##) #####-####'),
         'postal-code': () => '#####-###'
