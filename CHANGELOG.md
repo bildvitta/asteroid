@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## Unreleased
 
 ### Fixed
-- Slots `tab-` and `tab-slot` are using `tab.value`.  
+- Slots `tab` and `tab-after` are using `tab.value`.  
 - Document mask in `qas-input` toggleMask. 
 
 ## 2.9.6 - 2021-09-22
