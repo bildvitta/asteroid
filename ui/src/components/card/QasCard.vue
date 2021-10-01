@@ -5,8 +5,7 @@
         <slot name="header">
           <q-carousel v-model="slideImage" animated class="cursor-pointer" height="205px" infinite :navigation="hasImages" navigation-icon="o_fiber_manual_record" swipeable>
             <template v-slot:navigation-icon="{ active, btnProps, onClick }">
-              <q-btn v-if="active" size="sm" icon="radio_button_checked" color="white" flat round dense @click="onClick"></q-btn>
-              <q-btn v-else size="sm" :icon="btnProps.icon" color="white" flat round dense @click="onClick"></q-btn>
+              <qas-btn  size="sm" :icon="isActive(active, btnProps)" color="white" flat round dense @click="onClick" />
             </template>
             <q-carousel-slide v-for="(item, index) in imagesList" :key="index" class="bg-no-repeat" :class="bgImagePositionClasses" :img-src="item" :name="index" />
           </q-carousel>
@@ -94,6 +93,12 @@ export default {
 
     useActions () {
       return !!(this.$slots.actions || this.$scopedSlots.actions)
+    }
+  },
+
+  methods: {
+    isActive (active, btn) {
+      return active ? 'radio_button_checked' : btn.icon
     }
   }
 }
