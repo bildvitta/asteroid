@@ -5,6 +5,12 @@ import { QUploader } from 'quasar'
 export default {
   extends: QUploader,
 
+  data () {
+    return {
+      isAddingFiles: false
+    }
+  },
+
   props: {
     picaResizeOptions: {
       type: Object,
@@ -13,6 +19,11 @@ export default {
   },
 
   computed: {
+    // overrides isBusy from quasar for adding "this.isAddingFiles"
+    isBusy () {
+      return this.isAddingFiles || this.promises.length > 0
+    },
+
     picaResizeOptionsDefault () {
       return {
         unsharpAmount: 160,
@@ -49,6 +60,7 @@ export default {
       return new File([blob], file.name)
     },
 
+    // overrides __getInputControl from quasar
     __getInputControl (h) {
       return [
         h('input', {
@@ -61,13 +73,18 @@ export default {
             ...(this.multiple === true ? { multiple: true } : {})
           },
           on: {
-            change: async event => {
+            change: async ({ target }) => {
               this.files = []
-              const files = Array.prototype.slice.call(event.target.files).map(async file => {
+              this.isAddingFiles = true
+
+              const filesPromises = Array.prototype.slice.call(target.files).map(async file => {
                 return await this.filesHandler(file)
               })
 
-              this.__addFiles(null, await Promise.all(files))
+              const files = await Promise.all(filesPromises)
+              this.isAddingFiles = false
+
+              this.__addFiles(null, files)
             }
           }
         })
