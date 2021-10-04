@@ -1,6 +1,6 @@
 <template>
   <q-field borderless :error="hasErrorMessage" :error-message="errorMessage" :hint="hintValue" no-error-icon>
-    <q-uploader v-bind="$attrs" auto-upload bordered :class="uploaderClasses" :factory="factory" flat :max-files="maxFiles" method="PUT" :readonly="readonly" v-on="$listeners" @factory-failed="factoryFailed" @uploaded="uploaded">
+    <qas-custom-upload v-bind="$attrs" auto-upload bordered :class="uploaderClasses" :factory="factory" flat :max-files="maxFiles" method="PUT" :readonly="readonly" v-on="$listeners" @factory-failed="factoryFailed" @uploaded="uploaded" ref="uploader">
       <template #header="scope">
         <slot name="header" :scope="scope">
           <div class="flex flex-center full-width justify-between no-border no-wrap q-gutter-xs q-pa-sm text-white transparent">
@@ -27,7 +27,9 @@
         <slot name="list" :scope="scope">
           <div class="col-12 q-col-gutter-md row">
             <div v-for="(file, index) in filesList(scope.files, scope)" :key="index" class="row" :class="itemClass">
-              <qas-avatar class="q-mr-sm" color="grey-3" icon="o_attach_file" :image="file.image" rounded :text-color="colorFileIcon(file)" />
+              <!-- <canvas id="myCanvas"></canvas>
+              <img id="sla" alt=""> -->
+              <qas-avatar class="avatar q-mr-sm" color="grey-3" icon="o_attach_file" :image="file.image" rounded :text-color="colorFileIcon(file)" />
 
               <div class="col items-center no-wrap row">
                 <div class="column no-wrap" :class="{ col: isMultiple }">
@@ -43,7 +45,7 @@
           </div>
         </slot>
       </template>
-    </q-uploader>
+    </qas-custom-upload>
 
     <slot :context="self" name="custom-upload" />
 
@@ -55,13 +57,20 @@
 
 <script>
 import QasAvatar from '../avatar/QasAvatar'
+import QasCustomUpload from '../uploader/QasCustomUpload'
 import api from 'axios'
 import { uid, extend } from 'quasar'
 import { NotifyError } from '../../plugins'
+import pica from 'pica'
+
+// import { QUploader } from 'quasar'
+
 
 export default {
+
   components: {
-    QasAvatar
+    QasAvatar,
+    QasCustomUpload
   },
 
   props: {
@@ -146,10 +155,6 @@ export default {
     NotifyError,
 
     async factory ([file]) {
-      if (!this.isMultiple && !this.hasHeaderSlot) {
-        this.$refs.buttonCleanFiles.$el.click()
-      }
-
       const name = `${uid()}.${file.name.split('.').pop()}`
       const { endpoint } = await this.fetch(name)
 
@@ -177,7 +182,10 @@ export default {
       this.isFetching = true
 
       try {
-        const { data } = await api.post('/upload-credentials/', {
+        // TODO remover
+        api.defaults.headers.common['Authorization'] = 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI5M2Y1MmRlMC0xYmViLTQ2ODYtODZiOC0xMjdjMWNjZDIzNGYiLCJqdGkiOiIyYmE4NWMxNjc0ZDQxYzc0NGRlYmU2MmY5OWFiYWFhYThhMzliNjFmMzE1ZjhlN2VhMTY0MjlmNTVjYjgwYjg3OTIwNDExYzQ4ZTFhMWY2ZCIsImlhdCI6MTYzMjgzMTg1MS44MjgyNTEsIm5iZiI6MTYzMjgzMTg1MS44MjgyNTcsImV4cCI6MTY2NDM2Nzg1MS44MTMzNDIsInN1YiI6IjI4Iiwic2NvcGVzIjpbInByb2ZpbGUiXX0.gaYCuh5kz57lndcJ1-Gdyv12f-kHyoQCh1Ecp2QJOUIZQa8sjk2jj59ZSTP0iCh34q2BC8HlRpTac-2PQRV2VPW-XMXMk0pC-nVoiy3fcRuZ2ervPF7eh6HOgIOO3NGU_l1PyBcRqMbWnIV9BwrebggT2m8lDqhLzbda6YURNNfblT74JLoPDOkwf83oahq_aOpiPp1g0KQvJCTe2P_jna7Ajb1U0tQq0zIsMB0APSNVFEZQdxB_kha60PQJKcBJnQ1IWj3s8Dm2n9vnRg4EXP-vfVcRuMEOTUiu4HO6TbhQFB3R9iXSJHzC1APYeeP7YOutwvsFsesQ4jE943rtlZKGIaEuMP3MFQNuTmYgQjvn_npkfhELftq19ZvWd5HmAXCUcwlZS_JG-bol1CX2FhfLlXZwzch7BJGUrfLQo9zqxz9zJiG7VqjKGUJ5tL39X0YMO2uq0AwJnG86RpgwE0K_iAvAdY9k_oFoFzAE54NvjVWwQB54Lon6n6WyQT-xoD_WJ5raD_1mzTetml8RzuCJXVZp3YWCPKlhYRTY3W8yX69tychF46YRIYzEsSa-d21ygNvLeDQioZRRFGjZaeeI8BVqGekc-Acpjw6xiykYoBrRxudaUErFDjsc4z5iB6qP85y2b_1jM1LirWOa6kR2N4w0YBN8yBYGLjYslnc'
+        const { data } = await api.post('https://localhost:3000/api/upload-credentials/', {
+        // const { data } = await api.post('/upload-credentials/', {
           entity: this.entity,
           filename
         })
@@ -193,6 +201,8 @@ export default {
       }
 
       if (file.isFailed) return
+
+      scope.reset()
 
       if (!this.isMultiple) {
         return this.$emit('input')
@@ -264,7 +274,6 @@ export default {
     colorFileIcon (file) {
       return this.isFailed(file) ? 'negative' : 'primary'
     }
-
   }
 }
 </script>

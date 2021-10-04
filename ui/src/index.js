@@ -48,6 +48,7 @@ import QasTip from './components/tip/QasTip'
 import QasTooltip from './components/tooltip/QasTooltip'
 import QasTransfer from './components/transfer/QasTransfer'
 import QasUploader from './components/uploader/QasUploader'
+import QasCustomUpload from './components/uploader/QasCustomUpload'
 
 import Test from './directives/Test'
 
@@ -120,6 +121,7 @@ export {
   QasTooltip,
   QasTransfer,
   QasUploader,
+  QasCustomUpload,
 
   Test
 }
@@ -178,6 +180,7 @@ export default {
   QasTooltip,
   QasTransfer,
   QasUploader,
+  QasCustomUpload,
 
   Test,
 
@@ -235,6 +238,7 @@ export default {
     Vue.component('QasTooltip', QasTooltip)
     Vue.component('QasTransfer', QasTransfer)
     Vue.component('QasUploader', QasUploader)
+    Vue.component('QasCustomUpload', QasCustomUpload)
 
     Vue.directive(Test.name, Test)
   }

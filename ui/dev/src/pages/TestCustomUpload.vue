@@ -3,7 +3,7 @@
     <div class="q-mt-xl">
       <div>UPLOAD PADRÃO DOCUMENTO</div>
       <pre>model: {{ uploadDefault }}</pre>
-      <qas-uploader v-model="uploadDefault" entity="documents/file" />
+      <qas-uploader v-model="uploadDefault" entity="service_orders/test" />
     </div>
 
     <div class="q-mt-xl">
