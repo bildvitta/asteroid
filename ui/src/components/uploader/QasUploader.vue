@@ -27,8 +27,6 @@
         <slot name="list" :scope="scope">
           <div class="col-12 q-col-gutter-md row">
             <div v-for="(file, index) in filesList(scope.files, scope)" :key="index" class="row" :class="itemClass">
-              <!-- <canvas id="myCanvas"></canvas>
-              <img id="sla" alt=""> -->
               <qas-avatar class="avatar q-mr-sm" color="grey-3" icon="o_attach_file" :image="file.image" rounded :text-color="colorFileIcon(file)" />
 
               <div class="col items-center no-wrap row">
@@ -162,6 +160,10 @@ export default {
     NotifyError,
 
     async factory ([file]) {
+      if (!this.isMultiple && !this.hasHeaderSlot) {
+        this.$refs.buttonCleanFiles.$el.click()
+      }
+
       const name = `${uid()}.${file.name.split('.').pop()}`
       const { endpoint } = await this.fetch(name)
 
