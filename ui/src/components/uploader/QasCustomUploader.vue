@@ -5,7 +5,7 @@ import uploaderMixin from '../../mixins/uploader'
 import QUploaderBase from 'quasar/src/components/uploader/QUploaderBase'
 
 export default {
-  name: 'QasCustomUpload',
+  name: 'QasCustomUploader',
 
   extends: QUploader,
 
@@ -84,11 +84,7 @@ export default {
       const filesPromise = []
 
       for (const file of target.files) {
-        try {
-          filesPromise.push(this.filesHandler(file))
-        } catch (error) {
-          console.log('cai no catch')
-        }
+        filesPromise.push(this.filesHandler(file))
       }
 
       const files = await Promise.all(filesPromise)
