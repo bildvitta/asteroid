@@ -199,7 +199,7 @@ export default {
       }
     },
 
-    async removeItem (index, scope, file) {
+    removeItem (index, scope, file) {
       if (file.isUploaded) {
         scope.removeFile(scope.files[file.indexToDelete])
       }

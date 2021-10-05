@@ -3,7 +3,7 @@
     <div class="q-mt-xl">
       <div>UPLOAD PADRÃO DOCUMENTO</div>
       <pre>model: {{ uploadDefault }}</pre>
-      <qas-uploader v-model="uploadDefault" entity="service_orders/test" />
+      <qas-uploader v-model="uploadDefault" entity="documents/file" />
     </div>
 
     <div class="q-mt-xl">
@@ -15,7 +15,7 @@
     <div class="q-mt-xl">
       <div>UPLOAD MULTIPLO</div>
       <pre>model: {{ uploadMultiple }}</pre>
-      <qas-uploader v-model="uploadMultiple" entity="documents/file" hint="cleyton" label="cleyton" multiple :use-esize="false" />
+      <qas-uploader v-model="uploadMultiple" entity="documents/file" hint="cleyton" label="cleyton" multiple />
     </div>
 
     <div class="q-mt-xl">

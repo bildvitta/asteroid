@@ -5,7 +5,7 @@ import mapMarkersMixin from './map-markers.js'
 import passwordMixin from './password.js'
 import screenMixin from './screen.js'
 import unsavedChangesMixin from './unsaved-changes.js'
-import uploader from './uploader.js'
+import uploaderMixin from './uploader.js'
 import viewMixin from './view.js'
 
 export {
@@ -16,6 +16,6 @@ export {
   passwordMixin,
   screenMixin,
   unsavedChangesMixin,
-  uploader,
+  uploaderMixin,
   viewMixin
 }
