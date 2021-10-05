@@ -9,7 +9,7 @@
     "lint": "eslint ./src",
     "storybook": "start-storybook -p 6006",
     "storybook:build": "build-storybook",
-    "install-peer": "npm i vue@^2.6.12 --no-save"
+    "install-peer": "npm i vue@^2.6.14 --no-save"
   },
   "publishConfig": {
     "access": "public",
@@ -54,7 +54,7 @@
     "standard": "^16.0.3",
     "vue-jest": "^3.0.7",
     "vue-loader": "^15.9.6",
-    "vue-template-compiler": "^2.6.12"
+    "vue-template-compiler": "^2.6.14"
   },
   "dependencies": {
     "@quasar/extras": "^1.9.14",
@@ -71,7 +71,7 @@
     "vuex": "^3.6.0"
   },
   "peerDependencies": {
-    "vue": "^2.6.12"
+    "vue": "^2.6.14"
   },
   "engines": {
     "node": ">= 12 < 15",

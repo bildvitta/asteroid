@@ -86,7 +86,6 @@ export default {
       for (const file of target.files) {
         try {
           filesPromise.push(this.filesHandler(file))
-          
         } catch (error) {
           console.log('cai no catch')
         }
@@ -117,7 +116,7 @@ export default {
           resolve({ width: image.naturalWidth, height: image.naturalHeight })
         })
 
-        image.addEventListener('error', () => reject(true))
+        image.addEventListener('error', () => reject())
       })
     }
   }

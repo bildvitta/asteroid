@@ -1,6 +1,6 @@
 <template>
   <q-field borderless :error="hasErrorMessage" :error-message="errorMessage" :hint="hintValue" no-error-icon>
-    <qas-custom-upload v-bind="attributes" auto-upload bordered :class="uploaderClasses" :factory="factory" flat :max-files="maxFiles" method="PUT" :readonly="readonly" v-on="$listeners" @factory-failed="factoryFailed" @uploaded="uploaded" ref="uploader">
+    <qas-custom-upload v-bind="attributes" ref="uploader" auto-upload bordered :class="uploaderClasses" :factory="factory" flat :max-files="maxFiles" method="PUT" :readonly="readonly" v-on="$listeners" @factory-failed="factoryFailed" @uploaded="uploaded">
       <template #header="scope">
         <slot name="header" :scope="scope">
           <div class="flex flex-center full-width justify-between no-border no-wrap q-gutter-xs q-pa-sm text-white transparent">
@@ -63,16 +63,15 @@ import { uid, extend } from 'quasar'
 import { NotifyError } from '../../plugins'
 import uploaderMixin from '../../mixins/uploader'
 
-
 export default {
   name: 'QasUploader',
-
-  mixins: [uploaderMixin],
 
   components: {
     QasAvatar,
     QasCustomUpload
   },
+
+  mixins: [uploaderMixin],
 
   props: {
     entity: {
@@ -191,9 +190,9 @@ export default {
 
       try {
         // TODO remover
-        api.defaults.headers.common['Authorization'] = 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI5M2Y1MmRlMC0xYmViLTQ2ODYtODZiOC0xMjdjMWNjZDIzNGYiLCJqdGkiOiIyYmE4NWMxNjc0ZDQxYzc0NGRlYmU2MmY5OWFiYWFhYThhMzliNjFmMzE1ZjhlN2VhMTY0MjlmNTVjYjgwYjg3OTIwNDExYzQ4ZTFhMWY2ZCIsImlhdCI6MTYzMjgzMTg1MS44MjgyNTEsIm5iZiI6MTYzMjgzMTg1MS44MjgyNTcsImV4cCI6MTY2NDM2Nzg1MS44MTMzNDIsInN1YiI6IjI4Iiwic2NvcGVzIjpbInByb2ZpbGUiXX0.gaYCuh5kz57lndcJ1-Gdyv12f-kHyoQCh1Ecp2QJOUIZQa8sjk2jj59ZSTP0iCh34q2BC8HlRpTac-2PQRV2VPW-XMXMk0pC-nVoiy3fcRuZ2ervPF7eh6HOgIOO3NGU_l1PyBcRqMbWnIV9BwrebggT2m8lDqhLzbda6YURNNfblT74JLoPDOkwf83oahq_aOpiPp1g0KQvJCTe2P_jna7Ajb1U0tQq0zIsMB0APSNVFEZQdxB_kha60PQJKcBJnQ1IWj3s8Dm2n9vnRg4EXP-vfVcRuMEOTUiu4HO6TbhQFB3R9iXSJHzC1APYeeP7YOutwvsFsesQ4jE943rtlZKGIaEuMP3MFQNuTmYgQjvn_npkfhELftq19ZvWd5HmAXCUcwlZS_JG-bol1CX2FhfLlXZwzch7BJGUrfLQo9zqxz9zJiG7VqjKGUJ5tL39X0YMO2uq0AwJnG86RpgwE0K_iAvAdY9k_oFoFzAE54NvjVWwQB54Lon6n6WyQT-xoD_WJ5raD_1mzTetml8RzuCJXVZp3YWCPKlhYRTY3W8yX69tychF46YRIYzEsSa-d21ygNvLeDQioZRRFGjZaeeI8BVqGekc-Acpjw6xiykYoBrRxudaUErFDjsc4z5iB6qP85y2b_1jM1LirWOa6kR2N4w0YBN8yBYGLjYslnc'
+        api.defaults.headers.common.Authorization = 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI5M2Y1MmRlMC0xYmViLTQ2ODYtODZiOC0xMjdjMWNjZDIzNGYiLCJqdGkiOiIyYmE4NWMxNjc0ZDQxYzc0NGRlYmU2MmY5OWFiYWFhYThhMzliNjFmMzE1ZjhlN2VhMTY0MjlmNTVjYjgwYjg3OTIwNDExYzQ4ZTFhMWY2ZCIsImlhdCI6MTYzMjgzMTg1MS44MjgyNTEsIm5iZiI6MTYzMjgzMTg1MS44MjgyNTcsImV4cCI6MTY2NDM2Nzg1MS44MTMzNDIsInN1YiI6IjI4Iiwic2NvcGVzIjpbInByb2ZpbGUiXX0.gaYCuh5kz57lndcJ1-Gdyv12f-kHyoQCh1Ecp2QJOUIZQa8sjk2jj59ZSTP0iCh34q2BC8HlRpTac-2PQRV2VPW-XMXMk0pC-nVoiy3fcRuZ2ervPF7eh6HOgIOO3NGU_l1PyBcRqMbWnIV9BwrebggT2m8lDqhLzbda6YURNNfblT74JLoPDOkwf83oahq_aOpiPp1g0KQvJCTe2P_jna7Ajb1U0tQq0zIsMB0APSNVFEZQdxB_kha60PQJKcBJnQ1IWj3s8Dm2n9vnRg4EXP-vfVcRuMEOTUiu4HO6TbhQFB3R9iXSJHzC1APYeeP7YOutwvsFsesQ4jE943rtlZKGIaEuMP3MFQNuTmYgQjvn_npkfhELftq19ZvWd5HmAXCUcwlZS_JG-bol1CX2FhfLlXZwzch7BJGUrfLQo9zqxz9zJiG7VqjKGUJ5tL39X0YMO2uq0AwJnG86RpgwE0K_iAvAdY9k_oFoFzAE54NvjVWwQB54Lon6n6WyQT-xoD_WJ5raD_1mzTetml8RzuCJXVZp3YWCPKlhYRTY3W8yX69tychF46YRIYzEsSa-d21ygNvLeDQioZRRFGjZaeeI8BVqGekc-Acpjw6xiykYoBrRxudaUErFDjsc4z5iB6qP85y2b_1jM1LirWOa6kR2N4w0YBN8yBYGLjYslnc'
         const { data } = await api.post('https://localhost:3000/api/upload-credentials/', {
-        // const { data } = await api.post('/upload-credentials/', {
+          // const { data } = await api.post('/upload-credentials/', {
           entity: this.entity,
           filename
         })

@@ -43,6 +43,31 @@ export default {
       description: 'Error message.'
     },
 
+    picaResizeOptions: {
+      description: 'Node [pica](https://github.com/nodeca/pica) resize method options.',
+      table: {
+        defaultValue: {
+          detail: JSON.stringify({
+            unsharpAmount: 160,
+            unsharpRadius: 0.6,
+            unsharpThreshold: 1
+          })
+        }
+      }
+    },
+
+    acceptResizeTypes: {
+      description: 'Accepted file types to resize.'
+    },
+
+    sizeLimit: {
+      description: 'Max file size in pixels.'
+    },
+
+    useResize: {
+      description: 'Enable resizer image to fit the sizeLimit.'
+    },
+
     // Events
     input: {
       description: 'Fires when files change.'
