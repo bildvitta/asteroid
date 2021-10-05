@@ -1,20 +1,19 @@
 <script>
-import pica from 'pica'
+import Pica from 'pica'
 import { QUploader } from 'quasar'
+import uploaderMixin from '../../mixins/uploader'
+import QUploaderBase from 'quasar/src/components/uploader/QUploaderBase'
 
 export default {
+  name: 'QasCustomUpload',
+
   extends: QUploader,
+
+  mixins: [uploaderMixin],
 
   data () {
     return {
       isAddingFiles: false
-    }
-  },
-
-  props: {
-    picaResizeOptions: {
-      type: Object,
-      default: () => ({})
     }
   },
 
@@ -40,73 +39,67 @@ export default {
       const { type } = file
 
       // only resize if is an image type
-      if (!type.includes('image')) return file
-      
-      // create a new image and canvas for resizing purpose
-      const image = new Image()
-      image.src = URL.createObjectURL(file)
+      if (!this.acceptResizeTypes.includes(type) || !this.useResize) return file
 
-      const canvas = document.createElement('canvas')
+      try {
+        // create a new image and canvas for resizing purpose
+        const image = new Image()
+        const canvas = document.createElement('canvas')
 
-      // get the original width and height of the uploaded image
-      const { width, height } = await this.getImageSize(image)
+        image.src = URL.createObjectURL(file)
 
-      // get the redimensioned sizes
-      const resizedDimensions = this.resizeDimensions(1280, width, height)
+        // get the original width and height of the uploaded image
+        const { width, height } = await this.getImageSize(image)
 
-      canvas.width = resizedDimensions.width
-      canvas.height = resizedDimensions.height
+        // get the redimensioned sizes
+        const resizedDimensions = this.resizeDimensions(this.sizeLimit, width, height)
 
-      // fix cors issues
-      image.crossOrigin = ''
+        canvas.width = resizedDimensions.width
+        canvas.height = resizedDimensions.height
 
-      image.width = width
-      image.height = height
+        // fix cors issues
+        image.crossOrigin = ''
 
-      // get the resized canvas and transform it into a blob
-      const resizedImage = await pica().resize(image, canvas, this.picaResizeOptionsDefault)
-      const blob = await (pica().toBlob(resizedImage, type, 0.90))
+        image.width = width
+        image.height = height
 
+        // get the resized canvas and transform it into a blob
+        const pica = Pica()
+        const resizedImage = await pica.resize(image, canvas, this.picaResizeOptionsDefault)
+        const blob = await (pica.toBlob(resizedImage, type, 0.90))
 
-      // now returns the newly formatted file
-      return new File([blob], file.name)
+        // now returns the newly formatted file
+        return new File([blob], file.name, { type })
+      } catch {
+        // if there is an error, return the original file
+        return file
+      }
     },
 
-    // overrides "__getInputControl" from quasar
-    __getInputControl (h) {
-      return [
-        h('input', {
-          ref: 'input',
-          staticClass: 'q-uploader__input overflow-hidden absolute-full',
-          attrs: {
-            type: 'file',
-            title: '', // try to remove default tooltip
-            accept: this.accept,
-            ...(this.multiple === true ? { multiple: true } : {})
-          },
-          on: {
-            // here is where the magic works
-            change: async ({ target }) => {
-              this.files = []
-              this.isAddingFiles = true
+    // overrides "__addFiles" from quasar
+    async __addFiles ({ target }) {
+      this.files = []
+      this.isAddingFiles = true
 
-              const filesPromises = Array.prototype.slice.call(target.files).map(async file => {
-                return await this.filesHandler(file)
-              })
+      const filesPromise = []
 
-              const files = await Promise.all(filesPromises)
-              this.isAddingFiles = false
+      for (const file of target.files) {
+        try {
+          filesPromise.push(this.filesHandler(file))
+          
+        } catch (error) {
+          console.log('cai no catch')
+        }
+      }
 
-              this.__addFiles(null, files)
-            }
-          }
-        })
-      ]
+      const files = await Promise.all(filesPromise)
+      this.isAddingFiles = false
+      QUploaderBase.extendOptions.methods.__addFiles.call(this, null, files)
     },
 
     resizeDimensions (sizeLimit, width, height) {
       const factor = sizeLimit / Math.max(width, height)
-      
+
       if (factor < 1) {
         width *= factor
         height *= factor
@@ -119,10 +112,12 @@ export default {
     },
 
     getImageSize (image) {
-      return new Promise(resolve => {
-        image.onload = () => {
+      return new Promise((resolve, reject) => {
+        image.addEventListener('load', () => {
           resolve({ width: image.naturalWidth, height: image.naturalHeight })
-        }
+        })
+
+        image.addEventListener('error', () => reject(true))
       })
     }
   }

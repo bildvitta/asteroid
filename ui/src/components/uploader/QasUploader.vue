@@ -1,6 +1,6 @@
 <template>
   <q-field borderless :error="hasErrorMessage" :error-message="errorMessage" :hint="hintValue" no-error-icon>
-    <qas-custom-upload v-bind="$attrs" auto-upload bordered :class="uploaderClasses" :factory="factory" flat :max-files="maxFiles" method="PUT" :readonly="readonly" v-on="$listeners" @factory-failed="factoryFailed" @uploaded="uploaded" ref="uploader">
+    <qas-custom-upload v-bind="attributes" auto-upload bordered :class="uploaderClasses" :factory="factory" flat :max-files="maxFiles" method="PUT" :readonly="readonly" v-on="$listeners" @factory-failed="factoryFailed" @uploaded="uploaded" ref="uploader">
       <template #header="scope">
         <slot name="header" :scope="scope">
           <div class="flex flex-center full-width justify-between no-border no-wrap q-gutter-xs q-pa-sm text-white transparent">
@@ -61,12 +61,13 @@ import QasCustomUpload from '../uploader/QasCustomUpload'
 import api from 'axios'
 import { uid, extend } from 'quasar'
 import { NotifyError } from '../../plugins'
-import pica from 'pica'
-
-// import { QUploader } from 'quasar'
+import uploaderMixin from '../../mixins/uploader'
 
 
 export default {
+  name: 'QasUploader',
+
+  mixins: [uploaderMixin],
 
   components: {
     QasAvatar,
@@ -148,6 +149,13 @@ export default {
 
     hasErrorMessage () {
       return !!this.errorMessage.length
+    },
+
+    attributes () {
+      return {
+        ...this.$attrs,
+        ...this.$props
+      }
     }
   },
 
@@ -195,14 +203,12 @@ export default {
       }
     },
 
-    removeItem (index, scope, file) {
+    async removeItem (index, scope, file) {
       if (file.isUploaded) {
         scope.removeFile(scope.files[file.indexToDelete])
       }
 
       if (file.isFailed) return
-
-      scope.reset()
 
       if (!this.isMultiple) {
         return this.$emit('input')
