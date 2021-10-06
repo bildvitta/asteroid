@@ -66,7 +66,7 @@ export default {
         // get the resized canvas and transform it into a blob
         const pica = Pica()
         const resizedImage = await pica.resize(image, canvas, this.picaResizeOptionsDefault)
-        const blob = await (pica.toBlob(resizedImage, type, 0.90))
+        const blob = await pica.toBlob(resizedImage, type, 0.90)
 
         // now returns the newly formatted file
         return new File([blob], file.name, { type })
@@ -112,7 +112,7 @@ export default {
           resolve({ width: image.naturalWidth, height: image.naturalHeight })
         })
 
-        image.addEventListener('error', () => reject())
+        image.addEventListener('error', reject)
       })
     }
   }

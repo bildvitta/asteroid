@@ -27,7 +27,7 @@
         <slot name="list" :scope="scope">
           <div class="col-12 q-col-gutter-md row">
             <div v-for="(file, index) in filesList(scope.files, scope)" :key="index" class="row" :class="itemClass">
-              <qas-avatar class="avatar q-mr-sm" color="grey-3" icon="o_attach_file" :image="file.image" rounded :text-color="colorFileIcon(file)" />
+              <qas-avatar class="q-mr-sm" color="grey-3" icon="o_attach_file" :image="file.image" rounded :text-color="colorFileIcon(file)" />
 
               <div class="col items-center no-wrap row">
                 <div class="column no-wrap" :class="{ col: isMultiple }">

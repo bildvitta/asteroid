@@ -1,7 +1,6 @@
 export default {
   props: {
     acceptResizeTypes: {
-      type: Array,
       default: () => [
         'image/jpeg',
         'image/png',
@@ -9,22 +8,23 @@ export default {
         'image/bmp',
         'image/webp',
         'image/jpg'
-      ]
+      ],
+      type: Array
     },
 
     picaResizeOptions: {
-      type: Object,
-      default: () => ({})
+      default: () => ({}),
+      type: Object
     },
 
     sizeLimit: {
-      type: Number,
-      default: 1280
+      default: 1280,
+      type: Number
     },
 
     useResize: {
-      type: Boolean,
-      default: true
+      default: true,
+      type: Boolean
     }
   }
 }
