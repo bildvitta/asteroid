@@ -1,6 +1,6 @@
 <template>
   <q-field borderless :error="hasErrorMessage" :error-message="errorMessage" :hint="hintValue" no-error-icon>
-    <q-uploader v-bind="$attrs" auto-upload bordered :class="uploaderClasses" :factory="factory" flat :max-files="maxFiles" method="PUT" :readonly="readonly" v-on="$listeners" @factory-failed="factoryFailed" @uploaded="uploaded">
+    <qas-custom-uploader v-bind="attributes" ref="uploader" auto-upload bordered :class="uploaderClasses" :factory="factory" flat :max-files="maxFiles" method="PUT" :readonly="readonly" v-on="$listeners" @factory-failed="factoryFailed" @uploaded="uploaded">
       <template #header="scope">
         <slot name="header" :scope="scope">
           <div class="flex flex-center full-width justify-between no-border no-wrap q-gutter-xs q-pa-sm text-white transparent">
@@ -43,7 +43,7 @@
           </div>
         </slot>
       </template>
-    </q-uploader>
+    </qas-custom-uploader>
 
     <slot :context="self" name="custom-upload" />
 
@@ -55,14 +55,21 @@
 
 <script>
 import QasAvatar from '../avatar/QasAvatar'
+import QasCustomUploader from '../uploader/QasCustomUploader'
 import api from 'axios'
 import { uid, extend } from 'quasar'
 import { NotifyError } from '../../plugins'
+import uploaderMixin from '../../mixins/uploader'
 
 export default {
+  name: 'QasUploader',
+
   components: {
-    QasAvatar
+    QasAvatar,
+    QasCustomUploader
   },
+
+  mixins: [uploaderMixin],
 
   props: {
     entity: {
@@ -139,6 +146,13 @@ export default {
 
     hasErrorMessage () {
       return !!this.errorMessage.length
+    },
+
+    attributes () {
+      return {
+        ...this.$attrs,
+        ...this.$props
+      }
     }
   },
 
@@ -264,7 +278,6 @@ export default {
     colorFileIcon (file) {
       return this.isFailed(file) ? 'negative' : 'primary'
     }
-
   }
 }
 </script>
