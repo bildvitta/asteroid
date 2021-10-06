@@ -6,8 +6,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
-### Fixed
-- Slots `tab` and `tab-after` are using `tab.value`.  
+### Added
+- New resize feature to `QasUploader` (auto resize).
+- `QasUploader` new props: (acceptResizeTypes, picaResizeOptions, sizeLimit, useResize).
+
+### Changed
+- Changed slot name `tab-slot-[tab.label]` to `tab-after[tab.value]`.
+- Changed slot `tab-[tab.label]` to `tab-[tab.value]`.
+- Updated `vue` and `vue-template-compiler` to `v2.6.14` for fixing storybook error.
 
 ## 2.9.6 - 2021-09-22
 
