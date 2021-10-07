@@ -9,6 +9,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 - Changed q-carousel dotnav icons on qas-card to highlight visible image
 
+## 2.10.0 - 2021-10-06
+
+### Added
+- New resize feature to `QasUploader` (auto resize).
+- `QasUploader` new props: (acceptResizeTypes, picaResizeOptions, sizeLimit, useResize).
+
+### Changed
+- Changed slot name `tab-slot-[tab.label]` to `tab-after-[tab.value]`.
+- Changed slot `tab-[tab.label]` to `tab-[tab.value]`.
+- Updated `vue` and `vue-template-compiler` to `v2.6.14` for fixing storybook error.
+
 ## 2.9.6 - 2021-09-22
 
 ### Added

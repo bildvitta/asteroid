@@ -87,7 +87,8 @@ export default {
     },
 
     title: {
-      type: String
+      type: String,
+      default: ''
     },
 
     notifications: {

@@ -1,6 +1,6 @@
 {
   "name": "@bildvitta/quasar-ui-asteroid",
-  "version": "2.9.6",
+  "version": "2.10.0",
   "description": "",
   "main": "./src/index.js",
   "scripts": {
@@ -9,7 +9,7 @@
     "lint": "eslint ./src",
     "storybook": "start-storybook -p 6006",
     "storybook:build": "build-storybook",
-    "install-peer": "npm i vue@^2.6.12 --no-save"
+    "install-peer": "npm i vue@^2.6.14 --no-save"
   },
   "publishConfig": {
     "access": "public",
@@ -54,7 +54,7 @@
     "standard": "^16.0.3",
     "vue-jest": "^3.0.7",
     "vue-loader": "^15.9.6",
-    "vue-template-compiler": "^2.6.12"
+    "vue-template-compiler": "^2.6.14"
   },
   "dependencies": {
     "@quasar/extras": "^1.9.14",
@@ -63,14 +63,15 @@
     "fuse.js": "^3.4.6",
     "humps": "^2.0.1",
     "lodash": "^4.17.21",
+    "pica": "^7.1.0",
     "quasar": "^1.15.0",
+    "signature_pad": "^3.0.0-beta.4",
     "sortablejs": "^1.12.0",
     "vue-router": "^3.4.9",
-    "vuex": "^3.6.0",
-    "signature_pad": "^3.0.0-beta.4"
+    "vuex": "^3.6.0"
   },
   "peerDependencies": {
-    "vue": "^2.6.12"
+    "vue": "^2.6.14"
   },
   "engines": {
     "node": ">= 12 < 15",

@@ -193,7 +193,7 @@ export default {
       if (fromDelete || isEqual(this.value, this.cachedResult)) {
         return next()
       }
-      
+
       this.handleDialog(next)
     },
 
