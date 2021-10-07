@@ -63,7 +63,7 @@ export default {
     },
 
     type: {
-      default: 'image/jpeg',
+      default: 'image/png',
       type: String
     },
 
@@ -127,10 +127,9 @@ export default {
       try {
         const fileName = this.signatureLabel.split(' ').join('-')
         const extension = this.type.split('/').pop() || 'png'
-        console.log('🚀 ~ file: QasSignatureUploader.vue ~ line 130 ~ upload ~ extension', extension)
         const blob = base64ToBlob(this.base64)
         const file = new File([blob], `${fileName}.${extension}`, { type: this.type })
-        console.log('🚀 ~ file: QasSignatureUploader.vue ~ line 132 ~ upload ~ file', file)
+
         scope.addFiles([file])
       } catch (error) {
         NotifyError('Ops! Erro ao enviar sua assinatura.')
