@@ -77,19 +77,20 @@ export default {
     },
 
     // overrides "__addFiles" from quasar
-    async __addFiles ({ target }) {
+    async __addFiles (event, files) {
+      const filesToUpload = event?.target?.files || files || []
       this.files = []
       this.isAddingFiles = true
 
       const filesPromise = []
 
-      for (const file of target.files) {
+      for (const file of filesToUpload) {
         filesPromise.push(this.filesHandler(file))
       }
 
-      const files = await Promise.all(filesPromise)
+      const processedFiles = await Promise.all(filesPromise)
       this.isAddingFiles = false
-      QUploaderBase.extendOptions.methods.__addFiles.call(this, null, files)
+      QUploaderBase.extendOptions.methods.__addFiles.call(this, null, processedFiles)
     },
 
     resizeDimensions (sizeLimit, width, height) {
