@@ -1,6 +1,6 @@
 <template>
   <div>
-    <qas-uploader ref="uploader" v-model="uploader" :label="uploadLabel" :readonly="readonly" v-bind="$attrs">
+    <qas-uploader ref="uploader" v-model="uploader" :label="uploadLabel" :readonly="readonly" v-bind="$attrs" :use-resize="false">
       <template #header="{ scope }">
         <div class="cursor-pointer flex flex-center full-width justify-between no-border no-wrap q-gutter-xs text-white transparent" :class="headerClasses" @click="openDialog">
           <div class="col column items-start justify-center">
@@ -129,6 +129,7 @@ export default {
         const extension = this.type.split('/').pop() || 'png'
         const blob = base64ToBlob(this.base64)
         const file = new File([blob], `${fileName}.${extension}`, { type: this.type })
+
         scope.addFiles([file])
       } catch (error) {
         NotifyError('Ops! Erro ao enviar sua assinatura.')

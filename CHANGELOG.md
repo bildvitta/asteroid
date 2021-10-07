@@ -7,7 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## Unreleased
 
 ### Changed
-- Changed q-carousel dotnav icons on qas-card to highlight visible image
+- Changed q-carousel dotnav icons on qas-card to highlight visible image.
+
+### Fixed
+- Fixed `__addFiles` from `QasCustomUploader`.
+- Added `:use-resize="false"` to `QasUploader` inside `QasSignatureUploader`.
 
 ## 2.10.0 - 2021-10-06
 
