@@ -6,7 +6,7 @@
       </header>
 
       <slot v-if="!noFilter" :entity="entity" :errors="errors" :fields="fields" :metadata="metadata" name="filter" :results="results">
-        <qas-filters :entity="entity" />
+        <qas-filters :badges="filtersProps.badges" :entity="entity" :no-filter-button="filtersProps.noFilterButton" :no-search="filtersProps.noSearch" :search-on-type="filtersProps.searchOnType" :search-placeholder="filtersProps.searchPlaceholder" />
       </slot>
 
       <main class="relative-position">
@@ -62,6 +62,11 @@ export default {
     noFilter: {
       default: false,
       type: Boolean
+    },
+
+    filtersProps: {
+      default: () => ({}),
+      type: Object
     }
   },
 

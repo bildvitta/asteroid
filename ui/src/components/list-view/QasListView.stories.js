@@ -54,6 +54,10 @@ export default {
       description: '[VuexStoreModule](https://github.com/bildvitta/vuex-store-module) entity.'
     },
 
+    filtersProps: {
+      description: 'Controls filters props from qas-filter'
+    },
+
     noFilter: {
       description: 'Hide filters.'
     },
