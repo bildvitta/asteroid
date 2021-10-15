@@ -4,8 +4,8 @@
       <div v-if="useHeader" class="overflow-hidden relative-position w-full">
         <slot name="header">
           <q-carousel v-model="slideImage" animated class="cursor-pointer" height="205px" infinite :navigation="hasImages" navigation-icon="o_fiber_manual_record" swipeable>
-            <template v-slot:navigation-icon="{ active, btnProps, onClick }">
-              <qas-btn  size="sm" :icon="getNavigationIcon(active, btnProps)" color="white" flat round dense @click="onClick" />
+            <template #navigation-icon="{ active, btnProps, onClick }">
+              <qas-btn color="white" dense flat :icon="getNavigationIcon(active, btnProps)" round size="sm" @click="onClick" />
             </template>
             <q-carousel-slide v-for="(item, index) in imagesList" :key="index" class="bg-no-repeat" :class="bgImagePositionClasses" :img-src="item" :name="index" />
           </q-carousel>
