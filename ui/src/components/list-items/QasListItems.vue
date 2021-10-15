@@ -1,6 +1,6 @@
 <template>
   <div class="qas-list-items shadow-primary">
-    <q-list bordered class="round rounded-borders" dense separator>
+    <q-list bordered class="rounded-borders" separator>
       <q-item v-for="(item, index) in list" :key="index" v-ripple :clickable="!useIconRedirect" :to="redirect(item)">
         <slot :index="index" :item="item" name="item">
           <q-item-section>
@@ -9,8 +9,8 @@
 
           <q-item-section side>
             <slot :index="index" :item="item" name="item-section-side">
-              <qas-btn flat round :to="getRedirectPaylod(item)">
-                <q-icon v-bind="icon" />
+              <qas-btn flat round :to="getRedirectPayload(item)">
+                <q-icon v-bind="iconProps" />
               </qas-btn>
             </slot>
           </q-item-section>
@@ -29,40 +29,37 @@ export default {
   },
 
   props: {
-    icon: {
-      type: Object,
-      default: () => ({
-        name: 'o_chevron_right',
-        color: 'primary'
-      })
+    iconProps: {
+      default: () => ({ name: 'o_chevron_right', color: 'primary' }),
+      type: Object
     },
 
     list: {
-      type: Array[Object],
-      default: () => []
+      default: () => [],
+      type: Array
     },
 
     redirectKey: {
-      type: String,
-      default: 'uuid'
+      default: 'uuid',
+      type: String
+    },
+
+    to: {
+      default: () => ({}),
+      type: Object
     },
 
     useIconRedirect: {
       type: Boolean
-    },
-
-    to: {
-      type: Object,
-      default: () => ({})
     }
   },
 
   methods: {
     redirect (item) {
-      return this.useIconRedirect ? undefined : this.getRedirectPaylod(item)
+      return this.useIconRedirect ? undefined : this.getRedirectPayload(item)
     },
 
-    getRedirectPaylod (item) {
+    getRedirectPayload (item) {
       return {
         params: { [this.redirectKey]: item[this.redirectKey] },
         ...this.to
@@ -74,7 +71,7 @@ export default {
 
 <style lang="scss">
 .qas-list-items {
-  .q-list--dense > .q-item, .q-item--dense {
+  .q-list > .q-item {
     padding: 24px 16px;
   }
 }

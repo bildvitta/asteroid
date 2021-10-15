@@ -28,7 +28,7 @@ export default {
 
   argTypes: {
     // Props
-    icon: {
+    iconProps: {
       description: 'Icon props.'
     },
 
