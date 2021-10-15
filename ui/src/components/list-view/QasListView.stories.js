@@ -55,7 +55,7 @@ export default {
     },
 
     filtersProps: {
-      description: 'Controls filters props from qas-filter'
+      description: 'Controls filters props from [QasFilters](https://asteroid.nave.dev/?path=/docs/components-filters--default)'
     },
 
     noFilter: {

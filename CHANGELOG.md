@@ -6,6 +6,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## 2.10.1 - 2021-10-07
 
+### Added
+- Prop `filtersProps` to `QasListView`
+
 ### Changed
 - Changed q-carousel dotnav icons on qas-card to highlight visible image.
 
