@@ -58,6 +58,7 @@
   },
   "dependencies": {
     "@quasar/extras": "^1.9.14",
+    "autonumeric": "^4.6.0",
     "axios": "^0.21.1",
     "date-fns": "^2.16.1",
     "fuse.js": "^3.4.6",

@@ -13,7 +13,6 @@ import QasCheckboxGroup from './components/checkbox-group/QasCheckboxGroup'
 import QasCopy from './components/copy/QasCopy'
 import QasDateTimeInput from './components/date-time-input/QasDateTimeInput'
 import QasDebugger from './components/debugger/QasDebugger'
-import QasDecimalInput from './components/decimal-input/QasDecimalInput'
 import QasDelete from './components/delete/QasDelete'
 import QasDialog from './components/dialog/QasDialog'
 import QasDialogRouter from './components/dialog-router/QasDialogRouter'
@@ -29,6 +28,7 @@ import QasListItems from './components/list-items/QasListItems'
 import QasListView from './components/list-view/QasListView'
 import QasMap from './components/map/QasMap'
 import QasNestedFields from './components/nested-fields/QasNestedFields'
+import QasNumericInput from './components/numeric-input/QasNumericInput'
 import QasPageHeader from './components/page-header/QasPageHeader'
 import QasPasswordInput from './components/password-input/QasPasswordInput'
 import QasPasswordStrengthChecker from './components/password-strength-checker/QasPasswordStrengthChecker'
@@ -86,7 +86,6 @@ export {
   QasCopy,
   QasDateTimeInput,
   QasDebugger,
-  QasDecimalInput,
   QasDelete,
   QasDialog,
   QasDialogRouter,
@@ -102,6 +101,7 @@ export {
   QasListView,
   QasMap,
   QasNestedFields,
+  QasNumericInput,
   QasPageHeader,
   QasPasswordInput,
   QasPasswordStrengthChecker,
@@ -145,7 +145,6 @@ export default {
   QasCopy,
   QasDateTimeInput,
   QasDebugger,
-  QasDecimalInput,
   QasDelete,
   QasDialog,
   QasDialogRouter,
@@ -161,6 +160,7 @@ export default {
   QasListView,
   QasMap,
   QasNestedFields,
+  QasNumericInput,
   QasPageHeader,
   QasPasswordInput,
   QasPasswordStrengthChecker,
@@ -203,7 +203,6 @@ export default {
     Vue.component('QasCopy', QasCopy)
     Vue.component('QasDateTimeInput', QasDateTimeInput)
     Vue.component('QasDebugger', QasDebugger)
-    Vue.component('QasDecimalInput', QasDecimalInput)
     Vue.component('QasDelete', QasDelete)
     Vue.component('QasDialog', QasDialog)
     Vue.component('QasDialogRouter', QasDialogRouter)
@@ -219,6 +218,7 @@ export default {
     Vue.component('QasListView', QasListView)
     Vue.component('QasMap', QasMap)
     Vue.component('QasNestedFields', QasNestedFields)
+    Vue.component('QasNumericInput', QasNumericInput)
     Vue.component('QasPageHeader', QasPageHeader)
     Vue.component('QasPasswordInput', QasPasswordInput)
     Vue.component('QasPasswordStrengthChecker', QasPasswordStrengthChecker)

@@ -1,27 +1,19 @@
-import QasDecimalInput from './QasDecimalInput.vue'
+import QasNumericInput from './QasNumericInput.vue'
 
 export default {
-  component: QasDecimalInput,
-  title: 'Components/DecimalInput',
+  component: QasNumericInput,
+  title: 'Components/NumericInput',
 
   parameters: {
     docs: {
       description: {
-        component: 'Extends [QInput](https://quasar.dev/vue-components/input), but with decimal mask.'
+        component: 'Extends [QInput](https://quasar.dev/vue-components/input), but with numeric mask.'
       }
     }
   },
 
   argTypes: {
     // Props
-    comma: {
-      description: 'Use comma instead of period as decimal separator.'
-    },
-
-    places: {
-      description: 'Number of decimal places.'
-    },
-
     value: {
       description: 'Model value.'
     },
@@ -55,7 +47,7 @@ const Template = (args, { argTypes }) => ({
 
   template:
     `<div>
-      <qas-decimal-input v-bind="$props" v-model="model" />
+      <qas-numeric-input v-bind="$props" v-model="model" />
       <pre>{{ model }}</pre>
     </div>`
 })
@@ -64,19 +56,17 @@ export const Default = Template.bind({})
 
 Default.parameters = {
   docs: {
-    source: { code: '<qas-decimal-input v-model="model" />' }
+    source: { code: '<qas-numeric-input v-model="model" />' }
   }
 }
 
 export const BrazilianReal = Template.bind({})
 
 BrazilianReal.args = {
-  comma: true,
-  prefix: 'R$'
 }
 
 BrazilianReal.parameters = {
   docs: {
-    source: { code: '<qas-decimal-input v-model="model" comma prefix="R$" />' }
+    source: { code: '<qas-numeric-input v-model="model" />' }
   }
 }

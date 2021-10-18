@@ -12,8 +12,8 @@
 <script>
 import QasCheckboxGroup from '../checkbox-group/QasCheckboxGroup.vue'
 import QasDateTimeInput from '../date-time-input/QasDateTimeInput.vue'
-import QasDecimalInput from '../decimal-input/QasDecimalInput.vue'
 import QasInput from '../input/QasInput.vue'
+import QasNumericInput from '../numeric-input/QasNumericInput.vue'
 import QasPasswordInput from '../password-input/QasPasswordInput.vue'
 import QasUploader from '../uploader/QasUploader.vue'
 import QasSignatureUploader from '../signature-uploader/QasSignatureUploader.vue'
@@ -30,8 +30,8 @@ export default {
   components: {
     QasCheckboxGroup,
     QasDateTimeInput,
-    QasDecimalInput,
     QasInput,
+    QasNumericInput,
     QasPasswordInput,
     QasUploader,
     QasSignatureUploader
@@ -95,7 +95,7 @@ export default {
       }
 
       const datetimeInput = { is: 'qas-date-time-input', ...input }
-      const decimalInput = { is: 'qas-decimal-input', comma: true, fillMask: '0', reverseFillMask: true, ...input }
+      const numericInput = { is: 'qas-numeric-input', ...input }
 
       // It'll generate a list of acceptable files extensions.
       const accept = extensions && extensions.length ? extensions.map(extension => `.${extension}`).join(',') : ''
@@ -119,9 +119,9 @@ export default {
         email: { is: 'q-input', type, ...input },
         password: { is: 'qas-password-input', type, pattern, hideStrengthChecker: !pattern, ...input },
 
-        decimal: { ...decimalInput },
-        money: { ...decimalInput, prefix: 'R$' },
-        percent: { ...decimalInput, suffix: '%' },
+        decimal: { ...numericInput },
+        money: { ...numericInput, prefix: 'R$' },
+        percent: { ...numericInput, suffix: '%' },
 
         date: { ...datetimeInput, dateOnly: true },
         datetime: { ...datetimeInput },
