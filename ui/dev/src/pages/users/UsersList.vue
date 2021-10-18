@@ -1,5 +1,5 @@
 <template>
-  <qas-list-view class="container spaced" entity="users" no-filter>
+  <qas-list-view class="container spaced" entity="users" :filters-props="filterProp" >
     <template #header>
       <qas-page-header no-breadcrumbs title="Lista" />
     </template>
@@ -21,6 +21,10 @@
 
 export default {
   computed: {
+    filterProp () {
+      return { searchPlaceholder: 'Pesquisar aqui' }
+    },
+
     columns () {
       return [
         'name',

@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/bildvitta/asteroid#readme",
   "dependencies": {
+    "navpi": "^1.1.4",
     "signature_pad": "^3.0.0-beta.4"
   }
 }
