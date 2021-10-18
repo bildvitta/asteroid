@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added new component `QasListItems`.
 
 ## 2.10.1 - 2021-10-07
+
 ### Changed
 - Changed q-carousel dotnav icons on qas-card to highlight visible image.
 
