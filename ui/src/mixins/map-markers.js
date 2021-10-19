@@ -10,7 +10,7 @@ export default {
           position: { lat: +latitude, lng: +longitude },
           title: name,
           description: city,
-          draggable: !index && this.$_isEditMode,
+          draggable: !index && !!this.$_mode,
           icon
         })
       })
