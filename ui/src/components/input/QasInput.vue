@@ -76,7 +76,7 @@ export default {
   methods: {
     toggleMask (first, second) {
       const length = first.split('#').length - 2
-      return this.value.length > length ? second : first
+      return this.value?.length > length ? second : first
     },
 
     validate (value) {
