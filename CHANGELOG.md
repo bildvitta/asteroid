@@ -8,7 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## Unchanged
 
 ### Fixed
-- Map-makers draggable funcition only on 'create' and 'replace' pages
+- On $_createMarkers mixin, the marker is now draggable on 'create' and 'replace' pages
 
 ## 2.11.0 - 2021-10-19
 
