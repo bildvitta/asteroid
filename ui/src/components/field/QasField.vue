@@ -70,7 +70,8 @@ export default {
         mask,
         pattern,
         maxFiles,
-        searchable
+        searchable,
+        gmt
       } = this.formatedField
 
       // Default error attributes for Quasar.
@@ -91,10 +92,11 @@ export default {
         maxlength,
         minlength,
         suffix,
-        prefix
+        prefix,
+        gmt
       }
 
-      const datetimeInput = { is: 'qas-date-time-input', ...input }
+      const datetimeInput = { is: 'qas-date-time-input', gmt, ...input }
       const decimalInput = { is: 'qas-decimal-input', comma: true, fillMask: '0', reverseFillMask: true, ...input }
 
       // It'll generate a list of acceptable files extensions.

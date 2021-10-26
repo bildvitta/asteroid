@@ -1,6 +1,6 @@
 <template>
   <div>
-    <q-input ref="input" v-bind="attributes" v-on="events">
+    <q-input ref="input" v-bind="attributes" v-on="events" :gmt="gmt">
       <template #append>
         <q-icon v-if="!timeOnly" class="cursor-pointer" name="o_event">
           <q-popup-proxy ref="dateProxy" transition-hide="scale" transition-show="scale">
@@ -49,6 +49,11 @@ export default {
     timeOptions: {
       default: () => ({}),
       type: Object
+    },
+
+    gmt: {
+      default: false,
+      type: Boolean
     },
 
     value: {
@@ -153,6 +158,14 @@ export default {
     toISOString (value) {
       if (!value) {
         return ''
+      }
+      console.log(this.gmt)
+      if (this.dateOnly && !this.gmt) {
+        const [d, m, y] = value.split('/')
+        return [y, m, d].join('-')
+      } 
+      if (this.timeOnly && !this.gmt) {
+        return date.extractDate(value, 'HH:MM')
       }
 
       return date.extractDate(value, this.maskDate).toISOString()
