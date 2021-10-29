@@ -47,28 +47,25 @@ export default {
     dateField () {
       return { name: 'onlyDate', type: 'date', label: 'Data apenas' }
     },
+
     timeField () {
       return { name: 'onlyTime', type: 'time', label: 'Tempo apenas' }
     },
+
     dateTimeField () {
       return { name: 'dateTime', type: 'datetime', label: 'Date Time' }
     },
+
     dateFieldGtm () {
       return { name: 'onlyDate', type: 'date', label: 'Data apenas GTM', gmt: true }
     },
+
     timeFieldGtm () {
       return { name: 'onlyTime', type: 'time', label: 'Tempo apenas GTM', gmt: true }
     },
+
     dateTimeFieldGtm () {
       return { name: 'dateTime', type: 'datetime', label: 'Date Time GTM', gmt: true }
-    }
-  },
-
-  methods: {
-    sendData (e) {
-      e.preventDefault()
-
-      console.log(e)
     }
   }
 }

@@ -38,7 +38,6 @@ export default {
     },
 
     gmt: {
-      default: false,
       type: Boolean
     },
 
