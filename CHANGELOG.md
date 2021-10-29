@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unchanged
 
+### Added
+- Adjustments on QasDateTime input, and adding GMT prop.
+
 ### Fixed
 - On $_createMarkers mixin, the marker is now draggable on 'create' and 'replace' pages
 

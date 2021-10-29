@@ -6,7 +6,7 @@ export default {
       referencePoints.forEach((referencePoint, index) => {
         const { latitude, longitude, city, name, icon } = referencePoint
         const isCreateOrEdit = !!this.$_mode
-        
+
         referencePointsList.push({
           position: { lat: +latitude, lng: +longitude },
           title: name,

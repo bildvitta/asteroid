@@ -20,6 +20,7 @@
 
 <script>
 import { date } from 'quasar'
+import { date as dateFn } from '../../helpers/filters'
 
 export default {
   props: {
@@ -35,6 +36,10 @@ export default {
     dateOptions: {
       default: () => ({}),
       type: Object
+    },
+
+    gmt: {
+      type: Boolean
     },
 
     timeMask: {
@@ -153,6 +158,14 @@ export default {
     toISOString (value) {
       if (!value) {
         return ''
+      }
+
+      if (this.dateOnly && !this.gmt) {
+        return dateFn(date.extractDate(value, this.maskDate), 'yyyy-MM-dd')
+      }
+
+      if (this.timeOnly && !this.gmt) {
+        return date.extractDate(value, 'HH:MM')
       }
 
       return date.extractDate(value, this.maskDate).toISOString()

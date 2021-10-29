@@ -26,6 +26,10 @@ export default {
       description: 'Bypass [QDate](https://quasar.dev/vue-components/date) props.'
     },
 
+    gmt: {
+      description: 'Use GMT (Greenwich Mean Time) on date input'
+    },
+
     timeMask: {
       description: 'Mask string to parse and format time value.'
     },
