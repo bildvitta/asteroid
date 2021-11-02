@@ -64,7 +64,7 @@
     "humps": "^2.0.1",
     "lodash": "^4.17.21",
     "pica": "^7.1.0",
-    "quasar": "^1.15.0",
+    "quasar": "^2.2.2",
     "signature_pad": "^3.0.0-beta.4",
     "sortablejs": "^1.12.0",
     "vue-router": "^3.4.9",
