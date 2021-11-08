@@ -1,14 +1,14 @@
-import QasSettingsMenu from './QasSettingsMenu.vue'
+import QasActionsMenu from './QasActionsMenu.vue'
 import { Notify } from 'quasar'
 
 export default {
-  component: QasSettingsMenu,
-  title: 'Components/SettingsMenu',
+  component: QasActionsMenu,
+  title: 'Components/ActionsMenu',
 
   parameters: {
     docs: {
       description: {
-        component: 'Settings menu.'
+        component: 'Actions menu.'
       }
     }
   },
@@ -19,7 +19,15 @@ export default {
     },
 
     list: {
-      description: 'Settings list as an object containing `label`, `icon`, `props` and `handle` click event.'
+      description: 'Actions list as an object containing `label`, `icon`, `props` and `handler` click event.'
+    },
+
+    hideLabel: {
+      description: 'Controls label visibility.'
+    },
+
+    icon: {
+      description: 'Icon button.'
     },
 
     // slots
@@ -41,23 +49,23 @@ export default {
 }
 
 const Template = (args, { argTypes }) => ({
-  components: { QasSettingsMenu },
+  components: { QasActionsMenu },
   props: Object.keys(argTypes),
   template:
-    '<qas-settings-menu v-bind="$props" />'
+    '<qas-actions-menu v-bind="$props" />'
 })
 
 export const Default = Template.bind({})
 Default.args = {
   block: {
-    handle: () => Notify.create('Block clicked!'),
+    handler: () => Notify.create('Block clicked!'),
     icon: 'o_locked',
     label: 'Block'
   },
 
   list: {
     delete: {
-      handle: () => Notify.create('Delete clicked!'),
+      handler: () => Notify.create('Delete clicked!'),
       icon: 'o_delete',
       label: 'Delete'
     }

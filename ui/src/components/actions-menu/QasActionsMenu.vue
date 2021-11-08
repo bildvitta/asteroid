@@ -1,7 +1,7 @@
 <template>
-  <qas-btn class="qas-settings-menu" color="primary" v-bind="$attrs" hide-mobile-label icon="o_settings" :label="label" outline v-on="$listeners">
-    <q-menu class="qas-settings-menu__menu">
-      <q-list class="qas-settings-menu__list" separator>
+  <qas-btn class="qas-actions-menu" color="primary" v-bind="$attrs" hide-mobile-label :icon="icon" :label="labelValue" outline v-on="$listeners">
+    <q-menu class="qas-actions-menu__menu">
+      <q-list class="qas-actions-menu__list" separator>
         <slot v-for="(item, key) in list" :item="item" :name="key">
           <q-item :key="key" class="text-bold text-primary" clickable v-bind="item.props" @click="onClick(item)">
             <q-item-section>
@@ -34,23 +34,37 @@ export default {
     list: {
       default: () => ({}),
       type: Object
+    },
+
+    hideLabel: {
+      type: Boolean
+    },
+
+    icon: {
+      default: 'o_settings',
+      type: String
     }
   },
 
   methods: {
     onClick (item) {
-      // TODO: Alterar para "handler".
-      if (typeof item.handle === 'function') {
+      if (typeof item.handler === 'function') {
         const { handle, ...filtered } = item
-        item.handle(filtered)
+        item.handler(filtered)
       }
+    }
+  },
+
+  computed: {
+    labelValue () {
+      return !this.hideLabel && this.label
     }
   }
 }
 </script>
 
 <style lang="scss">
-.qas-settings-menu {
+.qas-actions-menu {
   &__list {
     width: 265px;
     z-index: 1;
