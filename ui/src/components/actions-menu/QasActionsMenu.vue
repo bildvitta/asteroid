@@ -51,7 +51,7 @@ export default {
   methods: {
     onClick (item) {
       if (typeof item.handler === 'function') {
-        const { handle, ...filtered } = item
+        const { handler, ...filtered } = item
         item.handler(filtered)
       }
     }
