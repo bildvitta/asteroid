@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## Unreleased
 
 ### Changed
-- Renamed the component from `QasSettingsMenu` to `QasActionsMenu`.
+- Renamed component name from `QasSettingsMenu` to `QasActionsMenu`.
 - Changed the function name of items from `handle` to `handler`.
 
 ### Added

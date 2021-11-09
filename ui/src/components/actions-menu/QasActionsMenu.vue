@@ -21,6 +21,8 @@
 import QasBtn from '../btn/QasBtn'
 
 export default {
+  name: 'QasActionsMenu',
+
   components: {
     QasBtn
   },
