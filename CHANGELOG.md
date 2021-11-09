@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 - Renamed the component from `QasSettingsMenu` to `QasActionsMenu`.
+- Changed the function name of items from `handle` to `handler`.
 
 ### Added
 - Added new property `hideLabel` in `QasActionsMenu`.
