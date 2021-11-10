@@ -59,7 +59,7 @@ export default {
 
   computed: {
     labelValue () {
-      return !this.hideLabel && this.label
+      return this.hideLabel ? '' : this.label
     }
   }
 }

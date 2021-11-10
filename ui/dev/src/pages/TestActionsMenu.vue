@@ -11,13 +11,13 @@
 export default {
   computed: {
     secondaryActionsList () {
-      return [
-        {
+      return {
+        export: {
           icon: 'o_file_download',
           handler: () => alert('OI XD'),
           label: 'Exportar Relatório'
         }
-      ]
+      }
     }
   }
 }
