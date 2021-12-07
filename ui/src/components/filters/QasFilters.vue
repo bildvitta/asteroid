@@ -41,7 +41,7 @@
     </div>
 
     <div v-if="badges && hasActiveFilters" class="q-mt-md">
-      <q-chip v-for="(filterItem, key) in activeFilters" :key="key" color="grey-4" dense removable size="md" text-color="grey-8" @remove="removeFilter(filterItem)">{{ filterItem.label }} = "{{ filterItem.value }}"</q-chip>
+      <q-chip v-for="(filterItem, key) in activeFilters" :key="key" color="grey-4" dense removable size="md" text-color="grey-8" @remove="removeFilter(filterItem)">{{ filterItem.label }} = "{{ handleChipValue(filterItem.value) }}"</q-chip>
     </div>
 
     <slot :context="context" :filter="filter" :filters="activeFilters" :removeFilter="removeFilter" />
@@ -250,6 +250,10 @@ export default {
       }
 
       this.$router.push({ query })
+    },
+
+    handleChipValue (value) {
+      return value instanceof Array ? value.join(', ') : value 
     },
 
     removeFilter ({ name }) {
