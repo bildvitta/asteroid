@@ -252,8 +252,8 @@ export default {
       this.$router.push({ query })
     },
 
-    handleChipValue (value) {
-      return value instanceof Array ? value.join(', ') : value
+    getChipValue (value) {
+      return Array.isArray(value) ? value.join(', ') : value
     },
 
     removeFilter ({ name }) {
