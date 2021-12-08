@@ -253,7 +253,7 @@ export default {
     },
 
     handleChipValue (value) {
-      return value instanceof Array ? value.join(', ') : value 
+      return value instanceof Array ? value.join(', ') : value
     },
 
     removeFilter ({ name }) {
