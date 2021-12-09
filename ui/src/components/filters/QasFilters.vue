@@ -188,7 +188,7 @@ export default {
 
   created () {
     this.fetchFilters()
-    this.updateValues()
+    this.watchOnceFields()
   },
 
   methods: {
@@ -270,8 +270,23 @@ export default {
       this.search = search || ''
 
       for (const key in filters) {
-        this.$set(this.filters, key, parseValue(filters[key]))
+        this.$set(this.filters, key, parseValue(this.normalizeValues(filters[key], this.fields[key]?.multiple)))
       }
+    },
+
+    normalizeValues (value, isMultiple) {
+      if (Array.isArray(value)) return value
+
+      return isMultiple ? [value] : value 
+    },
+
+    watchOnceFields () {
+      const watchOnce = this.$watch('fields', values => {
+        if (Object.keys(values).length) {
+          this.updateValues()
+          watchOnce()
+        }
+      })
     }
   }
 }
