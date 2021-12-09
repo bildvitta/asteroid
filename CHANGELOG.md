@@ -10,7 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - When selecting multiple items in the select filter, the q-chip displays `label = "item1, item2"`
 
 ### Removed
-- Remove padding in QasAppMenu
+- Remove padding in `QasAppMenu`
 
 ## 2.12.1 - 2021-11-10
 
