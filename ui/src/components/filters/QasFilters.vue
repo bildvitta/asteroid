@@ -277,7 +277,7 @@ export default {
     normalizeValues (value, isMultiple) {
       if (Array.isArray(value)) return value
 
-      return isMultiple ? [value] : value 
+      return isMultiple ? [value] : value
     },
 
     watchOnceFields () {
