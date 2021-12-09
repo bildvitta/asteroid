@@ -1,6 +1,6 @@
 <template>
   <q-drawer v-model="model" content-class="bg-primary-contrast" :mini="miniMode" :width="230" @before-hide="beforeHide">
-    <q-list class="text-primary" padding>
+    <q-list class="text-primary">
       <div v-for="(header, index) in items" :key="index">
         <q-expansion-item v-if="hasChildren(header)" :active-class="activeSecondaryItemClasses" :default-opened="shouldExpand(header)" expand-icon="o_keyboard_arrow_down" expand-separator :icon="header.icon" :label="header.label" :to="header.to">
           <q-item v-for="(item, itemIndex) in header.children" :key="itemIndex" v-ripple :active-class="activeItemClasses" clickable :to="item.to">
