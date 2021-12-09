@@ -7,8 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## Unreleased
 
 ### Changed
-- When selecting multiple items in the select filter, the q-chip displays `label = "item1, item2"` in `QasFilters` 
-- Fixed value type of select filter multiple in `QasFilters` 
+- When selecting multiple items in the select filter, the q-chip displays `label = "item1, item2"` in `QasFilters`
 
 ## 2.12.1 - 2021-11-10
 
