@@ -6,6 +6,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+### Fixed
+- Added `normalizeValues` method on `activeFilters` computed to correct string values when they should be string array values
+
 ### Added
 - Added an extra verification at the helper `filter` to prevent calling mask methods without a value.
 
