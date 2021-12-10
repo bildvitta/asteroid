@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## Unreleased
 
 ### Added
-- Added an extra verification at method `resultsByFields` inside `QasGridGenerator` and `QasTableGenerator` to prevent calling mask methods without value.
+- Added an extra verification at the helper `filter` to prevent calling mask methods without a value.
 
 ## 2.12.2 - 2021-12-09
 
