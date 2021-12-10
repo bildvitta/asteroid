@@ -41,7 +41,7 @@
     </div>
 
     <div v-if="badges && hasActiveFilters" class="q-mt-md">
-      <q-chip v-for="(filterItem, key) in activeFilters" :key="key" color="grey-4" dense removable size="md" text-color="grey-8" @remove="removeFilter(filterItem)">{{ filterItem.label }} = "{{ handleChipValue(filterItem.value) }}"</q-chip>
+      <q-chip v-for="(filterItem, key) in activeFilters" :key="key" color="grey-4" dense removable size="md" text-color="grey-8" @remove="removeFilter(filterItem)">{{ filterItem.label }} = "{{ getChipValue(filterItem.value) }}"</q-chip>
     </div>
 
     <slot :context="context" :filter="filter" :filters="activeFilters" :removeFilter="removeFilter" />
@@ -122,7 +122,7 @@ export default {
         const hasField = fields.includes(key)
 
         if (hasField) {
-          const value = humanize(this.fields[key], filters[key])
+          const value = humanize(this.fields[key], this.normalizeValues(filters[key], this.fields[key]?.multiple))
           const { label, name } = this.fields[key]
 
           activeFilters[key] = { label, name, value }
