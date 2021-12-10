@@ -78,7 +78,7 @@ export default {
       const result = extend(true, {}, this.result)
 
       for (const key in result) {
-        if (this.formattedFields[key]?.type && !!result[key]) {
+        if (this.formattedFields[key]?.type && result[key]) {
           formattedResult[key] = humanize(this.formattedFields[key], result[key])
           // TODO: Rever.
           // eslint-disable-next-line vue/no-side-effects-in-computed-properties

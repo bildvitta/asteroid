@@ -114,7 +114,9 @@ export default {
       return results.map((result, index) => {
         for (const key in result) {
           result.default = this.results[index]
-          result[key] = humanize(this.fields[key], result[key])
+
+          if(result[key])
+            result[key] = humanize(this.fields[key], result[key])
         }
 
         return result
