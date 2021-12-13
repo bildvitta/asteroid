@@ -7,7 +7,7 @@
             <slot :index="index" :item="item" name="item-section-left" />
           </q-item-section>
 
-          <q-item-section side>
+          <q-item-section v-if="useIconRedirect" side>
             <slot :index="index" :item="item" name="item-section-side">
               <qas-btn flat round :to="getRedirectPayload(item)">
                 <q-icon v-bind="iconProps" />
