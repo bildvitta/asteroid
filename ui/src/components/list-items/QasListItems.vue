@@ -7,7 +7,7 @@
             <slot :index="index" :item="item" name="item-section-left" />
           </q-item-section>
 
-          <q-item-section v-if="useIconRedirect" side>
+          <q-item-section v-if="!useSectionActions" side>
             <slot :index="index" :item="item" name="item-section-side">
               <qas-btn flat round :to="getRedirectPayload(item)">
                 <q-icon v-bind="iconProps" />
@@ -51,6 +51,11 @@ export default {
 
     useIconRedirect: {
       type: Boolean
+    },
+
+    useSectionActions: {
+      type: Boolean,
+      default: true
     }
   },
 

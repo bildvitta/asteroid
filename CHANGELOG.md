@@ -11,7 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 - Added an extra verification at the helper `filter` to prevent calling mask methods without a value.
-- Added a verification on `QasListItems` side q-item-section to reuse prop `useIconRedirect` to show actions button or not.
+- Added a prop `useSectionActions` on `QasListItems` to show actions button or not.
 
 ## 2.12.2 - 2021-12-09
 
