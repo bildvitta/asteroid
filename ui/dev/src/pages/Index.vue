@@ -1,5 +1,5 @@
 <template>
-  <q-page class="justify-center row" padding>
+  <q-page class="container justify-center row" padding>
     <q-list class="list" dense>
       <div class="q-mb-md text-h4">Test pages</div>
 

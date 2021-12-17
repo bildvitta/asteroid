@@ -1,10 +1,10 @@
 <template>
   <q-layout view="hHh Lpr lFf">
     <q-header height-hint="70">
-      <qas-app-bar :apps="apps" :is-auth="true" :title="`quasar-ui-asteroid v${version}`" :user="user" @sign-out="signOut" @toggle-menu="toggleMenuDrawer" />
+      <qas-app-bar :apps="apps" :is-auth="true" :title="`quasar-ui-asteroid v${version}`" :user="user" @toggle-menu="toggleMenuDrawer" />
     </q-header>
 
-    <qas-app-menu v-model="menuDrawer" :items="menuList" />
+    <qas-app-menu v-model="menuDrawer" current-module="test" :items="menuList" :modules="modules" />
 
     <q-page-container>
       <router-view />
@@ -45,17 +45,39 @@ const apps = [
 
 const menuList = [
   {
-    label: 'Início',
+    label: 'Dialog',
     icon: 'o_home',
-    to: { name: 'Root' }
+    to: { path: '/dialog-form' }
+  },
+
+  {
+    label: 'Teste multiplo expansivo',
+    icon: 'o_edit',
+    children: [
+      {
+        label: 'teste'
+      }
+    ]
   },
 
   {
     label: 'Páginas',
     icon: 'o_layers',
-    children: pages.map(page => ({ label: page.title, to: '/' + page.path }))
+    // children: [
+    //   {
+    //     label: 'Filho',
+    //     icon: 'o_edit'
+    //   }
+    // ]
+    children: pages.splice(5).map(page => ({ label: getPagtTitle(page), to: '/' + page.path, icon: 'o_edit' }))
   }
 ]
+
+console.log(pages)
+
+function getPagtTitle ({ title }) {
+  return title?.split('.')[0]
+}
 
 const user = {
   photo: 'https://www.abc.net.au/cm/lb/6367016/data/alan2c-see-the-person-data.jpg',
@@ -85,14 +107,25 @@ export default {
 
     version () {
       return version
+    },
+
+    modules () {
+      return [
+        {
+          label: 'Modulo de teste',
+          value: 'test',
+          path: 'http://localhost:8080'
+        },
+        {
+          label: 'Segundo modulo de teste',
+          value: 'test-2',
+          path: 'https://google.com'
+        }
+      ]
     }
   },
 
   methods: {
-    signOut () {
-      // console.log('Sign out fired.')
-    },
-
     toggleMenuDrawer () {
       this.menuDrawer = !this.menuDrawer
     }
