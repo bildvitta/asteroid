@@ -9,6 +9,12 @@ $negative: #C10015;
 $info: #31CCEC;
 $warning: #F2C037;
 
+.background-test {
+  background: rgba($primary, .15) !important;
+}
+
+$test: rgba($primary, .15);
+
 // Asteroid
 @mixin setBrand($name, $color) {
   :root {

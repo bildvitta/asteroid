@@ -1,8 +1,8 @@
 <template>
-  <q-drawer class="qas-app-menu" v-model="model" :mini="miniMode" :width="230" @before-hide="beforeHide" @mini-state="setMiniState" @hook:mounted="$forceUpdate()">
-    <div class="flex column no-wrap justify-between full-height overflow-x-hidden">
+  <q-drawer v-model="model" class="qas-app-menu" :mini="miniMode" :width="230" @before-hide="beforeHide" @hook:mounted="$forceUpdate()" @mini-state="setMiniState">
+    <div class="column flex full-height justify-between no-wrap overflow-x-hidden">
       <div>
-        <div class="q-ma-md" v-if="!isMini">
+        <div v-if="!isMini" class="q-ma-md">
           <div class="q-mb-sm text-caption text-grey-7 text-weight-medium">
             Você está no modulo:
           </div>
@@ -12,8 +12,8 @@
 
         <q-list class="text-grey-9 text-weight-medium">
           <template v-for="(header, index) in items">
-            <q-expansion-item v-if="hasChildren(header)" :key="header.label" :default-opened="shouldExpand(header)" expand-icon="o_keyboard_arrow_down" expand-separator :icon="header.icon" :label="header.label" :to="header.to" group="item" :class="activeClassHandler(`item-${index}`)" :ref="`item-${index}`">
-              <q-item v-for="(item, itemIndex) in header.children" :key="itemIndex" v-ripple :active-class="activeItemClasses" clickable :to="item.to" class="qas-app-menu__item" @click="$forceUpdate()">
+            <q-expansion-item v-if="hasChildren(header)" :key="header.label" :ref="`item-${index}`" :class="activeClassHandler(index)" :default-opened="shouldExpand(header)" expand-icon="o_keyboard_arrow_down" expand-separator group="item" :icon="header.icon" :label="header.label" :to="header.to" @click="toggleItem(index)">
+              <q-item v-for="(item, itemIndex) in header.children" :key="itemIndex" v-ripple :active-class="activeItemClasses" class="qas-app-menu__item" clickable :to="item.to" @click="$forceUpdate()">
                 <q-item-section v-if="item.icon" avatar>
                   <q-icon :name="item.icon" />
                 </q-item-section>
@@ -36,7 +36,7 @@
       </div>
 
       <div class="q-mx-md">
-        <img v-if="displayModularLogoFull" src="../../assets/logo-modular-full.svg" class="q-mb-md q-mx-auto block" alt="modular logo">
+        <img v-if="displayModularLogoFull" alt="modular logo" class="block q-mb-md q-mx-auto" src="../../assets/logo-modular-full.svg">
       </div>
     </div>
   </q-drawer>
@@ -88,24 +88,9 @@ export default {
     }
   },
 
-  watch: {
-    currentModule: {
-      handler (value) {
-        this.module = value
-      },
-      immediate: true
-    }
-  },
-
   computed: {
     activeItemClasses () {
       return 'background-test text-primary'
-      return 'bg-primary text-primary-contrast'
-    },
-
-    activeSecondaryItemClasses () {
-      // return 'active background-test text-primary-contrast'
-      // return 'active bg-secondary-contrast text-primary-contrast'
     },
 
     model: {
@@ -128,6 +113,15 @@ export default {
 
     displayModularLogo () {
       return this.isMini && this.hasBrandCompany
+    }
+  },
+
+  watch: {
+    currentModule: {
+      handler (value) {
+        this.module = value
+      },
+      immediate: true
     }
   },
 
@@ -157,11 +151,18 @@ export default {
       }
     },
 
-    activeClassHandler (ref) {
-      const element = this.$refs[ref]?.[0]?.$el
+    activeClassHandler (index) {
+      const element = this.$refs[`item-${index}`]?.[0]?.$el
       const hasActiveNode = element?.querySelector('.q-router-link--exact-active')
 
       return hasActiveNode ? 'qas-app-menu--active' : ''
+    },
+
+    toggleItem (index) {
+      const component = this.$refs[`item-${index}`]?.[0]
+
+      component?.to && this.isMini && component.toggle()
+      this.$forceUpdate()
     }
   }
 }
@@ -171,7 +172,7 @@ export default {
 .qas-app-menu {
   &--active .q-expansion-item__container > .q-item:first-child,
   &--active .q-expansion-item__container > .q-item:first-child .q-item__section--side {
-    color: $primary;
+    color: var(--q-color-primary);
   }
 }
 </style>

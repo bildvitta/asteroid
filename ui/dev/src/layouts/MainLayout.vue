@@ -1,8 +1,8 @@
 <template>
   <q-layout view="hHh Lpr lFf">
-    <q-header height-hint="70">
-      <qas-app-bar :apps="apps" :is-auth="true" :title="`quasar-ui-asteroid v${version}`" :user="user" @toggle-menu="toggleMenuDrawer" />
-    </q-header>
+    <!-- <q-header class="bg-white" height-hint="70"> -->
+    <qas-app-bar :apps="apps" :is-auth="true" :title="`quasar-ui-asteroid v${version}`" :user="user" @toggle-menu="toggleMenuDrawer" />
+    <!-- </q-header> -->
 
     <qas-app-menu v-model="menuDrawer" current-module="test" :items="menuList" :modules="modules" />
 
@@ -53,27 +53,18 @@ const menuList = [
   {
     label: 'Teste multiplo expansivo',
     icon: 'o_edit',
-    children: [
-      {
-        label: 'teste'
-      }
-    ]
+    children: pages.splice(0, 4).map(page => ({ label: getPagtTitle(page), to: '/' + page.path, icon: 'o_edit' }))
   },
 
   {
     label: 'Páginas',
     icon: 'o_layers',
-    // children: [
-    //   {
-    //     label: 'Filho',
-    //     icon: 'o_edit'
-    //   }
-    // ]
+    to: {
+      path: '/test-input-number'
+    },
     children: pages.splice(5).map(page => ({ label: getPagtTitle(page), to: '/' + page.path, icon: 'o_edit' }))
   }
 ]
-
-console.log(pages)
 
 function getPagtTitle ({ title }) {
   return title?.split('.')[0]
