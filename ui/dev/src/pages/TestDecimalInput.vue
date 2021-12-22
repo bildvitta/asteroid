@@ -1,7 +1,14 @@
 <template>
   <q-page class="container">
     <q-form @submit.prevent>
-      <qas-decimal-input v-model="model" hint="Insira um valor maior ou igual 10" :rules="[customValidator]" />
+      <div class="q-col-gutter-md row">
+        <div class="col-6">
+          <qas-decimal-input v-model="model" hint="Insira um valor maior ou igual 10" :rules="[customValidator]" />
+        </div>
+        <div class="col-6">
+          <qas-decimal-input v-model="model2" hint="Insira um valor maior ou igual 10" :rules="[customValidator]" />
+        </div>
+      </div>
 
       <div class="q-my-lg">
         model -> {{ model }}
@@ -16,7 +23,8 @@
 export default {
   data () {
     return {
-      model: 0
+      model: 0,
+      model2: 0
     }
   },
 
