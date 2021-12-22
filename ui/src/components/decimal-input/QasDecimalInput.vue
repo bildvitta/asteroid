@@ -1,5 +1,7 @@
 <template>
-  <q-input v-bind="$attrs" fill-mask="0" :mask="mask" reverse-fill-mask :value="inputValue" v-on="events" @input="input" />
+  <div>
+    <q-input v-bind="$attrs" fill-mask="0" :mask="mask" reverse-fill-mask :value="inputValue" v-on="events" @input="input" />
+  </div>
 </template>
 
 <script>
