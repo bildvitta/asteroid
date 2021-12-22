@@ -22,7 +22,7 @@ export default {
 
   methods: {
     customValidator (value) {
-      return value >= '10.00' || 'valor precisa ser maior ou igual a 10'
+      return value >= 10 || 'valor precisa ser maior ou igual a 10'
     }
   }
 }
