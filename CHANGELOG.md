@@ -6,7 +6,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
-### Changed
+### 2.12.4
 - Added `div` as parent tag in `QasDecimalInput` for rules validation when submiting a form.
 
 ## 2.12.3 - 2021-12-10
