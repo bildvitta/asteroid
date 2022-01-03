@@ -51,9 +51,9 @@ const menuList = [
   },
 
   {
-    label: 'Teste multiplo expansivo',
+    label: 'Teste expansivo',
     icon: 'o_edit',
-    children: pages.splice(0, 4).map(page => ({ label: getPagtTitle(page), to: '/' + page.path, icon: 'o_edit' }))
+    children: pages.splice(1, 4).map(page => ({ label: getPagtTitle(page), to: '/' + page.path, icon: 'o_edit' }))
   },
 
   {

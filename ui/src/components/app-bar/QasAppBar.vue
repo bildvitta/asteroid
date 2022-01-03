@@ -178,7 +178,7 @@ export default {
   }
 
   &__user {
-    background-color: $primary-contrast;
+    background-color: var(--qas-background-color);
     transition: background-color $generic-hover-transition;
 
     &:focus,

@@ -90,7 +90,7 @@ export default {
 
   computed: {
     activeItemClasses () {
-      return 'background-test text-primary'
+      return 'bg-grey-1 text-primary'
     },
 
     model: {
@@ -173,6 +173,11 @@ export default {
   &--active .q-expansion-item__container > .q-item:first-child,
   &--active .q-expansion-item__container > .q-item:first-child .q-item__section--side {
     color: var(--q-color-primary);
+  }
+
+  &--active.q-expansion-item,
+  &--active.q-item {
+    background-color: $grey-1;
   }
 }
 </style>
