@@ -25,7 +25,7 @@
     </div>
 
     <div class="q-mt-xl">
-      <div>UPLOAD PADRÃO COM VALOR</div>
+      <div>UPLOAD PADRÃO COM VALOR TESTE</div>
       <pre>model: {{ uploadWithValue }}</pre>
       <qas-uploader v-model="uploadWithValue" entity="portal-app/problems/photo" />
     </div>
