@@ -16,7 +16,6 @@ Selecione os tipos de testes
 
 - [ ] Testes em dev
 - [ ] Testes automatizados
-- [ ] Testes automatizado
 
 ## Documentação
 - [ ] Documentação no storybook foi atualizada e testada?
