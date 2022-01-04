@@ -1,6 +1,5 @@
 <template>
-  <!-- TODO remover hide-dropdown-icon prop -->
-  <q-select v-model="model" v-bind="attributes" v-on="listeners" @filter="filterOptions" hide-dropdown-icon>
+  <q-select v-model="model" v-bind="attributes" v-on="listeners" @filter="filterOptions">
     <slot v-for="(slot, key) in $slots" :slot="key" :name="key" />
 
     <template v-for="(slot, key) in $scopedSlots" :slot="key" slot-scope="scope">
@@ -116,15 +115,6 @@ export default {
     },
 
     attributes () {
-      console.log({
-        emitValue: true,
-        mapOptions: true,
-        outlined: true,
-        clearable: this.searchable,
-        ...this.$attrs,
-        options: this.filteredOptions,
-        useInput: this.searchable
-      })
       return {
         emitValue: true,
         mapOptions: true,
