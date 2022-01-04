@@ -1,5 +1,5 @@
 <template>
-  <q-drawer v-model="model" class="qas-app-menu" :mini="miniMode" :width="230" @before-hide="beforeHide" @hook:mounted="$forceUpdate()" @mini-state="setMiniState">
+  <q-drawer v-model="model" class="qas-app-menu" :mini="miniMode" :width="230" v-on="$listeners" @before-hide="beforeHide" @hook:mounted="$forceUpdate()" @mini-state="setMiniState">
     <div class="column flex full-height justify-between no-wrap overflow-x-hidden">
       <div>
         <div v-if="!isMini" class="q-ma-md">
@@ -36,7 +36,7 @@
       </div>
 
       <div class="q-mx-md">
-        <img v-if="displayModularLogoFull" alt="modular logo" class="block q-mb-md q-mx-auto" src="../../assets/logo-modular-full.svg">
+        <img v-if="displayModularLogoFull" alt="modular logo" class="block q-mb-md q-mx-auto" src="../../assets/logo-modular.svg">
       </div>
     </div>
   </q-drawer>
@@ -46,6 +46,8 @@
 import { screenMixin } from '../../mixins'
 
 export default {
+  name: 'QasAppMenu',
+
   mixins: [screenMixin],
 
   props: {
@@ -152,17 +154,21 @@ export default {
     },
 
     activeClassHandler (index) {
-      const element = this.$refs[`item-${index}`]?.[0]?.$el
+      const element = this.getComponent(index)?.$el
       const hasActiveNode = element?.querySelector('.q-router-link--exact-active')
 
       return hasActiveNode ? 'qas-app-menu--active' : ''
     },
 
     toggleItem (index) {
-      const component = this.$refs[`item-${index}`]?.[0]
+      const component = this.getComponent(index)
 
       component?.to && this.isMini && component.toggle()
       this.$forceUpdate()
+    },
+
+    getComponent (index) {
+      return this.$refs[`item-${index}`]?.[0]
     }
   }
 }
@@ -170,13 +176,14 @@ export default {
 
 <style lang="scss">
 .qas-app-menu {
-  &--active .q-expansion-item__container > .q-item:first-child,
-  &--active .q-expansion-item__container > .q-item:first-child .q-item__section--side {
-    color: var(--q-color-primary);
+  &--active .q-expansion-item__container > .q-item:first-child {
+    &, .q-item__section--side {
+      color: var(--q-color-primary);
+    }
   }
 
-  &--active.q-expansion-item,
-  &--active.q-item {
+  &--active.q-item,
+  &--active.q-expansion-item {
     background-color: $grey-1;
   }
 }

@@ -1,5 +1,5 @@
 <template>
-  <q-header class="bg-white shadow-primary" height-hint="70">
+  <q-header v-bind="$attrs" class="bg-white shadow-primary" height-hint="70" v-on="$listeners">
     <q-toolbar class="qas-toolbar" color="bg-white">
       <q-ajax-bar color="white" position="top" size="2px" />
 
@@ -7,7 +7,8 @@
 
       <q-toolbar-title class="flex">
         <div class="cursor-pointer" @click="goToRoot">
-          <img :alt="title" class="q-mr-sm qas-toolbar__brand" :src="brandImage">
+          <img v-if="brand" :alt="title" class="q-mr-sm qas-toolbar__brand" :src="brand">
+          <span v-if="showTitle" class="text-bold text-grey-9 text-subtitle1 text-uppercase">{{ title }}</span>
           <q-badge v-if="hasDevelopmentBadge" align="middle" class="q-ml-sm" color="negative" :label="developmentBadgeLabel" />
         </div>
       </q-toolbar-title>
@@ -66,6 +67,8 @@ import QasAvatar from '../avatar/QasAvatar'
 import QasBtn from '../btn/QasBtn'
 
 export default {
+  name: 'QasAppBar',
+
   components: {
     QasAppsMenu,
     QasAvatar,
@@ -141,8 +144,8 @@ export default {
       return !!Object.keys(this.notifications).length
     },
 
-    brandImage () {
-      return this.brand || require('../../assets/logo-modular-full.svg')
+    showTitle () {
+      return this.title && !this.brand
     }
   },
 

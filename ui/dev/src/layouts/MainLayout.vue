@@ -1,15 +1,5 @@
 <template>
-  <q-layout view="hHh Lpr lFf">
-    <!-- <q-header class="bg-white" height-hint="70"> -->
-    <qas-app-bar :apps="apps" :is-auth="true" :title="`quasar-ui-asteroid v${version}`" :user="user" @toggle-menu="toggleMenuDrawer" />
-    <!-- </q-header> -->
-
-    <qas-app-menu v-model="menuDrawer" current-module="test" :items="menuList" :modules="modules" />
-
-    <q-page-container>
-      <router-view />
-    </q-page-container>
-  </q-layout>
+  <qas-layout :app-bar-props="appBarProps" :app-menu-props="appMenuProps" />
 </template>
 
 <script>
@@ -113,6 +103,24 @@ export default {
           path: 'https://google.com'
         }
       ]
+    },
+
+    appBarProps () {
+      return {
+        apps: this.apps,
+        isAuth: true,
+        title: `quasar-ui-asteroid v${version}`,
+        user: this.user,
+        id: 'eaeee mano'
+      }
+    },
+
+    appMenuProps () {
+      return {
+        currentModule: 'test',
+        items: this.menuList,
+        modules: this.modules
+      }
     }
   },
 
