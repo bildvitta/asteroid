@@ -36,7 +36,7 @@
       </div>
 
       <div class="q-mx-md">
-        <img v-if="displayModularLogoFull" alt="modular logo" class="block q-mb-md q-mx-auto" src="../../assets/logo-modular.svg">
+        <img v-if="!isMini" alt="modular logo" class="block q-mb-md q-mx-auto" src="../../assets/logo-modular.svg">
       </div>
     </div>
   </q-drawer>
@@ -74,11 +74,6 @@ export default {
     currentModule: {
       default: '',
       type: String
-    },
-
-    hasBrandCompany: {
-      default: true,
-      type: Boolean
     }
   },
 
@@ -107,14 +102,6 @@ export default {
 
     currentModelOption () {
       return this.modules.find(module => module.value === this.module)
-    },
-
-    displayModularLogoFull () {
-      return !this.isMini && this.hasBrandCompany
-    },
-
-    displayModularLogo () {
-      return this.isMini && this.hasBrandCompany
     }
   },
 
