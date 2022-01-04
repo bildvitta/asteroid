@@ -67,12 +67,6 @@ const user = {
 }
 
 export default {
-  data () {
-    return {
-      menuDrawer: true
-    }
-  },
-
   computed: {
     apps () {
       return apps
@@ -121,12 +115,6 @@ export default {
         items: this.menuList,
         modules: this.modules
       }
-    }
-  },
-
-  methods: {
-    toggleMenuDrawer () {
-      this.menuDrawer = !this.menuDrawer
     }
   }
 }
