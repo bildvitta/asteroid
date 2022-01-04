@@ -25,6 +25,6 @@ Selecione os tipos de testes
 # Checklist:
 - [ ] Meu código segue todos os padrões de código incluindo eslint
 - [ ] Eu fiz um meu próprio code review antes de abrir este pull request
-- [ ] Eu atualizei o changelog
+- [ ] Eu atualizei o changelog seguindo o padrão keep changelog
 - [ ] Antes da alteração eu discuti sobre o pull request com o time de front end e time de design
 - [ ] Minhas alterações não geram erros ou warnings no console
