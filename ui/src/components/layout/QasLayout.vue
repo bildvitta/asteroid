@@ -34,7 +34,7 @@ export default {
       type: Boolean
     },
 
-    appMenuProps: {
+    appBarEvents: {
       default: () => ({}),
       type: Object
     },
@@ -44,12 +44,12 @@ export default {
       type: Object
     },
 
-    appMenuEvents: {
+    appMenuProps: {
       default: () => ({}),
       type: Object
     },
 
-    appBarEvents: {
+    appMenuEvents: {
       default: () => ({}),
       type: Object
     }

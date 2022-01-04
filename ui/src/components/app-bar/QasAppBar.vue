@@ -20,8 +20,6 @@
         </q-btn>
       </div>
 
-      <qas-apps-menu v-if="hasApps" :apps="apps" class="q-mr-md" />
-
       <div class="items-center no-wrap q-gutter-md row">
         <slot name="tools" />
 
@@ -62,7 +60,6 @@
 </template>
 
 <script>
-import QasAppsMenu from '../apps-menu/QasAppsMenu'
 import QasAvatar from '../avatar/QasAvatar'
 import QasBtn from '../btn/QasBtn'
 
@@ -70,17 +67,11 @@ export default {
   name: 'QasAppBar',
 
   components: {
-    QasAppsMenu,
     QasAvatar,
     QasBtn
   },
 
   props: {
-    apps: {
-      default: () => [],
-      type: Array
-    },
-
     brand: {
       default: '',
       type: String
@@ -130,10 +121,6 @@ export default {
       )
 
       return current ? hosts[current] : ''
-    },
-
-    hasApps () {
-      return !!this.apps.length
     },
 
     hasDevelopmentBadge () {

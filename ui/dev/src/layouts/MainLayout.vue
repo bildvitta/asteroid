@@ -6,33 +6,6 @@
 import { version } from 'ui'
 import pages from '../router/pages'
 
-const apps = [
-  {
-    label: 'Hub',
-    image: 'http://placehold.it/640x640'
-  },
-  {
-    label: 'Produto',
-    image: 'http://placehold.it/640x640'
-  },
-  {
-    label: 'CRM',
-    image: 'http://placehold.it/640x640'
-  },
-  {
-    label: 'Vendas',
-    image: 'http://placehold.it/640x640'
-  },
-  {
-    label: 'Repasse',
-    image: 'http://placehold.it/640x640'
-  },
-  {
-    label: 'Jurídico',
-    image: 'http://placehold.it/640x640'
-  }
-]
-
 const menuList = [
   {
     label: 'Dialog',
@@ -43,7 +16,7 @@ const menuList = [
   {
     label: 'Teste expansivo',
     icon: 'o_edit',
-    children: pages.splice(1, 4).map(page => ({ label: getPagtTitle(page), to: '/' + page.path, icon: 'o_edit' }))
+    children: pages.splice(1, 4).map(page => ({ label: getPageTitle(page), to: '/' + page.path, icon: 'o_edit' }))
   },
 
   {
@@ -52,11 +25,11 @@ const menuList = [
     to: {
       path: '/test-input-number'
     },
-    children: pages.splice(5).map(page => ({ label: getPagtTitle(page), to: '/' + page.path, icon: 'o_edit' }))
+    children: pages.splice(5).map(page => ({ label: getPageTitle(page), to: '/' + page.path, icon: 'o_edit' }))
   }
 ]
 
-function getPagtTitle ({ title }) {
+function getPageTitle ({ title }) {
   return title?.split('.')[0]
 }
 
@@ -68,10 +41,6 @@ const user = {
 
 export default {
   computed: {
-    apps () {
-      return apps
-    },
-
     menuList () {
       return menuList
     },
@@ -101,11 +70,9 @@ export default {
 
     appBarProps () {
       return {
-        apps: this.apps,
         isAuth: true,
         title: `quasar-ui-asteroid v${version}`,
-        user: this.user,
-        id: 'eaeee mano'
+        user: this.user
       }
     },
 

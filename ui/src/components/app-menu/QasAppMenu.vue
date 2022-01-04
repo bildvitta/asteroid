@@ -101,7 +101,7 @@ export default {
     },
 
     currentModelOption () {
-      return this.modules.find(module => module.value === this.module)
+      return this.modules.find(module => module?.value === this.module)
     }
   },
 

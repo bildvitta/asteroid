@@ -17,10 +17,6 @@ export default {
   },
 
   argTypes: {
-    apps: {
-      description: 'List of apps with `href`, `image` and `label`. Used by QasAppsMenu.'
-    },
-
     brand: {
       description: 'Brand image path.'
     },
