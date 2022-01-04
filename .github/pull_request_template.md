@@ -1,10 +1,10 @@
 # Descrição
-Inclua uma pequena descrição explicando o motivo do pull request.
+Inclua uma pequena descrição explicando o motivo do pull request
 
 ## Issues
 
 ## Tipo de alteração
-Selecione o tipo de alteração.
+Selecione o tipo de alteração
 
 - [ ] Changes (Alterações que podem ou não haver breaking changes)
 - [ ] Added (Novas features)
