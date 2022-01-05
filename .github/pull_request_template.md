@@ -4,16 +4,12 @@ Inclua uma pequena descrição explicando o motivo do pull request
 ## Issues
 
 ## Tipo de alteração
-Selecione o tipo de alteração
-
-- [ ] Changes (Alterações que podem ou não haver breaking changes)
 - [ ] Added (Novas features)
+- [ ] Changed (Alterações que podem ou não haver breaking changes)
 - [ ] Removed (Remoção de alguma funcionalidade, código etc)
 - [ ] Fixed (Alterações para corrigir bugs etc)
 
 ## Testes
-Selecione os tipos de testes
-
 - [ ] Testes em dev
 - [ ] Testes automatizados
 
@@ -21,7 +17,7 @@ Selecione os tipos de testes
 - [ ] Documentação no storybook foi atualizada e testada?
 - [ ] Caso tenha componente novo, foi criado a nova documentação?
 
-# Checklist:
+## Checklist
 - [ ] Meu código segue todos os padrões de código incluindo eslint
 - [ ] Eu fiz um meu próprio code review antes de abrir este pull request
 - [ ] Eu atualizei o changelog seguindo o padrão keep changelog
