@@ -119,9 +119,9 @@ export default {
         email: { is: 'q-input', type, ...input },
         password: { is: 'qas-password-input', type, pattern, hideStrengthChecker: !pattern, ...input },
 
-        decimal: { ...numericInput },
-        money: { ...numericInput, prefix: 'R$' },
-        percent: { ...numericInput, suffix: '%' },
+        decimal: { ...numericInput, mode: 'decimal' },
+        money: { ...numericInput, mode: 'money' },
+        percent: { ...numericInput, mode: 'percent' },
 
         date: { ...datetimeInput, dateOnly: true },
         datetime: { ...datetimeInput },
