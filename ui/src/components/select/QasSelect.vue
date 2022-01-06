@@ -1,10 +1,6 @@
 <template>
-  <q-select v-model="model" v-bind="attributes" v-on="listeners" @filter="filterOptions">
+  <q-select v-model="model" v-bind="attributes" @filter="filterOptions">
     <slot v-for="(slot, key) in $slots" :slot="key" :name="key" />
-
-    <template v-for="(slot, key) in $scopedSlots" :slot="key" slot-scope="scope">
-      <slot :name="key" v-bind="scope" />
-    </template>
 
     <template #append>
       <slot name="append">
@@ -37,19 +33,9 @@ export default {
       type: String
     },
 
-    options: {
-      default: () => [],
-      type: Array
-    },
-
-    value: {
+    modelValue: {
       default: () => [],
       type: [Array, Object, String, Number]
-    },
-
-    valueKey: {
-      default: '',
-      type: String
     },
 
     noOptionLabel: {
@@ -57,8 +43,18 @@ export default {
       type: String
     },
 
+    options: {
+      default: () => [],
+      type: Array
+    },
+
     searchable: {
       type: Boolean
+    },
+
+    valueKey: {
+      default: '',
+      type: String
     }
   },
 
@@ -70,20 +66,18 @@ export default {
   },
 
   computed: {
-    model: {
-      get () {
-        return this.value
-      },
+    attributes () {
+      return {
+        clearable: this.searchable,
+        emitValue: true,
+        mapOptions: true,
+        outlined: true,
 
-      set (value) {
-        this.$emit('input', value)
+        ...this.$attrs,
+
+        options: this.filteredOptions,
+        useInput: this.searchable
       }
-    },
-
-    listeners () {
-      const { input, ...events } = this.$listeners
-
-      return events
     },
 
     defaultFuseOptions () {
@@ -110,19 +104,13 @@ export default {
       return this.options.map(item => this.renameKey(item))
     },
 
-    isMultiple () {
-      return this.$attrs.multiple || this.$attrs.multiple === ''
-    },
+    model: {
+      get () {
+        return this.modelValue
+      },
 
-    attributes () {
-      return {
-        emitValue: true,
-        mapOptions: true,
-        outlined: true,
-        clearable: this.searchable,
-        ...this.$attrs,
-        options: this.filteredOptions,
-        useInput: this.searchable
+      set (value) {
+        this.$emit('update:modelValue', value)
       }
     }
   },
@@ -140,6 +128,7 @@ export default {
 
         this.filteredOptions = this.formattedResult
       },
+
       immediate: true
     }
   },
@@ -166,7 +155,10 @@ export default {
     },
 
     renameKey (item) {
-      const mapKeys = { label: this.labelKey, value: this.valueKey }
+      const mapKeys = {
+        label: this.labelKey,
+        value: this.valueKey
+      }
 
       for (const newKey in mapKeys) {
         if (!item.hasOwnProperty.call(newKey)) {

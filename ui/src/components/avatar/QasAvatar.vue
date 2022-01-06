@@ -1,5 +1,5 @@
 <template>
-  <q-avatar class="text-bold" :class="classes" rounded v-bind="$attrs" v-on="$listeners">
+  <q-avatar class="text-bold" :class="avatarClass" rounded>
     <q-img v-if="hasImage" :alt="title" :ratio="1" spinner-color="primary" spinner-size="16px" :src="image" @error="onImageLoadedError" />
     <template v-else-if="hasTitle">{{ firstLetter }}</template>
     <q-icon v-else :name="icon" />
@@ -46,8 +46,10 @@ export default {
   },
 
   computed: {
-    classes () {
-      if (this.hasImage) return
+    avatarClass () {
+      if (this.hasImage) {
+        return null
+      }
 
       const contrastColor = this.textColor ? this.textColor : this.contrastColor
 

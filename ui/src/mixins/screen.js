@@ -1,4 +1,6 @@
 export default {
+  // TODO: Esses nomes precisam ser alterados para algo mais inteligente.
+
   computed: {
     $_isSmall () {
       // until 599

@@ -1,33 +1,33 @@
-$primary: #5b40bf;
-$secondary: #26A69A;
+$primary   : #027BE3;
+$secondary : #26A69A;
+$accent    : #9C27B0;
 
-$accent: #9C27B0;
-$dark: #1D1D1D;
+$dark      : #1D1D1D;
 
-$positive: #21BA45;
-$negative: #C10015;
-$info: #31CCEC;
-$warning: #F2C037;
+$positive  : #21BA45;
+$negative  : #C10015;
+$info      : #31CCEC;
+$warning   : #F2C037;
 
 // Asteroid
 @mixin setBrand($name, $color) {
   :root {
-    --q-color-#{$name}: #{$color};
+    --q-#{$name}: #{$color};
   }
 
   .text-#{$name} {
     color: $color !important;
-    color: var(--q-color-#{$name}) !important;
+    color: var(--q-#{$name}) !important;
   }
 
   .bg-#{$name} {
     background: $color !important;
-    background: var(--q-color-#{$name}) !important;
+    background: var(--q-#{$name}) !important;
   }
 }
 
 $primary-contrast: #eaeaff;
-$secondary-contrast: #ecffea;
+$secondary-contrast: #bbd3d0;
 
 @include setBrand(primary-contrast, $primary-contrast);
 @include setBrand(secondary-contrast, $secondary-contrast);

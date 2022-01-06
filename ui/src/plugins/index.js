@@ -1,5 +1,5 @@
-import NotifyError from './NotifyError'
-import NotifySuccess from './NotifySuccess'
+import NotifyError from './NotifyError.js'
+import NotifySuccess from './NotifySuccess.js'
 
 export {
   NotifyError,

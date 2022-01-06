@@ -8,15 +8,18 @@ const children = pages.map(page => ({
 const routes = [
   {
     path: '/',
-    component: () => import('layouts/MainLayout.vue'),
-
+    name: 'Root',
+    component: () => import('layouts/MyLayout.vue'),
     children: [
-      {
-        path: '',
-        name: 'Root',
-        component: () => import('pages/Index.vue')
-      }
+      { path: '', component: () => import('pages/Index.vue') }
     ].concat(children)
+  },
+
+  // Always leave this as last one,
+  // but you can also remove it
+  {
+    path: '/:catchAll(.*)*',
+    component: () => import('pages/Error404.vue')
   }
 ]
 

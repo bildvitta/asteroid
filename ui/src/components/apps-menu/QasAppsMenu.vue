@@ -1,47 +1,24 @@
 <template>
-  <q-btn v-bind="$attrs" dense icon="o_apps" round unelevated>
-    <q-menu anchor="bottom middle" max-width="400px" self="top middle">
-      <div class="q-col-gutter-md q-pa-md row">
-        <!-- TODO: Revisitar os estilos dos links. -->
-        <a v-for="(app, index) in apps" :key="index" v-test:apps-menu-link class="col-6 col-sm-4 flex justify-center text-undecoration" :href="app.href">
-          <div>
-            <q-avatar class="q-m-x-auto" :size="avatarSize">
-              <img :alt="app.label" class="rounded-borders" :src="app.image">
-            </q-avatar>
-          </div>
-
-          <div class="full-width q-mt-xs text-black text-center">{{ app.label }}</div>
-        </a>
+  <qas-btn dense icon="o_apps" round>
+    <q-popup-proxy anchor="bottom middle" max-width="400px" self="top middle">
+      <div class="bg-white q-col-gutter-sm q-pa-sm row">
+        <div v-for="(app, index) in apps" class="col-6 col-sm-4" :key="index">
+          <q-btn class="full-width q-pa-sm" flat :href="app.href" no-caps type="a">
+            <q-img :alt="app.label" class="rounded-borders" :src="app.image" />
+            <div class="q-mt-xs">{{ app.label }}</div>
+          </q-btn>
+        </div>
       </div>
-    </q-menu>
-  </q-btn>
+    </q-popup-proxy>
+  </qas-btn>
 </template>
 
 <script>
-// TODO ver uma forma de adicionar globalmente as diretivas
-import test from '../../directives/Test'
-
 export default {
-  name: 'QasAppsMenu',
-
-  directives: {
-    test
-  },
-
   props: {
     apps: {
       default: () => [],
       type: Array
-    }
-  },
-
-  computed: {
-    avatarSize () {
-      return this.isExtraSmallScreen ? '50px' : '70px'
-    },
-
-    isExtraSmallScreen () {
-      return this.$q.screen.xs
     }
   }
 }

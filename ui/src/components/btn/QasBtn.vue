@@ -1,43 +1,41 @@
+<template>
+  <q-btn color="primary" no-caps unelevated v-bind="attributes">
+    <slot v-if="showLabel">{{ $attrs.label }}</slot>
+    <slot v-for="(slot, key) in slots" :slot="key" :name="key" />
+  </q-btn>
+</template>
+
 <script>
-import { QBtn } from 'quasar'
+import { screenMixin } from '../../mixins'
 
 export default {
-  extends: QBtn,
+  mixins: [screenMixin],
+
+  inheritAttrs: false,
 
   props: {
-    color: {
-      default: 'primary',
-      type: String
-    },
-
-    // FIXME: Alterar para hideLabel="xs". Remover todos os "mobiles".
-    hideMobileLabel: {
-      type: Boolean
-    },
-
-    noCaps: {
-      default: true,
-      type: Boolean
-    },
-
-    unelevated: {
-      default: true,
+    hideLabelOnSmallScreen: {
       type: Boolean
     }
   },
 
   computed: {
-    // Computada original do Quasar, modificada para esconder o rótulo em dispositivos móveis.
+    attributes () {
+      const { label, ...attributes } = this.$attrs
+      return attributes
+    },
+
+    slots () {
+      const { default: _, ...slots } = this.$slots
+      return slots
+    },
+
     hasLabel () {
-      return !!this.label && this.mobileLabel
+      return this.$attrs.label || this.$slots.default
     },
 
-    isMobile () {
-      return this.$q.screen.xs
-    },
-
-    mobileLabel () {
-      return !(this.hideMobileLabel && this.isMobile)
+    showLabel () {
+      return this.hasLabel && !(this.hideLabelOnSmallScreen && this.$_isSmall)
     }
   }
 }

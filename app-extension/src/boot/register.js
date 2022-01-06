@@ -1,4 +1,6 @@
-import Vue from 'vue'
-import VuePlugin from '@bildvitta/quasar-ui-asteroid'
+import { boot } from 'quasar/wrappers'
+import VuePlugin from 'quasar-ui-asteroid'
 
-Vue.use(VuePlugin)
+export default boot(({ app }) => {
+  app.use(VuePlugin)
+})

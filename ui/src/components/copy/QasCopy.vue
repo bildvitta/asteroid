@@ -1,16 +1,15 @@
 <template>
   <span>
-    <slot>{{ label }}</slot>
+    <slot>{{ text }}</slot>
 
-    <q-btn class="q-ml-xs" color="grey-5" flat :icon="icon" round :size="size" @click="copy">
+    <qas-btn class="q-ml-xs" color="grey-5" flat :icon="icon" :loading="isLoading" round :size="size" @click="copy">
       <q-tooltip>Copiar</q-tooltip>
-    </q-btn>
+    </qas-btn>
   </span>
 </template>
 
 <script>
 import { copyToClipboard } from 'quasar'
-import { NotifyError, NotifySuccess } from '../../plugins'
 
 export default {
   props: {
@@ -19,24 +18,34 @@ export default {
       type: String
     },
 
-    label: {
-      required: true,
+    size: {
+      default: 'xs',
       type: String
     },
 
-    size: {
-      default: 'sm',
+    text: {
+      required: true,
       type: String
+    }
+  },
+
+  data () {
+    return {
+      isLoading: false
     }
   },
 
   methods: {
     async copy () {
+      this.isLoading = true
+
       try {
-        await copyToClipboard(this.label)
-        NotifySuccess('Copiado!', this.label)
+        await copyToClipboard(this.text)
+        this.$qas.success('Copiado!', this.text)
       } catch (error) {
-        NotifyError('Não foi possível copiar.', this.label)
+        this.$qas.error('Não foi possível copiar.', this.text)
+      } finally {
+        setTimeout(() => { this.isLoading = false }, 500)
       }
     }
   }

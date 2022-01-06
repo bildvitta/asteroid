@@ -1,28 +1,11 @@
-/**
- * Quasar App Extension index/runner script
- * (runs on each dev/build)
- *
- * Docs: https://quasar.dev/app-extensions/development-guide/index-api
- * API: https://github.com/quasarframework/quasar/blob/master/app/lib/app-extension/IndexAPI.js
- */
-
 const sourcePath = '~@bildvitta/quasar-app-extension-asteroid/src/'
 const resolve = (...paths) => paths.map(path => sourcePath + path)
 
 function extendQuasar (quasar) {
   // Boot
-  quasar.boot.push(
-    ...resolve(
-      'boot/register.js',
-      'boot/environment.js',
-      'boot/api.js',
-      'boot/error-pages.js',
-      'boot/force-https.js',
-      'boot/history.js',
-      'boot/router.js',
-      'boot/store.js'
-    )
-  )
+  quasar.boot.push(...resolve(
+    'boot/register.js'
+  ))
 
   // Transpile!
   quasar.build.transpileDependencies.push(/quasar-app-extension-asteroid[\\/]src/)
@@ -35,7 +18,7 @@ function extendQuasar (quasar) {
     'Notify'
   ]
 
-  // Add all required quasar plugins
+  // Add all required Quasar plugins
   plugins.forEach(plugin => quasar.framework.plugins.push(plugin))
 
   // Settings
@@ -48,8 +31,8 @@ function extendQuasar (quasar) {
 }
 
 module.exports = function (api) {
-  api.compatibleWith('quasar', '^1.1.1')
-  api.compatibleWith('@quasar/app', '^1.1.0 || ^2.0.0')
+  api.compatibleWith('quasar', '^2.0.0')
+  api.compatibleWith('@quasar/app', '^3.0.0')
 
   api.extendQuasarConf(extendQuasar)
 
@@ -59,8 +42,7 @@ module.exports = function (api) {
     webpack.resolve.alias = {
       ...webpack.resolve.alias,
 
-      asteroid: api.resolve.app(asteroid),
-      extensions: api.resolve.app('quasar.extensions.json')
+      asteroid: api.resolve.app(asteroid)
     }
   })
 }

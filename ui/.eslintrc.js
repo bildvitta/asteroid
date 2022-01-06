@@ -6,23 +6,15 @@ module.exports = {
   env: {
     browser: true,
     node: true,
-
-    'jest/globals': true
   },
 
   extends: [
     'standard',
-    'plugin:jest/recommended',
-    'plugin:jest/style',
-    'plugin:vue/recommended'
+    'plugin:vue/vue3-recommended'
   ],
 
-  parserOptions: {
-    parser: '@babel/eslint-parser'
-  },
-
   plugins: [
-    'vue'
+    'vue',
   ],
 
   rules: {

@@ -1,8 +1,8 @@
 {
   "name": "@bildvitta/quasar-app-extension-asteroid",
-  "version": "2.12.4",
+  "version": "3.0.0-alpha.1",
   "description": "A Quasar App Extension",
-  "author": "Inovação Bild & Vitta <inova@bild.com.br>",
+  "author": "Bild & Vitta <systemteam@bild.com.br>",
   "license": "MIT",
   "main": "src/index.js",
   "publishConfig": {

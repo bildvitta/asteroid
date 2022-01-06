@@ -5,23 +5,23 @@
     <q-btn dense flat icon="o_menu" round @click="toggleMenuDrawer" />
 
     <q-toolbar-title class="flex">
-      <div class="cursor-pointer" @click="goToRoot">
+      <router-link class="cursor-pointer text-no-decoration" to="/">
         <img v-if="brand" :alt="title" class="q-mr-sm qas-toolbar__brand" :src="brand">
         <span v-if="title" class="text-bold text-primary-contrast text-subtitle1 text-uppercase">{{ title }}</span>
         <q-badge v-if="hasDevelopmentBadge" align="middle" class="q-ml-sm" color="negative" :label="developmentBadgeLabel" />
-      </div>
+      </router-link>
     </q-toolbar-title>
 
-    <!-- TODO: Notificações. -->
-    <div v-if="hasNotifications" class="q-mr-md">
-      <q-btn class="q-mr-md" dense icon="o_notifications" round unelevated>
-        <q-badge v-if="notifications" color="red" floating>{{ notifications.count }}</q-badge>
-      </q-btn>
-    </div>
-
-    <qas-apps-menu v-if="hasApps" :apps="apps" class="q-mr-md" />
-
     <div class="items-center no-wrap q-gutter-md row">
+      <!-- TODO: Notificações. -->
+      <div v-if="hasNotifications">
+        <qas-btn class="q-mr-md" dense icon="o_notifications" round>
+          <q-badge v-if="notifications" color="red" floating>{{ notifications.count }}</q-badge>
+        </qas-btn>
+      </div>
+
+      <qas-apps-menu v-if="hasApps" :apps="apps" />
+
       <slot name="tools" />
 
       <div v-if="isAuth" class="cursor-pointer items-center q-mr-sm qas-toolbar__user rounded-borders row" :title="user.name || user.givenName">
@@ -60,17 +60,7 @@
 </template>
 
 <script>
-import QasAppsMenu from '../apps-menu/QasAppsMenu'
-import QasAvatar from '../avatar/QasAvatar'
-import QasBtn from '../btn/QasBtn'
-
 export default {
-  components: {
-    QasAppsMenu,
-    QasAvatar,
-    QasBtn
-  },
-
   props: {
     apps: {
       default: () => [],
@@ -87,8 +77,8 @@ export default {
     },
 
     title: {
-      type: String,
-      default: ''
+      default: '',
+      required: true
     },
 
     notifications: {
@@ -103,6 +93,8 @@ export default {
     }
   },
 
+  emits: ['sign-out', 'toggle-menu'],
+
   data () {
     return {
       menuDrawer: true
@@ -113,6 +105,7 @@ export default {
     developmentBadgeLabel () {
       const hosts = {
         localhost: 'Local',
+        feature: 'Feature',
         develop: 'Develop',
         release: 'Release'
       }
@@ -144,10 +137,6 @@ export default {
   methods: {
     goToProfile () {
       return this.$router.push(this.user.to)
-    },
-
-    goToRoot () {
-      this.$router.push({ name: 'Root' })
     },
 
     signOut () {

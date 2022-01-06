@@ -1,17 +1,19 @@
 <template>
-  <div class="text-bold text-subtitle2" :class="labelClasses" v-bind="$attrs" v-on="$listeners">
-    <!-- TODO: Remover camelCase. -->
-    <slot :formattedLabel="formattedLabel">
-      {{ formattedLabel }}
-    </slot>
+  <div class="text-bold text-subtitle2" :class="labelClass">
+    <slot :label-with-suffix="labelWithSuffix">{{ labelWithSuffix }}</slot>
   </div>
 </template>
 
 <script>
-import formatLabel from '../../helpers/label'
+import { addCounterSuffix } from '../../helpers'
 
 export default {
   props: {
+    count: {
+      default: 0,
+      type: [Number, String]
+    },
+
     label: {
       default: '',
       type: String
@@ -20,20 +22,15 @@ export default {
     margin: {
       default: 'sm',
       type: String
-    },
-
-    quantity: {
-      default: 0,
-      type: Number
     }
   },
 
   computed: {
-    formattedLabel () {
-      return formatLabel(this.quantity, this.label)
+    labelWithSuffix () {
+      return addCounterSuffix(this.label, parseFloat(this.count))
     },
 
-    labelClasses () {
+    labelClass () {
       return `q-mb-${this.margin}`
     }
   }

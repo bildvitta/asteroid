@@ -1,7 +1,9 @@
 <template>
   <div v-if="length">
-    <q-linear-progress :color="option.color" rounded :track-color="trackColor" :value="option.progress" />
-    <div class="q-mt-xs text-subtitle2" :class="option.textClass">{{ option.label }}</div>
+    <slot :level="level">
+      <q-linear-progress :color="level.color" :track-color="trackColor" :value="level.progress" />
+      <div class="text-caption" :class="level.textClass">{{ level.label }}</div>
+    </slot>
   </div>
 </template>
 
@@ -12,12 +14,12 @@ export default {
   mixins: [passwordMixin],
 
   props: {
-    trackColor: {
-      default: 'blue-grey-1',
-      type: String
+    modelValue: {
+      default: false,
+      type: Boolean
     },
 
-    value: {
+    password: {
       default: '',
       type: String
     }
@@ -25,40 +27,55 @@ export default {
 
   computed: {
     length () {
-      return (this.value || '').length
+      return this.password.length
     },
 
-    option () {
-      if (this.value.match(this.pattern)) {
-        return {
-          color: 'positive',
-          label: 'Forte',
-          progress: 1,
-          textClass: 'text-positive'
-        }
+    level () {
+      return this.levelsValues[this.score]
+    },
+
+    levelsValues () {
+      return Object.values(this.levels)
+    },
+
+    score () {
+      let score = 0
+
+      if (this.length >= parseInt(this.minlength)) {
+        score += this.useLowercase
+          ? (this.password.match(/[a-z]/g) ? 1 : 0)
+          : 1
+        
+        score += this.useNumbers
+          ? (this.password.match(/[0-9]/g) ? 1 : 0)
+          : 1
+        
+        score += this.useSpecial
+          ? (this.password.match(this.specials) ? 1 : 0)
+          : 1
+        
+        score += this.useUppercase
+          ? (this.password.match(/[A-Z]/g) ? 1 : 0)
+          : 1
       }
 
-      if (this.length >= this.weak) {
-        return {
-          color: 'warning',
-          label: 'Fraca',
-          progress: 0.5,
-          textClass: 'text-warning'
-        }
-      }
-
-      return {
-        color: 'negative',
-        label: 'Muito fraca',
-        progress: 0.25,
-        textClass: 'text-negative'
-      }
+      return score
     }
   },
 
+  created () {
+    this.emitValue()
+  },
+
   watch: {
-    isSuccess (value) {
-      value && this.onSuccess()
+    password () {
+      this.emitValue()
+    }
+  },
+
+  methods: {
+    emitValue () {
+      this.$emit('update:model-value', this.score === 4)
     }
   }
 }

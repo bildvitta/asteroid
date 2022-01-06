@@ -1,29 +1,27 @@
-# Descrição
-Inclua uma pequena descrição explicando o motivo do pull request
+<!-- PULL REQUEST TEMPLATE -->
+<!-- (Altere de "[ ]" para "[x]" marcar o item.) -->
 
-## Issues
+Inclua uma pequena descrição explicando o motivo do _pull request_ e o número da _issue_ caso exista.
 
 ## Tipo de alteração
-Selecione o tipo de alteração
 
-- [ ] Changes (Alterações que podem ou não haver breaking changes)
-- [ ] Added (Novas features)
-- [ ] Removed (Remoção de alguma funcionalidade, código etc)
-- [ ] Fixed (Alterações para corrigir bugs etc)
+- [ ] Added (novos componentes e/ou funcionalidades);
+- [ ] Changed (alterações que podem ou não conter _breaking changes_);
+- [ ] Fixed (correção de bugs, typos, etc);
+- [ ] Removed (remoção de algum componente e/ou funcionalidade).
 
-## Testes
-Selecione os tipos de testes
+Este _pull request_ introduz algum _breaking change_?
 
-- [ ] Testes em dev
-- [ ] Testes automatizados
+- [ ] Sim
+- [ ] Não
 
-## Documentação
-- [ ] Documentação no storybook foi atualizada e testada?
-- [ ] Caso tenha componente novo, foi criado a nova documentação?
+## Checklist
 
-# Checklist:
-- [ ] Meu código segue todos os padrões de código incluindo eslint
-- [ ] Eu fiz um meu próprio code review antes de abrir este pull request
-- [ ] Eu atualizei o changelog seguindo o padrão keep changelog
-- [ ] Antes da alteração eu discuti sobre o pull request com o time de front end e time de design
-- [ ] Minhas alterações não geram erros ou warnings no console
+- [ ] Foi discutida anteriormente com os times de Frontend e Design;
+- [ ] Foi testado manualmente no ambiente de desenvolvimento (`ui/dev`);
+- [ ] Foi constatado que esta modificação não gerou erros ou alertas no Console;
+- [ ] Foi verificado se o código segue os padrões de escrita e validado com o ESLint;
+- [ ] Foi escrito teste automatizado;
+- [ ] Foi atualizada e testada a documentação;
+- [ ] Foi atualizado o _changelog_ seguindo o padrão "Keep a Changelog";
+- [ ] Fiz meu próprio _code review_ antes de abrir este _pull request_.
