@@ -1,9 +1,11 @@
 <template>
-  <q-field v-model="model">
-    <template #control="{ emitValue, floatingLabel, id, value }">
-      <input v-show="floatingLabel" ref="input" class="q-field__input" :id="id" :model-value="value" @input="emitValue($event.target.value)">
-    </template>
-  </q-field>
+  <div>
+    <q-field v-bind="$attrs" v-model="model">
+      <template #control="{ emitValue, floatingLabel, id, value }">
+        <input v-show="floatingLabel" ref="input" class="q-field__input" :id="id" :model-value="value" @input="emitValue($event.target.value)">
+      </template>
+    </q-field>
+  </div>
 </template>
 
 <script>
@@ -77,7 +79,7 @@ export default {
   },
 
   async created () {
-    const AutoNumeric = (await import('autoNumeric')).default
+    const AutoNumeric = (await import('autonumeric')).default
     const autoNumericPredefinedOptions = AutoNumeric.getPredefinedOptions()
 
     let option = this.preset || this.defaultMode
