@@ -41,7 +41,7 @@
     </div>
 
     <div v-if="badges && hasActiveFilters" class="q-mt-md">
-      <q-chip v-for="(filterItem, key) in activeFilters" :key="key" color="grey-4" dense removable size="md" text-color="grey-8" @remove="removeFilter(filterItem)">{{ filterItem.label }} = "{{ filterItem.value }}"</q-chip>
+      <q-chip v-for="(filterItem, key) in activeFilters" :key="key" color="grey-4" dense removable size="md" text-color="grey-8" @remove="removeFilter(filterItem)">{{ filterItem.label }} = "{{ getChipValue(filterItem.value) }}"</q-chip>
     </div>
 
     <slot :context="context" :filter="filter" :filters="activeFilters" :removeFilter="removeFilter" />
@@ -122,7 +122,7 @@ export default {
         const hasField = fields.includes(key)
 
         if (hasField) {
-          const value = humanize(this.fields[key], filters[key])
+          const value = humanize(this.fields[key], this.normalizeValues(filters[key], this.fields[key]?.multiple))
           const { label, name } = this.fields[key]
 
           activeFilters[key] = { label, name, value }
@@ -188,7 +188,7 @@ export default {
 
   created () {
     this.fetchFilters()
-    this.updateValues()
+    this.watchOnceFields()
   },
 
   methods: {
@@ -252,6 +252,10 @@ export default {
       this.$router.push({ query })
     },
 
+    getChipValue (value) {
+      return Array.isArray(value) ? value.join(', ') : value
+    },
+
     removeFilter ({ name }) {
       const query = { ...this.$route.query }
 
@@ -266,8 +270,23 @@ export default {
       this.search = search || ''
 
       for (const key in filters) {
-        this.$set(this.filters, key, parseValue(filters[key]))
+        this.$set(this.filters, key, parseValue(this.normalizeValues(filters[key], this.fields[key]?.multiple)))
       }
+    },
+
+    normalizeValues (value, isMultiple) {
+      if (Array.isArray(value)) return value
+
+      return isMultiple ? [value] : value
+    },
+
+    watchOnceFields () {
+      const watchOnce = this.$watch('fields', values => {
+        if (Object.keys(values).length) {
+          this.updateValues()
+          watchOnce()
+        }
+      })
     }
   }
 }

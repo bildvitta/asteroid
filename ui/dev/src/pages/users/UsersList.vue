@@ -1,5 +1,5 @@
 <template>
-  <qas-list-view class="container spaced" entity="users" :filters-props="filterProp" >
+  <qas-list-view class="container spaced" entity="users" :filters-props="filterProp">
     <template #header>
       <qas-page-header no-breadcrumbs title="Lista" />
     </template>

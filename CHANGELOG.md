@@ -7,12 +7,62 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## Unreleased
 
 ### Added
+- Added template for pull requests
+
+## 2.12.4 - 2021-12-22
+
+### Changed
+- Added `div` as parent tag in `QasDecimalInput` for rules validation when submiting a form.
+
+## 2.12.3 - 2021-12-10
+
+### Fixed
+- Added `normalizeValues` method on `activeFilters` computed to correct string values when they should be string array values.
+- Added an extra verification at the helper `filter` to prevent calling mask methods without a value.
+
+## 2.12.2 - 2021-12-09
+
+### Changed
+- When selecting multiple items in the select filter, the q-chip displays `label = "item1, item2"` in `QasFilters`.
+
+### Removed
+- Remove padding in `QasAppMenu`.
+
+## 2.12.1 - 2021-11-10
+
+### Fixed
+- Fixed return value from `labelValue` in `QasActionsMenu`.
+
+## 2.12.0 - 2021-11-09
+
+### Changed
+- Renamed component name from `QasSettingsMenu` to `QasActionsMenu`.
+- Changed the function name of items from `handle` to `handler`.
+
+### Added
+- Added new property `hideLabel` in `QasActionsMenu`.
+- Added new property `icon` in `QasActionsMenu`.
+
+## 2.11.1 - 2021-11-02
+
+### Added
+- Adjustments on QasDateTime input, and adding GMT prop.
+
+### Fixed
+- On $_createMarkers mixin, the marker is now draggable on 'create' and 'replace' pages
+
+## 2.11.0 - 2021-10-19
+
+### Added
 - Added new `filtersProps` in `QasListView` for sending to `QasFilter`.
 - Added new component `QasListItems`.
 - Added new component `QasNumericInput`.
 
 ### Removed
 - Removed `QasDecimalInput` in favor of `QasNumericInput`.
+
+### Fixed
+- Adjusting `QasInput` toogle mask value when value is null.
 
 ## 2.10.1 - 2021-10-07
 

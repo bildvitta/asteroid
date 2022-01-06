@@ -1,5 +1,6 @@
 import { version } from '../package.json'
 
+import QasActionsMenu from './components/actions-menu/QasActionsMenu'
 import QasAppBar from './components/app-bar/QasAppBar'
 import QasAppMenu from './components/app-menu/QasAppMenu'
 import QasAppsMenu from './components/apps-menu/QasAppsMenu'
@@ -37,7 +38,6 @@ import QasResizer from './components/resizer/QasResizer'
 import QasSearchBox from './components/search-box/QasSearchBox'
 import QasSelect from './components/select/QasSelect'
 import QasSelectList from './components/select-list/QasSelectList'
-import QasSettingsMenu from './components/settings-menu/QasSettingsMenu'
 import QasSignaturePad from './components/signature-pad/QasSignaturePad'
 import QasSignatureUploader from './components/signature-uploader/QasSignatureUploader'
 import QasSingleView from './components/single-view/QasSingleView'
@@ -73,6 +73,7 @@ export {
   NotifyError,
   NotifySuccess,
 
+  QasActionsMenu,
   QasAppBar,
   QasAppMenu,
   QasAppsMenu,
@@ -110,7 +111,6 @@ export {
   QasSearchBox,
   QasSelect,
   QasSelectList,
-  QasSettingsMenu,
   QasSignaturePad,
   QasSignatureUploader,
   QasSingleView,
@@ -132,6 +132,7 @@ export default {
   NotifyError,
   NotifySuccess,
 
+  QasActionsMenu,
   QasAppBar,
   QasAppMenu,
   QasAppsMenu,
@@ -169,7 +170,6 @@ export default {
   QasSearchBox,
   QasSelect,
   QasSelectList,
-  QasSettingsMenu,
   QasSignaturePad,
   QasSignatureUploader,
   QasSingleView,
@@ -190,6 +190,7 @@ export default {
       success: NotifySuccess
     }
 
+    Vue.component('QasActionsMenu', QasActionsMenu)
     Vue.component('QasAppBar', QasAppBar)
     Vue.component('QasAppMenu', QasAppMenu)
     Vue.component('QasAppsMenu', QasAppsMenu)
@@ -227,7 +228,6 @@ export default {
     Vue.component('QasSearchBox', QasSearchBox)
     Vue.component('QasSelect', QasSelect)
     Vue.component('QasSelectList', QasSelectList)
-    Vue.component('QasSettingsMenu', QasSettingsMenu)
     Vue.component('QasSignaturePad', QasSignaturePad)
     Vue.component('QasSignatureUploader', QasSignatureUploader)
     Vue.component('QasSingleView', QasSingleView)
