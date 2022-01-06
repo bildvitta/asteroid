@@ -1,7 +1,7 @@
 <template>
   <q-field v-model="model">
     <template #control="{ emitValue, floatingLabel, id, value }">
-      <input v-show="floatingLabel" ref="input" class="q-field__input" :id="id" :model-value="value" @input="event => emitValue(event.target.value)">
+      <input v-show="floatingLabel" ref="input" class="q-field__input" :id="id" :model-value="value" @input="emitValue($event.target.value)">
     </template>
   </q-field>
 </template>
