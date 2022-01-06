@@ -70,32 +70,27 @@ export default {
         return this.value
       },
 
-      set (value) {
-        value = this.autoNumeric.getNumber()
-        this.$emit('input', value)
+      set () {
+        this.$emit('input', this.autoNumeric.getNumber())
       }
     }
   },
 
   async created () {
     const AutoNumeric = (await import('autoNumeric')).default
-    const AutoNumericPredefinedOptions = AutoNumeric.getPredefinedOptions()
+    const autoNumericPredefinedOptions = AutoNumeric.getPredefinedOptions()
 
-    function getPredefinedOptions (option) {
-      const response = {}
+    let option = this.preset || this.defaultMode
 
-      if (!Array.isArray(option)) {
-        option = [option]
-      }
-
-      for (const value of option) {
-        Object.assign(response, AutoNumericPredefinedOptions[value])
-      }
-
-      return response
+    if (!Array.isArray(option)) {
+      option = [option]
     }
 
-    const options = getPredefinedOptions(this.preset || this.defaultMode)
+    const options = {}
+
+    for (const value of option) {
+      Object.assign(options, autoNumericPredefinedOptions[value])
+    }
 
     if (!this.allowNegative) {
       options.minimumValue = 0
@@ -115,6 +110,10 @@ export default {
       this.$refs.input.value = this.value
       this.autoNumeric = new AutoNumeric(this.$refs.input, options)
     })
+  },
+
+  beforeDestroy () {
+    this.autoNumeric.remove()
   }
 }
 </script>
