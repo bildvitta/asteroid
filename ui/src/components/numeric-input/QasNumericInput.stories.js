@@ -51,10 +51,6 @@ export default {
           summary: '{}'
         }
       }
-    },
-
-    mount: {
-      table: { disable: true }
     }
   }
 }

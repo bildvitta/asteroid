@@ -1,8 +1,8 @@
 <template>
   <div>
     <q-field v-model="model" v-bind="$attrs">
-      <template #control="{ emitValue, floatingLabel, id, value }">
-        <input v-show="floatingLabel" :id="id" ref="input" class="q-field__input" :model-value="value" @input="emitValue($event.target.value)">
+      <template #control="{ emitValue, floatingLabel, id, value: modelValue }">
+        <input v-show="floatingLabel" :id="id" ref="input" class="q-field__input" :model-value="modelValue" @input="emitValue($event.target.value)">
       </template>
     </q-field>
   </div>
