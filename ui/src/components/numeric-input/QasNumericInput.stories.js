@@ -7,13 +7,37 @@ export default {
   parameters: {
     docs: {
       description: {
-        component: 'Extends [QInput](https://quasar.dev/vue-components/input), but with numeric mask.'
+        component: 'Extends [QInput](https://quasar.dev/vue-components/input) with [AutoNumeric](http://autonumeric.org/) plugin.'
       }
     }
   },
 
   argTypes: {
     // Props
+    allowNegative: {
+      description: 'Allow negative values.'
+    },
+
+    allowPositive: {
+      description: 'Allow positive values.'
+    },
+
+    autonumericProps: {
+      description: '(Autonumeric)[http://autonumeric.org/guide] options.'
+    },
+
+    decimalPlaces: {
+      description: 'Decimal places.'
+    },
+
+    mode: {
+      description: 'Component mode like integer, decimal, percent, and money.'
+    },
+
+    preset: {
+      description: 'Property to configure default nationality of currency.'
+    },
+
     value: {
       description: 'Model value.'
     },
@@ -36,7 +60,7 @@ export default {
 }
 
 const Template = (args, { argTypes }) => ({
-  components: { QasDecimalInput },
+  components: { QasNumericInput },
   props: Object.keys(argTypes),
 
   data () {
