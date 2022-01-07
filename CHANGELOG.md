@@ -65,6 +65,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Added new `filtersProps` in `QasListView` for sending to `QasFilter`.
 - Added new component `QasListItems`.
+- Added new component `QasNumericInput`.
+
+### Removed
+- Removed `QasDecimalInput` in favor of `QasNumericInput`.
 
 ### Fixed
 - Adjusting `QasInput` toogle mask value when value is null.

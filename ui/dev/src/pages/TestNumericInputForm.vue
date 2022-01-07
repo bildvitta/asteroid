@@ -3,10 +3,10 @@
     <q-form @submit.prevent>
       <div class="q-col-gutter-md row">
         <div class="col-6">
-          <qas-decimal-input v-model="model" hint="Insira um valor maior ou igual 10" :rules="[customValidator]" />
+          <qas-numeric-input v-model="model" hint="Insira um valor maior ou igual 10" mode="decimal" :rules="[customValidator]" />
         </div>
         <div class="col-6">
-          <qas-decimal-input v-model="model2" hint="Insira um valor maior ou igual 10" :rules="[customValidator]" />
+          <qas-numeric-input v-model="model2" hint="Insira um valor maior ou igual 10" :rules="[customValidator]" />
         </div>
       </div>
 
