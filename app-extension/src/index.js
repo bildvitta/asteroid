@@ -27,7 +27,7 @@ function extendQuasar (quasar) {
   )
 
   quasar.framework.iconSet = 'material-icons-outlined'
-  quasar.framework.lang = 'pt-br'
+  quasar.framework.lang = 'pt-BR'
 }
 
 module.exports = function (api) {

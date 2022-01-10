@@ -2,6 +2,15 @@
 
 ## Components
 
+### QasAlert (QasTip)
+
+Sincronizado em _10/01/2022 as 17h20_.
+
+- Renomeado de "QasTip" para "QasAlert".
+- Adicionado `modelValue`.
+- Logica das cores alterada, sempre que a `color` for `primary` ou `secondary`, a cor `contrast` será definida como cor de fundo.
+- Removido propriedade `bgColor` (você ainda pode usar classes CSS para este fim).
+
 ### QasAppBar
 
 Sincronizado em _19/10/2021 as 17h17_.
@@ -56,6 +65,14 @@ Sincronizado em _19/10/2021 as 17h17_.
 - Lógica alterada para funcionar com a v6 da biblioteca Fuse.js.
 - Propriedade `value` alterada para `modelValue`.
 - Evento `input` alterado para `update:modelValue`.
+
+### QasPasswordInput
+
+Sincronizado em _10/01/2022 as 16h33_.
+
+- Propriedade `value` alterada para `modelValue`.
+- Evento `input` alterado para `update:modelValue`.
+- Propriedades referentes ao `QasPasswordStrengthChecker`.
 
 ### QasPasswordStrengthChecker
 
