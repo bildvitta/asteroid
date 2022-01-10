@@ -1,8 +1,8 @@
 <template>
-  <q-drawer v-model="model" class="qas-app-menu" :mini="miniMode" :width="230" v-on="$listeners" @before-hide="beforeHide" @hook:mounted="$forceUpdate()" @mini-state="setMiniState">
+  <q-drawer v-model="model" class="qas-app-menu" :mini="miniMode" ref="test" :width="230" v-on="$listeners" @before-hide="beforeHide" @mini-state="setMiniState">
     <div class="column flex full-height justify-between no-wrap overflow-x-hidden">
       <div>
-        <div v-if="!isMini" class="q-ma-md">
+        <div v-if="displayModuleSection" class="q-ma-md">
           <div class="q-mb-sm text-caption text-grey-7 text-weight-medium">
             Você está no modulo:
           </div>
@@ -12,8 +12,8 @@
 
         <q-list class="text-grey-9 text-weight-medium">
           <template v-for="(header, index) in items">
-            <q-expansion-item v-if="hasChildren(header)" :key="header.label" :ref="`item-${index}`" :class="activeClassHandler(index)" :default-opened="shouldExpand(header)" expand-icon="o_keyboard_arrow_down" expand-separator group="item" :icon="header.icon" :label="header.label" :to="header.to" @click="toggleItem(index)">
-              <q-item v-for="(item, itemIndex) in header.children" :key="itemIndex" v-ripple :active-class="activeItemClasses" class="qas-app-menu__item" clickable :to="item.to" @click="$forceUpdate()">
+            <q-expansion-item v-if="hasChildren(header)" :key="header.label" :ref="`item-${index}`" :class="activeClassHandler(index)" :default-opened="shouldExpand(header)" expand-icon="o_keyboard_arrow_down" expand-separator group="item" :icon="header.icon" :label="header.label" :to="header.to" @click="toggleItem(index)" :active-class="activeItemClassesSecondary">
+              <q-item v-for="(item, itemIndex) in header.children" :key="itemIndex" v-ripple :active-class="activeItemClasses" class="qas-app-menu__item" clickable :to="item.to">
                 <q-item-section v-if="item.icon" avatar>
                   <q-icon :name="item.icon" />
                 </q-item-section>
@@ -23,7 +23,7 @@
               </q-item>
             </q-expansion-item>
 
-            <q-item v-else :key="index" v-ripple :active-class="activeItemClasses" clickable :to="header.to" @click="$forceUpdate()">
+            <q-item v-else :key="index" v-ripple :active-class="activeItemClasses" clickable :to="header.to">
               <q-item-section v-if="header.icon" avatar>
                 <q-icon :name="header.icon" />
               </q-item-section>
@@ -87,7 +87,11 @@ export default {
 
   computed: {
     activeItemClasses () {
-      return 'bg-grey-1 text-primary'
+      return 'bg-primary-contrast text-primary qas-app-menu--active text-weight-bold'
+    },
+
+    activeItemClassesSecondary () {
+      return 'text-primary bg-secondary-contrast'
     },
 
     model: {
@@ -102,6 +106,10 @@ export default {
 
     currentModelOption () {
       return this.modules.find(module => module?.value === this.module)
+    },
+
+    displayModuleSection () {
+      return !this.isMini && this.modules.length
     }
   },
 
@@ -141,21 +149,42 @@ export default {
     },
 
     activeClassHandler (index) {
-      const element = this.getComponent(index)?.$el
-      const hasActiveNode = element?.querySelector('.q-router-link--exact-active')
+      // const element = this.getComponent(index)?.$el
 
-      return hasActiveNode ? 'qas-app-menu--active' : ''
+      // if (!element) return
+
+      // const hasActiveNode = this.getActiveNode(element)
+
+      // return hasActiveNode ? 'qas-app-menu--active' : ''
+      return ''
     },
 
     toggleItem (index) {
       const component = this.getComponent(index)
 
       component?.to && this.isMini && component.toggle()
-      this.$forceUpdate()
+      // this.$forceUpdate()
     },
 
     getComponent (index) {
       return this.$refs[`item-${index}`]?.[0]
+    },
+
+    onPageChange () {
+      console.log(this.$refs.test.$forceUpdate())
+      this.$nextTick(() => {
+        const nodeList = Array.from(document.querySelectorAll('.qas-app-menu--active'))
+
+        nodeList.forEach(node => {
+          if (!this.getActiveNode(node)) {
+            node.classList.remove('qas-app-menu--active')
+          }
+        })
+      })
+    },
+
+    getActiveNode (node) {
+      return node.querySelector('.q-router-link--exact-active')
     }
   }
 }
@@ -169,9 +198,16 @@ export default {
     }
   }
 
-  &--active.q-item,
   &--active.q-expansion-item {
+    background-color: var(--q-color-primary-contrast);
+  }
+
+  .q-expansion-item--expanded .q-item:not(&--active.q-item) {
     background-color: $grey-1;
   }
+
+  // &--active.q-expansion-item--expanded {
+  //   background-color: $grey-1;
+  // }
 }
 </style>

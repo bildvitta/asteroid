@@ -62,6 +62,10 @@ export default {
   },
 
   watch: {
+    $route () {
+      console.log('chamado no layout')
+    },
+
     value: {
       handler (value) {
         this.menuDrawer = value

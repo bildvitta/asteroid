@@ -8,6 +8,17 @@ import pages from '../router/pages'
 
 const menuList = [
   {
+    label: 'Users',
+    to: { path: '/users' },
+    children: [
+      {
+        label: 'create',
+        to: { name: 'create' }
+      }
+    ]
+  },
+
+  {
     label: 'Dialog',
     icon: 'o_home',
     to: { path: '/dialog-form' }

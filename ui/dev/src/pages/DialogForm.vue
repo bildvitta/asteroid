@@ -12,6 +12,8 @@
       Open Dialog Form
     </q-btn>
 
+    <router-link to="/single-view">clica aqui</router-link>
+
     <qas-dialog v-model="isDialogForm" v-bind="dialogConfigForm" use-form @validate="handlerValidate">
       <template #description>
         <qas-input v-model="model.name" label="Nome" :rules="[validateField(model.name, 'Nome é obrigatório')]" />
