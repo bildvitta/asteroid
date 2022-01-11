@@ -26,6 +26,8 @@
 
 <script>
 export default {
+  name: 'QasSelect',
+
   props: {
     fuseOptions: {
       default: () => ({}),

@@ -1,28 +1,44 @@
 <template>
-  <q-drawer v-model="model" content-class="bg-primary-contrast" :mini="miniMode" :width="230" @before-hide="beforeHide">
-    <q-list class="text-primary">
-      <div v-for="(header, index) in items" :key="index">
-        <q-expansion-item v-if="hasChildren(header)" :active-class="activeSecondaryItemClasses" :default-opened="shouldExpand(header)" expand-icon="o_keyboard_arrow_down" expand-separator :icon="header.icon" :label="header.label" :to="header.to">
-          <q-item v-for="(item, itemIndex) in header.children" :key="itemIndex" v-ripple :active-class="activeItemClasses" clickable :to="item.to">
-            <q-item-section v-if="item.icon" avatar>
-              <q-icon :name="item.icon" />
-            </q-item-section>
-            <q-item-section>
-              <q-item-label>{{ item.label }}</q-item-label>
-            </q-item-section>
-          </q-item>
-        </q-expansion-item>
+  <q-drawer v-model="model" class="qas-app-menu" :mini="miniMode" :width="230" v-on="$listeners" @before-hide="beforeHide" @mini-state="setMiniState">
+    <div class="column flex full-height justify-between no-wrap overflow-x-hidden">
+      <div>
+        <div v-if="displayModuleSection" class="q-ma-md">
+          <div class="q-mb-sm text-caption text-grey-7 text-weight-medium">
+            Você está no modulo:
+          </div>
 
-        <q-item v-else :key="index" v-ripple :active-class="activeItemClasses" clickable :to="header.to">
-          <q-item-section v-if="header.icon" avatar>
-            <q-icon :name="header.icon" />
-          </q-item-section>
-          <q-item-section>
-            <q-item-label>{{ header.label }}</q-item-label>
-          </q-item-section>
-        </q-item>
+          <qas-select v-model="module" :options="modules" @input="redirectHandler(currentModelOption)" />
+        </div>
+
+        <q-list class="text-grey-9 text-weight-medium">
+          <template v-for="(header, index) in items">
+            <q-expansion-item v-if="hasChildren(header)" :key="header.label" :ref="`item-${index}`" :default-opened="shouldExpand(header)" expand-icon="o_keyboard_arrow_down" expand-separator group="item" :icon="header.icon" :label="header.label" :to="header.to" @click="toggleItem(index)" :active-class="activeItemClassesSecondary">
+              <q-item v-for="(item, itemIndex) in header.children" :key="itemIndex" v-ripple :active-class="activeItemClasses" clickable :to="item.to">
+                <q-item-section v-if="item.icon" avatar>
+                  <q-icon :name="item.icon" />
+                </q-item-section>
+                <q-item-section>
+                  <q-item-label>{{ item.label }}</q-item-label>
+                </q-item-section>
+              </q-item>
+            </q-expansion-item>
+
+            <q-item v-else :key="index" v-ripple :active-class="activeItemClasses" clickable :to="header.to">
+              <q-item-section v-if="header.icon" avatar>
+                <q-icon :name="header.icon" />
+              </q-item-section>
+              <q-item-section>
+                <q-item-label>{{ header.label }}</q-item-label>
+              </q-item-section>
+            </q-item>
+          </template>
+        </q-list>
       </div>
-    </q-list>
+
+      <div class="q-mx-md">
+        <img v-if="!isMini" alt="modular logo" class="block q-mb-md q-mx-auto" src="../../assets/logo-modular.svg">
+      </div>
+    </div>
   </q-drawer>
 </template>
 
@@ -30,6 +46,8 @@
 import { screenMixin } from '../../mixins'
 
 export default {
+  name: 'QasAppMenu',
+
   mixins: [screenMixin],
 
   props: {
@@ -46,22 +64,34 @@ export default {
     value: {
       default: true,
       type: Boolean
+    },
+
+    modules: {
+      default: () => [],
+      type: Array
+    },
+
+    currentModule: {
+      default: '',
+      type: String
     }
   },
 
   data () {
     return {
-      miniMode: false
+      miniMode: false,
+      module: '',
+      isMini: false
     }
   },
 
   computed: {
     activeItemClasses () {
-      return 'bg-primary text-primary-contrast'
+      return 'bg-primary-contrast text-primary text-weight-bold'
     },
 
-    activeSecondaryItemClasses () {
-      return 'active bg-secondary-contrast text-primary-contrast'
+    activeItemClassesSecondary () {
+      return 'text-primary bg-secondary-contrast'
     },
 
     model: {
@@ -72,6 +102,23 @@ export default {
       set (value) {
         return this.$emit('input', value)
       }
+    },
+
+    currentModelOption () {
+      return this.modules.find(module => module?.value === this.module)
+    },
+
+    displayModuleSection () {
+      return !this.isMini && this.modules.length
+    }
+  },
+
+  watch: {
+    currentModule: {
+      handler (value) {
+        this.module = value
+      },
+      immediate: true
     }
   },
 
@@ -81,7 +128,7 @@ export default {
     },
 
     shouldExpand ({ children, to }) {
-      return children?.length && this.$route.matched.some(item => item.path === to.path)
+      return children?.length && this.$route.matched.some(item => item?.path === to?.path)
     },
 
     beforeHide () {
@@ -89,21 +136,35 @@ export default {
         this.model = true
         this.miniMode = !this.miniMode
       }
+    },
+
+    setMiniState (value) {
+      this.isMini = value
+    },
+
+    redirectHandler ({ path }) {
+      if (!path.includes(window.location.host)) {
+        window.location.href = path
+      }
+    },
+
+    toggleItem (index) {
+      const component = this.getComponent(index)
+
+      component?.to && this.isMini && component.toggle()
+    },
+
+    getComponent (index) {
+      return this.$refs[`item-${index}`]?.[0]
     }
   }
 }
 </script>
 
 <style lang="scss">
-.q-expansion-item {
-  .active .q-expansion-item__toggle-icon {
-    color: white !important;
-    opacity: 1;
-  }
-
-  .q-expansion-item__toggle-icon {
-    color: $primary;
-    opacity: 0.2;
+.qas-app-menu {
+  .q-expansion-item--expanded .q-item:not(&--active.q-item) {
+    background-color: $grey-1;
   }
 }
 </style>

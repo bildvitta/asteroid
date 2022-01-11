@@ -1,82 +1,77 @@
 <template>
-  <q-toolbar class="qas-toolbar">
-    <q-ajax-bar color="white" position="top" size="2px" />
+  <q-header v-bind="$attrs" class="bg-white shadow-primary" height-hint="70" v-on="$listeners">
+    <q-toolbar class="qas-toolbar" color="bg-white">
+      <q-ajax-bar color="white" position="top" size="2px" />
 
-    <q-btn dense flat icon="o_menu" round @click="toggleMenuDrawer" />
+      <q-btn color="grey-7" dense flat icon="o_menu" round @click="toggleMenuDrawer" />
 
-    <q-toolbar-title class="flex">
-      <div class="cursor-pointer" @click="goToRoot">
-        <img v-if="brand" :alt="title" class="q-mr-sm qas-toolbar__brand" :src="brand">
-        <span v-if="title" class="text-bold text-primary-contrast text-subtitle1 text-uppercase">{{ title }}</span>
-        <q-badge v-if="hasDevelopmentBadge" align="middle" class="q-ml-sm" color="negative" :label="developmentBadgeLabel" />
-      </div>
-    </q-toolbar-title>
-
-    <!-- TODO: Notificações. -->
-    <div v-if="hasNotifications" class="q-mr-md">
-      <q-btn class="q-mr-md" dense icon="o_notifications" round unelevated>
-        <q-badge v-if="notifications" color="red" floating>{{ notifications.count }}</q-badge>
-      </q-btn>
-    </div>
-
-    <qas-apps-menu v-if="hasApps" :apps="apps" class="q-mr-md" />
-
-    <div class="items-center no-wrap q-gutter-md row">
-      <slot name="tools" />
-
-      <div v-if="isAuth" class="cursor-pointer items-center q-mr-sm qas-toolbar__user rounded-borders row" :title="user.name || user.givenName">
-        <qas-avatar class="rounded-borders-left" color="white" dark :image="user.photo" rounded size="42px" text-color="primary" :title="user.name || user.givenName" />
-
-        <div class="q-px-sm qas-toolbar__user-data qs-lh-lg text-caption">
-          <div class="ellipsis">{{ user.name || user.givenName }}</div>
-          <div class="ellipsis text-bold">{{ user.email }}</div>
+      <q-toolbar-title class="flex">
+        <div class="cursor-pointer" @click="goToRoot">
+          <img v-if="brand" :alt="title" class="q-mr-sm qas-toolbar__brand" :src="brand">
+          <span v-if="showTitle" class="text-bold text-grey-9 text-subtitle1 text-uppercase">{{ title }}</span>
+          <q-badge v-if="hasDevelopmentBadge" align="middle" class="q-ml-sm" color="negative" :label="developmentBadgeLabel" />
         </div>
+      </q-toolbar-title>
 
-        <q-menu anchor="bottom end" content-class="shadow-primary" max-height="400px" :offset="[0, 5]" self="top end">
-          <div class="qas-toolbar__user-menu">
-            <div class="q-pa-lg text-center">
-              <button class="unset" @click="goToProfile">
-                <qas-avatar :image="user.photo" size="145px" :title="user.name || user.givenName" />
-              </button>
-
-              <div class="ellipsis q-mt-lg qs-lh-sm text-bold text-subtitle1">{{ user.name || user.givenName }}</div>
-              <div class="ellipsis q-mt-xs text-caption">{{ user.email }}</div>
-
-              <div class="q-mt-sm">
-                <qas-btn flat icon="o_edit" label="Editar" :to="user.to" />
-              </div>
-
-              <div class="q-mt-sm">
-                <qas-btn v-close-popup class="q-px-lg q-py-xs" dense icon="o_exit_to_app" label="Sair" outline @click="signOut" />
-              </div>
-
-              <slot name="user" :user="user" />
-            </div>
-          </div>
-        </q-menu>
+      <!-- TODO: Notificações. -->
+      <div v-if="hasNotifications" class="q-mr-md">
+        <q-btn class="q-mr-md" dense icon="o_notifications" round unelevated>
+          <q-badge v-if="notifications" color="red" floating>{{ notifications.count }}</q-badge>
+        </q-btn>
       </div>
-    </div>
-  </q-toolbar>
+
+      <div class="items-center no-wrap q-gutter-md row">
+        <slot name="tools" />
+
+        <div v-if="isAuth" class="cursor-pointer items-center q-mr-sm qas-toolbar__user rounded-borders row text-grey-9" :title="user.name || user.givenName">
+          <qas-avatar class="rounded-borders-left" color="white" dark :image="user.photo" rounded size="42px" text-color="primary" :title="user.name || user.givenName" />
+
+          <div class="q-px-sm qas-toolbar__user-data qs-lh-lg text-caption">
+            <div class="ellipsis">{{ user.name || user.givenName }}</div>
+            <div class="ellipsis text-bold">{{ user.email }}</div>
+          </div>
+
+          <q-menu anchor="bottom end" content-class="shadow-primary" max-height="400px" :offset="[0, 5]" self="top end">
+            <div class="qas-toolbar__user-menu">
+              <div class="q-pa-lg text-center">
+                <button class="unset" @click="goToProfile">
+                  <qas-avatar :image="user.photo" size="145px" :title="user.name || user.givenName" />
+                </button>
+
+                <div class="ellipsis q-mt-lg qs-lh-sm text-bold text-subtitle1">{{ user.name || user.givenName }}</div>
+                <div class="ellipsis q-mt-xs text-caption">{{ user.email }}</div>
+
+                <div class="q-mt-sm">
+                  <qas-btn flat icon="o_edit" label="Editar" :to="user.to" />
+                </div>
+
+                <div class="q-mt-sm">
+                  <qas-btn v-close-popup class="q-px-lg q-py-xs" dense icon="o_exit_to_app" label="Sair" outline @click="signOut" />
+                </div>
+
+                <slot name="user" :user="user" />
+              </div>
+            </div>
+          </q-menu>
+        </div>
+      </div>
+    </q-toolbar>
+  </q-header>
 </template>
 
 <script>
-import QasAppsMenu from '../apps-menu/QasAppsMenu'
 import QasAvatar from '../avatar/QasAvatar'
 import QasBtn from '../btn/QasBtn'
 
 export default {
+  name: 'QasAppBar',
+
   components: {
-    QasAppsMenu,
     QasAvatar,
     QasBtn
   },
 
   props: {
-    apps: {
-      default: () => [],
-      type: Array
-    },
-
     brand: {
       default: '',
       type: String
@@ -128,16 +123,16 @@ export default {
       return current ? hosts[current] : ''
     },
 
-    hasApps () {
-      return !!this.apps.length
-    },
-
     hasDevelopmentBadge () {
       return !!this.developmentBadgeLabel
     },
 
     hasNotifications () {
       return !!Object.keys(this.notifications).length
+    },
+
+    showTitle () {
+      return this.title && !this.brand
     }
   },
 
@@ -173,7 +168,7 @@ export default {
   }
 
   &__user {
-    background-color: rgba(white, 0.1);
+    background-color: var(--qas-background-color);
     transition: background-color $generic-hover-transition;
 
     &:focus,

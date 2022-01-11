@@ -8,6 +8,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 - Added template for pull requests
+- New component `QasLayout`.
+
+### Changed
+- `QasAppMenu` design.
+- `QasAppBar` design.
+- `body` background to `#f5f5f5`.
+
+### Removed
+- `apps` prop inside in `QasAppBar`.
 
 ## 2.12.4 - 2021-12-22
 

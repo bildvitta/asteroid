@@ -25,6 +25,7 @@ import QasGallery from './components/gallery/QasGallery'
 import QasGridGenerator from './components/grid-generator/QasGridGenerator'
 import QasInput from './components/input/QasInput'
 import QasLabel from './components/label/QasLabel'
+import QasLayout from './components/layout/QasLayout'
 import QasListItems from './components/list-items/QasListItems'
 import QasListView from './components/list-view/QasListView'
 import QasMap from './components/map/QasMap'
@@ -98,6 +99,7 @@ export {
   QasGridGenerator,
   QasInput,
   QasLabel,
+  QasLayout,
   QasListItems,
   QasListView,
   QasMap,
@@ -157,6 +159,7 @@ export default {
   QasGridGenerator,
   QasInput,
   QasLabel,
+  QasLayout,
   QasListItems,
   QasListView,
   QasMap,
@@ -215,6 +218,7 @@ export default {
     Vue.component('QasGridGenerator', QasGridGenerator)
     Vue.component('QasInput', QasInput)
     Vue.component('QasLabel', QasLabel)
+    Vue.component('QasLayout', QasLayout)
     Vue.component('QasListItems', QasListItems)
     Vue.component('QasListView', QasListView)
     Vue.component('QasMap', QasMap)

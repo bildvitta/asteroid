@@ -1,61 +1,37 @@
 <template>
-  <q-layout view="hHh Lpr lFf">
-    <q-header height-hint="70">
-      <qas-app-bar :apps="apps" :is-auth="true" :title="`quasar-ui-asteroid v${version}`" :user="user" @sign-out="signOut" @toggle-menu="toggleMenuDrawer" />
-    </q-header>
-
-    <qas-app-menu v-model="menuDrawer" :items="menuList" />
-
-    <q-page-container>
-      <router-view />
-    </q-page-container>
-  </q-layout>
+  <qas-layout :app-bar-props="appBarProps" :app-menu-props="appMenuProps" />
 </template>
 
 <script>
 import { version } from 'ui'
 import pages from '../router/pages'
 
-const apps = [
-  {
-    label: 'Hub',
-    image: 'http://placehold.it/640x640'
-  },
-  {
-    label: 'Produto',
-    image: 'http://placehold.it/640x640'
-  },
-  {
-    label: 'CRM',
-    image: 'http://placehold.it/640x640'
-  },
-  {
-    label: 'Vendas',
-    image: 'http://placehold.it/640x640'
-  },
-  {
-    label: 'Repasse',
-    image: 'http://placehold.it/640x640'
-  },
-  {
-    label: 'Jurídico',
-    image: 'http://placehold.it/640x640'
-  }
-]
-
 const menuList = [
   {
-    label: 'Início',
+    label: 'Dialog',
     icon: 'o_home',
-    to: { name: 'Root' }
+    to: { path: '/dialog-form' }
+  },
+
+  {
+    label: 'Teste expansivo',
+    icon: 'o_edit',
+    children: [...pages].splice(1, 4).map(page => ({ label: getPageTitle(page), to: '/' + page.path, icon: 'o_edit' }))
   },
 
   {
     label: 'Páginas',
     icon: 'o_layers',
-    children: pages.map(page => ({ label: page.title, to: '/' + page.path }))
+    to: {
+      path: '/test-input-number'
+    },
+    children: [...pages].splice(5).map(page => ({ label: getPageTitle(page), to: '/' + page.path, icon: 'o_edit' }))
   }
 ]
+
+function getPageTitle ({ title }) {
+  return title?.split('.')[0]
+}
 
 const user = {
   photo: 'https://www.abc.net.au/cm/lb/6367016/data/alan2c-see-the-person-data.jpg',
@@ -64,17 +40,7 @@ const user = {
 }
 
 export default {
-  data () {
-    return {
-      menuDrawer: true
-    }
-  },
-
   computed: {
-    apps () {
-      return apps
-    },
-
     menuList () {
       return menuList
     },
@@ -85,16 +51,37 @@ export default {
 
     version () {
       return version
-    }
-  },
-
-  methods: {
-    signOut () {
-      // console.log('Sign out fired.')
     },
 
-    toggleMenuDrawer () {
-      this.menuDrawer = !this.menuDrawer
+    modules () {
+      return [
+        {
+          label: 'Modulo de teste',
+          value: 'test',
+          path: 'http://localhost:8080'
+        },
+        {
+          label: 'Segundo modulo de teste',
+          value: 'test-2',
+          path: 'https://google.com'
+        }
+      ]
+    },
+
+    appBarProps () {
+      return {
+        isAuth: true,
+        title: `quasar-ui-asteroid v${version}`,
+        user: this.user
+      }
+    },
+
+    appMenuProps () {
+      return {
+        currentModule: 'test',
+        items: this.menuList,
+        modules: this.modules
+      }
     }
   }
 }
