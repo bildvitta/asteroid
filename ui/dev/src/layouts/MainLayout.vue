@@ -9,6 +9,7 @@ import pages from '../router/pages'
 const menuList = [
   {
     label: 'Users',
+    icon: 'o_people',
     to: { path: '/users' },
     children: [
       {
