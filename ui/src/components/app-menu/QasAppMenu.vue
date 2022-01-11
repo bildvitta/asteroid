@@ -87,7 +87,7 @@ export default {
 
   computed: {
     activeItemClasses () {
-      return 'bg-primary-contrast text-primary qas-app-menu--active text-weight-bold'
+      return 'bg-primary-contrast text-primary text-weight-bold'
     },
 
     activeItemClassesSecondary () {
