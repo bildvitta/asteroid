@@ -84,6 +84,15 @@ Sincronizado em _19/10/2021 as 17h17_.
 - Propriedade `specials` adicionada para definir os caracteres especiais.
 - Evento `password-success` alterado para `update:modelValue`.
 
+### QasTabsGenerator
+
+Sincronizado em _10/01/2022 as 18h34_.
+
+- Propriedade `bgColorClass` removida (pode fazer o controle passando `class` direto no componente).
+- Propriedade `colorClass` alterada para `tabClass` (pode passar mais classes além de cores).
+- Propriedade `value` alterada para `modelValue`.
+- Evento `input` alterado para `update:modelValue`.
+
 ## Helpers
 
 ### label.js

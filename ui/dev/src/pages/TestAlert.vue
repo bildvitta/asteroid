@@ -1,6 +1,6 @@
 <template>
   <q-page>
-    <qas-alert v-model="model" class="q-ma-lg" color="negative" title="AAAAAAAAAAAAAAAA AAAAAAAAAAAAAAAAAAAA AAAAAAAAAAAAAAAA" text="Aqui vai um pequeno texto para teste" />
+    <qas-alert v-model="model" class="q-ma-lg" color="negative" title="Titulo de exemplo" text="Aqui vai um pequeno texto para teste" />
 
     model: {{ model }}
 
