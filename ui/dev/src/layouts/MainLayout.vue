@@ -8,18 +8,6 @@ import pages from '../router/pages'
 
 const menuList = [
   {
-    label: 'Users',
-    icon: 'o_people',
-    to: { path: '/users' },
-    children: [
-      {
-        label: 'create',
-        to: { name: 'create' }
-      }
-    ]
-  },
-
-  {
     label: 'Dialog',
     icon: 'o_home',
     to: { path: '/dialog-form' }
@@ -28,7 +16,7 @@ const menuList = [
   {
     label: 'Teste expansivo',
     icon: 'o_edit',
-    children: pages.splice(1, 4).map(page => ({ label: getPageTitle(page), to: '/' + page.path, icon: 'o_edit' }))
+    children: [...pages].splice(1, 4).map(page => ({ label: getPageTitle(page), to: '/' + page.path, icon: 'o_edit' }))
   },
 
   {
@@ -37,7 +25,7 @@ const menuList = [
     to: {
       path: '/test-input-number'
     },
-    children: pages.splice(5).map(page => ({ label: getPageTitle(page), to: '/' + page.path, icon: 'o_edit' }))
+    children: [...pages].splice(5).map(page => ({ label: getPageTitle(page), to: '/' + page.path, icon: 'o_edit' }))
   }
 ]
 

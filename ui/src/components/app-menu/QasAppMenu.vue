@@ -1,5 +1,5 @@
 <template>
-  <q-drawer v-model="model" class="qas-app-menu" :mini="miniMode" ref="test" :width="230" v-on="$listeners" @before-hide="beforeHide" @mini-state="setMiniState">
+  <q-drawer v-model="model" class="qas-app-menu" :mini="miniMode" :width="230" v-on="$listeners" @before-hide="beforeHide" @mini-state="setMiniState">
     <div class="column flex full-height justify-between no-wrap overflow-x-hidden">
       <div>
         <div v-if="displayModuleSection" class="q-ma-md">
@@ -12,8 +12,8 @@
 
         <q-list class="text-grey-9 text-weight-medium">
           <template v-for="(header, index) in items">
-            <q-expansion-item v-if="hasChildren(header)" :key="header.label" :ref="`item-${index}`" :class="activeClassHandler(index)" :default-opened="shouldExpand(header)" expand-icon="o_keyboard_arrow_down" expand-separator group="item" :icon="header.icon" :label="header.label" :to="header.to" @click="toggleItem(index)" :active-class="activeItemClassesSecondary">
-              <q-item v-for="(item, itemIndex) in header.children" :key="itemIndex" v-ripple :active-class="activeItemClasses" class="qas-app-menu__item" clickable :to="item.to">
+            <q-expansion-item v-if="hasChildren(header)" :key="header.label" :ref="`item-${index}`" :default-opened="shouldExpand(header)" expand-icon="o_keyboard_arrow_down" expand-separator group="item" :icon="header.icon" :label="header.label" :to="header.to" @click="toggleItem(index)" :active-class="activeItemClassesSecondary">
+              <q-item v-for="(item, itemIndex) in header.children" :key="itemIndex" v-ripple :active-class="activeItemClasses" clickable :to="item.to">
                 <q-item-section v-if="item.icon" avatar>
                   <q-icon :name="item.icon" />
                 </q-item-section>
@@ -148,43 +148,14 @@ export default {
       }
     },
 
-    activeClassHandler (index) {
-      // const element = this.getComponent(index)?.$el
-
-      // if (!element) return
-
-      // const hasActiveNode = this.getActiveNode(element)
-
-      // return hasActiveNode ? 'qas-app-menu--active' : ''
-      return ''
-    },
-
     toggleItem (index) {
       const component = this.getComponent(index)
 
       component?.to && this.isMini && component.toggle()
-      // this.$forceUpdate()
     },
 
     getComponent (index) {
       return this.$refs[`item-${index}`]?.[0]
-    },
-
-    onPageChange () {
-      console.log(this.$refs.test.$forceUpdate())
-      this.$nextTick(() => {
-        const nodeList = Array.from(document.querySelectorAll('.qas-app-menu--active'))
-
-        nodeList.forEach(node => {
-          if (!this.getActiveNode(node)) {
-            node.classList.remove('qas-app-menu--active')
-          }
-        })
-      })
-    },
-
-    getActiveNode (node) {
-      return node.querySelector('.q-router-link--exact-active')
     }
   }
 }
@@ -192,22 +163,8 @@ export default {
 
 <style lang="scss">
 .qas-app-menu {
-  &--active .q-expansion-item__container > .q-item:first-child {
-    &, .q-item__section--side {
-      color: var(--q-color-primary);
-    }
-  }
-
-  &--active.q-expansion-item {
-    background-color: var(--q-color-primary-contrast);
-  }
-
   .q-expansion-item--expanded .q-item:not(&--active.q-item) {
     background-color: $grey-1;
   }
-
-  // &--active.q-expansion-item--expanded {
-  //   background-color: $grey-1;
-  // }
 }
 </style>
