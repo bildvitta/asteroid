@@ -1,7 +1,10 @@
 <template>
   <q-btn color="primary" no-caps unelevated v-bind="attributes">
     <slot v-if="showLabel">{{ $attrs.label }}</slot>
-    <slot v-for="(slot, key) in slots" :slot="key" :name="key" />
+
+    <template v-for="(_, name) in slots" v-slot:[name]="context">
+      <slot :name="name" v-bind="context || {}" />
+    </template>
   </q-btn>
 </template>
 
@@ -24,19 +27,22 @@ export default {
   computed: {
     attributes () {
       const { label, ...attributes } = this.$attrs
-      return attributes
+
+      return this.showLabel ? this.$attrs : attributes
     },
 
     slots () {
       const { default: _, ...slots } = this.$slots
+      console.log(!!slots.loading)
       return slots
     },
 
     hasLabel () {
-      return this.$attrs.label || this.$slots.default
+      return !!(this.$attrs.label || this.$slots.default)
     },
 
     showLabel () {
+      console.log(this.$attrs, 'hasLabel')
       return this.hasLabel && !(this.hideLabelOnSmallScreen && this.$_isSmall)
     }
   }

@@ -1,6 +1,8 @@
 <template>
   <q-input v-model="model" bottom-slots :type="type">
-    <slot v-for="(slot, key) in $slots" :slot="key" :name="key" />
+    <template v-for="(_, name) in $slots" v-slot:[name]="context">
+      <slot :name="name" v-bind="context || {}" />
+    </template>
 
     <template #append>
       <q-icon class="cursor-pointer" :color="iconColor" :name="icon" @click="toggle" />
