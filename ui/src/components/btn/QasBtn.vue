@@ -9,6 +9,8 @@
 import { screenMixin } from '../../mixins'
 
 export default {
+  name: 'QasBtn',
+
   mixins: [screenMixin],
 
   inheritAttrs: false,

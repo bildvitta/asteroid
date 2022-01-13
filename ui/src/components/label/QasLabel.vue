@@ -8,6 +8,8 @@
 import { addCounterSuffix } from '../../helpers'
 
 export default {
+  name: 'QasLabel',
+
   props: {
     count: {
       default: 0,

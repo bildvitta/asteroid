@@ -23,6 +23,8 @@
 import QasBox from '../box/QasBox.vue'
 
 export default {
+  name: 'QasSearchBox',
+
   components: {
     QasBox
   },

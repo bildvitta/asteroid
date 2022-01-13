@@ -15,6 +15,8 @@ const defaultModes = {
 }
 
 export default {
+  name: 'QasNumericInput',
+
   props: {
     allowNegative: {
       default: true,

@@ -11,6 +11,8 @@
 import passwordMixin from '../../mixins/password.js'
 
 export default {
+  name: 'QasPasswordStrengthChecker',
+
   mixins: [passwordMixin],
 
   props: {

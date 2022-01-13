@@ -14,6 +14,8 @@
 import { screenMixin } from '../../mixins'
 
 export default {
+  name: 'QasActions',
+
   mixins: [screenMixin],
 
   props: {

@@ -30,6 +30,8 @@
 
 <script>
 export default {
+  name: 'QasActionsMenu',
+
   props: {
     bgImagePosition: {
       type: String,
