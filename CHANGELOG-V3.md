@@ -2,11 +2,10 @@
 
 ## Components
 
-### QasActions (QasActions)
+### QasActions (QasBtnActions)
 
 Sincronizado em _13/01/2022 as 10h56_.
 
-- Renomeado de "QasDecimalInput" para "QasNumericInput".
 - Propriedade `btnCol` removida.
 
 ### QasAlert (QasTip)
@@ -40,7 +39,7 @@ Sincronizado em _19/10/2021 as 17h17_.
 
 ### QasBtn
 
-Sincronizado em _19/10/2021 as 17h17_.
+Sincronizado em _23/01/2021 as 18h23_.
 
 - Propriedade `hideMobileLabel` renomeada para `hideLabelOnSmallScreen`;
 
@@ -75,7 +74,7 @@ Sincronizado em _19/10/2021 as 17h17_.
 
 ### QasPasswordInput
 
-Sincronizado em _10/01/2022 as 16h33_.
+Sincronizado em _13/01/2022 as 18h23_.
 
 - Propriedade `value` alterada para `modelValue`.
 - Evento `input` alterado para `update:modelValue`.
@@ -115,6 +114,13 @@ Sincronizado em _13/01/2022 as 14h46_.
 Sincronizado em _13/01/2022 as 15h13_.
 
 - Adicionado propriedade `formMode` (era usada no código mas não existia a propriedade).
+
+### QasActionsMenu
+
+Sincronizado em _13/01/2022 as 18h23_.
+
+- Propriedade `hideLabel` removido (para remover o label é só não passar ele).
+- Alterado valor "default" da propriedade `label` para `Configurações.
 
 ## Helpers
 

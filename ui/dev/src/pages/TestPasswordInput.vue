@@ -5,14 +5,14 @@
     <qas-password-input :error="true" v-model="model2" bottom-slots>
       <template #error>
         <div>
-          Novo hint
+          Novo erro
         </div>
       </template>
     </qas-password-input>
     <q-input bottom-slots error type="password">
       <template #error>
         <div>
-          Novo hint 2
+          Novo erro 2
         </div>
       </template>
     </q-input>

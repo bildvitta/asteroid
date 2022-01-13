@@ -1,4 +1,5 @@
 import QasActions from './components/actions/QasActions.vue'
+import QasActionsMenu from './components/actions-menu/QasActionsMenu.vue'
 import QasAlert from './components/alert/QasAlert.vue'
 import QasAppBar from './components/app-bar/QasAppBar.vue'
 import QasAppMenu from './components/app-menu/QasAppMenu.vue'
@@ -27,6 +28,7 @@ const version = __UI_VERSION__
 
 function install (app) {
   app.component('QasActions', QasActions)
+  app.component('QasActionsMenu', QasActionsMenu)
   app.component('QasAlert', QasAlert)
   app.component('QasAppBar', QasAppBar)
   app.component('QasAppMenu', QasAppMenu)
@@ -56,6 +58,7 @@ export {
   version,
 
   QasActions,
+  QasActionsMenu,
   QasAlert,
   QasAppBar,
   QasAppMenu,
