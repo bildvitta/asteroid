@@ -2,6 +2,13 @@
 
 ## Components
 
+### QasActions (QasActions)
+
+Sincronizado em _13/01/2022 as 10h56_.
+
+- Renomeado de "QasDecimalInput" para "QasNumericInput".
+- Propriedade `btnCol` removida.
+
 ### QasAlert (QasTip)
 
 Sincronizado em _10/01/2022 as 17h20_.
@@ -91,7 +98,17 @@ Sincronizado em _10/01/2022 as 18h34_.
 - Propriedade `bgColorClass` removida (pode fazer o controle passando `class` direto no componente).
 - Propriedade `colorClass` alterada para `tabClass` (pode passar mais classes além de cores).
 - Propriedade `value` alterada para `modelValue`.
+- Adicionado propriedade `counterProps`.
 - Evento `input` alterado para `update:modelValue`.
+
+### QasSearchBox
+
+Sincronizado em _13/01/2022 as 14h46_.
+
+- Propriedade `hideEmptySlot` alterada para `useEmptySlot`.
+- Slot `empty` alterado para `empty-result`.
+- Evento `input` alterado para `update:modelValue`.
+- Evento `emptyResult` alterado para `empty-result`.
 
 ## Helpers
 

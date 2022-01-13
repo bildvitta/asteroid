@@ -1,3 +1,4 @@
+import QasActions from './components/actions/QasActions.vue'
 import QasAlert from './components/alert/QasAlert.vue'
 import QasAppBar from './components/app-bar/QasAppBar.vue'
 import QasAppMenu from './components/app-menu/QasAppMenu.vue'
@@ -12,6 +13,7 @@ import QasLabel from './components/label/QasLabel.vue'
 import QasNumericInput from './components/numeric-input/QasNumericInput.vue'
 import QasPasswordInput from './components/password-input/QasPasswordInput.vue'
 import QasPasswordStrengthChecker from './components/password-strength-checker/QasPasswordStrengthChecker.vue'
+import QasSearchBox from './components/search-box/QasSearchBox.vue'
 import QasSelect from './components/select/QasSelect.vue'
 import QasTabsGenerator from './components/tabs-generator/QasTabsGenerator.vue'
 
@@ -23,6 +25,7 @@ import {
 const version = __UI_VERSION__
 
 function install (app) {
+  app.component('QasActions', QasActions)
   app.component('QasAlert', QasAlert)
   app.component('QasAppBar', QasAppBar)
   app.component('QasAppMenu', QasAppMenu)
@@ -37,6 +40,7 @@ function install (app) {
   app.component('QasNumericInput', QasNumericInput)
   app.component('QasPasswordInput', QasPasswordInput)
   app.component('QasPasswordStrengthChecker', QasPasswordStrengthChecker)
+  app.component('QasSearchBox', QasSearchBox)
   app.component('QasSelect', QasSelect)
   app.component('QasTabsGenerator', QasTabsGenerator)
 
@@ -49,6 +53,7 @@ function install (app) {
 export {
   version,
 
+  QasActions,
   QasAlert,
   QasAppBar,
   QasAppMenu,
@@ -63,6 +68,7 @@ export {
   QasNumericInput,
   QasPasswordInput,
   QasPasswordStrengthChecker,
+  QasSearchBox,
   QasSelect,
   QasTabsGenerator,
 
