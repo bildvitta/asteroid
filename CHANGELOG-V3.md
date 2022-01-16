@@ -122,6 +122,13 @@ Sincronizado em _13/01/2022 as 18h23_.
 - Propriedade `hideLabel` removido (para remover o label é só não passar ele).
 - Alterado valor "default" da propriedade `label` para `Configurações.
 
+### QasSelectList
+
+Sincronizado em _13/01/2022 as 18h23_.
+
+- Propriedade `options` nomeado para `list`.
+- Alterado valor "default" da propriedade `label` para `Configurações.
+
 ## Helpers
 
 ### label.js

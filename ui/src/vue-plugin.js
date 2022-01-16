@@ -17,6 +17,7 @@ import QasPasswordInput from './components/password-input/QasPasswordInput.vue'
 import QasPasswordStrengthChecker from './components/password-strength-checker/QasPasswordStrengthChecker.vue'
 import QasSearchBox from './components/search-box/QasSearchBox.vue'
 import QasSelect from './components/select/QasSelect.vue'
+import QasSelectList from './components/select-list/QasSelectList.vue'
 import QasTabsGenerator from './components/tabs-generator/QasTabsGenerator.vue'
 
 import {
@@ -46,6 +47,7 @@ function install (app) {
   app.component('QasPasswordStrengthChecker', QasPasswordStrengthChecker)
   app.component('QasSearchBox', QasSearchBox)
   app.component('QasSelect', QasSelect)
+  app.component('QasSelectList', QasSelectList)
   app.component('QasTabsGenerator', QasTabsGenerator)
 
   app.config.globalProperties.$qas = {
@@ -76,6 +78,7 @@ export {
   QasPasswordStrengthChecker,
   QasSearchBox,
   QasSelect,
+  QasSelectList,
   QasTabsGenerator,
 
   NotifyError,
