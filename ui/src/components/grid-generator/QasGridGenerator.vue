@@ -29,6 +29,11 @@ export default {
       type: [Array, Object, String]
     },
 
+    emptyResultValue: {
+      default: '-',
+      type: String
+    },
+
     headerClass: {
       default: 'text-bold',
       type: [Array, Object, String]
@@ -76,16 +81,14 @@ export default {
     resultsByFields () {
       const formattedResult = {}
       const result = extend(true, {}, this.result)
-
       for (const key in result) {
         if (this.formattedFields[key]?.type) {
-          formattedResult[key] = humanize(this.formattedFields[key], result[key])
+          formattedResult[key] = humanize(this.formattedFields[key], result[key]) || this.emptyResultValue
           // TODO: Rever.
           // eslint-disable-next-line vue/no-side-effects-in-computed-properties
           this.slotValue[key] = { ...this.formattedFields[key], formattedResult: formattedResult[key] }
         }
       }
-
       return formattedResult
     }
   }

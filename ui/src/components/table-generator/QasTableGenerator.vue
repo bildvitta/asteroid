@@ -24,6 +24,11 @@ export default {
       type: Array
     },
 
+    emptyResultValue: {
+      default: '-',
+      type: String
+    },
+
     fields: {
       default: () => ({}),
       type: [Array, Object]
@@ -113,8 +118,8 @@ export default {
 
       return results.map((result, index) => {
         for (const key in result) {
-          result.default = this.results[index]
-          result[key] = humanize(this.fields[key], result[key])
+          result.default = this.results[index] 
+          result[key] = humanize(this.fields[key], result[key]) || this.emptyResultValue
         }
 
         return result
