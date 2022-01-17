@@ -8,6 +8,8 @@
 import { getSlotChildrenText } from '../../helpers'
 
 export default {
+  name: 'QasBreakline',
+
   props: {
     split: {
       default: '\n',

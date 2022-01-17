@@ -10,6 +10,8 @@
 
 <script>
 export default {
+  name: 'QasDebugger',
+
   props: {
     inspect: {
       default: () => [],

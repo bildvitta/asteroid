@@ -6,6 +6,8 @@
 
 <script>
 export default {
+  name: 'QasBox',
+
   props: {
     outlined: {
       type: Boolean

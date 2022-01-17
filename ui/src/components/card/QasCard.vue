@@ -1,0 +1,111 @@
+<template>
+  <div class="col-12 col-lg-3 col-md-4 col-sm-6">
+    <q-card class="border-radius-lg column full-height" :class="cardClasses">
+      <div v-if="useHeader" class="overflow-hidden relative-position w-full">
+        <slot name="header">
+          <q-carousel v-model="slideImage" animated class="cursor-pointer" height="205px" infinite :navigation="hasImages" navigation-icon="o_fiber_manual_record" swipeable>
+            <template #navigation-icon="{ active, btnProps, onClick }">
+              <qas-btn color="white" dense flat :icon="getNavigationIcon(active, btnProps)" round size="sm" @click="onClick" />
+            </template>
+            <q-carousel-slide v-for="(item, index) in imagesList" :key="index" class="bg-no-repeat" :class="bgImagePositionClass" :img-src="item" :name="index" />
+          </q-carousel>
+          <div class="absolute-top flex items-center q-pa-md">
+            <slot name="carousel-header" />
+          </div>
+        </slot>
+      </div>
+
+      <q-card-section class="col-grow column justify-between w-full">
+        <div class="w-full" :class="gutterClass">
+          <slot />
+        </div>
+      </q-card-section>
+
+      <div v-if="hasActionsSlot" class="border-primary-contrast border-top overflow-hidden row">
+        <slot name="actions" />
+      </div>
+    </q-card>
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'QasActionsMenu',
+
+  props: {
+    bgImagePosition: {
+      type: String,
+      default: 'center'
+    },
+
+    gutter: {
+      type: String,
+      default: 'sm'
+    },
+
+    images: {
+      type: Array,
+      default: () => ([])
+    },
+
+    outlined: {
+      type: Boolean
+    },
+
+    result: {
+      type: Object,
+      default: () => ({})
+    },
+
+    useHeader: {
+      type: Boolean
+    },
+
+    formMode: {
+      type: Boolean
+    }
+  },
+
+  data () {
+    return {
+      slideImage: 0
+    }
+  },
+
+  computed: {
+    bgImagePositionClass () {
+      return `bg-position-${this.bgImagePosition}`
+    },
+
+    hasImages () {
+      return this.images.length > 1
+    },
+
+    imagesLength () {
+      return this.images?.length
+    },
+
+    imagesList () {
+      return this.imagesLength && this.images.slice(0, 3)
+    },
+
+    cardClasses () {
+      return this.formMode ? 'bg-white border-primary no-shadow' : 'box-shadow-1'
+    },
+
+    gutterClass () {
+      return `q-col-gutter-${this.gutter}`
+    },
+
+    hasActionsSlot () {
+      return !!this.$slots.actions
+    }
+  },
+
+  methods: {
+    getNavigationIcon (active, btn) {
+      return active ? 'o_radio_button_checked' : btn.icon
+    }
+  }
+}
+</script>

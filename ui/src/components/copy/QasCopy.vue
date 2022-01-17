@@ -12,6 +12,8 @@
 import { copyToClipboard } from 'quasar'
 
 export default {
+  name: 'QasCopy',
+
   props: {
     icon: {
       default: 'o_file_copy',

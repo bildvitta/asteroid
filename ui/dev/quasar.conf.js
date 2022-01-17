@@ -21,7 +21,7 @@ module.exports = function (ctx) {
     ],
 
     framework: {
-      lang: 'pt-br',
+      lang: 'pt-BR',
       iconSet: 'material-icons-outlined',
 
       config: {},

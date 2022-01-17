@@ -15,6 +15,8 @@ const defaultModes = {
 }
 
 export default {
+  name: 'QasNumericInput',
+
   props: {
     allowNegative: {
       default: true,
@@ -77,7 +79,7 @@ export default {
   },
 
   async created () {
-    const AutoNumeric = (await import('autoNumeric')).default
+    const AutoNumeric = (await import('autonumeric')).default
     const autoNumericPredefinedOptions = AutoNumeric.getPredefinedOptions()
 
     let option = this.preset || this.defaultMode

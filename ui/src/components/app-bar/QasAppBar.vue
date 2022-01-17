@@ -78,6 +78,7 @@ export default {
 
     title: {
       default: '',
+      type: String,
       required: true
     },
 
