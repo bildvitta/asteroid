@@ -1,13 +1,31 @@
 <template>
   <q-page class="container q-py-lg">
-    <qas-select-list :list="list">
+    <qas-select-list v-model="model" :list="list" />
 
+    template item
+    <qas-select-list v-model="model2" :list="list">
+      <template #item="{ add }">
+        <div>
+          <q-btn label="mudar o valor" @click="add({ label: 'EOQ', value: 'aaaaa' })"></q-btn>
+        </div>
+      </template>
     </qas-select-list>
+
+    <div>
+      model: {{ model }}
+    </div>
   </q-page>
 </template>
 
 <script>
 export default {
+  data () {
+    return {
+      model: [],
+      model2: []
+    }
+  },
+
   computed: {
     list () {
       return [

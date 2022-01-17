@@ -33,7 +33,6 @@ export default {
 
     slots () {
       const { default: _, ...slots } = this.$slots
-      console.log(!!slots.loading)
       return slots
     },
 
@@ -42,7 +41,6 @@ export default {
     },
 
     showLabel () {
-      console.log(this.$attrs, 'hasLabel')
       return this.hasLabel && !(this.hideLabelOnSmallScreen && this.$_isSmall)
     }
   }

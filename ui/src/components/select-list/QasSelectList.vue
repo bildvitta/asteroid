@@ -2,8 +2,8 @@
   <qas-search-box class="q-pa-md" :fuse-options="fuseOptions" :list="sortedList">
     <template #default="{ results }">
       <q-list separator>
-        <q-item v-for="(result) in results" :key="result.value">
-          <slot name="item" v-bind="self">
+        <q-item v-for="result in results" :key="result.value">
+          <slot name="item" v-bind="slotData">
             <slot name="item-section" :result="result">
               <q-item-section class="items-start text-bold">
                 <div :class="labelClass" @click="redirectRoute(result)">{{ result.label }}</div>
@@ -11,7 +11,7 @@
             </slot>
 
             <q-item-section avatar>
-              <slot name="item-action" v-bind="self">
+              <slot name="item-action" v-bind="slotData">
                 <qas-btn v-bind="getButtonProps(result)" @click="handleClick(result)" />
               </slot>
             </q-item-section>
@@ -70,7 +70,11 @@ export default {
     }
   },
 
-  emits: ['update:modelValue', 'added'],
+  emits: [
+    'update:modelValue',
+    'added',
+    'removed'
+  ],
 
   data () {
     return {
@@ -88,8 +92,13 @@ export default {
       return this.isRedirectEnabled ? 'cursor-pointer' : ''
     },
 
-    self () {
-      return this
+    slotData () {
+      return {
+        add: this.add,
+        handleClick: this.handleClick,
+        remove: this.remove,
+        updateModel: this.updateModel
+      }
     }
   },
 
@@ -175,8 +184,8 @@ export default {
         : sortBy(this.options, option => !this.modelValue.includes(option.value))
     },
 
-    updateModel () {
-      this.$emit('update:modelValue', this.values)
+    updateModel (model) {
+      this.$emit('update:modelValue', model || this.values)
     }
   }
 }

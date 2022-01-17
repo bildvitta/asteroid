@@ -128,6 +128,7 @@ Sincronizado em _13/01/2022 as 18h23_.
 
 - Propriedade `options` nomeado para `list`.
 - Alterado valor "default" da propriedade `label` para `Configurações.
+- Scoped Slot `item` e `item-action` agora só tem acesso aos metodos `add`, `handleClick`, `updateModel` e `remove`.
 
 ## Helpers
 
