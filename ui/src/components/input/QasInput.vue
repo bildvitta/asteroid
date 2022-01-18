@@ -42,7 +42,6 @@ export default {
 
     mask () {
       const { mask } = this.$attrs
-      console.log(mask, '<< mnas?')
       const hasDefaultMask = Object.prototype.hasOwnProperty.call(this.masks, mask)
 
       return hasDefaultMask ? this.masks[mask]() : mask
