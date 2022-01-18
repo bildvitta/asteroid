@@ -1,6 +1,6 @@
 <template>
   <q-expansion-item v-if="item.children" dense :dense-toggle="!isFirstLevel" expand-icon="keyboard_arrow_down" expand-icon-class="text-grey-5" expand-separator :icon="item.icon" :label="item.name" :switch-toggle-side="!isFirstLevel">
-    <doc-menu-item v-for="(subitem, index) in item.children" :key="index" :level="nextLevel" :item="subitem" />
+    <doc-menu-item v-for="(subitem, index) in item.children" :key="index" :item="subitem" :level="nextLevel" />
   </q-expansion-item>
 
   <q-item v-else :dense="!isFirstLevel" :inset-level="insetLevel" :to="item.path">
