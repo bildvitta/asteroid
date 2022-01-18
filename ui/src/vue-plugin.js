@@ -13,6 +13,7 @@ import QasCopy from './components/copy/QasCopy.vue'
 import QasDebugger from './components/debugger/QasDebugger.vue'
 import QasInput from './components/input/QasInput.vue'
 import QasLabel from './components/label/QasLabel.vue'
+import QasListItems from './components/list-items/QasListItems.vue'
 import QasNumericInput from './components/numeric-input/QasNumericInput.vue'
 import QasPasswordInput from './components/password-input/QasPasswordInput.vue'
 import QasPasswordStrengthChecker from './components/password-strength-checker/QasPasswordStrengthChecker.vue'
@@ -44,6 +45,7 @@ function install (app) {
   app.component('QasDebugger', QasDebugger)
   app.component('QasInput', QasInput)
   app.component('QasLabel', QasLabel)
+  app.component('QasListItems', QasListItems)
   app.component('QasNumericInput', QasNumericInput)
   app.component('QasPasswordInput', QasPasswordInput)
   app.component('QasPasswordStrengthChecker', QasPasswordStrengthChecker)
@@ -76,6 +78,7 @@ export {
   QasDebugger,
   QasInput,
   QasLabel,
+  QasListItems,
   QasNumericInput,
   QasPasswordInput,
   QasPasswordStrengthChecker,

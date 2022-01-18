@@ -105,6 +105,7 @@ Sincronizado em _10/01/2022 as 18h34_.
 Sincronizado em _13/01/2022 as 14h46_.
 
 - Propriedade `hideEmptySlot` alterada para `useEmptySlot`.
+- Propriedade `value` alterada para `modelValue`.
 - Slot `empty` alterado para `empty-result`.
 - Evento `input` alterado para `update:modelValue`.
 - Evento `emptyResult` alterado para `empty-result`.
@@ -128,7 +129,23 @@ Sincronizado em _13/01/2022 as 18h23_.
 
 - Propriedade `options` nomeado para `list`.
 - Alterado valor "default" da propriedade `label` para `Configurações.
+- Propriedade `value` alterada para `modelValue`.
 - Scoped Slot `item` e `item-action` agora só tem acesso aos metodos `add`, `handleClick`, `updateModel` e `remove`.
+- Evento `input` alterado para `update:modelValue`.
+
+### QasInput
+
+Sincronizado em _18/01/2022 as 16h53_.
+
+- Propriedade `value` alterada para `modelValue`.
+- Evento `input` alterado para `update:modelValue`.
+
+### QasListItems
+
+Sincronizado em _18/01/2022 as 19h11_.
+
+- Adicionado propriedade `useSectionActions` para controlar o "q-item-section side".
+- Propriedade `useIconRedirect` alterada para `redirectOnIcon` com valor "default" `true`.
 
 ## Helpers
 
