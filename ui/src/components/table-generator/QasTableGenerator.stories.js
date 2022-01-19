@@ -22,7 +22,7 @@ export default {
       description: 'Table columns and order.'
     },
 
-    emptyResultValue:{
+    emptyResultText: {
       description: 'Message for fields with empty values.'
     },
 

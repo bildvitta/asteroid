@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## 2.13.0 - 2021-01-12
 
 ### Added
+- Prop `emptyResultText` in `generator.js`
 - Added template for pull requests.
 - New component `QasLayout`.
 

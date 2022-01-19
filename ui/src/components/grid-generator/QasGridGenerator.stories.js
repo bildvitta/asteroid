@@ -35,7 +35,7 @@ export default {
       description: 'CSS classes for each result value.'
     },
 
-    emptyResultValue:{
+    emptyResultText: {
       description: 'Message for fields with empty values.'
     },
 

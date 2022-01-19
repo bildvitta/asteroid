@@ -14,19 +14,15 @@
 import { extend } from 'quasar'
 import { humanize } from '../../helpers/filters'
 import screen from '../../mixins/screen'
+import generatorMixin from '../../mixins/generator'
 
 export default {
-  mixins: [screen],
+  mixins: [screen, generatorMixin],
 
   props: {
     columns: {
       default: () => [],
       type: Array
-    },
-
-    emptyResultValue: {
-      default: '-',
-      type: String
     },
 
     fields: {
@@ -119,7 +115,7 @@ export default {
       return results.map((result, index) => {
         for (const key in result) {
           result.default = this.results[index]
-          result[key] = humanize(this.fields[key], result[key]) || this.emptyResultValue
+          result[key] = humanize(this.fields[key], result[key]) || this.emptyResultText
         }
 
         return result
