@@ -1,7 +1,7 @@
 <template>
   <div class="q-gutter-sm q-pa-md">
-    <qas-btn color="primary" label="Home Page" outline to="/" />
-    <qas-btn color="secondary" label="Home Page Delay" outline to="/" @click="openLinkWithDelay" />
+    <q-btn color="primary" label="Home Page" outline to="/" />
+    <q-btn color="secondary" label="Home Page Delay" outline to="/" @click="openLinkWithDelay" />
   </div>
 </template>
 
