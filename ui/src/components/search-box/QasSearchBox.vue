@@ -66,7 +66,7 @@ export default {
     }
   },
 
-  emits: ['update:modelValue', 'empty-result'],
+  emits: ['empty-result', 'update:modelValue'],
 
   data () {
     return {

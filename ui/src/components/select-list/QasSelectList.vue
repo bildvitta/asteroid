@@ -54,25 +54,25 @@ export default {
       type: Array
     },
 
+    modelValue: {
+      type: Array,
+      default: () => []
+    },
+
     to: {
       default: () => ({}),
       type: Object
     },
 
     toIdentifier: {
-      type: String,
-      default: 'value'
-    },
-
-    modelValue: {
-      type: Array,
-      default: () => []
+      default: 'value',
+      type: String
     }
   },
 
   emits: [
-    'update:modelValue',
     'added',
+    'update:modelValue',
     'removed'
   ],
 
@@ -132,6 +132,19 @@ export default {
       this.$emit('added', item)
     },
 
+    getButtonProps ({ value }) {
+      const isSelected = this.values.includes(value)
+
+      return {
+        size: 'sm',
+        hideLabelOnSmallScreen: true,
+        dense: this.$_isSmall,
+        icon: !this.$_isSmall ? undefined : isSelected ? 'o_close' : 'o_add',
+        label: isSelected ? 'Remover' : 'Adicionar',
+        outline: isSelected
+      }
+    },
+
     handleClick (item) {
       return this.values.includes(item.value) ? this.remove(item) : this.add(item)
     },
@@ -163,19 +176,6 @@ export default {
       this.updateModel()
 
       this.$emit('removed', item, index)
-    },
-
-    getButtonProps ({ value }) {
-      const isSelected = this.values.includes(value)
-
-      return {
-        size: 'sm',
-        hideLabelOnSmallScreen: true,
-        dense: this.$_isSmall,
-        icon: !this.$_isSmall ? undefined : isSelected ? 'o_close' : 'o_add',
-        label: isSelected ? 'Remover' : 'Adicionar',
-        outline: isSelected
-      }
     },
 
     sortList () {

@@ -32,7 +32,7 @@ export default {
 
   props: {
     iconProps: {
-      default: () => ({ name: 'o_chevron_right', color: 'primary' }),
+      default: () => ({ color: 'primary', name: 'o_chevron_right' }),
       type: Object
     },
 
@@ -46,14 +46,14 @@ export default {
       type: String
     },
 
-    to: {
-      required: false,
-      type: Object
-    },
-
     redirectOnIcon: {
       default: true,
       type: Boolean
+    },
+
+    to: {
+      required: false,
+      type: Object
     },
 
     useSectionActions: {
@@ -63,15 +63,15 @@ export default {
   },
 
   methods: {
-    redirect (item) {
-      return this.redirectOnIcon ? undefined : this.getRedirectPayload(item)
-    },
-
     getRedirectPayload (item) {
       return {
         params: { [this.redirectKey]: item[this.redirectKey] },
         ...this.to
       }
+    },
+
+    redirect (item) {
+      return this.redirectOnIcon ? undefined : this.getRedirectPayload(item)
     }
   }
 }
