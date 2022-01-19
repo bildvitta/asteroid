@@ -20,14 +20,14 @@ export default {
 
   props: {
     align: {
-      type: String,
       default: 'end',
+      type: String,
       validator: value => ['start', 'around', 'between', 'center', 'end'].includes(value)
     },
 
     gutter: {
-      type: String,
       default: 'md',
+      type: String,
       validator: value => ['xs', 'sm', 'md', 'lg', 'xl'].includes(value)
     }
   },

@@ -37,20 +37,20 @@ export default {
       type: String
     },
 
-    tabClass: {
-      default: 'text-primary',
-      type: String
-    },
-
     modelValue: {
       default: '',
       type: String
     },
 
+    tabClass: {
+      default: 'text-primary',
+      type: String
+    },
+
     tabs: {
       default: () => ({}),
-      type: Object,
-      required: true
+      required: true,
+      type: Object
     }
   },
 

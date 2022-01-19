@@ -7,8 +7,10 @@
             <template #navigation-icon="{ active, btnProps, onClick }">
               <qas-btn color="white" dense flat :icon="getNavigationIcon(active, btnProps)" round size="sm" @click="onClick" />
             </template>
+
             <q-carousel-slide v-for="(item, index) in imagesList" :key="index" class="bg-no-repeat" :class="bgImagePositionClass" :img-src="item" :name="index" />
           </q-carousel>
+
           <div class="absolute-top flex items-center q-pa-md">
             <slot name="carousel-header" />
           </div>
@@ -44,8 +46,8 @@ export default {
     },
 
     images: {
-      type: Array,
-      default: () => ([])
+      default: () => ([]),
+      type: Array
     },
 
     outlined: {
@@ -53,8 +55,8 @@ export default {
     },
 
     result: {
-      type: Object,
-      default: () => ({})
+      default: () => ({}),
+      type: Object
     },
 
     useHeader: {
@@ -77,18 +79,6 @@ export default {
       return `bg-position-${this.bgImagePosition}`
     },
 
-    hasImages () {
-      return this.images.length > 1
-    },
-
-    imagesLength () {
-      return this.images?.length
-    },
-
-    imagesList () {
-      return this.imagesLength && this.images.slice(0, 3)
-    },
-
     cardClasses () {
       return this.formMode ? 'bg-white border-primary no-shadow' : 'box-shadow-1'
     },
@@ -99,6 +89,18 @@ export default {
 
     hasActionsSlot () {
       return !!this.$slots.actions
+    },
+
+    hasImages () {
+      return this.images.length > 1
+    },
+
+    imagesLength () {
+      return this.images?.length
+    },
+
+    imagesList () {
+      return this.imagesLength && this.images.slice(0, 3)
     }
   },
 
