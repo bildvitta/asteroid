@@ -21,6 +21,7 @@ import QasSearchBox from './components/search-box/QasSearchBox.vue'
 import QasSelect from './components/select/QasSelect.vue'
 import QasSelectList from './components/select-list/QasSelectList.vue'
 import QasTabsGenerator from './components/tabs-generator/QasTabsGenerator.vue'
+import QasTransfer from './components/transfer/QasTransfer.vue'
 
 import {
   NotifyError,
@@ -53,6 +54,7 @@ function install (app) {
   app.component('QasSelect', QasSelect)
   app.component('QasSelectList', QasSelectList)
   app.component('QasTabsGenerator', QasTabsGenerator)
+  app.component('QasTransfer', QasTransfer)
 
   app.config.globalProperties.$qas = {
     error: NotifyError,
@@ -86,6 +88,7 @@ export {
   QasSelect,
   QasSelectList,
   QasTabsGenerator,
+  QasTransfer,
 
   NotifyError,
   NotifySuccess,

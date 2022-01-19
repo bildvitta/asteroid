@@ -1,6 +1,6 @@
 <template>
   <q-page class="container q-py-lg">
-    <qas-search-box :fuse-options="{ keys: ['label'] }" :list="[ {label: 'Paul', value: 1 },{ label: 'Walker', value: '2'} ]" @empty-result="onEmptyResult" :use-empty-results="false">
+    <qas-search-box :fuse-options="{ keys: ['label'] }" :list="list" @empty-result="onEmptyResult" :use-empty-results="false">
       <template #default="{ results }">
         Results: <pre>{{ results }}</pre>
       </template>
@@ -9,14 +9,30 @@
         Sem resultados
       </template>
     </qas-search-box>
+
+    <div class="q-ma-lg">
+      {{ list }}
+    </div>
+
+    <qas-btn @click="changeList">Mudar lista!</qas-btn>
   </q-page>
 </template>
 
 <script>
 export default {
+  data () {
+    return {
+      list: [ {label: 'Paul', value: '1' }, { label: 'Walker', value: '2'} ]
+    }
+  },
+
   methods: {
     onEmptyResult () {
       alert('Empty results')
+    },
+
+    changeList () {
+      this.list = [ {label: 'Paul 2', value: '1' }, { label: 'Walker 2', value: '2'} ]
     }
   }
 }

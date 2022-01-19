@@ -147,6 +147,15 @@ Sincronizado em _18/01/2022 as 19h11_.
 - Adicionado propriedade `useSectionActions` para controlar o "q-item-section side".
 - Propriedade `useIconRedirect` alterada para `redirectOnIcon` com valor "default" `true`.
 
+### QasTransfer
+
+Sincronizado em _19/01/2022 as 16h02_.
+
+- Propriedade `value` alterada para `modelValue`.
+- Propriedade `hideEmptySlot` alterada para `useEmptySlot`.
+- Alterado logica de onde chamar o `update:modelValue`.
+- Evento `input` alterado para `update:modelValue`.
+
 ## Helpers
 
 ### label.js
