@@ -100,7 +100,7 @@ export default {
     },
 
     normalizedResults () {
-      return this.results.map(result => result?.item)
+      return this.results.map(result => result?.item) || []
     }
   },
 
@@ -113,9 +113,13 @@ export default {
       !value && this.$emit('empty-result')
     },
 
-    list (value) {
-      this.fuse.list = value
-      this.setResults(this.search)
+    list: {
+      handler (value) {
+        this.fuse.list = value
+        this.setResults(this.search)
+      },
+
+      deep: true
     },
 
     search: {
