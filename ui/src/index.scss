@@ -1,9 +1,8 @@
-@import 'quasar/src/css/variables.sass';
+@import 'quasar/src/css/variables';
 
 // Quasar variables
 $primary: var(--q-primary);
 $primary-contrast: var(--q-primary-contrast);
-
 $secondary: var(--q-secondary);
 $secondary-contrast: var(--q-secondary-contrast);
 
@@ -16,16 +15,17 @@ $secondary-contrast: var(--q-secondary-contrast);
 $background-color: var(--qas-background-color);
 $generic-border-radius: var(--qas-generic-border-radius);
 
-@import './css/background.scss';
-@import './css/border.scss';
-@import './css/border-radius.scss';
-@import './css/container.scss';
-@import './css/fonts.scss';
-@import './css/line-height.scss';
-@import './css/opacity.scss';
-@import './css/shadow.scss';
-@import './css/text.scss';
-@import './css/transitions.scss';
-@import './css/unset.scss';
+@import './css/background';
+@import './css/border';
+@import './css/border-radius';
+@import './css/container';
+@import './css/fonts';
+@import './css/line-height';
+@import './css/opacity';
+@import './css/shadow';
+@import './css/text';
+@import './css/transitions';
+@import './css/unset';
 
-@import './css/design-system.scss';
+// Design System
+@import './css/design-system';

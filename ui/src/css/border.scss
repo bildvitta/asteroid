@@ -5,17 +5,18 @@
   }
 }
 
-@mixin setBorderColor($name, $color) {
+@mixin set-border-color($name, $color) {
   .border-#{$name} {
-    @extend %border-color;
     border: 0 solid $color !important;
+
+    @extend %border-color;
   }
 }
 
-@include setBorderColor(primary, $primary);
-@include setBorderColor(primary-contrast, $primary-contrast);
-@include setBorderColor(secondary, $secondary);
-@include setBorderColor(secondary-contrast, $secondary-contrast);
+@include set-border-color(primary, $primary);
+@include set-border-color(primary-contrast, $primary-contrast);
+@include set-border-color(secondary, $secondary);
+@include set-border-color(secondary-contrast, $secondary-contrast);
 
 // Direction
 .border-top {
