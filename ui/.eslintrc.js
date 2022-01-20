@@ -14,7 +14,7 @@ module.exports = {
   ],
 
   plugins: [
-    'vue',
+    'vue'
   ],
 
   rules: {

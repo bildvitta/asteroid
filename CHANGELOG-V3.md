@@ -163,6 +163,15 @@ Sincronizado em _19/01/2022 as 16h02_.
 - O componente está conceituralmente incorreto, pois não é um componente de tooltip, mas sim um componente de icon com tooltip dentro, e um comportamento de notify.
 - Utilizar o [QTooltip](https://quasar.dev/vue-components/tooltip#introduction) do próprio quasar nestes casos.
 
+### QasSignatureOptions
+
+Sincronizado em _19/01/2022 as 16h02_.
+
+- Propriedade `options` alterada para `signatureOptions`.
+- Propriedade sync `isEmpty` removida e alterada para `v-model:emptyModel`.
+- Biblioteca `signature_pad` versão `^3.0.0-beta.4` atualizada para a versão `^4.0.1`.
+- Evento `update:emptyModel` adicionado.
+
 ## Helpers
 
 ### label.js
