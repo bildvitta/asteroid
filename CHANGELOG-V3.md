@@ -182,6 +182,14 @@ Sincronizado em _20/01/2022 as 18h30_.
 - Evento `update:sortedModel` adicionado.
 - Obs: O metodo `replace` ainda não foi testado pois não temos uma API para testar.
 
+### QasDialog
+
+Sincronizado em _20/01/2022 as 18h30_.
+
+- Propriedade `value` alterada para `modelValue`.
+- Propriedade `btnActions` alterada para `btnActionsProps`.
+- Evento `input` alterado para `update:modelValue`.
+
 ## Helpers
 
 ### label.js

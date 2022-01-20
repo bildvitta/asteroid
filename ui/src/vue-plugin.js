@@ -11,6 +11,7 @@ import QasBtn from './components/btn/QasBtn.vue'
 import QasCard from './components/card/QasCard.vue'
 import QasCopy from './components/copy/QasCopy.vue'
 import QasDebugger from './components/debugger/QasDebugger.vue'
+import QasDialog from './components/dialog/QasDialog.vue'
 import QasInput from './components/input/QasInput.vue'
 import QasLabel from './components/label/QasLabel.vue'
 import QasListItems from './components/list-items/QasListItems.vue'
@@ -46,6 +47,7 @@ function install (app) {
   app.component('QasCard', QasCard)
   app.component('QasCopy', QasCopy)
   app.component('QasDebugger', QasDebugger)
+  app.component('QasDialog', QasDialog)
   app.component('QasInput', QasInput)
   app.component('QasLabel', QasLabel)
   app.component('QasListItems', QasListItems)
@@ -82,6 +84,7 @@ export {
   QasCard,
   QasCopy,
   QasDebugger,
+  QasDialog,
   QasInput,
   QasLabel,
   QasListItems,
