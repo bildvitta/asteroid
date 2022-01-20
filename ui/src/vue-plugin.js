@@ -20,6 +20,7 @@ import QasPasswordStrengthChecker from './components/password-strength-checker/Q
 import QasSearchBox from './components/search-box/QasSearchBox.vue'
 import QasSelect from './components/select/QasSelect.vue'
 import QasSelectList from './components/select-list/QasSelectList.vue'
+import QasSignaturePad from './components/signature-pad/QasSignaturePad.vue'
 import QasTabsGenerator from './components/tabs-generator/QasTabsGenerator.vue'
 import QasTransfer from './components/transfer/QasTransfer.vue'
 
@@ -53,6 +54,7 @@ function install (app) {
   app.component('QasSearchBox', QasSearchBox)
   app.component('QasSelect', QasSelect)
   app.component('QasSelectList', QasSelectList)
+  app.component('QasSignaturePad', QasSignaturePad)
   app.component('QasTabsGenerator', QasTabsGenerator)
   app.component('QasTransfer', QasTransfer)
 
@@ -87,6 +89,7 @@ export {
   QasSearchBox,
   QasSelect,
   QasSelectList,
+  QasSignaturePad,
   QasTabsGenerator,
   QasTransfer,
 

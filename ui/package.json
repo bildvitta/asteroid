@@ -31,6 +31,7 @@
   },
   "dependencies": {
     "autonumeric": "^4.6.0",
-    "fuse.js": "^6.5.3"
+    "fuse.js": "^6.5.3",
+    "signature_pad": "^4.0.1"
   }
 }
