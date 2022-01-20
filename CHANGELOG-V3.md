@@ -172,14 +172,15 @@ Sincronizado em _20/01/2022 as 15h10_.
 - Biblioteca `signature_pad` versão `^3.0.0-beta.4` atualizada para a versão `^4.0.1`.
 - Evento `update:emptyModel` adicionado.
 
-### QasSortable
+### QasSortable (*)
 
-Sincronizado em _19/01/2022 as 16h02_.
+Sincronizado em _20/01/2022 as 18h30_.
 
 - Propriedade `options` alterada para `sortableOptions`.
-- Propriedade sync `isEmpty` removida e alterada para `v-model:emptyModel`.
-- Biblioteca `signature_pad` versão `^3.0.0-beta.4` atualizada para a versão `^4.0.1`.
-- Evento `update:emptyModel` adicionado.
+- Slot scoped `sorted` removido e adicionado `v-model:sortedModel` (usado somente para ter acesso reativo da lista sorteada, não é um two way data bind).
+- Biblioteca `sortablejs` versão `^1.12.0` atualizada para a versão `^1.14.0`.
+- Evento `update:sortedModel` adicionado.
+- Obs: O metodo `replace` ainda não foi testado pois não temos uma API para testar.
 
 ## Helpers
 

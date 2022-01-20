@@ -1,6 +1,6 @@
 <template>
   <component :is="tag" ref="sortableItems">
-    <slot :sorted="sorted" />
+    <slot />
   </component>
 </template>
 
@@ -9,6 +9,8 @@ import { Loading, extend } from 'quasar'
 import { NotifyError } from '../../plugins'
 
 export default {
+  name: 'QasSortable',
+
   props: {
     entity: {
       default: '',
@@ -33,10 +35,19 @@ export default {
     url: {
       default: '',
       type: String
+    },
+
+    sortedModel: {
+      default: () => [],
+      type: Array
     }
   },
 
-  emits: ['sort', 'success'],
+  emits: [
+    'update:sortedModel',
+    'sort',
+    'success'
+  ],
 
   data () {
     return {
@@ -77,8 +88,6 @@ export default {
         this.$emit('sort', event)
       }
     })
-
-    console.log(this.sortable)
   },
 
   unmounted () {
@@ -93,6 +102,7 @@ export default {
       NotifyError('Ops! Erro ao ordernar itens.', exception)
     },
 
+    // TODO precisa testar este metodo quando tivermos uma API para teste.
     async replace () {
       Loading.show()
 
@@ -119,6 +129,11 @@ export default {
 
     setSortedValue (value) {
       this.sorted = extend(true, [], value || this.results)
+      this.updateSortedModel()
+    },
+
+    updateSortedModel () {
+      return this.$emit('update:sortedModel', this.sorted)
     }
   }
 }

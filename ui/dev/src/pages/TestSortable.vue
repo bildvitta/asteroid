@@ -1,12 +1,12 @@
 <template>
   <q-page class="container">
-    <qas-sortable :results="results">
-      <template #sorted="{ sorted }">
-        <div>
-          sorteddd: <pre>{{ sorted }}</pre>
-        </div>
-      </template>
+    <qas-sortable v-model:sortedModel="model" :results="results" class="row">
+      <div v-for="(result, index) in results" :key="index">
+        <img style="max-width: 300px;" :src="result.photo"/>
+      </div>
     </qas-sortable>
+
+    Model: <pre>{{ model }}</pre>
   </q-page>
 </template>
 
@@ -14,7 +14,7 @@
 export default {
   data () {
     return {
-      model: 'tab1'
+      model: []
     }
   },
 
