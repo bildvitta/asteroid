@@ -24,6 +24,9 @@ Sincronizado em _19/10/2021 as 17h17_.
 - Propriedade `value` alterada para `modelValue`.
 - Evento `input` alterado para `update:modelValue`.
 
+### ~~QasAppsBar~~ (removido)
+- Componente era utilizado para navegação de aplicativos (modulos), mas isto foi alterado, agora essa navegação é feita por um select no menu lateral dentro do `QasAppMenu`.
+
 ### QasBox
 
 Sincronizado em _19/10/2021 as 17h17_.
@@ -121,7 +124,7 @@ Sincronizado em _13/01/2022 as 15h13_.
 Sincronizado em _13/01/2022 as 18h23_.
 
 - Propriedade `hideLabel` removido (para remover o label é só não passar ele).
-- Alterado valor "default" da propriedade `label` para `Configurações.
+- Alterado valor "default" da propriedade `label` para `Configurações`.
 
 ### QasSelectList
 
@@ -155,6 +158,10 @@ Sincronizado em _19/01/2022 as 16h02_.
 - Propriedade `hideEmptySlot` alterada para `useEmptySlot`.
 - Alterado logica de onde chamar o `update:modelValue`.
 - Evento `input` alterado para `update:modelValue`.
+
+### ~~QasTooltip~~ (removido)
+- O componente está conceituralmente incorreto, pois não é um componente de tooltip, mas sim um componente de icon com tooltip dentro, e um comportamento de notify.
+- Utilizar o [QTooltip](https://quasar.dev/vue-components/tooltip#introduction) do próprio quasar nestes casos.
 
 ## Helpers
 
