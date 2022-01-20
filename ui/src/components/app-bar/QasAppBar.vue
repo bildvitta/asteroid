@@ -152,12 +152,14 @@ export default {
 </script>
 
 <style lang="scss">
+@use 'sass:map';
+
 .qas-toolbar {
   height: 70px;
 
   &__brand {
     height: 24px;
-    margin-right: map-get($space-sm, x);
+    margin-right: map.get($space-sm, x);
     position: relative;
     top: 4px;
   }

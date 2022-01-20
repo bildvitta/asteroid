@@ -96,6 +96,11 @@ export default {
 
 <style lang="scss">
 .q-expansion-item {
+  .q-expansion-item__toggle-icon {
+    color: var(--q-primary);
+    opacity: 0.2;
+  }
+
   .qas-app-menu__header--active {
     > .q-focus-helper {
       background-color: currentColor;
@@ -105,11 +110,6 @@ export default {
     .q-expansion-item__toggle-icon {
       opacity: 1;
     }
-  }
-
-  .q-expansion-item__toggle-icon {
-    color: var(--q-primary);
-    opacity: 0.2;
   }
 }
 </style>

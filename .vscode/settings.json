@@ -1,0 +1,12 @@
+{
+  "eslint.workingDirectories": [
+    "./app-extension",
+    "./docs",
+    "./ui"
+  ],
+
+  "stylelint.validate": [
+    "scss",
+    "vue"
+  ]
+}
