@@ -2,6 +2,10 @@
   "scripts": {
     "lint": "npm run lint:styles",
     "lint:styles": "npx stylelint '**/*.scss' '**/*.vue' --cache",
+    "setup": "npm run setup:app-extension && npm run setup:docs && npm run setup:ui",
+    "setup:app-extension": "cd app-extension && npm i && cd ..",
+    "setup:docs": "cd docs && npm i && cd ..",
+    "setup:ui": "cd ui && npm i && cd ..",
     "prepare": "husky install"
   },
   "devDependencies": {
