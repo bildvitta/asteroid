@@ -1,12 +1,10 @@
 {
-  "eslint.workingDirectories": [
-    "./app-extension",
-    "./docs",
-    "./ui"
-  ],
+  "eslint.validate": ["javascript", "vue"],
+  "eslint.workingDirectories": ["./app-extension", "./docs", "./ui"],
 
-  "stylelint.validate": [
-    "scss",
-    "vue"
-  ]
+  "stylelint.validate": ["scss", "vue"],
+
+  "vetur.experimental.templateInterpolationService": true,
+  "vetur.format.enable": false,
+  "vetur.validation.template": false
 }
