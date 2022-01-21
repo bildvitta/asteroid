@@ -1,5 +1,5 @@
 <template>
-  <q-dialog ref="dialog" :model-value="open" :persistent="persistent" @hide="onDialogHide">
+  <q-dialog ref="dialog" :model-value="model" :persistent="persistent" @hide="onDialogHide" @update:model-value="updateModelValue">
     <q-card v-bind="cardProps" class="q-pa-sm" :style="style">
       <q-card-section>
         <slot name="header">
@@ -97,7 +97,7 @@ export default {
 
   data () {
     return {
-      open: false,
+      model: false,
       dialogMethods: {
         focus: null,
         hide: null,
@@ -141,16 +141,6 @@ export default {
       return this.$q.screen.xs
     },
 
-    model: {
-      get () {
-        return this.modelValue
-      },
-
-      set (value) {
-        return this.$emit('update:modelValue', value)
-      }
-    },
-
     style () {
       return {
         maxWidth: this.maxWidth || (this.isSmallScreen ? '' : '600px'),
@@ -160,6 +150,15 @@ export default {
 
     componentTag () {
       return this.useForm ? 'q-form' : 'div'
+    }
+  },
+
+  watch: {
+    modelValue: {
+      handler (value) {
+        this.model = value
+      },
+      immediate: true
     }
   },
 
@@ -193,7 +192,7 @@ export default {
     },
 
     updateModelValue (value) {
-      this.$emit('update:open', value)
+      this.$emit('update:modelValue', value)
     }
   }
 }

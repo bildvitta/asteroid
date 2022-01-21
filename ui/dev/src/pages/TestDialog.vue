@@ -2,10 +2,10 @@
   <q-page padding>
     <!-- Default -->
     <q-btn @click="openDialogDefault">
-      Open Dialog Default
+      Open Dialog Default {{ isDialogDefault }}
     </q-btn>
 
-    <qas-dialog v-model:open="isDialogDefault" v-bind="dialogConfigDefault" />
+    <qas-dialog v-model="isDialogDefault" v-bind="dialogConfigDefault" />
 
     <!-- Form -->
     <q-btn @click="openDialogForm">
@@ -100,7 +100,7 @@ export default {
         componentProps: {
           card: {
             title: 'This is a title. aaa',
-            description: 'This is a description.',
+            description: 'This is a description.'
           },
           cancel: {
             props: { label: 'Cancel', outline: true }
