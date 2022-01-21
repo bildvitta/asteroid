@@ -188,6 +188,8 @@ Sincronizado em _20/01/2022 as 18h30_.
 
 - Propriedade `value` alterada para `modelValue`.
 - Propriedade `btnActions` alterada para `btnActionsProps`.
+- Propriedade `usePlugin` adicionada para utilizar o componente no `this.$q.dialog` como "custom dialog" `btnCancelProps`.
+- Removido computada e metodos referente `QDialog`, utilizar os metodos como `show()` pegando direto a referencia do componente `QasDialog`.
 - Evento `input` alterado para `update:modelValue`.
 
 ## Helpers
@@ -197,3 +199,9 @@ Sincronizado em _20/01/2022 as 18h30_.
 Sincronizado em _19/10/2021 as 17h17_.
 
 - Renomeado pata `addCounterSuffix`.
+
+## Plugins
+
+### Dialog
+
+- Adicionado novo pluing de Dialog, `this.$qas.dialog()`.

@@ -27,6 +27,7 @@ import QasTabsGenerator from './components/tabs-generator/QasTabsGenerator.vue'
 import QasTransfer from './components/transfer/QasTransfer.vue'
 
 import {
+  Dialog,
   NotifyError,
   NotifySuccess
 } from './plugins'
@@ -64,13 +65,15 @@ function install (app) {
 
   app.config.globalProperties.$qas = {
     error: NotifyError,
-    success: NotifySuccess
+    success: NotifySuccess,
+    dialog: Dialog
   }
 }
 
 export {
   version,
 
+  // components
   QasActions,
   QasActionsMenu,
   QasAlert,
@@ -99,6 +102,8 @@ export {
   QasTabsGenerator,
   QasTransfer,
 
+  // plugin
+  Dialog,
   NotifyError,
   NotifySuccess,
 
