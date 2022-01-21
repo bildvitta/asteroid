@@ -1,18 +1,4 @@
 const levels = {
-  veryWeak: {
-    color: 'negative',
-    label: 'Very weak',
-    progress: 0,
-    textClass: 'text-negative'
-  },
-
-  weak: {
-    color: 'warning',
-    label: 'Weak',
-    progress: 0.25,
-    textClass: 'text-warning'
-  },
-
   good: {
     color: 'warning',
     label: 'Good',
@@ -32,6 +18,20 @@ const levels = {
     label: 'Very strong',
     progress: 1,
     textClass: 'text-positive'
+  },
+
+  veryWeak: {
+    color: 'negative',
+    label: 'Very weak',
+    progress: 0,
+    textClass: 'text-negative'
+  },
+
+  weak: {
+    color: 'warning',
+    label: 'Weak',
+    progress: 0.25,
+    textClass: 'text-warning'
   }
 }
 
@@ -49,7 +49,7 @@ export default {
     },
 
     specials: {
-      default: /[\!\@\#\$\%\^\&\*\(\)\_\+\-\=\[\]\{\}\|\;\:\'\"\,\<\.\>\/\?\`\~]/g,
+      default: /[!@#$%^&*()_+\-=[\]{}|;:'",<.>/?`~]/g,
       type: RegExp
     },
 

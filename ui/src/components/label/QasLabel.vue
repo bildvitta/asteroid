@@ -28,12 +28,12 @@ export default {
   },
 
   computed: {
-    labelWithSuffix () {
-      return addCounterSuffix(this.label, parseFloat(this.count))
-    },
-
     labelClass () {
       return `q-mb-${this.margin}`
+    },
+
+    labelWithSuffix () {
+      return addCounterSuffix(this.label, parseFloat(this.count))
     }
   }
 }

@@ -28,6 +28,11 @@ export default {
   },
 
   props: {
+    icon: {
+      default: 'o_settings',
+      type: String
+    },
+
     label: {
       default: 'Configurações',
       type: String
@@ -36,11 +41,6 @@ export default {
     list: {
       default: () => ({}),
       type: Object
-    },
-
-    icon: {
-      default: 'o_settings',
-      type: String
     }
   },
 

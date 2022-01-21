@@ -1,6 +1,7 @@
 {
   "scripts": {
-    "lint": "npm run lint:styles",
+    "lint": "npm run lint:scripts && npm run lint:styles",
+    "lint:scripts": "npx eslint --cache --ext .js,.vue ./",
     "lint:styles": "npx stylelint '**/*.scss' '**/*.vue' --cache",
     "setup": "npm run setup:app-extension && npm run setup:docs && npm run setup:ui",
     "setup:app-extension": "cd app-extension && npm i && cd ..",
@@ -9,6 +10,12 @@
     "prepare": "husky install"
   },
   "devDependencies": {
+    "eslint": "^7.32.0",
+    "eslint-config-standard": "^16.0.3",
+    "eslint-plugin-import": "^2.25.4",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^5.2.0",
+    "eslint-plugin-vue": "^8.3.0",
     "husky": "^7.0.4",
     "postcss-html": "^1.3.0",
     "stylelint": "^14.2.0",

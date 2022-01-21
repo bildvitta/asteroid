@@ -1,7 +1,5 @@
 <template>
   <q-select v-model="model" v-bind="attributes" @filter="filterOptions">
-    <slot v-for="(slot, key) in $slots" :slot="key" :name="key" />
-
     <template #append>
       <slot name="append">
         <q-icon v-if="searchable" name="o_search" />
@@ -16,6 +14,10 @@
           </q-item-section>
         </q-item>
       </slot>
+    </template>
+
+    <template v-for="(_, name) in $slots" #[name]="context">
+      <slot :name="name" v-bind="context || {}" />
     </template>
   </q-select>
 </template>
@@ -59,6 +61,8 @@ export default {
       type: String
     }
   },
+
+  emits: ['update:modelValue'],
 
   data () {
     return {

@@ -1,0 +1,7 @@
+# Config Files
+**/*rc.js
+**/*.conf.js
+**/*.config.js
+
+# Temporary Dirs
+/ui/dev

@@ -1,5 +1,5 @@
 <template>
-  <div v-if="model" class="qas-alert q-pa-lg relative-position rounded-borders" :class="classes">
+  <div v-if="model" class="q-pa-lg qas-alert relative-position rounded-borders" :class="classes">
     <qas-btn class="absolute-top-right q-mr-md q-mt-sm" :color="color" dense flat icon="o_close" rounded @click="close" />
 
     <div class="q-gutter-md q-mr-lg">
@@ -15,15 +15,15 @@
 </template>
 
 <script>
-import QasBtn from '../btn/QasBtn.vue'
 import QasBreakline from '../breakline/QasBreakline.vue'
+import QasBtn from '../btn/QasBtn.vue'
 
 export default {
   name: 'QasAlert',
 
   components: {
-    QasBtn,
-    QasBreakline
+    QasBreakline,
+    QasBtn
   },
 
   props: {
@@ -56,21 +56,21 @@ export default {
     }
   },
 
-  watch: {
-    modelValue: {
-      handler (value) {
-        this.model = value
-      },
-      immediate: true
-    }
-  },
-
   computed: {
     classes () {
       return {
         [`text-${this.color}`]: true,
         [`bg-${this.color}-contrast`]: ['primary', 'secondary'].includes(this.color)
       }
+    }
+  },
+
+  watch: {
+    modelValue: {
+      handler (value) {
+        this.model = value
+      },
+      immediate: true
     }
   },
 

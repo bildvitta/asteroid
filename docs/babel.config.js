@@ -7,9 +7,6 @@ module.exports = api => {
           ? { targets: { node: 'current' } }
           : {}
       ]
-    ],
-
-    plugins: ['@vue/babel-plugin-jsx']
+    ]
   }
 }
-

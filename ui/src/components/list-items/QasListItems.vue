@@ -52,7 +52,7 @@ export default {
     },
 
     to: {
-      required: false,
+      default: () => ({}),
       type: Object
     },
 

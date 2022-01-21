@@ -1,17 +1,17 @@
 <template>
   <q-field v-model="model">
     <template #control="{ emitValue, floatingLabel, id, value }">
-      <input v-show="floatingLabel" ref="input" class="q-field__input" :id="id" :model-value="value" @input="emitValue($event.target.value)">
+      <input v-show="floatingLabel" :id="id" ref="input" class="q-field__input" :model-value="value" @input="emitValue($event.target.value)">
     </template>
   </q-field>
 </template>
 
 <script>
 const defaultModes = {
-  integer: ['commaDecimalCharDotSeparator', 'integer'],
   decimal: 'commaDecimalCharDotSeparator',
-  percent: 'percentageEU2dec',
-  money: 'Brazilian'
+  integer: ['commaDecimalCharDotSeparator', 'integer'],
+  money: 'Brazilian',
+  percent: 'percentageEU2dec'
 }
 
 export default {
@@ -45,6 +45,7 @@ export default {
     },
 
     modelValue: {
+      default: '',
       validator (value) {
         return typeof value === 'number' || typeof value === 'string' || value === '' || value === null
       }
@@ -55,6 +56,8 @@ export default {
       type: [Boolean, String]
     }
   },
+
+  emits: ['update:modelValue'],
 
   data () {
     return {
@@ -114,7 +117,7 @@ export default {
     })
   },
 
-  beforeDestroy () {
+  beforeUnmount () {
     this.autoNumeric.remove()
   }
 }

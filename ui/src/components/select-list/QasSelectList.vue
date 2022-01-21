@@ -32,12 +32,12 @@ import QasSearchBox from '../search-box/QasSearchBox'
 export default {
   name: 'QasSelectList',
 
-  mixins: [screenMixin],
-
   components: {
     QasBtn,
     QasSearchBox
   },
+
+  mixins: [screenMixin],
 
   props: {
     deleteOnly: {
@@ -136,12 +136,12 @@ export default {
       const isSelected = this.values.includes(value)
 
       return {
-        size: 'sm',
-        hideLabelOnSmallScreen: true,
         dense: this.$_isSmall,
+        hideLabelOnSmallScreen: true,
         icon: !this.$_isSmall ? undefined : isSelected ? 'o_close' : 'o_add',
         label: isSelected ? 'Remover' : 'Adicionar',
-        outline: isSelected
+        outline: isSelected,
+        size: 'sm'
       }
     },
 

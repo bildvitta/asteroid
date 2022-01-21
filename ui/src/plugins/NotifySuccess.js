@@ -1,8 +1,8 @@
 import { Notify } from 'quasar'
 
 Notify.registerType('success', {
-  progress: true,
-  icon: 'o_check'
+  icon: 'o_check',
+  progress: true
 })
 
 export default (message, caption) => {

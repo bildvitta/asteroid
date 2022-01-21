@@ -1,7 +1,7 @@
 <template>
   <div>
-    <q-input ref="input" v-model="model" bottom-slots unmasked-value v-bind="$attrs" :mask="mask">
-      <template v-for="(_, name) in $slots" v-slot:[name]="context">
+    <q-input ref="input" v-model="model" bottom-slots v-bind="$attrs" :mask="mask" unmasked-value>
+      <template v-for="(_, name) in $slots" #[name]="context">
         <slot :name="name" v-bind="context || {}" />
       </template>
     </q-input>
@@ -22,22 +22,12 @@ export default {
   emits: ['update:modelValue'],
 
   computed: {
-    model: {
-      get () {
-        return this.modelValue
-      },
-
-      set (value) {
-        return this.$emit('update:modelValue', value)
-      }
+    hasError () {
+      return this.inputReference.hasError
     },
 
     inputReference () {
       return this.$refs.input
-    },
-
-    hasError () {
-      return this.inputReference.hasError
     },
 
     mask () {
@@ -55,6 +45,16 @@ export default {
         phone: () => this.toggleMask('(##) ####-#####', '(##) #####-####'),
         'postal-code': () => '#####-###'
       }
+    },
+
+    model: {
+      get () {
+        return this.modelValue
+      },
+
+      set (value) {
+        return this.$emit('update:modelValue', value)
+      }
     }
   },
 
@@ -69,6 +69,14 @@ export default {
   },
 
   methods: {
+    focus () {
+      return this.inputReference.focus()
+    },
+
+    resetValidation () {
+      return this.inputReference.resetValidation()
+    },
+
     toggleMask (first, second) {
       const length = first.split('#').length - 2
       return this.modelValue?.length > length ? second : first
@@ -76,14 +84,6 @@ export default {
 
     validate (value) {
       return this.inputReference.validate(value)
-    },
-
-    focus () {
-      return this.inputReference.focus()
-    },
-
-    resetValidation () {
-      return this.inputReference.resetValidation()
     }
   }
 }

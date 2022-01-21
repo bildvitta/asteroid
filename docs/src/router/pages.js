@@ -8,6 +8,6 @@ export default function () {
     const fileName = filePath.replace(/^.*[\\/]/, '')
 
     const path = filePath.replace(isIndex(fileName) ? /[^/]*$/ : /\.\w+$/, '')
-    return { path, component: () => import(`../pages/${filePath}`) }
+    return { component: () => import(`../pages/${filePath}`), path }
   })
 }

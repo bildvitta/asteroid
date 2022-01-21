@@ -1,12 +1,6 @@
 module.exports = {
   root: true,
 
-  parserOptions: {
-    parser: '@babel/eslint-parser',
-    ecmaVersion: 2018,
-    sourceType: 'module'
-  },
-
   env: {
     browser: true
   },
@@ -23,40 +17,35 @@ module.exports = {
   ],
 
   globals: {
-    ga: 'readonly', // Google Analytics
-    cordova: 'readonly',
-    __statics: 'readonly',
-    __QUASAR_SSR__: 'readonly',
-    __QUASAR_SSR_SERVER__: 'readonly',
-    __QUASAR_SSR_CLIENT__: 'readonly',
-    __QUASAR_SSR_PWA__: 'readonly',
-    process: 'readonly',
-    Capacitor: 'readonly',
-    chrome: 'readonly'
+    __UI_VERSION__: 'readonly',
+    process: 'readonly'
   },
 
   rules: {
-    'generator-star-spacing': 'off',
-
-    'arrow-parens': 'off',
-    'one-var': 'off',
-    'no-void': 'off',
+    // Global
+    'arrow-parens': ['error', 'as-needed'],
+    'one-var': ['error', 'never'],
     'multiline-ternary': 'off',
+    'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
+    'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
+    'no-void': 'off',
 
-    'import/first': 'off',
-    'import/named': 'error',
-    'import/namespace': 'error',
+    // Import
     'import/default': 'error',
     'import/export': 'error',
     'import/extensions': 'off',
-    'import/no-unresolved': 'off',
+    'import/first': 'off',
+    'import/named': 'error',
+    'import/namespace': 'error',
     'import/no-extraneous-dependencies': 'off',
-    'prefer-promise-reject-errors': 'off',
+    'import/no-unresolved': 'off',
 
-    'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
+    // Promise
+    'prefer-promise-reject-errors': 'off',
 
     // Recommended
     'vue/max-attributes-per-line': 'off',
+    'vue/multi-word-component-names': 'off',
     'vue/no-v-html': 'off',
     'vue/singleline-html-element-content-newline': 'off',
 

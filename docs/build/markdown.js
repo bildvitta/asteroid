@@ -6,9 +6,9 @@ const markdownPluginHeading = require('./markdown-plugin-heading.js')
 const highlight = require('./markdown-highlight.js')
 
 const markdownOptions = {
+  highlight,
   html: true,
-  typographer: true,
-  highlight
+  typographer: true
 }
 
 const markdown = new MarkdownIt(markdownOptions)
@@ -38,11 +38,12 @@ const getVueComponent = function (source) {
 
 const parseFrontMatter = function (content) {
   return matter(content, {
-    excerpt_separator: '<!-- more -->',
     engines: {
-      toml: toml.parse.bind(toml),
-      excerpt: false
-    }
+      excerpt: false,
+      toml: toml.parse.bind(toml)
+    },
+
+    excerpt_separator: '<!-- more -->'
   })
 }
 

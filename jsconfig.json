@@ -1,9 +1,7 @@
 {
-  "compilerOptions": {
-    "baseUrl": ".",
-
-    "paths": {
-      "ui/*": ["src/*"]
-    }
-  }
+  "exclude": [
+    ".quasar",
+    "dist",
+    "node_modules"
+  ]
 }

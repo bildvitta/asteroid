@@ -1,11 +1,11 @@
 <template>
   <q-input v-model="model" bottom-slots :type="type">
-    <template v-for="(_, name) in $slots" v-slot:[name]="context">
-      <slot :name="name" v-bind="context || {}" />
-    </template>
-
     <template #append>
       <q-icon class="cursor-pointer" :color="iconColor" :name="icon" @click="toggle" />
+    </template>
+
+    <template v-for="(_, name) in $slots" #[name]="context">
+      <slot :name="name" v-bind="context || {}" />
     </template>
 
     <template v-if="!hideStrengthChecker" #hint>
@@ -47,8 +47,8 @@ export default {
 
   data () {
     return {
-      toggleType: true,
-      key: 'error'
+      key: 'error',
+      toggleType: true
     }
   },
 
@@ -67,14 +67,13 @@ export default {
       }
     },
 
-    type () {
-      return this.toggleType ? 'password' : 'text'
-    },
-
     strengthCheckerProps () {
       const { modelValue, ...props } = this.$props
-
       return props
+    },
+
+    type () {
+      return this.toggleType ? 'password' : 'text'
     }
   },
 

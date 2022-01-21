@@ -76,15 +76,15 @@ export default {
       type: Boolean
     },
 
+    notifications: {
+      default: () => ({}),
+      type: Object
+    },
+
     title: {
       default: '',
       required: true,
       type: String
-    },
-
-    notifications: {
-      default: () => ({}),
-      type: Object
     },
 
     user: {
@@ -105,9 +105,9 @@ export default {
   computed: {
     developmentBadgeLabel () {
       const hosts = {
-        localhost: 'Local',
-        feature: 'Feature',
         develop: 'Develop',
+        feature: 'Feature',
+        localhost: 'Local',
         release: 'Release'
       }
 

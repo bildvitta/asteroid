@@ -40,6 +40,10 @@ export default {
       default: 'center'
     },
 
+    formMode: {
+      type: Boolean
+    },
+
     gutter: {
       type: String,
       default: 'sm'
@@ -60,10 +64,6 @@ export default {
     },
 
     useHeader: {
-      type: Boolean
-    },
-
-    formMode: {
       type: Boolean
     }
   },

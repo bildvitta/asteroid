@@ -11,6 +11,7 @@ yarn-debug.log*
 yarn-error.log*
 
 # Lint
+.eslintcache
 .stylelintcache
 
 # Editor directories and files

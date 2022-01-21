@@ -1,13 +1,13 @@
 module.exports = [
   {
-    name: 'Por que o Asteroid existe?',
     icon: 'room',
+    name: 'Por que o Asteroid existe?',
     path: '/why-asteroid'
   },
 
   {
-    name: 'Componentes',
     icon: 'widgets',
+    name: 'Componentes',
 
     children: [
       {

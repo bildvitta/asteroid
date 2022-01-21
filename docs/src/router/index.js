@@ -9,16 +9,16 @@ export default route(function (/* { store, ssrContext } */) {
     : (process.env.VUE_ROUTER_MODE === 'history' ? createWebHistory : createWebHashHistory)
 
   const Router = createRouter({
-    scrollBehavior: (to, _, savedPosition) => (
-      to.hash.length > 1 ? false : (savedPosition || { left: 0, top: 0 })
-    ),
-
-    routes,
-
     // Leave this as is and make changes in quasar.conf.js instead!
     // quasar.conf.js -> build -> vueRouterMode
     // quasar.conf.js -> build -> publicPath
-    history: createHistory(process.env.MODE === 'ssr' ? void 0 : process.env.VUE_ROUTER_BASE)
+    history: createHistory(process.env.MODE === 'ssr' ? void 0 : process.env.VUE_ROUTER_BASE),
+
+    routes,
+
+    scrollBehavior: (to, _, savedPosition) => (
+      to.hash.length > 1 ? false : (savedPosition || { left: 0, top: 0 })
+    )
   })
 
   return Router

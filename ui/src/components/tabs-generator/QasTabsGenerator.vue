@@ -22,12 +22,12 @@ export default {
       type: String
     },
 
-    counters: {
+    counterProps: {
       default: () => ({}),
       type: Object
     },
 
-    counterProps: {
+    counters: {
       default: () => ({}),
       type: Object
     },
@@ -57,13 +57,11 @@ export default {
   emits: ['update:modelValue'],
 
   computed: {
-    model: {
-      get () {
-        return this.modelValue
-      },
-
-      set (value) {
-        this.$emit('update:modelValue', value)
+    defaultCounterProps () {
+      return {
+        color: 'negative',
+        floating: true,
+        ...this.counterProps
       }
     },
 
@@ -79,11 +77,13 @@ export default {
       return tabs
     },
 
-    defaultCounterProps () {
-      return {
-        color: 'negative',
-        floating: true,
-        ...this.counterProps
+    model: {
+      get () {
+        return this.modelValue
+      },
+
+      set (value) {
+        this.$emit('update:modelValue', value)
       }
     }
   }

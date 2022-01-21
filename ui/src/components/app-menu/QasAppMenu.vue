@@ -1,5 +1,5 @@
 <template>
-  <q-drawer v-model="model" class="qas-app-menu bg-primary-contrast" :mini="miniMode" :width="230" @before-hide="beforeHide">
+  <q-drawer v-model="model" class="bg-primary-contrast qas-app-menu" :mini="miniMode" :width="230" @before-hide="beforeHide">
     <q-list class="text-primary" padding>
       <div v-for="(header, index) in items" :key="index">
         <q-expansion-item v-if="hasChildren(header)" :active-class="activeHeaderClass" :default-opened="shouldExpand(header)" expand-icon="o_keyboard_arrow_down" expand-separator :icon="header.icon" :label="header.label" :to="header.to">
@@ -49,6 +49,8 @@ export default {
     }
   },
 
+  emits: ['update:modelValue'],
+
   data () {
     return {
       miniMode: false
@@ -76,19 +78,19 @@ export default {
   },
 
   methods: {
+    beforeHide () {
+      if (this.$_isLarge) {
+        this.model = true
+        this.miniMode = !this.miniMode
+      }
+    },
+
     hasChildren ({ children }) {
       return !!children?.length
     },
 
     shouldExpand ({ children, to }) {
       return !!children?.length && this.$route.matched.some(item => item.path === to.path)
-    },
-
-    beforeHide () {
-      if (this.$_isLarge) {
-        this.model = true
-        this.miniMode = !this.miniMode
-      }
     }
   }
 }

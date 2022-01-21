@@ -1,7 +1,6 @@
 <template>
   <div class="qas-transfer row" :class="gutterClass">
-    <div class="col-12">
-    </div>
+    <div class="col-12" />
     <div class="col-12 col-sm">
       <qas-label :label="label" :quantity="optionsList.length" />
 
@@ -34,7 +33,7 @@
     <div class="col-12 col-sm">
       <qas-label label="Selecionadas" :quantity="selectedList.length" />
 
-      <qas-search-box :list="selectedList" v-bind="searchBoxProps" empty-list-height="300px" form-mode label="Selecionadas" >
+      <qas-search-box v-bind="searchBoxProps" empty-list-height="300px" form-mode label="Selecionadas" :list="selectedList">
         <template #default="{ results }">
           <q-list separator>
             <q-item v-for="(item, index) in results" :key="index" :class="getItemClass(item)" clickable @click="onSelectQueue(item)">
@@ -60,13 +59,13 @@ import QasSearchBox from '../search-box/QasSearchBox'
 export default {
   name: 'QasTransfer',
 
-  mixins: [screenMixin],
-
   components: {
     QasBtn,
     QasLabel,
     QasSearchBox
   },
+
+  mixins: [screenMixin],
 
   props: {
     emitValue: {
@@ -76,11 +75,6 @@ export default {
     fuseOptions: {
       default: () => ({ keys: ['label'] }),
       type: Object
-    },
-
-    useEmptySlot: {
-      default: true,
-      type: Boolean
     },
 
     label: {
@@ -94,14 +88,19 @@ export default {
       type: String
     },
 
+    modelValue: {
+      default: () => [],
+      type: Array
+    },
+
     options: {
       default: () => [],
       type: Array
     },
 
-    modelValue: {
-      default: () => [],
-      type: Array
+    useEmptySlot: {
+      default: true,
+      type: Boolean
     },
 
     valueKey: {
@@ -143,17 +142,17 @@ export default {
   },
 
   watch: {
-    options: {
-      handler (value) {
-        this.optionsList = extend(true, [], value)
+    modelValue: {
+      handler () {
+        this.setSelectedFromValue(true)
       },
 
       immediate: true
     },
 
-    modelValue: {
-      handler () {
-        this.setSelectedFromValue(true)
+    options: {
+      handler (value) {
+        this.optionsList = extend(true, [], value)
       },
 
       immediate: true
@@ -163,7 +162,7 @@ export default {
       handler () {
         this.updateModelValue()
       }
-    },
+    }
   },
 
   methods: {
@@ -180,6 +179,17 @@ export default {
       })
     },
 
+    getItemClass (object, isFirst) {
+      return this[isFirst
+        ? 'firstQueue'
+        : 'secondQueue'
+      ].some(item => item[this.valueKey] === object[this.valueKey]) && 'bg-secondary'
+    },
+
+    getItemLabel (item) {
+      return item?.[this.labelKey]
+    },
+
     getModelValue () {
       const selectedList = extend(true, [], this.selectedList)
       return this.emitValue ? selectedList.map(item => item[this.valueKey]) : selectedList
@@ -191,13 +201,6 @@ export default {
       this[isFirst ? 'selectedList' : 'optionsList'].push(...this[model])
       this.deleteItemsFromList(isFirst)
       this[model] = []
-    },
-
-    getItemClass (object, isFirst) {
-      return this[isFirst
-        ? 'firstQueue'
-        : 'secondQueue'
-      ].some(item => item[this.valueKey] === object[this.valueKey]) && 'bg-secondary'
     },
 
     onSelectQueue (item, isFirst) {
@@ -223,10 +226,6 @@ export default {
       })
 
       this.handleSelectedList(isFirst)
-    },
-
-    getItemLabel (item) {
-      return item?.[this.labelKey]
     },
 
     updateModelValue () {

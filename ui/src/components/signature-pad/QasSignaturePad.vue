@@ -1,7 +1,7 @@
 <template>
   <div ref="signatureContainer" class="qas-signature-pad relative-position">
     <canvas :id="canvasId" :ref="$attrs.ref" class="qas-signature-pad__canvas rounded-borders vertical-bottom" :height="height" />
-    <qas-btn v-if="!emptyModel" class="q-mb-sm q-mr-sm absolute-bottom-right" color="primary" dense icon="o_delete" round @click="clearSignature" />
+    <qas-btn v-if="!emptyModel" class="absolute-bottom-right q-mb-sm q-mr-sm" color="primary" dense icon="o_delete" round @click="clearSignature" />
   </div>
 </template>
 
@@ -19,6 +19,16 @@ export default {
   },
 
   props: {
+    emptyModel: {
+      type: Boolean,
+      default: true
+    },
+
+    height: {
+      default: '250',
+      type: String
+    },
+
     signatureOptions: {
       default: () => ({}),
       type: Object
@@ -27,16 +37,6 @@ export default {
     type: {
       default: 'image/png',
       type: String
-    },
-
-    height: {
-      default: '250',
-      type: String
-    },
-
-    emptyModel: {
-      type: Boolean,
-      default: true
     }
   },
 
@@ -46,11 +46,10 @@ export default {
 
   data () {
     return {
-      // variavel para armazenar o import da lib
-      SignaturePad: null,
-      signaturePad: null,
+      canvasId: uid(),
       hasEndStrokeEvent: false,
-      canvasId: uid()
+      signaturePad: null,
+      SignaturePad: null
     }
   },
 
@@ -77,8 +76,23 @@ export default {
   },
 
   methods: {
+    clearSignature () {
+      this.signaturePad.clear()
+      this.updateEmptyModel()
+    },
+
     async importSignaturePad () {
       this.SignaturePad = (await import('signature_pad')).default
+    },
+
+    saveSignature () {
+      return this.signaturePad.toDataURL(this.type)
+    },
+
+    setCanvasWidth () {
+      const signatureContainer = this.$refs.signatureContainer
+      const canvasElement = signatureContainer.querySelector('canvas')
+      canvasElement.setAttribute('width', signatureContainer.offsetWidth)
     },
 
     setupSignaturePad () {
@@ -93,23 +107,8 @@ export default {
       this.clearSignature()
     },
 
-    saveSignature () {
-      return this.signaturePad.toDataURL(this.type)
-    },
-
-    clearSignature () {
-      this.signaturePad.clear()
-      this.updateEmptyModel()
-    },
-
     updateEmptyModel () {
       this.$emit('update:emptyModel', this.signaturePad.isEmpty())
-    },
-
-    setCanvasWidth () {
-      const signatureContainer = this.$refs.signatureContainer
-      const canvasElement = signatureContainer.querySelector('canvas')
-      canvasElement.setAttribute('width', signatureContainer.offsetWidth)
     }
   }
 }

@@ -27,6 +27,8 @@ export default {
     }
   },
 
+  emits: ['update:model-value'],
+
   computed: {
     length () {
       return this.password.length
@@ -47,15 +49,15 @@ export default {
         score += this.useLowercase
           ? (this.password.match(/[a-z]/g) ? 1 : 0)
           : 1
-        
+
         score += this.useNumbers
           ? (this.password.match(/[0-9]/g) ? 1 : 0)
           : 1
-        
+
         score += this.useSpecial
           ? (this.password.match(this.specials) ? 1 : 0)
           : 1
-        
+
         score += this.useUppercase
           ? (this.password.match(/[A-Z]/g) ? 1 : 0)
           : 1
@@ -65,14 +67,14 @@ export default {
     }
   },
 
-  created () {
-    this.emitValue()
-  },
-
   watch: {
     password () {
       this.emitValue()
     }
+  },
+
+  created () {
+    this.emitValue()
   },
 
   methods: {
