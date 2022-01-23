@@ -4,8 +4,7 @@
   "description": "",
   "main": "./src/index.js",
   "scripts": {
-    "dev": "cd dev && npm run dev && cd ..",
-    "lint": "eslint --ext .js,.vue src"
+    "dev": "cd dev && npm i && npm run dev && cd .."
   },
   "publishConfig": {
     "access": "public",
@@ -22,8 +21,6 @@
   "author": "Bild & Vitta <systemteam@bild.com.br>",
   "license": "MIT",
   "devDependencies": {
-    "@quasar/app": "^3.0.0",
-    "@quasar/extras": "^1.0.0",
     "autoprefixer": "^10.4.1",
     "core-js": "^3.20.2",
     "quasar": "^2.0.0",

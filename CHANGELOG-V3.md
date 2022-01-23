@@ -25,7 +25,8 @@ Sincronizado em _19/10/2021 as 17h17_.
 - Evento `input` alterado para `update:modelValue`.
 
 ### ~~QasAppsBar~~ (removido)
-- Componente era utilizado para navegação de aplicativos (modulos), mas isto foi alterado, agora essa navegação é feita por um select no menu lateral dentro do `QasAppMenu`.
+
+- Componente era utilizado para navegação de aplicativos (módulos), mas isto foi alterado, agora essa navegação é feita por um select no menu lateral dentro do `QasAppMenu`.
 
 ### QasBox
 
@@ -33,10 +34,11 @@ Sincronizado em _19/10/2021 as 17h17_.
 
 - Propriedade `formMode` removida em favor de `outlined` and `unelevated`;
 
-### QasBreakLine
+### QasBreakline (QasBreakLine)
 
 Sincronizado em _19/10/2021 as 17h17_.
 
+- Renomeado de `QasBreakLine` para `QasBreakline`.
 - Removido o parente (graças ao multi-root do Vue 3).
 - Removido parentTag, tagClass e tagStyle (classes e estilos repassados automaticamente).
 

@@ -167,6 +167,7 @@ export default {
 
   &__code {
     border-radius: 0;
+    margin-bottom: 0;
   }
 
   &__component {

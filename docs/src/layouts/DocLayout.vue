@@ -12,7 +12,7 @@
 
     <q-drawer v-model="leftDrawerState" bordered show-if-above side="left">
       <form class="app-search-bar">
-        <q-input borderless class="app-search-bar__input" dense input-class="app-search-bar__input-element" placeholder="Busque no Asteroid v3..." square>
+        <q-input borderless class="app-search-bar__input" dense input-class="app-search-bar__input-element" placeholder="Buscar no Asteroid v3..." square>
           <template #prepend>
             <q-icon name="search" />
           </template>

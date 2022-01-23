@@ -1,5 +1,5 @@
 <template>
   <doc-page>
-    Olá, <strike>mundo</strike> universo!
+    Olá, universo!
   </doc-page>
 </template>

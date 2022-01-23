@@ -13,7 +13,8 @@ module.exports = {
   ],
 
   plugins: [
-    'vue'
+    'vue',
+    'quasar'
   ],
 
   globals: {
