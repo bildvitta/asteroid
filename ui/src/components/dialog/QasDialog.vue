@@ -1,5 +1,5 @@
 <template>
-  <q-dialog ref="dialog" :model-value="open" :persistent="persistent" @hide="onDialogHide">
+  <q-dialog ref="dialog" :persistent="persistent" v-bind="dialogProps" @hide="onDialogHide" @update:model-value="updateModelValue">
     <q-card v-bind="cardProps" class="q-pa-sm" :style="style">
       <q-card-section>
         <slot name="header">
@@ -21,6 +21,7 @@
             <template #primary>
               <qas-btn v-if="ok" v-close-popup="!useForm" class="full-width" v-bind="defaultOk.props" v-on="defaultOk.events" @click="submitHandler" />
             </template>
+
             <template #secondary>
               <qas-btn v-if="cancel" v-close-popup class="full-width" v-bind="defaultCancel.props" v-on="defaultCancel.events" />
             </template>
@@ -35,6 +36,8 @@
 import QasBtn from '../btn/QasBtn.vue'
 import QasActions from '../actions/QasActions.vue'
 
+import screenMixin from '../../mixins/screen'
+
 export default {
   name: 'QasDialog',
 
@@ -42,6 +45,8 @@ export default {
     QasBtn,
     QasActions
   },
+
+  mixins: [screenMixin],
 
   props: {
     btnActionsProps: {
@@ -90,6 +95,10 @@ export default {
 
     modelValue: {
       type: Boolean
+    },
+
+    usePlugin: {
+      type: Boolean
     }
   },
 
@@ -97,14 +106,7 @@ export default {
 
   data () {
     return {
-      open: false,
-      dialogMethods: {
-        focus: null,
-        hide: null,
-        shake: null,
-        show: null,
-        toggle: null
-      }
+      model: false
     }
   },
 
@@ -121,10 +123,6 @@ export default {
       }
     },
 
-    defaultDialogMethods () {
-      return this.dialogMethods
-    },
-
     defaultOk () {
       return {
         events: this.ok?.events,
@@ -137,63 +135,47 @@ export default {
       }
     },
 
-    isSmallScreen () {
-      return this.$q.screen.xs
-    },
-
-    model: {
-      get () {
-        return this.modelValue
-      },
-
-      set (value) {
-        return this.$emit('update:modelValue', value)
-      }
-    },
-
     style () {
       return {
-        maxWidth: this.maxWidth || (this.isSmallScreen ? '' : '600px'),
-        minWidth: this.minWidth || (this.isSmallScreen ? '' : '400px')
+        maxWidth: this.maxWidth || (this.$_isSmall ? '' : '600px'),
+        minWidth: this.minWidth || (this.$_isSmall ? '' : '400px')
       }
     },
 
     componentTag () {
       return this.useForm ? 'q-form' : 'div'
+    },
+
+    dialogProps () {
+      return {
+        ...(!this.usePlugin && { modelValue: this.modelValue }),
+        ...this.$attrs
+      }
     }
   },
 
-  mounted () {
-    this.setDialogMethods()
-  },
-
   methods: {
-    setDialogMethods () {
-      for (const key in this.dialogMethods) {
-        this.dialogMethods[key] = this.$refs.dialog[key]
-      }
-    },
-
     async submitHandler () {
       this.useForm && this.$emit('validate', await this.$refs.form.validate())
     },
 
+    // metodo para funcionar como plugin
     show () {
       this.$refs.dialog.show()
     },
 
+    // metodo para funcionar como plugin
     hide () {
       this.$refs.dialog.hide()
     },
 
+    // metodo para funcionar como plugin
     onDialogHide () {
-      // required to be emitted
-      // when QDialog emits "hide" event
       this.$emit('hide')
     },
 
     updateModelValue (value) {
-      this.$emit('update:open', value)
+      this.$emit('update:modelValue', value)
     }
   }
 }

@@ -2,10 +2,10 @@
   <q-page padding>
     <!-- Default -->
     <q-btn @click="openDialogDefault">
-      Open Dialog Default
+      Open Dialog Default {{ isDialogDefault }}
     </q-btn>
 
-    <qas-dialog v-model:open="isDialogDefault" v-bind="dialogConfigDefault" />
+    <qas-dialog ref="defaultDialog" v-model="isDialogDefault" v-bind="dialogConfigDefault" />
 
     <!-- Form -->
     <q-btn @click="openDialogForm">
@@ -74,7 +74,7 @@ export default {
   },
 
   mounted () {
-    console.log(QasDialog, 'QasDialog <<<')
+    // console.log(this.$refs.defaultDialog.show(), 'QasDialog <<<')
   },
 
   methods: {
@@ -95,20 +95,18 @@ export default {
     },
 
     openCustomDialog () {
-      this.$q.dialog({
-        component: QasDialog,
-        componentProps: {
-          card: {
-            title: 'This is a title. aaa',
-            description: 'This is a description.',
-          },
-          cancel: {
-            props: { label: 'Cancel', outline: true }
-          },
+      this.$qas.dialog({
+        card: {
+          title: 'This is a title. aaa',
+          description: 'This is a description.'
+        },
 
-          ok: {
-            props: { label: 'Ok, thanks!' }
-          }
+        cancel: {
+          props: { label: 'Cancel', outline: true }
+        },
+
+        ok: {
+          props: { label: 'Ok, thanks!' }
         }
       })
     }
