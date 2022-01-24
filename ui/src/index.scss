@@ -9,11 +9,9 @@ $secondary-contrast: var(--q-secondary-contrast);
 // Asteroid variables
 :root {
   --qas-background-color: #fcfcff;
-  --qas-generic-border-radius: 8px;
 }
 
 $background-color: var(--qas-background-color);
-$generic-border-radius: var(--qas-generic-border-radius);
 
 @import './css/background';
 @import './css/border';

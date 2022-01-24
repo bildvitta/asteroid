@@ -152,21 +152,23 @@ export default {
 </script>
 
 <style lang="scss">
-@use 'sass:map';
+// @use 'sass:map';
 
 .qas-toolbar {
   height: 70px;
 
   &__brand {
     height: 24px;
-    margin-right: map.get($space-sm, x);
+
+    // margin-right: map.get($space-sm, x);
     position: relative;
     top: 4px;
   }
 
   &__user {
     background-color: rgba(white, 0.1);
-    transition: background-color $generic-hover-transition;
+
+    // transition: background-color $generic-hover-transition;
 
     &:focus,
     &:hover {
@@ -182,10 +184,10 @@ export default {
     width: 260px;
   }
 
-  @media (max-width: $breakpoint-xs) {
-    &__user-data {
-      display: none;
-    }
-  }
+  // @media (max-width: $breakpoint-xs) {
+  //   &__user-data {
+  //     display: none;
+  //   }
+  // }
 }
 </style>

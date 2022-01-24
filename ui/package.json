@@ -1,11 +1,12 @@
 {
   "name": "@bildvitta/quasar-ui-asteroid",
   "description": "Asteroid",
-  "version": "3.0.0-alpha.1",
+  "version": "3.0.0-alpha.2",
   "author": "Bild & Vitta <systemteam@bild.com.br>",
   "license": "MIT",
   "main": "./src/index.js",
   "scripts": {
+    "build": "npx rollup -c",
     "dev": "cd dev && npm i && npm run dev && cd .."
   },
   "publishConfig": {
