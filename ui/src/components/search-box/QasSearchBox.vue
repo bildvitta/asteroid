@@ -20,6 +20,8 @@
 </template>
 
 <script>
+import Fuse from 'fuse.js'
+
 import QasBox from '../box/QasBox.vue'
 
 export default {
@@ -133,8 +135,6 @@ export default {
   },
 
   async created () {
-    const Fuse = (await import('fuse.js')).default
-
     this.search = this.modelValue
     this.fuse = new Fuse(this.list, this.defaultFuseOptions)
     this.setResults()

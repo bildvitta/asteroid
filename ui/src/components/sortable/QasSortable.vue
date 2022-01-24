@@ -6,6 +6,8 @@
 
 <script>
 import { Loading, extend } from 'quasar'
+import Sortable from 'sortablejs'
+
 import { NotifyError } from '../../plugins'
 
 export default {
@@ -78,8 +80,6 @@ export default {
   },
 
   async mounted () {
-    const Sortable = (await import('sortablejs')).default
-
     this.sortable = new Sortable(this.$refs.sortableItems, {
       ...this.sortableOptions,
 

@@ -23,6 +23,8 @@
 </template>
 
 <script>
+import Fuse from 'fuse.js'
+
 export default {
   name: 'QasSelect',
 
@@ -141,7 +143,6 @@ export default {
 
   async created () {
     if (this.searchable) {
-      const Fuse = (await import('fuse.js')).default
       this.fuse = new Fuse(this.options, this.defaultFuseOptions)
     }
   },

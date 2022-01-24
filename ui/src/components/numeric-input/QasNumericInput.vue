@@ -7,6 +7,8 @@
 </template>
 
 <script>
+import AutoNumeric from 'autonumeric'
+
 const defaultModes = {
   decimal: 'commaDecimalCharDotSeparator',
   integer: ['commaDecimalCharDotSeparator', 'integer'],
@@ -82,7 +84,6 @@ export default {
   },
 
   async created () {
-    const AutoNumeric = (await import('autonumeric')).default
     const autoNumericPredefinedOptions = AutoNumeric.getPredefinedOptions()
 
     let option = this.preset || this.defaultMode

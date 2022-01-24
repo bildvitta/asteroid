@@ -23,11 +23,11 @@
 </template>
 
 <script>
-import { sortBy } from 'lodash'
+import { sortBy } from 'lodash-es'
 import { screenMixin } from '../../mixins'
 
-import QasBtn from '../btn/QasBtn'
-import QasSearchBox from '../search-box/QasSearchBox'
+import QasBtn from '../btn/QasBtn.vue'
+import QasSearchBox from '../search-box/QasSearchBox.vue'
 
 export default {
   name: 'QasSelectList',

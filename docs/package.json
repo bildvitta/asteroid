@@ -1,9 +1,10 @@
 {
-  "name": "docs",
-  "version": "0.0.1",
-  "description": "Asteroid Docs",
+  "name": "@bildvitta/asteroid-docs",
+  "description": "Asteroid",
+  "version": "3.0.0-alpha.1",
+  "author": "Bild & Vitta <systemteam@bild.com.br>",
+  "license": "MIT",
   "productName": "Asteroid Docs",
-  "author": "System Team <systemteam@bild.com.br>",
   "private": true,
   "scripts": {
     "lint": "eslint --ext .js,.vue ./",
