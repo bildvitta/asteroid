@@ -1,3 +1,5 @@
+description: Permite encapsular quebra de linhas (\n) de um texto em uma tag HTML ou componente Vue.
+
 props:
   split:
     default: '\n'

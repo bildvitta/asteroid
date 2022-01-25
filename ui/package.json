@@ -4,7 +4,13 @@
   "version": "3.0.0-alpha.2",
   "author": "Bild & Vitta <systemteam@bild.com.br>",
   "license": "MIT",
-  "main": "./src/index.js",
+  "main": "dist/asteroid.cjs.min.js",
+  "unpkg": "dist/asteroid.umd.min.js",
+  "jsdelivr": "dist/asteroid.umd.min.js",
+  "files": [
+    "dist",
+    "src"
+  ],
   "scripts": {
     "build": "npx rollup -c",
     "dev": "cd dev && npm i && npm run dev && cd .."
@@ -43,5 +49,9 @@
   },
   "browserslist": [
     "defaults"
-  ]
+  ],
+  "vetur": {
+    "tags": "dist/vetur/asteroid-tags.json",
+    "attributes": "dist/vetur/asteroid-attributes.json"
+  }
 }

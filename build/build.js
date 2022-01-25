@@ -119,6 +119,11 @@ async function main () {
   const buildSpinner = ora('Gerando o "ui"...').start()
   execaSync('npm', ['run', 'build'], { cwd: packages.ui.resolved })
   buildSpinner.succeed('Geração do "ui" concluída.')
+
+  // Vetur
+  const veturSpinner = ora('Gerando arquivos para o "Vetur"...').start()
+  execaSync('node', ['./vetur.js'], { cwd: __dirname })
+  veturSpinner.succeed('Arquivos para o "Vetur" gerados.')
 }
 
 main()
