@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import QasBtn from '../btn/QasBtn'
+import QasBtn from '../btn/QasBtn.vue'
 
 export default {
   name: 'QasActionsMenu',

@@ -11,6 +11,10 @@
     "dev:android": "quasar dev -m android",
     "dev:electron": "quasar dev -m electron"
   },
+  "devDependencies": {
+    "@quasar/app": "^3.0.0",
+    "@quasar/extras": "^1.0.0"
+  },
   "browserslist": [
     "last 10 Chrome versions",
     "last 10 Firefox versions",

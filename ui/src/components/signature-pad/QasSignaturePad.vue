@@ -6,11 +6,11 @@
 </template>
 
 <script>
-import QasBtn from '../btn/QasBtn.vue'
-
 import { uid } from 'quasar'
-import { isEqual } from 'lodash'
+import { isEqual } from 'lodash-es'
+import SignaturePad from 'signature_pad'
 
+import QasBtn from '../btn/QasBtn.vue'
 export default {
   name: 'QasSignaturePad',
 
@@ -66,7 +66,6 @@ export default {
     window.addEventListener('resize', this.setCanvasWidth)
     this.setCanvasWidth()
 
-    await this.importSignaturePad()
     this.setupSignaturePad()
   },
 
@@ -81,10 +80,6 @@ export default {
       this.updateEmptyModel()
     },
 
-    async importSignaturePad () {
-      this.SignaturePad = (await import('signature_pad')).default
-    },
-
     saveSignature () {
       return this.signaturePad.toDataURL(this.type)
     },
@@ -97,7 +92,7 @@ export default {
 
     setupSignaturePad () {
       const canvasElement = document.getElementById(this.canvasId)
-      this.signaturePad = new this.SignaturePad(canvasElement, this.signatureOptions)
+      this.signaturePad = new SignaturePad(canvasElement, this.signatureOptions)
 
       if (!this.hasEndStrokeEvent) {
         this.signaturePad.addEventListener('endStroke', this.updateEmptyModel)
@@ -115,9 +110,9 @@ export default {
 </script>
 
 <style lang="scss">
-.qas-signature-pad {
-  &__canvas {
-    border: 1px solid $grey-3;
-  }
-}
+// .qas-signature-pad {
+//   &__canvas {
+//     border: 1px solid $grey-3;
+//   }
+// }
 </style>

@@ -1,10 +1,21 @@
+const { escapeHtml, unescapeAll } = require('markdown-it/lib/common/utils')
+
 module.exports = function (markdown) {
-  const defaultRender = markdown.renderer.rules.code_block
-
-  markdown.renderer.rules.code_block = (tokens, idx, options, env, self) => {
+  markdown.renderer.rules.fence = (tokens, idx) => {
     const token = tokens[idx]
-    token.attrSet('class', 'doc-code-block')
+    const info = token.info ? unescapeAll(token.info).trim() : ''
+    const content = escapeHtml(token.content)
 
-    return defaultRender(tokens, idx, options, env, self)
+    if (info) {
+      const language = info.split(/(\s+)/g)[0]
+      return `<doc-code code="${content}" language="${language}" />`
+    }
+
+    return `<doc-code code="${content}" />`
+  }
+
+  markdown.renderer.rules.code_inline = (tokens, idx) => {
+    const token = tokens[idx]
+    return `<doc-token token="${escapeHtml(token.content)}" />`
   }
 }

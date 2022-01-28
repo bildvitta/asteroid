@@ -1,0 +1,23 @@
+description: Permite encapsular quebra de linhas (\n) de um texto em uma tag HTML ou componente Vue.
+
+props:
+  split:
+    default: '\n'
+    description: Caracter ou conjunto de caracteres que serão utilizados para dividir o texto.
+    type: String
+
+  tag:
+    default: div
+    description: Tag HTML que será utilizada para encapsular o texto dividido.
+    examples: [p, span]
+    type: String
+
+  text:
+    default: ''
+    description: Texto que será dividido.
+    sample: Lorem ipsum dolor sit amet, consectetur adipiscing elit.\nSed euismod, urna eu tincidunt consectetur, nisl nisl aliquet nunc, euismod aliquam nisl nisl euismod nisl.
+    type: String
+
+slots:
+  default:
+    description: Texto que será dividido.

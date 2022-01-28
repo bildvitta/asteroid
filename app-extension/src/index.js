@@ -10,6 +10,10 @@ function extendQuasar (quasar) {
   // Transpile!
   quasar.build.transpileDependencies.push(/quasar-app-extension-asteroid[\\/]src/)
 
+  // Preserve whitespaces!
+  // https://github.com/vuejs/core/pull/1600
+  quasar.build.vueLoaderOptions.whitespace = 'preserve'
+
   quasar.css.push(...resolve('index.scss'))
 
   const plugins = [

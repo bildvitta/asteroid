@@ -1,6 +1,6 @@
 <template>
-  <component :is="tag" v-for="(item, index) in items" :key="index" v-bind="$attrs">
-    {{ item }}
+  <component :is="tag" v-for="(line, index) in lines" :key="index" v-bind="$attrs">
+    {{ line }}
   </component>
 </template>
 
@@ -28,7 +28,7 @@ export default {
   },
 
   computed: {
-    items () {
+    lines () {
       const text = this.text || getSlotChildrenText(this.$slots.default())
       return text.split(this.split)
     }

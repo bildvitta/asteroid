@@ -3,7 +3,7 @@
     <pre class="doc-code__inner"><code class="doc-code__code" :class="codeClass" v-html="highlightedCode" /></pre>
 
     <div class="doc-code__copy-button">
-      <doc-copy-button :text="code" />
+      <doc-copy-button :text="decodedCode" />
     </div>
   </div>
 </template>
@@ -29,12 +29,16 @@ export default {
       return `language-${this.language}`
     },
 
+    decodedCode () {
+      return decodeURI(this.code)
+    },
+
     highlightedCode () {
       if (!this.language || this.language === 'auto') {
-        return hljs.highlightAuto(this.code).value
+        return hljs.highlightAuto(this.decodedCode).value
       }
 
-      return hljs.highlight(this.code, { language: this.language }).value
+      return hljs.highlight(this.decodedCode, { language: this.language }).value
     }
   }
 }
@@ -46,6 +50,7 @@ export default {
 .doc-code {
   background-color: $grey-2;
   border-radius: $generic-border-radius;
+  margin-bottom: 16px;
   position: relative;
 
   &__inner,
@@ -55,12 +60,9 @@ export default {
     margin: 0;
   }
 
-  &__inner {
-    overflow: visible;
-  }
-
   &__code {
     display: block;
+    overflow: auto;
     padding: 1em;
   }
 

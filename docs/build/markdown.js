@@ -1,18 +1,17 @@
 const MarkdownIt = require('markdown-it')
 
 const markdownPluginCode = require('./markdown-plugin-code.js')
+const markdownPluginContainer = require('./markdown-plugin-container.js')
 const markdownPluginHeading = require('./markdown-plugin-heading.js')
 
-const highlight = require('./markdown-highlight.js')
-
 const markdownOptions = {
-  highlight,
   html: true,
   typographer: true
 }
 
 const markdown = new MarkdownIt(markdownOptions)
   .use(markdownPluginCode)
+  .use(markdownPluginContainer)
   .use(markdownPluginHeading)
 
 const matter = require('gray-matter')

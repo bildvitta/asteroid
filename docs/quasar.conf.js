@@ -46,7 +46,13 @@ module.exports = configure(function (quasar) {
 
     // Full list of options: https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-build
     build: {
-      vueRouterMode: 'history', // available values: 'hash', 'history'
+      vueRouterMode: 'history',
+
+      vueLoaderOptions: {
+        compilerOptions: {
+          whitespace: 'preserve'
+        }
+      },
 
       // transpile: false,
       // publicPath: '/',
@@ -74,20 +80,33 @@ module.exports = configure(function (quasar) {
         chain.plugin('stylelint-webpack-plugin')
           .use(StylelintPlugin, [{ extensions: ['scss', 'vue'] }])
 
-        // Alias
-        chain.resolve.alias.merge({
-          asteroid: path.resolve(__dirname, '../ui/src/index.esm.js'),
-          examples: path.resolve(__dirname, 'src/examples')
-        })
-
         chain.plugin('define-ui').use(webpack.DefinePlugin, [{
           __UI_VERSION__: `'${require('../ui/package.json').version}'`
         }])
 
-        // Markdown It
-        const rule = chain.module.rule('md').test(/\.md$/).pre()
+        // Alias
+        chain.resolve.alias.merge({
+          asteroid: path.resolve(__dirname, '../ui/src/index.esm.js'),
+          'asteroid-components': path.resolve(__dirname, '../ui/src/components'),
+          examples: path.resolve(__dirname, 'src/examples')
+        })
 
-        rule.use('v-loader').loader('vue-loader').options({
+        // YAML
+        const yamlRule = chain.module.rule('yaml').test(/\.ya?ml$/).pre()
+
+        yamlRule.use('json-loader').loader('json-loader').end()
+        yamlRule.use('yaml-loader').loader('yaml-loader').options({
+          type: 'json'
+        })
+
+        // Markdown It
+        const markdownRule = chain.module.rule('md').test(/\.md$/).pre()
+
+        markdownRule.use('vue-loader').loader('vue-loader').options({
+          compilerOptions: {
+            whitespace: 'preserve'
+          },
+
           productionMode: quasar.prod,
 
           transformAssetUrls: {
@@ -98,7 +117,7 @@ module.exports = configure(function (quasar) {
           }
         })
 
-        rule.use('ware-loader').loader('ware-loader').options({
+        markdownRule.use('ware-loader').loader('ware-loader').options({
           raw: true,
 
           middleware: function (source) {
