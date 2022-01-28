@@ -198,7 +198,7 @@ Sincronizado em _20/01/2022 as 18h30_.
 
 Sincronizado em _19/10/2021 as 17h17_.
 
-- Renomeado pata `addCounterSuffix`.
+- Renomeado para `addCounterSuffix`.
 
 ## Plugins
 
