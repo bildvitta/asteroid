@@ -33,14 +33,16 @@ for (const file of files) {
     description: data.description || `Componente "${name}" do Asteroid.`
   }
 
-  if (data.props) {
-    for (const prop in data.props) {
-      const propData = data.props[prop]
+  if (!data.props) {
+    continue
+  }
 
-      attributes[`${name}/${prop}`] = {
-        description: propData.description,
-        type: parseTypes(propData.type)
-      }
+  for (const prop in data.props) {
+    const propData = data.props[prop]
+
+    attributes[`${name}/${prop}`] = {
+      description: propData.description,
+      type: parseTypes(propData.type)
     }
   }
 }

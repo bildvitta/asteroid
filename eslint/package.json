@@ -1,0 +1,19 @@
+{
+  "name": "eslint-plugin-asteroid",
+  "version": "1.0.0",
+  "description": "",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "requireindex": "^1.2.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.8.0",
+    "vue-eslint-parser": "^8.2.0"
+  }
+}

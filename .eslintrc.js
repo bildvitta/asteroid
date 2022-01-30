@@ -8,13 +8,16 @@ module.exports = {
   extends: [
     'eslint:recommended',
     'plugin:vue/vue3-recommended',
+    'plugin:quasar/recommended',
+    'plugin:asteroid/essential',
 
     'standard'
   ],
 
   plugins: [
     'vue',
-    'quasar'
+    'quasar',
+    'asteroid'
   ],
 
   globals: {

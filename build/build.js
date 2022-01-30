@@ -1,17 +1,8 @@
-// https://github.com/Marak/colors.js
-require('colors')
-
-// https://github.com/enquirer/enquirer
-const { prompt } = require('enquirer')
-
-// https://github.com/szwacz/fs-jetpack
-const jetpack = require('fs-jetpack')
-
-// https://nodejs.org/api/path.html
-const path = require('path')
-
-// https://github.com/npm/node-semver
-const semver = require('semver')
+require('colors') // https://github.com/Marak/colors.js
+const { prompt } = require('enquirer') // https://github.com/enquirer/enquirer
+const jetpack = require('fs-jetpack') // https://github.com/szwacz/fs-jetpack
+const path = require('path') // https://nodejs.org/api/path.html
+const semver = require('semver') // https://github.com/npm/node-semver
 
 // Options
 const packages = {
@@ -48,11 +39,8 @@ function logError (error) {
 
 // Main
 async function main () {
-  // https://github.com/sindresorhus/execa
-  const { execaSync } = await import('execa')
-
-  // https://github.com/sindresorhus/ora
-  const { default: ora } = await import('ora')
+  const { execaSync } = await import('execa') // https://github.com/sindresorhus/execa
+  const { default: ora } = await import('ora') // https://github.com/sindresorhus/ora
 
   // Start!
   console.clear()
@@ -119,6 +107,11 @@ async function main () {
   const buildSpinner = ora('Gerando o "ui"...').start()
   execaSync('npm', ['run', 'build'], { cwd: packages.ui.resolved })
   buildSpinner.succeed('Geração do "ui" concluída.')
+
+  // API
+  const apiSpinner = ora('Gerando arquivos da "API"...').start()
+  execaSync('node', ['./api.js'], { cwd: __dirname })
+  apiSpinner.succeed('Arquivos da "API" gerados.')
 
   // Vetur
   const veturSpinner = ora('Gerando arquivos para o "Vetur"...').start()
