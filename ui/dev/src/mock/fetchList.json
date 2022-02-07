@@ -1,0 +1,1004 @@
+{
+  "status": {
+      "code": 200
+  },
+  "count": 97,
+  "fields": {
+      "name": {
+          "name": "name",
+          "type": "text",
+          "label": "Nome completo"
+      },
+      "email": {
+          "name": "email",
+          "type": "email",
+          "label": "E-mail",
+          "required": true
+      },
+      "uuid": {
+          "name": "uuid",
+          "type": "text"
+      },
+      "avatar": {
+          "name": "avatar",
+          "type": "text",
+          "label": "Avatar"
+      },
+      "type": {
+          "name": "type",
+          "type": "radio",
+          "label": "Tipo de pessoa",
+          "options": [
+              {
+                  "label": "Pessoa física",
+                  "value": "cpf"
+              },
+              {
+                  "label": "Pessoa jurídica",
+                  "value": "cnpj"
+              }
+          ]
+      },
+      "document": {
+          "name": "document",
+          "type": "text",
+          "label": "CPF/CNPJ",
+          "mask": "document"
+      },
+      "company_name": {
+          "name": "company_name",
+          "type": "text",
+          "label": "Razão social"
+      },
+      "creci": {
+          "name": "creci",
+          "type": "number",
+          "label": "CRECI"
+      },
+      "regional_creci": {
+          "name": "regional_creci",
+          "type": "select",
+          "label": "Regional",
+          "options": [
+              {
+                  "label": "01ª Região/RJ",
+                  "value": "RJ"
+              },
+              {
+                  "label": "02ª Região/SP",
+                  "value": "SP"
+              },
+              {
+                  "label": "03ª Região/RS",
+                  "value": "RS"
+              },
+              {
+                  "label": "04ª Região/MG",
+                  "value": "MG"
+              },
+              {
+                  "label": "05ª Região/GO",
+                  "value": "GO"
+              },
+              {
+                  "label": "06ª Região/PR",
+                  "value": "PR"
+              },
+              {
+                  "label": "07ª Região/PE",
+                  "value": "PE"
+              },
+              {
+                  "label": "08ª Região/DF",
+                  "value": "DF"
+              },
+              {
+                  "label": "09ª Região/BA",
+                  "value": "BA"
+              },
+              {
+                  "label": "11ª Região/SC",
+                  "value": "SC"
+              },
+              {
+                  "label": "12ª Região/PA-AP",
+                  "value": "PA-AP"
+              },
+              {
+                  "label": "13ª Região/ES",
+                  "value": "ES"
+              },
+              {
+                  "label": "14ª Região/MS",
+                  "value": "MS"
+              },
+              {
+                  "label": "15ª Região/CE",
+                  "value": "CE"
+              },
+              {
+                  "label": "16ª Região/SE",
+                  "value": "SE"
+              },
+              {
+                  "label": "17ª Região/RN",
+                  "value": "RN"
+              },
+              {
+                  "label": "18ª Região/AM-RR",
+                  "value": "AM-RR"
+              },
+              {
+                  "label": "19ª Região/MT",
+                  "value": "MT"
+              },
+              {
+                  "label": "20ª Região/MA",
+                  "value": "MA"
+              },
+              {
+                  "label": "21ª Região/PB",
+                  "value": "PB"
+              },
+              {
+                  "label": "22ª Região/AL",
+                  "value": "AL"
+              },
+              {
+                  "label": "23ª Região/PI",
+                  "value": "PI"
+              },
+              {
+                  "label": "24ª Região/RO",
+                  "value": "RO"
+              },
+              {
+                  "label": "25ª Região/TO",
+                  "value": "TO"
+              },
+              {
+                  "label": "26ª Região/AC",
+                  "value": "AC"
+              }
+          ]
+      },
+      "kind": {
+          "name": "kind",
+          "type": "select",
+          "label": "Tipo de usuário",
+          "options": [
+              {
+                  "label": "Autônomo",
+                  "value": "self_employed"
+              },
+              {
+                  "label": "Colaborador",
+                  "value": "employee"
+              },
+              {
+                  "label": "Programático",
+                  "value": "programmatic"
+              }
+          ]
+      },
+      "postal_code": {
+          "name": "postal_code",
+          "type": "text",
+          "label": "CEP",
+          "mask": "postal-code"
+      },
+      "address": {
+          "name": "address",
+          "type": "text",
+          "label": "Endereço"
+      },
+      "street_number": {
+          "name": "street_number",
+          "type": "number",
+          "label": "Nº"
+      },
+      "city": {
+          "name": "city",
+          "type": "text",
+          "label": "Cidade"
+      },
+      "state": {
+          "name": "state",
+          "type": "select",
+          "label": "Estado",
+          "options": [
+              {
+                  "label": "Acre",
+                  "value": "AC"
+              },
+              {
+                  "label": "Alagoas",
+                  "value": "AL"
+              },
+              {
+                  "label": "Amapá",
+                  "value": "AP"
+              },
+              {
+                  "label": "Amazonas",
+                  "value": "AM"
+              },
+              {
+                  "label": "Bahia",
+                  "value": "BH"
+              },
+              {
+                  "label": "Ceará",
+                  "value": "CE"
+              },
+              {
+                  "label": "Distrito Federal",
+                  "value": "DF"
+              },
+              {
+                  "label": "Espírito Santo",
+                  "value": "ES"
+              },
+              {
+                  "label": "Goiás",
+                  "value": "GO"
+              },
+              {
+                  "label": "Maranhão",
+                  "value": "MA"
+              },
+              {
+                  "label": "Mato Grosso",
+                  "value": "MT"
+              },
+              {
+                  "label": "Mato Grosso do Sul",
+                  "value": "MS"
+              },
+              {
+                  "label": "Minas Gerais",
+                  "value": "MG"
+              },
+              {
+                  "label": "Pará",
+                  "value": "PA"
+              },
+              {
+                  "label": "Paraiba",
+                  "value": "PB"
+              },
+              {
+                  "label": "Paraná",
+                  "value": "PR"
+              },
+              {
+                  "label": "Pernambuco",
+                  "value": "PE"
+              },
+              {
+                  "label": "Piauí",
+                  "value": "PI"
+              },
+              {
+                  "label": "Rio de Janeiro",
+                  "value": "RJ"
+              },
+              {
+                  "label": "Rio Grande do Norte",
+                  "value": "RN"
+              },
+              {
+                  "label": "Rio Grande do Sul",
+                  "value": "RS"
+              },
+              {
+                  "label": "Rondônia",
+                  "value": "RO"
+              },
+              {
+                  "label": "Roraima",
+                  "value": "RR"
+              },
+              {
+                  "label": "Santa Catarina",
+                  "value": "SC"
+              },
+              {
+                  "label": "São Paulo",
+                  "value": "SP"
+              },
+              {
+                  "label": "Sergipe",
+                  "value": "SE"
+              },
+              {
+                  "label": "Tocantins",
+                  "value": "TO"
+              }
+          ]
+      },
+      "complement": {
+          "name": "complement",
+          "type": "text",
+          "label": "Complemento"
+      },
+      "neighborhood": {
+          "name": "neighborhood",
+          "type": "text",
+          "label": "Bairro"
+      },
+      "phone": {
+          "name": "phone",
+          "type": "text",
+          "label": "Telefone",
+          "mask": "phone"
+      },
+      "is_active": {
+          "name": "is_active",
+          "type": "radio",
+          "label": "Status",
+          "options": [
+              {
+                  "label": "Inativo",
+                  "value": 0
+              },
+              {
+                  "label": "Ativo",
+                  "value": 1
+              }
+          ]
+      },
+      "is_approved": {
+          "name": "is_approved",
+          "type": "radio",
+          "label": "Aprovação",
+          "options": [
+              {
+                  "label": "Reprovado",
+                  "value": 0
+              },
+              {
+                  "label": "Aprovado",
+                  "value": 1
+              }
+          ]
+      },
+      "groups": {
+          "name": "groups",
+          "type": "select",
+          "label": "Grupos",
+          "multiple": true,
+          "options": [
+              {
+                  "label": "Admin Assistência Digital",
+                  "value": "d25306f8-d204-4a9b-b7eb-61a84f4e5cd9"
+              },
+              {
+                  "label": "Administradores - Bolso Virtual",
+                  "value": "04cb0c09-526d-4dcf-9cbb-107e373d152e"
+              },
+              {
+                  "label": "Administradores - Vendas",
+                  "value": "cac3024f-20d2-4190-8c58-51100c5817da"
+              },
+              {
+                  "label": "Administradores de FAQ",
+                  "value": "d27a875e-ca57-4d6b-879f-d59bee2bb055"
+              },
+              {
+                  "label": "Administradores do Bolso Virtual BPO",
+                  "value": "4f7fe10f-d35b-40f5-b4be-5b2db73ecdd2"
+              },
+              {
+                  "label": "Atendimento Assistência Técnica - Araraquara",
+                  "value": "50d36060-bb83-488a-8445-a94a16df2bf8"
+              },
+              {
+                  "label": "Consultores - Bild Ribeirão",
+                  "value": "136e8292-6b8b-4b9f-94bb-8a2f21e2f491"
+              },
+              {
+                  "label": "God CRM Group",
+                  "value": "58ed2be6-77a9-4d5a-b8c4-4d0368875ec5"
+              },
+              {
+                  "label": "Grupo Técnicos  AT - Regional Ribeirão Preto",
+                  "value": "a679b132-d76d-4371-bd86-cd6f4c14903b"
+              },
+              {
+                  "label": "Hub - Users Teste",
+                  "value": "bbdceae7-7843-4006-bca2-3381671f000b"
+              },
+              {
+                  "label": "Hub Gods Group",
+                  "value": "832fd16b-c123-40c8-9fc7-723603401ee3"
+              },
+              {
+                  "label": "Produto - Administradores",
+                  "value": "760bda20-ae15-4b9e-989e-8b5031347417"
+              },
+              {
+                  "label": "Produto - Empreendimentos",
+                  "value": "bf7d7d65-0920-488d-8bb8-3c64d2ed890a"
+              },
+              {
+                  "label": "Teste Assistência Técnica",
+                  "value": "9f863f55-48a4-4276-8662-50e1427e890c"
+              },
+              {
+                  "label": "Teste Permissão Assistência 2",
+                  "value": "4537e164-59ef-4c4c-a27e-46700d25729d"
+              },
+              {
+                  "label": "Teste Permissões Assistência",
+                  "value": "f2069890-078a-4d21-814f-22b63b290a2a"
+              }
+          ]
+      },
+      "roles": {
+          "name": "roles",
+          "type": "select",
+          "label": "Políticas",
+          "multiple": true,
+          "options": [
+              {
+                  "label": "Acesso geral ao sistema Assistência Digital",
+                  "value": "8a5b44ee-c2a8-492e-936c-cc178930e15d"
+              },
+              {
+                  "label": "Acesso Técnico AT - Regional Araraquara",
+                  "value": "fe7b4944-fe96-4f9c-8dcc-d3acec4597c6"
+              },
+              {
+                  "label": "Acesso Técnico AT - Regional Bauru",
+                  "value": "e812cb9f-2812-47a4-b530-69edfb2577ba"
+              },
+              {
+                  "label": "Acesso Técnico da AT - Regional Franca",
+                  "value": "e9c5afb5-8b20-4771-affc-806945499b4e"
+              },
+              {
+                  "label": "Acesso Técnico da AT - Regional Ribeirão Preto",
+                  "value": "2d5108ad-c016-4c5c-a7bf-9bf367cf8152"
+              },
+              {
+                  "label": "Administrador - Bolso Virtual",
+                  "value": "21c673b2-b543-426a-9ac6-6674e2a8aed5"
+              },
+              {
+                  "label": "Administrador de FAQ",
+                  "value": "cf031892-e03a-422e-88c5-7c0caba63c76"
+              },
+              {
+                  "label": "Administradores Vendas",
+                  "value": "cfec3201-500a-448b-8915-e1fbdf0fe49b"
+              },
+              {
+                  "label": "Assistência Digital",
+                  "value": "ee862fa2-eb51-46c4-8739-3f7de109058a"
+              },
+              {
+                  "label": "Assistência Global",
+                  "value": "fd7d1cfe-910e-41e8-a9af-382b5ef2ad83"
+              },
+              {
+                  "label": "Corretor Bolso Virtual",
+                  "value": "403149bf-46ca-4ea6-9233-5bc6af203f61"
+              },
+              {
+                  "label": "CRM - Todos clientes da empresa",
+                  "value": "9d60bc8a-d31d-4c14-a937-5a8bc8b7173e"
+              },
+              {
+                  "label": "God CRM",
+                  "value": "2ec7cb5a-c289-4ea8-8574-ed0746840a32"
+              },
+              {
+                  "label": "God Hub",
+                  "value": "ceaf7b4d-136d-4b19-a186-d477c31070e5"
+              },
+              {
+                  "label": "Gui GV",
+                  "value": "5a5dae65-9c70-47bd-84fc-5c50487219e6"
+              },
+              {
+                  "label": "Hub - Admin Users",
+                  "value": "a20b015b-db4f-4de9-af34-41e2e5631ba8"
+              },
+              {
+                  "label": "Nova política de teste",
+                  "value": "8174787e-142c-4b4f-b842-e81b5cae9676"
+              },
+              {
+                  "label": "Politicas permissão Testes Assistência 2",
+                  "value": "e1f9f554-95cc-4059-a091-0994fef40d70"
+              },
+              {
+                  "label": "Produto",
+                  "value": "6f0d586a-a725-46f9-ba94-200e0d8e1712"
+              },
+              {
+                  "label": "Produto - Empreendimentos",
+                  "value": "d1a54996-fa98-44a3-951c-28b8764a3c26"
+              },
+              {
+                  "label": "Produto all",
+                  "value": "00358fb7-37d2-4ddf-8067-9ce12e51c301"
+              },
+              {
+                  "label": "Teste michael",
+                  "value": "f6a763b9-0298-4e96-a3c5-130b8a6763f1"
+              },
+              {
+                  "label": "Teste permissões assistência",
+                  "value": "98f152e9-fa5a-4195-b310-175a451e45e7"
+              }
+          ]
+      },
+      "company": {
+          "name": "company",
+          "type": "select",
+          "label": "Vínculo",
+          "options": [
+              {
+                  "label": "BILD DESENVOLVIMENTO IMOBILIARIO S.A.",
+                  "value": "ebde8a05-fe11-44ad-9b3a-39dee841c83b"
+              },
+              {
+                  "label": "CICA",
+                  "value": "334f94b4-5457-4b12-a2ec-3472434363af"
+              },
+              {
+                  "label": "VITTA RESIDENCIAL",
+                  "value": "a9d94282-4120-4de3-b25c-9fa9a41a483f"
+              }
+          ]
+      },
+      "created_at": {
+          "name": "created_at",
+          "type": "datetime",
+          "label": "Cadastrado em"
+      },
+      "last_access": {
+          "name": "created_at",
+          "type": "datetime",
+          "label": "Ultimo acesso em"
+      },
+      "user_permissions": {
+          "name": "user_permissions",
+          "type": "function",
+          "label": "Permissões"
+      },
+      "modules": {
+          "name": "modules",
+          "type": "select",
+          "label": "Módulos",
+          "options": [
+              {
+                  "label": "Assistência Digital",
+                  "value": "https://develop.assistencia-digital.nave.dev"
+              },
+              {
+                  "label": "Produto",
+                  "value": "https://develop.produto.nave.dev"
+              }
+          ]
+      },
+      "is_superuser": {
+          "name": "is_superuser",
+          "type": "checkbox",
+          "label": "Super usuario?"
+      }
+  },
+  "results": [
+      {
+          "name": "Administrador Assistência Digital",
+          "email": "administrador.ast@bild.com.br",
+          "uuid": "c11ccfcf-710d-493d-9c95-f6491a179052",
+          "avatar": "https://via.placeholder.com/354x354.png/009911?text=AST",
+          "type": "cpf",
+          "document": "20588216020",
+          "company_name": null,
+          "creci": null,
+          "regional_creci": null,
+          "kind": "employee",
+          "postal_code": "19180970",
+          "address": "Rui Barbosa",
+          "street_number": "644",
+          "city": "Alfredo Marcondes",
+          "state": "SP",
+          "complement": null,
+          "neighborhood": "Centro",
+          "phone": "16996325689",
+          "is_active": true,
+          "is_approved": true,
+          "groups": [
+              "cac3024f-20d2-4190-8c58-51100c5817da"
+          ],
+          "roles": [],
+          "company": "334f94b4-5457-4b12-a2ec-3472434363af",
+          "created_at": "2021-07-21T09:24:37.000000Z",
+          "last_access": "2021-08-17 20:39:38",
+          "user_permissions": [],
+          "modules": null,
+          "is_superuser": 1
+      },
+      {
+          "name": "Amanda Trevisan De Azevedo",
+          "email": "amanda.azevedo@bild.com.br",
+          "uuid": "9011fbb7-affa-4f7c-a3a0-5533858ce7c4",
+          "avatar": "https://dev-almobi-hub.s3.amazonaws.com/users/avatar/9011fbb7-affa-4f7c-a3a0-5533858ce7c4.jpg",
+          "type": "cpf",
+          "document": "",
+          "company_name": "",
+          "creci": "",
+          "regional_creci": "",
+          "kind": "employee",
+          "postal_code": "",
+          "address": "",
+          "street_number": "",
+          "city": "",
+          "state": "",
+          "complement": "",
+          "neighborhood": "",
+          "phone": "",
+          "is_active": true,
+          "is_approved": true,
+          "groups": [],
+          "roles": [],
+          "company": "ebde8a05-fe11-44ad-9b3a-39dee841c83b",
+          "created_at": "2021-11-22T19:31:35.000000Z",
+          "last_access": "2021-11-22 19:31:35",
+          "user_permissions": [],
+          "modules": null,
+          "is_superuser": 0
+      },
+      {
+          "name": "Andressa Ribeiro Freitas",
+          "email": "andressa.freitas@bild.com.br",
+          "uuid": "8128fb9c-e4e0-4562-9e05-3206a71bc0d4",
+          "avatar": "https://dev-almobi-hub.s3.amazonaws.com/users/avatar/8128fb9c-e4e0-4562-9e05-3206a71bc0d4.jpg",
+          "type": "cpf",
+          "document": "",
+          "company_name": "",
+          "creci": "",
+          "regional_creci": "",
+          "kind": "employee",
+          "postal_code": "",
+          "address": "",
+          "street_number": "",
+          "city": "",
+          "state": "",
+          "complement": "",
+          "neighborhood": "",
+          "phone": "",
+          "is_active": true,
+          "is_approved": true,
+          "groups": [],
+          "roles": [],
+          "company": "ebde8a05-fe11-44ad-9b3a-39dee841c83b",
+          "created_at": "2021-08-19T10:37:12.000000Z",
+          "last_access": "2021-08-19 13:37:12",
+          "user_permissions": [],
+          "modules": null,
+          "is_superuser": 0
+      },
+      {
+          "name": "Barbara Cristina Da Silva",
+          "email": "barbara.cristina@bild.com.br",
+          "uuid": "04e1b3e3-d0d6-470f-8b23-94592b06f81a",
+          "avatar": "https://dev-almobi-hub.s3.amazonaws.com/users/avatar/04e1b3e3-d0d6-470f-8b23-94592b06f81a.jpg",
+          "type": "cpf",
+          "document": "42280682869",
+          "company_name": null,
+          "creci": null,
+          "regional_creci": null,
+          "kind": "employee",
+          "postal_code": "14025310",
+          "address": "Av Prf João Fiúsa",
+          "street_number": "2340",
+          "city": "Ribeirão Preto",
+          "state": "SP",
+          "complement": null,
+          "neighborhood": "Alto da Boa Vista",
+          "phone": "00000000000",
+          "is_active": true,
+          "is_approved": true,
+          "groups": [
+              "50d36060-bb83-488a-8445-a94a16df2bf8"
+          ],
+          "roles": [
+              "fe7b4944-fe96-4f9c-8dcc-d3acec4597c6"
+          ],
+          "company": "ebde8a05-fe11-44ad-9b3a-39dee841c83b",
+          "created_at": "2021-10-18T20:13:12.000000Z",
+          "last_access": "2021-10-18 20:13:12",
+          "user_permissions": [],
+          "modules": null,
+          "is_superuser": 0
+      },
+      {
+          "name": "Bárbara Maria Brandão Gorgulho",
+          "email": "barbara.gorgulho@bild.com.br",
+          "uuid": "e79079e6-2f6e-4c14-a0df-c962db664732",
+          "avatar": "",
+          "type": "cpf",
+          "document": "",
+          "company_name": "",
+          "creci": "",
+          "regional_creci": "",
+          "kind": "employee",
+          "postal_code": "",
+          "address": "",
+          "street_number": "",
+          "city": "",
+          "state": "",
+          "complement": "",
+          "neighborhood": "",
+          "phone": "",
+          "is_active": true,
+          "is_approved": true,
+          "groups": [],
+          "roles": [],
+          "company": "ebde8a05-fe11-44ad-9b3a-39dee841c83b",
+          "created_at": "2021-12-14T11:44:53.000000Z",
+          "last_access": "2021-12-14 11:44:53",
+          "user_permissions": [],
+          "modules": null,
+          "is_superuser": 0
+      },
+      {
+          "name": "Barbara Valerio",
+          "email": "barbara.valerio@bild.com.br",
+          "uuid": "a092db17-eaed-4438-a809-6fccc10272cf",
+          "avatar": "https://dev-almobi-hub.s3.amazonaws.com/users/avatar/a092db17-eaed-4438-a809-6fccc10272cf.jpg",
+          "type": "cpf",
+          "document": "45541335833",
+          "company_name": null,
+          "creci": "5",
+          "regional_creci": "SP",
+          "kind": "self_employed",
+          "postal_code": "14403175",
+          "address": "R João da S Ranhel",
+          "street_number": "1850",
+          "city": "Franca",
+          "state": "SP",
+          "complement": null,
+          "neighborhood": "Núcleo Agrícola Alpha",
+          "phone": "16982396945",
+          "is_active": true,
+          "is_approved": true,
+          "groups": [],
+          "roles": [],
+          "company": null,
+          "created_at": "2021-08-18T08:56:13.000000Z",
+          "last_access": "2021-08-18 11:56:33",
+          "user_permissions": [],
+          "modules": null,
+          "is_superuser": 0
+      },
+      {
+          "name": "Caio Henrique Da Silveira",
+          "email": "caio.silveira@vittaresidencial.com.br",
+          "uuid": "c8fbe8a4-7cad-4a46-9a2f-e45fbc9e6b9e",
+          "avatar": "https://dev-almobi-hub.s3.amazonaws.com/users/avatar/c8fbe8a4-7cad-4a46-9a2f-e45fbc9e6b9e.jpg",
+          "type": "cpf",
+          "document": "",
+          "company_name": "",
+          "creci": "",
+          "regional_creci": "",
+          "kind": "employee",
+          "postal_code": "",
+          "address": "",
+          "street_number": "",
+          "city": "",
+          "state": "",
+          "complement": "",
+          "neighborhood": "",
+          "phone": "",
+          "is_active": true,
+          "is_approved": true,
+          "groups": [
+              "d27a875e-ca57-4d6b-879f-d59bee2bb055"
+          ],
+          "roles": [],
+          "company": "a9d94282-4120-4de3-b25c-9fa9a41a483f",
+          "created_at": "2021-08-26T17:07:59.000000Z",
+          "last_access": "2021-08-26 20:08:00",
+          "user_permissions": [],
+          "modules": null,
+          "is_superuser": 0
+      },
+      {
+          "name": "Caio Luiz Lotti",
+          "email": "caio.lotti@vittaresidencial.com.br",
+          "uuid": "6236d141-7fb9-11ec-adeb-0e51fd466acd",
+          "avatar": "",
+          "type": "cpf",
+          "document": "",
+          "company_name": "",
+          "creci": "",
+          "regional_creci": "",
+          "kind": "employee",
+          "postal_code": "",
+          "address": "",
+          "street_number": "",
+          "city": "",
+          "state": "",
+          "complement": "",
+          "neighborhood": "",
+          "phone": "",
+          "is_active": true,
+          "is_approved": true,
+          "groups": [],
+          "roles": [],
+          "company": "ebde8a05-fe11-44ad-9b3a-39dee841c83b",
+          "created_at": "2022-01-27T18:37:53.000000Z",
+          "last_access": null,
+          "user_permissions": [],
+          "modules": null,
+          "is_superuser": 1
+      },
+      {
+          "name": "Caio Tarifa Valente",
+          "email": "caio.tarifa@bild.com.br",
+          "uuid": "326733e4-5f00-4c0d-b9b2-e0e0f2087021",
+          "avatar": "https://dev-almobi-hub.s3.amazonaws.com/users/avatar/326733e4-5f00-4c0d-b9b2-e0e0f2087021.jpg",
+          "type": "cpf",
+          "document": "41009405802",
+          "company_name": null,
+          "creci": null,
+          "regional_creci": null,
+          "kind": "employee",
+          "postal_code": "14096010",
+          "address": "R dos Catetos",
+          "street_number": "170",
+          "city": "Ribeirão Preto",
+          "state": "SP",
+          "complement": "63G",
+          "neighborhood": "Ribeirânia",
+          "phone": "16988311731",
+          "is_active": true,
+          "is_approved": true,
+          "groups": [
+              "04cb0c09-526d-4dcf-9cbb-107e373d152e",
+              "4f7fe10f-d35b-40f5-b4be-5b2db73ecdd2",
+              "50d36060-bb83-488a-8445-a94a16df2bf8",
+              "58ed2be6-77a9-4d5a-b8c4-4d0368875ec5",
+              "760bda20-ae15-4b9e-989e-8b5031347417",
+              "9f863f55-48a4-4276-8662-50e1427e890c",
+              "a679b132-d76d-4371-bd86-cd6f4c14903b",
+              "bbdceae7-7843-4006-bca2-3381671f000b",
+              "bf7d7d65-0920-488d-8bb8-3c64d2ed890a",
+              "d25306f8-d204-4a9b-b7eb-61a84f4e5cd9",
+              "d27a875e-ca57-4d6b-879f-d59bee2bb055",
+              "f2069890-078a-4d21-814f-22b63b290a2a",
+              "832fd16b-c123-40c8-9fc7-723603401ee3",
+              "4537e164-59ef-4c4c-a27e-46700d25729d"
+          ],
+          "roles": [],
+          "company": "ebde8a05-fe11-44ad-9b3a-39dee841c83b",
+          "created_at": "2021-08-17T18:29:44.000000Z",
+          "last_access": "2022-02-03 12:46:28",
+          "user_permissions": {
+              "users.create": "*",
+              "users.list": "*",
+              "roles.create": "*",
+              "roles.list": "*",
+              "companies.create": "*",
+              "companies.list": "*",
+              "user_groups.create": "*",
+              "user_groups.list": "*",
+              "users.approvals": "*",
+              "users.self_employed": "*",
+              "activity_record.list": "*",
+              "companies.delete": "*",
+              "user_groups.delete": "*",
+              "roles.delete": "*",
+              "users.delete": "*",
+              "companies.edit": "*",
+              "user_groups.edit": "*",
+              "roles.edit": "*",
+              "users.edit": "*",
+              "companies.show": "*",
+              "user_groups.show": "*",
+              "roles.show": "*",
+              "users.show": "*"
+          },
+          "modules": null,
+          "is_superuser": 1
+      },
+      {
+          "name": "Cassio Nomura Humgria",
+          "email": "cassio.humgria@bild.com.br",
+          "uuid": "e984d007-f2c9-433b-a7f8-44e6652af371",
+          "avatar": "https://dev-almobi-hub.s3.amazonaws.com/users/avatar/e984d007-f2c9-433b-a7f8-44e6652af371.jpg",
+          "type": "cpf",
+          "document": "",
+          "company_name": "",
+          "creci": "",
+          "regional_creci": "",
+          "kind": "employee",
+          "postal_code": "",
+          "address": "",
+          "street_number": "",
+          "city": "",
+          "state": "",
+          "complement": "",
+          "neighborhood": "",
+          "phone": "",
+          "is_active": true,
+          "is_approved": true,
+          "groups": [],
+          "roles": [],
+          "company": "ebde8a05-fe11-44ad-9b3a-39dee841c83b",
+          "created_at": "2022-01-05T18:14:46.000000Z",
+          "last_access": "2022-01-05 18:14:47",
+          "user_permissions": [],
+          "modules": null,
+          "is_superuser": 0
+      },
+      {
+          "name": "Caue De Oliveira Buck",
+          "email": "caue.buck@bild.com.br",
+          "uuid": "d703e517-606e-41c0-9bac-3aeefdadaac7",
+          "avatar": "https://dev-almobi-hub.s3.amazonaws.com/users/avatar/d703e517-606e-41c0-9bac-3aeefdadaac7.jpg",
+          "type": "cpf",
+          "document": "",
+          "company_name": "",
+          "creci": "",
+          "regional_creci": "",
+          "kind": "employee",
+          "postal_code": "",
+          "address": "",
+          "street_number": "",
+          "city": "",
+          "state": "",
+          "complement": "",
+          "neighborhood": "",
+          "phone": "",
+          "is_active": true,
+          "is_approved": true,
+          "groups": [],
+          "roles": [],
+          "company": "ebde8a05-fe11-44ad-9b3a-39dee841c83b",
+          "created_at": "2021-09-15T18:05:05.000000Z",
+          "last_access": "2021-09-15 18:05:05",
+          "user_permissions": [],
+          "modules": null,
+          "is_superuser": 1
+      },
+      {
+          "name": "ConsultorBild Comissionamento",
+          "email": "consultorbild.comissionamento@bild.com.br",
+          "uuid": "27593590-e211-4a14-b211-b2416e90ff7c",
+          "avatar": "",
+          "type": "cpf",
+          "document": "",
+          "company_name": "",
+          "creci": "",
+          "regional_creci": "",
+          "kind": "employee",
+          "postal_code": "",
+          "address": "",
+          "street_number": "",
+          "city": "",
+          "state": "",
+          "complement": "",
+          "neighborhood": "",
+          "phone": "",
+          "is_active": true,
+          "is_approved": true,
+          "groups": [
+              "760bda20-ae15-4b9e-989e-8b5031347417"
+          ],
+          "roles": [],
+          "company": "ebde8a05-fe11-44ad-9b3a-39dee841c83b",
+          "created_at": "2021-08-20T17:34:04.000000Z",
+          "last_access": "2021-09-07 16:24:38",
+          "user_permissions": [],
+          "modules": null,
+          "is_superuser": 0
+      }
+  ]
+}

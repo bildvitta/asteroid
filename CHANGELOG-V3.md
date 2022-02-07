@@ -201,6 +201,11 @@ Sincronizado em _07/02/2022 as 17h40_.
 
 - Propriedade `dialog` alterada para `dialogProps`.
 
+### QasTableGenerator
+
+Sincronizado em _07/02/2022 as 17h40_.
+
+- Removido propriedade `order` (não estava sendo utilizada).
 
 ## Helpers
 

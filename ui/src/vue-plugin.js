@@ -23,6 +23,7 @@ import QasSelect from './components/select/QasSelect.vue'
 import QasSelectList from './components/select-list/QasSelectList.vue'
 import QasSignaturePad from './components/signature-pad/QasSignaturePad.vue'
 import QasSortable from './components/sortable/QasSortable.vue'
+import QasTableGenerator from './components/table-generator/QasTableGenerator.vue'
 import QasTabsGenerator from './components/tabs-generator/QasTabsGenerator.vue'
 import QasTextTruncate from './components/text-truncate/QasTextTruncate.vue'
 import QasTransfer from './components/transfer/QasTransfer.vue'
@@ -61,6 +62,7 @@ function install (app) {
   app.component('QasSelectList', QasSelectList)
   app.component('QasSignaturePad', QasSignaturePad)
   app.component('QasSortable', QasSortable)
+  app.component('QasTableGenerator', QasTableGenerator)
   app.component('QasTabsGenerator', QasTabsGenerator)
   app.component('QasTextTruncate', QasTextTruncate)
   app.component('QasTransfer', QasTransfer)
@@ -101,6 +103,7 @@ export {
   QasSelectList,
   QasSignaturePad,
   QasSortable,
+  QasTableGenerator,
   QasTabsGenerator,
   QasTextTruncate,
   QasTransfer,

@@ -1,0 +1,144 @@
+<template>
+  <q-table class="bg-transparent qas-table-generator" :class="tableClass" v-bind="attributes">
+    <template v-for="(_, name) in $slots" #[name]="context">
+      <slot v-if="hasBodySlot" name="body" :props="context" />
+
+      <q-td v-else :key="name">
+        <slot :name="name" v-bind="context || {}" />
+      </q-td>
+    </template>
+  </q-table>
+</template>
+
+<script>
+import { extend } from 'quasar'
+import { humanize } from '../../helpers/filters'
+import screenMixin from '../../mixins/screen'
+
+export default {
+  mixins: [screenMixin],
+
+  props: {
+    columns: {
+      default: () => [],
+      type: Array
+    },
+
+    fields: {
+      default: () => ({}),
+      type: [Array, Object]
+    },
+
+    results: {
+      default: () => [],
+      required: true,
+      type: Array
+    },
+
+    rowKey: {
+      default: 'name',
+      type: String
+    }
+  },
+
+  computed: {
+    attributes () {
+      const attributes = {
+        columns: this.columnsByFields,
+        rows: this.resultsByFields,
+        flat: true,
+        hideBottom: true,
+        pagination: { rowsPerPage: 0 },
+        rowKey: this.rowKey
+      }
+
+      return attributes
+    },
+
+    columnsByFields () {
+      if (!this.hasFields) {
+        return this.columns.filter(column => column instanceof Object)
+      }
+
+      const columns = []
+
+      function columnByField (field) {
+        const { align, label, name } = field
+
+        columns.push({
+          align: align || 'left',
+          field: name,
+          label,
+          name,
+          headerClasses: 'text-primary'
+        })
+      }
+
+      // Automatic columns.
+      if (!this.columns.length) {
+        for (const index in this.fields) {
+          columnByField(this.fields[index])
+        }
+
+        return columns
+      }
+
+      // Sorting from the column list.
+      this.columns.forEach(column => {
+        if (column instanceof Object) {
+          columnByField(column)
+        } else if (this.fields[column]) {
+          columnByField(this.fields[column])
+        }
+      })
+
+      return columns
+    },
+
+    hasBodySlot () {
+      return !!(this.$slots.body)
+    },
+
+    hasFields () {
+      return Object.keys(this.fields).length
+    },
+
+    resultsByFields () {
+      const results = extend(true, [], this.results)
+
+      return results.map((result, index) => {
+        for (const key in result) {
+          result.default = this.results[index]
+          result[key] = humanize(this.fields[key], result[key])
+        }
+
+        return result
+      })
+    },
+
+    rowsPerPage () {
+      return this.results.length
+    },
+
+    tableClass () {
+      return this.$_isSmall && 'qas-table-generator--mobile'
+    }
+  }
+}
+</script>
+
+<style lang="scss">
+.qas-table-generator {
+  .q-table th {
+    font-weight: bold;
+  }
+
+  &--mobile {
+    margin: 0 -10px;
+
+    .q-table {
+      margin-left: 10px;
+    }
+  }
+}
+</style>
