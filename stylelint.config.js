@@ -14,6 +14,12 @@ module.exports = {
     'no-invalid-position-at-import-rule': null,
     'selector-class-pattern': null,
     'string-quotes': 'single',
+    'value-keyword-case': [
+      'lower',
+      {
+        camelCaseSvgKeywords: true
+      }
+    ],
 
     'order/properties-alphabetical-order': true
   }
