@@ -3,7 +3,10 @@
     <q-card v-bind="cardProps" class="q-pa-sm" :style="style">
       <q-card-section>
         <slot name="header">
-          <div class="text-bold text-h6">{{ card.title }}</div>
+          <div class="justify-between row">
+            <div class="text-bold text-h6">{{ card.title }}</div>
+            <qas-btn v-if="useCloseIcon" v-close-popup dense flat icon="o_close" rounded />
+          </div>
         </slot>
       </q-card-section>
 
@@ -98,6 +101,10 @@ export default {
     },
 
     usePlugin: {
+      type: Boolean
+    },
+
+    useCloseIcon: {
       type: Boolean
     }
   },

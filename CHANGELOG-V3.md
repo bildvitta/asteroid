@@ -191,8 +191,16 @@ Sincronizado em _07/02/2022 as 16h25_.
 - Propriedade `value` alterada para `modelValue`.
 - Propriedade `btnActions` alterada para `btnActionsProps`.
 - Propriedade `usePlugin` adicionada para utilizar o componente no `this.$qas.dialog` como "custom dialog".
+- Adicionado propriedade `useCloseIcon` para controlar o icone de fechar.
 - Removido computada e metodos referente `QDialog`, utilizar os metodos como `show()` pegando direto a referencia do componente `QasDialog`.
 - Evento `input` alterado para `update:modelValue`.
+
+### QasTextTruncate
+
+Sincronizado em _07/02/2022 as 17h40_.
+
+- Propriedade `dialog` alterada para `dialogProps`.
+
 
 ## Helpers
 
