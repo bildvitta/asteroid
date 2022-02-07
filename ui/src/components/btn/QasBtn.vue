@@ -27,7 +27,7 @@ export default {
   computed: {
     attributes () {
       const { label, ...attributes } = this.$attrs
-      return this.showLabel ? this.$attrs : attributes
+      return attributes
     },
 
     hasLabel () {

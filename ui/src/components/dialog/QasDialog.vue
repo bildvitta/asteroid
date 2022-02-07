@@ -19,11 +19,11 @@
         <slot name="actions">
           <qas-actions v-bind="btnActionsProps">
             <template #primary>
-              <qas-btn v-if="ok" v-close-popup="!useForm" class="full-width" v-bind="defaultOk.props" v-on="defaultOk.events" @click="submitHandler" />
+              <qas-btn v-if="ok" v-close-popup="!useForm" class="full-width" v-bind="defaultOk" @click="submitHandler" />
             </template>
 
             <template #secondary>
-              <qas-btn v-if="cancel" v-close-popup class="full-width" v-bind="defaultCancel.props" v-on="defaultCancel.events" />
+              <qas-btn v-if="cancel" v-close-popup class="full-width" v-bind="defaultCancel" />
             </template>
           </qas-actions>
         </slot>
@@ -102,36 +102,30 @@ export default {
     }
   },
 
-  emits: ['update:modelValue', 'validate', 'ok', 'hide', 'update:open'],
-
-  data () {
-    return {
-      model: false
-    }
-  },
+  emits: [
+    'update:modelValue',
+    'validate',
+    'ok',
+    'hide',
+    'update:open'
+  ],
 
   computed: {
     defaultCancel () {
       return {
-        events: this.cancel?.events,
-
-        props: {
-          label: 'Cancelar',
-          outline: true,
-          ...this.cancel?.props
-        }
+        ...this.cancel?.events,
+        label: 'Cancelar',
+        outline: true,
+        ...this.cancel?.props
       }
     },
 
     defaultOk () {
       return {
-        events: this.ok?.events,
-
-        props: {
-          label: 'Ok',
-          type: this.ok?.props?.type || this.useForm ? 'submit' : 'button',
-          ...this.ok?.props
-        }
+        ...this.ok?.events,
+        label: 'Ok',
+        type: this.ok?.props?.type || this.useForm ? 'submit' : 'button',
+        ...this.ok?.props
       }
     },
 

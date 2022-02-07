@@ -186,11 +186,11 @@ Sincronizado em _20/01/2022 as 18h30_.
 
 ### QasDialog
 
-Sincronizado em _20/01/2022 as 18h30_.
+Sincronizado em _07/02/2022 as 16h25_.
 
 - Propriedade `value` alterada para `modelValue`.
 - Propriedade `btnActions` alterada para `btnActionsProps`.
-- Propriedade `usePlugin` adicionada para utilizar o componente no `this.$q.dialog` como "custom dialog" `btnCancelProps`.
+- Propriedade `usePlugin` adicionada para utilizar o componente no `this.$qas.dialog` como "custom dialog".
 - Removido computada e metodos referente `QDialog`, utilizar os metodos como `show()` pegando direto a referencia do componente `QasDialog`.
 - Evento `input` alterado para `update:modelValue`.
 

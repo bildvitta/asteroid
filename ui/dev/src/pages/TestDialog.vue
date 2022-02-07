@@ -6,7 +6,6 @@
     </q-btn>
 
     <qas-dialog ref="defaultDialog" v-model="isDialogDefault" v-bind="dialogConfigDefault" />
-
     <!-- Form -->
     <q-btn @click="openDialogForm">
       Open Dialog Form
@@ -18,6 +17,9 @@
     </q-btn>
 
     <qas-dialog v-model="isDialogForm" v-bind="dialogConfigForm" use-form @validate="handlerValidate">
+      <template #header>
+        Meu Header!
+      </template>
       <template #description>
         <qas-input v-model="model.name" label="Nome" :rules="[validateField(model.name, 'Nome é obrigatório')]" />
         <qas-input v-model="model.email" label="E-mail" :rules="[validateField(model.email, 'Nome é obrigatório')]" />
@@ -27,8 +29,6 @@
 </template>
 
 <script>
-import QasDialog from '../../../src/components/dialog/QasDialog'
-
 export default {
   data () {
     return {
@@ -46,7 +46,7 @@ export default {
     dialogConfigDefault () {
       return {
         cancel: {
-          props: { label: 'Cancel', outline: true }
+          props: { label: 'Cancelar 2', outline: true }
         },
 
         card: {
@@ -71,10 +71,6 @@ export default {
         }
       }
     }
-  },
-
-  mounted () {
-    // console.log(this.$refs.defaultDialog.show(), 'QasDialog <<<')
   },
 
   methods: {
