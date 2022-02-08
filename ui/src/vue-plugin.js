@@ -9,6 +9,7 @@ import QasBox from './components/box/QasBox.vue'
 import QasBreakline from './components/breakline/QasBreakline.vue'
 import QasBtn from './components/btn/QasBtn.vue'
 import QasCard from './components/card/QasCard.vue'
+import QasCheckboxGroup from './components/checkbox-group/QasCheckboxGroup.vue'
 import QasCopy from './components/copy/QasCopy.vue'
 import QasDebugger from './components/debugger/QasDebugger.vue'
 import QasDialog from './components/dialog/QasDialog.vue'
@@ -48,6 +49,7 @@ function install (app) {
   app.component('QasBreakline', QasBreakline)
   app.component('QasBtn', QasBtn)
   app.component('QasCard', QasCard)
+  app.component('QasCheckboxGroup', QasCheckboxGroup)
   app.component('QasCopy', QasCopy)
   app.component('QasDebugger', QasDebugger)
   app.component('QasDialog', QasDialog)
@@ -89,6 +91,7 @@ export {
   QasBreakline,
   QasBtn,
   QasCard,
+  QasCheckboxGroup,
   QasCopy,
   QasDebugger,
   QasDialog,

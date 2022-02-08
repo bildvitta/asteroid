@@ -203,11 +203,19 @@ Sincronizado em _07/02/2022 as 17h40_.
 
 ### QasTableGenerator
 
-Sincronizado em _07/02/2022 as 17h40_.
+Sincronizado em _08/02/2022 as 15h50_.
 
-- Adicionado propriedade `useScrollOnGrab` com default `true` para fazer o scroll na lista quando o usuário arrasta o mouse.
+- Propriedade `value` com default `true` para fazer o scroll na lista quando o usuário arrasta o mouse.
 - Adicionado propriedade `emptyResultText` default `-` para controlar o texto quando não tiver valor.
+- Adicionado componente `QasBox` como default.
 - Removido propriedade `order` (não estava sendo utilizada).
+
+### QasCheckboxGroup
+
+Sincronizado em _08/02/2022 as 16h10_.
+
+- Propriedade `value` alterada para `modelValue`.
+- Evento `input` alterado para `update:modelValue`.
 
 ## Helpers
 
