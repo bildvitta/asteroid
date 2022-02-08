@@ -9,6 +9,8 @@
 
 <script>
 export default {
+  name: 'QasCheckboxGroup',
+
   props: {
     options: {
       default: () => [],

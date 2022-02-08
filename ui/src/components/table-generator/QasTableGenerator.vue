@@ -19,6 +19,8 @@ import { scrollOnGrab } from '../../helpers'
 import screenMixin from '../../mixins/screen'
 
 export default {
+  name: 'QasTableGenerator',
+
   mixins: [screenMixin],
 
   props: {

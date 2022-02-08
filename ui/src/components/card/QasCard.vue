@@ -32,7 +32,7 @@
 
 <script>
 export default {
-  name: 'QasActionsMenu',
+  name: 'QasCard',
 
   props: {
     bgImagePosition: {
