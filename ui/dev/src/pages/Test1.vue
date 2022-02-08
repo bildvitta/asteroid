@@ -1,6 +1,6 @@
 <template>
   <q-page padding>
-    <qas-avatar title="Caio Tarifa" dark />
+    <qas-avatar dark title="Caio Tarifa" />
 
     <qas-box class="bg-yellow">
       Um pequeno passo para o homem, mas um grande passo para os Fronts!
@@ -14,15 +14,13 @@
 
     <qas-btn hide-label-on-small-screen>Mostre-me</qas-btn>
 
-    <qas-apps-menu :apps="apps" />
-
-    <qas-select v-model="autoCompleteModel" :options="autoCompleteOptions" multiple />
+    <qas-select v-model="autoCompleteModel" multiple :options="autoCompleteOptions" />
     <pre>{{ autoCompleteModel }}</pre>
 
     <qas-numeric-input v-model="number" />
     <pre>{{ number }}</pre>
 
-    <qas-label count="-1" label="Teste" id="ronaldo" aa="bb" @click="abc" />
+    <qas-label id="ronaldo" aa="bb" count="-1" label="Teste" @click="abc" />
 
     <qas-password-strength-checker v-model="strength" password="p!aassword" :use-numbers="false" />
     <pre>{{ strength }}</pre>
@@ -57,7 +55,7 @@ export default {
       ]
     },
 
-    breakLineText() {
+    breakLineText () {
       return `Lorem ipsum dolor sit amet consectetur, adipisicing elit.
 
       Cum, deleniti aspernatur hic doloremque?

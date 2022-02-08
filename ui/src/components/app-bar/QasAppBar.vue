@@ -20,7 +20,7 @@
         </qas-btn>
       </div>
 
-      <qas-apps-menu v-if="hasApps" :apps="apps" />
+      <!-- <qas-apps-menu v-if="hasApps" :apps="apps" /> -->
 
       <slot name="tools" />
 

@@ -3,7 +3,6 @@ import QasActionsMenu from './components/actions-menu/QasActionsMenu.vue'
 import QasAlert from './components/alert/QasAlert.vue'
 import QasAppBar from './components/app-bar/QasAppBar.vue'
 import QasAppMenu from './components/app-menu/QasAppMenu.vue'
-import QasAppsMenu from './components/apps-menu/QasAppsMenu.vue'
 import QasAvatar from './components/avatar/QasAvatar.vue'
 import QasBox from './components/box/QasBox.vue'
 import QasBreakline from './components/breakline/QasBreakline.vue'
@@ -11,6 +10,7 @@ import QasBtn from './components/btn/QasBtn.vue'
 import QasCard from './components/card/QasCard.vue'
 import QasCheckboxGroup from './components/checkbox-group/QasCheckboxGroup.vue'
 import QasCopy from './components/copy/QasCopy.vue'
+import QasDateTimeInput from './components/date-time-input/QasDateTimeInput.vue'
 import QasDebugger from './components/debugger/QasDebugger.vue'
 import QasDialog from './components/dialog/QasDialog.vue'
 import QasInput from './components/input/QasInput.vue'
@@ -43,7 +43,6 @@ function install (app) {
   app.component('QasAlert', QasAlert)
   app.component('QasAppBar', QasAppBar)
   app.component('QasAppMenu', QasAppMenu)
-  app.component('QasAppsMenu', QasAppsMenu)
   app.component('QasAvatar', QasAvatar)
   app.component('QasBox', QasBox)
   app.component('QasBreakline', QasBreakline)
@@ -51,6 +50,7 @@ function install (app) {
   app.component('QasCard', QasCard)
   app.component('QasCheckboxGroup', QasCheckboxGroup)
   app.component('QasCopy', QasCopy)
+  app.component('QasDateTimeInput', QasDateTimeInput)
   app.component('QasDebugger', QasDebugger)
   app.component('QasDialog', QasDialog)
   app.component('QasInput', QasInput)
@@ -85,7 +85,6 @@ export {
   QasAlert,
   QasAppBar,
   QasAppMenu,
-  QasAppsMenu,
   QasAvatar,
   QasBox,
   QasBreakline,
@@ -93,6 +92,7 @@ export {
   QasCard,
   QasCheckboxGroup,
   QasCopy,
+  QasDateTimeInput,
   QasDebugger,
   QasDialog,
   QasInput,
