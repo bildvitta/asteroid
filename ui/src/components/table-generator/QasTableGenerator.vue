@@ -1,5 +1,5 @@
 <template>
-  <q-table class="bg-transparent qas-table-generator" :class="tableClass" v-bind="attributes">
+  <q-table ref="table" class="bg-transparent qas-table-generator" :class="tableClass" v-bind="attributes">
     <template v-for="(_, name) in $slots" #[name]="context">
       <slot v-if="hasBodySlot" name="body" :props="context" />
 
@@ -13,6 +13,7 @@
 <script>
 import { extend } from 'quasar'
 import { humanize } from '../../helpers/filters'
+import { scrollOnGrab } from '../../helpers'
 import screenMixin from '../../mixins/screen'
 
 export default {
@@ -38,6 +39,16 @@ export default {
     rowKey: {
       default: 'name',
       type: String
+    },
+
+    emptyResultText: {
+      default: '-',
+      type: String
+    },
+
+    useScrollOnGrab: {
+      type: Boolean,
+      default: true
     }
   },
 
@@ -109,7 +120,7 @@ export default {
       return results.map((result, index) => {
         for (const key in result) {
           result.default = this.results[index]
-          result[key] = humanize(this.fields[key], result[key])
+          result[key] = humanize(this.fields[key], result[key]) || this.emptyResultText
         }
 
         return result
@@ -122,6 +133,17 @@ export default {
 
     tableClass () {
       return this.$_isSmall && 'qas-table-generator--mobile'
+    }
+  },
+
+  mounted () {
+    this.useScrollOnGrab && this.setScrollOnGrab()
+  },
+
+  methods: {
+    setScrollOnGrab () {
+      const element = this.$refs.table.$el.querySelector('.q-table__middle.scroll')
+      scrollOnGrab(element)
     }
   }
 }

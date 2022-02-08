@@ -1,12 +1,12 @@
 <template>
   <q-page class="container">
-    <!-- <qas-table-generator :columns="columns" :fields="mockData.fields" :results="mockData.results" row-key="uuid" /> -->
+    <qas-table-generator :columns="columns" :fields="mockData.fields" :results="mockData.results" row-key="uuid" :use-scroll-on-grab="false" />
 
-    <div>Com slots</div>
+    <div class="q-my-lg">Com slots</div>
     <qas-table-generator :columns="columns" :fields="mockData.fields" :results="mockData.results" row-key="uuid">
       <template #body-cell-actions="{ row }">
         <div>
-          <qas-btn @click="() => showUuid(row)">clica aqui!</qas-btn>
+          <qas-btn @click="showUuid(row)">clica aqui!</qas-btn>
         </div>
       </template>
     </qas-table-generator>
