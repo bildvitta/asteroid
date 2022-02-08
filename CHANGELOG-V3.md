@@ -140,11 +140,11 @@ Sincronizado em _13/01/2022 as 18h23_.
 
 ### QasInput
 
-Sincronizado em _18/01/2022 as 16h53_.
+Sincronizado em _08/02/2022 as 17h00_.
 
 - Propriedade `value` alterada para `modelValue`.
 - Evento `input` alterado para `update:modelValue`.
-
+- Adicionado propriedade `unmaskedValue` com default `true` para controle da máscara.
 ### QasListItems
 
 Sincronizado em _18/01/2022 as 19h11_.
@@ -215,6 +215,16 @@ Sincronizado em _08/02/2022 as 15h50_.
 Sincronizado em _08/02/2022 as 16h10_.
 
 - Propriedade `value` alterada para `modelValue`.
+- Evento `input` alterado para `update:modelValue`.
+
+### QasDateTimeInput
+
+Sincronizado em _08/02/2022 as 16h16_.
+
+- Propriedade `value` alterada para `modelValue`.
+- Propriedade `dateOptions` alterada para `dateProps`.
+- Propriedade `timeOptions` alterada para `timeProps`.
+- Removido evento `mounted` você pode escutar o hook mounted do componente pelo `@vnode-mounted`
 - Evento `input` alterado para `update:modelValue`.
 
 ## Helpers
