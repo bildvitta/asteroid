@@ -13,6 +13,7 @@ import QasCopy from './components/copy/QasCopy.vue'
 import QasDateTimeInput from './components/date-time-input/QasDateTimeInput.vue'
 import QasDebugger from './components/debugger/QasDebugger.vue'
 import QasDialog from './components/dialog/QasDialog.vue'
+import QasGridGenerator from './components/grid-generator/QasGridGenerator.vue'
 import QasInput from './components/input/QasInput.vue'
 import QasLabel from './components/label/QasLabel.vue'
 import QasListItems from './components/list-items/QasListItems.vue'
@@ -53,6 +54,7 @@ function install (app) {
   app.component('QasDateTimeInput', QasDateTimeInput)
   app.component('QasDebugger', QasDebugger)
   app.component('QasDialog', QasDialog)
+  app.component('QasGridGenerator', QasGridGenerator)
   app.component('QasInput', QasInput)
   app.component('QasLabel', QasLabel)
   app.component('QasListItems', QasListItems)
@@ -95,6 +97,7 @@ export {
   QasDateTimeInput,
   QasDebugger,
   QasDialog,
+  QasGridGenerator,
   QasInput,
   QasLabel,
   QasListItems,
