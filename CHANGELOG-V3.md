@@ -227,6 +227,23 @@ Sincronizado em _08/02/2022 as 16h16_.
 - Removido evento `mounted` você pode escutar o hook mounted do componente pelo `@vnode-mounted`
 - Evento `input` alterado para `update:modelValue`.
 
+### QasGridGenerator
+
+Sincronizado em _09/02/2022 as 9h15_.
+
+- Propriedade `value` alterada para `modelValue`.
+- Propriedade `dateOptions` alterada para `dateProps`.
+- Propriedade `timeOptions` alterada para `timeProps`.
+- Removido evento `mounted` você pode escutar o hook mounted do componente pelo `@vnode-mounted`.
+- Evento `input` alterado para `update:modelValue`.
+
+### QasGallery
+
+Sincronizado em _09/02/2022 as 14h00_.
+
+- Propriedade `items` alterada para `images`.
+- Alterado nomenclatura interna do componente.
+
 ## Helpers
 
 ### label.js
@@ -234,6 +251,12 @@ Sincronizado em _08/02/2022 as 16h16_.
 Sincronizado em _19/10/2021 as 17h17_.
 
 - Renomeado para `addCounterSuffix`.
+
+## Mixins
+
+### GeneratorMixin
+- Adicionado padrão `$_` nos metodos e computada.
+- metodo `breakpoint` renomeado para `$_getBreakpoint`.
 
 ## Plugins
 
