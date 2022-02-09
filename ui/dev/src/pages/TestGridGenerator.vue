@@ -1,6 +1,6 @@
 <template>
   <q-page class="container">
-    <qas-grid-generator :fields="mockData.fields" :result="mockData.results[0]" />
+    <qas-grid-generator :fields="mockData.fields" hide-empty-result :result="{ ...mockData.results[0] }" />
   </q-page>
 </template>
 
@@ -9,15 +9,6 @@ export default {
   computed: {
     mockData () {
       return require('../mock/fetchList.json')
-    },
-
-    columns () {
-      return [
-        'name',
-        'email',
-        'avatar',
-        { align: 'right', name: 'actions' }
-      ]
     }
   },
 

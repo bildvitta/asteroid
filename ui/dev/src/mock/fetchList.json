@@ -340,11 +340,11 @@
           "options": [
               {
                   "label": "Inativo",
-                  "value": 0
+                  "value": false
               },
               {
                   "label": "Ativo",
-                  "value": 1
+                  "value": true
               }
           ]
       },
@@ -355,11 +355,11 @@
           "options": [
               {
                   "label": "Reprovado",
-                  "value": 0
+                  "value": false
               },
               {
                   "label": "Aprovado",
-                  "value": 1
+                  "value": true
               }
           ]
       },
