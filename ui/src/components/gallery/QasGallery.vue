@@ -34,6 +34,8 @@
 import screenMixin from '../../mixins/screen'
 
 export default {
+  name: 'QasGallery',
+
   mixins: [screenMixin],
 
   props: {
