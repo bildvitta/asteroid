@@ -61,25 +61,21 @@ export default {
     }
   },
 
-  watch: {
-    $route () {
-      console.log('chamado no layout')
-    },
-
-    value: {
-      handler (value) {
-        this.menuDrawer = value
-      },
-      immediate: true
-    }
-  },
-
   computed: {
     defaultAppMenuProps () {
       return {
         ...this.appMenuProps,
         title: this.appBarProps?.title
       }
+    }
+  },
+
+  watch: {
+    value: {
+      handler (value) {
+        this.menuDrawer = value
+      },
+      immediate: true
     }
   },
 

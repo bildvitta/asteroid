@@ -96,12 +96,16 @@ export default {
     },
 
     defaultModules () {
+      if (!isLocalDevelopment()) return this.modules
+
       const defaultModules = [...this.modules]
+      const { host, protocol } = window.location
+      const value = `${protocol}//${host}`
 
       // if app is in development mode (local) it's added a default module
-      isLocalDevelopment() && defaultModules.unshift({
+      defaultModules.unshift({
         label: `Localhost ${this.title ? `(${this.title})` : ''}`,
-        value: 'http://localhost:8080'
+        value
       })
 
       return defaultModules
