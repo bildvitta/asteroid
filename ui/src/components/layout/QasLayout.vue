@@ -5,7 +5,7 @@
     </slot>
 
     <slot name="app-menu">
-      <qas-app-menu v-model="menuDrawer" v-bind="appMenuProps" v-on="appMenuEvents" />
+      <qas-app-menu v-model="menuDrawer" v-bind="defaultAppMenuProps" v-on="appMenuEvents" />
     </slot>
 
     <slot>
@@ -71,6 +71,15 @@ export default {
         this.menuDrawer = value
       },
       immediate: true
+    }
+  },
+
+  computed: {
+    defaultAppMenuProps () {
+      return {
+        ...this.appMenuProps,
+        title: this.appBarProps?.title
+      }
     }
   },
 

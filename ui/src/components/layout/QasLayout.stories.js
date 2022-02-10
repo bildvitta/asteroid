@@ -89,9 +89,7 @@ Default.args = {
         value: 'test-2',
         path: 'https://google.com'
       }
-    ],
-
-    currentModule: 'test'
+    ]
   },
 
   appBarProps: {

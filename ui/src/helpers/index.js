@@ -1,8 +1,9 @@
 import base64ToBlob from './base64ToBlob.js'
+import constructObject from './constructObject.js'
 import filterObject from './filter-object.js'
 import greatestCommonDivisor from './greatestCommonDivisor.js'
+import isLocalDevelopment from './isLocalDevelopment.js'
 import { history, handleHistory } from './historyHandler.js'
-import constructObject from './constructObject.js'
 
 import {
   asset,
@@ -53,5 +54,6 @@ export {
 
   base64ToBlob,
   filterObject,
-  greatestCommonDivisor
+  greatestCommonDivisor,
+  isLocalDevelopment
 }
