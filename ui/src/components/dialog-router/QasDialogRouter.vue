@@ -10,6 +10,7 @@
 </template>
 
 <script>
+// import { markRaw } from 'vue'
 import { Loading, extend } from 'quasar'
 import { NotifyError } from '../../plugins'
 
@@ -63,8 +64,8 @@ export default {
 
       try {
         Loading.show()
-        // const component = extend(true, {}, [...this.route.matched].pop().components.default)
-        const component = [...this.route.matched].pop().components.default
+        const component = extend(true, {}, [...this.route.matched].pop().components.default)
+        // const component = [...this.route.matched].pop().components.default
 
         // shallowRef(component)
 
