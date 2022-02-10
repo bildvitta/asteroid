@@ -2,19 +2,16 @@
   <q-dialog ref="dialog" persistent @hide="onDialogHide">
     <q-card class="full-width" style="max-width: 80vw;">
       <q-card-section>
-        <component :is="getComponent()" v-if="getComponent()" dialog :route="route" @hide="hide" />
+        <component :is="component" v-if="component" dialog :route="route" @hide="hide" />
       </q-card-section>
     </q-card>
   </q-dialog>
-  <slot :show="show" />
 </template>
 
 <script>
-// import { markRaw } from 'vue'
+import { markRaw } from 'vue'
 import { Loading, extend } from 'quasar'
 import { NotifyError } from '../../plugins'
-
-let component2 = null
 
 export default {
   name: 'QasDialogRouter',
@@ -50,10 +47,6 @@ export default {
       return this.$router.resolve(path)
     },
 
-    getComponent () {
-      return component2
-    },
-
     async show (route) {
       this.parentRoute = this.$route.fullPath
       this.route = this.resolveRoute(route)
@@ -64,15 +57,13 @@ export default {
 
       try {
         Loading.show()
-        const component = extend(true, {}, [...this.route.matched].pop().components.default)
-        // const component = [...this.route.matched].pop().components.default
 
-        // shallowRef(component)
+        const component = markRaw(
+          extend(true, {}, [...this.route.matched].pop().components.default)
+        )
 
         if (typeof component.value !== 'function') {
-          // this.component = component
-          component2 = component
-          console.log('🚀 ~ file: QasDialogRouter.vue ~ line 67 ~ show ~ this.component', this.component)
+          this.component = component
           this.$refs.dialog.show()
         } else {
           const componentFn = (await component()).default
@@ -81,7 +72,6 @@ export default {
           this.$refs.dialog.show()
         }
       } catch (error) {
-        console.log(error)
         NotifyError('Ops! Erro ao carregar item.')
         this.$emit('error', error)
       } finally {

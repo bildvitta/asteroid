@@ -244,6 +244,10 @@ Sincronizado em _09/02/2022 as 14h00_.
 - Propriedade `items` alterada para `images`.
 - Alterado nomenclatura interna do componente.
 
+### QasDialogRouter
+
+Sincronizado em _10/02/2022 as 13h50_.
+
 ## Helpers
 
 ### label.js
