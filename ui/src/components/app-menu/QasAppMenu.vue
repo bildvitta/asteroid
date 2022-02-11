@@ -1,35 +1,54 @@
 <template>
-  <q-drawer v-model="model" class="bg-primary-contrast qas-app-menu" :mini="miniMode" :width="230" @before-hide="beforeHide">
-    <q-list class="text-primary" padding>
-      <div v-for="(header, index) in items" :key="index">
-        <q-expansion-item v-if="hasChildren(header)" :active-class="activeHeaderClass" :default-opened="shouldExpand(header)" expand-icon="o_keyboard_arrow_down" expand-separator :icon="header.icon" :label="header.label" :to="header.to">
-          <q-item v-for="(item, itemIndex) in header.children" :key="itemIndex" v-ripple :active-class="activeItemClass" clickable :to="item.to">
-            <q-item-section v-if="item.icon" avatar>
-              <q-icon :name="item.icon" />
-            </q-item-section>
-            <q-item-section>
-              <q-item-label>{{ item.label }}</q-item-label>
-            </q-item-section>
-          </q-item>
-        </q-expansion-item>
+  <q-drawer v-model="model" class="qas-app-menu" :mini="miniMode" :width="230" @before-hide="beforeHide" @mini-state="setMiniState">
+    <div class="column flex full-height justify-between no-wrap overflow-x-hidden">
+      <div>
+        <div v-if="displayModuleSection" class="q-ma-md">
+          <div class="q-mb-sm text-caption text-grey-7 text-weight-medium">
+            Você está no modulo:
+          </div>
 
-        <q-item v-else :key="index" v-ripple :active-class="activeItemClass" clickable :to="header.to">
-          <q-item-section v-if="header.icon" avatar>
-            <q-icon :name="header.icon" />
-          </q-item-section>
-          <q-item-section>
-            <q-item-label>{{ header.label }}</q-item-label>
-          </q-item-section>
-        </q-item>
+          <qas-select v-model="module" :options="defaultModules" @update:model-value="redirectHandler(currentModelOption)" />
+        </div>
+
+        <q-list class="text-grey-9 text-weight-medium">
+          <template v-for="(header, index) in items">
+            <q-expansion-item v-if="hasChildren(header)" :key="header.label" :ref="`item-${index}`" :active-class="activeItemClassesSecondary" :default-opened="shouldExpand(header)" expand-icon="o_keyboard_arrow_down" expand-separator group="item" :icon="header.icon" :label="header.label" :to="header.to" @click="toggleItem(index)">
+              <q-item v-for="(item, itemIndex) in header.children" :key="itemIndex" v-ripple :active-class="activeItemClasses" clickable :to="item.to">
+                <q-item-section v-if="item.icon" avatar>
+                  <q-icon :name="item.icon" />
+                </q-item-section>
+                <q-item-section>
+                  <q-item-label>{{ item.label }}</q-item-label>
+                </q-item-section>
+              </q-item>
+            </q-expansion-item>
+
+            <q-item v-else :key="index" v-ripple :active-class="activeItemClasses" clickable :to="header.to">
+              <q-item-section v-if="header.icon" avatar>
+                <q-icon :name="header.icon" />
+              </q-item-section>
+              <q-item-section>
+                <q-item-label>{{ header.label }}</q-item-label>
+              </q-item-section>
+            </q-item>
+          </template>
+        </q-list>
       </div>
-    </q-list>
+
+      <div class="q-mx-md">
+        <img v-if="!isMini" alt="modular logo" class="block q-mb-md q-mx-auto" src="../../assets/logo-modular.svg">
+      </div>
+    </div>
   </q-drawer>
 </template>
 
 <script>
 import { screenMixin } from '../../mixins'
+import { isLocalDevelopment } from '../../helpers'
 
 export default {
+  name: 'QasAppMenu',
+
   mixins: [screenMixin],
 
   props: {
@@ -46,6 +65,16 @@ export default {
     modelValue: {
       default: true,
       type: Boolean
+    },
+
+    title: {
+      default: '',
+      type: String
+    },
+
+    modules: {
+      default: () => [],
+      type: Array
     }
   },
 
@@ -53,17 +82,35 @@ export default {
 
   data () {
     return {
-      miniMode: false
+      miniMode: false,
+      module: '',
+      isMini: false
     }
   },
 
   computed: {
-    activeHeaderClass () {
-      return 'qas-app-menu__header--active'
+    activeItemClasses () {
+      return 'bg-primary-contrast text-primary text-weight-bold'
     },
 
-    activeItemClass () {
-      return 'bg-primary text-primary-contrast'
+    activeItemClassesSecondary () {
+      return 'text-primary bg-secondary-contrast'
+    },
+
+    defaultModules () {
+      if (!isLocalDevelopment()) return this.modules
+
+      const defaultModules = [...this.modules]
+      const { host, protocol } = window.location
+      const value = `${protocol}//${host}`
+
+      // if app is in development mode (local) it's added a default module
+      defaultModules.unshift({
+        label: `Localhost ${this.title ? `(${this.title})` : ''}`,
+        value
+      })
+
+      return defaultModules
     },
 
     model: {
@@ -74,10 +121,41 @@ export default {
       set (value) {
         return this.$emit('update:modelValue', value)
       }
+    },
+
+    currentModelOption () {
+      return this.defaultModules.find(module => module?.value === this.module)
+    },
+
+    displayModuleSection () {
+      return !this.isMini && this.defaultModules.length
+    },
+
+    currentModule () {
+      const hostname = window.location.hostname
+
+      return this.defaultModules.find(module => module?.value.includes(hostname))?.value
+    }
+  },
+
+  watch: {
+    currentModule: {
+      handler (value) {
+        this.module = value
+      },
+      immediate: true
     }
   },
 
   methods: {
+    hasChildren ({ children }) {
+      return !!(children || []).length
+    },
+
+    shouldExpand ({ children, to }) {
+      return children?.length && this.$route.matched.some(item => item?.path === to?.path)
+    },
+
     beforeHide () {
       if (this.$_isLarge) {
         this.model = true
@@ -85,33 +163,33 @@ export default {
       }
     },
 
-    hasChildren ({ children }) {
-      return !!children?.length
+    setMiniState (value) {
+      this.isMini = value
     },
 
-    shouldExpand ({ children, to }) {
-      return !!children?.length && this.$route.matched.some(item => item.path === to.path)
+    redirectHandler ({ value }) {
+      if (!value.includes(window.location.host)) {
+        window.location.href = value
+      }
+    },
+
+    toggleItem (index) {
+      const component = this.getComponent(index)
+
+      component?.to && this.isMini && component.toggle()
+    },
+
+    getComponent (index) {
+      return this.$refs[`item-${index}`]?.[0]
     }
   }
 }
 </script>
 
 <style lang="scss">
-.q-expansion-item {
-  .q-expansion-item__toggle-icon {
-    color: var(--q-primary);
-    opacity: 0.2;
-  }
-
-  .qas-app-menu__header--active {
-    > .q-focus-helper {
-      background-color: currentColor;
-      opacity: 0.1;
-    }
-
-    .q-expansion-item__toggle-icon {
-      opacity: 1;
-    }
+.qas-app-menu {
+  .q-expansion-item--expanded .q-item:not(&--active.q-item) {
+    background-color: $grey-1;
   }
 }
 </style>

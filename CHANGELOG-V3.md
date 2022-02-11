@@ -19,7 +19,18 @@ Sincronizado em _10/01/2022 as 17h20_.
 
 ### QasAppBar
 
-Sincronizado em _19/10/2021 as 17h17_.
+Sincronizado em _11/02/2022 as 15h00_.
+
+### QasAppMenu
+
+Sincronizado em _11/02/2022 as 15h00_.
+
+- Propriedade `value` alterada para `modelValue`.
+- Evento `input` alterado para `update:modelValue`.
+
+### QasLayout
+
+Sincronizado em _11/02/2022 as 15h00_.
 
 - Propriedade `value` alterada para `modelValue`.
 - Evento `input` alterado para `update:modelValue`.

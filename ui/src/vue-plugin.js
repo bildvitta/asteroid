@@ -18,6 +18,7 @@ import QasGallery from './components/gallery/QasGallery.vue'
 import QasGridGenerator from './components/grid-generator/QasGridGenerator.vue'
 import QasInput from './components/input/QasInput.vue'
 import QasLabel from './components/label/QasLabel.vue'
+import QasLayout from './components/layout/QasLayout.vue'
 import QasListItems from './components/list-items/QasListItems.vue'
 import QasNumericInput from './components/numeric-input/QasNumericInput.vue'
 import QasPasswordInput from './components/password-input/QasPasswordInput.vue'
@@ -61,6 +62,7 @@ function install (app) {
   app.component('QasGridGenerator', QasGridGenerator)
   app.component('QasInput', QasInput)
   app.component('QasLabel', QasLabel)
+  app.component('QasLayout', QasLayout)
   app.component('QasListItems', QasListItems)
   app.component('QasNumericInput', QasNumericInput)
   app.component('QasPasswordInput', QasPasswordInput)
@@ -106,6 +108,7 @@ export {
   QasGridGenerator,
   QasInput,
   QasLabel,
+  QasLayout,
   QasListItems,
   QasNumericInput,
   QasPasswordInput,

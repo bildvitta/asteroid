@@ -1,71 +1,64 @@
 <template>
-  <q-layout view="hHh Lpr lFf">
-    <q-header height-hint="70">
-      <qas-app-bar :apps="apps" :is-auth="true" :title="`quasar-ui-asteroid v${version}`" :user="user" @sign-out="signOut" @toggle-menu="toggleMenuDrawer" />
-    </q-header>
-
-    <qas-app-menu v-model="menuDrawer" :items="menuList" />
-
-    <q-page-container>
-      <router-view />
-    </q-page-container>
-  </q-layout>
+  <qas-layout :app-bar-props="appBarProps" :app-menu-props="appMenuProps" />
 </template>
 
 <script>
 import { version } from 'ui'
 import pages from '../router/pages'
 
-const apps = [
-  {
-    label: 'Hub',
-    image: 'http://placehold.it/640x320'
-  },
-  {
-    label: 'Produto',
-    image: 'http://placehold.it/640x320'
-  },
-  {
-    label: 'CRM',
-    image: 'http://placehold.it/640x320'
-  },
-  {
-    label: 'Vendas',
-    image: 'http://placehold.it/640x320'
-  },
-  {
-    label: 'Repasse',
-    image: 'http://placehold.it/640x320'
-  },
-  {
-    label: 'Jurídico',
-    image: 'http://placehold.it/640x320'
-  }
-]
-
 const menuList = [
   {
-    label: 'Início',
+    label: 'Dialog',
     icon: 'o_home',
-    to: { path: '/ooo' }
+    to: { path: '/test-dialog' }
   },
 
   {
-    label: 'Menu Teste',
-    icon: 'o_layers',
-    to: { path: '/teste' },
-    children: [
-      { label: 'Teste 1', to: { path: '/teste-1' }, }
-    ]
+    label: 'Teste expansivo',
+    icon: 'o_edit',
+    children: [...pages].splice(1, 4).map(page => ({ label: getPageTitle(page), to: '/' + page.path, icon: 'o_edit' }))
   },
 
   {
     label: 'Páginas',
     icon: 'o_layers',
-    to: { path: '/' },
-    children: pages.map(page => ({ ...page, to: '/' + page.path }))
+    to: {
+      path: ''
+    },
+    children: [...pages].splice(5).map(page => ({ label: getPageTitle(page), to: '/' + page.path, icon: 'o_edit' }))
   }
 ]
+
+const modules = [
+  {
+    label: 'Assistência Digital',
+    value: 'https://develop.assistencia-digital.nave.dev'
+  },
+  {
+    label: 'Bolso Virtual BPO',
+    value: 'https://app.bolsovirtual.com.br'
+  },
+  {
+    label: 'Crm',
+    value: 'https://develop.crm.nave.dev'
+  },
+  {
+    label: 'HUB',
+    value: 'https://develop.hub.nave.dev'
+  },
+  {
+    label: 'Produto',
+    value: 'https://develop.produto.nave.dev'
+  },
+  {
+    label: 'Vendas',
+    value: 'https://develop.vendas.nave.dev'
+  }
+]
+
+function getPageTitle ({ file }) {
+  return file?.split('.')[0]
+}
 
 const user = {
   photo: 'https://www.abc.net.au/cm/lb/6367016/data/alan2c-see-the-person-data.jpg',
@@ -74,17 +67,7 @@ const user = {
 }
 
 export default {
-  data () {
-    return {
-      menuDrawer: true
-    }
-  },
-
   computed: {
-    apps () {
-      return apps
-    },
-
     menuList () {
       return menuList
     },
@@ -95,16 +78,25 @@ export default {
 
     version () {
       return version
-    }
-  },
-
-  methods: {
-    signOut () {
-      console.log('signOut fired.')
     },
 
-    toggleMenuDrawer () {
-      this.menuDrawer = !this.menuDrawer
+    modules () {
+      return modules
+    },
+
+    appBarProps () {
+      return {
+        isAuth: true,
+        title: `quasar-ui-asteroid v${version}`,
+        user: this.user
+      }
+    },
+
+    appMenuProps () {
+      return {
+        items: this.menuList,
+        modules: this.modules
+      }
     }
   }
 }
