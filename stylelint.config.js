@@ -14,12 +14,18 @@ module.exports = {
     'no-invalid-position-at-import-rule': null,
     'selector-class-pattern': null,
     'string-quotes': 'single',
+
+    // TODO: ver no futuro sobre essas regras
     'value-keyword-case': [
       'lower',
       {
         camelCaseSvgKeywords: true
       }
     ],
+
+    'function-no-unknown': null,
+    'custom-property-pattern': null,
+    'scss/no-global-function-names': null,
 
     'order/properties-alphabetical-order': true
   }
