@@ -5,7 +5,7 @@
     </slot>
 
     <slot name="app-menu">
-      <qas-app-menu v-model="menuDrawer" v-bind="appMenuProps" v-on="appMenuEvents" />
+      <qas-app-menu v-model="menuDrawer" v-bind="defaultAppMenuProps" v-on="appMenuEvents" />
     </slot>
 
     <slot>
@@ -61,11 +61,16 @@ export default {
     }
   },
 
-  watch: {
-    $route () {
-      console.log('chamado no layout')
-    },
+  computed: {
+    defaultAppMenuProps () {
+      return {
+        ...this.appMenuProps,
+        title: this.appBarProps?.title
+      }
+    }
+  },
 
+  watch: {
     value: {
       handler (value) {
         this.menuDrawer = value
