@@ -23,7 +23,7 @@ export default {
 @use 'sass:color';
 
 .doc-token {
-  background-color: color.adjust($brand-primary, $lightness: 30%);
+  background-color: $primary-contrast;
   border-radius: $generic-border-radius;
   display: inline-block;
   letter-spacing: -0.03em;

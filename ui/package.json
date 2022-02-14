@@ -29,10 +29,12 @@
   ],
   "devDependencies": {
     "@rollup/plugin-replace": "^3.0.1",
+    "@rollup/plugin-url": "^6.1.0",
     "autoprefixer": "^10.4.2",
     "core-js": "^3.20.2",
     "postcss": "^8.4.5",
     "quasar": "^2.0.0",
+    "rimraf": "^3.0.2",
     "rollup": "^2.66.0",
     "rollup-plugin-local-resolve": "^1.0.7",
     "rollup-plugin-scss": "^3.0.0",

@@ -1,4 +1,15 @@
-// Colors
+/* stylelint-disable-next-line scss/at-import-partial-extension */
+@import './quasar.variables.scss';
+
+// Quasar stuff for custom variables
+@import '../../../ui/src/css/set-brand';
+@include set-brand(primary-contrast, $primary-contrast);
+@include set-brand(secondary-contrast, $secondary-contrast);
+
+// Asteroid
+@import '../../../ui/src/index';
+
+// Brands
 .bg-brand-primary {
   background-color: $brand-primary;
 }

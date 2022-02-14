@@ -6,6 +6,7 @@
       </div>
       <div v-if="isTruncated" class="cursor-pointer text-primary" @click="toggleDialog">{{ seeMoreLabel }}</div>
     </div>
+
     <qas-dialog v-model="showDialog" v-bind="defaultDialogProps">
       <template #description>
         <slot>
@@ -18,7 +19,7 @@
 
 <script>
 import screenMixin from '../../mixins/screen'
-import QasDialog from '../dialog/QasDialog'
+import QasDialog from '../dialog/QasDialog.vue'
 
 export default {
   name: 'QasTextTruncate',

@@ -10,7 +10,7 @@
             <q-badge v-for="type in parseTypes(data.type)" :key="type" class="doc-api-entry__item-type q-ml-xs" color="grey-4" :label="type" text-color="grey-8" />
           </q-item-label>
 
-          <q-item-label caption>{{ data.description }}</q-item-label>
+          <q-item-label caption>{{ data.desc }}</q-item-label>
 
           <q-item-label v-if="hasExamples(data.examples)">
             <div class="doc-api-entry__item-example-title q-mt-xs">Exemplos:</div>

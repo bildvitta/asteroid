@@ -13,6 +13,10 @@ module.exports = [
       {
         name: 'Breakline',
         path: '/components/breakline'
+      },
+      {
+        name: 'Box',
+        path: '/components/box'
       }
     ]
   }

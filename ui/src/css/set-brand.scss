@@ -1,0 +1,15 @@
+@mixin set-brand($name, $color) {
+  :root {
+    --q-#{$name}: #{$color};
+  }
+
+  .text-#{$name} {
+    color: $color !important;
+    color: var(--q-#{$name}) !important;
+  }
+
+  .bg-#{$name} {
+    background: $color !important;
+    background: var(--q-#{$name}) !important;
+  }
+}

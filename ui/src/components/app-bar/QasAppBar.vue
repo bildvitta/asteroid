@@ -59,8 +59,8 @@
 </template>
 
 <script>
-import QasAvatar from '../avatar/QasAvatar'
-import QasBtn from '../btn/QasBtn'
+import QasAvatar from '../avatar/QasAvatar.vue'
+import QasBtn from '../btn/QasBtn.vue'
 
 export default {
   name: 'QasAppBar',

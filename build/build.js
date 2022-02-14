@@ -98,16 +98,6 @@ async function main () {
     installSpinner.succeed(`Dependências instaladas em "${packageName}".`)
   }
 
-  // Lint
-  const lintSpinner = ora('Lintando arquivos...').start()
-  execaSync('npm', ['run', 'lint'], { cwd: packages.global.resolved })
-  lintSpinner.succeed('Arquivos lintados.')
-
-  // Build UI
-  const buildSpinner = ora('Gerando o "ui"...').start()
-  execaSync('npm', ['run', 'build'], { cwd: packages.ui.resolved })
-  buildSpinner.succeed('Geração do "ui" concluída.')
-
   // API
   const apiSpinner = ora('Gerando arquivos da "API"...').start()
   execaSync('node', ['./api.js'], { cwd: __dirname })
@@ -117,6 +107,16 @@ async function main () {
   const veturSpinner = ora('Gerando arquivos para o "Vetur"...').start()
   execaSync('node', ['./vetur.js'], { cwd: __dirname })
   veturSpinner.succeed('Arquivos para o "Vetur" gerados.')
+
+  // Lint
+  const lintSpinner = ora('Lintando arquivos...').start()
+  execaSync('npm', ['run', 'lint'], { cwd: packages.global.resolved })
+  lintSpinner.succeed('Arquivos lintados.')
+
+  // Build UI
+  const buildSpinner = ora('Gerando o "ui"...').start()
+  execaSync('npm', ['run', 'build'], { cwd: packages.ui.resolved })
+  buildSpinner.succeed('Geração do "ui" concluída.')
 }
 
 main()
