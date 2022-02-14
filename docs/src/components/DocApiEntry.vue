@@ -8,6 +8,7 @@
           <q-item-label>
             <span class="doc-api-entry__item-name">{{ name }}</span>
             <q-badge v-for="type in parseTypes(data.type)" :key="type" class="doc-api-entry__item-type q-ml-xs" color="grey-4" :label="type" text-color="grey-8" />
+            <span v-if="data.required" class="doc-api-entry__item-required q-ml-xs">Obrigatório</span>
           </q-item-label>
 
           <q-item-label caption>{{ data.desc }}</q-item-label>
@@ -72,6 +73,13 @@ export default {
   &__item-type {
     font-family: monospace;
     font-size: 0.7em;
+  }
+
+  &__item-required {
+    color: $positive;
+    font-size: 0.7em;
+    font-weight: bold;
+    text-transform: uppercase;
   }
 
   &__item-default {

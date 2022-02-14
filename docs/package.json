@@ -11,6 +11,7 @@
     "test": "echo \"No test specified\" && exit 0"
   },
   "dependencies": {
+    "@bildvitta/quasar-ui-asteroid": "file:../ui",
     "@quasar/extras": "^1.0.0",
     "core-js": "^3.6.5",
     "highlight.js": "^11.4.0",

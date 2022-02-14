@@ -158,6 +158,8 @@ export default {
 </script>
 
 <style lang="scss">
+@use 'sass:map';
+
 .qas-app-bar {
   &__toolbar {
     height: 70px;
@@ -165,7 +167,7 @@ export default {
 
   &__brand {
     height: 24px;
-    margin-right: map-get($space-sm, x);
+    margin-right: map.get($space-sm, x);
     position: relative;
     top: 4px;
   }
