@@ -42,9 +42,11 @@
   },
   "dependencies": {
     "autonumeric": "^4.6.0",
+    "axios": "^0.25.0",
     "date-fns": "^2.28.0",
     "fuse.js": "^6.5.3",
     "lodash-es": "^4.17.21",
+    "pica": "^9.0.1",
     "signature_pad": "^4.0.1",
     "sortablejs": "^1.14.0"
   },

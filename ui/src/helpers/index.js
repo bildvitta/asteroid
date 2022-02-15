@@ -4,3 +4,4 @@ export { default as scrollOnGrab } from './scroll-on-grap.js'
 export { default as isLocalDevelopment } from './is-local-development.js'
 
 export * from './filters.js'
+export * from './images.js'

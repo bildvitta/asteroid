@@ -32,6 +32,7 @@ import QasTableGenerator from './components/table-generator/QasTableGenerator.vu
 import QasTabsGenerator from './components/tabs-generator/QasTabsGenerator.vue'
 import QasTextTruncate from './components/text-truncate/QasTextTruncate.vue'
 import QasTransfer from './components/transfer/QasTransfer.vue'
+import QasUploader from './components/uploader/QasUploader.vue'
 
 import {
   Dialog,
@@ -76,6 +77,7 @@ function install (app) {
   app.component('QasTabsGenerator', QasTabsGenerator)
   app.component('QasTextTruncate', QasTextTruncate)
   app.component('QasTransfer', QasTransfer)
+  app.component('QasUploader', QasUploader)
 
   app.config.globalProperties.$qas = {
     error: NotifyError,
@@ -122,6 +124,7 @@ export {
   QasTabsGenerator,
   QasTextTruncate,
   QasTransfer,
+  QasUploader,
 
   // plugin
   Dialog,
