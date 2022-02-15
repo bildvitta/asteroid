@@ -261,7 +261,7 @@ Sincronizado em _10/02/2022 as 13h50_.
 
 ### QasUploader
 
-Sincronizado em _09/02/2022 as 9h15_.
+Sincronizado em _15/02/2022 as 18h50_.
 
 - Propriedade `value` alterada para `modelValue`.
 - Adicionada nova propriedade `uploading` para ser usada como `v-model:uploading`.
@@ -272,6 +272,13 @@ Sincronizado em _09/02/2022 as 9h15_.
 ### ~~QasCustomUploader~~ (removido)
 
 - Componente era para ser utilizado como wrapper do [QUploader](https://quasar.dev/vue-components/uploader#introduction), extendendo ele e sobreescrevendo funcionalidades para criar um resize antes de fazer o upload. Porém na v2 do quasar, isto não funcionava mais, então a logica foi movida para dentro do `QasUploader`, tirando a necessidade de existencia deste componente.
+
+### QasSignaturePad
+
+Sincronizado em _15/02/2022 as 18h50_.
+
+- Propriedade `value` alterada para `modelValue`.
+- Evento `input` alterado para `update:modelValue`.
 
 ## Helpers
 
