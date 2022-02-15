@@ -11,8 +11,20 @@ module.exports = [
 
     children: [
       {
+        name: 'Box',
+        path: '/components/box'
+      },
+      {
         name: 'Breakline',
         path: '/components/breakline'
+      },
+      {
+        name: 'Button',
+        path: '/components/button'
+      },
+      {
+        name: 'Debugger',
+        path: '/components/debugger'
       }
     ]
   }

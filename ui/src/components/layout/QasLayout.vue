@@ -17,23 +17,18 @@
 </template>
 
 <script>
-import QasAppMenu from '../app-menu/QasAppMenu'
-import QasAppBar from '../app-bar/QasAppBar'
+import QasAppBar from '../app-bar/QasAppBar.vue'
+import QasAppMenu from '../app-menu/QasAppMenu.vue'
 
 export default {
   name: 'QasLayout',
 
   components: {
-    QasAppMenu,
-    QasAppBar
+    QasAppBar,
+    QasAppMenu
   },
 
   props: {
-    modelValue: {
-      default: true,
-      type: Boolean
-    },
-
     appBarEvents: {
       default: () => ({}),
       type: Object
@@ -44,14 +39,19 @@ export default {
       type: Object
     },
 
+    appMenuEvents: {
+      default: () => ({}),
+      type: Object
+    },
+
     appMenuProps: {
       default: () => ({}),
       type: Object
     },
 
-    appMenuEvents: {
-      default: () => ({}),
-      type: Object
+    modelValue: {
+      default: true,
+      type: Boolean
     }
   },
 

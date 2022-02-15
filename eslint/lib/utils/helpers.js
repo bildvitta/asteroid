@@ -10,7 +10,14 @@ function getApi (name) {
     const { found } = getVersion()
 
     if (found) {
-      apiCache[name] = require(`${uiPackage}/dist/api/${name}.json`)
+      const api = require(`${uiPackage}/dist/api/${name}.json`)
+
+      for (const mixin of api.mixins || []) {
+        const { props } = require(mixin)
+        Object.assign(api.props, props)
+      }
+
+      apiCache[name] = api
     } else {
       throw new Error(`${uiPackage} is not installed`)
     }

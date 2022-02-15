@@ -1,11 +1,15 @@
 const jetpack = require('fs-jetpack')
 const yaml = require('js-yaml')
 const path = require('path')
+const rimraf = require('rimraf')
 
 const components = path.resolve(__dirname, '../ui/src/components')
 const ui = path.resolve(__dirname, '../ui')
 
 const files = jetpack.find(components, { matching: ['**/*.yml', '**/*.yaml'] })
+
+// Clean build artifacts!
+rimraf.sync('ui/dist/api')
 
 // Create files!
 jetpack.dir(`${ui}/dist/api`)

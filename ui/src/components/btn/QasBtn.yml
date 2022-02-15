@@ -1,0 +1,12 @@
+type: component
+
+mixins:
+  - quasar/dist/api/QBtn.json
+
+meta:
+  desc: O mesmo botão do Quasar (QBtn), mas com o nosso estilo.
+
+props:
+  hide-label-on-small-screen:
+    desc: Esconde o rótulo do botão quando o tamanho da tela for pequeno.
+    type: Boolean

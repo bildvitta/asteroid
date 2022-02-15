@@ -18,7 +18,7 @@
 import { generatorMixin } from '../../mixins'
 import { humanize } from '../../helpers/filters'
 import { extend } from 'quasar'
-import { isObject } from 'lodash'
+import { isObject } from 'lodash-es'
 
 export default {
   name: 'QasGridGenerator',

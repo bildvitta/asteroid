@@ -2,6 +2,7 @@ const jetpack = require('fs-jetpack')
 const yaml = require('js-yaml')
 const { kebabCase } = require('lodash')
 const path = require('path')
+const rimraf = require('rimraf')
 
 function parseTypes (types) {
   if (Array.isArray(types)) {
@@ -30,7 +31,7 @@ for (const file of files) {
 
   tags[name] = {
     attributes: data.props ? Object.keys(data.props) : [],
-    description: data.description || `Componente "${name}" do Asteroid.`
+    description: data.meta?.desc || `Componente "${name}" do Asteroid.`
   }
 
   if (!data.props) {
@@ -41,11 +42,14 @@ for (const file of files) {
     const propData = data.props[prop]
 
     attributes[`${name}/${prop}`] = {
-      description: propData.description,
+      description: propData.desc,
       type: parseTypes(propData.type)
     }
   }
 }
+
+// Clean build artifacts!
+rimraf.sync('ui/dist/vetur')
 
 // Create files!
 jetpack.dir(`${ui}/dist/vetur`)

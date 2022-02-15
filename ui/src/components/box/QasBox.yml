@@ -1,0 +1,13 @@
+type: component
+
+meta:
+  desc: Um simples componente com fundo branco e bordas arredondadas para encapsular o seu conteúdo.
+
+props:
+  outlined:
+    desc: Insere uma borda sólida em volta do componente.
+    type: Boolean
+
+  unelevated:
+    desc: Remove a sombra do componente.
+    type: Boolean

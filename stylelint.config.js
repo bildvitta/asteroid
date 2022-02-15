@@ -11,22 +11,14 @@ module.exports = {
   rules: {
     'at-rule-no-unknown': null,
     'color-function-notation': null,
+    'custom-property-pattern': null,
+    'function-no-unknown': null, // FIXME: necessário para rodar a documentação.
     'no-invalid-position-at-import-rule': null,
     'selector-class-pattern': null,
     'string-quotes': 'single',
+    'value-keyword-case': ['lower', { camelCaseSvgKeywords: true }],
 
-    // TODO: ver no futuro sobre essas regras
-    'value-keyword-case': [
-      'lower',
-      {
-        camelCaseSvgKeywords: true
-      }
-    ],
-
-    'function-no-unknown': null,
-    'custom-property-pattern': null,
-    'scss/no-global-function-names': null,
-
+    // Plugins
     'order/properties-alphabetical-order': true
   }
 }

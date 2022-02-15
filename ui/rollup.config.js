@@ -1,12 +1,19 @@
+import rimraf from 'rimraf'
+
 import localResolve from 'rollup-plugin-local-resolve'
 import replace from '@rollup/plugin-replace'
 import scss from 'rollup-plugin-scss'
 import { terser } from 'rollup-plugin-terser'
+import url from '@rollup/plugin-url'
 import vue from 'rollup-plugin-vue'
 
 import postcss from 'postcss'
 import autoprefixer from 'autoprefixer'
 
+// Clean build artifacts
+rimraf.sync('dist/!(api|vetur)')
+
+// Setup
 import { name, author, version } from './package.json'
 const year = (new Date()).getFullYear()
 
@@ -30,6 +37,11 @@ const scssOptions = {
   processor: () => postcss([autoprefixer()])
 }
 
+const urlOptions = {
+  destDir: 'dist/assets/',
+  limit: 0
+}
+
 const vueOptions = {
   css: false,
 
@@ -39,7 +51,7 @@ const vueOptions = {
 }
 
 function addEntry (format = 'esm', options = {}) {
-  if (format === 'umd') {
+  if (format === 'cjs') {
     if (!vueOptions.template) {
       vueOptions.template = {}
     }
@@ -68,6 +80,7 @@ function addEntry (format = 'esm', options = {}) {
       localResolve(),
       replace(replaceOptions),
       scss(scssOptions),
+      url(urlOptions),
       vue(vueOptions)
     ],
 
@@ -80,6 +93,8 @@ function addEntry (format = 'esm', options = {}) {
 
       entry.output[index].globals = {
         autonumeric: 'AutoNumeric',
+        'date-fns': 'dateFns',
+        'date-fns/locale': 'dateFnsLocale',
         'fuse.js': 'Fuse',
         'lodash-es': '_',
         quasar: 'Quasar',

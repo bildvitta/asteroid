@@ -1,6 +1,10 @@
-$primary: #1976d2;
-$secondary: #26a69a;
-$accent: #9c27b0;
+$primary: hsl(200deg, 100%, 24%); // Primary Brand
+$secondary: hsl(200deg, 100%, 24%); // Secondary Brand
+$accent: hsla(200deg, 100%, 16%, 50%); // Shadow Brand
+
+// Custom
+$primary-contrast: hsla(200deg, 40%, 80%, 64%); // Contrast Primary Brand
+$secondary-contrast: hsla(200deg, 43%, 51%, 50%); // Contrast Secondary Brand
 
 // Dark
 $dark: #1d1d1d;
@@ -12,4 +16,4 @@ $info: #31ccec;
 $warning: #f2c037;
 
 // Custom
-$brand-primary: #8669ee;
+$brand-primary: $primary;

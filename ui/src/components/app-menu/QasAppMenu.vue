@@ -36,7 +36,8 @@
       </div>
 
       <div class="q-mx-md">
-        <img v-if="!isMini" alt="modular logo" class="block q-mb-md q-mx-auto" src="../../assets/logo-modular.svg">
+        <!-- TODO: O Modular não é o Asteroid, então não podemos manter esse logo aqui. -->
+        <img v-if="!isMini" alt="Modular" class="block q-mb-md q-mx-auto" src="../../assets/logo-modular.svg">
       </div>
     </div>
   </q-drawer>
