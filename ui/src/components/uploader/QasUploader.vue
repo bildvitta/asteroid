@@ -206,11 +206,11 @@ export default {
     this.hidenInputElement = this.$refs.hidenInput
     this.uploader = this.$refs.uploader
 
-    this.hidenInputElement.addEventListener('change', this.addFiles)
+    this.hidenInputElement?.addEventListener?.('change', this.addFiles)
   },
 
   unmounted () {
-    this.hidenInputElement.removeEventListener('change', this.addFiles)
+    this.hidenInputElement?.removeEventListener?.('change', this.addFiles)
   },
 
   methods: {

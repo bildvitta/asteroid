@@ -104,12 +104,6 @@ export default {
         }
       }
     }
-  },
-
-  methods: {
-    uploading (value) {
-      console.log(value, 'uploading')
-    }
   }
 }
 </script>

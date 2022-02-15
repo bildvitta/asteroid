@@ -33,6 +33,7 @@ import QasTabsGenerator from './components/tabs-generator/QasTabsGenerator.vue'
 import QasTextTruncate from './components/text-truncate/QasTextTruncate.vue'
 import QasTransfer from './components/transfer/QasTransfer.vue'
 import QasUploader from './components/uploader/QasUploader.vue'
+import QasSignatureUploader from './components/signature-uploader/QasSignatureUploader.vue'
 
 import {
   Dialog,
@@ -78,6 +79,7 @@ function install (app) {
   app.component('QasTextTruncate', QasTextTruncate)
   app.component('QasTransfer', QasTransfer)
   app.component('QasUploader', QasUploader)
+  app.component('QasSignatureUploader', QasSignatureUploader)
 
   app.config.globalProperties.$qas = {
     error: NotifyError,
@@ -125,6 +127,7 @@ export {
   QasTextTruncate,
   QasTransfer,
   QasUploader,
+  QasSignatureUploader,
 
   // plugin
   Dialog,
