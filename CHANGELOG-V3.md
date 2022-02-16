@@ -280,6 +280,13 @@ Sincronizado em _15/02/2022 as 18h50_.
 - Propriedade `value` alterada para `modelValue`.
 - Evento `input` alterado para `update:modelValue`.
 
+### QasField
+
+Sincronizado em _16/02/2022 as 10h43_.
+
+- Propriedade `value` alterada para `modelValue`.
+- Evento `input` alterado para `update:modelValue`.
+
 ## Helpers
 
 ### label.js
@@ -291,8 +298,14 @@ Sincronizado em _19/10/2021 as 17h17_.
 ## Mixins
 
 ### GeneratorMixin
+
 - Adicionado padrão `$_` nos metodos e computada.
 - metodo `breakpoint` renomeado para `$_getBreakpoint`.
+
+### ~~UploaderMixin~~ (removido)
+
+- `QasCustomUploader` foi removido tirando a necessidade de exitir este mixin.
+
 
 ## Plugins
 

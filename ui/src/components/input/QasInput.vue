@@ -1,11 +1,9 @@
 <template>
-  <div>
-    <q-input ref="input" v-model="model" bottom-slots v-bind="$attrs" :mask="mask" :unmasked-value="unmaskedValue">
-      <template v-for="(_, name) in $slots" #[name]="context">
-        <slot :name="name" v-bind="context || {}" />
-      </template>
-    </q-input>
-  </div>
+  <q-input ref="input" v-model="model" bottom-slots v-bind="$attrs" :mask="mask" :unmasked-value="unmaskedValue">
+    <template v-for="(_, name) in $slots" #[name]="context">
+      <slot :name="name" v-bind="context || {}" />
+    </template>
+  </q-input>
 </template>
 
 <script>
