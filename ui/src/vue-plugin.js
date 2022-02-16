@@ -35,6 +35,7 @@ import QasTransfer from './components/transfer/QasTransfer.vue'
 import QasUploader from './components/uploader/QasUploader.vue'
 import QasSignatureUploader from './components/signature-uploader/QasSignatureUploader.vue'
 import QasField from './components/field/QasField.vue'
+import QasFormGenerator from './components/form-generator/QasFormGenerator.vue'
 
 import {
   Dialog,
@@ -82,6 +83,7 @@ function install (app) {
   app.component('QasUploader', QasUploader)
   app.component('QasSignatureUploader', QasSignatureUploader)
   app.component('QasField', QasField)
+  app.component('QasFormGenerator', QasFormGenerator)
 
   app.config.globalProperties.$qas = {
     error: NotifyError,
@@ -131,6 +133,7 @@ export {
   QasUploader,
   QasSignatureUploader,
   QasField,
+  QasFormGenerator,
 
   // plugin
   Dialog,

@@ -287,6 +287,14 @@ Sincronizado em _16/02/2022 as 10h43_.
 - Propriedade `value` alterada para `modelValue`.
 - Evento `input` alterado para `update:modelValue`.
 
+### QasFormGenerator
+
+Sincronizado em _16/02/2022 as 10h43_.
+
+- Propriedade `value` alterada para `modelValue`.
+- Propriedade `fieldsEvents` removida.
+- Evento `input` alterado para `update:modelValue`.
+
 ## Helpers
 
 ### label.js

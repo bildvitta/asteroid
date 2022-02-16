@@ -46,6 +46,11 @@ export default {
       default: () => ({}),
       required: true,
       type: Object
+    },
+
+    modelValue: {
+      default: () => ({}),
+      type: [Object, Array, String, Number, Boolean]
     }
   },
 
@@ -161,17 +166,15 @@ export default {
     },
 
     formattedValue () {
-      const { modelValue } = this.$attrs
-
       if (!this.isBoolean) {
-        return modelValue
+        return this.modelValue
       }
 
       if (this.isEmptyValue) {
-        return !!modelValue
+        return !!this.modelValue
       }
 
-      return JSON.parse(modelValue)
+      return JSON.parse(this.modelValue)
     },
 
     hasError () {
@@ -183,13 +186,11 @@ export default {
     },
 
     isEmptyValue () {
-      const { modelValue } = this.$attrs
-
       if (!this.isBoolean) {
         return false
       }
 
-      return !this.modelValue && (modelValue === undefined || typeof modelValue === 'string')
+      return !this.modelValue && (this.modelValue === undefined || typeof this.modelValue === 'string')
     },
 
     isNumberType () {
