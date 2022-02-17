@@ -3,7 +3,6 @@
     <div :class="$_classes">
       <div v-for="(field, key) in groupedFields.visible" :key="key" :class="$_getFieldClass(key)">
         <slot :field="field" :name="`field-${field.name}`">
-          {{ fieldsProps[field.name] }}
           <qas-field v-bind="fieldsProps[field.name]" :error="errors[key]" :field="field" :model-value="modelValue[field.name]" @update:model-value="updateModelValue(field.name, $event)" />
         </slot>
       </div>
@@ -22,6 +21,8 @@ import generatorMixin from '../../mixins/generator'
 import QasField from '../field/QasField'
 
 export default {
+  name: 'QasFormGenerator',
+
   components: {
     QasField
   },

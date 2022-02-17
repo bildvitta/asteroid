@@ -1,7 +1,6 @@
 <template>
-  <q-page class="container q-col-gutter-y-md row">
-    <qas-form-generator v-model="values" :fields="mockData.fields" :fields-props="fieldsProps" :result="mockData.results[0]" />
-    <pre>{{ values }}</pre>
+  <q-page class="container q-col-gutter-y-md row spaced">
+    <qas-form-generator v-model="values" :errors="errors" :fields="mockData.fields" :fields-props="fieldsProps" :result="mockData.results[0]" />
   </q-page>
 </template>
 
@@ -44,6 +43,12 @@ export default {
           'onUpdate:modelValue': value => console.log(value, 'update')
         }
       }
+    },
+
+    errors () {
+      return {
+        name: ['teste']
+      }
     }
   },
 
@@ -51,9 +56,6 @@ export default {
     mockData: {
       handler (value) {
         this.values = { ...value.results[0] }
-        // for (const key in value.fields) {
-        //   this.values[key] = value.results[0][key]
-        // }
       },
       immediate: true
     }

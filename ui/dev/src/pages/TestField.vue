@@ -43,9 +43,7 @@ export default {
   watch: {
     mockData: {
       handler (value) {
-        for (const key in value.fields) {
-          this.values[key] = value.results[0][key]
-        }
+        this.values = { ...value.results[0] }
       },
       immediate: true
     }
