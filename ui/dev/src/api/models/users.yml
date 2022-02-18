@@ -1,0 +1,9 @@
+fields:
+  name:
+    name: name
+    type: text
+
+  email:
+    name: email
+    type: text
+

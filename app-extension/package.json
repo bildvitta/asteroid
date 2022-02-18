@@ -24,7 +24,7 @@
   "bugs": "https://github.com/bildvitta/asteroid/issues",
   "homepage": "",
   "dependencies": {
-    "@bildvitta/quasar-ui-asteroid": "latest"
+    "@bildvitta/quasar-ui-asteroid": "../ui"
   },
   "engines": {
     "node": ">= 8.9.0",
