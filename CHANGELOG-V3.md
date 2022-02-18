@@ -307,8 +307,8 @@ Sincronizado em _19/10/2021 as 17h17_.
 
 ### GeneratorMixin
 
-- Adicionado padrão `$_` nos metodos e computada.
-- metodo `breakpoint` renomeado para `$_getBreakpoint`.
+- Adicionado padrão `mx_` nos metodos e computada.
+- metodo `breakpoint` renomeado para `mx_getBreakpoint`.
 
 ### ~~UploaderMixin~~ (removido)
 

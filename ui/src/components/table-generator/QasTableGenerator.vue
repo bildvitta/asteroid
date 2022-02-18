@@ -136,7 +136,7 @@ export default {
     },
 
     tableClass () {
-      return this.$_isSmall && 'qas-table-generator--mobile'
+      return this.mx_isSmall && 'qas-table-generator--mobile'
     }
   },
 

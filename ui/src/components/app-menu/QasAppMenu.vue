@@ -158,7 +158,7 @@ export default {
     },
 
     beforeHide () {
-      if (this.$_isLarge) {
+      if (this.mx_isLarge) {
         this.model = true
         this.miniMode = !this.miniMode
       }

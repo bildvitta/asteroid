@@ -55,7 +55,7 @@ export default {
   watch: {
     mockData: {
       handler (value) {
-        this.values = { ...value.results[0] }
+        // this.values = { ...value.results[0] }
       },
       immediate: true
     }

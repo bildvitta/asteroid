@@ -122,15 +122,15 @@ export default {
 
   computed: {
     actionsClass () {
-      return !this.$_isSmall && 'column'
+      return !this.mx_isSmall && 'column'
     },
 
     gutterClass () {
-      return `q-col-gutter-${this.$_untilLarge ? 'md' : 'xl'}`
+      return `q-col-gutter-${this.mx_untilLarge ? 'md' : 'xl'}`
     },
 
     iconClass () {
-      return !this.$_isSmall && 'qas-transfer__icon'
+      return !this.mx_isSmall && 'qas-transfer__icon'
     },
 
     searchBoxProps () {

@@ -138,8 +138,8 @@ export default {
 
     style () {
       return {
-        maxWidth: this.maxWidth || (this.$_isSmall ? '' : '600px'),
-        minWidth: this.minWidth || (this.$_isSmall ? '' : '400px')
+        maxWidth: this.maxWidth || (this.mx_isSmall ? '' : '600px'),
+        minWidth: this.minWidth || (this.mx_isSmall ? '' : '400px')
       }
     },
 

@@ -4,7 +4,7 @@ import generatorMixin from './generator.js'
 import passwordMixin from './password.js'
 import screenMixin from './screen.js'
 // import unsavedChangesMixin from './unsaved-changes.js'
-// import viewMixin from './view.js'
+import viewMixin from './view.js'
 // import mapMarkersMixin from './map-markers.js'
 
 export {
@@ -12,8 +12,8 @@ export {
   // formMixin,
   generatorMixin,
   passwordMixin,
+  viewMixin,
   screenMixin
   // unsavedChangesMixin,
-  // viewMixin,
   // mapMarkersMixin
 }

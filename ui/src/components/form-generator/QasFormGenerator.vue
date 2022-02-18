@@ -1,7 +1,8 @@
 <template>
   <div>
-    <div :class="$_classes">
-      <div v-for="(field, key) in groupedFields.visible" :key="key" :class="$_getFieldClass(key)">
+    <div :class="mx_classes">
+      <div v-for="(field, key) in groupedFields.visible" :key="key" :class="mx_getFieldClass(key)">
+        modelValue[field.name]: {{ test(modelValue[field.name]) }}
         <slot :field="field" :name="`field-${field.name}`">
           <qas-field v-bind="fieldsProps[field.name]" :error="errors[key]" :field="field" :model-value="modelValue[field.name]" @update:model-value="updateModelValue(field.name, $event)" />
         </slot>
@@ -18,7 +19,7 @@
 
 <script>
 import generatorMixin from '../../mixins/generator'
-import QasField from '../field/QasField'
+import QasField from '../field/QasField.vue'
 
 export default {
   name: 'QasFormGenerator',
@@ -77,12 +78,25 @@ export default {
     }
   },
 
+  watch: {
+    modelValue: {
+      handler (value) {
+        console.log(value, '>>>>>>>>. uee')
+      },
+      immediate: true
+    }
+  },
+
   methods: {
     updateModelValue (key, value) {
       const models = { ...this.modelValue }
       models[key] = value
 
       this.$emit('update:modelValue', models)
+    },
+
+    test (value) {
+      console.log(value, '>>>> af')
     }
   }
 }

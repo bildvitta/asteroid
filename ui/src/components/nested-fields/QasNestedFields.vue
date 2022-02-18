@@ -67,12 +67,12 @@
 </template>
 
 <script>
-import QasBtn from '../btn/QasBtn'
-import QasFormGenerator from '../form-generator/QasFormGenerator'
-import QasInput from '../input/QasInput'
-import QasLabel from '../label/QasLabel'
-import { constructObject } from '../../helpers'
+import QasBtn from '../btn/QasBtn.vue'
+import QasFormGenerator from '../form-generator/QasFormGenerator.vue'
+import QasInput from '../input/QasInput.vue'
+import QasLabel from '../label/QasLabel.vue'
 
+import { constructObject } from '../../helpers'
 import { extend } from 'quasar'
 import { camelize } from 'humps'
 

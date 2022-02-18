@@ -11,7 +11,8 @@ const routes = [
     name: 'Root',
     component: () => import('layouts/MyLayout.vue'),
     children: [
-      { path: '', component: () => import('pages/Index.vue') }
+      { path: '', component: () => import('pages/Index.vue') },
+      { path: 'users/new', component: () => import('pages/TestFormView.vue') }
     ].concat(children)
   },
 

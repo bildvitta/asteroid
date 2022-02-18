@@ -55,7 +55,7 @@
 </template>
 
 <script>
-import QasAvatar from '../avatar/QasAvatar'
+import QasAvatar from '../avatar/QasAvatar.vue'
 
 import { uid, extend } from 'quasar'
 import { NotifyError } from '../../plugins'

@@ -49,7 +49,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Adjustments on QasDateTime input, and adding GMT prop.
 
 ### Fixed
-- On $_createMarkers mixin, the marker is now draggable on 'create' and 'replace' pages
+- On mx_createMarkers mixin, the marker is now draggable on 'create' and 'replace' pages
 
 ## 2.11.0 - 2021-10-19
 
@@ -160,7 +160,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 - Changed implementation of `destroy` on `QasDelete` component. Now it receives an `url prop` to override the destroy URL.
-- Changed implementation of `$_createMarkers` on `map-markers.js` mixin
+- Changed implementation of `mx_createMarkers` on `map-markers.js` mixin
 
 ## 2.7.2 - 2021-08-06
 

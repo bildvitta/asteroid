@@ -37,7 +37,7 @@ export default {
       return [
         `justify-${this.align}`,
         `q-col-gutter-${this.gutter}`,
-        this.$_isSmall ? 'column reverse' : 'row'
+        this.mx_isSmall ? 'column reverse' : 'row'
       ]
     }
   }

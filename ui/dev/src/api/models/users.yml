@@ -2,8 +2,10 @@ fields:
   name:
     name: name
     type: text
+    required: true
 
   email:
     name: email
     type: text
+    required: true
 
