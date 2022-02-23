@@ -119,6 +119,12 @@ export default {
 
   computed: {
     defaultCancel () {
+      console.log({
+        ...this.cancel?.events,
+        label: 'Cancelar',
+        outline: true,
+        ...this.cancel?.props
+      })
       return {
         ...this.cancel?.events,
         label: 'Cancelar',

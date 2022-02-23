@@ -12,7 +12,8 @@ const routes = [
     component: () => import('layouts/MyLayout.vue'),
     children: [
       { path: '', component: () => import('pages/Index.vue') },
-      { path: 'users/new', component: () => import('pages/TestFormView.vue') }
+      { path: 'users/new', name: 'UsersCreate', component: () => import('pages/TestFormView.vue') },
+      { path: 'users/:id/edit', name: 'UsersEdit', component: () => import('pages/TestFormView.vue') }
     ].concat(children)
   },
 
@@ -23,5 +24,7 @@ const routes = [
     component: () => import('pages/Error404.vue')
   }
 ]
+
+console.log(routes)
 
 export default routes

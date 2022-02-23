@@ -295,6 +295,19 @@ Sincronizado em _16/02/2022 as 10h43_.
 - Propriedade `fieldsEvents` removida.
 - Evento `input` alterado para `update:modelValue`.
 
+### QasFormView
+
+Sincronizado em _16/02/2022 as 10h43_.
+
+- Propriedade `value` alterada para `modelValue`.
+- Adicionado `v-model:errorsModel` (não reativa `markRaw`, com intuito facilitar o uso no script).
+- Adicionado `v-model:fieldsModel` (não reativa `markRaw`, com intuito facilitar o uso no script).
+- Adicionado `v-model:metadataModel` (não reativa `markRaw`, com intuito facilitar o uso no script).
+- Adicionado evento `update:errorsModel`.
+- Adicionado evento `update:fieldsModel`.
+- Adicionado evento `update:metadataModel`.
+- Evento `input` alterado para `update:modelValue`.
+
 ## Helpers
 
 ### label.js

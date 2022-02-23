@@ -26,6 +26,10 @@ module.exports = function (ctx) {
 
       config: {},
 
+      components: [
+        'QPage'
+      ],
+
       // Quasar plugins
       plugins: [
         'Notify',

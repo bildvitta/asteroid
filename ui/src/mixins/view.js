@@ -1,5 +1,6 @@
 import { camelize } from 'humps'
 import { get } from 'lodash'
+import { markRaw } from 'vue'
 
 // import { NotifyError } from '../plugins'
 
@@ -61,7 +62,7 @@ export default {
     },
 
     mx_setErrors (errors = {}) {
-      this.mx_errors = errors
+      this.mx_errors = markRaw(errors)
     },
 
     mx_setFields (fields = {}) {
@@ -69,11 +70,11 @@ export default {
         fields[field].name = camelize(fields[field].name)
       }
 
-      this.mx_fields = { ...fields }
+      this.mx_fields = markRaw(fields)
     },
 
     mx_setMetadata (metadata = {}) {
-      this.mx_metadata = metadata
+      this.mx_metadata = markRaw(metadata)
     }
   }
 }

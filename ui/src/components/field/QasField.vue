@@ -190,8 +190,6 @@ export default {
         return false
       }
 
-      console.log(this.modelValue, '>>>> this.modelValue')
-
       return !this.modelValue && (this.modelValue === undefined || typeof this.modelValue === 'string')
     },
 

@@ -1,13 +1,13 @@
 <template>
   <component :is="mx_componentTag">
     <header v-if="mx_hasHeaderSlot">
-      <slot :errors="$data.mx_errors" :fields="$data.mx_fields" :metadata="$data.mx_metadata" name="header" />
+      <slot :errors="mx_errors" :fields="mx_fields" :metadata="mx_metadata" name="header" />
     </header>
 
     <q-form ref="form" @submit="submit">
-      <slot :errors="$data.mx_errors" :fields="$data.mx_fields" :metadata="$data.mx_metadata" />
+      <slot :errors="mx_errors" :fields="mx_fields" :metadata="mx_metadata" />
 
-      <slot v-if="!readOnly" :errors="$data.mx_errors" :fields="$data.mx_fields" :metadata="$data.mx_metadata" name="actions">
+      <slot v-if="!readOnly" :errors="mx_errors" :fields="mx_fields" :metadata="mx_metadata" name="actions">
         <div class="justify-end q-col-gutter-md q-my-lg row">
           <div v-if="hasCancelButton" class="col-12 col-sm-2" :class="cancelButtonClass">
             <qas-btn v-close-popup="dialog" class="full-width" :data-cy="`btnCancel-${entity}`" :disable="isCancelButtonDisabled" :label="cancelButton" outline type="button" @click="cancel" />
@@ -20,20 +20,21 @@
     </q-form>
 
     <footer v-if="mx_hasFooterSlot">
-      <slot :errors="$data.mx_errors" :fields="$data.mx_fields" :metadata="$data.mx_metadata" name="footer" />
+      <slot :errors="mx_errors" :fields="mx_fields" :metadata="mx_metadata" name="footer" />
     </footer>
 
     <qas-dialog v-model="showDialog" v-bind="dialogConfig" />
 
-    <q-inner-loading :showing="$data.mx_isFetching">
+    <q-inner-loading :showing="mx_isFetching">
       <q-spinner color="grey" size="3em" />
     </q-inner-loading>
   </component>
 </template>
 
 <script>
-import { get, isEqual, cloneDeep } from 'lodash'
+import { isEqualWith } from 'lodash'
 import { extend } from 'quasar'
+import { onBeforeRouteLeave } from 'vue-router'
 
 // import { handleHistory } from '../../helpers/historyHandler'
 import { NotifyError, NotifySuccess } from '../../plugins'
@@ -41,7 +42,7 @@ import { NotifyError, NotifySuccess } from '../../plugins'
 import QasBtn from '../btn/QasBtn.vue'
 import QasDialog from '../dialog/QasDialog.vue'
 
-import { viewMixin } from '../../mixins'
+import { viewMixin, screenMixin } from '../../mixins'
 
 export default {
   components: {
@@ -49,7 +50,7 @@ export default {
     QasDialog
   },
 
-  mixins: [viewMixin],
+  mixins: [viewMixin, screenMixin],
 
   props: {
     cancelButton: {
@@ -88,6 +89,11 @@ export default {
     showDialogOnUnsavedChanges: {
       default: true,
       type: Boolean
+    },
+
+    ignoreKeysInUnsavedChanges: {
+      default: () => [],
+      type: Array
     },
 
     submitButton: {
@@ -134,6 +140,7 @@ export default {
       hasResult: false,
       isSubmiting: false,
       showDialog: false,
+      ignoreRouterGuard: false,
 
       dialogConfig: {
         card: {
@@ -156,7 +163,7 @@ export default {
 
   computed: {
     cancelButtonClass () {
-      return this.isMobile && 'order-last'
+      return this.mx_isSmall && 'order-last'
     },
 
     fetchURL () {
@@ -175,10 +182,6 @@ export default {
       return this.mode === 'create'
     },
 
-    isMobile () {
-      return this.$q.screen.xs
-    },
-
     resolvedRoute () {
       if (this.route && Object.keys(this.route).length) {
         return this.route
@@ -188,7 +191,7 @@ export default {
     },
 
     saveButtonClass () {
-      return this.isMobile && 'order-first'
+      return this.mx_isSmall && 'order-first'
     },
 
     isCancelButtonDisabled () {
@@ -197,35 +200,42 @@ export default {
   },
 
   watch: {
-    '$data.mx_fields': {
-      handler (fields) {
-        const models = { ...this.getModelsByFields(fields), ...this.modelValue }
-        console.log('cai no fields', models)
-        this.$emit('update:modelValue', models)
+    mx_fields (fields) {
+      const models = { ...this.getModelsByFields(fields), ...this.modelValue }
 
-        if (!this.hasResult && this.showDialogOnUnsavedChanges) {
-          this.cachedResult = cloneDeep(models)
-        }
-      },
-      immediate: true
+      if (!this.hasResult && this.showDialogOnUnsavedChanges) {
+        this.cachedResult = extend(true, {}, models)
+      }
     }
   },
 
   created () {
+    console.log('Ue????')
+    onBeforeRouteLeave(this.beforeRouteLeave)
+
+    window.addEventListener('delete-success', ({ detail: { id, entity } }) => {
+      console.log('delete-success', id, entity)
+      this.ignoreRouterGuard = this.id === id && this.entity === entity
+    })
+
     this.fetch()
   },
 
   methods: {
     beforeRouteLeave (to, from, next, fromDelete) {
-      if (!this.showDialogOnUnsavedChanges) {
-        return null
-      }
-
-      if (fromDelete || isEqual(this.modelValue, this.cachedResult)) {
+      console.log('beforeRouteLeave')
+      if (!this.showDialogOnUnsavedChanges || this.ignoreRouterGuard) {
         return next()
       }
 
-      this.handleDialog(next)
+      if (fromDelete || isEqualWith(this.modelValue, this.cachedResult, this.handleIgnoreKeysInUnsavedChanges)) {
+        return next()
+      }
+
+      this.handleDialog(() => {
+        this.ignoreRouterGuard = true
+        next()
+      })
     },
 
     cancel () {
@@ -245,12 +255,14 @@ export default {
         const { errors, fields, metadata, result } = response.data
 
         this.mx_setErrors(errors)
-        console.log('🚀 ~ file: QasFormView.vue ~ line 249 ~ fetch ~ errors', errors)
         this.mx_setFields(fields)
         this.mx_setMetadata(metadata)
 
-        this.handleModels({ errorsModel: errors, fieldsModel: this.mx_fields, metadataModel: metadata })
-        // this.$emit('update:fieldsModel', fields)
+        this.handleModels({
+          errorsModel: errors,
+          fieldsModel: this.mx_fields,
+          metadataModel: metadata
+        })
 
         if (result) {
           this.hasResult = true
@@ -278,21 +290,23 @@ export default {
     },
 
     handleCancelRoute () {
-      if (this.cancelRoute) {
+      const acceptTypes = ['string', 'object']
+
+      if (this.cancelRoute && typeof acceptTypes.includes(typeof this.cancelRoute)) {
         return this.$router.push(this.cancelRoute)
       }
 
       const [, path] = this.$route.path.split('/')
-      const resolvedPath = this.$router.resolve(`/${path}`).route.path
+      const resolvedPath = this.$router.resolve(`/${path}`)
 
       this.$router.push(resolvedPath)
     },
 
-    handleDialog (fn) {
+    handleDialog (next) {
       this.openDialog()
 
       // this.dialogConfig.ok.events = { click: () => handleHistory().push(this.$route) }
-      this.dialogConfig.cancel.events = { click: fn }
+      this.dialogConfig.cancel.events = { onClick: next }
     },
 
     openDialog () {
@@ -301,9 +315,18 @@ export default {
 
     handleModels (models) {
       for (const key in models) {
-        console.log(`update:${key}`, models[key])
         this.$emit(`update:${key}`, models[key])
       }
+    },
+
+    // ignora chaves na hora de validar quando usuário está saindo da página
+    handleIgnoreKeysInUnsavedChanges (firstValue, secondValue) {
+      if (!this.ignoreKeysInUnsavedChanges.length) return
+
+      this.ignoreKeysInUnsavedChanges.forEach(key => {
+        delete firstValue[key]
+        delete secondValue[key]
+      })
     },
 
     async submit (event) {
@@ -324,22 +347,21 @@ export default {
         )
 
         if (this.showDialogOnUnsavedChanges) {
-          this.cachedResult = cloneDeep(this.modelValue)
+          this.cachedResult = extend(true, {}, this.modelValue)
         }
 
         this.mx_setErrors()
         NotifySuccess(response.data.status.text || 'Item salvo com sucesso!')
         this.$emit('submit-success', response, this.modelValue)
       } catch (error) {
-        const errors = get(error, 'response.data.errors')
-        const message = get(error, 'response.data.status.text')
-
-        const exception = errors
-          ? 'Existem erros de validação no formulário.'
-          : get(error, 'response.data.exception') || error.message
+        const errors = error?.response?.data?.errors
+        const message = error?.response?.data?.status?.text
+        const exceptionResponse = error?.response?.data?.exception
+        const exception = errors ? 'Existem erros de validação no formulário.' : exceptionResponse || error.message
 
         this.mx_setErrors(errors)
         this.$emit('update:errorsModel', this.mx_errors)
+
         NotifyError(message || 'Ops! Erro ao salvar item.', exception)
 
         this.$emit('submit-error', error)

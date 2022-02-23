@@ -132,7 +132,6 @@ export default {
       const valueLength = value.replace(/_/g, '').length
 
       if (value === '' || valueLength === this.mask.length) {
-        // console.log(value, '>>>>> value')
         this.lastValue = this.timeOnly ? value : this.toISOString(value)
         this.$emit('update:modelValue', this.lastValue)
       }
