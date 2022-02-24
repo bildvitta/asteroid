@@ -27,7 +27,8 @@ module.exports = function (ctx) {
       config: {},
 
       components: [
-        'QPage'
+        'QPage',
+        'QBtn'
       ],
 
       // Quasar plugins
