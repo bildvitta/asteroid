@@ -119,14 +119,7 @@ export default {
 
   computed: {
     defaultCancel () {
-      console.log({
-        ...this.cancel?.events,
-        label: 'Cancelar',
-        outline: true,
-        ...this.cancel?.props
-      })
       return {
-        ...this.cancel?.events,
         label: 'Cancelar',
         outline: true,
         ...this.cancel?.props
@@ -135,7 +128,6 @@ export default {
 
     defaultOk () {
       return {
-        ...this.ok?.events,
         label: 'Ok',
         type: this.ok?.props?.type || this.useForm ? 'submit' : 'button',
         ...this.ok?.props
