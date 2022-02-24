@@ -45,6 +45,8 @@ import QasDialog from '../dialog/QasDialog.vue'
 import { viewMixin, screenMixin } from '../../mixins'
 
 export default {
+  name: 'QasFormView',
+
   components: {
     QasBtn,
     QasDialog
@@ -119,6 +121,14 @@ export default {
     metadataModel: {
       default: () => ({}),
       type: Object
+    },
+
+    fetchingModel: {
+      type: Boolean
+    },
+
+    submitingModel: {
+      type: Boolean
     }
   },
 
@@ -131,7 +141,8 @@ export default {
     'update:fieldsModel',
     'update:errorsModel',
     'update:metadataModel',
-    'update:isFetchingModel'
+    'update:fetchingModel',
+    'update:submitingModel'
   ],
 
   data () {
@@ -148,15 +159,9 @@ export default {
           description: 'Você está deixando a página e suas alterações serão perdidas. Tem certeza que deseja sair sem salvar?'
         },
 
-        ok: {
-          props: { label: 'Continuar editando' },
-          events: null
-        },
+        ok: { props: { label: 'Continuar editando' } },
 
-        cancel: {
-          props: { label: 'Sair' },
-          events: null
-        }
+        cancel: { props: { label: 'Sair' } }
       }
     }
   },
@@ -206,29 +211,34 @@ export default {
       if (!this.hasResult && this.showDialogOnUnsavedChanges) {
         this.cachedResult = extend(true, {}, models)
       }
+    },
+
+    mx_isFetching (value) {
+      this.$emit('update:fetchingModel', value)
+    },
+
+    isSubmiting (value) {
+      this.$emit('update:submitingModel', value)
     }
   },
 
   created () {
-    console.log('Ue????')
     onBeforeRouteLeave(this.beforeRouteLeave)
-
-    window.addEventListener('delete-success', ({ detail: { id, entity } }) => {
-      console.log('delete-success', id, entity)
-      this.ignoreRouterGuard = this.id === id && this.entity === entity
-    })
-
+    window.addEventListener('delete-success', this.setIgnoreRouterGuard)
     this.fetch()
   },
 
-  methods: {
-    beforeRouteLeave (to, from, next, fromDelete) {
-      console.log('beforeRouteLeave')
-      if (!this.showDialogOnUnsavedChanges || this.ignoreRouterGuard) {
-        return next()
-      }
+  onUnmounted () {
+    window.removeEventListener('delete-success', this.setIgnoreRouterGuard)
+  },
 
-      if (fromDelete || isEqualWith(this.modelValue, this.cachedResult, this.handleIgnoreKeysInUnsavedChanges)) {
+  methods: {
+    beforeRouteLeave (to, from, next) {
+      if (
+        !this.showDialogOnUnsavedChanges ||
+        this.ignoreRouterGuard ||
+        isEqualWith(this.modelValue, this.cachedResult, this.handleIgnoreKeysInUnsavedChanges)
+      ) {
         return next()
       }
 
@@ -292,7 +302,7 @@ export default {
     handleCancelRoute () {
       const acceptTypes = ['string', 'object']
 
-      if (this.cancelRoute && typeof acceptTypes.includes(typeof this.cancelRoute)) {
+      if (this.cancelRoute && acceptTypes.includes(typeof this.cancelRoute)) {
         return this.$router.push(this.cancelRoute)
       }
 
@@ -306,7 +316,7 @@ export default {
       this.openDialog()
 
       // this.dialogConfig.ok.events = { click: () => handleHistory().push(this.$route) }
-      this.dialogConfig.cancel.events = { onClick: next }
+      this.dialogConfig.cancel.props.onClick = next
     },
 
     openDialog () {
@@ -368,6 +378,10 @@ export default {
       } finally {
         this.isSubmiting = false
       }
+    },
+
+    setIgnoreRouterGuard ({ detail: { id, entity } }) {
+      this.ignoreRouterGuard = this.id === id && this.entity === entity
     }
   }
 }

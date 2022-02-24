@@ -30,9 +30,11 @@ Sincronizado em _11/02/2022 as 15h00_.
 
 ### QasLayout
 
-Sincronizado em _11/02/2022 as 15h00_.
+Sincronizado em _24/02/2022 as 14h30_.
 
 - Propriedade `value` alterada para `modelValue`.
+- Propriedade `appBarEvents` removida (todos os eventos são passados pelo $attrs).
+- Propriedade `appMenuEvents` removida (todos os eventos são passados pelo $attrs).
 - Evento `input` alterado para `update:modelValue`.
 
 ### ~~QasAppsBar~~ (removido)
@@ -300,13 +302,26 @@ Sincronizado em _16/02/2022 as 10h43_.
 Sincronizado em _16/02/2022 as 10h43_.
 
 - Propriedade `value` alterada para `modelValue`.
+- Adicionado propriedade `ignoreKeysInUnsavedChanges` para ignorar chaves na validação de quando sai da tela com alterações não salvas.
 - Adicionado `v-model:errorsModel` (não reativa `markRaw`, com intuito facilitar o uso no script).
 - Adicionado `v-model:fieldsModel` (não reativa `markRaw`, com intuito facilitar o uso no script).
 - Adicionado `v-model:metadataModel` (não reativa `markRaw`, com intuito facilitar o uso no script).
+- Adicionado `v-model:fetchingModel`.
+- Adicionado `v-model:submitingModel`.
+- Adicionado evento `update:fetchingModel`.
+- Adicionado evento `update:submitingModel`.
 - Adicionado evento `update:errorsModel`.
 - Adicionado evento `update:fieldsModel`.
 - Adicionado evento `update:metadataModel`.
 - Evento `input` alterado para `update:modelValue`.
+
+### QasDelete
+
+Sincronizado em _24/02/2022 as 14h00_.
+
+- Propriedade `dialog` alterada para `dialogProps`.
+- Adicionado evento `delete-succes` ao `window` com os payloads: `{ id, entity, url }` para controle interno no `QasFormView`.
+- Alguns nomes internos alterados.
 
 ## Helpers
 

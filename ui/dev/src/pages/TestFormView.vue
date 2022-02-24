@@ -1,5 +1,12 @@
 <template>
-  <qas-form-view v-model="values" v-model:errorsModel="errors" v-model:fieldsModel="fields" class="container" entity="users" :ignore-keys-in-unsaved-changes="[]" mode="replace" @submit-success="submitSuccess" @update:fields-model="update">
+  <qas-form-view v-model="values" v-model:errorsModel="errors" v-model:fieldsModel="fields" class="container" entity="users" :ignore-keys-in-unsaved-changes="[]" mode="replace" :show-dialog-on-unsaved-changes="true" @submit-success="submitSuccess">
+    <template #header>
+      <div>
+        <qas-delete ref="delete" entity="users" @success="deleteSuccess">
+          Deletar
+        </qas-delete>
+      </div>
+    </template>
     <template #default>
       <pre>{{ values }}</pre> aquiiii
       <qas-btn @click="createEvent">Redirecionar</qas-btn>
@@ -22,10 +29,6 @@ export default {
   },
 
   methods: {
-    update (value) {
-      console.log(value, 'value')
-    },
-
     createEvent () {
       const event = new CustomEvent('delete-success', {
         bubbles: false,
@@ -41,6 +44,10 @@ export default {
     },
 
     submitSuccess () {
+      this.$router.push({ name: 'UsersCreate' })
+    },
+
+    deleteSuccess () {
       this.$router.push({ name: 'UsersCreate' })
     }
   }

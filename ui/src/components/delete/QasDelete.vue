@@ -1,5 +1,5 @@
 <template>
-  <component :is="tag" @click="confirm">
+  <component :is="tag" @click="openConfirmDialog">
     <slot />
     <qas-dialog v-model="showDialog" v-bind="defaultDialogProps" />
   </component>
@@ -49,8 +49,6 @@ export default {
 
   emits: ['success', 'error'],
 
-  expose: ['destroy'],
-
   data () {
     return {
       showDialog: false
@@ -79,7 +77,7 @@ export default {
   },
 
   methods: {
-    confirm () {
+    openConfirmDialog () {
       this.showDialog = true
     },
 
