@@ -39,6 +39,7 @@ import QasTextTruncate from './components/text-truncate/QasTextTruncate.vue'
 import QasTransfer from './components/transfer/QasTransfer.vue'
 import QasUploader from './components/uploader/QasUploader.vue'
 import QasDelete from './components/delete/QasDelete.vue'
+import QasSingleView from './components/single-view/QasSingleView.vue'
 
 import {
   Dialog,
@@ -90,6 +91,7 @@ function install (app) {
   app.component('QasTransfer', QasTransfer)
   app.component('QasUploader', QasUploader)
   app.component('QasDelete', QasDelete)
+  app.component('QasSingleView', QasSingleView)
 
   app.config.globalProperties.$qas = {
     error: NotifyError,
@@ -143,6 +145,7 @@ export {
   QasTransfer,
   QasUploader,
   QasDelete,
+  QasSingleView,
 
   // plugin
   Dialog,

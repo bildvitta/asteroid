@@ -323,6 +323,23 @@ Sincronizado em _24/02/2022 as 14h00_.
 - Adicionado evento `delete-succes` ao `window` com os payloads: `{ id, entity, url }` para controle interno no `QasFormView`.
 - Alguns nomes internos alterados.
 
+### QasSingleView
+
+Sincronizado em _24/02/2022 as 15h00_.
+
+- Propriedade `value` alterada para `modelValue`.
+- Adicionado `v-model:errorsModel` (não reativa `markRaw`, com intuito facilitar o uso no script).
+- Adicionado `v-model:fieldsModel` (não reativa `markRaw`, com intuito facilitar o uso no script).
+- Adicionado `v-model:metadataModel` (não reativa `markRaw`, com intuito facilitar o uso no script).
+- Adicionado `v-model:fetchingModel`.
+- Adicionado evento `update:fetchingModel`.
+- Adicionado evento `update:errorsModel`.
+- Adicionado evento `update:fieldsModel`.
+- Adicionado evento `update:metadataModel`.
+- Evento `input` alterado para `update:modelValue`.
+- Evento `fetch-success` alterado para `success`.
+- Evento `fetch-error` alterado para `error`.
+
 ## Helpers
 
 ### label.js

@@ -2,8 +2,6 @@ import { camelize } from 'humps'
 import { get } from 'lodash'
 import { markRaw } from 'vue'
 
-// import { NotifyError } from '../plugins'
-
 export default {
   props: {
     dialog: {
@@ -18,8 +16,34 @@ export default {
     url: {
       default: '',
       type: String
+    },
+
+    fieldsModel: {
+      default: () => ({}),
+      type: Object
+    },
+
+    errorsModel: {
+      default: () => ({}),
+      type: Object
+    },
+
+    metadataModel: {
+      default: () => ({}),
+      type: Object
+    },
+
+    fetchingModel: {
+      type: Boolean
     }
   },
+
+  emits: [
+    'update:fieldsModel',
+    'update:errorsModel',
+    'update:metadataModel',
+    'update:fetchingModel'
+  ],
 
   data () {
     return {
@@ -28,6 +52,12 @@ export default {
       mx_metadata: {},
 
       mx_isFetching: false
+    }
+  },
+
+  watch: {
+    mx_isFetching (value) {
+      this.$emit('update:fetchingModel', value)
     }
   },
 
@@ -51,7 +81,6 @@ export default {
       const exception = get(response, 'data.exception') || error.message
 
       this.$qas.error('Ops! Erro ao obter os dados.', exception)
-      // NotifyError('Ops! Erro ao obter os dados.', exception)
 
       const status = get(response, 'status')
       const redirect = ({ 403: 'Forbidden', 404: 'NotFound' })[status]
@@ -75,6 +104,12 @@ export default {
 
     mx_setMetadata (metadata = {}) {
       this.mx_metadata = markRaw(metadata)
+    },
+
+    mx_updateModels (models) {
+      for (const key in models) {
+        this.$emit(`update:${key}`, models[key])
+      }
     }
   }
 }
