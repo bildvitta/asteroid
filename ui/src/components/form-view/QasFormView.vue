@@ -23,7 +23,7 @@
       <slot :errors="mx_errors" :fields="mx_fields" :metadata="mx_metadata" name="footer" />
     </footer>
 
-    <qas-dialog v-model="showDialog" v-bind="dialogConfig" />
+    <qas-dialog v-model="showDialog" v-bind="defaultDialogProps" />
 
     <q-inner-loading :showing="mx_isFetching">
       <q-spinner color="grey" size="3em" />
@@ -153,7 +153,7 @@ export default {
       showDialog: false,
       ignoreRouterGuard: false,
 
-      dialogConfig: {
+      defaultDialogProps: {
         card: {
           title: 'Atenção!',
           description: 'Você está deixando a página e suas alterações serão perdidas. Tem certeza que deseja sair sem salvar?'
@@ -213,10 +213,6 @@ export default {
       }
     },
 
-    mx_isFetching (value) {
-      this.$emit('update:fetchingModel', value)
-    },
-
     isSubmiting (value) {
       this.$emit('update:submitingModel', value)
     }
@@ -268,7 +264,7 @@ export default {
         this.mx_setFields(fields)
         this.mx_setMetadata(metadata)
 
-        this.handleModels({
+        this.mx_updateModels({
           errorsModel: errors,
           fieldsModel: this.mx_fields,
           metadataModel: metadata
@@ -315,18 +311,12 @@ export default {
     handleDialog (next) {
       this.openDialog()
 
-      // this.dialogConfig.ok.events = { click: () => handleHistory().push(this.$route) }
-      this.dialogConfig.cancel.props.onClick = next
+      // this.defaultDialogProps.ok.events = { click: () => handleHistory().push(this.$route) }
+      this.defaultDialogProps.cancel.props.onClick = next
     },
 
     openDialog () {
       this.showDialog = true
-    },
-
-    handleModels (models) {
-      for (const key in models) {
-        this.$emit(`update:${key}`, models[key])
-      }
     },
 
     // ignora chaves na hora de validar quando usuário está saindo da página
