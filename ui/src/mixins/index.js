@@ -1,4 +1,4 @@
-// import contextMixin from './context.js'
+import contextMixin from './context.js'
 import formMixin from './form.js'
 import generatorMixin from './generator.js'
 import passwordMixin from './password.js'
@@ -8,7 +8,7 @@ import viewMixin from './view.js'
 // import mapMarkersMixin from './map-markers.js'
 
 export {
-  // contextMixin,
+  contextMixin,
   formMixin,
   generatorMixin,
   passwordMixin,

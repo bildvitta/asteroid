@@ -40,6 +40,8 @@ import QasTransfer from './components/transfer/QasTransfer.vue'
 import QasUploader from './components/uploader/QasUploader.vue'
 import QasDelete from './components/delete/QasDelete.vue'
 import QasSingleView from './components/single-view/QasSingleView.vue'
+import QasListView from './components/list-view/QasListView.vue'
+import QasFilters from './components/filters/QasFilters.vue'
 
 import {
   Dialog,
@@ -51,6 +53,8 @@ const version = __UI_VERSION__
 
 function install (app) {
   app.component('QasActions', QasActions)
+  app.component('QasListView', QasListView)
+  app.component('QasFilters', QasFilters)
   app.component('QasActionsMenu', QasActionsMenu)
   app.component('QasAlert', QasAlert)
   app.component('QasAppBar', QasAppBar)
@@ -146,6 +150,8 @@ export {
   QasUploader,
   QasDelete,
   QasSingleView,
+  QasFilters,
+  QasListView,
 
   // plugin
   Dialog,

@@ -337,8 +337,28 @@ Sincronizado em _24/02/2022 as 15h00_.
 - Adicionado evento `update:fieldsModel`.
 - Adicionado evento `update:metadataModel`.
 - Evento `input` alterado para `update:modelValue`.
-- Evento `fetch-success` alterado para `success`.
-- Evento `fetch-error` alterado para `error`.
+
+### QasListView
+
+Sincronizado em _24/02/2022 as 18h00_.
+
+- Propriedade `noFilter` alterada para `useFilter`.
+- Adicionado `v-model:errorsModel` (não reativa `markRaw`, com intuito facilitar o uso no script).
+- Adicionado `v-model:fieldsModel` (não reativa `markRaw`, com intuito facilitar o uso no script).
+- Adicionado `v-model:metadataModel` (não reativa `markRaw`, com intuito facilitar o uso no script).
+- Adicionado `v-model:fetchingModel`.
+- Adicionado evento `update:fetchingModel`.
+- Adicionado evento `update:errorsModel`.
+- Adicionado evento `update:fieldsModel`.
+- Adicionado evento `update:metadataModel`.
+
+### QasFilters
+
+Sincronizado em _24/02/2022 as 18h00_.
+
+- Propriedade `badges` alterada para `useBadges`
+- Propriedade `noSearch` alterada para `useSearch` com default `true`.
+- Propriedade `noFilterButton` alterada para `useFilterButton` com default `true`.
 
 ## Helpers
 
@@ -355,10 +375,13 @@ Sincronizado em _19/10/2021 as 17h17_.
 - Adicionado padrão `mx_` nos metodos e computada.
 - metodo `breakpoint` renomeado para `mx_getBreakpoint`.
 
-### ~~UploaderMixin~~ (removido)
+### ~~uploaderMixin~~ (removido)
 
 - `QasCustomUploader` foi removido tirando a necessidade de exitir este mixin.
 
+### ~~usavedChangesMixin~~ (removido)
+
+- Agora o componente `QasFormView` é responsável por verificar se há alterações não salvas, não havendo mais necessidade de um mixin externo.
 
 ## Plugins
 

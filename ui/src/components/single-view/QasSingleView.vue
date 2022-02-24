@@ -45,8 +45,8 @@ export default {
 
   emits: [
     'update:modelValue',
-    'success',
-    'error'
+    'fetch-success',
+    'fetch-error'
   ],
 
   computed: {
@@ -95,10 +95,10 @@ export default {
           metadataModel: metadata
         })
 
-        this.$emit('success', response)
+        this.$emit('fetch-success', response)
       } catch (error) {
         this.mx_fetchError(error)
-        this.$emit('error', error)
+        this.$emit('fetch-error', error)
       } finally {
         this.mx_isFetching = false
       }
