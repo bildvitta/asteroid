@@ -354,11 +354,18 @@ Sincronizado em _24/02/2022 as 18h00_.
 
 ### QasFilters
 
-Sincronizado em _24/02/2022 as 18h00_.
+Sincronizado em _24/02/2022 as 19h00_.
 
 - Propriedade `badges` alterada para `useBadges`
 - Propriedade `noSearch` alterada para `useSearch` com default `true`.
 - Propriedade `noFilterButton` alterada para `useFilterButton` com default `true`.
+
+### QasProfile
+
+Sincronizado em _25/02/2022 as 11h00_.
+
+- Propriedade `hideStatus` removida (não estava sendo utilizada).
+- Repassado todos os slots do `QasGridGenerator`.
 
 ## Helpers
 

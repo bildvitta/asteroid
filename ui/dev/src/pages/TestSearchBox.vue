@@ -1,6 +1,6 @@
 <template>
   <q-page class="container q-py-lg">
-    <qas-search-box :fuse-options="{ keys: ['label'] }" :list="list" @empty-result="onEmptyResult" :use-empty-results="false">
+    <qas-search-box :fuse-options="{ keys: ['label'] }" :list="list" :use-empty-results="false" @empty-result="onEmptyResult">
       <template #default="{ results }">
         Results: <pre>{{ results }}</pre>
       </template>
@@ -22,7 +22,7 @@
 export default {
   data () {
     return {
-      list: [ {label: 'Paul', value: '1' }, { label: 'Walker', value: '2'} ]
+      list: [{ label: 'Paul', value: '1' }, { label: 'Walker', value: '2' }]
     }
   },
 
@@ -32,7 +32,7 @@ export default {
     },
 
     changeList () {
-      this.list = [ {label: 'Paul 2', value: '1' }, { label: 'Walker 2', value: '2'} ]
+      this.list = [{ label: 'Paul 2', value: '1' }, { label: 'Walker 2', value: '2' }]
     }
   }
 }

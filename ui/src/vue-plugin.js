@@ -42,6 +42,7 @@ import QasDelete from './components/delete/QasDelete.vue'
 import QasSingleView from './components/single-view/QasSingleView.vue'
 import QasListView from './components/list-view/QasListView.vue'
 import QasFilters from './components/filters/QasFilters.vue'
+import QasProfile from './components/profile/QasProfile.vue'
 
 import {
   Dialog,
@@ -96,6 +97,7 @@ function install (app) {
   app.component('QasUploader', QasUploader)
   app.component('QasDelete', QasDelete)
   app.component('QasSingleView', QasSingleView)
+  app.component('QasProfile', QasProfile)
 
   app.config.globalProperties.$qas = {
     error: NotifyError,
@@ -152,6 +154,7 @@ export {
   QasSingleView,
   QasFilters,
   QasListView,
+  QasProfile,
 
   // plugin
   Dialog,
