@@ -18,6 +18,7 @@
         </div>
       </slot>
     </q-form>
+    history <pre>{{ history }}</pre>
 
     <footer v-if="mx_hasFooterSlot">
       <slot :errors="mx_errors" :fields="mx_fields" :metadata="mx_metadata" name="footer" />
@@ -36,7 +37,7 @@ import { isEqualWith } from 'lodash'
 import { extend } from 'quasar'
 import { onBeforeRouteLeave } from 'vue-router'
 
-// import { handleHistory } from '../../helpers/historyHandler'
+import { handleHistory, history } from '../../store/history'
 import { NotifyError, NotifySuccess } from '../../plugins'
 
 import QasBtn from '../btn/QasBtn.vue'
@@ -201,6 +202,10 @@ export default {
 
     isCancelButtonDisabled () {
       return this.disable || this.isSubmiting
+    },
+
+    history () {
+      return history.list
     }
   },
 
@@ -311,7 +316,7 @@ export default {
     handleDialog (next) {
       this.openDialog()
 
-      // this.defaultDialogProps.ok.events = { click: () => handleHistory().push(this.$route) }
+      this.defaultDialogProps.ok.props.onClick = () => handleHistory().push(this.$route)
       this.defaultDialogProps.cancel.props.onClick = next
     },
 

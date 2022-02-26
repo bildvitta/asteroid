@@ -4,7 +4,8 @@ const resolve = (...paths) => paths.map(path => sourcePath + path)
 function extendQuasar (quasar) {
   // Boot
   quasar.boot.push(...resolve(
-    'boot/register.js'
+    'boot/register.js',
+    'boot/history.js'
   ))
 
   // Transpile!

@@ -6,5 +6,5 @@ Notify.registerType('success', {
 })
 
 export default (message, caption) => {
-  Notify.create({ caption, message, type: 'success' })
+  Notify?.create({ caption, message, type: 'success' })
 }

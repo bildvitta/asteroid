@@ -14,7 +14,7 @@
           <slot :fields="mx_fields" :metadata="mx_metadata" :results="results" />
         </div>
 
-        <div v-else-if="!isFetching">
+        <div v-else-if="!mx_isFetching">
           <slot :fields="mx_fields" :metadata="mx_metadata" name="empty-results">
             <div class="q-my-xl text-center">
               <q-icon class="q-mb-sm text-center" color="grey-6" name="o_search" size="38px" />
@@ -117,7 +117,7 @@ export default {
     },
 
     async fetchList () {
-      this.isFetching = true
+      this.mx_isFetching = true
 
       try {
         const response = await this.$store.dispatch(`${this.entity}/fetchList`, { ...this.mx_context, url: this.url })
@@ -135,10 +135,10 @@ export default {
 
         this.$emit('fetch-success', response)
       } catch (error) {
-        this.fetchError(error)
+        this.mx_fetchError(error)
         this.$emit('fetch-error', error)
       } finally {
-        this.isFetching = false
+        this.mx_isFetching = false
       }
     },
 

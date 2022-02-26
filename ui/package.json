@@ -43,7 +43,6 @@
     "sass": "^1.49.0"
   },
   "dependencies": {
-    "@bildvitta/quasar-ui-asteroid": "file:../ui",
     "autonumeric": "^4.6.0",
     "axios": "^0.25.0",
     "date-fns": "^2.28.0",

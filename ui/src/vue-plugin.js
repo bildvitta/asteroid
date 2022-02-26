@@ -43,6 +43,8 @@ import QasSingleView from './components/single-view/QasSingleView.vue'
 import QasListView from './components/list-view/QasListView.vue'
 import QasFilters from './components/filters/QasFilters.vue'
 import QasProfile from './components/profile/QasProfile.vue'
+import QasResizer from './components/resizer/QasResizer.vue'
+import QasPageHeader from './components/page-header/QasPageHeader.vue'
 
 import {
   Dialog,
@@ -50,7 +52,8 @@ import {
   NotifySuccess
 } from './plugins'
 
-const version = __UI_VERSION__
+const version = '2.0.0-beta.1'
+// const version = __UI_VERSION__
 
 function install (app) {
   app.component('QasActions', QasActions)
@@ -98,6 +101,8 @@ function install (app) {
   app.component('QasDelete', QasDelete)
   app.component('QasSingleView', QasSingleView)
   app.component('QasProfile', QasProfile)
+  app.component('QasResizer', QasResizer)
+  app.component('QasPageHeader', QasPageHeader)
 
   app.config.globalProperties.$qas = {
     error: NotifyError,
@@ -155,6 +160,8 @@ export {
   QasFilters,
   QasListView,
   QasProfile,
+  QasResizer,
+  QasPageHeader,
 
   // plugin
   Dialog,
