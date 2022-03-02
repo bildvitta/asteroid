@@ -99,9 +99,11 @@ export default {
   },
 
   watch: {
-    $route () {
-      this.fetchList()
-      this.setCurrentPage()
+    $route (to, from) {
+      if (to.name === from.name) {
+        this.fetchList()
+        this.setCurrentPage()
+      }
     }
   },
 

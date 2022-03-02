@@ -179,9 +179,11 @@ export default {
   },
 
   watch: {
-    $route () {
-      this.fetchFilters()
-      this.updateValues()
+    $route (to, from) {
+      if (to.name === from.name) {
+        this.fetchFilters()
+        this.updateValues()
+      }
     },
 
     search () {

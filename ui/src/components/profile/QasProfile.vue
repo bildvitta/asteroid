@@ -32,6 +32,8 @@ import QasBox from '../box/QasBox.vue'
 import QasGridGenerator from '../grid-generator/QasGridGenerator.vue'
 
 export default {
+  name: 'QasProfile',
+
   components: {
     QasAvatar,
     QasBox,

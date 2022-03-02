@@ -7,21 +7,20 @@
       </q-toolbar-title>
 
       <q-breadcrumbs v-if="!noBreadcrumbs" class="text-caption text-grey-6">
-        <!-- <q-breadcrumbs-el v-for="item in transformedBreadcrumbs" :key="item.label" :label="item.label" to="/users" /> -->
         <q-breadcrumbs-el v-for="item in transformedBreadcrumbs" :key="item.label" :label="item.label" :to="item.route" />
       </q-breadcrumbs>
-      <div v-for="item in transformedBreadcrumbs" :key="item">{{ item.route }}</div>
     </div>
-
     <slot />
   </q-toolbar>
 </template>
 
 <script>
-import { castArray, get } from 'lodash'
-import { history, handleHistory } from '../../store/history'
+import { castArray } from 'lodash'
+import { history, getPreviousRoute } from '../../store/history'
 
 export default {
+  name: 'QasPageHeader',
+
   props: {
     breadcrumbs: {
       default: '',
@@ -53,26 +52,6 @@ export default {
       const list = [...castArray(this.breadcrumbs || this.title)]
       this.root && list.unshift(this.root)
 
-      // console.log(list.map(item => {
-      //   if (item && typeof item === 'string') {
-      //     return { label: item }
-      //   }
-
-      //   if (!item.route && item.routeName) {
-      //     item.route = { name: item.routeName }
-      //   }
-
-      //   const historyList = history.list
-
-      //   if (historyList.length && get(item, 'route.name')) {
-      //     const previous = historyList.find(history => history.name === item.route.name)
-      //     console.log(historyList, previous, '>>>> previous')
-      //     item.route.query = previous ? previous.query : null
-      //   }
-
-      //   return item
-      // }), 'hasuashuahsa')
-
       return list.map(item => {
         if (item && typeof item === 'string') {
           return { label: item }
@@ -80,12 +59,11 @@ export default {
 
         if (!item.route && item.routeName) {
           item.route = { name: item.routeName }
-          item.route = item.routeName
         }
 
         const historyList = history.list
 
-        if (historyList.length && get(item, 'route.name')) {
+        if (historyList.length && item?.route?.name) {
           const previous = historyList.find(history => history.name === item.route.name)
           item.route.query = previous ? previous.query : null
         }
@@ -97,7 +75,7 @@ export default {
 
   methods: {
     back () {
-      this.$router.push(handleHistory().getPreviousRoute(this.$route))
+      this.$router.push(getPreviousRoute(this.$route))
     }
   },
 

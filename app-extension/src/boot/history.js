@@ -1,14 +1,13 @@
-import { handleHistory } from '@bildvitta/quasar-ui-asteroid/src/store/history'
+import { addRoute } from '@bildvitta/quasar-ui-asteroid/src/store/history'
 // import { handleHistory } from
 
-export default async ({ router }) => {
+export default ({ router }) => {
   // Vue.prototype.$history = []
-  const history = handleHistory()
+  // const history = handleHistory()
 
-  router.beforeEach(async ({ name }, from, next) => {
-    console.log('estou aqui 2', handleHistory)
+  router.beforeEach((to, from, next) => {
     // Vue.prototype.$history.unshift(from)
-    history.push({ name })
+    addRoute(to)
     next()
   })
 }

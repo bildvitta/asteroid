@@ -377,6 +377,10 @@ Sincronizado em _19/10/2021 as 17h17_.
 
 ## Mixins
 
+### FormMixin
+
+- Removido computada `$_resolvedRoute` não estava sendo utilizada.
+
 ### GeneratorMixin
 
 - Adicionado padrão `mx_` nos metodos e computada.

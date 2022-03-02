@@ -64,8 +64,8 @@ export default {
   },
 
   watch: {
-    $route () {
-      this.fetchSingle()
+    $route (to, from) {
+      to.name === from.name && this.fetchSingle()
     },
 
     result (value) {
