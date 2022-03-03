@@ -20,7 +20,7 @@ export default {
     return {
       backgroundColor: 'white',
       isEmpty: true,
-      signature: 'https://s3.amazonaws.com/develop-portal-cms.bivilabs.com.br/uploads/portal-app/problems/photo/b7ce481e-44c4-49ee-8d8b-737feb70bc18.png'
+      signature: 'https://develop-portal-cms.bivilabs.com.br/uploads/banners/photo/e94f3d47-6789-473a-add0-637e10e8cefe.png'
     }
   },
 

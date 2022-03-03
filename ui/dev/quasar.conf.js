@@ -45,6 +45,10 @@ module.exports = function (ctx) {
     build: {
       vueRouterMode: 'history',
 
+      env: {
+        BUCKET: 'https://s3.amazonaws.com/develop-portal-cms.bivilabs.com.br'
+      },
+
       chainWebpack (chain) {
         chain.resolve.alias.merge({
           ui: path.resolve(__dirname, '../src/index.esm.js')
