@@ -119,7 +119,8 @@ export default {
     'fetch-success',
     'fetch-error',
     'update:modelValue',
-    'update:submiting'
+    'update:submiting',
+    'update:errors'
   ],
 
   data () {
