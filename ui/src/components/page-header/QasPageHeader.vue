@@ -6,8 +6,8 @@
         {{ title }}
       </q-toolbar-title>
 
-      <q-breadcrumbs v-if="!noBreadcrumbs" class="text-caption text-grey-6">
-        <q-breadcrumbs-el v-for="item in transformedBreadcrumbs" :key="item.label" :label="item.label" :to="item.route" />
+      <q-breadcrumbs v-if="useBreadcrumbs" class="text-caption" separator-color="grey-7">
+        <q-breadcrumbs-el v-for="(item, index) in transformedBreadcrumbs" :key="item.label" :class="getBreadcrumbsClass(index)" :label="item.label" :to="item.route" />
       </q-breadcrumbs>
     </div>
     <slot />
@@ -27,8 +27,8 @@ export default {
       type: [Array, Boolean, String]
     },
 
-    noBreadcrumbs: {
-      default: false,
+    useBreadcrumbs: {
+      default: true,
       type: Boolean
     },
 
@@ -76,6 +76,12 @@ export default {
   methods: {
     back () {
       this.$router.push(getPreviousRoute(this.$route))
+    },
+
+    getBreadcrumbsClass (index) {
+      const lastIndex = this.transformedBreadcrumbs.length - 1
+
+      return lastIndex === index ? 'text-grey-7' : 'text-primary'
     }
   },
 

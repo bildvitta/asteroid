@@ -360,6 +360,12 @@ Sincronizado em _24/02/2022 as 19h00_.
 - Propriedade `noSearch` alterada para `useSearch` com default `true`.
 - Propriedade `noFilterButton` alterada para `useFilterButton` com default `true`.
 
+### QasPageHeader
+
+Sincronizado em _03/03/2022 as 12h00_.
+
+- Propriedade `noBreadcrumbs` alterada para `useBreadcrumbs`
+
 ### QasProfile
 
 Sincronizado em _25/02/2022 as 11h00_.
@@ -374,6 +380,12 @@ Sincronizado em _25/02/2022 as 11h00_.
 Sincronizado em _19/10/2021 as 17h17_.
 
 - Renomeado para `addCounterSuffix`.
+
+### ~~historyHandler.js~~ (removido)
+
+Sincronizado em _03/03/2022 as 12h00_.
+
+Removido de `helpers` e adicionado no folder `store` para ser utilizado como uma store com `reactive`.
 
 ## Mixins
 
@@ -399,3 +411,12 @@ Sincronizado em _19/10/2021 as 17h17_.
 ### Dialog
 
 - Adicionado novo pluing de Dialog, `this.$qas.dialog()`.
+
+## Store
+
+### history.js (historyHandler.js)
+
+Sincronizado em _03/03/2022 as 12h00_.
+
+- Arquivo renomeado para `history.js`.
+- Arquivo exporta agora o `history` (proxy), `getPreviousRoute`, `addRoute` e `destroyRoutes`.
