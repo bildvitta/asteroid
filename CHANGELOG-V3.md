@@ -183,18 +183,18 @@ Sincronizado em _19/01/2022 as 16h02_.
 Sincronizado em _20/01/2022 as 15h10_.
 
 - Propriedade `options` alterada para `signatureOptions`.
-- Propriedade sync `isEmpty` removida e alterada para `v-model:emptyModel`.
+- Propriedade sync `isEmpty` removida e alterada para `v-model:empty`.
 - Biblioteca `signature_pad` versão `^3.0.0-beta.4` atualizada para a versão `^4.0.1`.
-- Evento `update:emptyModel` adicionado.
+- Evento `update:empty` adicionado.
 
 ### QasSortable (*)
 
 Sincronizado em _20/01/2022 as 18h30_.
 
 - Propriedade `options` alterada para `sortableOptions`.
-- Slot scoped `sorted` removido e adicionado `v-model:sortedModel` (usado somente para ter acesso reativo da lista sorteada, não é um two way data bind).
+- Slot scoped `sorted` removido e adicionado `v-model:sorted` (usado somente para ter acesso reativo da lista sorteada, não é um two way data bind).
 - Biblioteca `sortablejs` versão `^1.12.0` atualizada para a versão `^1.14.0`.
-- Evento `update:sortedModel` adicionado.
+- Evento `update:sorted` adicionado.
 - Obs: O metodo `replace` ainda não foi testado pois não temos uma API para testar.
 
 ### QasDialog
@@ -303,16 +303,16 @@ Sincronizado em _16/02/2022 as 10h43_.
 
 - Propriedade `value` alterada para `modelValue`.
 - Adicionado propriedade `ignoreKeysInUnsavedChanges` para ignorar chaves na validação de quando sai da tela com alterações não salvas.
-- Adicionado `v-model:errorsModel` (não reativa `markRaw`, com intuito facilitar o uso no script).
-- Adicionado `v-model:fieldsModel` (não reativa `markRaw`, com intuito facilitar o uso no script).
-- Adicionado `v-model:metadataModel` (não reativa `markRaw`, com intuito facilitar o uso no script).
-- Adicionado `v-model:fetchingModel`.
-- Adicionado `v-model:submitingModel`.
-- Adicionado evento `update:fetchingModel`.
-- Adicionado evento `update:submitingModel`.
-- Adicionado evento `update:errorsModel`.
-- Adicionado evento `update:fieldsModel`.
-- Adicionado evento `update:metadataModel`.
+- Adicionado `v-model:errors` (não reativa `markRaw`, com intuito facilitar o uso no script).
+- Adicionado `v-model:fields` (não reativa `markRaw`, com intuito facilitar o uso no script).
+- Adicionado `v-model:metadata` (não reativa `markRaw`, com intuito facilitar o uso no script).
+- Adicionado `v-model:fetching`.
+- Adicionado `v-model:submiting`.
+- Adicionado evento `update:fetching`.
+- Adicionado evento `update:submiting`.
+- Adicionado evento `update:errors`.
+- Adicionado evento `update:fields`.
+- Adicionado evento `update:metadata`.
 - Evento `input` alterado para `update:modelValue`.
 
 ### QasDelete
@@ -328,14 +328,14 @@ Sincronizado em _24/02/2022 as 14h00_.
 Sincronizado em _24/02/2022 as 15h00_.
 
 - Propriedade `value` alterada para `modelValue`.
-- Adicionado `v-model:errorsModel` (não reativa `markRaw`, com intuito facilitar o uso no script).
-- Adicionado `v-model:fieldsModel` (não reativa `markRaw`, com intuito facilitar o uso no script).
-- Adicionado `v-model:metadataModel` (não reativa `markRaw`, com intuito facilitar o uso no script).
-- Adicionado `v-model:fetchingModel`.
-- Adicionado evento `update:fetchingModel`.
-- Adicionado evento `update:errorsModel`.
-- Adicionado evento `update:fieldsModel`.
-- Adicionado evento `update:metadataModel`.
+- Adicionado `v-model:errors` (não reativa `markRaw`, com intuito facilitar o uso no script).
+- Adicionado `v-model:fields` (não reativa `markRaw`, com intuito facilitar o uso no script).
+- Adicionado `v-model:metadata` (não reativa `markRaw`, com intuito facilitar o uso no script).
+- Adicionado `v-model:fetching`.
+- Adicionado evento `update:fetching`.
+- Adicionado evento `update:errors`.
+- Adicionado evento `update:fields`.
+- Adicionado evento `update:metadata`.
 - Evento `input` alterado para `update:modelValue`.
 
 ### QasListView
@@ -343,14 +343,14 @@ Sincronizado em _24/02/2022 as 15h00_.
 Sincronizado em _24/02/2022 as 18h00_.
 
 - Propriedade `noFilter` alterada para `useFilter`.
-- Adicionado `v-model:errorsModel` (não reativa `markRaw`, com intuito facilitar o uso no script).
-- Adicionado `v-model:fieldsModel` (não reativa `markRaw`, com intuito facilitar o uso no script).
-- Adicionado `v-model:metadataModel` (não reativa `markRaw`, com intuito facilitar o uso no script).
-- Adicionado `v-model:fetchingModel`.
-- Adicionado evento `update:fetchingModel`.
-- Adicionado evento `update:errorsModel`.
-- Adicionado evento `update:fieldsModel`.
-- Adicionado evento `update:metadataModel`.
+- Adicionado `v-model:errors` (não reativa `markRaw`, com intuito facilitar o uso no script).
+- Adicionado `v-model:fields` (não reativa `markRaw`, com intuito facilitar o uso no script).
+- Adicionado `v-model:metadata` (não reativa `markRaw`, com intuito facilitar o uso no script).
+- Adicionado `v-model:fetching`.
+- Adicionado evento `update:fetching`.
+- Adicionado evento `update:errors`.
+- Adicionado evento `update:fields`.
+- Adicionado evento `update:metadata`.
 
 ### QasFilters
 

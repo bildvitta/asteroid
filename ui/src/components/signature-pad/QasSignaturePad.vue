@@ -1,7 +1,7 @@
 <template>
   <div ref="signatureContainer" class="qas-signature-pad relative-position">
     <canvas :id="canvasId" :ref="$attrs.ref" class="qas-signature-pad__canvas rounded-borders vertical-bottom" :height="height" />
-    <qas-btn v-if="!emptyModel" class="absolute-bottom-right q-mb-sm q-mr-sm" color="primary" dense icon="o_delete" round @click="clearSignature" />
+    <qas-btn v-if="!empty" class="absolute-bottom-right q-mb-sm q-mr-sm" color="primary" dense icon="o_delete" round @click="clearSignature" />
   </div>
 </template>
 
@@ -19,7 +19,7 @@ export default {
   },
 
   props: {
-    emptyModel: {
+    empty: {
       type: Boolean,
       default: true
     },
@@ -40,7 +40,7 @@ export default {
     }
   },
 
-  emits: ['update:emptyModel'],
+  emits: ['update:empty'],
 
   expose: ['clearSignature', 'saveSignature', 'updateEmptyModel'],
 
@@ -103,16 +103,16 @@ export default {
     },
 
     updateEmptyModel () {
-      this.$emit('update:emptyModel', this.signaturePad.isEmpty())
+      this.$emit('update:empty', this.signaturePad.isEmpty())
     }
   }
 }
 </script>
 
 <style lang="scss">
-// .qas-signature-pad {
-//   &__canvas {
-//     border: 1px solid $grey-3;
-//   }
-// }
+.qas-signature-pad {
+  &__canvas {
+    border: 1px solid $grey-3;
+  }
+}
 </style>

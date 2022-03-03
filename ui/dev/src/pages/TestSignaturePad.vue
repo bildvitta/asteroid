@@ -1,7 +1,7 @@
 <template>
   <q-page class="container row spaced">
     <div class="col-12">
-      <qas-signature-pad ref="signaturePad" height="250" v-model:emptyModel="isEmpty" :signature-options="{ backgroundColor }" />
+      <qas-signature-pad ref="signaturePad" v-model:empty="isEmpty" height="250" :signature-options="{ backgroundColor }" />
 
       <div v-if="isEmpty" class="q-mt-sm">Está vazio</div>
       <div class="q-gutter-sm q-mb-xl q-mt-sm row">

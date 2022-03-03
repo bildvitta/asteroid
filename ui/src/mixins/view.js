@@ -18,31 +18,31 @@ export default {
       type: String
     },
 
-    fieldsModel: {
+    fields: {
       default: () => ({}),
       type: Object
     },
 
-    errorsModel: {
+    errors: {
       default: () => ({}),
       type: Object
     },
 
-    metadataModel: {
+    metadata: {
       default: () => ({}),
       type: Object
     },
 
-    fetchingModel: {
+    fetching: {
       type: Boolean
     }
   },
 
   emits: [
-    'update:fieldsModel',
-    'update:errorsModel',
-    'update:metadataModel',
-    'update:fetchingModel'
+    'update:fields',
+    'update:errors',
+    'update:metadata',
+    'update:fetching'
   ],
 
   data () {
@@ -57,7 +57,7 @@ export default {
 
   watch: {
     mx_isFetching (value) {
-      this.$emit('update:fetchingModel', value)
+      this.$emit('update:fetching', value)
     }
   },
 

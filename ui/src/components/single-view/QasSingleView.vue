@@ -90,9 +90,9 @@ export default {
         this.mx_setMetadata(metadata)
 
         this.mx_updateModels({
-          errorsModel: errors,
-          fieldsModel: this.mx_fields,
-          metadataModel: metadata
+          errors: errors,
+          fields: this.mx_fields,
+          metadata: metadata
         })
 
         this.$emit('fetch-success', response)

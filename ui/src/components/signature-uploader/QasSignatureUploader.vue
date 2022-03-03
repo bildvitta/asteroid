@@ -21,7 +21,7 @@
       </template>
 
       <template #description>
-        <qas-signature-pad ref="signaturePadModal" v-model:emptyModel="isEmpty" height="250" />
+        <qas-signature-pad ref="signaturePadModal" v-model:empty="isEmpty" height="250" />
       </template>
 
       <template #actions>

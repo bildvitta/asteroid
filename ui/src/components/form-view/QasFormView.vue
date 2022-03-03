@@ -108,26 +108,7 @@ export default {
       type: Object
     },
 
-    fieldsModel: {
-      default: () => ({}),
-      type: Object
-    },
-
-    errorsModel: {
-      default: () => ({}),
-      type: Object
-    },
-
-    metadataModel: {
-      default: () => ({}),
-      type: Object
-    },
-
-    fetchingModel: {
-      type: Boolean
-    },
-
-    submitingModel: {
+    submiting: {
       type: Boolean
     }
   },
@@ -138,11 +119,7 @@ export default {
     'fetch-success',
     'fetch-error',
     'update:modelValue',
-    'update:fieldsModel',
-    'update:errorsModel',
-    'update:metadataModel',
-    'update:fetchingModel',
-    'update:submitingModel'
+    'update:submiting'
   ],
 
   data () {
@@ -218,7 +195,7 @@ export default {
     },
 
     isSubmiting (value) {
-      this.$emit('update:submitingModel', value)
+      this.$emit('update:submiting', value)
     }
   },
 
@@ -269,9 +246,9 @@ export default {
         this.mx_setMetadata(metadata)
 
         this.mx_updateModels({
-          errorsModel: errors,
-          fieldsModel: this.mx_fields,
-          metadataModel: metadata
+          errors: errors,
+          fields: this.mx_fields,
+          metadata: metadata
         })
 
         if (result) {
@@ -364,7 +341,7 @@ export default {
         const exception = errors ? 'Existem erros de validação no formulário.' : exceptionResponse || error.message
 
         this.mx_setErrors(errors)
-        this.$emit('update:errorsModel', this.mx_errors)
+        this.$emit('update:errors', this.mx_errors)
 
         NotifyError(message || 'Ops! Erro ao salvar item.', exception)
 
