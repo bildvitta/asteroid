@@ -45,6 +45,7 @@ import QasFilters from './components/filters/QasFilters.vue'
 import QasProfile from './components/profile/QasProfile.vue'
 import QasResizer from './components/resizer/QasResizer.vue'
 import QasPageHeader from './components/page-header/QasPageHeader.vue'
+import QasMap from './components/map/QasMap.vue'
 
 import {
   Dialog,
@@ -103,6 +104,7 @@ function install (app) {
   app.component('QasProfile', QasProfile)
   app.component('QasResizer', QasResizer)
   app.component('QasPageHeader', QasPageHeader)
+  app.component('QasMap', QasMap)
 
   app.config.globalProperties.$qas = {
     error: NotifyError,
@@ -162,6 +164,7 @@ export {
   QasProfile,
   QasResizer,
   QasPageHeader,
+  QasMap,
 
   // plugin
   Dialog,

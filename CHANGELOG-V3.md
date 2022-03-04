@@ -360,11 +360,18 @@ Sincronizado em _24/02/2022 as 19h00_.
 - Propriedade `noSearch` alterada para `useSearch` com default `true`.
 - Propriedade `noFilterButton` alterada para `useFilterButton` com default `true`.
 
+### QasMap
+
+Sincronizado em _04/03/2022 as 14h20_.
+
+- Propriedade `hasSearch` removida (não estava sendo utilizada).
+- Alterado biblioteca `gmap-vue` para `@fawmi/vue-google-maps` pois o gmap-vue não tem suporte para o `vue 3`.
+
 ### QasPageHeader
 
 Sincronizado em _03/03/2022 as 12h00_.
 
-- Propriedade `noBreadcrumbs` alterada para `useBreadcrumbs`
+- Propriedade `noBreadcrumbs` alterada para `useBreadcrumbs`.
 
 ### QasProfile
 
@@ -405,6 +412,10 @@ Removido de `helpers` e adicionado no folder `store` para ser utilizado como uma
 ### ~~usavedChangesMixin~~ (removido)
 
 - Agora o componente `QasFormView` é responsável por verificar se há alterações não salvas, não havendo mais necessidade de um mixin externo.
+
+### ~~mapMarkersMixin~~ (removido)
+
+- Mixin estava muito ligado a logica do negocio e não estava generico, por hora vms deixar ele fora do asteroid.
 
 ## Plugins
 
