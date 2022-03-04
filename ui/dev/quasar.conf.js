@@ -46,7 +46,8 @@ module.exports = function (ctx) {
       vueRouterMode: 'history',
 
       env: {
-        BUCKET: 'https://s3.amazonaws.com/develop-portal-cms.bivilabs.com.br'
+        BUCKET: 'https://uploader.nave.dev/',
+        MAPS_API_KEY: 'AIzaSyDl00zRKG51WWBIJa8yVXqX7jFD5xyqe24'
       },
 
       chainWebpack (chain) {

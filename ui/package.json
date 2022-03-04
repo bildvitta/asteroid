@@ -43,6 +43,7 @@
     "sass": "^1.49.0"
   },
   "dependencies": {
+    "@fawmi/vue-google-maps": "^0.9.4",
     "autonumeric": "^4.6.0",
     "axios": "^0.21.1",
     "date-fns": "^2.28.0",

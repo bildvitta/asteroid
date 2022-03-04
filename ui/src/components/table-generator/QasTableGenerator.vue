@@ -56,6 +56,13 @@ export default {
     }
   },
 
+  data () {
+    return {
+      scrollableElement: null,
+      scrollOnGrab: {}
+    }
+  },
+
   computed: {
     attributes () {
       const attributes = {
@@ -137,17 +144,62 @@ export default {
 
     tableClass () {
       return this.mx_isSmall && 'qas-table-generator--mobile'
+    },
+
+    hasScrollOnGrab () {
+      return !!Object.keys(this.scrollOnGrab).length
     }
   },
 
   mounted () {
-    this.useScrollOnGrab && this.setScrollOnGrab()
+    if (this.useScrollOnGrab) return
+
+    this.handleScrollOnGrab()
+    window.addEventListener('resize', this.handleScrollOnGrab)
+  },
+
+  onUnmounted () {
+    this.hasScrollOnGrab && this.scrollOnGrab.destroyEvents()
+
+    window.removeEventListener('resize', this.handleScrollOnGrab)
   },
 
   methods: {
     setScrollOnGrab () {
+      if (this.hasScrollOnGrab) return
+
       const element = this.$refs.table.$el.querySelector('.q-table__middle.scroll')
-      scrollOnGrab(element)
+
+      this.scrollOnGrab = scrollOnGrab(element)
+    },
+
+    getTableElement () {
+      return this.$refs.table.$el.querySelector('table')
+    },
+
+    getFullTableWidth () {
+      const tableElemet = this.getTableElement()
+
+      return tableElemet.getBoundingClientRect().width
+    },
+
+    getContainerTableWidth () {
+      const containerElement = this.$refs.table.$el.querySelector('.q-table__middle')
+
+      return containerElement.getBoundingClientRect().width
+    },
+
+    handleScrollOnGrab () {
+      const fullTableWidth = this.getFullTableWidth()
+      const containerTableWidth = this.getContainerTableWidth()
+
+      if (fullTableWidth > containerTableWidth) {
+        this.setScrollOnGrab()
+      } else if (this.hasScrollOnGrab) {
+        this.scrollOnGrab.destroyEvents()
+        this.scrollOnGrab.element.style.cursor = 'auto'
+        this.scrollOnGrab = {}
+      }
     }
   }
 }

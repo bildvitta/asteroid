@@ -47,6 +47,9 @@ import QasResizer from './components/resizer/QasResizer.vue'
 import QasPageHeader from './components/page-header/QasPageHeader.vue'
 import QasMap from './components/map/QasMap.vue'
 
+import VueGoogleMaps from '@fawmi/vue-google-maps'
+import { Notify, Quasar, Dialog as QuasarDialog } from 'quasar'
+
 import {
   Dialog,
   NotifyError,
@@ -105,6 +108,10 @@ function install (app) {
   app.component('QasResizer', QasResizer)
   app.component('QasPageHeader', QasPageHeader)
   app.component('QasMap', QasMap)
+
+  app
+    .use(VueGoogleMaps, { load: { key: process.env.MAPS_API_KEY, libraries: 'places' } })
+    .use(Quasar, { plugins: { Notify, QuasarDialog } })
 
   app.config.globalProperties.$qas = {
     error: NotifyError,
