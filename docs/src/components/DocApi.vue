@@ -46,11 +46,6 @@
 <script>
 export default {
   props: {
-    external: {
-      default: false,
-      type: Boolean
-    },
-
     file: {
       type: String,
       required: true
@@ -104,13 +99,6 @@ export default {
   methods: {
     loadFile () {
       this.isLoading = true
-
-      if (this.external) {
-        return import(this.file).then(api => {
-          this.isLoading = false
-          this.parseApiFile(api.default)
-        })
-      }
 
       import(
         /* webpackChunkName: 'asteroid-api' */
