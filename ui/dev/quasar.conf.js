@@ -46,7 +46,7 @@ module.exports = function (ctx) {
       vueRouterMode: 'history',
 
       env: {
-        BUCKET: 'https://uploader.nave.dev/',
+        BUCKET: 'uploader.nave.dev',
         MAPS_API_KEY: 'AIzaSyDl00zRKG51WWBIJa8yVXqX7jFD5xyqe24'
       },
 

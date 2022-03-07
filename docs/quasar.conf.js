@@ -46,6 +46,11 @@ module.exports = configure(function (quasar) {
 
     // Full list of options: https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-build
     build: {
+      env: {
+        BUCKET: 'uploader.nave.dev',
+        MAPS_API_KEY: ''
+      },
+
       vueRouterMode: 'history',
 
       vueLoaderOptions: {
