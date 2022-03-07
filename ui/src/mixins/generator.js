@@ -20,7 +20,7 @@ export default {
   },
 
   computed: {
-    $_classes () {
+    mx_classes () {
       const classes = ['row']
 
       if (this.gutter) {
@@ -32,7 +32,7 @@ export default {
   },
 
   methods: {
-    $_getBreakpoint (columns) {
+    mx_getBreakpoint (columns) {
       const classes = []
       const profiles = { col: 'col', xs: 'col-xs', sm: 'col-sm', md: 'col-md', lg: 'col-lg', xl: 'col-xl' }
       const { fieldProps, classes: renamedClasses, ...formattedColumns } = columns || {}
@@ -45,25 +45,25 @@ export default {
       return [...classes, renamedClasses]
     },
 
-    $_getFieldClass (index, isGridGenerator) {
+    mx_getFieldClass (index, isGridGenerator) {
       if (typeof this.columns === 'string') {
         return irregularClasses.includes(this.columns) ? this.columns : `col-${this.columns}`
       }
 
       return Array.isArray(this.columns)
-        ? this.$_handleColumnsByIndex(index, isGridGenerator)
-        : this.$_handleColumnsByField(index, isGridGenerator)
+        ? this.mx_handleColumnsByIndex(index, isGridGenerator)
+        : this.mx_handleColumnsByField(index, isGridGenerator)
     },
 
-    $_handleColumnsByField (index, isGridGenerator) {
+    mx_handleColumnsByField (index, isGridGenerator) {
       if (!this.columns[index]) {
-        return this.$_setDefaultColumnClass(isGridGenerator)
+        return this.mx_setDefaultColumnClass(isGridGenerator)
       }
 
-      return this.$_getBreakpoint(this.columns[index])
+      return this.mx_getBreakpoint(this.columns[index])
     },
 
-    $_handleColumnsByIndex (index, isGridGenerator) {
+    mx_handleColumnsByIndex (index, isGridGenerator) {
       const fields = isGridGenerator ? this.fields : this.groupedFields.visible
 
       if (!Array.isArray(fields)) {
@@ -73,13 +73,13 @@ export default {
       const length = this.columns.length
 
       if (!length) {
-        return this.$_setDefaultColumnClass(isGridGenerator)
+        return this.mx_setDefaultColumnClass(isGridGenerator)
       }
 
-      return this.$_getBreakpoint(this.columns[index])
+      return this.mx_getBreakpoint(this.columns[index])
     },
 
-    $_setDefaultColumnClass (isGridGenerator) {
+    mx_setDefaultColumnClass (isGridGenerator) {
       return isGridGenerator ? 'col-6 col-xs-12 col-sm-4' : 'col-6'
     }
   }

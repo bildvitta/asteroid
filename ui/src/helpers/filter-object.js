@@ -1,0 +1,35 @@
+/**
+ * Function to filter specific field inside a fields
+ * Função para filtrar propriedades espessificas dentro de um objeto
+ *
+ * @param {object} fields objeto com propriedades
+ * @param {array} models array de string com nomes das proproiedades que serão filtradas
+ * @returns {object} objeto com propriedades filtradas
+ *
+ * @example
+ * filterObject({
+ *  name: { label: 'Nome', value: 1 },
+ *  email: { label: 'E-mail', value: 2 }
+ * }, ['name'])
+ */
+export default function (fields = {}, models) {
+  if (!models.length) return fields
+
+  if (!Object.keys(fields).length) {
+    return {}
+  }
+
+  if (!Object.keys(fields).length) {
+    return {}
+  }
+
+  const object = {}
+
+  models.forEach(model => {
+    if (fields[model]) {
+      object[model] = fields[model]
+    }
+  })
+
+  return object
+}

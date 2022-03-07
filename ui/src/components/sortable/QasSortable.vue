@@ -39,14 +39,14 @@ export default {
       type: String
     },
 
-    sortedModel: {
+    sorted: {
       default: () => [],
       type: Array
     }
   },
 
   emits: [
-    'update:sortedModel',
+    'update:sorted',
     'sort',
     'success'
   ],
@@ -54,13 +54,13 @@ export default {
   data () {
     return {
       sortable: null,
-      sorted: null
+      sortedList: null
     }
   },
 
   computed: {
     identifiers () {
-      return this.sorted.map(({ id }) => id)
+      return this.sortedList.map(({ id }) => id)
     }
   },
 
@@ -121,19 +121,19 @@ export default {
     },
 
     updateOrder ({ newIndex, oldIndex }) {
-      const deleted = this.sorted.splice(oldIndex, 1)
-      this.sorted.splice(newIndex, 0, deleted[0])
+      const deleted = this.sortedList.splice(oldIndex, 1)
+      this.sortedList.splice(newIndex, 0, deleted[0])
 
       this.replace()
     },
 
     setSortedValue (value) {
-      this.sorted = extend(true, [], value || this.results)
+      this.sortedList = extend(true, [], value || this.results)
       this.updateSortedModel()
     },
 
     updateSortedModel () {
-      return this.$emit('update:sortedModel', this.sorted)
+      return this.$emit('update:sorted', this.sortedList)
     }
   }
 }

@@ -69,7 +69,7 @@ export default {
 
   computed: {
     truncateTextClass () {
-      return (this.isTruncated || this.$_isSmall) && 'ellipsis q-pr-sm'
+      return (this.isTruncated || this.mx_isSmall) && 'ellipsis q-pr-sm'
     },
 
     isTruncated () {

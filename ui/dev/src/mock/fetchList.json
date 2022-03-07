@@ -564,11 +564,6 @@
           "type": "datetime",
           "label": "Ultimo acesso em"
       },
-      "user_permissions": {
-          "name": "user_permissions",
-          "type": "function",
-          "label": "Permissões"
-      },
       "modules": {
           "name": "modules",
           "type": "select",
@@ -583,11 +578,6 @@
                   "value": "https://develop.produto.nave.dev"
               }
           ]
-      },
-      "is_superuser": {
-          "name": "is_superuser",
-          "type": "checkbox",
-          "label": "Super usuario?"
       }
   },
   "results": [
@@ -880,31 +870,6 @@
           "company": "ebde8a05-fe11-44ad-9b3a-39dee841c83b",
           "created_at": "2021-08-17T18:29:44.000000Z",
           "last_access": "2022-02-03 12:46:28",
-          "user_permissions": {
-              "users.create": "*",
-              "users.list": "*",
-              "roles.create": "*",
-              "roles.list": "*",
-              "companies.create": "*",
-              "companies.list": "*",
-              "user_groups.create": "*",
-              "user_groups.list": "*",
-              "users.approvals": "*",
-              "users.self_employed": "*",
-              "activity_record.list": "*",
-              "companies.delete": "*",
-              "user_groups.delete": "*",
-              "roles.delete": "*",
-              "users.delete": "*",
-              "companies.edit": "*",
-              "user_groups.edit": "*",
-              "roles.edit": "*",
-              "users.edit": "*",
-              "companies.show": "*",
-              "user_groups.show": "*",
-              "roles.show": "*",
-              "users.show": "*"
-          },
           "modules": null,
           "is_superuser": 1
       },

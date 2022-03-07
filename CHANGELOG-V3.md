@@ -30,9 +30,11 @@ Sincronizado em _11/02/2022 as 15h00_.
 
 ### QasLayout
 
-Sincronizado em _11/02/2022 as 15h00_.
+Sincronizado em _24/02/2022 as 14h30_.
 
 - Propriedade `value` alterada para `modelValue`.
+- Propriedade `appBarEvents` removida (todos os eventos são passados pelo $attrs).
+- Propriedade `appMenuEvents` removida (todos os eventos são passados pelo $attrs).
 - Evento `input` alterado para `update:modelValue`.
 
 ### ~~QasAppsBar~~ (removido)
@@ -181,18 +183,18 @@ Sincronizado em _19/01/2022 as 16h02_.
 Sincronizado em _20/01/2022 as 15h10_.
 
 - Propriedade `options` alterada para `signatureOptions`.
-- Propriedade sync `isEmpty` removida e alterada para `v-model:emptyModel`.
+- Propriedade sync `isEmpty` removida e alterada para `v-model:empty`.
 - Biblioteca `signature_pad` versão `^3.0.0-beta.4` atualizada para a versão `^4.0.1`.
-- Evento `update:emptyModel` adicionado.
+- Evento `update:empty` adicionado.
 
 ### QasSortable (*)
 
 Sincronizado em _20/01/2022 as 18h30_.
 
 - Propriedade `options` alterada para `sortableOptions`.
-- Slot scoped `sorted` removido e adicionado `v-model:sortedModel` (usado somente para ter acesso reativo da lista sorteada, não é um two way data bind).
+- Slot scoped `sorted` removido e adicionado `v-model:sorted` (usado somente para ter acesso reativo da lista sorteada, não é um two way data bind).
 - Biblioteca `sortablejs` versão `^1.12.0` atualizada para a versão `^1.14.0`.
-- Evento `update:sortedModel` adicionado.
+- Evento `update:sorted` adicionado.
 - Obs: O metodo `replace` ainda não foi testado pois não temos uma API para testar.
 
 ### QasDialog
@@ -259,6 +261,118 @@ Sincronizado em _09/02/2022 as 14h00_.
 
 Sincronizado em _10/02/2022 as 13h50_.
 
+### QasUploader
+
+Sincronizado em _15/02/2022 as 18h50_.
+
+- Propriedade `value` alterada para `modelValue`.
+- Adicionada nova propriedade `uploading` para ser usada como `v-model:uploading`.
+- Alguns nomes internos alterados.
+- Evento `input` alterado para `update:modelValue`.
+- Novo evento `update:uploading`.
+
+### ~~QasCustomUploader~~ (removido)
+
+- Componente era para ser utilizado como wrapper do [QUploader](https://quasar.dev/vue-components/uploader#introduction), extendendo ele e sobreescrevendo funcionalidades para criar um resize antes de fazer o upload. Porém na v2 do quasar, isto não funcionava mais, então a logica foi movida para dentro do `QasUploader`, tirando a necessidade de existencia deste componente.
+
+### QasSignaturePad
+
+Sincronizado em _15/02/2022 as 18h50_.
+
+- Propriedade `value` alterada para `modelValue`.
+- Evento `input` alterado para `update:modelValue`.
+
+### QasField
+
+Sincronizado em _16/02/2022 as 10h43_.
+
+- Propriedade `value` alterada para `modelValue`.
+- Evento `input` alterado para `update:modelValue`.
+
+### QasFormGenerator
+
+Sincronizado em _16/02/2022 as 10h43_.
+
+- Propriedade `value` alterada para `modelValue`.
+- Propriedade `fieldsEvents` removida.
+- Evento `input` alterado para `update:modelValue`.
+
+### QasFormView
+
+Sincronizado em _16/02/2022 as 10h43_.
+
+- Propriedade `value` alterada para `modelValue`.
+- Adicionado propriedade `ignoreKeysInUnsavedChanges` para ignorar chaves na validação de quando sai da tela com alterações não salvas.
+- Adicionado `v-model:errors` (não reativa `markRaw`, com intuito facilitar o uso no script).
+- Adicionado `v-model:fields` (não reativa `markRaw`, com intuito facilitar o uso no script).
+- Adicionado `v-model:metadata` (não reativa `markRaw`, com intuito facilitar o uso no script).
+- Adicionado `v-model:fetching`.
+- Adicionado `v-model:submiting`.
+- Adicionado evento `update:fetching`.
+- Adicionado evento `update:submiting`.
+- Adicionado evento `update:errors`.
+- Adicionado evento `update:fields`.
+- Adicionado evento `update:metadata`.
+- Evento `input` alterado para `update:modelValue`.
+
+### QasDelete
+
+Sincronizado em _24/02/2022 as 14h00_.
+
+- Propriedade `dialog` alterada para `dialogProps`.
+- Adicionado evento `delete-succes` ao `window` com os payloads: `{ id, entity, url }` para controle interno no `QasFormView`.
+- Alguns nomes internos alterados.
+
+### QasSingleView
+
+Sincronizado em _24/02/2022 as 15h00_.
+
+- Propriedade `value` alterada para `modelValue`.
+- Adicionado `v-model:errors` (não reativa `markRaw`, com intuito facilitar o uso no script).
+- Adicionado `v-model:fields` (não reativa `markRaw`, com intuito facilitar o uso no script).
+- Adicionado `v-model:metadata` (não reativa `markRaw`, com intuito facilitar o uso no script).
+- Adicionado `v-model:fetching`.
+- Adicionado evento `update:fetching`.
+- Adicionado evento `update:errors`.
+- Adicionado evento `update:fields`.
+- Adicionado evento `update:metadata`.
+- Evento `input` alterado para `update:modelValue`.
+
+### QasListView
+
+Sincronizado em _24/02/2022 as 18h00_.
+
+- Propriedade `noFilter` alterada para `useFilter`.
+- Adicionado `v-model:errors` (não reativa `markRaw`, com intuito facilitar o uso no script).
+- Adicionado `v-model:fields` (não reativa `markRaw`, com intuito facilitar o uso no script).
+- Adicionado `v-model:metadata` (não reativa `markRaw`, com intuito facilitar o uso no script).
+- Adicionado `v-model:fetching`.
+- Adicionado evento `update:fetching`.
+- Adicionado evento `update:errors`.
+- Adicionado evento `update:fields`.
+- Adicionado evento `update:metadata`.
+
+### QasFilters
+
+Sincronizado em _24/02/2022 as 19h00_.
+
+- Propriedade `badges` alterada para `useBadges`
+- Propriedade `noSearch` alterada para `useSearch` com default `true`.
+- Propriedade `noFilterButton` alterada para `useFilterButton` com default `true`.
+
+### QasPageHeader
+
+Sincronizado em _03/03/2022 as 12h00_.
+
+- Propriedade `noBreadcrumbs` alterada para `useBreadcrumbs`
+
+### QasProfile
+
+Sincronizado em _25/02/2022 as 11h00_.
+
+- Propriedade `hideStatus` removida (não estava sendo utilizada).
+- Repassado todos os slots do `QasGridGenerator`.
+
 ## Helpers
 
 ### label.js
@@ -267,14 +381,42 @@ Sincronizado em _19/10/2021 as 17h17_.
 
 - Renomeado para `addCounterSuffix`.
 
+### ~~historyHandler.js~~ (removido)
+
+Sincronizado em _03/03/2022 as 12h00_.
+
+Removido de `helpers` e adicionado no folder `store` para ser utilizado como uma store com `reactive`.
+
 ## Mixins
 
+### FormMixin
+
+- Removido computada `$_resolvedRoute` não estava sendo utilizada.
+
 ### GeneratorMixin
-- Adicionado padrão `$_` nos metodos e computada.
-- metodo `breakpoint` renomeado para `$_getBreakpoint`.
+
+- Adicionado padrão `mx_` nos metodos e computada.
+- metodo `breakpoint` renomeado para `mx_getBreakpoint`.
+
+### ~~uploaderMixin~~ (removido)
+
+- `QasCustomUploader` foi removido tirando a necessidade de exitir este mixin.
+
+### ~~usavedChangesMixin~~ (removido)
+
+- Agora o componente `QasFormView` é responsável por verificar se há alterações não salvas, não havendo mais necessidade de um mixin externo.
 
 ## Plugins
 
 ### Dialog
 
 - Adicionado novo pluing de Dialog, `this.$qas.dialog()`.
+
+## Store
+
+### history.js (historyHandler.js)
+
+Sincronizado em _03/03/2022 as 12h00_.
+
+- Arquivo renomeado para `history.js`.
+- Arquivo exporta agora o `history` (proxy), `getPreviousRoute`, `addRoute` e `destroyRoutes`.

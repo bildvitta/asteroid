@@ -1,10 +1,10 @@
 export default {
   methods: {
-    $_dialogRouter (route) {
+    mx_dialogRouter (route) {
       this.$refs.dialogRouter.show(route)
     },
 
-    $_reload () {
+    mx_reload () {
       if (this.$refs.listView) {
         this.$refs.listView.refresh()
       }

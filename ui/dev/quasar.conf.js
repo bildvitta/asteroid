@@ -26,6 +26,11 @@ module.exports = function (ctx) {
 
       config: {},
 
+      components: [
+        'QPage',
+        'QBtn'
+      ],
+
       // Quasar plugins
       plugins: [
         'Notify',
@@ -39,6 +44,10 @@ module.exports = function (ctx) {
     // Full list of options: https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-build
     build: {
       vueRouterMode: 'history',
+
+      env: {
+        BUCKET: 'https://s3.amazonaws.com/develop-portal-cms.bivilabs.com.br'
+      },
 
       chainWebpack (chain) {
         chain.resolve.alias.merge({

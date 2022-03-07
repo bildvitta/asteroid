@@ -136,9 +136,9 @@ export default {
       const isSelected = this.values.includes(value)
 
       return {
-        dense: this.$_isSmall,
+        dense: this.mx_isSmall,
         hideLabelOnSmallScreen: true,
-        icon: !this.$_isSmall ? undefined : isSelected ? 'o_close' : 'o_add',
+        icon: !this.mx_isSmall ? undefined : isSelected ? 'o_close' : 'o_add',
         label: isSelected ? 'Remover' : 'Adicionar',
         outline: isSelected,
         size: 'sm'

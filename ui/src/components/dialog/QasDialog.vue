@@ -120,7 +120,6 @@ export default {
   computed: {
     defaultCancel () {
       return {
-        ...this.cancel?.events,
         label: 'Cancelar',
         outline: true,
         ...this.cancel?.props
@@ -129,7 +128,6 @@ export default {
 
     defaultOk () {
       return {
-        ...this.ok?.events,
         label: 'Ok',
         type: this.ok?.props?.type || this.useForm ? 'submit' : 'button',
         ...this.ok?.props
@@ -138,8 +136,8 @@ export default {
 
     style () {
       return {
-        maxWidth: this.maxWidth || (this.$_isSmall ? '' : '600px'),
-        minWidth: this.minWidth || (this.$_isSmall ? '' : '400px')
+        maxWidth: this.maxWidth || (this.mx_isSmall ? '' : '600px'),
+        minWidth: this.minWidth || (this.mx_isSmall ? '' : '400px')
       }
     },
 

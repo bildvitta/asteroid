@@ -1,7 +1,7 @@
 <template>
   <q-layout view="hHh Lpr lFf">
     <slot name="app-bar">
-      <qas-app-bar v-bind="defaultAppBarProps" @toggle-menu="toggleMenuDrawer" />
+      <qas-app-bar v-bind="appBarProps" @toggle-menu="toggleMenuDrawer" />
     </slot>
 
     <slot name="app-menu">
@@ -29,17 +29,7 @@ export default {
   },
 
   props: {
-    appBarEvents: {
-      default: () => ({}),
-      type: Object
-    },
-
     appBarProps: {
-      default: () => ({}),
-      type: Object
-    },
-
-    appMenuEvents: {
       default: () => ({}),
       type: Object
     },
@@ -67,15 +57,7 @@ export default {
     defaultAppMenuProps () {
       return {
         ...this.appMenuProps,
-        ...this.appMenuEvents,
         title: this.appBarProps?.title
-      }
-    },
-
-    defaultAppBarProps () {
-      return {
-        ...this.appBarProps,
-        ...this.appBarEvents
       }
     }
   },

@@ -1,6 +1,6 @@
 <template>
-  <div :class="$_classes">
-    <div v-for="(field, key) in formattedFields" :key="key" :class="$_getFieldClass(key, true)">
+  <div :class="mx_classes">
+    <div v-for="(field, key) in formattedFields" :key="key" :class="mx_getFieldClass(key, true)">
       <slot :field="slotValue[key]" :name="`field-${field.name}`">
         <slot :field="slotValue[key]" name="header">
           <div :class="headerClass">{{ field.label }}</div>

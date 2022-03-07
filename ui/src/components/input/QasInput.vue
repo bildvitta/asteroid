@@ -12,6 +12,8 @@
 export default {
   name: 'QasInput',
 
+  inheritAttrs: false,
+
   props: {
     modelValue: {
       default: '',

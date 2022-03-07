@@ -1,7 +1,7 @@
 <template>
   <q-page class="container row spaced">
     <div class="col-12">
-      <qas-signature-pad ref="signaturePad" height="250" v-model:emptyModel="isEmpty" :signature-options="{ backgroundColor }" />
+      <qas-signature-pad ref="signaturePad" v-model:empty="isEmpty" height="250" :signature-options="{ backgroundColor }" />
 
       <div v-if="isEmpty" class="q-mt-sm">Está vazio</div>
       <div class="q-gutter-sm q-mb-xl q-mt-sm row">
@@ -20,7 +20,7 @@ export default {
     return {
       backgroundColor: 'white',
       isEmpty: true,
-      signature: 'https://s3.amazonaws.com/develop-portal-cms.bivilabs.com.br/uploads/portal-app/problems/photo/b7ce481e-44c4-49ee-8d8b-737feb70bc18.png'
+      signature: 'https://develop-portal-cms.bivilabs.com.br/uploads/banners/photo/e94f3d47-6789-473a-add0-637e10e8cefe.png'
     }
   },
 

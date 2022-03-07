@@ -35,7 +35,7 @@ export default {
     },
 
     showLabel () {
-      return this.hasLabel && !(this.hideLabelOnSmallScreen && this.$_isSmall)
+      return this.hasLabel && !(this.hideLabelOnSmallScreen && this.mx_isSmall)
     },
 
     slots () {

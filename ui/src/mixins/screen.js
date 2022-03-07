@@ -2,32 +2,32 @@ export default {
   // TODO: Esses nomes precisam ser alterados para algo mais inteligente.
 
   computed: {
-    $_isSmall () {
+    mx_isSmall () {
       // until 599
       return this.$q.screen.xs
     },
 
-    $_isMedium () {
+    mx_isMedium () {
       // from 600 until 1023
       return this.$q.screen.sm
     },
 
-    $_isLarge () {
+    mx_isLarge () {
       // from 1024 until the limit
       return this.$q.screen.gt.sm
     },
 
-    $_untilMedium () {
+    mx_untilMedium () {
       // from 0 until 599
       return this.$q.screen.lt.sm
     },
 
-    $_untilLarge () {
+    mx_untilLarge () {
       // from 0 until 1023
       return this.$q.screen.lt.md
     },
 
-    $_isMobile () {
+    mx_isMobile () {
       return this.$q.platform.is.mobile
     }
   }
