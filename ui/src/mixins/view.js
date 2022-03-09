@@ -1,5 +1,5 @@
 import { camelize } from 'humps'
-import { get } from 'lodash'
+import { get } from 'lodash-es'
 import { markRaw } from 'vue'
 
 export default {

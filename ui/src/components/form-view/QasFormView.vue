@@ -32,7 +32,7 @@
 </template>
 
 <script>
-import { isEqualWith } from 'lodash'
+import { isEqualWith } from 'lodash-es'
 import { extend } from 'quasar'
 import { onBeforeRouteLeave } from 'vue-router'
 

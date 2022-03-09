@@ -1,7 +1,8 @@
 import rimraf from 'rimraf'
 
-import localResolve from 'rollup-plugin-local-resolve'
+import json from '@rollup/plugin-json'
 import replace from '@rollup/plugin-replace'
+import localResolve from 'rollup-plugin-local-resolve'
 import scss from 'rollup-plugin-scss'
 import { terser } from 'rollup-plugin-terser'
 import url from '@rollup/plugin-url'
@@ -24,11 +25,7 @@ const banner = `/*!
 */`
 
 const replaceOptions = {
-  preventAssignment: false,
-
-  values: {
-    __UI_VERSION__: `'${version}'`
-  }
+  preventAssignment: false
 }
 
 const scssOptions = {
@@ -78,6 +75,7 @@ function addEntry (format = 'esm', options = {}) {
 
     plugins: [
       localResolve(),
+      json(),
       replace(replaceOptions),
       scss(scssOptions),
       url(urlOptions),
@@ -92,15 +90,20 @@ function addEntry (format = 'esm', options = {}) {
       entry.output[index].name = '{{ umdExportName }}'
 
       entry.output[index].globals = {
+        '@fawmi/vue-google-maps': 'VueGoogleMaps',
         autonumeric: 'AutoNumeric',
+        axios: 'axios',
         'date-fns': 'dateFns',
         'date-fns/locale': 'dateFnsLocale',
         'fuse.js': 'Fuse',
+        humps: 'humps',
         'lodash-es': '_',
         quasar: 'Quasar',
+        pica: 'Pica',
         signature_pad: 'SignaturePad',
         sortablejs: 'Sortable',
-        vue: 'Vue'
+        vue: 'Vue',
+        'vue-router': 'VueRouter'
       }
     }
   }

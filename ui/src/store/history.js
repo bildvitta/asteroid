@@ -1,5 +1,5 @@
 import { reactive } from 'vue'
-import { findLastIndex } from 'lodash'
+import { findLastIndex } from 'lodash-es'
 
 const history = reactive({ hasPreviousRoute: false, list: [] })
 

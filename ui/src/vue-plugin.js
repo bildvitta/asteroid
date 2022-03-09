@@ -56,10 +56,8 @@ import {
   NotifySuccess
 } from './plugins'
 
-import { version } from '../package.json'
-
-// const version = '2.0.0-beta.1'
-// const version = __UI_VERSION__
+import thisPackage from '../package.json'
+const version = thisPackage.version
 
 function install (app) {
   app.component('QasActions', QasActions)
