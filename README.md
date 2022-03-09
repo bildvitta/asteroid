@@ -2,31 +2,30 @@
 <img src="https://img.shields.io/npm/v/@bildvitta/quasar-app-extension-asteroid.svg?label=quasar-app-extension-asteroid">
 
 # Asteroid
+Esta `App Extension` contém metodos, componentes e estilos para auxiliar o desenvolvimento de aplicativos com Quasar, principalmente C.R.U.D. (Create, Read, Update, Delete), seguindo nosso Design System.
 
-This `App Extension` contains methods, components and styles that will assist in building a C.R.U.D. using *Vue* and *Quasar*. It was initially designed to be used in accordance with [our API] standards (http://github.com/bildvitta/api), but can be adapted to any _backend_ as long as it maintains the original standards.
+Observação: Alguns componentes do Quasar precisam ser importados manualmente dentro de [quasar.config.js](https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-framework) (por exemplo quando usar o `QasFormView` terá que importar o [QPage](https://quasar.dev/layout/page#Introduction)).
 
-Note: Some Quasar components must be imported manually inside [quasar.config.js](https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-framework) (e.g., when you are using `QasFormView` you have to import [QPage](https://quasar.dev/layout/page#Introduction)).
-
-
-## Structure
-
+## Estrutura
 * [/app-extension](app-extension) - Quasar app extension
 * [/ui](ui) - standalone npm package
 
-## Environment variables
+## Variaveis de ambiente
 
 | Variables | Description |
 |:-|:-|
-| `BUCKET_URL` | Hosting address of _assets_. |
-| `SERVER_BASE_URL` | Base server access address. |
+| `BUCKET_URL` | Endereço de hospedagem do _assets_. |
+| `SERVER_BASE_URL` | Endereço de acesso do servidor base. |
+| `SERVER_TIMEOUT` | Tempo de espera para API responder. |
+| `MAPS_API_KEY` | Chave do Google Maps. |
 
-## Instalation
+## Instação
 
 ```
 $ quasar ext add @bildvitta/asteroid
 ```
 
-Open you `css`/`quasar.variables.scss` and put it at end of file:
+Na raiz do seu projeto, entre na pasta `src/css/quasar.variables.scss` e coloque este código no final do arquivo:
 
 ``` scss
 // Asteroid
