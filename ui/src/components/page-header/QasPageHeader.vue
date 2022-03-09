@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import { castArray } from 'lodash'
+import { castArray } from 'lodash-es'
 import { history, getPreviousRoute } from '../../store/history'
 
 export default {

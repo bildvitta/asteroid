@@ -21,7 +21,6 @@ module.exports = {
   ],
 
   globals: {
-    __UI_VERSION__: 'readonly',
     process: 'readonly'
   },
 

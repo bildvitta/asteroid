@@ -52,8 +52,8 @@
 import QasField from '../field/QasField.vue'
 
 import { camelize, camelizeKeys } from 'humps'
-import { humanize, parseValue } from '../../helpers/filters'
-import contextMixin from '../../mixins/context'
+import { humanize, parseValue } from '../../helpers/filters.js'
+import contextMixin from '../../mixins/context.js'
 
 export default {
   name: 'QasFilters',

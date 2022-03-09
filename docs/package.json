@@ -12,15 +12,15 @@
   },
   "dependencies": {
     "@bildvitta/quasar-ui-asteroid": "file:../ui",
-    "@quasar/extras": "^1.0.0",
+    "@quasar/extras": "^1.13.0",
     "core-js": "^3.6.5",
     "highlight.js": "^11.4.0",
     "markdown-it": "^12.3.2",
-    "quasar": "^2.0.0"
+    "quasar": "^2.5.5"
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.13.14",
-    "@quasar/app": "^3.0.0",
+    "@quasar/app": "^3.3.3",
     "eslint-webpack-plugin": "^2.4.0",
     "gray-matter": "^4.0.3",
     "json-loader": "^0.5.7",

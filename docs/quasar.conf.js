@@ -6,7 +6,6 @@
 // Configuration for your app
 // https://quasar.dev/quasar-cli/quasar-conf-js
 const path = require('path')
-const webpack = require('webpack')
 
 const { configure } = require('quasar/wrappers')
 
@@ -84,10 +83,6 @@ module.exports = configure(function (quasar) {
 
         chain.plugin('stylelint-webpack-plugin')
           .use(StylelintPlugin, [{ extensions: ['scss', 'vue'] }])
-
-        chain.plugin('define-ui').use(webpack.DefinePlugin, [{
-          __UI_VERSION__: `'${require('../ui/package.json').version}'`
-        }])
 
         // Alias
         chain.resolve.alias.merge({
