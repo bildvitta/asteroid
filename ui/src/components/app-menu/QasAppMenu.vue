@@ -37,7 +37,7 @@
 
       <div class="q-mx-md">
         <!-- TODO: O Modular não é o Asteroid, então não podemos manter esse logo aqui. -->
-        <img v-if="!isMini" alt="Modular" class="block q-mb-md q-mx-auto" :src="logoImage">
+        <img v-if="!isMini" alt="Modular" class="block q-mb-md q-mx-auto" src="../../assets/logo-modular.svg">
       </div>
     </div>
   </q-drawer>
@@ -136,10 +136,6 @@ export default {
       const hostname = window.location.hostname
 
       return this.defaultModules.find(module => module?.value.includes(hostname))?.value
-    },
-
-    logoImage () {
-      return require('../../assets/logo-modular.svg')
     }
   },
 
