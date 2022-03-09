@@ -49,7 +49,7 @@
 </template>
 
 <script>
-import QasField from '../field/QasField'
+import QasField from '../field/QasField.vue'
 
 import { camelize, camelizeKeys } from 'humps'
 import { humanize, parseValue } from '../../helpers/filters'

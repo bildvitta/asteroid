@@ -7,7 +7,6 @@ import QasDialog from '../components/dialog/QasDialog.vue'
  * @example Dialog({ card: { title: 'Esse é o meu titulo!' } })
  */
 export default (componentProps = {}) => {
-  console.log(Dialog)
   Dialog.create({
     component: QasDialog,
     componentProps: { ...componentProps, usePlugin: true }

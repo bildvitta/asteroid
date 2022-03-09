@@ -56,7 +56,9 @@ import {
   NotifySuccess
 } from './plugins'
 
-import { version } from '../package.json'
+import packageInfo from '../package.json'
+
+const version = packageInfo.version
 
 // const version = '2.0.0-beta.1'
 // const version = __UI_VERSION__
