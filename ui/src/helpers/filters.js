@@ -14,12 +14,10 @@ function __format (value, token, options = {}) {
 }
 
 // Asset
-// TODO: ver depois sobre uso de variavel global no vue 3
 function asset (value) {
-  // const environment = Vue.prototype.$environment
-  // const bucketURL = process.env.BUCKET_URL || (environment ? environment.bucketURL : location.origin)
+  const bucketURL = process.env.BUCKET_URL || location.origin
 
-  // return value ? `${bucketURL}/${value}` : ''
+  return value ? `${bucketURL}/${value}` : ''
 }
 
 // Date

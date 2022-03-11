@@ -4,6 +4,7 @@ const resolve = (...paths) => paths.map(path => sourcePath + path)
 function extendQuasar (quasar) {
   // Boot
   quasar.boot.push(...resolve(
+    'boot/api.js',
     'boot/register.js',
     'boot/history.js'
   ))
@@ -43,6 +44,7 @@ module.exports = function (api) {
 
   api.extendWebpack(webpack => {
     const asteroid = 'node_modules/@bildvitta/quasar-ui-asteroid/src/asteroid.js'
+    // const asteroid = 'node_modules/@bildvitta/quasar-ui-asteroid/dist/asteroid.esm.js'
 
     webpack.resolve.alias = {
       ...webpack.resolve.alias,

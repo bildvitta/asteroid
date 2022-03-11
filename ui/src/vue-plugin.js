@@ -12,9 +12,11 @@ import QasCheckboxGroup from './components/checkbox-group/QasCheckboxGroup.vue'
 import QasCopy from './components/copy/QasCopy.vue'
 import QasDateTimeInput from './components/date-time-input/QasDateTimeInput.vue'
 import QasDebugger from './components/debugger/QasDebugger.vue'
+import QasDelete from './components/delete/QasDelete.vue'
 import QasDialog from './components/dialog/QasDialog.vue'
 import QasDialogRouter from './components/dialog-router/QasDialogRouter.vue'
 import QasField from './components/field/QasField.vue'
+import QasFilters from './components/filters/QasFilters.vue'
 import QasFormGenerator from './components/form-generator/QasFormGenerator.vue'
 import QasFormView from './components/form-view/QasFormView.vue'
 import QasGallery from './components/gallery/QasGallery.vue'
@@ -23,29 +25,27 @@ import QasInput from './components/input/QasInput.vue'
 import QasLabel from './components/label/QasLabel.vue'
 import QasLayout from './components/layout/QasLayout.vue'
 import QasListItems from './components/list-items/QasListItems.vue'
+import QasListView from './components/list-view/QasListView.vue'
+import QasMap from './components/map/QasMap.vue'
 import QasNestedFields from './components/nested-fields/QasNestedFields.vue'
 import QasNumericInput from './components/numeric-input/QasNumericInput.vue'
+import QasPageHeader from './components/page-header/QasPageHeader.vue'
 import QasPasswordInput from './components/password-input/QasPasswordInput.vue'
 import QasPasswordStrengthChecker from './components/password-strength-checker/QasPasswordStrengthChecker.vue'
+import QasProfile from './components/profile/QasProfile.vue'
+import QasResizer from './components/resizer/QasResizer.vue'
 import QasSearchBox from './components/search-box/QasSearchBox.vue'
 import QasSelect from './components/select/QasSelect.vue'
 import QasSelectList from './components/select-list/QasSelectList.vue'
 import QasSignaturePad from './components/signature-pad/QasSignaturePad.vue'
 import QasSignatureUploader from './components/signature-uploader/QasSignatureUploader.vue'
+import QasSingleView from './components/single-view/QasSingleView.vue'
 import QasSortable from './components/sortable/QasSortable.vue'
 import QasTableGenerator from './components/table-generator/QasTableGenerator.vue'
 import QasTabsGenerator from './components/tabs-generator/QasTabsGenerator.vue'
 import QasTextTruncate from './components/text-truncate/QasTextTruncate.vue'
 import QasTransfer from './components/transfer/QasTransfer.vue'
 import QasUploader from './components/uploader/QasUploader.vue'
-import QasDelete from './components/delete/QasDelete.vue'
-import QasSingleView from './components/single-view/QasSingleView.vue'
-import QasListView from './components/list-view/QasListView.vue'
-import QasFilters from './components/filters/QasFilters.vue'
-import QasProfile from './components/profile/QasProfile.vue'
-import QasResizer from './components/resizer/QasResizer.vue'
-import QasPageHeader from './components/page-header/QasPageHeader.vue'
-import QasMap from './components/map/QasMap.vue'
 
 import VueGoogleMaps from '@fawmi/vue-google-maps'
 import { Notify, Quasar, Dialog as QuasarDialog } from 'quasar'
@@ -60,13 +60,8 @@ import packageInfo from '../package.json'
 
 const version = packageInfo.version
 
-// const version = '2.0.0-beta.1'
-// const version = __UI_VERSION__
-
 function install (app) {
   app.component('QasActions', QasActions)
-  app.component('QasListView', QasListView)
-  app.component('QasFilters', QasFilters)
   app.component('QasActionsMenu', QasActionsMenu)
   app.component('QasAlert', QasAlert)
   app.component('QasAppBar', QasAppBar)
@@ -80,9 +75,11 @@ function install (app) {
   app.component('QasCopy', QasCopy)
   app.component('QasDateTimeInput', QasDateTimeInput)
   app.component('QasDebugger', QasDebugger)
+  app.component('QasDelete', QasDelete)
   app.component('QasDialog', QasDialog)
   app.component('QasDialogRouter', QasDialogRouter)
   app.component('QasField', QasField)
+  app.component('QasFilters', QasFilters)
   app.component('QasFormGenerator', QasFormGenerator)
   app.component('QasFormView', QasFormView)
   app.component('QasGallery', QasGallery)
@@ -91,36 +88,38 @@ function install (app) {
   app.component('QasLabel', QasLabel)
   app.component('QasLayout', QasLayout)
   app.component('QasListItems', QasListItems)
+  app.component('QasListView', QasListView)
+  app.component('QasMap', QasMap)
   app.component('QasNestedFields', QasNestedFields)
   app.component('QasNumericInput', QasNumericInput)
+  app.component('QasPageHeader', QasPageHeader)
   app.component('QasPasswordInput', QasPasswordInput)
   app.component('QasPasswordStrengthChecker', QasPasswordStrengthChecker)
+  app.component('QasProfile', QasProfile)
+  app.component('QasResizer', QasResizer)
   app.component('QasSearchBox', QasSearchBox)
   app.component('QasSelect', QasSelect)
   app.component('QasSelectList', QasSelectList)
   app.component('QasSignaturePad', QasSignaturePad)
   app.component('QasSignatureUploader', QasSignatureUploader)
+  app.component('QasSingleView', QasSingleView)
   app.component('QasSortable', QasSortable)
   app.component('QasTableGenerator', QasTableGenerator)
   app.component('QasTabsGenerator', QasTabsGenerator)
   app.component('QasTextTruncate', QasTextTruncate)
   app.component('QasTransfer', QasTransfer)
   app.component('QasUploader', QasUploader)
-  app.component('QasDelete', QasDelete)
-  app.component('QasSingleView', QasSingleView)
-  app.component('QasProfile', QasProfile)
-  app.component('QasResizer', QasResizer)
-  app.component('QasPageHeader', QasPageHeader)
-  app.component('QasMap', QasMap)
 
-  app
-    .use(VueGoogleMaps, { load: { key: process.env.MAPS_API_KEY, libraries: 'places' } })
-    .use(Quasar, { plugins: { Notify, QuasarDialog } })
+  app.use(Quasar, { plugins: { Notify, QuasarDialog, Dialog } })
+
+  if (process.env.MAPS_API_KEY) {
+    app.use(VueGoogleMaps, { load: { key: process.env.MAPS_API_KEY, libraries: 'places' } })
+  }
 
   app.config.globalProperties.$qas = {
+    dialog: Dialog,
     error: NotifyError,
-    success: NotifySuccess,
-    dialog: Dialog
+    success: NotifySuccess
   }
 }
 
@@ -142,9 +141,11 @@ export {
   QasCopy,
   QasDateTimeInput,
   QasDebugger,
+  QasDelete,
   QasDialog,
   QasDialogRouter,
   QasField,
+  QasFilters,
   QasFormGenerator,
   QasFormView,
   QasGallery,
@@ -153,29 +154,27 @@ export {
   QasLabel,
   QasLayout,
   QasListItems,
+  QasListView,
+  QasMap,
   QasNestedFields,
   QasNumericInput,
+  QasPageHeader,
   QasPasswordInput,
   QasPasswordStrengthChecker,
+  QasProfile,
+  QasResizer,
   QasSearchBox,
   QasSelect,
   QasSelectList,
   QasSignaturePad,
   QasSignatureUploader,
+  QasSingleView,
   QasSortable,
   QasTableGenerator,
   QasTabsGenerator,
   QasTextTruncate,
   QasTransfer,
   QasUploader,
-  QasDelete,
-  QasSingleView,
-  QasFilters,
-  QasListView,
-  QasProfile,
-  QasResizer,
-  QasPageHeader,
-  QasMap,
 
   // plugin
   Dialog,

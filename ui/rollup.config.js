@@ -35,8 +35,7 @@ const scssOptions = {
 }
 
 const urlOptions = {
-  destDir: 'dist/assets/',
-  limit: 0
+  limit: Infinity
 }
 
 const vueOptions = {
@@ -78,8 +77,8 @@ function addEntry (format = 'esm', options = {}) {
       json(),
       replace(replaceOptions),
       scss(scssOptions),
-      url(urlOptions),
-      vue(vueOptions)
+      vue(vueOptions),
+      url(urlOptions)
     ],
 
     ...options

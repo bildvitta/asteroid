@@ -1,7 +1,7 @@
-import VuePlugin from '../../../ui/dist/asteroid.esm.js'
+// TODO: Rever uso do build
+// import VuePlugin from '@bildvitta/quasar-ui-asteroid/dist/asteroid.esm.js'
 
-// TODO: para desenvolvimento, use este import:
-// import VuePlugin from '../../../ui/src/index.esm.js'
+import VuePlugin from '@bildvitta/quasar-ui-asteroid/src/index.esm.js'
 
 export default ({ app }) => {
   app.use(VuePlugin)
