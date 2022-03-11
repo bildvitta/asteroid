@@ -421,7 +421,7 @@ Removido de `helpers` e adicionado no folder `store` para ser utilizado como uma
 
 ### Dialog
 
-- Adicionado novo pluing de Dialog, `this.$qas.dialog()`.
+- Adicionado novo plugin de Dialog, `this.$qas.dialog()`.
 
 ## Store
 
