@@ -18,8 +18,6 @@ module.exports = {
     'string-quotes': 'single',
     'value-keyword-case': ['lower', { camelCaseSvgKeywords: true }],
 
-    'scss/at-import-partial-extension': 'never',
-
     // Plugins
     'order/properties-alphabetical-order': true
   }
