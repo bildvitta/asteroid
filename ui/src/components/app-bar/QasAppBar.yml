@@ -42,3 +42,11 @@ slots:
 
   tools:
     desc: Slot para acessar o header após o elemento de notificações.
+
+events:
+  'update:model-value -> function(value)':
+    desc: Dispara quando o model-value altera, também usado para v-model.
+    params:
+      value:
+        desc: Novo valor do model.
+        type: Boolean

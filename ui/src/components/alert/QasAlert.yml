@@ -4,7 +4,7 @@ meta:
   desc: Cria um seção para alertar sobre um conteúdo.
 
 props:
-  modelValue:
+  model-value:
     desc: Model do componente, controla se o componente aparece ou não.
     default: true
     type: Boolean
@@ -23,3 +23,11 @@ slots:
 
   header:
     desc: 'Slot para acessar o conteúdo gerado pela prop "title"'
+
+events:
+  'update:model-value -> function(value)':
+    desc: Dispara quando o model-value altera, também usado para v-model.
+    params:
+      value:
+        desc: Novo valor do model.
+        type: Boolean
