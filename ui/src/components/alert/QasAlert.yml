@@ -25,7 +25,7 @@ slots:
     desc: 'Slot para acessar o conteúdo gerado pela prop "title"'
 
 events:
-  'update:model-value -> function(value)':
+  '@update:model-value -> function(value)':
     desc: Dispara quando o model-value altera, também usado para v-model.
     params:
       value:

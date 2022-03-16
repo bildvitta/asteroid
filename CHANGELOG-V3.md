@@ -25,6 +25,7 @@ Sincronizado em _11/02/2022 as 15h00_.
 
 Sincronizado em _11/02/2022 as 15h00_.
 
+- Propriedade `itemClass` removida (não estava sendo utilizada).
 - Propriedade `value` alterada para `modelValue`.
 - Evento `input` alterado para `update:modelValue`.
 

@@ -53,11 +53,6 @@ export default {
   mixins: [screenMixin],
 
   props: {
-    itemClass: {
-      default: '',
-      type: [Array, Object, String]
-    },
-
     items: {
       default: () => [],
       type: Array

@@ -1,0 +1,32 @@
+type: component
+
+meta:
+  desc: Menu lateral.
+
+props:
+  model-value:
+    desc: Model do componente, controla quando o menu lateral é aberto e fechado.
+    default: true
+    type: Boolean
+
+  items:
+    desc: Itens do menu.
+    type: Array
+    default: []
+
+  title:
+    desc: Título que vai ficar no label do select de modulos.
+    type: String
+
+  modules:
+    desc: Lista de modulos que o usuário tem acesso para navegar.
+    type: Array
+    default: []
+
+events:
+  '@update:model-value -> function(value)':
+    desc: Dispara quando o model-value altera, também usado para v-model.
+    params:
+      value:
+        desc: Novo valor do model.
+        type: Boolean
