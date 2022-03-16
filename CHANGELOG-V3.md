@@ -23,7 +23,7 @@ Sincronizado em _11/02/2022 as 15h00_.
 
 ### QasAppMenu
 
-Sincronizado em _11/02/2022 as 15h00_.
+Sincronizado em _16/03/2022 as 19h00_.
 
 - Propriedade `itemClass` removida (não estava sendo utilizada).
 - Propriedade `value` alterada para `modelValue`.
