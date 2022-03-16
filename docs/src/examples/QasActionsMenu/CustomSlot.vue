@@ -1,16 +1,13 @@
 <template>
-  <q-page class="container q-py-lg">
-    <qas-actions-menu label="configurações" :list="list" />
-
-    <qas-btn hide-label-on-small-screen icon="o_delete" label="bbb">aaaaa</qas-btn>
-
-    <div>Com template:</div>
+  <div class="container q-py-lg">
     <qas-actions-menu label="configurações" :list="list">
-      <template #delete>
-        aqui o delete
+      <template #delete="{ item }">
+        <div class="q-pa-md">
+          item: <qas-debugger :inspect="[item]" />
+        </div>
       </template>
     </qas-actions-menu>
-  </q-page>
+  </div>
 </template>
 
 <script>

@@ -17,6 +17,13 @@
             <div class="doc-api-entry__item-example-title q-mt-xs">Exemplos:</div>
             <q-badge v-for="(example, index) in data.examples" :key="index" class="doc-api-entry__item-example-badge q-ml-xs" color="grey-6" :label="example" outline />
           </q-item-label>
+
+          <q-item-label v-if="getChildren(data)">
+            <div class="q-mb-xs q-mt-sm text-bold text-grey-6">{{ getChildrenLabel(data) }}</div>
+            <div class="doc-api-entry__children">
+              <doc-api-entry :api="getChildren(data)" />
+            </div>
+          </q-item-label>
         </q-item-section>
 
         <q-item-section v-if="data.default" side top>
@@ -30,6 +37,8 @@
 
 <script>
 export default {
+  name: 'DocApiEntry',
+
   props: {
     api: {
       default: () => ({}),
@@ -56,6 +65,14 @@ export default {
       }
 
       return Array.isArray(content) ? content : [content]
+    },
+
+    getChildren ({ scope, params }) {
+      return scope || params
+    },
+
+    getChildrenLabel ({ scope, params }) {
+      return scope ? 'Escopo' : params ? 'Parâmetros' : ''
     }
   }
 }
@@ -95,6 +112,11 @@ export default {
   &__item-example-badge {
     border-color: $grey-4;
     font-size: 0.8em;
+  }
+
+  &__children {
+    border: 1px solid;
+    border-color: $grey-4;
   }
 }
 </style>

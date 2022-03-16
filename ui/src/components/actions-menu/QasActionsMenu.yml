@@ -1,0 +1,48 @@
+type: component
+
+meta:
+  desc: Componente para abrir um menu de ação a partir de um botão, muito utilizado em tela de edição.
+
+props:
+  icon:
+    desc: Icone do botão.
+    default: o_settings
+    type: String
+    examples: [start, end, between, around, center]
+
+  label:
+    desc: Rotulo do botão.
+    default: Configurações
+    type: String
+
+  list:
+    desc: Lista de items que vão ser criados dentro do menu de ações.
+    default: '{}'
+    type: Object
+    examples: [
+      "{
+        delete: {
+          icon: 'o_delete',
+          label: 'Delete',
+          handler: () => alert('handler ativado')
+        }
+      }"
+    ]
+
+slots:
+  [nome-da-chave]:
+    desc: 'Slot dinâmico gerado a partir das chaves dentro do objeto da prop "list"'
+    tag: Escopo
+    scope:
+      item:
+        desc: Escopo que retorna o item atual, valor depende do que foi passado na prop list.
+        default: '{}'
+        type: Object
+        examples: [
+          "
+          {
+            icon: 'o_delete',
+            label: 'Delete',
+            }
+          "
+        ]
