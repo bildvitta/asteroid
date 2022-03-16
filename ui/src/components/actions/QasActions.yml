@@ -1,0 +1,24 @@
+type: component
+
+meta:
+  desc: Área de ações para páginas que lidam com botões primários e secundários, como um formulário ou caixa de diálogo.
+
+props:
+  align:
+    desc: Alinhamento dos elementos.
+    default: end
+    type: String
+    examples: [start, end, between, around, center]
+
+  gutter:
+    desc: Espaçamento entre os elementos.
+    default: md
+    type: String
+    examples: ['xs', 'sm', 'md', 'lg', 'xl']
+
+slots:
+  primary:
+    desc: 'Slot para ação primaria (ex: botão de salvar), em telas menores que sm, se torna o primeiro elemento.'
+
+  secondary:
+    desc: 'Slot para ação secundaria (ex: botão de cancelar), em telas menores que sm, se torna o segundo elemento.'

@@ -16,7 +16,9 @@
     "core-js": "^3.6.5",
     "highlight.js": "^11.4.0",
     "markdown-it": "^12.3.2",
-    "quasar": "^2.5.5"
+    "quasar": "^2.5.5",
+    "vue": "^3.2.31",
+    "vue-router": "^4.0.14"
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.13.14",

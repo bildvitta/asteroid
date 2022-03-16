@@ -1,5 +1,3 @@
-// import Vue from 'vue'
-
 import { format, parseISO, isMatch } from 'date-fns'
 import { ptBR } from 'date-fns/locale'
 

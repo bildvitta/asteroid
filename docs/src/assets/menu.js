@@ -11,6 +11,10 @@ module.exports = [
 
     children: [
       {
+        name: 'Actions',
+        path: '/components/actions'
+      },
+      {
         name: 'Box',
         path: '/components/box'
       },

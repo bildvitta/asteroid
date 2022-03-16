@@ -4,9 +4,10 @@ mixins:
   - quasar/dist/api/QBtn.json
 
 meta:
-  desc: O mesmo botão do Quasar (QBtn), mas com o nosso estilo.
+  desc: O mesmo botão do Quasar (QBtn), mas com o nosso estilo, tem acesso a todas propriedades do componente do quasar. Tem a função de criar gatilhos para ações. Eles podem ser utilizados isoladamente ou ​​como parte de outros componentes de padrões maiores, como formulários, caixas de diálogo e feedbacks.
 
 props:
   hide-label-on-small-screen:
-    desc: Esconde o rótulo do botão quando o tamanho da tela for pequeno.
+    desc: Esconde o rótulo (label) do botão quando o tamanho da tela for pequeno.
     type: Boolean
+    default: 'false'

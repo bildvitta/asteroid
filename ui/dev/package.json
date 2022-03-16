@@ -32,6 +32,7 @@
     "yarn": ">= 1.6.0"
   },
   "dependencies": {
+    "@bildvitta/vuex-store-module": "^1.0.3",
     "vue": "^3.2.31",
     "vue-router": "^4.0.12",
     "vuex": "^4.0.2"
