@@ -23,6 +23,10 @@ module.exports = [
         path: '/components/alert'
       },
       {
+        name: 'AppBar',
+        path: '/components/app-bar'
+      },
+      {
         name: 'Box',
         path: '/components/box'
       },

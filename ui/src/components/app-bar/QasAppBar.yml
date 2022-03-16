@@ -1,0 +1,44 @@
+type: component
+
+meta:
+  desc: Cria um seção para alertar sobre um conteúdo.
+
+props:
+  isAuth:
+    desc: Controla se mostra ou não o menu de usuário.
+    type: Boolean
+
+  title:
+    desc: Título do header, normalmente usado como título da aplicação.
+    type: String
+
+  notifications:
+    desc: Icone de notificação que fica ao lado do menu de usuário.
+    type: Object
+    default: {}
+
+  user:
+    desc: Informações de usuário para ser usado no menu.
+    type: Object
+    default: {}
+    examples: [
+      "
+      {
+        photo: 'minha-img',
+        name: 'Eduardo Lima',
+        email: 'eduardolima@gmail.com'
+      }
+      "
+    ]
+
+slots:
+  user:
+    desc: Slot para acessar o menu de usuario
+    scope:
+      user:
+        desc: Informações de usuário para ser usado no menu, valor vai depender da prop "user".
+        type: Object
+        default: {}
+
+  tools:
+    desc: Slot para acessar o header após o elemento de notificações.
