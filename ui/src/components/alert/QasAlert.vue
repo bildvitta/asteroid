@@ -27,11 +27,6 @@ export default {
   },
 
   props: {
-    color: {
-      default: 'primary',
-      type: String
-    },
-
     modelValue: {
       default: true,
       type: Boolean
