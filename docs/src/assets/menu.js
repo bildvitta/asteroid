@@ -19,6 +19,10 @@ module.exports = [
         path: '/components/actions-menu'
       },
       {
+        name: 'Alert',
+        path: '/components/alert'
+      },
+      {
         name: 'Box',
         path: '/components/box'
       },
