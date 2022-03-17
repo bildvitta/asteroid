@@ -70,7 +70,7 @@ export default {
 
       for (const key in tabs) {
         if (typeof tabs[key] === 'string') {
-          tabs[key] = { label: tabs[key] }
+          tabs[key] = { label: tabs[key], value: key }
         }
       }
 
