@@ -65,6 +65,10 @@ module.exports = [
       {
         name: 'TabsGenerator',
         path: '/components/tabs-generator'
+      },
+      {
+        name: 'Label',
+        path: '/components/label'
       }
     ]
   }

@@ -1,0 +1,28 @@
+type: component
+
+meta:
+  desc: Componente para controlar textos que separam conteúdos, formatando com um sufixo quando existe um contador.
+
+props:
+  count:
+    desc: Contador que vai ficar ao lado do texto.
+    default: 0
+    type: Number
+
+  label:
+    desc: Texto a ser exibido.
+    type: String
+
+  margin:
+    desc: Espaçamento entre o texto e o contador.
+    default: sm
+    type: String
+    examples: [xs, sm, md, lg, xl]
+
+slots:
+  default:
+    desc: Slot para acessar elemento do texto.
+    scope:
+      label-with-suffix:
+        desc: Objeto com texto formatado contendo ou não um sufixo
+        type: String
