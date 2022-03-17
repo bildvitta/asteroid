@@ -1,0 +1,38 @@
+type: component
+
+mixins:
+  - quasar/dist/api/QAvatar.json
+
+meta:
+  desc: Cria um elemento escalável e colorido que pode ter texto, ícone ou imagem em sua forma. Usa como base o componente [QAvatar](https://quasar.dev/vue-components/avatar#introduction).
+
+props:
+  color:
+    desc: Cor de fundo (background-color).
+    type: String
+    examples: ['primary', 'positive']
+
+  dark:
+    desc: Habilita o modo escuro.
+    type: Boolean
+
+  icon:
+    desc: Icone de fundo do avatar que vai aparecer caso não tenha imagem nem título.
+    default: o_error
+    type: String
+
+  image:
+    desc: Imagem de fundo (maior prioridade).
+    type: String
+
+  textColor:
+    desc: Cor de texto (caso não tenha imagem).
+    default: primary
+    type: String
+
+  title:
+    desc: Caso não tenha imagem, o avatar vai aparecer com a inicial do titulo.
+    type: String
+    examples: [
+      'John Doe'
+    ]

@@ -2,6 +2,11 @@
 
 ## Components
 
+### QasAvatar
+Sincronizado em _14/03/2022 as 11h00_.
+
+- Logica das propriedades `text-color` e `color` invertida, antes text-color alterava o bg-color e color o text-color, agora text-color altera comente o texto e color o background.
+
 ### QasActions (QasBtnActions)
 
 Sincronizado em _13/01/2022 as 10h56_.

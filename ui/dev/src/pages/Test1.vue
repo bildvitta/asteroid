@@ -1,6 +1,6 @@
 <template>
   <q-page padding>
-    <qas-avatar dark title="Caio Tarifa" />
+    <qas-avatar rounded text-color="positive" title="Caio Tarifa" />
 
     <qas-box class="bg-yellow">
       Um pequeno passo para o homem, mas um grande passo para os Fronts!

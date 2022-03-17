@@ -31,6 +31,10 @@ module.exports = [
         path: '/components/app-menu'
       },
       {
+        name: 'Avatar',
+        path: '/components/avatar'
+      },
+      {
         name: 'Box',
         path: '/components/box'
       },
