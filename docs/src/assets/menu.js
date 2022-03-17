@@ -47,6 +47,10 @@ module.exports = [
         path: '/components/button'
       },
       {
+        name: 'Copy',
+        path: '/components/copy'
+      },
+      {
         name: 'Debugger',
         path: '/components/debugger'
       }

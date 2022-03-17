@@ -1,0 +1,20 @@
+type: component
+
+meta:
+  desc: Copia algum texto para o clipboard após clicar no botão.
+
+props:
+  icon:
+    desc: Icone para mostrar no botão.
+    type: String
+    default: o_file_copy
+
+  size:
+    desc: Tamanho do botão.
+    type: String
+    default: xs
+    examples: [xs, sm, md, lg, xl]
+
+  text:
+    desc: Texto a ser copiado.
+    type: String
