@@ -12,7 +12,7 @@ export default {
 
   props: {
     color: {
-      default: 'primary',
+      default: '',
       type: String
     },
 
@@ -31,7 +31,7 @@ export default {
     },
 
     textColor: {
-      default: '',
+      default: 'primary',
       type: String
     },
 
@@ -53,17 +53,21 @@ export default {
         return null
       }
 
-      const contrastColor = this.textColor ? this.textColor : this.contrastColor
+      const contrastColor = this.color ? this.color : this.contrastColor
+      // const contrastColor = this.textColor ? this.textColor : this.contrastColor
 
       return [
         this.dark
-          ? `bg-${this.color} text-${contrastColor}`
-          : `bg-${contrastColor} text-${this.color}`
+          ? `bg-${this.textColor} text-${contrastColor}`
+          : `bg-${contrastColor} text-${this.textColor}`
+          // ? `bg-${this.color} text-${contrastColor}`
+          // : `bg-${contrastColor} text-${this.color}`
       ]
     },
 
     contrastColor () {
-      return `${this.color}-contrast`
+      return `${this.textColor}-contrast`
+      // return `${this.color}-contrast`
     },
 
     firstLetter () {
