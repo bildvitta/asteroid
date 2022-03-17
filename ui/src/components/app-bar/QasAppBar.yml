@@ -4,7 +4,7 @@ meta:
   desc: Cria um seção para alertar sobre um conteúdo.
 
 props:
-  isAuth:
+  is-auth:
     desc: Controla se mostra ou não o menu de usuário.
     type: Boolean
 

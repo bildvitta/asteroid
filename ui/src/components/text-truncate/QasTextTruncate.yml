@@ -1,0 +1,32 @@
+type: component
+
+meta:
+  desc: Trunca um texto baseado no tamanho do elemento pai e adiciona um rotulo "ver mais" que quando clicado mostra um dialog com o texto original completo (sem ser truncado).
+
+props:
+  dialog-props:
+    desc: Repassa todas props e eventos para o componente `QasDialog`.
+    type: Object
+    default: { persistent: false }
+
+  dialog-title:
+    desc: Seta o título do dialog.
+    type: String
+
+  max-width:
+    desc: Seta o tamanho máximo do texto.
+    type: Number
+    default: 0
+
+  see-more-label:
+    desc: Texto que vai aparecer para ser clicado quando o texto original for truncado.
+    type: String
+    default: Ver mais
+
+  text:
+    desc: Texto a ser truncado.
+    type: String
+
+slots:
+  default:
+    desc: slot padrão que é utilizado para acessar o texto original (tanto o que é truncado quando o de dentro do dialog)

@@ -53,6 +53,10 @@ module.exports = [
       {
         name: 'Debugger',
         path: '/components/debugger'
+      },
+      {
+        name: 'TextTruncate',
+        path: '/components/text-truncate'
       }
     ]
   }

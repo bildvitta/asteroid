@@ -25,7 +25,7 @@ props:
     desc: Imagem de fundo (maior prioridade).
     type: String
 
-  textColor:
+  text-color:
     desc: Cor de texto (caso não tenha imagem).
     default: primary
     type: String
