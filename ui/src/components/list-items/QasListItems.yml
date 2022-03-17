@@ -1,0 +1,57 @@
+type: component
+
+meta:
+  desc: Componente para listagem.
+
+props:
+  icon-props:
+    desc: Props do [QIcon](https://quasar.dev/vue-components/icon#introduction)
+    default: { color: 'primary', name: 'o_chevron_right' }
+    type: Object
+
+  list:
+    desc: Lista para ser selecionada.
+    default: []
+    type: Array
+
+  redirect-key:
+    desc: Você pode enviar qualquer chave/valor dentro do array de objeto da prop "list", esta prop serve para você identificar qual vai ser a chave que vai redirecionar ao clicar no botão.
+    default: uuid
+    type: String
+
+  redirect-on-icon:
+    desc: Controla se o redirecionamento vai acontecer quando clicar no item inteiro ou somente no icon.
+    default: true
+    type: Boolean
+
+  to:
+    desc: Configuração passada para o vue-router.
+    default: {}
+    type: Object
+    examples: ["{ name: 'Root' }"]
+
+  use-section-actions:
+    desc: Controla se exibe ou não seção de actions, onde fica o icone de redirecionamento.
+    default: true
+    type: Boolean
+
+slots:
+  item-section-left:
+    desc: Slot para acessar seção da esquerda.
+    scope:
+      item:
+        desc: Item dentro da listagem, vai depender do que foi passado.
+        type: Object
+      index:
+        desc: Posição do item na lista.
+        type: Number
+
+  item-section-side:
+    desc: Slot para acessar seção da direita, onde fica o icone.
+    scope:
+      item:
+        desc: Item dentro da listagem, vai depender do que foi passado.
+        type: Object
+      index:
+        desc: Posição do item na lista.
+        type: Number

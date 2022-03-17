@@ -69,6 +69,10 @@ module.exports = [
       {
         name: 'Label',
         path: '/components/label'
+      },
+      {
+        name: 'ListItems',
+        path: '/components/list-items'
       }
     ]
   }
