@@ -142,14 +142,6 @@ export default {
   },
 
   watch: {
-    modelValue: {
-      handler () {
-        this.setSelectedFromValue(true)
-      },
-
-      immediate: true
-    },
-
     options: {
       handler (value) {
         this.optionsList = extend(true, [], value)
@@ -158,10 +150,12 @@ export default {
       immediate: true
     },
 
-    selectedList: {
+    modelValue: {
       handler () {
-        this.updateModelValue()
-      }
+        this.setSelectedFromValue(true)
+      },
+
+      immediate: true
     }
   },
 
@@ -212,6 +206,7 @@ export default {
 
     setSelectedFromClick (isFirst) {
       this.handleSelectedList(isFirst)
+      this.updateModelValue()
     },
 
     setSelectedFromValue (isFirst) {
