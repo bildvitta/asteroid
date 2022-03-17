@@ -1,0 +1,67 @@
+type: component
+
+mixins:
+  - quasar/dist/api/QTabs.json
+
+meta:
+  desc: Componente para gerar tab dinamicamente, implementa o QTab e Qtabs.
+
+props:
+  active-color:
+    desc: Cor da tab quando ela está ativa.
+    type: String
+    examples: ['primary', 'negative', 'positive']
+
+  counter-props:
+    desc: Contador de cada tags, funciona como um "notificação"
+    default: {}
+    type: Object
+    examples: ["{ tab: 2 }"]
+
+  fuse-options:
+    desc: Configurações do [fuse.js](https://fusejs.io/api/options.html).
+    default: { keys: ['label'] }
+    type: Object
+
+  indicator-color:
+    desc: Cor do indicador.
+    default: primary
+    type: String
+
+  model-value:
+    desc: Model do componente, constrola qual é a tab atual selecionada.
+    type: String
+
+  tab-class:
+    desc: Classe do QTab
+    default: text-primary
+    type: String
+
+  tabs:
+    desc: Objeto contendo todas as tabs a serem geradas.
+    default: {}
+    type: Object
+    examples: ["{ tab1: 'tab1', tab2: 'tab2' }"]
+
+slots:
+  tab-[nome-da-chave]:
+    desc: Slot dinâmico gerado a partir das chave passada na prop "tabs", subistitui todo o "q-tab".
+    scope:
+      item:
+        desc: Objeto com informações da tab atual
+        type: Object
+
+  tab-after-[nome-da-chave]:
+    desc: Slot dinâmico gerado a partir das chave passada na prop "tabs", subistitui o conteúdo dentro do "q-tab".
+    scope:
+      item:
+        desc: Objeto com informações da tab atual
+        type: Object
+
+events:
+  '@update:model-value -> function(value)':
+    desc: Dispara quando o model-value altera, também usado para v-model.
+    params:
+      value:
+        desc: Novo valor do model.
+        type: String

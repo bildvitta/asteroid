@@ -61,6 +61,10 @@ module.exports = [
       {
         name: 'Transfer',
         path: '/components/transfer'
+      },
+      {
+        name: 'TabsGenerator',
+        path: '/components/tabs-generator'
       }
     ]
   }
