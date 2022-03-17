@@ -1,23 +1,11 @@
 <template>
-  <q-page class="container">
+  <div class="container q-py-lg">
     <qas-transfer v-model="model" label="Selecionar" :options="list" />
 
     <div>
-      model: <pre>{{ model }}</pre>
+      model: <qas-debugger :inspect="model" />
     </div>
-    <div class="q-ma-lg">Model 2</div>
-    <qas-transfer v-model="model2" label="Selecionar" :options="list">
-      <template #item-first-column>
-        <div>
-          Template: item-first-column
-        </div>
-      </template>
-    </qas-transfer>
-
-    <div>
-      model: <pre>{{ model2 }}</pre>
-    </div>
-  </q-page>
+  </div>
 </template>
 
 <script>

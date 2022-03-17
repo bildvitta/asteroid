@@ -173,7 +173,7 @@ Sincronizado em _18/01/2022 as 19h11_.
 
 ### QasTransfer
 
-Sincronizado em _19/01/2022 as 16h02_.
+Sincronizado em _17/03/2022 as 14h00_.
 
 - Propriedade `value` alterada para `modelValue`.
 - Propriedade `hideEmptySlot` alterada para `useEmptySlot`.

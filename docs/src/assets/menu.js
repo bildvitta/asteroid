@@ -57,6 +57,10 @@ module.exports = [
       {
         name: 'TextTruncate',
         path: '/components/text-truncate'
+      },
+      {
+        name: 'Transfer',
+        path: '/components/transfer'
       }
     ]
   }

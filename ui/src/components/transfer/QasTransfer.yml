@@ -1,0 +1,59 @@
+type: component
+
+meta:
+  desc: Componente para transferir itens entre 2 lista (colunas).
+
+props:
+  emit-value:
+    desc: Controla como sera o retorno do model, se "true" será um array de string, se "false" array de objeto.
+    type: Boolean
+
+  model-value:
+    desc: Model do componente, constrola quais itens estão na segunda coluna.
+    default: []
+    type: Array
+
+  fuse-options:
+    desc: Configurações do [fuse.js](https://fusejs.io/api/options.html).
+    default: { keys: ['label'] }
+    type: Object
+
+  label:
+    desc: Rotulo que vai ficar em cima da primeira coluna.
+    type: String
+    required: true
+
+  label-key:
+    desc: Nos options, você pode passar um array de objeto com qualquer chave/valor, esta prop serve para identificar qual será o equivalente ao "label".
+    default: label
+    type: String
+
+  options:
+    desc: Array de objetos com todos items que serão transferidos
+    default: []
+    type: Array
+
+  use-empty-slot:
+    desc: Prop que será repassada para o componente "QasSearchBox", basicamente esconde o slot "empty-result".
+    type: Boolean
+    default: true
+
+  value-key:
+    desc: Nos options, você pode passar um array de objeto com qualquer chave/valor, esta prop serve para identificar qual será o equivalente ao "value".
+    default: value
+    type: String
+
+slots:
+  item-first-column:
+    desc: Slot para acessar cada item dentro do `q-item` da primeira coluna.
+
+  item-second-column:
+    desc: Slot para acessar cada item dentro do `q-item` da segunda coluna.
+
+events:
+  '@update:model-value -> function(value)':
+    desc: Dispara quando o model-value altera, também usado para v-model.
+    params:
+      value:
+        desc: Novo valor do model (pode ser array de string ou objeto).
+        type: Array
