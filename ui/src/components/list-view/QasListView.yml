@@ -1,0 +1,140 @@
+type: component
+
+# mixins:
+# - quasar/dist/api/QAvatar.json
+
+meta:
+  desc: Componente para C.R.U.D. responsável pela parte de listagem (Read).
+
+props:
+  entity:
+    desc: Entidade da store, por exemplo se tiver que trabalhar com modulo de usuários, teremos o model "users" na store, que vai ser nossa "entity".
+    required: true
+    type: String
+
+  url:
+    desc: Envia como parametro para a action "fetchList" do modulo correspondente a "entity".
+    type: String
+
+  fields:
+    desc: Model de fields, utilizado para recuperar os fields fora do template.
+    default: {}
+    type: Object
+    examples: [v-model:fields="fields"]
+
+  errors:
+    desc: Model de errors, utilizado para recuperar os errors fora do template.
+    default: {}
+    type: Object
+    examples: [v-model:errors="errors"]
+
+  metadata:
+    desc: Model de metadata, utilizado para recuperar os metadata fora do template.
+    default: {}
+    type: Object
+    examples: [v-model:metadata="metadata"]
+
+  fetching:
+    desc: Model de fetching, utilizado para saber se o componente está fazendo fetching de dados.
+    type: Boolean
+    examples: [v-model:fetching="isFetching"]
+
+  disable-refresh:
+    desc: Desabilita o [pull-to-refreash](https://quasar.dev/vue-components/pull-to-refresh#basic).
+    type: Boolean
+
+  use-filter:
+    desc: Controla se o componente vai usar ou não o componente "QasFilters".
+    default: true
+    type: Boolean
+
+  filters-props:
+    desc: Repassa as props para o componente "QasFilters".
+    default: {}
+    type: Object
+
+slots:
+  header:
+    desc: 'Slot para acessar o header.'
+    scope:
+      results:
+        desc: Retorna os resultados para a listagem.
+        type: Object
+        default: []
+        examples: ["[ { uuid: 'uuid', name: 'John Doe' } ]"]
+
+      fields:
+        desc: Retorna os fields (também disponível no v-model:fields)
+        type: Object
+        default: {}
+
+      metadata:
+        desc: Retorna os metadata (também disponível no v-model:metadata)
+        type: Object
+        default: {}
+
+  filter:
+    desc: 'Slot para acessar o filtro.'
+    scope:
+      results:
+        desc: Retorna os resultados para a listagem.
+        default: []
+        type: Object
+        examples: ["[ { uuid: 'uuid', name: 'John Doe' } ]"]
+
+      fields:
+        desc: Retorna os fields (também disponível no v-model:fields)
+        default: {}
+        type: Object
+
+      metadata:
+        desc: Retorna os metadata (também disponível no v-model:metadata)
+        type: Object
+        default: {}
+
+      entity:
+        desc: Retorna a entidade
+        type: String
+
+  default:
+    desc: 'Slot para ter o conteúdo principal (dentro do main).'
+    scope:
+      results:
+        desc: Retorna os resultados para a listagem.
+        default: []
+        type: Object
+        examples: ["[ { uuid: 'uuid', name: 'John Doe' } ]"]
+
+      fields:
+        desc: Retorna os fields (também disponível no v-model:fields)
+        default: {}
+        type: Object
+
+      metadata:
+        desc: Retorna os metadata (também disponível no v-model:metadata)
+        type: Object
+        default: {}
+
+  empty-results:
+    desc: 'Slot acessar quando a listagem está vazia.'
+    scope:
+      fields:
+        desc: Retorna os fields (também disponível no v-model:fields)
+        default: {}
+        type: Object
+
+      metadata:
+        desc: Retorna os metadata (também disponível no v-model:metadata)
+        type: Object
+        default: {}
+
+  footer:
+    desc: 'Slot acessar o footer.'
+
+events:
+  '@update:model-value -> function(value)':
+    desc: Dispara quando o model-value altera, também usado para v-model.
+    params:
+      value:
+        desc: Novo valor do model.
+        type: Boolean

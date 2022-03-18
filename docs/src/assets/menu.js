@@ -73,6 +73,10 @@ module.exports = [
       {
         name: 'ListItems',
         path: '/components/list-items'
+      },
+      {
+        name: 'ListView',
+        path: '/components/list-view'
       }
     ]
   }
