@@ -5,7 +5,7 @@
         <slot :fields="mx_fields" :metadata="mx_metadata" name="header" :results="results" />
       </header>
 
-      <slot v-if="useFilter" :entity="entity" :errors="mx_errors" :fields="mx_fields" :metadata="mx_metadata" name="filter" :results="results">
+      <slot v-if="useFilter" :entity="entity" :fields="mx_fields" :metadata="mx_metadata" name="filter" :results="results">
         <qas-filters v-bind="filtersProps" :entity="entity" />
       </slot>
 

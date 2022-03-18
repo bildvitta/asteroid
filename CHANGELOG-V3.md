@@ -346,9 +346,10 @@ Sincronizado em _24/02/2022 as 15h00_.
 
 ### QasListView
 
-Sincronizado em _24/02/2022 as 18h00_.
+Sincronizado em _18/03/2022 as 14h40_.
 
 - Propriedade `noFilter` alterada para `useFilter`.
+- Escopo `errors` removido do slot `filter` (consegue acessar pelo `v-model:errors`).
 - Adicionado `v-model:errors` (não reativa `markRaw`, com intuito facilitar o uso no script).
 - Adicionado `v-model:fields` (não reativa `markRaw`, com intuito facilitar o uso no script).
 - Adicionado `v-model:metadata` (não reativa `markRaw`, com intuito facilitar o uso no script).
