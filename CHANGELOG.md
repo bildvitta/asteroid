@@ -6,7 +6,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
-### Removed
+### Fixed
 - Removed `this.file = []` in method `__addFiles` in `QasCustomUploader`.
 
 ## 2.14.0 - 2021-02-11
