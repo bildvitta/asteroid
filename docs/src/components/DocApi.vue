@@ -26,8 +26,6 @@
         </q-tab>
       </q-tabs>
 
-      <q-separator />
-
       <q-tab-panels v-model="currentTab" animated>
         <q-tab-panel v-for="(tab, key) in tabs" :key="`panel-${key}`" class="q-pa-none" :name="key">
           <doc-api-entry :api="filteredApi[key].results" />

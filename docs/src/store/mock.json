@@ -1,0 +1,228 @@
+{
+  "name": "users",
+  "encrypted": false,
+  "passwordHash": null,
+  "schemaHash": "75c4f43dd06320bbf30a429533298815",
+  "docs": [
+    {
+      "uuid": "31362c39-2cb5-4fe2-982a-c270f88d2462",
+      "isActive": false,
+      "company": "Non necessitatibus repellendus qui non.",
+      "name": "Quod ut est ea tenetur corporis reprehenderit quasi.",
+      "email": "Mervin76@gmail.com",
+      "document": "Et dolores vitae in at quisquam aspernatur quisquam.",
+      "phone": "Omnis porro quae commodi.",
+      "createdAt": "2022-03-18T03:54:11.000Z",
+      "updatedAt": "2022-03-18T09:22:11.000Z"
+    },
+    {
+      "uuid": "3102fad5-f14c-45d4-98e9-46ef0aa9580e",
+      "isActive": false,
+      "company": "Molestiae et eos a ducimus eum sit.",
+      "name": "Id incidunt in esse.",
+      "email": "Esta.Bernier@hotmail.com",
+      "document": "Minus reprehenderit officia.",
+      "phone": "Ab sint et iure autem temporibus aliquam laboriosam et.",
+      "createdAt": "2022-03-18T11:34:24.000Z",
+      "updatedAt": "2022-03-17T19:51:40.000Z"
+    },
+    {
+      "uuid": "1dad94b3-a0e0-4829-a7e1-be2af95348201",
+      "isActive": false,
+      "company": "Qui eius dolor sapiente provident saepe.",
+      "name": "Autem autem eaque qui unde.",
+      "email": "Alyce_Dooley45@hotmail.com",
+      "document": "Ad sunt deserunt.",
+      "phone": "Aut et deserunt reiciendis.",
+      "createdAt": "2022-03-18T10:03:01.000Z",
+      "updatedAt": "2022-03-18T06:46:42.000Z"
+    },
+    {
+      "uuid": "ac72e8a8-fcf9-4258-8ea2-bc49b612324dacb",
+      "isActive": false,
+      "company": "Ab saepe aperiam.",
+      "name": "Itaque porro itaque voluptas voluptates reprehenderit.",
+      "email": "Tracy_Glover74@hotmail.com",
+      "document": "Tenetur velit suscipit.",
+      "phone": "Dolores ad aliquam repudiandae unde aspernatur placeat ut.",
+      "createdAt": "2022-03-18T04:12:22.000Z",
+      "updatedAt": "2022-03-18T02:47:44.000Z"
+    },
+    {
+      "uuid": "ce2e298a-be37-408f-a789-4c7b18b4315bc",
+      "isActive": false,
+      "company": "Atque cum illum debitis consequatur exercitationem dolorum corporis.",
+      "name": "Incidunt perferendis error iusto ut.",
+      "email": "Heloise_Hegmann@hotmail.com",
+      "document": "Ea voluptas adipisci harum explicabo sapiente.",
+      "phone": "Assumenda veniam sed dolorum vel quas quia excepturi unde.",
+      "createdAt": "2022-03-18T00:00:44.000Z",
+      "updatedAt": "2022-03-17T23:34:47.000Z"
+    },
+    {
+      "uuid": "62fc0a79-ddea-45b5-8d21-be6f0502923296",
+      "isActive": false,
+      "company": "Sed occaecati cupiditate.",
+      "name": "Quaerat veritatis aut voluptatem enim.",
+      "email": "Jillian_Wilkinson97@gmail.com",
+      "document": "Eaque rerum quo ratione.",
+      "phone": "Voluptatem corporis sit voluptatem eius.",
+      "createdAt": "2022-03-17T17:54:34.000Z",
+      "updatedAt": "2022-03-18T13:14:01.000Z"
+    },
+    {
+      "uuid": "2f8856d0-8eca-4e41-8146-63ed2a4f23ff4c",
+      "isActive": false,
+      "company": "Dolores minus iusto quo et dolorem eveniet nesciunt.",
+      "name": "Maiores animi non asperiores recusandae dolor exercitationem ut.",
+      "email": "Rafael91@hotmail.com",
+      "document": "Ipsam saepe rerum.",
+      "phone": "Voluptatem blanditiis quia sed omnis.",
+      "createdAt": "2022-03-17T23:50:31.000Z",
+      "updatedAt": "2022-03-18T02:03:29.000Z"
+    },
+    {
+      "uuid": "5bda242f-5e99-43dd-af6a-093d68cee1235f",
+      "isActive": false,
+      "company": "Excepturi ad nihil est.",
+      "name": "Ullam eligendi dolor a placeat.",
+      "email": "Katelyn_Bernhard76@gmail.com",
+      "document": "Adipisci consectetur voluptas mollitia ea aut quaerat non.",
+      "phone": "Rem et aliquid velit excepturi est eos.",
+      "createdAt": "2022-03-17T20:21:06.000Z",
+      "updatedAt": "2022-03-18T15:06:04.000Z"
+    },
+    {
+      "uuid": "620c8045-acc8-4c53-b083-fe7ed991233cf5",
+      "isActive": false,
+      "company": "Quis ea voluptas recusandae omnis.",
+      "name": "Debitis maiores itaque sit et recusandae et eveniet.",
+      "email": "Syble42@yahoo.com",
+      "document": "Sed et non pariatur voluptas harum perspiciatis incidunt ut et.",
+      "phone": "Explicabo eos eius deserunt voluptas.",
+      "createdAt": "2022-03-17T22:51:23.000Z",
+      "updatedAt": "2022-03-18T03:13:33.000Z"
+    },
+    {
+      "uuid": "82f18f90-d5f9-486f-8b7b-b95745fa123d57",
+      "isActive": false,
+      "company": "Quia qui blanditiis est minus ut quia dolores expedita aut.",
+      "name": "Deleniti est quaerat qui dolores blanditiis qui vel maxime.",
+      "email": "Felipe94@yahoo.com",
+      "document": "Provident quia corporis animi rerum repellat reprehenderit omnis ut.",
+      "phone": "Assumenda mollitia in iste ut et consequuntur nisi.",
+      "createdAt": "2022-03-17T18:13:27.000Z",
+      "updatedAt": "2022-03-18T07:27:55.000Z"
+    },
+    {
+      "uuid": "570e003f-bb7d-4dae-a336-8f187c73242501",
+      "isActive": false,
+      "company": "Voluptate omnis et.",
+      "name": "Enim aut labore autem tempore cumque laborum ut.",
+      "email": "Antone.Bednar30@yahoo.com",
+      "document": "Voluptas qui quo nisi culpa natus voluptas.",
+      "phone": "Delectus sequi occaecati voluptatem.",
+      "createdAt": "2022-03-18T15:31:03.000Z",
+      "updatedAt": "2022-03-17T20:02:55.000Z"
+    },
+    {
+      "uuid": "943e4923-12c0-473e-a07f-63eb28201a3491",
+      "isActive": false,
+      "company": "Occaecati et velit magnam et recusandae rerum autem et voluptas.",
+      "name": "Illo quam ad ratione.",
+      "email": "Emmalee_McGlynn@gmail.com",
+      "document": "Eaque aut suscipit ut quisquam velit minima.",
+      "phone": "Molestiae dolor deleniti aliquid non et.",
+      "createdAt": "2022-03-17T21:31:30.000Z",
+      "updatedAt": "2022-03-18T01:59:28.000Z"
+    },
+    {
+      "uuid": "ce2e298a-be37-408f-a789-4c7b18b4132432bc",
+      "isActive": false,
+      "company": "Atque cum illum debitis consequatur exercitationem dolorum corporis.",
+      "name": "Incidunt perferendis error iusto ut.",
+      "email": "Heloise_Hegmann@hotmail.com",
+      "document": "Ea voluptas adipisci harum explicabo sapiente.",
+      "phone": "Assumenda veniam sed dolorum vel quas quia excepturi unde.",
+      "createdAt": "2022-03-18T00:00:44.000Z",
+      "updatedAt": "2022-03-17T23:34:47.000Z"
+    },
+    {
+      "uuid": "62fc0a79-ddea-45b5-8d21-be6f0502929645",
+      "isActive": false,
+      "company": "Sed occaecati cupiditate.",
+      "name": "Quaerat veritatis aut voluptatem enim.",
+      "email": "Jillian_Wilkinson97@gmail.com",
+      "document": "Eaque rerum quo ratione.",
+      "phone": "Voluptatem corporis sit voluptatem eius.",
+      "createdAt": "2022-03-17T17:54:34.000Z",
+      "updatedAt": "2022-03-18T13:14:01.000Z"
+    },
+    {
+      "uuid": "2f8856d0-8eca-4e41-8146-63ed2a4fff4c35",
+      "isActive": false,
+      "company": "Dolores minus iusto quo et dolorem eveniet nesciunt.",
+      "name": "Maiores animi non asperiores recusandae dolor exercitationem ut.",
+      "email": "Rafael91@hotmail.com",
+      "document": "Ipsam saepe rerum.",
+      "phone": "Voluptatem blanditiis quia sed omnis.",
+      "createdAt": "2022-03-17T23:50:31.000Z",
+      "updatedAt": "2022-03-18T02:03:29.000Z"
+    },
+    {
+      "uuid": "5bda242f-5e99-43dd-af6a-093d68cee15f23",
+      "isActive": false,
+      "company": "Excepturi ad nihil est.",
+      "name": "Ullam eligendi dolor a placeat.",
+      "email": "Katelyn_Bernhard76@gmail.com",
+      "document": "Adipisci consectetur voluptas mollitia ea aut quaerat non.",
+      "phone": "Rem et aliquid velit excepturi est eos.",
+      "createdAt": "2022-03-17T20:21:06.000Z",
+      "updatedAt": "2022-03-18T15:06:04.000Z"
+    },
+    {
+      "uuid": "620c8045-acc8-4c53-b083-fe7ed9913cf523",
+      "isActive": false,
+      "company": "Quis ea voluptas recusandae omnis.",
+      "name": "Debitis maiores itaque sit et recusandae et eveniet.",
+      "email": "Syble42@yahoo.com",
+      "document": "Sed et non pariatur voluptas harum perspiciatis incidunt ut et.",
+      "phone": "Explicabo eos eius deserunt voluptas.",
+      "createdAt": "2022-03-17T22:51:23.000Z",
+      "updatedAt": "2022-03-18T03:13:33.000Z"
+    },
+    {
+      "uuid": "82f18f90-d5f9-486f-8b7b-b95745fa1d5723",
+      "isActive": false,
+      "company": "Quia qui blanditiis est minus ut quia dolores expedita aut.",
+      "name": "Deleniti est quaerat qui dolores blanditiis qui vel maxime.",
+      "email": "Felipe94@yahoo.com",
+      "document": "Provident quia corporis animi rerum repellat reprehenderit omnis ut.",
+      "phone": "Assumenda mollitia in iste ut et consequuntur nisi.",
+      "createdAt": "2022-03-17T18:13:27.000Z",
+      "updatedAt": "2022-03-18T07:27:55.000Z"
+    },
+    {
+      "uuid": "570e003f-bb7d-4dae-a336-8f187c73250124",
+      "isActive": false,
+      "company": "Voluptate omnis et.",
+      "name": "Enim aut labore autem tempore cumque laborum ut.",
+      "email": "Antone.Bednar30@yahoo.com",
+      "document": "Voluptas qui quo nisi culpa natus voluptas.",
+      "phone": "Delectus sequi occaecati voluptatem.",
+      "createdAt": "2022-03-18T15:31:03.000Z",
+      "updatedAt": "2022-03-17T20:02:55.000Z"
+    },
+    {
+      "uuid": "943e4923-12c0-473e-a07f-63eb28201a91-24",
+      "isActive": false,
+      "company": "Occaecati et velit magnam et recusandae rerum autem et voluptas.",
+      "name": "Illo quam ad ratione.",
+      "email": "Emmalee_McGlynn@gmail.com",
+      "document": "Eaque aut suscipit ut quisquam velit minima.",
+      "phone": "Molestiae dolor deleniti aliquid non et.",
+      "createdAt": "2022-03-17T21:31:30.000Z",
+      "updatedAt": "2022-03-18T01:59:28.000Z"
+    }
+  ]
+}

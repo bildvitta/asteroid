@@ -12,13 +12,15 @@
   },
   "dependencies": {
     "@bildvitta/quasar-ui-asteroid": "file:../ui",
+    "@bildvitta/vuex-offline": "^3.2.0",
     "@quasar/extras": "^1.13.0",
     "core-js": "^3.6.5",
     "highlight.js": "^11.4.0",
     "markdown-it": "^12.3.2",
     "quasar": "^2.5.5",
     "vue": "^3.2.31",
-    "vue-router": "^4.0.14"
+    "vue-router": "^4.0.14",
+    "vuex": "^4.0.2"
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.13.14",
@@ -27,6 +29,7 @@
     "gray-matter": "^4.0.3",
     "json-loader": "^0.5.7",
     "markdown-it-container": "^3.0.0",
+    "node-polyfill-webpack-plugin": "^1.1.4",
     "raw-loader": "^4.0.2",
     "stylelint-webpack-plugin": "^3.1.1",
     "toml": "^3.0.0",

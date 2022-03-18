@@ -78,6 +78,8 @@ module.exports = configure(function (quasar) {
       // https://quasar.dev/quasar-cli/handling-webpack
       // "chain" is a webpack-chain object https://github.com/neutrinojs/webpack-chain
       chainWebpack (chain) {
+        const nodePolyfillWebpackPlugin = require('node-polyfill-webpack-plugin')
+        chain.plugin('node-polyfill').use(nodePolyfillWebpackPlugin)
         chain.plugin('eslint-webpack-plugin')
           .use(ESLintPlugin, [{ extensions: ['js', 'vue'] }])
 
@@ -88,7 +90,8 @@ module.exports = configure(function (quasar) {
         chain.resolve.alias.merge({
           asteroid: path.resolve(__dirname, '../ui/src/index.esm.js'),
           'asteroid-components': path.resolve(__dirname, '../ui/src/components'),
-          examples: path.resolve(__dirname, 'src/examples')
+          examples: path.resolve(__dirname, 'src/examples'),
+          uuid: path.resolve(__dirname, './node_modules/uuid/dist/index.js')
         })
 
         // YAML
