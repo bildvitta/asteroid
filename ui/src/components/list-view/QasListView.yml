@@ -1,8 +1,5 @@
 type: component
 
-# mixins:
-# - quasar/dist/api/QAvatar.json
-
 meta:
   desc: Componente para C.R.U.D. responsável pela parte de listagem (Read).
 
@@ -132,9 +129,37 @@ slots:
     desc: 'Slot acessar o footer.'
 
 events:
-  '@update:model-value -> function(value)':
-    desc: Dispara quando o model-value altera, também usado para v-model.
+  '@update:fields -> function(value)':
+    desc: Dispara quando a action "fetchList" é executada com sucesso, é chamado antes do evento "fetch-success".
     params:
       value:
-        desc: Novo valor do model.
+        desc: fields.
+        type: Object
+
+  '@update:errors -> function(value)':
+    desc: Dispara quando a action "fetchList" cai em uma exceção.
+    params:
+      value:
+        desc: Errors durante o fetch.
+        type: Object
+
+  '@update:metadata -> function(value)':
+    desc: Dispara quando a action "fetchList" acontece com sucesso, é chamado antes do evento "fetch-success".
+    params:
+      value:
+        desc: metadata.
+        type: Object
+
+  '@update:fetching -> function(value)':
+    desc: Dispara logo antes da action "fetchList" e ao cair no bloco "finally", ou seja, quando começar o fetching e após terminar.
+    params:
+      value:
+        desc: Retorna se está ou não fazendo fetching de dados.
         type: Boolean
+
+  '@fetch-success -> function(value)':
+    desc: Dispara quando a action "fetchList" é executada com sucesso.
+    params:
+      value:
+        desc: Retorna todos os dados "cru" respondido pelo fetch.
+        type: Object

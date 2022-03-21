@@ -68,7 +68,10 @@ export default {
     }
   },
 
-  emits: ['fetch-success', 'fetch-error'],
+  emits: [
+    'fetch-success',
+    'update:errors'
+  ],
 
   data () {
     return {
@@ -123,6 +126,7 @@ export default {
 
       try {
         const response = await this.$store.dispatch(`${this.entity}/fetchList`, { ...this.mx_context, url: this.url })
+        console.log(response, ' aaa')
         const { errors, fields, metadata } = response.data
 
         this.mx_setErrors(errors)
@@ -138,7 +142,7 @@ export default {
         this.$emit('fetch-success', response)
       } catch (error) {
         this.mx_fetchError(error)
-        this.$emit('fetch-error', error)
+        this.$emit('update:errors', error)
       } finally {
         this.mx_isFetching = false
       }

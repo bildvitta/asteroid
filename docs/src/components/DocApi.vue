@@ -1,5 +1,5 @@
 <template>
-  <q-card bordered class="q-my-lg" flat>
+  <q-card bordered class="doc-api" flat>
     <q-toolbar>
       <doc-card-title :title="name" />
 
@@ -26,7 +26,7 @@
         </q-tab>
       </q-tabs>
 
-      <q-tab-panels v-model="currentTab" animated>
+      <q-tab-panels v-model="currentTab" animated class="doc-api__tab-panels">
         <q-tab-panel v-for="(tab, key) in tabs" :key="`panel-${key}`" class="q-pa-none" :name="key">
           <doc-api-entry :api="filteredApi[key].results" />
         </q-tab-panel>
@@ -134,6 +134,11 @@ export default {
   &__tabs {
     background: $grey-3;
     color: $grey-7;
+  }
+
+  &__tab-panels {
+    max-height: 600px;
+    overflow-y: auto;
   }
 
   &__component {
