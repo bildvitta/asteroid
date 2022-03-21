@@ -9,9 +9,18 @@ props:
     required: true
     type: String
 
+  dialog:
+    desc: Este componente pode ser utilizado dentro de um dialog, neste caso o componente pai não pode ser um "QPage" e sim uma "div", esta prop cuida disto.
+    type: Boolean
+
   url:
     desc: Envia como parametro para a action "fetchList" do modulo correspondente a "entity".
     type: String
+
+  results:
+    desc: Model de results, utilizado para recuperar a lista retornada pelo componente.
+    type: Boolean
+    examples: [v-model:results="results"]
 
   fields:
     desc: Model de fields, utilizado para recuperar os fields fora do template.
@@ -53,82 +62,27 @@ props:
 slots:
   header:
     desc: 'Slot para acessar o header.'
-    scope:
-      results:
-        desc: Retorna os resultados para a listagem.
-        type: Object
-        default: []
-        examples: ["[ { uuid: 'uuid', name: 'John Doe' } ]"]
-
-      fields:
-        desc: Retorna os fields (também disponível no v-model:fields)
-        type: Object
-        default: {}
-
-      metadata:
-        desc: Retorna os metadata (também disponível no v-model:metadata)
-        type: Object
-        default: {}
 
   filter:
     desc: 'Slot para acessar o filtro.'
-    scope:
-      results:
-        desc: Retorna os resultados para a listagem.
-        default: []
-        type: Object
-        examples: ["[ { uuid: 'uuid', name: 'John Doe' } ]"]
-
-      fields:
-        desc: Retorna os fields (também disponível no v-model:fields)
-        default: {}
-        type: Object
-
-      metadata:
-        desc: Retorna os metadata (também disponível no v-model:metadata)
-        type: Object
-        default: {}
-
-      entity:
-        desc: Retorna a entidade
-        type: String
 
   default:
     desc: 'Slot para ter o conteúdo principal (dentro do main).'
-    scope:
-      results:
-        desc: Retorna os resultados para a listagem.
-        default: []
-        type: Object
-        examples: ["[ { uuid: 'uuid', name: 'John Doe' } ]"]
-
-      fields:
-        desc: Retorna os fields (também disponível no v-model:fields)
-        default: {}
-        type: Object
-
-      metadata:
-        desc: Retorna os metadata (também disponível no v-model:metadata)
-        type: Object
-        default: {}
 
   empty-results:
     desc: 'Slot acessar quando a listagem está vazia.'
-    scope:
-      fields:
-        desc: Retorna os fields (também disponível no v-model:fields)
-        default: {}
-        type: Object
-
-      metadata:
-        desc: Retorna os metadata (também disponível no v-model:metadata)
-        type: Object
-        default: {}
 
   footer:
-    desc: 'Slot acessar o footer.'
+    desc: 'Slot para acessar o footer.'
 
 events:
+  '@update:results -> function(value)':
+    desc: Dispara quando a action "fetchList" é executada com sucesso, é chamado antes do evento "fetch-success".
+    params:
+      value:
+        desc: lista retornada no "fetchList".
+        type: Array
+
   '@update:fields -> function(value)':
     desc: Dispara quando a action "fetchList" é executada com sucesso, é chamado antes do evento "fetch-success".
     params:

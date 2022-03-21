@@ -1,5 +1,5 @@
 <template>
-  <qas-list-view v-model:fetchingModel="isFetching" v-model:fieldsModel="fields" class="container spaced" entity="users">
+  <qas-list-view v-model:fetchingModel="isFetching" v-model:fieldsModel="fields" v-model:results="results" class="container spaced" entity="users">
     <template #filter>
       <qas-filters entity="users">
         <template #default="{ filter }">
@@ -9,7 +9,7 @@
         </template>
       </qas-filters>
     </template>
-    <template #default="{ results }">
+    <template #default>
       Fields: <qas-debugger :inspect="[fields]" />
       Results: <qas-debugger :inspect="[results]" />
       isFetching: {{ isFetching }}
@@ -23,7 +23,8 @@ export default {
     return {
       values: {},
       isFetching: false,
-      fields: {}
+      fields: {},
+      results: []
     }
   },
 

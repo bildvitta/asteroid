@@ -346,15 +346,22 @@ Sincronizado em _24/02/2022 as 15h00_.
 
 ### QasListView
 
-Sincronizado em _18/03/2022 as 14h40_.
+Sincronizado em _21/03/2022 as 15h40_.
 
 - Propriedade `noFilter` alterada para `useFilter`.
+- Classes `container` e `spaced` já vem como padrão quando a propriedade `dialog` é "false".
+- Slot `header`, removido os escopos `(fields, metadata, results)`.
+- Slot `filter`, removido os escopos `(fields, metadata, results, entity)`.
+- Slot `default`, removido os escopos `(fields, metadata, results)`.
+- Slot `empty-results`, removido os escopos `(fields, metadata)`.
 - Escopo `errors` removido do slot `filter` (consegue acessar pelo `v-model:errors`).
+- Adicionado `v-model:results` (não reativa `markRaw`, com intuito facilitar o uso no script).
 - Adicionado `v-model:errors` (não reativa `markRaw`, com intuito facilitar o uso no script).
 - Adicionado `v-model:fields` (não reativa `markRaw`, com intuito facilitar o uso no script).
 - Adicionado `v-model:metadata` (não reativa `markRaw`, com intuito facilitar o uso no script).
 - Adicionado `v-model:fetching`.
 - Removido evento `fetch-error` (tem acesso no `@update:errors`).
+- Adicionado evento `update:results`.
 - Adicionado evento `update:fetching`.
 - Adicionado evento `update:errors`.
 - Adicionado evento `update:fields`.
