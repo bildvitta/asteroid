@@ -93,7 +93,7 @@ function handleMasks (value) {
 
 // Labels
 function humanize (field = {}, value) {
-  if (!value) return value
+  if (field.mask && !value) return value
 
   const mappedMasks = handleMasks(value)
 

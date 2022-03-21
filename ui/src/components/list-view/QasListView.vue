@@ -1,21 +1,21 @@
 <template>
-  <component :is="mx_componentTag">
+  <component :is="mx_componentTag" :class="mx_componentClass">
     <q-pull-to-refresh :disable="disableRefresh" @refresh="refresh">
       <header v-if="hasHeaderSlot">
-        <slot :fields="mx_fields" :metadata="mx_metadata" name="header" :results="results" />
+        <slot name="header" />
       </header>
 
-      <slot v-if="useFilter" :entity="entity" :fields="mx_fields" :metadata="mx_metadata" name="filter" :results="results">
+      <slot v-if="useFilter" name="filter">
         <qas-filters v-bind="filtersProps" :entity="entity" />
       </slot>
 
       <main class="relative-position">
         <div v-if="hasResults">
-          <slot :fields="mx_fields" :metadata="mx_metadata" :results="results" />
+          <slot />
         </div>
 
         <div v-else-if="!mx_isFetching">
-          <slot :fields="mx_fields" :metadata="mx_metadata" name="empty-results">
+          <slot name="empty-results">
             <div class="q-my-xl text-center">
               <q-icon class="q-mb-sm text-center" color="grey-6" name="o_search" size="38px" />
               <div class="text-grey-6">Nenhum item encontrado.</div>
@@ -44,6 +44,7 @@
 <script>
 import { viewMixin, contextMixin } from '../../mixins'
 import QasFilters from '../filters/QasFilters.vue'
+import { extend } from 'quasar'
 
 export default {
   components: {
@@ -65,12 +66,18 @@ export default {
     filtersProps: {
       default: () => ({}),
       type: Object
+    },
+
+    results: {
+      default: () => [],
+      type: Array
     }
   },
 
   emits: [
     'fetch-success',
-    'update:errors'
+    'update:errors',
+    'update:results'
   ],
 
   data () {
@@ -89,10 +96,10 @@ export default {
     },
 
     hasResults () {
-      return !!(this.results || []).length
+      return !!(this.resultsModel || []).length
     },
 
-    results () {
+    resultsModel () {
       return this.$store.getters[`${this.entity}/list`]
     },
 
@@ -107,6 +114,13 @@ export default {
         this.fetchList()
         this.setCurrentPage()
       }
+    },
+
+    resultsModel: {
+      handler (value) {
+        this.$emit('update:results', extend([], true, value))
+      },
+      immediate: true
     }
   },
 
@@ -126,7 +140,6 @@ export default {
 
       try {
         const response = await this.$store.dispatch(`${this.entity}/fetchList`, { ...this.mx_context, url: this.url })
-        console.log(response, ' aaa')
         const { errors, fields, metadata } = response.data
 
         this.mx_setErrors(errors)
@@ -134,9 +147,9 @@ export default {
         this.mx_setMetadata(metadata)
 
         this.mx_updateModels({
-          errors: errors,
+          errors: this.mx_errors,
           fields: this.mx_fields,
-          metadata: metadata
+          metadata: this.mx_metadata
         })
 
         this.$emit('fetch-success', response)

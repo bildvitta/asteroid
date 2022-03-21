@@ -66,6 +66,10 @@ export default {
       return this.dialog ? 'div' : 'q-page'
     },
 
+    mx_componentClass () {
+      return !this.dialog && 'container spaced'
+    },
+
     mx_hasFooterSlot () {
       return !!(this.$slots.footer)
     },
