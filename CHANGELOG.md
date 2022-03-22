@@ -10,6 +10,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Added new prop `paramKey` to `QasListItems`.
 
+### Changed
+- baseURL in `QasResizer`. 
+
 ## 2.14.1 - 2022-03-21
 
 ### Fixed
