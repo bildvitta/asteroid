@@ -76,6 +76,7 @@ export default {
 
   emits: [
     'fetch-success',
+    'fetch-error',
     'update:errors',
     'update:results'
   ],
@@ -156,6 +157,7 @@ export default {
       } catch (error) {
         this.mx_fetchError(error)
         this.$emit('update:errors', error)
+        this.$emit('fetch-error', error)
       } finally {
         this.mx_isFetching = false
       }
