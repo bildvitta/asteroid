@@ -1,7 +1,7 @@
 type: component
 
 meta:
-  desc: Componente para C.R.U.D. responsável pela parte de listagem (Read).
+  desc: Componente para C.R.U.D. responsável pela pela visualização (Read) ou conhecido também como "show".
 
 props:
   entity:
@@ -9,20 +9,24 @@ props:
     required: true
     type: String
 
+  custom-id:
+    desc: Por padrão, o componente vai pegar o "id" que vem como parâmetro na url, caso queira que o id seja diferente da url, use esta prop.
+    type: String
+    examples: ['my-custom-id']
+
   dialog:
     desc: Este componente pode ser utilizado dentro de um dialog, neste caso o componente pai não pode ser um "QPage" e sim uma "div", esta prop cuida disto.
     type: Boolean
 
   url:
-    desc: Envia como parametro para a action "fetchList" do modulo correspondente a "entity".
+    desc: Envia como parametro para a action "fetchSingle" do modulo correspondente a "entity".
     type: String
 
-  results:
+  result:
     model: true
-    desc: Model de results, utilizado para recuperar a lista retornada pelo componente.
-    default: []
-    type: Array
-    examples: [v-model:results="results"]
+    desc: Model de result, utilizado para recuperar o resultado retornado pelo componente.
+    type: Object
+    examples: [v-model:result="result"]
 
   fields:
     model: true
@@ -51,81 +55,61 @@ props:
     type: Boolean
     examples: [v-model:fetching="isFetching"]
 
-  disable-refresh:
-    desc: Desabilita o [pull-to-refreash](https://quasar.dev/vue-components/pull-to-refresh#basic).
-    type: Boolean
-
-  use-filter:
-    desc: Controla se o componente vai usar ou não o componente "QasFilters".
-    default: true
-    type: Boolean
-
-  filters-props:
-    desc: Repassa as props para o componente "QasFilters".
-    default: {}
-    type: Object
-
 slots:
   header:
     desc: 'Slot para acessar o header.'
 
-  filter:
-    desc: 'Slot para acessar o filtro.'
-
   default:
     desc: 'Slot para ter o conteúdo principal (dentro do main).'
-
-  empty-results:
-    desc: 'Slot acessar quando a listagem está vazia.'
 
   footer:
     desc: 'Slot para acessar o footer.'
 
 events:
-  '@update:results -> function(value)':
-    desc: Dispara quando a action "fetchList" é executada com sucesso, é chamado antes do evento "fetch-success".
+  '@update:result -> function(value)':
+    desc: Dispara quando a action "fetchSingle" é executada com sucesso, é chamado antes do evento "fetch-success".
     params:
       value:
-        desc: lista retornada no "fetchList".
+        desc: lista retornada no "fetchSingle".
         type: Array
 
   '@update:fields -> function(value)':
-    desc: Dispara quando a action "fetchList" é executada com sucesso, é chamado antes do evento "fetch-success".
+    desc: Dispara quando a action "fetchSingle" é executada com sucesso, é chamado antes do evento "fetch-success".
     params:
       value:
         desc: fields.
         type: Object
 
   '@update:errors -> function(value)':
-    desc: Dispara quando a action "fetchList" é chamada.
+    desc: Dispara quando a action "fetchSingle" é chamada.
     params:
       value:
         desc: Errors durante o fetch.
         type: Object
 
   '@update:metadata -> function(value)':
-    desc: Dispara quando a action "fetchList" acontece com sucesso, é chamado antes do evento "fetch-success".
+    desc: Dispara quando a action "fetchSingle" acontece com sucesso, é chamado antes do evento "fetch-success".
     params:
       value:
         desc: metadata.
         type: Object
 
   '@update:fetching -> function(value)':
-    desc: Dispara logo antes da action "fetchList" e ao cair no bloco "finally", ou seja, quando começar o fetching e após terminar.
+    desc: Dispara logo antes da action "fetchSingle" e ao cair no bloco "finally", ou seja, quando começar o fetching e após terminar.
     params:
       value:
         desc: Retorna se está ou não fazendo fetching de dados.
         type: Boolean
 
   '@fetch-success -> function(value)':
-    desc: Dispara quando a action "fetchList" é executada com sucesso.
+    desc: Dispara quando a action "fetchSingle" é executada com sucesso.
     params:
       value:
         desc: Retorna todos os dados "cru" respondido pelo fetch.
         type: Object
 
   '@fetch-error -> function(value)':
-    desc: Dispara quando a action "fetchList" cai em uma exceção.
+    desc: Dispara quando a action "fetchSingle" cai em uma exceção.
     params:
       value:
         desc: Retorna todos os dados "cru" respondido na exceção do fetch.
