@@ -2,7 +2,7 @@
 title: QasSingleView
 ---
 
-Componente para C.R.U.D. responsável pela parte de listagem (Read).
+Componente para C.R.U.D. responsável pela pela visualização (Read) ou conhecido também como "show".
 
 <doc-api file="single-view/QasSingleView" name="QasSingleView" />
 
