@@ -333,7 +333,10 @@ Sincronizado em _24/02/2022 as 14h00_.
 
 Sincronizado em _24/02/2022 as 15h00_.
 
-- Propriedade `value` alterada para `modelValue`.
+- Propriedade `value` alterada para `result`.
+- Classes `container` e `spaced` já vem como padrão quando a propriedade `dialog` é "false".
+- Slot `header`, removido os escopos `(fields, metadata, result, errors)`.
+- Slot `default`, removido os escopos `(fields, metadata, result, errors)`.
 - Adicionado `v-model:errors` (não reativa `markRaw`, com intuito facilitar o uso no script).
 - Adicionado `v-model:fields` (não reativa `markRaw`, com intuito facilitar o uso no script).
 - Adicionado `v-model:metadata` (não reativa `markRaw`, com intuito facilitar o uso no script).
@@ -342,7 +345,7 @@ Sincronizado em _24/02/2022 as 15h00_.
 - Adicionado evento `update:errors`.
 - Adicionado evento `update:fields`.
 - Adicionado evento `update:metadata`.
-- Evento `input` alterado para `update:modelValue`.
+- Evento `input` alterado para `update:result`.
 
 ### QasListView
 

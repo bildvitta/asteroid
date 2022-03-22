@@ -1,11 +1,11 @@
 <template>
-  <component :is="mx_componentTag">
+  <component :is="mx_componentTag" :class="mx_componentClass">
     <header v-if="mx_hasHeaderSlot">
-      <slot :errors="mx_errors" :fields="mx_fields" :metadata="mx_metadata" name="header" :result="result" />
+      <slot name="header" />
     </header>
 
     <template v-if="hasResult">
-      <slot :errors="mx_errors" :fields="mx_fields" :metadata="mx_metadata" :result="result" />
+      <slot />
     </template>
 
     <div v-else-if="!mx_isFetching" class="q-my-xl text-center">
@@ -25,6 +25,7 @@
 
 <script>
 import viewMixin from '../../mixins/view'
+import { markRaw } from 'vue'
 
 export default {
   name: 'QasSingleView',
@@ -37,28 +38,28 @@ export default {
       type: [Number, String]
     },
 
-    modelValue: {
+    result: {
       default: () => ({}),
       type: Object
     }
   },
 
   emits: [
-    'update:modelValue',
+    'update:result',
     'fetch-success',
     'fetch-error'
   ],
 
   computed: {
     hasResult () {
-      return !!this.result
+      return !!this.resultModel
     },
 
     id () {
       return this.customId || this.$route.params.id
     },
 
-    result () {
+    resultModel () {
       return this.$store.getters[`${this.entity}/byId`](this.id) || {}
     }
   },
@@ -68,8 +69,8 @@ export default {
       to.name === from.name && this.fetchSingle()
     },
 
-    result (value) {
-      this.$emit('update:modelValue', value)
+    resultModel (value) {
+      this.$emit('update:result', markRaw({ ...value }))
     }
   },
 
@@ -90,9 +91,9 @@ export default {
         this.mx_setMetadata(metadata)
 
         this.mx_updateModels({
-          errors: errors,
+          errors: this.mx_errors,
           fields: this.mx_fields,
-          metadata: metadata
+          metadata: this.mx_metadata
         })
 
         this.$emit('fetch-success', response)
