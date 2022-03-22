@@ -360,7 +360,6 @@ Sincronizado em _21/03/2022 as 15h40_.
 - Adicionado `v-model:fields` (não reativa `markRaw`, com intuito facilitar o uso no script).
 - Adicionado `v-model:metadata` (não reativa `markRaw`, com intuito facilitar o uso no script).
 - Adicionado `v-model:fetching`.
-- Removido evento `fetch-error` (tem acesso no `@update:errors`).
 - Adicionado evento `update:results`.
 - Adicionado evento `update:fetching`.
 - Adicionado evento `update:errors`.

@@ -96,7 +96,7 @@ events:
         type: Object
 
   '@update:errors -> function(value)':
-    desc: Dispara quando a action "fetchList" cai em uma exceção.
+    desc: Dispara quando a action "fetchList" é chamada.
     params:
       value:
         desc: Errors durante o fetch.
@@ -121,4 +121,11 @@ events:
     params:
       value:
         desc: Retorna todos os dados "cru" respondido pelo fetch.
+        type: Object
+
+  '@fetch-error -> function(value)':
+    desc: Dispara quando a action "fetchList" cai em uma exceção.
+    params:
+      value:
+        desc: Retorna todos os dados "cru" respondido na exceção do fetch.
         type: Object
