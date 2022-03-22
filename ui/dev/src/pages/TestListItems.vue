@@ -22,6 +22,15 @@
         <pre>{{ item }}</pre>
       </template>
     </qas-list-items>
+
+    <qas-label label="Teste redirect" />
+    <qas-list-items :list="results" redirect-key="uuid" :to="{ name: 'path' }">
+      <template #item-section-left="{ item }">
+        <div class="items-center row">
+          <span class="q-mr-sm text-black text-weight-bold">{{ item.name }}</span>
+        </div>
+      </template>
+    </qas-list-items>
   </q-page>
 </template>
 
