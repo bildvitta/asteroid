@@ -38,7 +38,9 @@
 
     <div>
       <q-linear-progress v-if="isLoading" color="brand-primary" indeterminate />
-      <component :is="component" v-else class="doc-example__component" />
+      <div v-else class="doc-example__component">
+        <component :is="component" />
+      </div>
     </div>
   </q-card>
 </template>
@@ -149,6 +151,7 @@ export default {
       }
 
       this.currentTab = sourceKeys[0]
+      console.log(this.currentTab)
     },
 
     toggleSource () {

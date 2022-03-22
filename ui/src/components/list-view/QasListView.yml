@@ -18,29 +18,34 @@ props:
     type: String
 
   results:
+    model: true
     desc: Model de results, utilizado para recuperar a lista retornada pelo componente.
     type: Boolean
     examples: [v-model:results="results"]
 
   fields:
+    model: true
     desc: Model de fields, utilizado para recuperar os fields fora do template.
     default: {}
     type: Object
     examples: [v-model:fields="fields"]
 
   errors:
+    model: true
     desc: Model de errors, utilizado para recuperar os errors fora do template.
     default: {}
     type: Object
     examples: [v-model:errors="errors"]
 
   metadata:
+    model: true
     desc: Model de metadata, utilizado para recuperar os metadata fora do template.
     default: {}
     type: Object
     examples: [v-model:metadata="metadata"]
 
   fetching:
+    model: true
     desc: Model de fetching, utilizado para saber se o componente está fazendo fetching de dados.
     type: Boolean
     examples: [v-model:fetching="isFetching"]
