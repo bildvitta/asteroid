@@ -9,7 +9,7 @@
 <script>
 import { greatestCommonDivisor } from '../../helpers'
 
-const baseURL = 'https://d17ouzaofz81f3.cloudfront.net/'
+const baseURL = 'https://image-resize.nave.dev/'
 
 export default {
   name: 'QasResizer',
