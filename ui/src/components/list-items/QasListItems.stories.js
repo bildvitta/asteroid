@@ -38,7 +38,12 @@ export default {
 
     redirectKey: {
       control: null,
-      description: 'Key to define the id redirect.'
+      description: 'Item key that will be the value of the redirect.'
+    },
+
+    paramKey: {
+      control: null,
+      description: 'Redirect parameter key.'
     },
 
     useIconRedirect: {

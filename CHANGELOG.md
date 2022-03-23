@@ -4,6 +4,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+
+## Unreleased
+
+### Added
+- Added new prop `paramKey` to `QasListItems`.
+
+### Changed
+- `QasResizer` changed baseURL 'https://d17ouzaofz81f3.cloudfront.net/' to 'https://image-resize.nave.dev/'
+
 ## 2.14.1 - 2022-03-21
 
 ### Fixed

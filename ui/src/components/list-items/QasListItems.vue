@@ -44,6 +44,11 @@ export default {
       type: String
     },
 
+    paramKey: {
+      default: 'id',
+      type: String
+    },
+
     to: {
       default: () => ({}),
       type: Object
@@ -61,7 +66,7 @@ export default {
 
     getRedirectPayload (item) {
       return {
-        params: { [this.redirectKey]: item[this.redirectKey] },
+        params: { [this.paramKey]: item[this.redirectKey] },
         ...this.to
       }
     }
