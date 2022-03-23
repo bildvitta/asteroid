@@ -145,6 +145,9 @@ Sincronizado em _13/01/2022 as 15h13_.
 Sincronizado em _13/01/2022 as 18h23_.
 
 - Propriedade `hideLabel` removido (para remover o label é só não passar ele).
+- Adicionado propriedade `deleteLabel` (para definir o label do botão de exclusão).
+- Adicionado propriedade `deleteIcon` (para definir o ícone do botão de exclusão).
+- Adicionado propriedade `deleteProps` para repassar para o componente `QasDelete` e controlar quando tem ou não botão de exclusão por padrão.
 - Alterado valor "default" da propriedade `label` para `Configurações`.
 
 ### QasSelectList
@@ -309,6 +312,11 @@ Sincronizado em _16/02/2022 as 10h43_.
 
 - Propriedade `value` alterada para `modelValue`.
 - Adicionado propriedade `ignoreKeysInUnsavedChanges` para ignorar chaves na validação de quando sai da tela com alterações não salvas.
+- Classes `container` e `spaced` já vem como padrão quando a propriedade `dialog` é "false".
+- Slot `header`, removido os escopos `(fields, metadata, errors)`.
+- Slot `default`, removido os escopos `(fields, metadata, errors)`.
+- Slot `actions`, removido os escopos `(fields, metadata, errors)`.
+- Slot `footer`, removido os escopos `(fields, metadata, errors)`.
 - Adicionado `v-model:errors` (não reativa `markRaw`, com intuito facilitar o uso no script).
 - Adicionado `v-model:fields` (não reativa `markRaw`, com intuito facilitar o uso no script).
 - Adicionado `v-model:metadata` (não reativa `markRaw`, com intuito facilitar o uso no script).
@@ -331,12 +339,13 @@ Sincronizado em _24/02/2022 as 14h00_.
 
 ### QasSingleView
 
-Sincronizado em _24/02/2022 as 15h00_.
+Sincronizado em _22/03/2022 as 15h00_.
 
 - Propriedade `value` alterada para `result`.
 - Classes `container` e `spaced` já vem como padrão quando a propriedade `dialog` é "false".
 - Slot `header`, removido os escopos `(fields, metadata, result, errors)`.
 - Slot `default`, removido os escopos `(fields, metadata, result, errors)`.
+- Adicionado parametro `params` para o metodo `fetchSingle`.
 - Adicionado `v-model:errors` (não reativa `markRaw`, com intuito facilitar o uso no script).
 - Adicionado `v-model:fields` (não reativa `markRaw`, com intuito facilitar o uso no script).
 - Adicionado `v-model:metadata` (não reativa `markRaw`, com intuito facilitar o uso no script).
@@ -358,6 +367,7 @@ Sincronizado em _21/03/2022 as 15h40_.
 - Slot `default`, removido os escopos `(fields, metadata, results)`.
 - Slot `empty-results`, removido os escopos `(fields, metadata)`.
 - Escopo `errors` removido do slot `filter` (consegue acessar pelo `v-model:errors`).
+- Adicionado parametro `filters` para o metodo `fetchList` ele vai sobreescrever a prop `filters` que já é repassada hoje.
 - Adicionado `v-model:results` (não reativa `markRaw`, com intuito facilitar o uso no script).
 - Adicionado `v-model:errors` (não reativa `markRaw`, com intuito facilitar o uso no script).
 - Adicionado `v-model:fields` (não reativa `markRaw`, com intuito facilitar o uso no script).

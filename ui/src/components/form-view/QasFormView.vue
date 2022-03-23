@@ -1,13 +1,13 @@
 <template>
   <component :is="mx_componentTag">
     <header v-if="mx_hasHeaderSlot">
-      <slot :errors="mx_errors" :fields="mx_fields" :metadata="mx_metadata" name="header" />
+      <slot name="header" />
     </header>
 
     <q-form ref="form" @submit="submit">
-      <slot :errors="mx_errors" :fields="mx_fields" :metadata="mx_metadata" />
+      <slot />
 
-      <slot v-if="!readOnly" :errors="mx_errors" :fields="mx_fields" :metadata="mx_metadata" name="actions">
+      <slot v-if="!readOnly" name="actions">
         <div class="justify-end q-col-gutter-md q-my-lg row">
           <div v-if="hasCancelButton" class="col-12 col-sm-2" :class="cancelButtonClass">
             <qas-btn v-close-popup="dialog" class="full-width" :data-cy="`btnCancel-${entity}`" :disable="isCancelButtonDisabled" :label="cancelButton" outline type="button" @click="cancel" />
@@ -20,7 +20,7 @@
     </q-form>
 
     <footer v-if="mx_hasFooterSlot">
-      <slot :errors="mx_errors" :fields="mx_fields" :metadata="mx_metadata" name="footer" />
+      <slot name="footer" />
     </footer>
 
     <qas-dialog v-model="showDialog" v-bind="defaultDialogProps" />
@@ -183,6 +183,10 @@ export default {
 
     history () {
       return history.list
+    },
+
+    fieldsNameWithDefaultValue () {
+      return Object.keys(this.fields).filter(field => 'default' in this.fields[field])
     }
   },
 
@@ -303,9 +307,14 @@ export default {
 
     // ignora chaves na hora de validar quando usuário está saindo da página
     handleIgnoreKeysInUnsavedChanges (firstValue, secondValue) {
-      if (!this.ignoreKeysInUnsavedChanges.length) return
+      const toIgnore = [
+        ...this.fieldsNameWithDefaultValue,
+        ...this.ignoreKeysInUnsavedChanges
+      ]
 
-      this.ignoreKeysInUnsavedChanges.forEach(key => {
+      if (!toIgnore.length) return
+
+      toIgnore.forEach(key => {
         delete firstValue[key]
         delete secondValue[key]
       })

@@ -79,11 +79,15 @@ export default {
   },
 
   methods: {
-    async fetchSingle () {
+    async fetchSingle (params = {}) {
       this.mx_isFetching = true
 
       try {
-        const response = await this.$store.dispatch(`${this.entity}/fetchSingle`, { id: this.id, url: this.url })
+        const response = await this.$store.dispatch(
+          `${this.entity}/fetchSingle`,
+          { id: this.id, url: this.url, params }
+        )
+
         const { errors, fields, metadata } = response.data
 
         this.mx_setErrors(errors)

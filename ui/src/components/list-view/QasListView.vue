@@ -71,6 +71,11 @@ export default {
     results: {
       default: () => [],
       type: Array
+    },
+
+    fetchListFn: {
+      default: null,
+      type: Function
     }
   },
 
@@ -136,11 +141,15 @@ export default {
       this.$router.push({ query })
     },
 
-    async fetchList () {
+    async fetchList (filters = {}) {
       this.mx_isFetching = true
 
       try {
-        const response = await this.$store.dispatch(`${this.entity}/fetchList`, { ...this.mx_context, url: this.url })
+        const response = await this.$store.dispatch(
+          `${this.entity}/fetchList`,
+          { ...this.mx_context, url: this.url, filters }
+        )
+
         const { errors, fields, metadata } = response.data
 
         this.mx_setErrors(errors)
@@ -155,6 +164,7 @@ export default {
 
         this.$emit('fetch-success', response)
       } catch (error) {
+        console.log(error)
         this.mx_fetchError(error)
         this.$emit('update:errors', error)
         this.$emit('fetch-error', error)

@@ -1,6 +1,7 @@
 <template>
   <qas-btn class="qas-actions-menu" color="primary" hide-label-on-small-screen :icon="icon" :label="label" outline>
-    {{ label }}
+    <span>{{ label }}</span>
+
     <q-menu class="qas-actions-menu__menu">
       <q-list class="qas-actions-menu__list" separator>
         <slot v-for="(item, key) in list" :item="item" :name="key">
@@ -13,6 +14,15 @@
             </q-item-section>
           </q-item>
         </slot>
+
+        <qas-delete v-if="hasDelete" v-bind="deleteProps" class="text-negative" clickable tag="q-item" @success="onDeleteSuccess">
+          <q-item-section>
+            <div class="flex items-center justify-center q-gutter-x-sm text-bold">
+              <q-icon :name="deleteIcon" />
+              <div>{{ deleteLabel }}</div>
+            </div>
+          </q-item-section>
+        </qas-delete>
       </q-list>
     </q-menu>
   </qas-btn>
@@ -42,6 +52,29 @@ export default {
     list: {
       default: () => ({}),
       type: Object
+    },
+
+    deleteLabel: {
+      type: String,
+      default: 'Excluir'
+    },
+
+    deleteIcon: {
+      type: String,
+      default: 'o_delete'
+    },
+
+    deleteProps: {
+      default: () => ({}),
+      type: Object
+    }
+  },
+
+  emits: ['delete-success'],
+
+  computed: {
+    hasDelete () {
+      return !!Object.keys(this.deleteProps).length
     }
   },
 
@@ -51,6 +84,10 @@ export default {
         const { handler, ...filtered } = item
         item.handler(filtered)
       }
+    },
+
+    onDeleteSuccess () {
+      this.$emit('delete-success')
     }
   }
 }
