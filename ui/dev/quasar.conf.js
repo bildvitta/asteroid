@@ -28,7 +28,8 @@ module.exports = function (ctx) {
 
       components: [
         'QPage',
-        'QBtn'
+        'QBtn',
+        'QItem'
       ],
 
       // Quasar plugins

@@ -81,6 +81,10 @@ module.exports = [
       {
         name: 'SingleView',
         path: '/components/single-view'
+      },
+      {
+        name: 'FormView',
+        path: '/components/form-view'
       }
     ]
   }

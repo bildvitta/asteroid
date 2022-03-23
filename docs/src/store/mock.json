@@ -2,16 +2,16 @@
   "name": "users",
   "encrypted": false,
   "passwordHash": null,
-  "schemaHash": "75c4f43dd06320bbf30a429533298815",
+  "schemaHash": "56c1554dc8e3979f7132a676f5c94c81",
   "docs": [
     {
       "uuid": "31362c39-2cb5-4fe2-982a-c270f88d2462",
       "isActive": false,
-      "company": "Non necessitatibus repellendus qui non.",
+      "company": "empresa-1",
       "name": "Quod ut est ea tenetur corporis reprehenderit quasi.",
       "email": "Mervin76@gmail.com",
-      "document": "Et dolores vitae in at quisquam aspernatur quisquam.",
-      "phone": "Omnis porro quae commodi.",
+      "document": "99999999999",
+      "phone": "99999999999",
       "createdAt": "2022-03-18T03:54:11.000Z",
       "updatedAt": "2022-03-18T09:22:11.000Z"
     },

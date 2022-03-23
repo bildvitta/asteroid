@@ -142,7 +142,7 @@ Sincronizado em _13/01/2022 as 15h13_.
 
 ### QasActionsMenu
 
-Sincronizado em _13/01/2022 as 18h23_.
+Sincronizado em _23/03/2022 as 16h00_.
 
 - Propriedade `hideLabel` removido (para remover o label é só não passar ele).
 - Adicionado propriedade `deleteLabel` (para definir o label do botão de exclusão).
@@ -308,7 +308,7 @@ Sincronizado em _16/02/2022 as 10h43_.
 
 ### QasFormView
 
-Sincronizado em _16/02/2022 as 10h43_.
+Sincronizado em _23/03/2022 as 16h00_.
 
 - Propriedade `value` alterada para `modelValue`.
 - Adicionado propriedade `ignoreKeysInUnsavedChanges` para ignorar chaves na validação de quando sai da tela com alterações não salvas.
@@ -339,7 +339,7 @@ Sincronizado em _24/02/2022 as 14h00_.
 
 ### QasSingleView
 
-Sincronizado em _22/03/2022 as 15h00_.
+Sincronizado em _23/03/2022 as 16h00_.
 
 - Propriedade `value` alterada para `result`.
 - Classes `container` e `spaced` já vem como padrão quando a propriedade `dialog` é "false".
@@ -358,7 +358,7 @@ Sincronizado em _22/03/2022 as 15h00_.
 
 ### QasListView
 
-Sincronizado em _21/03/2022 as 15h40_.
+Sincronizado em _23/03/2022 as 16h00_.
 
 - Propriedade `noFilter` alterada para `useFilter`.
 - Classes `container` e `spaced` já vem como padrão quando a propriedade `dialog` é "false".

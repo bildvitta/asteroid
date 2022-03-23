@@ -1,18 +1,15 @@
 <template>
-  <!-- Descartar essa div -->
-  <div class="container spaced">
-    <qas-single-view v-model:fields="fields" v-model:result="result" :custom-id="customId" :entity="entity">
-      <template #header>
-        <qas-page-header :breadcrumbs="breadcrumbs" title="Lista de materiais" />
-      </template>
+  <qas-single-view v-model:fields="fields" v-model:result="result" :custom-id="customId" :entity="entity">
+    <template #header>
+      <qas-page-header :breadcrumbs="breadcrumbs" title="Lista de materiais" />
+    </template>
 
-      <template #default>
-        <div>
-          <qas-grid-generator :fields="fields" :result="result" />
-        </div>
-      </template>
-    </qas-single-view>
-  </div>
+    <template #default>
+      <div>
+        <qas-grid-generator :fields="fields" :result="result" />
+      </div>
+    </template>
+  </qas-single-view>
 </template>
 
 <script>

@@ -1,9 +1,8 @@
 <template>
-  <qas-single-view v-model="values" v-model:fetchingModel="isFetching" v-model:fieldsModel="fields" class="container spaced" :custom-id="customId" entity="users" :url="url">
-    <template #default="{ result }">
-      Values: <qas-debugger :inspect="[values]" />
+  <qas-single-view v-model:fetching="isFetching" v-model:fields="fields" v-model:result="result" class="container spaced" :custom-id="customId" entity="users" :url="url">
+    <template #default>
       Fields: <qas-debugger :inspect="[fields]" />
-      Results: <qas-debugger :inspect="[result]" />
+      Result: <qas-debugger :inspect="[result]" />
       isFetching: {{ isFetching }}
     </template>
   </qas-single-view>
@@ -13,7 +12,7 @@
 export default {
   data () {
     return {
-      values: {},
+      result: {},
       isFetching: false,
       fields: {}
     }
@@ -22,7 +21,7 @@ export default {
   computed: {
     customId () {
       // TODO: Alterar toda vez que rodar o navpi seed
-      return '6e8cd2fe-0945-4e84-9286-839ad2f2abcb'
+      return '7ea1da9a-d422-4db5-835d-cd85ea967879'
     },
 
     url () {

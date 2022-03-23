@@ -1,3 +1,5 @@
 <template>
-  <qas-resizer size="100x100" source="bild-vitta.png" />
+  <div style="width: 600px;">
+    <qas-resizer size="50x50" source="bild-vitta.png" />
+  </div>
 </template>

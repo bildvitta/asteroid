@@ -3,9 +3,9 @@ import { createUUID, createDateTime } from '@bildvitta/vuex-offline'
 const fields = {
   isActive: {
     name: 'isActive',
-    label: 'Usuário activo?',
+    label: 'Usuário ativo?',
     type: 'boolean',
-    default: true
+    default: false
   },
 
   company: {
@@ -71,7 +71,8 @@ export default {
       },
 
       isActive: {
-        type: 'boolean'
+        type: 'boolean',
+        default: false
       },
 
       company: {
@@ -79,19 +80,23 @@ export default {
       },
 
       name: {
-        type: 'string'
+        type: 'string',
+        minLength: 1
       },
 
       document: {
-        type: 'string'
+        type: 'string',
+        minLength: 1
       },
 
       email: {
-        type: 'string'
+        type: 'string',
+        minLength: 1
       },
 
       phone: {
-        type: 'string'
+        type: 'string',
+        minLength: 1
       },
 
       createdAt: {

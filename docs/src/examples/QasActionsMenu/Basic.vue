@@ -9,9 +9,9 @@ export default {
   computed: {
     list () {
       return {
-        delete: {
-          icon: 'o_delete',
-          label: 'Delete',
+        visibility: {
+          icon: 'o_visibility',
+          label: 'Visualizar',
           handler: () => alert('handler ativado')
         }
       }

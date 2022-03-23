@@ -1,6 +1,6 @@
 <template>
   <q-page class="container q-py-lg">
-    <qas-actions-menu label="configurações" :list="list" />
+    <qas-actions-menu :delete-props="{ entity: 'users' }" label="configurações" :list="list" />
 
     <qas-btn hide-label-on-small-screen icon="o_delete" label="bbb">aaaaa</qas-btn>
 

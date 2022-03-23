@@ -22,12 +22,27 @@ props:
     examples: [
       "{
         delete: {
-          icon: 'o_delete',
-          label: 'Delete',
+          icon: 'o_visibility',
+          label: 'Visualizar',
           handler: () => alert('handler ativado')
         }
       }"
     ]
+
+  delete-label:
+    desc: Rótulo do botão de deletar.
+    default: Excluir
+    type: String
+
+  delete-icon:
+    desc: Icone do botão de deletar.
+    default: o_delete
+    type: String
+
+  delete-props:
+    desc: Props para repassar para o componente "QasDelete", caso seja um objeto vazio, o componente não vai adicionar a opção de deletar por padrão.
+    default: {}
+    type: Object
 
 slots:
   [nome-da-chave]:

@@ -1,5 +1,5 @@
 <template>
-  <qas-list-view v-model:fields="fields" v-model:results="results" :entity="entity" :fetch-list-fn="callback">
+  <qas-form-view v-model="values" v-model:fields="fields" :entity="entity">
     <template #header>
       <div class="bg-positive q-pa-lg">
         Template do header.
@@ -16,11 +16,17 @@
       <div class="bg-positive q-my-lg q-pa-lg">
         Template default
         <div>
-          Results: <qas-debugger :inspect="[results]" />
+          values: <qas-debugger :inspect="[values]" />
         </div>
         <div>
           Fields: <qas-debugger :inspect="[fields]" />
         </div>
+      </div>
+    </template>
+
+    <template #actions>
+      <div class="bg-positive q-my-lg q-pa-lg">
+        template actions
       </div>
     </template>
 
@@ -29,7 +35,7 @@
         template footer
       </div>
     </template>
-  </qas-list-view>
+  </qas-form-view>
 </template>
 
 <script>
@@ -40,7 +46,7 @@ export default {
     return {
       fields: {},
       errors: {},
-      results: [],
+      values: {},
       metadata: {}
     }
   },
@@ -48,13 +54,11 @@ export default {
   computed: {
     entity () {
       return 'users'
-    }
-  },
+    },
 
-  methods: {
-    callback (payload) {
-      return { data: { results: ['kk eae man'] } }
-      // console.log(payload, '>>>> callback')
+    // USAR SOMENTE SE NECESSARIO, AQUI PEGAMOS O ID DO USUARIO NO NOSSO MOCK DE DADOS
+    customId () {
+      return '31362c39-2cb5-4fe2-982a-c270f88d2462'
     }
   }
 }
