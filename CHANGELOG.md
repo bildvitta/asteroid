@@ -7,11 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
-### Added
+### 2.15.0
 - Added new prop `paramKey` to `QasListItems`.
 
 ### Changed
-- `QasResizer` changed baseURL 'https://d17ouzaofz81f3.cloudfront.net/' to 'https://image-resize.nave.dev/'
+- `QasResizer` changed baseURL `'https://d17ouzaofz81f3.cloudfront.net/'` to `'https://image-resize.nave.dev/'`
 
 ## 2.14.1 - 2022-03-21
 
