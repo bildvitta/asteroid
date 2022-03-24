@@ -14,7 +14,7 @@ props:
     type: String
     examples: ['my-custom-id']
 
-  dialogProps:
+  dialog-props:
     desc: Props para ser repassada para o componente "QasDialog"
     default: {}
     type: Object
@@ -41,10 +41,10 @@ slots:
     desc: 'Slot para acessar dentro do componente.'
 
 events:
-  'success -> function()':
+  '@success -> function()':
     desc: Dispara quando o componente deleta com sucesso.
 
-  'error -> function(value)':
+  '@error -> function(value)':
     desc: Dispara quando acontece algum erro na hora de deletar.
     params:
       value:

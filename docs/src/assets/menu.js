@@ -89,6 +89,10 @@ module.exports = [
       {
         name: 'Delete',
         path: '/components/delete'
+      },
+      {
+        name: 'Filters',
+        path: '/components/filters'
       }
     ]
   }

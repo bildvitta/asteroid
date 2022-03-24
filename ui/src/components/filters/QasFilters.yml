@@ -1,0 +1,91 @@
+type: component
+
+meta:
+  desc: Componente para criação de filtros dinâmicos.
+
+props:
+  entity:
+    desc: Entidade da store, por exemplo se tiver que trabalhar com modulo de usuários, teremos o model "users" na store, que vai ser nossa "entity".
+    required: true
+    type: String
+
+  use-badges:
+    desc: Habilita ou não os "chips" mostrando os filtros ativos.
+    default: true
+    type: Boolean
+
+  use-filter-button:
+    desc: Habilita ou não o botão com menu na lateral esquerda.
+    default: true
+    type: Boolean
+
+  use-search:
+    desc: Habilita ou não o campo text de busca.
+    default: true
+    type: Boolean
+
+  use-search-on-type:
+    desc: Habilita ou não o filtro de busca sempre que o usuário digita.
+    default: true
+    type: Boolean
+
+  search-placeholder:
+    desc: Placeholder do campo de busca.
+    default: Pesquisar...
+    type: String
+
+  url:
+    desc: Envia como parametro para a action "fetchFilters" do modulo correspondente a "entity".
+    type: String
+
+slots:
+  search:
+    desc: Slot para seção do campo de busca.
+    scope:
+      filter:
+        desc: função usada para fazer o filtro
+        type: Function
+
+  filter-button:
+    desc: Slot para seção do botão do menu lateral.
+    scope:
+      filter:
+        desc: função usada para fazer o filtro
+        type: Function
+
+  default:
+    desc: Slot para acessar o final do componente.
+    scope:
+      filter:
+        desc: Função usada para fazer o filtro
+        type: Function
+
+      filters:
+        desc: Objeto que retorna os filtros ativos
+        default: {}
+        type: Object
+
+      remove-filter:
+        desc: Função usada para remover os filtro
+        type: Function
+        examples: ["removeFilter({ name: '[nome-do-filtro]' })"]
+
+      context:
+        desc: Contexto referente a query da url.
+        default: { filters: {}, page: 1 }
+        type: Object
+
+events:
+  '@fetch-success -> function(value)':
+    desc: Dispara quando a action "fetchFilters" é executada com sucesso.
+    params:
+      value:
+        desc: Retorna todos os dados "cru" respondido pelo fetch.
+        type: Object
+
+  '@fetch-error -> function(value)':
+    desc: Dispara quando a action "fetchFilters" cai em uma exceção.
+    params:
+      value:
+        desc: Retorna todos os dados "cru" respondido na exceção do fetch.
+        type: Object
