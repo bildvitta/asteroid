@@ -333,9 +333,12 @@ Sincronizado em _23/03/2022 as 16h00_.
 
 Sincronizado em _24/02/2022 as 14h00_.
 
-- Propriedade `dialog` alterada para `dialogProps`.
-- Adicionado evento `delete-succes` ao `window` com os payloads: `{ id, entity, url }` para controle interno no `QasFormView`.
 - Alguns nomes internos alterados.
+- Repassando todos os slots de todos os componentes dinâmicos.
+- Propriedade `dialog` alterada para `dialogProps`.
+- Adicionado `v-model:deleting`.
+- Adicionado evento `update:deleting`.
+- Adicionado evento `delete-succes` ao `window` com os payloads: `{ id, entity, url }` para controle interno no `QasFormView`.
 
 ### QasSingleView
 

@@ -1,8 +1,11 @@
 <template>
-  <component :is="tag" @click="openConfirmDialog">
-    <slot />
-    <qas-dialog v-model="showDialog" v-bind="defaultDialogProps" />
+  <component :is="tag" v-bind="$attrs" @click="openConfirmDialog">
+    <template v-for="(_, name) in $slots" #[name]="context">
+      <slot :name="name" v-bind="context || {}" />
+    </template>
   </component>
+
+  <qas-dialog v-model="showDialog" v-bind="defaultDialogProps" />
 </template>
 
 <script>
@@ -44,10 +47,18 @@ export default {
     url: {
       default: '',
       type: String
+    },
+
+    deleting: {
+      type: Boolean
     }
   },
 
-  emits: ['success', 'error'],
+  emits: [
+    'success',
+    'error',
+    'update:deleting'
+  ],
 
   data () {
     return {
@@ -83,6 +94,7 @@ export default {
 
     async destroy () {
       Loading.show()
+      this.$emit('update:deleting', true)
 
       try {
         await this.$store.dispatch(`${this.entity}/destroy`, { id: this.id, url: this.url })
@@ -94,6 +106,7 @@ export default {
         this.$emit('error', error)
       } finally {
         Loading.hide()
+        this.$emit('update:deleting', false)
       }
     },
 
