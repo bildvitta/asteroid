@@ -85,6 +85,10 @@ module.exports = [
       {
         name: 'FormView',
         path: '/components/form-view'
+      },
+      {
+        name: 'Delete',
+        path: '/components/delete'
       }
     ]
   }

@@ -1,16 +1,14 @@
 ---
-title: QasSingleView
+title: QasDelete
 ---
 
-Componente para C.R.U.D. responsável pela visualização (Read) ou conhecido também como "show".
+Componente para C.R.U.D. responsável por deletar (Delete).
 
-<doc-api file="single-view/QasSingleView" name="QasSingleView" />
+<doc-api file="delete/QasDelete" name="QasDelete" />
 
 :::warning
 Este componente depende do `Vuex`, utiliza modulos com actions, state e getters para manipular/recuperar os dados. Por exemplo, para você utilizar em uma entidade de show de usuários, você **deve** ter um modulo de `users` e dentro de dele ter os seguinte requisitos:
-- state: list.
-- getters: list e byId.
-- actions: fetchSingle.
+- actions: destroy.
 
 Hoje Utilizamos 2 bibliotecas com propósitos diferentes que são compativeis com o asteroid para lidar com o Vuex, elas são:
 [VuexStoreModule](https://github.com/bildvitta/vuex-store-module) e [VuexOffline](https://github.com/bildvitta/vuex-offline).
@@ -23,16 +21,16 @@ Estamos utilizando nos exemplos um `custom-id` pois é necessario para conseguir
 :::
 
 :::tip
-Este componente serve para lidar com **visualização unica**, se você precisar de um componente para lidar com listagem, use o componente `QasListView`.
+Este componente serve para lidar com **delete**.
 :::
 
 :::tip
-Em alguns casos você vai precisar de ter uma tela unica por exmplo uma tela de **dashboard** que não existe tela de listagem, edição ou criação. Use este componente para isto! Nestes casos você pode ou não ter um `id`, então pode utilizar a propriedade `url` para definir o endereço da tela.
+Este componente renderiza componentes dinâmicamente através da prop `tag` o que significa que você pode utilizar qualquer prop/evento/slot do componente que você utilizou, por exemplo:
+No exemplo abaixo estamos renderizando um `QasBtn` (que é o valor default da prop `tag`), com isto podemos utilizar todas as prop/evento/slot que este componente tem.
 :::
 
 ## Uso
-<doc-example file="QasSingleView/Basic" title="Básico" />
+<doc-example file="QasDelete/Basic" title="Básico" />
 
 Aqui está um exemplo de como normalmente utilizamos este componente, lembrando que isto não é uma regra, porém na maioria das vezes você vai se deparar com códigos semelhantes a este.
 
-<doc-example file="QasSingleView/CommonUsage" title="Normalmente utilizado" />

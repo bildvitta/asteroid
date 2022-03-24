@@ -1,7 +1,7 @@
 type: component
 
 meta:
-  desc: Componente para C.R.U.D. responsável pela pela visualização (Read) ou conhecido também como "show".
+  desc: Componente para C.R.U.D. responsável pela visualização (Read) ou conhecido também como "show".
 
 props:
   entity:
