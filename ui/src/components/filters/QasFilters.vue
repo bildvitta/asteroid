@@ -40,7 +40,7 @@
       </slot>
     </div>
 
-    <div v-if="useBadges && hasActiveFilters" class="q-mt-md">
+    <div v-if="useChip && hasActiveFilters" class="q-mt-md">
       <q-chip v-for="(filterItem, key) in activeFilters" :key="key" color="grey-4" dense removable size="md" text-color="grey-8" @remove="removeFilter(filterItem)">{{ filterItem.label }} = "{{ getChipValue(filterItem.value) }}"</q-chip>
     </div>
 
@@ -65,7 +65,7 @@ export default {
   mixins: [contextMixin],
 
   props: {
-    useBadges: {
+    useChip: {
       default: true,
       type: Boolean
     },
@@ -85,7 +85,7 @@ export default {
       type: Boolean
     },
 
-    searchOnType: {
+    useSearchOnType: {
       default: true,
       type: Boolean
     },
@@ -138,7 +138,7 @@ export default {
     },
 
     debounce () {
-      return this.searchOnType ? '500' : ''
+      return this.useSearchOnType ? '500' : ''
     },
 
     fields () {

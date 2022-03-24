@@ -386,9 +386,10 @@ Sincronizado em _23/03/2022 as 16h00_.
 
 Sincronizado em _24/02/2022 as 19h00_.
 
-- Propriedade `badges` alterada para `useBadges`
+- Propriedade `badges` alterada para `useChips`
 - Propriedade `noSearch` alterada para `useSearch` com default `true`.
 - Propriedade `noFilterButton` alterada para `useFilterButton` com default `true`.
+- Propriedade `searchOnType` alterada para `useSearchOnType` .
 
 ### QasMap
 
