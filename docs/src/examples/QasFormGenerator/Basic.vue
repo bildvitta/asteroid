@@ -9,8 +9,6 @@
 </template>
 
 <script>
-import users from '../../store/modules/users.js'
-console.log(users)
 export default {
   data () {
     return {

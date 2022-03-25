@@ -151,7 +151,6 @@ export default {
       }
 
       this.currentTab = sourceKeys[0]
-      console.log(this.currentTab)
     },
 
     toggleSource () {

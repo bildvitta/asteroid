@@ -42,12 +42,9 @@ export default {
       const referencePointsList = []
 
       referencePoints.forEach((referencePoint, index) => {
-        console.log(referencePoint)
         const { position, city, name, icon } = referencePoint
         const { latitude, longitude } = position
         const isCreateOrEdit = !!this.mx_mode
-
-        console.log(city, name, icon)
 
         referencePointsList.push({
           position: { lat: +latitude, lng: +longitude },

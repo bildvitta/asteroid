@@ -164,7 +164,6 @@ export default {
 
         this.$emit('fetch-success', response)
       } catch (error) {
-        console.log(error)
         this.mx_fetchError(error)
         this.$emit('update:errors', error)
         this.$emit('fetch-error', error)
