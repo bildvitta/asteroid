@@ -93,6 +93,10 @@ module.exports = [
       {
         name: 'Filters',
         path: '/components/filters'
+      },
+      {
+        name: 'Field',
+        path: '/components/field'
       }
     ]
   }
