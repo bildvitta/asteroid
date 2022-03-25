@@ -1,8 +1,11 @@
 <template>
-  <div>
+  <div :class="classes">
     <div v-for="(option, index) in options" :key="index">
-      <q-checkbox :class="getCheckboxClass(option)" :label="option.label" :model-value="getModelValue(option, index)" @update:model-value="updateCheckbox($event, option, index)" />
-      <q-option-group v-if="hasChildren(option)" class="q-ml-sm" inline :model-value="modelValue" :options="option.children" type="checkbox" @update:model-value="updateChildren($event, option, index)" />
+      <q-checkbox v-if="hasChildren(option)" :class="getCheckboxClass(option)" :label="option.label" :model-value="getModelValue(index)" @update:model-value="updateCheckbox($event, option, index)" />
+
+      <q-option-group v-if="hasChildren(option)" class="q-ml-sm" :inline="inline" :model-value="modelValue" :options="option.children" type="checkbox" @update:model-value="updateChildren($event, option, index)" />
+
+      <q-option-group v-else v-model="model" v-bind="$attrs" :options="[option]" type="checkbox" />
     </div>
   </div>
 </template>
@@ -20,6 +23,11 @@ export default {
     modelValue: {
       default: () => [],
       type: Array
+    },
+
+    inline: {
+      default: true,
+      type: Boolean
     }
   },
 
@@ -28,6 +36,22 @@ export default {
   data () {
     return {
       group: {}
+    }
+  },
+
+  computed: {
+    model: {
+      get () {
+        return this.modelValue
+      },
+
+      set (value) {
+        this.$emit('update:modelValue', value)
+      }
+    },
+
+    classes () {
+      return this.inline && 'flex q-gutter-x-sm'
     }
   },
 
@@ -59,20 +83,15 @@ export default {
       const options = option.children.map(item => item.value)
       const intersection = options.filter(item => value.includes(item))
 
-      this.group[index] = intersection.length ? (intersection.length === options.length ? true : null) : false
+      this.group[index] = intersection.length && (intersection.length === options.length ? true : null)
     },
 
     updateCheckbox (value, option, index) {
-      if (!this.hasChildren(option)) {
-        // Arrumar
-        return this.updateModelValue(this.modelValue)
-      }
-
       this.group[index] = value
       const groupValues = option.children.map(item => item.value)
 
       const updatedValue = value
-        ? [...this.modelValue, ...groupValues]
+        ? [...new Set([...this.modelValue, ...groupValues])]
         : this.modelValue.filter(item => !groupValues.includes(item))
 
       this.updateModelValue(updatedValue)
@@ -87,8 +106,8 @@ export default {
       return this.hasChildren(option) && 'text-weight-bold'
     },
 
-    getModelValue (option, index) {
-      return this.hasChildren(option) ? this.group[index] : option.value
+    getModelValue (index) {
+      return this.group[index]
     },
 
     updateModelValue (value) {
