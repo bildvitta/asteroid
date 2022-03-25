@@ -97,6 +97,10 @@ module.exports = [
       {
         name: 'Field',
         path: '/components/field'
+      },
+      {
+        name: 'FormGenerator',
+        path: '/components/form-generator'
       }
     ]
   }

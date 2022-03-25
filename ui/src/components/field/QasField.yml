@@ -20,11 +20,12 @@ props:
     default: undefined
     type: [Object, Array, String, Number, Boolean]
     examples: [v-model="value"]
+    model: true
 
 events:
   '@update:model-value -> function(value)':
     desc: Dispara quando o model-value altera, também usado para v-model.
     params:
       value:
-        desc: Retorna todos os dados "cru" respondido pelo fetch.
-        type: Object
+        desc: Novo valor do model.
+        type: [Object, Array, String, Number, Boolean]

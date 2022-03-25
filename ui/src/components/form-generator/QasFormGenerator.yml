@@ -1,0 +1,64 @@
+type: component
+
+meta:
+  desc: Componente para criação de multiplos campos dinâmicos a partir do componente `QasField`.
+
+props:
+  error:
+    desc: Objeto contendo propriedades contendo a mensagem de erro.
+    default: {}
+    type: Object
+
+  fields:
+    desc: Lista de field contendo informações necessárias para a criação do campo correspondente.
+    default: {}
+    type: Object
+    examples: ["{ name: { name: 'email', type: 'email', label: 'E-mail' } }"]
+
+  fields-props:
+    desc: Propriedade para repassar propriedades para cada campo individualmente.
+    default: {}
+    type: Object
+    examples: ["{ name: { dense: true, onClick: () => alert('Estou sendo clicado') } }"]
+
+  order:
+    desc: Altera ordem dos campos.
+    default: []
+    type: Array
+
+  model-value:
+    desc: Model do componente, usado para o v-model.
+    required: true
+    default: {}
+    type: Object
+    examples: [v-model="value"]
+    model: true
+
+  columns:
+    desc: Colunas do grid de cada campo.
+    default: col-6
+    type: [Array, String, Object]
+    examples: ["{ name: { sm: 6, md: 12 } }", "[{ sm: 6, md: 12 }]"]
+
+  gutter:
+    desc: Espaçamento entre colunas.
+    default: md
+    type: String
+    examples: [xs, sm, md, lg, xl]
+
+slots:
+  'field-[nome-da-chave]':
+    desc: Acessa o slot de um campo especifico.
+    scope:
+      field:
+        desc: Payload do campo atual.
+        default: {}
+        type: Object
+
+events:
+  '@update:model-value -> function(value)':
+    desc: Dispara quando o model-value altera, também usado para v-model.
+    params:
+      value:
+        desc: Novo valor do model.
+        type: Object
