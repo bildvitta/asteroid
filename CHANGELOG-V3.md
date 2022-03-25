@@ -234,8 +234,9 @@ Sincronizado em _08/02/2022 as 15h50_.
 
 ### QasCheckboxGroup
 
-Sincronizado em _08/02/2022 as 16h10_.
+Sincronizado em _25/03/2022 as 12h10_.
 
+- Corrigido bug quando não tinha children.
 - Propriedade `value` alterada para `modelValue`.
 - Evento `input` alterado para `update:modelValue`.
 
@@ -295,6 +296,8 @@ Sincronizado em _15/02/2022 as 18h50_.
 
 Sincronizado em _16/02/2022 as 10h43_.
 
+- Adicionado `QasInput` como campo para `type number`.
+- Adicionado `QasInput` como campo para `type textarea`.
 - Propriedade `value` alterada para `modelValue`.
 - Evento `input` alterado para `update:modelValue`.
 
