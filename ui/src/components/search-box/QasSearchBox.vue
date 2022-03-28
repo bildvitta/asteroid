@@ -7,7 +7,7 @@
     </q-input>
 
     <div class="overflow-auto q-mt-xs relative-position" :style="contentStyle">
-      <slot v-if="hasResults" :results="normalizedResults" />
+      <slot v-if="hasResults" />
 
       <slot v-else-if="useEmptySlot" name="empty-result">
         <div class="absolute-center text-center">
@@ -65,15 +65,24 @@ export default {
     useEmptySlot: {
       default: true,
       type: Boolean
+    },
+
+    results: {
+      type: Array,
+      default: () => []
     }
   },
 
-  emits: ['empty-result', 'update:modelValue'],
+  emits: [
+    'empty-result',
+    'update:modelValue',
+    'update:results'
+  ],
 
   data () {
     return {
       fuse: null,
-      results: this.list,
+      searchResults: this.list,
       search: ''
     }
   },
@@ -98,11 +107,7 @@ export default {
     },
 
     hasResults () {
-      return !!this.results.length
-    },
-
-    normalizedResults () {
-      return this.results.map(result => result?.item) || []
+      return !!this.searchResults.length
     }
   },
 
@@ -117,7 +122,9 @@ export default {
 
     list: {
       handler (value) {
-        this.fuse.list = value
+        console.log('caiu aqui')
+        this.fuse = new Fuse(value, this.defaultFuseOptions)
+
         this.setResults(this.search)
       },
 
@@ -131,10 +138,17 @@ export default {
       },
 
       immediate: true
+    },
+
+    searchResults: {
+      handler (value) {
+        this.$emit('update:results', value.map(result => result.item || result))
+      },
+      immediate: true
     }
   },
 
-  async created () {
+  created () {
     this.search = this.modelValue
     this.fuse = new Fuse(this.list, this.defaultFuseOptions)
     this.setResults()
@@ -142,9 +156,9 @@ export default {
 
   methods: {
     setResults (value) {
-      this.results = value
+      this.searchResults = value
         ? this.fuse.search(value)
-        : this.list.map(listItem => ({ item: listItem }))
+        : this.list
     }
   }
 }
