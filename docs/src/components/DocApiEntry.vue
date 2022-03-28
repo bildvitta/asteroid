@@ -29,7 +29,10 @@
 
         <q-item-section v-if="data.default" side top>
           <q-item-label caption class="text-grey-6">Padrão</q-item-label>
-          <q-item-label class="doc-api-entry__item-default">{{ data.default }}</q-item-label>
+          <q-item-label v-if="data.debugger" class="doc-api-entry__item-default">
+            <qas-debugger :inspect="[data.default]" />
+          </q-item-label>
+          <q-item-label v-else class="doc-api-entry__item-default">{{ data.default }}</q-item-label>
         </q-item-section>
       </q-item>
     </template>
