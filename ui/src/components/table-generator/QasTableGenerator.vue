@@ -59,7 +59,9 @@ export default {
   data () {
     return {
       scrollableElement: null,
-      scrollOnGrab: {}
+      scrollOnGrab: {},
+      elementToObserve: null,
+      resizeOberserver: null
     }
   },
 
@@ -118,7 +120,11 @@ export default {
     },
 
     hasBodySlot () {
-      return !!(this.$slots.body)
+      return !!this.$slots.body
+    },
+
+    hasTbodySlot () {
+      return !!this.$slots.tbody
     },
 
     hasFields () {
@@ -152,15 +158,17 @@ export default {
   },
 
   mounted () {
-    if (this.useScrollOnGrab) return
+    if (!this.useScrollOnGrab) return
 
-    this.handleScrollOnGrab()
+    this.setObserver()
     window.addEventListener('resize', this.handleScrollOnGrab)
   },
 
   onUnmounted () {
-    this.hasScrollOnGrab && this.scrollOnGrab.destroyEvents()
+    if (!this.hasScrollOnGrab) return
 
+    this.destroyObserver()
+    this.scrollOnGrab.destroyEvents()
     window.removeEventListener('resize', this.handleScrollOnGrab)
   },
 
@@ -200,6 +208,19 @@ export default {
         this.scrollOnGrab.element.style.cursor = 'auto'
         this.scrollOnGrab = {}
       }
+    },
+
+    setObserver () {
+      this.elementToObserve = this.getTableElement()
+      this.resizeOberserver = new ResizeObserver(entries => {
+        entries.forEach(() => this.handleScrollOnGrab())
+      })
+
+      this.resizeOberserver.observe(this.elementToObserve)
+    },
+
+    destroyObserver () {
+      this.resizeOberserver.unobserve(this.elementToObserve)
     }
   }
 }
