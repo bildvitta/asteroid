@@ -130,9 +130,12 @@ Sincronizado em _13/01/2022 as 14h46_.
 
 - Propriedade `hideEmptySlot` alterada para `useEmptySlot`.
 - Propriedade `value` alterada para `modelValue`.
+- Adicionado `v-model:results` para recuperar os resultados da pesquisa.
+- Removido scope `results`.
 - Slot `empty` alterado para `empty-result`.
 - Evento `input` alterado para `update:modelValue`.
 - Evento `emptyResult` alterado para `empty-result`.
+- Adicionado evento `@update:results`.
 
 ### QasCard
 

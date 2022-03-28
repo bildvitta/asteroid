@@ -105,6 +105,10 @@ module.exports = [
       {
         name: 'TableGenerator',
         path: '/components/table-generator'
+      },
+      {
+        name: 'SearchBox',
+        path: '/components/search-box'
       }
     ]
   }

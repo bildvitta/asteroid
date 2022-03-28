@@ -122,7 +122,6 @@ export default {
 
     list: {
       handler (value) {
-        console.log('caiu aqui')
         this.fuse = new Fuse(value, this.defaultFuseOptions)
 
         this.setResults(this.search)

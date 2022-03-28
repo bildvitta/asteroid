@@ -1,7 +1,7 @@
 <template>
   <q-page class="container q-py-lg">
-    <qas-search-box :fuse-options="{ keys: ['label'] }" :list="list" :use-empty-results="false" @empty-result="onEmptyResult">
-      <template #default="{ results }">
+    <qas-search-box v-model:results="results" :fuse-options="{ keys: ['label'] }" :list="list" :use-empty-results="false" @empty-result="onEmptyResult">
+      <template #default>
         Results: <pre>{{ results }}</pre>
       </template>
 
@@ -22,6 +22,7 @@
 export default {
   data () {
     return {
+      results: [],
       list: [{ label: 'Paul', value: '1' }, { label: 'Walker', value: '2' }]
     }
   },

@@ -1,0 +1,76 @@
+type: component
+
+meta:
+  desc: Componente para pesquisa utilizando Fuse.js.
+
+props:
+  empty-list-height:
+    desc: Define altura do box quando a lista está vazia.
+    default: 100px
+    type: String
+
+  fuseOptions:
+    desc: Opções do Fuse.js (https://fusejs.io/api/options.html).
+    default: "{ distance: 100, location: 0, maxPatternLength: 32, minMatchCharLength: 1, shouldSort: true, threshold: 0.1, tokenize: true }"
+    debugger: true
+    type: Object
+    examples: ["{ keys: ['label'] }"]
+
+  height:
+    desc: Define altura do box quando a lista não está vazia.
+    default: 300px
+    type: String
+
+  list:
+    desc: Lista onde ocorrerá a busca (array de objetos).
+    default: []
+    type: String
+
+  model-value:
+    desc: Model do campo de pesquisa.
+    type: String
+    examples: [v-model="search"]
+    model: true
+
+  placeholder:
+    desc: Placeholder do campo de pesquisa.
+    default: Pesquisar
+    type: String
+
+  use-empty-slot:
+    desc: Controla o slot "empty-result".
+    default: true
+    type: Boolean
+
+  results:
+    desc: Model que retorna o resultado filtrado.
+    default: []
+    type: Array
+    examples: [v-model:results="results"]
+    model: true
+
+slots:
+  default:
+    desc: Acesso ao conteúdo principal, só existe caso a busca retorne algum resulado.
+
+  empty-result:
+    desc: Acesso ao conteúdo quando a busca não retorne resultado e a prop "useEmptySlot" seja "true".
+
+events:
+  empty-result:
+    desc: Dispara toda vez que a pesquisa não retorna resultado.
+
+  '@update:model-value -> function (value)':
+    desc: Dispara toda vez que o campo de busca é alterado, também utilizado para v-model
+    scope:
+      value:
+        desc: Novo valor do v-model
+        type: String
+
+  '@update:results -> function (value)':
+    desc: Dispara toda vez que o campo de busca é alterado e acontece um novo filtro, também utilizado para v-model:results
+    scope:
+      value:
+        desc: Novo valor do v-model:results
+        default: []
+        type: Array

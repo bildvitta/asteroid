@@ -28,7 +28,6 @@ props:
 
   empty-result-text:
     desc: Quando uma célula da tabela está vazia, esta prop define qual será o valor padrão.
-    required: String
     default: '-'
     type: String
 
