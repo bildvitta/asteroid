@@ -109,6 +109,10 @@ module.exports = [
       {
         name: 'SearchBox',
         path: '/components/search-box'
+      },
+      {
+        name: 'SelectList',
+        path: '/components/select-list'
       }
     ]
   }

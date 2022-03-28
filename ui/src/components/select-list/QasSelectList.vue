@@ -1,6 +1,6 @@
 <template>
-  <qas-search-box class="q-pa-md" :fuse-options="fuseOptions" :list="sortedList">
-    <template #default="{ results }">
+  <qas-search-box v-model:results="results" class="q-pa-md" :fuse-options="fuseOptions" :list="sortedList">
+    <template #default>
       <q-list separator>
         <q-item v-for="result in results" :key="result.value">
           <slot name="item" v-bind="slotData">
@@ -64,8 +64,13 @@ export default {
       type: Object
     },
 
-    toIdentifier: {
-      default: 'value',
+    redirectKey: {
+      default: 'uuid',
+      type: String
+    },
+
+    paramKey: {
+      default: 'id',
       type: String
     }
   },
@@ -79,7 +84,8 @@ export default {
   data () {
     return {
       sortedList: [],
-      values: []
+      values: [],
+      results: []
     }
   },
 
@@ -164,7 +170,7 @@ export default {
 
     redirectRoute (item) {
       return this.isRedirectEnabled && this.$router.push({
-        params: { id: item[this.toIdentifier] },
+        params: { [this.paramKey]: item[this.redirectKey] },
         ...this.to
       })
     },
@@ -180,8 +186,8 @@ export default {
 
     sortList () {
       this.sortedList = this.deleteOnly
-        ? this.options.filter(option => this.modelValue.includes(option.value))
-        : sortBy(this.options, option => !this.modelValue.includes(option.value))
+        ? this.list.filter(option => this.modelValue.includes(option.value))
+        : sortBy(this.list, option => !this.modelValue.includes(option.value))
     },
 
     updateModel (model) {

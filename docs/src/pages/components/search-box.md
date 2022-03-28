@@ -10,4 +10,3 @@ Componente para pesquisa utilizando Fuse.js.
 
 <doc-example file="QasSearchBox/Basic" title="Básico" />
 
-<!-- <doc-example file="QasSearchBox/DefaultSlot" title="Slot default" /> -->

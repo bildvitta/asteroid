@@ -157,9 +157,10 @@ Sincronizado em _23/03/2022 as 16h00_.
 
 Sincronizado em _13/01/2022 as 18h23_.
 
+- Propriedade `toIdentifier` alterada para `redirectKey` com default `uuid`.
 - Propriedade `options` nomeado para `list`.
-- Alterado valor "default" da propriedade `label` para `Configurações.
 - Propriedade `value` alterada para `modelValue`.
+- Adicionado propriedade `paramKey` com default `id` para controlar parâmetro da rota.
 - Scoped Slot `item` e `item-action` agora só tem acesso aos metodos `add`, `handleClick`, `updateModel` e `remove`.
 - Evento `input` alterado para `update:modelValue`.
 
