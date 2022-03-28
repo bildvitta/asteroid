@@ -101,6 +101,10 @@ module.exports = [
       {
         name: 'FormGenerator',
         path: '/components/form-generator'
+      },
+      {
+        name: 'TableGenerator',
+        path: '/components/table-generator'
       }
     ]
   }

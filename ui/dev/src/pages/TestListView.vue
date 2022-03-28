@@ -1,5 +1,5 @@
 <template>
-  <qas-list-view v-model:fetchingModel="isFetching" v-model:fieldsModel="fields" v-model:results="results" class="container spaced" entity="users">
+  <qas-list-view v-model:fetching="isFetching" v-model:fields="fields" v-model:results="results" class="container spaced" entity="users">
     <template #filter>
       <qas-filters entity="users">
         <template #default="{ filter }">

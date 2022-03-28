@@ -1,0 +1,47 @@
+type: component
+
+meta:
+  desc: Componente para criação de tabela dinâmica usando o `QTable` do quasar.
+
+props:
+  columns:
+    desc: Columnas que vão ter na tabela.
+    default: []
+    type: Array
+
+  fields:
+    desc: Lista de field contendo informações necessárias para a criação da tabela.
+    default: {}
+    type: Object
+    examples: ["{ name: { name: 'email', type: 'email', label: 'E-mail' } }"]
+
+  results:
+    desc: Lista com resultados para serem mostrados na tabela.
+    default: {}
+    type: Object
+    examples: ["{ name: { dense: true, onClick: () => alert('Estou sendo clicado') } }"]
+
+  row-key:
+    desc: Propriedade de cada linha que define a chave única de cada linha.
+    default: name
+    type: String
+
+  empty-result-text:
+    desc: Quando uma célula da tabela está vazia, esta prop define qual será o valor padrão.
+    required: String
+    default: '-'
+    type: String
+
+  use-scroll-on-grab:
+    desc: Adiciona scroll pelo mouse ao arrastar tabela em todas as telas (Celular, Desktop).
+    default: true
+    type: Boolean
+
+slots:
+  body:
+    desc: Acesso direto dentro do `tbody`.
+    scope:
+      row:
+        desc: Payload da linha da tabela.
+        default: {}
+        type: Object

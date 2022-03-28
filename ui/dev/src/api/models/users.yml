@@ -11,6 +11,12 @@ fields:
     label: 'E-mail'
     required: true
 
+  address:
+    name: address
+    type: text
+    label: 'Endereço'
+    required: true
+
   friends:
     name: friends
     type: select

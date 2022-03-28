@@ -24,8 +24,8 @@ export default {
       return [
         'name',
         'email',
-        'uuid'
-        // 'avatar',
+        'uuid',
+        'avatar'
         // { align: 'right', name: 'actions' }
       ]
     }
