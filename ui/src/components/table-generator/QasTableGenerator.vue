@@ -176,25 +176,27 @@ export default {
     setScrollOnGrab () {
       if (this.hasScrollOnGrab) return
 
-      const element = this.$refs.table.$el.querySelector('.q-table__middle.scroll')
+      const element = this.getTableElementComponent().querySelector('.q-table__middle.scroll')
 
       this.scrollOnGrab = scrollOnGrab(element)
     },
 
+    getTableElementComponent () {
+      return this.$refs?.table?.$el
+    },
+
     getTableElement () {
-      return this.$refs.table.$el.querySelector('table')
+      return this.getTableElementComponent()?.querySelector('table')
     },
 
     getFullTableWidth () {
       const tableElemet = this.getTableElement()
-
-      return tableElemet.getBoundingClientRect().width
+      return tableElemet?.getBoundingClientRect?.()?.width
     },
 
     getContainerTableWidth () {
-      const containerElement = this.$refs.table.$el.querySelector('.q-table__middle')
-
-      return containerElement.getBoundingClientRect().width
+      const containerElement = this.getTableElementComponent()?.querySelector('.q-table__middle')
+      return containerElement?.getBoundingClientRect?.()?.width
     },
 
     handleScrollOnGrab () {
