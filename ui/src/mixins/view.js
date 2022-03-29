@@ -1,5 +1,4 @@
 import { camelize } from 'humps'
-import { get } from 'lodash-es'
 import { markRaw } from 'vue'
 
 export default {
@@ -82,11 +81,11 @@ export default {
   methods: {
     mx_fetchError (error) {
       const { response } = error
-      const exception = get(response, 'data.exception') || error.message
+      const exception = response?.data?.exception || error.message
 
       this.$qas.error('Ops! Erro ao obter os dados.', exception)
 
-      const status = get(response, 'status')
+      const status = response?.status
       const redirect = ({ 403: 'Forbidden', 404: 'NotFound' })[status]
 
       if (redirect) {
