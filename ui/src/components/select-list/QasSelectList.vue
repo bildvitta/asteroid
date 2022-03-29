@@ -3,7 +3,7 @@
     <template #default>
       <q-list separator>
         <q-item v-for="result in results" :key="result.value">
-          <slot name="item" v-bind="slotData">
+          <slot v-bind="slotData" :item="result" name="item">
             <slot name="item-section" :result="result">
               <q-item-section class="items-start text-bold">
                 <div :class="labelClass" @click="redirectRoute(result)">{{ result.label }}</div>
@@ -11,7 +11,7 @@
             </slot>
 
             <q-item-section avatar>
-              <slot name="item-action" v-bind="slotData">
+              <slot :item="result" name="item-action" v-bind="slotData">
                 <qas-btn v-bind="getButtonProps(result)" @click="handleClick(result)" />
               </slot>
             </q-item-section>
