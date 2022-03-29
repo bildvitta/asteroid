@@ -71,11 +71,6 @@ export default {
     results: {
       default: () => [],
       type: Array
-    },
-
-    fetchListFn: {
-      default: null,
-      type: Function
     }
   },
 
