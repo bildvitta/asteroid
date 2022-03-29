@@ -113,6 +113,10 @@ module.exports = [
       {
         name: 'SelectList',
         path: '/components/select-list'
+      },
+      {
+        name: 'NestedFields',
+        path: '/components/nested-fields'
       }
     ]
   }

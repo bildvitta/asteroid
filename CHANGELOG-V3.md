@@ -418,6 +418,18 @@ Sincronizado em _25/02/2022 as 11h00_.
 - Propriedade `hideStatus` removida (não estava sendo utilizada).
 - Repassado todos os slots do `QasGridGenerator`.
 
+### QasNestedFields
+
+Sincronizado em _29/03/2022 as 14h00_.
+
+- Propriedade `fieldsEvents` removida (evento é passado dentro de `fieldsProps`).
+- Propriedade `value` aterada para `modelValue`.
+- Adicionado propriedade `useRemoveOnDestroy` para selecionar se deseja que o item no model seja removido ou adicionado uma flag como `destroyed` por exemplo.
+- Slots repassados pelo `QasFormGenerator` agora tem os scopes `(errors, index)`.
+- Escopo `modelValue` do slot `custom-fields` alterado para `model` (modelValue é uma prop reservada para v-model).
+- Adicionado escopo `fields` no slot `custom-fields`.
+- Evento `input` alterado para `update:modelValue`.
+
 ## Helpers
 
 ### label.js

@@ -1,0 +1,180 @@
+type: component
+
+meta:
+  desc: Componente para gerar dinâmicamente campos nested.
+
+props:
+  add-input-label:
+    desc: Rótulo do input de adicionar novos campos.
+    default: Inserir novo campo
+    type: Boolean
+
+  btn-destroy-props:
+    desc: Props do botão de excluir linha contendo os campos.
+    default: "{ label: 'Remover', o_cancel, flat: true, dense: true }"
+    debugger: true
+    type: Object
+
+  btn-duplicate-props:
+    desc: Props do botão de duplicar linha contendo os campos.
+    default: "{ label: 'Duplicar', o_content_copy, flat: true, dense: true, hideMobileLabel: true }"
+    debugger: true
+    type: Object
+
+  destroy-key:
+    desc: Quando excluimos uma "row" e propriedade "useRemoveOnDestroy" for "false", adicionamos uma propriedade para saber que é para ser deletada, com esta prop você escolhe como se chamará essa chave.
+    default: destroyed
+    type: String
+
+  model-value:
+    desc: Model do componente
+    default: []
+    type: Array
+    examples: [v-model="value"]
+    model: true
+
+  errors:
+    desc: Propriedade de erros para mostrar nos campos gerados.
+    default: {}
+    type: [Array, Object]
+
+  field:
+    desc: Field contendo informações necessárias para a criação do campo correspondente.
+    default: {}
+    required: true
+    type: Object
+    examples: ["{ name: 'meuNested', type: 'nested', label: 'Campo nested', children: [...] }"]
+
+  fields-props:
+    desc: Propriedade para repassar propriedades para cada campo individualmente.
+    default: {}
+    type: Object
+    examples: ["{ name: { dense: true, onClick: () => alert('Estou sendo clicado') } }"]
+
+  form-columns:
+    desc: Colunas do grid de cada campo.
+    default: {}
+    type: Object
+    examples: ["{ name: { sm: 6, md: 12 } }", "[{ sm: 6, md: 12 }]"]
+
+  form-gutter:
+    desc: Espaçamento entre cada campo.
+    default: md
+    type: String
+    examples: [xs, sm, md, lg, xl]
+
+  row-label:
+    desc: Rótulo entre cada linha (row).
+    type: String
+
+  row-object:
+    desc: Objeto contendo valores iniciais do model de cada linha (row).
+    default: {}
+    type: Object
+    examples: ["{ name: '', cities: [] }"]
+
+  use-animation:
+    desc: Controla a animação na hora de setar o scroll.
+    default: true
+    type: Boolean
+
+  use-destroy-always:
+    desc: Controla o botão de remover em todas linhas (row), incluindo a primeira.
+    type: Boolean
+
+  use-duplicate:
+    desc: Controla o botão de duplicar linha.
+    default: true
+    type: Boolean
+
+  use-index-label:
+    desc: Se tiver "rowLabel" esta prop controla se cada label da linha vai ter o index como sufixo.
+    type: Boolean
+
+  use-inline-actions:
+    desc: Controla o comportamento referente aos estilos das ações de duplicar/adicionar/remover
+    type: Boolean
+
+  use-single-label:
+    desc: Se o valor for "true", então vai exibir apenas uma label referente a todas linhas (row) e não uma por linha
+    type: Boolean
+
+  use-remove-on-destroy:
+    desc: Se o valor for "true" o valor do model será removido senão será adicionar uma flag como `destroyed` por exemplo.
+    default: true
+    type: Boolean
+
+slots:
+  fields:
+    desc: Subistitui o "QasFormGenerator".
+    scope:
+      fields:
+        desc: Campos atuais.
+        default: {}
+        type: Object
+
+      index:
+        desc: Index atual dos campos
+        type: Number
+
+      errors:
+        desc: Index atual dos campos
+        type: Number
+
+      'updateValue -> function(value, index)':
+        desc: Função para atualizar o model, passando o novo valor e o index.
+        type: Function
+        examples: ["updateValue({ name: 'novo valor' }, 2)"]
+
+  'field-[nome-da-chave]':
+    desc: Repassa todos os slots e escopos do "QasFormGenerator".
+    scope:
+      index:
+        desc: Index atual dos campos
+        type: Number
+
+      errors:
+        desc: Index atual dos campos
+        type: Number
+
+      'updateValue -> function(value, index)':
+        desc: Função para atualizar o model, passando o novo valor e o index.
+        type: Function
+        examples: ["updateValue({ name: 'novo valor' }, 2)"]
+
+  custom-fields:
+    desc: Slot para adicionar um campo customizado.
+    scope:
+      fields:
+        desc: Campos atuais.
+        default: {}
+        type: Object
+
+      index:
+        desc: Index atual dos campos
+        type: Number
+
+      errors:
+        desc: Index atual dos campos
+        type: Number
+
+      'updateValue -> function(value, index)':
+        desc: Função para atualizar o model, passando o novo valor e o index.
+        type: Function
+        examples: ["updateValue({ name: 'novo valor' }, 2)"]
+
+  add-input:
+    desc: Slot para acessar campo de adicionar.
+    scope:
+      'add -> function(row)':
+        desc: Função para adicionar novos campos no model.
+        type: Function
+        examples: ["add({ name: 'novo valor' })"]
+
+events:
+  '@update:model-value -> function (value)':
+    desc: Dispara toda vez que o model é atualizado, também utilizado para v-model.
+    params:
+      value:
+        desc: Novo valor do v-model
+        type: String
