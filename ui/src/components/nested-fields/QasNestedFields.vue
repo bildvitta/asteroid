@@ -23,7 +23,7 @@
                   <slot :errors="transformedErrors" :fields="children" :index="index" name="fields" :update-value="updateValuesFromInput">
                     <qas-form-generator v-model="nested[index]" :class="formClasses" :columns="formColumns" :errors="transformedErrors[index]" :fields="children" :fields-props="fieldsProps" @update:model-value="updateValuesFromInput($event, index)">
                       <template v-for="(slot, key) in $slots" #[key]="scope">
-                        <slot :name="key" v-bind="scope" />
+                        <slot v-bind="scope" :errors="transformedErrors" :index="index" :name="key" />
                       </template>
                     </qas-form-generator>
                   </slot>
@@ -39,7 +39,7 @@
                 </div>
 
                 <div class="col-12">
-                  <slot :index="index" :model-value="nested[index]" name="custom-fields" :update-value="updateValuesFromInput" />
+                  <slot :fields="children" :index="index" :model="nested[index]" name="custom-fields" :update-value="updateValuesFromInput" />
                 </div>
               </div>
             </div>
@@ -47,21 +47,23 @@
         </div>
       </component>
 
-      <slot :add="add" name="add-input">
-        <div v-if="useInlineActions" class="cursor-pointer items-center q-col-gutter-x-md q-mt-md row" @click="add()">
-          <div class="col">
-            <qas-input class="disabled no-pointer-events" hide-bottom-space :label="addInputLabel" outlined @focus="add()" />
+      <div class="q-mt-md">
+        <slot :add="add" name="add-input">
+          <div v-if="useInlineActions" class="cursor-pointer items-center q-col-gutter-x-md q-mt-md row" @click="add()">
+            <div class="col">
+              <qas-input class="disabled no-pointer-events" hide-bottom-space :label="addInputLabel" outlined @focus="add()" />
+            </div>
+
+            <div class="col-auto">
+              <qas-btn color="green" flat icon="o_add_circle_outline" round />
+            </div>
           </div>
 
-          <div class="col-auto">
-            <qas-btn color="green" flat icon="o_add_circle_outline" round />
+          <div v-else class="q-mt-lg">
+            <qas-btn class="full-width q-py-sm" icon="o_add" outline @click="add()">{{ addInputLabel }}</qas-btn>
           </div>
-        </div>
-
-        <div v-else class="q-mt-lg">
-          <qas-btn class="full-width q-py-sm" icon="o_add" outline @click="add()">{{ addInputLabel }}</qas-btn>
-        </div>
-      </slot>
+        </slot>
+      </div>
     </div>
   </div>
 </template>
@@ -192,6 +194,11 @@ export default {
       type: Boolean
     },
 
+    useRemoveOnDestroy: {
+      type: Boolean,
+      default: true
+    },
+
     modelValue: {
       type: Array,
       default: () => []
@@ -285,9 +292,9 @@ export default {
     },
 
     destroy (index, row) {
-      row.uuid
-        ? this.nested.splice(index, 1, { [this.destroyKey]: true, ...row })
-        : this.nested.splice(index, 1)
+      this.useRemoveOnDestroy
+        ? this.nested.splice(index, 1)
+        : this.nested.splice(index, 1, { [this.destroyKey]: true, ...row })
 
       return this.updateModelValue()
     },
