@@ -57,19 +57,19 @@ slots:
     desc: Acesso ao conteúdo quando a busca não retorne resultado e a prop "useEmptySlot" seja "true".
 
 events:
-  empty-result:
+  '@empty-result -> function ()':
     desc: Dispara toda vez que a pesquisa não retorna resultado.
 
   '@update:model-value -> function (value)':
     desc: Dispara toda vez que o campo de busca é alterado, também utilizado para v-model
-    scope:
+    params:
       value:
         desc: Novo valor do v-model
         type: String
 
   '@update:results -> function (value)':
     desc: Dispara toda vez que o campo de busca é alterado e acontece um novo filtro, também utilizado para v-model:results
-    scope:
+    params:
       value:
         desc: Novo valor do v-model:results
         default: []

@@ -9,4 +9,5 @@ Componente para pesquisa utilizando Fuse.js.
 ## Uso
 
 <doc-example file="QasSelectList/Basic" title="Básico" />
-
+<doc-example file="QasSelectList/SlotItem" title="Slot item" />
+<doc-example file="QasSelectList/SlotItemAction" title="Slot item-action" />
