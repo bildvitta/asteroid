@@ -38,6 +38,11 @@ export default {
       type: Boolean
     },
 
+    emptyResultText: {
+      default: '-',
+      type: String
+    },
+
     result: {
       default: () => ({}),
       type: Object

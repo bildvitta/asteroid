@@ -7,11 +7,6 @@ export default {
       type: [Array, String, Object]
     },
 
-    emptyResultText: {
-      default: '-',
-      type: String
-    },
-
     fields: {
       default: () => ({}),
       type: Object

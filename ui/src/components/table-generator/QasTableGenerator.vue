@@ -14,10 +14,9 @@
 import { extend } from 'quasar'
 import { humanize } from '../../helpers/filters'
 import screen from '../../mixins/screen'
-import generatorMixin from '../../mixins/generator'
 
 export default {
-  mixins: [screen, generatorMixin],
+  mixins: [screen],
 
   props: {
     columns: {
@@ -43,6 +42,11 @@ export default {
 
     rowKey: {
       default: 'name',
+      type: String
+    },
+
+    emptyResultText: {
+      default: '-',
       type: String
     }
   },
