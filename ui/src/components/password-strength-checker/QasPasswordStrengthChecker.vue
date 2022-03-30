@@ -38,10 +38,6 @@ export default {
       return this.levels[this.score]
     },
 
-    levelsValues () {
-      return Object.values(this.levels)
-    },
-
     score () {
       let score = -1
 

@@ -1,37 +1,37 @@
 const levels = {
-  good: {
+  0: {
+    color: 'negative',
+    label: 'Muito fraco',
+    progress: 0.05,
+    textClass: 'text-negative'
+  },
+
+  1: {
     color: 'warning',
-    label: 'Good',
+    label: 'Fraco',
+    progress: 0.25,
+    textClass: 'text-warning'
+  },
+
+  2: {
+    color: 'warning',
+    label: 'Bom',
     progress: 0.5,
     textClass: 'text-warning'
   },
 
-  strong: {
+  3: {
     color: 'positive',
-    label: 'Strong',
+    label: 'Forte',
     progress: 0.75,
     textClass: 'text-positive'
   },
 
-  veryStrong: {
+  4: {
     color: 'positive',
-    label: 'Very strong',
+    label: 'Muito forte',
     progress: 1,
     textClass: 'text-positive'
-  },
-
-  veryWeak: {
-    color: 'negative',
-    label: 'Very weak',
-    progress: 0,
-    textClass: 'text-negative'
-  },
-
-  weak: {
-    color: 'warning',
-    label: 'Weak',
-    progress: 0.25,
-    textClass: 'text-warning'
   }
 }
 
