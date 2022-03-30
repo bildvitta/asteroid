@@ -27,7 +27,7 @@ export default {
     }
   },
 
-  emits: ['update:model-value'],
+  emits: ['update:modelValue'],
 
   computed: {
     length () {
@@ -35,7 +35,7 @@ export default {
     },
 
     level () {
-      return this.levelsValues[this.score]
+      return this.levels[this.score]
     },
 
     levelsValues () {
@@ -43,25 +43,25 @@ export default {
     },
 
     score () {
-      let score = 0
+      let score = -1
 
-      if (this.length >= parseInt(this.minlength)) {
-        score += this.useLowercase
-          ? (this.password.match(/[a-z]/g) ? 1 : 0)
-          : 1
+      score += this.useLowercase
+        ? (this.password.match(/[a-z]/g) ? 1 : 0)
+        : 1
 
-        score += this.useNumbers
-          ? (this.password.match(/[0-9]/g) ? 1 : 0)
-          : 1
+      score += this.useNumbers
+        ? (this.password.match(/[0-9]/g) ? 1 : 0)
+        : 1
 
-        score += this.useSpecial
-          ? (this.password.match(this.specials) ? 1 : 0)
-          : 1
+      score += this.useSpecial
+        ? (this.password.match(this.specials) ? 1 : 0)
+        : 1
 
-        score += this.useUppercase
-          ? (this.password.match(/[A-Z]/g) ? 1 : 0)
-          : 1
-      }
+      score += this.useUppercase
+        ? (this.password.match(/[A-Z]/g) ? 1 : 0)
+        : 1
+
+      score += this.length >= parseInt(this.minlength) ? 1 : 0
 
       return score
     }
@@ -79,7 +79,7 @@ export default {
 
   methods: {
     emitValue () {
-      this.$emit('update:model-value', this.score === 4)
+      this.$emit('update:modelValue', this.score === 4)
     }
   }
 }
