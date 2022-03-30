@@ -1,5 +1,5 @@
 <template>
-  <q-dialog ref="dialog" :persistent="persistent" v-bind="dialogProps" @hide="onDialogHide" @update:model-value="updateModelValue">
+  <q-dialog ref="dialog" :persistent="persistent" v-bind="dialogProps" @update:model-value="updateModelValue">
     <q-card v-bind="cardProps" class="q-pa-sm" :style="style">
       <q-card-section>
         <slot name="header">
@@ -20,7 +20,7 @@
 
       <q-card-section>
         <slot name="actions">
-          <qas-actions v-bind="btnActionsProps">
+          <qas-actions v-bind="actionsProps">
             <template #primary>
               <qas-btn v-if="ok" v-close-popup="!useForm" class="full-width" v-bind="defaultOk" @click="submitHandler" />
             </template>
@@ -52,7 +52,7 @@ export default {
   mixins: [screenMixin],
 
   props: {
-    btnActionsProps: {
+    actionsProps: {
       default: () => ({}),
       type: Object
     },
@@ -111,10 +111,7 @@ export default {
 
   emits: [
     'update:modelValue',
-    'validate',
-    'ok',
-    'hide',
-    'update:open'
+    'validate'
   ],
 
   computed: {
@@ -122,15 +119,15 @@ export default {
       return {
         label: 'Cancelar',
         outline: true,
-        ...this.cancel?.props
+        ...this.cancel
       }
     },
 
     defaultOk () {
       return {
         label: 'Ok',
-        type: this.ok?.props?.type || this.useForm ? 'submit' : 'button',
-        ...this.ok?.props
+        type: this.ok?.type || this.useForm ? 'submit' : 'button',
+        ...this.ok
       }
     },
 
@@ -166,11 +163,6 @@ export default {
     // metodo para funcionar como plugin
     hide () {
       this.$refs.dialog.hide()
-    },
-
-    // metodo para funcionar como plugin
-    onDialogHide () {
-      this.$emit('hide')
     },
 
     updateModelValue (value) {
