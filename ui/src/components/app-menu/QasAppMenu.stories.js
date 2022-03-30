@@ -30,6 +30,10 @@ export default {
       description: 'Controls drawer menu visibility.'
     },
 
+    title: {
+      description: 'Title for displaying inside "modules" as label when is in development (local).'
+    },
+
     // Events
     input: {
       description: 'Fires when opening or closing the drawer menu.'

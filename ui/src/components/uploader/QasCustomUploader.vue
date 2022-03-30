@@ -79,7 +79,6 @@ export default {
     // overrides "__addFiles" from quasar
     async __addFiles (event, files = []) {
       const filesToUpload = event?.target?.files || files
-      this.files = []
       this.isAddingFiles = true
 
       const filesPromise = []

@@ -7,12 +7,12 @@
             Você está no modulo:
           </div>
 
-          <qas-select v-model="module" :options="modules" @input="redirectHandler(currentModelOption)" />
+          <qas-select v-model="module" :options="defaultModules" @input="redirectHandler(currentModelOption)" />
         </div>
 
         <q-list class="text-grey-9 text-weight-medium">
           <template v-for="(header, index) in items">
-            <q-expansion-item v-if="hasChildren(header)" :key="header.label" :ref="`item-${index}`" :default-opened="shouldExpand(header)" expand-icon="o_keyboard_arrow_down" expand-separator group="item" :icon="header.icon" :label="header.label" :to="header.to" @click="toggleItem(index)" :active-class="activeItemClassesSecondary">
+            <q-expansion-item v-if="hasChildren(header)" :key="header.label" :ref="`item-${index}`" :active-class="activeItemClassesSecondary" :default-opened="shouldExpand(header)" expand-icon="o_keyboard_arrow_down" expand-separator group="item" :icon="header.icon" :label="header.label" :to="header.to" @click="toggleItem(index)">
               <q-item v-for="(item, itemIndex) in header.children" :key="itemIndex" v-ripple :active-class="activeItemClasses" clickable :to="item.to">
                 <q-item-section v-if="item.icon" avatar>
                   <q-icon :name="item.icon" />
@@ -44,6 +44,7 @@
 
 <script>
 import { screenMixin } from '../../mixins'
+import { isLocalDevelopment } from '../../helpers'
 
 export default {
   name: 'QasAppMenu',
@@ -66,14 +67,14 @@ export default {
       type: Boolean
     },
 
+    title: {
+      default: '',
+      type: String
+    },
+
     modules: {
       default: () => [],
       type: Array
-    },
-
-    currentModule: {
-      default: '',
-      type: String
     }
   },
 
@@ -94,6 +95,22 @@ export default {
       return 'text-primary bg-secondary-contrast'
     },
 
+    defaultModules () {
+      if (!isLocalDevelopment()) return this.modules
+
+      const defaultModules = [...this.modules]
+      const { host, protocol } = window.location
+      const value = `${protocol}//${host}`
+
+      // if app is in development mode (local) it's added a default module
+      defaultModules.unshift({
+        label: `Localhost ${this.title ? `(${this.title})` : ''}`,
+        value
+      })
+
+      return defaultModules
+    },
+
     model: {
       get () {
         return this.value
@@ -105,11 +122,17 @@ export default {
     },
 
     currentModelOption () {
-      return this.modules.find(module => module?.value === this.module)
+      return this.defaultModules.find(module => module?.value === this.module)
     },
 
     displayModuleSection () {
-      return !this.isMini && this.modules.length
+      return !this.isMini && this.defaultModules.length
+    },
+
+    currentModule () {
+      const hostname = window.location.hostname
+
+      return this.defaultModules.find(module => module?.value.includes(hostname))?.value
     }
   },
 
@@ -142,9 +165,9 @@ export default {
       this.isMini = value
     },
 
-    redirectHandler ({ path }) {
-      if (!path.includes(window.location.host)) {
-        window.location.href = path
+    redirectHandler ({ value }) {
+      if (!value.includes(window.location.host)) {
+        window.location.href = value
       }
     },
 

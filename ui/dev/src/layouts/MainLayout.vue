@@ -29,6 +29,33 @@ const menuList = [
   }
 ]
 
+const modules = [
+  {
+    label: 'Assistência Digital',
+    value: 'https://develop.assistencia-digital.nave.dev'
+  },
+  {
+    label: 'Bolso Virtual BPO',
+    value: 'https://app.bolsovirtual.com.br'
+  },
+  {
+    label: 'Crm',
+    value: 'https://develop.crm.nave.dev'
+  },
+  {
+    label: 'HUB',
+    value: 'https://develop.hub.nave.dev'
+  },
+  {
+    label: 'Produto',
+    value: 'https://develop.produto.nave.dev'
+  },
+  {
+    label: 'Vendas',
+    value: 'https://develop.vendas.nave.dev'
+  }
+]
+
 function getPageTitle ({ title }) {
   return title?.split('.')[0]
 }
@@ -54,18 +81,7 @@ export default {
     },
 
     modules () {
-      return [
-        {
-          label: 'Modulo de teste',
-          value: 'test',
-          path: 'http://localhost:8080'
-        },
-        {
-          label: 'Segundo modulo de teste',
-          value: 'test-2',
-          path: 'https://google.com'
-        }
-      ]
+      return modules
     },
 
     appBarProps () {
@@ -78,7 +94,6 @@ export default {
 
     appMenuProps () {
       return {
-        currentModule: 'test',
         items: this.menuList,
         modules: this.modules
       }
