@@ -212,10 +212,12 @@ Sincronizado em _20/01/2022 as 18h30_.
 
 ### QasDialog
 
-Sincronizado em _07/02/2022 as 16h25_.
+Sincronizado em _30/03/2022 as 13h45_.
 
 - Propriedade `value` alterada para `modelValue`.
-- Propriedade `btnActions` alterada para `btnActionsProps`.
+- Propriedade `btnActionsProps` alterada para `actionsProps` (por causa que o nome do componente `QasBtnActions` foi alterado par `QasActions`).
+- Propriedade `cancel` agora não tem mais a propriedade `props` quando for objeto dentro dela porque `events` precisou ser removido, para repassar você deve passar as propriedades diretamente ex: `{ label: 'Meu botão de cancelar', onClick: () => console.log('fui clicado') }`.
+- Propriedade `ok` agora não tem mais a propriedade `props` quando for objeto dentro dela porque `events` precisou ser removido, para repassar você deve passar as propriedades diretamente ex: `{ label: 'Meu botão de confirmar', onClick: () => console.log('fui clicado') }`.
 - Propriedade `usePlugin` adicionada para utilizar o componente no `this.$qas.dialog` como "custom dialog".
 - Adicionado propriedade `useCloseIcon` para controlar o icone de fechar.
 - Removido computada e metodos referente `QDialog`, utilizar os metodos como `show()` pegando direto a referencia do componente `QasDialog`.

@@ -117,6 +117,10 @@ module.exports = [
       {
         name: 'NestedFields',
         path: '/components/nested-fields'
+      },
+      {
+        name: 'Dialog',
+        path: '/components/dialog'
       }
     ]
   }

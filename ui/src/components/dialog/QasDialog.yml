@@ -1,0 +1,86 @@
+type: component
+
+meta:
+  desc: Componente para gerar dinâmicamente campos nested.
+
+props:
+  actions-props:
+    desc: Props repassadas para o "QasActions".
+    default: {}
+    type: Object
+
+  cancel:
+    desc: Props para o botão de cancelar, pode ser objeto com as propriedades ou um boolean, caso for "false", remove o botão de cancelar.
+    default: "{ label: 'Cancelar', outline: true }"
+    type: [Object, Boolean]
+    examples: ["{ label: 'Meu botão de cancelar', onClick: () => alert('fui clicado!') }"]
+
+  card:
+    desc: Objeto contendo as informações para serem exibidas dentro do dialog como "title" e "description".
+    default: {}
+    type: Object
+    examples: ["{ title: 'Meu título', description: 'Minha descrição' }"]
+
+  card-props:
+    desc: Props repassadas para o componente "<q-card />".
+    default: {}
+    type: Object
+
+  max-width:
+    desc: Tamanho máximo do dialog.
+    type: String
+
+  min-width:
+    desc: Tamanho mínimo do dialog.
+    type: String
+
+  ok:
+    desc: Props para o botão de confirmar (ok), pode ser objeto com as propriedades ou um boolean, caso for "false", remove o botão de confirmar.
+    default: "{ label: 'Ok', outline: type: this.ok?.type || this.useForm ? 'submit' : 'button' }"
+    debugger: true
+    type: [Object, Boolean]
+    examples: ["{ label: 'Meu botão de confirmar', onClick: () => alert('fui clicado!') }"]
+
+  persistent:
+    desc: Define se o dialog vai fechar ou não após clicar fora do dialog.
+    default: true
+    type: Object
+
+  use-form:
+    desc: Define se a tag onde fica a descrição no dialog vai ser um "<q-form />" ou "<div />".
+    type: Boolean
+
+  model-value:
+    desc: Model do componente, abre ou fecha o dialog.
+    type: Boolean
+    examples: [v-model="value"]
+    model: true
+
+  use-close-icon:
+    desc: Define se vai ter ou não icone de fechar o dialog.
+    type: Boolean
+
+slots:
+  header:
+    desc: Slot para o título.
+
+  description:
+    desc: Slot para descrição.
+
+  actions:
+    desc: Slot para ações (botões por exemplo).
+
+events:
+  '@update:model-value -> function (value)':
+    desc: Dispara toda vez que o model é atualizado, também utilizado para v-model.
+    params:
+      value:
+        desc: Novo valor do v-model
+        type: Boolean
+
+  '@validate: -> function (value)':
+    desc: Dispara se a prop "useForm" for "true" e após um submit.
+    params:
+      value:
+        desc: Retorna se os campos passou ou não na validação
+        type: Boolean
