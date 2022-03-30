@@ -31,6 +31,3 @@ No exemplo abaixo estamos renderizando um `QasBtn` (que é o valor default da pr
 
 ## Uso
 <doc-example file="QasDelete/Basic" title="Básico" />
-
-Aqui está um exemplo de como normalmente utilizamos este componente, lembrando que isto não é uma regra, porém na maioria das vezes você vai se deparar com códigos semelhantes a este.
-
