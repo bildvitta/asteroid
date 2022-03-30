@@ -75,7 +75,8 @@ export default {
         },
 
         ok: {
-          props: { label: 'Excluir', onClick: this.destroy }
+          label: 'Excluir',
+          onClick: this.destroy
         },
 
         ...this.dialogProps

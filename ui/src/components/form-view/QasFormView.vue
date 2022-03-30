@@ -137,9 +137,9 @@ export default {
           description: 'Você está deixando a página e suas alterações serão perdidas. Tem certeza que deseja sair sem salvar?'
         },
 
-        ok: { props: { label: 'Continuar editando' } },
+        ok: { label: 'Continuar editando' },
 
-        cancel: { props: { label: 'Sair' } }
+        cancel: { label: 'Sair' }
       }
     }
   },
@@ -297,8 +297,8 @@ export default {
     handleDialog (next) {
       this.openDialog()
 
-      this.defaultDialogProps.ok.props.onClick = () => addRoute(this.$route)
-      this.defaultDialogProps.cancel.props.onClick = next
+      this.defaultDialogProps.ok.onClick = () => addRoute(this.$route)
+      this.defaultDialogProps.cancel.onClick = next
     },
 
     openDialog () {
