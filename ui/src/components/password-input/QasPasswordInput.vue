@@ -1,5 +1,5 @@
 <template>
-  <q-input v-model="model" bottom-slots :type="type">
+  <qas-input v-model="model" bottom-slots :type="type">
     <template #append>
       <q-icon class="cursor-pointer" :color="iconColor" :name="icon" @click="toggle" />
     </template>
@@ -8,10 +8,10 @@
       <slot :name="name" v-bind="context || {}" />
     </template>
 
-    <template v-if="!hideStrengthChecker" #hint>
+    <template v-if="useStrengthChecker" #hint>
       <qas-password-strength-checker v-bind="strengthCheckerProps" :password="model" />
     </template>
-  </q-input>
+  </qas-input>
 </template>
 
 <script>
@@ -28,8 +28,9 @@ export default {
   mixins: [passwordMixin],
 
   props: {
-    hideStrengthChecker: {
-      type: Boolean
+    useStrengthChecker: {
+      type: Boolean,
+      default: true
     },
 
     iconColor: {
