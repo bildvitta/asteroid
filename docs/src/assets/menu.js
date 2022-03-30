@@ -121,6 +121,10 @@ module.exports = [
       {
         name: 'Dialog',
         path: '/components/dialog'
+      },
+      {
+        name: 'PasswordInput',
+        path: '/components/password-input'
       }
     ]
   }

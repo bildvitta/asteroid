@@ -2,7 +2,7 @@
 title: QasDialog
 ---
 
-Componente para pesquisa utilizando Fuse.js.
+Componente de dialog.
 
 <doc-api file="dialog/QasDialog" name="QasDialog" />
 

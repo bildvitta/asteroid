@@ -100,8 +100,11 @@ Sincronizado em _19/10/2021 as 17h17_.
 
 Sincronizado em _13/01/2022 as 18h23_.
 
+- Propriedade `hideStrengthChecker` alterada para `useStrengthChecker`.
 - Propriedade `value` alterada para `modelValue`.
+- Propriedade `levels` alterada os `label` pt-BR português.
 - Evento `input` alterado para `update:modelValue`.
+- Adicionado `QasInput` como input default.
 - Propriedades referentes ao `QasPasswordStrengthChecker`.
 
 ### QasPasswordStrengthChecker
@@ -168,6 +171,7 @@ Sincronizado em _29/03/2022 as 11h40_.
 
 Sincronizado em _08/02/2022 as 17h00_.
 
+- Adicionada propriedade `outlined` como default.
 - Propriedade `value` alterada para `modelValue`.
 - Evento `input` alterado para `update:modelValue`.
 - Adicionado propriedade `unmaskedValue` com default `true` para controle da máscara.
