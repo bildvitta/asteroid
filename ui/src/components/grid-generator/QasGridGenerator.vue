@@ -3,7 +3,7 @@
     <div v-for="(field, key) in formattedFields" :key="key" :class="mx_getFieldClass(key, true)">
       <slot :field="slotValue[key]" :name="`field-${field.name}`">
         <slot :field="slotValue[key]" name="header">
-          <div :class="headerClass">{{ field.label }}</div>
+          <header :class="headerClass">{{ field.label }}</header>
         </slot>
 
         <slot :field="slotValue[key]" name="content">
@@ -38,6 +38,11 @@ export default {
 
     hideEmptyResult: {
       type: Boolean
+    },
+
+    emptyResultText: {
+      default: '-',
+      type: String
     },
 
     result: {
@@ -87,7 +92,7 @@ export default {
 
       for (const key in result) {
         if (this.formattedFields[key]?.type) {
-          formattedResult[key] = humanize(this.formattedFields[key], result[key])
+          formattedResult[key] = humanize(this.formattedFields[key], result[key]) || this.emptyResultText
           this.slotValue[key] = { ...this.formattedFields[key], formattedResult: formattedResult[key] }
         }
       }
