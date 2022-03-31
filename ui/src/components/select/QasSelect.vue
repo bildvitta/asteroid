@@ -124,8 +124,8 @@ export default {
   },
 
   watch: {
-    defaultFuseOptions (value) {
-      this.fuse.options = { ...this.fuse.options, ...value }
+    defaultFuseOptions () {
+      this.setFuse()
     },
 
     options: {
@@ -141,10 +141,8 @@ export default {
     }
   },
 
-  async created () {
-    if (this.searchable) {
-      this.fuse = new Fuse(this.options, this.defaultFuseOptions)
-    }
+  created () {
+    this.setFuse()
   },
 
   methods: {
@@ -175,6 +173,12 @@ export default {
       }
 
       return item
+    },
+
+    setFuse () {
+      if (this.searchable) {
+        this.fuse = new Fuse(this.options, this.defaultFuseOptions)
+      }
     }
   }
 }
