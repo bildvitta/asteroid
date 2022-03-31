@@ -1,7 +1,7 @@
 type: component
 
 meta:
-  desc: Componente para gerar dinâmicamente campos nested.
+  desc: Componente para gerar dinamicamente campos nested.
 
 props:
   add-input-label:
@@ -106,7 +106,7 @@ props:
 
 slots:
   fields:
-    desc: Subistitui o "QasFormGenerator".
+    desc: Substitui o "QasFormGenerator".
     scope:
       fields:
         desc: Campos atuais.

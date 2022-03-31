@@ -262,11 +262,12 @@ Sincronizado em _08/02/2022 as 16h16_.
 
 ### QasGridGenerator
 
-Sincronizado em _09/02/2022 as 9h15_.
+Sincronizado em _31/03/2022 as 15h15_.
 
 - Propriedade `value` alterada para `modelValue`.
 - Propriedade `dateOptions` alterada para `dateProps`.
 - Propriedade `timeOptions` alterada para `timeProps`.
+- Adicionado propriedade `emptyResultText` default `-` para controlar o texto quando não tiver valor.
 - Removido evento `mounted` você pode escutar o hook mounted do componente pelo `@vnode-mounted`.
 - Evento `input` alterado para `update:modelValue`.
 

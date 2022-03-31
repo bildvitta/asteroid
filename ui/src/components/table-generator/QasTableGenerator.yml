@@ -5,7 +5,7 @@ meta:
 
 props:
   columns:
-    desc: Columnas que vão ter na tabela.
+    desc: Colunas que vão ter na tabela.
     default: []
     type: Array
 
@@ -13,7 +13,7 @@ props:
     desc: Lista de field contendo informações necessárias para a criação da tabela.
     default: {}
     type: Object
-    examples: ["{ name: { name: 'email', type: 'email', label: 'E-mail' } }"]
+    examples: ["{ email: { name: 'email', type: 'email', label: 'E-mail' } }"]
 
   results:
     desc: Lista com resultados para serem mostrados na tabela.

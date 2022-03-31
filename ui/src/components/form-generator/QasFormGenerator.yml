@@ -13,7 +13,7 @@ props:
     desc: Lista de field contendo informações necessárias para a criação do campo correspondente.
     default: {}
     type: Object
-    examples: ["{ name: { name: 'email', type: 'email', label: 'E-mail' } }"]
+    examples: ["{ email: { name: 'email', type: 'email', label: 'E-mail' } }"]
 
   fields-props:
     desc: Propriedade para repassar propriedades para cada campo individualmente.

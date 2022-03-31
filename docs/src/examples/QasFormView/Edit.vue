@@ -46,7 +46,7 @@ export default {
       return 'users'
     },
 
-    // USAR SOMENTE SE NECESSARIO, AQUI PEGAMOS O ID DO USUARIO NO NOSSO MOCK DE DADOS
+    // USAR SOMENTE SE NECESSÁRIO, AQUI PEGAMOS O ID DO USUÁRIO NO NOSSO MOCK DE DADOS
     customId () {
       return '31362c39-2cb5-4fe2-982a-c270f88d2462'
     },

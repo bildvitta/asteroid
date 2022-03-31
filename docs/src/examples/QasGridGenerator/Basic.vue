@@ -1,9 +1,6 @@
 <template>
+  <!-- Usando qas-single-view apenas para recuperar os dados -->
   <qas-single-view v-model:fields="fields" v-model:result="result" :custom-id="customId" :entity="entity">
-    <template #header>
-      <qas-page-header :breadcrumbs="breadcrumbs" title="Lista de materiais" />
-    </template>
-
     <template #default>
       <div>
         <qas-grid-generator :fields="fields" :result="result" />
@@ -48,7 +45,7 @@ export default {
 
     // USAR SOMENTE SE NECESSÁRIO, AQUI PEGAMOS O ID DO USUÁRIO NO NOSSO MOCK DE DADOS
     customId () {
-      return '31362c39-2cb5-4fe2-982a-c270f88d2462'
+      return '3102fad5-f14c-45d4-98e9-46ef0aa9580e'
     }
   }
 }

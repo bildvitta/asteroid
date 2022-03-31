@@ -137,6 +137,10 @@ module.exports = [
       {
         name: 'Select',
         path: '/components/select'
+      },
+      {
+        name: 'GridGenerator',
+        path: '/components/grid-generator'
       }
     ]
   }

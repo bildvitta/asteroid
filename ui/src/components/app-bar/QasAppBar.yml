@@ -33,7 +33,7 @@ props:
 
 slots:
   user:
-    desc: Slot para acessar o menu de usuario
+    desc: Slot para acessar o menu de usuário
     scope:
       user:
         desc: Informações de usuário para ser usado no menu, valor vai depender da prop "user".
