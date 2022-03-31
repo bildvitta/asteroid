@@ -1,0 +1,117 @@
+type: component
+
+mixins:
+  - quasar/dist/api/QField.json
+  - quasar/dist/api/QUploader.json
+
+meta:
+  desc: Componente para upload com auto redimensionamento que implementa o "QField" e "QUploader".
+
+props:
+  accept-resize-types:
+    desc: Tipos de arquivos aceitos para fazer o redimensionamento antes de upar.
+    type: Array
+    debugger: true
+    default: [
+      'image/jpeg',
+      'image/png',
+      'image/gif',
+      'image/bmp',
+      'image/webp',
+      'image/jpg'
+    ]
+
+  entity:
+    desc: Entidade enviada para a API do `/upload-credentials/`.
+    required: true
+    type: String
+
+  error-message:
+    desc: Mensagem de erro.
+    type: String
+
+  hint:
+    desc: Mensagem de dica que aparece embaixo do campo.
+    type: String
+
+  max-files:
+    desc: Quantidade maxima de arquivos no upload.
+    default: undefined
+    type: Number
+
+  pica-resize-options:
+    desc: Opções para a biblioteca "pica" que é responsável por fazer o redimensionamento antes do upload (https://github.com/nodeca/pica).
+    type: Object
+    debugger: true
+    default:
+      unsharpAmount: 160
+      unsharpRadius: 0.6
+      unsharpThreshold: 1
+
+  size-limit:
+    desc: Se o tamanho da imagem for menor ou igual ao passado nesta prop, não será feito um redimensionamento.
+    default: 1280
+    type: Number
+
+  use-resize:
+    desc: Controla se o componente vai fazer o redimensionamento antes de upar as imagens.
+    default: true
+    type: Number
+
+  readonly:
+    desc: O componente não faz mais upload, apenas exibe.
+    default: true
+    type: Number
+
+  model-value:
+    desc: Model do componente, caso seja múltiplo, retorna um array de string, senão somente uma string.
+    default: true
+    type: [Array, String]
+    examples: [v-model="value"]
+    model: true
+
+  uploading:
+    desc: Model que retorna se o componente está fazendo algum upload.
+    type: Boolean
+    examples: [v-model:uploading="isUploading"]
+    model: true
+
+slots:
+  header:
+    desc: Acesso ao header do <q-uploader />.
+    scope:
+      scope:
+        desc: Payload repassado pelo QUploader.
+        default: {}
+        type: Object
+
+  list:
+    desc: Acesso ao conteúdo onde fica a listagem de arquivos.
+    scope:
+      scope:
+        desc: Payload repassado pelo QUploader.
+        default: {}
+        type: Object
+
+  custom-upload:
+    desc: Acesso ao conteúdo onde fica a listagem de arquivos.
+    scope:
+      context:
+        desc: Repassa todo o payload do próprio componente `QasUploader` como computada, data, props, methods, etc.
+        default: {}
+        type: Object
+
+events:
+  '@update:model-value -> function(value)':
+    desc: Dispara quando o model-value altera, também usado para v-model.
+    params:
+      value:
+        desc: Novo valor do model.
+        type: [Array, String]
+
+  '@update:uploading -> function(value)':
+    desc: Dispara começa e termina um upload.
+    params:
+      value:
+        desc: Retorna se está ou não fazendo um upload.
+        type: Boolean

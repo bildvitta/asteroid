@@ -149,6 +149,10 @@ module.exports = [
       {
         name: 'Map',
         path: '/components/map'
+      },
+      {
+        name: 'Uploader',
+        path: '/components/uploader'
       }
     ]
   }
