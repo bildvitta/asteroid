@@ -35,6 +35,10 @@ export default {
       description: 'CSS classes for each result value.'
     },
 
+    emptyResultText: {
+      description: 'Message for fields with empty values.'
+    },
+
     fields: {
       description: 'Define header value for each `field`.'
     },

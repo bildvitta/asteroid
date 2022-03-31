@@ -22,6 +22,10 @@ export default {
       description: 'Table columns and order.'
     },
 
+    emptyResultText: {
+      description: 'Message for fields with empty values.'
+    },
+
     fields: {
       description: 'Contain fields data, as `name`, `label` and `type`.',
       table: {
