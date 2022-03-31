@@ -409,6 +409,7 @@ Sincronizado em _24/02/2022 as 19h00_.
 
 Sincronizado em _04/03/2022 as 14h20_.
 
+- Propriedade `showPopup` alterada para `usePopup`.
 - Propriedade `hasSearch` removida (não estava sendo utilizada).
 - Alterado biblioteca `gmap-vue` para `@fawmi/vue-google-maps` pois o gmap-vue não tem suporte para o `vue 3`.
 

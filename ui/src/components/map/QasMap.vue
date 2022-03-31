@@ -12,14 +12,8 @@
 </template>
 
 <script>
-import { formMixin } from '../../mixins'
-
 export default {
   name: 'QasMap',
-
-  mixins: [
-    formMixin
-  ],
 
   props: {
     centerPosition: {
@@ -32,7 +26,7 @@ export default {
       default: () => []
     },
 
-    showPopup: {
+    usePopup: {
       type: Boolean
     },
 
@@ -59,7 +53,7 @@ export default {
     },
 
     canShowPopup (index) {
-      return this.isPopupDisplayed && this.showPopup && index === this.indexMarker
+      return this.isPopupDisplayed && this.usePopup && index === this.indexMarker
     },
 
     closePopup () {
