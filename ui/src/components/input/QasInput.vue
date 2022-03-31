@@ -1,6 +1,6 @@
 <template>
   <div>
-    <q-input ref="input" v-model="model" bottom-slots :mask="mask" outlined v-bind="$attrs" :unmasked-value="unmaskedValue">
+    <q-input ref="input" v-model="model" bottom-slots v-bind="$attrs" :mask="mask" :outlined="outlined" :unmasked-value="unmaskedValue">
       <template v-for="(_, name) in $slots" #[name]="context">
         <slot :name="name" v-bind="context || {}" />
       </template>
@@ -21,6 +21,11 @@ export default {
     },
 
     unmaskedValue: {
+      default: true,
+      type: Boolean
+    },
+
+    outlined: {
       default: true,
       type: Boolean
     }
