@@ -141,6 +141,10 @@ module.exports = [
       {
         name: 'GridGenerator',
         path: '/components/grid-generator'
+      },
+      {
+        name: 'CheckboxGroup',
+        path: '/components/checkbox-group'
       }
     ]
   }

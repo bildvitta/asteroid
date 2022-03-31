@@ -5,7 +5,7 @@ meta:
 
 props:
   icon:
-    desc: Icone para mostrar no botão.
+    desc: Ícone para mostrar no botão.
     type: String
     default: o_file_copy
 
