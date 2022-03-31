@@ -13,9 +13,9 @@
               </div>
             </div>
 
-            <qas-btn v-if="showAddFile" ref="buttonUpload" color="white" dense flat icon="o_add" round @click="$refs.hidenInput.click()" />
+            <qas-btn v-if="showAddFile" ref="buttonUpload" color="white" dense flat icon="o_add" round @click="$refs.hiddenInput.click()" />
 
-            <input ref="hidenInput" class="qas-uploader__input" :multiple="isMultiple" type="file">
+            <input ref="hiddenInput" class="qas-uploader__input" :multiple="isMultiple" type="file">
 
             <qas-btn ref="buttonCleanFiles" class="hidden" color="white" @click="scope.removeUploadedFiles" />
             <qas-btn v-if="scope.canUpload" color="white" dense flat icon="o_cloud_upload" round @click="scope.upload" />
@@ -141,7 +141,7 @@ export default {
     return {
       isFetching: false,
       isUploading: false,
-      hidenInputElement: null,
+      hiddenInputElement: null,
       uploader: null
     }
   },
@@ -203,14 +203,14 @@ export default {
   },
 
   mounted () {
-    this.hidenInputElement = this.$refs.hidenInput
+    this.hiddenInputElement = this.$refs.hiddenInput
     this.uploader = this.$refs.uploader
 
-    this.hidenInputElement?.addEventListener?.('change', this.addFiles)
+    this.hiddenInputElement?.addEventListener?.('change', this.addFiles)
   },
 
   unmounted () {
-    this.hidenInputElement?.removeEventListener?.('change', this.addFiles)
+    this.hiddenInputElement?.removeEventListener?.('change', this.addFiles)
   },
 
   methods: {
@@ -239,7 +239,7 @@ export default {
 
     dispatchUpload () {
       this.$refs.buttonCleanFiles.$el.click()
-      this.hidenInputElement.click()
+      this.hiddenInputElement.click()
     },
 
     uploaded (response) {
@@ -341,7 +341,7 @@ export default {
     },
 
     async addFiles () {
-      const filesList = Array.from(this.hidenInputElement.files)
+      const filesList = Array.from(this.hiddenInputElement.files)
       const processedFiles = []
 
       filesList.forEach(file => processedFiles.push(this.resizeImage(file)))
