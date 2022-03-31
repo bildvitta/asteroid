@@ -125,6 +125,10 @@ module.exports = [
       {
         name: 'PasswordInput',
         path: '/components/password-input'
+      },
+      {
+        name: 'PasswordStrengthChecker',
+        path: '/components/password-strength-checker'
       }
     ]
   }
