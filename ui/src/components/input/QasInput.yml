@@ -1,0 +1,32 @@
+type: component
+
+mixins:
+  - quasar/dist/api/QInput.json
+
+meta:
+  desc: Componente para input que implementa o "QasInput" repassando propriedades, slots e eventos.
+
+props:
+  model-value:
+    desc: Model do componente.
+    type: String
+    examples: [v-model="value"]
+    model: true
+
+  unmasked-value:
+    desc: Remove a mascara do v-model.
+    default: true
+    type: Boolean
+
+  outlined:
+    desc: Controla borda do input.
+    default: true
+    type: Boolean
+
+events:
+  '@update:model-value -> function (value)':
+    desc: Dispara toda vez que o model é atualizado, também utilizado para v-model.
+    params:
+      value:
+        desc: Novo valor do v-model
+        type: Boolean
