@@ -1,0 +1,33 @@
+type: component
+
+meta:
+  desc: Componente para gerar google maps.
+
+props:
+  center-position:
+    desc: Opções de localização onde o mapa vai ser centralizado.
+    default: {}
+    type: Object
+    examples: ["{ lat: -21.17663, lng: -47.820839 }"]
+
+  markers:
+    desc: Marcadores (pin) do mapa.
+    default: []
+    type: Array
+
+  use-popup:
+    desc: Controla se os markers vai ter popup ou não.
+    type: Boolean
+
+  zoom:
+    desc: Zoom do mapa.
+    default: 17
+    type: Number
+
+events:
+  '@update-position -> function(value)':
+    desc: Dispara muda a posição do marker.
+    params:
+      value:
+        desc: Nova posição.
+        type: Object

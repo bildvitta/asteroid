@@ -145,6 +145,10 @@ module.exports = [
       {
         name: 'CheckboxGroup',
         path: '/components/checkbox-group'
+      },
+      {
+        name: 'Map',
+        path: '/components/map'
       }
     ]
   }

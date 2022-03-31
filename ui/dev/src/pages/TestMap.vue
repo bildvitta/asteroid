@@ -2,7 +2,6 @@
   <q-page class="container row spaced">
     <div class="col-12">
       <qas-map :center-position="{lat: -21.17663, lng: -47.820839 }" :markers="marker" show-popup @update-position="updatePosition" />
-      <!-- <qas-map :center-position="{lat: -21.17663, lng: -47.820839 }" :markers="createMarkers(marker)" show-popup /> -->
     </div>
   </q-page>
 </template>
