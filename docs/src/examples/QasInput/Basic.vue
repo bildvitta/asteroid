@@ -1,8 +1,8 @@
 <template>
   <div class="container q-py-lg">
-    <qas-input v-model="model" />
+    <qas-input v-model="model" label="Meu input!" />
 
-    Senha: {{ model }}
+    Model: {{ model }}
   </div>
 </template>
 

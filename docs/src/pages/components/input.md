@@ -2,7 +2,7 @@
 title: QasInput
 ---
 
-Componente para input que implementa o "QasInput" repassando propriedades, slots e eventos.
+Componente para input que implementa o "QInput" repassando propriedades, slots e eventos.
 
 <doc-api file="input/QasInput" name="QasInput" />
 

@@ -4,7 +4,7 @@ mixins:
   - quasar/dist/api/QInput.json
 
 meta:
-  desc: Componente para input que implementa o "QasInput" repassando propriedades, slots e eventos.
+  desc: Componente para input que implementa o "QInput" repassando propriedades, slots e eventos.
 
 props:
   model-value:
@@ -29,4 +29,4 @@ events:
     params:
       value:
         desc: Novo valor do v-model
-        type: Boolean
+        type: String

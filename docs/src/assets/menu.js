@@ -133,6 +133,10 @@ module.exports = [
       {
         name: 'Input',
         path: '/components/input'
+      },
+      {
+        name: 'Select',
+        path: '/components/select'
       }
     ]
   }
