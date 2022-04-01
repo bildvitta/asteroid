@@ -82,9 +82,10 @@ Sincronizado em _19/10/2021 as 17h17_.
 
 ### QasNumericInput (QasDecimalInput)
 
-Sincronizado em _19/10/2021 as 17h17_.
+Sincronizado em _01/04/2022 as 16h00_.
 
 - Renomeado de "QasDecimalInput" para "QasNumericInput".
+- Adicionado propriedade `outlined` como default.
 - Propriedade `value` alterada para `modelValue`.
 - Evento `input` alterado para `update:modelValue`.
 

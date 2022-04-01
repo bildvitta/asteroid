@@ -1,0 +1,33 @@
+<template>
+  <div class="container spaced">
+    <div>
+      <qas-numeric-input v-model="integer" entity="test" label="integer" />
+      integer: {{ typeof integer }}
+    </div>
+    <div class="q-my-lg">
+      <qas-numeric-input v-model="decimal" entity="test" label="decimal" mode="decimal" />
+      decimal: {{ typeof decimal }}
+    </div>
+    <div class="q-my-lg">
+      <qas-numeric-input v-model="percent" entity="test" label="percent" mode="percent" />
+      percent: {{ percent }}
+    </div>
+    <div class="q-my-lg">
+      <qas-numeric-input v-model="money" entity="test" label="money" mode="money" />
+      integer: {{ money }}
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  data () {
+    return {
+      integer: '',
+      decimal: '0.10',
+      percent: 0.10,
+      money: 0.10
+    }
+  }
+}
+</script>

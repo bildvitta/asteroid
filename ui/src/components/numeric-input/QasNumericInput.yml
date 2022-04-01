@@ -1,0 +1,50 @@
+type: component
+
+mixins:
+  - quasar/dist/api/QField.json
+
+meta:
+  desc: Componente de input para decimal, inteiro, dinheiro e porcentagem.
+
+props:
+  allow-negative:
+    desc: Controla se pode ou não números negativos.
+    default: true
+    type: Boolean
+
+  allow-positive:
+    desc: Controla se pode ou não números positivos.
+    default: true
+    type: Boolean
+
+  autonumeric-props:
+    desc: Opções do autonumeric (http://autonumeric.org/guide).
+    default: {}
+    type: Object
+
+  decimal-places:
+    desc: Quantidade de casas decimais.
+    default: 2
+    type: Number
+
+  mode:
+    desc: Modo do componente.
+    default: integer
+    type: String
+    examples: [integer, decimal, percent, money]
+
+  model-value:
+    desc: Model do componente, usado para v-model, sempre que alterado transforma o valor para "Number".
+    default: ''
+    type: [String, Number]
+    model: true
+
+  preset:
+    desc: Propriedade preset serve para usar configuração de predefinição/nacionalidade da moeda pré setada pelo autonumeric (Brasil é o padrão).
+
+events:
+  '@update:model-value -> function (value)':
+    desc: Dispara toda vez que o model é atualizado, também utilizado para v-model.
+    params:
+      value:
+        desc: Novo valor do v-model

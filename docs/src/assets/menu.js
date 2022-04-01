@@ -169,6 +169,10 @@ module.exports = [
       {
         name: 'DialogRouter',
         path: '/components/dialog-router'
+      },
+      {
+        name: 'NumericInput',
+        path: '/components/numeric-input'
       }
     ]
   }
