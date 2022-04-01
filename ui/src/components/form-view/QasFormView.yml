@@ -25,7 +25,7 @@ props:
     type: Boolean
 
   mode:
-    desc: Existem 3 modos no QasFormView, para criação (create) (equivalente a um metodo POST no http), e edição que são 2 diferentes, replace (equivalente a um metodo PUT no http) e update (equivalente a um metodo PATCH no http).
+    desc: Existem 3 modos no QasFormView, para criação (create) (equivalente a um método POST no http), e edição que são 2 diferentes, replace (equivalente a um método PUT no http) e update (equivalente a um método PATCH no http).
     default: create
     type: String
     examples: [create, replace, update]
