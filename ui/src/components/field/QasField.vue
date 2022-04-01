@@ -78,7 +78,7 @@ export default {
         maxFiles,
         searchable,
         gmt
-      } = this.formatedField
+      } = this.formattedField
 
       // Default error attributes for Quasar.
       const error = {
@@ -155,7 +155,7 @@ export default {
     },
 
     // This computed will change the key name when the server sends different key.
-    formatedField () {
+    formattedField () {
       const field = {}
 
       for (const key in this.field) {
