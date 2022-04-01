@@ -3,6 +3,10 @@
     <canvas :id="canvasId" :ref="$attrs.ref" class="qas-signature-pad__canvas rounded-borders vertical-bottom" :height="height" />
     <qas-btn v-if="!empty" class="absolute-bottom-right q-mb-sm q-mr-sm" color="primary" dense icon="o_delete" round @click="clearSignature" />
   </div>
+
+  <div>
+    <slot :clear-signature="clearSignature" :get-signature-data="getSignatureData" />
+  </div>
 </template>
 
 <script>
@@ -42,7 +46,7 @@ export default {
 
   emits: ['update:empty'],
 
-  expose: ['clearSignature', 'saveSignature', 'updateEmptyModel'],
+  expose: ['clearSignature', 'getSignatureData'],
 
   data () {
     return {
@@ -62,7 +66,7 @@ export default {
     }
   },
 
-  async mounted () {
+  mounted () {
     window.addEventListener('resize', this.setCanvasWidth)
     this.setCanvasWidth()
 
@@ -80,7 +84,7 @@ export default {
       this.updateEmptyModel()
     },
 
-    saveSignature () {
+    getSignatureData () {
       return this.signaturePad.toDataURL(this.type)
     },
 
