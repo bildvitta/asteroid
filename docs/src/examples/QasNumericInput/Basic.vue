@@ -23,8 +23,8 @@
 export default {
   data () {
     return {
-      integer: '',
-      decimal: '0.10',
+      integer: 10,
+      decimal: 0.10,
       percent: 0.10,
       money: 0.10
     }
