@@ -10,6 +10,11 @@ props:
     type: Boolean
     model: true
 
+  height:
+    desc: Altura da área da assinatura.
+    default: {}
+    type: Object
+
   signature_options:
     desc: Opções da biblioteca signature_pad (https://github.com/szimek/signature_pad#options).
     default: {}
