@@ -2,11 +2,11 @@
   <div class="container spaced">
     <div>
       <qas-numeric-input v-model="integer" entity="test" label="integer" />
-      integer: {{ typeof integer }}
+      integer: {{ integer }}
     </div>
     <div class="q-my-lg">
       <qas-numeric-input v-model="decimal" entity="test" label="decimal" mode="decimal" />
-      decimal: {{ typeof decimal }}
+      decimal: {{ decimal }}
     </div>
     <div class="q-my-lg">
       <qas-numeric-input v-model="percent" entity="test" label="percent" mode="percent" />
