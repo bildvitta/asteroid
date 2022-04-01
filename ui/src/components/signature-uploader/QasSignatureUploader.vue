@@ -25,7 +25,7 @@
       </template>
 
       <template #actions>
-        <q-btn class="full-width" color="primary" :disable="isEmpty" label="Salvar" no-caps @click="saveSignature" />
+        <q-btn class="full-width" color="primary" :disable="isEmpty" label="Salvar" no-caps @click="getSignatureData" />
         <q-btn class="full-width q-mt-sm" color="primary" flat label="Cancelar" no-caps @click="closeSignature" />
       </template>
     </qas-dialog>
@@ -109,9 +109,9 @@ export default {
       this.isOpenedDialog = true
     },
 
-    saveSignature () {
+    getSignatureData () {
       this.$refs.buttonCleanFiles.$el.click()
-      this.base64 = this.$refs.signaturePadModal.saveSignature()
+      this.base64 = this.$refs.signaturePadModal.getSignatureData()
       this.$refs.forceUpload.$el.click()
       this.closeSignature()
     },
