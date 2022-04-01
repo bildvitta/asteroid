@@ -1,5 +1,5 @@
 <template>
-  <q-field v-model="model">
+  <q-field v-model="model" outlined>
     <template #control="{ emitValue, floatingLabel, id, value }">
       <input v-show="floatingLabel" :id="id" ref="input" class="q-field__input" :model-value="value" @input="emitValue($event.target.value)">
     </template>
@@ -48,8 +48,14 @@ export default {
 
     modelValue: {
       default: '',
-      validator (value) {
-        return typeof value === 'number' || typeof value === 'string' || value === '' || value === null
+      type: [String, Number],
+      validator: value => {
+        return (
+          typeof value === 'number' ||
+          typeof value === 'string' ||
+          value === '' ||
+          value === null
+        )
       }
     },
 
