@@ -18,6 +18,8 @@ export default {
 
   emits: ['error', 'hide'],
 
+  expose: ['show', 'hide'],
+
   data () {
     return {
       component: null,
