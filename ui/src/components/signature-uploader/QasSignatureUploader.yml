@@ -1,0 +1,36 @@
+type: component
+
+meta:
+desc: Componente que implementa o "QasUploader" e "QasSignaturePad" para fazer upload de assinatura.
+
+props:
+  upload-label:
+    desc: Rótulo do uploader.
+    type: String
+
+  signature-label:
+    desc: Rótulo do componente de assinatura.
+    default: {}
+    type: Object
+
+  model-value:
+    desc: Model do componente, retorna url da imagem upada, usando para v-model.
+    type: String
+
+  type:
+    desc: Tipo da imagem gerada.
+    default: image/png
+    type: String
+
+  readonly:
+    desc: Controla se o componente vai ser apenas para visualização ou pode também fazer upload.
+    default: image/png
+    type: String
+
+events:
+  '@update:model-value -> function(value)':
+    desc: Dispara toda vez que o acontece um novo upload, usado para v-model.
+    params:
+      value:
+        desc: Novo valor do model.
+        type: String

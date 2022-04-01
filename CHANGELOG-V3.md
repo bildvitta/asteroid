@@ -442,6 +442,18 @@ Sincronizado em _29/03/2022 as 14h00_.
 - Adicionado escopo `fields` no slot `custom-fields`.
 - Evento `input` alterado para `update:modelValue`.
 
+### QasSignatureUploader
+
+Sincronizado em _01/04/2022 as 14h00_.
+
+- Removido valor `default` da propriedade `uploadLabel`.
+- Propriedade `value` aterada para `modelValue`.
+- Adicionado propriedade `useRemoveOnDestroy` para selecionar se deseja que o item no model seja removido ou adicionado uma flag como `destroyed` por exemplo.
+- Slots repassados pelo `QasFormGenerator` agora tem os scopes `(errors, index)`.
+- Escopo `modelValue` do slot `custom-fields` alterado para `model` (modelValue é uma prop reservada para v-model).
+- Adicionado escopo `fields` no slot `custom-fields`.
+- Evento `input` alterado para `update:modelValue`.
+
 ## Helpers
 
 ### label.js

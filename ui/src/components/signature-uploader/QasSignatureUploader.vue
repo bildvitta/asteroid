@@ -50,7 +50,7 @@ export default {
 
   props: {
     uploadLabel: {
-      default: 'Assinatura digital',
+      default: '',
       type: String
     },
 

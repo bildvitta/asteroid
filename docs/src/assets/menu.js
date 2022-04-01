@@ -161,6 +161,10 @@ module.exports = [
       {
         name: 'SignaturePad',
         path: '/components/signature-pad'
+      },
+      {
+        name: 'SignatureUploader',
+        path: '/components/signature-uploader'
       }
     ]
   }
