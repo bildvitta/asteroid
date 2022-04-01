@@ -14,7 +14,7 @@
     </div>
     <div class="q-my-lg">
       <qas-numeric-input v-model="money" entity="test" label="money" mode="money" />
-      integer: {{ money }}
+      money: {{ money }}
     </div>
   </div>
 </template>
