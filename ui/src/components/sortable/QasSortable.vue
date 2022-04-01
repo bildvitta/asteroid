@@ -16,6 +16,7 @@ export default {
   props: {
     entity: {
       default: '',
+      required: true,
       type: String
     },
 
@@ -24,7 +25,7 @@ export default {
       type: Object
     },
 
-    results: {
+    list: {
       default: () => [],
       type: Array
     },
@@ -48,7 +49,8 @@ export default {
   emits: [
     'update:sorted',
     'sort',
-    'success'
+    'success',
+    'error'
   ],
 
   data () {
@@ -69,7 +71,7 @@ export default {
       this.sortable.options = { ...this.sortable.options, ...value }
     },
 
-    results (value) {
+    list (value) {
       this.setSortedValue(value)
       this.sortable.sort(this.sortable.toArray())
     }
@@ -99,10 +101,10 @@ export default {
       const { response } = error
       const exception = response?.data?.exception || error.message
 
-      NotifyError('Ops! Erro ao ordernar itens.', exception)
+      NotifyError('Ops! Erro ao salvar ordenação.', exception)
     },
 
-    // TODO precisa testar este metodo quando tivermos uma API para teste.
+    // TODO precisa testar este método quando tivermos uma API para teste.
     async replace () {
       Loading.show()
 
@@ -115,6 +117,7 @@ export default {
         this.$emit('success', response)
       } catch (error) {
         this.setError(error)
+        this.$emit('error', error)
       } finally {
         Loading.hide()
       }
@@ -128,7 +131,7 @@ export default {
     },
 
     setSortedValue (value) {
-      this.sortedList = extend(true, [], value || this.results)
+      this.sortedList = extend(true, [], value || this.list)
       this.updateSortedModel()
     },
 
