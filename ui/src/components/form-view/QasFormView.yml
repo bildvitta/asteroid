@@ -62,10 +62,10 @@ props:
     examples: [v-model="values"]
     model: true
 
-  submiting:
-    desc: Model que que mostra quando o componente está fazendo um submiting ou não.
+  submitting:
+    desc: Model que que mostra quando o componente está fazendo um submitting ou não.
     type: Boolean
-    examples: [v-model:submiting="isSubmiting"]
+    examples: [v-model:submitting="isSubmitting"]
     model: true
 
   entity:
@@ -129,7 +129,7 @@ events:
         desc: usado para v-model.
         type: Object
 
-  '@update:submiting -> function(value)':
+  '@update:submitting -> function(value)':
     desc: Dispara logo antes da action do modo "replace" ou "update" e ao cair no bloco "finally", ou seja, quando começar o submeter e após terminar.
     params:
       value:

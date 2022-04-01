@@ -13,7 +13,7 @@
             <qas-btn v-close-popup="dialog" class="full-width" :data-cy="`btnCancel-${entity}`" :disable="isCancelButtonDisabled" :label="cancelButton" outline type="button" @click="cancel" />
           </div>
           <div class="col-12 col-sm-2" :class="saveButtonClass">
-            <qas-btn class="full-width" :data-cy="`btnSave-${entity}`" :disable="disable" :label="submitButton" :loading="isSubmiting" type="submit" />
+            <qas-btn class="full-width" :data-cy="`btnSave-${entity}`" :disable="disable" :label="submitButton" :loading="isSubmitting" type="submit" />
           </div>
         </div>
       </slot>
@@ -108,7 +108,7 @@ export default {
       type: Object
     },
 
-    submiting: {
+    submitting: {
       type: Boolean
     }
   },
@@ -119,7 +119,7 @@ export default {
     'fetch-success',
     'fetch-error',
     'update:modelValue',
-    'update:submiting',
+    'update:submitting',
     'update:errors'
   ],
 
@@ -127,7 +127,7 @@ export default {
     return {
       cachedResult: {},
       hasResult: false,
-      isSubmiting: false,
+      isSubmitting: false,
       showDialog: false,
       ignoreRouterGuard: false,
 
@@ -178,7 +178,7 @@ export default {
     },
 
     isCancelButtonDisabled () {
-      return this.disable || this.isSubmiting
+      return this.disable || this.isSubmitting
     },
 
     history () {
@@ -199,8 +199,8 @@ export default {
       }
     },
 
-    isSubmiting (value) {
-      this.$emit('update:submiting', value)
+    isSubmitting (value) {
+      this.$emit('update:submitting', value)
     }
   },
 
@@ -329,7 +329,7 @@ export default {
         return null
       }
 
-      this.isSubmiting = true
+      this.isSubmitting = true
 
       try {
         const response = await this.$store.dispatch(
@@ -357,7 +357,7 @@ export default {
 
         this.$emit('submit-error', error)
       } finally {
-        this.isSubmiting = false
+        this.isSubmitting = false
       }
     },
 

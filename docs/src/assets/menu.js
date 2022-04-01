@@ -153,6 +153,10 @@ module.exports = [
       {
         name: 'Uploader',
         path: '/components/uploader'
+      },
+      {
+        name: 'Sortable',
+        path: '/components/sortable'
       }
     ]
   }

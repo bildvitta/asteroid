@@ -7,12 +7,12 @@ Componente para C.R.U.D. responsável pela parte de listagem (Read).
 <doc-api file="list-view/QasListView" name="QasListView" />
 
 :::warning
-Este componente depende do `Vuex`, utiliza modulos com actions, state e getters para manipular/recuperar os dados. Por exemplo, para você utilizar em uma entidade de listagem de usuários, você **deve** ter um modulo de `users` e dentro de dele ter os seguinte requisitos:
+Este componente depende do `Vuex`, utiliza módulos com actions, state e getters para manipular/recuperar os dados. Por exemplo, para você utilizar em uma entidade de listagem de usuários, você **deve** ter um modulo de `users` e dentro de dele ter os seguinte requisitos:
 - state: list e totalPages.
 - getters: list e totalPages.
 - actions: fetchList (que vai popular o state de list e totalPages).
 
-Hoje Utilizamos 2 bibliotecas com propósitos diferentes que são compativeis com o asteroid para lidar com o Vuex, elas são:
+Hoje Utilizamos 2 bibliotecas com propósitos diferentes que são compatíveis com o asteroid para lidar com o Vuex, elas são:
 [VuexStoreModule](https://github.com/bildvitta/vuex-store-module) e [VuexOffline](https://github.com/bildvitta/vuex-offline).
 
 Para fazer esses exemplos na documentação, estamos utilizando o `VuexOffline`, para saber mais, veja o código fonte da documentação.

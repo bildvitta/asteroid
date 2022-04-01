@@ -7,12 +7,12 @@ Componente para C.R.U.D. responsável pela pela criação (Create) e edição (U
 <doc-api file="form-view/QasFormView" name="QasFormView" />
 
 :::warning
-Este componente depende do `Vuex`, utiliza modulos com actions, state e getters para manipular/recuperar os dados. Por exemplo, para você utilizar em uma entidade de show de usuários, você **deve** ter um modulo de `users` e dentro de dele ter os seguinte requisitos:
+Este componente depende do `Vuex`, utiliza módulos com actions, state e getters para manipular/recuperar os dados. Por exemplo, para você utilizar em uma entidade de show de usuários, você **deve** ter um modulo de `users` e dentro de dele ter os seguinte requisitos:
 - state: list.
 - getters: list e byId.
 - actions: fetchSingle, create, replace e update.
 
-Hoje Utilizamos 2 bibliotecas com propósitos diferentes que são compativeis com o asteroid para lidar com o Vuex, elas são:
+Hoje Utilizamos 2 bibliotecas com propósitos diferentes que são compatíveis com o asteroid para lidar com o Vuex, elas são:
 [VuexStoreModule](https://github.com/bildvitta/vuex-store-module) e [VuexOffline](https://github.com/bildvitta/vuex-offline).
 
 Para fazer esses exemplos na documentação, estamos utilizando o `VuexOffline`, para saber mais, veja o código fonte da documentação.

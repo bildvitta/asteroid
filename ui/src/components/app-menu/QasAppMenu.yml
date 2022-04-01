@@ -15,11 +15,11 @@ props:
     default: []
 
   title:
-    desc: Título que vai ficar no label do select de modulos.
+    desc: Título que vai ficar no label do select de módulos.
     type: String
 
   modules:
-    desc: Lista de modulos que o usuário tem acesso para navegar.
+    desc: Lista de módulos que o usuário tem acesso para navegar.
     type: Array
     default: []
 
