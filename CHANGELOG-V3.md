@@ -304,6 +304,7 @@ Sincronizado em _15/02/2022 as 18h50_.
 Sincronizado em _15/02/2022 as 18h50_.
 
 - Propriedade `value` alterada para `modelValue`.
+- Método `saveSignature` alterado para `getSignatureData`, pois ele não salva, apenas obtém os dados da assinatura.
 - Evento `input` alterado para `update:modelValue`.
 
 ### QasField

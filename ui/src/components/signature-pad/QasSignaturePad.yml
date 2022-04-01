@@ -1,0 +1,48 @@
+type: component
+
+meta:
+  desc: Componente para assinatura que gera uma imagem.
+
+props:
+  empty:
+    desc: Model que retorna se a tela está vazio ou não.
+    default: true
+    type: Boolean
+    model: true
+
+  signature_options:
+    desc: Opções da biblioteca signature_pad (https://github.com/szimek/signature_pad#options).
+    default: {}
+    type: Object
+
+  type:
+    desc: Tipo da imagem gerada.
+    default: image/png
+    type: String
+
+slots:
+  default:
+    desc: Usado para conseguir recuperar as função internas do componente.
+    scope:
+      'clearSignature () => undefined':
+        desc: Limpa a assinatura.
+        type: Function
+
+      'getSignatureData () => String':
+        desc: 'Obtém a assinatura em formato de imagem com "tipo" de acordo com o que foi passado para o componente (ex: "image/png"). Utiliza o HTMLCanvasElement.toDataURL()'
+        type: Function
+
+events:
+  '@update:empty -> function(value)':
+    desc: Dispara toda vez que para de desenhar na tela, usado para v-model:empty.
+    params:
+      value:
+        desc: Novo valor do model.
+        type: Boolean
+
+methods:
+  'clearSignature () => undefined':
+    desc: Limpa a assinatura.
+
+  'getSignatureData () => String':
+    desc: 'Obtém a assinatura em formato de imagem com "tipo" de acordo com o que foi passado para o componente (ex: "image/png"). Utiliza o HTMLCanvasElement.toDataURL()'

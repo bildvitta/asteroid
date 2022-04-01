@@ -5,7 +5,7 @@
 
       <div v-if="isEmpty" class="q-mt-sm">Está vazio</div>
       <div class="q-gutter-sm q-mb-xl q-mt-sm row">
-        <q-btn color="primary" label="Salvar" no-caps @click="saveSignature(saveSignature)" />
+        <q-btn color="primary" label="Salvar" no-caps @click="getSignatureData(getSignatureData)" />
         <q-btn color="primary" label="Limpar" no-caps @click="clearSignature" />
         <q-btn color="primary" label="Trocar cor" no-caps @click="changeColor" />
       </div>
@@ -25,8 +25,8 @@ export default {
   },
 
   methods: {
-    saveSignature () {
-      alert(`base64 gerado: ${this.$refs.signaturePad.saveSignature()}`)
+    getSignatureData () {
+      alert(`base64 gerado: ${this.$refs.signaturePad.getSignatureData()}`)
     },
 
     clearSignature () {

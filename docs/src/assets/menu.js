@@ -157,6 +157,10 @@ module.exports = [
       {
         name: 'Sortable',
         path: '/components/sortable'
+      },
+      {
+        name: 'SignaturePad',
+        path: '/components/signature-pad'
       }
     ]
   }
