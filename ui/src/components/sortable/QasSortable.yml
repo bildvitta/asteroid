@@ -1,0 +1,65 @@
+type: component
+
+meta:
+  desc: Componente para reordenar items em uma lista e salvar após isto.
+
+props:
+  entity:
+    desc: Entidade da store que para salvar os items após reordenar a lista.
+    required: true
+    type: String
+
+  sortable-options:
+    desc: Opções do "sortablejs" (https://github.com/SortableJS/Sortable#options).
+    default: { animation: 500 }
+    type: Object
+
+  list:
+    desc: Lista que vai ser reordenada.
+    default: []
+    type: Array
+
+  tag:
+    desc: Tag do componente pai.
+    default: div
+    type: String
+
+  url:
+    desc: Parâmetro enviado para a action "replace".
+    type: String
+
+  sorted:
+    desc: Model da lista reordenada
+    default: []
+    type: Array
+    examples: [v-model:sorted="fields"]
+    model: true
+
+slots:
+  default:
+    desc: Slot para adicionar os items que serão reordenados.
+
+events:
+  '@update:sorted -> function(value)':
+    desc: Dispara no created e toda vez que a prop "list" muda, usado para o v-model:sorted.
+    params:
+      value:
+        desc: Lista contendo nova ordenação.
+        type: Array
+
+  '@sort -> function(value)':
+    desc: Dispara toda vez que acontece uma nova ordenação.
+
+  '@success -> function(value)':
+    desc: Dispara toda vez que salva com sucesso a nova ordenação.
+    params:
+      value:
+        desc: fields.
+        type: Object
+
+  '@error -> function(value)':
+    desc: Dispara toda vez que acontece algum erro ao salvar a nova ordenação.
+    params:
+      value:
+        desc: fields.
+        type: Object

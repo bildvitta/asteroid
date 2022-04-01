@@ -164,7 +164,7 @@ Sincronizado em _29/03/2022 as 11h40_.
 - Propriedade `options` nomeado para `list`.
 - Propriedade `value` alterada para `modelValue`.
 - Adicionado propriedade `paramKey` com default `id` para controlar parâmetro da rota.
-- Scoped Slot `item` e `item-action` agora só tem acesso aos metodos `add`, `handleClick`, `updateModel` e `remove` e ao `item` atual da lista.
+- Scoped Slot `item` e `item-action` agora só tem acesso aos métodos `add`, `handleClick`, `updateModel` e `remove` e ao `item` atual da lista.
 - Evento `input` alterado para `update:modelValue`.
 
 ### QasInput
@@ -206,13 +206,16 @@ Sincronizado em _20/01/2022 as 15h10_.
 
 ### QasSortable (*)
 
-Sincronizado em _20/01/2022 as 18h30_.
+Sincronizado em _01/04/2022 as 10h30_.
 
+- Propriedade `results` alterada para `list`.
 - Propriedade `options` alterada para `sortableOptions`.
 - Slot scoped `sorted` removido e adicionado `v-model:sorted` (usado somente para ter acesso reativo da lista sorteada, não é um two way data bind).
+- alterado novo texto na mensagem de erro para: "Ops! Erro ao salvar ordenação."
 - Biblioteca `sortablejs` versão `^1.12.0` atualizada para a versão `^1.14.0`.
 - Evento `update:sorted` adicionado.
-- Obs: O metodo `replace` ainda não foi testado pois não temos uma API para testar.
+- Adicionado novo evento `error` para quando acontece algum erro ao salvar na action `replace`.
+- Obs: O método `replace` ainda não foi testado pois não temos uma API para testar.
 
 ### QasDialog
 
@@ -223,8 +226,8 @@ Sincronizado em _30/03/2022 as 13h45_.
 - Propriedade `cancel` agora não tem mais a propriedade `props` quando for objeto dentro dela porque `events` precisou ser removido, para repassar você deve passar as propriedades diretamente ex: `{ label: 'Meu botão de cancelar', onClick: () => console.log('fui clicado') }`.
 - Propriedade `ok` agora não tem mais a propriedade `props` quando for objeto dentro dela porque `events` precisou ser removido, para repassar você deve passar as propriedades diretamente ex: `{ label: 'Meu botão de confirmar', onClick: () => console.log('fui clicado') }`.
 - Propriedade `usePlugin` adicionada para utilizar o componente no `this.$qas.dialog` como "custom dialog".
-- Adicionado propriedade `useCloseIcon` para controlar o icone de fechar.
-- Removido computada e metodos referente `QDialog`, utilizar os metodos como `show()` pegando direto a referencia do componente `QasDialog`.
+- Adicionado propriedade `useCloseIcon` para controlar o ícone de fechar.
+- Removido computada e métodos referente `QDialog`, utilizar os métodos como `show()` pegando direto a referencia do componente `QasDialog`.
 - Evento `input` alterado para `update:modelValue`.
 
 ### QasTextTruncate
@@ -294,7 +297,7 @@ Sincronizado em _15/02/2022 as 18h50_.
 
 ### ~~QasCustomUploader~~ (removido)
 
-- Componente era para ser utilizado como wrapper do [QUploader](https://quasar.dev/vue-components/uploader#introduction), extendendo ele e sobreescrevendo funcionalidades para criar um resize antes de fazer o upload. Porém na v2 do quasar, isto não funcionava mais, então a logica foi movida para dentro do `QasUploader`, tirando a necessidade de existencia deste componente.
+- Componente era para ser utilizado como wrapper do [QUploader](https://quasar.dev/vue-components/uploader#introduction), estendendo ele e sobrescrevendo funcionalidades para criar um resize antes de fazer o upload. Porém na v2 do quasar, isto não funcionava mais, então a logica foi movida para dentro do `QasUploader`, tirando a necessidade de existência deste componente.
 
 ### QasSignaturePad
 
@@ -335,9 +338,9 @@ Sincronizado em _23/03/2022 as 16h00_.
 - Adicionado `v-model:fields` (não reativa `markRaw`, com intuito facilitar o uso no script).
 - Adicionado `v-model:metadata` (não reativa `markRaw`, com intuito facilitar o uso no script).
 - Adicionado `v-model:fetching`.
-- Adicionado `v-model:submiting`.
+- Adicionado `v-model:submitting`.
 - Adicionado evento `update:fetching`.
-- Adicionado evento `update:submiting`.
+- Adicionado evento `update:submitting`.
 - Adicionado evento `update:errors`.
 - Adicionado evento `update:fields`.
 - Adicionado evento `update:metadata`.
@@ -460,7 +463,7 @@ Removido de `helpers` e adicionado no folder `store` para ser utilizado como uma
 
 ### GeneratorMixin
 
-- Adicionado padrão `mx_` nos metodos e computada.
+- Adicionado padrão `mx_` nos métodos e computada.
 - metodo `breakpoint` renomeado para `mx_getBreakpoint`.
 
 ### ~~uploaderMixin~~ (removido)
