@@ -285,6 +285,8 @@ Sincronizado em _09/02/2022 as 14h00_.
 
 Sincronizado em _10/02/2022 as 13h50_.
 
+- Adicionado `expose: ['show', 'hide']`
+
 ### QasUploader
 
 Sincronizado em _15/02/2022 as 18h50_.

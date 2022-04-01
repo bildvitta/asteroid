@@ -1,0 +1,23 @@
+type: component
+
+meta:
+  desc: Componente que abre uma pagina dentro de um "QasDialog", porém se você recarregar a pagina, ela é iniciada na pagina que foi carregada inicialmente dentro do QasDialog.
+
+events:
+  error:
+    desc: Dispara caso não consiga carregar o componente.
+    params:
+      error:
+        desc: Erro retornado.
+        type: Object
+
+  hide:
+    desc: Dispara quando o QasDialog é fechado.
+
+methods:
+  '@show (route) => undefined':
+    desc: Função para abrir o a pagina dentro do dialog.
+    route:
+      value:
+        desc: Objeto de roda, igual usado dentro do $router.push(route) por exemplo.
+        type: Object

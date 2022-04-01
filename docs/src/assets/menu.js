@@ -165,6 +165,10 @@ module.exports = [
       {
         name: 'SignatureUploader',
         path: '/components/signature-uploader'
+      },
+      {
+        name: 'DialogRouter',
+        path: '/components/dialog-router'
       }
     ]
   }
