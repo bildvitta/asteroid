@@ -425,6 +425,7 @@ Sincronizado em _04/03/2022 as 14h20_.
 Sincronizado em _03/03/2022 as 12h00_.
 
 - Propriedade `noBreadcrumbs` alterada para `useBreadcrumbs`.
+- Propriedade `breadcrumbs` removido type `Boolean`.
 
 ### QasProfile
 
