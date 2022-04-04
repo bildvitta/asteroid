@@ -177,6 +177,10 @@ module.exports = [
       {
         name: 'DateTimeInput',
         path: '/components/date-time-input'
+      },
+      {
+        name: 'Resizer',
+        path: '/components/resizer'
       }
     ]
   }
