@@ -1,7 +1,7 @@
 <template>
   <qas-list-view v-model:fields="fields" v-model:results="results" :entity="entity">
     <template #header>
-      <qas-page-header no-breadcrumbs title="Lista de materiais">
+      <qas-page-header title="Lista de materiais" :use-breadcrumbs="false">
         <qas-btn hide-mobile-label icon="o_add" label="Criar novo [Alguma ação]" />
       </qas-page-header>
     </template>

@@ -181,6 +181,10 @@ module.exports = [
       {
         name: 'Resizer',
         path: '/components/resizer'
+      },
+      {
+        name: 'PageHeader',
+        path: '/components/page-header'
       }
     ]
   }

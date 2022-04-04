@@ -1,0 +1,24 @@
+type: component
+
+mixins:
+  - quasar/dist/api/QToolbar.json
+
+meta:
+  desc: Componente para cabeçalho de páginas com breadcrumbs e botão de voltar baseado no histórico de navegação dentro da aplicação.
+
+props:
+  breadcrumbs:
+    desc: Configurações do QBreadcrumbs (https://quasar.dev/vue-components/breadcrumbs#introduction).
+    type: [Array, String]
+
+  use-breadcrumbs:
+    desc: Habilita ou não o breadcrumbs.
+    type: [Array, String]
+
+  title:
+    desc: Título do cabeçalho.
+    type: String
+
+  root:
+    desc: Rota raiz do breadcrumbs.
+    type: [Object, String]
