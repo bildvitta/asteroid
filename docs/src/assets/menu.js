@@ -173,6 +173,10 @@ module.exports = [
       {
         name: 'NumericInput',
         path: '/components/numeric-input'
+      },
+      {
+        name: 'DateTimeInput',
+        path: '/components/date-time-input'
       }
     ]
   }
