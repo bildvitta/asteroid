@@ -185,6 +185,10 @@ module.exports = [
       {
         name: 'PageHeader',
         path: '/components/page-header'
+      },
+      {
+        name: 'Profile',
+        path: '/components/profile'
       }
     ]
   }

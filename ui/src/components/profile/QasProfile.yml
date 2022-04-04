@@ -1,0 +1,60 @@
+type: component
+
+meta:
+  desc: Componente para cabeçalho de perfil.
+
+props:
+  columns:
+    desc: Colunas do grid de cada campo.
+    default: col-6
+    type: Object
+    examples:
+      name:
+        col: 6
+
+  fields:
+    desc: Lista de field contendo informações necessárias para a criação do campo correspondente.
+    default: {}
+    type: Object
+    examples: ["{ email: { name: 'email', type: 'email', label: 'E-mail' } }"]
+
+  list:
+    desc: Lista de campos para filtrar da propriedade "fields".
+    default: []
+    type: Array
+    examples: [[name, email]]
+
+  result:
+    desc: Resultado contendo todas informações para serem exibidas na tela.
+    default: {}
+    type: Object
+    examples: ["{ 'joah@examples.com' }"]
+
+  subtitle:
+    desc: Subtitulo do cabeçalho de perfil.
+    type: String
+
+  title:
+    desc: Título do cabeçalho de perfil.
+    type: String
+    required: true
+
+  tag:
+    desc: Tag do componente pai.
+    default: qas-box
+    type: String
+
+slots:
+  default:
+    desc: Slot para acessar seção de título e subtitulo
+
+  grid:
+    desc: Slot para acessar seção do grid, onde fica o "QasGridGenerator"
+
+  'field-[nome-da-chave]':
+    desc: Slot para todo o conteúdo dentro de cada grid (header e content), repassado do componente "QasGridGenerator".
+    scope:
+      field:
+        desc: Conteúdo do field atual mais o resultado formatado.
+        default: {}
+        type: Object
