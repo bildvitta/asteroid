@@ -146,6 +146,8 @@ Sincronizado em _13/01/2022 as 14h46_.
 Sincronizado em _13/01/2022 as 15h13_.
 
 - Adicionado propriedade `formMode` (era usada no código mas não existia a propriedade).
+- Removido propriedade `outlined` (não era utilizado).
+- Removido propriedade `result` (não era utilizado).
 
 ### QasActionsMenu
 

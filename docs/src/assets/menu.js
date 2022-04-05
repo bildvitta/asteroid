@@ -193,6 +193,10 @@ module.exports = [
       {
         name: 'Gallery',
         path: '/components/gallery'
+      },
+      {
+        name: 'Card',
+        path: '/components/card'
       }
     ]
   }

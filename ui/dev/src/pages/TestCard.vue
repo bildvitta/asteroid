@@ -8,9 +8,9 @@
         </div>
 
         <template #actions>
-          <q-icon color="primary" class="col-grow" name="o_edit" />
-          <q-icon color="primary" class="col-grow" name="o_delete" />
-          <q-icon color="primary" class="col-grow" name="o_photo_camera" />
+          <q-icon class="col-grow" color="primary" name="o_edit" />
+          <q-icon class="col-grow" color="primary" name="o_delete" />
+          <q-icon class="col-grow" color="primary" name="o_photo_camera" />
         </template>
       </qas-card>
 
@@ -21,7 +21,7 @@
       </qas-card>
 
       Form mode:
-      <qas-card :images="images" use-header form-mode>
+      <qas-card form-mode :images="images" use-header>
         <template #default>
           <div>{{ result.name }}</div>
           <div>{{ result.email }}</div>

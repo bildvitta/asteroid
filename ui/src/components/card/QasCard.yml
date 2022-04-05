@@ -1,0 +1,42 @@
+type: component
+
+meta:
+  desc: Componente de card.
+
+props:
+  bg-image-position:
+    desc: Posição da imagem "background-position".
+    default: center
+    type: String
+
+  form-mode:
+    desc: Modo de formulário, altera o estilo quando está em uma pagina de formulário.
+    type: Boolean
+
+  gutter:
+    desc: Espaçamento dentro <q-card-section /> onde fica o slot "default".
+    default: sm
+    type: String
+    examples: [xs, sm, md, lg, xl]
+
+  images:
+    desc: Imagens do carousel.
+    default: []
+    type: Array
+
+  use-header:
+    desc: Controla se vai ter ou não o header com carousel.
+    type: Boolean
+
+slots:
+  header:
+    desc: Slot para acessar área no lugar do "<q-carousel />".
+
+  carousel-header:
+    desc: Slot para acessar usar de header do "<q-carousel />".
+
+  default:
+    desc: Slot para acessar conteúdo dentro do "<q-card-section />".
+
+  actions:
+    desc: Slot para acessar conteúdo de ações como botão.
