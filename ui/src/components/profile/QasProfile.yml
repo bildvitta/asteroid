@@ -22,7 +22,7 @@ props:
     desc: Lista de campos para filtrar da propriedade "fields".
     default: []
     type: Array
-    examples: [[name, email]]
+    examples: ["[name, email]"]
 
   result:
     desc: Resultado contendo todas informações para serem exibidas na tela.
@@ -46,10 +46,10 @@ props:
 
 slots:
   default:
-    desc: Slot para acessar seção de título e subtitulo
+    desc: Slot para acessar seção de título e subtitulo.
 
   grid:
-    desc: Slot para acessar seção do grid, onde fica o "QasGridGenerator"
+    desc: Slot para acessar seção do grid, onde fica o "QasGridGenerator";
 
   'field-[nome-da-chave]':
     desc: Slot para todo o conteúdo dentro de cada grid (header e content), repassado do componente "QasGridGenerator".
