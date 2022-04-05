@@ -5,9 +5,9 @@
       <div v-for="(image, index) in initialImages()" :key="index" :class="galleryColumnsClasses">
         <q-img class="cursor-pointer rounded-borders" :height="imageHeight" :src="image" @click="toggleCarouselDialog(index)" @error="onError(image)" />
       </div>
-      <slot name="default">
+      <slot>
         <div v-if="!hideShowMore" class="full-width text-center">
-          <span class="cursor-pointer justify-center text-primary text-weight-bolder" @click="showMore">{{ showMoreLabel }}</span>
+          <qas-btn class="text-weight-bolder" color="primary" flat @click="showMore">{{ showMoreLabel }}</qas-btn>
         </div>
       </slot>
       <qas-dialog v-model="carouselDialog" :cancel="false" class="q-pa-xl" min-width="1100px" :ok="false" :persistent="false">
@@ -54,7 +54,7 @@ export default {
       default: ''
     },
 
-    initialLength: {
+    initialSize: {
       type: Number,
       default: 6
     },
@@ -64,7 +64,7 @@ export default {
       default: () => []
     },
 
-    loadLength: {
+    loadSize: {
       type: Number,
       default: 6
     },
@@ -72,6 +72,10 @@ export default {
     showMoreLabel: {
       type: String,
       default: 'Ver mais'
+    },
+
+    useLoadAll: {
+      type: Boolean
     }
   },
 
@@ -80,7 +84,7 @@ export default {
       carouselDialog: false,
       clonedImages: [],
       imageIndex: [],
-      displayedImages: this.initialLength
+      displayedImages: this.initialSize
     }
   },
 
@@ -100,7 +104,7 @@ export default {
     },
 
     hideShowMore () {
-      return this.clonedImages.length <= this.displayedImages
+      return (this.clonedImages.length <= this.displayedImages) || this.useLoadAll
     },
 
     carouselImageHeight () {
@@ -132,7 +136,7 @@ export default {
     },
 
     showMore () {
-      this.displayedImages += this.loadLength
+      this.displayedImages += this.loadSize
     },
 
     onError (error) {
@@ -145,7 +149,7 @@ export default {
     },
 
     initialImages () {
-      return this.clonedImages.slice(0, this.displayedImages)
+      return this.useLoadAll ? this.clonedImages : this.clonedImages.slice(0, this.displayedImages)
     }
   }
 }

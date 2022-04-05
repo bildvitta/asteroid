@@ -1,0 +1,51 @@
+type: component
+
+mixins:
+  - '@bildvitta/quasar-ui-asteroid/dist/api/QasBox.json'
+
+
+meta:
+  desc: Componente para galeria, mostrando images dentro de um "QasDialog" ao clicar nelas.
+
+props:
+  carousel-next-icon:
+    desc: Ícone dentro do carousel para passar para próxima imagem.
+    default: o_chevron_right
+    type: String
+
+  carousel-previous-icon:
+    desc: Ícone dentro do carousel para passar para a imagem anterior.
+    default: o_chevron_left
+    type: String
+
+  height:
+    desc: Altura da imagem (fora do dialog).
+    type: String
+
+  initial-size:
+    desc: Quantidade de imagens iniciais.
+    default: 6
+    type: Number
+
+  images:
+    desc: Imagens a serem exibidas.
+    default: 6
+    type: Number
+
+  load-size:
+    desc: Quantidade de fotos carregadas por vez.
+    default: 6
+    type: Number
+
+  show-more-label:
+    desc: Rótulo do botão de "mostrar mais".
+    default: Ver mais
+    type: String
+
+  use-load-all:
+    desc: Carrega todas imagens de uma única vez.
+    type: Boolean
+
+slots:
+  default:
+    desc: Slot para todo conteúdo onde fica o botão "mostrar mais".

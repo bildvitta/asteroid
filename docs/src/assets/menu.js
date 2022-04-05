@@ -189,6 +189,10 @@ module.exports = [
       {
         name: 'Profile',
         path: '/components/profile'
+      },
+      {
+        name: 'Gallery',
+        path: '/components/gallery'
       }
     ]
   }

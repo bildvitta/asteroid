@@ -277,9 +277,14 @@ Sincronizado em _31/03/2022 as 15h15_.
 
 ### QasGallery
 
-Sincronizado em _09/02/2022 as 14h00_.
+Sincronizado em _05/04/2022 as 14h00_.
 
+- Removido `name="default"` do slot por o slot "default" não precisa ter `name`.
+- Propriedade `initialLength` alterada para `initialSize`.
+- Propriedade `loadLength` alterada para `loadSize`.
 - Propriedade `items` alterada para `images`.
+- Adicionado propriedade `useLoadAll` para carregar todas imagens de uma única vez.
+- Adicionado `QasBtn` no lugar da tag `span` no em "ver mais".
 - Alterado nomenclatura interna do componente.
 
 ### QasDialogRouter
