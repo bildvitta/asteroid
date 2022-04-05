@@ -1,7 +1,7 @@
 <template>
   <div class="col-12 col-lg-3 col-md-4 col-sm-6">
-    <q-card class="border-radius-lg column full-height" :class="cardClasses">
-      <div v-if="useHeader" class="overflow-hidden relative-position w-full">
+    <q-card class="border-radius-lg column full-height overflow-hidden" :class="cardClasses">
+      <header v-if="useHeader" class="overflow-hidden relative-position w-full">
         <slot name="header">
           <q-carousel v-model="slideImage" animated class="cursor-pointer" height="205px" infinite :navigation="hasImages" navigation-icon="o_fiber_manual_record" swipeable>
             <template #navigation-icon="{ active, btnProps, onClick }">
@@ -15,7 +15,7 @@
             <slot name="carousel-header" />
           </div>
         </slot>
-      </div>
+      </header>
 
       <q-card-section class="col-grow column justify-between w-full">
         <div class="w-full" :class="gutterClass">
@@ -50,17 +50,8 @@ export default {
     },
 
     images: {
-      default: () => ([]),
+      default: () => [],
       type: Array
-    },
-
-    outlined: {
-      type: Boolean
-    },
-
-    result: {
-      default: () => ({}),
-      type: Object
     },
 
     useHeader: {
@@ -105,8 +96,8 @@ export default {
   },
 
   methods: {
-    getNavigationIcon (active, btn) {
-      return active ? 'o_radio_button_checked' : btn.icon
+    getNavigationIcon (active, { icon }) {
+      return active ? 'o_radio_button_checked' : icon
     }
   }
 }

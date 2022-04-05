@@ -1,7 +1,7 @@
 <template>
   <div class="container spaced">
     <div>
-      <qas-gallery :images="gallery" />
+      <qas-gallery :images="images" />
     </div>
   </div>
 </template>
@@ -15,7 +15,7 @@ export default {
   },
 
   computed: {
-    gallery () {
+    images () {
       return [
         'https://via.placeholder.com/200x300/ff0000/969696',
         'https://via.placeholder.com/200x300/09ff00/969696',
