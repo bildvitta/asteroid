@@ -1,7 +1,7 @@
 type: component
 
 meta:
-  desc: Componente para criação de multiplos campos dinâmicos a partir do componente `QasField`.
+  desc: Componente para criação de múltiplos campos dinâmicos a partir do componente `QasField`.
 
 props:
   error:

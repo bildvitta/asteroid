@@ -57,7 +57,7 @@ props:
     model: true
 
   use-close-icon:
-    desc: Define se vai ter ou não icone de fechar o dialog.
+    desc: Define se vai ter ou não Ícone de fechar o dialog.
     type: Boolean
 
 slots:

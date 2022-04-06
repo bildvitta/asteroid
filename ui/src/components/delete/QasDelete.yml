@@ -20,7 +20,7 @@ props:
     type: Object
 
   url:
-    desc: Envia como parametro para a action "fetchSingle" do modulo correspondente a "entity".
+    desc: Envia como parâmetro para a action "fetchSingle" do modulo correspondente a "entity".
     type: String
 
   tag:

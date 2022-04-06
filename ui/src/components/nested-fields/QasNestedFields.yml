@@ -22,7 +22,7 @@ props:
     type: Object
 
   destroy-key:
-    desc: Quando excluimos uma "row" e propriedade "useRemoveOnDestroy" for "false", adicionamos uma propriedade para saber que é para ser deletada, com esta prop você escolhe como se chamará essa chave.
+    desc: Quando excluímos uma "row" e propriedade "useRemoveOnDestroy" for "false", adicionamos uma propriedade para saber que é para ser deletada, com esta prop você escolhe como se chamará essa chave.
     default: destroyed
     type: String
 

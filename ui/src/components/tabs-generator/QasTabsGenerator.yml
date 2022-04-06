@@ -29,7 +29,7 @@ props:
     type: String
 
   model-value:
-    desc: Model do componente, constrola qual é a tab atual selecionada.
+    desc: Model do componente, controla qual é a tab atual selecionada.
     type: String
 
   tab-class:
@@ -45,14 +45,14 @@ props:
 
 slots:
   tab-[nome-da-chave]:
-    desc: Slot dinâmico gerado a partir das chave passada na prop "tabs", subistitui todo o "q-tab".
+    desc: Slot dinâmico gerado a partir das chave passada na prop "tabs", substitui todo o "q-tab".
     scope:
       item:
         desc: Objeto com informações da tab atual
         type: Object
 
   tab-after-[nome-da-chave]:
-    desc: Slot dinâmico gerado a partir das chave passada na prop "tabs", subistitui o conteúdo dentro do "q-tab".
+    desc: Slot dinâmico gerado a partir das chave passada na prop "tabs", substitui o conteúdo dentro do "q-tab".
     scope:
       item:
         desc: Objeto com informações da tab atual

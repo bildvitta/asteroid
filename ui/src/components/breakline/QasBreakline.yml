@@ -6,7 +6,7 @@ meta:
 props:
   split:
     default: '\n'
-    desc: Caracter ou conjunto de caracteres que serão utilizados para dividir o texto.
+    desc: Carácter ou conjunto de caracteres que serão utilizados para dividir o texto.
     type: String
 
   tag:

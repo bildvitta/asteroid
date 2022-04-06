@@ -35,7 +35,7 @@ props:
     type: String
 
   url:
-    desc: Envia como parametro para a action "fetchFilters" do modulo correspondente a "entity".
+    desc: Envia como parâmetro para a action "fetchFilters" do modulo correspondente a "entity".
     type: String
 
 slots:

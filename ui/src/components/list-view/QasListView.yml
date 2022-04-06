@@ -14,7 +14,7 @@ props:
     type: Boolean
 
   url:
-    desc: Envia como parametro para a action "fetchList" do modulo correspondente a "entity".
+    desc: Envia como parâmetro para a action "fetchList" do modulo correspondente a "entity".
     type: String
 
   results:
@@ -52,7 +52,7 @@ props:
     examples: [v-model:fetching="isFetching"]
 
   disable-refresh:
-    desc: Desabilita o [pull-to-refreash](https://quasar.dev/vue-components/pull-to-refresh#basic).
+    desc: Desabilita o [pull-to-refresh](https://quasar.dev/vue-components/pull-to-refresh#basic).
     type: Boolean
 
   use-filter:

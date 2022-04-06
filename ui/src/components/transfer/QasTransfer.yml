@@ -9,7 +9,7 @@ props:
     type: Boolean
 
   model-value:
-    desc: Model do componente, constrola quais itens estão na segunda coluna.
+    desc: Model do componente, controla quais itens estão na segunda coluna.
     default: []
     type: Array
 

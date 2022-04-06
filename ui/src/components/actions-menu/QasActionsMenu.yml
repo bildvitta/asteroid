@@ -5,7 +5,7 @@ meta:
 
 props:
   icon:
-    desc: Icone do botão.
+    desc: Ícone do botão.
     default: o_settings
     type: String
     examples: [start, end, between, around, center]
@@ -35,7 +35,7 @@ props:
     type: String
 
   delete-icon:
-    desc: Icone do botão de deletar.
+    desc: Ícone do botão de deletar.
     default: o_delete
     type: String
 

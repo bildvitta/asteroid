@@ -13,7 +13,7 @@ props:
     type: String
 
   notifications:
-    desc: Icone de notificação que fica ao lado do menu de usuário.
+    desc: Ícone de notificação que fica ao lado do menu de usuário.
     type: Object
     default: {}
 
@@ -48,4 +48,4 @@ events:
     desc: Dispara quando o botão de "sair" é clicado.
 
   '@toggle-menu -> function()':
-    desc: Dispara quando o botão de "hamburguer" é clicado para abrir o menu lateral.
+    desc: Dispara quando o botão de "hambúrguer" é clicado para abrir o menu lateral.

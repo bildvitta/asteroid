@@ -31,7 +31,7 @@ props:
     examples: ["{ name: 'Root' }"]
 
   use-section-actions:
-    desc: Controla se exibe ou não seção de actions, onde fica o icone de redirecionamento.
+    desc: Controla se exibe ou não seção de actions, onde fica o Ícone de redirecionamento.
     default: true
     type: Boolean
 
@@ -47,7 +47,7 @@ slots:
         type: Number
 
   item-section-side:
-    desc: Slot para acessar seção da direita, onde fica o icone.
+    desc: Slot para acessar seção da direita, onde fica o Ícone.
     scope:
       item:
         desc: Item dentro da listagem, vai depender do que foi passado.
