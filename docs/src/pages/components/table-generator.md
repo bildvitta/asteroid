@@ -11,8 +11,13 @@ Este componente repassa **todos** os slots do [QTable](https://quasar.dev/vue-co
 :::
 
 :::tip
-Este componente renderiza componentes dinâmicamente através da prop `fields`, cada field dentro de fields tem um `name`, através dele, você consegue acessar os slots dinâmicos.
+Este componente renderiza componentes dinamicamente através da prop `fields`, cada field dentro de fields tem um `name`, através dele, você consegue acessar os slots dinâmicos.
 :::
+
+:::tip
+Componente implementa o `QasBox` repassando todas propriedades.
+:::
+
 
 ## Uso
 <doc-example file="QasTableGenerator/Basic" title="Básico" />
