@@ -1,0 +1,38 @@
+type: component
+
+meta:
+  desc: Componente de layout que engloba o "QasAppBar" e "QasAppMenu".
+
+props:
+  app-bar-props:
+    desc: Propriedades do "QasAppBar".
+    default: {}
+    type: Object
+
+  app-menu-props:
+    desc: Propriedades do "QasAppMenu".
+    default: { animation: 500 }
+    type: Object
+
+  model-value:
+    desc: Model do componente, responsável por abrir/fechar menu lateral.
+    default: true
+    type: Boolean
+
+slots:
+  app-bar:
+    desc: Slot para substituir o "QasAppBar".
+
+  app-menu:
+    desc: Slot para substituir o "QasAppMenu".
+
+  default:
+    desc: Slot para substituir o "QPageContainer".
+
+events:
+  '@update:model-value -> function(value)':
+    desc: Dispara quando o model-value altera, também usado para v-model.
+    params:
+      value:
+        desc: Valor do mode-value.
+        type: Boolean

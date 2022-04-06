@@ -1,12 +1,17 @@
 <template>
-  <div>
-    <q-layout class="flex items-center justify-center" container style="height: 600px;">
-      <qas-app-menu v-model="isMenuOpened" :items="menuList" :modules="modules" title="Documentação" />
-    </q-layout>
-  </div>
+  <!-- Ignore este <q-layout />, ele é usado apenas para funcionar na documentação. -->
+  <q-layout class="flex items-center justify-center" container style="height: 600px;">
+    <qas-layout :app-bar-props="appBarProps" :app-menu-props="appMenuProps" :model-value="false" />
+  </q-layout>
 </template>
 
 <script>
+const user = {
+  photo: 'https://www.abc.net.au/cm/lb/6367016/data/alan2c-see-the-person-data.jpg',
+  name: 'Eduardo Lima',
+  email: 'eduardolima@gmail.com'
+}
+
 const modules = [
   {
     label: 'Assistência Digital',
@@ -37,13 +42,24 @@ const modules = [
 export default {
   data () {
     return {
-      isMenuOpened: true
+      opened: true
     }
   },
 
   computed: {
-    modules () {
-      return modules
+    appMenuProps () {
+      return {
+        modules,
+        items: this.menuList
+      }
+    },
+
+    appBarProps () {
+      return {
+        user,
+        title: 'QasLayout',
+        isAuth: true
+      }
     },
 
     menuList () {

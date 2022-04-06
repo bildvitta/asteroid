@@ -197,6 +197,10 @@ module.exports = [
       {
         name: 'Card',
         path: '/components/card'
+      },
+      {
+        name: 'Layout',
+        path: '/components/layout'
       }
     ]
   }
