@@ -44,14 +44,14 @@ props:
     examples: ["{ tab1: 'tab1', tab2: 'tab2' }"]
 
 slots:
-  tab-[nome-da-chave]:
+  'tab-[nome-da-chave]':
     desc: Slot dinâmico gerado a partir das chave passada na prop "tabs", substitui todo o "q-tab".
     scope:
       item:
         desc: Objeto com informações da tab atual
         type: Object
 
-  tab-after-[nome-da-chave]:
+  'tab-after-[nome-da-chave]':
     desc: Slot dinâmico gerado a partir das chave passada na prop "tabs", substitui o conteúdo dentro do "q-tab".
     scope:
       item:

@@ -1,0 +1,10 @@
+type: component
+
+meta:
+  desc: Plugin que implementa o "QNotify" do quasar para notificações de sucesso.
+
+inject:
+  'this.$qas.dialog(config)':
+    params:
+      config:
+        desc: Mensagem de sucesso para ser exibida na notificação.

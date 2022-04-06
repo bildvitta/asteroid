@@ -1,5 +1,5 @@
 import { Dialog } from 'quasar'
-import QasDialog from '../components/dialog/QasDialog.vue'
+import QasDialog from '../../components/dialog/QasDialog.vue'
 
 /**
  * @param {object} componentProps={}

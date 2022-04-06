@@ -45,7 +45,7 @@ props:
     type: Object
 
 slots:
-  [nome-da-chave]:
+  '[nome-da-chave]':
     desc: 'Slot dinâmico gerado a partir das chaves dentro do objeto da prop "list"'
     tag: Escopo
     scope:

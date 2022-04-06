@@ -49,6 +49,12 @@ export default {
       required: true
     },
 
+    type: {
+      default: 'components',
+      type: String,
+      validator: value => ['components', 'plugins'].includes(value)
+    },
+
     name: {
       type: String,
       required: true
@@ -98,14 +104,27 @@ export default {
     loadFile () {
       this.isLoading = true
 
-      import(
-        /* webpackChunkName: 'asteroid-api' */
-        /* webpackMode: 'lazy-once' */
-        `asteroid-components/${this.file}.yml`
-      ).then(api => {
+      const modules = {
+        components: () => import(`asteroid-components/${this.file}.yml`),
+        plugins: () => import(`asteroid-plugins/${this.file}.yml`)
+      }
+
+      modules[this.type]().then(api => {
+        console.log('then', api)
         this.isLoading = false
         this.parseApiFile(api.default)
       })
+      // import(
+      //   /* webpackChunkName: 'asteroid-api' */
+      //   /* webpackMode: 'lazy-once' */
+      //   // path + `/${this.file}.yml`
+      //   // `asteroid-plugins/${this.file}.yml`
+      //   // fullPath
+      // ).then(api => {
+      //   console.log('then', api)
+      //   this.isLoading = false
+      //   this.parseApiFile(api.default)
+      // }).catch(error => console.log(error, 'error'))
     },
 
     parseApiFile (api) {
@@ -113,7 +132,8 @@ export default {
         props: 'Props',
         slots: 'Slots',
         events: 'Eventos',
-        methods: 'Métodos'
+        methods: 'Métodos',
+        inject: 'Injeção'
       }
 
       for (const key in tabs) {

@@ -1,0 +1,11 @@
+type: component
+
+meta:
+  desc: Plugin que implementa o "QNotify" do quasar.
+
+inject:
+  'this.$qas.error(msg)':
+    params:
+      msg:
+        desc: Mensagem de erro para ser exibida na notificação.
+        type: String

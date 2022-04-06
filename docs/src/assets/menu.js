@@ -203,5 +203,24 @@ module.exports = [
         path: '/components/layout'
       }
     ]
+  },
+
+  {
+    icon: 'settings_input_hdmi',
+    name: 'Plugins',
+    children: [
+      {
+        name: 'NotifyError',
+        path: '/plugins/notify-error'
+      },
+      {
+        name: 'NotifySuccess',
+        path: '/plugins/notify-success'
+      },
+      {
+        name: 'Dialog',
+        path: '/plugins/dialog'
+      }
+    ]
   }
 ]
