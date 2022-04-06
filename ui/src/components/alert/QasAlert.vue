@@ -37,6 +37,11 @@ export default {
       type: String
     },
 
+    color: {
+      type: String,
+      default: 'primary'
+    },
+
     title: {
       default: '',
       type: String
