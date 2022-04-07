@@ -222,5 +222,32 @@ module.exports = [
         path: '/plugins/dialog'
       }
     ]
+  },
+
+  {
+    icon: 'healing',
+    name: 'Utilitários',
+    children: [
+      {
+        name: 'AddCounterSuffix',
+        path: '/helpers/add-counter-suffix'
+      },
+      {
+        name: 'base64ToBlob',
+        path: '/helpers/base-64-to-blob'
+      },
+      {
+        name: 'constructObject',
+        path: '/helpers/construct-object'
+      },
+      {
+        name: 'filterObject',
+        path: '/helpers/filter-object'
+      },
+      {
+        name: 'filters',
+        path: '/helpers/filters'
+      }
+    ]
   }
 ]

@@ -110,21 +110,9 @@ export default {
       }
 
       modules[this.type]().then(api => {
-        console.log('then', api)
         this.isLoading = false
         this.parseApiFile(api.default)
       })
-      // import(
-      //   /* webpackChunkName: 'asteroid-api' */
-      //   /* webpackMode: 'lazy-once' */
-      //   // path + `/${this.file}.yml`
-      //   // `asteroid-plugins/${this.file}.yml`
-      //   // fullPath
-      // ).then(api => {
-      //   console.log('then', api)
-      //   this.isLoading = false
-      //   this.parseApiFile(api.default)
-      // }).catch(error => console.log(error, 'error'))
     },
 
     parseApiFile (api) {
