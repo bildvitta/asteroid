@@ -54,6 +54,11 @@ function percent (value = 0, places = 2) {
   return value ? (value / 100).toLocaleString('pt-BR', { style: 'percent', minimumFractionDigits: places }) : ''
 }
 
+function formatPercent (value = 0, places = 2) {
+  value = Number(value)
+  return value ? value.toLocaleString('pt-BR', { style: 'percent', minimumFractionDigits: places }) : ''
+}
+
 function squareArea (value = 0, suffix = 'm²') {
   value = decimal(value)
   return value ? `${value} ${suffix}` : ''
@@ -97,7 +102,7 @@ function handleMasks (value) {
 // Labels
 function humanize (field = {}, value) {
   if (field.mask && !value) return value
-
+  
   const mappedMasks = handleMasks(value)
 
   if (mappedMasks[field.mask]) {
@@ -111,6 +116,7 @@ function humanize (field = {}, value) {
     case 'datetime': return dateTime(value)
     case 'time': return time(value)
     case 'radio': return selectLabel(field.options, value)
+    case 'percent': return formatPercent(value)
     default: return value
   }
 }
@@ -143,6 +149,7 @@ export {
   decimal,
   formatCompanyDocument,
   formatDocument,
+  formatPercent,
   formatPersonalDocument,
   formatPhone,
   formatPostalCode,
