@@ -26,7 +26,6 @@ Funções: `asset`, `booleanLabel`, `date`, `dateTime`, `decimal`, `formatCompan
 - [percent](/helpers/filters/#percent)
 - [squareArea](/helpers/filters/#squareArea)
 
-
 ### Funções
 
 #### asset
