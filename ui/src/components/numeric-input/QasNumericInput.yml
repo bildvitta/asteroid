@@ -41,6 +41,7 @@ props:
 
   preset:
     desc: Propriedade preset serve para usar configuração de predefinição/nacionalidade da moeda pré setada pelo autonumeric (Brasil é o padrão).
+    type: [Boolean, String]
 
 events:
   '@update:model-value -> function (value)':
