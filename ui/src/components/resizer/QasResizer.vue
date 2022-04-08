@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import { greatestCommonDivisor } from '../../helpers'
+import { getGreatestCommonDivisor } from '../../helpers'
 
 const baseURL = 'https://image-resize.nave.dev/'
 
@@ -77,7 +77,7 @@ export default {
       const height = parseInt(this.height)
       const width = parseInt(this.width)
 
-      const divisor = greatestCommonDivisor(height, width)
+      const divisor = getGreatestCommonDivisor(height, width)
 
       return (width / divisor) / (height / divisor)
     },

@@ -479,6 +479,12 @@ Sincronizado em _03/03/2022 as 12h00_.
 
 Removido de `helpers` e adicionado no folder `store` para ser utilizado como uma store com `reactive`.
 
+### getGreatestCommonDivisor (greatestCommonDivisor)
+
+Sincronizado em _08/04/2022 as 14h00_.
+
+Renomeado para `getGreatestCommonDivisor`.
+
 ## Mixins
 
 ### FormMixin
