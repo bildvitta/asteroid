@@ -255,6 +255,18 @@ module.exports = [
       {
         name: 'getGreatestCommonDivisor',
         path: '/helpers/get-greatest-common-divisor'
+      },
+      {
+        name: 'images',
+        path: '/helpers/images'
+      },
+      {
+        name: 'isLocalDevelopment',
+        path: '/helpers/is-local-development'
+      },
+      {
+        name: 'setScrollOnGrab',
+        path: '/helpers/set-scroll-on-grab'
       }
     ]
   }
