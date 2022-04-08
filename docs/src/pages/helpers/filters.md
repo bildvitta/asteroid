@@ -46,6 +46,7 @@ Função para converter valores booleano para string, em um padrão "humano".
 ```js
 import { booleanLabel } from 'asteroid'
 
+// Definição
 booleanLabel(
   value, // valor boolean,
   trueLabel = 'sim', // se for true, retorna "sim" ("sim" já é padrão)
@@ -62,6 +63,7 @@ Função para formatar datas, implementa o `format` do `date-fns`.
 ```js
 import { booleanLabel } from 'asteroid'
 
+// Definição
 date(
   value // valor da data,
   token = 'dd/MM/yyyy', // mascara da data,
@@ -80,6 +82,7 @@ Função para formatar datas e hora, implementa o `format` do `date-fns`.
 ```js
 import { booleanLabel } from 'asteroid'
 
+// Definição
 date(
   value // valor da data,
   token = 'dd/MM/yyyy', // mascara da data,

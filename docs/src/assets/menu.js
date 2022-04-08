@@ -6,6 +6,17 @@ module.exports = [
   },
 
   {
+    icon: 'flight_takeoff',
+    name: 'Começando',
+    children: [
+      {
+        name: 'Estrutura',
+        path: '/start/structure'
+      }
+    ]
+  },
+
+  {
     icon: 'widgets',
     name: 'Componentes',
 
