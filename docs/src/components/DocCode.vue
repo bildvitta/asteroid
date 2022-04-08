@@ -30,7 +30,13 @@ export default {
     },
 
     decodedCode () {
-      return decodeURI(this.code)
+      // Aqui está dando problema para fazer decodeURI quando eu passo algum valor com porcentagem.
+      // Por exemplo, se no arquivo .md eu passo dentro de um "```js" um valor como 25%
+      // O decodeURI não funciona, para resolver isto, achei a seguinte solução no stackoverflow:
+      // https://stackoverflow.com/questions/9064536/javascript-decodeuricomponent-malformed-uri-exception
+
+      const content = this.code.toString().replace(/%/g, '~~pct~~')
+      return decodeURI(content).replace(/~~pct~~/g, '%')
     },
 
     highlightedCode () {

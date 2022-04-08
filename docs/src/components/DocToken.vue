@@ -13,7 +13,12 @@ export default {
 
   computed: {
     decodedToken () {
-      return decodeURI(this.token)
+      // Aqui está dando problema para fazer decodeURI quando eu passo algum valor com porcentagem.
+      // Por exemplo, se no arquivo .md eu passo dentro de um "`25%`"
+      // o decodeURI não funciona, para resolver isto, achei a seguinte solução no stackoverflow:
+      // https://stackoverflow.com/questions/9064536/javascript-decodeuricomponent-malformed-uri-exception
+      const content = this.token.toString().replace(/%/g, '~~pct~~')
+      return decodeURI(content).replace(/~~pct~~/g, '%')
     }
   }
 }
