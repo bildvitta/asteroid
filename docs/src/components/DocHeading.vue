@@ -1,6 +1,6 @@
 <template>
   <div class="doc-heading">
-    <component :is="tag" class="doc-heading__title" :class="titleClass">
+    <component :is="tag" :id="titleId" ref="parentComponent" class="doc-heading__title" :class="titleClass">
       <slot>{{ title }}</slot>
       <q-badge v-if="badge" class="doc-heading__badge q-ml-sm" color="brand-primary" :label="badge" />
     </component>
@@ -29,6 +29,12 @@ export default {
     }
   },
 
+  data () {
+    return {
+      titleId: ''
+    }
+  },
+
   computed: {
     tag () {
       return `h${this.level}`
@@ -37,6 +43,11 @@ export default {
     titleClass () {
       return `doc-heading__title--level-${this.level}`
     }
+  },
+
+  mounted () {
+    const element = this.$refs.parentComponent
+    this.titleId = element.textContent.trim().split(' ').join('-')
   }
 }
 </script>
