@@ -247,6 +247,10 @@ module.exports = [
       {
         name: 'filters',
         path: '/helpers/filters'
+      },
+      {
+        name: 'getSlotChildrenText',
+        path: '/helpers/get-slot-children-text'
       }
     ]
   }
