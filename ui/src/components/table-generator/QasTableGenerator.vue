@@ -15,7 +15,7 @@
 <script>
 import { extend } from 'quasar'
 import { humanize } from '../../helpers/filters'
-import { scrollOnGrab } from '../../helpers'
+import { setScrollOnGrab } from '../../helpers'
 import screenMixin from '../../mixins/screen'
 
 export default {
@@ -61,7 +61,7 @@ export default {
       scrollableElement: null,
       scrollOnGrab: {},
       elementToObserve: null,
-      resizeOberserver: null
+      resizeObserver: null
     }
   },
 
@@ -173,12 +173,12 @@ export default {
   },
 
   methods: {
-    setScrollOnGrab () {
+    initializeScrollOnGrab () {
       if (this.hasScrollOnGrab) return
 
       const element = this.getTableElementComponent().querySelector('.q-table__middle.scroll')
 
-      this.scrollOnGrab = scrollOnGrab(element)
+      this.scrollOnGrab = setScrollOnGrab(element)
     },
 
     getTableElementComponent () {
@@ -204,7 +204,7 @@ export default {
       const containerTableWidth = this.getContainerTableWidth()
 
       if (fullTableWidth > containerTableWidth) {
-        this.setScrollOnGrab()
+        this.initializeScrollOnGrab()
       } else if (this.hasScrollOnGrab) {
         this.scrollOnGrab.destroyEvents()
         this.scrollOnGrab.element.style.cursor = 'auto'
@@ -214,15 +214,15 @@ export default {
 
     setObserver () {
       this.elementToObserve = this.getTableElement()
-      this.resizeOberserver = new ResizeObserver(entries => {
+      this.resizeObserver = new ResizeObserver(entries => {
         entries.forEach(() => this.handleScrollOnGrab())
       })
 
-      this.resizeOberserver.observe(this.elementToObserve)
+      this.resizeObserver.observe(this.elementToObserve)
     },
 
     destroyObserver () {
-      this.resizeOberserver.unobserve(this.elementToObserve)
+      this.resizeObserver.unobserve(this.elementToObserve)
     }
   }
 }
