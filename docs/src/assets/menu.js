@@ -251,6 +251,10 @@ module.exports = [
       {
         name: 'getSlotChildrenText',
         path: '/helpers/get-slot-children-text'
+      },
+      {
+        name: 'getGreatestCommonDivisor',
+        path: '/helpers/get-greatest-common-divisor'
       }
     ]
   }
