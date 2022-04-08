@@ -56,6 +56,11 @@ function squareArea (value = 0, suffix = 'm²') {
   return value ? `${value} ${suffix}` : ''
 }
 
+function formatPercent (value = 0, places = 2) {
+  value = Number(value)
+  return value ? value.toLocaleString('pt-BR', { style: 'percent', minimumFractionDigits: places }) : ''
+}
+
 function formatCompanyDocument (value) {
   return value.replace(/^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/g, '$1.$2.$3/$4-$5')
 }
@@ -108,6 +113,7 @@ function humanize (field = {}, value) {
     case 'datetime': return dateTime(value)
     case 'time': return time(value)
     case 'radio': return selectLabel(field.options, value)
+    case 'percent': return formatPercent(value)
     default: return value
   }
 }
@@ -140,6 +146,7 @@ export {
   decimal,
   formatCompanyDocument,
   formatDocument,
+  formatPercent,
   formatPersonalDocument,
   formatPhone,
   formatPostalCode,

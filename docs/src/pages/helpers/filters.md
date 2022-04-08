@@ -2,9 +2,29 @@
 title: filters
 ---
 
-Conjunto de funções para formatação para ajudar no desenvolvimento.
+Conjunto de funções de formatação para ajudar no desenvolvimento.
 
-Funções: `asset`, `booleanLabel`, `date`, `dateTime`, `decimal`, `formatCompanyDocument`, `formatDocument`, `formatPersonalDocument`, `formatPhone`, `formatPostalCode`, `handleMasks`, `humanDate`, `humanize`, `money`, `optionLabel`, `parseValue`, `percent`, `squareArea`.
+Funções: `asset`, `booleanLabel`, `date`, `dateTime`, `decimal`, `formatCompanyDocument`, `formatDocument`, `formatPercent`, `formatPersonalDocument`, `formatPhone`, `formatPostalCode`, `handleMasks`, `humanDate`, `humanize`, `money`, `optionLabel`, `parseValue`, `percent`, `squareArea`.
+
+- [asset](/helpers/filters/#asset)
+- [booleanLabel](/helpers/filters/#booleanLabel)
+- [date](/helpers/filters/#date)
+- [dateTime](/helpers/filters/#dateTime)
+- [decimal](/helpers/filters/#decimal)
+- [formatCompanyDocument](/helpers/filters/#formatCompanyDocument)
+- [formatDocument](/helpers/filters/#formatDocument)
+- [formatPercent](/helpers/filters/#formatPercent)
+- [formatPersonalDocument](/helpers/filters/#formatPersonalDocument)
+- [formatPhone](/helpers/filters/#formatPhone)
+- [formatPostalCode](/helpers/filters/#formatPostalCode)
+- [handleMasks](/helpers/filters/#handleMasks)
+- [humanDate](/helpers/filters/#humanDate)
+- [humanize](/helpers/filters/#humanize)
+- [money](/helpers/filters/#money)
+- [optionLabel](/helpers/filters/#optionLabel)
+- [parseValue](/helpers/filters/#parseValue)
+- [percent](/helpers/filters/#percent)
+- [squareArea](/helpers/filters/#squareArea)
 
 
 ### Funções
@@ -115,6 +135,16 @@ import { formatPersonalDocument } from 'asteroid'
 
 formatPersonalDocument('99999999999')
 // retorna: '999.999.999-99'
+```
+
+#### formatPercent
+Função que adiciona formatação para CPF.
+
+```js
+import { formatPercent } from 'asteroid'
+
+formatPercent(0.25)
+// retorna: '25,00%'
 ```
 
 #### formatPhone
@@ -258,14 +288,25 @@ parseValue('false')
 ```
 
 #### percent
-Função para transformar valores em porcentagem.
+Função para transformar valores bruto em porcentagem, sem fazer nenhuma conversão, diferente do `formatPercent`.
 
 ```js
 import { percent } from 'asteroid'
 
-booleanLabel('true')
-// retorna: true
+percent(0.25)
+// retorna: '0,25%'
+```
 
-booleanLabel('false')
-// retorna: false
+#### squareArea
+Função para transformar valores em área quadrada.
+
+
+```js
+import { squareArea } from 'asteroid'
+
+squareArea(25)
+// retorna: '25 m²'
+
+squareArea('25')
+// retorna: '25 m²'
 ```
