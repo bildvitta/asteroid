@@ -160,26 +160,26 @@ export default {
           return results
         }
 
-        // if (this.search.length) {
-        //   Object.values(model[tab].results).forEach((item, index) => {
-        //     if (item.desc.toLowerCase().indexOf(this.search) >= 0) {
-        //       const objectToArray = Object.entries(model[tab].results)
+        if (this.search.length) {
+          Object.values(model[tab].results).forEach((item, index) => {
+            if (item.desc.toLowerCase().indexOf(this.search) >= 0) {
+              const objectToArray = Object.entries(model[tab].results)
 
-        //       const newObject = objectToArray[index].reduce((key, value) => ({
-        //         [key]: value
-        //       }))
+              const newObject = objectToArray[index].reduce((key, value) => ({
+                [key]: value
+              }))
 
-        //       key.push(Object.keys(newObject))
-        //       key.forEach(key => {
-        //         results[key] = model[tab].results[key]
-        //       })
-        //     }
-        //   })
+              key.push(Object.keys(newObject))
+              key.forEach(key => {
+                results[key] = model[tab].results[key]
+              })
+            }
+          })
 
-        //   this.badgeNumber[tab] = Object.keys(results).length
+          this.badgeNumber[tab] = Object.keys(results).length
 
-        //   return results
-        // }
+          return results
+        }
 
         this.badgeNumber[tab] = Object.keys(model[tab].results).length
       }
