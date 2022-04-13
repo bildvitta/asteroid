@@ -21,14 +21,14 @@
         <q-tab v-for="(tab, key) in tabs" :key="`tab-${key}`" :name="key">
           <div class="items-center no-wrap row">
             <span class="text-weight-medium">{{ tab }}</span>
-            <q-badge v-if="filteredApi[key].length" class="q-ml-sm" color="brand-primary" :label="badgeNumber[key]" />
+            <q-badge v-if="filteredApi[key].length" class="q-ml-sm" color="brand-primary" :label="filteredApi[key].length" />
           </div>
         </q-tab>
       </q-tabs>
 
       <q-tab-panels v-model="currentTab" animated class="doc-api__tab-panels">
         <q-tab-panel v-for="(tab, key) in tabs" :key="`panel-${key}`" class="q-pa-none" :name="key">
-          <doc-api-entry :api="docSearch(filteredApi, key)" />
+          <doc-api-entry :api="filteredApi[key].results" />
         </q-tab-panel>
       </q-tab-panels>
 
@@ -89,8 +89,8 @@ export default {
 
       for (const key in this.api) {
         api[key] = {
-          results: this.api[key],
-          length: Object.keys(this.api[key]).length
+          results: this.docSearch(this.api[key]),
+          length: Object.keys(this.docSearch(this.api[key])).length
         }
       }
 
@@ -136,55 +136,44 @@ export default {
       this.currentTab = Object.keys(this.tabs)[0]
     },
 
-    docSearch (model, ref) {
-      const key = []
-      const results = {}
-      // in progress
-      this.badgeNumber = {
-        props: 0,
-        slots: 0,
-        events: 0,
-        methods: 0,
-        inject: 0
-      }
+    docSearch (model) {
+      const keys = []
 
-      for (const tab in model) {
-        if (Object.keys(model[tab].results).includes(this.search)) {
-          key.push(this.search)
-          key.forEach(key => {
-            results[key] = model[tab].results[key]
-          })
+      if (this.search.length) {
+        if (Object.keys(model).includes(this.search)) {
+          keys.push(this.search)
 
-          this.badgeNumber[tab] = Object.keys(results).length
-
-          return results
-        }
-
-        if (this.search.length) {
-          Object.values(model[tab].results).forEach((item, index) => {
-            if (item.desc.toLowerCase().indexOf(this.search) >= 0) {
-              const objectToArray = Object.entries(model[tab].results)
-
-              const newObject = objectToArray[index].reduce((key, value) => ({
-                [key]: value
-              }))
-
-              key.push(Object.keys(newObject))
-              key.forEach(key => {
-                results[key] = model[tab].results[key]
-              })
+          return keys.map(key => ({
+            [key]: model[key]
+          })).reduce((previous, current) => {
+            return {
+              ...previous,
+              ...current
             }
-          })
-
-          this.badgeNumber[tab] = Object.keys(results).length
-
-          return results
+          }, {})
         }
 
-        this.badgeNumber[tab] = Object.keys(model[tab].results).length
-      }
+        Object.values(model).forEach((item, index) => {
+          if (item.desc.toLowerCase().indexOf(this.search) >= 0) {
+            const objectToArray = Object.entries(model)
+            const newObject = objectToArray[index].reduce((key, value) => ({
+              [key]: value
+            }))
 
-      return model[ref].results
+            keys.push(Object.keys(newObject))
+          }
+        })
+
+        return keys.map(key => ({
+          [key]: model[key]
+        })).reduce((previous, current) => {
+          return {
+            ...previous,
+            ...current
+          }
+        }, {})
+      }
+      return model
     }
   }
 }
