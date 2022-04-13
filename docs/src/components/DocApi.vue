@@ -28,7 +28,12 @@
 
       <q-tab-panels v-model="currentTab" animated class="doc-api__tab-panels">
         <q-tab-panel v-for="(tab, key) in tabs" :key="`panel-${key}`" class="q-pa-none" :name="key">
-          <doc-api-entry :api="filteredApi[key].results" />
+          <div v-if="isResults(filteredApi[key])">
+            <doc-api-entry :api="filteredApi[key].results" />
+          </div>
+          <div v-else class="q-pa-md">
+            <div>Nenhuma entrada correspondente encontrada nesta guia.</div>
+          </div>
         </q-tab-panel>
       </q-tab-panels>
 
@@ -67,8 +72,7 @@ export default {
       currentTab: '',
       isLoading: false,
       tabs: {},
-      search: '',
-      badgeNumber: {}
+      search: ''
     }
   },
 
@@ -89,8 +93,8 @@ export default {
 
       for (const key in this.api) {
         api[key] = {
-          results: this.docSearch(this.api[key]),
-          length: Object.keys(this.docSearch(this.api[key])).length
+          results: this.getSearchResults(this.api[key]),
+          length: Object.keys(this.getSearchResults(this.api[key])).length
         }
       }
 
@@ -136,44 +140,28 @@ export default {
       this.currentTab = Object.keys(this.tabs)[0]
     },
 
-    docSearch (model) {
-      const keys = []
+    getFormatString (value) {
+      return value.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+    },
 
-      if (this.search.length) {
-        if (Object.keys(model).includes(this.search)) {
-          keys.push(this.search)
+    getSearchResults (apiData) {
+      if (!this.search) return apiData
 
-          return keys.map(key => ({
-            [key]: model[key]
-          })).reduce((previous, current) => {
-            return {
-              ...previous,
-              ...current
-            }
-          }, {})
+      const results = {}
+
+      for (const key in apiData) {
+        const data = apiData[key]
+
+        if (this.getFormatString(data.desc).includes(this.getFormatString(this.search)) || key.includes(this.getFormatString(this.search))) {
+          results[key] = data
         }
-
-        Object.values(model).forEach((item, index) => {
-          if (item.desc.toLowerCase().indexOf(this.search) >= 0) {
-            const objectToArray = Object.entries(model)
-            const newObject = objectToArray[index].reduce((key, value) => ({
-              [key]: value
-            }))
-
-            keys.push(Object.keys(newObject))
-          }
-        })
-
-        return keys.map(key => ({
-          [key]: model[key]
-        })).reduce((previous, current) => {
-          return {
-            ...previous,
-            ...current
-          }
-        }, {})
       }
-      return model
+
+      return results
+    },
+
+    isResults (value) {
+      return !!Object.keys(value.results).length
     }
   }
 }
