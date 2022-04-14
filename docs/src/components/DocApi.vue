@@ -5,9 +5,9 @@
 
       <q-space />
 
-      <q-input borderless dense input-class="text-right" placeholder="Buscar..." type="search">
+      <q-input v-model="search" borderless dense input-class="text-right" placeholder="Buscar..." type="search">
         <template #append>
-          <q-icon name="search" />
+          <q-btn dense flat icon="search" />
         </template>
       </q-input>
     </q-toolbar>
@@ -28,7 +28,12 @@
 
       <q-tab-panels v-model="currentTab" animated class="doc-api__tab-panels">
         <q-tab-panel v-for="(tab, key) in tabs" :key="`panel-${key}`" class="q-pa-none" :name="key">
-          <doc-api-entry :api="filteredApi[key].results" />
+          <div v-if="hasResults(filteredApi[key])">
+            <doc-api-entry :api="filteredApi[key].results" />
+          </div>
+          <div v-else class="q-pa-md">
+            <div>Nenhuma entrada correspondente encontrada nesta guia.</div>
+          </div>
         </q-tab-panel>
       </q-tab-panels>
 
@@ -66,7 +71,8 @@ export default {
       api: {},
       currentTab: '',
       isLoading: false,
-      tabs: {}
+      tabs: {},
+      search: ''
     }
   },
 
@@ -86,9 +92,11 @@ export default {
       const api = {}
 
       for (const key in this.api) {
+        const results = this.getSearchResults(this.api[key])
+
         api[key] = {
-          results: this.api[key],
-          length: Object.keys(this.api[key]).length
+          results,
+          length: Object.keys(results).length
         }
       }
 
@@ -132,6 +140,30 @@ export default {
       }
 
       this.currentTab = Object.keys(this.tabs)[0]
+    },
+
+    getFormattedString (value) {
+      return value.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+    },
+
+    getSearchResults (apiData) {
+      if (!this.search) return apiData
+
+      const results = {}
+
+      for (const key in apiData) {
+        const data = apiData[key]
+
+        if (this.getFormattedString(data.desc).includes(this.getFormattedString(this.search)) || key.includes(this.getFormattedString(this.search))) {
+          results[key] = data
+        }
+      }
+
+      return results
+    },
+
+    hasResults (value) {
+      return !!Object.keys(value.results).length
     }
   }
 }
