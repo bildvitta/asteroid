@@ -125,7 +125,7 @@ export default {
         number: { is: 'qas-input', type: 'number', ...input },
         hidden: { is: 'input', name, type },
         email: { is: 'qas-input', type, ...input },
-        password: { is: 'qas-password-input', type, pattern, hideStrengthChecker: !pattern, ...input },
+        password: { is: 'qas-password-input', pattern, hideStrengthChecker: !pattern, ...input },
 
         decimal: { ...numericInput, mode: 'decimal' },
         money: { ...numericInput, mode: 'money' },

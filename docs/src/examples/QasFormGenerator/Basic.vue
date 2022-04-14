@@ -12,7 +12,9 @@
 export default {
   data () {
     return {
-      model: {}
+      model: {
+        password: 'b6c707ea6a2c45ef1feb8e4863aa10c5'
+      }
     }
   },
 
@@ -63,6 +65,12 @@ export default {
           name: 'email',
           label: 'Email',
           type: 'email'
+        },
+
+        password: {
+          name: 'password',
+          label: 'Email',
+          type: 'password'
         },
 
         document: {

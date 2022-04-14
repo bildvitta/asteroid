@@ -14,7 +14,7 @@
 export default {
   data () {
     return {
-      password: '',
+      password: 'b6c707ea6a2c45ef1feb8e4863aa10c5',
       isStrong: false
     }
   }

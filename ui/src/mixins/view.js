@@ -95,6 +95,7 @@ export default {
 
     mx_setErrors (errors = {}) {
       this.mx_errors = markRaw(errors)
+      console.log(this.mx_errors)
     },
 
     mx_setFields (fields = {}) {
@@ -111,6 +112,8 @@ export default {
 
     mx_updateModels (models) {
       for (const key in models) {
+        if (!models[key]) continue
+
         this.$emit(`update:${key}`, models[key])
       }
     }

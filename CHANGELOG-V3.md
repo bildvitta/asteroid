@@ -154,6 +154,7 @@ Sincronizado em _13/01/2022 as 15h13_.
 Sincronizado em _23/03/2022 as 16h00_.
 
 - Propriedade `hideLabel` removido (para remover o label é só não passar ele).
+- Adiciona propriedade `label` com default `md` por padrão.
 - Adicionado propriedade `deleteLabel` (para definir o label do botão de exclusão).
 - Adicionado propriedade `deleteIcon` (para definir o ícone do botão de exclusão).
 - Adicionado propriedade `deleteProps` para repassar para o componente `QasDelete` e controlar quando tem ou não botão de exclusão por padrão.
@@ -270,12 +271,8 @@ Sincronizado em _08/02/2022 as 16h16_.
 
 Sincronizado em _31/03/2022 as 15h15_.
 
-- Propriedade `value` alterada para `modelValue`.
-- Propriedade `dateOptions` alterada para `dateProps`.
-- Propriedade `timeOptions` alterada para `timeProps`.
 - Adicionado propriedade `emptyResultText` default `-` para controlar o texto quando não tiver valor.
 - Removido evento `mounted` você pode escutar o hook mounted do componente pelo `@vnode-mounted`.
-- Evento `input` alterado para `update:modelValue`.
 
 ### QasGallery
 
@@ -486,6 +483,9 @@ Sincronizado em _08/04/2022 as 14h00_.
 Renomeado para `getGreatestCommonDivisor`.
 
 ## Mixins
+
+### unsavedChangesMixin
+- Removido o mixin `unsavedChangesMixin`, não é mais necessário.
 
 ### FormMixin
 

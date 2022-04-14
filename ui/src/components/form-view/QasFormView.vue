@@ -1,5 +1,5 @@
 <template>
-  <component :is="mx_componentTag">
+  <component :is="mx_componentTag" :class="mx_componentClass">
     <header v-if="mx_hasHeaderSlot">
       <slot name="header" />
     </header>
@@ -253,7 +253,7 @@ export default {
         this.mx_updateModels({
           errors: errors,
           fields: this.mx_fields,
-          metadata: metadata
+          metadata
         })
 
         if (result) {

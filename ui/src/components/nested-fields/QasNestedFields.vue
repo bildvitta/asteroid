@@ -60,7 +60,7 @@
           </div>
 
           <div v-else class="q-mt-lg">
-            <qas-btn class="full-width q-py-sm" icon="o_add" outline @click="add()">{{ addInputLabel }}</qas-btn>
+            <qas-btn class="full-width q-py-md" icon="o_add" outline @click="add()">{{ addInputLabel }}</qas-btn>
           </div>
         </slot>
       </div>
@@ -244,6 +244,7 @@ export default {
     },
 
     transformedErrors () {
+      console.log(Array.isArray(this.errors) ? this.errors : constructObject(this.fieldName, this.errors))
       return Array.isArray(this.errors) ? this.errors : constructObject(this.fieldName, this.errors)
     },
 
