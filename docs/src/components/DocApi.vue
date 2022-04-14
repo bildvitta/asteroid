@@ -28,7 +28,7 @@
 
       <q-tab-panels v-model="currentTab" animated class="doc-api__tab-panels">
         <q-tab-panel v-for="(tab, key) in tabs" :key="`panel-${key}`" class="q-pa-none" :name="key">
-          <div v-if="isResults(filteredApi[key])">
+          <div v-if="hasResults(filteredApi[key])">
             <doc-api-entry :api="filteredApi[key].results" />
           </div>
           <div v-else class="q-pa-md">
@@ -92,9 +92,11 @@ export default {
       const api = {}
 
       for (const key in this.api) {
+        const results = this.getSearchResults(this.api[key])
+
         api[key] = {
-          results: this.getSearchResults(this.api[key]),
-          length: Object.keys(this.getSearchResults(this.api[key])).length
+          results,
+          length: Object.keys(results).length
         }
       }
 
@@ -140,7 +142,7 @@ export default {
       this.currentTab = Object.keys(this.tabs)[0]
     },
 
-    getFormatString (value) {
+    getFormattedString (value) {
       return value.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '')
     },
 
@@ -152,7 +154,7 @@ export default {
       for (const key in apiData) {
         const data = apiData[key]
 
-        if (this.getFormatString(data.desc).includes(this.getFormatString(this.search)) || key.includes(this.getFormatString(this.search))) {
+        if (this.getFormattedString(data.desc).includes(this.getFormattedString(this.search)) || key.includes(this.getFormattedString(this.search))) {
           results[key] = data
         }
       }
@@ -160,7 +162,7 @@ export default {
       return results
     },
 
-    isResults (value) {
+    hasResults (value) {
       return !!Object.keys(value.results).length
     }
   }
