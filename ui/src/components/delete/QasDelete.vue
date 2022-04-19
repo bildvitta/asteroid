@@ -1,5 +1,5 @@
 <template>
-  <component :is="tag" v-bind="$attrs" @click="openConfirmDialog">
+  <component v-bind="$attrs" :is="tag" @click="openConfirmDialog">
     <template v-for="(_, name) in $slots" #[name]="context">
       <slot :name="name" v-bind="context || {}" />
     </template>

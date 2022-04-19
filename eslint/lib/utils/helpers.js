@@ -13,8 +13,16 @@ function getApi (name) {
       const api = require(`${uiPackage}/dist/api/${name}.json`)
 
       for (const mixin of api.mixins || []) {
-        const { props } = require(mixin)
-        Object.assign(api.props, props)
+        try {
+          const { props } = require(
+            mixin.startsWith('quasar')
+              ? '@bildvitta/quasar-ui-asteroid/node_modules/' + mixin
+              : mixin
+          )
+          Object.assign(api.props, props)
+        } catch (error) {
+          console.error(error)
+        }
       }
 
       apiCache[name] = api

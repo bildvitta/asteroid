@@ -74,7 +74,6 @@ export default {
         prefix,
         type,
         mask,
-        pattern,
         maxFiles,
         searchable,
         gmt
@@ -125,7 +124,7 @@ export default {
         number: { is: 'qas-input', type: 'number', ...input },
         hidden: { is: 'input', name, type },
         email: { is: 'qas-input', type, ...input },
-        password: { is: 'qas-password-input', pattern, hideStrengthChecker: !pattern, ...input },
+        password: { is: 'qas-password-input', ...input },
 
         decimal: { ...numericInput, mode: 'decimal' },
         money: { ...numericInput, mode: 'money' },

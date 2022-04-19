@@ -4,7 +4,7 @@
     <div class="col-12 col-sm">
       <qas-label :label="label" :quantity="optionsList.length" />
 
-      <qas-search-box form-mode :list="optionsList" v-bind="searchBoxProps">
+      <qas-search-box :list="optionsList" outlined v-bind="searchBoxProps">
         <template #default="{ results }">
           <q-list separator>
             <q-item v-for="(item, index) in results" :key="index" :class="getItemClass(item, true)" clickable @click="onSelectQueue(item, true)">
@@ -33,7 +33,7 @@
     <div class="col-12 col-sm">
       <qas-label label="Selecionadas" :quantity="selectedList.length" />
 
-      <qas-search-box v-bind="searchBoxProps" empty-list-height="300px" form-mode label="Selecionadas" :list="selectedList">
+      <qas-search-box v-bind="searchBoxProps" empty-list-height="300px" label="Selecionadas" :list="selectedList" outlined>
         <template #default="{ results }">
           <q-list separator>
             <q-item v-for="(item, index) in results" :key="index" :class="getItemClass(item)" clickable @click="onSelectQueue(item)">
