@@ -6,6 +6,8 @@ export { default as base64ToBlob } from './base-64-to-blob.js'
 export { default as constructObject } from './construct-object.js'
 export { default as filterObject } from './filter-object.js'
 export { default as getGreatestCommonDivisor } from './get-greatest-common-divisor.js'
+export { default as filterObjectToArray } from './filter-object-to-array.js'
+export { default as filterListByHandle } from './filter-list-by-handle.js'
 
 export * from './filters.js'
 export * from './images.js'

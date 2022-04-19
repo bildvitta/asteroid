@@ -1,6 +1,5 @@
 /**
- * Function to filter specific field inside a fields
- * Função para filtrar propriedades espessificas dentro de um objeto
+ * Função para filtrar propriedades especificas dentro de um objeto
  *
  * @param {object} fields objeto com propriedades
  * @param {array} models array de string com nomes das proproiedades que serão filtradas

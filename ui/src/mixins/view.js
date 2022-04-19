@@ -95,7 +95,6 @@ export default {
 
     mx_setErrors (errors = {}) {
       this.mx_errors = markRaw(errors)
-      console.log(this.mx_errors)
     },
 
     mx_setFields (fields = {}) {

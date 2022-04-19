@@ -244,7 +244,6 @@ export default {
     },
 
     transformedErrors () {
-      console.log(Array.isArray(this.errors) ? this.errors : constructObject(this.fieldName, this.errors))
       return Array.isArray(this.errors) ? this.errors : constructObject(this.fieldName, this.errors)
     },
 
