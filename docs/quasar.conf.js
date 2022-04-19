@@ -147,6 +147,7 @@ module.exports = configure(function (quasar) {
 
       components: [
         'QPage',
+        'QMarkupTable',
         'QItem'
       ],
 

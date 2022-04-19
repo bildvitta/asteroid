@@ -3,6 +3,7 @@ const MarkdownIt = require('markdown-it')
 const markdownPluginCode = require('./markdown-plugin-code.js')
 const markdownPluginContainer = require('./markdown-plugin-container.js')
 const markdownPluginHeading = require('./markdown-plugin-heading.js')
+const markdownPluginTable = require('./markdown-plugin-table.js')
 
 const markdownOptions = {
   html: true,
@@ -13,6 +14,7 @@ const markdown = new MarkdownIt(markdownOptions)
   .use(markdownPluginCode)
   .use(markdownPluginContainer)
   .use(markdownPluginHeading)
+  .use(markdownPluginTable)
 
 const matter = require('gray-matter')
 const toml = require('toml')
