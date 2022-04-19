@@ -280,5 +280,17 @@ module.exports = [
         path: '/helpers/set-scroll-on-grab'
       }
     ]
+  },
+
+  {
+    icon: 'palette',
+    name: 'Variáveis CSS',
+    children: [
+      {
+        name: 'background',
+        path: '/styles/background/background'
+      }
+    ]
   }
+
 ]
