@@ -2,7 +2,7 @@
  * Função para filtrar propriedades especificas dentro de um objeto
  *
  * @param {object} fields objeto com propriedades
- * @param {array} models array de string com nomes das proproiedades que serão filtradas
+ * @param {array} models array de string com nomes das propriedades que serão filtradas
  * @returns {object} objeto com propriedades filtradas
  *
  * @example
