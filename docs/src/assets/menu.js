@@ -309,6 +309,10 @@ module.exports = [
       {
         name: 'text',
         path: '/styles/text'
+      },
+      {
+        name: 'set-brand',
+        path: '/styles/set-brand'
       }
     ]
   }
