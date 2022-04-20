@@ -284,13 +284,20 @@ module.exports = [
 
   {
     icon: 'palette',
-    name: 'Variáveis CSS',
+    name: 'Estilos',
     children: [
       {
         name: 'background',
-        path: '/styles/background/background'
+        path: '/styles/background'
+      },
+      {
+        name: 'border-radius',
+        path: '/styles/border-radius'
+      },
+      {
+        name: 'border',
+        path: '/styles/border'
       }
     ]
   }
-
 ]
