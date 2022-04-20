@@ -176,6 +176,7 @@ Sincronizado em _29/03/2022 as 11h40_.
 Sincronizado em _08/02/2022 as 17h00_.
 
 - Adicionada propriedade `outlined` como default.
+- Adicionado novo type `Number` para `modelValue` (porque ele pode ser um type number).
 - Propriedade `value` alterada para `modelValue`.
 - Evento `input` alterado para `update:modelValue`.
 - Adicionado propriedade `unmaskedValue` com default `true` para controle da máscara.
