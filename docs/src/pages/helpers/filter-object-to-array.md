@@ -1,23 +1,9 @@
-# filter-object-to-array  
-  
-  Função para filtrar um objeto, transformando cada chave em um item do array caso
-  o valor referente a chave seja true.
- 
- ```js
-export default function (object = {}) {
-  const list = []
+---
+title: filter-object-to-array  
+---
+Função para filtrar um objeto, transformando cada chave em um item do array caso o valor referente a chave seja true.
 
-  for (const key in object) {
-    if (object[key]) {
-      list.push(key)
-    }
-  }
-
-  return list
-}
-```
-  ### Exemplo
-```
+```js
 filterObjectToArray(
   {
     item1: true,
@@ -28,4 +14,3 @@ filterObjectToArray(
 ) 
 // retorna: ['item1', 'item4']
  ```
-
