@@ -155,12 +155,12 @@ export default {
       this.useForm && this.$emit('validate', await this.$refs.form.validate())
     },
 
-    // metodo para funcionar como plugin
+    // método para funcionar como plugin
     show () {
       this.$refs.dialog.show()
     },
 
-    // metodo para funcionar como plugin
+    // método para funcionar como plugin
     hide () {
       this.$refs.dialog.hide()
     },

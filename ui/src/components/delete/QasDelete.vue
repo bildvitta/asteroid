@@ -11,6 +11,7 @@
 <script>
 import { Loading } from 'quasar'
 import { NotifyError, NotifySuccess } from '../../plugins'
+import { useHistory } from '../../composables'
 
 import QasBtn from '../btn/QasBtn.vue'
 import QasDialog from '../dialog/QasDialog.vue'
@@ -50,6 +51,11 @@ export default {
     },
 
     deleting: {
+      type: Boolean
+    },
+
+    useAutoDeleteRoute: {
+      default: true,
       type: Boolean
     }
   },
@@ -98,9 +104,21 @@ export default {
       this.$emit('update:deleting', true)
 
       try {
+        const { destroyRoutes, history } = useHistory()
+
         await this.$store.dispatch(`${this.entity}/destroy`, { id: this.id, url: this.url })
+
         NotifySuccess('Item deletado com sucesso!')
+
+        if (this.useAutoDeleteRoute) {
+          // remove todas rotas que possuem o id do item excluído.
+          const routesToBeDeleted = this.getRoutesToBeDeletedById(history.list)
+          destroyRoutes(routesToBeDeleted)
+        }
+
+        // cria um evento para notificar que o item foi excluído no "window".
         this.createDeleteSuccessEvent()
+
         this.$emit('success')
       } catch (error) {
         NotifyError('Ops! Não foi possível deletar o item.')
@@ -109,6 +127,10 @@ export default {
         Loading.hide()
         this.$emit('update:deleting', false)
       }
+    },
+
+    getRoutesToBeDeletedById (routes = []) {
+      return routes.filter(({ params }) => params.id === this.id)
     },
 
     createDeleteSuccessEvent () {

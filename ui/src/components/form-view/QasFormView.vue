@@ -36,7 +36,7 @@ import { isEqualWith } from 'lodash-es'
 import { extend } from 'quasar'
 import { onBeforeRouteLeave } from 'vue-router'
 
-import { addRoute, history } from '../../store/history'
+import { useHistory } from '../../composables'
 import { NotifyError, NotifySuccess } from '../../plugins'
 
 import QasBtn from '../btn/QasBtn.vue'
@@ -181,10 +181,6 @@ export default {
       return this.disable || this.isSubmitting
     },
 
-    history () {
-      return history.list
-    },
-
     fieldsNameWithDefaultValue () {
       return Object.keys(this.fields).filter(field => 'default' in this.fields[field])
     }
@@ -296,6 +292,8 @@ export default {
 
     handleDialog (next) {
       this.openDialog()
+
+      const { addRoute } = useHistory()
 
       this.defaultDialogProps.ok.onClick = () => addRoute(this.$route)
       this.defaultDialogProps.cancel.onClick = next

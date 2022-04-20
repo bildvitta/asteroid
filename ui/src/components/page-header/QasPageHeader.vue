@@ -16,7 +16,9 @@
 
 <script>
 import { castArray } from 'lodash-es'
-import { history, getPreviousRoute } from '../../store/history'
+import { useHistory } from '../../composables'
+
+const { hasPreviousRoute, history, getPreviousRoute } = useHistory()
 
 export default {
   name: 'QasPageHeader',
@@ -45,7 +47,7 @@ export default {
 
   computed: {
     hasPreviousRoute () {
-      return history.hasPreviousRoute
+      return hasPreviousRoute.value
     },
 
     transformedBreadcrumbs () {
