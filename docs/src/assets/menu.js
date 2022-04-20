@@ -297,6 +297,18 @@ module.exports = [
       {
         name: 'border',
         path: '/styles/border'
+      },
+      {
+        name: 'line-height',
+        path: '/styles/line-height'
+      },
+      {
+        name: 'opacity',
+        path: '/styles/opacity'
+      },
+      {
+        name: 'text',
+        path: '/styles/text'
       }
     ]
   }

@@ -19,23 +19,3 @@ Define uma cor para a borda de acordo com o padrão adotado no Design system nas
 |`border-primary-contrast`  | Cria uma Borda com a cor da variável `$primary-contrast`   |`border: 0 solid $primary-contrast`  |
 |`border-secondary`         | Cria uma Borda com a cor da variável `$secondary`          |`border: 0 solid $secondary`         |
 |`border-secondary-contrast`| Cria uma Borda com a cor da variável `$secondary-contrast` |`border: 0 solid $secondary-contrast`|
-
-<!-- // Colors
-%border-color {
-  &:not(.border-top):not(.border-left):not(.border-bottom):not(.border-right) {
-    border-width: 1px !important;
-  }
-}
-
-@mixin set-border-color($name, $color) {
-  .border-#{$name} {
-    border: 0 solid $color !important;
-
-    @extend %border-color;
-  }
-}
-
-@include set-border-color(primary, $primary);
-@include set-border-color(primary-contrast, $primary-contrast);
-@include set-border-color(secondary, $secondary);
-@include set-border-color(secondary-contrast, $secondary-contrast); -->
