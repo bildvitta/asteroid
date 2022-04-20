@@ -1,4 +1,6 @@
-# Background
+---
+title: background
+---
 ### Tamanhos
 A propriedade background-size do CSS especifica o tamanho das imagens de fundo
 
@@ -8,7 +10,6 @@ A propriedade background-size do CSS especifica o tamanho das imagens de fundo
 |`bg-size-cover`     | Ajusta a imagem o mais largamente possível e mantém sua proporção |`background-size: cover`  |
 
 ### Posições
-
 A propriedade background-position define a posição inicial de uma imagem de fundo.
 
 | **Nome da Classe** |                             **Descrição**                  |        **Adiciona**         |

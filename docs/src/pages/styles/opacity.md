@@ -1,7 +1,7 @@
-# opacity
-
-A propriedade `opacity` define o nível de opacidade de um elemento.
-O nível de opacidade descreve o nível de transparência, em que 1 não é transparente, 0,5 é 50% transparente e 0 é completamente transparente.
+---
+title: opacity
+---
+A propriedade `opacity` define o nível de opacidade de um elemento. O nível de opacidade descreve o nível de transparência, em que 1 não é transparente, 0,5 é 50% transparente e 0 é completamente transparente.
 
 | **Nome da Classe** |                    **Descrição**                      | **Adiciona**   |
 |--------------------|-------------------------------------------------------|----------------|
