@@ -529,3 +529,11 @@ Sincronizado em _03/03/2022 as 12h00_.
 
 - Arquivo renomeado para `history.js`.
 - Arquivo exporta agora o `history` (proxy), `getPreviousRoute`, `addRoute` e `destroyRoutes`.
+
+## Estilos
+
+### ~~transitions.scss~~ (removido)
+
+Sincronizado em _21/04/2022 as 15h30_.
+
+- Este arquivo continha classes (fade) para serem usadas com `transition` e `transition-group`, porém agora estamos usado as [animações](https://quasar.dev/options/animations) do quasar, que por sua vez utiliza do [Animate.css](https://animate.style/).

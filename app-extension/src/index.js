@@ -2,32 +2,43 @@ const sourcePath = '~@bildvitta/quasar-app-extension-asteroid/src/'
 const resolve = (...paths) => paths.map(path => sourcePath + path)
 
 function extendQuasar (quasar) {
-  // Boot
+  // Arquivos de boot
+  // https://quasar.dev/quasar-cli-vite/boot-files#introduction
   quasar.boot.push(...resolve(
     'boot/api.js',
     'boot/register.js',
     'boot/history.js'
   ))
 
-  // Transpile!
+  // Transpilação de arquivos!
   quasar.build.transpileDependencies.push(/quasar-app-extension-asteroid[\\/]src/)
 
-  // Preserve whitespaces!
+  // Preserva whitespaces!
   // https://github.com/vuejs/core/pull/1600
   quasar.build.vueLoaderOptions.whitespace = 'preserve'
 
+  // Adiciona todas classes do asteroid
   quasar.css.push(...resolve('index.scss'))
 
+  // Adiciona todos os Plugins obrigatório do Quasar
   const plugins = [
     'Dialog',
     'Loading',
     'Notify'
   ]
 
-  // Add all required Quasar plugins
   plugins.forEach(plugin => quasar.framework.plugins.push(plugin))
 
-  // Settings
+  // Adiciona todas as classes de animação do Animate.css ao quasar
+  // https://animate.style/
+  const animations = [
+    'slideOutUp',
+    'slideInDown'
+  ]
+
+  animations.forEach(animation => quasar.animations.push(animation))
+
+  // Configurações
   quasar.extras.push(
     'material-icons-outlined'
   )
@@ -43,6 +54,7 @@ module.exports = function (api) {
   api.extendQuasarConf(extendQuasar)
 
   api.extendWebpack(webpack => {
+    // Adiciona um "alias" chamado "asteroid" para a aplicação
     const asteroid = 'node_modules/@bildvitta/quasar-ui-asteroid/src/asteroid.js'
 
     webpack.resolve.alias = {
