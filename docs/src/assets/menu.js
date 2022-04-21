@@ -288,5 +288,16 @@ module.exports = [
         path: '/helpers/filter-object-to-array'
       }
     ]
+  },
+
+  {
+    icon: 'add_to_photos',
+    name: 'Composição',
+    children: [
+      {
+        name: 'useHistory',
+        path: '/composables/useHistory'
+      }
+    ]
   }
 ]
