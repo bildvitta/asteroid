@@ -278,6 +278,25 @@ module.exports = [
       {
         name: 'setScrollOnGrab',
         path: '/helpers/set-scroll-on-grab'
+      },
+      {
+        name: 'filterListByHandle',
+        path: '/helpers/filter-list-by-handle'
+      },
+      {
+        name: 'filterObjectToArray',
+        path: '/helpers/filter-object-to-array'
+      }
+    ]
+  },
+
+  {
+    icon: 'add_to_photos',
+    name: 'Composição',
+    children: [
+      {
+        name: 'useHistory',
+        path: '/composables/useHistory'
       }
     ]
   }
