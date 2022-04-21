@@ -190,8 +190,8 @@ export default {
     },
 
     getFullTableWidth () {
-      const tableElemet = this.getTableElement()
-      return tableElemet?.getBoundingClientRect?.()?.width
+      const tableElement = this.getTableElement()
+      return tableElement?.getBoundingClientRect?.()?.width
     },
 
     getContainerTableWidth () {
