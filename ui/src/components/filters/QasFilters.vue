@@ -16,7 +16,7 @@
 
       <slot v-if="showFilterButton" :filter="filter" name="filter-button">
         <q-btn v-if="!noFilterButton" :color="filterButtonColor" flat icon="o_filter_list" :label="filterButtonLabel">
-          <q-menu @before-show="fetchFilters">
+          <q-menu>
             <div v-if="isFetching" class="q-pa-xl text-center">
               <q-spinner color="grey" size="2em" />
             </div>
@@ -61,6 +61,7 @@ export default {
   },
 
   mixins: [contextMixin],
+
   props: {
     badges: {
       default: true,
@@ -95,6 +96,10 @@ export default {
     url: {
       default: '',
       type: String
+    },
+
+    forceRefetch: {
+      type: Boolean
     }
   },
 
@@ -220,7 +225,7 @@ export default {
     },
 
     async fetchFilters () {
-      if (this.hasFields || this.noFilterButton) {
+      if (!this.forceRefetch && (this.hasFields || this.noFilterButton)) {
         return null
       }
 
