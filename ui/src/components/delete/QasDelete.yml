@@ -35,6 +35,10 @@ props:
     examples: [v-model:deleting="isDeleting"]
     model: true
 
+  use-auto-delete-route:
+    desc: Controla se sempre que deletar com sucesso um item, remove todas as rotas do histórico de rotas que contenha id do item deletado.
+    default: true
+    type: Boolean
 
 slots:
   default:

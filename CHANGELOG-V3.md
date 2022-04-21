@@ -176,6 +176,7 @@ Sincronizado em _29/03/2022 as 11h40_.
 Sincronizado em _08/02/2022 as 17h00_.
 
 - Adicionada propriedade `outlined` como default.
+- Adicionado novo type `Number` para `modelValue` (porque ele pode ser um type number).
 - Propriedade `value` alterada para `modelValue`.
 - Evento `input` alterado para `update:modelValue`.
 - Adicionado propriedade `unmaskedValue` com default `true` para controle da máscara.
@@ -321,6 +322,7 @@ Sincronizado em _16/02/2022 as 10h43_.
 - Adicionado `QasInput` como campo para `type number`.
 - Adicionado `QasInput` como campo para `type textarea`.
 - Propriedade `value` alterada para `modelValue`.
+- Propriedade `hideStrengthChecker` não vem mais como default caso não tenha pattern, uma vez que não existe mais a propriedade `pattern`.
 - Evento `input` alterado para `update:modelValue`.
 
 ### QasFormGenerator
@@ -482,10 +484,15 @@ Sincronizado em _08/04/2022 as 14h00_.
 
 Renomeado para `getGreatestCommonDivisor`.
 
-## Mixins
+### filterObjectToArray (Adicionado)
 
-### unsavedChangesMixin
-- Removido o mixin `unsavedChangesMixin`, não é mais necessário.
+Sincronizado em _19/04/2022 as 11h00_.
+
+### filterListByHandle (Adicionado)
+
+Sincronizado em _19/04/2022 as 11h00_.
+
+## Mixins
 
 ### FormMixin
 
@@ -500,7 +507,7 @@ Renomeado para `getGreatestCommonDivisor`.
 
 - `QasCustomUploader` foi removido tirando a necessidade de exitir este mixin.
 
-### ~~usavedChangesMixin~~ (removido)
+### ~~unsavedChangesMixin~~ (removido)
 
 - Agora o componente `QasFormView` é responsável por verificar se há alterações não salvas, não havendo mais necessidade de um mixin externo.
 

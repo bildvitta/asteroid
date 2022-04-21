@@ -9,7 +9,7 @@ meta:
 props:
   model-value:
     desc: Model do componente.
-    type: String
+    type: [String, Input]
     examples: [v-model="value"]
     model: true
 

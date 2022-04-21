@@ -21,7 +21,7 @@
       </qas-card>
 
       Form mode:
-      <qas-card form-mode :images="images" use-header>
+      <qas-card :images="images" outlined use-header>
         <template #default>
           <div>{{ result.name }}</div>
           <div>{{ result.email }}</div>

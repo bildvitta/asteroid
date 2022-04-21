@@ -119,15 +119,17 @@ export default {
       immediate: true
     },
 
-    modelValue (value) {
-      this.values = [...value]
+    modelValue: {
+      handler (value) {
+        this.values = [...value]
+      },
+
+      immediate: true
     }
   },
 
   created () {
-    this.values = [...this.modelValue]
-
-    this.handleOptions()
+    this.handleList()
   },
 
   methods: {
@@ -155,7 +157,7 @@ export default {
       return this.values.includes(item.value) ? this.remove(item) : this.add(item)
     },
 
-    handleOptions () {
+    handleList () {
       if (this.modelValue.length) {
         return this.sortList()
       }
@@ -186,8 +188,8 @@ export default {
 
     sortList () {
       this.sortedList = this.deleteOnly
-        ? this.list.filter(option => this.modelValue.includes(option.value))
-        : sortBy(this.list, option => !this.modelValue.includes(option.value))
+        ? this.list.filter(item => this.modelValue.includes(item.value))
+        : sortBy(this.list, item => !this.modelValue.includes(item.value))
     },
 
     updateModel (model) {

@@ -17,7 +17,7 @@ export default {
   props: {
     modelValue: {
       default: '',
-      type: String
+      type: [String, Number]
     },
 
     unmaskedValue: {
