@@ -7,7 +7,7 @@ O useHistory contém todo o controle de histórico de rotas dentro do ciclo de v
 ```js
 import { useHistory } from 'asteroid'
 
-const { addRoute, destroyRoutes, getPreviousRoute, history, hasPreviouRoute } = useHistory()
+const { addRoute, destroyRoutes, getPreviousRoute, history, hasPreviousRoute } = useHistory()
 
 addRoute(this.$route) 
 // Adiciona a rota atual no histórico de rotas
