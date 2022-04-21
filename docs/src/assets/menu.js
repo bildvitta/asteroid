@@ -313,6 +313,10 @@ module.exports = [
       {
         name: 'set-brand',
         path: '/styles/set-brand'
+      },
+      {
+        name: 'container',
+        path: '/styles/container'
       }
     ]
   }

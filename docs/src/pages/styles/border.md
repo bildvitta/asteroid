@@ -12,7 +12,7 @@ Define qual direção será criado uma borda.
 |`border-right`      | Cria uma borda na direita do objeto  |`border-right-width: 1px` |
 
 ### Colors
-Define uma cor para a borda de acordo com o padrão adotado no Design system nas variáveis `$primary` `$secondary`
+Define uma cor para a borda de acordo com as variáveis `$primary` `$secondary`
 |     **Nome da Classe**    |                       **Descrição**                        |            **Adiciona**             |
 |---------------------------|------------------------------------------------------------|-------------------------------------|
 |`border-primary`           | Cria uma Borda com a cor da variável `$primary`            |`border: 0 solid $primary`           |
