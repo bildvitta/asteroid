@@ -62,7 +62,6 @@ import { NotifyError } from '../../plugins'
 import { getImageSize, getResizeDimensions } from '../../helpers/images'
 
 import Pica from 'pica'
-import api from 'axios'
 
 export default {
   name: 'QasUploader',
@@ -257,7 +256,7 @@ export default {
       this.isFetching = true
 
       try {
-        const { data } = await api.post('/upload-credentials/', {
+        const { data } = await this.$axios.post('/upload-credentials/', {
           entity: this.entity,
           filename
         })

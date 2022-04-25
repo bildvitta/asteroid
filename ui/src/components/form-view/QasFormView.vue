@@ -62,7 +62,7 @@ export default {
 
     cancelRoute: {
       default: '',
-      type: [Boolean, Object, String]
+      type: [Boolean, Object, String, Function]
     },
 
     customId: {
@@ -278,9 +278,11 @@ export default {
     },
 
     handleCancelRoute () {
-      const acceptTypes = ['string', 'object']
+      if (typeof this.cancelRoute === 'function') {
+        return this.cancelRoute()
+      }
 
-      if (this.cancelRoute && acceptTypes.includes(typeof this.cancelRoute)) {
+      if (this.cancelRoute && ['string', 'object'].includes(typeof this.cancelRoute)) {
         return this.$router.push(this.cancelRoute)
       }
 
