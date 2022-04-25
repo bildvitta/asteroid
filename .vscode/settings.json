@@ -1,6 +1,6 @@
 {
   "eslint.validate": ["javascript", "vue"],
-  "eslint.workingDirectories": ["./app-extension", "./docs", "./ui"],
+  "eslint.workingDirectories": ["./app-extension", "/build", "./docs", "/eslint", "./ui"],
 
   "stylelint.validate": ["scss", "vue"],
 

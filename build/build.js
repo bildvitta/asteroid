@@ -1,6 +1,7 @@
 require('colors') // https://github.com/Marak/colors.js
 const { prompt } = require('enquirer') // https://github.com/enquirer/enquirer
 const jetpack = require('fs-jetpack') // https://github.com/szwacz/fs-jetpack
+const ghpages = require('gh-pages') // https://github.com/tschaub/gh-pages
 const path = require('path') // https://nodejs.org/api/path.html
 const semver = require('semver') // https://github.com/npm/node-semver
 
@@ -114,9 +115,21 @@ async function main () {
   lintSpinner.succeed('Arquivos lintados.')
 
   // Build UI
-  const buildSpinner = ora('Gerando o "ui"...').start()
+  const uiSpinner = ora('Gerando o "ui"...').start()
   execaSync('npm', ['run', 'build'], { cwd: packages.ui.resolved })
-  buildSpinner.succeed('Geração do "ui" concluída.')
+  uiSpinner.succeed('Geração do "ui" concluída.')
+
+  // Build docs
+  const docsSpinner = ora('Gerando a "documentação"...').start()
+  execaSync('npm', ['run', 'build'], { cwd: packages.docs.resolved })
+  execaSync('cp', ['-R', 'dist/spa', `dist/v${nextVersion}`], { cwd: packages.docs.resolved })
+  execaSync('mv', [`dist/v${nextVersion}`, 'dist/spa'], { cwd: packages.docs.resolved })
+  docsSpinner.succeed('Geração da "documentação" concluída.')
+
+  // Deploy docs
+  const deploySpinner = ora('Publicando a "documentação"...').start()
+  ghpages.publish(`${packages.docs.resolved}/dist/spa`, { remove: '/!(v*)/**/*' })
+  deploySpinner.succeed('Publicação da "documentação" concluída.')
 }
 
 main()
