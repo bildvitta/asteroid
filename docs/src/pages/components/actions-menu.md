@@ -2,6 +2,10 @@
 title: QasActionsMenu
 ---
 
+<div class="flex q-gutter-x-md">
+  <doc-link title="Asteroid Componente" name="QasDelete" to="/components/delete" />
+</div>
+
 Componente para abrir um menu de ação a partir de um botão, muito utilizado em tela de edição.
 
 <doc-api file="actions-menu/QasActionsMenu" name="QasActionsMenu" />
@@ -10,7 +14,7 @@ Componente para abrir um menu de ação a partir de um botão, muito utilizado e
 ## Uso
 
 :::tip
-A prop `list` é um objeto de objetos, que contem os seguintos atributos:
+A prop `list` é um objeto de objetos, que contem os seguintes atributos:
 
 ```js
 {
@@ -36,3 +40,4 @@ A prop `deleteProps` ativa o componente `QasDelete`, quando é passada o `QasAct
 <doc-example file="QasActionsMenu/Basic" title="Básico" />
 <doc-example file="QasActionsMenu/Delete" title="QasDelete como padrão" />
 <doc-example file="QasActionsMenu/CustomSlot" title="Templates dinâmicos" />
+
