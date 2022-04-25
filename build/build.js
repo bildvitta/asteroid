@@ -3,6 +3,7 @@ const { prompt } = require('enquirer') // https://github.com/enquirer/enquirer
 const jetpack = require('fs-jetpack') // https://github.com/szwacz/fs-jetpack
 const ghpages = require('gh-pages') // https://github.com/tschaub/gh-pages
 const path = require('path') // https://nodejs.org/api/path.html
+const rimraf = require('rimraf') // https://github.com/isaacs/rimraf
 const semver = require('semver') // https://github.com/npm/node-semver
 
 // Options
@@ -128,8 +129,19 @@ async function main () {
 
   // Deploy docs
   const deploySpinner = ora('Publicando a "documentação"...').start()
-  ghpages.publish(`${packages.docs.resolved}/dist/spa`, { remove: '/!(v*)/**/*' })
-  deploySpinner.succeed('Publicação da "documentação" concluída.')
+  ghpages.publish(`${packages.docs.resolved}/dist/spa`, {
+    add: true,
+    beforeAdd ({ cwd }) {
+      return rimraf.sync(`${cwd}/!(v*)/**/*`)
+    }
+  }, error => {
+    if (error) {
+      deploySpinner.fail('Falha ao publicar a "documentação".')
+      return console.error(error)
+    }
+
+    deploySpinner.succeed('Publicação da "documentação" concluída.')
+  })
 }
 
 main()
