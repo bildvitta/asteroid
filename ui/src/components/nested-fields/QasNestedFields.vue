@@ -4,46 +4,44 @@
       <qas-label v-if="useSingleLabel" :label="fieldLabel" />
     </div>
 
-    <div>
-      <component :is="componentTag" ref="inputContent" name="fade" tag="div">
-        <div v-for="(row, index) in nested" :id="`row-${index}`" :key="index" class="full-width">
-          <component :is="componentTag" name="fade" tag="div">
-            <div v-if="!row[destroyKey]" :key="index" class="col-12 q-mt-md">
-              <div>
-                <div class="flex items-center justify-between q-py-xs">
-                  <qas-label v-if="!useSingleLabel" :label="setRowLabel(index)" />
+    <div ref="inputContent">
+      <component :is="componentTag" v-bind="componentProps">
+        <div v-for="(row, index) in nested" :id="`row-${index}`" :key="`row-${index}`" class="full-width">
+          <div v-if="!row[destroyKey]" :key="index" class="col-12 q-mt-md">
+            <div>
+              <div class="flex items-center justify-between q-py-xs">
+                <qas-label v-if="!useSingleLabel" :label="setRowLabel(index)" />
 
-                  <div v-if="!useInlineActions" class="q-gutter-x-sm">
-                    <qas-btn v-if="useDuplicate" v-bind="btnDuplicateProps" @click="add(row)" />
-                    <qas-btn v-if="showDestroyBtn" v-bind="btnDestroyProps" @click="destroy(index, row)" />
-                  </div>
-                </div>
-
-                <div ref="formGenerator" class="col-12 justify-between q-col-gutter-x-md row">
-                  <slot :errors="transformedErrors" :fields="children" :index="index" name="fields" :update-value="updateValuesFromInput">
-                    <qas-form-generator v-model="nested[index]" :class="formClasses" :columns="formColumns" :errors="transformedErrors[index]" :fields="children" :fields-props="fieldsProps" @update:model-value="updateValuesFromInput($event, index)">
-                      <template v-for="(slot, key) in $slots" #[key]="scope">
-                        <slot v-bind="scope" :errors="transformedErrors" :index="index" :name="key" />
-                      </template>
-                    </qas-form-generator>
-                  </slot>
-
-                  <div v-if="useInlineActions" class="flex items-center qas-nested-fields__actions">
-                    <div class="col-auto">
-                      <qas-btn v-if="useDuplicate" color="primary" flat icon="o_content_copy" round @click="add(row)" />
-                    </div>
-                    <div class="col-auto">
-                      <qas-btn v-if="showDestroyBtn" color="negative" flat icon="o_cancel" round @click="destroy(index, row)" />
-                    </div>
-                  </div>
-                </div>
-
-                <div class="col-12">
-                  <slot :fields="children" :index="index" :model="nested[index]" name="custom-fields" :update-value="updateValuesFromInput" />
+                <div v-if="!useInlineActions" class="q-gutter-x-sm">
+                  <qas-btn v-if="useDuplicate" v-bind="btnDuplicateProps" @click="add(row)" />
+                  <qas-btn v-if="showDestroyBtn" v-bind="btnDestroyProps" @click="destroy(index, row)" />
                 </div>
               </div>
+
+              <div ref="formGenerator" class="col-12 justify-between q-col-gutter-x-md row">
+                <slot :errors="transformedErrors" :fields="children" :index="index" name="fields" :update-value="updateValuesFromInput">
+                  <qas-form-generator v-model="nested[index]" :class="formClasses" :columns="formColumns" :errors="transformedErrors[index]" :fields="children" :fields-props="fieldsProps" @update:model-value="updateValuesFromInput($event, index)">
+                    <template v-for="(slot, key) in $slots" #[key]="scope">
+                      <slot v-bind="scope" :errors="transformedErrors" :index="index" :name="key" />
+                    </template>
+                  </qas-form-generator>
+                </slot>
+
+                <div v-if="useInlineActions" class="flex items-center qas-nested-fields__actions">
+                  <div class="col-auto">
+                    <qas-btn v-if="useDuplicate" color="primary" flat icon="o_content_copy" round @click="add(row)" />
+                  </div>
+                  <div class="col-auto">
+                    <qas-btn v-if="showDestroyBtn" color="negative" flat icon="o_cancel" round @click="destroy(index, row)" />
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-12">
+                <slot :fields="children" :index="index" :model="nested[index]" name="custom-fields" :update-value="updateValuesFromInput" />
+              </div>
             </div>
-          </component>
+          </div>
         </div>
       </component>
 
@@ -73,6 +71,7 @@ import QasBtn from '../btn/QasBtn.vue'
 import QasFormGenerator from '../form-generator/QasFormGenerator.vue'
 import QasInput from '../input/QasInput.vue'
 import QasLabel from '../label/QasLabel.vue'
+import { TransitionGroup } from 'vue'
 
 import { constructObject } from '../../helpers'
 import { extend } from 'quasar'
@@ -85,7 +84,10 @@ export default {
     QasBtn,
     QasFormGenerator,
     QasInput,
-    QasLabel
+    QasLabel,
+
+    // vue
+    TransitionGroup
   },
 
   props: {
@@ -249,6 +251,16 @@ export default {
 
     componentTag () {
       return this.useAnimation ? 'transition-group' : 'div'
+    },
+
+    componentProps () {
+      if (!this.useAnimation) return {}
+
+      return {
+        tag: 'div',
+        enterActiveClass: 'animated slideInDown',
+        leaveActiveClass: 'animated slideOutUp'
+      }
     }
   },
 

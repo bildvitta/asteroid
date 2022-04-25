@@ -1,5 +1,5 @@
 ---
-title: filter-list-by-handle
+title: filterListByHandle
 ---
 
 Função para filtrar um array de objeto, usando a lógica na propriedade `handle` e adicionando o que tem dentro da propriedade `item`.

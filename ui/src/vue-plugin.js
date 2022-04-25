@@ -50,6 +50,7 @@ import QasUploader from './components/uploader/QasUploader.vue'
 import VueGoogleMaps from '@fawmi/vue-google-maps'
 import { Notify, Quasar, Dialog as QuasarDialog } from 'quasar'
 
+// Plugins
 import {
   Dialog,
   NotifyError,
@@ -57,6 +58,9 @@ import {
 } from './plugins'
 
 import packageInfo from '../package.json'
+
+// Directives
+import Test from './directives/Test.js'
 
 const version = packageInfo.version
 
@@ -121,6 +125,8 @@ function install (app) {
     error: NotifyError,
     success: NotifySuccess
   }
+
+  app.directive(Test.name, Test)
 }
 
 export {
