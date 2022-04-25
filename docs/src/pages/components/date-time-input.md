@@ -2,6 +2,10 @@
 title: QasDateTimeInput
 ---
 
+<div class="flex q-gutter-x-md">
+  <doc-link title="Componente" name="QasInput" to="/components/input" />  
+</div>
+
 Componente de input data e hora, implementa o "QasInput".
 
 <doc-api file="date-time-input/QasDateTimeInput" name="QasDateTimeInput" />

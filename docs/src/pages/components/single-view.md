@@ -2,6 +2,13 @@
 title: QasSingleView
 ---
 
+<div class="flex q-gutter-x-md">
+  <doc-link title="Componente" name="QasDebugger" to="/components/debugger" />
+  <doc-link title="Componente" name="QasListView" to="/components/list-view" />
+  <doc-link title="Componente" name="QasPageHeader" to="/components/page-header" />
+  <doc-link title="Componente" name="QasGridGenerator" to="/components/grid-generator" />
+</div>
+
 Componente para C.R.U.D. responsável pela visualização (Read) ou conhecido também como "show".
 
 <doc-api file="single-view/QasSingleView" name="QasSingleView" />

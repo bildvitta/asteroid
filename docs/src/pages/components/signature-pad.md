@@ -2,6 +2,10 @@
 title: QasSignaturePad
 ---
 
+<div class="flex q-gutter-x-md">
+  <doc-link title="Componente" name="QasBtn" to="/components/button" />
+</div>
+
 Componente para assinatura que gera uma imagem.
 
 <doc-api file="signature-pad/QasSignaturePad" name="QasSignaturePad" />

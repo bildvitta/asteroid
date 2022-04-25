@@ -2,6 +2,10 @@
 title: QasSearchBox
 ---
 
+<div class="flex q-gutter-x-md">
+  <doc-link title="Componente" name="QasBox" to="/components/Box" />
+</div>
+
 Componente para pesquisa utilizando Fuse.js.
 
 <doc-api file="search-box/QasSearchBox" name="QasSearchBox" />

@@ -2,6 +2,11 @@
 title: QasSignatureUploader
 ---
 
+<div class="flex q-gutter-x-md">
+  <doc-link title="Componente" name="QasUploader" to="/components/uploader" />
+  <doc-link title="Componente" name="QasSignaturePad" to="/components/signature-pad" />
+</div>
+
 Componente que implementa o "QasUploader" e "QasSignaturePad" para fazer upload de assinatura.
 
 <doc-api file="signature-uploader/QasSignatureUploader" name="QasSignatureUploader" />

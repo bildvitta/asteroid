@@ -2,6 +2,10 @@
 title: QasPasswordStrengthChecker
 ---
 
+<div class="flex q-gutter-x-md">
+  <doc-link title="Componente" name="QasPasswordInput" to="/components/password-input" />
+</div>
+
 Componente para checar nível de força da senha.
 
 <doc-api file="password-strength-checker/QasPasswordStrengthChecker" name="QasPasswordStrengthChecker" />

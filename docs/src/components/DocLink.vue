@@ -1,7 +1,7 @@
 <template>
   <div class="doc-link q-mb-md row">
     <router-link class="doc-link__router-link text-no-decoration" :to="to">
-      <div class="bg-grey-4 cursor-pointer flex items-center q-gutter-x-sm q-pa-md rounded-borders">
+      <div class="bg-grey-4 cursor-pointer flex items-center justify-between q-gutter-x-sm q-pa-md rounded-borders">
         <div>
           {{ title }}
           <div class="text-bold">
@@ -41,6 +41,7 @@ export default {
 .doc-link {
   &__router-link {
     color: black;
+    min-width: 200px;
 
     &:hover {
       color: $primary;

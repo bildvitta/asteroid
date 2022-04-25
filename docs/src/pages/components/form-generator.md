@@ -2,6 +2,10 @@
 title: QasFormGenerator
 ---
 
+<div class="flex q-gutter-x-md">
+  <doc-link title="Componente" name="QasDebugger" to="/components/debugger" />
+</div>
+
 Componente para criação de multiplos campos dinâmicos a partir do componente `QasField`.
 
 <doc-api file="form-generator/QasFormGenerator" name="QasFormGenerator" />

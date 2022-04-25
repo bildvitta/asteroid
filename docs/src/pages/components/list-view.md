@@ -2,6 +2,14 @@
 title: QasListView
 ---
 
+<div class="flex q-gutter-x-md">
+  <doc-link title="Asteroid Componente" name="QasDebugger" to="/components/debugger" />
+  <doc-link title="Asteroid Componente" name="QasSingleView" to="/components/single-view" />
+</div>
+
+
+
+
 Componente para C.R.U.D. responsável pela parte de listagem (Read).
 
 <doc-api file="list-view/QasListView" name="QasListView" />

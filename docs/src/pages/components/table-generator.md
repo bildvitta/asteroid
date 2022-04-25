@@ -2,6 +2,13 @@
 title: QasTableGenerator
 ---
 
+<div class="flex q-gutter-x-md">
+  <doc-link title="Componente" name="QasListView" to="/components/list-view" />
+  <doc-link title="Componente" name="QasTableGenerator" to="/components/table-generator" />
+  <doc-link title="Componente" name="QasBtn" to="/components/button" />
+  <doc-link title="Componente" name="QasBox" to="/components/Box" />
+</div>
+
 Componente para criação de tabela dinâmica usando o `QTable` do quasar.
 
 <doc-api file="table-generator/QasTableGenerator" name="QasTableGenerator" />

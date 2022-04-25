@@ -2,6 +2,10 @@
 title: QasField
 ---
 
+<div class="flex q-gutter-x-md">
+  <doc-link title="Componente" name="QasDebugger" to="/components/debugger" />
+</div>
+
 Componente para criação de campos dinâmicos.
 
 <doc-api file="field/QasField" name="QasField" />

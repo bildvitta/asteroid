@@ -2,6 +2,14 @@
 title: QasFormView
 ---
 
+<div class="flex q-gutter-x-md">
+  <doc-link title="Componente" name="QasDebugger" to="/components/debugger" />
+  <doc-link title="Componente" name="QasPageHeader" to="/components/page-header" />
+  <doc-link title="Componente" name="QasFormGenerator" to="/components/form-generator" />
+  <doc-link title="Componente" name="QasBox" to="/components/box" />
+  <doc-link title="Componente" name="QasActionsMenu" to="/components/actions-menu" />
+</div>
+
 Componente para C.R.U.D. responsável pela pela criação (Create) e edição (Update).
 
 <doc-api file="form-view/QasFormView" name="QasFormView" />

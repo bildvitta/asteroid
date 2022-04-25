@@ -2,6 +2,10 @@
 title: QasProfile
 ---
 
+<div class="flex q-gutter-x-md">
+  <doc-link title="Componente" name="QasSingleView" to="/components/single-view" />
+</div>
+
 Componente para cabeçalho de perfil.
 
 <doc-api file="profile/QasProfile" name="QasProfile" />

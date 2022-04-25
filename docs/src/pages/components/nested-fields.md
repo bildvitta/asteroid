@@ -2,6 +2,11 @@
 title: QasNestedFields
 ---
 
+<div class="flex q-gutter-x-md">
+  <doc-link title="Componente" name="QasDebugger" to="/components/debugger" />
+  <doc-link title="Componente" name="QasBtn" to="/components/button" />
+</div>
+
 Componente para gerar dinâmicamente campos nested.
 
 <doc-api file="nested-fields/QasNestedFields" name="QasNestedFields" />
@@ -62,7 +67,7 @@ A propriedade `rowObject` é usado para definir quais os valores **default** de 
 :::
 
 :::tip
-Para saber mais sobre o **API Design Pattern** clice [aqui](https://www.notion.so/bildvitta/API-Design-Patterns-5c2509b697614bbbac49cbed0aab70a1).
+Para saber mais sobre o **API Design Pattern** clique [aqui](https://www.notion.so/bildvitta/API-Design-Patterns-5c2509b697614bbbac49cbed0aab70a1).
 :::
 
 :::warning

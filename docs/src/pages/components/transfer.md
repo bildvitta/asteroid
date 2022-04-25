@@ -2,6 +2,10 @@
 title: QasTransfer
 ---
 
+<div class="flex q-gutter-x-md">
+  <doc-link title="Asteroid Componente" name="QasDebugger" to="/components/debugger" />
+</div>
+
 Componente para transferir itens entre 2 lista (colunas).
 
 <doc-api file="transfer/QasTransfer" name="QasTransfer" />

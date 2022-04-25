@@ -2,6 +2,10 @@
 title: QasCheckboxGroup
 ---
 
+<div class="flex q-gutter-x-md">
+  <doc-link title="Componente" name="QasDebugger" to="/components/debugger" />
+</div>
+
 Componente para gerar dinamicamente checkbox agrupados.
 
 <doc-api file="checkbox-group/QasCheckboxGroup" name="QasCheckboxGroup" />

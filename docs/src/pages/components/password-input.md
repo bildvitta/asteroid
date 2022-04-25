@@ -2,6 +2,10 @@
 title: QasPasswordInput
 ---
 
+<div class="flex q-gutter-x-md">
+  <doc-link title="Componente" name="QasInput" to="/components/input" />
+</div>
+
 Componente para input de senhas que implementa o "QasInput" repassando todos os slots menos "#hint" e todos os eventos.
 
 <doc-api file="password-input/QasPasswordInput" name="QasPasswordInput" />
