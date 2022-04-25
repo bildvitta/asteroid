@@ -1,6 +1,7 @@
 ---
 title: background
 ---
+
 ### Tamanhos
 A propriedade background-size do CSS especifica o tamanho das imagens de fundo
 

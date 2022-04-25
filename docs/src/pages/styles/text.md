@@ -1,6 +1,7 @@
 ---
 title: text
 ---
+
 As classes de texto ajudam no alinhamento, quebra e decoração.
 
 | **Nome da Classe** |                                **Descrição**                             |      **Adiciona**          |
