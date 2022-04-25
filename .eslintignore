@@ -4,5 +4,6 @@
 **/*.config.js
 
 # Temporary Dirs
+/docs/dist
 /ui/dev
 /ui/dist

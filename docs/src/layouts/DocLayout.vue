@@ -2,6 +2,7 @@
   <q-layout class="app" view="lHh LpR lff">
     <q-header bordered class="app-header text-dark">
       <q-toolbar>
+        <q-btn dense flat icon="menu" @click="toggleLeftDrawer" />
         <q-toolbar-title>Asteroid</q-toolbar-title>
 
         <q-space />

@@ -521,11 +521,24 @@ Sincronizado em _19/04/2022 as 11h00_.
 
 - Adicionado novo plugin de Dialog, `this.$qas.dialog()`.
 
-## Store
+## Composables
 
-### history.js (historyHandler.js)
+### useHistory (historyHandler.js)
 
-Sincronizado em _03/03/2022 as 12h00_.
+Sincronizado em _21/04/2022 as 12h00_.
 
-- Arquivo renomeado para `history.js`.
-- Arquivo exporta agora o `history` (proxy), `getPreviousRoute`, `addRoute` e `destroyRoutes`.
+- Arquivo renomeado para `useHistory.js`.
+
+## Estilos
+
+### ~~transitions.scss~~ (removido)
+
+Sincronizado em _21/04/2022 as 15h30_.
+
+- Este arquivo continha classes (fade) para serem usadas com `transition` e `transition-group`, porém agora estamos usado as [animações](https://quasar.dev/options/animations) do quasar, que por sua vez utiliza do [Animate.css](https://animate.style/).
+
+## Diretivas
+
+### Test
+
+Sincronizado em _21/04/2022 as 17h00_.

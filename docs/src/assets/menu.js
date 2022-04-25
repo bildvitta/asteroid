@@ -327,5 +327,17 @@ module.exports = [
         path: '/styles/container'
       }
     ]
+  },
+
+  {
+    icon: 'add_to_photos',
+    name: 'Composição',
+    children: [
+      {
+        name: 'useHistory',
+        path: '/composables/useHistory'
+      }
+    ]
   }
+
 ]
