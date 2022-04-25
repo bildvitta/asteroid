@@ -123,8 +123,10 @@ export default {
     list: {
       handler (value) {
         this.fuse = new Fuse(value, this.defaultFuseOptions)
+        console.log(value, '>>>> value krl')
 
         this.setResults(this.search)
+        this.updateResultsModel(value)
       },
 
       deep: true
@@ -141,7 +143,7 @@ export default {
 
     searchResults: {
       handler (value) {
-        this.$emit('update:results', value.map(result => result.item || result))
+        this.updateResultsModel(value)
       },
       immediate: true
     }
@@ -158,6 +160,10 @@ export default {
       this.searchResults = value
         ? this.fuse.search(value)
         : this.list
+    },
+
+    updateResultsModel (value) {
+      this.$emit('update:results', value.map(result => result.item || result))
     }
   }
 }
