@@ -291,6 +291,45 @@ module.exports = [
   },
 
   {
+    icon: 'palette',
+    name: 'Estilos',
+    children: [
+      {
+        name: 'background',
+        path: '/styles/background'
+      },
+      {
+        name: 'border-radius',
+        path: '/styles/border-radius'
+      },
+      {
+        name: 'border',
+        path: '/styles/border'
+      },
+      {
+        name: 'line-height',
+        path: '/styles/line-height'
+      },
+      {
+        name: 'opacity',
+        path: '/styles/opacity'
+      },
+      {
+        name: 'text',
+        path: '/styles/text'
+      },
+      {
+        name: 'set-brand',
+        path: '/styles/set-brand'
+      },
+      {
+        name: 'container',
+        path: '/styles/container'
+      }
+    ]
+  },
+
+  {
     icon: 'add_to_photos',
     name: 'Composição',
     children: [
@@ -300,4 +339,5 @@ module.exports = [
       }
     ]
   }
+
 ]
