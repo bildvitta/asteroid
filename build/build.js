@@ -123,6 +123,11 @@ async function main () {
   const docsSpinner = ora('Gerando a "documentação"...').start()
   execaSync('npm', ['run', 'build'], { cwd: packages.docs.resolved })
   execaSync('cp', ['-R', 'dist/spa', `dist/v${nextVersion}`], { cwd: packages.docs.resolved })
+
+  const indexPath = `${packages.docs.resolved}/dist/v${nextVersion}/index.html`
+  const indexData = (jetpack.read(indexPath)).replace('base href=/asteroid/', `base href=/asteroid/v${nextVersion}/`)
+  jetpack.write(indexPath, indexData)
+
   execaSync('mv', [`dist/v${nextVersion}`, 'dist/spa'], { cwd: packages.docs.resolved })
   docsSpinner.succeed('Geração da "documentação" concluída.')
 
