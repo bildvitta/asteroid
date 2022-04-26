@@ -62,20 +62,20 @@ export default {
       const sizes = {
         [this.$_isSmall]: '250',
         [this.$_isMedium]: '420',
-        [this.$_isLarge]: '250',
+        [this.$_isLarge]: '250'
       }
 
-      return sizes[true]
+      return sizes.true
     },
 
     width () {
       const sizes = {
         [this.$_isSmall]: '264',
         [this.$_isMedium]: '576',
-        [this.$_isLarge]: '350',
+        [this.$_isLarge]: '350'
       }
-      
-      return sizes[true]
+
+      return sizes.true
     }
   },
 
