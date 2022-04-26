@@ -1,5 +1,5 @@
 ---
-title: filter-object-to-array  
+title: filterObjectToArray  
 ---
 
 Função para filtrar um objeto, transformando cada chave em um item do array caso o valor referente a chave seja true.
