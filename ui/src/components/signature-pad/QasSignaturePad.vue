@@ -7,10 +7,13 @@
 
 <script>
 import SignaturePad from 'signature_pad'
+import { screenMixin } from '../../mixins'
 import { uid } from 'quasar'
 import { isEqual } from 'lodash'
 
 export default {
+  mixins: [screenMixin],
+
   props: {
     options: {
       type: Object,
@@ -20,16 +23,6 @@ export default {
     type: {
       type: String,
       default: 'image/png'
-    },
-
-    height: {
-      type: String,
-      default: '250'
-    },
-
-    width: {
-      type: String,
-      default: '350'
     },
 
     isEmpty: {
@@ -62,6 +55,28 @@ export default {
     window.addEventListener('resize', this.setCanvasWidth)
     this.setCanvasWidth()
     this.setupSignaturePad()
+  },
+
+  computed: {
+    height () {
+      const sizes = {
+        [this.$_isSmall]: '250',
+        [this.$_isMedium]: '420',
+        [this.$_isLarge]: '250',
+      }
+
+      return sizes[true]
+    },
+
+    width () {
+      const sizes = {
+        [this.$_isSmall]: '264',
+        [this.$_isMedium]: '576',
+        [this.$_isLarge]: '350',
+      }
+      
+      return sizes[true]
+    }
   },
 
   methods: {
