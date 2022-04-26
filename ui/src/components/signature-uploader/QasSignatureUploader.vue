@@ -15,13 +15,13 @@
       </template>
     </qas-uploader>
 
-    <qas-dialog v-model="isOpenedDialog">
+    <qas-dialog v-model="isOpenedDialog" v-bind="dialogProps">
       <template #header>
         <div class="text-bold text-center">Insira sua assinatura digital no campo abaixo</div>
       </template>
 
       <template #description>
-        <qas-signature-pad ref="signaturePadModal" height="250" :is-empty.sync="isEmpty" />
+        <qas-signature-pad ref="signaturePadModal" v-bind="signaturePadProps" :is-empty.sync="isEmpty" />
       </template>
 
       <template #actions>
@@ -47,6 +47,19 @@ export default {
   },
 
   props: {
+    dialogProps: {
+      type: Object,
+      default: () => ({})
+    },
+
+    signaturePadProps: {
+      type: Object,
+      default: () => ({
+        height: '250',
+        width: '350'
+      })
+    },
+
     uploadLabel: {
       default: 'Assinatura digital',
       type: String
