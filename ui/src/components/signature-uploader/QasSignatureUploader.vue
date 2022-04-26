@@ -54,10 +54,7 @@ export default {
 
     signaturePadProps: {
       type: Object,
-      default: () => ({
-        height: '250',
-        width: '350'
-      })
+      default: () => ({})
     },
 
     uploadLabel: {
