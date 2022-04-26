@@ -3,7 +3,7 @@ title: QasActionsMenu
 ---
 
 <div class="flex q-gutter-x-md">
-  <doc-link title="Asteroid Componente" name="QasDelete" to="/components/delete" />
+  <doc-link title="Componente" name="QasDelete" to="/components/delete" />
 </div>
 
 Componente para abrir um menu de ação a partir de um botão, muito utilizado em tela de edição.

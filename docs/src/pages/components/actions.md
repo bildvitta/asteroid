@@ -3,7 +3,7 @@ title: QasActions
 ---
 
 <div class="flex q-gutter-x-md">
-  <doc-link title="Asteroid Componente" name="QasBtn" to="/components/button" />
+  <doc-link title="Componente" name="QasBtn" to="/components/button" />
 </div>
 
 Área de ações para páginas que lidam com botões primários e secundários, como um formulário ou caixa de diálogo.

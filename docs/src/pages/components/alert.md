@@ -3,7 +3,7 @@ title: QasAlert
 ---
 
 <div class="flex q-gutter-x-md">
-  <doc-link title="Asteroid Componente" name="QasBtn" to="/components/button" />
+  <doc-link title="Componente" name="QasBtn" to="/components/button" />
 </div>
 
 Componente para abrir um menu de ação a partir de um botão, muito utilizado em tela de edição.

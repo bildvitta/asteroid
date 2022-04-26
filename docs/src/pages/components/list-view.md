@@ -3,8 +3,8 @@ title: QasListView
 ---
 
 <div class="flex q-gutter-x-md">
-  <doc-link title="Asteroid Componente" name="QasDebugger" to="/components/debugger" />
-  <doc-link title="Asteroid Componente" name="QasSingleView" to="/components/single-view" />
+  <doc-link title="Componente" name="QasDebugger" to="/components/debugger" />
+  <doc-link title="Componente" name="QasSingleView" to="/components/single-view" />
 </div>
 
 
