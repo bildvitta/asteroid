@@ -123,7 +123,6 @@ export default {
     list: {
       handler (value) {
         this.fuse = new Fuse(value, this.defaultFuseOptions)
-        console.log(value, '>>>> value krl')
 
         this.setResults(this.search)
         this.updateResultsModel(value)

@@ -146,7 +146,6 @@ export default {
   watch: {
     options: {
       handler (value) {
-        console.log('cai aqui', value)
         this.optionsList = extend(true, [], value)
       },
 
