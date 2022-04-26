@@ -13,13 +13,13 @@ import { isEqual } from 'lodash'
 export default {
   props: {
     options: {
-      default: () => ({}),
-      type: Object
+      type: Object,
+      default: () => ({})
     },
 
     type: {
-      default: 'image/png',
-      type: String
+      type: String,
+      default: 'image/png'
     },
 
     height: {
