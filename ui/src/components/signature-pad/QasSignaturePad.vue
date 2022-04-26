@@ -1,6 +1,6 @@
 <template>
   <div ref="signatureContainer" class="qas-signature-pad relative-position">
-    <canvas :id="canvasId" :ref="$attrs.ref" class="qas-signature-pad__canvas rounded-borders vertical-bottom" :height="height" />
+    <canvas :id="canvasId" :ref="$attrs.ref" class="qas-signature-pad__canvas rounded-borders vertical-bottom" :height="height" :width="width" />
     <q-btn v-if="!isEmpty" class="absolute q-mb-sm q-mr-sm qas-signature-pad__clear" color="primary" dense icon="o_delete" round @click="clearSignature" />
   </div>
 </template>
@@ -23,8 +23,13 @@ export default {
     },
 
     height: {
-      default: '250',
-      type: String
+      type: String,
+      default: '250'
+    },
+
+    width: {
+      type: String,
+      default: '350'
     },
 
     isEmpty: {
