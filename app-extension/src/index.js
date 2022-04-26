@@ -6,6 +6,7 @@ function extendQuasar (quasar) {
   // https://quasar.dev/quasar-cli-vite/boot-files#introduction
   quasar.boot.push(...resolve(
     'boot/api.js',
+    'boot/error-pages.js',
     'boot/register.js',
     'boot/history.js'
   ))
