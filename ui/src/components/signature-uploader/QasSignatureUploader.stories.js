@@ -26,6 +26,13 @@ export default {
       description: 'Generated signature label.'
     },
 
+    dialogProps: {
+      description: 'Set props in dialog',
+      table: {
+        defaultValue: { summary: JSON.stringify({}) }
+      }
+    },
+
     value: {
       description: 'Model value.'
     },
