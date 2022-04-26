@@ -1,6 +1,6 @@
 <template>
   <div ref="signatureContainer" class="qas-signature-pad relative-position">
-    <canvas :id="canvasId" :ref="$attrs.ref" class="qas-signature-pad__canvas rounded-borders vertical-bottom" :height="height" :width="width" />
+    <canvas :id="canvasId" :ref="$attrs.ref" class="qas-signature-pad__canvas rounded-borders vertical-bottom" v-bind="size" />
     <q-btn v-if="!isEmpty" class="absolute q-mb-sm q-mr-sm qas-signature-pad__clear" color="primary" dense icon="o_delete" round @click="clearSignature" />
   </div>
 </template>
@@ -58,21 +58,11 @@ export default {
   },
 
   computed: {
-    height () {
+    size () {
       const sizes = {
-        [this.$_isSmall]: '250',
-        [this.$_isMedium]: '420',
-        [this.$_isLarge]: '250'
-      }
-
-      return sizes.true
-    },
-
-    width () {
-      const sizes = {
-        [this.$_isSmall]: '264',
-        [this.$_isMedium]: '576',
-        [this.$_isLarge]: '350'
+        [this.$_isSmall]: { height: '250', width: '264' },
+        [this.$_isMedium]: { height: '420', width: '576' },
+        [this.$_isLarge]: { height: '250', width: '350' }
       }
 
       return sizes.true
