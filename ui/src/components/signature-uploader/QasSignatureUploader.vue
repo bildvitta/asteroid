@@ -21,7 +21,7 @@
       </template>
 
       <template #description>
-        <qas-signature-pad ref="signaturePadModal" v-bind="signaturePadProps" :is-empty.sync="isEmpty" />
+        <qas-signature-pad ref="signaturePadModal" :is-empty.sync="isEmpty" />
       </template>
 
       <template #actions>
@@ -48,11 +48,6 @@ export default {
 
   props: {
     dialogProps: {
-      type: Object,
-      default: () => ({})
-    },
-
-    signaturePadProps: {
       type: Object,
       default: () => ({})
     },
