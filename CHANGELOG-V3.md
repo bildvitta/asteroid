@@ -99,11 +99,12 @@ Sincronizado em _19/10/2021 as 17h17_.
 
 ### QasPasswordInput
 
-Sincronizado em _13/01/2022 as 18h23_.
+Sincronizado em _25/04/2022 as 15h00_.
 
-- Propriedade `hideStrengthChecker` alterada para `useStrengthChecker`.
 - Propriedade `value` alterada para `modelValue`.
 - Propriedade `levels` alterada os `label` pt-BR português.
+- Movida logica de limpar os erros do input ao atualizar para o `QasInput`.
+- Adicionando propriedade `removeErrorOnType` como true para o `QasInput`.
 - Evento `input` alterado para `update:modelValue`.
 - Adicionado `QasInput` como input default.
 - Propriedades referentes ao `QasPasswordStrengthChecker`.
@@ -176,6 +177,8 @@ Sincronizado em _29/03/2022 as 11h40_.
 Sincronizado em _08/02/2022 as 17h00_.
 
 - Adicionada propriedade `outlined` como default.
+- Adicionada propriedades `error` e `errorMessage` (antes recuperava pelos $attrs).
+- Adicionada propriedades `removeErrorOnType` (limpa os erros do campo caso existam toda vez que o model atualiza).
 - Adicionado novo type `Number` para `modelValue` (porque ele pode ser um type number).
 - Propriedade `value` alterada para `modelValue`.
 - Evento `input` alterado para `update:modelValue`.
