@@ -8,8 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Add
 - Added new prop `dialogProps` in `QasSignatureUploader`.
-- Added new HTML atribute `width` at `<canvas />` in `QasSignaturePad`.
-- Added computed values to set canvas size.
+- Added computed values to set canvas size in `QasSignatureUploader`.
 
 ## 2.17.1 - 2022-04-11
 
