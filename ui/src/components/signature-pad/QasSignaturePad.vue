@@ -1,20 +1,22 @@
 <template>
   <div ref="signatureContainer" class="qas-signature-pad relative-position">
-    <canvas :id="canvasId" :ref="$attrs.ref" class="qas-signature-pad__canvas rounded-borders vertical-bottom" :height="size.height" :width="size.width" />
+    <canvas :id="canvasId" :ref="$attrs.ref" class="qas-signature-pad__canvas rounded-borders vertical-bottom" :height="height" />
     <q-btn v-if="!isEmpty" class="absolute q-mb-sm q-mr-sm qas-signature-pad__clear" color="primary" dense icon="o_delete" round @click="clearSignature" />
   </div>
 </template>
 
 <script>
 import SignaturePad from 'signature_pad'
-import { screenMixin } from '../../mixins'
 import { uid } from 'quasar'
 import { isEqual } from 'lodash'
 
 export default {
-  mixins: [screenMixin],
-
   props: {
+    height: {
+      type: String,
+      default: '250'
+    },
+
     options: {
       type: Object,
       default: () => ({})
@@ -55,18 +57,6 @@ export default {
     window.addEventListener('resize', this.setCanvasWidth)
     this.setCanvasWidth()
     this.setupSignaturePad()
-  },
-
-  computed: {
-    size () {
-      const sizes = {
-        [this.$_isSmall]: { height: '250', width: '265' },
-        [this.$_isMedium]: { height: '420', width: '570' },
-        [this.$_isLarge]: { height: '250', width: '350' }
-      }
-
-      return sizes.true
-    }
   },
 
   methods: {
