@@ -38,6 +38,10 @@ props:
     desc: Envia como parâmetro para a action "fetchFilters" do modulo correspondente a "entity".
     type: String
 
+  force-refetch:
+    desc: Força refazer o "fetch" mesmo caso já exista dados na store de filters.
+    type: Boolean
+
 slots:
   search:
     desc: Slot para seção do campo de busca.
