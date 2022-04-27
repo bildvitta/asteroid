@@ -8,6 +8,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 - Added new prop `forceRefetch` to `QasFilters`.
+- Added new prop `dialogProps` in `QasSignatureUploader`.
+- Added computed values to set canvas size in `QasSignatureUploader`.
 
 ### Removed
 - Removed action `@before-show="fetchFilters"` from `q-menu` inside `QasFilters`. Apparently this action was never necessary for the component to work properly.

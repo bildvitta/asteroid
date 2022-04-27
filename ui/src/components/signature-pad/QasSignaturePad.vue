@@ -12,19 +12,19 @@ import { isEqual } from 'lodash'
 
 export default {
   props: {
+    height: {
+      type: String,
+      default: '250'
+    },
+
     options: {
-      default: () => ({}),
-      type: Object
+      type: Object,
+      default: () => ({})
     },
 
     type: {
-      default: 'image/png',
-      type: String
-    },
-
-    height: {
-      default: '250',
-      type: String
+      type: String,
+      default: 'image/png'
     },
 
     isEmpty: {
