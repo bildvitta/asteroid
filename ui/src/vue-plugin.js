@@ -54,7 +54,8 @@ import { Notify, Quasar, Dialog as QuasarDialog } from 'quasar'
 import {
   Dialog,
   NotifyError,
-  NotifySuccess
+  NotifySuccess,
+  Screen
 } from './plugins'
 
 import packageInfo from '../package.json'
@@ -123,7 +124,8 @@ function install (app) {
   app.config.globalProperties.$qas = {
     dialog: Dialog,
     error: NotifyError,
-    success: NotifySuccess
+    success: NotifySuccess,
+    screen: Screen()
   }
 
   app.directive(Test.name, Test)
@@ -182,10 +184,11 @@ export {
   QasTransfer,
   QasUploader,
 
-  // plugin
+  // plugins
   Dialog,
   NotifyError,
   NotifySuccess,
+  Screen,
 
   install
 }

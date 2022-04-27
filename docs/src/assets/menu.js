@@ -231,6 +231,10 @@ module.exports = [
       {
         name: 'Dialog',
         path: '/plugins/dialog'
+      },
+      {
+        name: 'Screen',
+        path: '/plugins/screen'
       }
     ]
   },
