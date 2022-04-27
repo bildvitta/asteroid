@@ -159,6 +159,7 @@ Sincronizado em _23/03/2022 as 16h00_.
 - Adicionado propriedade `deleteLabel` (para definir o label do botão de exclusão).
 - Adicionado propriedade `deleteIcon` (para definir o ícone do botão de exclusão).
 - Adicionado propriedade `deleteProps` para repassar para o componente `QasDelete` e controlar quando tem ou não botão de exclusão por padrão.
+- Chave `iconSize` dentro da propriedade `list` foi **removida**, pois sempre os ícones devem ser do tamanho `sm`.
 - Alterado valor "default" da propriedade `label` para `Configurações`.
 
 ### QasSelectList
