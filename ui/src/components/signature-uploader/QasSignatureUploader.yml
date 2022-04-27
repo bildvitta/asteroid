@@ -4,6 +4,11 @@ meta:
 desc: Componente que implementa o "QasUploader" e "QasSignaturePad" para fazer upload de assinatura.
 
 props:
+  dialog-props:
+    desc: Repassa propriedades para o "QasDialog".
+    type: Object
+    default: { maxWidth: '620px' }
+
   upload-label:
     desc: Rótulo do uploader.
     type: String

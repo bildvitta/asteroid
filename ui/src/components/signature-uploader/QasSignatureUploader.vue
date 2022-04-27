@@ -15,13 +15,15 @@
       </template>
     </qas-uploader>
 
-    <qas-dialog v-model="isOpenedDialog">
+    <qas-dialog v-model="isOpenedDialog" v-bind="defaultDialogProps">
       <template #header>
         <div class="text-bold text-center">Insira sua assinatura digital no campo abaixo</div>
       </template>
 
       <template #description>
-        <qas-signature-pad ref="signaturePadModal" v-model:empty="isEmpty" height="250" />
+        <div :style="signaturePadWidth">
+          <qas-signature-pad ref="signaturePadModal" v-model:empty="isEmpty" :height="signaturePadHeight" />
+        </div>
       </template>
 
       <template #actions>
@@ -36,6 +38,7 @@
 import QasDialog from '../dialog/QasDialog.vue'
 import QasUploader from '../uploader/QasUploader.vue'
 import QasSignaturePad from '../signature-pad/QasSignaturePad.vue'
+import { screenMixin } from '../../mixins'
 import { base64ToBlob } from '../../helpers'
 import { NotifyError } from '../../plugins'
 
@@ -48,7 +51,14 @@ export default {
     QasSignaturePad
   },
 
+  mixins: [screenMixin],
+
   props: {
+    dialogProps: {
+      type: Object,
+      default: () => ({})
+    },
+
     uploadLabel: {
       default: '',
       type: String
@@ -97,6 +107,32 @@ export default {
 
     headerClass () {
       return `q-pa-${this.readonly ? 'md' : 'sm'}`
+    },
+
+    defaultDialogProps () {
+      return {
+        maxWidth: '620px',
+        ...this.dialogProps
+      }
+    },
+
+    signaturePadWidth () {
+      const sizes = {
+        [this.mx_isSmall]: { width: '100%' },
+        [this.mx_isMedium]: { width: '570px' },
+        [this.mx_isLarge]: { width: '350px' }
+      }
+      return sizes.true
+    },
+
+    signaturePadHeight () {
+      const sizes = {
+        [this.mx_isSmall]: '250',
+        [this.mx_isMedium]: '400',
+        [this.mx_isLarge]: '250'
+      }
+
+      return sizes.true
     }
   },
 
