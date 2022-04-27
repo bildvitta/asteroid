@@ -22,7 +22,7 @@
 
       <template #description>
         <div :style="signaturePadWidth">
-          <qas-signature-pad ref="signaturePadModal" :is-empty.sync="isEmpty" :height="padHeight" />
+          <qas-signature-pad ref="signaturePadModal" :is-empty.sync="isEmpty" :height="signaturePadHeight" />
         </div>
       </template>
 
@@ -122,7 +122,7 @@ export default {
       return sizes.true
     },
 
-    padHeight () {
+    signaturePadHeight () {
       const sizes = {
         [this.$_isSmall]: '250',
         [this.$_isMedium]: '400',
