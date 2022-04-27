@@ -1,5 +1,5 @@
 import ForbiddenPage from '@bildvitta/quasar-ui-asteroid/src/pages/Forbidden.vue'
-import NotFound from '@bildvitta/quasar-ui-asteroid/src/pages/NotFound.vue'
+import NotFoundPage from '@bildvitta/quasar-ui-asteroid/src/pages/NotFound.vue'
 
 export default function ({ router }) {
   const routes = [
@@ -14,7 +14,7 @@ export default function ({ router }) {
     routes.push({
       name: 'NotFound',
       path: '/:catchAll(.*)*',
-      component: NotFound
+      component: NotFoundPage
     })
   }
 
