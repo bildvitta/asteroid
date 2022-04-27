@@ -6,7 +6,7 @@
           <q-item :key="key" class="text-bold text-primary" clickable v-bind="item.props" @click="onClick(item)">
             <q-item-section>
               <div class="flex items-center justify-center q-gutter-x-md">
-                <q-icon :name="item.icon" :size="item.iconSize" />
+                <q-icon :name="item.icon" size="sm" />
                 <div>{{ item.label }}</div>
               </div>
             </q-item-section>
@@ -16,7 +16,7 @@
         <qas-delete v-if="hasDelete" v-bind="deleteProps" class="text-negative" clickable tag="q-item" @success="onDeleteSuccess">
           <q-item-section>
             <div class="flex items-center justify-center q-gutter-x-sm text-bold">
-              <q-icon :name="deleteIcon" />
+              <q-icon :name="deleteIcon" size="sm" />
               <div>{{ deleteLabel }}</div>
             </div>
           </q-item-section>
