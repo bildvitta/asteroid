@@ -15,6 +15,8 @@ export default () => {
   const screens = {}
 
   for (const key in screensModel) {
+    // infelizmente esta é a única forma que conseguimos para que nossa função se tornasse reativa na view
+    // é como o próprio quasar implementa
     Object.defineProperty(screens, key, {
       get () {
         return screensModel[key]()
