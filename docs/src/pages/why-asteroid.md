@@ -1,7 +1,7 @@
 ---
-title: Por que o Asteroid existe?
+title: Por que o Asteroid?
 ---
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce maximus lacus tellus, nec mattis neque egestas in. Ut porttitor ex vitae nunc hendrerit, at sollicitudin magna feugiat. Phasellus volutpat dolor ex. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin mi sapien, lobortis ac ex in, venenatis pharetra odio. Proin ornare eros nec pellentesque tincidunt. Donec vel congue libero, sed fringilla risus. Praesent hendrerit accumsan quam, id fringilla sapien tincidunt sed. Nulla tellus orci, tempor id nisl vitae, euismod pellentesque ligula. Phasellus tristique ligula turpis, a mollis mauris blandit at. Nunc consectetur ut leo eget tincidunt. Maecenas ex mi, sollicitudin id dui vitae, porta dapibus quam. Proin a feugiat tellus. Donec pretium non eros eget condimentum. Quisque ut turpis sed orci imperdiet euismod.
+Asteroid é uma extensão do Quasar ([Quasar App Extension](https://quasar.dev/app-extensions/introduction)) contendo coleções de componentes, plugins, estilos, utilitários, etc. Inicialmente foi idealizado para nos ajudar com o desenvolvimento de aplicações web, principalmente para criações de C.R.U.D. (seguindo nossa [API](http://github.com/bildvitta/api)) de uma forma mais rápida, fácil e padronizada.
 
-Vivamus ac nisi euismod, pretium elit sed, placerat lorem. Vestibulum tempus ullamcorper consectetur. Curabitur a vulputate ex. Sed pretium orci neque, et congue sem aliquam a. Nullam nisi tortor, tempor ac suscipit a, tempus in felis. Donec ac aliquet nulla. Cras sit amet mollis mi, ut dapibus magna. Nunc eget ultrices diam, vitae sagittis erat.
+Com o passar do tempo, o asteroid se tornou mais do que apenas um facilitador e padronizador para desenvolvimento de aplicações web, mas também se tornou nosso framework de **Design System** para o frontend dentro da Inovação do grupo **Bild & Vitta**.

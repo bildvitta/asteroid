@@ -12,6 +12,10 @@ module.exports = [
       {
         name: 'Estrutura',
         path: '/start/structure'
+      },
+      {
+        name: 'Guia de migração v2 -> v3',
+        path: '/start/upgrade-guide'
       }
     ]
   },

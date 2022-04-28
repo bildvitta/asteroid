@@ -1,4 +1,12 @@
-# Changelog
+# Guia de migração v2 -> v3
+
+:::danger
+Ao longo da migração para a v3, tentamos ao máximo deixar documentado todas as modificações que foram feitas, entretanto podem (e provavelmente) tem algumas mudanças que não foram documentadas, caso encontre alguma mudança que não foi documentada, por favor, reporte para que seja corrigida.
+:::
+
+:::warning
+Não use está pagina como única fonte de informação ao fazer a migração, utilize o próprio código fonte, site da documentação em geral e até mesmo *Pull Requests* que contenham migrações de outros projetos para se basear, como por exemplo o PR do [HUB](https://github.com/bildvitta/hub-client/pull/227/files) (caso não tenha acesso ao repositório, fale com algum responsável).
+:::
 
 ## Components
 
@@ -63,9 +71,10 @@ Sincronizado em _19/10/2021 as 17h17_.
 
 ### QasBtn
 
-Sincronizado em _23/01/2021 as 18h23_.
+Sincronizado em _28/04/2022 as 15h00_.
 
 - Propriedade `hideMobileLabel` renomeada para `hideLabelOnSmallScreen`;
+- Adicionada propriedade `label` para resolver problemas com `hideMobileLabel` (antes recuperava o label por `$attrs.label`).
 
 ### QasCopy
 
@@ -519,11 +528,19 @@ Sincronizado em _19/04/2022 as 11h00_.
 
 - Mixin estava muito ligado a logica do negocio e não estava generico, por hora vms deixar ele fora do asteroid.
 
+### ~~screenMixin~~ (removido)
+
+- Adicionado como plugin `Screen.js`, agora é acessível pela variável global `$qas.screen`.
+
 ## Plugins
 
 ### Dialog
 
-- Adicionado novo plugin de Dialog, `this.$qas.dialog()`.
+- Adicionado novo plugin de Dialog, `$qas.dialog()`.
+
+### Screen
+
+- Adicionado novo plugin de Screen, `$qas.screen` para substituir o antigo mixin `screenMixin`.
 
 ## Composables
 
