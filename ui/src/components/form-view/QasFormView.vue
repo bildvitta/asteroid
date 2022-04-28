@@ -42,7 +42,7 @@ import { NotifyError, NotifySuccess } from '../../plugins'
 import QasBtn from '../btn/QasBtn.vue'
 import QasDialog from '../dialog/QasDialog.vue'
 
-import { viewMixin, screenMixin } from '../../mixins'
+import { viewMixin } from '../../mixins'
 
 export default {
   name: 'QasFormView',
@@ -52,7 +52,7 @@ export default {
     QasDialog
   },
 
-  mixins: [viewMixin, screenMixin],
+  mixins: [viewMixin],
 
   props: {
     cancelButton: {
@@ -146,7 +146,7 @@ export default {
 
   computed: {
     cancelButtonClass () {
-      return this.mx_isSmall && 'order-last'
+      return this.$qas.screen.isSmall && 'order-last'
     },
 
     fetchURL () {
@@ -174,7 +174,7 @@ export default {
     },
 
     saveButtonClass () {
-      return this.mx_isSmall && 'order-first'
+      return this.$qas.screen.isSmall && 'order-first'
     },
 
     isCancelButtonDisabled () {

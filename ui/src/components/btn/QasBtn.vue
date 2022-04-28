@@ -9,12 +9,8 @@
 </template>
 
 <script>
-import { screenMixin } from '../../mixins'
-
 export default {
   name: 'QasBtn',
-
-  mixins: [screenMixin],
 
   props: {
     hideLabelOnSmallScreen: {
@@ -40,7 +36,7 @@ export default {
     },
 
     showLabel () {
-      return this.hasLabel && !(this.hideLabelOnSmallScreen && this.mx_isSmall)
+      return this.hasLabel && !(this.hideLabelOnSmallScreen && this.$qas.screen.isSmall)
     },
 
     slots () {

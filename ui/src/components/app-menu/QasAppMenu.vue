@@ -44,13 +44,10 @@
 </template>
 
 <script>
-import { screenMixin } from '../../mixins'
 import { isLocalDevelopment } from '../../helpers'
 
 export default {
   name: 'QasAppMenu',
-
-  mixins: [screenMixin],
 
   props: {
     items: {
@@ -153,7 +150,7 @@ export default {
     },
 
     beforeHide () {
-      if (this.mx_isLarge) {
+      if (this.$qas.screen.isLarge) {
         this.model = true
         this.miniMode = !this.miniMode
       }

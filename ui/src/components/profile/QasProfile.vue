@@ -25,7 +25,6 @@
 
 <script>
 import filterObject from '../../helpers/filter-object'
-import screenMixin from '../../mixins/screen'
 
 import QasAvatar from '../avatar/QasAvatar.vue'
 import QasBox from '../box/QasBox.vue'
@@ -39,8 +38,6 @@ export default {
     QasBox,
     QasGridGenerator
   },
-
-  mixins: [screenMixin],
 
   props: {
     columns: {
@@ -82,7 +79,7 @@ export default {
 
   computed: {
     directionClasses () {
-      return this.mx_untilMedium ? 'col' : 'row items-center'
+      return this.$qas.screen.untilMedium ? 'col' : 'row items-center'
     },
 
     userAvatarImage () {
@@ -90,7 +87,7 @@ export default {
     },
 
     avatarSize () {
-      return this.mx_isSmall ? '145px' : '188px'
+      return this.$qas.screen.isSmall ? '145px' : '188px'
     }
   },
 

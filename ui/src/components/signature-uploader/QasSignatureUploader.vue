@@ -38,7 +38,6 @@
 import QasDialog from '../dialog/QasDialog.vue'
 import QasUploader from '../uploader/QasUploader.vue'
 import QasSignaturePad from '../signature-pad/QasSignaturePad.vue'
-import { screenMixin } from '../../mixins'
 import { base64ToBlob } from '../../helpers'
 import { NotifyError } from '../../plugins'
 
@@ -50,8 +49,6 @@ export default {
     QasUploader,
     QasSignaturePad
   },
-
-  mixins: [screenMixin],
 
   props: {
     dialogProps: {
@@ -118,18 +115,18 @@ export default {
 
     signaturePadWidth () {
       const sizes = {
-        [this.mx_isSmall]: { width: '100%' },
-        [this.mx_isMedium]: { width: '570px' },
-        [this.mx_isLarge]: { width: '350px' }
+        [this.$qas.screen.isSmall]: { width: '100%' },
+        [this.$qas.screen.isMedium]: { width: '570px' },
+        [this.$qas.screen.isLarge]: { width: '350px' }
       }
       return sizes.true
     },
 
     signaturePadHeight () {
       const sizes = {
-        [this.mx_isSmall]: '250',
-        [this.mx_isMedium]: '400',
-        [this.mx_isLarge]: '250'
+        [this.$qas.screen.isSmall]: '250',
+        [this.$qas.screen.isMedium]: '400',
+        [this.$qas.screen.isLarge]: '250'
       }
 
       return sizes.true

@@ -11,12 +11,8 @@
 </template>
 
 <script>
-import { screenMixin } from '../../mixins'
-
 export default {
   name: 'QasActions',
-
-  mixins: [screenMixin],
 
   props: {
     align: {
@@ -37,7 +33,7 @@ export default {
       return [
         `justify-${this.align}`,
         `q-col-gutter-${this.gutter}`,
-        this.mx_isSmall ? 'column reverse' : 'row'
+        this.$qas.screen.isSmall ? 'column reverse' : 'row'
       ]
     }
   }

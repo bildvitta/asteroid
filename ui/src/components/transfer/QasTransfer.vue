@@ -49,7 +49,6 @@
 </template>
 
 <script>
-import { screenMixin } from '../../mixins'
 import { extend } from 'quasar'
 
 import QasBtn from '../btn/QasBtn.vue'
@@ -64,8 +63,6 @@ export default {
     QasLabel,
     QasSearchBox
   },
-
-  mixins: [screenMixin],
 
   props: {
     emitValue: {
@@ -124,15 +121,15 @@ export default {
 
   computed: {
     actionsClass () {
-      return !this.mx_isSmall && 'column'
+      return !this.$qas.screen.isSmall && 'column'
     },
 
     gutterClass () {
-      return `q-col-gutter-${this.mx_untilLarge ? 'md' : 'xl'}`
+      return `q-col-gutter-${this.$qas.screen.untilLarge ? 'md' : 'xl'}`
     },
 
     iconClass () {
-      return !this.mx_isSmall && 'qas-transfer__icon'
+      return !this.$qas.screen.isSmall && 'qas-transfer__icon'
     },
 
     searchBoxProps () {
