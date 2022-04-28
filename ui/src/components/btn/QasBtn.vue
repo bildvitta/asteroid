@@ -19,21 +19,24 @@ export default {
   props: {
     hideLabelOnSmallScreen: {
       type: Boolean
+    },
+
+    label: {
+      type: String,
+      default: ''
     }
   },
 
   computed: {
     attributes () {
-      const { label, ...attributes } = this.$attrs
-
       return {
-        ...(this.showLabel && { label }),
-        ...attributes
+        ...(this.showLabel && { label: this.label }),
+        ...this.$attrs
       }
     },
 
     hasLabel () {
-      return !!(this.$attrs.label || this.$slots.default)
+      return !!(this.label || this.$slots.default)
     },
 
     showLabel () {
