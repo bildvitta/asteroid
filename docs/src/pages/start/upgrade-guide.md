@@ -563,3 +563,6 @@ Sincronizado em _21/04/2022 as 15h30_.
 ### Test
 
 Sincronizado em _21/04/2022 as 17h00_.
+
+## App extension - templates
+- Adicionado template para `quasar.variables.scss`.

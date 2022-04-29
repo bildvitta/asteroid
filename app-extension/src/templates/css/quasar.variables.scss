@@ -1,0 +1,45 @@
+/* stylelint-disable color-hex-case */
+/* stylelint-disable scss/double-slash-comment-empty-line-before */
+/* stylelint-disable scss/dollar-variable-colon-space-before */
+/* stylelint-disable-next-line custom-property-pattern */
+
+// Quasar SCSS (& Sass) Variables - Asteroid
+// --------------------------------------------------
+// NÃO MODIFIQUE ESTE ARQUIVO COM AS CONFIGURAÇÕES DO ASTEROID PRÉ DEFINIDAS!
+
+@import '~@bildvitta/quasar-ui-asteroid/src/css/design-system';
+
+$primary   : #00527A;
+// TODO: No futuro a ideia é não ter uma cor secundária.
+// TODO: Por hora vamos usar a mesma de $primary-contrast.
+$secondary : #B8D3E0A3;
+$tertiary  : #c7ceff;
+$accent    : #2c2546;
+$dark      : #1d1d1d;
+$positive  : #21ba45;
+$negative  : #c10015;
+$info      : #31ccec;
+$warning   : #f2c037;
+
+// Asteroid
+@mixin set-brand($name, $color) {
+  :root {
+    --q-#{$name}: #{$color};
+  }
+
+  .text-#{$name} {
+    color: $color !important;
+    color: var(--q-#{$name}) !important;
+  }
+
+  .bg-#{$name} {
+    background: $color !important;
+    background: var(--q-#{$name}) !important;
+  }
+}
+
+$primary-contrast: $secondary;
+$secondary-contrast: #3691BF80;
+
+@include set-brand(primary-contrast, $primary-contrast);
+@include set-brand(secondary-contrast, $secondary-contrast);

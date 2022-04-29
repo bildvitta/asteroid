@@ -17,6 +17,7 @@ module.exports = {
     'selector-class-pattern': null,
     'string-quotes': 'single',
     'value-keyword-case': ['lower', { camelCaseSvgKeywords: true }],
+    'scss/dollar-variable-empty-line-before': null,
 
     // Plugins
     'order/properties-alphabetical-order': true
