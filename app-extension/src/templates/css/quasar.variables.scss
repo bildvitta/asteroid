@@ -7,7 +7,7 @@
 // --------------------------------------------------
 // NÃO MODIFIQUE ESTE ARQUIVO COM AS CONFIGURAÇÕES DO ASTEROID PRÉ DEFINIDAS!
 
-@import '~@bildvitta/quasar-ui-asteroid/src/css/design-system';
+@import '~@bildvitta/quasar-ui-asteroid/src/index';
 
 $primary   : #00527A;
 // TODO: No futuro a ideia é não ter uma cor secundária.
@@ -22,22 +22,6 @@ $info      : #31ccec;
 $warning   : #f2c037;
 
 // Asteroid
-@mixin set-brand($name, $color) {
-  :root {
-    --q-#{$name}: #{$color};
-  }
-
-  .text-#{$name} {
-    color: $color !important;
-    color: var(--q-#{$name}) !important;
-  }
-
-  .bg-#{$name} {
-    background: $color !important;
-    background: var(--q-#{$name}) !important;
-  }
-}
-
 $primary-contrast: $secondary;
 $secondary-contrast: #3691BF80;
 

@@ -15,17 +15,14 @@ $secondary-contrast: var(--q-secondary-contrast);
 $background-color: var(--qas-background-color);
 $generic-border-radius: var(--qas-generic-border-radius);
 
-@import './css/background';
-@import './css/border';
-@import './css/border-radius';
-@import './css/container';
-@import './css/fonts';
-@import './css/line-height';
-@import './css/opacity';
-@import './css/shadow';
-@import './css/text';
-@import './css/unset';
+// variables
+@import './css/variables/index';
 
-// Design System
-@import './css/design-system';
-@import './css/design-system/index';
+// components
+@import './css/components/index';
+
+// utils
+@import './css/utils/index';
+
+// mixins
+@import './css/mixins/index'

@@ -1,0 +1,139 @@
+// Definições seguindo:
+// https://www.figma.com/file/JfDthOZoULYMlRJM2IQ8Oi/Design-System?node-id=665%3A163
+
+// Quasar:
+// https://github.com/quasarframework/quasar/blob/dev/ui/src/css/variables.sass
+// https://github.com/quasarframework/quasar/blob/dev/ui/src/css/core/typography.sass
+
+@use 'sass:map';
+
+// headings
+$h1: (
+  size: 6rem,
+  line-height: 6rem,
+  letter-spacing: 0,
+  weight: 800,
+  margin: 0
+);
+
+$h2: (
+  size: 3.75rem,
+  line-height: 3.75rem,
+  letter-spacing: 0,
+  weight: 700,
+  margin: 0
+);
+
+$h3: (
+  size: 3rem,
+  line-height: 2.5rem,
+  letter-spacing: 0,
+  weight: 600,
+  margin: 0
+);
+
+$h4: (
+  size: 2.125rem,
+  line-height: 2.5rem,
+  letter-spacing: 0,
+  weight: 800,
+  margin: 0
+);
+
+$h5: (
+  size: 1.5rem,
+  line-height: 2rem,
+  letter-spacing: 0,
+  weight: 700,
+  margin: 0
+);
+
+$h6: (
+  size: 1.25rem,
+  line-height: 2rem,
+  letter-spacing: 0,
+  weight: 600,
+  margin: 0
+);
+
+// subtitles
+$subtitle1: (
+  size: 1rem,
+  line-height: 1.75rem,
+  letter-spacing: 0,
+  weight: 700
+);
+
+$subtitle2: (
+  size: 0.875rem,
+  line-height: 1.375rem,
+  letter-spacing: 0,
+  weight: 600
+);
+
+// body
+$body1: (
+  size: 1rem,
+  line-height: 1.5rem,
+  letter-spacing: 0,
+  weight: 500
+);
+
+$body2: (
+  size: 0.875rem,
+  line-height: 1.25rem,
+  letter-spacing: 0,
+  weight: 400
+);
+
+// overline
+$overline: (
+  size: 0.75rem,
+  line-height: 2rem,
+  letter-spacing: 0.25rem,
+  weight: 600
+);
+
+// caption
+$caption: (
+  size: 0.75rem,
+  line-height: 1.25rem,
+  letter-spacing: 0,
+  weight: 700
+);
+
+$headings: (
+  'h1': $h1,
+  'h2': $h2,
+  'h3': $h3,
+  'h4': $h4,
+  'h5': $h5,
+  'h6': $h6,
+  'subtitle1': $subtitle1,
+  'subtitle2': $subtitle2,
+  'body1': $body1,
+  'body2': $body2,
+  'overline': $overline,
+  'caption': $caption
+);
+
+// adiciona tags com mesmo estilo do css
+$h-tags: (
+  h1: map.get($headings, 'h1'),
+  h2: map.get($headings, 'h2'),
+  h3: map.get($headings, 'h3'),
+  h4: map.get($headings, 'h4'),
+  h5: map.get($headings, 'h5'),
+  h6: map.get($headings, 'h6')
+);
+
+// sobrescreve as tags do css para adicionar "margin"
+@each $heading, $value in $h-tags {
+  #{$heading} {
+    font-size: map.get($value, 'size');
+    font-weight: map.get($value, 'weight');
+    letter-spacing: map.get($value, 'letter-spacing');
+    line-height: map.get($value, 'line-height');
+    margin: map.get($value, 'margin');
+  }
+}
