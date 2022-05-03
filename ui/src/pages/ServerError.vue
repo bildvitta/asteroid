@@ -2,9 +2,13 @@
   <div class="bg-grey-2 column error-page items-center justify-around">
     <div class="column full-width items-center justify-center q-gutter-md q-py-md row">
       <q-img src="../assets/gear.svg" :width="gearSize" />
-      <div class="text-bold text-h1 text-primary">403</div>
-      <div class="text-bold text-center text-h6 text-grey-9">Ops, parece que você não tem acesso para este recurso!</div>
-      <qas-btn class="text-bold text-primary" label="Voltar ao início" @click="$router.push('/')" />
+      <div class="text-bold text-h1 text-primary">500</div>
+      <div class="column items-center">
+      <div class="text-bold text-h6 text-subtitle text-grey-9">Ops, ocorreu um erro interno no nosso servidor!</div>
+      <div class="text-bold text-center text-subtitle text-grey-9">Tente novamente em alguns instantes.</div>
+      </div>
+    </div>
+    <div class="justify-center q-mt-md row">
     </div>
   </div>
 </template>

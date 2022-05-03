@@ -52,7 +52,7 @@ export default {
       NotifyError('Ops! Erro ao obter os dados.', exception)
 
       const status = get(response, 'status')
-      const redirect = ({ 403: 'Forbidden', 404: 'NotFound' })[status]
+      const redirect = ({ 403: 'Forbidden', 404: 'NotFound', 500: 'ServerError', 503: 'ServerError' })[status]
 
       if (redirect) {
         this.$router.replace({ name: redirect })
