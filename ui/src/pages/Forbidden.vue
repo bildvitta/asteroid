@@ -17,7 +17,7 @@ export default {
 
   computed: {
     gearSize () {
-      return this.$_isSmall ? '50%' : '14%'
+      return this.$_isSmall ? '90px' : '160px'
     }
   }
 }
