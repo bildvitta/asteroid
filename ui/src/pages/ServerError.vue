@@ -8,8 +8,6 @@
       <div class="text-bold text-center text-subtitle text-grey-9">Tente novamente em alguns instantes.</div>
       </div>
     </div>
-    <div class="justify-center q-mt-md row">
-    </div>
   </div>
 </template>
 
