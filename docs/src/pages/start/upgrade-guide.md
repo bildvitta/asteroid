@@ -566,3 +566,7 @@ Sincronizado em _21/04/2022 as 17h00_.
 
 ## App extension - templates
 - Adicionado template para `quasar.variables.scss`.
+
+## Geral
+- Todas classes `grey-8` substituídas por `grey-9` (design system).
+- Todas classes `grey-6` substituídas por `grey-7` (design system).

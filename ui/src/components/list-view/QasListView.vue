@@ -17,8 +17,8 @@
         <div v-else-if="!mx_isFetching">
           <slot name="empty-results">
             <div class="q-my-xl text-center">
-              <q-icon class="q-mb-sm text-center" color="grey-6" name="o_search" size="38px" />
-              <div class="text-grey-6">Nenhum item encontrado.</div>
+              <q-icon class="q-mb-sm text-center" color="grey-7" name="o_search" size="38px" />
+              <div class="text-grey-7">Nenhum item encontrado.</div>
             </div>
           </slot>
         </div>

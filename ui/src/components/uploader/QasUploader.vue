@@ -328,7 +328,7 @@ export default {
     },
 
     getFileNameClass (isFailed) {
-      return isFailed ? 'text-negative' : 'text-grey-8'
+      return isFailed ? 'text-negative' : 'text-grey-9'
     },
 
     isFailed (file) {

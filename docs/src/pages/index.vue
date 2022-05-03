@@ -1,5 +1,7 @@
 <template>
   <doc-page>
-    Olá, universo!
+    <div class="q-pa-lg shadow-1">
+      Olá, universo!
+    </div>
   </doc-page>
 </template>
