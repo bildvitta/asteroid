@@ -12,15 +12,13 @@
     </q-header>
 
     <q-drawer v-model="leftDrawerState" bordered show-if-above side="left">
-      <form class="app-search-bar">
-        <q-input borderless class="app-search-bar__input" dense input-class="app-search-bar__input-element" placeholder="Buscar no Asteroid v3..." square>
-          <template #prepend>
-            <q-icon name="search" />
-          </template>
-        </q-input>
+      <div class="app-search-bar">
+        <div class="app-search-bar__input q-pt-sm">
+          <div ref="docsearch" />
+        </div>
 
         <q-separator />
-      </form>
+      </div>
 
       <q-scroll-area class="app-scroll-area-left">
         <doc-menu class="q-mt-md" :items="menuItems" />
@@ -34,10 +32,14 @@
 </template>
 
 <script>
+
 import { version } from 'asteroid'
 import { createMetaMixin } from 'quasar'
 
+import docsearch from '@docsearch/js'
 import menuItems from 'assets/menu.js'
+
+import '@docsearch/css'
 
 export default {
   mixins: [createMetaMixin({
@@ -67,6 +69,16 @@ export default {
     }
   },
 
+  mounted () {
+    const doc = this.$refs.docsearch
+
+    docsearch({
+      container: doc,
+      appId: '79KX7BGJMZ',
+      apiKey: 'c6033a408c0b489f1d57783513896367',
+      indexName: 'asteroid'
+    })
+  },
   methods: {
     toggleLeftDrawer () {
       this.leftDrawerState = !this.leftDrawerState
@@ -76,6 +88,13 @@ export default {
 </script>
 
 <style lang="scss">
+.DocSearch-Button {
+  width: 100% !important;
+}
+
+// DocSearch-Button-Placeholder
+// DocSearch-Button-Keys
+
 .app {
   &-header,
   &-search-bar {
@@ -98,9 +117,7 @@ export default {
     }
 
     &__input {
-      margin-left: 18px;
-      margin-right: 16px;
-      width: 100%;
+      width: 90%;
     }
 
     &__input-element {

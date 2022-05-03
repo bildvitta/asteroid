@@ -6,18 +6,17 @@ Componente para abrir um menu de ação a partir de um botão, muito utilizado e
 
 <doc-api file="actions-menu/QasActionsMenu" name="QasActionsMenu" />
 
-
 ## Uso
 
 :::tip
-A prop `list` é um objeto de objetos, que contem os seguintos atributos:
+A prop `list` é um objeto de objetos, que contem os seguintes atributos:
 
 ```js
 {
   visibility: { // key que será usado para abrir o slot
     label: 'Nome do item',
     icon: 'Icone dentro do item',
-    iconSize: 'Tamanho do icone',
+    iconSize: 'Tamanho do ícone',
     props: {
       // Propriedades do q-item: https://quasar.dev/vue-components/list-and-list-items#api--qitem
     },
