@@ -7,7 +7,7 @@
   "productName": "Asteroid Docs",
   "private": true,
   "scripts": {
-    "build": "npx quasar build",
+    "build": "npx quasar build --mode pwa",
     "lint": "eslint --ext .js,.vue ./",
     "test": "echo \"No test specified\" && exit 0"
   },
@@ -35,6 +35,7 @@
     "stylelint-webpack-plugin": "^3.1.1",
     "toml": "^3.0.0",
     "ware-loader": "^0.2.4",
+    "workbox-webpack-plugin": "^6.5.3",
     "yaml-loader": "^0.6.0"
   },
   "browserslist": [
