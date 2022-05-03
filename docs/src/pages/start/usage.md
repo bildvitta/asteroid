@@ -1,3 +1,18 @@
+---
+title: Usando
+---
+
+Para a instalação do Asteroid é bem simples, em sua aplicação `Quasar` abra o terminal na raiz do projeto e digite:
+
+```bash
+quasar ext add @bildvitta/asteroid
+```
+
+Este comando além de instalar o Asteroid, também vai criar um arquivo `quasar.variables.scss`, normalmente este arquivo já existe no projeto, então vai perguntar se deseja sobrescrever o arquivo, você **deve** sobrescrever o arquivo.
+
+O arquivo gerado deve conter as seguintes informações:
+
+```css
 // Quasar SCSS (& Sass) Variables - Asteroid
 // --------------------------------------------------
 // NÃO MODIFIQUE ESTE ARQUIVO COM AS CONFIGURAÇÕES DO ASTEROID PRÉ DEFINIDAS!
@@ -22,3 +37,4 @@ $secondary-contrast: #3691BF80;
 
 @include set-brand(primary-contrast, $primary-contrast);
 @include set-brand(secondary-contrast, $secondary-contrast);
+```

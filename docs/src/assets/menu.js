@@ -10,6 +10,14 @@ module.exports = [
     name: 'Começando',
     children: [
       {
+        name: 'Usando',
+        path: '/start/usage'
+      },
+      {
+        name: 'Desenvolvendo',
+        path: '/start/develop'
+      },
+      {
         name: 'Estrutura',
         path: '/start/structure'
       },
@@ -343,9 +351,8 @@ module.exports = [
     children: [
       {
         name: 'useHistory',
-        path: '/composables/useHistory'
+        path: '/composables/use-history'
       }
     ]
   }
-
 ]

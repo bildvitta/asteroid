@@ -1,6 +1,11 @@
+@use 'sass:color';
+@import '../../../ui/src/index';
+
 $primary: hsl(200deg, 100%, 24%); // Primary Brand
 $secondary: hsl(200deg, 100%, 24%); // Secondary Brand
 $accent: hsla(200deg, 100%, 16%, 50%); // Shadow Brand
+
+$primary: color.adjust($primary, $alpha: 0.2);
 
 // Custom
 $primary-contrast: hsla(200deg, 40%, 80%, 64%); // Contrast Primary Brand
@@ -17,5 +22,3 @@ $warning: #f2c037;
 
 // Custom
 $brand-primary: $primary;
-
-// @import '../../../ui/src/index';

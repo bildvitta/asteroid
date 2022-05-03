@@ -116,7 +116,7 @@ export default {
 <style lang="scss">
 .qas-signature-pad {
   &__canvas {
-    border: 1px solid $grey-3;
+    border: 1px solid $separator-color;
   }
 }
 </style>

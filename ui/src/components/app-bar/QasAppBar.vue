@@ -1,5 +1,5 @@
 <template>
-  <q-header class="bg-white qas-app-bar shadow-primary" height-hint="70">
+  <q-header class="bg-white qas-app-bar shadow-20" height-hint="70">
     <q-toolbar class="qas-app-bar__toolbar" color="bg-white">
       <q-ajax-bar color="white" position="top" size="2px" />
 

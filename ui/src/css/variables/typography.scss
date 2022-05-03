@@ -127,7 +127,7 @@ $h-tags: (
   h6: map.get($headings, 'h6')
 );
 
-// sobrescreve as tags do css para adicionar "margin"
+// sobrescreve as tags do html para adicionar "margin"
 @each $heading, $value in $h-tags {
   #{$heading} {
     font-size: map.get($value, 'size');

@@ -41,7 +41,7 @@
     </div>
 
     <div v-if="useChip && hasActiveFilters" class="q-mt-md">
-      <q-chip v-for="(filterItem, key) in activeFilters" :key="key" color="grey-4" dense removable size="md" text-color="grey-9" @remove="removeFilter(filterItem)">{{ filterItem.label }} = "{{ getChipValue(filterItem.value) }}"</q-chip>
+      <q-chip v-for="(filterItem, key) in activeFilters" :key="key" color="primary" dense removable size="md" text-color="white" @remove="removeFilter(filterItem)">{{ filterItem.label }} = "{{ getChipValue(filterItem.value) }}"</q-chip>
     </div>
 
     <slot :context="mx_context" :filter="filter" :filters="activeFilters" :remove-filter="removeFilter" />
