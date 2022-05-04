@@ -5,7 +5,6 @@
 <script>
 import ErrorComponent from './ErrorComponent'
 
-
 export default {
   components: {
     ErrorComponent
@@ -17,7 +16,7 @@ export default {
         code: '403',
         title: 'Ops, parece que você não tem acesso para este recurso!',
         buttonProps: {
-          to: {path: "/"},
+          to: { path: '/' },
           label: 'Voltar ao início'
         }
       }

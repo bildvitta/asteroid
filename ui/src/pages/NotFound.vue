@@ -5,7 +5,6 @@
 <script>
 import ErrorComponent from './ErrorComponent'
 
-
 export default {
   components: {
     ErrorComponent
@@ -17,7 +16,7 @@ export default {
         code: '404',
         title: 'Ops! Parece que a página que está tentando acessar não existe!',
         buttonProps: {
-          to: {path: "/"},
+          to: { path: '/' },
           label: 'Voltar ao início'
         }
       }
