@@ -127,10 +127,6 @@ $ npm i
 $ quasar ext remove @bildvitta/asteroid
 ```
 
-# Donate
-
-If you appreciate the work that went into this project, please consider [donating to Quasar](https://donate.quasar.dev).
-
 # License
 
 MIT (c) Bild & Vitta <systemteam@bild.com.br>
