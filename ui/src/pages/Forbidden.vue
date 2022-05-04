@@ -1,23 +1,26 @@
 <template>
-  <div class="bg-grey-2 q-px-xl column window-height items-center justify-around">
-    <div class="column full-width items-center justify-center q-gutter-md q-py-md row">
-      <q-img src="../assets/gear.svg" :width="gearSize" />
-      <div class="text-bold text-h1 text-primary">403</div>
-      <div class="text-bold text-center text-h6 text-grey-9">Ops, parece que você não tem acesso para este recurso!</div>
-      <qas-btn class="text-bold text-primary" label="Voltar ao início" :to="{ path: '/' }" />
-    </div>
-  </div>
+  <error-component v-bind="errorProps" />
 </template>
 
 <script>
-import screenMixin from '../mixins/screen'
+import ErrorComponent from './ErrorComponent'
+
 
 export default {
-  mixins: [screenMixin],
+  components: {
+    ErrorComponent
+  },
 
   computed: {
-    gearSize () {
-      return this.$_isSmall ? '90px' : '160px'
+    errorProps () {
+      return {
+        code: '403',
+        title: 'Ops, parece que você não tem acesso para este recurso!',
+        buttonProps: {
+          to: {path: "/"},
+          label: 'Voltar ao início'
+        }
+      }
     }
   }
 }

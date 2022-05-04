@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Add page for error 500
 - Add page error route in `error-pages.js`
+- Add `ErrorComponent`
 
 ### Changed
 - Change not found page layout
