@@ -1,7 +1,7 @@
 name: asteroid
 
 static_sites:
-  - name: ui
+  - name: v2
     github:
       repo: bildvitta/asteroid
       branch: main

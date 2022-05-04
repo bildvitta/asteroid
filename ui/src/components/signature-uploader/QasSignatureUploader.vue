@@ -22,7 +22,7 @@
 
       <template #description>
         <div :style="signaturePadWidth">
-          <qas-signature-pad ref="signaturePadModal" :is-empty.sync="isEmpty" :height="signaturePadHeight" />
+          <qas-signature-pad ref="signaturePadModal" :height="signaturePadHeight" :is-empty.sync="isEmpty" />
         </div>
       </template>
 
