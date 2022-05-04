@@ -4,7 +4,7 @@
       <q-img src="../assets/gear.svg" :width="gearSize" />
       <div class="text-bold text-h1 text-primary">{{ code }}</div>
       <div class="text-bold text-center text-grey-9 text-h6">{{ title }}</div>
-      <div v-if="subtitle" class="text-bold text-center text-grey-9 text-subtitle">{{ subtitle }}</div>
+      <div v-if="subtitle" class="text-bold text-center text-grey-9">{{ subtitle }}</div>
       <qas-btn v-if="hasButtonProps" class="text-bold text-primary" v-bind="buttonProps" />
     </div>
   </div>
