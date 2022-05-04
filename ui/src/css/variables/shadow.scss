@@ -1,8 +1,8 @@
 $shadow-color: $accent;
 
-$elevation-umbra: rgba($shadow-color, 0.2);
-$elevation-penumbra: rgba($shadow-color, 0.2);
-$elevation-ambient: rgba($shadow-color, 0.2);
+$elevation-umbra: $shadow-color;
+$elevation-penumbra: $shadow-color;
+$elevation-ambient: $shadow-color;
 
 // Embossed
 $shadow-2: (

@@ -1,12 +1,26 @@
 <template>
-  <div class="fixed-center text-center">
-    <p class="q-my-lg text-faded">Ops, nada aqui... <strong>(404)</strong></p>
-    <q-btn color="primary" flat @click="$router.push('/')">Voltar</q-btn>
-  </div>
+  <error-component v-bind="errorProps" />
 </template>
 
 <script>
+import ErrorComponent from './ErrorComponent'
+
 export default {
-  name: 'NotFound'
+  components: {
+    ErrorComponent
+  },
+
+  computed: {
+    errorProps () {
+      return {
+        code: '404',
+        title: 'Ops! Parece que a página que está tentando acessar não existe!',
+        buttonProps: {
+          to: { path: '/' },
+          label: 'Voltar ao início'
+        }
+      }
+    }
+  }
 }
 </script>

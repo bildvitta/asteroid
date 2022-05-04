@@ -39,6 +39,8 @@ Sincronizado em _11/02/2022 as 15h00_.
 Sincronizado em _16/03/2022 as 19h00_.
 
 - Propriedade `itemClass` removida (não estava sendo utilizada).
+- Removida imagem "modular" fixa no componente e adicionado por propriedade.
+- Adicionada propriedade `brandMenu` para definir a logo do menu.
 - Propriedade `value` alterada para `modelValue`.
 - Evento `input` alterado para `update:modelValue`.
 

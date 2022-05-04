@@ -1,5 +1,5 @@
 <template>
-  <div class="qas-list-items shadow-primary">
+  <div class="qas-list-items shadow-14">
     <q-list bordered class="rounded-borders" separator>
       <q-item v-for="(item, index) in list" :key="index" v-ripple :clickable="!redirectOnIcon" :to="redirect(item)">
         <slot :index="index" :item="item" name="item">

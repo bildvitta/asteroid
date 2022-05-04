@@ -13,12 +13,9 @@ export default {
   computed: {
     errorProps () {
       return {
-        code: '403',
-        title: 'Ops, parece que você não tem acesso para este recurso!',
-        buttonProps: {
-          to: { path: '/' },
-          label: 'Voltar ao início'
-        }
+        code: '500',
+        title: 'Ops, ocorreu um erro interno no nosso servidor!',
+        subtitle: 'Tente novamente em alguns instantes.'
       }
     }
   }

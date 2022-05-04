@@ -1,7 +1,6 @@
 // Quasar SCSS (& Sass) Variables - Asteroid
 // --------------------------------------------------
 // NÃO MODIFIQUE ESTE ARQUIVO COM AS CONFIGURAÇÕES DO ASTEROID PRÉ DEFINIDAS!
-
 @import '~@bildvitta/quasar-ui-asteroid/src/index';
 
 $primary   : #00527A;
@@ -9,7 +8,7 @@ $primary   : #00527A;
 // TODO: Por hora vamos usar a mesma de $primary-contrast.
 $secondary : #B8D3E0A3;
 $tertiary  : #c7ceff;
-$accent    : #00365280;
+$accent    : rgba($primary, 0.1);
 $dark      : #1d1d1d;
 $positive  : #21ba45;
 $negative  : #c10015;

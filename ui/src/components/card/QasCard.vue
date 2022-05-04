@@ -71,7 +71,7 @@ export default {
     },
 
     cardClasses () {
-      return this.formMode ? 'bg-white border-primary no-shadow' : 'box-shadow-1'
+      return this.formMode ? 'bg-white border-primary no-shadow' : 'shadow-14'
     },
 
     gutterClass () {

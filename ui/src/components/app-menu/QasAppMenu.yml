@@ -18,6 +18,10 @@ props:
     desc: Título que vai ficar no label do select de módulos.
     type: String
 
+  brand-menu:
+    desc: Imagem para ser usada como logo no menu.
+    type: String
+
   modules:
     desc: Lista de módulos que o usuário tem acesso para navegar.
     type: Array
