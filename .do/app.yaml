@@ -11,14 +11,3 @@ static_sites:
     output_dir: storybook-static
     routes:
       - path: /
-
-  - name: v3
-    github:
-      repo: bildvitta/asteroid
-      branch: next
-      deploy_on_push: true
-    source_dir: docs
-    build_command: npm run build
-    output_dir: dist/pwa
-    routes:
-      - path: /v3
