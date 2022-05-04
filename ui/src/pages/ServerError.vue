@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-grey-2 q-px-xl column page-server-error items-center justify-around">
+  <div class="bg-grey-2 q-px-xl column window-height items-center justify-around">
     <div class="column full-width items-center justify-center q-gutter-md q-py-md row">
       <q-img src="../assets/gear.svg" :width="gearSize" />
       <div class="text-bold text-h1 text-primary">500</div>
@@ -24,9 +24,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss">
-.page-server-error {
-  min-height: 100vh;
-}
-</style>
