@@ -60,7 +60,7 @@ module.exports = configure(function (quasar) {
       },
 
       // transpile: false,
-      publicPath: quasar.prod ? '/asteroid' : '/',
+      publicPath: '/',
 
       // Add dependencies for transpiling with Babel (Array of string/regex)
       // (from node_modules, which are by default not transpiled).
