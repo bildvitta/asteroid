@@ -4,6 +4,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## Unrelease
+
+### Added
+- Add page for error 500
+- Add page error route in `error-pages.js`
+- Add `ErrorComponent`
+
+### Changed
+- Change not found page layout
+- Change forbidden page layout
+
 ## 2.18.0 - 2022-04-27
 
 ### Added
