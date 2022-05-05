@@ -1,6 +1,6 @@
 <template>
   <doc-page>
-    <div class="q-pa-lg shadow-20">
+    <div class="q-pa-lg">
       Olá, universo!
     </div>
   </doc-page>

@@ -1,9 +1,13 @@
 <template>
-  <q-layout class="app" view="lHh LpR lff">
+  <q-layout class="app" view="doc-layout lHh LpR lff">
     <q-header bordered class="app-header text-dark">
       <q-toolbar>
         <q-btn dense flat icon="menu" @click="toggleLeftDrawer" />
-        <q-toolbar-title>Asteroid</q-toolbar-title>
+        <q-toolbar-title>
+          <router-link class="app-header__title" to="/">
+            Asteroid
+          </router-link>
+        </q-toolbar-title>
 
         <q-space />
 
@@ -84,6 +88,14 @@ export default {
     @supports (backdrop-filter: none) {
       backdrop-filter: blur(7px);
       background-color: rgba(black, 0.1);
+    }
+
+    &__title {
+      text-decoration: none;
+
+      &:visited {
+        color: currentColor;
+      }
     }
   }
 
