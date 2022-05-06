@@ -75,7 +75,8 @@ Sincronizado em _19/10/2021 as 17h17_.
 
 Sincronizado em _28/04/2022 as 15h00_.
 
-- Propriedade `hideMobileLabel` renomeada para `hideLabelOnSmallScreen`;
+- Propriedade `hideMobileLabel` renomeada para `hideLabelOnSmallScreen`.
+- Propriedade `hideLabelOnSmallScreen` só funciona quando o "rotulo" do botão é passado via prop `label` e não mais por slot default também.
 - Adicionada propriedade `label` para resolver problemas com `hideMobileLabel` (antes recuperava o label por `$attrs.label`).
 
 ### QasCopy

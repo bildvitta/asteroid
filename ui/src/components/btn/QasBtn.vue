@@ -1,6 +1,6 @@
 <template>
   <q-btn color="primary" no-caps unelevated v-bind="attributes">
-    <slot v-if="showLabel" />
+    <slot />
 
     <template v-for="(_, name) in slots" #[name]="context">
       <slot :name="name" v-bind="context || {}" />
@@ -32,7 +32,7 @@ export default {
     },
 
     hasLabel () {
-      return !!(this.label || this.$slots.default)
+      return !!this.label
     },
 
     showLabel () {
