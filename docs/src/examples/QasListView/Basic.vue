@@ -53,8 +53,7 @@ export default {
 
   methods: {
     callback (payload) {
-      return { data: { results: ['kk eae man'] } }
-      // console.log(payload, '>>>> callback')
+      return { data: { results: ['Test'] } }
     }
   }
 }

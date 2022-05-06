@@ -65,7 +65,7 @@ export default {
 
   methods: {
     abc () {
-      console.log('123')
+      return 'abc'
     }
   }
 }
