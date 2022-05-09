@@ -7,13 +7,6 @@ meta:
   desc: Componente para select que implementa o "QSelect" repassando propriedades, slots e eventos.
 
 props:
-  model-value:
-    desc: Model do componente.
-    default: []
-    type: [Array, Object, String, Number]
-    examples: [v-model="value"]
-    model: true
-
   fuse-options:
     desc: Opções do Fuse.js (https://fusejs.io/api/options.html).
     type: Object
@@ -33,6 +26,13 @@ props:
     desc: O componente internamente espera receber na propriedade "options" um array de objeto contendo "label" e "value", caso o seu objeto não tenha "label" mas um "name" por exemplo, você pode definir esta prop "label-key" como "name".
     type: String
     examples: [label-key="name"]
+
+  model-value:
+    desc: Model do componente.
+    default: []
+    type: [Array, Object, String, Number]
+    examples: [v-model="value"]
+    model: true
 
   no-option-label:
     desc: Rótulo padrão de quando os options estão vazios.

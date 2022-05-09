@@ -29,8 +29,8 @@ props:
     type: Boolean
 
 slots:
-  header:
-    desc: Slot para acessar área no lugar do "<q-carousel />".
+  actions:
+    desc: Slot para acessar conteúdo de ações como botão.
 
   carousel-header:
     desc: Slot para acessar usar de header do "<q-carousel />".
@@ -38,5 +38,5 @@ slots:
   default:
     desc: Slot para acessar conteúdo dentro do "<q-card-section />".
 
-  actions:
-    desc: Slot para acessar conteúdo de ações como botão.
+  header:
+    desc: Slot para acessar área no lugar do "<q-carousel />".

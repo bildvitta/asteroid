@@ -34,15 +34,15 @@ props:
     desc: Subtitulo do cabeçalho de perfil.
     type: String
 
-  title:
-    desc: Título do cabeçalho de perfil.
-    type: String
-    required: true
-
   tag:
     desc: Tag do componente pai.
     default: qas-box
     type: String
+
+  title:
+    desc: Título do cabeçalho de perfil.
+    type: String
+    required: true
 
 slots:
   default:

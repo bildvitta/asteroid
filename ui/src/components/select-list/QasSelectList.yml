@@ -28,9 +28,9 @@ props:
     examples: [v-model="value"]
     model: true
 
-  to:
-    desc: 'Configuração do vue-router para enviar no $route.push({ ...to, params: {...} }).'
-    default: Pesquisar
+  param-key:
+    desc: Controla qual parâmetro será enviado para rota.
+    default: id
     type: String
 
   redirect-key:
@@ -38,9 +38,9 @@ props:
     default: uuid
     type: String
 
-  param-key:
-    desc: Controla qual parâmetro será enviado para rota.
-    default: id
+  to:
+    desc: 'Configuração do vue-router para enviar no $route.push({ ...to, params: {...} }).'
+    default: Pesquisar
     type: String
 
 slots:

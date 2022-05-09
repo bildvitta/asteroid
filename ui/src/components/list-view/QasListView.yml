@@ -4,32 +4,18 @@ meta:
   desc: Componente para C.R.U.D. responsável pela parte de listagem (Read).
 
 props:
-  entity:
-    desc: Entidade da store, por exemplo se tiver que trabalhar com modulo de usuários, teremos o model "users" na store, que vai ser nossa "entity".
-    required: true
-    type: String
-
   dialog:
     desc: Este componente pode ser utilizado dentro de um dialog, neste caso o componente pai não pode ser um "QPage" e sim uma "div", esta prop cuida disto.
     type: Boolean
 
-  url:
-    desc: Envia como parâmetro para a action "fetchList" do modulo correspondente a "entity".
+  disable-refresh:
+    desc: Desabilita o [pull-to-refresh](https://quasar.dev/vue-components/pull-to-refresh#basic).
+    type: Boolean
+
+  entity:
+    desc: Entidade da store, por exemplo se tiver que trabalhar com modulo de usuários, teremos o model "users" na store, que vai ser nossa "entity".
+    required: true
     type: String
-
-  results:
-    model: true
-    desc: Model de results, utilizado para recuperar a lista retornada pelo componente.
-    default: []
-    type: Array
-    examples: [v-model:results="results"]
-
-  fields:
-    model: true
-    desc: Model de fields, utilizado para recuperar os fields fora do template.
-    default: {}
-    type: Object
-    examples: [v-model:fields="fields"]
 
   errors:
     model: true
@@ -38,6 +24,24 @@ props:
     type: Object
     examples: [v-model:errors="errors"]
 
+  fetching:
+    model: true
+    desc: Model de fetching, utilizado para saber se o componente está fazendo fetching de dados.
+    type: Boolean
+    examples: [v-model:fetching="isFetching"]
+
+  fields:
+    model: true
+    desc: Model de fields, utilizado para recuperar os fields fora do template.
+    default: {}
+    type: Object
+    examples: [v-model:fields="fields"]
+
+  filters-props:
+    desc: Repassa as props para o componente "QasFilters".
+    default: {}
+    type: Object
+
   metadata:
     model: true
     desc: Model de metadata, utilizado para recuperar os metadata fora do template.
@@ -45,43 +49,53 @@ props:
     type: Object
     examples: [v-model:metadata="metadata"]
 
-  fetching:
+  results:
     model: true
-    desc: Model de fetching, utilizado para saber se o componente está fazendo fetching de dados.
-    type: Boolean
-    examples: [v-model:fetching="isFetching"]
+    desc: Model de results, utilizado para recuperar a lista retornada pelo componente.
+    default: []
+    type: Array
+    examples: [v-model:results="results"]
 
-  disable-refresh:
-    desc: Desabilita o [pull-to-refresh](https://quasar.dev/vue-components/pull-to-refresh#basic).
-    type: Boolean
+  url:
+    desc: Envia como parâmetro para a action "fetchList" do modulo correspondente a "entity".
+    type: String
 
   use-filter:
     desc: Controla se o componente vai usar ou não o componente "QasFilters".
     default: true
     type: Boolean
 
-  filters-props:
-    desc: Repassa as props para o componente "QasFilters".
-    default: {}
-    type: Object
-
 slots:
-  header:
-    desc: 'Slot para acessar o header.'
-
-  filter:
-    desc: 'Slot para acessar o filtro.'
-
   default:
     desc: 'Slot para ter o conteúdo principal (dentro do main).'
 
   empty-results:
     desc: 'Slot acessar quando a listagem está vazia.'
 
+  filter:
+    desc: 'Slot para acessar o filtro.'
+
   footer:
     desc: 'Slot para acessar o footer.'
 
+  header:
+    desc: 'Slot para acessar o header.'
+
 events:
+  '@fetch-success -> function(value)':
+    desc: Dispara quando a action "fetchList" é executada com sucesso.
+    params:
+      value:
+        desc: Retorna todos os dados "cru" respondido pelo fetch.
+        type: Object
+
+  '@fetch-error -> function(value)':
+    desc: Dispara quando a action "fetchList" cai em uma exceção.
+    params:
+      value:
+        desc: Retorna todos os dados "cru" respondido na exceção do fetch.
+        type: Object
+
   '@update:results -> function(value)':
     desc: Dispara quando a action "fetchList" é executada com sucesso, é chamado antes do evento "fetch-success".
     params:
@@ -116,17 +130,3 @@ events:
       value:
         desc: Retorna se está ou não fazendo fetching de dados.
         type: Boolean
-
-  '@fetch-success -> function(value)':
-    desc: Dispara quando a action "fetchList" é executada com sucesso.
-    params:
-      value:
-        desc: Retorna todos os dados "cru" respondido pelo fetch.
-        type: Object
-
-  '@fetch-error -> function(value)':
-    desc: Dispara quando a action "fetchList" cai em uma exceção.
-    params:
-      value:
-        desc: Retorna todos os dados "cru" respondido na exceção do fetch.
-        type: Object

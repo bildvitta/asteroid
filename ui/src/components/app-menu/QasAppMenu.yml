@@ -4,28 +4,28 @@ meta:
   desc: Menu lateral.
 
 props:
-  model-value:
-    desc: Model do componente, controla quando o menu lateral é aberto e fechado.
-    default: true
-    type: Boolean
+  brand-menu:
+    desc: Imagem para ser usada como logo no menu.
+    type: String
 
   items:
     desc: Itens do menu.
     type: Array
     default: []
 
-  title:
-    desc: Título que vai ficar no label do select de módulos.
-    type: String
-
-  brand-menu:
-    desc: Imagem para ser usada como logo no menu.
-    type: String
+  model-value:
+    desc: Model do componente, controla quando o menu lateral é aberto e fechado.
+    default: true
+    type: Boolean
 
   modules:
     desc: Lista de módulos que o usuário tem acesso para navegar.
     type: Array
     default: []
+
+  title:
+    desc: Título que vai ficar no label do select de módulos.
+    type: String
 
 events:
   '@update:model-value -> function(value)':
