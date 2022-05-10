@@ -11,7 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 - Changed `@input` to emit the `update-model` event in `QasNumericInput`. The event arguments contains the raw and the unformatted value.
-- Changed the behavior of the `QasNumericInput` to emit the updated value in `onBlur` event.
+- Changed the behavior of the `QasNumericInput` to emit the updated value in `@blur` event.
 
 ### Fixed
 - The `QasNumericInput` is now reactive to external value changes.
