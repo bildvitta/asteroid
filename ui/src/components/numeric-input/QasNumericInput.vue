@@ -1,8 +1,8 @@
 <template>
   <div>
-    <q-field v-model="model" v-bind="$attrs">
-      <template #control="{ emitValue, floatingLabel, id, value: modelValue }">
-        <input v-show="floatingLabel" :id="id" ref="input" class="q-field__input" :model-value="modelValue" @input="emitValue($event.target.value)">
+    <q-field :value="value" v-bind="$attrs">
+      <template #control="{ floatingLabel, id }">
+        <input v-show="floatingLabel" :id="id" ref="input" class="q-field__input" @click="setSelect" @blur="emitValue" @input="emitUpdateModel($event.target.value)">
       </template>
     </q-field>
   </div>
@@ -66,15 +66,13 @@ export default {
   computed: {
     defaultMode () {
       return defaultModes[this.mode]
-    },
+    }
+  },
 
-    model: {
-      get () {
-        return this.value
-      },
-
-      set () {
-        this.$emit('input', this.autoNumeric.getNumber())
+  watch: {
+    value (value) {
+      if (this.autoNumeric) {
+        this.autoNumeric.set(value)
       }
     }
   },
@@ -110,13 +108,30 @@ export default {
     Object.assign(options, this.autonumericProps)
 
     this.$nextTick(() => {
-      this.$refs.input.value = this.value
       this.autoNumeric = new AutoNumeric(this.$refs.input, options)
+      this.autoNumeric.set(this.value)
     })
   },
 
   beforeDestroy () {
     this.autoNumeric.remove()
+  },
+
+  methods: {
+    setSelect () {
+      this.$refs?.input?.select()
+    },
+
+    emitValue () {
+      this.$emit('input', this.autoNumeric.getNumber())
+    },
+
+    emitUpdateModel (value) {
+      this.$emit('update-model', {
+        value,
+        raw: this.autoNumeric.getNumber()
+      })
+    }
   }
 }
 </script>
