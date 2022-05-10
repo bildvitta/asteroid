@@ -9,7 +9,7 @@
       decimal: {{ decimal }}
     </div>
     <div class="q-my-lg">
-      <qas-numeric-input v-model="percent" entity="test" label="percent" mode="percent" />
+      <qas-numeric-input v-model="percent" entity="test" label="percent" mode="percent" @update-model="onUpdate" />
       percent: {{ percent }}
     </div>
     <div class="q-my-lg">
@@ -27,6 +27,12 @@ export default {
       decimal: 0.10,
       percent: 0.10,
       money: 0.10
+    }
+  },
+
+  methods: {
+    onUpdate (value) {
+      console.log('onUpdate', value)
     }
   }
 }
