@@ -44,10 +44,20 @@ export default {
 
     // Events
     input: {
-      description: 'Emitted when the component needs to change the model. Is also used by `v-model`.',
+      description: 'Emitted when the component needs to change the value.',
       table: {
         defaultValue: {
           detail: JSON.stringify({ value: 'number' }),
+          summary: '{}'
+        }
+      }
+    },
+
+    'update-model': {
+      description: 'Emitted when the user inputs a new value in the component.',
+      table: {
+        defaultValue: {
+          detail: JSON.stringify({ value: 'object' }),
           summary: '{}'
         }
       }
