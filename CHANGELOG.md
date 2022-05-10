@@ -7,14 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## Unreleased
 
 ### Added
-- Added the `@click` event to select the input text in `QasNumericInput`.
+- Added `@click` to select the input text in `QasNumericInput`.
 
 ### Changed
 - Changed `@input` to emit the `update-model` event in `QasNumericInput`. The event arguments contains the raw and the unformatted value.
 - Changed the behavior of the `QasNumericInput` to emit the updated value in `@blur` event.
 
 ### Fixed
-- The `QasNumericInput` is now reactive to external value changes.
+- Fixed `QasNumericInput` to be reactive to external value changes.
 
 ## 2.19.0 - 2022-05-05
 
