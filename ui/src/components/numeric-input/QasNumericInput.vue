@@ -2,7 +2,7 @@
   <div>
     <q-field :value="value" v-bind="$attrs">
       <template #control="{ floatingLabel, id }">
-        <input v-show="floatingLabel" :id="id" ref="input" class="q-field__input" @click="setSelect" @blur="emitValue" @input="emitUpdateModel($event.target.value)">
+        <input v-show="floatingLabel" :id="id" ref="input" class="q-field__input" @blur="emitValue" @click="setSelect" @input="emitUpdateModel($event.target.value)">
       </template>
     </q-field>
   </div>
