@@ -37,17 +37,17 @@ props:
     default: Pesquisar
     type: String
 
-  use-empty-slot:
-    desc: Controla o slot "empty-result".
-    default: true
-    type: Boolean
-
   results:
     desc: Model que retorna o resultado filtrado.
     default: []
     type: Array
     examples: [v-model:results="results"]
     model: true
+
+  use-empty-slot:
+    desc: Controla o slot "empty-result".
+    default: true
+    type: Boolean
 
 slots:
   default:

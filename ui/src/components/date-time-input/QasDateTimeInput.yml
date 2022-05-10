@@ -25,6 +25,12 @@ props:
     desc: Utilizado para se usar junto da prop "date-only" ou "time-only", caso "gmt" for "true", o model sempre vai ser retornado no padrão ISO 8601, independente ser apenas um campo somente de data ou hora.
     type: Boolean
 
+  model-value:
+    desc: Model do componente, usado para v-model.
+    default: ''
+    type: String
+    model: true
+
   time-mask:
     desc: Máscara do componente de input de hora.
     default: HH:mm
@@ -39,11 +45,6 @@ props:
     default: {}
     type: Object
 
-  model-value:
-    desc: Model do componente, usado para v-model.
-    default: ''
-    type: String
-    model: true
 
 events:
   '@update:model-value -> function (value)':

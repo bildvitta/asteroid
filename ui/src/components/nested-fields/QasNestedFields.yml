@@ -26,13 +26,6 @@ props:
     default: destroyed
     type: String
 
-  model-value:
-    desc: Model do componente
-    default: []
-    type: Array
-    examples: [v-model="value"]
-    model: true
-
   errors:
     desc: Propriedade de erros para mostrar nos campos gerados.
     default: {}
@@ -62,6 +55,13 @@ props:
     default: md
     type: String
     examples: [xs, sm, md, lg, xl]
+
+  model-value:
+    desc: Model do componente
+    default: []
+    type: Array
+    examples: [v-model="value"]
+    model: true
 
   row-label:
     desc: Rótulo entre cada linha (row).
@@ -105,6 +105,35 @@ props:
     type: Boolean
 
 slots:
+  add-input:
+    desc: Slot para acessar campo de adicionar.
+    scope:
+      'add -> function(row)':
+        desc: Função para adicionar novos campos no model.
+        type: Function
+        examples: ["add({ name: 'novo valor' })"]
+
+  custom-fields:
+    desc: Slot para adicionar um campo customizado.
+    scope:
+      fields:
+        desc: Campos atuais.
+        default: {}
+        type: Object
+
+      index:
+        desc: Index atual dos campos
+        type: Number
+
+      errors:
+        desc: Index atual dos campos
+        type: Number
+
+      'updateValue -> function(value, index)':
+        desc: Função para atualizar o model, passando o novo valor e o index.
+        type: Function
+        examples: ["updateValue({ name: 'novo valor' }, 2)"]
+
   fields:
     desc: Substitui o "QasFormGenerator".
     scope:
@@ -142,34 +171,6 @@ slots:
         type: Function
         examples: ["updateValue({ name: 'novo valor' }, 2)"]
 
-  custom-fields:
-    desc: Slot para adicionar um campo customizado.
-    scope:
-      fields:
-        desc: Campos atuais.
-        default: {}
-        type: Object
-
-      index:
-        desc: Index atual dos campos
-        type: Number
-
-      errors:
-        desc: Index atual dos campos
-        type: Number
-
-      'updateValue -> function(value, index)':
-        desc: Função para atualizar o model, passando o novo valor e o index.
-        type: Function
-        examples: ["updateValue({ name: 'novo valor' }, 2)"]
-
-  add-input:
-    desc: Slot para acessar campo de adicionar.
-    scope:
-      'add -> function(row)':
-        desc: Função para adicionar novos campos no model.
-        type: Function
-        examples: ["add({ name: 'novo valor' })"]
 
 events:
   '@update:model-value -> function (value)':

@@ -4,23 +4,25 @@ meta:
   desc: Componente para C.R.U.D. responsável por deletar (Delete).
 
 props:
-  entity:
-    desc: Entidade da store, por exemplo se tiver que trabalhar com modulo de usuários, teremos o model "users" na store, que vai ser nossa "entity".
-    required: true
-    type: String
-
   custom-id:
     desc: Por padrão, o componente vai pegar o "id" que vem como parâmetro na url, caso queira que o id seja diferente da url, use esta prop.
     type: String
     examples: ['my-custom-id']
+
+  deleting:
+    desc: Model para saber se está deletando.
+    type: Boolean
+    examples: [v-model:deleting="isDeleting"]
+    model: true
 
   dialog-props:
     desc: Props para ser repassada para o componente "QasDialog"
     default: {}
     type: Object
 
-  url:
-    desc: Envia como parâmetro para a action "fetchSingle" do modulo correspondente a "entity".
+  entity:
+    desc: Entidade da store, por exemplo se tiver que trabalhar com modulo de usuários, teremos o model "users" na store, que vai ser nossa "entity".
+    required: true
     type: String
 
   tag:
@@ -29,11 +31,9 @@ props:
     type: String
     examples: [q-item]
 
-  deleting:
-    desc: Model para saber se está deletando.
-    type: Boolean
-    examples: [v-model:deleting="isDeleting"]
-    model: true
+  url:
+    desc: Envia como parâmetro para a action "fetchSingle" do modulo correspondente a "entity".
+    type: String
 
   use-auto-delete-route:
     desc: Controla se sempre que deletar com sucesso um item, remove todas as rotas do histórico de rotas que contenha id do item deletado.
@@ -45,12 +45,12 @@ slots:
     desc: 'Slot para acessar dentro do componente.'
 
 events:
-  '@success -> function()':
-    desc: Dispara quando o componente deleta com sucesso.
-
   '@error -> function(value)':
     desc: Dispara quando acontece algum erro na hora de deletar.
     params:
       value:
         desc: Erro retornado.
         type: Object
+
+  '@success -> function()':
+    desc: Dispara quando o componente deleta com sucesso.

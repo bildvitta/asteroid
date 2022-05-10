@@ -22,13 +22,13 @@ props:
     desc: Altura da imagem (fora do dialog).
     type: String
 
-  initial-size:
-    desc: Quantidade de imagens iniciais.
+  images:
+    desc: Imagens a serem exibidas.
     default: 6
     type: Number
 
-  images:
-    desc: Imagens a serem exibidas.
+  initial-size:
+    desc: Quantidade de imagens iniciais.
     default: 6
     type: Number
 

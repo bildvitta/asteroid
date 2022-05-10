@@ -11,10 +11,6 @@ props:
     desc: Configurações do QBreadcrumbs (https://quasar.dev/vue-components/breadcrumbs#introduction).
     type: [Array, String]
 
-  use-breadcrumbs:
-    desc: Habilita ou não o breadcrumbs.
-    type: [Array, String]
-
   title:
     desc: Título do cabeçalho.
     type: String
@@ -22,3 +18,7 @@ props:
   root:
     desc: Rota raiz do breadcrumbs.
     type: [Object, String]
+
+  use-breadcrumbs:
+    desc: Habilita ou não o breadcrumbs.
+    type: [Array, String]
