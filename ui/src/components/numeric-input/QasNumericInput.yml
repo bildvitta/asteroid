@@ -50,8 +50,16 @@ events:
       value:
         desc: Novo valor do v-model.
 
-  '@update-model -> function ({ value, raw })':
+  '@update-model -> function (payload)':
     desc: Dispara toda vez que o model é atualizado, diferente do "update:model-value", é disparado sempre que acontece um novo input. Também utilizado para v-model.
     params:
-      value:
-        desc: Novo valor do v-model.
+      payload:
+        type: Object
+        desc: Objeto contendo informações atualizadas.
+        params:
+          value:
+            type: String,
+            desc: Valor formato.
+          raw:
+            type: Number
+            desc: Valor sem formatação.
