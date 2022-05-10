@@ -144,6 +144,7 @@ export default {
     options: {
       handler (value) {
         this.optionsList = extend(true, [], value)
+        this.setSelectedFromValue(true)
       },
 
       immediate: true
@@ -209,7 +210,7 @@ export default {
     },
 
     setSelectedFromValue (isFirst) {
-      this.modelValue.forEach(item => {
+      this.optionsList.length && this.modelValue.forEach(item => {
         const selected = this.optionsList.find(option => {
           return option[this.valueKey] === (this.emitValue ? item : item[this.valueKey])
         })

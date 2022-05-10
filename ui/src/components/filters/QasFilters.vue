@@ -16,7 +16,7 @@
 
       <slot v-if="showFilterButton" :filter="filter" name="filter-button">
         <q-btn v-if="useFilterButton" :color="filterButtonColor" flat icon="o_filter_list" :label="filterButtonLabel">
-          <q-menu>
+          <q-menu class="full-width" max-width="240px">
             <div v-if="isFetching" class="q-pa-xl text-center">
               <q-spinner color="grey" size="2em" />
             </div>

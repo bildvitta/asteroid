@@ -121,6 +121,7 @@ export default {
       handler (value) {
         this.$emit('update:results', extend([], true, value))
       },
+      deep: true,
       immediate: true
     }
   },
@@ -139,10 +140,16 @@ export default {
     async fetchList (filters = {}) {
       this.mx_isFetching = true
 
+      const hasFilters = !!Object.keys(filters).length
+
       try {
         const response = await this.$store.dispatch(
           `${this.entity}/fetchList`,
-          { ...this.mx_context, url: this.url, filters }
+          {
+            ...this.mx_context,
+            url: this.url,
+            ...(hasFilters && { filters })
+          }
         )
 
         const { errors, fields, metadata } = response.data
