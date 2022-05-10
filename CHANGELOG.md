@@ -8,6 +8,9 @@ Para encontrar de uma forma mais detalhada todas as mudanças da `versão 2` par
 Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a versão 3.
 
 ## [3.0.0-beta.7] - 10-05-2022
+### Adicionado
+- `QasNumericInput`: adicionado novo evento "update-model" para disparar toda vez que acontece um novo input.
+
 ### Alterado
 - `QasListView`: adicionado propriedade `deep` para o watch do `resultsModel`.
 - `QasPasswordInput`: alterado valor `bottom-slots` para `false`.
@@ -16,6 +19,7 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 ### Corrigido
 - `QasListView`: corrigido bug de filtros ao fazer o `fetchList`.
 - `QasTransfer`: corrigido bug quando v-model já existe valor antes de existir `options`.
+- `QasNumericInput`: corrigido bug no two-way data binding.
 
 ## [3.0.0-beta.6] - 05-06-2022
 ### Alterado

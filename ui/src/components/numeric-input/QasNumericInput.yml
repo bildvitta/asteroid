@@ -45,7 +45,13 @@ props:
 
 events:
   '@update:model-value -> function (value)':
-    desc: Dispara toda vez que o model é atualizado, também utilizado para v-model.
+    desc: Dispara toda vez que o model é atualizado (após o blur do input), também utilizado para v-model.
     params:
       value:
-        desc: Novo valor do v-model
+        desc: Novo valor do v-model.
+
+  '@update-model -> function ({ value, raw })':
+    desc: Dispara toda vez que o model é atualizado, diferente do "update:model-value", é disparado sempre que acontece um novo input. Também utilizado para v-model.
+    params:
+      value:
+        desc: Novo valor do v-model.
