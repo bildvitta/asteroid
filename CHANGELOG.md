@@ -7,6 +7,8 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 Para encontrar de uma forma mais detalhada todas as mudanças da `versão 2` para a `versão 3`, navegue até o arquivo `/docs/src/pages/start/upgrade-guide.md`.
 Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a versão 3.
 
+## [Não publicado]
+
 ## [3.0.0-beta.7] - 10-05-2022
 ### Adicionado
 - `QasNumericInput`: adicionado novo evento "update-model" para disparar toda vez que acontece um novo input.
