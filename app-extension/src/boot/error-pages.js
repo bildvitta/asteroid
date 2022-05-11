@@ -6,7 +6,7 @@ import Unauthorized from '@bildvitta/quasar-ui-asteroid/src/pages/Unauthorized.v
 export default function ({ router }) {
   const routes = [
     {
-      name: 'Unauthorized',
+      name: 'Forbidden',
       path: '/',
       component: ForbiddenPage
     },
