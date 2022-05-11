@@ -7,7 +7,14 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 Para encontrar de uma forma mais detalhada todas as mudanças da `versão 2` para a `versão 3`, navegue até o arquivo `/docs/src/pages/start/upgrade-guide.md`.
 Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a versão 3.
 
-## [Não publicado]
+## [3.0.0-beta.8] - 11-05-2022
+### Adicionado
+- Adicionado nova pagina de erro `Unauthorized.vue` para quando api retorna status code `401` no fetch.
+- Adicionado `name` para as paginas de erros.
+
+- ### Corrigido
+- Adicionado redirect para status code `> 500` (antes já existia a pagina para isto, mas não era redirecionado).
+- `QasTableGenerator`: corrigido bug `Uncaught TypeError: this.scrollOnGrab.destroyEvents is not a function`.
 
 ## [3.0.0-beta.7] - 10-05-2022
 ### Adicionado
@@ -30,5 +37,6 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 ### Corrigido
 - Corrigido `QasBtn`, quando usa a prop `hideLabelOnSmallScreen` e utiliza o slot default, quando a tela está em tamanho pequeno, o botão remove o slot default, o problema disto é que se usar com um `QMenu` dentro do botão, o `QMenu` não é chamado pois não existe mais slot default.
 
+[3.0.0-beta.8]: https://github.com/bildvitta/asteroid/compare/v3.0.0-beta.7...v3.0.0-beta.8?expand=1
 [3.0.0-beta.7]: https://github.com/bildvitta/asteroid/compare/v3.0.0-beta.6...v3.0.0-beta.7?expand=1
 [3.0.0-beta.6]: https://github.com/bildvitta/asteroid/compare/v3.0.0-beta.5...v3.0.0-beta.6?expand=1

@@ -6,7 +6,7 @@
 import ErrorComponent from './ErrorComponent.vue'
 
 export default {
-  name: 'NotFound',
+  name: 'Unauthorized',
 
   components: {
     ErrorComponent
@@ -15,11 +15,11 @@ export default {
   computed: {
     errorProps () {
       return {
-        code: '404',
-        title: 'Ops! Parece que a página que está tentando acessar não existe!',
+        code: '401',
+        title: 'Ops! Parece que você está sem acesso ao sistema!',
         buttonProps: {
-          to: { path: '/' },
-          label: 'Voltar ao início'
+          to: { path: '/auth/login' },
+          label: 'Fazer login'
         }
       }
     }

@@ -3,9 +3,11 @@
 </template>
 
 <script>
-import ErrorComponent from './ErrorComponent'
+import ErrorComponent from './ErrorComponent.vue'
 
 export default {
+  name: 'ServerError',
+
   components: {
     ErrorComponent
   },
