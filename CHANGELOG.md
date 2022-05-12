@@ -7,10 +7,14 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 Para encontrar de uma forma mais detalhada todas as mudanças da `versão 2` para a `versão 3`, navegue até o arquivo `/docs/src/pages/start/upgrade-guide.md`.
 Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a versão 3.
 
-## [3.0.0-beta.8] - 11-05-2022
+## [3.0.0-beta.8] - 12-05-2022
 ### Adicionado
 - Adicionado nova pagina de erro `Unauthorized.vue` para quando api retorna status code `401` no fetch.
 - Adicionado `name` para as paginas de erros.
+
+### Alterado
+- `QasSearchBox`: alterado valor default da prop `fuseOptions` para `{ threshold: 0.1, ignoreLocation: true }`. 
+- `QasSelect`: alterado valor default da prop `fuseOptions` para `{ threshold: 0.1, ignoreLocation: true, keys: ['label', 'value'] }`.
 
 - ### Corrigido
 - Adicionado redirect para status code `> 500` (antes já existia a pagina para isto, mas não era redirecionado).
