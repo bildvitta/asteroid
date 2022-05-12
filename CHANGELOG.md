@@ -16,7 +16,7 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 - `QasSearchBox`: alterado valor default da prop `fuseOptions` para `{ threshold: 0.1, ignoreLocation: true }`. 
 - `QasSelect`: alterado valor default da prop `fuseOptions` para `{ threshold: 0.1, ignoreLocation: true, keys: ['label', 'value'] }`.
 
-- ### Corrigido
+### Corrigido
 - Adicionado redirect para status code `> 500` (antes já existia a pagina para isto, mas não era redirecionado).
 - `QasTableGenerator`: corrigido bug `Uncaught TypeError: this.scrollOnGrab.destroyEvents is not a function`.
 
