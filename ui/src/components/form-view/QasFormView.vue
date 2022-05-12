@@ -190,6 +190,8 @@ export default {
     mx_fields (fields) {
       const models = { ...this.getModelsByFields(fields), ...this.modelValue }
 
+      this.$emit('update:modelValue', models)
+
       if (!this.hasResult && this.showDialogOnUnsavedChanges) {
         this.cachedResult = extend(true, {}, models)
       }
@@ -212,10 +214,17 @@ export default {
 
   methods: {
     beforeRouteLeave (to, from, next) {
+      const clonedModelValue = extend(true, {}, this.modelValue)
+      const clonedCachedResult = extend(true, {}, this.cachedResult)
+
       if (
         !this.showDialogOnUnsavedChanges ||
         this.ignoreRouterGuard ||
-        isEqualWith(this.modelValue, this.cachedResult, this.handleIgnoreKeysInUnsavedChanges)
+        isEqualWith(
+          clonedModelValue,
+          clonedCachedResult,
+          this.handleIgnoreKeysInUnsavedChanges
+        )
       ) {
         return next()
       }
@@ -246,17 +255,21 @@ export default {
         this.mx_setFields(fields)
         this.mx_setMetadata(metadata)
 
+        if (result) {
+          this.hasResult = true
+
+          this.$nextTick(() => {
+            this.$emit('update:modelValue', { ...this.modelValue, ...result })
+          })
+
+          this.cachedResult = this.showDialogOnUnsavedChanges && extend(true, {}, result)
+        }
+
         this.mx_updateModels({
           errors: errors,
           fields: this.mx_fields,
           metadata
         })
-
-        if (result) {
-          this.hasResult = true
-          this.$emit('update:modelValue', { ...this.modelValue, ...result })
-          this.cachedResult = this.showDialogOnUnsavedChanges && extend(true, {}, result)
-        }
 
         this.$emit('fetch-success', response, this.modelValue)
       } catch (error) {
@@ -271,7 +284,9 @@ export default {
       const models = {}
 
       for (const field in fields) {
-        models[field] = fields[field].default
+        if (fields[field].default) {
+          models[field] = fields[field].default
+        }
       }
 
       return models
@@ -315,6 +330,8 @@ export default {
       if (!toIgnore.length) return
 
       toIgnore.forEach(key => {
+        if (!firstValue) return
+
         delete firstValue[key]
         delete secondValue[key]
       })
