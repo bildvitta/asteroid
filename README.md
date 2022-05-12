@@ -59,6 +59,17 @@ Observação: Alguns componentes do Quasar precisam ser importados manualmente d
 └── eslint                                     # Biblioteca de lint para o asteroid.
 ```
 
+## Roadmap:
+
+- [ ] Testes unitários.
+- [ ] Busca na documentação.
+- [ ] Melhoria geral na documentação (adicionar mais exemplos, links etc).
+- [ ] Adicionar loggers nos componentes para facilitar na hora de debugar.
+- [ ] Refatoração de código dos componentes para uma melhor "dev experience" e melhor performance.
+- [ ] Atualizar markdown "pull_request_template".
+- [ ] Desenvolver uma CLI para facilitar o desenvolvimento dentro do asteroid.
+- [ ] Desenvolver uma CLI para facilitar o desenvolvimento fora do asteroid.
+
 # Licença
 
 MIT (c) Bild & Vitta <systemteam@bild.com.br>
