@@ -11,10 +11,12 @@ props:
 
   fuse-options:
     desc: Opções do Fuse.js (https://fusejs.io/api/options.html).
-    default: "{ distance: 100, location: 0, maxPatternLength: 32, minMatchCharLength: 1, shouldSort: true, threshold: 0.1, tokenize: true }"
     debugger: true
     type: Object
     examples: ["{ keys: ['label'] }"]
+    default:
+      ignoreLocation: true
+      threshold: 0.1
 
   height:
     desc: Define altura do box quando a lista não está vazia.

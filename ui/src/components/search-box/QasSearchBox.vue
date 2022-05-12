@@ -94,13 +94,8 @@ export default {
 
     defaultFuseOptions () {
       return {
-        distance: 100,
-        location: 0,
-        maxPatternLength: 32,
-        minMatchCharLength: 1,
-        shouldSort: true,
         threshold: 0.1,
-        tokenize: true,
+        ignoreLocation: true,
 
         ...this.fuseOptions
       }

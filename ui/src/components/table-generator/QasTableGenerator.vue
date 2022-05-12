@@ -199,10 +199,11 @@ export default {
     handleScrollOnGrab () {
       const fullTableWidth = this.getFullTableWidth()
       const containerTableWidth = this.getContainerTableWidth()
+      const hasScrollOnGrab = !!Object.keys(this.scrollOnGrab).length
 
       if (fullTableWidth > containerTableWidth) {
         this.initializeScrollOnGrab()
-      } else if (this.hasScrollOnGrab) {
+      } else if (hasScrollOnGrab) {
         this.scrollOnGrab.destroyEvents()
         this.scrollOnGrab.element.style.cursor = 'auto'
         this.scrollOnGrab = {}

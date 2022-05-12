@@ -12,15 +12,9 @@ props:
     type: Object
     debugger: true
     default:
-      distance: 100
-      includeScore: true
+      ignoreLocation: true
       keys: [label, value]
-      location: 0
-      maxPatternLength: 32
-      minMatchCharLength: 1
-      shouldSort: true
       threshold: 0.1
-      tokenize: true
 
   label-key:
     desc: O componente internamente espera receber na propriedade "options" um array de objeto contendo "label" e "value", caso o seu objeto não tenha "label" mas um "name" por exemplo, você pode definir esta prop "label-key" como "name".

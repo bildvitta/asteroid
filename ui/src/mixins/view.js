@@ -86,7 +86,9 @@ export default {
       this.$qas.error('Ops! Erro ao obter os dados.', exception)
 
       const status = response?.status
-      const redirect = ({ 403: 'Forbidden', 404: 'NotFound' })[status]
+      const redirect = status >= 500
+        ? 'ServerError'
+        : ({ 401: 'Unauthorized', 403: 'Forbidden', 404: 'NotFound' })[status]
 
       if (redirect) {
         this.$router.replace({ name: redirect })
