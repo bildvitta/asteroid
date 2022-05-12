@@ -61,14 +61,18 @@ Observação: Alguns componentes do Quasar precisam ser importados manualmente d
 
 ## Roadmap:
 
-- [ ] Testes unitários.
+- [ ] Adicionar novos componentes que estão sendo utilizados nos projetos ao asteroid.
+- [ ] Testes unitários nos componentes.
 - [ ] Busca na documentação.
 - [ ] Melhoria geral na documentação (adicionar mais exemplos, links etc).
 - [ ] Adicionar loggers nos componentes para facilitar na hora de debugar.
 - [ ] Refatoração de código dos componentes para uma melhor "dev experience" e melhor performance.
-- [ ] Atualizar markdown "pull_request_template".
+- [ ] Atualizar markdown `pull_request_template`.
 - [ ] Desenvolver uma CLI para facilitar o desenvolvimento dentro do asteroid.
 - [ ] Desenvolver uma CLI para facilitar o desenvolvimento fora do asteroid.
+- [ ] Finalizar `eslint-plugin-asteroid`.
+- [ ] Desenvolver uma nova biblioteca semelhante ao `vuexStoreModule` porém com suporte ao `vuex` e `pinia`.
+- [ ] Desenvolver um novo `asteroid-starter-kit` para o quasar v2 + asteroid v3 com suporte ao webpack e vite.
 
 # Licença
 
