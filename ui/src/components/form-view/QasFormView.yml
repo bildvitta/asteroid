@@ -4,7 +4,7 @@ meta:
   desc: Componente para C.R.U.D. responsável pela pela criação (Create) e edição (Update).
 
 props:
-  cancel-button:
+  cancel-button-label:
     desc: Rótulo do botão "cancelar".
     default: Cancelar
     type: String
@@ -84,10 +84,6 @@ props:
     examples: [v-model="values"]
     model: true
 
-  read-only:
-    desc: Controla o slot de actions.
-    type: Boolean
-
   route:
     desc: Você pode passar uma configuração de rota customizada.
     default: {}
@@ -98,7 +94,7 @@ props:
     default: true
     type: Boolean
 
-  submit-button:
+  submit-button-label:
     desc: Rótulo do botão "salvar".
     default: Salvar
     type: String
@@ -112,6 +108,21 @@ props:
   url:
     desc: Envia como parâmetro para a action "fetchSingle" do modulo correspondente a "entity".
     type: String
+
+  use-actions:
+    desc: Controla se vai ter ou não o slot de actions.
+    default: true
+    type: Boolean
+
+  use-cancel-button:
+    desc: Controla se vai ter ou não botão de "cancelar".
+    default: true
+    type: Boolean
+
+  use-submit-button:
+    desc: Controla se vai ter ou não botão de submit.
+    default: true
+    type: Boolean
 
 slots:
   actions:

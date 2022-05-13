@@ -351,10 +351,15 @@ Sincronizado em _16/02/2022 as 10h43_.
 
 ### QasFormView
 
-Sincronizado em _23/03/2022 as 16h00_.
+Sincronizado em _13/05/2022 as 16h00_.
 
 - Propriedade `value` alterada para `modelValue`.
+- Propriedade `readOnly` alterada para `useActions`.
+- Propriedade `cancelButton` alterada para `cancelButtonLabel`.
+- Propriedade `submitButton` alterada para `submitButtonLabel`.
 - Adicionado propriedade `ignoreKeysInUnsavedChanges` para ignorar chaves na validação de quando sai da tela com alterações não salvas.
+- Adicionado propriedade `useCancelButton`.
+- Adicionado propriedade `useSubmitButton`.
 - Classes `container` e `spaced` já vem como padrão quando a propriedade `dialog` é "false".
 - Slot `header`, removido os escopos `(fields, metadata, errors)`.
 - Slot `default`, removido os escopos `(fields, metadata, errors)`.

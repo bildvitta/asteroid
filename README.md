@@ -73,6 +73,7 @@ Observação: Alguns componentes do Quasar precisam ser importados manualmente d
 - [ ] Finalizar `eslint-plugin-asteroid`.
 - [ ] Desenvolver uma nova biblioteca semelhante ao `vuexStoreModule` porém com suporte ao `vuex` e `pinia`.
 - [ ] Desenvolver um novo `asteroid-starter-kit` para o quasar v2 + asteroid v3 com suporte ao webpack e vite.
+- [ ] Substituir os actions do `QasFormView` pelo `QasActions`.
 
 # Licença
 

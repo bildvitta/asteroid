@@ -7,13 +7,14 @@
     <q-form ref="form" @submit="submit">
       <slot />
 
-      <slot v-if="!readOnly" name="actions">
+      <slot v-if="useActions" name="actions">
         <div class="justify-end q-col-gutter-md q-my-lg row">
           <div v-if="hasCancelButton" class="col-12 col-sm-2" :class="cancelButtonClass">
-            <qas-btn v-close-popup="dialog" class="full-width" :data-cy="`btnCancel-${entity}`" :disable="isCancelButtonDisabled" :label="cancelButton" outline type="button" @click="cancel" />
+            <qas-btn v-close-popup="dialog" class="full-width" :data-cy="`btnCancel-${entity}`" :disable="isCancelButtonDisabled" :label="cancelButtonLabel" outline type="button" @click="cancel" />
           </div>
-          <div class="col-12 col-sm-2" :class="saveButtonClass">
-            <qas-btn class="full-width" :data-cy="`btnSave-${entity}`" :disable="disable" :label="submitButton" :loading="isSubmitting" type="submit" />
+
+          <div v-if="useSubmitButton" class="col-12 col-sm-2" :class="submitButtonClass">
+            <qas-btn class="full-width" :data-cy="`btnSave-${entity}`" :disable="disable" :label="submitButtonLabel" :loading="isSubmitting" type="submit" />
           </div>
         </div>
       </slot>
@@ -55,7 +56,7 @@ export default {
   mixins: [viewMixin],
 
   props: {
-    cancelButton: {
+    cancelButtonLabel: {
       default: 'Cancelar',
       type: String
     },
@@ -79,10 +80,6 @@ export default {
       type: String
     },
 
-    readOnly: {
-      type: Boolean
-    },
-
     route: {
       default: () => ({}),
       type: Object
@@ -98,7 +95,7 @@ export default {
       type: Array
     },
 
-    submitButton: {
+    submitButtonLabel: {
       default: 'Salvar',
       type: String
     },
@@ -109,6 +106,21 @@ export default {
     },
 
     submitting: {
+      type: Boolean
+    },
+
+    useActions: {
+      default: true,
+      type: Boolean
+    },
+
+    useCancelButton: {
+      default: true,
+      type: Boolean
+    },
+
+    useSubmitButton: {
+      default: true,
       type: Boolean
     }
   },
@@ -154,7 +166,7 @@ export default {
     },
 
     hasCancelButton () {
-      return !(typeof this.cancelRoute === 'boolean' && !this.cancelRoute)
+      return !(typeof this.cancelRoute === 'boolean' && !this.cancelRoute) && this.useCancelButton
     },
 
     id () {
@@ -173,16 +185,12 @@ export default {
       return this.$route
     },
 
-    saveButtonClass () {
+    submitButtonClass () {
       return this.$qas.screen.isSmall && 'order-first'
     },
 
     isCancelButtonDisabled () {
       return this.disable || this.isSubmitting
-    },
-
-    fieldsNameWithDefaultValue () {
-      return Object.keys(this.fields).filter(field => 'default' in this.fields[field])
     }
   },
 
@@ -217,6 +225,12 @@ export default {
       const clonedModelValue = extend(true, {}, this.modelValue)
       const clonedCachedResult = extend(true, {}, this.cachedResult)
 
+      /**
+       * Se a propriedade "showDialogOnUnsavedChanges" for false ou a variável
+       * "showDialogOnUnsavedChanges" for true, então **não** iremos checar se o usuário
+       * alterou algum campo antes de sair da pagina, senão iremos validar pela função isEqualWith
+       * e mostrar um dialog antes do usuário sair da página.
+      */
       if (
         !this.showDialogOnUnsavedChanges ||
         this.ignoreRouterGuard ||
@@ -255,6 +269,12 @@ export default {
         this.mx_setFields(fields)
         this.mx_setMetadata(metadata)
 
+        this.mx_updateModels({
+          errors: errors,
+          fields: this.mx_fields,
+          metadata
+        })
+
         if (result) {
           this.hasResult = true
 
@@ -264,12 +284,6 @@ export default {
 
           this.cachedResult = this.showDialogOnUnsavedChanges && extend(true, {}, result)
         }
-
-        this.mx_updateModels({
-          errors: errors,
-          fields: this.mx_fields,
-          metadata
-        })
 
         this.$emit('fetch-success', response, this.modelValue)
       } catch (error) {
@@ -284,9 +298,7 @@ export default {
       const models = {}
 
       for (const field in fields) {
-        if (fields[field].default) {
-          models[field] = fields[field].default
-        }
+        models[field] = fields[field].default
       }
 
       return models
@@ -322,14 +334,9 @@ export default {
 
     // ignora chaves na hora de validar quando usuário está saindo da página
     handleIgnoreKeysInUnsavedChanges (firstValue, secondValue) {
-      const toIgnore = [
-        ...this.fieldsNameWithDefaultValue,
-        ...this.ignoreKeysInUnsavedChanges
-      ]
+      if (!this.ignoreKeysInUnsavedChanges.length) return
 
-      if (!toIgnore.length) return
-
-      toIgnore.forEach(key => {
+      this.ignoreKeysInUnsavedChanges.forEach(key => {
         if (!firstValue) return
 
         delete firstValue[key]
@@ -338,12 +345,10 @@ export default {
     },
 
     async submit (event) {
+      if (this.disable) return null
+
       if (event) {
         event.preventDefault()
-      }
-
-      if (this.disable || this.readyOnly) {
-        return null
       }
 
       this.isSubmitting = true
