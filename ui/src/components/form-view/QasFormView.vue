@@ -227,7 +227,7 @@ export default {
 
       /**
        * Se a propriedade "showDialogOnUnsavedChanges" for false ou a variável
-       * "showDialogOnUnsavedChanges" for true, então **não** iremos checar se o usuário
+       * "ignoreRouterGuard" for true, então **não** iremos checar se o usuário
        * alterou algum campo antes de sair da pagina, senão iremos validar pela função isEqualWith
        * e mostrar um dialog antes do usuário sair da página.
       */
