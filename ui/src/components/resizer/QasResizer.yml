@@ -7,6 +7,12 @@ meta:
   desc: Componente para exibir imagem redimensionadas, implementa o "QImg".
 
 props:
+  resize:
+    desc: Formato de ajuste.
+    default: cover
+    type: String
+    examples: [cover, contain, fill, inside, outside]
+
   size:
     desc: Tamanho da imagem.
     type: String
@@ -16,8 +22,3 @@ props:
     type: String
     examples: [bild-vitta.png]
 
-  resize:
-    desc: Formato de ajuste.
-    default: cover
-    type: String
-    examples: [cover, contain, fill, inside, outside]

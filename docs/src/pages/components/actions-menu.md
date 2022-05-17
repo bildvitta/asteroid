@@ -21,7 +21,6 @@ A prop `list` é um objeto de objetos, que contem os seguintes atributos:
   visibility: { // key que será usado para abrir o slot
     label: 'Nome do item',
     icon: 'Icone dentro do item',
-    iconSize: 'Tamanho do icone',
     props: {
       // Propriedades do q-item: https://quasar.dev/vue-components/list-and-list-items#api--qitem
     },
@@ -31,6 +30,10 @@ A prop `list` é um objeto de objetos, que contem os seguintes atributos:
   }
 }
 ```
+:::
+
+:::danger
+A chave `iconSize` dentro da propriedade `list` foi **removida**, pois sempre os ícones devem ser do tamanho `sm`.
 :::
 
 :::tip

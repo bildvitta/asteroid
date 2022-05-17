@@ -4,11 +4,6 @@ meta:
   desc: Componente para C.R.U.D. responsável pela visualização (Read) ou conhecido também como "show".
 
 props:
-  entity:
-    desc: Entidade da store, por exemplo se tiver que trabalhar com modulo de usuários, teremos o model "users" na store, que vai ser nossa "entity".
-    required: true
-    type: String
-
   custom-id:
     desc: Por padrão, o componente vai pegar o "id" que vem como parâmetro na url, caso queira que o id seja diferente da url, use esta prop.
     type: String
@@ -18,22 +13,10 @@ props:
     desc: Este componente pode ser utilizado dentro de um dialog, neste caso o componente pai não pode ser um "QPage" e sim uma "div", esta prop cuida disto.
     type: Boolean
 
-  url:
-    desc: Envia como parâmetro para a action "fetchSingle" do modulo correspondente a "entity".
+  entity:
+    desc: Entidade da store, por exemplo se tiver que trabalhar com modulo de usuários, teremos o model "users" na store, que vai ser nossa "entity".
+    required: true
     type: String
-
-  result:
-    model: true
-    desc: Model de result, utilizado para recuperar o resultado retornado pelo componente.
-    type: Object
-    examples: [v-model:result="result"]
-
-  fields:
-    model: true
-    desc: Model de fields, utilizado para recuperar os fields fora do template.
-    default: {}
-    type: Object
-    examples: [v-model:fields="fields"]
 
   errors:
     model: true
@@ -42,12 +25,12 @@ props:
     type: Object
     examples: [v-model:errors="errors"]
 
-  metadata:
+  fields:
     model: true
-    desc: Model de metadata, utilizado para recuperar os metadata fora do template.
+    desc: Model de fields, utilizado para recuperar os fields fora do template.
     default: {}
     type: Object
-    examples: [v-model:metadata="metadata"]
+    examples: [v-model:fields="fields"]
 
   fetching:
     model: true
@@ -55,17 +38,48 @@ props:
     type: Boolean
     examples: [v-model:fetching="isFetching"]
 
-slots:
-  header:
-    desc: 'Slot para acessar o header.'
+  metadata:
+    model: true
+    desc: Model de metadata, utilizado para recuperar os metadata fora do template.
+    default: {}
+    type: Object
+    examples: [v-model:metadata="metadata"]
 
+  result:
+    model: true
+    desc: Model de result, utilizado para recuperar o resultado retornado pelo componente.
+    type: Object
+    examples: [v-model:result="result"]
+
+  url:
+    desc: Envia como parâmetro para a action "fetchSingle" do modulo correspondente a "entity".
+    type: String
+
+slots:
   default:
     desc: 'Slot para ter o conteúdo principal (dentro do main).'
 
   footer:
     desc: 'Slot para acessar o footer.'
 
+  header:
+    desc: 'Slot para acessar o header.'
+
 events:
+  '@fetch-success -> function(value)':
+    desc: Dispara quando a action "fetchSingle" é executada com sucesso.
+    params:
+      value:
+        desc: Retorna todos os dados "cru" respondido pelo fetch.
+        type: Object
+
+  '@fetch-error -> function(value)':
+    desc: Dispara quando a action "fetchSingle" cai em uma exceção.
+    params:
+      value:
+        desc: Retorna todos os dados "cru" respondido na exceção do fetch.
+        type: Object
+
   '@update:result -> function(value)':
     desc: Dispara quando a action "fetchSingle" é executada com sucesso, é chamado antes do evento "fetch-success".
     params:
@@ -100,17 +114,3 @@ events:
       value:
         desc: Retorna se está ou não fazendo fetching de dados.
         type: Boolean
-
-  '@fetch-success -> function(value)':
-    desc: Dispara quando a action "fetchSingle" é executada com sucesso.
-    params:
-      value:
-        desc: Retorna todos os dados "cru" respondido pelo fetch.
-        type: Object
-
-  '@fetch-error -> function(value)':
-    desc: Dispara quando a action "fetchSingle" cai em uma exceção.
-    params:
-      value:
-        desc: Retorna todos os dados "cru" respondido na exceção do fetch.
-        type: Object

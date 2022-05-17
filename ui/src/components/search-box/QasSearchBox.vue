@@ -94,13 +94,8 @@ export default {
 
     defaultFuseOptions () {
       return {
-        distance: 100,
-        location: 0,
-        maxPatternLength: 32,
-        minMatchCharLength: 1,
-        shouldSort: true,
         threshold: 0.1,
-        tokenize: true,
+        ignoreLocation: true,
 
         ...this.fuseOptions
       }
@@ -125,6 +120,7 @@ export default {
         this.fuse = new Fuse(value, this.defaultFuseOptions)
 
         this.setResults(this.search)
+        this.updateResultsModel(value)
       },
 
       deep: true
@@ -141,7 +137,7 @@ export default {
 
     searchResults: {
       handler (value) {
-        this.$emit('update:results', value.map(result => result.item || result))
+        this.updateResultsModel(value)
       },
       immediate: true
     }
@@ -158,6 +154,10 @@ export default {
       this.searchResults = value
         ? this.fuse.search(value)
         : this.list
+    },
+
+    updateResultsModel (value) {
+      this.$emit('update:results', value.map(result => result.item || result))
     }
   }
 }

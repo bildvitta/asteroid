@@ -8,14 +8,14 @@ props:
     desc: Controla se mostra ou não o menu de usuário.
     type: Boolean
 
-  title:
-    desc: Título do header, normalmente usado como título da aplicação.
-    type: String
-
   notifications:
     desc: Ícone de notificação que fica ao lado do menu de usuário.
     type: Object
     default: {}
+
+  title:
+    desc: Título do header, normalmente usado como título da aplicação.
+    type: String
 
   user:
     desc: Informações de usuário para ser usado no menu.

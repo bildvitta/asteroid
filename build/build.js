@@ -126,7 +126,7 @@ async function main () {
 
   // Deploy docs
   const deploySpinner = ora('Publicando a "documentação"...').start()
-  ghpages.publish(`${packages.docs.resolved}/dist/spa`, {
+  ghpages.publish(`${packages.docs.resolved}/dist/pwa`, {
     remove: '!(v*)/**/*'
   }, error => {
     if (error) {

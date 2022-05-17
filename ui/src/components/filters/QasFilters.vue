@@ -16,7 +16,7 @@
 
       <slot v-if="showFilterButton" :filter="filter" name="filter-button">
         <q-btn v-if="useFilterButton" :color="filterButtonColor" flat icon="o_filter_list" :label="filterButtonLabel">
-          <q-menu @before-show="fetchFilters">
+          <q-menu class="full-width" max-width="240px">
             <div v-if="isFetching" class="q-pa-xl text-center">
               <q-spinner color="grey" size="2em" />
             </div>
@@ -41,7 +41,7 @@
     </div>
 
     <div v-if="useChip && hasActiveFilters" class="q-mt-md">
-      <q-chip v-for="(filterItem, key) in activeFilters" :key="key" color="grey-4" dense removable size="md" text-color="grey-8" @remove="removeFilter(filterItem)">{{ filterItem.label }} = "{{ getChipValue(filterItem.value) }}"</q-chip>
+      <q-chip v-for="(filterItem, key) in activeFilters" :key="key" color="primary" dense removable size="md" text-color="white" @remove="removeFilter(filterItem)">{{ filterItem.label }} = "{{ getChipValue(filterItem.value) }}"</q-chip>
     </div>
 
     <slot :context="mx_context" :filter="filter" :filters="activeFilters" :remove-filter="removeFilter" />
@@ -98,6 +98,10 @@ export default {
     url: {
       default: '',
       type: String
+    },
+
+    forceRefetch: {
+      type: Boolean
     }
   },
 
@@ -146,7 +150,7 @@ export default {
     },
 
     filterButtonColor () {
-      return this.hasActiveFilters ? 'primary' : 'grey-8'
+      return this.hasActiveFilters ? 'primary' : 'grey-9'
     },
 
     filterButtonLabel () {
@@ -227,7 +231,7 @@ export default {
     },
 
     async fetchFilters () {
-      if (this.hasFields || !this.useFilterButton) {
+      if (!this.forceRefetch && (this.hasFields || !this.useFilterButton)) {
         return null
       }
 

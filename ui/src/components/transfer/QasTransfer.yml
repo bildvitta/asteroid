@@ -8,25 +8,25 @@ props:
     desc: Controla como sera o retorno do model, se "true" será um array de string, se "false" array de objeto.
     type: Boolean
 
-  model-value:
-    desc: Model do componente, controla quais itens estão na segunda coluna.
-    default: []
-    type: Array
-
   fuse-options:
     desc: Configurações do [fuse.js](https://fusejs.io/api/options.html).
     default: { keys: ['label'] }
     type: Object
+
+  label-key:
+    desc: Nos options, você pode passar um array de objeto com qualquer chave/valor, esta prop serve para identificar qual será o equivalente ao "label".
+    default: label
+    type: String
 
   label:
     desc: Rotulo que vai ficar em cima da primeira coluna.
     type: String
     required: true
 
-  label-key:
-    desc: Nos options, você pode passar um array de objeto com qualquer chave/valor, esta prop serve para identificar qual será o equivalente ao "label".
-    default: label
-    type: String
+  model-value:
+    desc: Model do componente, controla quais itens estão na segunda coluna.
+    default: []
+    type: Array
 
   options:
     desc: Array de objetos com todos items que serão transferidos

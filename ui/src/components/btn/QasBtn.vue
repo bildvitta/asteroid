@@ -1,6 +1,6 @@
 <template>
   <q-btn color="primary" no-caps unelevated v-bind="attributes">
-    <slot v-if="showLabel" />
+    <slot />
 
     <template v-for="(_, name) in slots" #[name]="context">
       <slot :name="name" v-bind="context || {}" />
@@ -9,35 +9,34 @@
 </template>
 
 <script>
-import { screenMixin } from '../../mixins'
-
 export default {
   name: 'QasBtn',
-
-  mixins: [screenMixin],
 
   props: {
     hideLabelOnSmallScreen: {
       type: Boolean
+    },
+
+    label: {
+      type: String,
+      default: ''
     }
   },
 
   computed: {
     attributes () {
-      const { label, ...attributes } = this.$attrs
-
       return {
-        ...(this.showLabel && { label }),
-        ...attributes
+        ...(this.showLabel && { label: this.label }),
+        ...this.$attrs
       }
     },
 
     hasLabel () {
-      return !!(this.$attrs.label || this.$slots.default)
+      return !!this.label
     },
 
     showLabel () {
-      return this.hasLabel && !(this.hideLabelOnSmallScreen && this.mx_isSmall)
+      return this.hasLabel && !(this.hideLabelOnSmallScreen && this.$qas.screen.isSmall)
     },
 
     slots () {

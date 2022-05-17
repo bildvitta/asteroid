@@ -1,7 +1,7 @@
 <template>
-  <q-page padding class="row justify-center">
-    <q-list dense class="list">
-      <div class="text-h4 q-mb-md">Test pages</div>
+  <q-page class="justify-center row" padding>
+    <q-list class="list" dense>
+      <div class="q-mb-md text-h4">Test pages</div>
       <q-item
         v-for="page in pages"
         :key="page.path"

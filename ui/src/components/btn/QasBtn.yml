@@ -8,6 +8,9 @@ meta:
 
 props:
   hide-label-on-small-screen:
-    desc: Esconde o rótulo (label) do botão quando o tamanho da tela for pequeno.
+    desc: Esconde o rótulo (label) do botão quando o tamanho da tela for pequeno (esta propriedade só funciona se o "rotulo") for passado via propriedade "label".
     type: Boolean
-    default: 'false'
+
+  label:
+    desc: Rótulo do botão.
+    type: String

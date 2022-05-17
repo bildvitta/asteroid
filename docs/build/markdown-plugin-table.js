@@ -27,6 +27,7 @@ module.exports = function (markdown) {
     const token = tokens[idx]
 
     token.attrSet('class', 'text-left')
+
     return self.renderToken(tokens, idx, options)
   }
 }

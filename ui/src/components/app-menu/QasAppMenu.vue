@@ -35,22 +35,18 @@
         </q-list>
       </div>
 
-      <div class="q-mx-md">
-        <!-- TODO: O Modular não é o Asteroid, então não podemos manter esse logo aqui. -->
-        <img v-if="!isMini" alt="Modular" class="block q-mb-md q-mx-auto" src="../../assets/logo-modular.svg">
+      <div v-if="brandMenu" class="q-mx-md">
+        <img v-if="!isMini" :alt="title" class="block q-mb-md q-mx-auto" :src="brandMenu">
       </div>
     </div>
   </q-drawer>
 </template>
 
 <script>
-import { screenMixin } from '../../mixins'
 import { isLocalDevelopment } from '../../helpers'
 
 export default {
   name: 'QasAppMenu',
-
-  mixins: [screenMixin],
 
   props: {
     items: {
@@ -64,6 +60,11 @@ export default {
     },
 
     title: {
+      default: '',
+      type: String
+    },
+
+    brandMenu: {
       default: '',
       type: String
     },
@@ -153,7 +154,7 @@ export default {
     },
 
     beforeHide () {
-      if (this.mx_isLarge) {
+      if (this.$qas.screen.isLarge) {
         this.model = true
         this.miniMode = !this.miniMode
       }

@@ -54,7 +54,7 @@ export default {
 @import 'highlight.js/styles/github.css';
 
 .doc-code {
-  background-color: $grey-2;
+  background-color: $grey-4;
   border-radius: $generic-border-radius;
   margin-bottom: 16px;
   position: relative;

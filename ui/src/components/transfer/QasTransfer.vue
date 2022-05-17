@@ -4,10 +4,10 @@
     <div class="col-12 col-sm">
       <qas-label :label="label" :quantity="optionsList.length" />
 
-      <qas-search-box :list="optionsList" outlined v-bind="searchBoxProps">
-        <template #default="{ results }">
+      <qas-search-box v-model:results="firstResults" :list="optionsList" outlined v-bind="searchBoxProps">
+        <template #default>
           <q-list separator>
-            <q-item v-for="(item, index) in results" :key="index" :class="getItemClass(item, true)" clickable @click="onSelectQueue(item, true)">
+            <q-item v-for="(item, index) in firstResults" :key="index" :class="getItemClass(item, true)" clickable @click="onSelectQueue(item, true)">
               <slot name="item-first-column">
                 <q-item-section>{{ getItemLabel(item) }}</q-item-section>
               </slot>
@@ -33,10 +33,10 @@
     <div class="col-12 col-sm">
       <qas-label label="Selecionadas" :quantity="selectedList.length" />
 
-      <qas-search-box v-bind="searchBoxProps" empty-list-height="300px" label="Selecionadas" :list="selectedList" outlined>
-        <template #default="{ results }">
+      <qas-search-box v-model:results="secondResults" v-bind="searchBoxProps" empty-list-height="300px" label="Selecionadas" :list="selectedList" outlined>
+        <template #default>
           <q-list separator>
-            <q-item v-for="(item, index) in results" :key="index" :class="getItemClass(item)" clickable @click="onSelectQueue(item)">
+            <q-item v-for="(item, index) in secondResults" :key="index" :class="getItemClass(item)" clickable @click="onSelectQueue(item)">
               <slot name="item-second-column">
                 <q-item-section>{{ getItemLabel(item) }}</q-item-section>
               </slot>
@@ -49,7 +49,6 @@
 </template>
 
 <script>
-import { screenMixin } from '../../mixins'
 import { extend } from 'quasar'
 
 import QasBtn from '../btn/QasBtn.vue'
@@ -64,8 +63,6 @@ export default {
     QasLabel,
     QasSearchBox
   },
-
-  mixins: [screenMixin],
 
   props: {
     emitValue: {
@@ -116,21 +113,23 @@ export default {
       firstQueue: [],
       optionsList: [],
       secondQueue: [],
-      selectedList: []
+      selectedList: [],
+      firstResults: [],
+      secondResults: []
     }
   },
 
   computed: {
     actionsClass () {
-      return !this.mx_isSmall && 'column'
+      return !this.$qas.screen.isSmall && 'column'
     },
 
     gutterClass () {
-      return `q-col-gutter-${this.mx_untilLarge ? 'md' : 'xl'}`
+      return `q-col-gutter-${this.$qas.screen.untilLarge ? 'md' : 'xl'}`
     },
 
     iconClass () {
-      return !this.mx_isSmall && 'qas-transfer__icon'
+      return !this.$qas.screen.isSmall && 'qas-transfer__icon'
     },
 
     searchBoxProps () {
@@ -145,6 +144,7 @@ export default {
     options: {
       handler (value) {
         this.optionsList = extend(true, [], value)
+        this.setSelectedFromValue(true)
       },
 
       immediate: true
@@ -210,7 +210,7 @@ export default {
     },
 
     setSelectedFromValue (isFirst) {
-      this.modelValue.forEach(item => {
+      this.optionsList.length && this.modelValue.forEach(item => {
         const selected = this.optionsList.find(option => {
           return option[this.valueKey] === (this.emitValue ? item : item[this.valueKey])
         })

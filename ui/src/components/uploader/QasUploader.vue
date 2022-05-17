@@ -28,7 +28,7 @@
         <slot name="list" :scope="scope">
           <div class="col-12 q-col-gutter-md row">
             <div v-for="(file, index) in getFilesList(scope.files, scope)" :key="index" class="row" :class="itemClass">
-              <qas-avatar class="q-mr-sm" color="grey-3" icon="o_attach_file" :image="file.image" rounded :text-color="getColorFileIcon(file)" />
+              <qas-avatar class="q-mr-sm" color="contrast-primary" icon="o_attach_file" :image="file.image" rounded :text-color="getColorFileIcon(file)" />
 
               <div class="col items-center no-wrap row">
                 <div class="column no-wrap" :class="{ col: isMultiple }">
@@ -62,7 +62,6 @@ import { NotifyError } from '../../plugins'
 import { getImageSize, getResizeDimensions } from '../../helpers/images'
 
 import Pica from 'pica'
-import api from 'axios'
 
 export default {
   name: 'QasUploader',
@@ -257,7 +256,7 @@ export default {
       this.isFetching = true
 
       try {
-        const { data } = await api.post('/upload-credentials/', {
+        const { data } = await this.$axios.post('/upload-credentials/', {
           entity: this.entity,
           filename
         })
@@ -329,7 +328,7 @@ export default {
     },
 
     getFileNameClass (isFailed) {
-      return isFailed ? 'text-negative' : 'text-grey-8'
+      return isFailed ? 'text-negative' : 'text-grey-9'
     },
 
     isFailed (file) {

@@ -1,5 +1,5 @@
 <template>
-  <q-header class="bg-white qas-app-bar shadow-primary" height-hint="70">
+  <q-header class="bg-white qas-app-bar shadow-14" height-hint="70">
     <q-toolbar class="qas-app-bar__toolbar" color="bg-white">
       <q-ajax-bar color="white" position="top" size="2px" />
 
@@ -30,7 +30,7 @@
             <div class="ellipsis text-bold">{{ user.email }}</div>
           </div>
 
-          <q-menu anchor="bottom end" class="shadow-primary" max-height="400px" :offset="[0, 5]" self="top end">
+          <q-menu anchor="bottom end" class="shadow-14" max-height="400px" :offset="[0, 5]" self="top end">
             <div class="qas-app-bar__user-menu">
               <div class="q-pa-lg text-center">
                 <button class="unset" @click="goToProfile">

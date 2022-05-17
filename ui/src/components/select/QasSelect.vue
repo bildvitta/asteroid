@@ -90,15 +90,9 @@ export default {
 
     defaultFuseOptions () {
       return {
-        distance: 100,
-        includeScore: true,
+        ignoreLocation: true,
         keys: ['label', 'value'],
-        location: 0,
-        maxPatternLength: 32,
-        minMatchCharLength: 1,
-        shouldSort: true,
         threshold: 0.1,
-        tokenize: true,
 
         ...this.fuseOptions
       }

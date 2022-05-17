@@ -1,19 +1,40 @@
-$primary: hsl(200deg, 100%, 24%); // Primary Brand
-$secondary: hsl(200deg, 100%, 24%); // Secondary Brand
-$accent: hsla(200deg, 100%, 16%, 50%); // Shadow Brand
+@use 'sass:color';
+@import '../../../ui/src/index';
 
-// Custom
-$primary-contrast: hsla(200deg, 40%, 80%, 64%); // Contrast Primary Brand
-$secondary-contrast: hsla(200deg, 43%, 51%, 50%); // Contrast Secondary Brand
+$primary   : #00527A;
+// TODO: No futuro a ideia é não ter uma cor secundária.
+// TODO: Por hora vamos usar a mesma de $primary-contrast.
+$secondary : #B8D3E0A3;
+$tertiary  : #c7ceff;
+$accent    : rgba($primary, 0.1);
+$dark      : #1d1d1d;
+$positive  : #21ba45;
+$negative  : #c10015;
+$info      : #31ccec;
+$warning   : #f2c037;
 
-// Dark
-$dark: #1d1d1d;
-
-// Emotive
-$positive: #21ba45;
-$negative: #c10015;
-$info: #31ccec;
-$warning: #f2c037;
+// Asteroid
+$primary-contrast: $secondary;
+$secondary-contrast: #3691BF80;
 
 // Custom
 $brand-primary: $primary;
+
+@mixin set-brand($name, $color) {
+  :root {
+    --q-#{$name}: #{$color};
+  }
+
+  .text-#{$name} {
+    color: $color !important;
+    color: var(--q-#{$name}) !important;
+  }
+
+  .bg-#{$name} {
+    background: $color !important;
+    background: var(--q-#{$name}) !important;
+  }
+}
+
+@include set-brand(primary-contrast, $primary-contrast);
+@include set-brand(secondary-contrast, $secondary-contrast);

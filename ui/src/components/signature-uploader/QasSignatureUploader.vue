@@ -15,13 +15,15 @@
       </template>
     </qas-uploader>
 
-    <qas-dialog v-model="isOpenedDialog">
+    <qas-dialog v-model="isOpenedDialog" v-bind="defaultDialogProps">
       <template #header>
         <div class="text-bold text-center">Insira sua assinatura digital no campo abaixo</div>
       </template>
 
       <template #description>
-        <qas-signature-pad ref="signaturePadModal" v-model:empty="isEmpty" height="250" />
+        <div :style="signaturePadWidth">
+          <qas-signature-pad ref="signaturePadModal" v-model:empty="isEmpty" :height="signaturePadHeight" />
+        </div>
       </template>
 
       <template #actions>
@@ -49,6 +51,11 @@ export default {
   },
 
   props: {
+    dialogProps: {
+      type: Object,
+      default: () => ({})
+    },
+
     uploadLabel: {
       default: '',
       type: String
@@ -97,6 +104,32 @@ export default {
 
     headerClass () {
       return `q-pa-${this.readonly ? 'md' : 'sm'}`
+    },
+
+    defaultDialogProps () {
+      return {
+        maxWidth: '620px',
+        ...this.dialogProps
+      }
+    },
+
+    signaturePadWidth () {
+      const sizes = {
+        [this.$qas.screen.isSmall]: { width: '100%' },
+        [this.$qas.screen.isMedium]: { width: '570px' },
+        [this.$qas.screen.isLarge]: { width: '350px' }
+      }
+      return sizes.true
+    },
+
+    signaturePadHeight () {
+      const sizes = {
+        [this.$qas.screen.isSmall]: '250',
+        [this.$qas.screen.isMedium]: '400',
+        [this.$qas.screen.isLarge]: '250'
+      }
+
+      return sizes.true
     }
   },
 

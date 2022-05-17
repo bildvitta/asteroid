@@ -9,24 +9,8 @@ props:
     required: true
     type: String
 
-  use-badges:
-    desc: Habilita ou não os "chips" mostrando os filtros ativos.
-    default: true
-    type: Boolean
-
-  use-filter-button:
-    desc: Habilita ou não o botão com menu na lateral esquerda.
-    default: true
-    type: Boolean
-
-  use-search:
-    desc: Habilita ou não o campo text de busca.
-    default: true
-    type: Boolean
-
-  use-search-on-type:
-    desc: Habilita ou não o filtro de busca sempre que o usuário digita.
-    default: true
+  force-refetch:
+    desc: Força refazer o "fetch" mesmo caso já exista dados na store de filters.
     type: Boolean
 
   search-placeholder:
@@ -37,6 +21,26 @@ props:
   url:
     desc: Envia como parâmetro para a action "fetchFilters" do modulo correspondente a "entity".
     type: String
+
+  use-badges:
+    desc: Habilita ou não os "chips" mostrando os filtros ativos.
+    default: true
+    type: Boolean
+
+  use-filter-button:
+    desc: Habilita ou não o botão com menu na lateral esquerda.
+    default: true
+    type: Boolean
+
+  use-search-on-type:
+    desc: Habilita ou não o filtro de busca sempre que o usuário digita.
+    default: true
+    type: Boolean
+
+  use-search:
+    desc: Habilita ou não o campo text de busca.
+    default: true
+    type: Boolean
 
 slots:
   search:

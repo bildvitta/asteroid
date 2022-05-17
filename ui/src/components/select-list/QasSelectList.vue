@@ -24,7 +24,6 @@
 
 <script>
 import { sortBy } from 'lodash-es'
-import { screenMixin } from '../../mixins'
 
 import QasBtn from '../btn/QasBtn.vue'
 import QasSearchBox from '../search-box/QasSearchBox.vue'
@@ -36,8 +35,6 @@ export default {
     QasBtn,
     QasSearchBox
   },
-
-  mixins: [screenMixin],
 
   props: {
     deleteOnly: {
@@ -144,9 +141,9 @@ export default {
       const isSelected = this.values.includes(value)
 
       return {
-        dense: this.mx_isSmall,
+        dense: this.$qas.screen.isSmall,
         hideLabelOnSmallScreen: true,
-        icon: !this.mx_isSmall ? undefined : isSelected ? 'o_close' : 'o_add',
+        icon: !this.$qas.screen.isSmall ? undefined : isSelected ? 'o_close' : 'o_add',
         label: isSelected ? 'Remover' : 'Adicionar',
         outline: isSelected,
         size: 'sm'
