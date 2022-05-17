@@ -5,7 +5,7 @@
         <q-btn dense flat icon="menu" @click="toggleLeftDrawer" />
         <q-toolbar-title>
           <router-link class="app-header__title" to="/">
-            Asteroid
+            <q-img src="../assets/logo/minimalist_logo.png" width="150px" />
           </router-link>
         </q-toolbar-title>
 
