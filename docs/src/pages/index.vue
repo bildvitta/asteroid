@@ -24,8 +24,8 @@
           Licença
         </div>
         <div>
-          <span class="non-selectable"> MIT (c) Caio Tarifa </span>
-          <span class="text-primary"> caiotarifa@gmail.com </span>
+          <span class="non-selectable"> MIT (c) Bild & Vitta </span>
+          <span class="text-primary"> systemteam@bild.com.br </span>
         </div>
       </div>
     </div>
