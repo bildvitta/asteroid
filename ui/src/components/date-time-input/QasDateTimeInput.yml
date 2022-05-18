@@ -12,10 +12,6 @@ props:
     default: DD/MM/YYYY
     type: String
 
-  date-only:
-    desc: Habilita o componente para usar somente data.
-    type: Boolean
-
   date-props:
     desc: Propriedades do QDate (https://quasar.dev/vue-components/date#introduction).
     default: {}
@@ -36,15 +32,18 @@ props:
     default: HH:mm
     type: String
 
-  time-only:
-    desc: Habilita o componente para usar somente hora.
-    type: Boolean
-
   time-props:
     desc: Propriedades do QTime (https://quasar.dev/vue-components/time#introduction).
     default: {}
     type: Object
 
+  use-time-only:
+    desc: Habilita o componente para usar somente hora.
+    type: Boolean
+
+  use-date-only:
+    desc: Habilita o componente para usar somente data.
+    type: Boolean
 
 events:
   '@update:model-value -> function (value)':

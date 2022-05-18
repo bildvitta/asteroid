@@ -15,25 +15,6 @@ export default {
   inheritAttrs: false,
 
   props: {
-    modelValue: {
-      default: '',
-      type: [String, Number]
-    },
-
-    unmaskedValue: {
-      default: true,
-      type: Boolean
-    },
-
-    outlined: {
-      default: true,
-      type: Boolean
-    },
-
-    removeErrorOnType: {
-      type: Boolean
-    },
-
     error: {
       type: Boolean
     },
@@ -41,6 +22,25 @@ export default {
     errorMessage: {
       type: String,
       default: ''
+    },
+
+    modelValue: {
+      default: '',
+      type: [String, Number]
+    },
+
+    outlined: {
+      default: true,
+      type: Boolean
+    },
+
+    unmaskedValue: {
+      default: true,
+      type: Boolean
+    },
+
+    useRemoveErrorOnType: {
+      type: Boolean
     }
   },
 
@@ -85,7 +85,7 @@ export default {
       },
 
       set (value) {
-        if (this.removeErrorOnType && this.error) {
+        if (this.useRemoveErrorOnType && this.error) {
           this.errorData = false
           this.errorMessageData = ''
         }

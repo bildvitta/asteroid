@@ -3,10 +3,6 @@ import { markRaw } from 'vue'
 
 export default {
   props: {
-    dialog: {
-      type: Boolean
-    },
-
     entity: {
       required: true,
       type: String
@@ -33,6 +29,11 @@ export default {
     },
 
     fetching: {
+      type: Boolean
+    },
+
+    useBoundary: {
+      default: true,
       type: Boolean
     }
   },
@@ -62,11 +63,11 @@ export default {
 
   computed: {
     mx_componentTag () {
-      return this.dialog ? 'div' : 'q-page'
+      return this.useBoundary ? 'q-page' : 'div'
     },
 
     mx_componentClass () {
-      return !this.dialog && 'container spaced'
+      return this.useBoundary && 'container spaced'
     },
 
     mx_hasFooterSlot () {

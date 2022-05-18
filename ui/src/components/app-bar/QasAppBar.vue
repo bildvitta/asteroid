@@ -22,7 +22,7 @@
       <div class="items-center no-wrap q-gutter-md row">
         <slot name="tools" />
 
-        <div v-if="isAuth" class="cursor-pointer items-center q-mr-sm qas-app-bar__user rounded-borders row text-grey-9" :title="user.name || user.givenName">
+        <div v-if="hasUser" class="cursor-pointer items-center q-mr-sm qas-app-bar__user rounded-borders row text-grey-9" :title="user.name || user.givenName">
           <qas-avatar class="rounded-borders-left" color="white" dark :image="user.photo" rounded size="42px" text-color="primary" :title="user.name || user.givenName" />
 
           <div class="q-px-sm qas-app-bar__user-data qs-lh-lg text-caption">
@@ -74,10 +74,6 @@ export default {
     brand: {
       default: '',
       type: String
-    },
-
-    isAuth: {
-      type: Boolean
     },
 
     title: {
@@ -134,6 +130,10 @@ export default {
 
     showTitle () {
       return this.title && !this.brand
+    },
+
+    hasUser () {
+      return !!Object.keys(this.user).length
     }
   },
 

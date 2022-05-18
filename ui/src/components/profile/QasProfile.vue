@@ -13,7 +13,7 @@
         </div>
       </div>
       <slot name="grid">
-        <qas-grid-generator class="col-lg-7 col-xs-12 items-center" :columns="columns" :fields="filterObject(fields, list)" hide-empty-result :result="result">
+        <qas-grid-generator class="col-lg-7 col-xs-12 items-center" :columns="columns" :fields="filterObject(fields, list)" :result="result" :use-empty-result="false">
           <template v-for="(_, name) in $slots" #[name]="context">
             <slot :name="name" v-bind="context || {}" />
           </template>

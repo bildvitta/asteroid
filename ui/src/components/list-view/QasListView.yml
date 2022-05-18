@@ -4,10 +4,6 @@ meta:
   desc: Componente para C.R.U.D. responsável pela parte de listagem (Read).
 
 props:
-  dialog:
-    desc: Este componente pode ser utilizado dentro de um dialog, neste caso o componente pai não pode ser um "QPage" e sim uma "div", esta prop cuida disto.
-    type: Boolean
-
   disable-refresh:
     desc: Desabilita o [pull-to-refresh](https://quasar.dev/vue-components/pull-to-refresh#basic).
     type: Boolean
@@ -59,6 +55,11 @@ props:
   url:
     desc: Envia como parâmetro para a action "fetchList" do modulo correspondente a "entity".
     type: String
+
+  use-boundary:
+    desc: Controla o limite que o FormView terá, quando é "false", a tag pai deixa de ser um "QPage" para ser uma "div" e é removido as classes "container" e "spaced", comumente utilizando quando precisa usar o QasFormView dentro de um dialog.
+    default: true
+    type: Boolean
 
   use-filter:
     desc: Controla se o componente vai usar ou não o componente "QasFilters".

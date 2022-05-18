@@ -13,13 +13,14 @@ export default {
   name: 'QasBtn',
 
   props: {
-    hideLabelOnSmallScreen: {
+    useLabelOnSmallScreen: {
+      default: true,
       type: Boolean
     },
 
     label: {
-      type: String,
-      default: ''
+      default: '',
+      type: String
     }
   },
 
@@ -31,12 +32,8 @@ export default {
       }
     },
 
-    hasLabel () {
-      return !!this.label
-    },
-
     showLabel () {
-      return this.hasLabel && !(this.hideLabelOnSmallScreen && this.$qas.screen.isSmall)
+      return this.useLabelOnSmallScreen || !this.$qas.screen.isSmall
     },
 
     slots () {

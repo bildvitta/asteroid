@@ -1,7 +1,7 @@
 <template>
   <div class="qas-list-items shadow-14">
     <q-list bordered class="rounded-borders" separator>
-      <q-item v-for="(item, index) in list" :key="index" v-ripple :clickable="!redirectOnIcon" :to="redirect(item)">
+      <q-item v-for="(item, index) in list" :key="index" v-ripple :clickable="useClickableItem" @click="onClick(item, true)">
         <slot :index="index" :item="item" name="item">
           <q-item-section>
             <slot :index="index" :item="item" name="item-section-left" />
@@ -9,7 +9,7 @@
 
           <q-item-section v-if="useSectionActions" side>
             <slot :index="index" :item="item" name="item-section-side">
-              <qas-btn flat round :to="getRedirectPayload(item)">
+              <qas-btn flat round @click="onClick(item)">
                 <q-icon v-bind="iconProps" />
               </qas-btn>
             </slot>
@@ -46,7 +46,7 @@ export default {
       type: String
     },
 
-    redirectOnIcon: {
+    useRedirectOnIcon: {
       default: true,
       type: Boolean
     },
@@ -56,13 +56,31 @@ export default {
       type: Object
     },
 
+    useClickableItem: {
+      type: Boolean
+    },
+
     useSectionActions: {
       default: true,
       type: Boolean
     }
   },
 
+  emits: ['clicked-item'],
+
   methods: {
+    onClick (item, fromItem) {
+      /**
+       * se o click veio do q-item e "useClickableItem" for "false", ou
+       * se o click não veio do q-item e "useClickableItem" for "true", então retorna sem emitir.
+       */
+      if (
+        (fromItem && !this.useClickableItem) || (!fromItem && this.useClickableItem)
+      ) return
+
+      this.$emit('clicked-item', item)
+    },
+
     getRedirectPayload (item) {
       return {
         params: { [this.redirectKey]: item[this.redirectKey] },
@@ -71,7 +89,7 @@ export default {
     },
 
     redirect (item) {
-      return this.redirectOnIcon ? undefined : this.getRedirectPayload(item)
+      return this.useRedirectOnIcon ? undefined : this.getRedirectPayload(item)
     }
   }
 }

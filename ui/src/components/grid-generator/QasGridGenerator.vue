@@ -36,10 +36,6 @@ export default {
       type: [Array, Object, String]
     },
 
-    hideEmptyResult: {
-      type: Boolean
-    },
-
     emptyResultText: {
       default: '-',
       type: String
@@ -48,6 +44,11 @@ export default {
     result: {
       default: () => ({}),
       type: Object
+    },
+
+    useEmptyResult: {
+      default: true,
+      type: Boolean
     }
   },
 
@@ -59,7 +60,7 @@ export default {
 
   computed: {
     formattedFields () {
-      if (!this.hideEmptyResult) {
+      if (this.useEmptyResult) {
         return this.fields
       }
 

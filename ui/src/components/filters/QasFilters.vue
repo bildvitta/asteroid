@@ -100,7 +100,7 @@ export default {
       type: String
     },
 
-    forceRefetch: {
+    useForceRefetch: {
       type: Boolean
     }
   },
@@ -231,7 +231,7 @@ export default {
     },
 
     async fetchFilters () {
-      if (!this.forceRefetch && (this.hasFields || !this.useFilterButton)) {
+      if (!this.useForceRefetch && (this.hasFields || !this.useFilterButton)) {
         return null
       }
 

@@ -1,6 +1,6 @@
 <template>
   <div class="container q-py-lg">
-    <qas-input v-model="model" label="Meu input!" />
+    <qas-input v-model="model" :error="true" label="Meu input!" />
 
     Model: {{ model }}
   </div>

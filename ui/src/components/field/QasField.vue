@@ -130,9 +130,9 @@ export default {
         money: { ...numericInput, mode: 'money' },
         percent: { ...numericInput, mode: 'percent' },
 
-        date: { ...datetimeInput, dateOnly: true },
+        date: { ...datetimeInput, useDateOnly: true },
         datetime: { ...datetimeInput },
-        time: { ...datetimeInput, timeOnly: true },
+        time: { ...datetimeInput, useTimeOnly: true },
 
         boolean: { is: 'q-toggle', label, ...error },
         checkbox: { is: 'qas-checkbox-group', label, options, ...error },

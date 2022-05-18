@@ -73,10 +73,10 @@ Sincronizado em _19/10/2021 as 17h17_.
 
 ### QasBtn
 
-Sincronizado em _28/04/2022 as 15h00_.
+Sincronizado em _18/05/2022 as 12h00_.
 
-- Propriedade `hideMobileLabel` renomeada para `hideLabelOnSmallScreen`.
-- Propriedade `hideLabelOnSmallScreen` só funciona quando o "rotulo" do botão é passado via prop `label` e não mais por slot default também.
+- Propriedade `hideMobileLabel` renomeada para `useLabelOnSmallScreen`.
+- Propriedade `useLabelOnSmallScreen` só funciona quando o "rotulo" do botão é passado via prop `label` e não mais por slot default também.
 - Adicionada propriedade `label` para resolver problemas com `hideMobileLabel` (antes recuperava o label por `$attrs.label`).
 
 ### QasCopy
@@ -247,7 +247,7 @@ Sincronizado em _30/03/2022 as 13h45_.
 - Propriedade `cancel` agora não tem mais a propriedade `props` quando for objeto dentro dela porque `events` precisou ser removido, para repassar você deve passar as propriedades diretamente ex: `{ label: 'Meu botão de cancelar', onClick: () => console.log('fui clicado') }`.
 - Propriedade `ok` agora não tem mais a propriedade `props` quando for objeto dentro dela porque `events` precisou ser removido, para repassar você deve passar as propriedades diretamente ex: `{ label: 'Meu botão de confirmar', onClick: () => console.log('fui clicado') }`.
 - Propriedade `usePlugin` adicionada para utilizar o componente no `this.$qas.dialog` como "custom dialog".
-- Adicionado propriedade `useCloseIcon` para controlar o ícone de fechar.
+- Adicionado propriedade `useCloseButton` para controlar o ícone de fechar.
 - Removido computada e métodos referente `QDialog`, utilizar os métodos como `show()` pegando direto a referencia do componente `QasDialog`.
 - Evento `input` alterado para `update:modelValue`.
 
