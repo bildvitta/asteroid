@@ -17,7 +17,7 @@ props:
 
   button-duplicate-props:
     desc: Props do botão de duplicar linha contendo os campos.
-    default: "{ label: 'Duplicar', o_content_copy, flat: true, dense: true, useLabelOnSmallScreen: true }"
+    default: "{ label: 'Duplicar', o_content_copy, flat: true, dense: true, useLabelOnSmallScreen: false }"
     debugger: true
     type: Object
 

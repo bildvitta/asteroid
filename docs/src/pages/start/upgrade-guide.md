@@ -32,7 +32,9 @@ Sincronizado em _10/01/2022 as 17h20_.
 
 ### QasAppBar
 
-Sincronizado em _11/02/2022 as 15h00_.
+Sincronizado em _19/05/2022 as 17h00_.
+
+- Propriedade `isAuth` removida, agora é validado caso exista valor na propriedade `user`.
 
 ### QasAppMenu
 
@@ -75,9 +77,9 @@ Sincronizado em _19/10/2021 as 17h17_.
 
 Sincronizado em _18/05/2022 as 12h00_.
 
-- Propriedade `hideMobileLabel` renomeada para `useLabelOnSmallScreen`.
+- Propriedade `hideMobileLabel` renomeada para `useLabelOnSmallScreen` com default `true`.
 - Propriedade `useLabelOnSmallScreen` só funciona quando o "rotulo" do botão é passado via prop `label` e não mais por slot default também.
-- Adicionada propriedade `label` para resolver problemas com `hideMobileLabel` (antes recuperava o label por `$attrs.label`).
+- Adicionada propriedade `label` para resolver problemas com `useLabelOnSmallScreen` (antes recuperava o label por `$attrs.label`).
 
 ### QasCopy
 
@@ -94,24 +96,28 @@ Sincronizado em _19/10/2021 as 17h17_.
 
 ### QasNumericInput (QasDecimalInput)
 
-Sincronizado em _01/04/2022 as 16h00_.
+Sincronizado em _19/05/2022 as 16h00_.
 
 - Renomeado de "QasDecimalInput" para "QasNumericInput".
 - Adicionado propriedade `outlined` como default.
 - Propriedade `value` alterada para `modelValue`.
 - Evento `input` alterado para `update:modelValue`.
+- Propriedade `allowNegative` alterada para `useNegative`.
+- Propriedade `allowPositive` alterada para `usePositive`.
+- Propriedade `autonumericProps` alterada para `autonumericOptions`.
 
 ### QasSelect
 
-Sincronizado em _19/10/2021 as 17h17_.
+Sincronizado em _19/05/2021 as 17h00_.
 
 - Lógica alterada para funcionar com a v6 da biblioteca Fuse.js.
 - Propriedade `value` alterada para `modelValue`.
 - Evento `input` alterado para `update:modelValue`.
+- Propriedade `searchable` alterada para `useSearch`.
 
 ### QasPasswordInput
 
-Sincronizado em _25/04/2022 as 15h00_.
+Sincronizado em _19/05/2022 as 17h00_.
 
 - Propriedade `value` alterada para `modelValue`.
 - Propriedade `levels` alterada os `label` pt-BR português.
@@ -120,6 +126,7 @@ Sincronizado em _25/04/2022 as 15h00_.
 - Evento `input` alterado para `update:modelValue`.
 - Adicionado `QasInput` como input default.
 - Propriedades referentes ao `QasPasswordStrengthChecker`.
+- Propriedade `hideStrengthChecker` alterada para `useStrengthChecker` com default `true`.
 
 ### QasPasswordStrengthChecker
 
@@ -156,15 +163,17 @@ Sincronizado em _13/01/2022 as 14h46_.
 
 ### QasCard
 
-Sincronizado em _13/01/2022 as 15h13_.
+Sincronizado em _19/05/2022 as 17h00_.
 
-- Adicionado propriedade `formMode` (era usada no código mas não existia a propriedade).
-- Removido propriedade `outlined` (não era utilizado).
+- Propriedade `bgImagePosition` alterada para `imagePosition`.
+- Propriedade `formMode` removida em favor das novas propriedades: `outlined` e `unelevated` para fazer o controle dos estilos.
 - Removido propriedade `result` (não era utilizado).
+- Propriedade `outlined` com default `false`.
+- Propriedade `unelevated` com default `false`.
 
 ### QasActionsMenu
 
-Sincronizado em _23/03/2022 as 16h00_.
+Sincronizado em _19/05/2022 as 17h00_.
 
 - Propriedade `hideLabel` removido (para remover o label é só não passar ele).
 - Adiciona propriedade `label` com default `md` por padrão.
@@ -173,10 +182,11 @@ Sincronizado em _23/03/2022 as 16h00_.
 - Adicionado propriedade `deleteProps` para repassar para o componente `QasDelete` e controlar quando tem ou não botão de exclusão por padrão.
 - Chave `iconSize` dentro da propriedade `list` foi **removida**, pois sempre os ícones devem ser do tamanho `sm`.
 - Alterado valor "default" da propriedade `label` para `Configurações`.
+- Evento `delete-success` removido, a propriedade `deleteProps` deve ser a única responsável por passar propriedades e eventos para o `QasDelete`.
 
 ### QasSelectList
 
-Sincronizado em _29/03/2022 as 11h40_.
+Sincronizado em _19/05/2022 as 17h00_.
 
 - Propriedade `toIdentifier` alterada para `redirectKey` com default `uuid`.
 - Propriedade `options` nomeado para `list`.
@@ -184,10 +194,13 @@ Sincronizado em _29/03/2022 as 11h40_.
 - Adicionado propriedade `paramKey` com default `id` para controlar parâmetro da rota.
 - Scoped Slot `item` e `item-action` agora só tem acesso aos métodos `add`, `handleClick`, `updateModel` e `remove` e ao `item` atual da lista.
 - Evento `input` alterado para `update:modelValue`.
+- Propriedades `to`, `redirectKey` e `paramKey` removidas em favor de usar o evento `click-label` para lidar quando clicar no label.
+- Propriedade `useClickableLabel` com default `false` para deixar label com `cursor-pointer` e habilitar evento `click-label`.
+- Evento `click-label` para lidar quando clicar no label (evento só acontece caso a propriedade `useClickableLabel` for `true`).
 
 ### QasInput
 
-Sincronizado em _08/02/2022 as 17h00_.
+Sincronizado em _19/05/2022 as 17h00_.
 
 - Adicionada propriedade `outlined` como default.
 - Adicionada propriedades `error` e `errorMessage` (antes recuperava pelos $attrs).
@@ -196,13 +209,18 @@ Sincronizado em _08/02/2022 as 17h00_.
 - Propriedade `value` alterada para `modelValue`.
 - Evento `input` alterado para `update:modelValue`.
 - Adicionado propriedade `unmaskedValue` com default `true` para controle da máscara.
+propriedade `removeErrorOnType` alterada para `useRemoveErrorOnType`.
+
 ### QasListItems
 
-Sincronizado em _18/01/2022 as 19h11_.
+Sincronizado em _19/05/2022 as 17h00_.
 
 - Adicionado propriedade `useSectionActions` para controlar o "q-item-section side".
 - Propriedade `useIconRedirect` alterada para `redirectOnIcon` com valor "default" `true`.
-
+- Propriedades `redirectKey`, e `to` removidas em favor de utilizar o evento `click-item` para lidar quando clicado nos items ou dentro do button dos items.
+- Propriedade `useRedirectOnIcon` alterada para `useClickableItem` com default `false` para identificar que o item inteiro é clicável ao invés de somente o button.
+- Propriedade `useClickableItem`.
+- Evento `click-item` adicionado para lidar quando clicado nos items ou dentro do button dos items.
 ### QasTransfer
 
 Sincronizado em _17/03/2022 as 14h00_.
@@ -240,7 +258,7 @@ Sincronizado em _01/04/2022 as 10h30_.
 
 ### QasDialog
 
-Sincronizado em _30/03/2022 as 13h45_.
+Sincronizado em _19/05/2022 as 17h00_.
 
 - Propriedade `value` alterada para `modelValue`.
 - Propriedade `btnActionsProps` alterada para `actionsProps` (por causa que o nome do componente `QasBtnActions` foi alterado par `QasActions`).
@@ -276,13 +294,16 @@ Sincronizado em _25/03/2022 as 12h10_.
 
 ### QasDateTimeInput
 
-Sincronizado em _08/02/2022 as 16h16_.
+Sincronizado em _19/05/2022 as 17h00_.
 
 - Propriedade `value` alterada para `modelValue`.
 - Propriedade `dateOptions` alterada para `dateProps`.
 - Propriedade `timeOptions` alterada para `timeProps`.
 - Removido evento `mounted` você pode escutar o hook mounted do componente pelo `@vnode-mounted`
 - Evento `input` alterado para `update:modelValue`.
+- Propriedade `gmt` alterada para `useIso`.
+- Propriedade `dateOnly` alterada para `useDateOnly`.
+- Propriedade `timeOnly` alterada para `useTimeOnly`.
 
 ### QasGridGenerator
 
@@ -290,6 +311,7 @@ Sincronizado em _31/03/2022 as 15h15_.
 
 - Adicionado propriedade `emptyResultText` default `-` para controlar o texto quando não tiver valor.
 - Removido evento `mounted` você pode escutar o hook mounted do componente pelo `@vnode-mounted`.
+- Propriedade `hideEmptyResult` alterada para `useEmptyResult`.
 
 ### QasGallery
 
@@ -351,7 +373,7 @@ Sincronizado em _16/02/2022 as 10h43_.
 
 ### QasFormView
 
-Sincronizado em _13/05/2022 as 16h00_.
+Sincronizado em _19/05/2022 as 16h00_.
 
 - Propriedade `value` alterada para `modelValue`.
 - Propriedade `readOnly` alterada para `useActions`.
@@ -376,6 +398,8 @@ Sincronizado em _13/05/2022 as 16h00_.
 - Adicionado evento `update:fields`.
 - Adicionado evento `update:metadata`.
 - Evento `input` alterado para `update:modelValue`.
+- Propriedade `dialog` do mixin `viewMixin` alterada para `useBoundary` com default `true`, uma vez que dialog é muito especifico para quando for usado dentro de um dialog, porém o mesmo comportamento pode se repetir fora de um dialog.
+- Propriedade `showDialogOnUnsavedChanges` alterada para `useDialogOnUnsavedChanges`.
 
 ### QasDelete
 
@@ -390,7 +414,7 @@ Sincronizado em _24/02/2022 as 14h00_.
 
 ### QasSingleView
 
-Sincronizado em _23/03/2022 as 16h00_.
+Sincronizado em _19/05/2022 as 16h00_.
 
 - Propriedade `value` alterada para `result`.
 - Classes `container` e `spaced` já vem como padrão quando a propriedade `dialog` é "false".
@@ -406,10 +430,11 @@ Sincronizado em _23/03/2022 as 16h00_.
 - Adicionado evento `update:fields`.
 - Adicionado evento `update:metadata`.
 - Evento `input` alterado para `update:result`.
+- Propriedade `dialog` do mixin `viewMixin` alterada para `useBoundary` com default `true`, uma vez que dialog é muito especifico para quando for usado dentro de um dialog, porém o mesmo comportamento pode se repetir fora de um dialog.
 
 ### QasListView
 
-Sincronizado em _23/03/2022 as 16h00_.
+Sincronizado em _19/05/2022 as 16h00_.
 
 - Propriedade `noFilter` alterada para `useFilter`.
 - Classes `container` e `spaced` já vem como padrão quando a propriedade `dialog` é "false".
@@ -418,7 +443,7 @@ Sincronizado em _23/03/2022 as 16h00_.
 - Slot `default`, removido os escopos `(fields, metadata, results)`.
 - Slot `empty-results`, removido os escopos `(fields, metadata)`.
 - Escopo `errors` removido do slot `filter` (consegue acessar pelo `v-model:errors`).
-- Adicionado parametro `filters` para o metodo `fetchList` ele vai sobreescrever a prop `filters` que já é repassada hoje.
+- Adicionado parâmetro `filters` para o método `fetchList` ele vai sobrescrever a prop `filters` que já é repassada hoje.
 - Adicionado `v-model:results` (não reativa `markRaw`, com intuito facilitar o uso no script).
 - Adicionado `v-model:errors` (não reativa `markRaw`, com intuito facilitar o uso no script).
 - Adicionado `v-model:fields` (não reativa `markRaw`, com intuito facilitar o uso no script).
@@ -429,15 +454,18 @@ Sincronizado em _23/03/2022 as 16h00_.
 - Adicionado evento `update:errors`.
 - Adicionado evento `update:fields`.
 - Adicionado evento `update:metadata`.
+- Propriedade `dialog` do mixin `viewMixin` alterada para `useBoundary` com default `true`, uma vez que dialog é muito especifico para quando for usado dentro de um dialog, porém o mesmo comportamento pode se repetir fora de um dialog.
+- Propriedade `disableRefresh` alterada para `useRefresh` com default `true`.
 
 ### QasFilters
 
-Sincronizado em _24/02/2022 as 19h00_.
+Sincronizado em _19/05/2022 as 17h00_.
 
 - Propriedade `badges` alterada para `useChips`
 - Propriedade `noSearch` alterada para `useSearch` com default `true`.
 - Propriedade `noFilterButton` alterada para `useFilterButton` com default `true`.
-- Propriedade `searchOnType` alterada para `useSearchOnType` .
+- Propriedade `searchOnType` alterada para `useSearchOnType`.
+- Propriedade `forceRefetch` alterada para `useForceRefetch`.
 
 ### QasMap
 
@@ -463,22 +491,24 @@ Sincronizado em _25/02/2022 as 11h00_.
 
 ### QasNestedFields
 
-Sincronizado em _29/03/2022 as 14h00_.
+Sincronizado em _19/05/2022 as 17h00_.
 
 - Propriedade `fieldsEvents` removida (evento é passado dentro de `fieldsProps`).
-- Propriedade `value` aterada para `modelValue`.
+- Propriedade `value` alterada para `modelValue`.
 - Adicionado propriedade `useRemoveOnDestroy` para selecionar se deseja que o item no model seja removido ou adicionado uma flag como `destroyed` por exemplo.
 - Slots repassados pelo `QasFormGenerator` agora tem os scopes `(errors, index)`.
 - Escopo `modelValue` do slot `custom-fields` alterado para `model` (modelValue é uma prop reservada para v-model).
 - Adicionado escopo `fields` no slot `custom-fields`.
 - Evento `input` alterado para `update:modelValue`.
+- Propriedade `btnDestroyProps` alterada para `buttonDestroyProps`.
+- Propriedade `btnDuplicateProps` alterada para `buttonDuplicateProps`.
 
 ### QasSignatureUploader
 
 Sincronizado em _01/04/2022 as 14h00_.
 
 - Removido valor `default` da propriedade `uploadLabel`.
-- Propriedade `value` aterada para `modelValue`.
+- Propriedade `value` alterada para `modelValue`.
 - Adicionado propriedade `useRemoveOnDestroy` para selecionar se deseja que o item no model seja removido ou adicionado uma flag como `destroyed` por exemplo.
 - Slots repassados pelo `QasFormGenerator` agora tem os scopes `(errors, index)`.
 - Escopo `modelValue` do slot `custom-fields` alterado para `model` (modelValue é uma prop reservada para v-model).

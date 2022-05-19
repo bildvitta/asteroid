@@ -41,7 +41,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 ### Adicionado
 - `QasCard`: propriedade `outlined` com default `false`.
 - `QasCard`: propriedade `unelevated` com default `false`.
-- `QasListItems`: propriedade `useClickableItem` 
+- `QasListItems`: propriedade `useClickableItem`.
 - `QasListItems`: evento `click-item` adicionado para lidar quando clicado nos items ou dentro do button dos items.
 - `QasSelectList`: propriedade `useClickableLabel` com default `false` para deixar label com `cursor-pointer` e habilitar evento `click-label`.
 - `QasSelectList`: evento `click-label` para lidar quando clicar no label (evento só acontece caso a propriedade `useClickableLabel` for `true`).
