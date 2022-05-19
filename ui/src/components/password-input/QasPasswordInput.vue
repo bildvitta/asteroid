@@ -9,7 +9,7 @@
         <slot :name="name" v-bind="context || {}" />
       </template>
 
-      <template v-if="!hideStrengthChecker" #hint>
+      <template v-if="useStrengthChecker" #hint>
         <qas-password-strength-checker v-bind="strengthCheckerProps" :password="model" />
       </template>
     </qas-input>
@@ -30,7 +30,8 @@ export default {
   mixins: [passwordMixin],
 
   props: {
-    hideStrengthChecker: {
+    useStrengthChecker: {
+      default: true,
       type: Boolean
     },
 

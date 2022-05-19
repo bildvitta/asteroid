@@ -26,13 +26,13 @@ export default {
       default: () => []
     },
 
-    usePopup: {
-      type: Boolean
-    },
-
     zoom: {
       type: Number,
       default: 17
+    },
+
+    usePopup: {
+      type: Boolean
     }
   },
 

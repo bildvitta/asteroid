@@ -4,10 +4,6 @@ meta:
   desc: Componente para C.R.U.D. responsável pela parte de listagem (Read).
 
 props:
-  disable-refresh:
-    desc: Desabilita o [pull-to-refresh](https://quasar.dev/vue-components/pull-to-refresh#basic).
-    type: Boolean
-
   entity:
     desc: Entidade da store, por exemplo se tiver que trabalhar com modulo de usuários, teremos o model "users" na store, que vai ser nossa "entity".
     required: true
@@ -63,6 +59,11 @@ props:
 
   use-filter:
     desc: Controla se o componente vai usar ou não o componente "QasFilters".
+    default: true
+    type: Boolean
+
+  use-refresh:
+    desc: Controla o [pull-to-refresh](https://quasar.dev/vue-components/pull-to-refresh#basic).
     default: true
     type: Boolean
 

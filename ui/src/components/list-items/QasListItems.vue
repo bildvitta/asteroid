@@ -1,7 +1,7 @@
 <template>
   <div class="qas-list-items shadow-14">
     <q-list bordered class="rounded-borders" separator>
-      <q-item v-for="(item, index) in list" :key="index" v-ripple :clickable="useClickableItem" @click="onClick(item, true)">
+      <q-item v-for="(item, index) in list" :key="index" v-ripple :clickable="useClickableItem" @click="onClick({ item, index }, true)">
         <slot :index="index" :item="item" name="item">
           <q-item-section>
             <slot :index="index" :item="item" name="item-section-left" />
@@ -9,7 +9,7 @@
 
           <q-item-section v-if="useSectionActions" side>
             <slot :index="index" :item="item" name="item-section-side">
-              <qas-btn flat round @click="onClick(item)">
+              <qas-btn flat round @click="onClick({ item, index })">
                 <q-icon v-bind="iconProps" />
               </qas-btn>
             </slot>
@@ -41,21 +41,6 @@ export default {
       type: Array
     },
 
-    redirectKey: {
-      default: 'uuid',
-      type: String
-    },
-
-    useRedirectOnIcon: {
-      default: true,
-      type: Boolean
-    },
-
-    to: {
-      default: () => ({}),
-      type: Object
-    },
-
     useClickableItem: {
       type: Boolean
     },
@@ -66,10 +51,10 @@ export default {
     }
   },
 
-  emits: ['clicked-item'],
+  emits: ['click-item'],
 
   methods: {
-    onClick (item, fromItem) {
+    onClick ({ item, index }, fromItem) {
       /**
        * se o click veio do q-item e "useClickableItem" for "false", ou
        * se o click não veio do q-item e "useClickableItem" for "true", então retorna sem emitir.
@@ -78,18 +63,7 @@ export default {
         (fromItem && !this.useClickableItem) || (!fromItem && this.useClickableItem)
       ) return
 
-      this.$emit('clicked-item', item)
-    },
-
-    getRedirectPayload (item) {
-      return {
-        params: { [this.redirectKey]: item[this.redirectKey] },
-        ...this.to
-      }
-    },
-
-    redirect (item) {
-      return this.useRedirectOnIcon ? undefined : this.getRedirectPayload(item)
+      this.$emit('click-item', { item, index })
     }
   }
 }

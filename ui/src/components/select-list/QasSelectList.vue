@@ -6,7 +6,7 @@
           <slot v-bind="slotData" :item="result" name="item">
             <slot name="item-section" :result="result">
               <q-item-section class="items-start text-bold">
-                <div :class="labelClass" @click="redirectRoute(result)">{{ result.label }}</div>
+                <div :class="labelClass" @click="onClickLabel({ item: result, index })">{{ result.label }}</div>
               </q-item-section>
             </slot>
 
@@ -56,26 +56,16 @@ export default {
       default: () => []
     },
 
-    to: {
-      default: () => ({}),
-      type: Object
-    },
-
-    redirectKey: {
-      default: 'uuid',
-      type: String
-    },
-
-    paramKey: {
-      default: 'id',
-      type: String
+    useClickableLabel: {
+      type: Boolean
     }
   },
 
   emits: [
     'added',
-    'update:modelValue',
-    'removed'
+    'click-label',
+    'removed',
+    'update:modelValue'
   ],
 
   data () {
@@ -87,12 +77,8 @@ export default {
   },
 
   computed: {
-    isRedirectEnabled () {
-      return Object.keys(this.to).length
-    },
-
     labelClass () {
-      return this.isRedirectEnabled ? 'cursor-pointer' : ''
+      return this.useClickableLabel && 'cursor-pointer'
     },
 
     slotData () {
@@ -167,11 +153,8 @@ export default {
       })
     },
 
-    redirectRoute (item) {
-      return this.isRedirectEnabled && this.$router.push({
-        params: { [this.paramKey]: item[this.redirectKey] },
-        ...this.to
-      })
+    onClickLabel ({ item, index }) {
+      this.useClickableLabel && this.$emit('click-label', { item, index })
     },
 
     remove (item) {

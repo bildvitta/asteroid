@@ -1,12 +1,12 @@
 <template>
   <div class="container q-py-lg">
     <div>
-      <qas-select v-model="model" label="Meu select!" :options="options" searchable />
+      <qas-select v-model="model" label="Meu select!" :options="options" use-search />
       Model: {{ model }}
     </div>
 
     <div class="q-mt-lg">
-      <qas-select v-model="model2" label="Meu select multiple" multiple :options="options" searchable />
+      <qas-select v-model="model2" label="Meu select multiple" multiple :options="options" use-search />
       Model múltiplo: {{ model2 }}
     </div>
   </div>

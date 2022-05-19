@@ -29,11 +29,6 @@ export default {
       type: [Array, String]
     },
 
-    useBreadcrumbs: {
-      default: true,
-      type: Boolean
-    },
-
     root: {
       default: '',
       type: [Object, String]
@@ -42,6 +37,11 @@ export default {
     title: {
       default: '',
       type: String
+    },
+
+    useBreadcrumbs: {
+      default: true,
+      type: Boolean
     }
   },
 

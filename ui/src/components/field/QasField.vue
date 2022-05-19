@@ -75,7 +75,7 @@ export default {
         type,
         mask,
         maxFiles,
-        searchable,
+        useSearch,
         gmt
       } = this.formattedField
 
@@ -143,7 +143,7 @@ export default {
 
         'signature-uploader': { is: 'qas-signature-uploader', entity, uploadLabel: label, ...error },
 
-        select: { is: 'qas-select', multiple, options, searchable, ...input }
+        select: { is: 'qas-select', multiple, options, useSearch, ...input }
       }
 
       return { ...(profiles[type] || profiles.default), ...this.$attrs }

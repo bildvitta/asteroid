@@ -26,11 +26,25 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - `QasFormView`: propriedade `showDialogOnUnsavedChanges` alterada para `useDialogOnUnsavedChanges`.
 - `QasGridGenerator`: propriedade `hideEmptyResult` alterada para `useEmptyResult`.
 - `QasInput`: propriedade `removeErrorOnType` alterada para `useRemoveErrorOnType`.
+- `QasListItems`: propriedades `redirectKey`, e `to` removidas em favor de utilizar o evento `click-item` para lidar quando clicado nos items ou dentro do button dos items.
+- `QasListItems`: propriedade `useRedirectOnIcon` alterada para `useClickableItem` com default `false` para identificar que o item inteiro é clicável ao invés de somente o button.
+- `QasListView`: propriedade `disableRefresh` alterada para `useRefresh` com default `true`.
+- `QasNumericInput`: propriedade `allowNegative` alterada para `useNegative`.
+- `QasNumericInput`: propriedade `allowPositive` alterada para `usePositive`.
+- `QasNumericInput`: propriedade `autonumericProps` alterada para `autonumericOptions`.
+- `QasPasswordInput`: propriedade `hideStrengthChecker` alterada para `useStrengthChecker` com default `true`.
+- `QasSelect`: propriedade `searchable` alterada para `useSearch`.
+- `QasSelectList`: propriedades `to`, `redirectKey` e `paramKey` removidas em favor de usar o evento `click-label` para lidar quando clicar no label.
+- `QasNestedFields`: propriedade `btnDestroyProps` alterada para `buttonDestroyProps`.
+- `QasNestedFields`: propriedade `btnDuplicateProps` alterada para `buttonDuplicateProps`.
 
 ### Adicionado
 - `QasCard`: propriedade `outlined` com default `false`.
 - `QasCard`: propriedade `unelevated` com default `false`.
-
+- `QasListItems`: propriedade `useClickableItem` 
+- `QasListItems`: evento `click-item` adicionado para lidar quando clicado nos items ou dentro do button dos items.
+- `QasSelectList`: propriedade `useClickableLabel` com default `false` para deixar label com `cursor-pointer` e habilitar evento `click-label`.
+- `QasSelectList`: evento `click-label` para lidar quando clicar no label (evento só acontece caso a propriedade `useClickableLabel` for `true`).
 
 ## [3.0.0-beta.9] - 13-05-2022
 ## BREAKING CHANGES

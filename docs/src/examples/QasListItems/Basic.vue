@@ -1,6 +1,6 @@
 <template>
   <div class="container q-py-lg">
-    <qas-list-items :list="list" redirect-key="uuid" use-clickable-item @clicked-item="onClickedItem">
+    <qas-list-items :list="list" redirect-key="uuid" @click-item="onClickItem">
       <template #item-section-left="{ item, index }">
         <div>
           name: {{ item.name }}
@@ -37,7 +37,7 @@ export default {
 
   methods: {
     // Aqui neste método você define o que quer fazer após o usuário clicar no item
-    onClickedItem (item) {
+    onClickItem ({ item, index }) {
       alert(JSON.stringify(item))
     }
   }
