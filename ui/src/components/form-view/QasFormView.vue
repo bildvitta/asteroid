@@ -332,7 +332,6 @@ export default {
 
     // ignora chaves na hora de validar quando usuário está saindo da página
     handleIgnoreKeysInUnsavedChanges (firstValue, secondValue) {
-      console.log(this.ignoreKeysInUnsavedChanges)
       if (!this.ignoreKeysInUnsavedChanges.length) return
 
       this.ignoreKeysInUnsavedChanges.forEach(key => {

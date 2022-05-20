@@ -8,7 +8,7 @@
 export default {
   methods: {
     onDeleteSuccess () {
-      alert('fui deletado com sucesso!')
+      this.$qas.success('fui deletado com sucesso!')
     }
   }
 }

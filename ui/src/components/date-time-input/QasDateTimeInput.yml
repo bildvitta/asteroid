@@ -17,10 +17,6 @@ props:
     default: {}
     type: Object
 
-  gmt:
-    desc: Utilizado para se usar junto da prop "date-only" ou "time-only", caso "gmt" for "true", o model sempre vai ser retornado no padrão ISO 8601, independente ser apenas um campo somente de data ou hora.
-    type: Boolean
-
   model-value:
     desc: Model do componente, usado para v-model.
     default: ''
@@ -43,6 +39,10 @@ props:
 
   use-date-only:
     desc: Habilita o componente para usar somente data.
+    type: Boolean
+
+  use-iso:
+    desc: Utilizado para se usar junto da prop "date-only" ou "time-only", caso "useIso" for "true", o model sempre vai ser retornado no padrão ISO 8601, independente ser apenas um campo somente de data ou hora.
     type: Boolean
 
 events:

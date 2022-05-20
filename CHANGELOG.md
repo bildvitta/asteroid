@@ -46,6 +46,9 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - `QasSelectList`: propriedade `useClickableLabel` com default `false` para deixar label com `cursor-pointer` e habilitar evento `click-label`.
 - `QasSelectList`: evento `click-label` para lidar quando clicar no label (evento só acontece caso a propriedade `useClickableLabel` for `true`).
 
+### Modificado
+- [`QasAppBar`, `QasFilters`, '`QasSignatureUploader`]: substituído `q-btn` por `qas-btn`.
+
 ## [3.0.0-beta.9] - 13-05-2022
 ## BREAKING CHANGES
 - `QasFormView`: propriedade `readOnly` alterada para `useActions`.
@@ -64,9 +67,9 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - Adicionado nova pagina de erro `Unauthorized.vue` para quando api retorna status code `401` no fetch.
 - Adicionado `name` para as paginas de erros.
 
-### Alterado
-- `QasSearchBox`: alterado valor default da prop `fuseOptions` para `{ threshold: 0.1, ignoreLocation: true }`. 
-- `QasSelect`: alterado valor default da prop `fuseOptions` para `{ threshold: 0.1, ignoreLocation: true, keys: ['label', 'value'] }`.
+### Modificado
+- `QasSearchBox`: modificado valor default da prop `fuseOptions` para `{ threshold: 0.1, ignoreLocation: true }`. 
+- `QasSelect`: modificado valor default da prop `fuseOptions` para `{ threshold: 0.1, ignoreLocation: true, keys: ['label', 'value'] }`.
 
 ### Corrigido
 - Adicionado redirect para status code `> 500` (antes já existia a pagina para isto, mas não era redirecionado).
@@ -76,9 +79,9 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 ### Adicionado
 - `QasNumericInput`: adicionado novo evento "update-model" para disparar toda vez que acontece um novo input.
 
-### Alterado
+### Modificado
 - `QasListView`: adicionado propriedade `deep` para o watch do `resultsModel`.
-- `QasPasswordInput`: alterado valor `bottom-slots` para `false`.
+- `QasPasswordInput`: modificado valor `bottom-slots` para `false`.
 - `QasFilters`: adicionado `max-with="240px"` e `full-width` dentro do `QMenu`.
 
 ### Corrigido
@@ -87,7 +90,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - `QasNumericInput`: corrigido bug no two-way data binding.
 
 ## [3.0.0-beta.6] - 05-06-2022
-### Alterado
+### Modificado
 - Propriedade `hideLabelOnSmallScreen` só funciona quando o "rotulo" do botão é passado via prop `label` e não mais por slot default também.
 
 ### Corrigido
