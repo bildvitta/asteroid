@@ -28,6 +28,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - `QasInput`: propriedade `removeErrorOnType` alterada para `useRemoveErrorOnType`.
 - `QasListItems`: propriedades `redirectKey`, e `to` removidas em favor de utilizar o evento `click-item` para lidar quando clicado nos items ou dentro do button dos items.
 - `QasListItems`: propriedade `useRedirectOnIcon` alterada para `useClickableItem` com default `false` para identificar que o item inteiro é clicável ao invés de somente o button.
+- `QasListItems`: slot `item-section-left` alterado para `item-section`.
 - `QasListView`: propriedade `disableRefresh` alterada para `useRefresh` com default `true`.
 - `QasNumericInput`: propriedade `allowNegative` alterada para `useNegative`.
 - `QasNumericInput`: propriedade `allowPositive` alterada para `usePositive`.

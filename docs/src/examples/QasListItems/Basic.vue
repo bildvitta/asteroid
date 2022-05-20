@@ -1,7 +1,7 @@
 <template>
   <div class="container q-py-lg">
     <qas-list-items :list="list" redirect-key="uuid" @click-item="onClickItem">
-      <template #item-section-left="{ item, index }">
+      <template #item-section="{ item, index }">
         <div>
           name: {{ item.name }}
           index: {{ index }}

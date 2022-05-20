@@ -4,7 +4,7 @@
       <q-item v-for="(item, index) in list" :key="index" v-ripple :clickable="useClickableItem" @click="onClick({ item, index }, true)">
         <slot :index="index" :item="item" name="item">
           <q-item-section>
-            <slot :index="index" :item="item" name="item-section-left" />
+            <slot :index="index" :item="item" name="item-section" />
           </q-item-section>
 
           <q-item-section v-if="useSectionActions" side>

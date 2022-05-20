@@ -24,7 +24,7 @@ props:
     type: Boolean
 
 slots:
-  item-section-left:
+  item-section:
     desc: Slot para acessar seção da esquerda.
     scope:
       item:

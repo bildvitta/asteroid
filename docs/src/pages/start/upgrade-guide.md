@@ -221,6 +221,8 @@ Sincronizado em _19/05/2022 as 17h00_.
 - Propriedade `useRedirectOnIcon` alterada para `useClickableItem` com default `false` para identificar que o item inteiro é clicável ao invés de somente o button.
 - Propriedade `useClickableItem`.
 - Evento `click-item` adicionado para lidar quando clicado nos items ou dentro do button dos items.
+- Slot `item-section-left` alterado para `item-section`.
+
 ### QasTransfer
 
 Sincronizado em _17/03/2022 as 14h00_.
