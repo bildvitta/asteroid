@@ -20,17 +20,7 @@ export default {
   name: 'QasNumericInput',
 
   props: {
-    allowNegative: {
-      default: true,
-      type: Boolean
-    },
-
-    allowPositive: {
-      default: true,
-      type: Boolean
-    },
-
-    autonumericProps: {
+    autonumericOptions: {
       default: () => ({}),
       type: Object
     },
@@ -62,6 +52,16 @@ export default {
     preset: {
       default: false,
       type: [Boolean, String]
+    },
+
+    useNegative: {
+      default: true,
+      type: Boolean
+    },
+
+    usePositive: {
+      default: true,
+      type: Boolean
     }
   },
 
@@ -105,11 +105,11 @@ export default {
       Object.assign(options, autoNumericPredefinedOptions[value])
     }
 
-    if (!this.allowNegative) {
+    if (!this.useNegative) {
       options.minimumValue = 0
     }
 
-    if (!this.allowPositive) {
+    if (!this.usePositive) {
       options.maximumValue = 0
     }
 
@@ -117,7 +117,7 @@ export default {
       options.decimalPlaces = this.decimalPlaces
     }
 
-    Object.assign(options, this.autonumericProps)
+    Object.assign(options, this.autonumericOptions)
 
     this.$nextTick(() => {
       this.autoNumeric = new AutoNumeric(this.$refs.input, options)

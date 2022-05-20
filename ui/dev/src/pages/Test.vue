@@ -12,7 +12,7 @@
 
     <qas-debugger :inspect="['Hello', 'World!']" />
 
-    <qas-btn hide-label-on-small-screen>Mostre-me</qas-btn>
+    <qas-btn use-label-on-small-screen>Mostre-me</qas-btn>
 
     <qas-select v-model="autoCompleteModel" multiple :options="autoCompleteOptions" />
     <pre>{{ autoCompleteModel }}</pre>

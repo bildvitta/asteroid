@@ -1,6 +1,6 @@
 <template>
   <component :is="mx_componentTag" :class="mx_componentClass">
-    <q-pull-to-refresh :disable="disableRefresh" @refresh="refresh">
+    <q-pull-to-refresh :disable="!useRefresh" @refresh="refresh">
       <header v-if="hasHeaderSlot">
         <slot name="header" />
       </header>
@@ -54,15 +54,6 @@ export default {
   mixins: [contextMixin, viewMixin],
 
   props: {
-    disableRefresh: {
-      type: Boolean
-    },
-
-    useFilter: {
-      default: true,
-      type: Boolean
-    },
-
     filtersProps: {
       default: () => ({}),
       type: Object
@@ -71,6 +62,16 @@ export default {
     results: {
       default: () => [],
       type: Array
+    },
+
+    useRefresh: {
+      default: true,
+      type: Boolean
+    },
+
+    useFilter: {
+      default: true,
+      type: Boolean
     }
   },
 

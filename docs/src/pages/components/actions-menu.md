@@ -37,5 +37,19 @@ A prop `deleteProps` ativa o componente `QasDelete`, quando é passada o `QasAct
 :::
 
 <doc-example file="QasActionsMenu/Basic" title="Básico" />
+
+:::tip
+Para receber o evento de sucesso ao deletar, dentro da propriedade `deleteProps` adicione a chave `onSuccess`, por exemplo:
+
+```js
+{
+  customId: 'meu-id-custom',
+  entity: 'users',
+  onSuccess: () => alert('Deletado com sucesso.') // aqui você chama sua função
+}
+```
+:::
+
 <doc-example file="QasActionsMenu/Delete" title="QasDelete como padrão" />
+
 <doc-example file="QasActionsMenu/CustomSlot" title="Templates dinâmicos" />

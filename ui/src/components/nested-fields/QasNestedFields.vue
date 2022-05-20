@@ -10,11 +10,11 @@
           <div v-if="!row[destroyKey]" :key="index" class="col-12 q-mt-md">
             <div>
               <div class="flex items-center justify-between q-py-xs">
-                <qas-label v-if="!useSingleLabel" :label="setRowLabel(index)" />
+                <qas-label v-if="!useSingleLabel" :label="getRowLabel(index)" />
 
                 <div v-if="!useInlineActions" class="q-gutter-x-sm">
-                  <qas-btn v-if="useDuplicate" v-bind="btnDuplicateProps" @click="add(row)" />
-                  <qas-btn v-if="showDestroyBtn" v-bind="btnDestroyProps" @click="destroy(index, row)" />
+                  <qas-btn v-if="useDuplicate" v-bind="buttonDuplicateProps" @click="add(row)" />
+                  <qas-btn v-if="showDestroyBtn" v-bind="buttonDestroyProps" @click="destroy(index, row)" />
                 </div>
               </div>
 
@@ -96,7 +96,7 @@ export default {
       default: 'Inserir novo campo'
     },
 
-    btnDestroyProps: {
+    buttonDestroyProps: {
       type: Object,
       default: () => {
         return {
@@ -108,14 +108,14 @@ export default {
       }
     },
 
-    btnDuplicateProps: {
+    buttonDuplicateProps: {
       type: Object,
       default: () => {
         return {
           label: 'Duplicar',
           icon: 'o_content_copy',
           flat: true,
-          hideMobileLabel: true,
+          useLabelOnSmallScreen: false,
           dense: true
         }
       }
@@ -333,7 +333,7 @@ export default {
       })
     },
 
-    setRowLabel (rowKey) {
+    getRowLabel (rowKey) {
       if (this.rowLabel) {
         return this.useIndexLabel ? `${this.rowLabel} ${rowKey + 1}` : this.rowLabel
       }

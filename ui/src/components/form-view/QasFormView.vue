@@ -10,7 +10,7 @@
       <slot v-if="useActions" name="actions">
         <div class="justify-end q-col-gutter-md q-my-lg row">
           <div v-if="hasCancelButton" class="col-12 col-sm-2" :class="cancelButtonClass">
-            <qas-btn v-close-popup="dialog" class="full-width" :data-cy="`btnCancel-${entity}`" :disable="isCancelButtonDisabled" :label="cancelButtonLabel" outline type="button" @click="cancel" />
+            <qas-btn v-close-popup class="full-width" :data-cy="`btnCancel-${entity}`" :disable="isCancelButtonDisabled" :label="cancelButtonLabel" outline type="button" @click="cancel" />
           </div>
 
           <div v-if="useSubmitButton" class="col-12 col-sm-2" :class="submitButtonClass">
@@ -85,7 +85,7 @@ export default {
       type: Object
     },
 
-    showDialogOnUnsavedChanges: {
+    useDialogOnUnsavedChanges: {
       default: true,
       type: Boolean
     },
@@ -200,7 +200,7 @@ export default {
 
       this.$emit('update:modelValue', models)
 
-      if (!this.hasResult && this.showDialogOnUnsavedChanges) {
+      if (!this.hasResult && this.useDialogOnUnsavedChanges) {
         this.cachedResult = extend(true, {}, models)
       }
     },
@@ -226,13 +226,13 @@ export default {
       const clonedCachedResult = extend(true, {}, this.cachedResult)
 
       /**
-       * Se a propriedade "showDialogOnUnsavedChanges" for false ou a variável
+       * Se a propriedade "useDialogOnUnsavedChanges" for false ou a variável
        * "ignoreRouterGuard" for true, então **não** iremos checar se o usuário
        * alterou algum campo antes de sair da pagina, senão iremos validar pela função isEqualWith
        * e mostrar um dialog antes do usuário sair da página.
       */
       if (
-        !this.showDialogOnUnsavedChanges ||
+        !this.useDialogOnUnsavedChanges ||
         this.ignoreRouterGuard ||
         isEqualWith(
           clonedModelValue,
@@ -250,9 +250,7 @@ export default {
     },
 
     cancel () {
-      if (!this.dialog) {
-        this.handleCancelRoute()
-      }
+      this.handleCancelRoute()
     },
 
     async fetch (params) {
@@ -282,7 +280,7 @@ export default {
             this.$emit('update:modelValue', { ...this.modelValue, ...result })
           })
 
-          this.cachedResult = this.showDialogOnUnsavedChanges && extend(true, {}, result)
+          this.cachedResult = this.useDialogOnUnsavedChanges && extend(true, {}, result)
         }
 
         this.$emit('fetch-success', response, this.modelValue)
@@ -359,7 +357,7 @@ export default {
           { id: this.id, payload: this.modelValue, url: this.url }
         )
 
-        if (this.showDialogOnUnsavedChanges) {
+        if (this.useDialogOnUnsavedChanges) {
           this.cachedResult = extend(true, {}, this.modelValue)
         }
 
