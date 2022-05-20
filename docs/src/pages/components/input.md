@@ -2,6 +2,10 @@
 title: QasInput
 ---
 
+<div class="flex q-gutter-x-md">
+  <doc-link title="Quasar Componente" name="QInput" href="https://quasar.dev/vue-components/input#introduction" />
+</div>
+
 Componente para input que implementa o "QInput" repassando propriedades, slots e eventos.
 
 <doc-api file="input/QasInput" name="QasInput" />

@@ -2,6 +2,10 @@
 title: QasSortable
 ---
 
+<div class="flex q-gutter-x-md">
+  <doc-link title="Biblioteca" name="Sortable.js" href="https://github.com/SortableJS/Sortable" />
+</div>
+
 Componente para reordenar items em uma lista e salvar após isto.
 
 <doc-api file="sortable/QasSortable" name="QasSortable" />
@@ -16,7 +20,7 @@ Este componente depende do `Vuex`, utiliza módulo com action `replace` para sal
 :::
 
 :::tip
-Este componente usa a biblioteca [sortablejs](https://github.com/SortableJS/Sortable]).
+Este componente usa a biblioteca [sortablejs](https://github.com/SortableJS/Sortable).
 :::
 
 ## Uso

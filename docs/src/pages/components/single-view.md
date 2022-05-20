@@ -7,6 +7,8 @@ title: QasSingleView
   <doc-link title="Componente" name="QasListView" to="/components/list-view" />
   <doc-link title="Componente" name="QasPageHeader" to="/components/page-header" />
   <doc-link title="Componente" name="QasGridGenerator" to="/components/grid-generator" />
+  <doc-link title="Biblioteca" name="VuexStoreModule" href="https://github.com/bildvitta/vuex-store-module" />
+  <doc-link title="Biblioteca" name="VuexOffline" href="https://github.com/bildvitta/vuex-offline" />
 </div>
 
 Componente para C.R.U.D. responsável pela visualização (Read) ou conhecido também como "show".
@@ -26,15 +28,15 @@ Para fazer esses exemplos na documentação, estamos utilizando o `VuexOffline`,
 :::
 
 :::warning
-Estamos utilizando nos exemplos um `custom-id` pois é necessario para conseguir utilizar os mocks de dados, **não** significa que você precisa sempre utiliza-lo para lidar com o id, na verdade na maioria das vezes você não vai precisar do `custom-id`, ele é para quando precisa de um caso de uso mais específico.
+Estamos utilizando nos exemplos um `custom-id` pois é necessário para conseguir utilizar os mocks de dados, **não** significa que você precisa sempre utiliza-lo para lidar com o id, na verdade na maioria das vezes você não vai precisar do `custom-id`, ele é para quando precisa de um caso de uso mais específico.
 :::
 
 :::tip
-Este componente serve para lidar com **visualização unica**, se você precisar de um componente para lidar com listagem, use o componente `QasListView`.
+Este componente serve para lidar com **visualização única**, se você precisar de um componente para lidar com listagem, use o componente `QasListView`.
 :::
 
 :::tip
-Em alguns casos você vai precisar de ter uma tela unica por exmplo uma tela de **dashboard** que não existe tela de listagem, edição ou criação. Use este componente para isto! Nestes casos você pode ou não ter um `id`, então pode utilizar a propriedade `url` para definir o endereço da tela.
+Em alguns casos você vai precisar de ter uma tela única por exemplo uma tela de **dashboard** que não existe tela de listagem, edição ou criação. Use este componente para isto! Nestes casos você pode ou não ter um `id`, então pode utilizar a propriedade `url` para definir o endereço da tela.
 :::
 
 ## Uso

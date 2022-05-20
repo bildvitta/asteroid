@@ -5,10 +5,8 @@ title: QasListView
 <div class="flex q-gutter-x-md">
   <doc-link title="Componente" name="QasDebugger" to="/components/debugger" />
   <doc-link title="Componente" name="QasSingleView" to="/components/single-view" />
+  <doc-link title="Componente" name="QasFilters" to="/components/filters" />
 </div>
-
-
-
 
 Componente para C.R.U.D. responsável pela parte de listagem (Read).
 
@@ -40,4 +38,3 @@ Aqui está um exemplo de como normalmente utilizamos este componente, lembrando 
 Para usar `QasFilters` você não precisa fazer nada! Porém, em alguns casos, você pode precisar de algum filtro especifico ou alguma outra customização, para isto você pode usar o slot `filter`.
 
 <doc-example file="QasListView/CustomFilter" title="Com filtro customizado" />
-

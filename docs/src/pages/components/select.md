@@ -2,6 +2,11 @@
 title: QasSelect
 ---
 
+<div class="flex q-gutter-x-md">
+  <doc-link title="Componente" name="QSelect" href="https://quasar.dev/vue-components/select#introduction" />
+  <doc-link title="Biblioteca" name="Fuse.js" href="https://fusejs.io/" />
+</div>
+
 Componente para select que implementa o "QSelect" repassando propriedades, slots e eventos.
 
 <doc-api file="select/QasSelect" name="QasSelect" />

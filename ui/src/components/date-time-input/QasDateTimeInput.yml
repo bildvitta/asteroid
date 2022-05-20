@@ -17,7 +17,7 @@ props:
     type: Boolean
 
   date-props:
-    desc: Propriedades do QDate (https://quasar.dev/vue-components/date#introduction).
+    desc: Propriedades do QDate. (link para componente QDate no cabeçalho)
     default: {}
     type: Object
 
@@ -41,7 +41,7 @@ props:
     type: Boolean
 
   time-props:
-    desc: Propriedades do QTime (https://quasar.dev/vue-components/time#introduction).
+    desc: Propriedades do QTime. (link para componente QTime no cabeçalho)
     default: {}
     type: Object
 

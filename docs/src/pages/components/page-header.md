@@ -4,6 +4,7 @@ title: QasPageHeader
 
 <div class="flex q-gutter-x-md">
   <doc-link title="Componente" name="QasBtn" to="/components/button" />
+   <doc-link title="Quasar Componente" name="QToolbar" href="https://quasar.dev/vue-components/toolbar#introduction" />
 </div>
 
 Componente para cabeçalho de páginas com breadcrumbs e botão de voltar baseado no histórico de navegação dentro da aplicação.

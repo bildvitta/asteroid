@@ -4,6 +4,8 @@ title: QasPasswordInput
 
 <div class="flex q-gutter-x-md">
   <doc-link title="Componente" name="QasInput" to="/components/input" />
+  <doc-link title="Componente" name="QasPasswordStrengthChecker" to="/components/password-strength-checker" />
+  <doc-link title="Quasar Componente" name="QIcon" href="https://quasar.dev/vue-components/icon#introduction" />
 </div>
 
 Componente para input de senhas que implementa o "QasInput" repassando todos os slots menos "#hint" e todos os eventos.

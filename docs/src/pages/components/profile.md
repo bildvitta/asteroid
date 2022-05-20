@@ -4,6 +4,9 @@ title: QasProfile
 
 <div class="flex q-gutter-x-md">
   <doc-link title="Componente" name="QasSingleView" to="/components/single-view" />
+  <doc-link title="Componente" name="QasAvatar" to="/components/avatar" />
+  <doc-link title="Quasar Componente" name="QUploader" href="https://quasar.dev/vue-components/uploader#usage" />
+  <doc-link title="Quasar Componente" name="QField" href="https://quasar.dev/vue-components/field#introduction" />
 </div>
 
 Componente para cabeçalho de perfil.

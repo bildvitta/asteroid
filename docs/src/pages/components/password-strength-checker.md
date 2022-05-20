@@ -4,6 +4,7 @@ title: QasPasswordStrengthChecker
 
 <div class="flex q-gutter-x-md">
   <doc-link title="Componente" name="QasPasswordInput" to="/components/password-input" />
+  <doc-link title="Quasar Componente" name="QLinearProgress" href="https://quasar.dev/vue-components/linear-progress#introduction" />
 </div>
 
 Componente para checar nível de força da senha.

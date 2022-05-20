@@ -3,7 +3,9 @@ title: QasDateTimeInput
 ---
 
 <div class="flex q-gutter-x-md">
-  <doc-link title="Componente" name="QasInput" to="/components/input" />  
+  <doc-link title="Componente" name="QasInput" to="/components/input" />
+  <doc-link title="Quasar Componente" name="QDate" href="https://quasar.dev/vue-components/date#introduction" />
+  <doc-link title="Quasar Componente" name="QTime" href="https://quasar.dev/vue-components/time#introduction" />
 </div>
 
 Componente de input data e hora, implementa o "QasInput".

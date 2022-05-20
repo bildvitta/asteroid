@@ -4,6 +4,13 @@ title: QasField
 
 <div class="flex q-gutter-x-md">
   <doc-link title="Componente" name="QasDebugger" to="/components/debugger" />
+  <doc-link title="Componente" name="QasCheckboxGroup" to="/components/checkbox-group" />
+  <doc-link title="Componente" name="QasDateTimeInput" to="/components/date-time-input" />
+  <doc-link title="Componente" name="QasInput" to="/components/input" />
+  <doc-link title="Componente" name="QasNumericInput" to="/components/numeric-input" />
+  <doc-link title="Componente" name="QasPasswordInput" to="/components/password-input" />
+  <doc-link title="Componente" name="QasUploader" to="/components/uploader" />
+  <doc-link title="Componente" name="QasSignatureUploader" to="/components/signature-uploader" />
 </div>
 
 Componente para criação de campos dinâmicos.
@@ -11,7 +18,7 @@ Componente para criação de campos dinâmicos.
 <doc-api file="field/QasField" name="QasField" />
 
 :::tip
-Este componente renderiza componentes dinâmicamente através do `type` passado no `field` o que significa que você pode utilizar qualquer prop/evento/slot do componente ele renderizou
+Este componente renderiza componentes dinamicamente através do `type` passado no `field` o que significa que você pode utilizar qualquer prop/evento/slot do componente que ele renderizou.
 :::
 
 :::tip
@@ -30,7 +37,7 @@ Componente renderizado:
 :::
 
 :::tip
-Para saber mais sobre o **API Design Pattern** clice [aqui](https://www.notion.so/bildvitta/API-Design-Patterns-5c2509b697614bbbac49cbed0aab70a1).
+Para saber mais sobre o **API Design Pattern** clique [aqui](https://www.notion.so/bildvitta/API-Design-Patterns-5c2509b697614bbbac49cbed0aab70a1).
 :::
 
 ## Uso

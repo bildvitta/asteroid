@@ -4,10 +4,9 @@ title: QasFormView
 
 <div class="flex q-gutter-x-md">
   <doc-link title="Componente" name="QasDebugger" to="/components/debugger" />
-  <doc-link title="Componente" name="QasPageHeader" to="/components/page-header" />
-  <doc-link title="Componente" name="QasFormGenerator" to="/components/form-generator" />
-  <doc-link title="Componente" name="QasBox" to="/components/box" />
-  <doc-link title="Componente" name="QasActionsMenu" to="/components/actions-menu" />
+  <doc-link title="Componente" name="QasBtn" to="/components/button" />
+  <doc-link title="Componente" name="QasDialog" to="/components/dialog" />
+  <doc-link title="Quasar Componente" name="QForm" href="https://quasar.dev/vue-components/form#introduction" />
 </div>
 
 Componente para C.R.U.D. responsável pela pela criação (Create) e edição (Update).
@@ -27,7 +26,7 @@ Para fazer esses exemplos na documentação, estamos utilizando o `VuexOffline`,
 :::
 
 :::warning
-Estamos utilizando nos exemplos um `custom-id` pois é necessario para conseguir utilizar os mocks de dados, **não** significa que você precisa sempre utiliza-lo para lidar com o id, na verdade na maioria das vezes você não vai precisar do `custom-id`, ele é para quando precisa de um caso de uso mais específico.
+Estamos utilizando nos exemplos um `custom-id` pois é necessário para conseguir utilizar os mocks de dados, **não** significa que você precisa sempre utiliza-lo para lidar com o id, na verdade na maioria das vezes você não vai precisar do `custom-id`, ele é para quando precisa de um caso de uso mais específico.
 :::
 
 :::tip

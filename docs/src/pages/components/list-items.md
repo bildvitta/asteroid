@@ -2,6 +2,10 @@
 title: QasListItems
 ---
 
+<div class="flex q-gutter-x-md">
+  <doc-link title="Quasar Componente" name="QList" href="https://quasar.dev/vue-components/list-and-list-items#introduction" />
+</div>
+
 Componente para listagem.
 
 <doc-api file="list-items/QasListItems" name="QasListItems" />

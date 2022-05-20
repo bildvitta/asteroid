@@ -2,6 +2,10 @@
 title: QasNumericInput
 ---
 
+<div class="flex q-gutter-x-md">
+  <doc-link title="Quasar Componente" name="Qfield" href="https://quasar.dev/vue-components/field#introduction" />
+</div>
+
 Componente de input para decimal, inteiro, dinheiro e porcentagem.
 
 <doc-api file="numeric-input/QasNumericInput" name="QasNumericInput" />

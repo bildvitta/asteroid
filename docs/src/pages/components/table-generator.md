@@ -7,6 +7,7 @@ title: QasTableGenerator
   <doc-link title="Componente" name="QasTableGenerator" to="/components/table-generator" />
   <doc-link title="Componente" name="QasBtn" to="/components/button" />
   <doc-link title="Componente" name="QasBox" to="/components/Box" />
+  <doc-link title="Quasar Componente" name="QTable" href="https://quasar.dev/vue-components/table#qtable-api" />
 </div>
 
 Componente para criação de tabela dinâmica usando o `QTable` do quasar.
@@ -24,7 +25,6 @@ Este componente renderiza componentes dinamicamente através da prop `fields`, c
 :::tip
 Componente implementa o `QasBox` repassando todas propriedades.
 :::
-
 
 ## Uso
 <doc-example file="QasTableGenerator/Basic" title="Básico" />

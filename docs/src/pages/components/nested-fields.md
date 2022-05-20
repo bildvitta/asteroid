@@ -3,11 +3,12 @@ title: QasNestedFields
 ---
 
 <div class="flex q-gutter-x-md">
-  <doc-link title="Componente" name="QasDebugger" to="/components/debugger" />
   <doc-link title="Componente" name="QasBtn" to="/components/button" />
+  <doc-link title="Componente" name="QasFormGenerator" to="/components/form-generator" />
+  <doc-link title="Quasar Componente" name="Qfield" href="https://quasar.dev/vue-components/field#introduction" />
 </div>
 
-Componente para gerar dinâmicamente campos nested.
+Componente para gerar dinamicamente campos nested.
 
 <doc-api file="nested-fields/QasNestedFields" name="QasNestedFields" />
 
