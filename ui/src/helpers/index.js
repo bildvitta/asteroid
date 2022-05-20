@@ -8,6 +8,7 @@ export { default as filterObject } from './filter-object.js'
 export { default as getGreatestCommonDivisor } from './get-greatest-common-divisor.js'
 export { default as filterObjectToArray } from './filter-object-to-array.js'
 export { default as filterListByHandle } from './filter-list-by-handle.js'
+export { default as logger } from './logger.js'
 
 export * from './filters.js'
 export * from './images.js'

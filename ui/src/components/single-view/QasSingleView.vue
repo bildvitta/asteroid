@@ -26,6 +26,7 @@
 <script>
 import viewMixin from '../../mixins/view'
 import { markRaw } from 'vue'
+import { logger } from '../../helpers'
 
 export default {
   name: 'QasSingleView',
@@ -82,6 +83,8 @@ export default {
     async fetchSingle (params = {}) {
       this.mx_isFetching = true
 
+      logger(log => log.info('fetchSuccess - chamado'))
+
       try {
         const response = await this.$store.dispatch(
           `${this.entity}/fetchSingle`,
@@ -100,12 +103,32 @@ export default {
           metadata: this.mx_metadata
         })
 
+        logger(log => {
+          log
+            .info('fetchSuccess - sucesso')
+            .group('fetchSuccess - resposta da API')
+            .table(response)
+            .end()
+            // errors, fields e metadata
+            .group('fetchSuccess - mx_errors, mx_fields e mx_metadata')
+            .table({
+              mx_errors: this.mx_errors,
+              mx_fields: this.mx_fields,
+              mx_metadata: this.mx_metadata
+            })
+            .end()
+        })
+
         this.$emit('fetch-success', response)
       } catch (error) {
+        logger(log => {
+          log.group('fetchSuccess - deu ruim', true).info(error).end()
+        })
         this.mx_fetchError(error)
         this.$emit('fetch-error', error)
       } finally {
         this.mx_isFetching = false
+        logger(log => log.info('fetchSuccess - finalizado'))
       }
     }
   }
