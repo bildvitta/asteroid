@@ -35,4 +35,4 @@ Em alguns casos você vai precisar de ter uma tela unica por exmplo uma tela de 
 
 Aqui está um exemplo de como normalmente utilizamos este componente, lembrando que isto não é uma regra, porém na maioria das vezes você vai se deparar com códigos semelhantes a este.
 
-<!-- <doc-example file="QasSingleView/CommonUsage" title="Normalmente utilizado" /> -->
+<doc-example file="QasSingleView/CommonUsage" title="Normalmente utilizado" />

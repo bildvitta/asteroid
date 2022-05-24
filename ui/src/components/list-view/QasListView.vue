@@ -45,6 +45,7 @@
 import { viewMixin, contextMixin } from '../../mixins'
 import QasFilters from '../filters/QasFilters.vue'
 import { extend } from 'quasar'
+import { logger } from '../../helpers'
 
 export default {
   components: {
@@ -165,11 +166,34 @@ export default {
           metadata: this.mx_metadata
         })
 
+        logger(log => {
+          log.group(`fetchList - resposta da action ${this.entity}/fetchList`)
+          log.table(response)
+          log.end()
+          log.group('fetchList - mx_errors, mx_fields e mx_metadata')
+          log.table({
+            mx_errors: this.mx_errors,
+            mx_fields: this.mx_fields,
+            mx_metadata: this.mx_metadata
+          })
+          log.end()
+        })
+
         this.$emit('fetch-success', response)
       } catch (error) {
         this.mx_fetchError(error)
         this.$emit('update:errors', error)
         this.$emit('fetch-error', error)
+
+        logger(log => {
+          log
+            .group('fetchList - error', true)
+            .error(error)
+            .end()
+            .group('fetchList - mx_error', true)
+            .table(this.mx_error)
+            .end()
+        })
       } finally {
         this.mx_isFetching = false
       }

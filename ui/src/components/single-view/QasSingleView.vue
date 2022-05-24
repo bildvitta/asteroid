@@ -83,8 +83,6 @@ export default {
     async fetchSingle (params = {}) {
       this.mx_isFetching = true
 
-      logger(log => log.info('fetchSuccess - chamado'))
-
       try {
         const response = await this.$store.dispatch(
           `${this.entity}/fetchSingle`,
@@ -105,12 +103,10 @@ export default {
 
         logger(log => {
           log
-            .info('fetchSuccess - sucesso')
-            .group('fetchSuccess - resposta da API')
+            .group(`fetchSingle - resposta da action ${this.entity}/fetchSingle`)
             .table(response)
             .end()
-            // errors, fields e metadata
-            .group('fetchSuccess - mx_errors, mx_fields e mx_metadata')
+            .group('fetchSingle - mx_errors, mx_fields e mx_metadata')
             .table({
               mx_errors: this.mx_errors,
               mx_fields: this.mx_fields,
@@ -121,14 +117,20 @@ export default {
 
         this.$emit('fetch-success', response)
       } catch (error) {
-        logger(log => {
-          log.group('fetchSuccess - deu ruim', true).info(error).end()
-        })
         this.mx_fetchError(error)
         this.$emit('fetch-error', error)
+
+        logger(log => {
+          log
+            .group('fetchSingle - error', true)
+            .error(error)
+            .end()
+            .group('fetchSingle - mx_error', true)
+            .table(this.mx_error)
+            .end()
+        })
       } finally {
         this.mx_isFetching = false
-        logger(log => log.info('fetchSuccess - finalizado'))
       }
     }
   }
