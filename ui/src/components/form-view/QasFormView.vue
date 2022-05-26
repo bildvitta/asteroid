@@ -39,6 +39,7 @@ import { onBeforeRouteLeave } from 'vue-router'
 
 import { useHistory } from '../../composables'
 import { NotifyError, NotifySuccess } from '../../plugins'
+import { logger } from '../../helpers'
 
 import QasBtn from '../btn/QasBtn.vue'
 import QasDialog from '../dialog/QasDialog.vue'
@@ -211,8 +212,10 @@ export default {
   },
 
   created () {
-    onBeforeRouteLeave(this.beforeRouteLeave)
+    this.useDialogOnUnsavedChanges && onBeforeRouteLeave(this.beforeRouteLeave)
+
     window.addEventListener('delete-success', this.setIgnoreRouterGuard)
+
     this.fetch()
   },
 
@@ -243,6 +246,13 @@ export default {
         return next()
       }
 
+      logger(log => {
+        log
+          .group('QasFormView - beforeRouteLeave -> dialog chamado, modelValue diferente do cachedResult')
+          .table({ modelValue: clonedModelValue, cachedResult: clonedCachedResult })
+          .end()
+      })
+
       this.handleDialog(() => {
         this.ignoreRouterGuard = true
         next()
@@ -257,9 +267,16 @@ export default {
       this.mx_isFetching = true
 
       try {
-        const response = await this.$store.dispatch(
-          `${this.entity}/fetchSingle`, { form: true, id: this.id, params, url: this.fetchURL }
-        )
+        const payload = { form: true, id: this.id, params, url: this.fetchURL }
+
+        logger(log => {
+          log
+            .group(`QasFormView - fetchSingle -> payload do parâmetro do ${this.entity}/fetchSingle`)
+            .table(payload)
+            .end()
+        })
+
+        const response = await this.$store.dispatch(`${this.entity}/fetchSingle`, payload)
 
         const { errors, fields, metadata, result } = response.data
 
@@ -273,20 +290,53 @@ export default {
           metadata
         })
 
+        logger(log => {
+          log
+            .group(`QasFormView - fetchSingle -> resposta da action ${this.entity}/fetchSingle`)
+            .table(response)
+            .end()
+        })
+
         if (result) {
           this.hasResult = true
 
           this.$nextTick(() => {
-            this.$emit('update:modelValue', { ...this.modelValue, ...result })
+            const modelValue = { ...this.modelValue, ...result }
+
+            logger(log => {
+              log
+                .group('QasFormView - fetchSingle -> modelValue')
+                .table(modelValue)
+                .end()
+            })
+
+            this.$emit('update:modelValue', modelValue)
           })
 
           this.cachedResult = this.useDialogOnUnsavedChanges && extend(true, {}, result)
+
+          logger(log => {
+            log
+              .group('QasFormView - fetchSingle -> cachedResult')
+              .table(this.cachedResult)
+              .end()
+          })
         }
 
         this.$emit('fetch-success', response, this.modelValue)
       } catch (error) {
         this.mx_fetchError(error)
         this.$emit('fetch-error', error)
+
+        logger(log => {
+          log
+            .group('QasFormView - fetchSingle -> error', true)
+            .error(error)
+            .end()
+            .group('fetchSingle - mx_error', true)
+            .table(this.mx_error)
+            .end()
+        })
       } finally {
         this.mx_isFetching = false
       }
@@ -352,14 +402,27 @@ export default {
       this.isSubmitting = true
 
       try {
-        const response = await this.$store.dispatch(
-          `${this.entity}/${this.mode}`,
-          { id: this.id, payload: this.modelValue, url: this.url }
-        )
+        const payload = { id: this.id, payload: this.modelValue, url: this.url }
+
+        logger(log => {
+          log
+            .group(`QasFormView - submit -> payload do ${this.entity}/${this.mode}`)
+            .table(payload)
+            .end()
+        })
+
+        const response = await this.$store.dispatch(`${this.entity}/${this.mode}`, payload)
 
         if (this.useDialogOnUnsavedChanges) {
           this.cachedResult = extend(true, {}, this.modelValue)
         }
+
+        logger(log => {
+          log
+            .group(`QasFormView - submit -> resposta da action ${this.entity}/${this.mode}`)
+            .table(response)
+            .end()
+        })
 
         this.mx_setErrors()
         NotifySuccess(response.data.status.text || 'Item salvo com sucesso!')
@@ -368,10 +431,23 @@ export default {
         const errors = error?.response?.data?.errors
         const message = error?.response?.data?.status?.text
         const exceptionResponse = error?.response?.data?.exception
-        const exception = errors ? 'Existem erros de validação no formulário.' : exceptionResponse || error.message
+
+        const exception = errors
+          ? 'Existem erros de validação no formulário.'
+          : exceptionResponse || error.message
 
         this.mx_setErrors(errors)
         this.$emit('update:errors', this.mx_errors)
+
+        logger(log => {
+          log
+            .group('QasFormView - submit -> error', true)
+            .error(error)
+            .end()
+            .group('QasFormView - submit -> mx_errors', true)
+            .table(this.mx_errors)
+            .end()
+        })
 
         NotifyError(message || 'Ops! Erro ao salvar item.', exception)
 

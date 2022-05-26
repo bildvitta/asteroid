@@ -1,4 +1,4 @@
-export default function (call = () => {}) {
+export default () => {
   const isDebugEnabled = true
 
   const normalizeMessage = msg => `%c ${msg}`
@@ -14,8 +14,6 @@ export default function (call = () => {}) {
       font-size: 12px;
     `
   )
-
-  console.log('fui chamado quantas vezes????')
 
   return isDebugEnabled && Promise.resolve({
     group (msg, isError) {
@@ -43,33 +41,4 @@ export default function (call = () => {}) {
       return this
     }
   })
-
-  // return isDebugEnabled && call(
-  //   {
-  //     group (msg, isError) {
-  //       console.group(normalizeMessage(msg), getStyle(isError))
-  //       return this
-  //     },
-
-  //     info (msg) {
-  //       console.info(normalizeMessage(msg), getStyle())
-  //       return this
-  //     },
-
-  //     table (payload) {
-  //       console.table(payload)
-  //       return this
-  //     },
-
-  //     error (msg) {
-  //       console.error(msg)
-  //       return this
-  //     },
-
-  //     end () {
-  //       console.groupEnd()
-  //       return this
-  //     }
-  //   }
-  // )
 }

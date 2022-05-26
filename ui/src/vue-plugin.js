@@ -55,7 +55,8 @@ import {
   Dialog,
   NotifyError,
   NotifySuccess,
-  Screen
+  Screen,
+  Logger
 } from './plugins'
 
 import packageInfo from '../package.json'
@@ -65,7 +66,7 @@ import Test from './directives/Test.js'
 
 const version = packageInfo.version
 
-function install (app) {
+async function install (app) {
   app.component('QasActions', QasActions)
   app.component('QasActionsMenu', QasActionsMenu)
   app.component('QasAlert', QasAlert)
@@ -125,7 +126,8 @@ function install (app) {
     dialog: Dialog,
     error: NotifyError,
     success: NotifySuccess,
-    screen: Screen()
+    screen: Screen(),
+    logger: await Logger()
   }
 
   app.directive(Test.name, Test)
@@ -189,6 +191,7 @@ export {
   NotifyError,
   NotifySuccess,
   Screen,
+  Logger,
 
   install
 }
