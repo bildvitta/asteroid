@@ -12,8 +12,12 @@
     "test": "echo \"No test specified\" && exit 0"
   },
   "dependencies": {
+    "@algolia/autocomplete-js": "^1.6.2",
+    "@algolia/autocomplete-theme-classic": "^1.6.2",
     "@bildvitta/quasar-ui-asteroid": "file:../ui",
     "@bildvitta/vuex-offline": "^3.2.0",
+    "@docsearch/css": "^3.0.0",
+    "@docsearch/js": "^3.0.0",
     "@quasar/extras": "^1.13.0",
     "core-js": "^3.6.5",
     "highlight.js": "^11.4.0",

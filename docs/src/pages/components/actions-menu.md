@@ -6,11 +6,10 @@ Componente para abrir um menu de ação a partir de um botão, muito utilizado e
 
 <doc-api file="actions-menu/QasActionsMenu" name="QasActionsMenu" />
 
-
 ## Uso
 
 :::tip
-A prop `list` é um objeto de objetos, que contem os seguintos atributos:
+A prop `list` é um objeto de objetos, que contem os seguintes atributos:
 
 ```js
 {
