@@ -11,10 +11,12 @@ props:
 
   fuse-options:
     desc: Opções do Fuse.js (https://fusejs.io/api/options.html).
-    default: "{ distance: 100, location: 0, maxPatternLength: 32, minMatchCharLength: 1, shouldSort: true, threshold: 0.1, tokenize: true }"
     debugger: true
     type: Object
     examples: ["{ keys: ['label'] }"]
+    default:
+      ignoreLocation: true
+      threshold: 0.1
 
   height:
     desc: Define altura do box quando a lista não está vazia.
@@ -37,17 +39,17 @@ props:
     default: Pesquisar
     type: String
 
-  use-empty-slot:
-    desc: Controla o slot "empty-result".
-    default: true
-    type: Boolean
-
   results:
     desc: Model que retorna o resultado filtrado.
     default: []
     type: Array
     examples: [v-model:results="results"]
     model: true
+
+  use-empty-slot:
+    desc: Controla o slot "empty-result".
+    default: true
+    type: Boolean
 
 slots:
   default:

@@ -1,0 +1,16 @@
+type: component
+
+meta:
+  desc: Plugin que implementa o "Screen" do quasar.
+
+inject:
+  'this.$qas.screen':
+    type: Object
+    debugger: true
+    default:
+      isSmall: false
+      isMedium: false
+      isLarge: false
+      untilMedium: false
+      untilLarge: false
+      isMobile: false

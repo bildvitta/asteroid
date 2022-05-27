@@ -1,5 +1,5 @@
 <template>
-  <q-img :ratio="ratio" spinner-color="grey-6" :src="imageSource">
+  <q-img :ratio="ratio" spinner-color="grey-7" :src="imageSource">
     <template #error>
       <div class="absolute-full bg-grey-2 flex flex-center text-grey">⚠︎</div>
     </template>

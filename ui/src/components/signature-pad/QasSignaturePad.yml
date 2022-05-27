@@ -15,7 +15,7 @@ props:
     default: {}
     type: Object
 
-  signature_options:
+  signature-options:
     desc: Opções da biblioteca signature_pad (https://github.com/szimek/signature_pad#options).
     default: {}
     type: Object

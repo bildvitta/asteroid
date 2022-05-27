@@ -2,7 +2,7 @@
   <q-select v-model="model" v-bind="attributes" @filter="filterOptions">
     <template #append>
       <slot name="append">
-        <q-icon v-if="searchable" name="o_search" />
+        <q-icon v-if="useSearch" name="o_search" />
       </slot>
     </template>
 
@@ -54,13 +54,13 @@ export default {
       type: Array
     },
 
-    searchable: {
-      type: Boolean
-    },
-
     valueKey: {
       default: '',
       type: String
+    },
+
+    useSearch: {
+      type: Boolean
     }
   },
 
@@ -76,7 +76,7 @@ export default {
   computed: {
     attributes () {
       return {
-        clearable: this.searchable,
+        clearable: this.useSearch,
         emitValue: true,
         mapOptions: true,
         outlined: true,
@@ -84,21 +84,15 @@ export default {
         ...this.$attrs,
 
         options: this.filteredOptions,
-        useInput: this.searchable
+        useInput: this.useSearch
       }
     },
 
     defaultFuseOptions () {
       return {
-        distance: 100,
-        includeScore: true,
+        ignoreLocation: true,
         keys: ['label', 'value'],
-        location: 0,
-        maxPatternLength: 32,
-        minMatchCharLength: 1,
-        shouldSort: true,
         threshold: 0.1,
-        tokenize: true,
 
         ...this.fuseOptions
       }
@@ -148,7 +142,7 @@ export default {
   methods: {
     filterOptions (value, update) {
       update(() => {
-        if (!this.searchable) return
+        if (!this.useSearch) return
 
         if (value === '') {
           this.filteredOptions = this.formattedResult
@@ -176,7 +170,7 @@ export default {
     },
 
     setFuse () {
-      if (this.searchable) {
+      if (this.useSearch) {
         this.fuse = new Fuse(this.options, this.defaultFuseOptions)
       }
     }

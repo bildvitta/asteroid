@@ -12,30 +12,8 @@ props:
     default: DD/MM/YYYY
     type: String
 
-  date-only:
-    desc: Habilita o componente para usar somente data.
-    type: Boolean
-
   date-props:
     desc: Propriedades do QDate (https://quasar.dev/vue-components/date#introduction).
-    default: {}
-    type: Object
-
-  gmt:
-    desc: Utilizado para se usar junto da prop "date-only" ou "time-only", caso "gmt" for "true", o model sempre vai ser retornado no padrão ISO 8601, independente ser apenas um campo somente de data ou hora.
-    type: Boolean
-
-  time-mask:
-    desc: Máscara do componente de input de hora.
-    default: HH:mm
-    type: String
-
-  time-only:
-    desc: Habilita o componente para usar somente hora.
-    type: Boolean
-
-  time-props:
-    desc: Propriedades do QTime (https://quasar.dev/vue-components/time#introduction).
     default: {}
     type: Object
 
@@ -44,6 +22,28 @@ props:
     default: ''
     type: String
     model: true
+
+  time-mask:
+    desc: Máscara do componente de input de hora.
+    default: HH:mm
+    type: String
+
+  time-props:
+    desc: Propriedades do QTime (https://quasar.dev/vue-components/time#introduction).
+    default: {}
+    type: Object
+
+  use-time-only:
+    desc: Habilita o componente para usar somente hora.
+    type: Boolean
+
+  use-date-only:
+    desc: Habilita o componente para usar somente data.
+    type: Boolean
+
+  use-iso:
+    desc: Utilizado para se usar junto da prop "date-only" ou "time-only", caso "useIso" for "true", o model sempre vai ser retornado no padrão ISO 8601, independente ser apenas um campo somente de data ou hora.
+    type: Boolean
 
 events:
   '@update:model-value -> function (value)':

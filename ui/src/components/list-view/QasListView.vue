@@ -1,6 +1,6 @@
 <template>
   <component :is="mx_componentTag" :class="mx_componentClass">
-    <q-pull-to-refresh :disable="disableRefresh" @refresh="refresh">
+    <q-pull-to-refresh :disable="!useRefresh" @refresh="refresh">
       <header v-if="hasHeaderSlot">
         <slot name="header" />
       </header>
@@ -17,8 +17,8 @@
         <div v-else-if="!mx_isFetching">
           <slot name="empty-results">
             <div class="q-my-xl text-center">
-              <q-icon class="q-mb-sm text-center" color="grey-6" name="o_search" size="38px" />
-              <div class="text-grey-6">Nenhum item encontrado.</div>
+              <q-icon class="q-mb-sm text-center" color="grey-7" name="o_search" size="38px" />
+              <div class="text-grey-7">Nenhum item encontrado.</div>
             </div>
           </slot>
         </div>
@@ -54,15 +54,6 @@ export default {
   mixins: [contextMixin, viewMixin],
 
   props: {
-    disableRefresh: {
-      type: Boolean
-    },
-
-    useFilter: {
-      default: true,
-      type: Boolean
-    },
-
     filtersProps: {
       default: () => ({}),
       type: Object
@@ -71,6 +62,16 @@ export default {
     results: {
       default: () => [],
       type: Array
+    },
+
+    useRefresh: {
+      default: true,
+      type: Boolean
+    },
+
+    useFilter: {
+      default: true,
+      type: Boolean
     }
   },
 
@@ -121,6 +122,7 @@ export default {
       handler (value) {
         this.$emit('update:results', extend([], true, value))
       },
+      deep: true,
       immediate: true
     }
   },
@@ -139,10 +141,16 @@ export default {
     async fetchList (filters = {}) {
       this.mx_isFetching = true
 
+      const hasFilters = !!Object.keys(filters).length
+
       try {
         const response = await this.$store.dispatch(
           `${this.entity}/fetchList`,
-          { ...this.mx_context, url: this.url, filters }
+          {
+            ...this.mx_context,
+            url: this.url,
+            ...(hasFilters && { filters })
+          }
         )
 
         const { errors, fields, metadata } = response.data

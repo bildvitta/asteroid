@@ -17,9 +17,9 @@
           </div>
         </template>
         <template #description>
-          <q-carousel v-model="imageIndex" animated :arrows="!mx_isSmall" control-text-color="primary" :fullscreen="mx_isSmall" :height="carouselImageHeight" :next-icon="carouselNextIcon" :prev-icon="carouselPreviousIcon" swipeable :thumbnails="showThumbnails">
+          <q-carousel v-model="imageIndex" animated :arrows="!$qas.screen.isSmall" control-text-color="primary" :fullscreen="$qas.screen.isSmall" :height="carouselImageHeight" :next-icon="carouselNextIcon" :prev-icon="carouselPreviousIcon" swipeable :thumbnails="showThumbnails">
             <q-carousel-slide v-for="(image, index) in clonedImages" :key="index" class="bg-no-repeat bg-size-contain" :img-src="image" :name="index">
-              <div v-if="mx_isSmall" class="full-width justify-end row">
+              <div v-if="$qas.screen.isSmall" class="full-width justify-end row">
                 <qas-btn dense flat icon="o_close" @click="toggleCarouselDialog" />
               </div>
             </q-carousel-slide>
@@ -31,12 +31,8 @@
 </template>
 
 <script>
-import screenMixin from '../../mixins/screen'
-
 export default {
   name: 'QasGallery',
-
-  mixins: [screenMixin],
 
   props: {
     carouselNextIcon: {
@@ -94,13 +90,13 @@ export default {
         return this.height || 'auto'
       }
 
-      return this.mx_isSmall ? '90px' : '120px'
+      return this.$qas.screen.isSmall ? '90px' : '120px'
     },
 
     galleryColumnsClasses () {
       if (this.isSingleImage) return 'col-12'
 
-      return this.mx_isSmall ? 'col-6' : 'col-2'
+      return this.$qas.screen.isSmall ? 'col-6' : 'col-2'
     },
 
     hideShowMore () {

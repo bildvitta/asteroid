@@ -1,13 +1,13 @@
 {
   "name": "@bildvitta/asteroid-docs",
   "description": "Asteroid",
-  "version": "3.0.0-alpha.3",
+  "version": "3.0.0-beta.10",
   "author": "Bild & Vitta <systemteam@bild.com.br>",
   "license": "MIT",
   "productName": "Asteroid Docs",
   "private": true,
   "scripts": {
-    "build": "npx quasar build",
+    "build": "npx quasar build --mode pwa",
     "lint": "eslint --ext .js,.vue ./",
     "test": "echo \"No test specified\" && exit 0"
   },
@@ -39,6 +39,7 @@
     "stylelint-webpack-plugin": "^3.1.1",
     "toml": "^3.0.0",
     "ware-loader": "^0.2.4",
+    "workbox-webpack-plugin": "^6.5.3",
     "yaml-loader": "^0.6.0"
   },
   "browserslist": [
@@ -51,10 +52,5 @@
     "last 8 FirefoxAndroid versions",
     "last 10 iOS versions",
     "last 5 Opera versions"
-  ],
-  "engines": {
-    "node": ">= 12.22.1",
-    "npm": ">= 6.13.4",
-    "yarn": ">= 1.21.1"
-  }
+  ]
 }

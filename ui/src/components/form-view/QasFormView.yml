@@ -4,16 +4,21 @@ meta:
   desc: Componente para C.R.U.D. responsável pela pela criação (Create) e edição (Update).
 
 props:
-  cancel-button:
+  cancel-button-label:
     desc: Rótulo do botão "cancelar".
     default: Cancelar
     type: String
 
   cancel-route:
-    desc: Configuração do botão de "cancelar", caso seja "false", não exibe o botão, caso precise passar uma path direto use como string, e se precisar passar uma configuração como "name" ou "params" passe como objeto.
+    desc: Configuração do botão de "cancelar", caso seja "false", não exibe o botão, caso precise passar uma path direto use como string, caso precisar passar uma configuração como "name" ou "params" passe como objeto, agora se precisar de uma logica especifica quando clicar no botão de cancelar, você pode passar uma função que ela será executado.
     default: "''"
-    type: [Boolean, Object, String]
-    examples: [/users, "false", "{ name: 'UsersForm', params: { id: 'uuid-1' } }"]
+    type: [Boolean, Object, String, Function]
+    examples: [
+      /users,
+      false,
+      "{ name: 'UsersForm', params: { id: 'uuid-1' } }",
+      () => alert('Lógica especifica.')
+    ]
 
   custom-id:
     desc: Por padrão, o componente vai pegar o "id" que vem como parâmetro na url, caso queira que o id seja diferente da url, use esta prop.
@@ -24,69 +29,10 @@ props:
     desc: Desabilita o submit.
     type: Boolean
 
-  mode:
-    desc: Existem 3 modos no QasFormView, para criação (create) (equivalente a um método POST no http), e edição que são 2 diferentes, replace (equivalente a um método PUT no http) e update (equivalente a um método PATCH no http).
-    default: create
-    type: String
-    examples: [create, replace, update]
-
-  read-only:
-    desc: Controla o slot de actions.
-    type: Boolean
-
-  route:
-    desc: Você pode passar uma configuração de rota customizada.
-    default: {}
-    type: Object
-
-  show-dialog-on-unsaved-changes:
-    desc: Vamos imaginar um cenário onde o usuário entra na nossa tela de editar/criar, faz tudo o que precisa e sem querer clica no menu para ir para outra tela, caso essa prop esteja "true", vai aparece um modal perguntando se ele quer continuar editando ou ir para a tela no qual foi inicialmente redirecionado.
-    default: true
-    type: Boolean
-
-  ignore-keys-in-unsaved-changes:
-    desc: Vamos imaginar um cenário onde você precisa alterar valores do v-model por qualquer motivo que seja, mas quando o usuário sair da tela, não pode aparecer o modal perguntando se ele quer sair ou continuar editando, por que o usuário de fato não fez nenhuma alteração nos dados, esta prop serve para você dizer quais keys dentro do v-model você quer ignorar.
-    default: []
-    type: Array
-    examples: ["['isActive']"]
-
-  submit-button:
-    desc: Rótulo do botão "salvar".
-    default: Salvar
-    type: String
-
-  model-value:
-    desc: Model do componente, controla o payload que será enviado para as actions dos modos create, replace e update.
-    default: {}
-    type: Object
-    examples: [v-model="values"]
-    model: true
-
-  submitting:
-    desc: Model que que mostra quando o componente está fazendo um submitting ou não.
-    type: Boolean
-    examples: [v-model:submitting="isSubmitting"]
-    model: true
-
   entity:
     desc: Entidade da store, por exemplo se tiver que trabalhar com modulo de usuários, teremos o model "users" na store, que vai ser nossa "entity".
     required: true
     type: String
-
-  dialog:
-    desc: Este componente pode ser utilizado dentro de um dialog, neste caso o componente pai não pode ser um "QPage" e sim uma "div", esta prop cuida disto.
-    type: Boolean
-
-  url:
-    desc: Envia como parâmetro para a action "fetchSingle" do modulo correspondente a "entity".
-    type: String
-
-  fields:
-    desc: Model de fields, utilizado para recuperar os fields fora do template.
-    default: {}
-    type: Object
-    examples: [v-model:fields="fields"]
-    model: true
 
   errors:
     desc: Model de errors, utilizado para recuperar os errors fora do template.
@@ -95,6 +41,25 @@ props:
     examples: [v-model:errors="errors"]
     model: true
 
+  fetching:
+    desc: Model de fetching, utilizado para saber se o componente está fazendo fetching de dados.
+    type: Boolean
+    examples: [v-model:fetching="isFetching"]
+    model: true
+
+  fields:
+    desc: Model de fields, utilizado para recuperar os fields fora do template.
+    default: {}
+    type: Object
+    examples: [v-model:fields="fields"]
+    model: true
+
+  ignore-keys-in-unsaved-changes:
+    desc: Vamos imaginar um cenário onde você precisa alterar valores do v-model por qualquer motivo que seja, mas quando o usuário sair da tela, não pode aparecer o modal perguntando se ele quer sair ou continuar editando, por que o usuário de fato não fez nenhuma alteração nos dados, esta prop serve para você dizer quais keys dentro do v-model você quer ignorar.
+    default: []
+    type: Array
+    examples: ["['isActive']"]
+
   metadata:
     desc: Model de metadata, utilizado para recuperar os metadata fora do template.
     default: {}
@@ -102,26 +67,92 @@ props:
     examples: [v-model:metadata="metadata"]
     model: true
 
-  fetching:
-    desc: Model de fetching, utilizado para saber se o componente está fazendo fetching de dados.
-    type: Boolean
-    examples: [v-model:fetching="isFetching"]
+  mode:
+    desc: Existem 3 modos no QasFormView, para criação (create) (equivalente a um método POST no http), e edição que são 2 diferentes, replace (equivalente a um método PUT no http) e update (equivalente a um método PATCH no http).
+    default: create
+    type: String
+    examples: [create, replace, update]
+
+  model-value:
+    desc: Model do componente, controla o payload que será enviado para as actions dos modos create, replace e update.
+    default: {}
+    type: Object
+    examples: [v-model="values"]
     model: true
 
+  route:
+    desc: Você pode passar uma configuração de rota customizada.
+    default: {}
+    type: Object
+
+  submit-button-label:
+    desc: Rótulo do botão "salvar".
+    default: Salvar
+    type: String
+
+  submitting:
+    desc: Model que que mostra quando o componente está fazendo um submitting ou não.
+    type: Boolean
+    examples: [v-model:submitting="isSubmitting"]
+    model: true
+
+  url:
+    desc: Envia como parâmetro para a action "fetchSingle" do modulo correspondente a "entity".
+    type: String
+
+  use-actions:
+    desc: Controla se vai ter ou não o slot de actions.
+    default: true
+    type: Boolean
+
+  use-boundary:
+    desc: Controla o limite que o FormView terá, quando é "false", a tag pai deixa de ser um "QPage" para ser uma "div" e é removido as classes "container" e "spaced", comumente utilizando quando precisa usar o QasFormView dentro de um dialog.
+    default: true
+    type: Boolean
+
+  use-cancel-button:
+    desc: Controla se vai ter ou não botão de "cancelar".
+    default: true
+    type: Boolean
+
+  use-dialog-on-unsaved-changes:
+    desc: Vamos imaginar um cenário onde o usuário entra na nossa tela de editar/criar, faz tudo o que precisa e sem querer clica no menu para ir para outra tela, caso essa prop esteja "true", vai aparece um modal perguntando se ele quer continuar editando ou ir para a tela no qual foi inicialmente redirecionado.
+    default: true
+    type: Boolean
+
+  use-submit-button:
+    desc: Controla se vai ter ou não botão de submit.
+    default: true
+    type: Boolean
+
 slots:
-  header:
-    desc: Slot para acessar o header.
+  actions:
+    desc: Slot para acessar a seção onde ficam os botões de ações (salvar e cancelar).
 
   default:
     desc: Slot para ter o conteúdo principal (dentro do main).
 
-  actions:
-    desc: Slot para acessar a seção onde ficam os botões de ações (salvar e cancelar).
-
   footer:
     desc: Slot para acessar o footer.
 
+  header:
+    desc: Slot para acessar o header.
+
 events:
+  '@fetch-success -> function(value)':
+    desc: Dispara quando a action "fetchSingle" é executada com sucesso.
+    params:
+      value:
+        desc: Retorna todos os dados "cru" respondido pelo fetch.
+        type: Object
+
+  '@fetch-error -> function(value)':
+    desc: Dispara quando a action "fetchSingle" cai em uma exceção.
+    params:
+      value:
+        desc: Retorna todos os dados "cru" respondido na exceção do fetch.
+        type: Object
+
   '@update:model-value -> function(value)':
     desc: Dispara toda vez que o model atualiza.
     params:
@@ -163,17 +194,3 @@ events:
       value:
         desc: Retorna se está ou não fazendo fetching de dados.
         type: Boolean
-
-  '@fetch-success -> function(value)':
-    desc: Dispara quando a action "fetchSingle" é executada com sucesso.
-    params:
-      value:
-        desc: Retorna todos os dados "cru" respondido pelo fetch.
-        type: Object
-
-  '@fetch-error -> function(value)':
-    desc: Dispara quando a action "fetchSingle" cai em uma exceção.
-    params:
-      value:
-        desc: Retorna todos os dados "cru" respondido na exceção do fetch.
-        type: Object

@@ -2,13 +2,13 @@
   <div>
     <qas-input ref="input" v-bind="attributes" v-model="currentValue" :unmasked-value="false" @update:model-value="updateModelValue">
       <template #append>
-        <q-icon v-if="!timeOnly" class="cursor-pointer" name="o_event">
+        <q-icon v-if="!useTimeOnly" class="cursor-pointer" name="o_event">
           <q-popup-proxy ref="dateProxy" transition-hide="scale" transition-show="scale">
             <q-date v-model="currentValue" v-bind="dateProps" :mask="maskDate" @update:model-value="updateModelValue" />
           </q-popup-proxy>
         </q-icon>
 
-        <q-icon v-if="!dateOnly" class="cursor-pointer q-ml-md" name="o_access_time">
+        <q-icon v-if="!useDateOnly" class="cursor-pointer q-ml-md" name="o_access_time">
           <q-popup-proxy ref="timeProxy" transition-hide="scale" transition-show="scale">
             <q-time v-model="currentValue" v-bind="timeProps" format24h :mask="maskDate" @update:model-value="updateModelValue" />
           </q-popup-proxy>
@@ -33,17 +33,9 @@ export default {
       type: String
     },
 
-    dateOnly: {
-      type: Boolean
-    },
-
     dateProps: {
       default: () => ({}),
       type: Object
-    },
-
-    gmt: {
-      type: Boolean
     },
 
     timeMask: {
@@ -51,13 +43,21 @@ export default {
       type: String
     },
 
-    timeOnly: {
-      type: Boolean
-    },
-
     timeProps: {
       default: () => ({}),
       type: Object
+    },
+
+    useIso: {
+      type: Boolean
+    },
+
+    useTimeOnly: {
+      type: Boolean
+    },
+
+    useDateOnly: {
+      type: Boolean
     },
 
     modelValue: {
@@ -96,8 +96,8 @@ export default {
     maskDate () {
       const mask = []
 
-      if (!this.timeOnly) { mask.push(this.dateMask) }
-      if (!this.dateOnly) { mask.push(this.timeMask) }
+      if (!this.useTimeOnly) { mask.push(this.dateMask) }
+      if (!this.useDateOnly) { mask.push(this.timeMask) }
 
       return mask.join(' ')
     }
@@ -105,7 +105,7 @@ export default {
 
   watch: {
     value (current, original) {
-      if (!current || this.timeOnly) {
+      if (!current || this.useTimeOnly) {
         this.currentValue = current
         return
       }
@@ -134,15 +134,15 @@ export default {
       const valueLength = value.replace(/_/g, '').length
 
       if (value === '' || valueLength === this.mask.length) {
-        this.lastValue = this.timeOnly ? value : this.toISOString(value)
+        this.lastValue = this.useTimeOnly ? value : this.toISOString(value)
         this.$emit('update:modelValue', this.lastValue)
       }
 
-      if (this.dateOnly) {
+      if (this.useDateOnly) {
         this.$refs.dateProxy.hide()
       }
 
-      if (this.timeOnly) {
+      if (this.useTimeOnly) {
         this.$refs.timeProxy.hide()
       }
     },
@@ -152,11 +152,11 @@ export default {
         return ''
       }
 
-      if (this.dateOnly && !this.gmt) {
+      if (this.useDateOnly && !this.useIso) {
         return dateFn(date.extractDate(value, this.maskDate), 'yyyy-MM-dd')
       }
 
-      if (this.timeOnly && !this.gmt) {
+      if (this.useTimeOnly && !this.useIso) {
         return date.extractDate(value, 'HH:MM')
       }
 
@@ -164,14 +164,14 @@ export default {
     },
 
     toMask (value) {
-      if (!value || this.timeOnly) {
+      if (!value || this.useTimeOnly) {
         return value || ''
       }
 
       const newDate = new Date(value).toISOString()
 
       return date.formatDate(
-        this.dateOnly ? newDate.slice(0, 23) : newDate,
+        this.useDateOnly ? newDate.slice(0, 23) : newDate,
         this.maskDate
       )
     }

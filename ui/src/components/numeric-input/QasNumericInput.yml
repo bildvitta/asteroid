@@ -7,16 +7,6 @@ meta:
   desc: Componente de input para decimal, inteiro, dinheiro e porcentagem.
 
 props:
-  allow-negative:
-    desc: Controla se pode ou não números negativos.
-    default: true
-    type: Boolean
-
-  allow-positive:
-    desc: Controla se pode ou não números positivos.
-    default: true
-    type: Boolean
-
   autonumeric-props:
     desc: Opções do autonumeric (http://autonumeric.org/guide).
     default: {}
@@ -43,9 +33,33 @@ props:
     desc: Propriedade preset serve para usar configuração de predefinição/nacionalidade da moeda pré setada pelo autonumeric (Brasil é o padrão).
     type: [Boolean, String]
 
+  use-negative:
+    desc: Controla se pode ou não números negativos.
+    default: true
+    type: Boolean
+
+  use-positive:
+    desc: Controla se pode ou não números positivos.
+    default: true
+    type: Boolean
+
 events:
   '@update:model-value -> function (value)':
-    desc: Dispara toda vez que o model é atualizado, também utilizado para v-model.
+    desc: Dispara toda vez que o model é atualizado (após o blur do input), também utilizado para v-model.
     params:
       value:
-        desc: Novo valor do v-model
+        desc: Novo valor do v-model.
+
+  '@update-model -> function (payload)':
+    desc: Dispara toda vez que o model é atualizado, diferente do "update:model-value", é disparado sempre que acontece um novo input. Também utilizado para v-model.
+    params:
+      payload:
+        type: Object
+        desc: Objeto contendo informações atualizadas.
+        params:
+          value:
+            type: String,
+            desc: Valor formato.
+          raw:
+            type: Number
+            desc: Valor sem formatação.

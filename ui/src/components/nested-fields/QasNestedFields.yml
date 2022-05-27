@@ -9,15 +9,15 @@ props:
     default: Inserir novo campo
     type: Boolean
 
-  btn-destroy-props:
+  button-destroy-props:
     desc: Props do botão de excluir linha contendo os campos.
     default: "{ label: 'Remover', o_cancel, flat: true, dense: true }"
     debugger: true
     type: Object
 
-  btn-duplicate-props:
+  button-duplicate-props:
     desc: Props do botão de duplicar linha contendo os campos.
-    default: "{ label: 'Duplicar', o_content_copy, flat: true, dense: true, hideMobileLabel: true }"
+    default: "{ label: 'Duplicar', o_content_copy, flat: true, dense: true, useLabelOnSmallScreen: false }"
     debugger: true
     type: Object
 
@@ -25,13 +25,6 @@ props:
     desc: Quando excluímos uma "row" e propriedade "useRemoveOnDestroy" for "false", adicionamos uma propriedade para saber que é para ser deletada, com esta prop você escolhe como se chamará essa chave.
     default: destroyed
     type: String
-
-  model-value:
-    desc: Model do componente
-    default: []
-    type: Array
-    examples: [v-model="value"]
-    model: true
 
   errors:
     desc: Propriedade de erros para mostrar nos campos gerados.
@@ -62,6 +55,13 @@ props:
     default: md
     type: String
     examples: [xs, sm, md, lg, xl]
+
+  model-value:
+    desc: Model do componente
+    default: []
+    type: Array
+    examples: [v-model="value"]
+    model: true
 
   row-label:
     desc: Rótulo entre cada linha (row).
@@ -105,6 +105,35 @@ props:
     type: Boolean
 
 slots:
+  add-input:
+    desc: Slot para acessar campo de adicionar.
+    scope:
+      'add -> function(row)':
+        desc: Função para adicionar novos campos no model.
+        type: Function
+        examples: ["add({ name: 'novo valor' })"]
+
+  custom-fields:
+    desc: Slot para adicionar um campo customizado.
+    scope:
+      fields:
+        desc: Campos atuais.
+        default: {}
+        type: Object
+
+      index:
+        desc: Index atual dos campos
+        type: Number
+
+      errors:
+        desc: Index atual dos campos
+        type: Number
+
+      'updateValue -> function(value, index)':
+        desc: Função para atualizar o model, passando o novo valor e o index.
+        type: Function
+        examples: ["updateValue({ name: 'novo valor' }, 2)"]
+
   fields:
     desc: Substitui o "QasFormGenerator".
     scope:
@@ -142,34 +171,6 @@ slots:
         type: Function
         examples: ["updateValue({ name: 'novo valor' }, 2)"]
 
-  custom-fields:
-    desc: Slot para adicionar um campo customizado.
-    scope:
-      fields:
-        desc: Campos atuais.
-        default: {}
-        type: Object
-
-      index:
-        desc: Index atual dos campos
-        type: Number
-
-      errors:
-        desc: Index atual dos campos
-        type: Number
-
-      'updateValue -> function(value, index)':
-        desc: Função para atualizar o model, passando o novo valor e o index.
-        type: Function
-        examples: ["updateValue({ name: 'novo valor' }, 2)"]
-
-  add-input:
-    desc: Slot para acessar campo de adicionar.
-    scope:
-      'add -> function(row)':
-        desc: Função para adicionar novos campos no model.
-        type: Function
-        examples: ["add({ name: 'novo valor' })"]
 
 events:
   '@update:model-value -> function (value)':

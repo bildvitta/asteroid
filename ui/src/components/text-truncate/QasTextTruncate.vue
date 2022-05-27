@@ -18,7 +18,6 @@
 </template>
 
 <script>
-import screenMixin from '../../mixins/screen'
 import QasDialog from '../dialog/QasDialog.vue'
 
 export default {
@@ -27,8 +26,6 @@ export default {
   components: {
     QasDialog
   },
-
-  mixins: [screenMixin],
 
   props: {
     dialogProps: {
@@ -69,7 +66,7 @@ export default {
 
   computed: {
     truncateTextClass () {
-      return (this.isTruncated || this.mx_isSmall) && 'ellipsis q-pr-sm'
+      return (this.isTruncated || this.$qas.screen.isSmall) && 'ellipsis q-pr-sm'
     },
 
     isTruncated () {
@@ -84,7 +81,7 @@ export default {
       return {
         cancel: false,
         ok: false,
-        useCloseIcon: true,
+        useCloseButton: true,
         ...this.dialogProps,
         card: {
           title: this.dialogTitle,

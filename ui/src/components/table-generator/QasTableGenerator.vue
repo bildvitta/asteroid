@@ -16,12 +16,9 @@
 import { extend } from 'quasar'
 import { humanize } from '../../helpers/filters'
 import { setScrollOnGrab } from '../../helpers'
-import screenMixin from '../../mixins/screen'
 
 export default {
   name: 'QasTableGenerator',
-
-  mixins: [screenMixin],
 
   props: {
     columns: {
@@ -149,7 +146,7 @@ export default {
     },
 
     tableClass () {
-      return this.mx_isSmall && 'qas-table-generator--mobile'
+      return this.$qas.screen.isSmall && 'qas-table-generator--mobile'
     },
 
     hasScrollOnGrab () {
@@ -202,10 +199,11 @@ export default {
     handleScrollOnGrab () {
       const fullTableWidth = this.getFullTableWidth()
       const containerTableWidth = this.getContainerTableWidth()
+      const hasScrollOnGrab = !!Object.keys(this.scrollOnGrab).length
 
       if (fullTableWidth > containerTableWidth) {
         this.initializeScrollOnGrab()
-      } else if (this.hasScrollOnGrab) {
+      } else if (hasScrollOnGrab) {
         this.scrollOnGrab.destroyEvents()
         this.scrollOnGrab.element.style.cursor = 'auto'
         this.scrollOnGrab = {}

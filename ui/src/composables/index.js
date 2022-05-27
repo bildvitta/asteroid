@@ -1,1 +1,1 @@
-export { default as useHistory } from './useHistory.js'
+export { default as useHistory } from './use-history.js'

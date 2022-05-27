@@ -1,15 +1,15 @@
 <template>
-  <div class="qas-list-items shadow-primary">
+  <div class="qas-list-items shadow-14">
     <q-list bordered class="rounded-borders" separator>
-      <q-item v-for="(item, index) in list" :key="index" v-ripple :clickable="!redirectOnIcon" :to="redirect(item)">
+      <q-item v-for="(item, index) in list" :key="index" v-ripple :clickable="useClickableItem" @click="onClick({ item, index }, true)">
         <slot :index="index" :item="item" name="item">
           <q-item-section>
-            <slot :index="index" :item="item" name="item-section-left" />
+            <slot :index="index" :item="item" name="item-section" />
           </q-item-section>
 
           <q-item-section v-if="useSectionActions" side>
             <slot :index="index" :item="item" name="item-section-side">
-              <qas-btn flat round :to="getRedirectPayload(item)">
+              <qas-btn flat round @click="onClick({ item, index })">
                 <q-icon v-bind="iconProps" />
               </qas-btn>
             </slot>
@@ -41,19 +41,8 @@ export default {
       type: Array
     },
 
-    redirectKey: {
-      default: 'uuid',
-      type: String
-    },
-
-    redirectOnIcon: {
-      default: true,
+    useClickableItem: {
       type: Boolean
-    },
-
-    to: {
-      default: () => ({}),
-      type: Object
     },
 
     useSectionActions: {
@@ -62,16 +51,19 @@ export default {
     }
   },
 
-  methods: {
-    getRedirectPayload (item) {
-      return {
-        params: { [this.redirectKey]: item[this.redirectKey] },
-        ...this.to
-      }
-    },
+  emits: ['click-item'],
 
-    redirect (item) {
-      return this.redirectOnIcon ? undefined : this.getRedirectPayload(item)
+  methods: {
+    onClick ({ item, index }, fromItem) {
+      /**
+       * se o click veio do q-item e "useClickableItem" for "false", ou
+       * se o click não veio do q-item e "useClickableItem" for "true", então retorna sem emitir.
+       */
+      if (
+        (fromItem && !this.useClickableItem) || (!fromItem && this.useClickableItem)
+      ) return
+
+      this.$emit('click-item', { item, index })
     }
   }
 }

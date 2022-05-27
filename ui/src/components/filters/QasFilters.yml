@@ -9,6 +9,15 @@ props:
     required: true
     type: String
 
+  search-placeholder:
+    desc: Placeholder do campo de busca.
+    default: Pesquisar...
+    type: String
+
+  url:
+    desc: Envia como parâmetro para a action "fetchFilters" do modulo correspondente a "entity".
+    type: String
+
   use-badges:
     desc: Habilita ou não os "chips" mostrando os filtros ativos.
     default: true
@@ -19,9 +28,8 @@ props:
     default: true
     type: Boolean
 
-  use-search:
-    desc: Habilita ou não o campo text de busca.
-    default: true
+  use-force-refetch:
+    desc: Força refazer o "fetch" mesmo caso já exista dados na store de filters.
     type: Boolean
 
   use-search-on-type:
@@ -29,14 +37,10 @@ props:
     default: true
     type: Boolean
 
-  search-placeholder:
-    desc: Placeholder do campo de busca.
-    default: Pesquisar...
-    type: String
-
-  url:
-    desc: Envia como parâmetro para a action "fetchFilters" do modulo correspondente a "entity".
-    type: String
+  use-search:
+    desc: Habilita ou não o campo text de busca.
+    default: true
+    type: Boolean
 
 slots:
   search:

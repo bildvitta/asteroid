@@ -1,6 +1,6 @@
 <template>
   <div class="container q-py-lg">
-    <qas-select-list v-model="model" delete-only :list="list" />
+    <qas-select-list v-model="model" :list="list" @click-label="onClickLabel" />
 
     <div class="q-mt-lg">
       Model: <pre>{{ model }}</pre>
@@ -36,6 +36,12 @@ export default {
           value: 'uuid3'
         }
       ]
+    }
+  },
+
+  methods: {
+    onClickLabel ({ item }) {
+      alert(JSON.stringify(item))
     }
   }
 }

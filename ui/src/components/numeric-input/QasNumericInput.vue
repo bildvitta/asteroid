@@ -1,7 +1,7 @@
 <template>
-  <q-field v-model="model" outlined>
-    <template #control="{ emitValue, floatingLabel, id, value }">
-      <input v-show="floatingLabel" :id="id" ref="input" class="q-field__input" :model-value="value" @input="emitValue($event.target.value)">
+  <q-field :model-value="modelValue" outlined>
+    <template #control="{ floatingLabel, id }">
+      <input v-show="floatingLabel" :id="id" ref="input" class="q-field__input" @blur="emitValue" @click="setSelect" @input="emitUpdateModel($event.target.value)">
     </template>
   </q-field>
 </template>
@@ -20,17 +20,7 @@ export default {
   name: 'QasNumericInput',
 
   props: {
-    allowNegative: {
-      default: true,
-      type: Boolean
-    },
-
-    allowPositive: {
-      default: true,
-      type: Boolean
-    },
-
-    autonumericProps: {
+    autonumericOptions: {
       default: () => ({}),
       type: Object
     },
@@ -62,10 +52,23 @@ export default {
     preset: {
       default: false,
       type: [Boolean, String]
+    },
+
+    useNegative: {
+      default: true,
+      type: Boolean
+    },
+
+    usePositive: {
+      default: true,
+      type: Boolean
     }
   },
 
-  emits: ['update:modelValue'],
+  emits: [
+    'update:modelValue',
+    'update-model'
+  ],
 
   data () {
     return {
@@ -76,15 +79,13 @@ export default {
   computed: {
     defaultMode () {
       return defaultModes[this.mode]
-    },
+    }
+  },
 
-    model: {
-      get () {
-        return this.modelValue
-      },
-
-      set () {
-        this.$emit('update:modelValue', this.autoNumeric.getNumber())
+  watch: {
+    modelValue (value) {
+      if (this.autoNumeric) {
+        this.autoNumeric.set(value)
       }
     }
   },
@@ -104,11 +105,11 @@ export default {
       Object.assign(options, autoNumericPredefinedOptions[value])
     }
 
-    if (!this.allowNegative) {
+    if (!this.useNegative) {
       options.minimumValue = 0
     }
 
-    if (!this.allowPositive) {
+    if (!this.usePositive) {
       options.maximumValue = 0
     }
 
@@ -116,16 +117,33 @@ export default {
       options.decimalPlaces = this.decimalPlaces
     }
 
-    Object.assign(options, this.autonumericProps)
+    Object.assign(options, this.autonumericOptions)
 
     this.$nextTick(() => {
-      this.$refs.input.value = this.modelValue
       this.autoNumeric = new AutoNumeric(this.$refs.input, options)
+      this.autoNumeric.set(this.modelValue)
     })
   },
 
   beforeUnmount () {
     this.autoNumeric.remove()
+  },
+
+  methods: {
+    setSelect () {
+      this.$refs?.input?.select()
+    },
+
+    emitValue () {
+      this.$emit('update:modelValue', this.autoNumeric.getNumber())
+    },
+
+    emitUpdateModel (value) {
+      this.$emit('update-model', {
+        value,
+        raw: this.autoNumeric.getNumber()
+      })
+    }
   }
 }
 </script>

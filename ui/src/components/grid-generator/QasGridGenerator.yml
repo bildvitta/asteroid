@@ -4,30 +4,21 @@ meta:
   desc: Componente para criação de textos dinâmicos.
 
 props:
+  columns:
+    desc: Colunas do grid de cada campo.
+    default: col-6
+    type: [Array, String, Object]
+    examples: ["{ name: { sm: 6, md: 12 } }", "[{ sm: 6, md: 12 }]"]
+
   content-class:
     desc: Classe de cada "div" pai referente ao resultado.
     default: ''
     type: [Array, Object, String]
 
-  header-class:
-    desc: Classe de cada "header" pai referente ao "label".
-    default: 'text-bold'
-    type: [Array, Object, String]
-
-  hide-empty-result:
-    desc: Se o resultado de algum campo for vazio, ele remove todo o campo.
-    type: Boolean
-
   empty-result-text:
     desc: Se o resultado de algum campo for vazio, esta prop define qual será o valor padrão.
     default: '-'
     type: String
-
-  result:
-    desc: Resultado contendo todas informações para serem exibidas na tela.
-    default: {}
-    type: Object
-    examples: ["{ 'joah@examples.com' }"]
 
   fields:
     desc: Lista de field contendo informações necessárias para a criação do campo correspondente.
@@ -35,19 +26,37 @@ props:
     type: Object
     examples: ["{ email: { name: 'email', type: 'email', label: 'E-mail' } }"]
 
-  columns:
-    desc: Colunas do grid de cada campo.
-    default: col-6
-    type: [Array, String, Object]
-    examples: ["{ name: { sm: 6, md: 12 } }", "[{ sm: 6, md: 12 }]"]
-
   gutter:
     desc: Espaçamento entre colunas.
     default: md
     type: String
     examples: [xs, sm, md, lg, xl]
 
+  header-class:
+    desc: Classe de cada "header" pai referente ao "label".
+    default: 'text-bold'
+    type: [Array, Object, String]
+
+  result:
+    desc: Resultado contendo todas informações para serem exibidas na tela.
+    default: {}
+    type: Object
+    examples: ["{ 'joah@examples.com' }"]
+
+  use-empty-result:
+    desc: Se o resultado de algum campo for vazio e esta propriedade for "false", ele remove todo o campo.
+    default: true
+    type: Boolean
+
 slots:
+  content:
+    desc: Slot para o conteúdo (content).
+    scope:
+      field:
+        desc: Conteúdo do field atual mais o resultado formatado.
+        default: {}
+        type: Object
+
   'field-[nome-da-chave]':
     desc: Slot para todo o conteúdo dentro de cada grid (header e content).
     scope:
@@ -64,10 +73,3 @@ slots:
         default: {}
         type: Object
 
-  content:
-    desc: Slot para o conteúdo (content).
-    scope:
-      field:
-        desc: Conteúdo do field atual mais o resultado formatado.
-        default: {}
-        type: Object

@@ -9,6 +9,11 @@ props:
     default: []
     type: Array
 
+  empty-result-text:
+    desc: Quando uma célula da tabela está vazia, esta prop define qual será o valor padrão.
+    default: '-'
+    type: String
+
   fields:
     desc: Lista de field contendo informações necessárias para a criação da tabela.
     default: {}
@@ -24,11 +29,6 @@ props:
   row-key:
     desc: Propriedade de cada linha que define a chave única de cada linha.
     default: name
-    type: String
-
-  empty-result-text:
-    desc: Quando uma célula da tabela está vazia, esta prop define qual será o valor padrão.
-    default: '-'
     type: String
 
   use-scroll-on-grab:

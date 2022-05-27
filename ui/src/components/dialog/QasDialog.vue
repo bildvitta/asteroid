@@ -5,7 +5,7 @@
         <slot name="header">
           <div class="justify-between row">
             <div class="text-bold text-h6">{{ card.title }}</div>
-            <qas-btn v-if="useCloseIcon" v-close-popup dense flat icon="o_close" rounded />
+            <qas-btn v-if="useCloseButton" v-close-popup dense flat icon="o_close" rounded />
           </div>
         </slot>
       </q-card-section>
@@ -39,8 +39,6 @@
 import QasBtn from '../btn/QasBtn.vue'
 import QasActions from '../actions/QasActions.vue'
 
-import screenMixin from '../../mixins/screen'
-
 export default {
   name: 'QasDialog',
 
@@ -48,8 +46,6 @@ export default {
     QasBtn,
     QasActions
   },
-
-  mixins: [screenMixin],
 
   props: {
     actionsProps: {
@@ -104,7 +100,7 @@ export default {
       type: Boolean
     },
 
-    useCloseIcon: {
+    useCloseButton: {
       type: Boolean
     }
   },
@@ -133,8 +129,8 @@ export default {
 
     style () {
       return {
-        maxWidth: this.maxWidth || (this.mx_isSmall ? '' : '600px'),
-        minWidth: this.minWidth || (this.mx_isSmall ? '' : '400px')
+        maxWidth: this.maxWidth || (this.$qas.screen.isSmall ? '' : '600px'),
+        minWidth: this.minWidth || (this.$qas.screen.isSmall ? '' : '400px')
       }
     },
 

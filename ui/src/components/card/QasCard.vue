@@ -8,7 +8,7 @@
               <qas-btn color="white" dense flat :icon="getNavigationIcon(active, btnProps)" round size="sm" @click="onClick" />
             </template>
 
-            <q-carousel-slide v-for="(item, index) in imagesList" :key="index" class="bg-no-repeat" :class="bgImagePositionClass" :img-src="item" :name="index" />
+            <q-carousel-slide v-for="(item, index) in imagesList" :key="index" class="bg-no-repeat" :class="imagePositionClass" :img-src="item" :name="index" />
           </q-carousel>
 
           <div class="absolute-top flex items-center q-pa-md">
@@ -35,13 +35,9 @@ export default {
   name: 'QasCard',
 
   props: {
-    bgImagePosition: {
+    imagePosition: {
       type: String,
       default: 'center'
-    },
-
-    formMode: {
-      type: Boolean
     },
 
     gutter: {
@@ -52,6 +48,14 @@ export default {
     images: {
       default: () => [],
       type: Array
+    },
+
+    outlined: {
+      type: Boolean
+    },
+
+    unelevated: {
+      type: Boolean
     },
 
     useHeader: {
@@ -66,12 +70,17 @@ export default {
   },
 
   computed: {
-    bgImagePositionClass () {
-      return `bg-position-${this.bgImagePosition}`
+    imagePositionClass () {
+      return `bg-position-${this.imagePosition}`
     },
 
     cardClasses () {
-      return this.formMode ? 'bg-white border-primary no-shadow' : 'box-shadow-1'
+      return {
+        'shadow-14': !this.unelevated,
+        'border-primary': this.outlined,
+        'no-shadow': this.outlined,
+        'bg-white': this.outlined
+      }
     },
 
     gutterClass () {

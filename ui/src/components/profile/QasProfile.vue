@@ -13,7 +13,7 @@
         </div>
       </div>
       <slot name="grid">
-        <qas-grid-generator class="col-lg-7 col-xs-12 items-center" :columns="columns" :fields="filterObject(fields, list)" hide-empty-result :result="result">
+        <qas-grid-generator class="col-lg-7 col-xs-12 items-center" :columns="columns" :fields="filterObject(fields, list)" :result="result" :use-empty-result="false">
           <template v-for="(_, name) in $slots" #[name]="context">
             <slot :name="name" v-bind="context || {}" />
           </template>
@@ -25,7 +25,6 @@
 
 <script>
 import filterObject from '../../helpers/filter-object'
-import screenMixin from '../../mixins/screen'
 
 import QasAvatar from '../avatar/QasAvatar.vue'
 import QasBox from '../box/QasBox.vue'
@@ -39,8 +38,6 @@ export default {
     QasBox,
     QasGridGenerator
   },
-
-  mixins: [screenMixin],
 
   props: {
     columns: {
@@ -82,7 +79,7 @@ export default {
 
   computed: {
     directionClasses () {
-      return this.mx_untilMedium ? 'col' : 'row items-center'
+      return this.$qas.screen.untilMedium ? 'col' : 'row items-center'
     },
 
     userAvatarImage () {
@@ -90,7 +87,7 @@ export default {
     },
 
     avatarSize () {
-      return this.mx_isSmall ? '145px' : '188px'
+      return this.$qas.screen.isSmall ? '145px' : '188px'
     }
   },
 

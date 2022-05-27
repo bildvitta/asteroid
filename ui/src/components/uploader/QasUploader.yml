@@ -39,6 +39,13 @@ props:
     default: undefined
     type: Number
 
+  model-value:
+    desc: Model do componente, caso seja múltiplo, retorna um array de string, senão somente uma string.
+    default: true
+    type: [Array, String]
+    examples: [v-model="value"]
+    model: true
+
   pica-resize-options:
     desc: Opções para a biblioteca "pica" que é responsável por fazer o redimensionamento antes do upload (https://github.com/nodeca/pica).
     type: Object
@@ -47,6 +54,11 @@ props:
       unsharpAmount: 160
       unsharpRadius: 0.6
       unsharpThreshold: 1
+
+  readonly:
+    desc: O componente não faz mais upload, apenas exibe.
+    default: true
+    type: Number
 
   size-limit:
     desc: Se o tamanho da imagem for menor ou igual ao passado nesta prop, não será feito um redimensionamento.
@@ -57,18 +69,6 @@ props:
     desc: Controla se o componente vai fazer o redimensionamento antes de upar as imagens.
     default: true
     type: Number
-
-  readonly:
-    desc: O componente não faz mais upload, apenas exibe.
-    default: true
-    type: Number
-
-  model-value:
-    desc: Model do componente, caso seja múltiplo, retorna um array de string, senão somente uma string.
-    default: true
-    type: [Array, String]
-    examples: [v-model="value"]
-    model: true
 
   uploading:
     desc: Model que retorna se o componente está fazendo algum upload.

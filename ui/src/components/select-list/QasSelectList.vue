@@ -6,7 +6,7 @@
           <slot v-bind="slotData" :item="result" name="item">
             <slot name="item-section" :result="result">
               <q-item-section class="items-start text-bold">
-                <div :class="labelClass" @click="redirectRoute(result)">{{ result.label }}</div>
+                <div :class="labelClass" @click="onClickLabel({ item: result, index })">{{ result.label }}</div>
               </q-item-section>
             </slot>
 
@@ -24,7 +24,6 @@
 
 <script>
 import { sortBy } from 'lodash-es'
-import { screenMixin } from '../../mixins'
 
 import QasBtn from '../btn/QasBtn.vue'
 import QasSearchBox from '../search-box/QasSearchBox.vue'
@@ -36,8 +35,6 @@ export default {
     QasBtn,
     QasSearchBox
   },
-
-  mixins: [screenMixin],
 
   props: {
     deleteOnly: {
@@ -59,26 +56,16 @@ export default {
       default: () => []
     },
 
-    to: {
-      default: () => ({}),
-      type: Object
-    },
-
-    redirectKey: {
-      default: 'uuid',
-      type: String
-    },
-
-    paramKey: {
-      default: 'id',
-      type: String
+    useClickableLabel: {
+      type: Boolean
     }
   },
 
   emits: [
     'added',
-    'update:modelValue',
-    'removed'
+    'click-label',
+    'removed',
+    'update:modelValue'
   ],
 
   data () {
@@ -90,12 +77,8 @@ export default {
   },
 
   computed: {
-    isRedirectEnabled () {
-      return Object.keys(this.to).length
-    },
-
     labelClass () {
-      return this.isRedirectEnabled ? 'cursor-pointer' : ''
+      return this.useClickableLabel && 'cursor-pointer'
     },
 
     slotData () {
@@ -144,9 +127,9 @@ export default {
       const isSelected = this.values.includes(value)
 
       return {
-        dense: this.mx_isSmall,
-        hideLabelOnSmallScreen: true,
-        icon: !this.mx_isSmall ? undefined : isSelected ? 'o_close' : 'o_add',
+        dense: this.$qas.screen.isSmall,
+        useLabelOnSmallScreen: false,
+        icon: !this.$qas.screen.isSmall ? undefined : isSelected ? 'o_close' : 'o_add',
         label: isSelected ? 'Remover' : 'Adicionar',
         outline: isSelected,
         size: 'sm'
@@ -170,11 +153,8 @@ export default {
       })
     },
 
-    redirectRoute (item) {
-      return this.isRedirectEnabled && this.$router.push({
-        params: { [this.paramKey]: item[this.redirectKey] },
-        ...this.to
-      })
+    onClickLabel ({ item, index }) {
+      this.useClickableLabel && this.$emit('click-label', { item, index })
     },
 
     remove (item) {

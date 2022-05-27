@@ -1,9 +1,9 @@
 <template>
-  <q-header class="bg-white qas-app-bar shadow-primary" height-hint="70">
+  <q-header class="bg-white qas-app-bar shadow-14" height-hint="70">
     <q-toolbar class="qas-app-bar__toolbar" color="bg-white">
       <q-ajax-bar color="white" position="top" size="2px" />
 
-      <q-btn color="grey-7" dense flat icon="o_menu" round @click="toggleMenuDrawer" />
+      <qas-btn color="grey-7" dense flat icon="o_menu" round @click="toggleMenuDrawer" />
 
       <q-toolbar-title class="flex">
         <div class="cursor-pointer" @click="goToRoot">
@@ -14,30 +14,30 @@
       </q-toolbar-title>
 
       <div v-if="hasNotifications" class="q-mr-md">
-        <q-btn class="q-mr-md" dense icon="o_notifications" round unelevated>
+        <qas-btn class="q-mr-md" dense icon="o_notifications" round unelevated>
           <q-badge v-if="notifications" color="red" floating>{{ notifications.count }}</q-badge>
-        </q-btn>
+        </qas-btn>
       </div>
 
       <div class="items-center no-wrap q-gutter-md row">
         <slot name="tools" />
 
-        <div v-if="isAuth" class="cursor-pointer items-center q-mr-sm qas-app-bar__user rounded-borders row text-grey-9" :title="user.name || user.givenName">
-          <qas-avatar class="rounded-borders-left" color="white" dark :image="user.photo" rounded size="42px" text-color="primary" :title="user.name || user.givenName" />
+        <div v-if="hasUser" class="cursor-pointer items-center q-mr-sm qas-app-bar__user rounded-borders row text-grey-9" :title="userName">
+          <qas-avatar class="rounded-borders-left" color="white" dark :image="user.photo" rounded size="42px" text-color="primary" :title="userName" />
 
           <div class="q-px-sm qas-app-bar__user-data qs-lh-lg text-caption">
-            <div class="ellipsis">{{ user.name || user.givenName }}</div>
+            <div class="ellipsis">{{ userName }}</div>
             <div class="ellipsis text-bold">{{ user.email }}</div>
           </div>
 
-          <q-menu anchor="bottom end" class="shadow-primary" max-height="400px" :offset="[0, 5]" self="top end">
+          <q-menu anchor="bottom end" class="shadow-14" max-height="400px" :offset="[0, 5]" self="top end">
             <div class="qas-app-bar__user-menu">
               <div class="q-pa-lg text-center">
                 <button class="unset" @click="goToProfile">
-                  <qas-avatar :image="user.photo" size="145px" :title="user.name || user.givenName" />
+                  <qas-avatar :image="user.photo" size="145px" :title="userName" />
                 </button>
 
-                <div class="ellipsis q-mt-lg qs-lh-sm text-bold text-subtitle1">{{ user.name || user.givenName }}</div>
+                <div class="ellipsis q-mt-lg qs-lh-sm text-bold text-subtitle1">{{ userName }}</div>
                 <div class="ellipsis q-mt-xs text-caption">{{ user.email }}</div>
 
                 <div class="q-mt-sm">
@@ -74,10 +74,6 @@ export default {
     brand: {
       default: '',
       type: String
-    },
-
-    isAuth: {
-      type: Boolean
     },
 
     title: {
@@ -134,6 +130,14 @@ export default {
 
     showTitle () {
       return this.title && !this.brand
+    },
+
+    hasUser () {
+      return !!Object.keys(this.user).length
+    },
+
+    userName () {
+      return this.user.name || this.user.givenName
     }
   },
 

@@ -4,6 +4,21 @@ meta:
   desc: Componente para abrir um menu de ação a partir de um botão, muito utilizado em tela de edição.
 
 props:
+  delete-icon:
+    desc: Ícone do botão de deletar.
+    default: o_delete
+    type: String
+
+  delete-label:
+    desc: Rótulo do botão de deletar.
+    default: Excluir
+    type: String
+
+  delete-props:
+    desc: Props para repassar para o componente "QasDelete", caso seja um objeto vazio, o componente não vai adicionar a opção de deletar por padrão.
+    default: {}
+    type: Object
+
   icon:
     desc: Ícone do botão.
     default: o_settings
@@ -28,21 +43,6 @@ props:
         }
       }"
     ]
-
-  delete-label:
-    desc: Rótulo do botão de deletar.
-    default: Excluir
-    type: String
-
-  delete-icon:
-    desc: Ícone do botão de deletar.
-    default: o_delete
-    type: String
-
-  delete-props:
-    desc: Props para repassar para o componente "QasDelete", caso seja um objeto vazio, o componente não vai adicionar a opção de deletar por padrão.
-    default: {}
-    type: Object
 
 slots:
   '[nome-da-chave]':

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <q-input ref="input" v-model="model" bottom-slots v-bind="$attrs" :mask="mask" :outlined="outlined" :unmasked-value="unmaskedValue">
+    <q-input ref="input" v-model="model" bottom-slots :error="errorData" v-bind="$attrs" :error-message="errorMessageData" :mask="mask" :outlined="outlined" :unmasked-value="unmaskedValue">
       <template v-for="(_, name) in $slots" #[name]="context">
         <slot :name="name" v-bind="context || {}" />
       </template>
@@ -15,9 +15,23 @@ export default {
   inheritAttrs: false,
 
   props: {
+    error: {
+      type: Boolean
+    },
+
+    errorMessage: {
+      type: String,
+      default: ''
+    },
+
     modelValue: {
       default: '',
       type: [String, Number]
+    },
+
+    outlined: {
+      default: true,
+      type: Boolean
     },
 
     unmaskedValue: {
@@ -25,13 +39,19 @@ export default {
       type: Boolean
     },
 
-    outlined: {
-      default: true,
+    useRemoveErrorOnType: {
       type: Boolean
     }
   },
 
   emits: ['update:modelValue'],
+
+  data () {
+    return {
+      errorData: false,
+      messageErrorData: ''
+    }
+  },
 
   computed: {
     hasError () {
@@ -65,6 +85,11 @@ export default {
       },
 
       set (value) {
+        if (this.useRemoveErrorOnType && this.error) {
+          this.errorData = false
+          this.errorMessageData = ''
+        }
+
         return this.$emit('update:modelValue', value)
       }
     }
@@ -77,6 +102,22 @@ export default {
       requestAnimationFrame(() => {
         input.selectionStart = input.value ? input.value.length : ''
       })
+    },
+
+    error: {
+      handler (value) {
+        this.errorData = value
+      },
+
+      immediate: true
+    },
+
+    errorMessage: {
+      handler (value) {
+        this.errorMessageData = value
+      },
+
+      immediate: true
     }
   },
 

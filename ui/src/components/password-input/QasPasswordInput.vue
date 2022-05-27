@@ -1,17 +1,19 @@
 <template>
-  <qas-input v-model="model" bottom-slots :type="type">
-    <template #append>
-      <q-icon class="cursor-pointer" :color="iconColor" :name="icon" @click="toggle" />
-    </template>
+  <div>
+    <qas-input v-model="model" :bottom-slots="false" color="negative" v-bind="$attrs" :type="type" use-remove-error-on-type>
+      <template #append>
+        <q-icon class="cursor-pointer" :color="iconColor" :name="icon" @click="toggle" />
+      </template>
 
-    <template v-for="(_, name) in $slots" #[name]="context">
-      <slot :name="name" v-bind="context || {}" />
-    </template>
+      <template v-for="(_, name) in $slots" #[name]="context">
+        <slot :name="name" v-bind="context || {}" />
+      </template>
 
-    <template v-if="!hideStrengthChecker" #hint>
-      <qas-password-strength-checker v-bind="strengthCheckerProps" :password="model" />
-    </template>
-  </qas-input>
+      <template v-if="useStrengthChecker" #hint>
+        <qas-password-strength-checker v-bind="strengthCheckerProps" :password="model" />
+      </template>
+    </qas-input>
+  </div>
 </template>
 
 <script>
@@ -28,9 +30,9 @@ export default {
   mixins: [passwordMixin],
 
   props: {
-    hideStrengthChecker: {
-      type: Boolean,
-      default: true
+    useStrengthChecker: {
+      default: true,
+      type: Boolean
     },
 
     iconColor: {
@@ -48,7 +50,6 @@ export default {
 
   data () {
     return {
-      key: 'error',
       toggleType: true
     }
   },
@@ -75,15 +76,6 @@ export default {
 
     type () {
       return this.toggleType ? 'password' : 'text'
-    }
-  },
-
-  watch: {
-    modelValue () {
-      if (this.$attrs.error) {
-        this.$attrs.error = false
-        this.$attrs.errorMessage = ''
-      }
     }
   },
 

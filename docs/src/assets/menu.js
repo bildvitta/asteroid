@@ -10,8 +10,20 @@ module.exports = [
     name: 'Começando',
     children: [
       {
+        name: 'Usando',
+        path: '/start/usage'
+      },
+      {
+        name: 'Desenvolvendo',
+        path: '/start/develop'
+      },
+      {
         name: 'Estrutura',
         path: '/start/structure'
+      },
+      {
+        name: 'Guia de migração v2 -> v3',
+        path: '/start/upgrade-guide'
       }
     ]
   },
@@ -58,28 +70,72 @@ module.exports = [
         path: '/components/button'
       },
       {
+        name: 'Card',
+        path: '/components/card'
+      },
+      {
+        name: 'CheckboxGroup',
+        path: '/components/checkbox-group'
+      },
+      {
         name: 'Copy',
         path: '/components/copy'
+      },
+      {
+        name: 'DateTimeInput',
+        path: '/components/date-time-input'
       },
       {
         name: 'Debugger',
         path: '/components/debugger'
       },
       {
-        name: 'TextTruncate',
-        path: '/components/text-truncate'
+        name: 'Delete',
+        path: '/components/delete'
       },
       {
-        name: 'Transfer',
-        path: '/components/transfer'
+        name: 'Dialog',
+        path: '/components/dialog'
       },
       {
-        name: 'TabsGenerator',
-        path: '/components/tabs-generator'
+        name: 'DialogRouter',
+        path: '/components/dialog-router'
+      },
+      {
+        name: 'Field',
+        path: '/components/field'
+      },
+      {
+        name: 'Filters',
+        path: '/components/filters'
+      },
+      {
+        name: 'FormGenerator',
+        path: '/components/form-generator'
+      },
+      {
+        name: 'FormView',
+        path: '/components/form-view'
+      },
+      {
+        name: 'Gallery',
+        path: '/components/gallery'
+      },
+      {
+        name: 'GridGenerator',
+        path: '/components/grid-generator'
+      },
+      {
+        name: 'Input',
+        path: '/components/input'
       },
       {
         name: 'Label',
         path: '/components/label'
+      },
+      {
+        name: 'Layout',
+        path: '/components/layout'
       },
       {
         name: 'ListItems',
@@ -90,48 +146,20 @@ module.exports = [
         path: '/components/list-view'
       },
       {
-        name: 'SingleView',
-        path: '/components/single-view'
-      },
-      {
-        name: 'FormView',
-        path: '/components/form-view'
-      },
-      {
-        name: 'Delete',
-        path: '/components/delete'
-      },
-      {
-        name: 'Filters',
-        path: '/components/filters'
-      },
-      {
-        name: 'Field',
-        path: '/components/field'
-      },
-      {
-        name: 'FormGenerator',
-        path: '/components/form-generator'
-      },
-      {
-        name: 'TableGenerator',
-        path: '/components/table-generator'
-      },
-      {
-        name: 'SearchBox',
-        path: '/components/search-box'
-      },
-      {
-        name: 'SelectList',
-        path: '/components/select-list'
+        name: 'Map',
+        path: '/components/map'
       },
       {
         name: 'NestedFields',
         path: '/components/nested-fields'
       },
       {
-        name: 'Dialog',
-        path: '/components/dialog'
+        name: 'NumericInput',
+        path: '/components/numeric-input'
+      },
+      {
+        name: 'PageHeader',
+        path: '/components/page-header'
       },
       {
         name: 'PasswordInput',
@@ -142,32 +170,24 @@ module.exports = [
         path: '/components/password-strength-checker'
       },
       {
-        name: 'Input',
-        path: '/components/input'
+        name: 'Profile',
+        path: '/components/profile'
+      },
+      {
+        name: 'Resizer',
+        path: '/components/resizer'
+      },
+      {
+        name: 'SearchBox',
+        path: '/components/search-box'
       },
       {
         name: 'Select',
         path: '/components/select'
       },
       {
-        name: 'GridGenerator',
-        path: '/components/grid-generator'
-      },
-      {
-        name: 'CheckboxGroup',
-        path: '/components/checkbox-group'
-      },
-      {
-        name: 'Map',
-        path: '/components/map'
-      },
-      {
-        name: 'Uploader',
-        path: '/components/uploader'
-      },
-      {
-        name: 'Sortable',
-        path: '/components/sortable'
+        name: 'SelectList',
+        path: '/components/select-list'
       },
       {
         name: 'SignaturePad',
@@ -178,40 +198,32 @@ module.exports = [
         path: '/components/signature-uploader'
       },
       {
-        name: 'DialogRouter',
-        path: '/components/dialog-router'
+        name: 'SingleView',
+        path: '/components/single-view'
       },
       {
-        name: 'NumericInput',
-        path: '/components/numeric-input'
+        name: 'Sortable',
+        path: '/components/sortable'
       },
       {
-        name: 'DateTimeInput',
-        path: '/components/date-time-input'
+        name: 'TableGenerator',
+        path: '/components/table-generator'
       },
       {
-        name: 'Resizer',
-        path: '/components/resizer'
+        name: 'TabsGenerator',
+        path: '/components/tabs-generator'
       },
       {
-        name: 'PageHeader',
-        path: '/components/page-header'
+        name: 'TextTruncate',
+        path: '/components/text-truncate'
       },
       {
-        name: 'Profile',
-        path: '/components/profile'
+        name: 'Transfer',
+        path: '/components/transfer'
       },
       {
-        name: 'Gallery',
-        path: '/components/gallery'
-      },
-      {
-        name: 'Card',
-        path: '/components/card'
-      },
-      {
-        name: 'Layout',
-        path: '/components/layout'
+        name: 'Uploader',
+        path: '/components/uploader'
       }
     ]
   },
@@ -221,6 +233,10 @@ module.exports = [
     name: 'Plugins',
     children: [
       {
+        name: 'Dialog',
+        path: '/plugins/dialog'
+      },
+      {
         name: 'NotifyError',
         path: '/plugins/notify-error'
       },
@@ -229,8 +245,8 @@ module.exports = [
         path: '/plugins/notify-success'
       },
       {
-        name: 'Dialog',
-        path: '/plugins/dialog'
+        name: 'Screen',
+        path: '/plugins/screen'
       }
     ]
   },
@@ -260,6 +276,14 @@ module.exports = [
         path: '/helpers/filters'
       },
       {
+        name: 'filterListByHandle',
+        path: '/helpers/filter-list-by-handle'
+      },
+      {
+        name: 'filterObjectToArray',
+        path: '/helpers/filter-object-to-array'
+      },
+      {
         name: 'getSlotChildrenText',
         path: '/helpers/get-slot-children-text'
       },
@@ -278,14 +302,6 @@ module.exports = [
       {
         name: 'setScrollOnGrab',
         path: '/helpers/set-scroll-on-grab'
-      },
-      {
-        name: 'filterListByHandle',
-        path: '/helpers/filter-list-by-handle'
-      },
-      {
-        name: 'filterObjectToArray',
-        path: '/helpers/filter-object-to-array'
       }
     ]
   },
@@ -307,6 +323,10 @@ module.exports = [
         path: '/styles/border'
       },
       {
+        name: 'container',
+        path: '/styles/container'
+      },
+      {
         name: 'line-height',
         path: '/styles/line-height'
       },
@@ -321,10 +341,6 @@ module.exports = [
       {
         name: 'set-brand',
         path: '/styles/set-brand'
-      },
-      {
-        name: 'container',
-        path: '/styles/container'
       }
     ]
   },
@@ -335,9 +351,8 @@ module.exports = [
     children: [
       {
         name: 'useHistory',
-        path: '/composables/useHistory'
+        path: '/composables/use-history'
       }
     ]
   }
-
 ]

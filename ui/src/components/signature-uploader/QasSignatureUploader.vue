@@ -7,32 +7,35 @@
             <div v-if="uploadLabel" class="q-uploader__title">{{ uploadLabel }}</div>
           </div>
 
-          <q-btn v-if="!readonly" dense flat icon="o_add" round @click="openDialog" />
+          <qas-btn v-if="!readonly" color="white" dense flat icon="o_add" round @click="openDialog" />
 
-          <q-btn ref="forceUpload" class="hidden" @click="upload(scope)" />
-          <q-btn ref="buttonCleanFiles" class="hidden" @click="scope.removeUploadedFiles" />
+          <qas-btn ref="forceUpload" class="hidden" @click="upload(scope)" />
+          <qas-btn ref="buttonCleanFiles" class="hidden" @click="scope.removeUploadedFiles" />
         </div>
       </template>
     </qas-uploader>
 
-    <qas-dialog v-model="isOpenedDialog">
+    <qas-dialog v-model="isOpenedDialog" v-bind="defaultDialogProps">
       <template #header>
         <div class="text-bold text-center">Insira sua assinatura digital no campo abaixo</div>
       </template>
 
       <template #description>
-        <qas-signature-pad ref="signaturePadModal" v-model:empty="isEmpty" height="250" />
+        <div :style="signaturePadWidth">
+          <qas-signature-pad ref="signaturePadModal" v-model:empty="isEmpty" :height="signaturePadHeight" />
+        </div>
       </template>
 
       <template #actions>
-        <q-btn class="full-width" color="primary" :disable="isEmpty" label="Salvar" no-caps @click="getSignatureData" />
-        <q-btn class="full-width q-mt-sm" color="primary" flat label="Cancelar" no-caps @click="closeSignature" />
+        <qas-btn class="full-width" color="primary" :disable="isEmpty" label="Salvar" no-caps @click="getSignatureData" />
+        <qas-btn class="full-width q-mt-sm" color="primary" flat label="Cancelar" no-caps @click="closeSignature" />
       </template>
     </qas-dialog>
   </div>
 </template>
 
 <script>
+import QasBtn from '../btn/QasBtn.vue'
 import QasDialog from '../dialog/QasDialog.vue'
 import QasUploader from '../uploader/QasUploader.vue'
 import QasSignaturePad from '../signature-pad/QasSignaturePad.vue'
@@ -43,12 +46,18 @@ export default {
   name: 'QasSignatureUploader',
 
   components: {
+    QasBtn,
     QasDialog,
     QasUploader,
     QasSignaturePad
   },
 
   props: {
+    dialogProps: {
+      type: Object,
+      default: () => ({})
+    },
+
     uploadLabel: {
       default: '',
       type: String
@@ -97,6 +106,32 @@ export default {
 
     headerClass () {
       return `q-pa-${this.readonly ? 'md' : 'sm'}`
+    },
+
+    defaultDialogProps () {
+      return {
+        maxWidth: '620px',
+        ...this.dialogProps
+      }
+    },
+
+    signaturePadWidth () {
+      const sizes = {
+        [this.$qas.screen.isSmall]: { width: '100%' },
+        [this.$qas.screen.isMedium]: { width: '570px' },
+        [this.$qas.screen.isLarge]: { width: '350px' }
+      }
+      return sizes.true
+    },
+
+    signaturePadHeight () {
+      const sizes = {
+        [this.$qas.screen.isSmall]: '250',
+        [this.$qas.screen.isMedium]: '400',
+        [this.$qas.screen.isLarge]: '250'
+      }
+
+      return sizes.true
     }
   },
 

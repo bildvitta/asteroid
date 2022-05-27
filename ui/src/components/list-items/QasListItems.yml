@@ -14,21 +14,9 @@ props:
     default: []
     type: Array
 
-  redirect-key:
-    desc: Você pode enviar qualquer chave/valor dentro do array de objeto da prop "list", esta prop serve para você identificar qual vai ser a chave que vai redirecionar ao clicar no botão.
-    default: uuid
-    type: String
-
-  redirect-on-icon:
-    desc: Controla se o redirecionamento vai acontecer quando clicar no item inteiro ou somente no icon.
-    default: true
+  use-clickable-item:
+    desc: Controla se o item inteiro é clicável ou somente o button dentro do item.
     type: Boolean
-
-  to:
-    desc: Configuração passada para o vue-router.
-    default: {}
-    type: Object
-    examples: ["{ name: 'Root' }"]
 
   use-section-actions:
     desc: Controla se exibe ou não seção de actions, onde fica o Ícone de redirecionamento.
@@ -36,7 +24,7 @@ props:
     type: Boolean
 
 slots:
-  item-section-left:
+  item-section:
     desc: Slot para acessar seção da esquerda.
     scope:
       item:
@@ -54,4 +42,15 @@ slots:
         type: Object
       index:
         desc: Posição do item na lista.
+        type: Number
+
+events:
+  '@click-item -> function ({ item, index })':
+    desc: Dispara toda vez que o item ou button (dependendo da prop "use-section-actions") é clicado.
+    params:
+      item:
+        desc: Item clicado
+        type: Object
+      index:
+        desc: Posição do item
         type: Number

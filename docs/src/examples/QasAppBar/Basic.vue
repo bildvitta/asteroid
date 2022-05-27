@@ -1,6 +1,6 @@
 <template>
   <q-layout>
-    <qas-app-bar is-auth title="QasAppBar" :user="user" />
+    <qas-app-bar title="QasAppBar" :user="user" />
   </q-layout>
 </template>
 

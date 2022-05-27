@@ -7,32 +7,26 @@ meta:
   desc: Componente para select que implementa o "QSelect" repassando propriedades, slots e eventos.
 
 props:
+  fuse-options:
+    desc: Opções do Fuse.js (https://fusejs.io/api/options.html).
+    type: Object
+    debugger: true
+    default:
+      ignoreLocation: true
+      keys: [label, value]
+      threshold: 0.1
+
+  label-key:
+    desc: O componente internamente espera receber na propriedade "options" um array de objeto contendo "label" e "value", caso o seu objeto não tenha "label" mas um "name" por exemplo, você pode definir esta prop "label-key" como "name".
+    type: String
+    examples: [label-key="name"]
+
   model-value:
     desc: Model do componente.
     default: []
     type: [Array, Object, String, Number]
     examples: [v-model="value"]
     model: true
-
-  fuse-options:
-    desc: Opções do Fuse.js (https://fusejs.io/api/options.html).
-    type: Object
-    debugger: true
-    default:
-      distance: 100
-      includeScore: true
-      keys: [label, value]
-      location: 0
-      maxPatternLength: 32
-      minMatchCharLength: 1
-      shouldSort: true
-      threshold: 0.1
-      tokenize: true
-
-  label-key:
-    desc: O componente internamente espera receber na propriedade "options" um array de objeto contendo "label" e "value", caso o seu objeto não tenha "label" mas um "name" por exemplo, você pode definir esta prop "label-key" como "name".
-    type: String
-    examples: [label-key="name"]
 
   no-option-label:
     desc: Rótulo padrão de quando os options estão vazios.
@@ -44,14 +38,14 @@ props:
     default: []
     type: Array
 
-  searchable:
-    desc: Controla se vai ou não ter campo de busca no select.
-    type: Boolean
-
   value-key:
     desc: O componente internamente espera receber na propriedade "options" um array de objeto contendo "label" e "value", caso o seu objeto não tenha "value" mas um "uuid" por exemplo, você pode definir esta prop "label-value" como "uuid".
     type: String
     examples: [value-key="uuid"]
+
+  use-search:
+    desc: Controla se vai ou não ter campo de busca no select.
+    type: Boolean
 
 events:
   '@update:model-value -> function (value)':
