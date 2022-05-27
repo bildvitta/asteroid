@@ -26,7 +26,6 @@
 <script>
 import viewMixin from '../../mixins/view'
 import { markRaw } from 'vue'
-import { logger } from '../../helpers'
 
 export default {
   name: 'QasSingleView',
@@ -84,10 +83,13 @@ export default {
       this.mx_isFetching = true
 
       try {
-        const response = await this.$store.dispatch(
-          `${this.entity}/fetchSingle`,
-          { id: this.id, url: this.url, params }
+        const payload = { id: this.id, url: this.url, params }
+
+        this.$qas.logger.group(
+          `Payload do parâmetro do ${this.entity}/fetchSingle`, [payload]
         )
+
+        const response = await this.$store.dispatch(`${this.entity}/fetchSingle`, payload)
 
         const { errors, fields, metadata } = response.data
 
@@ -101,34 +103,18 @@ export default {
           metadata: this.mx_metadata
         })
 
-        logger(log => {
-          log
-            .group(`fetchSingle - resposta da action ${this.entity}/fetchSingle`)
-            .table(response)
-            .end()
-            .group('fetchSingle - mx_errors, mx_fields e mx_metadata')
-            .table({
-              mx_errors: this.mx_errors,
-              mx_fields: this.mx_fields,
-              mx_metadata: this.mx_metadata
-            })
-            .end()
-        })
+        this.$qas.logger.group(
+          `QasSingleView - fetchSingle -> resposta da action ${this.entity}/fetchSingle`, [response]
+        )
 
         this.$emit('fetch-success', response)
       } catch (error) {
         this.mx_fetchError(error)
         this.$emit('fetch-error', error)
 
-        logger(log => {
-          log
-            .group('fetchSingle - error', true)
-            .error(error)
-            .end()
-            .group('fetchSingle - mx_error', true)
-            .table(this.mx_error)
-            .end()
-        })
+        this.$qas.logger.group(
+          `QasSingleView - fetchSingle -> exceção da action ${this.entity}/fetchSingle`, [error], true
+        )
       } finally {
         this.mx_isFetching = false
       }

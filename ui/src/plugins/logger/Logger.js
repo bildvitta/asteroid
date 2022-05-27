@@ -15,30 +15,66 @@ export default () => {
     `
   )
 
-  return isDebugEnabled && Promise.resolve({
-    group (msg, isError) {
-      console.group(normalizeMessage(msg), getStyle(isError))
-      return this
-    },
+  // return isDebugEnabled && Promise.resolve({
+  //   group (msg, isError) {
+  //     console.group(normalizeMessage(msg), getStyle(isError))
+  //     return this
+  //   },
 
-    info (msg) {
-      console.info(normalizeMessage(msg), getStyle())
-      return this
-    },
+  //   info (msg) {
+  //     console.info(normalizeMessage(msg), getStyle())
+  //     return this
+  //   },
 
-    table (payload) {
-      console.table(payload)
-      return this
-    },
+  //   table (payload) {
+  //     console.table(payload)
+  //     return this
+  //   },
 
-    error (msg) {
-      console.error(msg)
-      return this
-    },
+  //   error (msg) {
+  //     console.error(msg)
+  //     return this
+  //   },
 
-    end () {
+  //   end () {
+  //     console.groupEnd()
+  //     return this
+  //   }
+  // })
+
+  return {
+    group (message, payload = [], isErrorType) {
+      if (!isDebugEnabled) return
+
+      console.group(normalizeMessage(message), getStyle(isErrorType))
+
+      for (const item of payload) {
+        if (typeof item === 'string' && isErrorType) {
+          console.info(normalizeMessage(message), getStyle(true))
+          continue
+        }
+
+        if (typeof item === 'string') {
+          console.info(normalizeMessage(item), getStyle())
+          continue
+        }
+
+        console.table(item)
+      }
+
       console.groupEnd()
-      return this
+    },
+
+    info (message) {
+      if (!isDebugEnabled) return
+
+      console.info(normalizeMessage(message), getStyle())
+    },
+
+    error (message) {
+      if (!isDebugEnabled) return
+
+      console.info(normalizeMessage(message), getStyle(true))
     }
-  })
+  }
 }

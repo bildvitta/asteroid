@@ -66,7 +66,7 @@ import Test from './directives/Test.js'
 
 const version = packageInfo.version
 
-async function install (app) {
+function install (app) {
   app.component('QasActions', QasActions)
   app.component('QasActionsMenu', QasActionsMenu)
   app.component('QasAlert', QasAlert)
@@ -127,7 +127,7 @@ async function install (app) {
     error: NotifyError,
     success: NotifySuccess,
     screen: Screen(),
-    logger: await Logger()
+    logger: Logger()
   }
 
   app.directive(Test.name, Test)

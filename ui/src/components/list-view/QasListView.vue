@@ -45,7 +45,6 @@
 import { viewMixin, contextMixin } from '../../mixins'
 import QasFilters from '../filters/QasFilters.vue'
 import { extend } from 'quasar'
-import { logger } from '../../helpers'
 
 export default {
   components: {
@@ -145,14 +144,17 @@ export default {
       const hasFilters = !!Object.keys(filters).length
 
       try {
-        const response = await this.$store.dispatch(
-          `${this.entity}/fetchList`,
-          {
-            ...this.mx_context,
-            url: this.url,
-            ...(hasFilters && { filters })
-          }
+        const payload = {
+          ...this.mx_context,
+          url: this.url,
+          ...(hasFilters && { filters })
+        }
+
+        this.$qas.logger.group(
+          `Payload do parâmetro do ${this.entity}/fetchList`, [payload]
         )
+
+        const response = await this.$store.dispatch(`${this.entity}/fetchList`, payload)
 
         const { errors, fields, metadata } = response.data
 
@@ -166,18 +168,9 @@ export default {
           metadata: this.mx_metadata
         })
 
-        logger(log => {
-          log.group(`fetchList - resposta da action ${this.entity}/fetchList`)
-          log.table(response)
-          log.end()
-          log.group('fetchList - mx_errors, mx_fields e mx_metadata')
-          log.table({
-            mx_errors: this.mx_errors,
-            mx_fields: this.mx_fields,
-            mx_metadata: this.mx_metadata
-          })
-          log.end()
-        })
+        this.$qas.logger.group(
+          `QasSingleView - fetchSingle -> resposta da action ${this.entity}/fetchList`, [response]
+        )
 
         this.$emit('fetch-success', response)
       } catch (error) {
@@ -185,15 +178,9 @@ export default {
         this.$emit('update:errors', error)
         this.$emit('fetch-error', error)
 
-        logger(log => {
-          log
-            .group('fetchList - error', true)
-            .error(error)
-            .end()
-            .group('fetchList - mx_error', true)
-            .table(this.mx_error)
-            .end()
-        })
+        this.$qas.logger.group(
+          `QasSingleView - fetchSingle -> exceção da action ${this.entity}/fetchList`, [error], true
+        )
       } finally {
         this.mx_isFetching = false
       }
