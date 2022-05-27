@@ -15,10 +15,10 @@
       </q-toolbar>
     </q-header>
 
-    <q-drawer v-model="leftDrawerState" bordered show-if-above side="left">
+    <q-drawer v-model="leftDrawerState" bordered show-if-above side="left" @hide="handleRestartDocSearch" @show="handleRestartDocSearch">
       <div class="app-search-bar">
         <div class="app-search-bar__input q-pt-sm">
-          <div ref="docsearch" />
+          <div ref="docSearch" />
         </div>
 
         <q-separator />
@@ -53,7 +53,8 @@ export default {
 
   data () {
     return {
-      leftDrawerState: false
+      leftDrawerState: false,
+      hasSearchButton: false
     }
   },
 
@@ -67,38 +68,46 @@ export default {
     }
   },
 
-  created () {
-    if (this.$q.screen.width > 1023) {
-      this.leftDrawerState = true
-    }
-  },
-
   mounted () {
-    const doc = this.$refs.docsearch
+    this.leftDrawerState = this.$q.screen.width > 1023
 
-    docsearch({
-      container: doc,
-      appId: '79KX7BGJMZ',
-      apiKey: 'c6033a408c0b489f1d57783513896367',
-      indexName: 'asteroid'
-    })
+    this.initializeDocSearch(this.$refs.docSearch)
+    this.hasSearchButton = true
   },
+
   methods: {
     toggleLeftDrawer () {
       this.leftDrawerState = !this.leftDrawerState
+    },
+
+    handleRestartDocSearch () {
+      const container = this.$refs.docSearch
+      this.hasSearchButton = !!this.hasDocSearchButton(container)
+
+      if (this.hasSearchButton) return
+
+      this.initializeDocSearch(container)
+    },
+
+    initializeDocSearch (container) {
+      console.log('fui chamado')
+      docsearch({
+        container,
+        appId: '79KX7BGJMZ',
+        // TODO adicionado fixo por enquanto não conseguimos adicionar a variável de ambiente na VirtualTimeScheduler.
+        apiKey: 'c6033a408c0b489f1d57783513896367',
+        indexName: 'asteroid'
+      })
+    },
+
+    hasDocSearchButton (element) {
+      return !!element.querySelector('.DocSearch-Button')
     }
   }
 }
 </script>
 
 <style lang="scss">
-.DocSearch-Button {
-  width: 100% !important;
-}
-
-// DocSearch-Button-Placeholder
-// DocSearch-Button-Keys
-
 .app {
   &-header,
   &-search-bar {
