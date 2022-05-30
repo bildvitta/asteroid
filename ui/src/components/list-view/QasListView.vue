@@ -151,7 +151,7 @@ export default {
         }
 
         this.$qas.logger.group(
-          `Payload do parâmetro do ${this.entity}/fetchList`, [payload]
+          `QasListView - fetchList -> Payload do parâmetro do ${this.entity}/fetchList`, [payload]
         )
 
         const response = await this.$store.dispatch(`${this.entity}/fetchList`, payload)
@@ -168,11 +168,11 @@ export default {
           metadata: this.mx_metadata
         })
 
+        this.$emit('fetch-success', response)
+
         this.$qas.logger.group(
           `QasSingleView - fetchSingle -> resposta da action ${this.entity}/fetchList`, [response]
         )
-
-        this.$emit('fetch-success', response)
       } catch (error) {
         this.mx_fetchError(error)
         this.$emit('update:errors', error)

@@ -48,7 +48,8 @@ module.exports = configure(function (quasar) {
     build: {
       env: {
         BUCKET: 'uploader.nave.dev',
-        MAPS_API_KEY: 'AIzaSyDl00zRKG51WWBIJa8yVXqX7jFD5xyqe24'
+        MAPS_API_KEY: 'AIzaSyDl00zRKG51WWBIJa8yVXqX7jFD5xyqe24',
+        DEBUG: true
       },
 
       vueRouterMode: 'history',

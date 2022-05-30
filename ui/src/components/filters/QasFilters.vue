@@ -241,11 +241,24 @@ export default {
       this.isFetching = true
 
       try {
+        this.$qas.logger.group(
+          `QasFilters - fetchFilters -> Payload do parâmetro do ${this.entity}/fetchFilters`,
+          [{ url: this.url }]
+        )
+
         const response = await this.$store.dispatch(`${this.entity}/fetchFilters`, { url: this.url })
         this.$emit('fetch-success', response)
+
+        this.$qas.logger.group(
+          `QasFilters - fetchFilters -> resposta da action ${this.entity}/fetchFilters`, [response]
+        )
       } catch (error) {
         this.hasFetchError = true
         this.$emit('fetch-error', error)
+
+        this.$qas.logger.group(
+          `QasFilters - fetchFilters -> exceção da action ${this.entity}/fetchFilters`, [error], true
+        )
       } finally {
         this.isFetching = false
       }

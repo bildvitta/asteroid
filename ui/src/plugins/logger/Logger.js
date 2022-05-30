@@ -1,5 +1,5 @@
 export default () => {
-  const isDebugEnabled = true
+  const isDebugEnabled = process.env.DEBUG
 
   const normalizeMessage = msg => `%c ${msg}`
   const getStyle = isError => (
@@ -66,15 +66,11 @@ export default () => {
     },
 
     info (message) {
-      if (!isDebugEnabled) return
-
-      console.info(normalizeMessage(message), getStyle())
+      isDebugEnabled && console.info(normalizeMessage(message), getStyle())
     },
 
     error (message) {
-      if (!isDebugEnabled) return
-
-      console.info(normalizeMessage(message), getStyle(true))
+      isDebugEnabled && console.info(normalizeMessage(message), getStyle(true))
     }
   }
 }

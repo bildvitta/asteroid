@@ -106,7 +106,13 @@ export default {
       try {
         const { destroyRoutes, history } = useHistory()
 
-        await this.$store.dispatch(`${this.entity}/destroy`, { id: this.id, url: this.url })
+        const payload = { id: this.id, url: this.url }
+
+        this.$qas.logger.group(
+          `QasDelete - destroy -> Payload do parâmetro do ${this.entity}/destroy`, [payload]
+        )
+
+        await this.$store.dispatch(`${this.entity}/destroy`, payload)
 
         NotifySuccess('Item deletado com sucesso!')
 
@@ -120,9 +126,15 @@ export default {
         this.createDeleteSuccessEvent()
 
         this.$emit('success')
+
+        this.$qas.logger.info('QasDelete - destroy -> item deletado com sucesso!')
       } catch (error) {
         NotifyError('Ops! Não foi possível deletar o item.')
         this.$emit('error', error)
+
+        this.$qas.logger.group(
+          `QasDelete - destroy -> exceção da action ${this.entity}/destroy`, [error], true
+        )
       } finally {
         Loading.hide()
         this.$emit('update:deleting', false)
