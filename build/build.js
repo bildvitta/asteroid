@@ -1,3 +1,5 @@
+/* eslint-disable no-console */
+
 require('colors') // https://github.com/Marak/colors.js
 const { prompt } = require('enquirer') // https://github.com/enquirer/enquirer
 const jetpack = require('fs-jetpack') // https://github.com/szwacz/fs-jetpack

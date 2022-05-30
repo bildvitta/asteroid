@@ -20,9 +20,7 @@ function getApi (name) {
               : mixin
           )
           Object.assign(api.props, props)
-        } catch (error) {
-          console.error(error)
-        }
+        } catch {}
       }
 
       apiCache[name] = api
