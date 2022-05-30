@@ -171,7 +171,7 @@ export default {
         this.$emit('fetch-success', response)
 
         this.$qas.logger.group(
-          `QasSingleView - fetchSingle -> resposta da action ${this.entity}/fetchList`, [response]
+          `QasListView - fetchSingle -> resposta da action ${this.entity}/fetchList`, [response]
         )
       } catch (error) {
         this.mx_fetchError(error)
@@ -179,7 +179,7 @@ export default {
         this.$emit('fetch-error', error)
 
         this.$qas.logger.group(
-          `QasSingleView - fetchSingle -> exceção da action ${this.entity}/fetchList`, [error], true
+          `QasListView - fetchSingle -> exceção da action ${this.entity}/fetchList`, [error], true
         )
       } finally {
         this.mx_isFetching = false

@@ -86,7 +86,8 @@ export default {
         const payload = { id: this.id, url: this.url, params }
 
         this.$qas.logger.group(
-          `Payload do parâmetro do ${this.entity}/fetchSingle`, [payload]
+          `QasSingleView - fetchSingle -> payload do parâmetro do ${this.entity}/fetchSingle`,
+          [payload]
         )
 
         const response = await this.$store.dispatch(`${this.entity}/fetchSingle`, payload)

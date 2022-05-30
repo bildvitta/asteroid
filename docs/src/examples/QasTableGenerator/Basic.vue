@@ -14,8 +14,7 @@ export default {
   data () {
     return {
       fields: {},
-      results: [],
-      text: 'kkkjjjjj'
+      results: []
     }
   },
 
