@@ -90,7 +90,6 @@ export default {
     },
 
     initializeDocSearch (container) {
-      console.log('fui chamado')
       docsearch({
         container,
         appId: '79KX7BGJMZ',
