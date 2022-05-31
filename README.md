@@ -59,17 +59,35 @@ Observação: Alguns componentes do Quasar precisam ser importados manualmente d
 └── eslint                                     # Biblioteca de lint para o asteroid.
 ```
 
+## Variáveis de ambiente
+
+| Variável | Descrição  |
+| ------------ | ------------ |
+| `BUCKET_URL` | Endereço de hospedagem dos arquivos |
+| `SERVER_BASE_URL` | Endereço base de acesso do servidor |
+| `DEBUGGING` | Habilita os loggers dos componentes |
+| `MAPS_API_KEY` | Key do google maps |
+| `SERVER_TIMEOUT` | Tempo que a API vai tentar finalizar até dar timeout |
+
+## Componentes com logger
+- QasDelete
+- QasFilters
+- QasFormView
+- QasListView
+- QasNestedFields
+- QasSingleView
+
 ## Roadmap:
 
-- [ ] Revisar nomenclaturas de componentes, props, eventos e slots;
-- [ ] Adicionar loggers nos componentes para facilitar o debug;
+- [x] Revisar nomenclaturas de componentes, props, eventos e slots;
+- [x] Adicionar loggers nos componentes para facilitar o debug;
 - [ ] Substituir os actions do `QasFormView` pelo `QasActions`;
 - [ ] Atualizar markdown `pull_request_template`;
 - [ ] Desenvolver uma nova biblioteca semelhante ao `vuexStoreModule`, porém com suporte ao Vuex e Pinia;
 - [ ] Finalizar `eslint-plugin-asteroid`;
 - [ ] Desenvolver um novo `asteroid-starter-kit` para o Quasar v2 + Asteroid v3, com suporte ao Webpack e Vite;
 - [ ] Lançar a v3 oficial;
-- [ ] Inserir busca na documentação;
+- [x] Inserir busca na documentação;
 - [ ] Adicionar componentes específicos criados nos projetos e que fazem sentido estar no Asteroid;
 - [ ] Melhoria geral na documentação (adicionar mais exemplos, links etc);
 - [ ] Refatoração de código dos componentes para uma melhorar a performance;

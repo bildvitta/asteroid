@@ -237,6 +237,10 @@ module.exports = [
         path: '/plugins/dialog'
       },
       {
+        name: 'Logger',
+        path: '/plugins/logger'
+      },
+      {
         name: 'NotifyError',
         path: '/plugins/notify-error'
       },

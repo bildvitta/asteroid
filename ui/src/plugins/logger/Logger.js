@@ -1,5 +1,5 @@
 export default () => {
-  const isDebugEnabled = process.env.DEBUG
+  const isDebugEnabled = process.env.DEBUGGING
 
   const normalizeMessage = msg => `%c ${msg}`
   const getStyle = isError => (
@@ -14,33 +14,6 @@ export default () => {
       font-size: 12px;
     `
   )
-
-  // return isDebugEnabled && Promise.resolve({
-  //   group (msg, isError) {
-  //     console.group(normalizeMessage(msg), getStyle(isError))
-  //     return this
-  //   },
-
-  //   info (msg) {
-  //     console.info(normalizeMessage(msg), getStyle())
-  //     return this
-  //   },
-
-  //   table (payload) {
-  //     console.table(payload)
-  //     return this
-  //   },
-
-  //   error (msg) {
-  //     console.error(msg)
-  //     return this
-  //   },
-
-  //   end () {
-  //     console.groupEnd()
-  //     return this
-  //   }
-  // })
 
   return {
     group (message, payload = [], isErrorType) {

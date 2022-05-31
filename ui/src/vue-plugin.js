@@ -125,9 +125,9 @@ function install (app) {
   app.config.globalProperties.$qas = {
     dialog: Dialog,
     error: NotifyError,
-    success: NotifySuccess,
+    logger: Logger(),
     screen: Screen(),
-    logger: Logger()
+    success: NotifySuccess
   }
 
   app.directive(Test.name, Test)
@@ -188,10 +188,10 @@ export {
 
   // plugins
   Dialog,
+  Logger,
   NotifyError,
   NotifySuccess,
   Screen,
-  Logger,
 
   install
 }

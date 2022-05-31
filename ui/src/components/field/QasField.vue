@@ -146,10 +146,6 @@ export default {
         select: { is: 'qas-select', multiple, options, useSearch, ...input }
       }
 
-      const component = { ...(profiles[type] || profiles.default), ...this.$attrs }
-
-      this.$qas.logger.group(`QasField - component -> field: ${name}`, [component])
-
       return { ...(profiles[type] || profiles.default), ...this.$attrs }
     },
 
