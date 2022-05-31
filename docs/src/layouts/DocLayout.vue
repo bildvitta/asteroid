@@ -15,16 +15,14 @@
       </q-toolbar>
     </q-header>
 
-    <q-drawer v-model="leftDrawerState" bordered show-if-above side="left">
-      <form class="app-search-bar">
-        <q-input borderless class="app-search-bar__input" dense input-class="app-search-bar__input-element" placeholder="Buscar no Asteroid v3..." square>
-          <template #prepend>
-            <q-icon name="search" />
-          </template>
-        </q-input>
+    <q-drawer v-model="leftDrawerState" bordered show-if-above side="left" @hide="handleRestartDocSearch" @show="handleRestartDocSearch">
+      <div class="app-search-bar">
+        <div class="app-search-bar__input q-pt-sm">
+          <div ref="docSearch" />
+        </div>
 
         <q-separator />
-      </form>
+      </div>
 
       <q-scroll-area class="app-scroll-area-left">
         <doc-menu class="q-mt-md" :items="menuItems" />
@@ -38,10 +36,14 @@
 </template>
 
 <script>
+
 import { version } from 'asteroid'
 import { createMetaMixin } from 'quasar'
 
+import docsearch from '@docsearch/js'
 import menuItems from 'assets/menu.js'
+
+import '@docsearch/css'
 
 export default {
   mixins: [createMetaMixin({
@@ -51,7 +53,8 @@ export default {
 
   data () {
     return {
-      leftDrawerState: false
+      leftDrawerState: false,
+      hasSearchButton: false
     }
   },
 
@@ -65,15 +68,39 @@ export default {
     }
   },
 
-  created () {
-    if (this.$q.screen.width > 1023) {
-      this.leftDrawerState = true
-    }
+  mounted () {
+    this.leftDrawerState = this.$q.screen.width > 1023
+
+    this.initializeDocSearch(this.$refs.docSearch)
+    this.hasSearchButton = true
   },
 
   methods: {
     toggleLeftDrawer () {
       this.leftDrawerState = !this.leftDrawerState
+    },
+
+    handleRestartDocSearch () {
+      const container = this.$refs.docSearch
+      this.hasSearchButton = !!this.hasDocSearchButton(container)
+
+      if (this.hasSearchButton) return
+
+      this.initializeDocSearch(container)
+    },
+
+    initializeDocSearch (container) {
+      docsearch({
+        container,
+        appId: '79KX7BGJMZ',
+        // TODO adicionado fixo por enquanto não conseguimos adicionar a variável de ambiente na VirtualTimeScheduler.
+        apiKey: 'c6033a408c0b489f1d57783513896367',
+        indexName: 'asteroid'
+      })
+    },
+
+    hasDocSearchButton (element) {
+      return !!element.querySelector('.DocSearch-Button')
     }
   }
 }
@@ -110,9 +137,7 @@ export default {
     }
 
     &__input {
-      margin-left: 18px;
-      margin-right: 16px;
-      width: 100%;
+      width: 90%;
     }
 
     &__input-element {
