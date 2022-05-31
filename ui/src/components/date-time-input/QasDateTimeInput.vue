@@ -104,7 +104,7 @@ export default {
   },
 
   watch: {
-    value (current, original) {
+    modelValue (current, original) {
       if (!current || this.useTimeOnly) {
         this.currentValue = current
         return
