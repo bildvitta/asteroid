@@ -73,9 +73,12 @@ Observação: Alguns componentes do Quasar precisam ser importados manualmente d
 - QasDelete
 - QasFilters
 - QasFormView
+- QasGridGenerator
 - QasListView
 - QasNestedFields
 - QasSingleView
+- QasTableGenerator
+- QasUploader
 
 ## Roadmap:
 

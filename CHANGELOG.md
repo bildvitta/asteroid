@@ -12,7 +12,8 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 
 ## [3.0.0-beta.11] - 31-05-2022
 ### Adicionado
-- [`QasDelete`, `QasFilters`, `QasFormView`, `QasListView`, `QasNestedFields`, `QasSingleView`, `QasSingleView`]: Adicionado loggers.
+- Adicionado novo plugin `Logger`.
+- [`QasDelete`, `QasFilters`, `QasFormView`, `QasListView`, `QasNestedFields`, `QasSingleView`, `QasSingleView`, `QasGridGenerator`, `QasTableGenerator`, `QasUploader`]: Adicionado loggers.
 
 ### Corrigido
 - `QasDateTimeInput`: corrigido watch que estava `value` ao invés de `modelValue`, quando o valor não era setado no created, não funcionava.

@@ -378,7 +378,7 @@ export default {
 
         if (width <= this.sizeLimit) {
           this.$qas.logger.info(`
-            QasUploader - resizeImage -> Tamanho da imagem menor que o tamanho limit,
+            QasUploader - resizeImage -> Tamanho da imagem menor que o tamanho limite,
             sendo assim, não faz o resize
           `)
 
