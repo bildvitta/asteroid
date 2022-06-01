@@ -15,6 +15,9 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - Adicionado novo plugin `Logger` que funcionam quando a variável de ambiente `DEBUGGING` é setada.
 - [`QasDelete`, `QasFilters`, `QasFormView`, `QasListView`, `QasNestedFields`, `QasSingleView`, `QasSingleView`, `QasGridGenerator`, `QasTableGenerator`, `QasUploader`]: Adicionado loggers.
 
+### Modificado
+- [`QasFilters`, `QasSearchBox`]: Alterado componente `q-input` para o `qas-input`.
+
 ### Corrigido
 - `QasDateTimeInput`: corrigido watch que estava `value` ao invés de `modelValue`, quando o valor não era setado no created, não funcionava.
 

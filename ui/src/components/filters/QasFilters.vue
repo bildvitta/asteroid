@@ -4,12 +4,12 @@
       <div v-if="showSearch" class="col">
         <slot :filter="filter" name="search">
           <q-form v-if="useSearch" @submit.prevent="filter()">
-            <q-input v-model="search" :debounce="debounce" dense :placeholder="searchPlaceholder" type="search">
+            <qas-input v-model="search" :debounce="debounce" dense hide-bottom-space :outlined="false" :placeholder="searchPlaceholder" type="search">
               <template #append>
                 <qas-btn v-if="hasSearch" icon="o_clear" unelevated @click="clearSearch" />
                 <qas-btn v-if="!debounce" icon="o_search" type="submit" unelevated @click="filter()" />
               </template>
-            </q-input>
+            </qas-input>
           </q-form>
         </slot>
       </div>
