@@ -55,7 +55,8 @@ import {
   Dialog,
   NotifyError,
   NotifySuccess,
-  Screen
+  Screen,
+  Logger
 } from './plugins'
 
 import packageInfo from '../package.json'
@@ -124,8 +125,9 @@ function install (app) {
   app.config.globalProperties.$qas = {
     dialog: Dialog,
     error: NotifyError,
-    success: NotifySuccess,
-    screen: Screen()
+    logger: Logger(),
+    screen: Screen(),
+    success: NotifySuccess
   }
 
   app.directive(Test.name, Test)
@@ -186,6 +188,7 @@ export {
 
   // plugins
   Dialog,
+  Logger,
   NotifyError,
   NotifySuccess,
   Screen,

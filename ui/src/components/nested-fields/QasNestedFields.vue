@@ -282,12 +282,16 @@ export default {
 
   methods: {
     add (row = {}) {
-      this.nested.push({ ...this.rowObject, ...row })
+      const payload = { ...this.rowObject, ...row }
+
+      this.nested.push(payload)
 
       this.$nextTick(() => {
         this.useAnimation && this.setScroll()
         this.setFocus()
       })
+
+      this.$qas.logger.group('QasNestedFields - add', [payload])
 
       return this.updateModelValue()
     },
@@ -307,6 +311,8 @@ export default {
       this.useRemoveOnDestroy
         ? this.nested.splice(index, 1)
         : this.nested.splice(index, 1, { [this.destroyKey]: true, ...row })
+
+      this.$qas.logger.group('QasNestedFields - destroy', [{ index, row }])
 
       return this.updateModelValue()
     },

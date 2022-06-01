@@ -83,10 +83,14 @@ export default {
       this.mx_isFetching = true
 
       try {
-        const response = await this.$store.dispatch(
-          `${this.entity}/fetchSingle`,
-          { id: this.id, url: this.url, params }
+        const payload = { id: this.id, url: this.url, params }
+
+        this.$qas.logger.group(
+          `QasSingleView - fetchSingle -> payload do parâmetro do ${this.entity}/fetchSingle`,
+          [payload]
         )
+
+        const response = await this.$store.dispatch(`${this.entity}/fetchSingle`, payload)
 
         const { errors, fields, metadata } = response.data
 
@@ -100,10 +104,20 @@ export default {
           metadata: this.mx_metadata
         })
 
+        this.$qas.logger.group(
+          `QasSingleView - fetchSingle -> resposta da action ${this.entity}/fetchSingle`, [response]
+        )
+
         this.$emit('fetch-success', response)
       } catch (error) {
         this.mx_fetchError(error)
         this.$emit('fetch-error', error)
+
+        this.$qas.logger.group(
+          `QasSingleView - fetchSingle -> exceção da action ${this.entity}/fetchSingle`,
+          [error],
+          { error: true }
+        )
       } finally {
         this.mx_isFetching = false
       }

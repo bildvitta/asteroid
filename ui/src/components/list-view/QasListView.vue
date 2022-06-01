@@ -144,14 +144,17 @@ export default {
       const hasFilters = !!Object.keys(filters).length
 
       try {
-        const response = await this.$store.dispatch(
-          `${this.entity}/fetchList`,
-          {
-            ...this.mx_context,
-            url: this.url,
-            ...(hasFilters && { filters })
-          }
+        const payload = {
+          ...this.mx_context,
+          url: this.url,
+          ...(hasFilters && { filters })
+        }
+
+        this.$qas.logger.group(
+          `QasListView - fetchList -> Payload do parâmetro do ${this.entity}/fetchList`, [payload]
         )
+
+        const response = await this.$store.dispatch(`${this.entity}/fetchList`, payload)
 
         const { errors, fields, metadata } = response.data
 
@@ -166,10 +169,20 @@ export default {
         })
 
         this.$emit('fetch-success', response)
+
+        this.$qas.logger.group(
+          `QasListView - fetchSingle -> resposta da action ${this.entity}/fetchList`, [response]
+        )
       } catch (error) {
         this.mx_fetchError(error)
         this.$emit('update:errors', error)
         this.$emit('fetch-error', error)
+
+        this.$qas.logger.group(
+          `QasListView - fetchSingle -> exceção da action ${this.entity}/fetchList`,
+          [error],
+          { error: true }
+        )
       } finally {
         this.mx_isFetching = false
       }
