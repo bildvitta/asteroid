@@ -90,7 +90,7 @@ export default {
           [payload]
         )
 
-        const response = await this.$store.dispatch(`${this.entity}/fetchSingle1`, payload)
+        const response = await this.$store.dispatch(`${this.entity}/fetchSingle`, payload)
 
         const { errors, fields, metadata } = response.data
 
