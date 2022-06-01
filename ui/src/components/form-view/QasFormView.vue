@@ -310,7 +310,9 @@ export default {
         this.$emit('fetch-error', error)
 
         this.$qas.logger.group(
-          `QasFormView - fetch -> exceção da action ${this.entity}/fetchSingle`, [error], true
+          `QasFormView - fetch -> exceção da action ${this.entity}/fetchSingle`,
+          [error],
+          { error: true }
         )
       } finally {
         this.mx_isFetching = false
@@ -413,7 +415,9 @@ export default {
         this.$emit('submit-error', error)
 
         this.$qas.logger.group(
-          `QasFormView - fetch -> exceção da action ${this.entity}/${this.mode}`, [error], true
+          `QasFormView - fetch -> exceção da action ${this.entity}/${this.mode}`,
+          [error],
+          { error: true }
         )
       } finally {
         this.isSubmitting = false

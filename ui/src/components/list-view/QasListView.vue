@@ -179,7 +179,9 @@ export default {
         this.$emit('fetch-error', error)
 
         this.$qas.logger.group(
-          `QasListView - fetchSingle -> exceção da action ${this.entity}/fetchList`, [error], true
+          `QasListView - fetchSingle -> exceção da action ${this.entity}/fetchList`,
+          [error],
+          { error: true }
         )
       } finally {
         this.mx_isFetching = false

@@ -257,7 +257,9 @@ export default {
         this.$emit('fetch-error', error)
 
         this.$qas.logger.group(
-          `QasFilters - fetchFilters -> exceção da action ${this.entity}/fetchFilters`, [error], true
+          `QasFilters - fetchFilters -> exceção da action ${this.entity}/fetchFilters`,
+          [error],
+          { error: true }
         )
       } finally {
         this.isFetching = false

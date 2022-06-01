@@ -10,7 +10,7 @@ export default {
     this.$qas.logger.group('Grupo de informações', ['teste'])
     this.$qas.logger.info('Apenas uma mensagem')
 
-    this.$qas.logger.group('Grupo de informações de erro', ['teste'], true)
+    this.$qas.logger.group('Grupo de informações de erro', ['teste'], { error: true })
     this.$qas.logger.error('Apenas uma mensagem de erro')
   }
 }

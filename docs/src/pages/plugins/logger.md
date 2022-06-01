@@ -17,7 +17,7 @@ import { Logger } from 'asteroid'
 Logger().group(
   message, // Mensagem agrupada do console.group
   payload = [], // conteúdo dentro do grupo
-  isErrorType // grupo com estilo de erro
+  { error } = {} // grupo com estilo de erro
 )
 
 Logger().group('Minha informação agrupada', [
@@ -28,7 +28,7 @@ Logger().group('Minha informação agrupada', [
 // erro
 Logger().group('Minha informação agrupada de erro',
   ['informação que vai aparecer dentro do grupo'],
-  true
+  { error: true }
 )
 
 // dentro de arquivo .vue
@@ -40,7 +40,7 @@ this.$qas.logger.group('Minha informação agrupada', [
 // erro
 this.$qas.logger.group('Minha informação agrupada de erro',
   ['informação que vai aparecer dentro do grupo'],
-  true
+  { error: true }
 )
 ```
 

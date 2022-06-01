@@ -16,19 +16,14 @@ export default () => {
   )
 
   return {
-    group (message, payload = [], isErrorType) {
+    group (message, payload = [], { error } = {}) {
       if (!isDebugEnabled) return
 
-      console.group(normalizeMessage(message), getStyle(isErrorType))
+      console.group(normalizeMessage(message), getStyle(error))
 
       for (const item of payload) {
-        if (typeof item === 'string' && isErrorType) {
-          console.info(normalizeMessage(message), getStyle(true))
-          continue
-        }
-
         if (typeof item === 'string') {
-          console.info(normalizeMessage(item), getStyle())
+          console.info(normalizeMessage(item), getStyle(error))
           continue
         }
 

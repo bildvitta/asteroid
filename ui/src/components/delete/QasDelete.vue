@@ -133,7 +133,9 @@ export default {
         this.$emit('error', error)
 
         this.$qas.logger.group(
-          `QasDelete - destroy -> exceção da action ${this.entity}/destroy`, [error], true
+          `QasDelete - destroy -> exceção da action ${this.entity}/destroy`,
+          [error],
+          { error: true }
         )
       } finally {
         Loading.hide()
