@@ -1,6 +1,6 @@
 import { camelize } from 'humps'
 
-function camelizeFieldsName (fields) {
+export default function camelizeFieldsName (fields) {
   for (const field in fields) {
     const currentField = fields[field]
 
@@ -13,5 +13,3 @@ function camelizeFieldsName (fields) {
 
   return fields
 }
-
-export default camelizeFieldsName
