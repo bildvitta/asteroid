@@ -12,7 +12,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 
 ## Não publicado - 02-06-2022
 ### Adicionado
-- Adicionado helper `camelizedFieldsName` para formatar os names dos fields em camelCase.
+- Adicionado helper `camelizeFieldsName` para formatar os names dos fields em camelCase.
 
 ### Modificado
 - `QasNestedFields`: removido logica do camelize na computada `children` já que agora os fields já formatados.
