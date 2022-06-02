@@ -10,6 +10,14 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 ### Sobre os "BREAKING CHANGES"
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
+## Não publicado - 02-06-2022
+### Adicionado
+- Adicionado helper `camelizeFieldsName` para formatar os names dos fields em camelCase.
+
+### Modificado
+- `QasNestedFields`: removido logica do camelize na computada `children` já que agora os fields já vem formatados.
+- `viewMixin`: `mx_setFields` usando helper `camelizeFieldsName` de forma recursiva para formatar os `names` dos `fields`.
+
 ## [3.0.0-beta.12] - 02-06-2022
 ### Modificado
 - `QasPageHeader`: utilizando mixin `createMetaMixin` do quasar para utilizar `title`.
