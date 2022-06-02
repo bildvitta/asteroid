@@ -6,8 +6,8 @@
           <q-form v-if="useSearch" @submit.prevent="filter()">
             <qas-input v-model="search" :debounce="debounce" dense hide-bottom-space :outlined="false" :placeholder="searchPlaceholder" type="search">
               <template #append>
-                <qas-btn v-if="hasSearch" icon="o_clear" unelevated @click="clearSearch" />
-                <qas-btn v-if="!debounce" icon="o_search" type="submit" unelevated @click="filter()" />
+                <qas-btn v-if="hasSearch" color="grey-9" flat icon="o_clear" unelevated @click="clearSearch" />
+                <qas-btn v-if="!debounce" color="grey-9" flat icon="o_search" type="submit" unelevated @click="filter()" />
               </template>
             </qas-input>
           </q-form>

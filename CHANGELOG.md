@@ -10,6 +10,10 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 ### Sobre os "BREAKING CHANGES"
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
+## [3.0.0-beta.13] - 02-06-2022
+### Modificado
+- `QasFilters`: Adicionados props `color="grey-9"` e `flat` para o <qas-btn /> do input de busca para deixar o estilo igual quando era com <q-btn>.
+
 ## [3.0.0-beta.12] - 02-06-2022
 ### Modificado
 - `QasPageHeader`: utilizando mixin `createMetaMixin` do quasar para utilizar `title`.
