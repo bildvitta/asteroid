@@ -28,7 +28,7 @@ const fields = {
         name: 'user_email',
         type: 'text',
         label: 'E-mail'
-      },
+      }
     }
   }
 }
