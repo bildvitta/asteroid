@@ -29,7 +29,7 @@
     "yarn": ">= 1.6.0"
   },
   "dependencies": {
-    "@bildvitta/quasar-ui-asteroid": "3.0.0-beta.11",
+    "@bildvitta/quasar-ui-asteroid": "3.0.0-beta.12",
     "humps": "^2.0.1"
   }
 }
