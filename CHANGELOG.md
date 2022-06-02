@@ -10,6 +10,13 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 ### Sobre os "BREAKING CHANGES"
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
+## Unreleased - 02-06-2022
+### Adicionado
+- Adicionado helper `camelizeFields` para formatar os names dos fields em camelcase.
+
+### Modificado
+- Valores das chaves name dos campos que forem do tipo nested, já irá vir formatado em camelCase.
+
 ## [3.0.0-beta.11] - 01-06-2022
 ### Adicionado
 - Adicionado novo plugin `Logger` que funcionam quando a variável de ambiente `DEBUGGING` é setada.

@@ -1,4 +1,4 @@
-import { camelize } from 'humps'
+import { camelizeFields } from '../helpers'
 import { markRaw } from 'vue'
 
 export default {
@@ -101,11 +101,9 @@ export default {
     },
 
     mx_setFields (fields = {}) {
-      for (const field in fields) {
-        fields[field].name = camelize(fields[field].name)
-      }
+      const formattedFields = camelizeFields(fields)
 
-      this.mx_fields = markRaw(fields)
+      this.mx_fields = markRaw(formattedFields)
     },
 
     mx_setMetadata (metadata = {}) {

@@ -268,6 +268,10 @@ module.exports = [
         path: '/helpers/base-64-to-blob'
       },
       {
+        name: 'camelizeFields',
+        path: '/helpers/camelize-fields'
+      },
+      {
         name: 'constructObject',
         path: '/helpers/construct-object'
       },
