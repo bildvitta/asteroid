@@ -1,19 +1,17 @@
 import { camelize } from 'humps'
 
-function camelizeFields (fields) {
+function camelizeFieldsName (fields) {
   for (const field in fields) {
     const currentField = fields[field]
 
     currentField.name = camelize(currentField.name)
 
     if (Object.keys(currentField.children || {}).length) {
-      camelizeFields(currentField.children)
+      camelizeFieldsName(currentField.children)
     }
   }
 
   return fields
 }
 
-export {
-  camelizeFields
-}
+export default camelizeFieldsName

@@ -8,7 +8,7 @@ export { default as filterObject } from './filter-object.js'
 export { default as getGreatestCommonDivisor } from './get-greatest-common-divisor.js'
 export { default as filterObjectToArray } from './filter-object-to-array.js'
 export { default as filterListByHandle } from './filter-list-by-handle.js'
-export { camelizeFields } from './camelize-fields.js'
+export { default as camelizeFieldsName } from './camelize-fields-name.js'
 
 export * from './filters.js'
 export * from './images.js'

@@ -1,5 +1,5 @@
 ---
-title: camelizeFields
+title: camelizeFieldsName
 ---
 
 Função utilizada para transformar a chave "name" dos fields passados à ela em camelCase.
@@ -33,7 +33,7 @@ const fields = {
   }
 }
 
-camelizeFields(fields)
+camelizeFieldsName(fields)
 // retorna:
 // {
 //   isActive: {
