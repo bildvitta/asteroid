@@ -17,11 +17,20 @@
 <script>
 import { castArray } from 'lodash-es'
 import { useHistory } from '../../composables'
+import { createMetaMixin } from 'quasar'
 
 const { hasPreviousRoute, history, getPreviousRoute } = useHistory()
 
 export default {
   name: 'QasPageHeader',
+
+  mixins: [
+    createMetaMixin(function () {
+      return {
+        title: this.title
+      }
+    })
+  ],
 
   props: {
     breadcrumbs: {
@@ -84,12 +93,6 @@ export default {
       const lastIndex = this.transformedBreadcrumbs.length - 1
 
       return lastIndex === index ? 'text-grey-7' : 'text-primary'
-    }
-  },
-
-  meta () {
-    return {
-      title: this.title
     }
   }
 }
