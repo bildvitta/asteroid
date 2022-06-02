@@ -2,7 +2,8 @@
 title: camelizeFieldsName
 ---
 
-Função utilizada para transformar a chave "name" dos fields passados à ela em camelCase.
+Função recursiva utilizada para transformar a chave "name" dos fields passados à ela em camelCase.
+Sempre que existir um `children` dentro de um field, ele vai percorrer recursivamente para alterar o "name".
 
 ```js
 const fields = {
