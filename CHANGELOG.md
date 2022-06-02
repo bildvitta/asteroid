@@ -18,7 +18,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - `QasNestedFields`: removido logica do camelize na computada `children` já que agora os fields já vem formatados.
 - `viewMixin`: `mx_setFields` usando helper `camelizeFieldsName` de forma recursiva para formatar os `names` dos `fields`.
 
-## [3.0.0-beta.12]
+## [3.0.0-beta.12] - 02-06-2022
 ### Modificado
 - `QasPageHeader`: utilizando mixin `createMetaMixin` do quasar para utilizar `title`.
 - `Logger`: alterado método `console.group` para `console.groupCollapsed` para que os grupos por padrão se mantenham fechados e abram após clicar.
