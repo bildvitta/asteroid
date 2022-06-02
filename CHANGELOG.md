@@ -15,7 +15,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - Adicionado helper `camelizeFieldsName` para formatar os names dos fields em camelCase.
 
 ### Modificado
-- `QasNestedFields`: removido logica do camelize na computada `children` já que agora os fields já formatados.
+- `QasNestedFields`: removido logica do camelize na computada `children` já que agora os fields já vem formatados.
 - `viewMixin`: `mx_setFields` usando helper `camelizeFieldsName` de forma recursiva para formatar os `names` dos `fields`.
 
 ## [3.0.0-beta.11] - 01-06-2022
