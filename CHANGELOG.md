@@ -12,7 +12,12 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 
 ## [3.0.0-beta.12]
 ### Modificado
-- `QasPageHeader`: Utilizando mixin `createMetaMixin` do quasar para utilizar `title`.
+- `QasPageHeader`: utilizando mixin `createMetaMixin` do quasar para utilizar `title`.
+- `Logger`: alterado método `console.group` para `console.groupCollapsed` para que os grupos por padrão se mantenham fechados e abram após clicar.
+
+### Corrigido
+- `QasInput`: adicionado validação no método `toggleMask` para resolver problema de quando o campo já vinha com valor preenchido (depois do created) e a mascara fosse `document` ou `phone`.
+- `QasInput`: adicionado novo evento `@paste` com o método `onPaste` para resolver problemas de formatação da mascara quando acontece `ctrl v`.
 
 ## [3.0.0-beta.11] - 01-06-2022
 ### Adicionado

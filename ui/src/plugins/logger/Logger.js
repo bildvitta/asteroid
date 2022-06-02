@@ -19,7 +19,7 @@ export default () => {
     group (message, payload = [], { error } = {}) {
       if (!isDebugEnabled) return
 
-      console.group(normalizeMessage(message), getStyle(error))
+      console.groupCollapsed(normalizeMessage(message), getStyle(error))
 
       for (const item of payload) {
         if (typeof item === 'string') {
