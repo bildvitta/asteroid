@@ -1,5 +1,5 @@
 <template>
-  <qas-form-view v-model="values" class="container spaced" entity="users">
+  <qas-form-view v-model="values" class="container spaced" entity="users" url="http://localhost:5051/users">
     <template #header>
       <qas-page-header no-breadcrumbs :title="title" />
     </template>
