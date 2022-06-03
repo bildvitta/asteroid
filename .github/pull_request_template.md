@@ -5,18 +5,23 @@ Inclua uma pequena descrição explicando o motivo do _pull request_ e o número
 
 <!-- (Altere de "[ ]" para "[x]" para marcar o item.) -->
 
+## Versão do asteroid
+
+- [ ] v2 -> a partir da branch `main`.
+- [ ] v3 -> a partir da branch `next`.
+
 ## Tipo de alteração
 
-- [ ] Adicionado (novos componentes e/ou funcionalidades);
-- [ ] Modificado (alterações que podem ou não conter _breaking changes_);
-- [ ] Corrigido (correção de bugs, typos, etc);
-- [ ] Removido (remoção de algum componente e/ou funcionalidade).
+- [ ] Adicionado | Added (novos componentes e/ou funcionalidades);
+- [ ] Modificado | Changed (alterações que podem ou não conter _breaking changes_);
+- [ ] Corrigido | Fixed (correção de bugs, typos, etc);
+- [ ] Removido | removed (remoção de algum componente e/ou funcionalidade).
 
 ## O que foi alterado/adicionado
 
 - [ ] CSS
 - [ ] Componentes
-- [ ] Composables
+- [ ] Composables (v3)
 - [ ] Diretivas
 - [ ] Documentação
 - [ ] Helpers
@@ -24,6 +29,7 @@ Inclua uma pequena descrição explicando o motivo do _pull request_ e o número
 - [ ] Paginas
 - [ ] Plugins
 - [ ] Testes
+- [ ] Outros
 
 Este _pull request_ introduz algum _breaking change_?
 
@@ -33,7 +39,7 @@ Este _pull request_ introduz algum _breaking change_?
 ## Checklist
 
 - [ ] Foi discutida anteriormente com os times de Frontend e Design;
-- [ ] Foi testado manualmente no ambiente de desenvolvimento (`/docs`);
+- [ ] Foi testado manualmente no ambiente de desenvolvimento (`/docs` se v3 ou `ui/dev` se v2);
 - [ ] Foi constatado que esta modificação não gerou erros ou alertas no Console;
 - [ ] Foi verificado se o código segue os padrões de escrita e validado com o ESLint;
 - [ ] Foi escrito teste automatizado;
