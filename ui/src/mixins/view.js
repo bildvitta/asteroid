@@ -1,5 +1,6 @@
 import { camelize } from 'humps'
 import { get } from 'lodash'
+import { camelizeFieldsName } from '../helpers'
 
 import { NotifyError } from '../plugins'
 
@@ -64,11 +65,7 @@ export default {
     },
 
     setFields (fields = {}) {
-      for (const field in fields) {
-        fields[field].name = camelize(fields[field].name)
-      }
-
-      this.fields = fields
+      this.fields = camelizeFieldsName(fields)
     },
 
     setMetadata (metadata = {}) {

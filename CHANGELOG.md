@@ -4,6 +4,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## Unreleased - 2022-06-03
+
+### Added
+- Added `camelizeFieldsName` helper to format field names in camelCase.
+
+### Changed
+- `QasNestedFields`: removed camelize logic in `children` as the fields are now formatted.
+- `viewMixin`: `mx_setFields` using `camelizeFieldsName` helper recursively to format the `names` of the `fields`.
+
 ## 2.20.0 - 2022-05-10
 
 ### Added
