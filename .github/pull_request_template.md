@@ -1,25 +1,47 @@
-# Descrição
-Inclua uma pequena descrição explicando o motivo do pull request
+<!-- PULL REQUEST TEMPLATE -->
 
-## Issues
+<!-- (Remova este texto de descrição.) -->
+Inclua uma pequena descrição explicando o motivo do _pull request_ e o número da _issue_ caso exista, também adicione prints caso possível.
+
+<!-- (Altere de "[ ]" para "[x]" para marcar o item.) -->
+
+## Versão do asteroid
+
+- [ ] v2 -> a partir da branch `main`.
+- [ ] v3 -> a partir da branch `next`.
 
 ## Tipo de alteração
-- [ ] Added (Novas features)
-- [ ] Changed (Alterações que podem ou não haver breaking changes)
-- [ ] Removed (Remoção de alguma funcionalidade, código etc)
-- [ ] Fixed (Alterações para corrigir bugs etc)
 
-## Testes
-- [ ] Testes em dev
-- [ ] Testes automatizados
+- [ ] Adicionado | Added (novos componentes e/ou funcionalidades);
+- [ ] Modificado | Changed (alterações que podem ou não conter _breaking changes_);
+- [ ] Corrigido | Fixed (correção de bugs, typos, etc);
+- [ ] Removido | removed (remoção de algum componente e/ou funcionalidade).
 
-## Documentação
-- [ ] Documentação no storybook foi atualizada e testada?
-- [ ] Caso tenha componente novo, foi criado a nova documentação?
+## O que foi alterado/adicionado
+
+- [ ] CSS
+- [ ] Componentes
+- [ ] Composables (v3)
+- [ ] Diretivas
+- [ ] Documentação
+- [ ] Helpers
+- [ ] Mixins
+- [ ] Paginas
+- [ ] Plugins
+- [ ] Testes
+
+Este _pull request_ introduz algum _breaking change_?
+
+- [ ] Sim
+- [ ] Não
 
 ## Checklist
-- [ ] Meu código segue todos os padrões de código incluindo eslint
-- [ ] Eu fiz um meu próprio code review antes de abrir este pull request
-- [ ] Eu atualizei o changelog seguindo o padrão keep changelog
-- [ ] Antes da alteração eu discuti sobre o pull request com o time de front end e time de design
-- [ ] Minhas alterações não geram erros ou warnings no console
+
+- [ ] Foi discutida anteriormente com os times de Frontend e Design;
+- [ ] Foi testado manualmente no ambiente de desenvolvimento (`/docs` se v3 ou `ui/dev` se v2);
+- [ ] Foi constatado que esta modificação não gerou erros ou alertas no Console;
+- [ ] Foi verificado se o código segue os padrões de escrita e validado com o ESLint;
+- [ ] Foi escrito teste automatizado;
+- [ ] Foi atualizada e testada a documentação;
+- [ ] Foi atualizado o _changelog_ seguindo o padrão "Keep a Changelog";
+- [ ] Fiz meu próprio _code review_ antes de abrir este _pull request_.
