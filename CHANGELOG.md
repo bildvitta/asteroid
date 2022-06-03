@@ -11,7 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 - `QasNestedFields`: removed camelize logic in `children` as the fields are now formatted.
-- `viewMixin`: `mx_setFields` using `camelizeFieldsName` helper recursively to format the `names` of the `fields`.
+- `viewMixin`: `setFields` using `camelizeFieldsName` helper recursively to format the `names` of the `fields`.
 
 ## Fixed
 - `QasInput`: added validation in the `toggleMask` method to solve the problem when the field already had a value filled in (after created) and the mask was document or phone.
