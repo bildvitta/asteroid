@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## Unreleased - 2022-06-03
+## Unreleased
 
 ### Added
 - Added `camelizeFieldsName` helper to format field names in camelCase.
@@ -12,6 +12,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 - `QasNestedFields`: removed camelize logic in `children` as the fields are now formatted.
 - `viewMixin`: `mx_setFields` using `camelizeFieldsName` helper recursively to format the `names` of the `fields`.
+
+## Fixed
+- `QasInput`: added validation in the `toggleMask` method to solve the problem when the field already had a value filled in (after created) and the mask was document or phone.
+- `QasInput`: added new `@paste` event with `onPaste` method to solve mask formatting issues when `ctrl v`.
 
 ## 2.20.0 - 2022-05-10
 

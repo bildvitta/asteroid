@@ -1,6 +1,6 @@
 <template>
   <div>
-    <q-input ref="mask" v-model="model" v-bind="$attrs" bottom-slots :mask="mask" unmasked-value v-on="listeners">
+    <q-input ref="mask" v-model="model" v-bind="$attrs" bottom-slots :mask="mask" unmasked-value v-on="listeners" @paste="onPaste">
       <slot v-for="(slot, key) in $slots" :slot="key" :name="key" />
       <template v-for="(slot, key) in $scopedSlots" :slot="key" slot-scope="scope">
         <slot :name="key" v-bind="scope" />
@@ -65,7 +65,7 @@ export default {
 
   watch: {
     mask () {
-      const input = this.$refs.mask.$refs.input
+      const input = this.getInput()
 
       requestAnimationFrame(() => {
         input.selectionStart = input.value ? input.value.length : ''
@@ -75,6 +75,8 @@ export default {
 
   methods: {
     toggleMask (first, second) {
+      if (!this.value.length) return
+
       const length = first.split('#').length - 2
       return this.value?.length > length ? second : first
     },
@@ -89,6 +91,22 @@ export default {
 
     resetValidation () {
       return this.inputReference.resetValidation()
+    },
+
+    onPaste (event) {
+      if (!this.mask) return
+
+      const value = event.clipboardData.getData('text')
+      const input = this.getInput()
+
+      requestAnimationFrame(() => {
+        this.$emit('input', value)
+        input.selectionStart = input.value ? input.value.length : ''
+      })
+    },
+
+    getInput () {
+      return this.inputReference.$el?.querySelector('input')
     }
   }
 }
