@@ -4,7 +4,8 @@
       <slot name="header" />
     </header>
 
-    <q-form ref="form" @submit="submit">
+    <q-form ref="form" @submit="submitHandler">
+      <!-- <q-form ref="form" @submit="submit"> -->
       <slot />
 
       <slot v-if="useActions" name="actions">
@@ -122,6 +123,11 @@ export default {
     useSubmitButton: {
       default: true,
       type: Boolean
+    },
+
+    beforeSubmit: {
+      default: null,
+      type: Function
     }
   },
 
@@ -369,17 +375,38 @@ export default {
       })
     },
 
-    async submit (event) {
+    submitHandler (event) {
       if (this.disable) return null
 
       if (event) {
         event.preventDefault()
       }
 
+      const hasBeforeSubmit = typeof this.beforeSubmit === 'function'
+
+      if (hasBeforeSubmit) {
+        return this.beforeSubmit({
+          payload: { id: this.id, payload: this.modelValue, url: this.url },
+          resolve: payload => this.submit(payload)
+        })
+      }
+
+      this.submit()
+    },
+
+    async submit (externalPayload = {}) {
+      // if (this.disable) return null
+
+      // if (event) {
+      //   event.preventDefault()
+      // }
+
       this.isSubmitting = true
 
       try {
-        const payload = { id: this.id, payload: this.modelValue, url: this.url }
+        const payload = { id: this.id, payload: this.modelValue, url: this.url, ...externalPayload }
+
+        console.log(payload, '>>> payload')
 
         this.$qas.logger.group(
           `QasFormView - submit -> payload do ${this.entity}/${this.mode}`, [payload]

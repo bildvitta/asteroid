@@ -1,7 +1,7 @@
 <template>
   <!-- Descartar essa div -->
   <div class="container spaced">
-    <qas-form-view v-model="values" v-model:errors="errors" v-model:fields="fields" :cancel-route="cancelRoute" :custom-id="customId" :entity="entity" mode="replace" :use-boundary="false" @submit-success="onSubmitSuccess">
+    <qas-form-view v-model="values" v-model:errors="errors" v-model:fields="fields" :before-submit="onBeforeSubmit" :cancel-route="cancelRoute" :custom-id="customId" :entity="entity" mode="replace" :use-boundary="false" @submit-success="onSubmitSuccess">
       <template #header>
         <qas-page-header :breadcrumbs="breadcrumbs" title="Editar usuário">
           <qas-actions-menu :delete-props="{ entity: 'users', customId: 'custom-id-test' }" />
@@ -77,6 +77,16 @@ export default {
   methods: {
     onSubmitSuccess () {
       this.isFormSubmitted = true
+    },
+
+    onBeforeSubmit ({ payload, resolve }) {
+      console.log(payload)
+
+      resolve({
+        errors: {
+          name: 'Precisa ser maior que 3'
+        }
+      })
     }
   }
 }
