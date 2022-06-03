@@ -29,6 +29,7 @@ Inclua uma pequena descrição explicando o motivo do _pull request_ e o número
 - [ ] Paginas
 - [ ] Plugins
 - [ ] Testes
+- [ ] Outros
 
 Este _pull request_ introduz algum _breaking change_?
 
