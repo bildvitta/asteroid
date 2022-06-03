@@ -1,14 +1,25 @@
 <!-- PULL REQUEST TEMPLATE -->
 <!-- (Altere de "[ ]" para "[x]" marcar o item.) -->
 
-Inclua uma pequena descrição explicando o motivo do _pull request_ e o número da _issue_ caso exista.
+Inclua uma pequena descrição explicando o motivo do _pull request_ e o número da _issue_ caso exista, também adicione prints caso possível.
 
 ## Tipo de alteração
 
-- [ ] Added (novos componentes e/ou funcionalidades);
-- [ ] Changed (alterações que podem ou não conter _breaking changes_);
-- [ ] Fixed (correção de bugs, typos, etc);
-- [ ] Removed (remoção de algum componente e/ou funcionalidade).
+- [ ] Adicionado (novos componentes e/ou funcionalidades);
+- [ ] Modificado (alterações que podem ou não conter _breaking changes_);
+- [ ] Corrigido (correção de bugs, typos, etc);
+- [ ] Removido (remoção de algum componente e/ou funcionalidade).
+
+## O que foi alterado/adicionado
+- [ ] Testes
+- [ ] Documentação
+- [ ] Componentes
+- [ ] Helpers
+- [ ] Plugins
+- [ ] Composables
+- [ ] Diretivas
+- [ ] Paginas
+- [ ] CSS
 
 Este _pull request_ introduz algum _breaking change_?
 
@@ -18,7 +29,7 @@ Este _pull request_ introduz algum _breaking change_?
 ## Checklist
 
 - [ ] Foi discutida anteriormente com os times de Frontend e Design;
-- [ ] Foi testado manualmente no ambiente de desenvolvimento (`ui/dev`);
+- [ ] Foi testado manualmente no ambiente de desenvolvimento (`/docs`);
 - [ ] Foi constatado que esta modificação não gerou erros ou alertas no Console;
 - [ ] Foi verificado se o código segue os padrões de escrita e validado com o ESLint;
 - [ ] Foi escrito teste automatizado;
