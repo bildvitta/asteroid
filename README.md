@@ -87,7 +87,7 @@ Loggers são ativados quando a variável de ambiente `DEBUGGING` é setada.
 - [x] Revisar nomenclaturas de componentes, props, eventos e slots;
 - [x] Adicionar loggers nos componentes para facilitar o debug;
 - [ ] Substituir os actions do `QasFormView` pelo `QasActions`;
-- [ ] Atualizar markdown `pull_request_template`;
+- [x] Atualizar markdown `pull_request_template`;
 - [ ] Desenvolver uma nova biblioteca semelhante ao `vuexStoreModule`, porém com suporte ao Vuex e Pinia;
 - [ ] Finalizar `eslint-plugin-asteroid`;
 - [ ] Desenvolver um novo `asteroid-starter-kit` para o Quasar v2 + Asteroid v3, com suporte ao Webpack e Vite;

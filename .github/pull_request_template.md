@@ -1,7 +1,9 @@
 <!-- PULL REQUEST TEMPLATE -->
-<!-- (Altere de "[ ]" para "[x]" marcar o item.) -->
 
+<!-- (Remova este texto de descrição.) -->
 Inclua uma pequena descrição explicando o motivo do _pull request_ e o número da _issue_ caso exista, também adicione prints caso possível.
+
+<!-- (Altere de "[ ]" para "[x]" para marcar o item.) -->
 
 ## Tipo de alteração
 
@@ -11,15 +13,17 @@ Inclua uma pequena descrição explicando o motivo do _pull request_ e o número
 - [ ] Removido (remoção de algum componente e/ou funcionalidade).
 
 ## O que foi alterado/adicionado
-- [ ] Testes
-- [ ] Documentação
+
+- [ ] CSS
 - [ ] Componentes
-- [ ] Helpers
-- [ ] Plugins
 - [ ] Composables
 - [ ] Diretivas
+- [ ] Documentação
+- [ ] Helpers
+- [ ] Mixins
 - [ ] Paginas
-- [ ] CSS
+- [ ] Plugins
+- [ ] Testes
 
 Este _pull request_ introduz algum _breaking change_?
 
