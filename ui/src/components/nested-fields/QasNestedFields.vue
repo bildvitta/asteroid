@@ -68,7 +68,6 @@ import QasLabel from '../label/QasLabel'
 import { constructObject } from '../../helpers'
 
 import { extend } from 'quasar'
-import { camelize } from 'humps'
 
 export default {
   name: 'QasNestedFields',
@@ -213,13 +212,7 @@ export default {
     },
 
     children () {
-      const field = extend(true, {}, this.field)
-
-      for (const key in field?.children) {
-        field.children[key].name = camelize(field?.children[key].name)
-      }
-
-      return field?.children
+      return this.field?.children
     },
 
     showDestroyBtn () {
