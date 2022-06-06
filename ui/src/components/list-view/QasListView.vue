@@ -11,7 +11,17 @@
 
       <main class="relative-position">
         <div v-if="hasResults">
-          <slot :fields="fields" :metadata="metadata" :results="results" />
+          <q-infinite-scroll v-if="useInfiniteScrollValidate" :offset="20" @load="onLoad">
+            <slot :fields="fields" :metadata="metadata" :results="results" />
+
+            <template v-slot:loading>
+              <div class="row justify-center q-my-md">
+                <q-spinner-dots color="primary" size="40px" />
+              </div>
+            </template>
+          </q-infinite-scroll>
+
+          <slot v-else :fields="fields" :metadata="metadata" :results="results" />
         </div>
 
         <div v-else-if="!isFetching">
@@ -67,19 +77,27 @@ export default {
     filtersProps: {
       default: () => ({}),
       type: Object
+    },
+
+    useInfiniteScroll: {
+      default: false,
+      type: Boolean
     }
   },
 
   data () {
     return {
-      page: 1
+      page: 1,
+      hasScroll: false
     }
   },
 
   computed: {
     context () {
       const { limit, ordering, page, search, ...filters } = this.$route.query
-      return { filters, limit, ordering, page: page ? parseInt(page) : 1, search }
+      const pageValue = this.useInfiniteScroll ? this.page : page
+
+      return { filters, limit, ordering, page: pageValue ? parseInt(pageValue) : 1, search }
     },
 
     hasHeaderSlot () {
@@ -87,7 +105,7 @@ export default {
     },
 
     hasPages () {
-      return this.totalPages > 1
+      return this.totalPages > 1 && !this.useInfiniteScroll
     },
 
     hasResults () {
@@ -100,6 +118,11 @@ export default {
 
     totalPages () {
       return this.$store.getters[`${this.entity}/totalPages`]
+    },
+
+    useInfiniteScrollValidate () {
+      console.log( this.hasScroll && this.useInfiniteScroll, '<-- validation')
+      return this.hasScroll && this.useInfiniteScroll
     }
   },
 
@@ -125,6 +148,7 @@ export default {
       this.isFetching = true
 
       try {
+        console.log('busquei')
         const response = await this.$store.dispatch(`${this.entity}/fetchList`, { ...this.context, url: this.url })
         const { errors, fields, metadata } = response.data
 
@@ -138,6 +162,10 @@ export default {
         this.$emit('fetch-error', error)
       } finally {
         this.isFetching = false
+        if (this.useInfiniteScroll) {
+          console.log(!!window.scrollY, '<-- valor')
+          this.hasScroll = !!window.scrollY
+        }
       }
     },
 
@@ -151,6 +179,15 @@ export default {
 
     setCurrentPage () {
       this.page = parseInt(this.$route.query.page || 1)
+    },
+
+    async onLoad (_, done) {
+      if (!this.hasResults) return done()
+
+      console.log('on load')
+      this.page += 1
+      await this.fetchList()
+      done()
     }
   }
 }
