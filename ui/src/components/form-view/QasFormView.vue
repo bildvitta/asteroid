@@ -5,7 +5,6 @@
     </header>
 
     <q-form ref="form" @submit="submitHandler">
-      <!-- <q-form ref="form" @submit="submit"> -->
       <slot />
 
       <slot v-if="useActions" name="actions">
