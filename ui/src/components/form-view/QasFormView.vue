@@ -375,9 +375,12 @@ export default {
       })
     },
 
+    /**
+     * Se existe a propriedade com callback "beforeSubmit", então o controle de quando e como chamar o método "submit"
+     * está sendo controlado fora do QasFormView, se não existir a propriedade "beforeSubmit", então o controle do método
+     * submit é feito pelo próprio QasFormView, chamado pelo evento @submit.
+    */
     submitHandler (event) {
-      if (this.disable) return null
-
       if (event) {
         event.preventDefault()
       }
@@ -395,18 +398,12 @@ export default {
     },
 
     async submit (externalPayload = {}) {
-      // if (this.disable) return null
-
-      // if (event) {
-      //   event.preventDefault()
-      // }
+      if (this.disable) return null
 
       this.isSubmitting = true
 
       try {
         const payload = { id: this.id, payload: this.modelValue, url: this.url, ...externalPayload }
-
-        console.log(payload, '>>> payload')
 
         this.$qas.logger.group(
           `QasFormView - submit -> payload do ${this.entity}/${this.mode}`, [payload]

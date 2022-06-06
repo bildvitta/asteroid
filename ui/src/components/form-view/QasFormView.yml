@@ -4,6 +4,12 @@ meta:
   desc: Componente para C.R.U.D. responsável pela pela criação (Create) e edição (Update).
 
 props:
+  before-submit:
+    desc: Callback para controlar como funciona o comportamento do submit.
+    default: null
+    type: Function
+    examples: ['beforeSubmit({ payload, resolve })']
+
   cancel-button-label:
     desc: Rótulo do botão "cancelar".
     default: Cancelar

@@ -19,7 +19,7 @@ Para fazer esses exemplos na documentação, estamos utilizando o `VuexOffline`,
 :::
 
 :::warning
-Estamos utilizando nos exemplos um `custom-id` pois é necessario para conseguir utilizar os mocks de dados, **não** significa que você precisa sempre utiliza-lo para lidar com o id, na verdade na maioria das vezes você não vai precisar do `custom-id`, ele é para quando precisa de um caso de uso mais específico.
+Estamos utilizando nos exemplos um `custom-id` pois é necessário para conseguir utilizar os mocks de dados, **não** significa que você precisa sempre utiliza-lo para lidar com o id, na verdade na maioria das vezes você não vai precisar do `custom-id`, ele é para quando precisa de um caso de uso mais específico.
 :::
 
 :::tip
@@ -34,3 +34,22 @@ Aqui está alguns exemplos de como normalmente utilizamos este componente, lembr
 <doc-example file="QasFormView/Create" title="Modo de criação (create)" />
 
 <doc-example file="QasFormView/Edit" title="Modo de edição (replace)" />
+
+:::tip
+O callback do `beforeSubmit` recebe 2 parâmetros, `:before-submit="onBeforeSubmit({ payload, resolve })"`
+
+##### payload: `Object` -> { id, payload, url }
+Retorna `id`, `payload` e `url` que serão enviados por parâmetros para a action do submit.
+
+##### resolve: `Function` -> resolve({ ...payload })
+Função que executa o método `submit` dentro do `QasFormView`, você pode enviar como parâmetro algum payload para ser enviada para a action de submit, adicionando ou sobrescrevendo os parâmetros atuais.
+Por exemplo, sobrescrever a url enviada para a action:
+
+```js
+resolve({ url: 'minha-url-personalizada' })
+```
+
+Agora ao fazer o submit, o valor da url enviada para a action do submit será `minha-url-personalizada`.
+:::
+
+<doc-example file="QasFormView/BeforeSubmit" title="Controlando submit" />
