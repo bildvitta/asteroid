@@ -11,7 +11,7 @@
 
       <main class="relative-position">
         <div v-if="hasResults">
-          <q-infinite-scroll v-if="useInfiniteScrollValidate" :offset="20" @load="onLoad">
+          <q-infinite-scroll v-if="useInfiniteScroll" :offset="20" @load="onLoad">
             <slot :fields="fields" :metadata="metadata" :results="results" />
 
             <template v-slot:loading>
@@ -87,8 +87,7 @@ export default {
 
   data () {
     return {
-      page: 1,
-      hasScroll: false
+      page: 1
     }
   },
 
@@ -97,7 +96,14 @@ export default {
       const { limit, ordering, page, search, ...filters } = this.$route.query
       const pageValue = this.useInfiniteScroll ? this.page : page
 
-      return { filters, limit, ordering, page: pageValue ? parseInt(pageValue) : 1, search }
+      return {
+        filters,
+        limit,
+        ordering,
+        page: pageValue ? parseInt(pageValue) : 1,
+        search,
+        increment: this.useInfiniteScroll
+      }
     },
 
     hasHeaderSlot () {
@@ -118,11 +124,6 @@ export default {
 
     totalPages () {
       return this.$store.getters[`${this.entity}/totalPages`]
-    },
-
-    useInfiniteScrollValidate () {
-      console.log( this.hasScroll && this.useInfiniteScroll, '<-- validation')
-      return this.hasScroll && this.useInfiniteScroll
     }
   },
 
@@ -148,7 +149,7 @@ export default {
       this.isFetching = true
 
       try {
-        console.log('busquei')
+        console.log({ ...this.context, url: this.url }, 'payload')
         const response = await this.$store.dispatch(`${this.entity}/fetchList`, { ...this.context, url: this.url })
         const { errors, fields, metadata } = response.data
 
@@ -162,10 +163,6 @@ export default {
         this.$emit('fetch-error', error)
       } finally {
         this.isFetching = false
-        if (this.useInfiniteScroll) {
-          console.log(!!window.scrollY, '<-- valor')
-          this.hasScroll = !!window.scrollY
-        }
       }
     },
 
