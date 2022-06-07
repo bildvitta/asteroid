@@ -56,6 +56,12 @@ props:
     type: String
     examples: [xs, sm, md, lg, xl]
 
+  identifier-item-key:
+    desc: Define um identificador para o item. O identificador será utilizado para validar exclusão do item, por exemplo.
+    default: uuid
+    type: String
+    examples: [id]
+
   model-value:
     desc: Model do componente
     default: []
