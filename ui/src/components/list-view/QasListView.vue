@@ -41,7 +41,7 @@
           <q-pagination v-model="page" boundary-links class="flex-center" direction-links :input="$q.screen.lt.sm" :max="totalPages" :max-pages="6" @click="changePage" />
         </div>
 
-        <q-inner-loading :showing="hasResults && isFetching">
+        <q-inner-loading :showing="showInnerLoading">
           <q-spinner color="grey" size="3em" />
         </q-inner-loading>
       </main>
@@ -52,6 +52,7 @@
 </template>
 
 <script>
+import { isEqual } from 'lodash'
 import contextMixin from '../../mixins/context.js'
 import viewMixin from '../../mixins/view.js'
 
@@ -92,7 +93,8 @@ export default {
 
   data () {
     return {
-      page: 1
+      page: 1,
+      finishedFirstFetch: false
     }
   },
 
@@ -129,11 +131,24 @@ export default {
 
     totalPages () {
       return this.$store.getters[`${this.entity}/totalPages`]
+    },
+
+    showInnerLoading () {
+      if (this.useInfiniteScroll) {
+        return this.hasResults && this.isFetching && !this.finishedFirstFetch
+      }
+
+      return this.hasResults && this.isFetching
     }
   },
 
   watch: {
-    $route () {
+    $route (newRouteValue, oldRouteValue) {
+      if (this.useInfiniteScroll && !isEqual(newRouteValue.query, oldRouteValue.query)) {
+        this.page = 1
+        this.finishedFirstFetch = false
+      }
+
       this.fetchList()
       this.setCurrentPage()
     }
@@ -177,6 +192,7 @@ export default {
         this.$emit('fetch-error', error)
       } finally {
         this.isFetching = false
+        !this.finishedFirstFetch && (this.finishedFirstFetch = true)
       }
     },
 
