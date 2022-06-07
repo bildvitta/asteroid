@@ -301,7 +301,7 @@ export default {
     },
 
     destroy (index, row) {
-      this.useRemoveOnDestroy
+      !row[this.identifierItemKey] || this.useRemoveOnDestroy
         ? this.nested.splice(index, 1)
         : this.nested.splice(index, 1, { [this.destroyKey]: true, ...row })
 
