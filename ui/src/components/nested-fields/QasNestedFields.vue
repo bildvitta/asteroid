@@ -275,7 +275,13 @@ export default {
 
   methods: {
     add (row = {}) {
-      const payload = { ...this.rowObject, ...row }
+      const clonedRow = { ...row }
+
+      if (row[this.identifierItemKey]) {
+        delete clonedRow[this.identifierItemKey]
+      }
+
+      const payload = { ...this.rowObject, ...clonedRow }
 
       this.nested.push(payload)
 
