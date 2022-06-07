@@ -17,6 +17,9 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 ### Modificado
 - `QasFormView`: adicionado um handler `submitHandler` para o controle do submit junto a propriedade `beforeSubmit`.
 
+### Corrigido
+- `QasNestedFields`: adicionado método `setDefaultNestedValue` no watch do `modelValue` ao invés do `fields` para resolver problema quando modelValue é alterado para array vazio **após** o created. Ex: quando a API retorna array vazio, ele removia os campos default setados pelo `rowObject`.
+
 ## [3.0.0-beta.13] - 02-06-2022
 ### Adicionado
 - Adicionado helper `camelizeFieldsName` para formatar os `names` dos fields em camelCase.

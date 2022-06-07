@@ -261,13 +261,8 @@ export default {
     modelValue: {
       handler (value) {
         this.nested = extend(true, [], value)
-      },
-      immediate: true
-    },
 
-    field: {
-      handler () {
-        !this.modelValue.length && this.setDefaultNestedValue()
+        if (!this.nested.length) return this.setDefaultNestedValue()
       },
       immediate: true
     }
