@@ -4,7 +4,7 @@
       <slot name="header" />
     </header>
 
-    <q-form ref="form" @submit="submit">
+    <q-form ref="form" @submit="submitHandler">
       <slot />
 
       <slot v-if="useActions" name="actions">
@@ -122,6 +122,11 @@ export default {
     useSubmitButton: {
       default: true,
       type: Boolean
+    },
+
+    beforeSubmit: {
+      default: null,
+      type: Function
     }
   },
 
@@ -369,17 +374,35 @@ export default {
       })
     },
 
-    async submit (event) {
-      if (this.disable) return null
-
+    /**
+     * Se existe a propriedade com callback "beforeSubmit", então o controle de quando e como chamar o método "submit"
+     * está sendo controlado fora do QasFormView, se não existir a propriedade "beforeSubmit", então o controle do método
+     * submit é feito pelo próprio QasFormView, chamado pelo evento @submit.
+    */
+    submitHandler (event) {
       if (event) {
         event.preventDefault()
       }
 
+      const hasBeforeSubmit = typeof this.beforeSubmit === 'function'
+
+      if (hasBeforeSubmit) {
+        return this.beforeSubmit({
+          payload: { id: this.id, payload: this.modelValue, url: this.url },
+          resolve: payload => this.submit(payload)
+        })
+      }
+
+      this.submit()
+    },
+
+    async submit (externalPayload = {}) {
+      if (this.disable) return null
+
       this.isSubmitting = true
 
       try {
-        const payload = { id: this.id, payload: this.modelValue, url: this.url }
+        const payload = { id: this.id, payload: this.modelValue, url: this.url, ...externalPayload }
 
         this.$qas.logger.group(
           `QasFormView - submit -> payload do ${this.entity}/${this.mode}`, [payload]
