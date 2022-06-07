@@ -159,6 +159,11 @@ export default {
       }
     },
 
+    identifierItemKey: {
+      type: String,
+      default: 'uuid'
+    },
+
     rowLabel: {
       type: String,
       default: ''
