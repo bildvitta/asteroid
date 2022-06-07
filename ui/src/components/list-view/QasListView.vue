@@ -11,7 +11,7 @@
 
       <main class="relative-position">
         <div v-if="hasResults">
-          <q-infinite-scroll v-if="useInfiniteScroll" :offset="20" @load="onLoad">
+          <q-infinite-scroll ref="infiniteScroll" v-if="useInfiniteScroll" v-bind="infiniteScrollProps" @load="onLoad">
             <slot :fields="fields" :metadata="metadata" :results="results" />
 
             <template v-slot:loading>
@@ -82,6 +82,11 @@ export default {
     useInfiniteScroll: {
       default: false,
       type: Boolean
+    },
+
+    infiniteScrollProps: {
+      default: () => ({ offset: 20 }),
+      type: Object
     }
   },
 
@@ -145,13 +150,22 @@ export default {
       this.$router.push({ query })
     },
 
-    async fetchList () {
+    async fetchList (filters = {}) {
       this.isFetching = true
 
+      const hasFilters = !!Object.keys(filters).length
+
       try {
-        console.log({ ...this.context, url: this.url }, 'payload')
-        const response = await this.$store.dispatch(`${this.entity}/fetchList`, { ...this.context, url: this.url })
-        const { errors, fields, metadata } = response.data
+        const payload = {
+          ...this.context,
+          url: this.url,
+          ...(hasFilters && { filters })
+        }
+
+        const response = await this.$store.dispatch(`${this.entity}/fetchList`, payload)
+        const { errors, fields, metadata, results } = response.data
+
+        if (this.useInfiniteScroll && !results?.length) this.stopInfiniteScroll()
 
         this.setErrors(errors)
         this.setFields(fields)
@@ -179,12 +193,16 @@ export default {
     },
 
     async onLoad (_, done) {
-      if (!this.hasResults) return done()
+      if (!this.hasResults || this.isFetching) return done()
 
       console.log('on load')
       this.page += 1
       await this.fetchList()
       done()
+    },
+
+    stopInfiniteScroll () {
+      this.$refs.infiniteScroll?.stop()
     }
   }
 }
