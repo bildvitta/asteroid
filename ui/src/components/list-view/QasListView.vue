@@ -81,7 +81,6 @@ export default {
     },
 
     useInfiniteScroll: {
-      default: false,
       type: Boolean
     },
 
@@ -94,7 +93,7 @@ export default {
   data () {
     return {
       page: 1,
-      finishedFirstFetch: false
+      isFirstFetchFinished: false
     }
   },
 
@@ -135,7 +134,7 @@ export default {
 
     showInnerLoading () {
       if (this.useInfiniteScroll) {
-        return this.hasResults && this.isFetching && !this.finishedFirstFetch
+        return this.hasResults && this.isFetching && !this.isFirstFetchFinished
       }
 
       return this.hasResults && this.isFetching
@@ -146,7 +145,7 @@ export default {
     $route (newRouteValue, oldRouteValue) {
       if (this.useInfiniteScroll && !isEqual(newRouteValue.query, oldRouteValue.query)) {
         this.page = 1
-        this.finishedFirstFetch = false
+        this.isFirstFetchFinished = false
       }
 
       this.fetchList()
@@ -192,7 +191,7 @@ export default {
         this.$emit('fetch-error', error)
       } finally {
         this.isFetching = false
-        !this.finishedFirstFetch && (this.finishedFirstFetch = true)
+        !this.isFirstFetchFinished && (this.isFirstFetchFinished = true)
       }
     },
 

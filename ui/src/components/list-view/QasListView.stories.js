@@ -72,7 +72,7 @@ export default {
     },
 
     infiniteScrollProps: {
-      description: 'QInfiniteScroll component properties.'
+      description: '[QInfiniteScroll](https://quasar.dev/vue-components/infinite-scroll) component properties.'
     },
 
     // Events
