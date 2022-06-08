@@ -15,7 +15,7 @@
       </template>
     </qas-uploader>
 
-    <qas-dialog v-model="isOpenedDialog" v-bind="defaultDialogProps" >
+    <qas-dialog v-model="isOpenedDialog" v-bind="defaultDialogProps">
       <template #header>
         <div class="text-bold text-center">Insira sua assinatura digital no campo abaixo</div>
       </template>
@@ -43,13 +43,13 @@ import { base64ToBlob } from '../../helpers'
 import { NotifyError } from '../../plugins'
 
 export default {
-  mixins: [screenMixin],
-
   components: {
     QasDialog,
     QasUploader,
     QasSignaturePad
   },
+
+  mixins: [screenMixin],
 
   props: {
     dialogProps: {

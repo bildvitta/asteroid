@@ -67,6 +67,14 @@ export default {
       description: 'Ignore entity and specify another endpoint.'
     },
 
+    useInfiniteScroll: {
+      description: 'Use pagination in infinite scroll mode.'
+    },
+
+    infiniteScrollProps: {
+      description: 'QInfiniteScroll component properties.'
+    },
+
     // Events
     'fetch-error': {
       description: 'Fires when occur an error fetching value.',

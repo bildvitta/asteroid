@@ -11,11 +11,11 @@
 
       <main class="relative-position">
         <div v-if="hasResults">
-          <q-infinite-scroll ref="infiniteScroll" v-if="useInfiniteScroll" v-bind="infiniteScrollProps" @load="onLoad">
+          <q-infinite-scroll v-if="useInfiniteScroll" ref="infiniteScroll" v-bind="infiniteScrollProps" @load="onLoad">
             <slot :fields="fields" :metadata="metadata" :results="results" />
 
-            <template v-slot:loading>
-              <div class="row justify-center q-my-md">
+            <template #loading>
+              <div class="justify-center q-my-md row">
                 <q-spinner-dots color="primary" size="40px" />
               </div>
             </template>
