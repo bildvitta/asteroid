@@ -72,7 +72,7 @@ export default {
         maxFiles,
         searchable,
         gmt
-      } = this.formatedField
+      } = this.formattedField
 
       // Default error attributes for Quasar.
       const error = {
@@ -138,7 +138,7 @@ export default {
 
         'signature-uploader': { is: 'qas-signature-uploader', entity, uploadLabel: label, ...error },
 
-        select: { is: 'qas-select', multiple, options, searchable, ...input }
+        select: { is: 'qas-select', entity, name, multiple, options, searchable, ...input }
       }
 
       return { ...(profiles[type] || profiles.default), ...this.$attrs }
@@ -154,7 +154,7 @@ export default {
     },
 
     // This computed will change the key name when the server sends different key.
-    formatedField () {
+    formattedField () {
       const field = {}
 
       for (const key in this.field) {
