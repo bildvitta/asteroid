@@ -10,6 +10,15 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 ### Sobre os "BREAKING CHANGES"
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
+## Não Publicado
+### Adicionado
+- `QasNestedFields`: adicionada uma props para definir a chave identificadora do objeto/linha.
+
+### Modificado
+- `QasNestedFields`: modificado o comportamento do método `destroy`, adicionando uma validação para caso não exista uma chave identificadora, ele remova a o objeto mesmo que `useRemoveOnDestroy` seja `true`.
+
+- `QasNestedFields`: modificado o comportamento do método `add`, removendo a chave identificadora quando duplicar uma linha.
+
 ## [3.0.0-beta.14] - 07-06-2022
 ### Adicionado
 - `QasFormView`: adicionado propriedade `beforeSubmit` para controlar o submit, ex: mostrar um modal de confirmação antes de fazer o submit do formulário.
