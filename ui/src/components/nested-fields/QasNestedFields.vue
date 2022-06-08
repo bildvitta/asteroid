@@ -277,7 +277,7 @@ export default {
     add (row = {}) {
       const clonedRow = extend(true, {}, row)
 
-      if (row[this.identifierItemKey]) {
+      if (clonedRow[this.identifierItemKey]) {
         delete clonedRow[this.identifierItemKey]
       }
 
