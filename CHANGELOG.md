@@ -6,7 +6,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 ### Added
-- Added `useInfiniteScroll` props for infinite scroll support in list-view.
+- Added `useInfiniteScroll` props for infinite scroll support in `QasListView`.
 - Added `infiniteScrollProps` props passed to `QInfiniteScroll` component.
 - Added the possibility to pass parameters to fetch functions (`fetchList` and `fetchSingle`).
 
