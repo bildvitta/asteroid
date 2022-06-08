@@ -17,10 +17,10 @@
         <q-item>
           <q-item-section class="text-grey">
             <template v-if="isFiltering">
-              Buscando por {{ $attrs.label }}...
+              Buscando por {{ label }}...
             </template>
             <template v-else-if="isSearchable && !hasSearch">
-              Digite para pesquisar por {{ $attrs.label }}
+              Digite para pesquisar por {{ label }}
             </template>
             <template v-else>
               {{ noOptionLabel }}
@@ -29,12 +29,16 @@
         </q-item>
       </slot>
     </template>
+
+    <template #after-options>
+      <div v-if="isFiltering" class="flex justify-center q-pb-sm">
+        <q-spinner-dots size="20px" color="primary" />
+      </div>
+    </template>
   </q-select>
 </template>
 
 <script>
-import api from 'axios'
-
 export default {
   name: 'QasSelect',
 
@@ -95,6 +99,7 @@ export default {
 
   data () {
     return {
+      hasFetchError: false,
       isFiltering: false,
       filteredOptions: [],
       filterPagination: {
@@ -115,6 +120,10 @@ export default {
       set (value) {
         this.$emit('input', value)
       }
+    },
+
+    label() {
+      return this.$attrs.label || ''
     },
 
     listeners () {
@@ -159,6 +168,10 @@ export default {
       return !!this.filterSearch
     },
 
+    hasError () {
+      return this.hasFetchError || this.$attrs.error
+    },
+
     attributes () {
       return {
         emitValue: true,
@@ -168,7 +181,8 @@ export default {
         loading: this.isFiltering,
         ...this.$attrs,
         options: this.filteredOptions,
-        useInput: this.isSearchable
+        useInput: this.isSearchable,
+        error: this.hasError
       }
     }
   },
@@ -215,17 +229,18 @@ export default {
 
       if (lastPage && nextPage < lastPage && to === lastIndex && !this.isFiltering) {
         await this.fetchOptions()
-        setTimeout(() => ref.refresh(), 500)
+        this.$nextTick(() => ref.refresh())
       }
     },
 
     filterOptionsByStore (value) {
+      this.filteredOptions = [...this.formattedResult]
+
       if (value === '') {
         return this.resetFilterSearch()
       }
 
       if (value !== this.filterSearch) {
-        this.filteredOptions = [...this.formattedResult]
         this.filterSearch = value
         this.resetFilterPagination()
         this.fetchOptions()
@@ -247,16 +262,16 @@ export default {
           throw new Error('A propriedade "entity" é obrigatória quando a propriedade "useLazyLoading" está ativa.')
         }
 
-        const { nextPage } = this.filterPagination
-
+        this.hasFetchError = false
         this.isFiltering = true
 
-        // `${this.entity}/options/${this.name}`
-        const { data: { results, count }} = await api.get('/attributes', {
+        const { data: { results, count }} = await this.$store.dispatch(`${this.entity}/fetchFieldOptions`, {
+          // url: `${this.entity}/options/${this.name}`,
+          url: '/attributes',
           params: {
             search: this.filterSearch,
             limit: this.limit,
-            offset: (nextPage - 1) * this.limit
+            offset: (this.filterPagination.nextPage - 1) * this.limit
           }
         })
 
@@ -270,11 +285,13 @@ export default {
 
         this.filteredOptions.push(...newOptions)
         this.filterPagination = {
-          nextPage: nextPage + 1,
+          nextPage: this.filterPagination.nextPage + 1,
           lastPage: Math.ceil(count / this.limit),
         }
       } catch (error) {
-        console.log(error)
+        console.error(error)
+        this.hasFetchError = true
+        this.$qas.error(`Ocorreu um erro ao buscar as opções do campo ${this.label}`)
       } finally {
         this.isFiltering = false
       }
