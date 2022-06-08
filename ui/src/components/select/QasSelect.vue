@@ -15,7 +15,7 @@
     <template #no-option>
       <slot name="no-option">
         <q-item>
-          <q-item-section v-if="isFiltering" class="text-grey">
+          <q-item-section class="text-grey">
             <template v-if="isFiltering">
               Buscando por {{ $attrs.label }}...
             </template>
@@ -209,7 +209,7 @@ export default {
 
     async onScroll ({ to, ref }) {
       if (!this.useLazyLoading) return
-      
+
       const { lastPage, nextPage } = this.filterPagination
       const lastIndex = this.filteredOptions.length - 1
 
