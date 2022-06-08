@@ -211,7 +211,6 @@ export default {
     async onLoad (_, done) {
       if (!this.hasResults || this.isFetching) return done()
 
-      console.log('on load')
       this.page += 1
       await this.fetchList()
       done()
