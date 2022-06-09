@@ -70,11 +70,13 @@ export default {
   },
 
   methods: {
-    async fetchSingle () {
+    async fetchSingle (params = {}) {
       this.isFetching = true
 
+      const payload = { id: this.id, url: this.url, params }
+
       try {
-        const response = await this.$store.dispatch(`${this.entity}/fetchSingle`, { id: this.id, url: this.url })
+        const response = await this.$store.dispatch(`${this.entity}/fetchSingle`, payload)
         const { errors, fields, metadata } = response.data
 
         this.setErrors(errors)
