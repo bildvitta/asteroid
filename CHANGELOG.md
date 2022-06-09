@@ -7,8 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## Unreleased
 
 ### Added
-- `QasListView`: added parameter `externalPayload` in `fetchList` for sending `payload` when call store action `fetchList`.
-- `QasSingleView`: added parameter `params` in `fetchSingle` for sending `params` when call store action `fetchSingle`.
+- `QasListView`: added parameter `externalPayload` in `fetchList` for sending as parameters when call store action `fetchList`.
+- `QasSingleView`: added parameter `externalPayload` in `fetchSingle` for sending as parameters when call store action `fetchSingle`.
 
 ## 2.21.0 - 2022-06-02
 

@@ -70,10 +70,14 @@ export default {
   },
 
   methods: {
-    async fetchSingle (params = {}) {
+    async fetchSingle (externalPayload = {}) {
       this.isFetching = true
 
-      const payload = { id: this.id, url: this.url, params }
+      const payload = { 
+        id: this.id,
+        url: this.url,
+        ...externalPayload
+      }
 
       try {
         const response = await this.$store.dispatch(`${this.entity}/fetchSingle`, payload)
