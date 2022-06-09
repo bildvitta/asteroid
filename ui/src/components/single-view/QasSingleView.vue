@@ -73,7 +73,7 @@ export default {
     async fetchSingle (externalPayload = {}) {
       this.isFetching = true
 
-      const payload = { 
+      const payload = {
         id: this.id,
         url: this.url,
         ...externalPayload
