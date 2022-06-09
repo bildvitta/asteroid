@@ -12,12 +12,12 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 
 ## Não Publicado
 ### Adicionado
-- `QasNestedFields`: adicionada uma props para definir a chave identificadora do objeto/linha.
+- `QasNestedFields`: adicionada prop `identifierItemKey` para definir a chave identificadora do objeto/linha.
 
 ### Modificado
-- `QasNestedFields`: modificado o comportamento do método `destroy`, adicionando uma validação para caso não exista uma chave identificadora, ele remova a o objeto mesmo que `useRemoveOnDestroy` seja `true`.
+- `QasNestedFields`: modificado o comportamento do método `destroy`, adicionando uma validação para caso não exista uma chave identificadora, ele remova a o objeto mesmo que `useRemoveOnDestroy` seja `false`.
 
-- `QasNestedFields`: modificado o comportamento do método `add`, removendo a chave identificadora quando duplicar uma linha.
+- `QasNestedFields`: modificado o comportamento do método `add` para ação duplicar linha, removendo a chave identificadora na hora de duplicar a linha.
 
 ## [3.0.0-beta.14] - 07-06-2022
 ### Adicionado
