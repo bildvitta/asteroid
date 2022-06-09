@@ -48,18 +48,18 @@ export default {
     }
   },
 
+  computed: {
+    labelValue () {
+      return this.hideLabel ? '' : this.label
+    }
+  },
+
   methods: {
     onClick (item) {
       if (typeof item.handler === 'function') {
         const { handler, ...filtered } = item
         item.handler(filtered)
       }
-    }
-  },
-
-  computed: {
-    labelValue () {
-      return this.hideLabel ? '' : this.label
     }
   }
 }

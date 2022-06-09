@@ -121,11 +121,17 @@ export default {
       this.$router.push({ query })
     },
 
-    async fetchList () {
+    async fetchList (externalPayload = {}) {
       this.isFetching = true
 
+      const payload = {
+        ...this.context,
+        url: this.url,
+        ...externalPayload
+      }
+
       try {
-        const response = await this.$store.dispatch(`${this.entity}/fetchList`, { ...this.context, url: this.url })
+        const response = await this.$store.dispatch(`${this.entity}/fetchList`, payload)
         const { errors, fields, metadata } = response.data
 
         this.setErrors(errors)
