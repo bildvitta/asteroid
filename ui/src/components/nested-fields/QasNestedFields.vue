@@ -159,6 +159,11 @@ export default {
       }
     },
 
+    identifierItemKey: {
+      type: String,
+      default: 'uuid'
+    },
+
     rowLabel: {
       type: String,
       default: ''
@@ -271,6 +276,11 @@ export default {
   methods: {
     add (row = {}) {
       const payload = { ...this.rowObject, ...row }
+      const hasIdentifierKey = payload[this.identifierItemKey]
+
+      if (hasIdentifierKey) {
+        delete payload[this.identifierItemKey]
+      }
 
       this.nested.push(payload)
 
@@ -296,7 +306,7 @@ export default {
     },
 
     destroy (index, row) {
-      this.useRemoveOnDestroy
+      !row[this.identifierItemKey] || this.useRemoveOnDestroy
         ? this.nested.splice(index, 1)
         : this.nested.splice(index, 1, { [this.destroyKey]: true, ...row })
 
