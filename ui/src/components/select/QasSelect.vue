@@ -242,7 +242,7 @@ export default {
         const { lastPage, nextPage } = this.filterPagination
         const lastIndex = this.filteredOptions.length - 1
 
-        if (lastPage && nextPage <= lastPage && to === lastIndex && !this.isFiltering) {
+        if (nextPage <= lastPage && to === lastIndex && !this.isFiltering) {
           const options = await this.fetchOptions()
           this.filteredOptions.push(...options)
           this.$nextTick(() => ref.refresh())
