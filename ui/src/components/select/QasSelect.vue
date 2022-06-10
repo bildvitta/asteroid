@@ -1,5 +1,5 @@
 <template>
-  <q-select v-model="model" v-bind="attributes" v-on="listeners" @filter="onFilter" @virtual-scroll="onScroll">
+  <q-select v-model="model" v-bind="attributes" v-on="listeners" @filter="onFilter">
     <slot v-for="(slot, key) in $slots" :slot="key" :name="key" />
 
     <template v-for="(slot, key) in $scopedSlots" :slot="key" slot-scope="scope">
@@ -60,19 +60,15 @@ export default {
       type: String
     },
 
-    lazyLoadingParams: {
-      default: () => ({}),
+    lazyLoadingProps: {
+      default: () => ({
+        url: '',
+        params: {
+          limit: 40
+        },
+        decamelizeFieldName: true
+      }),
       type: Object
-    },
-
-    lazyLoadingUrl: {
-      default: '',
-      type: String
-    },
-
-    limit: {
-      default: 40,
-      type: Number
     },
 
     name: {
@@ -140,8 +136,13 @@ export default {
 
     listeners () {
       const { input, ...events } = this.$listeners
+      const listeners = { ...events }
 
-      return events
+      if (this.useLazyLoading) {
+        listeners['virtual-scroll'] = this.onVirtualScroll
+      }
+
+      return listeners
     },
 
     defaultFuseOptions () {
@@ -236,9 +237,7 @@ export default {
       })
     },
 
-    onScroll ({ to, ref }) {
-      if (!this.useLazyLoading) return
-      console.log(to)
+    onVirtualScroll ({ to, ref }) {
       setTimeout(async () => {
         const { lastPage, nextPage } = this.filterPagination
         const lastIndex = this.filteredOptions.length - 1
@@ -252,15 +251,13 @@ export default {
     },
 
     async filterOptionsByStore (value) {
-      if (value !== this.filterSearch) {
-        this.filteredOptions = []
-        this.filterSearch = value
-        this.filterPagination = {
-          nextPage: 1,
-          lastPage: null
-        }
-        this.filteredOptions = await this.fetchOptions()
+      this.filteredOptions = []
+      this.filterSearch = value
+      this.filterPagination = {
+        nextPage: 1,
+        lastPage: null
       }
+      this.filteredOptions = await this.fetchOptions()
     },
 
     filterOptionsByFuse (value) {
@@ -281,20 +278,20 @@ export default {
         this.hasFetchError = false
         this.isFiltering = true
 
+        const { url, params, decamelizeFieldName } = this.lazyLoadingProps
         const { data: { results, count }} = await this.$store.dispatch(`${this.entity}/fetchFieldOptions`, {
-          url: this.lazyLoadingUrl,
-          field: decamelize(this.name, { separator: '-' }),
+          url,
+          field: decamelizeFieldName ? decamelize(this.name, { separator: '-' }) : this.name,
           params: {
             search: this.filterSearch,
-            limit: this.limit,
-            offset: (this.filterPagination.nextPage - 1) * this.limit,
-            ...this.lazyLoadingParams
+            offset: (this.filterPagination.nextPage - 1) * params.limit,
+            ...params
           }
         })
 
         this.filterPagination = {
           nextPage: this.filterPagination.nextPage + 1,
-          lastPage: Math.ceil(count / this.limit),
+          lastPage: Math.ceil(count / params.limit),
         }
 
         return results
