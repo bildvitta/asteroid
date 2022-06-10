@@ -28,9 +28,11 @@
     </template>
 
     <template #after-options>
-      <div v-show="isFiltering" class="flex justify-center q-pb-sm">
-        <q-spinner-dots size="20px" color="primary" />
-      </div>
+      <slot name="after-options">
+        <div v-show="isFiltering" class="flex justify-center q-pb-sm">
+          <q-spinner-dots color="primary" size="20px" />
+        </div>
+      </slot>
     </template>
   </q-select>
 </template>
@@ -257,11 +259,14 @@ export default {
       if (this.isScrolling) return
 
       const { scrollContainer, top } = this.getScrollContainerTop()
-
       const { lastPage, page } = this.filterPagination
       const lastIndex = this.filteredOptions.length - 1
 
-      // The last page is not hit yet, if the scroll container is at the bottom and if is not filtering
+      /**
+       *  if the last page was not reached
+       *  if the scroll container is at the bottom
+       *  if it's not filtering
+       */
       const canFetchOptions = lastPage && page <= lastPage && index === lastIndex && !this.isFiltering
 
       if (canFetchOptions) {
@@ -270,15 +275,17 @@ export default {
         const options = await this.fetchOptions()
         this.filteredOptions.push(...options)
 
-        // Solution based on quasar select filtering
+        // solution based on Quasar Select filtering
         setTimeout(() => {
           scrollContainer.scrollTo({
             top,
             behavior: 'smooth'
           })
 
-          // This is to prevent the virtual-scroll event to be fired again
-          this.$nextTick(() => this.isScrolling = false)
+          // this is to prevent the virtual-scroll event to be fired again after the scrollTo
+          this.$nextTick(() => {
+            this.isScrolling = false
+          })
         }, 100)
       }
     },
@@ -328,7 +335,7 @@ export default {
 
         this.filterPagination = {
           page: this.filterPagination.page + 1,
-          lastPage: Math.ceil(count / params.limit),
+          lastPage: Math.ceil(count / params.limit)
         }
 
         this.$emit('fetch-options-success', data)
