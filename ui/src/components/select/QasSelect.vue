@@ -39,6 +39,8 @@
 </template>
 
 <script>
+import { decamelize } from 'humps'
+
 export default {
   name: 'QasSelect',
 
@@ -179,6 +181,9 @@ export default {
         outlined: true,
         clearable: this.isSearchable,
         loading: this.isFiltering,
+        inputDebounce: this.useLazyLoading ? 500 : 0,
+        virtualScrollSliceRatioBefore: 0.5,
+        virtualScrollSliceRatioAfter: 0,
         ...this.$attrs,
         options: this.filteredOptions,
         useInput: this.isSearchable,
@@ -221,29 +226,33 @@ export default {
       })
     },
 
-    async onScroll ({ to, ref }) {
+    onScroll ({ to, ref }) {
       if (!this.useLazyLoading) return
 
-      const { lastPage, nextPage } = this.filterPagination
-      const lastIndex = this.filteredOptions.length - 1
+      setTimeout(async () => {
+        const { lastPage, nextPage } = this.filterPagination
+        const lastIndex = this.filteredOptions.length - 1
 
-      if (lastPage && nextPage < lastPage && to === lastIndex && !this.isFiltering) {
-        await this.fetchOptions()
-        this.$nextTick(() => ref.refresh())
-      }
+        if (lastPage && nextPage < lastPage && to === lastIndex && !this.isFiltering) {
+          const options = await this.fetchOptions()
+          this.filteredOptions.push(...options)
+
+          this.$nextTick(() => ref.refresh())
+        }
+      }, 500)
     },
 
-    filterOptionsByStore (value) {
-      this.filteredOptions = [...this.formattedResult]
-
-      if (value === '') {
-        return this.resetFilterSearch()
-      }
-
+    async filterOptionsByStore (value) {
       if (value !== this.filterSearch) {
+        this.filteredOptions = []
         this.filterSearch = value
-        this.resetFilterPagination()
-        this.fetchOptions()
+        this.filterPagination = {
+          nextPage: 1,
+          lastPage: null
+        }
+
+        const options = await this.fetchOptions()
+        this.filteredOptions = [...this.formattedResult, ...options]
       }
     },
 
@@ -266,8 +275,7 @@ export default {
         this.isFiltering = true
 
         const { data: { results, count }} = await this.$store.dispatch(`${this.entity}/fetchFieldOptions`, {
-          // url: `${this.entity}/options/${this.name}`,
-          url: '/attributes',
+          url: `${this.entity}/options/${decamelize(this.name, { separator: '-' })}`,
           params: {
             search: this.filterSearch,
             limit: this.limit,
@@ -275,19 +283,12 @@ export default {
           }
         })
 
-        // MOCK (Remover quando for implementar o backend)
-        const newOptions = results.map(item => {
-          return {
-            label: item.name,
-            value: item.uuid
-          }
-        })
-
-        this.filteredOptions.push(...newOptions)
         this.filterPagination = {
           nextPage: this.filterPagination.nextPage + 1,
           lastPage: Math.ceil(count / this.limit),
         }
+
+        return results
       } catch (error) {
         console.error(error)
         this.hasFetchError = true
@@ -295,17 +296,6 @@ export default {
       } finally {
         this.isFiltering = false
       }
-    },
-
-    resetFilterPagination () {
-      this.filterPagination = {
-        nextPage: 1,
-        lastPage: null
-      }
-    },
-
-    resetFilterSearch () {
-      this.filterSearch = ''
     },
 
     renameKey (item) {
