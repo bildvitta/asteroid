@@ -71,7 +71,8 @@ export default {
         pattern,
         maxFiles,
         searchable,
-        gmt
+        gmt,
+        useLazyLoading
       } = this.formattedField
 
       // Default error attributes for Quasar.
@@ -138,7 +139,7 @@ export default {
 
         'signature-uploader': { is: 'qas-signature-uploader', entity, uploadLabel: label, ...error },
 
-        select: { is: 'qas-select', entity, name, multiple, options, searchable, ...input }
+        select: { is: 'qas-select', entity, name, multiple, options, searchable, useLazyLoading, ...input }
       }
 
       return { ...(profiles[type] || profiles.default), ...this.$attrs }
