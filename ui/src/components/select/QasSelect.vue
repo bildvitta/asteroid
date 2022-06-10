@@ -19,9 +19,6 @@
             <template v-if="isFiltering">
               Buscando por {{ label }}...
             </template>
-            <template v-else-if="isSearchable && !hasSearch">
-              Digite para pesquisar por {{ label }}
-            </template>
             <template v-else>
               {{ noOptionLabel }}
             </template>
@@ -111,10 +108,10 @@ export default {
       isFiltering: false,
       filteredOptions: [],
       filterPagination: {
-        nextPage: 1,
+        page: 1,
         lastPage: null
       },
-      filterSearch: '',
+      filterSearch: null,
       fuse: null
     }
   },
@@ -177,10 +174,6 @@ export default {
       return this.searchable || this.useLazyLoading
     },
 
-    hasSearch () {
-      return !!this.filterSearch
-    },
-
     hasError () {
       return this.hasFetchError || this.$attrs.error
     },
@@ -239,10 +232,10 @@ export default {
 
     onVirtualScroll ({ to, ref }) {
       setTimeout(async () => {
-        const { lastPage, nextPage } = this.filterPagination
+        const { lastPage, page } = this.filterPagination
         const lastIndex = this.filteredOptions.length - 1
 
-        if (nextPage <= lastPage && to === lastIndex && !this.isFiltering) {
+        if (page <= lastPage && to === lastIndex && !this.isFiltering) {
           const options = await this.fetchOptions()
           this.filteredOptions.push(...options)
           this.$nextTick(() => ref.refresh())
@@ -251,13 +244,15 @@ export default {
     },
 
     async filterOptionsByStore (value) {
-      this.filteredOptions = []
-      this.filterSearch = value
-      this.filterPagination = {
-        nextPage: 1,
-        lastPage: null
+      if (value !== this.filterSearch) {
+        this.filteredOptions = []
+        this.filterSearch = value
+        this.filterPagination = {
+          page: 1,
+          lastPage: null
+        }
+        this.filteredOptions = await this.fetchOptions()
       }
-      this.filteredOptions = await this.fetchOptions()
     },
 
     filterOptionsByFuse (value) {
@@ -284,13 +279,13 @@ export default {
           field: decamelizeFieldName ? decamelize(this.name, { separator: '-' }) : this.name,
           params: {
             search: this.filterSearch,
-            offset: (this.filterPagination.nextPage - 1) * params.limit,
+            offset: (this.filterPagination.page - 1) * params.limit,
             ...params
           }
         })
 
         this.filterPagination = {
-          nextPage: this.filterPagination.nextPage + 1,
+          page: this.filterPagination.page + 1,
           lastPage: Math.ceil(count / params.limit),
         }
 
