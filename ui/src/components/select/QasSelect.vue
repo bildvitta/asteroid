@@ -124,7 +124,7 @@ export default {
       }
     },
 
-    label() {
+    label () {
       return this.$attrs.label || ''
     },
 
@@ -236,7 +236,6 @@ export default {
         if (lastPage && nextPage < lastPage && to === lastIndex && !this.isFiltering) {
           const options = await this.fetchOptions()
           this.filteredOptions.push(...options)
-
           this.$nextTick(() => ref.refresh())
         }
       }, 500)
