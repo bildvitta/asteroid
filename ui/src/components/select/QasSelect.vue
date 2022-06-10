@@ -60,8 +60,18 @@ export default {
       type: String
     },
 
+    lazyLoadingParams: {
+      default: () => ({}),
+      type: Object
+    },
+
+    lazyLoadingUrl: {
+      default: '',
+      type: String
+    },
+
     limit: {
-      default: 24,
+      default: 40,
       type: Number
     },
 
@@ -182,8 +192,6 @@ export default {
         clearable: this.isSearchable,
         loading: this.isFiltering,
         inputDebounce: this.useLazyLoading ? 500 : 0,
-        virtualScrollSliceRatioBefore: 0.5,
-        virtualScrollSliceRatioAfter: 0,
         ...this.$attrs,
         options: this.filteredOptions,
         useInput: this.isSearchable,
@@ -203,7 +211,9 @@ export default {
           this.fuse.list = this.formattedResult
         }
 
-        if (!this.useLazyLoading) {
+        if (this.useLazyLoading) {
+          this.filteredOptions = this.filteredOptions.length ? this.filteredOptions : this.formattedResult
+        } else {
           this.filteredOptions = this.formattedResult
         }
       },
@@ -228,12 +238,12 @@ export default {
 
     onScroll ({ to, ref }) {
       if (!this.useLazyLoading) return
-
+      console.log(to)
       setTimeout(async () => {
         const { lastPage, nextPage } = this.filterPagination
         const lastIndex = this.filteredOptions.length - 1
 
-        if (lastPage && nextPage < lastPage && to === lastIndex && !this.isFiltering) {
+        if (lastPage && nextPage <= lastPage && to === lastIndex && !this.isFiltering) {
           const options = await this.fetchOptions()
           this.filteredOptions.push(...options)
           this.$nextTick(() => ref.refresh())
@@ -249,9 +259,7 @@ export default {
           nextPage: 1,
           lastPage: null
         }
-
-        const options = await this.fetchOptions()
-        this.filteredOptions = [...this.formattedResult, ...options]
+        this.filteredOptions = await this.fetchOptions()
       }
     },
 
@@ -274,11 +282,13 @@ export default {
         this.isFiltering = true
 
         const { data: { results, count }} = await this.$store.dispatch(`${this.entity}/fetchFieldOptions`, {
-          url: `${this.entity}/options/${decamelize(this.name, { separator: '-' })}`,
+          url: this.lazyLoadingUrl,
+          field: decamelize(this.name, { separator: '-' }),
           params: {
             search: this.filterSearch,
             limit: this.limit,
-            offset: (this.filterPagination.nextPage - 1) * this.limit
+            offset: (this.filterPagination.nextPage - 1) * this.limit,
+            ...this.lazyLoadingParams
           }
         })
 
