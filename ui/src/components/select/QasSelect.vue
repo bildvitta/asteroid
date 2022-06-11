@@ -16,7 +16,7 @@
       <slot name="no-option">
         <q-item>
           <q-item-section class="text-grey">
-            <template v-if="isFiltering">
+            <template v-if="isLoading">
               Buscando por {{ label }}...
             </template>
             <template v-else>
@@ -28,7 +28,7 @@
     </template>
 
     <template #after-options>
-      <slot v-if="isFiltering" name="after-options">
+      <slot v-if="isLoading" name="after-options">
         <div class="flex justify-center q-pb-sm">
           <q-spinner-dots color="primary" size="20px" />
         </div>
@@ -38,12 +38,12 @@
 </template>
 
 <script>
-import lazyLoadingMixin from '../../mixins/lazy-loading'
+import lazyLoadingFilterMixin from '../../mixins/lazy-loading-filter'
 
 export default {
   name: 'QasSelect',
 
-  mixins: [lazyLoadingMixin],
+  mixins: [lazyLoadingFilterMixin],
 
   props: {
     fuseOptions: {
@@ -159,11 +159,11 @@ export default {
         mapOptions: true,
         outlined: true,
         clearable: this.isSearchable,
-        loading: this.isFiltering,
+        loading: this.isLoading,
         inputDebounce: this.useLazyLoading ? 500 : 0,
         popupContentClass: this.virtualScrollClassName,
         ...this.$attrs,
-        options: this.filteredOptions,
+        options: this.filterOptions,
         useInput: this.isSearchable,
         error: this.hasError
       }
@@ -182,11 +182,11 @@ export default {
         }
 
         if (this.useLazyLoading) {
-          this.filteredOptions = this.filteredOptions.length ? this.filteredOptions : this.formattedResult
+          this.filterOptions = this.filterOptions.length ? this.filterOptions : this.formattedResult
           return
         }
 
-        this.filteredOptions = this.formattedResult
+        this.filterOptions = this.formattedResult
       },
       immediate: true
     }
@@ -203,9 +203,10 @@ export default {
     onFilter (value, update) {
       update(() => {
         if (this.useLazyLoading) {
-          if (value === this.filterSearch) return
+          if (value === this.search) return
 
           this.filterOptionsByStore(value)
+
           return
         }
 
@@ -217,10 +218,10 @@ export default {
 
     filterOptionsByFuse (value) {
       if (value === '') {
-        this.filteredOptions = this.formattedResult
+        this.filterOptions = this.formattedResult
       } else {
         const results = this.fuse.search(value)
-        this.filteredOptions = results.map(item => item.item)
+        this.filterOptions = results.map(item => item.item)
       }
     },
 

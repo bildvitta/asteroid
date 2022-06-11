@@ -30,15 +30,15 @@ export default {
 
   data () {
     return {
-      isScrolling: false,
       hasFetchError: false,
-      isFiltering: false,
-      filteredOptions: [],
-      filterPagination: {
+      isScrolling: false,
+      isLoading: false,
+      filterOptions: [],
+      pagination: {
         page: 1,
         lastPage: null
       },
-      filterSearch: null
+      search: null
     }
   },
 
@@ -50,14 +50,13 @@ export default {
 
   methods: {
     async filterOptionsByStore (value) {
-      this.filteredOptions = []
-      this.filterSearch = value
-      this.filterPagination = {
+      this.filterOptions = []
+      this.search = value
+      this.pagination = {
         page: 1,
         lastPage: null
       }
-
-      this.filteredOptions = await this.fetchOptions()
+      this.filterOptions = await this.fetchOptions()
     },
 
     async fetchOptions () {
@@ -66,7 +65,7 @@ export default {
         if (!this.name) throw new Error(this.missingPropMessage('name'))
 
         this.hasFetchError = false
-        this.isFiltering = true
+        this.isLoading = true
 
         const { url, params, decamelizeFieldName } = this.lazyLoadingProps
 
@@ -74,15 +73,16 @@ export default {
           url,
           field: decamelizeFieldName ? decamelize(this.name, { separator: '-' }) : this.name,
           params: {
-            search: this.filterSearch,
-            offset: (this.filterPagination.page - 1) * params.limit,
+            search: this.search,
+            offset: (this.pagination.page - 1) * params.limit,
             ...params
           }
         })
+
         const { results, count } = data
 
-        this.filterPagination = {
-          page: this.filterPagination.page + 1,
+        this.pagination = {
+          page: this.pagination.page + 1,
           lastPage: Math.ceil(count / params.limit)
         }
 
@@ -93,7 +93,7 @@ export default {
         this.hasFetchError = true
         this.$emit('fetch-options-error', error)
       } finally {
-        this.isFiltering = false
+        this.isLoading = false
       }
     },
 
@@ -101,30 +101,27 @@ export default {
       if (this.isScrolling) return
 
       const { scrollContainer, top } = this.getScrollContainerTop()
-      const { lastPage, page } = this.filterPagination
-      const lastIndex = this.filteredOptions.length - 1
+      const { lastPage, page } = this.pagination
+      const lastIndex = this.filterOptions.length - 1
 
       /**
        *  if the last page was not reached
        *  if the scroll container is at the bottom
        *  if it's not filtering
        */
-      const canFetchOptions = lastPage && page <= lastPage && index === lastIndex && !this.isFiltering
+      const canFetchOptions = lastPage && page <= lastPage && index === lastIndex && !this.isLoading
 
       if (canFetchOptions) {
         this.isScrolling = true
 
         const options = await this.fetchOptions()
-        this.filteredOptions.push(...options)
+        this.filterOptions.push(...options)
 
         // solution based on Quasar Select filtering
         setTimeout(() => {
-          scrollContainer.scrollTo({
-            top,
-            behavior: 'smooth'
-          })
+          scrollContainer.scrollTo({ top })
 
-          // this is to prevent the virtual-scroll event to be fired again after the scrollTo
+          // this is to prevent the virtual-scroll event to be fired again
           this.$nextTick(() => {
             this.isScrolling = false
           })
@@ -136,11 +133,10 @@ export default {
       const scrollContainer = document.querySelector(`.${this.virtualScrollClassName}`)
       const scrollContainerHeight = scrollContainer.offsetHeight
       const scrollContainerTop = scrollContainer.scrollTop
-      const afterOptionsSlotHeight = 22 // Height of the after-options slot element
 
       return {
         scrollContainer,
-        top: scrollContainerTop + (scrollContainerHeight / 2) - afterOptionsSlotHeight
+        top: scrollContainerTop + (scrollContainerHeight / 2)
       }
     },
 

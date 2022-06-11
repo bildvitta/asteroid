@@ -1,15 +1,15 @@
 <template>
   <qas-box v-bind="$attrs">
-    <q-input v-model="filterSearch" v-bind="attributes">
+    <q-input v-model="search" v-bind="attributes">
       <template #append>
         <q-icon color="primary" name="o_search" />
       </template>
     </q-input>
 
     <div :class="contentClasses" :style="contentStyle">
-      <slot v-if="hasResults" :results="filteredOptions" :height="contentHeight" />
+      <slot v-if="hasResults" :results="filterOptions" :height="contentHeight" />
 
-      <slot v-if="isFiltering" name="after-options">
+      <slot v-if="isLoading" name="loading">
         <div class="flex justify-center q-pb-sm">
           <q-spinner-dots color="primary" size="20px" />
         </div>
@@ -27,15 +27,16 @@
 
 <script>
 import QasBox from '../box/QasBox.vue'
+
 import Fuse from 'fuse.js'
-import lazyLoadingMixin from '../../mixins/lazy-loading'
+import lazyLoadingFilterMixin from '../../mixins/lazy-loading-filter'
 
 export default {
   components: {
     QasBox
   },
 
-  mixins: [lazyLoadingMixin],
+  mixins: [lazyLoadingFilterMixin],
 
   props: {
     emptyListHeight: {
@@ -86,13 +87,18 @@ export default {
   data () {
     return {
       fuse: null,
-      filteredOptions: this.list
+      filterOptions: this.list
     }
   },
 
   computed: {
     contentClasses () {
-      return [{ 'overflow-auto': !this.useLazyLoading }, 'q-mt-xs', 'relative-position', this.virtualScrollClassName]
+      return [
+        { 'overflow-auto': !this.useLazyLoading },
+        'q-mt-xs',
+        'relative-position',
+        this.virtualScrollClassName
+      ]
     },
 
     contentStyle () {
@@ -118,15 +124,15 @@ export default {
     },
 
     hasResults () {
-      return !!this.filteredOptions.length
+      return !!this.filterOptions.length
     },
 
     showEmptyResult () {
-      return !this.hasResults && !this.hideEmptySlot && !this.isFiltering
+      return !this.hasResults && !this.hideEmptySlot && !this.isLoading
     },
 
     isDisable () {
-      return (!this.useLazyLoading && !this.list.length) || this.isFiltering
+      return (!this.useLazyLoading && !this.list.length) || this.isLoading
     },
 
     attributes () {
@@ -136,7 +142,6 @@ export default {
         debounce: this.useLazyLoading ? 500 : 0,
         outlined: true,
         placeholder: this.placeholder,
-        loading: this.isFiltering,
         error: this.hasFetchError
       }
     }
@@ -154,11 +159,11 @@ export default {
     list (value) {
       if (!this.useLazyLoading) {
         this.fuse.list = value
-        this.filterOptionsByFuse(this.filterSearch)
+        this.filterOptionsByFuse(this.search)
       }
     },
 
-    filterSearch: {
+    search: {
       handler (value) {
         this.useLazyLoading ? this.filterOptionsByStore(value) : this.filterOptionsByFuse(value)
         this.$emit('input', value)
@@ -173,7 +178,7 @@ export default {
   },
 
   async created () {
-    this.filterSearch = this.value
+    this.search = this.value
 
     if (!this.useLazyLoading) {
       this.fuse = new Fuse(this.list, this.defaultFuseOptions)
@@ -182,7 +187,7 @@ export default {
 
   methods: {
     filterOptionsByFuse (value) {
-      this.filteredOptions = value ? this.fuse.search(value) : this.list
+      this.filterOptions = value ? this.fuse.search(value) : this.list
     }
   }
 }
