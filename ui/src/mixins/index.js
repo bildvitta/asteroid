@@ -1,6 +1,7 @@
 import contextMixin from './context.js'
 import formMixin from './form.js'
 import generatorMixin from './generator.js'
+import lazyLoadingMixin from './lazy-loading.js'
 import mapMarkersMixin from './map-markers.js'
 import passwordMixin from './password.js'
 import screenMixin from './screen.js'
@@ -12,6 +13,7 @@ export {
   contextMixin,
   formMixin,
   generatorMixin,
+  lazyLoadingMixin,
   mapMarkersMixin,
   passwordMixin,
   screenMixin,

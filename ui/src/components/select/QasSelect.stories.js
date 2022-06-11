@@ -31,9 +31,9 @@ export default {
   argTypes: {
     // Props
     entity: {
-      description: 'Vuex entity name to be used on lazy loading filter.',
+      description: 'Vuex entity name to be used on lazy loading filter.'
     },
-  
+
     fuseOptions: {
       description: '[Fuse.js](https://fusejs.io/) options.',
       table: {
@@ -48,7 +48,7 @@ export default {
     lazyLoadingProps: {
       description: 'Props to be used on lazy loading.',
       table: {
-        defaultValue: { 
+        defaultValue: {
           detail: JSON.stringify({
             url: '',
             params: {

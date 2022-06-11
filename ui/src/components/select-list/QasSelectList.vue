@@ -1,23 +1,29 @@
 <template>
-  <qas-search-box v-bind="$attrs" class="q-pa-md" :fuse-options="fuseOptions" :list="sortedOptions">
-    <template #default="{ results }">
-      <q-list separator>
-        <q-item v-for="(result, index) in results" :key="index">
+  <qas-search-box v-bind="$attrs" class="q-pa-md" :fuse-options="fuseOptions" :list="sortedOptions" :virtual-scroll="virtualScroll">
+    <template #default="{ results, height }">
+      <q-virtual-scroll
+        :items="results"
+        separator
+        v-slot="{ item, index }"
+        :style="{ maxHeight: height }"
+        @virtual-scroll="onVirtualScroll"
+      >
+        <q-item :key="index">
           <slot name="item" v-bind="self">
-            <slot name="item-section" :result="result">
+            <slot name="item-section" :result="item">
               <q-item-section class="items-start text-bold">
-                <div :class="labelClass" @click="redirectRoute(result)">{{ result.label }}</div>
+                <div :class="labelClass" @click="redirectRoute(item)">{{ item.label }}</div>
               </q-item-section>
             </slot>
 
             <q-item-section avatar>
               <slot name="item-action" v-bind="self">
-                <qas-btn hide-mobile-label v-bind="setButtonProps(result)" size="sm" @click="handleClick(result)" />
+                <qas-btn hide-mobile-label v-bind="setButtonProps(item)" size="sm" @click="handleClick(item)" />
               </slot>
             </q-item-section>
           </slot>
         </q-item>
-      </q-list>
+      </q-virtual-scroll>
     </template>
   </qas-search-box>
 </template>
@@ -67,6 +73,7 @@ export default {
 
   data () {
     return {
+      virtualScroll: {},
       sortedOptions: [],
       values: []
     }
@@ -173,6 +180,10 @@ export default {
 
     updateModel () {
       this.$emit('input', this.values)
+    },
+
+    onVirtualScroll (args) {
+      this.virtualScroll = args
     }
   }
 }

@@ -1,18 +1,24 @@
 <template>
   <qas-box v-bind="$attrs">
-    <q-input v-model="search" clearable :disable="!list.length" outlined :placeholder="placeholder">
+    <q-input v-model="filterSearch" v-bind="attributes">
       <template #append>
         <q-icon color="primary" name="o_search" />
       </template>
     </q-input>
 
-    <div class="overflow-auto q-mt-xs relative-position" :style="contentStyle">
-      <slot v-if="hasResults" :results="results" />
+    <div :class="contentClasses" :style="contentStyle">
+      <slot v-if="hasResults" :results="filteredOptions" :height="contentHeight" />
 
-      <slot v-else-if="!hideEmptySlot" name="empty">
+      <slot v-if="isFiltering" name="after-options">
+        <div class="flex justify-center q-pb-sm">
+          <q-spinner-dots color="primary" size="20px" />
+        </div>
+      </slot>
+
+      <slot v-if="showEmptyResult" name="empty">
         <div class="absolute-center text-center">
           <q-icon class="q-mb-sm text-center" color="primary" name="o_search" size="38px" />
-          <div>Não há resultados disponíveis.</div>
+          <div>{{ emptyResultText }}</div>
         </div>
       </slot>
     </div>
@@ -21,13 +27,15 @@
 
 <script>
 import QasBox from '../box/QasBox.vue'
-
 import Fuse from 'fuse.js'
+import lazyLoadingMixin from '../../mixins/lazy-loading'
 
 export default {
   components: {
     QasBox
   },
+
+  mixins: [lazyLoadingMixin],
 
   props: {
     emptyListHeight: {
@@ -54,9 +62,19 @@ export default {
       type: Array
     },
 
+    emptyResultText: {
+      default: 'Não há resultados disponíveis.',
+      type: String
+    },
+
     placeholder: {
       default: 'Pesquisar',
       type: String
+    },
+
+    virtualScroll: {
+      default: () => ({}),
+      type: Object
     },
 
     value: {
@@ -68,14 +86,21 @@ export default {
   data () {
     return {
       fuse: null,
-      results: this.list,
-      search: ''
+      filteredOptions: this.list
     }
   },
 
   computed: {
+    contentClasses () {
+      return [{ 'overflow-auto': !this.useLazyLoading }, 'q-mt-xs', 'relative-position', this.virtualScrollClassName]
+    },
+
     contentStyle () {
-      return { height: this.list.length ? this.height : this.emptyListHeight }
+      return { height: this.contentHeight }
+    },
+
+    contentHeight () {
+      return this.hasResults ? this.height : this.showEmptyResult ? this.emptyListHeight : 'auto'
     },
 
     defaultFuseOptions () {
@@ -93,7 +118,27 @@ export default {
     },
 
     hasResults () {
-      return !!this.results.length
+      return !!this.filteredOptions.length
+    },
+
+    showEmptyResult () {
+      return !this.hasResults && !this.hideEmptySlot && !this.isFiltering
+    },
+
+    isDisable () {
+      return (!this.useLazyLoading && !this.list.length) || this.isFiltering
+    },
+
+    attributes () {
+      return {
+        clearable: true,
+        disable: this.isDisable,
+        debounce: this.useLazyLoading ? 500 : 0,
+        outlined: true,
+        placeholder: this.placeholder,
+        loading: this.isFiltering,
+        error: this.hasFetchError
+      }
     }
   },
 
@@ -107,28 +152,37 @@ export default {
     },
 
     list (value) {
-      this.fuse.list = value
-      this.setResults(this.search)
+      if (!this.useLazyLoading) {
+        this.fuse.list = value
+        this.filterOptionsByFuse(this.filterSearch)
+      }
     },
 
-    search: {
+    filterSearch: {
       handler (value) {
-        this.setResults(value)
+        this.useLazyLoading ? this.filterOptionsByStore(value) : this.filterOptionsByFuse(value)
         this.$emit('input', value)
       },
 
       immediate: true
+    },
+
+    virtualScroll (value) {
+      this.onVirtualScroll(value)
     }
   },
 
-  created () {
-    this.search = this.value
-    this.fuse = new Fuse(this.list, this.defaultFuseOptions)
+  async created () {
+    this.filterSearch = this.value
+
+    if (!this.useLazyLoading) {
+      this.fuse = new Fuse(this.list, this.defaultFuseOptions)
+    }
   },
 
   methods: {
-    setResults (value) {
-      this.results = value ? this.fuse.search(value) : this.list
+    filterOptionsByFuse (value) {
+      this.filteredOptions = value ? this.fuse.search(value) : this.list
     }
   }
 }

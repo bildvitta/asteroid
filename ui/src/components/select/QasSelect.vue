@@ -28,8 +28,8 @@
     </template>
 
     <template #after-options>
-      <slot name="after-options">
-        <div v-show="isFiltering" class="flex justify-center q-pb-sm">
+      <slot v-if="isFiltering" name="after-options">
+        <div class="flex justify-center q-pb-sm">
           <q-spinner-dots color="primary" size="20px" />
         </div>
       </slot>
@@ -38,39 +38,20 @@
 </template>
 
 <script>
-import { decamelize } from 'humps'
+import lazyLoadingMixin from '../../mixins/lazy-loading'
 
 export default {
   name: 'QasSelect',
 
-  props: {
-    entity: {
-      default: '',
-      type: String
-    },
+  mixins: [lazyLoadingMixin],
 
+  props: {
     fuseOptions: {
       default: () => ({}),
       type: Object
     },
 
     labelKey: {
-      default: '',
-      type: String
-    },
-
-    lazyLoadingProps: {
-      default: () => ({
-        url: '',
-        params: {
-          limit: 48
-        },
-        decamelizeFieldName: true
-      }),
-      type: Object
-    },
-
-    name: {
       default: '',
       type: String
     },
@@ -89,10 +70,6 @@ export default {
       type: Boolean
     },
 
-    useLazyLoading: {
-      type: Boolean
-    },
-
     value: {
       default: () => [],
       type: [Array, Object, String, Number]
@@ -106,15 +83,6 @@ export default {
 
   data () {
     return {
-      isScrolling: false,
-      hasFetchError: false,
-      isFiltering: false,
-      filteredOptions: [],
-      filterPagination: {
-        page: 1,
-        lastPage: null
-      },
-      filterSearch: null,
       fuse: null
     }
   },
@@ -185,10 +153,6 @@ export default {
       return this.hasFetchError || this.$attrs.error
     },
 
-    popupClassName () {
-      return `popup-content-${this.name}`
-    },
-
     attributes () {
       return {
         emitValue: true,
@@ -197,7 +161,7 @@ export default {
         clearable: this.isSearchable,
         loading: this.isFiltering,
         inputDebounce: this.useLazyLoading ? 500 : 0,
-        popupContentClass: this.popupClassName,
+        popupContentClass: this.virtualScrollClassName,
         ...this.$attrs,
         options: this.filteredOptions,
         useInput: this.isSearchable,
@@ -238,69 +202,17 @@ export default {
   methods: {
     onFilter (value, update) {
       update(() => {
-        if (this.useLazyLoading) return this.filterOptionsByStore(value)
-        if (this.searchable) return this.filterOptionsByFuse(value)
-      })
-    },
+        if (this.useLazyLoading) {
+          if (value === this.filterSearch) return
 
-    getScrollContainerTop () {
-      const scrollContainer = document.querySelector(`.${this.popupClassName}`)
-      const scrollContainerHeight = scrollContainer.offsetHeight
-      const scrollContainerTop = scrollContainer.scrollTop
-      const afterOptionsSlotHeight = 22 // Height of the after-options slot element
-
-      return {
-        scrollContainer,
-        top: scrollContainerTop + (scrollContainerHeight / 2) - afterOptionsSlotHeight
-      }
-    },
-
-    async onVirtualScroll ({ ref, index }) {
-      if (this.isScrolling) return
-
-      const { scrollContainer, top } = this.getScrollContainerTop()
-      const { lastPage, page } = this.filterPagination
-      const lastIndex = this.filteredOptions.length - 1
-
-      /**
-       *  if the last page was not reached
-       *  if the scroll container is at the bottom
-       *  if it's not filtering
-       */
-      const canFetchOptions = lastPage && page <= lastPage && index === lastIndex && !this.isFiltering
-
-      if (canFetchOptions) {
-        this.isScrolling = true
-
-        const options = await this.fetchOptions()
-        this.filteredOptions.push(...options)
-
-        // solution based on Quasar Select filtering
-        setTimeout(() => {
-          scrollContainer.scrollTo({
-            top,
-            behavior: 'smooth'
-          })
-
-          // this is to prevent the virtual-scroll event to be fired again after the scrollTo
-          this.$nextTick(() => {
-            this.isScrolling = false
-          })
-        }, 100)
-      }
-    },
-
-    async filterOptionsByStore (value) {
-      if (value !== this.filterSearch) {
-        this.filteredOptions = []
-        this.filterSearch = value
-        this.filterPagination = {
-          page: 1,
-          lastPage: null
+          this.filterOptionsByStore(value)
+          return
         }
 
-        this.filteredOptions = await this.fetchOptions()
-      }
+        if (this.searchable) {
+          this.filterOptionsByFuse(value)
+        }
+      })
     },
 
     filterOptionsByFuse (value) {
@@ -309,44 +221,6 @@ export default {
       } else {
         const results = this.fuse.search(value)
         this.filteredOptions = results.map(item => item.item)
-      }
-    },
-
-    async fetchOptions () {
-      try {
-        if (!this.entity) {
-          throw new Error('A propriedade "entity" é obrigatória quando a propriedade "useLazyLoading" está ativa.')
-        }
-
-        this.hasFetchError = false
-        this.isFiltering = true
-
-        const { url, params, decamelizeFieldName } = this.lazyLoadingProps
-        const { data } = await this.$store.dispatch(`${this.entity}/fetchFieldOptions`, {
-          url,
-          field: decamelizeFieldName ? decamelize(this.name, { separator: '-' }) : this.name,
-          params: {
-            search: this.filterSearch,
-            offset: (this.filterPagination.page - 1) * params.limit,
-            ...params
-          }
-        })
-        const { results, count } = data
-
-        this.filterPagination = {
-          page: this.filterPagination.page + 1,
-          lastPage: Math.ceil(count / params.limit)
-        }
-
-        this.$emit('fetch-options-success', data)
-
-        return results
-      } catch (error) {
-        this.hasFetchError = true
-        this.$qas.error(`Ocorreu um erro ao buscar as opções do campo ${this.label}`)
-        this.$emit('fetch-options-error', error)
-      } finally {
-        this.isFiltering = false
       }
     },
 
