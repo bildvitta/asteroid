@@ -4,6 +4,29 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## Unreleased
+
+### Added
+- New mixin `lazyLoadingFilterMixin`.
+- `QasSelect`: added mixin `lazyLoadingFilterMixin`.
+- `QasSelect`: added new slot `after-options` for the elements that should be rendered after the list of options.
+- `QasSearchBox`: added mixin `lazyLoadingFilterMixin`.
+- `QasSearchBox`: added new prop `emptyResultText` to insert the text for empty result on search.
+- `QasSearchBox`: added new prop `virtualScroll` to receive the virtual scroll arguments to be used on lazy loading.
+- `QasSearchBox`: added new slot `loading` to be displayed when lazy loading is in progress.
+- `QasField`: added new props `useLazyLoading` and `name` to select component.
+
+### Changed
+- `QasSelect`: changed component to support lazy loading.
+- `QasSelectList`: changed component to support lazy loading.
+- `QasSearchBox`: changed component to support lazy loading.
+
+### Fixed
+- `QasInput`: fixed validation in the `toggleMask` method to solve the problem when the field doesn't have a value.
+
+### Removed
+- `ViewMixin`: removed `camelize` import.
+
 ## 2.22.0 - 2022-06-09
 
 ### Added
