@@ -133,7 +133,7 @@ export default {
       }
     },
 
-    formattedResult () {
+    defaultOptions () {
       if (!this.labelKey && !this.valueKey) {
         return this.options
       }
@@ -163,7 +163,7 @@ export default {
         inputDebounce: this.useLazyLoading ? 500 : 0,
         popupContentClass: this.virtualScrollClassName,
         ...this.$attrs,
-        options: this.filterOptions,
+        options: this.filteredOptions,
         useInput: this.isSearchable,
         error: this.hasError
       }
@@ -177,16 +177,11 @@ export default {
 
     options: {
       handler () {
-        if (this.fuse) {
-          this.fuse.list = this.formattedResult
-        }
+        if (this.useLazyLoading && this.hasFilteredOptions) return
 
-        if (this.useLazyLoading) {
-          this.filterOptions = this.filterOptions.length ? this.filterOptions : this.formattedResult
-          return
-        }
+        if (this.fuse) this.fuse.list = this.defaultOptions
 
-        this.filterOptions = this.formattedResult
+        this.filteredOptions = this.defaultOptions
       },
       immediate: true
     }
@@ -203,26 +198,21 @@ export default {
     onFilter (value, update) {
       update(() => {
         if (this.useLazyLoading) {
-          if (value === this.search) return
-
-          this.filterOptionsByStore(value)
-
-          return
+          if (value !== this.search) return this.filterOptionsByStore(value)
         }
 
-        if (this.searchable) {
-          this.filterOptionsByFuse(value)
-        }
+        if (this.searchable) this.filterOptionsByFuse(value)
       })
     },
 
     filterOptionsByFuse (value) {
       if (value === '') {
-        this.filterOptions = this.formattedResult
-      } else {
-        const results = this.fuse.search(value)
-        this.filterOptions = results.map(item => item.item)
+        this.filteredOptions = this.defaultOptions
+        return
       }
+
+      const results = this.fuse.search(value)
+      this.filteredOptions = results.map(item => item.item)
     },
 
     renameKey (item) {

@@ -7,7 +7,7 @@
     </q-input>
 
     <div :class="contentClasses" :style="contentStyle">
-      <slot v-if="hasResults" :results="filterOptions" :height="contentHeight" />
+      <slot v-if="hasResults" :results="filteredOptions" :height="contentHeight" />
 
       <slot v-if="isLoading" name="loading">
         <div class="flex justify-center q-pb-sm">
@@ -44,6 +44,11 @@ export default {
       type: String
     },
 
+    emptyResultText: {
+      default: 'Não há resultados disponíveis.',
+      type: String
+    },
+
     fuseOptions: {
       default: () => ({}),
       type: Object
@@ -63,31 +68,25 @@ export default {
       type: Array
     },
 
-    emptyResultText: {
-      default: 'Não há resultados disponíveis.',
+    placeholder: {
+      default: 'Pesquisar',
       type: String
     },
 
-    placeholder: {
-      default: 'Pesquisar',
+    value: {
+      default: '',
       type: String
     },
 
     virtualScroll: {
       default: () => ({}),
       type: Object
-    },
-
-    value: {
-      default: '',
-      type: String
     }
   },
 
   data () {
     return {
-      fuse: null,
-      filterOptions: this.list
+      fuse: null
     }
   },
 
@@ -123,8 +122,12 @@ export default {
       }
     },
 
+    defaultOptions () {
+      return this.list
+    },
+
     hasResults () {
-      return !!this.filterOptions.length
+      return !!this.filteredOptions.length
     },
 
     showEmptyResult () {
@@ -178,16 +181,17 @@ export default {
   },
 
   async created () {
+    this.filteredOptions = this.defaultOptions
     this.search = this.value
 
     if (!this.useLazyLoading) {
-      this.fuse = new Fuse(this.list, this.defaultFuseOptions)
+      this.fuse = new Fuse(this.defaultOptions, this.defaultFuseOptions)
     }
   },
 
   methods: {
     filterOptionsByFuse (value) {
-      this.filterOptions = value ? this.fuse.search(value) : this.list
+      this.filteredOptions = value ? this.fuse.search(value) : this.defaultOptions
     }
   }
 }

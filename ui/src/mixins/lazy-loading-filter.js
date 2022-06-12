@@ -33,7 +33,7 @@ export default {
       hasFetchError: false,
       isScrolling: false,
       isLoading: false,
-      filterOptions: [],
+      filteredOptions: [],
       pagination: {
         page: 1,
         lastPage: null
@@ -43,6 +43,10 @@ export default {
   },
 
   computed: {
+    hasFilteredOptions () {
+      return !!this.filteredOptions.length
+    },
+
     virtualScrollClassName () {
       return `virtual-scroll-${this.name}`
     }
@@ -50,13 +54,13 @@ export default {
 
   methods: {
     async filterOptionsByStore (value) {
-      this.filterOptions = []
+      this.filteredOptions = []
       this.search = value
       this.pagination = {
         page: 1,
         lastPage: null
       }
-      this.filterOptions = await this.fetchOptions()
+      this.filteredOptions = await this.fetchOptions()
     },
 
     async fetchOptions () {
@@ -88,7 +92,7 @@ export default {
 
         this.$emit('fetch-options-success', data)
 
-        return results
+        return this.handleOptions(results)
       } catch (error) {
         this.hasFetchError = true
         this.$emit('fetch-options-error', error)
@@ -102,7 +106,7 @@ export default {
 
       const { scrollContainer, top } = this.getScrollContainerTop()
       const { lastPage, page } = this.pagination
-      const lastIndex = this.filterOptions.length - 1
+      const lastIndex = this.filteredOptions.length - 1
 
       /**
        *  if the last page was not reached
@@ -115,7 +119,7 @@ export default {
         this.isScrolling = true
 
         const options = await this.fetchOptions()
-        this.filterOptions.push(...options)
+        this.filteredOptions.push(...options)
 
         // solution based on Quasar Select filtering
         setTimeout(() => {
@@ -138,6 +142,14 @@ export default {
         scrollContainer,
         top: scrollContainerTop + (scrollContainerHeight / 2)
       }
+    },
+
+    handleOptions (options) {
+      if (this.labelKey && this.valueKey && this.renameKey) {
+        return options.map(item => this.renameKey(item))
+      }
+
+      return options
     },
 
     missingPropMessage (prop) {
