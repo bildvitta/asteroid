@@ -89,10 +89,6 @@ export default {
     },
 
     // Events
-    input: {
-      description: 'Fires when model changes. Also used by `v-model`.'
-    },
-
     'fetch-options-error': {
       description: 'Fires when occur an error fetching the options.',
       table: {
@@ -111,6 +107,10 @@ export default {
           summary: '{}'
         }
       }
+    },
+
+    input: {
+      description: 'Fires when model changes. Also used by `v-model`.'
     },
 
     // Slots

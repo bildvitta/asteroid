@@ -7,7 +7,7 @@
     </q-input>
 
     <div :class="contentClasses" :style="contentStyle">
-      <slot v-if="hasFilteredOptions" :results="filteredOptions" :height="contentHeight" />
+      <slot v-if="hasFilteredOptions" :height="contentHeight" :results="filteredOptions" />
 
       <slot v-if="isLoading" name="loading">
         <div class="flex justify-center q-pb-sm">

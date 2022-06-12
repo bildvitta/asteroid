@@ -8,13 +8,7 @@ export default {
     },
 
     lazyLoadingProps: {
-      default: () => ({
-        url: '',
-        params: {
-          limit: 24
-        },
-        decamelizeFieldName: true
-      }),
+      default: () => ({}),
       type: Object
     },
 
@@ -30,10 +24,10 @@ export default {
 
   data () {
     return {
-      hasFetchError: false,
-      isScrolling: false,
-      isLoading: false,
       filteredOptions: [],
+      hasFetchError: false,
+      isLoading: false,
+      isScrolling: false,
       pagination: {
         page: 1,
         lastPage: null
@@ -43,6 +37,27 @@ export default {
   },
 
   computed: {
+    lazyLoadingPropsWithDefaults () {
+      const {
+        url,
+        params,
+        decamelizeFieldName
+      } = this.lazyLoadingProps
+
+      const defaultParams = {
+        limit: 48
+      }
+
+      return {
+        url: url || '',
+        params: {
+          ...defaultParams,
+          ...params
+        },
+        decamelizeFieldName: decamelizeFieldName === undefined ? true : decamelizeFieldName
+      }
+    },
+
     hasFilteredOptions () {
       return !!this.filteredOptions.length
     },
@@ -71,7 +86,7 @@ export default {
         this.hasFetchError = false
         this.isLoading = true
 
-        const { url, params, decamelizeFieldName } = this.lazyLoadingProps
+        const { url, params, decamelizeFieldName } = this.lazyLoadingPropsWithDefaults
 
         const { data } = await this.$store.dispatch(`${this.entity}/fetchFieldOptions`, {
           url,
@@ -98,7 +113,7 @@ export default {
 
         this.hasFetchError = true
         this.$emit('fetch-options-error', error)
-        
+
         return []
       } finally {
         this.isLoading = false
@@ -106,7 +121,7 @@ export default {
     },
 
     async onVirtualScroll ({ index }) {
-      if (this.isScrolling) return
+      if (this.isScrolling || !this.useLazyLoading) return
 
       const { scrollContainer, top } = this.getScrollContainerTop()
       const { lastPage, page } = this.pagination

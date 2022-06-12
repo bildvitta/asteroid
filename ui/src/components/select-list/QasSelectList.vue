@@ -2,9 +2,9 @@
   <qas-search-box v-bind="$attrs" class="q-pa-md" :fuse-options="fuseOptions" :list="sortedOptions" :virtual-scroll="virtualScroll">
     <template #default="{ results, height }">
       <q-virtual-scroll
+        #default="{ item, index }"
         :items="results"
         separator
-        v-slot="{ item, index }"
         :style="{ maxHeight: height }"
         @virtual-scroll="onVirtualScroll"
       >
