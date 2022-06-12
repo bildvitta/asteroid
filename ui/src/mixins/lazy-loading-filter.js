@@ -77,9 +77,9 @@ export default {
           url,
           field: decamelizeFieldName ? decamelize(this.name, { separator: '-' }) : this.name,
           params: {
+            ...params,
             search: this.search,
-            offset: (this.pagination.page - 1) * params.limit,
-            ...params
+            offset: (this.pagination.page - 1) * params.limit
           }
         })
 
@@ -94,8 +94,12 @@ export default {
 
         return this.handleOptions(results)
       } catch (error) {
+        console.log(error)
+
         this.hasFetchError = true
         this.$emit('fetch-options-error', error)
+        
+        return []
       } finally {
         this.isLoading = false
       }

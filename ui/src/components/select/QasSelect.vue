@@ -190,7 +190,7 @@ export default {
   async created () {
     if (this.searchable && !this.useLazyLoading) {
       const Fuse = (await import('fuse.js')).default
-      this.fuse = new Fuse(this.options, this.defaultFuseOptions)
+      this.fuse = new Fuse(this.defaultOptions, this.defaultFuseOptions)
     }
   },
 

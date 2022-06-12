@@ -7,7 +7,7 @@
     </q-input>
 
     <div :class="contentClasses" :style="contentStyle">
-      <slot v-if="hasResults" :results="filteredOptions" :height="contentHeight" />
+      <slot v-if="hasFilteredOptions" :results="filteredOptions" :height="contentHeight" />
 
       <slot v-if="isLoading" name="loading">
         <div class="flex justify-center q-pb-sm">
@@ -105,7 +105,7 @@ export default {
     },
 
     contentHeight () {
-      return this.hasResults ? this.height : this.showEmptyResult ? this.emptyListHeight : 'auto'
+      return this.hasFilteredOptions ? this.height : this.showEmptyResult ? this.emptyListHeight : 'auto'
     },
 
     defaultFuseOptions () {
@@ -122,16 +122,8 @@ export default {
       }
     },
 
-    defaultOptions () {
-      return this.list
-    },
-
-    hasResults () {
-      return !!this.filteredOptions.length
-    },
-
     showEmptyResult () {
-      return !this.hasResults && !this.hideEmptySlot && !this.isLoading
+      return !this.hasFilteredOptions && !this.hideEmptySlot && !this.isLoading
     },
 
     isDisable () {
@@ -155,7 +147,7 @@ export default {
       this.fuse.options = { ...this.fuse.options, ...value }
     },
 
-    hasResults (value) {
+    hasFilteredOptions (value) {
       !value && this.$emit('emptyResult')
     },
 
@@ -180,18 +172,15 @@ export default {
     }
   },
 
-  async created () {
-    this.filteredOptions = this.defaultOptions
-    this.search = this.value
-
+  created () {
     if (!this.useLazyLoading) {
-      this.fuse = new Fuse(this.defaultOptions, this.defaultFuseOptions)
+      this.fuse = new Fuse(this.list, this.defaultFuseOptions)
     }
   },
 
   methods: {
     filterOptionsByFuse (value) {
-      this.filteredOptions = value ? this.fuse.search(value) : this.defaultOptions
+      this.filteredOptions = value ? this.fuse.search(value) : this.list
     }
   }
 }
