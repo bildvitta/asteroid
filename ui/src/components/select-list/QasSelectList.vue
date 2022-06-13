@@ -1,29 +1,21 @@
 <template>
-  <qas-search-box v-bind="$attrs" class="q-pa-md" :fuse-options="fuseOptions" :list="sortedOptions" :virtual-scroll="virtualScroll">
-    <template #default="{ results, height }">
-      <q-virtual-scroll
-        #default="{ item, index }"
-        :items="results"
-        separator
-        :style="{ maxHeight: height }"
-        @virtual-scroll="onVirtualScroll"
-      >
-        <q-item :key="index">
-          <slot name="item" v-bind="self">
-            <slot name="item-section" :result="item">
-              <q-item-section class="items-start text-bold">
-                <div :class="labelClass" @click="redirectRoute(item)">{{ item.label }}</div>
-              </q-item-section>
-            </slot>
-
-            <q-item-section avatar>
-              <slot name="item-action" v-bind="self">
-                <qas-btn hide-mobile-label v-bind="setButtonProps(item)" size="sm" @click="handleClick(item)" />
-              </slot>
+  <qas-search-box v-bind="$attrs" class="q-pa-md" :fuse-options="fuseOptions" :list="sortedOptions">
+    <template #default="{ results }">
+      <q-item v-for="(item, index) in results" :key="index">
+        <slot name="item" v-bind="self">
+          <slot name="item-section" :result="item">
+            <q-item-section class="items-start text-bold">
+              <div :class="labelClass" @click="redirectRoute(item)">{{ item.label }}</div>
             </q-item-section>
           </slot>
-        </q-item>
-      </q-virtual-scroll>
+
+          <q-item-section avatar>
+            <slot name="item-action" v-bind="self">
+              <qas-btn hide-mobile-label v-bind="setButtonProps(item)" size="sm" @click="handleClick(item)" />
+            </slot>
+          </q-item-section>
+        </slot>
+      </q-item>
     </template>
   </qas-search-box>
 </template>
@@ -73,7 +65,6 @@ export default {
 
   data () {
     return {
-      virtualScroll: {},
       sortedOptions: [],
       values: []
     }
@@ -180,10 +171,6 @@ export default {
 
     updateModel () {
       this.$emit('input', this.values)
-    },
-
-    onVirtualScroll (args) {
-      this.virtualScroll = args
     }
   }
 }

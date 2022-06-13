@@ -136,11 +136,6 @@ export default {
         category: 'slots',
         ...noSummary
       }
-    },
-
-    option: {
-      description: 'Replace an option defaults.',
-      table: noSummary
     }
   }
 }

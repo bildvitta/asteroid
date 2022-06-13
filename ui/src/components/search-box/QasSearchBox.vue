@@ -6,8 +6,10 @@
       </template>
     </q-input>
 
-    <div :class="contentClasses" :style="contentStyle">
-      <slot v-if="hasFilteredOptions" :height="contentHeight" :results="filteredOptions" />
+    <div ref="scrollContainer" :class="contentClasses" :style="contentStyle">
+      <component :is="component.is" v-bind="component.props" v-on="component.listeners">
+        <slot v-if="$_hasFilteredOptions" :results="filteredOptions" />
+      </component>
 
       <slot v-if="isLoading" name="loading">
         <div class="flex justify-center q-pb-sm">
@@ -26,6 +28,7 @@
 </template>
 
 <script>
+import { QInfiniteScroll } from 'quasar'
 import QasBox from '../box/QasBox.vue'
 
 import Fuse from 'fuse.js'
@@ -33,6 +36,7 @@ import lazyLoadingFilterMixin from '../../mixins/lazy-loading-filter'
 
 export default {
   components: {
+    QInfiniteScroll,
     QasBox
   },
 
@@ -76,11 +80,6 @@ export default {
     value: {
       default: '',
       type: String
-    },
-
-    virtualScroll: {
-      default: () => ({}),
-      type: Object
     }
   },
 
@@ -92,12 +91,7 @@ export default {
 
   computed: {
     contentClasses () {
-      return [
-        { 'overflow-auto': !this.useLazyLoading },
-        'q-mt-xs',
-        'relative-position',
-        this.virtualScrollClassName
-      ]
+      return ['overflow-auto', 'q-mt-xs', 'relative-position', this.$_virtualScrollClassName]
     },
 
     contentStyle () {
@@ -105,7 +99,7 @@ export default {
     },
 
     contentHeight () {
-      return this.hasFilteredOptions ? this.height : this.showEmptyResult ? this.emptyListHeight : 'auto'
+      return this.$_hasFilteredOptions ? this.height : this.showEmptyResult ? this.emptyListHeight : 'auto'
     },
 
     defaultFuseOptions () {
@@ -123,21 +117,39 @@ export default {
     },
 
     showEmptyResult () {
-      return !this.hasFilteredOptions && !this.hideEmptySlot && !this.isLoading
+      return !this.$_hasFilteredOptions && !this.hideEmptySlot && !this.isLoading
     },
 
-    isDisable () {
+    isDisabled () {
       return (!this.useLazyLoading && !this.list.length) || this.isLoading
     },
 
     attributes () {
       return {
         clearable: true,
-        disable: this.isDisable,
+        disable: this.isDisabled,
         debounce: this.useLazyLoading ? 500 : 0,
         outlined: true,
         placeholder: this.placeholder,
         error: this.hasFetchError
+      }
+    },
+
+    component () {
+      const infiniteScrollProps = {
+        offset: 100,
+        scrollTarget: this.$refs.scrollContainer,
+        ref: 'infiniteScrollRef'
+      }
+
+      return {
+        is: this.useLazyLoading ? 'q-infinite-scroll' : 'div',
+        props: {
+          ...(this.useLazyLoading && infiniteScrollProps)
+        },
+        listeners: {
+          ...(this.useLazyLoading && { load: this.onInfiniteScroll })
+        }
       }
     }
   },
@@ -147,7 +159,7 @@ export default {
       this.fuse.options = { ...this.fuse.options, ...value }
     },
 
-    hasFilteredOptions (value) {
+    $_hasFilteredOptions (value) {
       !value && this.$emit('emptyResult')
     },
 
@@ -159,20 +171,26 @@ export default {
     },
 
     search: {
-      handler (value) {
-        this.useLazyLoading ? this.filterOptionsByStore(value) : this.filterOptionsByFuse(value)
+      async handler (value) {
         this.$emit('input', value)
-      },
 
-      immediate: true
-    },
+        if (this.useLazyLoading) {
+          await this.$_filterOptionsByStore(value)
 
-    virtualScroll (value) {
-      this.onVirtualScroll(value)
+          this.$refs.infiniteScrollRef.resume()
+
+          return
+        }
+
+        this.filterOptionsByFuse(value)
+      }
     }
   },
 
   created () {
+    this.filteredOptions = this.list
+    this.search = this.value
+
     if (!this.useLazyLoading) {
       this.fuse = new Fuse(this.list, this.defaultFuseOptions)
     }
@@ -181,6 +199,20 @@ export default {
   methods: {
     filterOptionsByFuse (value) {
       this.filteredOptions = value ? this.fuse.search(value) : this.list
+    },
+
+    async onInfiniteScroll (index, done) {
+      if (!this.$_hasFilteredOptions && !this.search) {
+        await this.$_setFetchOptions()
+        return done()
+      }
+
+      if (this.$_canFetchOptions()) {
+        await this.$_loadMoreOptions()
+        return done()
+      }
+
+      done(true)
     }
   }
 }

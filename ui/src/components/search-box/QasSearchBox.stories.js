@@ -86,15 +86,6 @@ export default {
       description: 'Search field value.'
     },
 
-    virtualScroll: {
-      description: 'Option to receive the virtual scroll arguments to be used on lazy loading.',
-      table: {
-        defaultValue: {
-          detail: JSON.stringify({})
-        }
-      }
-    },
-
     // Events
     emptyResult: {
       description: 'Fires when there is no results.',

@@ -104,17 +104,12 @@ export default {
 
     listeners () {
       const { input, ...events } = this.$listeners
-      const listeners = { ...events }
 
-      if (this.useLazyLoading) {
-        listeners['virtual-scroll'] = this.onVirtualScroll
+      return {
+        ...events,
+        ...(this.useLazyLoading && { 'virtual-scroll': this.$_onVirtualScroll }),
+        ...((this.useLazyLoading || this.searchable) && { filter: this.onFilter })
       }
-
-      if (this.useLazyLoading || this.searchable) {
-        listeners.filter = this.onFilter
-      }
-
-      return listeners
     },
 
     defaultFuseOptions () {
@@ -161,7 +156,7 @@ export default {
         clearable: this.isSearchable,
         loading: this.isLoading,
         inputDebounce: this.useLazyLoading ? 500 : 0,
-        popupContentClass: this.virtualScrollClassName,
+        popupContentClass: this.$_virtualScrollClassName,
         ...this.$attrs,
         options: this.filteredOptions,
         useInput: this.isSearchable,
@@ -177,9 +172,11 @@ export default {
 
     options: {
       handler () {
-        if (this.useLazyLoading && this.hasFilteredOptions) return
+        if (this.useLazyLoading && this.$_hasFilteredOptions) return
 
-        if (this.fuse) this.fuse.list = this.defaultOptions
+        if (this.fuse) {
+          this.fuse.list = this.defaultOptions
+        }
 
         this.filteredOptions = this.defaultOptions
       },
@@ -197,11 +194,9 @@ export default {
   methods: {
     onFilter (value, update) {
       update(() => {
-        if (this.useLazyLoading) {
-          if (value !== this.search) return this.filterOptionsByStore(value)
-        }
+        if (this.useLazyLoading && value !== this.search) return this.$_filterOptionsByStore(value)
 
-        if (this.searchable) this.filterOptionsByFuse(value)
+        if (!this.useLazyLoading && this.searchable) this.filterOptionsByFuse(value)
       })
     },
 
@@ -212,7 +207,7 @@ export default {
       }
 
       const results = this.fuse.search(value)
-      this.filteredOptions = results.map(item => item.item)
+      this.filteredOptions = results.map(({ item }) => item)
     },
 
     renameKey (item) {

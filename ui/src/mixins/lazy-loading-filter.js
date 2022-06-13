@@ -37,7 +37,7 @@ export default {
   },
 
   computed: {
-    lazyLoadingPropsWithDefaults () {
+    $_defaultLazyLoadingProps () {
       const {
         url,
         params,
@@ -54,39 +54,69 @@ export default {
           ...defaultParams,
           ...params
         },
-        decamelizeFieldName: decamelizeFieldName === undefined ? true : decamelizeFieldName
+        decamelizeFieldName: (decamelizeFieldName ?? true) || decamelizeFieldName
       }
     },
 
-    hasFilteredOptions () {
+    $_hasFilteredOptions () {
       return !!this.filteredOptions.length
     },
 
-    virtualScrollClassName () {
+    $_virtualScrollClassName () {
       return `virtual-scroll-${this.name}`
     }
   },
 
   methods: {
-    async filterOptionsByStore (value) {
+    async $_filterOptionsByStore (search) {
+      this.$_resetFilter(search)
+      await this.$_setFetchOptions()
+    },
+
+    $_resetFilter (search) {
       this.filteredOptions = []
-      this.search = value
+      this.search = search
       this.pagination = {
         page: 1,
         lastPage: null
       }
-      this.filteredOptions = await this.fetchOptions()
     },
 
-    async fetchOptions () {
+    async $_onVirtualScroll ({ index }) {
+      const lastIndex = this.filteredOptions.length - 1
+
+      if (index === lastIndex && this.$_canFetchOptions()) {
+        const { scrollContainer, top } = this.$_getScrollContainerTop()
+
+        await this.$_loadMoreOptions()
+
+        setTimeout(() => {
+          scrollContainer.scrollTo({ top })
+        }, 100)
+      }
+    },
+
+    async $_loadMoreOptions () {
+      this.isScrolling = true
+
+      const options = await this.$_fetchOptions()
+      this.filteredOptions.push(...options)
+
+      // this is to prevent the virtual-scroll event to be fired again
+      this.$nextTick(() => {
+        this.isScrolling = false
+      })
+    },
+
+    async $_fetchOptions () {
       try {
-        if (!this.entity) throw new Error(this.missingPropMessage('entity'))
-        if (!this.name) throw new Error(this.missingPropMessage('name'))
+        if (!this.entity) throw new Error(this.$_getMissingPropsMessage('entity'))
+        if (!this.name) throw new Error(this.$_getMissingPropsMessage('name'))
 
         this.hasFetchError = false
         this.isLoading = true
 
-        const { url, params, decamelizeFieldName } = this.lazyLoadingPropsWithDefaults
+        const { url, params, decamelizeFieldName } = this.$_defaultLazyLoadingProps
 
         const { data } = await this.$store.dispatch(`${this.entity}/fetchFieldOptions`, {
           url,
@@ -107,9 +137,10 @@ export default {
 
         this.$emit('fetch-options-success', data)
 
-        return this.handleOptions(results)
+        return this.$_handleOptions(results)
       } catch (error) {
-        console.log(error)
+        /* eslint-disable no-console */
+        console.error(error)
 
         this.hasFetchError = true
         this.$emit('fetch-options-error', error)
@@ -120,40 +151,19 @@ export default {
       }
     },
 
-    async onVirtualScroll ({ index }) {
-      if (this.isScrolling || !this.useLazyLoading) return
-
-      const { scrollContainer, top } = this.getScrollContainerTop()
-      const { lastPage, page } = this.pagination
-      const lastIndex = this.filteredOptions.length - 1
-
-      /**
-       *  if the last page was not reached
-       *  if the scroll container is at the bottom
-       *  if it's not filtering
-       */
-      const canFetchOptions = lastPage && page <= lastPage && index === lastIndex && !this.isLoading
-
-      if (canFetchOptions) {
-        this.isScrolling = true
-
-        const options = await this.fetchOptions()
-        this.filteredOptions.push(...options)
-
-        // solution based on Quasar Select filtering
-        setTimeout(() => {
-          scrollContainer.scrollTo({ top })
-
-          // this is to prevent the virtual-scroll event to be fired again
-          this.$nextTick(() => {
-            this.isScrolling = false
-          })
-        }, 100)
-      }
+    async $_setFetchOptions () {
+      this.filteredOptions = await this.$_fetchOptions()
     },
 
-    getScrollContainerTop () {
-      const scrollContainer = document.querySelector(`.${this.virtualScrollClassName}`)
+    $_canFetchOptions () {
+      const { lastPage, page } = this.pagination
+      const hasMorePages = lastPage && page <= lastPage
+
+      return hasMorePages && !this.isLoading && !this.isScrolling && this.useLazyLoading
+    },
+
+    $_getScrollContainerTop () {
+      const scrollContainer = document.querySelector(`.${this.$_virtualScrollClassName}`)
       const scrollContainerHeight = scrollContainer.offsetHeight
       const scrollContainerTop = scrollContainer.scrollTop
 
@@ -163,7 +173,7 @@ export default {
       }
     },
 
-    handleOptions (options) {
+    $_handleOptions (options) {
       if (this.labelKey && this.valueKey && this.renameKey) {
         return options.map(item => this.renameKey(item))
       }
@@ -171,7 +181,7 @@ export default {
       return options
     },
 
-    missingPropMessage (prop) {
+    $_getMissingPropsMessage (prop) {
       return `A propriedade "${prop}" é obrigatória quando a propriedade "useLazyLoading" está ativa.`
     }
   }
