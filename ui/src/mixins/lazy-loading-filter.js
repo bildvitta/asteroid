@@ -54,7 +54,7 @@ export default {
           ...defaultParams,
           ...params
         },
-        decamelizeFieldName: (decamelizeFieldName ?? true) || decamelizeFieldName
+        decamelizeFieldName: decamelizeFieldName === undefined ? true : decamelizeFieldName
       }
     },
 
