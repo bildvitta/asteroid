@@ -112,6 +112,10 @@ export default {
       }
     },
 
+    fetching: {
+      description: 'Fires when fetching the options.',
+    },
+
     input: {
       description: 'Fires when the result changes.',
       table: noSummary
