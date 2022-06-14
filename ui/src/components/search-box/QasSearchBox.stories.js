@@ -113,7 +113,7 @@ export default {
     },
 
     fetching: {
-      description: 'Fires when fetching the options.',
+      description: 'Fires when fetching the options.'
     },
 
     input: {
