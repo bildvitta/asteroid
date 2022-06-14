@@ -63,7 +63,19 @@ export default {
     },
 
     $_virtualScrollClassName () {
-      return `virtual-scroll-${this.name}`
+      const uuid = Date.now()
+      return `virtual-scroll-${this.name}-${uuid}`
+    }
+  },
+
+  watch: {
+    lazyLoadingProps: {
+      handler (value, oldValue) {
+        if (JSON.stringify(value) === JSON.stringify(oldValue)) return
+
+        this.$_resetFilter()
+        this.$emit('input', '')
+      }
     }
   },
 
@@ -114,7 +126,9 @@ export default {
         if (!this.name) throw new Error(this.$_getMissingPropsMessage('name'))
 
         this.hasFetchError = false
+
         this.isLoading = true
+        this.$emit('fetching', true)
 
         const { url, params, decamelizeFieldName } = this.$_defaultLazyLoadingProps
 
@@ -148,6 +162,7 @@ export default {
         return []
       } finally {
         this.isLoading = false
+        this.$emit('fetching', false)
       }
     },
 
