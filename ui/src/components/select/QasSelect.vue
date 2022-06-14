@@ -17,7 +17,7 @@
         <q-item>
           <q-item-section class="text-grey">
             <template v-if="isLoading">
-              Buscando por {{ label }}...
+              Buscando opções de {{ label }}...
             </template>
             <template v-else>
               {{ noOptionLabel }}

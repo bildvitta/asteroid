@@ -1,21 +1,23 @@
 <template>
   <qas-search-box v-bind="$attrs" class="q-pa-md" :fuse-options="fuseOptions" :list="sortedOptions">
     <template #default="{ results }">
-      <q-item v-for="(item, index) in results" :key="index">
-        <slot name="item" v-bind="self">
-          <slot name="item-section" :result="item">
-            <q-item-section class="items-start text-bold">
-              <div :class="labelClass" @click="redirectRoute(item)">{{ item.label }}</div>
+      <q-list separator>
+        <q-item v-for="(item, index) in results" :key="index">
+          <slot name="item" v-bind="self">
+            <slot name="item-section" :result="item">
+              <q-item-section class="items-start text-bold">
+                <div :class="labelClass" @click="redirectRoute(item)">{{ item.label }}</div>
+              </q-item-section>
+            </slot>
+
+            <q-item-section avatar>
+              <slot name="item-action" v-bind="self">
+                <qas-btn hide-mobile-label v-bind="setButtonProps(item)" size="sm" @click="handleClick(item)" />
+              </slot>
             </q-item-section>
           </slot>
-
-          <q-item-section avatar>
-            <slot name="item-action" v-bind="self">
-              <qas-btn hide-mobile-label v-bind="setButtonProps(item)" size="sm" @click="handleClick(item)" />
-            </slot>
-          </q-item-section>
-        </slot>
-      </q-item>
+        </q-item>
+      </q-list>
     </template>
   </qas-search-box>
 </template>

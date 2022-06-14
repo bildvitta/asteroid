@@ -109,6 +109,10 @@ export default {
       }
     },
 
+    fetching: {
+      description: 'Fires when fetching the options.'
+    },
+
     input: {
       description: 'Fires when model changes. Also used by `v-model`.'
     },

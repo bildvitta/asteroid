@@ -1,4 +1,6 @@
 import { decamelize } from 'humps'
+import { isEqual } from 'lodash'
+import { uid } from 'quasar'
 
 export default {
   props: {
@@ -63,7 +65,19 @@ export default {
     },
 
     $_virtualScrollClassName () {
-      return `virtual-scroll-${this.name}`
+      const id = uid()
+      return `virtual-scroll-${id}`
+    }
+  },
+
+  watch: {
+    lazyLoadingProps: {
+      handler (value, oldValue) {
+        if (isEqual(value, oldValue)) return
+
+        this.$_resetFilter()
+        this.$emit('input', '')
+      }
     }
   },
 
@@ -114,7 +128,9 @@ export default {
         if (!this.name) throw new Error(this.$_getMissingPropsMessage('name'))
 
         this.hasFetchError = false
+
         this.isLoading = true
+        this.$emit('fetching', true)
 
         const { url, params, decamelizeFieldName } = this.$_defaultLazyLoadingProps
 
@@ -148,6 +164,7 @@ export default {
         return []
       } finally {
         this.isLoading = false
+        this.$emit('fetching', false)
       }
     },
 
