@@ -1,4 +1,5 @@
 import { decamelize } from 'humps'
+import { isEqual } from 'lodash'
 
 export default {
   props: {
@@ -71,7 +72,7 @@ export default {
   watch: {
     lazyLoadingProps: {
       handler (value, oldValue) {
-        if (JSON.stringify(value) === JSON.stringify(oldValue)) return
+        if (isEqual(value, oldValue)) return
 
         this.$_resetFilter()
         this.$emit('input', '')

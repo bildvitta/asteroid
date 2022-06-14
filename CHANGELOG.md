@@ -15,7 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 - `lazyLoadingFilterMixin`: watch `lazyLoadingProps` change to reset the filter.
 - `lazyLoadingFilterMixin`: change virtual scroll class name to a unique one.
-- `QasSelectList`: return with the `q-list` wrapper to all `q-item`s.
+- `QasSelectList`: return with the `q-list` wrapper to all `q-item`.
 
 ## 2.23.0-beta.4 - 2022-06-13
 
