@@ -1,5 +1,6 @@
 import { decamelize } from 'humps'
 import { isEqual } from 'lodash'
+import { uid } from 'quasar'
 
 export default {
   props: {
@@ -64,8 +65,8 @@ export default {
     },
 
     $_virtualScrollClassName () {
-      const uuid = Date.now()
-      return `virtual-scroll-${this.name}-${uuid}`
+      const id = uid()
+      return `virtual-scroll-${id}`
     }
   },
 
