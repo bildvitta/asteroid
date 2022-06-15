@@ -15,7 +15,7 @@
     <template #hint>
       <slot name="hint">
         <div v-if="isLoading" class="q-pb-sm">
-          Buscando por dados...
+          Buscando por opções...
         </div>
       </slot>
     </template>
