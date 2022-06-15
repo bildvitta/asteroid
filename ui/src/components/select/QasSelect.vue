@@ -12,6 +12,14 @@
       </slot>
     </template>
 
+    <template #hint>
+      <slot name="hint">
+        <div v-if="isLoading" class="q-pb-sm">
+          Buscando por dados...
+        </div>
+      </slot>
+    </template>
+
     <template #no-option>
       <slot v-if="!isLoading" name="no-option">
         <q-item>
@@ -145,6 +153,7 @@ export default {
 
     attributes () {
       return {
+        bottomSlots: true,
         emitValue: true,
         mapOptions: true,
         outlined: true,
