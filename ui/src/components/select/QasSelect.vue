@@ -139,18 +139,22 @@ export default {
       return this.hasFetchError || this.$attrs.error
     },
 
+    hasLoading () {
+      return this.isLoading || this.$attrs.loading
+    },
+
     attributes () {
       return {
         emitValue: true,
         mapOptions: true,
         outlined: true,
         clearable: this.isSearchable,
-        loading: this.isLoading,
         inputDebounce: this.useLazyLoading ? 500 : 0,
         ...this.$attrs,
         options: this.filteredOptions,
         useInput: this.isSearchable,
-        error: this.hasError
+        error: this.hasError,
+        loading: this.hasLoading
       }
     }
   },
