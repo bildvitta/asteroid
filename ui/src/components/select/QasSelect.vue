@@ -12,16 +12,19 @@
       </slot>
     </template>
 
+    <template #hint>
+      <slot name="hint">
+        <div v-if="isLoading" class="q-pb-sm">
+          Buscando por opções...
+        </div>
+      </slot>
+    </template>
+
     <template #no-option>
-      <slot name="no-option">
+      <slot v-if="!isLoading" name="no-option">
         <q-item>
           <q-item-section class="text-grey">
-            <template v-if="isLoading">
-              Buscando opções de {{ label }}...
-            </template>
-            <template v-else>
-              {{ noOptionLabel }}
-            </template>
+            {{ noOptionLabel }}
           </q-item-section>
         </q-item>
       </slot>
@@ -98,10 +101,6 @@ export default {
       }
     },
 
-    label () {
-      return this.$attrs.label || ''
-    },
-
     listeners () {
       const { input, ...events } = this.$listeners
 
@@ -148,19 +147,23 @@ export default {
       return this.hasFetchError || this.$attrs.error
     },
 
+    hasLoading () {
+      return this.isLoading || this.$attrs.loading
+    },
+
     attributes () {
       return {
+        bottomSlots: true,
         emitValue: true,
         mapOptions: true,
         outlined: true,
         clearable: this.isSearchable,
-        loading: this.isLoading,
         inputDebounce: this.useLazyLoading ? 500 : 0,
-        popupContentClass: this.$_virtualScrollClassName,
         ...this.$attrs,
         options: this.filteredOptions,
         useInput: this.isSearchable,
-        error: this.hasError
+        error: this.hasError,
+        loading: this.hasLoading
       }
     }
   },
@@ -192,12 +195,16 @@ export default {
   },
 
   methods: {
-    onFilter (value, update) {
-      update(() => {
-        if (this.useLazyLoading && value !== this.search) return this.$_filterOptionsByStore(value)
+    async onFilter (value, update) {
+      if (this.useLazyLoading && value !== this.search) {
+        await this.$_filterOptionsByStore(value)
+      }
 
-        if (!this.useLazyLoading && this.searchable) this.filterOptionsByFuse(value)
-      })
+      if (!this.useLazyLoading && this.searchable) {
+        this.filterOptionsByFuse(value)
+      }
+
+      update()
     },
 
     filterOptionsByFuse (value) {
