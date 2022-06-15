@@ -98,7 +98,7 @@ export default {
 
         this.$nextTick(() => {
           ref.reset()
-          ref.refresh()
+          ref.refresh(-1)
         })
       }
     },
