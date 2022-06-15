@@ -4,12 +4,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## Unreleased
+## 2.23.0-beta.6 - 2022-06-15
 
 ### Added
 - `QasSelect`: added default `hint` slot to show a loading text.
 - `QasSelect`: added support to receive `loading` attribute from parent and work together with internal `isLoading`.
-  
+
 ### Fixed
 - `QasSelect`: fixed a bug with `onFilter` update callback and AJAX requests. Now the `update` callback is called only when the options is populate using lazy loading.
 - `lazyLoadingFilterMixin`: fixed a scroll bug when the user scrolls down.
