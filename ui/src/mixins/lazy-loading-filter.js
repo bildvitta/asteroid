@@ -1,6 +1,5 @@
 import { decamelize } from 'humps'
 import { isEqual } from 'lodash'
-import { uid } from 'quasar'
 
 export default {
   props: {
@@ -62,11 +61,6 @@ export default {
 
     $_hasFilteredOptions () {
       return !!this.filteredOptions.length
-    },
-
-    $_virtualScrollClassName () {
-      const id = uid()
-      return `virtual-scroll-${id}`
     }
   },
 
@@ -96,17 +90,16 @@ export default {
       }
     },
 
-    async $_onVirtualScroll ({ index }) {
+    async $_onVirtualScroll ({ index, ref }) {
       const lastIndex = this.filteredOptions.length - 1
 
       if (index === lastIndex && this.$_canFetchOptions()) {
-        const { scrollContainer, top } = this.$_getScrollContainerTop()
-
         await this.$_loadMoreOptions()
 
-        setTimeout(() => {
-          scrollContainer.scrollTo({ top })
-        }, 100)
+        this.$nextTick(() => {
+          ref.reset()
+          ref.refresh()
+        })
       }
     },
 
@@ -177,17 +170,6 @@ export default {
       const hasMorePages = lastPage && page <= lastPage
 
       return hasMorePages && !this.isLoading && !this.isScrolling && this.useLazyLoading
-    },
-
-    $_getScrollContainerTop () {
-      const scrollContainer = document.querySelector(`.${this.$_virtualScrollClassName}`)
-      const scrollContainerHeight = scrollContainer.offsetHeight
-      const scrollContainerTop = scrollContainer.scrollTop
-
-      return {
-        scrollContainer,
-        top: scrollContainerTop + (scrollContainerHeight / 2)
-      }
     },
 
     $_handleOptions (options) {

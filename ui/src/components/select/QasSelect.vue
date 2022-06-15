@@ -13,15 +13,10 @@
     </template>
 
     <template #no-option>
-      <slot name="no-option">
+      <slot v-if="!isLoading" name="no-option">
         <q-item>
           <q-item-section class="text-grey">
-            <template v-if="isLoading">
-              Buscando opções de {{ label }}...
-            </template>
-            <template v-else>
-              {{ noOptionLabel }}
-            </template>
+            {{ noOptionLabel }}
           </q-item-section>
         </q-item>
       </slot>
@@ -98,10 +93,6 @@ export default {
       }
     },
 
-    label () {
-      return this.$attrs.label || ''
-    },
-
     listeners () {
       const { input, ...events } = this.$listeners
 
@@ -156,7 +147,6 @@ export default {
         clearable: this.isSearchable,
         loading: this.isLoading,
         inputDebounce: this.useLazyLoading ? 500 : 0,
-        popupContentClass: this.$_virtualScrollClassName,
         ...this.$attrs,
         options: this.filteredOptions,
         useInput: this.isSearchable,
@@ -192,12 +182,16 @@ export default {
   },
 
   methods: {
-    onFilter (value, update) {
-      update(() => {
-        if (this.useLazyLoading && value !== this.search) return this.$_filterOptionsByStore(value)
+    async onFilter (value, update) {
+      if (this.useLazyLoading && value !== this.search) {
+        await this.$_filterOptionsByStore(value)
+      }
 
-        if (!this.useLazyLoading && this.searchable) this.filterOptionsByFuse(value)
-      })
+      if (!this.useLazyLoading && this.searchable) {
+        this.filterOptionsByFuse(value)
+      }
+
+      update()
     },
 
     filterOptionsByFuse (value) {

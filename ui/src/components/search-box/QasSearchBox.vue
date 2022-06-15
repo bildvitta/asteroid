@@ -91,7 +91,7 @@ export default {
 
   computed: {
     contentClasses () {
-      return ['overflow-auto', 'q-mt-xs', 'relative-position', this.$_virtualScrollClassName]
+      return ['overflow-auto', 'q-mt-xs', 'relative-position']
     },
 
     contentStyle () {
