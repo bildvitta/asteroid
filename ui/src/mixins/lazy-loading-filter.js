@@ -97,7 +97,6 @@ export default {
         await this.$_loadMoreOptions()
 
         this.$nextTick(() => {
-          ref.reset()
           ref.refresh(lastIndex)
         })
       }

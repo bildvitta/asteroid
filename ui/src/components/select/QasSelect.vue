@@ -159,6 +159,7 @@ export default {
         outlined: true,
         clearable: this.isSearchable,
         inputDebounce: this.useLazyLoading ? 500 : 0,
+        virtualScrollItemSize: 48,
         ...this.$attrs,
         options: this.filteredOptions,
         useInput: this.isSearchable,
