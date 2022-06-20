@@ -10,6 +10,10 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 ### Sobre os "BREAKING CHANGES"
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
+## Não publicado
+### Adicionado
+- `QasListView`: adicionada prop `useResultsAreaOnly` para definir se o container de results vazio irá ser exibido.
+
 ## [3.0.0-beta.15] - 09-06-2022
 ### Adicionado
 - `QasNestedFields`: adicionada prop `identifierItemKey` para definir a chave identificadora do objeto/linha.

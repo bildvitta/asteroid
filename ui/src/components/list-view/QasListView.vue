@@ -10,7 +10,7 @@
       </slot>
 
       <main class="relative-position">
-        <div v-if="hasResults">
+        <div v-if="showResults">
           <slot />
         </div>
 
@@ -72,6 +72,10 @@ export default {
     useFilter: {
       default: true,
       type: Boolean
+    },
+
+    useResultsAreaOnly: {
+      type: Boolean
     }
   },
 
@@ -107,6 +111,10 @@ export default {
 
     totalPages () {
       return this.$store.getters[`${this.entity}/totalPages`]
+    },
+
+    showResults () {
+      return this.hasResults || this.useResultsAreaOnly
     }
   },
 
