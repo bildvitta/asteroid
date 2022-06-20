@@ -68,7 +68,7 @@ props:
     type: Boolean
   
   use-results-area-only:
-    desc: Controla se irá sempre visualizar os "results" independente se os "results" está vazio.
+    desc: Controla se irá sempre ser exibido os resultados independente se não há nenhum resultado a ser exibido.
     type: Boolean
 
 slots:
