@@ -10,7 +10,7 @@
       </slot>
 
       <main class="relative-position">
-        <div v-if="showResults">
+        <div v-if="hasResults">
           <slot />
         </div>
 
@@ -74,8 +74,9 @@ export default {
       type: Boolean
     },
 
-    useResultsAreaOnly: {
-      type: Boolean
+    beforeFetch: {
+      default: null,
+      type: Function
     }
   },
 
@@ -111,10 +112,6 @@ export default {
 
     totalPages () {
       return this.$store.getters[`${this.entity}/totalPages`]
-    },
-
-    showResults () {
-      return this.hasResults || this.useResultsAreaOnly
     }
   },
 
@@ -136,7 +133,7 @@ export default {
   },
 
   created () {
-    this.fetchList()
+    this.fetchHandler()
     this.setCurrentPage()
   },
 
@@ -144,6 +141,19 @@ export default {
     changePage () {
       const query = { ...this.$route.query, page: this.page }
       this.$router.push({ query })
+    },
+
+    fetchHandler () {
+      const hasBeforeFetch = typeof this.beforeFetch === 'function'
+
+      if (hasBeforeFetch) {
+        return this.beforeFetch({
+          payload: { ...this.mx_context, url: this.url },
+          resolve: payload => this.fetchList(payload)
+        })
+      }
+
+      this.fetchList()
     },
 
     async fetchList (filters = {}) {

@@ -71,6 +71,12 @@ props:
     desc: Controla se irá sempre ser exibido os resultados independente se não há nenhum resultado a ser exibido.
     type: Boolean
 
+  before-fetch:
+    desc: Callback para controlar como funciona o comportamento do fetchList.
+    default: null
+    type: Function
+    examples: ['beforeFetch({ payload, resolve })']
+
 slots:
   default:
     desc: 'Slot para ter o conteúdo principal (dentro do main).'
