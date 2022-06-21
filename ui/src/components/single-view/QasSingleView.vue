@@ -41,6 +41,11 @@ export default {
     result: {
       default: () => ({}),
       type: Object
+    },
+
+    beforeFetch: {
+      default: null,
+      type: Function
     }
   },
 
@@ -75,7 +80,7 @@ export default {
   },
 
   created () {
-    this.fetchSingle()
+    this.mx_fetchHandler({ id: this.id, url: this.url }, this.fetchSingle)
   },
 
   methods: {

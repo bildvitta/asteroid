@@ -116,6 +116,19 @@ export default {
 
         this.$emit(`update:${key}`, models[key])
       }
+    },
+
+    mx_fetchHandler (payload, resolveFn) {
+      const hasBeforeFetch = typeof this.beforeFetch === 'function'
+
+      if (hasBeforeFetch) {
+        return this.beforeFetch({
+          payload,
+          resolve: payload => resolveFn(payload)
+        })
+      }
+
+      resolveFn()
     }
   }
 }

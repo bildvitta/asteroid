@@ -4,6 +4,12 @@ meta:
   desc: Componente para C.R.U.D. responsável pela parte de listagem (Read).
 
 props:
+  before-fetch:
+    desc: Callback para controlar como funciona o comportamento do fetchList.
+    default: null
+    type: Function
+    examples: ['beforeFetch({ payload, resolve })']
+
   entity:
     desc: Entidade da store, por exemplo se tiver que trabalhar com modulo de usuários, teremos o model "users" na store, que vai ser nossa "entity".
     required: true
@@ -70,12 +76,6 @@ props:
   use-results-area-only:
     desc: Controla se irá sempre ser exibido os resultados independente se não há nenhum resultado a ser exibido.
     type: Boolean
-
-  before-fetch:
-    desc: Callback para controlar como funciona o comportamento do fetchList.
-    default: null
-    type: Function
-    examples: ['beforeFetch({ payload, resolve })']
 
 slots:
   default:

@@ -127,6 +127,11 @@ export default {
     beforeSubmit: {
       default: null,
       type: Function
+    },
+
+    beforeFetch: {
+      default: null,
+      type: Function
     }
   },
 
@@ -220,7 +225,7 @@ export default {
 
     window.addEventListener('delete-success', this.setIgnoreRouterGuard)
 
-    this.fetch()
+    this.mx_fetchHandler({ form: true, id: this.id, url: this.fetchURL }, this.fetch)
   },
 
   onUnmounted () {
