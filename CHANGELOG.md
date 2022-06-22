@@ -6,6 +6,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+### Changed
+- `QasSelect`: Added fetch options when component is created on screen. 
+
 ### Added
 - `QasSelect`: Added pagination validation with `hasNextPage` for cases where there is no items count.  
 
