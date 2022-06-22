@@ -50,7 +50,7 @@ Função que para a execução do callback da propriedade `beforeFetch`, fazendo
 resolve({ url: 'minha-url-personalizada' })
 ```
 
-Agora ao fazer o fetch, o valor da url enviada para a action do fetchSingle será `minha-url-personalizada`.
+Agora ao fazer o fetch, o valor da url enviada para a action do fetchList será `minha-url-personalizada`.
 :::
 
 <doc-example file="QasListView/BeforeFetch" title="Controlando fetch" />
