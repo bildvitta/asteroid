@@ -33,3 +33,24 @@ Para usar `QasFilters` você não precisa fazer nada! Porém, em alguns casos, v
 
 <doc-example file="QasListView/CustomFilter" title="Com filtro customizado" />
 
+:::tip
+O callback do `beforeFetch` recebe 2 parâmetros, `:before-submit="onBeforeSubmit({ payload, resolve, done })"`
+
+##### payload: `Object` -> { id, payload, url }
+Retorna `form`, `id`, `url` que serão enviados por parâmetros para a action do `fetchList`.
+
+##### resolve: `Function` -> resolve({ ...payload })
+Função que executa o método `fetch` dentro do `QasFormView`, você pode enviar como parâmetro algum payload para ser enviada para a action de fetch, adicionando ou sobrescrevendo os parâmetros atuais.
+Por exemplo, sobrescrever a url enviada para a action:
+
+##### resolve: `Function` -> done()
+Função que para a execução do callback da propriedade `beforeFetch`, fazendo com que o método `fetchList` seja executado automaticamente quando a `rota` é atualizada.
+
+```js
+resolve({ url: 'minha-url-personalizada' })
+```
+
+Agora ao fazer o fetch, o valor da url enviada para a action do fetchSingle será `minha-url-personalizada`.
+:::
+
+<doc-example file="QasListView/BeforeFetch" title="Controlando fetch" />

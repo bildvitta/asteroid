@@ -355,6 +355,7 @@ export default {
       const { addRoute } = useHistory()
 
       this.defaultDialogProps.ok.onClick = () => addRoute(this.$route)
+
       this.defaultDialogProps.cancel.onClick = next
     },
 

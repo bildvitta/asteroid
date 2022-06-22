@@ -8,7 +8,7 @@ props:
     desc: Callback para controlar como funciona o comportamento do fetchSingle.
     default: null
     type: Function
-    examples: ['beforeFetch({ payload, resolve })']
+    examples: ['beforeFetch({ payload, resolve, done })']
 
   custom-id:
     desc: Por padrão, o componente vai pegar o "id" que vem como parâmetro na url, caso queira que o id seja diferente da url, use esta prop.

@@ -55,7 +55,7 @@ export default {
       mx_errors: {},
       mx_fields: {},
       mx_metadata: {},
-
+      mx_cancelBeforeFetch: false,
       mx_isFetching: false
     }
   },
@@ -123,17 +123,20 @@ export default {
       }
     },
 
-    mx_fetchHandler (payload, resolveFn) {
+    mx_fetchHandler (payload, resolve) {
       const hasBeforeFetch = typeof this.beforeFetch === 'function'
 
-      if (hasBeforeFetch) {
+      if (hasBeforeFetch && !this.mx_cancelBeforeFetch) {
         return this.beforeFetch({
           payload,
-          resolve: payload => resolveFn(payload)
+          resolve: payload => resolve(payload),
+          done: () => {
+            this.mx_cancelBeforeFetch = true
+          }
         })
       }
 
-      resolveFn()
+      resolve()
     }
   }
 }

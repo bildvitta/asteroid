@@ -121,7 +121,7 @@ export default {
   watch: {
     $route (to, from) {
       if (to.name === from.name) {
-        this.fetchList()
+        this.mx_fetchHandler({ ...this.mx_context, url: this.url }, this.fetchList)
         this.setCurrentPage()
       }
     },
@@ -137,6 +137,7 @@ export default {
 
   created () {
     this.mx_fetchHandler({ ...this.mx_context, url: this.url }, this.fetchList)
+
     this.setCurrentPage()
   },
 
@@ -177,7 +178,7 @@ export default {
         this.$emit('fetch-success', response)
 
         this.$qas.logger.group(
-          `QasListView - fetchSingle -> resposta da action ${this.entity}/fetchList`, [response]
+          `QasListView - fetchList -> resposta da action ${this.entity}/fetchList`, [response]
         )
       } catch (error) {
         this.mx_fetchError(error)
