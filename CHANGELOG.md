@@ -10,7 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `QasSelect`: Added fetch options when component is created on screen. 
 
 ### Added
-- `QasSelect`: Added pagination validation with `hasNextPage` for cases where there is no items count.  
+- `QasSelect`: Added pagination validation with `hasNextPage` for cases where there is no count on response of action `fetchFieldOptions`.
 
 ## 2.23.0-beta.6 - 2022-06-15
 
