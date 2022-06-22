@@ -70,7 +70,7 @@ export default {
       handler (value, oldValue) {
         if (isEqual(value, oldValue)) return
 
-        this.$_resetFilter()
+        this.$_filterOptionsByStore('')
         this.$emit('input', '')
       }
     }
