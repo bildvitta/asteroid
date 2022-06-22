@@ -16,6 +16,9 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - [`QasListView`, `QasFormView`, `QasSingleView`]: adicionada prop `beforeFetch`, onde dará a liberdade para controlar quando irá acontecer a primeira execução do `fetchList`.
 - `viewMixin`: adicionado o método `mx_fetchHandler`, onde será o handler responsável por interceptar as funções de fetch das views.
 
+### Modificado
+- [`QasListView`, `QasSingleView`]: modificado o nome do parâmetro, possibilitando que o payload passado externamente sobreponha qualquer valor caso precise.
+
 ## [3.0.0-beta.15] - 09-06-2022
 ### Adicionado
 - `QasNestedFields`: adicionada prop `identifierItemKey` para definir a chave identificadora do objeto/linha.

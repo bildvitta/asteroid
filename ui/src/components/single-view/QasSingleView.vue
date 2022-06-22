@@ -84,11 +84,11 @@ export default {
   },
 
   methods: {
-    async fetchSingle (params = {}) {
+    async fetchSingle (externalPayload = {}) {
       this.mx_isFetching = true
 
       try {
-        const payload = { id: this.id, url: this.url, params }
+        const payload = { id: this.id, url: this.url, ...externalPayload }
 
         this.$qas.logger.group(
           `QasSingleView - fetchSingle -> payload do parâmetro do ${this.entity}/fetchSingle`,

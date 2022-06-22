@@ -143,16 +143,14 @@ export default {
       this.$router.push({ query })
     },
 
-    async fetchList (filters = {}) {
+    async fetchList (externalPayload = {}) {
       this.mx_isFetching = true
-
-      const hasFilters = !!Object.keys(filters).length
 
       try {
         const payload = {
           ...this.mx_context,
           url: this.url,
-          ...(hasFilters && { filters })
+          ...externalPayload
         }
 
         this.$qas.logger.group(
