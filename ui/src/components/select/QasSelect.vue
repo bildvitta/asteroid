@@ -192,6 +192,8 @@ export default {
       const Fuse = (await import('fuse.js')).default
       this.fuse = new Fuse(this.defaultOptions, this.defaultFuseOptions)
     }
+
+    this.useLazyLoading && this.$_setFetchOptions('')
   },
 
   methods: {

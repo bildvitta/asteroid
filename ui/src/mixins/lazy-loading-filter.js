@@ -31,9 +31,11 @@ export default {
       isScrolling: false,
       pagination: {
         page: 1,
-        lastPage: null
+        lastPage: null,
+        hasCount: true,
+        hasNextPage: false
       },
-      search: null
+      search: ''
     }
   },
 
@@ -69,7 +71,7 @@ export default {
       handler (value, oldValue) {
         if (isEqual(value, oldValue)) return
 
-        this.$_resetFilter()
+        this.$_filterOptionsByStore('')
         this.$emit('input', '')
       }
     }
@@ -86,7 +88,9 @@ export default {
       this.search = search
       this.pagination = {
         page: 1,
-        lastPage: null
+        lastPage: null,
+        hasCount: true,
+        hasNextPage: false
       }
     },
 
@@ -137,11 +141,14 @@ export default {
           }
         })
 
-        const { results, count } = data
+        const { results, count, hasNextPage } = data
+        const hasCount = count !== undefined
 
         this.pagination = {
           page: this.pagination.page + 1,
-          lastPage: Math.ceil(count / params.limit)
+          lastPage: hasCount ? Math.ceil(count / params.limit) : null,
+          hasCount,
+          hasNextPage
         }
 
         this.$emit('fetch-options-success', data)
@@ -166,8 +173,8 @@ export default {
     },
 
     $_canFetchOptions () {
-      const { lastPage, page } = this.pagination
-      const hasMorePages = lastPage && page <= lastPage
+      const { lastPage, page, hasCount, hasNextPage } = this.pagination
+      const hasMorePages = hasCount ? lastPage && page <= lastPage : hasNextPage
 
       return hasMorePages && !this.isLoading && !this.isScrolling && this.useLazyLoading
     },
