@@ -32,6 +32,7 @@ export default {
       pagination: {
         page: 1,
         lastPage: null,
+        hasCount: true,
         hasNextPage: false
       },
       search: ''
@@ -88,6 +89,7 @@ export default {
       this.pagination = {
         page: 1,
         lastPage: null,
+        hasCount: true,
         hasNextPage: false
       }
     },
