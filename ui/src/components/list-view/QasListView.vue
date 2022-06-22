@@ -10,7 +10,7 @@
       </slot>
 
       <main class="relative-position">
-        <div v-if="hasResults">
+        <div v-if="showResults">
           <slot />
         </div>
 
@@ -72,6 +72,10 @@ export default {
     useFilter: {
       default: true,
       type: Boolean
+    },
+
+    useResultsAreaOnly: {
+      type: Boolean
     }
   },
 
@@ -107,6 +111,10 @@ export default {
 
     totalPages () {
       return this.$store.getters[`${this.entity}/totalPages`]
+    },
+
+    showResults () {
+      return this.hasResults || this.useResultsAreaOnly
     }
   },
 
@@ -128,7 +136,7 @@ export default {
   },
 
   created () {
-    this.fetchList()
+    this.mx_fetchHandler({ ...this.mx_context, url: this.url }, this.fetchList)
     this.setCurrentPage()
   },
 
@@ -138,16 +146,14 @@ export default {
       this.$router.push({ query })
     },
 
-    async fetchList (filters = {}) {
+    async fetchList (externalPayload = {}) {
       this.mx_isFetching = true
-
-      const hasFilters = !!Object.keys(filters).length
 
       try {
         const payload = {
           ...this.mx_context,
           url: this.url,
-          ...(hasFilters && { filters })
+          ...externalPayload
         }
 
         this.$qas.logger.group(

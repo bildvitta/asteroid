@@ -4,6 +4,12 @@ meta:
   desc: Componente para C.R.U.D. responsável pela parte de listagem (Read).
 
 props:
+  before-fetch:
+    desc: Callback para controlar como funciona o comportamento do fetchList.
+    default: null
+    type: Function
+    examples: ['beforeFetch({ payload, resolve })']
+
   entity:
     desc: Entidade da store, por exemplo se tiver que trabalhar com modulo de usuários, teremos o model "users" na store, que vai ser nossa "entity".
     required: true
@@ -65,6 +71,10 @@ props:
   use-refresh:
     desc: Controla o [pull-to-refresh](https://quasar.dev/vue-components/pull-to-refresh#basic).
     default: true
+    type: Boolean
+  
+  use-results-area-only:
+    desc: Controla se irá sempre ser exibido os resultados independente se não há nenhum resultado a ser exibido.
     type: Boolean
 
 slots:

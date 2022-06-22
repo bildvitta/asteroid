@@ -4,6 +4,12 @@ meta:
   desc: Componente para C.R.U.D. responsável pela visualização (Read) ou conhecido também como "show".
 
 props:
+  before-fetch:
+    desc: Callback para controlar como funciona o comportamento do fetchSingle.
+    default: null
+    type: Function
+    examples: ['beforeFetch({ payload, resolve })']
+
   custom-id:
     desc: Por padrão, o componente vai pegar o "id" que vem como parâmetro na url, caso queira que o id seja diferente da url, use esta prop.
     type: String

@@ -4,6 +4,12 @@ meta:
   desc: Componente para C.R.U.D. responsável pela pela criação (Create) e edição (Update).
 
 props:
+  before-fetch:
+    desc: Callback para controlar como funciona o comportamento do fetch.
+    default: null
+    type: Function
+    examples: ['beforeFetch({ payload, resolve })']
+
   before-submit:
     desc: Callback para controlar como funciona o comportamento do submit.
     default: null
