@@ -41,11 +41,6 @@ export default {
     result: {
       default: () => ({}),
       type: Object
-    },
-
-    beforeFetch: {
-      default: null,
-      type: Function
     }
   },
 

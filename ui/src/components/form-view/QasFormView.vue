@@ -127,11 +127,6 @@ export default {
     beforeSubmit: {
       default: null,
       type: Function
-    },
-
-    beforeFetch: {
-      default: null,
-      type: Function
     }
   },
 

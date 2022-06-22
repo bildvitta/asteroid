@@ -72,11 +72,6 @@ export default {
     useFilter: {
       default: true,
       type: Boolean
-    },
-
-    beforeFetch: {
-      default: null,
-      type: Function
     }
   },
 

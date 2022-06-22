@@ -35,6 +35,11 @@ export default {
     useBoundary: {
       default: true,
       type: Boolean
+    },
+
+    beforeFetch: {
+      default: null,
+      type: Function
     }
   },
 
@@ -118,17 +123,17 @@ export default {
       }
     },
 
-    mx_fetchHandler (payload, resolveFn) {
+    mx_fetchHandler (payload, resolve) {
       const hasBeforeFetch = typeof this.beforeFetch === 'function'
 
       if (hasBeforeFetch) {
         return this.beforeFetch({
           payload,
-          resolve: payload => resolveFn(payload)
+          resolve: payload => resolve(payload)
         })
       }
 
-      resolveFn()
+      resolve()
     }
   }
 }
