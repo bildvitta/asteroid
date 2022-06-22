@@ -123,17 +123,17 @@ export default {
       }
     },
 
-    mx_fetchHandler (payload, resolve) {
+    mx_fetchHandler (payload, resolveFn) {
       const hasBeforeFetch = typeof this.beforeFetch === 'function'
 
       if (hasBeforeFetch) {
         return this.beforeFetch({
           payload,
-          resolve: payload => resolve(payload)
+          resolve: payload => resolveFn(payload)
         })
       }
 
-      resolve()
+      resolveFn()
     }
   }
 }
