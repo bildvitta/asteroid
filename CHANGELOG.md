@@ -19,6 +19,10 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 ### Modificado
 - [`QasListView`, `QasSingleView`]: modificado o nome do parâmetro, possibilitando que o payload passado externamente sobreponha qualquer valor caso precise.
 
+## BREAKING CHANGES
+- `QasListView`: antes o que era passado por parâmetro entrava como `filters`, agora é o payload todo, então se precisar passar um filters como anteriormente usar `fetchList({ filters: {...} })`.
+- `QasSingleView`: antes o que era passado por parâmetro entrava como `params`, agora é o payload todo, então se precisar passar um params como anteriormente usar `fetchList({ params: {...} })`.
+
 ## [3.0.0-beta.15] - 09-06-2022
 ### Adicionado
 - `QasNestedFields`: adicionada prop `identifierItemKey` para definir a chave identificadora do objeto/linha.
