@@ -36,3 +36,25 @@ Em alguns casos você vai precisar de ter uma tela unica por exmplo uma tela de 
 Aqui está um exemplo de como normalmente utilizamos este componente, lembrando que isto não é uma regra, porém na maioria das vezes você vai se deparar com códigos semelhantes a este.
 
 <doc-example file="QasSingleView/CommonUsage" title="Normalmente utilizado" />
+
+:::tip
+O callback do `beforeFetch` recebe 2 parâmetros, `:before-submit="onBeforeSubmit({ payload, resolve, done })"`
+
+##### payload: `Object` -> { id, payload, url }
+Retorna `form`, `id`, `url` que serão enviados por parâmetros para a action do `fetchSingle`.
+
+##### resolve: `Function` -> resolve({ ...payload })
+Função que executa o método `fetch` dentro do `QasFormView`, você pode enviar como parâmetro algum payload para ser enviada para a action de fetch, adicionando ou sobrescrevendo os parâmetros atuais.
+Por exemplo, sobrescrever a url enviada para a action:
+
+##### resolve: `Function` -> done()
+Função que para a execução do callback da propriedade `beforeFetch`, fazendo com que o método `fetchSingle` seja executado automaticamente quando a `rota` é atualizada.
+
+```js
+resolve({ url: 'minha-url-personalizada' })
+```
+
+Agora ao fazer o fetch, o valor da url enviada para a action do fetchSingle será `minha-url-personalizada`.
+:::
+
+<doc-example file="QasSingleView/BeforeFetch" title="Controlando fetch" />

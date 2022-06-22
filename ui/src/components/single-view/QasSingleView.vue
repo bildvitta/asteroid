@@ -66,7 +66,9 @@ export default {
 
   watch: {
     $route (to, from) {
-      to.name === from.name && this.fetchSingle()
+      if (to.name === from.name) {
+        this.mx_fetchHandler({ id: this.id, url: this.url }, this.fetchSingle)
+      }
     },
 
     resultModel (value) {

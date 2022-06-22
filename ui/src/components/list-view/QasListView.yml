@@ -8,7 +8,7 @@ props:
     desc: Callback para controlar como funciona o comportamento do fetchList.
     default: null
     type: Function
-    examples: ['beforeFetch({ payload, resolve })']
+    examples: ['beforeFetch({ payload, resolve, done })']
 
   entity:
     desc: Entidade da store, por exemplo se tiver que trabalhar com modulo de usuários, teremos o model "users" na store, que vai ser nossa "entity".
@@ -72,7 +72,7 @@ props:
     desc: Controla o [pull-to-refresh](https://quasar.dev/vue-components/pull-to-refresh#basic).
     default: true
     type: Boolean
-  
+
   use-results-area-only:
     desc: Controla se irá sempre ser exibido os resultados independente se não há nenhum resultado a ser exibido.
     type: Boolean
