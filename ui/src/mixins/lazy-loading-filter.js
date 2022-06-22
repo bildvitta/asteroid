@@ -34,7 +34,7 @@ export default {
         lastPage: null,
         hasNextPage: false
       },
-      search: null
+      search: ''
     }
   },
 

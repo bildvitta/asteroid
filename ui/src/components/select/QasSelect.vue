@@ -193,7 +193,7 @@ export default {
       this.fuse = new Fuse(this.defaultOptions, this.defaultFuseOptions)
     }
 
-    this.useLazyLoading && this.$_filterOptionsByStore('')
+    this.useLazyLoading && this.$_setFetchOptions('')
   },
 
   methods: {
