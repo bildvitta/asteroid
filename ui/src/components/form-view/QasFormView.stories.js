@@ -80,6 +80,10 @@ export default {
       description: 'Submit button label.'
     },
 
+    beforeSubmit: {
+      description: 'Function to call before submit.'
+    },
+
     url: {
       control: null,
       description: 'Ignore entity and specify another endpoint.'
