@@ -6,7 +6,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## BREAKING CHANGES
+- `QasListView`: before what was passed as a parameter was entered as `filters`, now it is the entire payload, so if you need to pass a filters as before use `fetchList({ filters: {...} })`.
+- `QasSingleView`: before what was passed as a parameter was entered as `params`, now it is the entire payload, so if you need to pass a params as before use `fetchSingle({ params: {...} })`.
+
 ### Added
+- `QasListView`: added `useResultsAreaOnly` prop to define if the results container when the value is empty, will always be displayed.
+- [`QasListView`, `QasFormView`, `QasSingleView`]: added `beforeFetch` prop, which will give the freedom to control when the first `fetchList` will run.
+- `viewMixin`: added the `fetchHandler` method, which will be the handler responsible for intercepting the fetch functions of views.
+- `viewMixin`: added new `cancelBeforeFetch` data and new `done` callback inside `beforeFetch`.
 - `QasFormView`: added `beforeSubmit` property to control the submit, eg: show a confirmation modal before submitting the form.
 
 ### Changed

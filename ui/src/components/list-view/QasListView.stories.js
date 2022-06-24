@@ -41,6 +41,10 @@ export default {
 
   argTypes: {
     // Props
+    beforeFetch: {
+      description: 'Function to be called before fetching data.'
+    },
+
     dialog: {
       description: 'Use when the component is inside a dialog.'
     },
@@ -65,6 +69,10 @@ export default {
     url: {
       control: null,
       description: 'Ignore entity and specify another endpoint.'
+    },
+
+    useResultsAreaOnly: {
+      description: 'Controls whether results will always be displayed regardless of there are no results to be displayed.'
     },
 
     // Events

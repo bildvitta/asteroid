@@ -186,7 +186,7 @@ export default {
   },
 
   created () {
-    this.fetch()
+    this.fetchHandler({ form: true, id: this.id, url: this.fetchURL }, this.fetchSingle)
   },
 
   methods: {
@@ -208,14 +208,18 @@ export default {
       }
     },
 
-    async fetch (params) {
+    async fetchSingle (externalPayload = {}) {
       this.isFetching = true
 
-      try {
-        const response = await this.$store.dispatch(
-          `${this.entity}/fetchSingle`, { form: true, id: this.id, params, url: this.fetchURL }
-        )
+      const payload = {
+        form: true,
+        id: this.id,
+        url: this.fetchURL,
+        ...externalPayload
+      }
 
+      try {
+        const response = await this.$store.dispatch(`${this.entity}/fetchSingle`, payload)
         const { errors, fields, metadata, result } = response.data
 
         this.setErrors(errors)

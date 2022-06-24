@@ -57,7 +57,7 @@ export default {
 
   watch: {
     $route () {
-      this.fetchSingle()
+      this.fetchHandler({ id: this.id, url: this.url }, this.fetchSingle)
     },
 
     result (value) {
@@ -66,7 +66,7 @@ export default {
   },
 
   created () {
-    this.fetchSingle()
+    this.fetchHandler({ id: this.id, url: this.url }, this.fetchSingle)
   },
 
   methods: {
