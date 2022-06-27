@@ -98,7 +98,7 @@ export default {
     },
 
     showResults () {
-      return this.hasResults || this.useResultsAreaOnly
+      return this.hasResults || (this.useResultsAreaOnly && !this.isFetching)
     },
 
     totalPages () {
