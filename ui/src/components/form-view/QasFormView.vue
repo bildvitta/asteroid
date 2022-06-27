@@ -273,11 +273,6 @@ export default {
       this.showDialog = true
     },
 
-    /**
-     * Se existe a propriedade com callback "beforeSubmit", então o controle de quando e como chamar o método "submit"
-     * está sendo controlado fora do QasFormView, se não existir a propriedade "beforeSubmit", então o controle do método
-     * submit é feito pelo próprio QasFormView, chamado pelo evento @submit.
-    */
     submitHandler (event) {
       if (event) {
         event.preventDefault()

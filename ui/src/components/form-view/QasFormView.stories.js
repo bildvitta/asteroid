@@ -85,7 +85,7 @@ export default {
     },
 
     beforeSubmit: {
-      description: 'Function to call before submit.'
+      description: 'Function to be called before submit.'
     },
 
     url: {
