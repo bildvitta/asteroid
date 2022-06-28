@@ -6,7 +6,7 @@
   "docs": [
     {
       "uuid": "31362c39-2cb5-4fe2-982a-c270f88d2462",
-      "isActive": false,
+      "isActive": true,
       "company": "empresa-1",
       "name": "John Dow",
       "email": "Mervin76@gmail.com",
@@ -17,7 +17,7 @@
     },
     {
       "uuid": "3102fad5-f14c-45d4-98e9-46ef0aa9580e",
-      "isActive": false,
+      "isActive": true,
       "company": "",
       "name": "Id incidunt in esse.",
       "email": "Esta.Bernier@hotmail.com",
@@ -28,7 +28,7 @@
     },
     {
       "uuid": "1dad94b3-a0e0-4829-a7e1-be2af95348201",
-      "isActive": false,
+      "isActive": true,
       "company": "Qui eius dolor sapiente provident saepe.",
       "name": "Autem autem eaque qui unde.",
       "email": "Alyce_Dooley45@hotmail.com",
@@ -39,7 +39,7 @@
     },
     {
       "uuid": "ac72e8a8-fcf9-4258-8ea2-bc49b612324dacb",
-      "isActive": false,
+      "isActive": true,
       "company": "Ab saepe aperiam.",
       "name": "Itaque porro itaque voluptas voluptates reprehenderit.",
       "email": "Tracy_Glover74@hotmail.com",
@@ -50,7 +50,7 @@
     },
     {
       "uuid": "ce2e298a-be37-408f-a789-4c7b18b4315bc",
-      "isActive": false,
+      "isActive": true,
       "company": "Atque cum illum debitis consequatur exercitationem dolorum corporis.",
       "name": "Incidunt perferendis error iusto ut.",
       "email": "Heloise_Hegmann@hotmail.com",

@@ -237,6 +237,10 @@ module.exports = [
         path: '/plugins/dialog'
       },
       {
+        name: 'Logger',
+        path: '/plugins/logger'
+      },
+      {
         name: 'NotifyError',
         path: '/plugins/notify-error'
       },
@@ -262,6 +266,10 @@ module.exports = [
       {
         name: 'base64ToBlob',
         path: '/helpers/base-64-to-blob'
+      },
+      {
+        name: 'camelizeFieldsName',
+        path: '/helpers/camelize-fields-name'
       },
       {
         name: 'constructObject',

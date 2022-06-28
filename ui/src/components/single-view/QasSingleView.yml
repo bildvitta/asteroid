@@ -4,14 +4,16 @@ meta:
   desc: Componente para C.R.U.D. responsável pela visualização (Read) ou conhecido também como "show".
 
 props:
+  before-fetch:
+    desc: Callback para controlar como funciona o comportamento do fetchSingle.
+    default: null
+    type: Function
+    examples: ['beforeFetch({ payload, resolve, done })']
+
   custom-id:
     desc: Por padrão, o componente vai pegar o "id" que vem como parâmetro na url, caso queira que o id seja diferente da url, use esta prop.
     type: String
     examples: ['my-custom-id']
-
-  dialog:
-    desc: Este componente pode ser utilizado dentro de um dialog, neste caso o componente pai não pode ser um "QPage" e sim uma "div", esta prop cuida disto.
-    type: Boolean
 
   entity:
     desc: Entidade da store, por exemplo se tiver que trabalhar com modulo de usuários, teremos o model "users" na store, que vai ser nossa "entity".
@@ -54,6 +56,11 @@ props:
   url:
     desc: Envia como parâmetro para a action "fetchSingle" do modulo correspondente a "entity".
     type: String
+
+  use-boundary:
+    desc: Controla o limite que o FormView terá, quando é "false", a tag pai deixa de ser um "QPage" para ser uma "div" e é removido as classes "container" e "spaced", comumente utilizando quando precisa usar o QasFormView dentro de um dialog.
+    default: true
+    type: Boolean
 
 slots:
   default:

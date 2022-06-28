@@ -1,6 +1,6 @@
 <template>
   <component :is="mx_componentTag" :class="mx_componentClass">
-    <q-pull-to-refresh :disable="disableRefresh" @refresh="refresh">
+    <q-pull-to-refresh :disable="!useRefresh" @refresh="refresh">
       <header v-if="hasHeaderSlot">
         <slot name="header" />
       </header>
@@ -10,7 +10,7 @@
       </slot>
 
       <main class="relative-position">
-        <div v-if="hasResults">
+        <div v-if="showResults">
           <slot />
         </div>
 
@@ -54,15 +54,6 @@ export default {
   mixins: [contextMixin, viewMixin],
 
   props: {
-    disableRefresh: {
-      type: Boolean
-    },
-
-    useFilter: {
-      default: true,
-      type: Boolean
-    },
-
     filtersProps: {
       default: () => ({}),
       type: Object
@@ -71,6 +62,20 @@ export default {
     results: {
       default: () => [],
       type: Array
+    },
+
+    useRefresh: {
+      default: true,
+      type: Boolean
+    },
+
+    useFilter: {
+      default: true,
+      type: Boolean
+    },
+
+    useResultsAreaOnly: {
+      type: Boolean
     }
   },
 
@@ -106,13 +111,17 @@ export default {
 
     totalPages () {
       return this.$store.getters[`${this.entity}/totalPages`]
+    },
+
+    showResults () {
+      return this.hasResults || this.useResultsAreaOnly
     }
   },
 
   watch: {
     $route (to, from) {
       if (to.name === from.name) {
-        this.fetchList()
+        this.mx_fetchHandler({ ...this.mx_context, url: this.url }, this.fetchList)
         this.setCurrentPage()
       }
     },
@@ -127,7 +136,8 @@ export default {
   },
 
   created () {
-    this.fetchList()
+    this.mx_fetchHandler({ ...this.mx_context, url: this.url }, this.fetchList)
+
     this.setCurrentPage()
   },
 
@@ -137,20 +147,21 @@ export default {
       this.$router.push({ query })
     },
 
-    async fetchList (filters = {}) {
+    async fetchList (externalPayload = {}) {
       this.mx_isFetching = true
 
-      const hasFilters = !!Object.keys(filters).length
-
       try {
-        const response = await this.$store.dispatch(
-          `${this.entity}/fetchList`,
-          {
-            ...this.mx_context,
-            url: this.url,
-            ...(hasFilters && { filters })
-          }
+        const payload = {
+          ...this.mx_context,
+          url: this.url,
+          ...externalPayload
+        }
+
+        this.$qas.logger.group(
+          `QasListView - fetchList -> Payload do parâmetro do ${this.entity}/fetchList`, [payload]
         )
+
+        const response = await this.$store.dispatch(`${this.entity}/fetchList`, payload)
 
         const { errors, fields, metadata } = response.data
 
@@ -165,10 +176,20 @@ export default {
         })
 
         this.$emit('fetch-success', response)
+
+        this.$qas.logger.group(
+          `QasListView - fetchList -> resposta da action ${this.entity}/fetchList`, [response]
+        )
       } catch (error) {
         this.mx_fetchError(error)
         this.$emit('update:errors', error)
         this.$emit('fetch-error', error)
+
+        this.$qas.logger.group(
+          `QasListView - fetchSingle -> exceção da action ${this.entity}/fetchList`,
+          [error],
+          { error: true }
+        )
       } finally {
         this.mx_isFetching = false
       }

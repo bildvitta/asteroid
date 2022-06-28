@@ -52,7 +52,7 @@ props:
     default: true
     type: Object
 
-  use-close-icon:
+  use-close-button:
     desc: Define se vai ter ou não Ícone de fechar o dialog.
     type: Boolean
 

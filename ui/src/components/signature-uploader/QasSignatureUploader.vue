@@ -7,10 +7,10 @@
             <div v-if="uploadLabel" class="q-uploader__title">{{ uploadLabel }}</div>
           </div>
 
-          <q-btn v-if="!readonly" dense flat icon="o_add" round @click="openDialog" />
+          <qas-btn v-if="!readonly" color="white" dense flat icon="o_add" round @click="openDialog" />
 
-          <q-btn ref="forceUpload" class="hidden" @click="upload(scope)" />
-          <q-btn ref="buttonCleanFiles" class="hidden" @click="scope.removeUploadedFiles" />
+          <qas-btn ref="forceUpload" class="hidden" @click="upload(scope)" />
+          <qas-btn ref="buttonCleanFiles" class="hidden" @click="scope.removeUploadedFiles" />
         </div>
       </template>
     </qas-uploader>
@@ -27,14 +27,15 @@
       </template>
 
       <template #actions>
-        <q-btn class="full-width" color="primary" :disable="isEmpty" label="Salvar" no-caps @click="getSignatureData" />
-        <q-btn class="full-width q-mt-sm" color="primary" flat label="Cancelar" no-caps @click="closeSignature" />
+        <qas-btn class="full-width" color="primary" :disable="isEmpty" label="Salvar" no-caps @click="getSignatureData" />
+        <qas-btn class="full-width q-mt-sm" color="primary" flat label="Cancelar" no-caps @click="closeSignature" />
       </template>
     </qas-dialog>
   </div>
 </template>
 
 <script>
+import QasBtn from '../btn/QasBtn.vue'
 import QasDialog from '../dialog/QasDialog.vue'
 import QasUploader from '../uploader/QasUploader.vue'
 import QasSignaturePad from '../signature-pad/QasSignaturePad.vue'
@@ -45,6 +46,7 @@ export default {
   name: 'QasSignatureUploader',
 
   components: {
+    QasBtn,
     QasDialog,
     QasUploader,
     QasSignaturePad

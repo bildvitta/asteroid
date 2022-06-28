@@ -36,10 +36,6 @@ export default {
       type: [Array, Object, String]
     },
 
-    hideEmptyResult: {
-      type: Boolean
-    },
-
     emptyResultText: {
       default: '-',
       type: String
@@ -48,6 +44,11 @@ export default {
     result: {
       default: () => ({}),
       type: Object
+    },
+
+    useEmptyResult: {
+      default: true,
+      type: Boolean
     }
   },
 
@@ -59,7 +60,12 @@ export default {
 
   computed: {
     formattedFields () {
-      if (!this.hideEmptyResult) {
+      if (this.useEmptyResult) {
+        this.$qas.logger.group(
+          'QasGridGenerator - formattedFields -> this.useEmptyResult tem valor "true"',
+          [this.fields]
+        )
+
         return this.fields
       }
 
@@ -77,6 +83,8 @@ export default {
         }
       }
 
+      this.$qas.logger.group('QasGridGenerator - formattedFields', [fields])
+
       return fields
     },
 
@@ -92,10 +100,18 @@ export default {
 
       for (const key in result) {
         if (this.formattedFields[key]?.type) {
-          formattedResult[key] = humanize(this.formattedFields[key], result[key]) || this.emptyResultText
-          this.slotValue[key] = { ...this.formattedFields[key], formattedResult: formattedResult[key] }
+          formattedResult[key] = (
+            humanize(this.formattedFields[key], result[key]) || this.emptyResultText
+          )
+
+          this.slotValue[key] = {
+            ...this.formattedFields[key],
+            formattedResult: formattedResult[key]
+          }
         }
       }
+
+      this.$qas.logger.group('QasGridGenerator - getResultsByFields', [formattedResult])
 
       return formattedResult
     }

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <qas-input v-model="model" :bottom-slots="false" color="negative" v-bind="$attrs" remove-error-on-type :type="type">
+    <qas-input v-model="model" :bottom-slots="false" color="negative" v-bind="$attrs" :type="type" use-remove-error-on-type>
       <template #append>
         <q-icon class="cursor-pointer" :color="iconColor" :name="icon" @click="toggle" />
       </template>
@@ -9,7 +9,7 @@
         <slot :name="name" v-bind="context || {}" />
       </template>
 
-      <template v-if="!hideStrengthChecker" #hint>
+      <template v-if="useStrengthChecker" #hint>
         <qas-password-strength-checker v-bind="strengthCheckerProps" :password="model" />
       </template>
     </qas-input>
@@ -30,7 +30,8 @@ export default {
   mixins: [passwordMixin],
 
   props: {
-    hideStrengthChecker: {
+    useStrengthChecker: {
+      default: true,
       type: Boolean
     },
 

@@ -10,11 +10,11 @@
           <div v-if="!row[destroyKey]" :key="index" class="col-12 q-mt-md">
             <div>
               <div class="flex items-center justify-between q-py-xs">
-                <qas-label v-if="!useSingleLabel" :label="setRowLabel(index)" />
+                <qas-label v-if="!useSingleLabel" :label="getRowLabel(index)" />
 
                 <div v-if="!useInlineActions" class="q-gutter-x-sm">
-                  <qas-btn v-if="useDuplicate" v-bind="btnDuplicateProps" @click="add(row)" />
-                  <qas-btn v-if="showDestroyBtn" v-bind="btnDestroyProps" @click="destroy(index, row)" />
+                  <qas-btn v-if="useDuplicate" v-bind="buttonDuplicateProps" @click="add(row)" />
+                  <qas-btn v-if="showDestroyBtn" v-bind="buttonDestroyProps" @click="destroy(index, row)" />
                 </div>
               </div>
 
@@ -75,7 +75,6 @@ import { TransitionGroup } from 'vue'
 
 import { constructObject } from '../../helpers'
 import { extend } from 'quasar'
-import { camelize } from 'humps'
 
 export default {
   name: 'QasNestedFields',
@@ -96,7 +95,7 @@ export default {
       default: 'Inserir novo campo'
     },
 
-    btnDestroyProps: {
+    buttonDestroyProps: {
       type: Object,
       default: () => {
         return {
@@ -108,14 +107,14 @@ export default {
       }
     },
 
-    btnDuplicateProps: {
+    buttonDuplicateProps: {
       type: Object,
       default: () => {
         return {
           label: 'Duplicar',
           icon: 'o_content_copy',
           flat: true,
-          hideMobileLabel: true,
+          useLabelOnSmallScreen: false,
           dense: true
         }
       }
@@ -158,6 +157,11 @@ export default {
           'xl'
         ].includes(value)
       }
+    },
+
+    identifierItemKey: {
+      type: String,
+      default: 'uuid'
     },
 
     rowLabel: {
@@ -225,13 +229,7 @@ export default {
     },
 
     children () {
-      const field = extend(true, {}, this.field)
-
-      for (const key in field?.children) {
-        field.children[key].name = camelize(field?.children[key].name)
-      }
-
-      return field?.children
+      return this.field?.children
     },
 
     showDestroyBtn () {
@@ -268,13 +266,8 @@ export default {
     modelValue: {
       handler (value) {
         this.nested = extend(true, [], value)
-      },
-      immediate: true
-    },
 
-    field: {
-      handler () {
-        !this.modelValue.length && this.setDefaultNestedValue()
+        if (!this.nested.length) return this.setDefaultNestedValue()
       },
       immediate: true
     }
@@ -282,12 +275,21 @@ export default {
 
   methods: {
     add (row = {}) {
-      this.nested.push({ ...this.rowObject, ...row })
+      const payload = { ...this.rowObject, ...row }
+      const hasIdentifierKey = payload[this.identifierItemKey]
+
+      if (hasIdentifierKey) {
+        delete payload[this.identifierItemKey]
+      }
+
+      this.nested.push(payload)
 
       this.$nextTick(() => {
         this.useAnimation && this.setScroll()
         this.setFocus()
       })
+
+      this.$qas.logger.group('QasNestedFields - add', [payload])
 
       return this.updateModelValue()
     },
@@ -304,9 +306,11 @@ export default {
     },
 
     destroy (index, row) {
-      this.useRemoveOnDestroy
+      !row[this.identifierItemKey] || this.useRemoveOnDestroy
         ? this.nested.splice(index, 1)
         : this.nested.splice(index, 1, { [this.destroyKey]: true, ...row })
+
+      this.$qas.logger.group('QasNestedFields - destroy', [{ index, row }])
 
       return this.updateModelValue()
     },
@@ -333,7 +337,7 @@ export default {
       })
     },
 
-    setRowLabel (rowKey) {
+    getRowLabel (rowKey) {
       if (this.rowLabel) {
         return this.useIndexLabel ? `${this.rowLabel} ${rowKey + 1}` : this.rowLabel
       }

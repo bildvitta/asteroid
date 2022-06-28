@@ -34,7 +34,8 @@ module.exports = configure(function (quasar) {
 
     // https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-css
     css: [
-      'app.scss'
+      'app.scss',
+      'lib/doc-search.scss'
     ],
 
     // https://github.com/quasarframework/quasar/tree/dev/extras
@@ -48,7 +49,8 @@ module.exports = configure(function (quasar) {
     build: {
       env: {
         BUCKET: 'uploader.nave.dev',
-        MAPS_API_KEY: 'AIzaSyDl00zRKG51WWBIJa8yVXqX7jFD5xyqe24'
+        MAPS_API_KEY: 'AIzaSyDl00zRKG51WWBIJa8yVXqX7jFD5xyqe24',
+        DEBUGGING: true
       },
 
       vueRouterMode: 'history',
@@ -190,7 +192,7 @@ module.exports = configure(function (quasar) {
 
     // https://quasar.dev/quasar-cli/developing-pwa/configuring-pwa
     pwa: {
-      workboxPluginMode: 'GenerateSW', // 'GenerateSW' or 'InjectManifest'
+      workboxPluginMode: 'InjectManifest', // 'GenerateSW' or 'InjectManifest'
       workboxOptions: {}, // only for GenerateSW
 
       // for the custom service worker ONLY (/src-pwa/custom-service-worker.[js|ts])

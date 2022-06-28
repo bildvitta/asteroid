@@ -9,15 +9,15 @@ props:
     default: Inserir novo campo
     type: Boolean
 
-  btn-destroy-props:
+  button-destroy-props:
     desc: Props do botão de excluir linha contendo os campos.
     default: "{ label: 'Remover', o_cancel, flat: true, dense: true }"
     debugger: true
     type: Object
 
-  btn-duplicate-props:
+  button-duplicate-props:
     desc: Props do botão de duplicar linha contendo os campos.
-    default: "{ label: 'Duplicar', o_content_copy, flat: true, dense: true, hideMobileLabel: true }"
+    default: "{ label: 'Duplicar', o_content_copy, flat: true, dense: true, useLabelOnSmallScreen: false }"
     debugger: true
     type: Object
 
@@ -55,6 +55,12 @@ props:
     default: md
     type: String
     examples: [xs, sm, md, lg, xl]
+
+  identifier-item-key:
+    desc: Define um identificador para o item. O identificador será utilizado para validar exclusão do item, por exemplo.
+    default: uuid
+    type: String
+    examples: [id, uuid, slug]
 
   model-value:
     desc: Model do componente

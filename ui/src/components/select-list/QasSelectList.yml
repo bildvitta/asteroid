@@ -28,20 +28,9 @@ props:
     examples: [v-model="value"]
     model: true
 
-  param-key:
-    desc: Controla qual parâmetro será enviado para rota.
-    default: id
-    type: String
-
-  redirect-key:
-    desc: Controla qual propriedade será a chave primaria para fazer o redirecionamento.
-    default: uuid
-    type: String
-
-  to:
-    desc: 'Configuração do vue-router para enviar no $route.push({ ...to, params: {...} }).'
-    default: Pesquisar
-    type: String
+  use-clickable-label:
+    desc: Habilita "cursor-pointer" no label e evento "click-label".
+    type: Boolean
 
 slots:
   item:
@@ -97,6 +86,16 @@ events:
       item:
         desc: Item adicionado
         type: String
+
+  '@click-label -> function ({ item, index })':
+    desc: Dispara toda vez que o label do item é clicado **SE** a propriedade "useClickableLabel" for "true".
+    params:
+      item:
+        desc: Item clicado
+        type: Object
+      index:
+        desc: Posição do item
+        type: Number
 
   '@removed -> function (item, index)':
     desc: Dispara toda vez que um item é removido do v-model.

@@ -250,6 +250,8 @@ export default {
       )
 
       this.updateUploading(false)
+
+      this.$qas.logger.group('QasUploader - uploaded', [this.modelValue])
     },
 
     async fetchCredentials (filename) {
@@ -260,6 +262,12 @@ export default {
           entity: this.entity,
           filename
         })
+
+        this.$qas.logger.group(
+          'QasUploader - fetchCredentials -> resposta de /upload-credentials/',
+          [data]
+        )
+
         return data
       } finally {
         this.isFetching = false
@@ -279,7 +287,9 @@ export default {
 
       const clonedValue = extend(true, [], this.modelValue)
       const numberIndex = this.modelValue.findIndex(file => this.getFileName(file) === index)
+
       clonedValue.splice(numberIndex, 1)
+
       this.$emit('update:modelValue', clonedValue)
     },
 
@@ -288,7 +298,9 @@ export default {
     },
 
     getFilesList (uploadedFiles) {
-      const pathsList = Array.isArray(this.modelValue) ? this.modelValue : (this.modelValue ? [this.modelValue] : [])
+      const pathsList = Array.isArray(this.modelValue)
+        ? this.modelValue
+        : (this.modelValue ? [this.modelValue] : [])
 
       uploadedFiles = uploadedFiles.map((file, indexToDelete) => {
         return {
@@ -323,6 +335,8 @@ export default {
           files[fileName] = file
         }
       })
+
+      this.$qas.logger.group('QasUploader - getFilesList', [files])
 
       return files
     },
@@ -362,7 +376,14 @@ export default {
         // Retorna largura e altura da original da imagem
         const { width, height } = await getImageSize(image)
 
-        if (width <= this.sizeLimit) return file
+        if (width <= this.sizeLimit) {
+          this.$qas.logger.info(`
+            QasUploader - resizeImage -> Tamanho da imagem menor que o tamanho limite,
+            sendo assim, não faz o resize
+          `)
+
+          return file
+        }
 
         // Retorna os novos tamanhos redimensionados
         const resizedDimensions = getResizeDimensions(this.sizeLimit, width, height)
@@ -380,7 +401,11 @@ export default {
         const resizedImage = await pica.resize(image, canvas, this.defaultPicaResizeOptions)
         const blob = await pica.toBlob(resizedImage, type, 0.90)
 
-        return new File([blob], file.name, { type })
+        const newFile = new File([blob], file.name, { type })
+
+        this.$qas.logger.group('QasUploader - resizeImage -> nova imagem', [newFile])
+
+        return newFile
       } catch {
         // Caso não consiga redimensionar retorna o arquivo original
         return file

@@ -7,16 +7,6 @@ meta:
   desc: Componente de input para decimal, inteiro, dinheiro e porcentagem.
 
 props:
-  allow-negative:
-    desc: Controla se pode ou não números negativos.
-    default: true
-    type: Boolean
-
-  allow-positive:
-    desc: Controla se pode ou não números positivos.
-    default: true
-    type: Boolean
-
   autonumeric-props:
     desc: Opções do autonumeric (http://autonumeric.org/guide).
     default: {}
@@ -42,6 +32,16 @@ props:
   preset:
     desc: Propriedade preset serve para usar configuração de predefinição/nacionalidade da moeda pré setada pelo autonumeric (Brasil é o padrão).
     type: [Boolean, String]
+
+  use-negative:
+    desc: Controla se pode ou não números negativos.
+    default: true
+    type: Boolean
+
+  use-positive:
+    desc: Controla se pode ou não números positivos.
+    default: true
+    type: Boolean
 
 events:
   '@update:model-value -> function (value)':

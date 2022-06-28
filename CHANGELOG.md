@@ -10,6 +10,108 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 ### Sobre os "BREAKING CHANGES"
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
+## [3.0.0-beta.16] - 22-06-2022
+## BREAKING CHANGES
+- `QasListView`: antes o que era passado por parâmetro entrava como `filters`, agora é o payload todo, então se precisar passar um filters como anteriormente usar `fetchList({ filters: {...} })`.
+- `QasSingleView`: antes o que era passado por parâmetro entrava como `params`, agora é o payload todo, então se precisar passar um params como anteriormente usar `fetchSingle({ params: {...} })`.
+
+### Adicionado
+- `QasListView`: adicionada prop `useResultsAreaOnly` para definir se o container de results quando o valor está vazio, irá sempre ser exibido.
+- [`QasListView`, `QasFormView`, `QasSingleView`]: adicionada prop `beforeFetch`, onde dará a liberdade para controlar quando irá acontecer a primeira execução do `fetchList`.
+- `viewMixin`: adicionado o método `mx_fetchHandler`, onde será o handler responsável por interceptar as funções de fetch das views.
+- `viewMixin`: adicionado novo data `mx_cancelBeforeFetch` e novo callback `done` dentro do `beforeFetch`.
+
+### Modificado
+- [`QasListView`, `QasSingleView`]: modificado o nome do parâmetro, possibilitando que o payload passado externamente sobreponha qualquer valor caso precise.
+
+## [3.0.0-beta.15] - 09-06-2022
+### Adicionado
+- `QasNestedFields`: adicionada prop `identifierItemKey` para definir a chave identificadora do objeto/linha.
+
+### Modificado
+- `QasNestedFields`: modificado o comportamento do método `destroy`, adicionando uma validação para caso não exista uma chave identificadora, ele remova a o objeto mesmo que `useRemoveOnDestroy` seja `false`.
+
+- `QasNestedFields`: modificado o comportamento do método `add` para ação duplicar linha, removendo a chave identificadora na hora de duplicar a linha.
+
+## [3.0.0-beta.14] - 07-06-2022
+### Adicionado
+- `QasFormView`: adicionado propriedade `beforeSubmit` para controlar o submit, ex: mostrar um modal de confirmação antes de fazer o submit do formulário.
+
+### Modificado
+- `QasFormView`: adicionado um handler `submitHandler` para o controle do submit junto a propriedade `beforeSubmit`.
+
+### Corrigido
+- `QasNestedFields`: adicionado método `setDefaultNestedValue` no watch do `modelValue` ao invés do `fields` para resolver problema quando modelValue é alterado para array vazio **após** o created. Ex: quando a API retorna array vazio, ele removia os campos default setados pelo `rowObject`.
+
+## [3.0.0-beta.13] - 02-06-2022
+### Adicionado
+- Adicionado helper `camelizeFieldsName` para formatar os `names` dos fields em camelCase.
+
+### Modificado
+- `QasNestedFields`: removido logica do camelize na computada `children` já que agora os fields já vem formatados.
+- `viewMixin`: `mx_setFields` usando helper `camelizeFieldsName` de forma recursiva para formatar os `names` dos `fields`.
+- `QasFilters`: Adicionados props `color="grey-9"` e `flat` para os <qas-btn /> do input de busca para deixar o estilo igual quando era com <q-btn>.
+
+## [3.0.0-beta.12] - 02-06-2022
+### Modificado
+- `QasPageHeader`: utilizando mixin `createMetaMixin` do quasar para utilizar `title`.
+- `Logger`: alterado método `console.group` para `console.groupCollapsed` para que os grupos por padrão se mantenham fechados e abram após clicar.
+
+### Corrigido
+- `QasInput`: adicionado validação no método `toggleMask` para resolver problema de quando o campo já vinha com valor preenchido (depois do created) e a mascara fosse `document` ou `phone`.
+- `QasInput`: adicionado novo evento `@paste` com o método `onPaste` para resolver problemas de formatação da mascara quando acontece `ctrl v`.
+
+## [3.0.0-beta.11] - 01-06-2022
+### Adicionado
+- Adicionado novo plugin `Logger` que funcionam quando a variável de ambiente `DEBUGGING` é setada.
+- [`QasDelete`, `QasFilters`, `QasFormView`, `QasListView`, `QasNestedFields`, `QasSingleView`, `QasSingleView`, `QasGridGenerator`, `QasTableGenerator`, `QasUploader`]: Adicionado loggers.
+
+### Modificado
+- [`QasFilters`, `QasSearchBox`]: Alterado componente `q-input` para o `qas-input`.
+
+### Corrigido
+- `QasDateTimeInput`: corrigido watch que estava `value` ao invés de `modelValue`, quando o valor não era setado no created, não funcionava.
+
+## [3.0.0-beta.10] - 20-05-2022
+## BREAKING CHANGES
+- `QasBtn`: propriedade `hideLabelOnSmallScreen` alterada para `useLabelOnSmallScreen`, com valor default `true`.
+- `QasAppBar`: propriedade `isAuth` removida, agora é validado caso exista valor na propriedade `user`.
+- `QasActionsMenu`: evento `delete-success` removido, a propriedade `deleteProps` deve ser a única responsável por passar propriedades e eventos para o `QasDelete`.
+- `QasCard`: propriedade `bgImagePosition` alterada para `imagePosition`.
+- `QasCard`: propriedade `formMode` removida em favor das novas propriedades: `outlined` e `unelevated` para fazer o controle dos estilos.
+- `QasDateTimeInput`: propriedade `gmt` alterada para `useIso`.
+- `QasDateTimeInput`: propriedade `dateOnly` alterada para `useDateOnly`.
+- `QasDateTimeInput`: propriedade `timeOnly` alterada para `useTimeOnly`.
+- `QasDialog`: propriedade `useCloseIcon` alterada para `useCloseButton`.
+- `QasFilters`: propriedade `forceRefetch` alterada para `useForceRefetch`.
+- [`QasFormView`, `QasListView`, `QasSingleView`]: propriedade `dialog` do mixin `viewMixin` alterada para `useBoundary` com default `true`, uma vez que dialog é muito especifico para quando for usado dentro de um dialog, porém o mesmo comportamento pode se repetir fora de um dialog.
+- `QasFormView`: propriedade `showDialogOnUnsavedChanges` alterada para `useDialogOnUnsavedChanges`.
+- `QasGridGenerator`: propriedade `hideEmptyResult` alterada para `useEmptyResult`.
+- `QasInput`: propriedade `removeErrorOnType` alterada para `useRemoveErrorOnType`.
+- `QasListItems`: propriedades `redirectKey`, e `to` removidas em favor de utilizar o evento `click-item` para lidar quando clicado nos items ou dentro do button dos items.
+- `QasListItems`: propriedade `useRedirectOnIcon` alterada para `useClickableItem` com default `false` para identificar que o item inteiro é clicável ao invés de somente o button.
+- `QasListItems`: slot `item-section-left` alterado para `item-section`.
+- `QasListView`: propriedade `disableRefresh` alterada para `useRefresh` com default `true`.
+- `QasNumericInput`: propriedade `allowNegative` alterada para `useNegative`.
+- `QasNumericInput`: propriedade `allowPositive` alterada para `usePositive`.
+- `QasNumericInput`: propriedade `autonumericProps` alterada para `autonumericOptions`.
+- `QasPasswordInput`: propriedade `hideStrengthChecker` alterada para `useStrengthChecker` com default `true`.
+- `QasSelect`: propriedade `searchable` alterada para `useSearch`.
+- `QasSelectList`: propriedades `to`, `redirectKey` e `paramKey` removidas em favor de usar o evento `click-label` para lidar quando clicar no label.
+- `QasNestedFields`: propriedade `btnDestroyProps` alterada para `buttonDestroyProps`.
+- `QasNestedFields`: propriedade `btnDuplicateProps` alterada para `buttonDuplicateProps`.
+
+### Adicionado
+- `QasCard`: propriedade `outlined` com default `false`.
+- `QasCard`: propriedade `unelevated` com default `false`.
+- `QasListItems`: propriedade `useClickableItem`.
+- `QasListItems`: evento `click-item` adicionado para lidar quando clicado nos items ou dentro do button dos items.
+- `QasSelectList`: propriedade `useClickableLabel` com default `false` para deixar label com `cursor-pointer` e habilitar evento `click-label`.
+- `QasSelectList`: evento `click-label` para lidar quando clicar no label (evento só acontece caso a propriedade `useClickableLabel` for `true`).
+
+### Modificado
+- [`QasAppBar`, `QasFilters`, '`QasSignatureUploader`]: substituído `q-btn` por `qas-btn`.
+
 ## [3.0.0-beta.9] - 13-05-2022
 ## BREAKING CHANGES
 - `QasFormView`: propriedade `readOnly` alterada para `useActions`.
@@ -28,9 +130,9 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - Adicionado nova pagina de erro `Unauthorized.vue` para quando api retorna status code `401` no fetch.
 - Adicionado `name` para as paginas de erros.
 
-### Alterado
-- `QasSearchBox`: alterado valor default da prop `fuseOptions` para `{ threshold: 0.1, ignoreLocation: true }`. 
-- `QasSelect`: alterado valor default da prop `fuseOptions` para `{ threshold: 0.1, ignoreLocation: true, keys: ['label', 'value'] }`.
+### Modificado
+- `QasSearchBox`: modificado valor default da prop `fuseOptions` para `{ threshold: 0.1, ignoreLocation: true }`. 
+- `QasSelect`: modificado valor default da prop `fuseOptions` para `{ threshold: 0.1, ignoreLocation: true, keys: ['label', 'value'] }`.
 
 ### Corrigido
 - Adicionado redirect para status code `> 500` (antes já existia a pagina para isto, mas não era redirecionado).
@@ -40,9 +142,9 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 ### Adicionado
 - `QasNumericInput`: adicionado novo evento "update-model" para disparar toda vez que acontece um novo input.
 
-### Alterado
+### Modificado
 - `QasListView`: adicionado propriedade `deep` para o watch do `resultsModel`.
-- `QasPasswordInput`: alterado valor `bottom-slots` para `false`.
+- `QasPasswordInput`: modificado valor `bottom-slots` para `false`.
 - `QasFilters`: adicionado `max-with="240px"` e `full-width` dentro do `QMenu`.
 
 ### Corrigido
@@ -51,12 +153,19 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - `QasNumericInput`: corrigido bug no two-way data binding.
 
 ## [3.0.0-beta.6] - 05-06-2022
-### Alterado
+### Modificado
 - Propriedade `hideLabelOnSmallScreen` só funciona quando o "rotulo" do botão é passado via prop `label` e não mais por slot default também.
 
 ### Corrigido
 - Corrigido `QasBtn`, quando usa a prop `hideLabelOnSmallScreen` e utiliza o slot default, quando a tela está em tamanho pequeno, o botão remove o slot default, o problema disto é que se usar com um `QMenu` dentro do botão, o `QMenu` não é chamado pois não existe mais slot default.
 
+[3.0.0-beta.16]: https://github.com/bildvitta/asteroid/compare/v3.0.0-beta.15...v3.0.0-beta.16?expand=1
+[3.0.0-beta.15]: https://github.com/bildvitta/asteroid/compare/v3.0.0-beta.14...v3.0.0-beta.15?expand=1
+[3.0.0-beta.14]: https://github.com/bildvitta/asteroid/compare/v3.0.0-beta.13...v3.0.0-beta.14?expand=1
+[3.0.0-beta.13]: https://github.com/bildvitta/asteroid/compare/v3.0.0-beta.12...v3.0.0-beta.13?expand=1
+[3.0.0-beta.12]: https://github.com/bildvitta/asteroid/compare/v3.0.0-beta.11...v3.0.0-beta.12?expand=1
+[3.0.0-beta.11]: https://github.com/bildvitta/asteroid/compare/v3.0.0-beta.10...v3.0.0-beta.11?expand=1
+[3.0.0-beta.10]: https://github.com/bildvitta/asteroid/compare/v3.0.0-beta.9...v3.0.0-beta.10?expand=1
 [3.0.0-beta.9]: https://github.com/bildvitta/asteroid/compare/v3.0.0-beta.8...v3.0.0-beta.9?expand=1
 [3.0.0-beta.8]: https://github.com/bildvitta/asteroid/compare/v3.0.0-beta.7...v3.0.0-beta.8?expand=1
 [3.0.0-beta.7]: https://github.com/bildvitta/asteroid/compare/v3.0.0-beta.6...v3.0.0-beta.7?expand=1

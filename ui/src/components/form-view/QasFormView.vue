@@ -4,13 +4,13 @@
       <slot name="header" />
     </header>
 
-    <q-form ref="form" @submit="submit">
+    <q-form ref="form" @submit="submitHandler">
       <slot />
 
       <slot v-if="useActions" name="actions">
         <div class="justify-end q-col-gutter-md q-my-lg row">
           <div v-if="hasCancelButton" class="col-12 col-sm-2" :class="cancelButtonClass">
-            <qas-btn v-close-popup="dialog" class="full-width" :data-cy="`btnCancel-${entity}`" :disable="isCancelButtonDisabled" :label="cancelButtonLabel" outline type="button" @click="cancel" />
+            <qas-btn v-close-popup class="full-width" :data-cy="`btnCancel-${entity}`" :disable="isCancelButtonDisabled" :label="cancelButtonLabel" outline type="button" @click="cancel" />
           </div>
 
           <div v-if="useSubmitButton" class="col-12 col-sm-2" :class="submitButtonClass">
@@ -85,7 +85,7 @@ export default {
       type: Object
     },
 
-    showDialogOnUnsavedChanges: {
+    useDialogOnUnsavedChanges: {
       default: true,
       type: Boolean
     },
@@ -122,6 +122,11 @@ export default {
     useSubmitButton: {
       default: true,
       type: Boolean
+    },
+
+    beforeSubmit: {
+      default: null,
+      type: Function
     }
   },
 
@@ -200,7 +205,7 @@ export default {
 
       this.$emit('update:modelValue', models)
 
-      if (!this.hasResult && this.showDialogOnUnsavedChanges) {
+      if (!this.hasResult && this.useDialogOnUnsavedChanges) {
         this.cachedResult = extend(true, {}, models)
       }
     },
@@ -211,9 +216,11 @@ export default {
   },
 
   created () {
-    onBeforeRouteLeave(this.beforeRouteLeave)
+    this.useDialogOnUnsavedChanges && onBeforeRouteLeave(this.beforeRouteLeave)
+
     window.addEventListener('delete-success', this.setIgnoreRouterGuard)
-    this.fetch()
+
+    this.mx_fetchHandler({ form: true, id: this.id, url: this.fetchURL }, this.fetch)
   },
 
   onUnmounted () {
@@ -226,13 +233,13 @@ export default {
       const clonedCachedResult = extend(true, {}, this.cachedResult)
 
       /**
-       * Se a propriedade "showDialogOnUnsavedChanges" for false ou a variável
+       * Se a propriedade "useDialogOnUnsavedChanges" for false ou a variável
        * "ignoreRouterGuard" for true, então **não** iremos checar se o usuário
        * alterou algum campo antes de sair da pagina, senão iremos validar pela função isEqualWith
        * e mostrar um dialog antes do usuário sair da página.
       */
       if (
-        !this.showDialogOnUnsavedChanges ||
+        !this.useDialogOnUnsavedChanges ||
         this.ignoreRouterGuard ||
         isEqualWith(
           clonedModelValue,
@@ -243,6 +250,11 @@ export default {
         return next()
       }
 
+      this.$qas.logger.group(
+        'QasFormView - beforeRouteLeave -> dialog chamado, modelValue diferente do cachedResult',
+        [{ modelValue: clonedModelValue, cachedResult: clonedCachedResult }]
+      )
+
       this.handleDialog(() => {
         this.ignoreRouterGuard = true
         next()
@@ -250,18 +262,20 @@ export default {
     },
 
     cancel () {
-      if (!this.dialog) {
-        this.handleCancelRoute()
-      }
+      this.handleCancelRoute()
     },
 
     async fetch (params) {
       this.mx_isFetching = true
 
       try {
-        const response = await this.$store.dispatch(
-          `${this.entity}/fetchSingle`, { form: true, id: this.id, params, url: this.fetchURL }
+        const payload = { form: true, id: this.id, params, url: this.fetchURL }
+
+        this.$qas.logger.group(
+          `QasFormView - fetch -> payload do parâmetro do ${this.entity}/fetchSingle`, [payload]
         )
+
+        const response = await this.$store.dispatch(`${this.entity}/fetchSingle`, payload)
 
         const { errors, fields, metadata, result } = response.data
 
@@ -275,20 +289,36 @@ export default {
           metadata
         })
 
+        this.$qas.logger.group(
+          `QasFormView - fetch -> resposta da action ${this.entity}/fetchSingle`, [response]
+        )
+
         if (result) {
           this.hasResult = true
 
           this.$nextTick(() => {
-            this.$emit('update:modelValue', { ...this.modelValue, ...result })
+            const modelValue = { ...this.modelValue, ...result }
+
+            this.$emit('update:modelValue', modelValue)
+
+            this.$qas.logger.group('QasFormView - fetch -> modelValue', [modelValue])
           })
 
-          this.cachedResult = this.showDialogOnUnsavedChanges && extend(true, {}, result)
+          this.cachedResult = this.useDialogOnUnsavedChanges && extend(true, {}, result)
+
+          this.$qas.logger.group('QasFormView - fetch -> cachedResult', [this.cachedResult])
         }
 
         this.$emit('fetch-success', response, this.modelValue)
       } catch (error) {
         this.mx_fetchError(error)
         this.$emit('fetch-error', error)
+
+        this.$qas.logger.group(
+          `QasFormView - fetch -> exceção da action ${this.entity}/fetchSingle`,
+          [error],
+          { error: true }
+        )
       } finally {
         this.mx_isFetching = false
       }
@@ -325,6 +355,7 @@ export default {
       const { addRoute } = useHistory()
 
       this.defaultDialogProps.ok.onClick = () => addRoute(this.$route)
+
       this.defaultDialogProps.cancel.onClick = next
     },
 
@@ -344,33 +375,61 @@ export default {
       })
     },
 
-    async submit (event) {
-      if (this.disable) return null
-
+    /**
+     * Se existe a propriedade com callback "beforeSubmit", então o controle de quando e como chamar o método "submit"
+     * está sendo controlado fora do QasFormView, se não existir a propriedade "beforeSubmit", então o controle do método
+     * submit é feito pelo próprio QasFormView, chamado pelo evento @submit.
+    */
+    submitHandler (event) {
       if (event) {
         event.preventDefault()
       }
 
+      const hasBeforeSubmit = typeof this.beforeSubmit === 'function'
+
+      if (hasBeforeSubmit) {
+        return this.beforeSubmit({
+          payload: { id: this.id, payload: this.modelValue, url: this.url },
+          resolve: payload => this.submit(payload)
+        })
+      }
+
+      this.submit()
+    },
+
+    async submit (externalPayload = {}) {
+      if (this.disable) return null
+
       this.isSubmitting = true
 
       try {
-        const response = await this.$store.dispatch(
-          `${this.entity}/${this.mode}`,
-          { id: this.id, payload: this.modelValue, url: this.url }
+        const payload = { id: this.id, payload: this.modelValue, url: this.url, ...externalPayload }
+
+        this.$qas.logger.group(
+          `QasFormView - submit -> payload do ${this.entity}/${this.mode}`, [payload]
         )
 
-        if (this.showDialogOnUnsavedChanges) {
+        const response = await this.$store.dispatch(`${this.entity}/${this.mode}`, payload)
+
+        if (this.useDialogOnUnsavedChanges) {
           this.cachedResult = extend(true, {}, this.modelValue)
         }
 
         this.mx_setErrors()
         NotifySuccess(response.data.status.text || 'Item salvo com sucesso!')
         this.$emit('submit-success', response, this.modelValue)
+
+        this.$qas.logger.group(
+          `QasFormView - submit -> resposta da action ${this.entity}/${this.mode}`, [response]
+        )
       } catch (error) {
         const errors = error?.response?.data?.errors
         const message = error?.response?.data?.status?.text
         const exceptionResponse = error?.response?.data?.exception
-        const exception = errors ? 'Existem erros de validação no formulário.' : exceptionResponse || error.message
+
+        const exception = errors
+          ? 'Existem erros de validação no formulário.'
+          : exceptionResponse || error.message
 
         this.mx_setErrors(errors)
         this.$emit('update:errors', this.mx_errors)
@@ -378,6 +437,12 @@ export default {
         NotifyError(message || 'Ops! Erro ao salvar item.', exception)
 
         this.$emit('submit-error', error)
+
+        this.$qas.logger.group(
+          `QasFormView - fetch -> exceção da action ${this.entity}/${this.mode}`,
+          [error],
+          { error: true }
+        )
       } finally {
         this.isSubmitting = false
       }

@@ -1,12 +1,8 @@
-import { camelize } from 'humps'
+import { camelizeFieldsName } from '../helpers'
 import { markRaw } from 'vue'
 
 export default {
   props: {
-    dialog: {
-      type: Boolean
-    },
-
     entity: {
       required: true,
       type: String
@@ -34,6 +30,16 @@ export default {
 
     fetching: {
       type: Boolean
+    },
+
+    useBoundary: {
+      default: true,
+      type: Boolean
+    },
+
+    beforeFetch: {
+      default: null,
+      type: Function
     }
   },
 
@@ -49,7 +55,7 @@ export default {
       mx_errors: {},
       mx_fields: {},
       mx_metadata: {},
-
+      mx_cancelBeforeFetch: false,
       mx_isFetching: false
     }
   },
@@ -62,11 +68,11 @@ export default {
 
   computed: {
     mx_componentTag () {
-      return this.dialog ? 'div' : 'q-page'
+      return this.useBoundary ? 'q-page' : 'div'
     },
 
     mx_componentClass () {
-      return !this.dialog && 'container spaced'
+      return this.useBoundary && 'container spaced'
     },
 
     mx_hasFooterSlot () {
@@ -100,11 +106,9 @@ export default {
     },
 
     mx_setFields (fields = {}) {
-      for (const field in fields) {
-        fields[field].name = camelize(fields[field].name)
-      }
+      const camelizedFields = camelizeFieldsName(fields)
 
-      this.mx_fields = markRaw(fields)
+      this.mx_fields = markRaw(camelizedFields)
     },
 
     mx_setMetadata (metadata = {}) {
@@ -117,6 +121,22 @@ export default {
 
         this.$emit(`update:${key}`, models[key])
       }
+    },
+
+    mx_fetchHandler (payload, resolve) {
+      const hasBeforeFetch = typeof this.beforeFetch === 'function'
+
+      if (hasBeforeFetch && !this.mx_cancelBeforeFetch) {
+        return this.beforeFetch({
+          payload,
+          resolve: payload => resolve(payload),
+          done: () => {
+            this.mx_cancelBeforeFetch = true
+          }
+        })
+      }
+
+      resolve()
     }
   }
 }

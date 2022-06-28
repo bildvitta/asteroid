@@ -4,15 +4,6 @@ meta:
   desc: Componente de card.
 
 props:
-  bg-image-position:
-    desc: Posição da imagem "background-position".
-    default: center
-    type: String
-
-  form-mode:
-    desc: Modo de formulário, altera o estilo quando está em uma pagina de formulário.
-    type: Boolean
-
   gutter:
     desc: Espaçamento dentro <q-card-section /> onde fica o slot "default".
     default: sm
@@ -23,6 +14,19 @@ props:
     desc: Imagens do carousel.
     default: []
     type: Array
+
+  image-position:
+    desc: Posição da imagem "background-position".
+    default: center
+    type: String
+
+  outlined:
+    desc: Insere uma borda sólida em volta do componente.
+    type: Boolean
+
+  unelevated:
+    desc: Remove a sombra do componente.
+    type: Boolean
 
   use-header:
     desc: Controla se vai ter ou não o header com carousel.

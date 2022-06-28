@@ -1,12 +1,12 @@
 <template>
   <div class="container spaced">
     <div>
-      <qas-date-time-input v-model="model" date-only label="Somente data" />
+      <qas-date-time-input v-model="model" label="Somente data" use-date-only />
       Model: {{ model }}
     </div>
 
     <div class="q-mt-lg">
-      <qas-date-time-input v-model="modelGMT" date-only gmt label="Somente data e GMT" />
+      <qas-date-time-input v-model="modelGMT" label="Somente data e ISO" use-date-only use-iso />
       Model: {{ modelGMT }}
     </div>
   </div>

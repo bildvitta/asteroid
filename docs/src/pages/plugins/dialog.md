@@ -8,6 +8,8 @@ title: Dialog
 
 Plugin que implementa o [QNotify](https://quasar.dev/quasar-plugins/notify#introduction) do quasar, para notificações de sucesso.
 
+Plugin que implementa o `QasDialog`.
+
 <doc-api file="dialog/Dialog" type="plugins" name="Dialog" />
 
 ## Uso

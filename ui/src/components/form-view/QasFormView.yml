@@ -4,6 +4,18 @@ meta:
   desc: Componente para C.R.U.D. responsável pela pela criação (Create) e edição (Update).
 
 props:
+  before-fetch:
+    desc: Callback para controlar como funciona o comportamento do fetch.
+    default: null
+    type: Function
+    examples: ['beforeFetch({ payload, resolve })']
+
+  before-submit:
+    desc: Callback para controlar como funciona o comportamento do submit.
+    default: null
+    type: Function
+    examples: ['beforeSubmit({ payload, resolve })']
+
   cancel-button-label:
     desc: Rótulo do botão "cancelar".
     default: Cancelar
@@ -24,10 +36,6 @@ props:
     desc: Por padrão, o componente vai pegar o "id" que vem como parâmetro na url, caso queira que o id seja diferente da url, use esta prop.
     type: String
     examples: ['my-custom-id']
-
-  dialog:
-    desc: Este componente pode ser utilizado dentro de um dialog, neste caso o componente pai não pode ser um "QPage" e sim uma "div", esta prop cuida disto.
-    type: Boolean
 
   disable:
     desc: Desabilita o submit.
@@ -89,11 +97,6 @@ props:
     default: {}
     type: Object
 
-  show-dialog-on-unsaved-changes:
-    desc: Vamos imaginar um cenário onde o usuário entra na nossa tela de editar/criar, faz tudo o que precisa e sem querer clica no menu para ir para outra tela, caso essa prop esteja "true", vai aparece um modal perguntando se ele quer continuar editando ou ir para a tela no qual foi inicialmente redirecionado.
-    default: true
-    type: Boolean
-
   submit-button-label:
     desc: Rótulo do botão "salvar".
     default: Salvar
@@ -114,8 +117,18 @@ props:
     default: true
     type: Boolean
 
+  use-boundary:
+    desc: Controla o limite que o FormView terá, quando é "false", a tag pai deixa de ser um "QPage" para ser uma "div" e é removido as classes "container" e "spaced", comumente utilizando quando precisa usar o QasFormView dentro de um dialog.
+    default: true
+    type: Boolean
+
   use-cancel-button:
     desc: Controla se vai ter ou não botão de "cancelar".
+    default: true
+    type: Boolean
+
+  use-dialog-on-unsaved-changes:
+    desc: Vamos imaginar um cenário onde o usuário entra na nossa tela de editar/criar, faz tudo o que precisa e sem querer clica no menu para ir para outra tela, caso essa prop esteja "true", vai aparece um modal perguntando se ele quer continuar editando ou ir para a tela no qual foi inicialmente redirecionado.
     default: true
     type: Boolean
 

@@ -15,4 +15,4 @@ Tem a função de criar gatilhos para ações. Eles podem ser utilizados isolada
 
 <doc-example file="QasBtn/Basic" title="Básico" />
 
-<doc-example file="QasBtn/HideLabelOnSmallScreen" title="hide-label-on-small-screen" />
+<doc-example file="QasBtn/UseLabelOnSmallScreen" title="use-label-on-small-screen" />

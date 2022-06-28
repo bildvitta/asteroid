@@ -1,10 +1,10 @@
 <template>
   <qas-box>
-    <q-input v-model="search" clearable :disable="!list.length" outlined :placeholder="placeholder">
+    <qas-input v-model="search" clearable :disable="!list.length" hide-bottom-space :placeholder="placeholder">
       <template #append>
         <q-icon color="primary" name="o_search" />
       </template>
-    </q-input>
+    </qas-input>
 
     <div class="overflow-auto q-mt-xs relative-position" :style="contentStyle">
       <slot v-if="hasResults" />

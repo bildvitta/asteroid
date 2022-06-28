@@ -75,7 +75,7 @@ export default {
         type,
         mask,
         maxFiles,
-        searchable,
+        useSearch,
         gmt
       } = this.formattedField
 
@@ -130,9 +130,9 @@ export default {
         money: { ...numericInput, mode: 'money' },
         percent: { ...numericInput, mode: 'percent' },
 
-        date: { ...datetimeInput, dateOnly: true },
+        date: { ...datetimeInput, useDateOnly: true },
         datetime: { ...datetimeInput },
-        time: { ...datetimeInput, timeOnly: true },
+        time: { ...datetimeInput, useTimeOnly: true },
 
         boolean: { is: 'q-toggle', label, ...error },
         checkbox: { is: 'qas-checkbox-group', label, options, ...error },
@@ -143,7 +143,7 @@ export default {
 
         'signature-uploader': { is: 'qas-signature-uploader', entity, uploadLabel: label, ...error },
 
-        select: { is: 'qas-select', multiple, options, searchable, ...input }
+        select: { is: 'qas-select', multiple, options, useSearch, ...input }
       }
 
       return { ...(profiles[type] || profiles.default), ...this.$attrs }

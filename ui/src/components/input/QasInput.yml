@@ -26,7 +26,7 @@ props:
     default: true
     type: Boolean
 
-  remove-error-on-type:
+  use-remove-error-on-type:
     desc: Limpa os erros do campo caso os mesmos existam toda vez que o model atualiza.
     type: Boolean
 

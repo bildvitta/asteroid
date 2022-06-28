@@ -54,20 +54,16 @@ export default {
       }
 
       const contrastColor = this.color ? this.color : this.contrastColor
-      // const contrastColor = this.textColor ? this.textColor : this.contrastColor
 
       return [
         this.dark
           ? `bg-${this.textColor} text-${contrastColor}`
           : `bg-${contrastColor} text-${this.textColor}`
-          // ? `bg-${this.color} text-${contrastColor}`
-          // : `bg-${contrastColor} text-${this.color}`
       ]
     },
 
     contrastColor () {
       return `${this.textColor}-contrast`
-      // return `${this.color}-contrast`
     },
 
     firstLetter () {

@@ -4,18 +4,18 @@
       <div v-if="showSearch" class="col">
         <slot :filter="filter" name="search">
           <q-form v-if="useSearch" @submit.prevent="filter()">
-            <q-input v-model="search" :debounce="debounce" dense :placeholder="searchPlaceholder" type="search">
+            <qas-input v-model="search" :debounce="debounce" dense hide-bottom-space :outlined="false" :placeholder="searchPlaceholder" type="search">
               <template #append>
-                <q-btn v-if="hasSearch" icon="o_clear" unelevated @click="clearSearch" />
-                <q-btn v-if="!debounce" icon="o_search" type="submit" unelevated @click="filter()" />
+                <qas-btn v-if="hasSearch" color="grey-9" flat icon="o_clear" unelevated @click="clearSearch" />
+                <qas-btn v-if="!debounce" color="grey-9" flat icon="o_search" type="submit" unelevated @click="filter()" />
               </template>
-            </q-input>
+            </qas-input>
           </q-form>
         </slot>
       </div>
 
       <slot v-if="showFilterButton" :filter="filter" name="filter-button">
-        <q-btn v-if="useFilterButton" :color="filterButtonColor" flat icon="o_filter_list" :label="filterButtonLabel">
+        <qas-btn v-if="useFilterButton" :color="filterButtonColor" flat icon="o_filter_list" :label="filterButtonLabel">
           <q-menu class="full-width" max-width="240px">
             <div v-if="isFetching" class="q-pa-xl text-center">
               <q-spinner color="grey" size="2em" />
@@ -31,12 +31,12 @@
               </div>
 
               <div class="text-right">
-                <q-btn class="q-mr-sm" label="Limpar" size="12px" unelevated @click="clearFilters" />
-                <q-btn color="primary" label="Filtrar" size="12px" type="submit" unelevated />
+                <qas-btn class="q-mr-sm" flat label="Limpar" :no-caps="false" size="12px" unelevated @click="clearFilters" />
+                <qas-btn color="primary" label="Filtrar" :no-caps="false" size="12px" type="submit" unelevated />
               </div>
             </q-form>
           </q-menu>
-        </q-btn>
+        </qas-btn>
       </slot>
     </div>
 
@@ -50,6 +50,7 @@
 
 <script>
 import QasField from '../field/QasField.vue'
+import QasBtn from '../btn/QasBtn.vue'
 
 import { camelize, camelizeKeys } from 'humps'
 import { humanize, parseValue } from '../../helpers/filters.js'
@@ -59,6 +60,7 @@ export default {
   name: 'QasFilters',
 
   components: {
+    QasBtn,
     QasField
   },
 
@@ -100,7 +102,7 @@ export default {
       type: String
     },
 
-    forceRefetch: {
+    useForceRefetch: {
       type: Boolean
     }
   },
@@ -231,7 +233,7 @@ export default {
     },
 
     async fetchFilters () {
-      if (!this.forceRefetch && (this.hasFields || !this.useFilterButton)) {
+      if (!this.useForceRefetch && (this.hasFields || !this.useFilterButton)) {
         return null
       }
 
@@ -239,11 +241,26 @@ export default {
       this.isFetching = true
 
       try {
+        this.$qas.logger.group(
+          `QasFilters - fetchFilters -> Payload do parâmetro do ${this.entity}/fetchFilters`,
+          [{ url: this.url }]
+        )
+
         const response = await this.$store.dispatch(`${this.entity}/fetchFilters`, { url: this.url })
         this.$emit('fetch-success', response)
+
+        this.$qas.logger.group(
+          `QasFilters - fetchFilters -> resposta da action ${this.entity}/fetchFilters`, [response]
+        )
       } catch (error) {
         this.hasFetchError = true
         this.$emit('fetch-error', error)
+
+        this.$qas.logger.group(
+          `QasFilters - fetchFilters -> exceção da action ${this.entity}/fetchFilters`,
+          [error],
+          { error: true }
+        )
       } finally {
         this.isFetching = false
       }

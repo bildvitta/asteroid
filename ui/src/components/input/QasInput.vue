@@ -1,6 +1,6 @@
 <template>
   <div>
-    <q-input ref="input" v-model="model" bottom-slots :error="errorData" v-bind="$attrs" :error-message="errorMessageData" :mask="mask" :outlined="outlined" :unmasked-value="unmaskedValue">
+    <q-input ref="input" v-model="model" bottom-slots :error="errorData" v-bind="$attrs" :error-message="errorMessageData" :mask="mask" :outlined="outlined" :unmasked-value="unmaskedValue" @paste="onPaste">
       <template v-for="(_, name) in $slots" #[name]="context">
         <slot :name="name" v-bind="context || {}" />
       </template>
@@ -15,25 +15,6 @@ export default {
   inheritAttrs: false,
 
   props: {
-    modelValue: {
-      default: '',
-      type: [String, Number]
-    },
-
-    unmaskedValue: {
-      default: true,
-      type: Boolean
-    },
-
-    outlined: {
-      default: true,
-      type: Boolean
-    },
-
-    removeErrorOnType: {
-      type: Boolean
-    },
-
     error: {
       type: Boolean
     },
@@ -41,6 +22,25 @@ export default {
     errorMessage: {
       type: String,
       default: ''
+    },
+
+    modelValue: {
+      default: '',
+      type: [String, Number]
+    },
+
+    outlined: {
+      default: true,
+      type: Boolean
+    },
+
+    unmaskedValue: {
+      default: true,
+      type: Boolean
+    },
+
+    useRemoveErrorOnType: {
+      type: Boolean
     }
   },
 
@@ -85,7 +85,7 @@ export default {
       },
 
       set (value) {
-        if (this.removeErrorOnType && this.error) {
+        if (this.useRemoveErrorOnType && this.error) {
           this.errorData = false
           this.errorMessageData = ''
         }
@@ -97,7 +97,7 @@ export default {
 
   watch: {
     mask () {
-      const input = this.inputReference.$el?.querySelector('input')
+      const input = this.getInput()
 
       requestAnimationFrame(() => {
         input.selectionStart = input.value ? input.value.length : ''
@@ -131,12 +131,30 @@ export default {
     },
 
     toggleMask (first, second) {
+      if (!this.modelValue.length) return
+
       const length = first.split('#').length - 2
       return this.modelValue?.length > length ? second : first
     },
 
     validate (value) {
       return this.inputReference.validate(value)
+    },
+
+    onPaste (event) {
+      if (!this.mask) return
+
+      const value = event.clipboardData.getData('text')
+      const input = this.getInput()
+
+      requestAnimationFrame(() => {
+        this.$emit('update:modelValue', value)
+        input.selectionStart = input.value ? input.value.length : ''
+      })
+    },
+
+    getInput () {
+      return this.inputReference.$el?.querySelector('input')
     }
   }
 }
