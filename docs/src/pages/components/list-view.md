@@ -3,9 +3,11 @@ title: QasListView
 ---
 
 <div class="flex q-gutter-x-md">
-  <doc-link title="Componente" name="QasDebugger" to="/components/debugger" />
-  <doc-link title="Componente" name="QasSingleView" to="/components/single-view" />
   <doc-link title="Componente" name="QasFilters" to="/components/filters" />
+  <doc-link title="Quasar Componente" name="QPullToRefresh" href="https://quasar.dev/vue-components/pull-to-refresh#qpulltorefresh-api" />
+  <doc-link title="Quasar Componente" name="QInnerLoading" href="https://quasar.dev/vue-components/inner-loading#qinnerloading-api" />
+  <doc-link title="Quasar Componente" name="QPagination" href="https://quasar.dev/vue-components/pagination#qpagination-api" />
+  <doc-link title="Quasar Componente" name="QSpinner" href="https://quasar.dev/vue-components/spinners#qspinner-api" />
 </div>
 
 Componente para C.R.U.D. responsável pela parte de listagem (Read).

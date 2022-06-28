@@ -3,8 +3,10 @@ title: QasUploader
 ---
 
 <div class="flex q-gutter-x-md">
-  <doc-link title="Componente" name="QField" href="https://quasar.dev/vue-components/field#introduction" />
+  <doc-link title="Quasar Componente" name="QField" href="https://quasar.dev/vue-components/field#introduction" />
   <doc-link title="Quasar Componente" name="QUploader" href="https://quasar.dev/vue-components/uploader#usage" />
+  <doc-link title="Componente" name="QasAvatar" to="/components/avatar" />
+  <doc-link title="Componente" name="QasBtn" to="/components/button" />
   <doc-link title="Biblioteca" name="Pica" href="https://github.com/nodeca/pica" />
 </div>
 

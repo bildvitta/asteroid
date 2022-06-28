@@ -4,6 +4,7 @@ title: QasNumericInput
 
 <div class="flex q-gutter-x-md">
   <doc-link title="Quasar Componente" name="Qfield" href="https://quasar.dev/vue-components/field#introduction" />
+  <doc-link title="Biblioteca" name="AutoNumeric" href="http://autonumeric.org/" />
 </div>
 
 Componente de input para decimal, inteiro, dinheiro e porcentagem.

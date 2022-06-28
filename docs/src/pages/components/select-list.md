@@ -4,7 +4,7 @@ title: QasSelectList
 
 <div class="flex q-gutter-x-md">
   <doc-link title="Componente" name="QasSearchBox" to="/components/search-box" />
-  <doc-link title="Biblioteca" name="Fuse.js" href="https://fusejs.io/" />
+  <doc-link title="Componente" name="QasBtn" to="/components/button" />
 </div>
 
 Componente para pesquisa utilizando Fuse.js.

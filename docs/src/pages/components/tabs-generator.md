@@ -3,9 +3,8 @@ title: QasTabsGenerator
 ---
 
 <div class="flex q-gutter-x-md">
-  <doc-link title="Componente" name="QasBtn" to="/components/button" />
-  <doc-link title="Biblioteca" name="Fuse.js" href="https://fusejs.io/" />
-  <doc-link title="Quasar Componente" name="QTable" href="https://quasar.dev/vue-components/table#introduction" />
+  <doc-link title="Quasar Componente" name="QTabs" href="https://quasar.dev/vue-components/tabs#qtabs-api" />
+  <doc-link title="Quasar Componente" name="QBadge" href="https://quasar.dev/vue-components/badge#qbadge-api" />
 </div>
 
 Trunca um texto baseado no tamanho do elemento pai e adiciona um rotulo "ver mais" que quando clicado mostra um dialog com o texto original completo (sem ser truncado).

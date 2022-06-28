@@ -4,8 +4,9 @@ title: QasNestedFields
 
 <div class="flex q-gutter-x-md">
   <doc-link title="Componente" name="QasBtn" to="/components/button" />
+  <doc-link title="Componente" name="QasLabel" to="/components/label" />
+  <doc-link title="Componente" name="QasInput" to="/components/input" />
   <doc-link title="Componente" name="QasFormGenerator" to="/components/form-generator" />
-  <doc-link title="Quasar Componente" name="Qfield" href="https://quasar.dev/vue-components/field#introduction" />
 </div>
 
 Componente para gerar dinamicamente campos nested.

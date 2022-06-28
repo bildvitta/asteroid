@@ -3,8 +3,10 @@ title: QasCheckboxGroup
 ---
 
 <div class="flex q-gutter-x-md">
-  <doc-link title="Componente" name="QasDebugger" to="/components/debugger" />
-  <doc-link title="Quasar Componente" name="QSelect" href="https://quasar.dev/vue-components/select#introduction" />
+  <doc-link title="Quasar Componente" name="QSelect" href="https://quasar.dev/vue-components/
+  select#introduction" />
+  <doc-link title="Quasar Componente" name="QCheckbox" href="https://quasar.dev/vue-components/checkbox#qcheckbox-api" />
+  <doc-link title="Quasar Componente" name="QOptionGroup" href="https://quasar.dev/vue-components/option-group#qoptiongroup-api" />
 </div>
 
 Componente para gerar dinamicamente checkbox agrupados.

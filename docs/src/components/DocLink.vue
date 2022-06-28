@@ -1,7 +1,7 @@
 <template>
   <div class="doc-link q-mb-sm row">
     <router-link class="doc-link__router-link text-no-decoration" :target="newTab" :to="to">
-      <a v-if="href" class="doc-link__router-link" :href="identifyPrefix" target="_blank">
+      <a v-if="href" class="doc-link__router-link" :href="href" target="_blank">
         <div class="bg-grey-4 cursor-pointer flex items-center justify-between q-gutter-x-sm q-pa-md rounded-borders">
           <div>
             {{ title }}
@@ -55,10 +55,6 @@ export default {
   },
 
   computed: {
-    identifyPrefix () {
-      return this.href.indexOf('https') ? 'https://' + this.href : this.href
-    },
-
     newTab () {
       return this.href ? '_blank' : ''
     }

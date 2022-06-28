@@ -4,7 +4,6 @@ title: QasTableGenerator
 
 <div class="flex q-gutter-x-md">
   <doc-link title="Componente" name="QasListView" to="/components/list-view" />
-  <doc-link title="Componente" name="QasTableGenerator" to="/components/table-generator" />
   <doc-link title="Componente" name="QasBtn" to="/components/button" />
   <doc-link title="Componente" name="QasBox" to="/components/Box" />
   <doc-link title="Quasar Componente" name="QTable" href="https://quasar.dev/vue-components/table#qtable-api" />

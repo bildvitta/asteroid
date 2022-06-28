@@ -3,10 +3,8 @@ title: QasFilters
 ---
 
 <div class="flex q-gutter-x-md">
-  <doc-link title="Componente" name="QasDebugger" to="/components/debugger" />
   <doc-link title="Componente" name="QasPageHeader" to="/components/page-header" />
   <doc-link title="Componente" name="QasListView" to="/components/list-view" />
-  <doc-link title="Componente" name="QasTableGenerator" to="/components/table-generator" />
   <doc-link title="Componente" name="QasBtn" to="/components/button" />
 </div>
 

@@ -3,7 +3,6 @@ title: QasFormGenerator
 ---
 
 <div class="flex q-gutter-x-md">
-  <doc-link title="Componente" name="QasDebugger" to="/components/debugger" />
   <doc-link title="Componente" name="QasField" to="/components/field" />
 </div>
 
@@ -22,7 +21,7 @@ Para saber mais sobre o **API Design Pattern** clice [aqui](https://www.notion.s
 ## Uso
 <doc-example file="QasFormGenerator/Basic" title="Básico" />
 
-Em alguns casos, queremos acessar todo o conteúdo de um campo espefico para fazer uma logica um pouco mais detalhada, neste caso conseguimos acessar o slot de cada campo individualmente.
+Em alguns casos, queremos acessar todo o conteúdo de um campo especifico para fazer uma logica um pouco mais detalhada, neste caso conseguimos acessar o slot de cada campo individualmente.
 <doc-example file="QasFormGenerator/CustomSlot" title="Acessando slots" />
 
 Em muitos casos, você precisa passar alguma prop/evento para um campo, para não precisar abrir um slot, você pode utilizar a prop `fieldsProps` e repassar todas as props/eventos necessarios.

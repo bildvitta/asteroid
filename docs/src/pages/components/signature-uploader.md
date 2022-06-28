@@ -6,6 +6,7 @@ title: QasSignatureUploader
   <doc-link title="Componente" name="QasUploader" to="/components/uploader" />
   <doc-link title="Componente" name="QasSignaturePad" to="/components/signature-pad" />
   <doc-link title="Componente" name="QasDialog" to="/components/dialog" />
+  <doc-link title="Componente" name="QasBtn" to="/components/button" />
 </div>
 
 Componente que implementa o "QasUploader" e "QasSignaturePad" para fazer upload de assinatura.

@@ -3,10 +3,11 @@ title: QasFormView
 ---
 
 <div class="flex q-gutter-x-md">
-  <doc-link title="Componente" name="QasDebugger" to="/components/debugger" />
   <doc-link title="Componente" name="QasBtn" to="/components/button" />
   <doc-link title="Componente" name="QasDialog" to="/components/dialog" />
   <doc-link title="Quasar Componente" name="QForm" href="https://quasar.dev/vue-components/form#introduction" />
+   <doc-link title="Quasar Componente" name="QInnerLoading" href="https://quasar.dev/vue-components/inner-loading#qinnerloading-api" />
+    <doc-link title="Quasar Componente" name="QPage" href="https://quasar.dev/layout/page#qpage-api" />
 </div>
 
 Componente para C.R.U.D. responsável pela pela criação (Create) e edição (Update).

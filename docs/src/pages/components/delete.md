@@ -2,10 +2,6 @@
 title: QasDelete
 ---
 
-<div class="flex q-gutter-x-md">
-  <doc-link title="Componente" name="QasDebugger" to="/components/debugger" />
-</div>
-
 Componente para C.R.U.D. responsável por deletar (Delete).
 
 <doc-api file="delete/QasDelete" name="QasDelete" />

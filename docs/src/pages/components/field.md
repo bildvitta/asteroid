@@ -3,14 +3,8 @@ title: QasField
 ---
 
 <div class="flex q-gutter-x-md">
-  <doc-link title="Componente" name="QasDebugger" to="/components/debugger" />
-  <doc-link title="Componente" name="QasCheckboxGroup" to="/components/checkbox-group" />
-  <doc-link title="Componente" name="QasDateTimeInput" to="/components/date-time-input" />
   <doc-link title="Componente" name="QasInput" to="/components/input" />
-  <doc-link title="Componente" name="QasNumericInput" to="/components/numeric-input" />
-  <doc-link title="Componente" name="QasPasswordInput" to="/components/password-input" />
-  <doc-link title="Componente" name="QasUploader" to="/components/uploader" />
-  <doc-link title="Componente" name="QasSignatureUploader" to="/components/signature-uploader" />
+  <doc-link title="Quasar Componente" name="QInput" href="https://quasar.dev/vue-components/input#qinput-api" />
 </div>
 
 Componente para criação de campos dinâmicos.
