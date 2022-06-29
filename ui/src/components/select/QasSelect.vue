@@ -12,14 +12,6 @@
       </slot>
     </template>
 
-    <template #hint>
-      <slot name="hint">
-        <div v-if="isLoading" class="q-pb-sm">
-          Buscando por opções...
-        </div>
-      </slot>
-    </template>
-
     <template #no-option>
       <slot v-if="!isLoading" name="no-option">
         <q-item>
