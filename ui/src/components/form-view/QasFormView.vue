@@ -282,7 +282,7 @@ export default {
 
       if (hasBeforeSubmit) {
         return this.beforeSubmit({
-          payload: { id: this.id, payload: this.value, url: this.url },
+          params: { id: this.id, payload: this.value, url: this.url },
           resolve: payload => this.submit(payload)
         })
       }
