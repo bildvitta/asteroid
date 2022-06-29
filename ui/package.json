@@ -69,7 +69,7 @@
     "signature_pad": "^3.0.0-beta.4",
     "sortablejs": "^1.12.0",
     "vue-router": "^3.4.9",
-    "vuex": "^3.6.0"
+    "vuex": "^4.0.2"
   },
   "peerDependencies": {
     "vue": "^2.6.14"
