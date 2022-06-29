@@ -5,9 +5,22 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## Unreleased
+
+## BREAKING CHANGES
+- `QasListView`: before what was passed as a parameter like `filters`, now it is the entire payload, so if you need to pass a filters as before use `fetchList({ filters: {...} })`.
+- [`QasFormView`, `QasSingleView`]:  before what was passed as a parameter like `params`, now it is the entire payload, so if you need to pass a params as before use `fetchSingle({ params: {...} })`.
+
 ### Added
 - Added all changes from `2.23.0-beta.0` to `2.23.0-beta.7`.
 - [`QasSelect`, `QasSearchBox`]: Added features related to `lazyloading`.
+- `QasListView`: added `useResultsAreaOnly` prop to define if the results container is always be displayed.
+- [`QasListView`, `QasFormView`, `QasSingleView`]: added `beforeFetch` prop, which will give the freedom to control when the first `fetchList` will run.
+- `viewMixin`: added the `fetchHandler` method, which will be the handler responsible for intercepting the fetch functions of views.
+- `QasFormView`: added `beforeSubmit` property to control the submit, eg: show a confirmation modal before submitting the form.
+
+### Changed
+- `QasFormView`: added a `submitHandler` handler to the submit control along with the `beforeSubmit` property.
+- `QasFormView`: changed `fetch` method to `fetchSingle`.
 
 ### Removed
 - `QasSelect`: removed `hint` slot.

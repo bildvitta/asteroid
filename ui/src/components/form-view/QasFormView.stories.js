@@ -33,6 +33,10 @@ export default {
 
   argTypes: {
     // Props
+    beforeFetch: {
+      description: 'Function to be called before fetching data.'
+    },
+
     cancelButton: {
       description: 'Cancel button label.'
     },
@@ -78,6 +82,10 @@ export default {
 
     submitButton: {
       description: 'Submit button label.'
+    },
+
+    beforeSubmit: {
+      description: 'Function to be called before submit.'
     },
 
     url: {

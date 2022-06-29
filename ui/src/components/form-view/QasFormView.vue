@@ -4,7 +4,7 @@
       <slot :errors="errors" :fields="fields" :metadata="metadata" name="header" />
     </header>
 
-    <q-form ref="form" @submit="submit">
+    <q-form ref="form" @submit="submitHandler">
       <slot :errors="errors" :fields="fields" :metadata="metadata" />
 
       <slot v-if="!readOnly" :errors="errors" :fields="fields" :metadata="metadata" name="actions">
@@ -13,7 +13,7 @@
             <qas-btn v-close-popup="dialog" class="full-width" :data-cy="`btnCancel-${entity}`" :disable="isCancelButtonDisabled" :label="cancelButton" outline type="button" @click="cancel" />
           </div>
           <div class="col-12 col-sm-2" :class="saveButtonClass">
-            <qas-btn class="full-width" :data-cy="`btnSave-${entity}`" :disable="disable" :label="submitButton" :loading="isSubmiting" type="submit" />
+            <qas-btn class="full-width" :data-cy="`btnSave-${entity}`" :disable="disable" :label="submitButton" :loading="isSubmitting" type="submit" />
           </div>
         </div>
       </slot>
@@ -95,6 +95,11 @@ export default {
       type: String
     },
 
+    beforeSubmit: {
+      default: null,
+      type: Function
+    },
+
     value: {
       default: () => ({}),
       type: Object
@@ -105,7 +110,7 @@ export default {
     return {
       cachedResult: {},
       hasResult: false,
-      isSubmiting: false,
+      isSubmitting: false,
       showDialog: false,
 
       dialogConfig: {
@@ -181,7 +186,7 @@ export default {
   },
 
   created () {
-    this.fetch()
+    this.fetchHandler({ form: true, id: this.id, url: this.fetchURL }, this.fetchSingle)
   },
 
   methods: {
@@ -203,14 +208,18 @@ export default {
       }
     },
 
-    async fetch (params) {
+    async fetchSingle (externalPayload = {}) {
       this.isFetching = true
 
-      try {
-        const response = await this.$store.dispatch(
-          `${this.entity}/fetchSingle`, { form: true, id: this.id, params, url: this.fetchURL }
-        )
+      const payload = {
+        form: true,
+        id: this.id,
+        url: this.fetchURL,
+        ...externalPayload
+      }
 
+      try {
+        const response = await this.$store.dispatch(`${this.entity}/fetchSingle`, payload)
         const { errors, fields, metadata, result } = response.data
 
         this.setErrors(errors)
@@ -264,22 +273,33 @@ export default {
       this.showDialog = true
     },
 
-    async submit (event) {
+    submitHandler (event) {
       if (event) {
         event.preventDefault()
       }
 
-      if (this.disable || this.readyOnly) {
+      const hasBeforeSubmit = typeof this.beforeSubmit === 'function'
+
+      if (hasBeforeSubmit) {
+        return this.beforeSubmit({
+          params: { id: this.id, payload: this.value, url: this.url },
+          resolve: payload => this.submit(payload)
+        })
+      }
+
+      this.submit()
+    },
+
+    async submit (externalPayload = {}) {
+      if (this.disable) {
         return null
       }
 
-      this.isSubmiting = true
+      this.isSubmitting = true
 
       try {
-        const response = await this.$store.dispatch(
-          `${this.entity}/${this.mode}`,
-          { id: this.id, payload: this.value, url: this.url }
-        )
+        const payload = { id: this.id, payload: this.value, url: this.url, ...externalPayload }
+        const response = await this.$store.dispatch(`${this.entity}/${this.mode}`, payload)
 
         if (this.showDialogOnUnsavedChanges) {
           this.cachedResult = cloneDeep(this.value)
@@ -301,7 +321,7 @@ export default {
 
         this.$emit('submit-error', error)
       } finally {
-        this.isSubmiting = false
+        this.isSubmitting = false
       }
     }
   }

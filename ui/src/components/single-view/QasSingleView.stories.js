@@ -33,6 +33,10 @@ export default {
 
   argTypes: {
     // Props
+    beforeFetch: {
+      description: 'Function to be called before fetching data.'
+    },
+
     customId: {
       control: null,
       description: 'Sets a custom id to `entity`. When not set, will use the `:id` route param.'

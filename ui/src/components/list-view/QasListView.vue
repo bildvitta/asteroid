@@ -10,7 +10,7 @@
       </slot>
 
       <main class="relative-position">
-        <div v-if="hasResults">
+        <div v-if="showResults">
           <slot :fields="fields" :metadata="metadata" :results="results" />
         </div>
 
@@ -67,6 +67,10 @@ export default {
     filtersProps: {
       default: () => ({}),
       type: Object
+    },
+
+    useResultsAreaOnly: {
+      type: Boolean
     }
   },
 
@@ -77,11 +81,6 @@ export default {
   },
 
   computed: {
-    context () {
-      const { limit, ordering, page, search, ...filters } = this.$route.query
-      return { filters, limit, ordering, page: page ? parseInt(page) : 1, search }
-    },
-
     hasHeaderSlot () {
       return !!(this.$slots.header || this.$scopedSlots.header)
     },
@@ -98,6 +97,10 @@ export default {
       return this.$store.getters[`${this.entity}/list`]
     },
 
+    showResults () {
+      return this.hasResults || (this.useResultsAreaOnly && !this.isFetching)
+    },
+
     totalPages () {
       return this.$store.getters[`${this.entity}/totalPages`]
     }
@@ -105,13 +108,13 @@ export default {
 
   watch: {
     $route () {
-      this.fetchList()
+      this.onFetchHandler()
       this.setCurrentPage()
     }
   },
 
   created () {
-    this.fetchList()
+    this.onFetchHandler()
     this.setCurrentPage()
   },
 
@@ -148,11 +151,15 @@ export default {
     },
 
     async refresh (done) {
-      await this.fetchList()
+      await this.onFetchHandler()
 
       if (typeof done === 'function') {
         done()
       }
+    },
+
+    async onFetchHandler () {
+      await this.fetchHandler({ ...this.context, url: this.url }, this.fetchList)
     },
 
     setCurrentPage () {

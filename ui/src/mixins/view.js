@@ -5,6 +5,11 @@ import { NotifyError } from '../plugins'
 
 export default {
   props: {
+    beforeFetch: {
+      default: null,
+      type: Function
+    },
+
     dialog: {
       type: Boolean
     },
@@ -22,10 +27,10 @@ export default {
 
   data () {
     return {
+      cancelBeforeFetch: false,
       errors: {},
       fields: {},
       metadata: {},
-
       isFetching: false
     }
   },
@@ -57,6 +62,22 @@ export default {
       if (redirect) {
         this.$router.replace({ name: redirect })
       }
+    },
+
+    fetchHandler (payload, resolve) {
+      const hasBeforeFetch = typeof this.beforeFetch === 'function'
+
+      if (hasBeforeFetch && !this.cancelBeforeFetch) {
+        return this.beforeFetch({
+          payload,
+          resolve: payload => resolve(payload),
+          done: () => {
+            this.cancelBeforeFetch = true
+          }
+        })
+      }
+
+      resolve()
     },
 
     setErrors (errors = {}) {
