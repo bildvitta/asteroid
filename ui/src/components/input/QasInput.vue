@@ -75,7 +75,7 @@ export default {
 
   methods: {
     toggleMask (first, second) {
-      if (!this.value.length) return
+      if (!this.value?.length) return
 
       const length = first.split('#').length - 2
       return this.value?.length > length ? second : first

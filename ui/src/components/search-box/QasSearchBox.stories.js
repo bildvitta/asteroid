@@ -32,6 +32,14 @@ export default {
       description: 'List height when there is no results.'
     },
 
+    emptyResultText: {
+      description: 'Text for empty result on search.'
+    },
+
+    entity: {
+      description: 'Vuex entity name to be used on lazy loading filter.'
+    },
+
     fuseOptions: {
       description: '[Fuse.js options](https://fusejs.io/api/options.html)',
       table: {
@@ -47,12 +55,31 @@ export default {
       description: 'Hides empty slot.'
     },
 
+    lazyLoadingProps: {
+      description: 'Props to be used on lazy loading.',
+      table: {
+        defaultValue: {
+          detail: JSON.stringify({
+            url: '',
+            params: {
+              limit: 48
+            },
+            decamelizeFieldName: true
+          })
+        }
+      }
+    },
+
     list: {
       description: 'Array of objects with `label` and `value` each, to be searched.'
     },
 
     placeholder: {
       description: 'Display temporary message when search field in empty.'
+    },
+
+    useLazyLoading: {
+      description: 'Option to enable lazy loading.'
     },
 
     value: {
@@ -63,6 +90,30 @@ export default {
     emptyResult: {
       description: 'Fires when there is no results.',
       table: noSummary
+    },
+
+    'fetch-options-error': {
+      description: 'Fires when occur an error fetching the options.',
+      table: {
+        defaultValue: {
+          detail: JSON.stringify({ error: 'object' }),
+          summary: '{}'
+        }
+      }
+    },
+
+    'fetch-options-success': {
+      description: 'Fires when successfully fetching the options.',
+      table: {
+        defaultValue: {
+          detail: JSON.stringify({ results: 'array' }),
+          summary: '{}'
+        }
+      }
+    },
+
+    fetching: {
+      description: 'Fires when fetching the options.'
     },
 
     input: {
@@ -84,6 +135,11 @@ export default {
 
     empty: {
       description: 'To be displayed when there is no results.',
+      table: noSummary
+    },
+
+    loading: {
+      description: 'To be displayed when lazy loading is in progress.',
       table: noSummary
     }
   }
