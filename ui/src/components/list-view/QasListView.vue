@@ -108,13 +108,13 @@ export default {
 
   watch: {
     $route () {
-      this.handleFetchHandler()
+      this.onFetchHandler()
       this.setCurrentPage()
     }
   },
 
   created () {
-    this.handleFetchHandler()
+    this.onFetchHandler()
     this.setCurrentPage()
   },
 
@@ -151,14 +151,14 @@ export default {
     },
 
     async refresh (done) {
-      await this.handleFetchHandler()
+      await this.onFetchHandler()
 
       if (typeof done === 'function') {
         done()
       }
     },
 
-    async handleFetchHandler () {
+    async onFetchHandler () {
       await this.fetchHandler({ ...this.context, url: this.url }, this.fetchList)
     },
 

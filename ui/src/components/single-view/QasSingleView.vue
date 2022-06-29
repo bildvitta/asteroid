@@ -57,7 +57,7 @@ export default {
 
   watch: {
     $route () {
-      this.handleFetchHandler()
+      this.onFetchHandler()
     },
 
     result (value) {
@@ -66,7 +66,7 @@ export default {
   },
 
   created () {
-    this.handleFetchHandler()
+    this.onFetchHandler()
   },
 
   methods: {
@@ -96,7 +96,7 @@ export default {
       }
     },
 
-    async handleFetchHandler () {
+    async onFetchHandler () {
       await this.fetchHandler({ id: this.id, url: this.url }, this.fetchSingle)
     }
   }
