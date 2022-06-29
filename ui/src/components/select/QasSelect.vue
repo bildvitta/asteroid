@@ -1,5 +1,5 @@
 <template>
-  <q-select v-model="model" v-bind="attributes" v-on="listeners" @filter="filterOptions">
+  <q-select v-model="model" v-bind="attributes" v-on="listeners">
     <slot v-for="(slot, key) in $slots" :slot="key" :name="key" />
 
     <template v-for="(slot, key) in $scopedSlots" :slot="key" slot-scope="scope">
@@ -8,12 +8,12 @@
 
     <template #append>
       <slot name="append">
-        <q-icon v-if="searchable" name="o_search" />
+        <q-icon v-if="isSearchable" name="o_search" />
       </slot>
     </template>
 
     <template #no-option>
-      <slot name="no-option">
+      <slot v-if="!isLoading" name="no-option">
         <q-item>
           <q-item-section class="text-grey">
             {{ noOptionLabel }}
@@ -21,12 +21,24 @@
         </q-item>
       </slot>
     </template>
+
+    <template #after-options>
+      <slot v-if="isLoading" name="after-options">
+        <div class="flex justify-center q-pb-sm">
+          <q-spinner-dots color="primary" size="20px" />
+        </div>
+      </slot>
+    </template>
   </q-select>
 </template>
 
 <script>
+import lazyLoadingFilterMixin from '../../mixins/lazy-loading-filter'
+
 export default {
   name: 'QasSelect',
+
+  mixins: [lazyLoadingFilterMixin],
 
   props: {
     fuseOptions: {
@@ -39,9 +51,18 @@ export default {
       type: String
     },
 
+    noOptionLabel: {
+      default: 'Nenhum resultado foi encontrado.',
+      type: String
+    },
+
     options: {
       default: () => [],
       type: Array
+    },
+
+    searchable: {
+      type: Boolean
     },
 
     value: {
@@ -52,21 +73,11 @@ export default {
     valueKey: {
       default: '',
       type: String
-    },
-
-    noOptionLabel: {
-      default: 'Nenhum resultado foi encontrado.',
-      type: String
-    },
-
-    searchable: {
-      type: Boolean
     }
   },
 
   data () {
     return {
-      filteredOptions: [],
       fuse: null
     }
   },
@@ -85,7 +96,11 @@ export default {
     listeners () {
       const { input, ...events } = this.$listeners
 
-      return events
+      return {
+        ...events,
+        ...(this.useLazyLoading && { 'virtual-scroll': this.$_onVirtualScroll }),
+        ...((this.useLazyLoading || this.searchable) && { filter: this.onFilter })
+      }
     },
 
     defaultFuseOptions () {
@@ -104,7 +119,7 @@ export default {
       }
     },
 
-    formattedResult () {
+    defaultOptions () {
       if (!this.labelKey && !this.valueKey) {
         return this.options
       }
@@ -116,15 +131,31 @@ export default {
       return this.$attrs.multiple || this.$attrs.multiple === ''
     },
 
+    isSearchable () {
+      return this.searchable || this.useLazyLoading
+    },
+
+    hasError () {
+      return this.hasFetchError || this.$attrs.error
+    },
+
+    hasLoading () {
+      return this.isLoading || this.$attrs.loading
+    },
+
     attributes () {
       return {
+        bottomSlots: true,
         emitValue: true,
         mapOptions: true,
         outlined: true,
-        clearable: this.searchable,
+        clearable: this.isSearchable,
+        inputDebounce: this.useLazyLoading ? 500 : 0,
         ...this.$attrs,
         options: this.filteredOptions,
-        useInput: this.searchable
+        useInput: this.isSearchable,
+        error: this.hasError,
+        loading: this.hasLoading
       }
     }
   },
@@ -136,35 +167,48 @@ export default {
 
     options: {
       handler () {
+        if (this.useLazyLoading && this.$_hasFilteredOptions) return
+
         if (this.fuse) {
-          this.fuse.list = this.formattedResult
+          this.fuse.list = this.defaultOptions
         }
 
-        this.filteredOptions = this.formattedResult
+        this.filteredOptions = this.defaultOptions
       },
       immediate: true
     }
   },
 
   async created () {
-    if (this.searchable) {
+    if (this.searchable && !this.useLazyLoading) {
       const Fuse = (await import('fuse.js')).default
-      this.fuse = new Fuse(this.options, this.defaultFuseOptions)
+      this.fuse = new Fuse(this.defaultOptions, this.defaultFuseOptions)
     }
+
+    this.useLazyLoading && this.$_setFetchOptions('')
   },
 
   methods: {
-    filterOptions (value, update) {
-      update(() => {
-        if (!this.searchable) return
+    async onFilter (value, update) {
+      if (this.useLazyLoading && value !== this.search) {
+        await this.$_filterOptionsByStore(value)
+      }
 
-        if (value === '') {
-          this.filteredOptions = this.formattedResult
-        } else {
-          const results = this.fuse.search(value)
-          this.filteredOptions = results.map(item => item.item)
-        }
-      })
+      if (!this.useLazyLoading && this.searchable) {
+        this.filterOptionsByFuse(value)
+      }
+
+      update()
+    },
+
+    filterOptionsByFuse (value) {
+      if (value === '') {
+        this.filteredOptions = this.defaultOptions
+        return
+      }
+
+      const results = this.fuse.search(value)
+      this.filteredOptions = results.map(({ item }) => item)
     },
 
     renameKey (item) {

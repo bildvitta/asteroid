@@ -1,18 +1,26 @@
 <template>
   <qas-box v-bind="$attrs">
-    <q-input v-model="search" clearable :disable="!list.length" outlined :placeholder="placeholder">
+    <q-input v-model="search" v-bind="attributes">
       <template #append>
         <q-icon color="primary" name="o_search" />
       </template>
     </q-input>
 
-    <div class="overflow-auto q-mt-xs relative-position" :style="contentStyle">
-      <slot v-if="hasResults" :results="results" />
+    <div ref="scrollContainer" :class="contentClasses" :style="contentStyle">
+      <component :is="component.is" v-bind="component.props" v-on="component.listeners">
+        <slot v-if="$_hasFilteredOptions" :results="filteredOptions" />
+      </component>
 
-      <slot v-else-if="!hideEmptySlot" name="empty">
+      <slot v-if="isLoading" name="loading">
+        <div class="flex justify-center q-pb-sm">
+          <q-spinner-dots color="primary" size="20px" />
+        </div>
+      </slot>
+
+      <slot v-if="showEmptyResult" name="empty">
         <div class="absolute-center text-center">
           <q-icon class="q-mb-sm text-center" color="primary" name="o_search" size="38px" />
-          <div>Não há resultados disponíveis.</div>
+          <div>{{ emptyResultText }}</div>
         </div>
       </slot>
     </div>
@@ -20,18 +28,28 @@
 </template>
 
 <script>
+import { QInfiniteScroll } from 'quasar'
 import QasBox from '../box/QasBox.vue'
 
 import Fuse from 'fuse.js'
+import lazyLoadingFilterMixin from '../../mixins/lazy-loading-filter'
 
 export default {
   components: {
+    QInfiniteScroll,
     QasBox
   },
+
+  mixins: [lazyLoadingFilterMixin],
 
   props: {
     emptyListHeight: {
       default: '100px',
+      type: String
+    },
+
+    emptyResultText: {
+      default: 'Não há resultados disponíveis.',
       type: String
     },
 
@@ -67,15 +85,21 @@ export default {
 
   data () {
     return {
-      fuse: null,
-      results: this.list,
-      search: ''
+      fuse: null
     }
   },
 
   computed: {
+    contentClasses () {
+      return ['overflow-auto', 'q-mt-xs', 'relative-position']
+    },
+
     contentStyle () {
-      return { height: this.list.length ? this.height : this.emptyListHeight }
+      return { height: this.contentHeight }
+    },
+
+    contentHeight () {
+      return this.$_hasFilteredOptions ? this.height : this.showEmptyResult ? this.emptyListHeight : 'auto'
     },
 
     defaultFuseOptions () {
@@ -92,8 +116,41 @@ export default {
       }
     },
 
-    hasResults () {
-      return !!this.results.length
+    showEmptyResult () {
+      return !this.$_hasFilteredOptions && !this.hideEmptySlot && !this.isLoading
+    },
+
+    isDisabled () {
+      return (!this.useLazyLoading && !this.list.length) || this.isLoading
+    },
+
+    attributes () {
+      return {
+        clearable: true,
+        disable: this.isDisabled,
+        debounce: this.useLazyLoading ? 500 : 0,
+        outlined: true,
+        placeholder: this.placeholder,
+        error: this.hasFetchError
+      }
+    },
+
+    component () {
+      const infiniteScrollProps = {
+        offset: 100,
+        scrollTarget: this.$refs.scrollContainer,
+        ref: 'infiniteScrollRef'
+      }
+
+      return {
+        is: this.useLazyLoading ? 'q-infinite-scroll' : 'div',
+        props: {
+          ...(this.useLazyLoading && infiniteScrollProps)
+        },
+        listeners: {
+          ...(this.useLazyLoading && { load: this.onInfiniteScroll })
+        }
+      }
     }
   },
 
@@ -102,33 +159,60 @@ export default {
       this.fuse.options = { ...this.fuse.options, ...value }
     },
 
-    hasResults (value) {
+    $_hasFilteredOptions (value) {
       !value && this.$emit('emptyResult')
     },
 
     list (value) {
-      this.fuse.list = value
-      this.setResults(this.search)
+      if (!this.useLazyLoading) {
+        this.fuse.list = value
+        this.filterOptionsByFuse(this.search)
+      }
     },
 
     search: {
-      handler (value) {
-        this.setResults(value)
+      async handler (value) {
         this.$emit('input', value)
-      },
 
-      immediate: true
+        if (this.useLazyLoading) {
+          await this.$_filterOptionsByStore(value)
+
+          this.$refs.infiniteScrollRef.resume()
+
+          return
+        }
+
+        this.filterOptionsByFuse(value)
+      }
     }
   },
 
   created () {
+    this.filteredOptions = this.list
     this.search = this.value
-    this.fuse = new Fuse(this.list, this.defaultFuseOptions)
+
+    if (!this.useLazyLoading) {
+      this.fuse = new Fuse(this.list, this.defaultFuseOptions)
+    }
   },
 
   methods: {
-    setResults (value) {
-      this.results = value ? this.fuse.search(value) : this.list
+    filterOptionsByFuse (value) {
+      this.filteredOptions = value ? this.fuse.search(value) : this.list
+    },
+
+    async onInfiniteScroll (index, done) {
+      if (!this.$_hasFilteredOptions && !this.search) {
+        await this.$_setFetchOptions()
+        return done()
+      }
+
+      if (this.$_canFetchOptions()) {
+        await this.$_loadMoreOptions()
+        return done()
+      }
+
+      done(true)
     }
   }
 }

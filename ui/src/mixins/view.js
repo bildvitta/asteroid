@@ -1,4 +1,3 @@
-import { camelize } from 'humps'
 import { get } from 'lodash'
 import { camelizeFieldsName } from '../helpers'
 

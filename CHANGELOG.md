@@ -4,6 +4,74 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## Unreleased
+### Added
+- Added all changes from `2.23.0-beta.0` to `2.23.0-beta.7`.
+- [`QasSelect`, `QasSearchBox`]: Added features related to `lazyloading`.
+
+### Removed
+- `QasSelect`: removed `hint` slot.
+
+## 2.23.0-beta.7 - 2022-06-22
+
+### Changed
+- `QasSelect`: Added fetch options when component is created on screen.
+- `QasSelect`: Added pagination validation with `hasNextPage` for cases where there is no count on response of action `fetchFieldOptions`.
+
+## 2.23.0-beta.6 - 2022-06-15
+
+### Added
+- `QasSelect`: added default `hint` slot to show a loading text.
+- `QasSelect`: added support to receive `loading` attribute from parent and work together with internal `isLoading`.
+
+### Fixed
+- `QasSelect`: fixed a bug with `onFilter` update callback and AJAX requests. Now the `update` callback is called only when the options is populate using lazy loading.
+- `lazyLoadingFilterMixin`: fixed a scroll bug when the user scrolls down.
+
+## 2.23.0-beta.5 - 2022-06-14
+
+### Added
+- `lazyLoadingFilterMixin`: added new event `fetching` when fetching data from API.
+
+### Changed
+- `QasSelect`: changed the default text for `loading` slot.
+
+### Fixed
+- `lazyLoadingFilterMixin`: watch `lazyLoadingProps` change to reset the filter.
+- `lazyLoadingFilterMixin`: change virtual scroll class name to a unique one.
+- `QasSelectList`: return with the `q-list` wrapper to all `q-item`.
+
+## 2.23.0-beta.4 - 2022-06-13
+
+### Fixed
+- `lazyLoadingFilterMixin`: removed nullish coalescing.
+
+## 2.23.0-beta.3 - 2022-06-13
+
+### Changed
+- Changed package.json from `/app-extension` to accept `"@bildvitta/quasar-ui-asteroid": "2.23.0-beta.3"`.
+
+## 2.23.0-beta.0 - 2022-06-13
+
+### Added
+- New mixin `lazyLoadingFilterMixin`.
+- `QasSelect`: added mixin `lazyLoadingFilterMixin`.
+- `QasSelect`: added new slot `after-options` for the elements that should be rendered after the list of options.
+- `QasSearchBox`: added mixin `lazyLoadingFilterMixin`.
+- `QasSearchBox`: added new prop `emptyResultText` to insert the text for empty result on search.
+- `QasSearchBox`: added new slot `loading` to be displayed when lazy loading is in progress.
+- `QasField`: added new props `useLazyLoading` and `name` to select component.
+
+### Changed
+- `QasSelect`: changed component to support lazy loading using q-virtual-scroll.
+- `QasSearchBox`: changed component to support lazy loading using q-infinite-scroll.
+
+### Fixed
+- `QasInput`: fixed validation in the `toggleMask` method to solve the problem when the field doesn't have a value.
+
+### Removed
+- `ViewMixin`: removed `camelize` import.
+
 ## 2.22.0 - 2022-06-09
 
 ### Added

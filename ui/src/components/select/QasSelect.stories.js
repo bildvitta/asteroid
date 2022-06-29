@@ -30,6 +30,10 @@ export default {
 
   argTypes: {
     // Props
+    entity: {
+      description: 'Vuex entity name to be used on lazy loading filter.'
+    },
+
     fuseOptions: {
       description: '[Fuse.js](https://fusejs.io/) options.',
       table: {
@@ -41,12 +45,39 @@ export default {
       description: 'Key to be used instead of `label`.'
     },
 
+    lazyLoadingProps: {
+      description: 'Props to be used on lazy loading.',
+      table: {
+        defaultValue: {
+          detail: JSON.stringify({
+            url: '',
+            params: {
+              limit: 48
+            },
+            decamelizeFieldName: true
+          })
+        }
+      }
+    },
+
+    name: {
+      description: 'Name of the field.'
+    },
+
     options: {
       description: 'Select options.'
     },
 
     noOptionLabel: {
       description: 'Text for empty result on search.'
+    },
+
+    searchable: {
+      description: 'option to enable the search field.'
+    },
+
+    useLazyLoading: {
+      description: 'Option to enable lazy loading.'
     },
 
     value: {
@@ -57,16 +88,44 @@ export default {
       description: 'Key to be used instead of `value`.'
     },
 
-    searchable: {
-      description: 'option to enable the search field.'
+    // Events
+    'fetch-options-error': {
+      description: 'Fires when occur an error fetching the options.',
+      table: {
+        defaultValue: {
+          detail: JSON.stringify({ error: 'object' }),
+          summary: '{}'
+        }
+      }
     },
 
-    // Events
+    'fetch-options-success': {
+      description: 'Fires when successfully fetching the options.',
+      table: {
+        defaultValue: {
+          detail: JSON.stringify({ results: 'array' }),
+          summary: '{}'
+        }
+      }
+    },
+
+    fetching: {
+      description: 'Fires when fetching the options.'
+    },
+
     input: {
       description: 'Fires when model changes. Also used by `v-model`.'
     },
 
     // Slots
+    'after-options': {
+      description: 'Template slot for the elements that should be rendered after the list of options.',
+      table: {
+        category: 'slots',
+        ...noSummary
+      }
+    },
+
     append: {
       description: 'Attach to the inner field.',
       table: {
@@ -81,11 +140,6 @@ export default {
         category: 'slots',
         ...noSummary
       }
-    },
-
-    option: {
-      description: 'Replace an option defaults.',
-      table: noSummary
     }
   }
 }
