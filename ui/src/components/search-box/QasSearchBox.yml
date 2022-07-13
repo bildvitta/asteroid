@@ -9,6 +9,24 @@ props:
     default: 100px
     type: String
 
+  empty-result-text:
+    desc: Define o texto dentro do box quando a lista está vazia.
+    default: 100px
+    type: String
+
+  entity:
+    desc: Entidade enviada para a action "fetchFieldOptions" (usar somente quando "useLazyLoading" estiver habilitada).
+    default: ''
+    type: String
+    examples: [users]
+
+  fetching:
+    desc: Usado para saber quando o componente está fazendo fetching (usar somente quando "useLazyLoading" estiver habilitada).
+    default: false
+    type: Boolean
+    model: true
+    examples: [v-model:fetching="isFetching"]
+
   fuse-options:
     desc: Opções do Fuse.js (https://fusejs.io/api/options.html).
     debugger: true
@@ -23,8 +41,18 @@ props:
     default: 300px
     type: String
 
+  lazy-loading-props:
+    desc: Propriedades para o lazy loading (usar somente quando "useLazyLoading" estiver habilitada).
+    debugger: true
+    default:
+      decamelizeFieldName: true
+      url: ''
+      params:
+        limit: 48
+    type: String
+
   list:
-    desc: Lista onde ocorrerá a busca (array de objetos).
+    desc: Lista onde ocorrerá a busca sendo array de objetos (usar somente quando "useLazyLoading" **NÃO** estiver habilitada).
     default: []
     type: String
 
@@ -33,6 +61,11 @@ props:
     type: String
     examples: [v-model="search"]
     model: true
+
+  name:
+    desc: Nome do campo a ser enviado para a action "fetchFieldOptions" (usar somente quando "useLazyLoading" estiver habilitada).
+    type: String
+    examples: [cities]
 
   placeholder:
     desc: Placeholder do campo de pesquisa.
@@ -51,12 +84,20 @@ props:
     default: true
     type: Boolean
 
+  use-lazy-loading:
+    desc: Controla a busca pela store "fetchFieldOptions".
+    default: false
+    type: Boolean
+
 slots:
   default:
     desc: Acesso ao conteúdo principal, só existe caso a busca retorne algum resultado.
 
   empty-result:
     desc: Acesso ao conteúdo quando a busca não retorne resultado e a prop "useEmptySlot" seja "true".
+
+  loading:
+    desc: Acesso ao conteúdo do loading que contém o "<q-spinner-dots />"..
 
 events:
   '@empty-result -> function ()':
