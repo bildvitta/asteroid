@@ -11,6 +11,7 @@
     "QasSearchBox",
     "QasSelect",
     "QasDialog",
-    "QasField"
+    "QasField",
+    "QasSearchBox/QasSelect"
   ]
 }

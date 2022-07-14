@@ -77,3 +77,27 @@ events:
       value:
         desc: Novo valor do v-model
         type: [Array, Object, String, Number]
+
+  '@update:fetching -> function (value)':
+    desc: Dispara toda vez que o campo de busca faz o fetch do lazy loading
+    params:
+      value:
+        desc: Novo valor do v-model:fetching
+        default: false
+        type: Boolean
+
+  '@fetch-options-success -> function (value)':
+    desc: Dispara toda vez que o campo de busca faz o fetch do lazy loading com sucesso.
+    params:
+      value:
+        desc: Valor retornado pela action "fetchFieldOptions"
+        default: {}
+        type: Object
+
+  '@fetch-options-error -> function (value)':
+    desc: Dispara toda vez que o campo de busca faz o fetch do lazy loading e cai em uma exceção.
+    params:
+      value:
+        desc: Valor retornado pela action "fetchFieldOptions"
+        default: {}
+        type: Object
