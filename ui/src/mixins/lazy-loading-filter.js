@@ -1,5 +1,6 @@
 import { decamelize } from 'humps'
 import { isEqual } from 'lodash'
+import { getNormalizedOptions } from '../helpers'
 
 export default {
   props: {
@@ -31,15 +32,14 @@ export default {
     'update:modelValue',
     'update:fetching',
     'fetch-options-success',
-    'fetch-options-error',
-    'virtual-scroll'
+    'fetch-options-error'
   ],
 
   data () {
     return {
       mx_filteredOptions: [],
       mx_hasFetchError: false,
-      mx_isLoading: false,
+      mx_isFetching: false,
       mx_isScrolling: false,
       mx_search: '',
       mx_pagination: {
@@ -139,16 +139,14 @@ export default {
         if (!this.name) this.mx_setMissingPropsMessage('name')
 
         this.mx_hasFetchError = false
-        this.mx_isLoading = true
+        this.mx_isFetching = true
 
         this.$emit('update:fetching', true)
 
-        const { params, decamelizeFieldName } = this.mx_defaultLazyLoadingProps
-        // const { url, params, decamelizeFieldName } = this.mx_defaultLazyLoadingProps
+        const { url, params, decamelizeFieldName } = this.mx_defaultLazyLoadingProps
 
         const { data } = await this.$store.dispatch(`${this.entity}/fetchFieldOptions`, {
-          url: 'https://api-dev-produto.nave.dev/api/properties/options/property-holders',
-          // url,
+          url,
           field: decamelizeFieldName ? decamelize(this.name, { separator: '-' }) : this.name,
           params: {
             ...params,
@@ -182,8 +180,8 @@ export default {
 
         return []
       } finally {
-        this.mx_isLoading = false
-        this.$emit('update:fetching', true)
+        this.mx_isFetching = false
+        this.$emit('update:fetching', false)
       }
     },
 
@@ -196,12 +194,16 @@ export default {
 
       const hasMorePages = hasCount ? lastPage && page <= lastPage : hasNextPage
 
-      return hasMorePages && !this.mx_isLoading && !this.mx_isScrolling && this.useLazyLoading
+      return hasMorePages && !this.mx_isFetching && !this.mx_isScrolling && this.useLazyLoading
     },
 
     mx_handleOptions (options) {
-      if (this.labelKey && this.valueKey && this.renameKey) {
-        return options.map(item => this.renameKey(item))
+      if (this.labelKey && this.valueKey) {
+        return getNormalizedOptions({
+          options,
+          label: this.labelKey,
+          value: this.valueKey
+        })
       }
 
       return options

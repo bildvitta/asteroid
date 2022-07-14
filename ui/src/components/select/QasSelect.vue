@@ -1,5 +1,5 @@
 <template>
-  <q-select v-model="model" v-bind="attributes" @virtual-scroll="mx_onVirtualScroll">
+  <q-select v-model="model" v-bind="attributes">
     <template #append>
       <slot name="append">
         <q-icon v-if="isSearchable" name="o_search" />
@@ -7,7 +7,7 @@
     </template>
 
     <template #no-option>
-      <slot v-if="!mx_isLoading" name="no-option">
+      <slot v-if="!mx_isFetching" name="no-option">
         <q-item>
           <q-item-section class="text-grey">
             {{ noOptionLabel }}
@@ -17,7 +17,7 @@
     </template>
 
     <template #after-options>
-      <slot v-if="mx_isLoading" name="after-options">
+      <slot v-if="mx_isFetching" name="after-options">
         <div class="flex justify-center q-pb-sm">
           <q-spinner-dots color="primary" size="20px" />
         </div>
@@ -116,14 +116,6 @@ export default {
       return this.useSearch || this.useLazyLoading
     },
 
-    formattedResult () {
-      if (!this.labelKey && !this.valueKey) {
-        return this.options
-      }
-
-      return this.options.map(item => this.renameKey(item))
-    },
-
     defaultOptions () {
       return this.mx_handleOptions(this.options)
     },
@@ -133,7 +125,7 @@ export default {
     },
 
     hasLoading () {
-      return this.mx_isLoading || this.$attrs.loading
+      return this.mx_isFetching || this.$attrs.loading
     },
 
     model: {
@@ -156,9 +148,7 @@ export default {
       handler () {
         if (this.useLazyLoading && this.mx_hasFilteredOptions) return
 
-        if (this.fuse) {
-          this.fuse.list = this.defaultOptions
-        }
+        if (this.fuse) this.setFuse()
 
         this.mx_filteredOptions = this.defaultOptions
       },
@@ -173,30 +163,14 @@ export default {
   },
 
   methods: {
-    renameKey (item) {
-      const mapKeys = {
-        label: this.labelKey,
-        value: this.valueKey
-      }
-
-      for (const newKey in mapKeys) {
-        if (!item.hasOwnProperty.call(newKey)) {
-          item[newKey] = item[mapKeys[newKey]]
-          delete item[mapKeys[newKey]]
-        }
-      }
-
-      return item
-    },
-
     setFuse () {
       if (this.useSearch) {
-        this.fuse = new Fuse(this.options, this.defaultFuseOptions)
+        this.fuse = new Fuse(this.defaultOptions, this.defaultFuseOptions)
       }
     },
 
     async onFilter (value, update) {
-      if (this.useLazyLoading && value !== this.search) {
+      if (this.useLazyLoading && value !== this.mx_search) {
         await this.mx_filterOptionsByStore(value)
       }
 
@@ -214,6 +188,7 @@ export default {
       }
 
       const results = this.fuse.search(value)
+
       this.mx_filteredOptions = results.map(({ item }) => item)
     }
   }

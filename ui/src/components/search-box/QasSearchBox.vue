@@ -1,5 +1,5 @@
 <template>
-  <qas-box v-bind="$attrs">
+  <qas-box>
     <qas-input v-model="mx_search" v-bind="attributes">
       <template #append>
         <q-icon color="primary" name="o_search" />
