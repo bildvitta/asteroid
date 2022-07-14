@@ -11,7 +11,7 @@
         <slot v-if="mx_hasFilteredOptions" />
       </component>
 
-      <slot v-if="mx_hasFilteredOptions && mx_isFetching" name="loading">
+      <slot v-if="showSpinnerDots" name="loading">
         <div class="flex justify-center q-pb-sm">
           <q-spinner-dots color="primary" size="20px" />
         </div>
@@ -24,7 +24,7 @@
         </div>
       </slot>
 
-      <q-inner-loading :showing="!mx_hasFilteredOptions && mx_isFetching">
+      <q-inner-loading :showing="showInnerLoading">
         <q-spinner color="grey" size="3em" />
       </q-inner-loading>
     </div>
@@ -162,6 +162,14 @@ export default {
 
     showEmptyResult () {
       return this.useEmptySlot && !this.mx_hasFilteredOptions && !this.mx_isFetching
+    },
+
+    showSpinnerDots () {
+      return this.mx_hasFilteredOptions && this.mx_isFetching
+    },
+
+    showInnerLoading () {
+      return !this.mx_hasFilteredOptions && this.mx_isFetching
     }
   },
 
