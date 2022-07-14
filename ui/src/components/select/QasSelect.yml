@@ -34,6 +34,16 @@ props:
     type: String
     examples: [label-key="name"]
 
+  lazy-loading-props:
+    desc: Propriedades para o lazy loading (usar somente quando "useLazyLoading" estiver habilitada).
+    type: Object
+    debugger: true
+    default:
+      decamelizeFieldName: true
+      url: ''
+      params:
+        limit: 48
+
   model-value:
     desc: Model do componente.
     default: []

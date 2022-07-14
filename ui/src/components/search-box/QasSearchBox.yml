@@ -11,7 +11,7 @@ props:
 
   empty-result-text:
     desc: Define o texto dentro do box quando a lista está vazia.
-    default: 100px
+    default: Não há resultados disponíveis.
     type: String
 
   entity:
@@ -43,13 +43,13 @@ props:
 
   lazy-loading-props:
     desc: Propriedades para o lazy loading (usar somente quando "useLazyLoading" estiver habilitada).
+    type: Object
     debugger: true
     default:
       decamelizeFieldName: true
       url: ''
       params:
         limit: 48
-    type: String
 
   list:
     desc: Lista onde ocorrerá a busca sendo array de objetos (usar somente quando "useLazyLoading" **NÃO** estiver habilitada).

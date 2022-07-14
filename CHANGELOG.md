@@ -11,6 +11,18 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
 ## [3.0.0-beta.17]
+### Adicionado
+- [`QasSelect`, `QasSearchBox`]: adicionada props: `useLazyLoading`, `name`, `entity` e `useLazyLoadingProps` para adicionar funcionalidades do lazy loading semelhante a versão 2 do asteroid: https://github.com/bildvitta/asteroid/pull/573/files
+- [`QasSelect`, `QasSearchBox`]: adicionada eventos: `@fetch-options-error`, `@fetch-options-success` e `@update:fetching` referentes ao lazy loading.
+- `QasSearchBox`: adicionado slot loading referente ao lazy loading.
+- `QasField`: repassando `entity`, `name` e `useLazyLoading` ao componente `QasSelect`.
+- Adicionado novo helper `getNormalizedOptions`.
+- Adicionado novo mixin `lazyLoadingFilterMixin` para ser usado tanto no `QasSelect` quanto no `QasSearchBox`
+- `QasSearchBox`: Adicionado propriedade `emptyResultText` com default `Não há resultados disponíveis.`.
+
+### Corrigido
+- `QasInput`: resolvido problema com mascara quando o model vinha `null`.
+- `QasSelectList`: adicionado propriedade `deep: true` no watch do `modelValue` para resolver problemas de model.
 
 ## [3.0.0-beta.16] - 22-06-2022
 ## BREAKING CHANGES
@@ -161,6 +173,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 ### Corrigido
 - Corrigido `QasBtn`, quando usa a prop `hideLabelOnSmallScreen` e utiliza o slot default, quando a tela está em tamanho pequeno, o botão remove o slot default, o problema disto é que se usar com um `QMenu` dentro do botão, o `QMenu` não é chamado pois não existe mais slot default.
 
+[3.0.0-beta.17]: https://github.com/bildvitta/asteroid/compare/v3.0.0-beta.16...v3.0.0-beta.17?expand=1
 [3.0.0-beta.16]: https://github.com/bildvitta/asteroid/compare/v3.0.0-beta.15...v3.0.0-beta.16?expand=1
 [3.0.0-beta.15]: https://github.com/bildvitta/asteroid/compare/v3.0.0-beta.14...v3.0.0-beta.15?expand=1
 [3.0.0-beta.14]: https://github.com/bildvitta/asteroid/compare/v3.0.0-beta.13...v3.0.0-beta.14?expand=1
