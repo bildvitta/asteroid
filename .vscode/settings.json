@@ -6,5 +6,8 @@
 
   "vetur.experimental.templateInterpolationService": true,
   "vetur.format.enable": false,
-  "vetur.validation.template": false
+  "vetur.validation.template": false,
+  "conventionalCommits.scopes": [
+    "QasSearchBox"
+  ]
 }

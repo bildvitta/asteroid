@@ -31,7 +31,8 @@ export default {
     'update:modelValue',
     'update:fetching',
     'fetch-options-success',
-    'fetch-options-error'
+    'fetch-options-error',
+    'virtual-scroll'
   ],
 
   data () {
@@ -109,8 +110,6 @@ export default {
 
     async mx_onVirtualScroll ({ index, ref }) {
       const lastIndex = this.mx_filteredOptions.length - 1
-
-      console.log('kk eae man')
 
       if (index === lastIndex && this.mx_canFetchOptions()) {
         await this.mx_loadMoreOptions()

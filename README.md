@@ -99,6 +99,7 @@ Loggers são ativados quando a variável de ambiente `DEBUGGING` é setada.
 - [ ] Testes unitários nos componentes;
 - [ ] Desenvolver uma CLI para facilitar o desenvolvimento dentro do Asteroid;
 - [ ] Desenvolver uma CLI para facilitar o desenvolvimento fora do Asteroid.
+- [ ] Adicionar exemplos de uso com lazy loading no `QasSearchBox` e `QasSelect`.
 
 # Licença
 
