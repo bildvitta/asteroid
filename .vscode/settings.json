@@ -9,6 +9,8 @@
   "vetur.validation.template": false,
   "conventionalCommits.scopes": [
     "QasSearchBox",
-    "QasSelect"
+    "QasSelect",
+    "QasDialog",
+    "QasField"
   ]
 }

@@ -7,6 +7,19 @@ meta:
   desc: Componente para select que implementa o "QSelect" repassando propriedades, slots e eventos.
 
 props:
+  entity:
+    desc: Entidade enviada para a action "fetchFieldOptions" (usar somente quando "useLazyLoading" estiver habilitada).
+    default: ''
+    type: String
+    examples: [users]
+
+  fetching:
+    desc: Usado para saber quando o componente está fazendo fetching (usar somente quando "useLazyLoading" estiver habilitada).
+    default: false
+    type: Boolean
+    model: true
+    examples: [v-model:fetching="isFetching"]
+
   fuse-options:
     desc: Opções do Fuse.js (https://fusejs.io/api/options.html).
     type: Object
@@ -28,6 +41,11 @@ props:
     examples: [v-model="value"]
     model: true
 
+  name:
+    desc: Nome do campo a ser enviado para a action "fetchFieldOptions" (usar somente quando "useLazyLoading" estiver habilitada).
+    type: String
+    examples: [cities]
+
   no-option-label:
     desc: Rótulo padrão de quando os options estão vazios.
     default: Nenhum resultado foi encontrado.
@@ -45,6 +63,11 @@ props:
 
   use-search:
     desc: Controla se vai ou não ter campo de busca no select.
+    type: Boolean
+
+  use-lazy-loading:
+    desc: Controla a busca pela store "fetchFieldOptions".
+    default: false
     type: Boolean
 
 events:

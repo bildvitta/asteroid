@@ -300,6 +300,10 @@ module.exports = [
         path: '/helpers/get-greatest-common-divisor'
       },
       {
+        name: 'getNormalizedOptions',
+        path: '/helpers/get-normalized-options'
+      },
+      {
         name: 'images',
         path: '/helpers/images'
       },
