@@ -1,18 +1,26 @@
 <template>
-  <q-select v-model="model" v-bind="attributes" @filter="filterOptions">
+  <q-select v-model="model" v-bind="attributes" @virtual-scroll="mx_onVirtualScroll">
     <template #append>
       <slot name="append">
-        <q-icon v-if="useSearch" name="o_search" />
+        <q-icon v-if="isSearchable" name="o_search" />
       </slot>
     </template>
 
     <template #no-option>
-      <slot name="no-option">
+      <slot v-if="!mx_isLoading" name="no-option">
         <q-item>
           <q-item-section class="text-grey">
             {{ noOptionLabel }}
           </q-item-section>
         </q-item>
+      </slot>
+    </template>
+
+    <template #after-options>
+      <slot v-if="mx_isLoading" name="after-options">
+        <div class="flex justify-center q-pb-sm">
+          <q-spinner-dots color="primary" size="20px" />
+        </div>
       </slot>
     </template>
 
@@ -23,10 +31,13 @@
 </template>
 
 <script>
+import { lazyLoadingFilterMixin } from '../../mixins'
 import Fuse from 'fuse.js'
 
 export default {
   name: 'QasSelect',
+
+  mixins: [lazyLoadingFilterMixin],
 
   props: {
     fuseOptions: {
@@ -68,7 +79,6 @@ export default {
 
   data () {
     return {
-      filteredOptions: [],
       fuse: null
     }
   },
@@ -76,15 +86,19 @@ export default {
   computed: {
     attributes () {
       return {
-        clearable: this.useSearch,
+        bottomSlots: true,
+        clearable: this.isSearchable,
         emitValue: true,
         mapOptions: true,
         outlined: true,
-
         ...this.$attrs,
 
-        options: this.filteredOptions,
-        useInput: this.useSearch
+        options: this.mx_filteredOptions,
+        useInput: this.isSearchable,
+        error: this.hasError,
+        loading: this.hasLoading,
+        ...(this.useLazyLoading && { onVirtualScroll: this.mx_onVirtualScroll }),
+        ...(this.isSearchable && { onFilter: this.onFilter })
       }
     },
 
@@ -98,12 +112,28 @@ export default {
       }
     },
 
+    isSearchable () {
+      return this.useSearch || this.useLazyLoading
+    },
+
     formattedResult () {
       if (!this.labelKey && !this.valueKey) {
         return this.options
       }
 
       return this.options.map(item => this.renameKey(item))
+    },
+
+    defaultOptions () {
+      return this.mx_handleOptions(this.options)
+    },
+
+    hasError () {
+      return this.mx_hasFetchError || this.$attrs.error
+    },
+
+    hasLoading () {
+      return this.mx_isLoading || this.$attrs.loading
     },
 
     model: {
@@ -124,11 +154,13 @@ export default {
 
     options: {
       handler () {
+        if (this.useLazyLoading && this.mx_hasFilteredOptions) return
+
         if (this.fuse) {
-          this.fuse.list = this.formattedResult
+          this.fuse.list = this.defaultOptions
         }
 
-        this.filteredOptions = this.formattedResult
+        this.mx_filteredOptions = this.defaultOptions
       },
 
       immediate: true
@@ -137,22 +169,10 @@ export default {
 
   created () {
     this.setFuse()
+    this.useLazyLoading && this.mx_setFetchOptions('')
   },
 
   methods: {
-    filterOptions (value, update) {
-      update(() => {
-        if (!this.useSearch) return
-
-        if (value === '') {
-          this.filteredOptions = this.formattedResult
-        } else {
-          const results = this.fuse.search(value)
-          this.filteredOptions = results.map(item => item.item)
-        }
-      })
-    },
-
     renameKey (item) {
       const mapKeys = {
         label: this.labelKey,
@@ -173,6 +193,28 @@ export default {
       if (this.useSearch) {
         this.fuse = new Fuse(this.options, this.defaultFuseOptions)
       }
+    },
+
+    async onFilter (value, update) {
+      if (this.useLazyLoading && value !== this.search) {
+        await this.mx_filterOptionsByStore(value)
+      }
+
+      if (!this.useLazyLoading && this.useSearch) {
+        this.filterOptionsByFuse(value)
+      }
+
+      update()
+    },
+
+    filterOptionsByFuse (value) {
+      if (value === '') {
+        this.mx_filteredOptions = this.defaultOptions
+        return
+      }
+
+      const results = this.fuse.search(value)
+      this.mx_filteredOptions = results.map(({ item }) => item)
     }
   }
 }
