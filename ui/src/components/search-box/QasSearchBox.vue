@@ -11,7 +11,7 @@
         <slot v-if="mx_hasFilteredOptions" />
       </component>
 
-      <slot v-if="mx_hasFilteredOptions && mx_isLoading" name="loading">
+      <slot v-if="mx_hasFilteredOptions && mx_isFetching" name="loading">
         <div class="flex justify-center q-pb-sm">
           <q-spinner-dots color="primary" size="20px" />
         </div>
@@ -24,7 +24,7 @@
         </div>
       </slot>
 
-      <q-inner-loading :showing="!mx_hasFilteredOptions && mx_isLoading">
+      <q-inner-loading :showing="!mx_hasFilteredOptions && mx_isFetching">
         <q-spinner color="grey" size="3em" />
       </q-inner-loading>
     </div>
@@ -117,7 +117,7 @@ export default {
         placeholder: this.placeholder,
         hideBottomSpace: true,
         error: this.mx_hasFetchError,
-        loading: this.mx_isLoading
+        loading: this.mx_isFetching
       }
     },
 
@@ -157,11 +157,11 @@ export default {
     },
 
     isDisabled () {
-      return (!this.useLazyLoading && !this.list.length) || this.mx_isLoading
+      return (!this.useLazyLoading && !this.list.length) || this.mx_isFetching
     },
 
     showEmptyResult () {
-      return this.useEmptySlot && !this.mx_hasFilteredOptions && !this.mx_isLoading
+      return this.useEmptySlot && !this.mx_hasFilteredOptions && !this.mx_isFetching
     }
   },
 
