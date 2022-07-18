@@ -42,6 +42,7 @@ export default {
       mx_isFetching: false,
       mx_isScrolling: false,
       mx_search: '',
+      mx_fetchCount: 0,
       mx_pagination: {
         page: 1,
         lastPage: null,
@@ -134,6 +135,8 @@ export default {
     },
 
     async mx_fetchOptions () {
+      this.mx_fetchCount++
+
       try {
         if (!this.entity) this.mx_setMissingPropsMessage('entity')
         if (!this.name) this.mx_setMissingPropsMessage('name')
@@ -170,7 +173,7 @@ export default {
         return this.mx_handleOptions(results)
       } catch (error) {
         this.$qas.logger.group(
-          `Mixin: lazyLoadingFilter - mx_fetchOptions -> exceção da action ${this.entity}/fetchFieldOptions`,
+          `Mixin: searchFilterMixin - mx_fetchOptions -> exceção da action ${this.entity}/fetchFieldOptions`,
           [error],
           { error: true }
         )
@@ -218,7 +221,7 @@ export default {
     },
 
     mx_getNormalizedFuseResults (results = []) {
-      return results.map(result => result.item)
+      return results.map(({ item }) => item)
     }
   }
 }

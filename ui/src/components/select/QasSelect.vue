@@ -31,13 +31,13 @@
 </template>
 
 <script>
-import { lazyLoadingFilterMixin } from '../../mixins'
+import { searchFilterMixin } from '../../mixins'
 import Fuse from 'fuse.js'
 
 export default {
   name: 'QasSelect',
 
-  mixins: [lazyLoadingFilterMixin],
+  mixins: [searchFilterMixin],
 
   props: {
     fuseOptions: {
@@ -189,7 +189,7 @@ export default {
 
       const results = this.fuse.search(value)
 
-      this.mx_filteredOptions = results.map(({ item }) => item)
+      this.mx_filteredOptions = this.mx_getNormalizedFuseResults(results)
     }
   }
 }

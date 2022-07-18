@@ -36,7 +36,7 @@ import { QInfiniteScroll } from 'quasar'
 import Fuse from 'fuse.js'
 
 import QasBox from '../box/QasBox.vue'
-import { lazyLoadingFilterMixin } from '../../mixins'
+import { searchFilterMixin } from '../../mixins'
 
 export default {
   name: 'QasSearchBox',
@@ -46,7 +46,7 @@ export default {
     QInfiniteScroll
   },
 
-  mixins: [lazyLoadingFilterMixin],
+  mixins: [searchFilterMixin],
 
   props: {
     emptyListHeight: {
@@ -125,10 +125,16 @@ export default {
       return { height: this.contentHeight }
     },
 
+    hasNoOptionsOnFirstFetch () {
+      console.log('🚀 ~ file: QasSearchBox.vue ~ line 131 ~ hasNoOptionsOnFirstFetch ~ this.mx_hasFilteredOptions', this.mx_hasFilteredOptions)
+      console.log('🚀 ~ file: QasSearchBox.vue ~ line 131 ~ hasNoOptionsOnFirstFetch ~ this.mx_fetchCount', this.mx_fetchCount)
+      return this.mx_fetchCount === 1 && !this.mx_hasFilteredOptions
+    },
+
     contentHeight () {
-      return this.mx_hasFilteredOptions
-        ? this.height
-        : this.showEmptyResult ? this.emptyListHeight : this.height
+      const hasEmptyList = (!this.list.length && !this.useLazyLoading) || this.hasNoOptionsOnFirstFetch
+
+      return hasEmptyList ? this.emptyListHeight : this.height
     },
 
     component () {
@@ -157,7 +163,7 @@ export default {
     },
 
     isDisabled () {
-      return (!this.useLazyLoading && !this.list.length) || this.mx_isFetching
+      return (!this.useLazyLoading && !this.list.length) || this.mx_isFetching || this.hasNoOptionsOnFirstFetch
     },
 
     showEmptyResult () {
@@ -233,7 +239,7 @@ export default {
 
     async onInfiniteScroll (_, done) {
       // Se tiver erro no primeiro fetch, retorna o "done" na proxima.
-      if ((this.mx_hasFetchError && !this.mx_hasFilteredOptions)) return done()
+      if (((this.mx_hasFetchError && !this.mx_hasFilteredOptions) || this.hasNoOptionsOnFirstFetch)) return done()
 
       if (!this.mx_hasFilteredOptions && !this.mx_search) {
         await this.mx_setFetchOptions()

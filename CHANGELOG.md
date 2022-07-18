@@ -17,7 +17,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - `QasSearchBox`: adicionado slot loading referente ao lazy loading.
 - `QasField`: repassando `entity`, `name` e `useLazyLoading` ao componente `QasSelect`.
 - Adicionado novo helper `getNormalizedOptions`.
-- Adicionado novo mixin `lazyLoadingFilterMixin` para ser usado tanto no `QasSelect` quanto no `QasSearchBox`
+- Adicionado novo mixin `searchFilterMixin` para ser usado tanto no `QasSelect` quanto no `QasSearchBox`
 - `QasSearchBox`: Adicionado propriedade `emptyResultText` com default `Não há resultados disponíveis.`.
 
 ### Corrigido
