@@ -126,8 +126,6 @@ export default {
     },
 
     hasNoOptionsOnFirstFetch () {
-      console.log('🚀 ~ file: QasSearchBox.vue ~ line 131 ~ hasNoOptionsOnFirstFetch ~ this.mx_hasFilteredOptions', this.mx_hasFilteredOptions)
-      console.log('🚀 ~ file: QasSearchBox.vue ~ line 131 ~ hasNoOptionsOnFirstFetch ~ this.mx_fetchCount', this.mx_fetchCount)
       return this.mx_fetchCount === 1 && !this.mx_hasFilteredOptions
     },
 
