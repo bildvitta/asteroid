@@ -50,7 +50,7 @@ props:
   persistent:
     desc: Define se o dialog vai fechar ou não após clicar fora do dialog.
     default: true
-    type: Object
+    type: Boolean
 
   use-close-button:
     desc: Define se vai ter ou não Ícone de fechar o dialog.

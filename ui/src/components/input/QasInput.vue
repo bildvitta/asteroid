@@ -131,7 +131,7 @@ export default {
     },
 
     toggleMask (first, second) {
-      if (!this.modelValue.length) return
+      if (!this.modelValue?.length) return
 
       const length = first.split('#').length - 2
       return this.modelValue?.length > length ? second : first

@@ -9,6 +9,7 @@ export { default as getGreatestCommonDivisor } from './get-greatest-common-divis
 export { default as filterObjectToArray } from './filter-object-to-array.js'
 export { default as filterListByHandle } from './filter-list-by-handle.js'
 export { default as camelizeFieldsName } from './camelize-fields-name.js'
+export { default as getNormalizedOptions } from './get-normalized-options.js'
 
 export * from './filters.js'
 export * from './images.js'

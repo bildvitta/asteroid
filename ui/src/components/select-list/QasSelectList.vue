@@ -107,6 +107,7 @@ export default {
         this.values = [...value]
       },
 
+      deep: true,
       immediate: true
     }
   },
