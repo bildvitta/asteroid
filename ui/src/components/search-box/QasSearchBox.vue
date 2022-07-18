@@ -6,7 +6,7 @@
       </template>
     </qas-input>
 
-    <div ref="scrollContainer" class="overflow-auto q-mt-xs relative-position" :style="contentStyle">
+    <div ref="scrollContainer" class="overflow-auto q-mt-xs relative-position" :style="containerStyle">
       <component :is="component.is" v-bind="component.props">
         <slot v-if="mx_hasFilteredOptions" />
       </component>
@@ -121,15 +121,15 @@ export default {
       }
     },
 
-    contentStyle () {
-      return { height: this.contentHeight }
+    containerStyle () {
+      return { height: this.containerHeight }
     },
 
     hasNoOptionsOnFirstFetch () {
       return this.mx_fetchCount === 1 && !this.mx_hasFilteredOptions
     },
 
-    contentHeight () {
+    containerHeight () {
       const hasEmptyList = (!this.list.length && !this.useLazyLoading) || this.hasNoOptionsOnFirstFetch
 
       return hasEmptyList ? this.emptyListHeight : this.height
