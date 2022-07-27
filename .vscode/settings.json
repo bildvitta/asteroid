@@ -16,6 +16,7 @@
     "QasInput",
     "CHANGELOG",
     "QasFormView",
-    "QasUploader"
+    "QasUploader",
+    "DocLayout"
   ]
 }
