@@ -52,7 +52,7 @@ export default {
 
     modelValue: {
       default: () => [],
-      type: [Array, Object, String, Number]
+      type: [Array, Object, String, Number, Boolean]
     },
 
     noOptionLabel: {
