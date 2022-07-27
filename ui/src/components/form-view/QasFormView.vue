@@ -143,7 +143,6 @@ export default {
   data () {
     return {
       cachedResult: {},
-      hasResult: false,
       isSubmitting: false,
       showDialog: false,
       ignoreRouterGuard: false,
@@ -200,18 +199,6 @@ export default {
   },
 
   watch: {
-    mx_fields (fields) {
-      if (!this.hasResult) {
-        const models = { ...this.getModelsByFields(fields), ...this.modelValue }
-
-        this.$emit('update:modelValue', models)
-
-        if (this.useDialogOnUnsavedChanges) {
-          this.cachedResult = extend(true, {}, models)
-        }
-      }
-    },
-
     isSubmitting (value) {
       this.$emit('update:submitting', value)
     }
@@ -281,19 +268,7 @@ export default {
 
         const { errors, fields, metadata, result } = response.data
 
-        if (result) {
-          this.hasResult = true
-
-          const modelValue = { ...this.modelValue, ...result }
-
-          this.$emit('update:modelValue', modelValue)
-
-          this.$qas.logger.group('QasFormView - fetch -> modelValue', [modelValue])
-
-          this.cachedResult = this.useDialogOnUnsavedChanges && extend(true, {}, result)
-
-          this.$qas.logger.group('QasFormView - fetch -> cachedResult', [this.cachedResult])
-        }
+        const modelValue = { ...this.getModelsByFields(fields), ...this.modelValue }
 
         this.mx_setErrors(errors)
         this.mx_setFields(fields)
@@ -305,11 +280,23 @@ export default {
           metadata
         })
 
+        if (result) {
+          Object.assign(modelValue, result)
+        }
+
         this.$qas.logger.group(
           `QasFormView - fetch -> resposta da action ${this.entity}/fetchSingle`, [response]
         )
 
+        if (this.useDialogOnUnsavedChanges) {
+          this.cachedResult = extend(true, {}, result || modelValue)
+          this.$qas.logger.group('QasFormView - fetch -> cachedResult', [this.cachedResult])
+        }
+
+        this.$emit('update:modelValue', modelValue)
         this.$emit('fetch-success', response, this.modelValue)
+
+        this.$qas.logger.group('QasFormView - fetch -> modelValue', [modelValue])
       } catch (error) {
         this.mx_fetchError(error)
         this.$emit('fetch-error', error)
