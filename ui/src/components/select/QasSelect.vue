@@ -86,7 +86,6 @@ export default {
   computed: {
     attributes () {
       return {
-        bottomSlots: true,
         clearable: this.isSearchable,
         emitValue: true,
         mapOptions: true,
