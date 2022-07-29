@@ -280,9 +280,7 @@ export default {
           metadata
         })
 
-        if (result) {
-          Object.assign(modelValue, result)
-        }
+        result && Object.assign(modelValue, result)
 
         this.$qas.logger.group(
           `QasFormView - fetch -> resposta da action ${this.entity}/fetchSingle`, [response]
