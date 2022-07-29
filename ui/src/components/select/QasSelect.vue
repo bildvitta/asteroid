@@ -145,7 +145,6 @@ export default {
 
     attributes () {
       return {
-        bottomSlots: true,
         emitValue: true,
         mapOptions: true,
         outlined: true,
