@@ -240,6 +240,11 @@ export default {
       NotifyError('Ops! Erro ao enviar o arquivo.')
     },
 
+    dispatchUpload () {
+      this.$refs.buttonCleanFiles.$el.click()
+      this.hiddenInputElement.click()
+    },
+
     uploaded (response) {
       const fullPath = response.xhr.responseURL.split('?').shift()
 
@@ -291,8 +296,7 @@ export default {
 
       const clonedValue = extend(true, [], this.modelValue)
       const numberIndex = this.modelValue.findIndex(file => {
-        if (this.useObjectModel) return file.uuid === index
-        return this.getFileName(file) === index
+        return this.useObjectModel ? file.uuid === index : this.getFileName(file) === index
       })
 
       clonedValue.splice(numberIndex, 1)

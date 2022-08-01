@@ -14,10 +14,6 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 ### Adicionado
 - [`QasUploader`]: adicionada a prop: `useObjectModel` para poder utilizar como padrão o model como um objeto
 
-### Removido
-- [`QasUploader`]: removido o método `dispatchUpload` pois não estava sendo usado.
-
-
 ## [3.0.0-beta.17] - 18-07-2022
 ### Adicionado
 - [`QasSelect`, `QasSearchBox`]: adicionada props: `useLazyLoading`, `name`, `entity` e `useLazyLoadingProps` para adicionar funcionalidades do lazy loading semelhante a versão 2 do asteroid: https://github.com/bildvitta/asteroid/pull/573/files

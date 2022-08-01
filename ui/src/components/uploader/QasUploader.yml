@@ -78,8 +78,8 @@ props:
 
   useObjectModel:
     desc: Controla se a model retornará um array de objetos.
+    examples: [use-object-model]
     type: Boolean
-    default: false 
 
 slots:
   header:
