@@ -14,9 +14,16 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 ### Adicionado
 - `QasFormGenerator`: adicionado propriedade `fieldset` para agrupar elementos por rótulo (label).
 - `QasFormGenerator`: adicionado propriedade `fieldsetGutter` para dar espaçamentos entre rótulos (label) com default `lg`.
+- `QasUploader`: Adicionado o atributo `accept` para o `<input>` interno do componente.
+- `QasSelect`: Adicionado o tipo `Boolean` para a propriedade `modelValue`.
 
 ### corrigido
 - `generatorMixin`: alterado `validator` da propriedade `gutter` para quando ele é do tipo `Boolean`.
+- `QasFormView`: Removido a utilização do `$nextTick` na atualização da model. Assim, corrigindo o problema de o evento `fetchSuccess` estar com a model desatualizada.
+- `DocLayout`: Corrigido warning da propriedade `view` do componente `q-layout`.
+
+### Removido
+- `QasSelect`: Removido o atributo `bottomSlots` do componente, pois não é mais necessário.
 
 ## [3.0.0-beta.17] - 18-07-2022
 ### Adicionado

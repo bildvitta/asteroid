@@ -15,7 +15,7 @@
 
             <qas-btn v-if="showAddFile" ref="buttonUpload" color="white" dense flat icon="o_add" round @click="$refs.hiddenInput.click()" />
 
-            <input ref="hiddenInput" class="qas-uploader__input" :multiple="isMultiple" type="file">
+            <input ref="hiddenInput" :accept="attributes.accept" class="qas-uploader__input" :multiple="isMultiple" type="file">
 
             <qas-btn ref="buttonCleanFiles" class="hidden" color="white" @click="scope.removeUploadedFiles" />
             <qas-btn v-if="scope.canUpload" color="white" dense flat icon="o_cloud_upload" round @click="scope.upload" />
