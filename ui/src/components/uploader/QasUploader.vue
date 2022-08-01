@@ -131,6 +131,10 @@ export default {
 
     uploading: {
       type: Boolean
+    },
+
+    useObjectModel: {
+      type: Boolean
     }
   },
 
@@ -236,18 +240,18 @@ export default {
       NotifyError('Ops! Erro ao enviar o arquivo.')
     },
 
-    dispatchUpload () {
-      this.$refs.buttonCleanFiles.$el.click()
-      this.hiddenInputElement.click()
-    },
-
     uploaded (response) {
       const fullPath = response.xhr.responseURL.split('?').shift()
 
-      this.$emit(
-        'update:modelValue',
-        this.isMultiple ? [...this.modelValue, fullPath] : fullPath || ''
-      )
+      const objectValue = {
+        format: response.files[0].type,
+        url: fullPath,
+        name: response.files[0].name
+      }
+
+      const model = this.useObjectModel ? objectValue : fullPath
+
+      this.$emit('update:modelValue', this.isMultiple ? [...this.modelValue, model] : model || '')
 
       this.updateUploading(false)
 
@@ -286,7 +290,10 @@ export default {
       }
 
       const clonedValue = extend(true, [], this.modelValue)
-      const numberIndex = this.modelValue.findIndex(file => this.getFileName(file) === index)
+      const numberIndex = this.modelValue.findIndex(file => {
+        if (this.useObjectModel) return file.uuid === index
+        return this.getFileName(file) === index
+      })
 
       clonedValue.splice(numberIndex, 1)
 
@@ -298,14 +305,10 @@ export default {
     },
 
     getFilesList (uploadedFiles) {
-      const pathsList = Array.isArray(this.modelValue)
-        ? this.modelValue
-        : (this.modelValue ? [this.modelValue] : [])
-
       uploadedFiles = uploadedFiles.map((file, indexToDelete) => {
         return {
           isUploaded: true,
-          image: file.xhr ? file.xhr.responseURL.split('?').shift() : '',
+          url: file.xhr ? file.xhr.responseURL.split('?').shift() : '',
           name: file.name,
           progressLabel: file.__progressLabel,
           sizeLabel: file.__sizeLabel,
@@ -314,11 +317,20 @@ export default {
         }
       })
 
+      const pathsList = Array.isArray(this.modelValue)
+        ? this.modelValue
+        : (this.modelValue ? [this.modelValue] : [])
+
       const mergedList = [...pathsList, ...uploadedFiles]
 
       const files = {}
 
       mergedList.forEach(file => {
+        if (this.useObjectModel) {
+          files[file.uuid] = file
+          return
+        }
+
         if (file.isFailed) {
           files[file.name] = file
           return
