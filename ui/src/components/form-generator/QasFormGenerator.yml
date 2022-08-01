@@ -27,6 +27,12 @@ props:
     type: Object
     examples: ["{ email: { name: 'email', type: 'email', label: 'E-mail' } }"]
 
+  fieldset:
+    desc: Lista para agrupar elementos por rótulo (label).
+    default: {}
+    type: Object
+    examples: ["{ personalInformation: { label: 'Informações pessoais', fields: [name, email] } }"]
+
   gutter:
     desc: Espaçamento entre colunas.
     default: md

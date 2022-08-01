@@ -24,6 +24,7 @@
       <div>
         <div :class="mx_classes">
           <div v-for="(field, key) in fieldsetItem.fields.visible" :key="key" :class="mx_getFieldClass(key)">
+            {{ mx_getFieldClass(key) }}
             <slot :field="field" :name="`field-${field.name}`">
               <qas-field v-bind="fieldsProps[field.name]" :error="errors[key]" :field="field" :model-value="modelValue[field.name]" @update:model-value="updateModelValue(field.name, $event)" />
             </slot>
@@ -93,9 +94,9 @@ export default {
 
   computed: {
     groupedFields () {
-      if (this.hasFieldset) return {}
-
       const fields = { hidden: {}, visible: {} }
+
+      if (this.hasFieldset) return fields
 
       for (const key in this.fields) {
         const field = this.fields[key]
