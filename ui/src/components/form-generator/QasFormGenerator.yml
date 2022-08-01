@@ -33,6 +33,12 @@ props:
     type: Object
     examples: ["{ personalInformation: { label: 'Informações pessoais', fields: [name, email] } }"]
 
+  fieldset-gutter:
+    desc: Espaçamento entre rótulos (label).
+    default: {}
+    type: Object
+    examples: ["{ personalInformation: { label: 'Informações pessoais', fields: [name, email] } }"]
+
   gutter:
     desc: Espaçamento entre colunas.
     default: md

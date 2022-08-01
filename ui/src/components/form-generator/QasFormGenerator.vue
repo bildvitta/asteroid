@@ -1,20 +1,4 @@
 <template>
-  <!-- <div>
-    <div :class="mx_classes">
-      <div v-for="(field, key) in groupedFields.visible" :key="key" :class="mx_getFieldClass(key)">
-        <slot :field="field" :name="`field-${field.name}`">
-          <qas-field v-bind="fieldsProps[field.name]" :error="errors[key]" :field="field" :model-value="modelValue[field.name]" @update:model-value="updateModelValue(field.name, $event)" />
-        </slot>
-      </div>
-    </div>
-
-    <div v-for="(field, key) in groupedFields.hidden" :key="key">
-      <slot :field="field" :name="`field-${field.name}`">
-        <qas-field v-bind="fieldsProps[field.name]" :field="field" :model-value="modelValue[field.name]" @update:model-value="updateModelValue(field.name, $event)" />
-      </slot>
-    </div>
-  </div> -->
-
   <div :class="fieldsetClasses">
     <div v-for="(fieldsetItem, fieldsetItemKey) in normalizedFields" :key="fieldsetItemKey" class="full-width">
       <slot v-if="fieldsetItem.label" :name="`legend-${fieldsetItemKey}`">

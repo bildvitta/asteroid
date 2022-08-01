@@ -66,9 +66,9 @@ export default {
     },
 
     mx_handleColumnsByIndex (index, isGridGenerator) {
-      const fields = isGridGenerator ? this.fields : (this.groupedFields.visible)
+      const fields = isGridGenerator ? this.fields : {}
 
-      if (this.hasFieldset) {
+      if (!isGridGenerator) {
         for (const key in this.normalizedFields) {
           Object.assign(fields, this.normalizedFields[key].fields.visible)
         }

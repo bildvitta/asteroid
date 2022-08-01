@@ -1,7 +1,7 @@
 <template>
   <q-tabs v-model="model" :active-color="activeColor" :indicator-color="indicatorColor" outside-arrows>
     <slot v-for="(tab, key) in formattedTabs" :item="tab" :name="`tab-${tab.value}`">
-      <q-tab :key="key" v-bind="tab" :class="tabClass" :label="tab.label" :name="tab.value">
+      <q-tab :key="key" v-bind="tab" :class="tabClass" :label="tab.label" :name="key">
         <slot :item="tab" :name="`tab-after-${tab.value}`">
           <q-badge v-if="counters[key]" :label="counters[key]" v-bind="defaultCounterProps" />
         </slot>
