@@ -35,15 +35,15 @@ props:
 
   fieldset-gutter:
     desc: Espaçamento entre rótulos (label).
-    default: {}
-    type: Object
-    examples: ["{ personalInformation: { label: 'Informações pessoais', fields: [name, email] } }"]
+    default: lg
+    type: [String, Boolean]
+    examples: [xs, sm, md, lg, xl, false]
 
   gutter:
     desc: Espaçamento entre colunas.
     default: md
-    type: String
-    examples: [xs, sm, md, lg, xl]
+    type: [String, Boolean]
+    examples: [xs, sm, md, lg, xl, false]
 
   model-value:
     desc: Model do componente, usado para o v-model.
