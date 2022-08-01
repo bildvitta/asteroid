@@ -260,6 +260,8 @@ export default {
 
       this.updateUploading(false)
 
+      this.$refs.hiddenInput.value = ''
+
       this.$qas.logger.group('QasUploader - uploaded', [this.modelValue])
     },
 
@@ -296,7 +298,13 @@ export default {
 
       const clonedValue = extend(true, [], this.modelValue)
       const numberIndex = this.modelValue.findIndex(file => {
-        return this.useObjectModel ? file.uuid === index : this.getFileName(file) === index
+        if (this.useObjectModel) {
+          return file.uuid
+            ? file.uuid === index
+            : file.url.includes(index)
+        }
+
+        return this.getFileName(file) === index
       })
 
       clonedValue.splice(numberIndex, 1)
@@ -330,7 +338,7 @@ export default {
       const files = {}
 
       mergedList.forEach(file => {
-        if (this.useObjectModel) {
+        if (this.useObjectModel && file.uuid) {
           files[file.uuid] = file
           return
         }
