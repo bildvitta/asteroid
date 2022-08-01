@@ -7,7 +7,7 @@ Componente para criação de múltiplos campos dinâmicos a partir do componente
 <doc-api file="form-generator/QasFormGenerator" name="QasFormGenerator" />
 
 :::tip
-Este componente renderiza componentes dinâmicamente através da prop `fields`, cada field dentro de fields tem um `name`, através dele, você consegue acessar os slots dinâmicos.
+Este componente renderiza componentes dinamicamente através da prop `fields`, cada field dentro de fields tem um `name`, através dele, você consegue acessar os slots dinâmicos.
 :::
 
 :::tip
@@ -15,10 +15,10 @@ Para saber mais sobre o **API Design Pattern** clice [aqui](https://www.notion.s
 :::
 
 ## Uso
-<!-- <doc-example file="QasFormGenerator/Basic" title="Básico" /> -->
+<doc-example file="QasFormGenerator/Basic" title="Básico" />
 
 :::tip
-Muitas vezes precisamos adicionar rótulos (label) á determinados blocos de campos para dar mais contexto, com esta propriedade conseguimos fazer isto de uma forma simples, sem a necessidade de abrir um slot para isto.
+Muitas vezes precisamos adicionar rótulos (label) a determinados blocos de campos para dar mais contexto, com esta propriedade conseguimos fazer isto de uma forma simples, sem a necessidade de abrir um slot para isto.
 
 ```js
 {

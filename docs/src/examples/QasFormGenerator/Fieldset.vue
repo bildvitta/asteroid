@@ -1,8 +1,8 @@
 <template>
   <div class="container spaced">
-    <qas-form-generator v-model="model" :columns="columns" :fields="fields" :fieldset1="fieldset">
-      <template #legend-personalInformation>
-        Custom slot "personalInformation"
+    <qas-form-generator v-model="model" :columns="columns" :fields="fields" :fields-props="fieldsProps" :fieldset="fieldset">
+      <template #legend-another>
+        Custom slot "another"
       </template>
     </qas-form-generator>
 
@@ -22,21 +22,26 @@ export default {
 
   computed: {
     columns () {
-      // return {
-      //   company: { col: 12 },
-      //   phone: { col: 12, sm: 6 }
-      // }
-      return [
-        { col: 12 },
-        { col: 12, sm: 6 }
-      ]
+      return {
+        isActive: { col: 12 },
+        company: { col: 12 },
+        phone: { col: 12 }
+      }
+    },
+
+    fieldsProps () {
+      return {
+        isActive: {
+          'onUpdate:modelValue': value => alert(`Usuário ativo?: ${value}`)
+        }
+      }
     },
 
     fieldset () {
       return {
         personalInformation: {
           label: 'Informações pessoais',
-          fields: ['name', 'email']
+          fields: ['isActive', 'name', 'email']
         },
 
         another: {

@@ -1,10 +1,6 @@
 <template>
   <div class="container spaced">
-    <qas-form-generator v-model="model" :columns="columns" :fields="fields" :fieldset="fieldset">
-      <!-- <template #legend-personalInformation>
-        label kk
-      </template> -->
-    </qas-form-generator>
+    <qas-form-generator v-model="model" :columns="columns" :fields="fields" />
 
     <div class="q-mt-lg">
       model: <qas-debugger :inspect="[model]" />
@@ -25,22 +21,7 @@ export default {
   computed: {
     columns () {
       return {
-        // phone: { col: 12 },
-        // document: { col: 12 }
-      }
-    },
-
-    fieldset () {
-      return {
-        personalInformation: {
-          label: 'Informações pessoais',
-          fields: ['name', 'email', 'uuid']
-        },
-
-        another: {
-          label: 'Outras informações',
-          fields: ['phone', 'company']
-        }
+        isActive: { col: 12 }
       }
     },
 
@@ -90,11 +71,11 @@ export default {
           type: 'email'
         },
 
-        // password: {
-        //   name: 'password',
-        //   label: 'Senha',
-        //   type: 'password'
-        // },
+        password: {
+          name: 'password',
+          label: 'Senha',
+          type: 'password'
+        },
 
         document: {
           name: 'document',
