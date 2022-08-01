@@ -28,7 +28,7 @@
         <slot name="list" :scope="scope">
           <div class="col-12 q-col-gutter-md row">
             <div v-for="(file, index) in getFilesList(scope.files, scope)" :key="index" class="row" :class="itemClass">
-              <qas-avatar class="q-mr-sm" color="contrast-primary" icon="o_attach_file" :image="file.image" rounded :text-color="getColorFileIcon(file)" />
+              <qas-avatar class="q-mr-sm" color="contrast-primary" icon="o_attach_file" :image="file.url" rounded :text-color="getColorFileIcon(file)" />
 
               <div class="col items-center no-wrap row">
                 <div class="column no-wrap" :class="{ col: isMultiple }">
@@ -338,12 +338,12 @@ export default {
 
         if (typeof file === 'string') {
           const fileName = this.getFileName(file)
-          files[fileName] = { image: file, isUploaded: false, name: fileName }
+          files[fileName] = { url: file, isUploaded: false, name: fileName }
           return
         }
 
-        if (file.image) {
-          const fileName = this.getFileName(file.image)
+        if (file.url) {
+          const fileName = this.getFileName(file.url)
           files[fileName] = file
         }
       })
