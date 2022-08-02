@@ -18,6 +18,7 @@
     "QasFormGenerator",
     "QasFormView",
     "QasUploader",
-    "DocLayout"
+    "DocLayout",
+    "filters"
   ]
 }

@@ -114,6 +114,8 @@ function humanize (field = {}, value) {
     case 'time': return time(value)
     case 'radio': return selectLabel(field.options, value)
     case 'percent': return formatPercent(value)
+    case 'money': return money(value)
+    case 'decimal': return decimal(value)
     default: return value
   }
 }
