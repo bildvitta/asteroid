@@ -81,6 +81,7 @@ props:
     examples: [use-object-model]
     default: { format: .fileFormat, url: filePath, name: 'fileName' }
     type: Boolean
+    model: true
 
 slots:
   header:
