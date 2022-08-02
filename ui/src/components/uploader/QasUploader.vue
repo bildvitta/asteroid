@@ -299,9 +299,7 @@ export default {
       const clonedValue = extend(true, [], this.modelValue)
       const numberIndex = this.modelValue.findIndex(file => {
         if (this.useObjectModel) {
-          return file.uuid
-            ? file.uuid === index
-            : file.url.includes(index)
+          return file.uuid ? file.uuid === index : file.url.includes(index)
         }
 
         return this.getFileName(file) === index
