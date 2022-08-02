@@ -14,6 +14,9 @@
     "QasField",
     "QasSearchBox/QasSelect",
     "QasInput",
-    "CHANGELOG"
+    "CHANGELOG",
+    "QasFormView",
+    "QasUploader",
+    "DocLayout"
   ]
 }

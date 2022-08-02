@@ -47,7 +47,7 @@ props:
   model-value:
     desc: Model do componente.
     default: []
-    type: [Array, Object, String, Number]
+    type: [Array, Object, String, Number, Boolean]
     examples: [v-model="value"]
     model: true
 
@@ -86,7 +86,7 @@ events:
     params:
       value:
         desc: Novo valor do v-model
-        type: [Array, Object, String, Number]
+        type: [Array, Object, String, Number, Boolean]
 
   '@update:fetching -> function (value)':
     desc: Dispara toda vez que o campo de busca faz o fetch do lazy loading

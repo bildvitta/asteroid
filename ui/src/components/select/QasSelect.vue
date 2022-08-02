@@ -52,7 +52,7 @@ export default {
 
     modelValue: {
       default: () => [],
-      type: [Array, Object, String, Number]
+      type: [Array, Object, String, Number, Boolean]
     },
 
     noOptionLabel: {
@@ -86,7 +86,6 @@ export default {
   computed: {
     attributes () {
       return {
-        bottomSlots: true,
         clearable: this.isSearchable,
         emitValue: true,
         mapOptions: true,
