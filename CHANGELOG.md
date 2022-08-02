@@ -14,6 +14,10 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 ### Adicionado
 - `filters`: adicionado novos tipos money e decimal na função `humanize`.
 
+### Modificado
+- `QasTabsGenerator`: alterado `name` do `QTab` para `tab.value` ao invés de `key`.
+- `QasTabsGenerator`: adicionado novo type `Array` na propriedade `tabs`.
+
 ### Corrigido
 - `QasNestedFields`: corrigido propriedade `useDestroyAlways`, não estava sendo removido a ultima linha (row) do nested, alterado onde o método `setDefaultNestedValue` é chamado.
 - `QasNestedFields`: corrigido propriedade `useRemoveOnDestroy`, não estava funcionando quando valor era `false` por uma validação errada no método `destroy`.

@@ -11,4 +11,5 @@ Trunca um texto baseado no tamanho do elemento pai e adiciona um rotulo "ver mai
 <doc-example file="QasTabsGenerator/Basic" title="Básico" />
 <doc-example file="QasTabsGenerator/CustomSlotTab" title="Slot: tab-[nome-da-chave]" />
 <doc-example file="QasTabsGenerator/CustomSlotAfter" title="Slot: tab-after-[nome-da-chave]" />
+<doc-example file="QasTabsGenerator/TabsArray" title="Tabs como array" />
 
