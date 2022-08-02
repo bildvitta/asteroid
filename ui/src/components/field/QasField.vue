@@ -75,7 +75,7 @@ export default {
         type,
         mask,
         maxFiles,
-        gmt,
+        useIso,
         useSearch,
         useLazyLoading
       } = this.formattedField
@@ -99,11 +99,11 @@ export default {
         minlength,
         suffix,
         prefix,
-        gmt
+        useIso
       }
 
       const numericInput = { is: 'qas-numeric-input', ...input }
-      const datetimeInput = { is: 'qas-date-time-input', gmt, ...input }
+      const datetimeInput = { is: 'qas-date-time-input', useIso, ...input }
 
       // It'll generate a list of acceptable files extensions.
       const accept = extensions && extensions.length ? extensions.map(extension => `.${extension}`).join(',') : ''

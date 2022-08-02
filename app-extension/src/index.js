@@ -33,7 +33,6 @@ function extendQuasar (quasar) {
   // Adiciona todas as classes de animação do Animate.css ao quasar
   // https://animate.style/
   const animations = [
-    'slideOutUp',
     'slideInDown'
   ]
 

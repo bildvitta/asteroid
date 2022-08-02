@@ -256,8 +256,7 @@ export default {
 
       return {
         tag: 'div',
-        enterActiveClass: 'animated slideInDown',
-        leaveActiveClass: 'animated slideOutUp'
+        enterActiveClass: 'animated slideInDown'
       }
     }
   },
@@ -266,7 +265,12 @@ export default {
     modelValue: {
       handler (value) {
         this.nested = extend(true, [], value)
+      },
+      immediate: true
+    },
 
+    rowObject: {
+      handler () {
         if (!this.nested.length) return this.setDefaultNestedValue()
       },
       immediate: true
@@ -306,7 +310,7 @@ export default {
     },
 
     destroy (index, row) {
-      !row[this.identifierItemKey] || this.useRemoveOnDestroy
+      !row[this.identifierItemKey] && this.useRemoveOnDestroy
         ? this.nested.splice(index, 1)
         : this.nested.splice(index, 1, { [this.destroyKey]: true, ...row })
 
