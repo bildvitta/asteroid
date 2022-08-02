@@ -27,11 +27,23 @@ props:
     type: Object
     examples: ["{ email: { name: 'email', type: 'email', label: 'E-mail' } }"]
 
+  fieldset:
+    desc: Lista para agrupar elementos por rótulo (label).
+    default: {}
+    type: Object
+    examples: ["{ personalInformation: { label: 'Informações pessoais', fields: [name, email] } }"]
+
+  fieldset-gutter:
+    desc: Espaçamento entre rótulos (label).
+    default: lg
+    type: [String, Boolean]
+    examples: [xs, sm, md, lg, xl, false]
+
   gutter:
     desc: Espaçamento entre colunas.
     default: md
-    type: String
-    examples: [xs, sm, md, lg, xl]
+    type: [String, Boolean]
+    examples: [xs, sm, md, lg, xl, false]
 
   model-value:
     desc: Model do componente, usado para o v-model.
@@ -54,6 +66,8 @@ slots:
         desc: Payload do campo atual.
         default: {}
         type: Object
+'legend-[nome-da-chave]':
+    desc: Acessa o slot de um rótulo (label).
 
 events:
   '@update:model-value -> function(value)':

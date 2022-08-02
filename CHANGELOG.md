@@ -11,12 +11,14 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
 ## Não publicado
-
-## Adicionado
+### Adicionado
+- `QasFormGenerator`: adicionado propriedade `fieldset` para agrupar elementos por rótulo (label).
+- `QasFormGenerator`: adicionado propriedade `fieldsetGutter` para dar espaçamentos entre rótulos (label) com default `lg`.
 - `QasUploader`: Adicionado o atributo `accept` para o `<input>` interno do componente.
 - `QasSelect`: Adicionado o tipo `Boolean` para a propriedade `modelValue`.
 
-### Corrigido
+### corrigido
+- `generatorMixin`: alterado `validator` da propriedade `gutter` para quando ele é do tipo `Boolean`.
 - `QasFormView`: Removido a utilização do `$nextTick` na atualização da model. Assim, corrigindo o problema de o evento `fetchSuccess` estar com a model desatualizada.
 - `DocLayout`: Corrigido warning da propriedade `view` do componente `q-layout`.
 

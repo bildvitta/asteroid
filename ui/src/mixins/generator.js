@@ -15,7 +15,9 @@ export default {
     gutter: {
       default: 'md',
       type: [String, Boolean],
-      validator: value => ['xs', 'sm', 'md', 'lg', 'xl'].includes(value)
+      validator: value => {
+        return typeof value === 'boolean' || ['xs', 'sm', 'md', 'lg', 'xl'].includes(value)
+      }
     }
   },
 
@@ -64,7 +66,13 @@ export default {
     },
 
     mx_handleColumnsByIndex (index, isGridGenerator) {
-      const fields = isGridGenerator ? this.fields : this.groupedFields.visible
+      const fields = isGridGenerator ? this.fields : {}
+
+      if (!isGridGenerator) {
+        for (const key in this.normalizedFields) {
+          Object.assign(fields, this.normalizedFields[key].fields.visible)
+        }
+      }
 
       if (!Array.isArray(fields)) {
         index = Object.keys(fields).findIndex(field => field === index)

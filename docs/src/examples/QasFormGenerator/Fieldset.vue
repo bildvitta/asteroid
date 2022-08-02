@@ -1,6 +1,10 @@
 <template>
   <div class="container spaced">
-    <qas-form-generator v-model="model" :columns="columns" :fields="fields" />
+    <qas-form-generator v-model="model" :columns="columns" :fields="fields" :fields-props="fieldsProps" :fieldset="fieldset">
+      <template #legend-another>
+        Custom slot "another"
+      </template>
+    </qas-form-generator>
 
     <div class="q-mt-lg">
       model: <qas-debugger :inspect="[model]" />
@@ -12,16 +16,38 @@
 export default {
   data () {
     return {
-      model: {
-        password: 'b6c707ea6a2c45ef1feb8e4863aa10c5'
-      }
+      model: {}
     }
   },
 
   computed: {
     columns () {
       return {
-        isActive: { col: 12 }
+        isActive: { col: 12 },
+        company: { col: 12 },
+        phone: { col: 12 }
+      }
+    },
+
+    fieldsProps () {
+      return {
+        isActive: {
+          'onUpdate:modelValue': value => alert(`Usuário ativo?: ${value}`)
+        }
+      }
+    },
+
+    fieldset () {
+      return {
+        personalInformation: {
+          label: 'Informações pessoais',
+          fields: ['isActive', 'name', 'email']
+        },
+
+        another: {
+          label: 'Outras informações',
+          fields: ['phone', 'company']
+        }
       }
     },
 
@@ -69,12 +95,6 @@ export default {
           name: 'email',
           label: 'Email',
           type: 'email'
-        },
-
-        password: {
-          name: 'password',
-          label: 'Senha',
-          type: 'password'
         },
 
         document: {
