@@ -16,7 +16,6 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - `QasUploader`: Adicionado o atributo `accept` para o `<input>` interno do componente.
 - `QasSelect`: Adicionado o tipo `Boolean` para a propriedade `modelValue`.
 - [`QasUploader`]: adicionada a prop: `useObjectModel` para poder utilizar como padrão o model como um objeto
-- [`QasSearchBox`] : Adicionado result com filteredOptions no slot default.
 
 ### Corrigido
 - `QasFormView`: Removido a utilização do `$nextTick` na atualização da model. Assim, corrigindo o problema de o evento `fetchSuccess` estar com a model desatualizada.

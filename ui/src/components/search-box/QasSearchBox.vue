@@ -8,7 +8,7 @@
 
     <div ref="scrollContainer" class="overflow-auto q-mt-xs relative-position" :style="containerStyle">
       <component :is="component.is" v-bind="component.props">
-        <slot v-if="mx_hasFilteredOptions" :results="filteredOptions" />
+        <slot v-if="mx_hasFilteredOptions" />
       </component>
 
       <slot v-if="showSpinnerDots" name="loading">
