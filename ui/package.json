@@ -73,5 +73,9 @@
   },
   "peerDependencies": {
     "vue": "^2.6.14"
+  },
+  "engines": {
+    "node": ">= 14.x",
+    "npm": ">= 6.13.4"
   }
 }
