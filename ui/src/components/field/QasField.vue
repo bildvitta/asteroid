@@ -1,11 +1,9 @@
 <template>
-  <div>
-    <component :is="component.is" v-bind="component" :data-cy="field.name" :model-value="formattedValue" @update:model-value="updateModel">
-      <template v-for="(_, name) in $slots" #[name]="context">
-        <slot :name="name" v-bind="context || {}" />
-      </template>
-    </component>
-  </div>
+  <component :is="component.is" v-bind="component" :data-cy="field.name" :model-value="formattedValue" @update:model-value="updateModel">
+    <template v-for="(_, name) in $slots" #[name]="context">
+      <slot :name="name" v-bind="context || {}" />
+    </template>
+  </component>
 </template>
 
 <script>
