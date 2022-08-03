@@ -78,9 +78,8 @@ props:
 
   useObjectModel:
     desc: Controla se a model retornará um array de objetos.
-    examples: [use-object-model]
-    default: { format: .fileFormat, url: filePath, name: 'fileName' }
     type: Boolean
+    examples: ["{ format: .fileFormat, url: filePath, name: 'fileName' }"]
     model: true
 
 slots:
