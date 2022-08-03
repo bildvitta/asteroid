@@ -71,6 +71,10 @@ export default {
     }
   },
 
+  mounted () {
+    this.menuDrawer = !this.$qas.screen.untilMedium
+  },
+
   methods: {
     toggleMenuDrawer () {
       this.menuDrawer = !this.menuDrawer
