@@ -102,6 +102,10 @@ export default {
 
     useCloseButton: {
       type: Boolean
+    },
+
+    useValidationAllAtOnce: {
+      type: Boolean
     }
   },
 
@@ -148,7 +152,25 @@ export default {
 
   methods: {
     async submitHandler () {
-      this.useForm && this.$emit('validate', await this.$refs.form.validate())
+      if (!this.useForm) return
+
+      if (this.useValidationAllAtOnce) {
+        let isAllComponentValid = true
+        const components = this.$refs.form.getValidationComponents() || []
+
+        for (const component of components) {
+          const isValid = component?.validate?.()
+
+          if (!isValid) {
+            isAllComponentValid = false
+          }
+        }
+
+        this.$emit('validate', isAllComponentValid)
+        return
+      }
+
+      this.$emit('validate', await this.$refs.form.validate())
     },
 
     // método para funcionar como plugin
