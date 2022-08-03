@@ -22,7 +22,7 @@ O formato padrão do model de objeto é:
 { format: '.fileFormat', url: 'filePath', name: 'fileName' }
 ```
 
-Ao utilizar essa propriedade, é necessário que a API esteja pronta para receber o objeto acima invés da URL. E caso o **QasUploader** seja do tipo múltiplo (quando há a propriedade `multiple`), a API deverá estar pronta para receber um array de objetos.
+Ao utilizar essa propriedade, é necessário que a API esteja pronta para receber o objeto acima invés da URL. E caso o **QasUploader** seja do tipo múltiplo (quando há a propriedade `multiple`), a API deverá estar pronta para receber um array deste objeto.
 :::
 
 ## Uso
