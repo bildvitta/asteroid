@@ -21,5 +21,9 @@
   "homepage": "https://github.com/bildvitta/asteroid#readme",
   "dependencies": {
     "signature_pad": "^3.0.0-beta.4"
+  },
+  "engines": {
+    "node": ">= 14.x",
+    "npm": ">= 6.13.4"
   }
 }
