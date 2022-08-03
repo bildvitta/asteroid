@@ -21,6 +21,7 @@
     "DocLayout",
     "filters",
     "QasTabsGenerator",
-    "QasLayout"
+    "QasLayout",
+    "QasListView"
   ]
 }

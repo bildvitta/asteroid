@@ -11,6 +11,10 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
 ## Não publicado
+## BREAKING CHANGES
+- `QasFormView`: alterado parâmetro `params` para `externalPayload`, agora ele sobrescreve todo o payload do `fetchSingle` e não somente o `params`.
+- `QasFormView`: alterado nome do método de `fetch` para `fetchSingle` para manter padrão dos outros componentes de `view`.
+
 ### Adicionado
 - `filters`: adicionado novos tipos money e decimal na função `humanize`.
 
@@ -18,6 +22,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - `QasTabsGenerator`: alterado `name` do `QTab` para `tab.value` ao invés de `key`.
 - `QasTabsGenerator`: adicionado novo type `Array` na propriedade `tabs`.
 - `QasLayout`: componente agora começa com menu lateral aberto a partir de telas maiores que "tablet", sem a necessidade de fazer este controla manual.
+- `QasListView`: alterado execução do método `fetchList` para `mx_fetchHandler` dentro do `refresh`.
 
 ### Corrigido
 - `QasNestedFields`: corrigido propriedade `useDestroyAlways`, não estava sendo removido a ultima linha (row) do nested, alterado onde o método `setDefaultNestedValue` é chamado.
