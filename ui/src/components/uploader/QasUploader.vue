@@ -260,8 +260,6 @@ export default {
 
       this.updateUploading(false)
 
-      this.$refs.hiddenInput.value = ''
-
       this.$qas.logger.group('QasUploader - uploaded', [this.modelValue])
     },
 
@@ -378,6 +376,8 @@ export default {
     async addFiles () {
       const filesList = Array.from(this.hiddenInputElement.files)
       const processedFiles = []
+
+      this.$refs.hiddenInput.value = ''
 
       filesList.forEach(file => processedFiles.push(this.resizeImage(file)))
       this.uploader.addFiles(await Promise.all(processedFiles))
