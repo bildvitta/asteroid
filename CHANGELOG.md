@@ -18,12 +18,14 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 ### Adicionado
 - `filters`: adicionado novos tipos money e decimal na função `humanize`.
 - `QasDialog`: adicionado nova propriedade `useValidationAllAtOnce` para validar todos os campos de uma única vez.
+- `handleProcess`: Adicionado novo `helper` que lida com `process.env`.
 
 ### Modificado
 - `QasTabsGenerator`: alterado `name` do `QTab` para `tab.value` ao invés de `key`.
 - `QasTabsGenerator`: adicionado novo type `Array` na propriedade `tabs`.
 - `QasLayout`: componente agora começa com menu lateral aberto a partir de telas maiores que "tablet", sem a necessidade de fazer este controla manual.
 - `QasListView`: alterado execução do método `fetchList` para `mx_fetchHandler` dentro do `refresh`.
+- `api.js`: alterado boot do `api` para validar quando intercepta o `axios` e fazer o `camelize`.
 
 ### Corrigido
 - `QasNestedFields`: corrigido propriedade `useDestroyAlways`, não estava sendo removido a ultima linha (row) do nested, alterado onde o método `setDefaultNestedValue` é chamado.

@@ -304,6 +304,10 @@ module.exports = [
         path: '/helpers/get-normalized-options'
       },
       {
+        name: 'handleProcess',
+        path: '/helpers/handle-process'
+      },
+      {
         name: 'images',
         path: '/helpers/images'
       },
