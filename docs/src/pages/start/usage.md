@@ -49,4 +49,3 @@ Abaixo temos uma lista de variáveis de ambiente, as que estão marcadas como `o
 | `DEBUGGING` * | Habilita os loggers dos componentes **(OBRIGATÓRIO)** |
 | `MAPS_API_KEY` * | Key do google maps **(OBRIGATÓRIO)** |
 | `SERVER_TIMEOUT` * | Tempo que a API vai tentar finalizar até dar timeout **(OBRIGATÓRIO)** |
-| `API_CASE_TYPE` | Tipo de convenção de nomenclatura que API vai utilizar, possíveis valores: `snake_case` (default) e `camelCase` **(NÃO OBRIGATÓRIO)** |

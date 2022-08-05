@@ -68,7 +68,6 @@ Observação: Alguns componentes do Quasar precisam ser importados manualmente d
 | `DEBUGGING` | Habilita os loggers dos componentes |
 | `MAPS_API_KEY` | Key do google maps |
 | `SERVER_TIMEOUT` | Tempo que a API vai tentar finalizar até dar timeout |
-| `API_CASE_TYPE` | Tipo de convenção de nomenclatura que API vai utilizar, possíveis valores: `snake_case` (default) e `camelCase` |
 
 ## Componentes com logger
 Loggers são ativados quando a variável de ambiente `DEBUGGING` é setada.
