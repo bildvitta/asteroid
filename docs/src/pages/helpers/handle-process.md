@@ -2,7 +2,7 @@
 title: handleProcess
 ---
 
-Função para recuperar o `process.env` mesmo que ele não esteja declarado no `quasar.config.js`, no quasar v2, caso não esteja declarado no quasar.config.js, é disparado um erro. Usando esta função, não precisa passar o env caso não seja necessário.
+Função para recuperar o `process.env` mesmo que ele não esteja declarado no `quasar.config.js`, no quasar v2, caso não esteja declarado no quasar.config.js, é disparado um erro.
 
 ```js
 import { handleProcess } from 'asteroid'

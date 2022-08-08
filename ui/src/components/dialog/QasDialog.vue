@@ -167,6 +167,7 @@ export default {
         }
 
         this.$emit('validate', isAllComponentValid)
+
         return
       }
 
