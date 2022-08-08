@@ -1,18 +1,14 @@
 <template>
-  <div>
-    <q-input ref="input" v-model="model" bottom-slots :error="errorData" v-bind="$attrs" :error-message="errorMessageData" :mask="mask" :outlined="outlined" :unmasked-value="unmaskedValue" @paste="onPaste">
-      <template v-for="(_, name) in $slots" #[name]="context">
-        <slot :name="name" v-bind="context || {}" />
-      </template>
-    </q-input>
-  </div>
+  <q-input ref="input" v-model="model" bottom-slots :error="errorData" v-bind="$attrs" :error-message="errorMessageData" :mask="mask" :outlined="outlined" :unmasked-value="unmaskedValue" @paste="onPaste">
+    <template v-for="(_, name) in $slots" #[name]="context">
+      <slot :name="name" v-bind="context || {}" />
+    </template>
+  </q-input>
 </template>
 
 <script>
 export default {
   name: 'QasInput',
-
-  inheritAttrs: false,
 
   props: {
     error: {

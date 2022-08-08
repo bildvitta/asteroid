@@ -209,7 +209,7 @@ export default {
 
     window.addEventListener('delete-success', this.setIgnoreRouterGuard)
 
-    this.mx_fetchHandler({ form: true, id: this.id, url: this.fetchURL }, this.fetch)
+    this.mx_fetchHandler({ form: true, id: this.id, url: this.fetchURL }, this.fetchSingle)
   },
 
   onUnmounted () {
@@ -254,14 +254,19 @@ export default {
       this.handleCancelRoute()
     },
 
-    async fetch (params) {
+    async fetchSingle (externalPayload = {}) {
       this.mx_isFetching = true
 
       try {
-        const payload = { form: true, id: this.id, params, url: this.fetchURL }
+        const payload = {
+          form: true,
+          id: this.id,
+          url: this.fetchURL,
+          ...externalPayload
+        }
 
         this.$qas.logger.group(
-          `QasFormView - fetch -> payload do parâmetro do ${this.entity}/fetchSingle`, [payload]
+          `QasFormView - fetchSingle -> payload do parâmetro do ${this.entity}/fetchSingle`, [payload]
         )
 
         const response = await this.$store.dispatch(`${this.entity}/fetchSingle`, payload)
@@ -283,24 +288,24 @@ export default {
         result && Object.assign(modelValue, result)
 
         this.$qas.logger.group(
-          `QasFormView - fetch -> resposta da action ${this.entity}/fetchSingle`, [response]
+          `QasFormView - fetchSingle -> resposta da action ${this.entity}/fetchSingle`, [response]
         )
 
         if (this.useDialogOnUnsavedChanges) {
           this.cachedResult = extend(true, {}, result || modelValue)
-          this.$qas.logger.group('QasFormView - fetch -> cachedResult', [this.cachedResult])
+          this.$qas.logger.group('QasFormView - fetchSingle -> cachedResult', [this.cachedResult])
         }
 
         this.$emit('update:modelValue', modelValue)
         this.$emit('fetch-success', response, this.modelValue)
 
-        this.$qas.logger.group('QasFormView - fetch -> modelValue', [modelValue])
+        this.$qas.logger.group('QasFormView - fetchSingle -> modelValue', [modelValue])
       } catch (error) {
         this.mx_fetchError(error)
         this.$emit('fetch-error', error)
 
         this.$qas.logger.group(
-          `QasFormView - fetch -> exceção da action ${this.entity}/fetchSingle`,
+          `QasFormView - fetchSingle -> exceção da action ${this.entity}/fetchSingle`,
           [error],
           { error: true }
         )
@@ -388,7 +393,12 @@ export default {
       this.isSubmitting = true
 
       try {
-        const payload = { id: this.id, payload: this.modelValue, url: this.url, ...externalPayload }
+        const payload = {
+          id: this.id,
+          payload: this.modelValue,
+          url: this.url,
+          ...externalPayload
+        }
 
         this.$qas.logger.group(
           `QasFormView - submit -> payload do ${this.entity}/${this.mode}`, [payload]
@@ -424,7 +434,7 @@ export default {
         this.$emit('submit-error', error)
 
         this.$qas.logger.group(
-          `QasFormView - fetch -> exceção da action ${this.entity}/${this.mode}`,
+          `QasFormView - submit -> exceção da action ${this.entity}/${this.mode}`,
           [error],
           { error: true }
         )

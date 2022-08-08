@@ -196,7 +196,7 @@ export default {
     },
 
     async refresh (done) {
-      await this.fetchList()
+      await this.mx_fetchHandler({ ...this.mx_context, url: this.url }, this.fetchList)
 
       if (typeof done === 'function') {
         done()

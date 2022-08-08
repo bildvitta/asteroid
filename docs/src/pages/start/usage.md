@@ -38,3 +38,14 @@ $secondary-contrast: #3691BF80;
 @include set-brand(primary-contrast, $primary-contrast);
 @include set-brand(secondary-contrast, $secondary-contrast);
 ```
+
+## Variáveis de ambiente
+Abaixo temos uma lista de variáveis de ambiente, as que estão marcadas como `obrigatório` precisa ser adicionadas no `quasar.config.js`
+
+| Variável | Descrição |
+| ------------ | ------------ |
+| `BUCKET_URL` * | Endereço de hospedagem dos arquivos **(OBRIGATÓRIO)** |
+| `SERVER_BASE_URL` * | Endereço base de acesso do servidor **(OBRIGATÓRIO)** |
+| `DEBUGGING` * | Habilita os loggers dos componentes **(OBRIGATÓRIO)** |
+| `MAPS_API_KEY` * | Key do google maps **(OBRIGATÓRIO)** |
+| `SERVER_TIMEOUT` * | Tempo que a API vai tentar finalizar até dar timeout **(OBRIGATÓRIO)** |

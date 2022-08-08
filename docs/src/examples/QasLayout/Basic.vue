@@ -1,7 +1,7 @@
 <template>
   <!-- Ignore este <q-layout />, ele é usado apenas para funcionar na documentação. -->
-  <q-layout class="flex items-center justify-center" container style="height: 600px;">
-    <qas-layout :app-bar-props="appBarProps" :app-menu-props="appMenuProps" :model-value="false" />
+  <q-layout class="basic flex items-center justify-center" container>
+    <qas-layout :app-bar-props="appBarProps" :app-menu-props="appMenuProps" />
   </q-layout>
 </template>
 
@@ -79,3 +79,15 @@ export default {
   }
 }
 </script>
+
+<!-- NÃO COPIAR, ADICIONADO POR CAUSA DA DOCUMENTAÇÃO -->
+<style lang="scss">
+.basic {
+  height: 600px;
+}
+
+.q-body--fullscreen-mixin,
+.q-body--prevent-scroll {
+  position: initial !important;
+}
+</style>

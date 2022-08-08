@@ -10,6 +10,7 @@ export { default as filterObjectToArray } from './filter-object-to-array.js'
 export { default as filterListByHandle } from './filter-list-by-handle.js'
 export { default as camelizeFieldsName } from './camelize-fields-name.js'
 export { default as getNormalizedOptions } from './get-normalized-options.js'
+export { default as handleProcess } from './handle-process.js'
 
 export * from './filters.js'
 export * from './images.js'

@@ -38,9 +38,9 @@ props:
     type: String
 
   tabs:
-    desc: Objeto contendo todas as tabs a serem geradas.
+    desc: Objeto ou Array contendo todas as tabs a serem geradas.
     default: {}
-    type: Object
+    type: [Object, Array]
     examples: ["{ tab1: 'tab1', tab2: 'tab2' }"]
 
 slots:

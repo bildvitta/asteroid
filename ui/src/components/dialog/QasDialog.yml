@@ -60,8 +60,11 @@ props:
     desc: Define se a tag onde fica a descrição no dialog vai ser um "<q-form />" ou "<div />".
     type: Boolean
 
-slots:
+  use-validation-at-once:
+    desc: Valida todos os campos de uma única vez, ao invés de ser um por vez (que é o padrão).
+    type: Boolean
 
+slots:
   actions:
     desc: Slot para ações (botões por exemplo).
 

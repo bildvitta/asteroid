@@ -10,6 +10,32 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 ### Sobre os "BREAKING CHANGES"
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
+## Não publicado
+## BREAKING CHANGES
+- `QasFormView`: alterado parâmetro `params` para `externalPayload`, agora ele sobrescreve todo o payload do `fetchSingle` e não somente o `params`.
+- `QasFormView`: alterado nome do método de `fetch` para `fetchSingle` para manter padrão dos outros componentes de `view`.
+
+### Adicionado
+- `filters`: adicionado novos tipos money e decimal na função `humanize`.
+- `QasDialog`: adicionado nova propriedade `useValidationAllAtOnce` para validar todos os campos de uma única vez.
+- `handleProcess`: Adicionado novo `helper` que lida com `process.env`.
+
+### Modificado
+- `QasTabsGenerator`: alterado `name` do `QTab` para `tab.value` ao invés de `key`.
+- `QasTabsGenerator`: adicionado novo type `Array` na propriedade `tabs`.
+- `QasLayout`: componente agora começa com menu lateral aberto a partir de telas maiores que "tablet", sem a necessidade de fazer este controla manual.
+- `QasListView`: alterado execução do método `fetchList` para `mx_fetchHandler` dentro do `refresh`.
+- `api.js`: alterado boot do `api` para validar quando intercepta o `axios` e fazer o `camelize`.
+
+### Corrigido
+- `QasNestedFields`: corrigido propriedade `useDestroyAlways`, não estava sendo removido a ultima linha (row) do nested, alterado onde o método `setDefaultNestedValue` é chamado.
+- `QasNestedFields`: corrigido propriedade `useRemoveOnDestroy`, não estava funcionando quando valor era `false` por uma validação errada no método `destroy`.
+- `QasField`: alterado atributo `gmt` para `useIso` para o componente `QasDateTimeInput`.
+- [`QasDateTimeInput`, `QasInput`, `QasField`, `QasPasswordInput`]: removido div "pai" dos elementos deixando os próprios elementos sendo o "pai", resolvendo alguns problemas referentes ao `$attrs`.
+
+### Removido
+- `QasNestedFields`: removido `leaveActiveClass: 'animated slideOutUp'` animação na "volta" não funcionava e apenas dava um delay desnecessário e parecia que o componente estava lento.
+
 ## [3.0.0-beta.18] - 02-08-2022
 ### Adicionado
 - `QasFormGenerator`: adicionado propriedade `fieldset` para agrupar elementos por rótulo (label).

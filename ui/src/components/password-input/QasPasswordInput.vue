@@ -1,19 +1,17 @@
 <template>
-  <div>
-    <qas-input v-model="model" :bottom-slots="false" color="negative" v-bind="$attrs" :type="type" use-remove-error-on-type>
-      <template #append>
-        <q-icon class="cursor-pointer" :color="iconColor" :name="icon" @click="toggle" />
-      </template>
+  <qas-input v-model="model" :bottom-slots="false" color="negative" v-bind="$attrs" :type="type" use-remove-error-on-type>
+    <template #append>
+      <q-icon class="cursor-pointer" :color="iconColor" :name="icon" @click="toggle" />
+    </template>
 
-      <template v-for="(_, name) in $slots" #[name]="context">
-        <slot :name="name" v-bind="context || {}" />
-      </template>
+    <template v-for="(_, name) in $slots" #[name]="context">
+      <slot :name="name" v-bind="context || {}" />
+    </template>
 
-      <template v-if="useStrengthChecker" #hint>
-        <qas-password-strength-checker v-bind="strengthCheckerProps" :password="model" />
-      </template>
-    </qas-input>
-  </div>
+    <template v-if="useStrengthChecker" #hint>
+      <qas-password-strength-checker v-bind="strengthCheckerProps" :password="model" />
+    </template>
+  </qas-input>
 </template>
 
 <script>
