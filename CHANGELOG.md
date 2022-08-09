@@ -46,6 +46,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - `QasFormGenerator`: adicionado propriedade `fieldsetGutter` para dar espaçamentos entre rótulos (label) com default `lg`.
 - `QasUploader`: Adicionado o atributo `accept` para o `<input>` interno do componente.
 - `QasSelect`: Adicionado o tipo `Boolean` para a propriedade `modelValue`.
+- [`QasUploader`]: adicionada a prop: `useObjectModel` para poder utilizar como padrão o model como um objeto
 
 ### corrigido
 - `generatorMixin`: alterado `validator` da propriedade `gutter` para quando ele é do tipo `Boolean`.

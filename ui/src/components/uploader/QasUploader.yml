@@ -76,6 +76,11 @@ props:
     examples: [v-model:uploading="isUploading"]
     model: true
 
+  useObjectModel:
+    desc: Controla se a model retornará um array de objetos.
+    type: Boolean
+    model: true
+
 slots:
   header:
     desc: Acesso ao header do <q-uploader />.
