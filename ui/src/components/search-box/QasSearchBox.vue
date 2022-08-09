@@ -1,6 +1,6 @@
 <template>
   <qas-box v-bind="$attrs">
-    <q-input v-model="search" v-bind="attributes">
+    <q-input v-model="search" ref="search" v-bind="attributes">
       <template #append>
         <q-icon color="primary" name="o_search" />
       </template>
@@ -178,6 +178,7 @@ export default {
           await this.$_filterOptionsByStore(value)
 
           this.$refs.infiniteScrollRef.resume()
+          this.$refs.search.focus()
 
           return
         }
