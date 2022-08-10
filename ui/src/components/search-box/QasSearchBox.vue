@@ -1,6 +1,6 @@
 <template>
   <qas-box v-bind="$attrs">
-    <q-input v-model="search" ref="search" v-bind="attributes">
+    <q-input ref="search" v-model="search" v-bind="attributes">
       <template #append>
         <q-icon color="primary" name="o_search" />
       </template>
