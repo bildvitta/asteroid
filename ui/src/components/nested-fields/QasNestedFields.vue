@@ -244,8 +244,8 @@ export default {
     },
 
     field: {
-      handler (value) {
-        !this.value.length && this.setDefaultValue()
+      handler () {
+        !this.value?.length && this.setDefaultValue()
       },
       immediate: true
     }
