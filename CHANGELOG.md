@@ -17,6 +17,8 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 ### Modificado
 - `QasSearchBox`: modificado watch `mx_search` para realizar o focus do input de pesquisa após retornar dados do lazy loading.
 - [`QasDateTimeInput`, `QasField`, `QasInput`, `QasPasswordInput`]: modificado componente para não herdar todos os atributos. Para isso foi adicionado `inheritAttrs` com o valor `false`.
+- `QasMap`: modificado height da classe `.qas-map__draw` para conter a propriedade `!important`.
+- `QasFormGenerator`: modificado a propriedade computada `fieldsetClasses` para adicionar a classe gutter somente no eixo y.
 
 ### Corrigido
 - `QasFormGenerator`: corrigido problema ao adicionar validação no `field` do `normalizedFields`  quando o valor é `undefined`.
