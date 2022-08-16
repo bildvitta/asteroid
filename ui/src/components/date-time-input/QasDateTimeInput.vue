@@ -23,6 +23,8 @@ import { date as dateFn } from '../../helpers/filters'
 export default {
   name: 'QasDateTimeInput',
 
+  inheritAttrs: false,
+
   props: {
     dateMask: {
       default: 'DD/MM/YYYY',

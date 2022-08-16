@@ -13,6 +13,10 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 ## Não publicado
 ### Modificado
 - `QasSearchBox`: modificado watch `mx_search` para realizar o focus do input de pesquisa após retornar dados do lazy loading.
+- [`QasDateTimeInput`, `QasField`, `QasInput`, `QasPasswordInput`]: modificado componente para não herdar todos os atributos. Para isso foi adicionado `inheritAttrs` com o valor `false`.
+
+### Removido
+- `QasPasswordInput`: removido propriedade `color` com o valor `negative` por padrão.
 
 ## 3.0.0-beta.19 - 08-08-2022
 ## BREAKING CHANGES

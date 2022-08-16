@@ -10,6 +10,8 @@
 export default {
   name: 'QasInput',
 
+  inheritAttrs: false,
+
   props: {
     error: {
       type: Boolean
