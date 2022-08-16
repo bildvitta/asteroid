@@ -70,7 +70,7 @@ export default {
 <style lang="scss">
 .qas-map {
   &__draw {
-    height: 300px;
+    height: 300px !important;
     width: 100%;
   }
 }

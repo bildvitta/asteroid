@@ -145,7 +145,7 @@ export default {
       const classes = ['row']
 
       if (this.fieldsetGutter) {
-        classes.push(`q-col-gutter-${this.fieldsetGutter}`)
+        classes.push(`q-col-gutter-y-${this.fieldsetGutter}`)
       }
 
       return classes
