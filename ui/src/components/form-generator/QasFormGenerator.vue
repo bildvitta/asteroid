@@ -121,6 +121,8 @@ export default {
         for (const fieldName of fieldsetItem.fields) {
           const field = this.fields[fieldName]
 
+          if (!field) continue
+
           Object.assign(
             fields[fieldsetKey].fields[
               field.type === 'hidden' ? 'hidden' : 'visible'
