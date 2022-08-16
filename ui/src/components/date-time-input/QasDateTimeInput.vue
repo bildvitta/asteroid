@@ -129,7 +129,7 @@ export default {
 
     updateModelValue (value) {
       this.currentValue = value
-      const valueLength = value.replace(/_/g, '').length
+      const valueLength = value?.replace?.(/_/g, '')?.length
 
       if (value === '' || valueLength === this.mask.length) {
         this.lastValue = this.useTimeOnly ? value : this.toISOString(value)
