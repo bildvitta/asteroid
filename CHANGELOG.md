@@ -17,6 +17,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 
 ### Corrigido
 - `QasFormGenerator`: corrigido problema ao adicionar validação no `field` do `normalizedFields`  quando o valor é `undefined`.
+- `QasDateTimeInput`: corrigido problema do `valueLength` quando o valor é `undefined` adicionando `optional chaining`.
 
 ### Removido
 - `QasPasswordInput`: removido propriedade `color` com o valor `negative` por padrão.
