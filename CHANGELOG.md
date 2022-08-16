@@ -15,6 +15,9 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - `QasSearchBox`: modificado watch `mx_search` para realizar o focus do input de pesquisa após retornar dados do lazy loading.
 - [`QasDateTimeInput`, `QasField`, `QasInput`, `QasPasswordInput`]: modificado componente para não herdar todos os atributos. Para isso foi adicionado `inheritAttrs` com o valor `false`.
 
+### Corrigido
+- `QasFormGenerator`: corrigido problema ao adicionar validação no `field` do `normalizedFields`  quando o valor é `undefined`.
+
 ### Removido
 - `QasPasswordInput`: removido propriedade `color` com o valor `negative` por padrão.
 
