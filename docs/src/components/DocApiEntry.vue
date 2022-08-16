@@ -7,7 +7,7 @@
         <q-item-section>
           <q-item-label>
             <span class="doc-api-entry__item-name">{{ name }}</span>
-            <q-badge v-for="type in parseTypes(data.type)" :key="type" class="doc-api-entry__item-type q-ml-xs" color="grey-4" :label="type" text-color="grey-9" />
+            <q-badge v-for="item in parseTypes(data.type)" :key="item" class="doc-api-entry__item-type q-ml-xs" color="grey-4" :label="item" text-color="grey-9" />
             <span v-if="data.required" class="doc-api-entry__item-required q-ml-xs">Obrigatório</span>
             <span v-if="data.model" class="doc-api-entry__item-model q-ml-xs">Model</span>
           </q-item-label>
@@ -16,7 +16,7 @@
 
           <q-item-label v-if="hasExamples(data.examples)">
             <div class="doc-api-entry__item-example-title q-mt-xs">Exemplos:</div>
-            <q-badge v-for="(example, index) in data.examples" :key="index" class="doc-api-entry__item-example-badge q-ml-xs" color="grey-7" :label="example" outline />
+            <q-badge v-for="(example, index) in data.examples" :key="index" class="doc-api-entry__item-example-badge q-ml-xs" color="grey-7" :label="toString(example)" outline />
           </q-item-label>
 
           <q-item-label v-if="getChildren(data)">
@@ -78,6 +78,12 @@ export default {
 
     getChildrenLabel ({ scope, params }) {
       return scope ? 'Escopo' : params ? 'Parâmetros' : ''
+    },
+
+    toString (value) {
+      const types = ['number', 'boolean']
+
+      return types.includes(typeof value) ? String(value) : value
     }
   }
 }

@@ -1,5 +1,5 @@
 <template>
-  <qas-input v-model="model" :bottom-slots="false" color="negative" v-bind="$attrs" :type="type" use-remove-error-on-type>
+  <qas-input v-model="model" :bottom-slots="false" v-bind="$attrs" :type="type" use-remove-error-on-type>
     <template #append>
       <q-icon class="cursor-pointer" :color="iconColor" :name="icon" @click="toggle" />
     </template>
@@ -26,6 +26,8 @@ export default {
   },
 
   mixins: [passwordMixin],
+
+  inheritAttrs: false,
 
   props: {
     useStrengthChecker: {

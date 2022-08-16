@@ -34,6 +34,8 @@ export default {
     QasSignatureUploader
   },
 
+  inheritAttrs: false,
+
   props: {
     error: {
       default: '',
