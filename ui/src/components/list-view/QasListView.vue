@@ -112,7 +112,6 @@ export default {
     },
 
     totalPages () {
-      // console.log(getState.call(this, { entity: this.entity, key: 'totalPages' }), '>>> aaaaaaaa')
       return getState.call(this, { entity: this.entity, key: 'totalPages' })
       // return this.$store.getters[`${this.entity}/totalPages`]
     },
@@ -141,8 +140,6 @@ export default {
 
   created () {
     this.mx_fetchHandler({ ...this.mx_context, url: this.url }, this.fetchList)
-
-    console.log(getState.call(this, { entity: this.entity, key: 'list' }), 'no created')
 
     this.setCurrentPage()
   },

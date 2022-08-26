@@ -166,7 +166,7 @@ export default {
     },
 
     hasFields () {
-      return !!Object.keys(this.fields).length
+      return !!Object.keys(this.fields || {}).length
     },
 
     hasSearch () {
@@ -261,6 +261,7 @@ export default {
           `QasFilters - fetchFilters -> resposta da action ${this.entity}/fetchFilters`, [response]
         )
       } catch (error) {
+        console.log('🚀 ~ file: QasFilters.vue ~ line 264 ~ fetchFilters ~ error', error)
         this.hasFetchError = true
         this.$emit('fetch-error', error)
 
