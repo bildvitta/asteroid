@@ -45,6 +45,7 @@
 import { viewMixin, contextMixin } from '../../mixins'
 import QasFilters from '../filters/QasFilters.vue'
 import { extend } from 'quasar'
+import { getState, getAction } from '@bildvitta/store-adapter'
 
 export default {
   components: {
@@ -106,11 +107,14 @@ export default {
     },
 
     resultsModel () {
-      return this.$store.getters[`${this.entity}/list`]
+      return getState.call(this, { entity: this.entity, key: 'list' })
+      // return this.$store.getters[`${this.entity}/list`]
     },
 
     totalPages () {
-      return this.$store.getters[`${this.entity}/totalPages`]
+      // console.log(getState.call(this, { entity: this.entity, key: 'totalPages' }), '>>> aaaaaaaa')
+      return getState.call(this, { entity: this.entity, key: 'totalPages' })
+      // return this.$store.getters[`${this.entity}/totalPages`]
     },
 
     showResults () {
@@ -138,6 +142,8 @@ export default {
   created () {
     this.mx_fetchHandler({ ...this.mx_context, url: this.url }, this.fetchList)
 
+    console.log(getState.call(this, { entity: this.entity, key: 'list' }), 'no created')
+
     this.setCurrentPage()
   },
 
@@ -161,7 +167,13 @@ export default {
           `QasListView - fetchList -> Payload do parâmetro do ${this.entity}/fetchList`, [payload]
         )
 
-        const response = await this.$store.dispatch(`${this.entity}/fetchList`, payload)
+        const response = await getAction.call(this, {
+          entity: this.entity,
+          key: 'fetchList',
+          payload
+        })
+
+        // const response = await this.$store.dispatch(`${this.entity}/fetchList`, payload)
 
         const { errors, fields, metadata } = response.data
 

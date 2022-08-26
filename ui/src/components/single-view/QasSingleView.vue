@@ -26,6 +26,7 @@
 <script>
 import viewMixin from '../../mixins/view'
 import { markRaw } from 'vue'
+import { getGetter, getAction } from '@bildvitta/store-adapter'
 
 export default {
   name: 'QasSingleView',
@@ -60,7 +61,8 @@ export default {
     },
 
     resultModel () {
-      return this.$store.getters[`${this.entity}/byId`](this.id) || {}
+      return getGetter.call(this, { entity: this.entity, key: 'byId' })(this.id) || {}
+      // return this.$store.getters[`${this.entity}/byId`](this.id) || {}
     }
   },
 
@@ -92,7 +94,13 @@ export default {
           [payload]
         )
 
-        const response = await this.$store.dispatch(`${this.entity}/fetchSingle`, payload)
+        const response = await getAction.call(this, {
+          entity: this.entity,
+          key: 'fetchSingle',
+          payload
+        })
+
+        // const response = await this.$store.dispatch(`${this.entity}/fetchSingle`, payload)
 
         const { errors, fields, metadata } = response.data
 

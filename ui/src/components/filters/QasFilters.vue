@@ -55,6 +55,7 @@ import QasBtn from '../btn/QasBtn.vue'
 import { camelize, camelizeKeys } from 'humps'
 import { humanize, parseValue } from '../../helpers/filters.js'
 import contextMixin from '../../mixins/context.js'
+import { getState, getAction } from '@bildvitta/store-adapter'
 
 export default {
   name: 'QasFilters',
@@ -148,7 +149,8 @@ export default {
     },
 
     fields () {
-      return this.$store.getters[`${this.entity}/filters`]
+      return getState.call(this, { entity: this.entity, key: 'filters' })
+      // return this.$store.getters[`${this.entity}/filters`]
     },
 
     filterButtonColor () {
@@ -246,7 +248,13 @@ export default {
           [{ url: this.url }]
         )
 
-        const response = await this.$store.dispatch(`${this.entity}/fetchFilters`, { url: this.url })
+        const response = await getAction.call(this, {
+          entity: this.entity,
+          key: 'fetchFilters',
+          payload: { url: this.url }
+        })
+
+        // const response = await this.$store.dispatch(`${this.entity}/fetchFilters`, { url: this.url })
         this.$emit('fetch-success', response)
 
         this.$qas.logger.group(
