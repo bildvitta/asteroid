@@ -29,7 +29,8 @@ module.exports = configure(function (quasar) {
     boot: [
       'asteroid',
       'components',
-      'redirect'
+      'redirect',
+      'vitals'
     ],
 
     // https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-css
@@ -50,6 +51,7 @@ module.exports = configure(function (quasar) {
       env: {
         BUCKET: 'uploader.nave.dev',
         MAPS_API_KEY: 'AIzaSyDl00zRKG51WWBIJa8yVXqX7jFD5xyqe24',
+        VERCEL_ANALYTICS_ID: process.env.VERCEL_ANALYTICS_ID || '',
         DEBUGGING: true
       },
 
