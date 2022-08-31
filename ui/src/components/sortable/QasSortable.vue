@@ -7,6 +7,7 @@
 <script>
 import { Loading, extend } from 'quasar'
 import Sortable from 'sortablejs'
+import { getAction } from '@bildvitta/store-adapter'
 
 import { NotifyError } from '../../plugins'
 
@@ -109,9 +110,13 @@ export default {
       Loading.show()
 
       try {
-        const response = await this.$store.dispatch(`${this.entity}/replace`, {
-          payload: { order: this.identifiers },
-          url: this.url || `${this.entity}/sort`
+        const response = await getAction.call(this, {
+          entity: this.entity,
+          key: 'replace',
+          payload: {
+            payload: { order: this.identifiers },
+            url: this.url || `${this.entity}/sort`
+          }
         })
 
         this.$emit('success', response)

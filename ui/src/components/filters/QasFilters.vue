@@ -150,7 +150,6 @@ export default {
 
     fields () {
       return getState.call(this, { entity: this.entity, key: 'filters' })
-      // return this.$store.getters[`${this.entity}/filters`]
     },
 
     filterButtonColor () {
@@ -254,7 +253,6 @@ export default {
           payload: { url: this.url }
         })
 
-        // const response = await this.$store.dispatch(`${this.entity}/fetchFilters`, { url: this.url })
         this.$emit('fetch-success', response)
 
         this.$qas.logger.group(

@@ -108,12 +108,10 @@ export default {
 
     resultsModel () {
       return getState.call(this, { entity: this.entity, key: 'list' })
-      // return this.$store.getters[`${this.entity}/list`]
     },
 
     totalPages () {
       return getState.call(this, { entity: this.entity, key: 'totalPages' })
-      // return this.$store.getters[`${this.entity}/totalPages`]
     },
 
     showResults () {
@@ -169,8 +167,6 @@ export default {
           key: 'fetchList',
           payload
         })
-
-        // const response = await this.$store.dispatch(`${this.entity}/fetchList`, payload)
 
         const { errors, fields, metadata } = response.data
 

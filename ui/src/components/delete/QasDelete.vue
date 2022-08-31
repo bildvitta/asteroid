@@ -119,8 +119,6 @@ export default {
           payload
         })
 
-        // await this.$store.dispatch(`${this.entity}/destroy`, payload)
-
         NotifySuccess('Item deletado com sucesso!')
 
         if (this.useAutoDeleteRoute) {

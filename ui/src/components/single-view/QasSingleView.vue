@@ -62,7 +62,6 @@ export default {
 
     resultModel () {
       return getGetter.call(this, { entity: this.entity, key: 'byId' })(this.id) || {}
-      // return this.$store.getters[`${this.entity}/byId`](this.id) || {}
     }
   },
 
@@ -99,8 +98,6 @@ export default {
           key: 'fetchSingle',
           payload
         })
-
-        // const response = await this.$store.dispatch(`${this.entity}/fetchSingle`, payload)
 
         const { errors, fields, metadata } = response.data
 

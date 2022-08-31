@@ -1,5 +1,5 @@
 import { InitializeGlobalStores } from '@bildvitta/store-adapter'
 
-export default async ({ app }) => {
+export default ({ app }) => {
   app.use(InitializeGlobalStores)
 }

@@ -276,8 +276,6 @@ export default {
           payload
         })
 
-        // const response = await this.$store.dispatch(`${this.entity}/fetchSingle`, payload)
-
         const { errors, fields, metadata, result } = response.data
 
         const modelValue = { ...this.getModelsByFields(fields), ...this.modelValue }
@@ -416,8 +414,6 @@ export default {
           key: this.mode,
           payload
         })
-
-        // const response = await this.$store.dispatch(`${this.entity}/${this.mode}`, payload)
 
         if (this.useDialogOnUnsavedChanges) {
           this.cachedResult = extend(true, {}, this.modelValue)
