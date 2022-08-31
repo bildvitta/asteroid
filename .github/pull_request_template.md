@@ -7,8 +7,9 @@ Inclua uma pequena descrição explicando o motivo do _pull request_ e o número
 
 ## Versão do asteroid
 
-- [ ] v2 -> a partir da branch `main`.
-- [ ] v3 -> a partir da branch `next`.
+- [ ] v2 -> a partir da branch `v2`.
+- [ ] v3-beta.x -> a partir da branch `main-homolog`.
+- [ ] v3-stable -> a partir da branch `main`.
 
 ## Tipo de alteração
 
