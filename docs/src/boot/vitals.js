@@ -50,6 +50,7 @@ export function reportWebVitals (options) {
     onCLS(metric => sendToVercelAnalytics(metric, options))
     onFCP(metric => sendToVercelAnalytics(metric, options))
   } catch (error) {
+    // eslint-disable-next-line no-console
     console.error('[Analytics]', error)
   }
 }
