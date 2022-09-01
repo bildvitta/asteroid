@@ -184,7 +184,7 @@ slots:
         type: Number
 
       errors:
-        desc: Errors dos campos
+        desc: Erros dos campos
         type: Number
 
       'updateValue -> function(value, index)':
