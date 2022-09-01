@@ -175,12 +175,16 @@ slots:
   'field-[nome-da-chave]':
     desc: Repassa todos os slots e escopos do "QasFormGenerator".
     scope:
+      disabled:
+        desc: Retorna se a linha esta desabilitada
+        type: boolean
+
       index:
         desc: Index atual dos campos
         type: Number
 
       errors:
-        desc: Index atual dos campos
+        desc: Errors dos campos
         type: Number
 
       'updateValue -> function(value, index)':
