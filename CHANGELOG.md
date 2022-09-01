@@ -13,6 +13,9 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 ## Não publicado
 ### Adicionado
 Adicionado suporte para Pinia/Vuex Seguindo os padrões da biblioteca `@bildvitta/store-adapter` e `@bildvitta/store-module`.
+- `QasFormGenerator`: adicionado propriedade `disabled` para desativar todos os campos de uma vez.
+- `QasNestedFields`: adicionado propriedade `disableRows`com esta propriedade é possível desabilitar rows (linhas) especificas passando um array com chaves identificadoras, ou caso queira desativar todas passando um boolean "true" (isto vai remover todos os botões da linha, duplicar e excluir).
+- `QasNestedFields`: adicionado propriedade `useAdd` para controla quando vai ter seção de "adicionar" novas rows (linhas).
 
 ## 3.0.0 - 22-08-22
 ## Versão estável lançada
