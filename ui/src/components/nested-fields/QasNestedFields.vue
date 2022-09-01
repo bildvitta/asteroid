@@ -13,8 +13,8 @@
                 <qas-label v-if="!useSingleLabel" :label="getRowLabel(index)" />
 
                 <div v-if="hasBlockActions(row)" class="q-gutter-x-sm">
-                  <qas-btn v-if="useDuplicate" v-bind="buttonDuplicateProps" :disabled="isDisabledRow(row)" @click="add(row)" />
-                  <qas-btn v-if="showDestroyBtn" v-bind="buttonDestroyProps" :disabled="isDisabledRow(row)" @click="destroy(index, row)" />
+                  <qas-btn v-if="useDuplicate" v-bind="buttonDuplicateProps" @click="add(row)" />
+                  <qas-btn v-if="showDestroyBtn" v-bind="buttonDestroyProps" @click="destroy(index, row)" />
                 </div>
               </div>
 
