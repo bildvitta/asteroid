@@ -1,6 +1,7 @@
 import { decamelize } from 'humps'
 import { isEqual } from 'lodash'
 import { getNormalizedOptions } from '../helpers'
+import { getAction } from '@bildvitta/store-adapter'
 
 export default {
   props: {
@@ -148,13 +149,17 @@ export default {
 
         const { url, params, decamelizeFieldName } = this.mx_defaultLazyLoadingProps
 
-        const { data } = await this.$store.dispatch(`${this.entity}/fetchFieldOptions`, {
-          url,
-          field: decamelizeFieldName ? decamelize(this.name, { separator: '-' }) : this.name,
-          params: {
-            ...params,
-            search: this.mx_search,
-            offset: (this.mx_pagination.page - 1) * params.limit
+        const { data } = await getAction.call(this, {
+          entity: this.entity,
+          key: 'fetchFieldOptions',
+          payload: {
+            url,
+            field: decamelizeFieldName ? decamelize(this.name, { separator: '-' }) : this.name,
+            params: {
+              ...params,
+              search: this.mx_search,
+              offset: (this.mx_pagination.page - 1) * params.limit
+            }
           }
         })
 

@@ -34,6 +34,7 @@
 
 <script>
 import { isEqualWith } from 'lodash-es'
+import { getAction } from '@bildvitta/store-adapter'
 import { extend } from 'quasar'
 import { onBeforeRouteLeave } from 'vue-router'
 
@@ -269,7 +270,11 @@ export default {
           `QasFormView - fetchSingle -> payload do parâmetro do ${this.entity}/fetchSingle`, [payload]
         )
 
-        const response = await this.$store.dispatch(`${this.entity}/fetchSingle`, payload)
+        const response = await getAction.call(this, {
+          entity: this.entity,
+          key: 'fetchSingle',
+          payload
+        })
 
         const { errors, fields, metadata, result } = response.data
 
@@ -404,7 +409,11 @@ export default {
           `QasFormView - submit -> payload do ${this.entity}/${this.mode}`, [payload]
         )
 
-        const response = await this.$store.dispatch(`${this.entity}/${this.mode}`, payload)
+        const response = await getAction.call(this, {
+          entity: this.entity,
+          key: this.mode,
+          payload
+        })
 
         if (this.useDialogOnUnsavedChanges) {
           this.cachedResult = extend(true, {}, this.modelValue)

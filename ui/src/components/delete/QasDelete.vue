@@ -10,6 +10,7 @@
 
 <script>
 import { Loading } from 'quasar'
+import { getAction } from '@bildvitta/store-adapter'
 import { NotifyError, NotifySuccess } from '../../plugins'
 import { useHistory } from '../../composables'
 
@@ -112,7 +113,11 @@ export default {
           `QasDelete - destroy -> Payload do parâmetro do ${this.entity}/destroy`, [payload]
         )
 
-        await this.$store.dispatch(`${this.entity}/destroy`, payload)
+        await getAction.call(this, {
+          entity: this.entity,
+          key: 'destroy',
+          payload
+        })
 
         NotifySuccess('Item deletado com sucesso!')
 
