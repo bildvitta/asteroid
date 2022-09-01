@@ -6,7 +6,7 @@
       </header>
 
       <slot v-if="useFilter" name="filter">
-        <qas-filters v-bind="filtersProps" :entity="entity" />
+        <qas-filters v-bind="filtersProps" :entity="entity" data-cy="search-input" />
       </slot>
 
       <main class="relative-position">
