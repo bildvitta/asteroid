@@ -9,14 +9,14 @@
         <div :class="mx_classes">
           <div v-for="(field, key) in fieldsetItem.fields.visible" :key="key" :class="mx_getFieldClass(key)">
             <slot :field="field" :name="`field-${field.name}`">
-              <qas-field v-bind="fieldsProps[field.name]" :error="errors[key]" :field="field" :model-value="modelValue[field.name]" @update:model-value="updateModelValue(field.name, $event)" />
+              <qas-field :disable="disabled" v-bind="fieldsProps[field.name]" :error="errors[key]" :field="field" :model-value="modelValue[field.name]" @update:model-value="updateModelValue(field.name, $event)" />
             </slot>
           </div>
         </div>
 
         <div v-for="(field, key) in fieldsetItem.fields.hidden" :key="key">
           <slot :field="field" :name="`field-${field.name}`">
-            <qas-field v-bind="fieldsProps[field.name]" :field="field" :model-value="modelValue[field.name]" @update:model-value="updateModelValue(field.name, $event)" />
+            <qas-field :disable="disabled" v-bind="fieldsProps[field.name]" :field="field" :model-value="modelValue[field.name]" @update:model-value="updateModelValue(field.name, $event)" />
           </slot>
         </div>
       </div>
@@ -70,6 +70,10 @@ export default {
       validator: value => {
         return typeof value === 'boolean' || ['xs', 'sm', 'md', 'lg', 'xl'].includes(value)
       }
+    },
+
+    disabled: {
+      type: Boolean
     }
   },
 

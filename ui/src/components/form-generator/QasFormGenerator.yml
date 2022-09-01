@@ -10,6 +10,11 @@ props:
     type: [Array, String, Object]
     examples: ["{ name: { sm: 6, md: 12 } }", "[{ sm: 6, md: 12 }]"]
 
+  disabled:
+    desc: Deixa os campos desabilitados enviando a prop "disable" para cada campo.
+    default: "false"
+    type: Boolean
+
   error:
     desc: Objeto contendo propriedades contendo a mensagem de erro.
     default: {}
