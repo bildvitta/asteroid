@@ -1,5 +1,5 @@
 <template>
-  <q-layout class="app" view="hHh LpR lff">
+  <q-layout class="app" view="lHh LpR lff">
     <q-header bordered class="app-header text-dark">
       <q-toolbar>
         <q-btn dense flat icon="menu" @click="toggleLeftDrawer" />
@@ -107,6 +107,10 @@ export default {
 </script>
 
 <style lang="scss">
+:root {
+  --docsearch-searchbox-background: $grey-4;
+}
+
 .app {
   &-header,
   &-search-bar {
