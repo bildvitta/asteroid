@@ -11,7 +11,7 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
 
-## Unreleased
+## 3.1.0-beta.1 - 02-09-22
 ### Adicionado
 - `QasFilters`: adicionado data-cy no input, dropdow e botões
 - `QasGridGenerator`: adicionado data-cy nos campos e resultados
