@@ -3,11 +3,11 @@
     <div v-for="(field, key) in formattedFields" :key="key" :class="mx_getFieldClass(key, true)">
       <slot :field="slotValue[key]" :name="`field-${field.name}`">
         <slot :field="slotValue[key]" name="header">
-          <header :class="headerClass" :data-cy="`${field.name}-field`">{{ field.label }}</header>
+          <header :class="headerClass" :data-cy="`grid-generator-${field.name}-field`">{{ field.label }}</header>
         </slot>
 
         <slot :field="slotValue[key]" name="content">
-          <div :class="contentClass" :data-cy="`${field.name}-result`">{{ resultsByFields[key] }}</div>
+          <div :class="contentClass" :data-cy="`grid-generator-${field.name}-result`">{{ resultsByFields[key] }}</div>
         </slot>
       </slot>
     </div>
