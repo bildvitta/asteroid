@@ -4,7 +4,7 @@
       <div v-if="showSearch" class="col">
         <slot :filter="filter" name="search">
           <q-form v-if="useSearch" @submit.prevent="filter()">
-            <qas-input v-model="search" :debounce="debounce" dense hide-bottom-space :outlined="false" :placeholder="searchPlaceholder" type="search">
+            <qas-input v-model="search" :debounce="debounce" dense hide-bottom-space :outlined="false" :placeholder="searchPlaceholder" type="search" data-cy="filters-search-input">
               <template #append>
                 <qas-btn v-if="hasSearch" color="grey-9" flat icon="o_clear" unelevated @click="clearSearch" />
                 <qas-btn v-if="!debounce" color="grey-9" flat icon="o_search" type="submit" unelevated @click="filter()" />
@@ -15,7 +15,7 @@
       </div>
 
       <slot v-if="showFilterButton" :filter="filter" name="filter-button">
-        <qas-btn v-if="useFilterButton" :color="filterButtonColor" flat icon="o_filter_list" :label="filterButtonLabel">
+        <qas-btn v-if="useFilterButton" :color="filterButtonColor" flat icon="o_filter_list" :label="filterButtonLabel" data-cy="filters-btn">
           <q-menu class="full-width" max-width="240px">
             <div v-if="isFetching" class="q-pa-xl text-center">
               <q-spinner color="grey" size="2em" />
@@ -27,12 +27,12 @@
 
             <q-form v-else class="q-gutter-y-md q-pa-md" @submit.prevent="filter()">
               <div v-for="(field, index) in fields" :key="index">
-                <qas-field v-model="filters[field.name]" dense :field="field" />
+                <qas-field v-model="filters[field.name]" dense :field="field" :data-cy="`filters-${field.name}-field`" />
               </div>
 
               <div class="text-right">
-                <qas-btn class="q-mr-sm" flat label="Limpar" :no-caps="false" size="12px" unelevated @click="clearFilters" />
-                <qas-btn color="primary" label="Filtrar" :no-caps="false" size="12px" type="submit" unelevated />
+                <qas-btn class="q-mr-sm" flat label="Limpar" :no-caps="false" size="12px" unelevated @click="clearFilters" data-cy="filters-clear-btn" />
+                <qas-btn color="primary" label="Filtrar" :no-caps="false" size="12px" type="submit" unelevated data-cy="filters-submit-btn" />
               </div>
             </q-form>
           </q-menu>
@@ -41,7 +41,7 @@
     </div>
 
     <div v-if="useChip && hasActiveFilters" class="q-mt-md">
-      <q-chip v-for="(filterItem, key) in activeFilters" :key="key" color="primary" dense removable size="md" text-color="white" @remove="removeFilter(filterItem)">{{ filterItem.label }} = "{{ getChipValue(filterItem.value) }}"</q-chip>
+      <q-chip v-for="(filterItem, key) in activeFilters" :key="key" color="primary" dense removable size="md"  :data-cy="`filters-${filterItem.value}-chip`" text-color="white" @remove="removeFilter(filterItem)">{{ filterItem.label }} = "{{ getChipValue(filterItem.value) }}"</q-chip>
     </div>
 
     <slot :context="mx_context" :filter="filter" :filters="activeFilters" :remove-filter="removeFilter" />
