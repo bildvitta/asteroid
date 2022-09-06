@@ -10,10 +10,17 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 ### Sobre os "BREAKING CHANGES"
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
+## Não publicado
+### Modificado
+- [`QasBox`, `QasListItems`, `QasCard`, `QasAppBar`]: alterado cor shadow padrão de `shadow-14` para `shadow-2`.
+- `QasListItems`: alterado como usa shadow para resolver problema de borda que cortava o shadow, agora o componente usa o `QasBox` e removido prop `bordered`.
+
+### Removido
+- `shadow.scss`: Removido arquivo de sombras que alteravam cores para deixar estilo original do quasar.
 
 ## 3.1.0-beta.1 - 02-09-22
 ### Adicionado
-- `QasFilters`: adicionado data-cy no input, dropdow e botões
+- `QasFilters`: adicionado data-cy no input, dropdown e botões
 - `QasGridGenerator`: adicionado data-cy nos campos e resultados
 
 ## 3.1.0-beta.0 - 02-09-22

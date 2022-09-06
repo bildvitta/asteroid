@@ -76,7 +76,7 @@ export default {
 
     cardClasses () {
       return {
-        'shadow-14': !this.unelevated,
+        'shadow-2': !this.unelevated,
         'border-primary': this.outlined,
         'no-shadow': this.outlined,
         'bg-white': this.outlined
