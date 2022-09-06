@@ -22,7 +22,7 @@ export default {
     boxClass () {
       return {
         'border-primary-contrast': this.outlined,
-        'shadow-14': !this.unelevated
+        'shadow-2': !this.unelevated
       }
     }
   }
