@@ -1,6 +1,6 @@
 <template>
   <div class="container q-py-lg">
-    <qas-tabs-generator v-model="model" :tabs="tabs" />
+    <qas-tabs-generator v-model="model" :counters="{ 'tab-1': 2 }" :tabs="tabs" />
 
     <div class="q-my-lg">
       model: {{ model }}
