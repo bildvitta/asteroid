@@ -16,9 +16,6 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - `QasTabsGenerator`: Alterado type do `modelValue` para `[String, Number]` para aceitar numbers também.
 - `QasTableGenerator`: Alterado `counters[key]` para `counters[tab.value]` para funcionar o counters quando utilizar tabs como `array`.
 
-### Removido
-- `shadow.scss`: Removido arquivo de sombras que alteravam cores para deixar estilo original do quasar.
-
 ## 3.1.0-beta.2 - 06-09-22
 ### Modificado
 - [`QasBox`, `QasListItems`, `QasCard`, `QasAppBar`]: alterado cor shadow padrão de `shadow-14` para `shadow-2`.
