@@ -1,5 +1,5 @@
 <template>
-  <qas-btn class="qas-actions-menu" color="primary" :icon="icon" :label="label" outline padding="md" use-label-on-small-screen>
+  <qas-btn class="qas-actions-menu" color="primary" :icon="icon" :label="label" outline padding="md" :use-label-on-small-screen="false">
     <q-menu class="qas-actions-menu__menu">
       <q-list class="qas-actions-menu__list" separator>
         <slot v-for="(item, key) in list" :item="item" :name="key">
