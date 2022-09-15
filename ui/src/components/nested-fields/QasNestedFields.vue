@@ -276,6 +276,7 @@ export default {
       handler (value) {
         this.nested = extend(true, [], value)
       },
+      deep: true,
       immediate: true
     },
 
