@@ -23,6 +23,7 @@
     "QasTabsGenerator",
     "QasLayout",
     "QasListView",
-    "QasDateTimeInput"
+    "QasDateTimeInput",
+    "QasNestedFields"
   ]
 }

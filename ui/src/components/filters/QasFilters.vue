@@ -4,7 +4,7 @@
       <div v-if="showSearch" class="col">
         <slot :filter="filter" name="search">
           <q-form v-if="useSearch" @submit.prevent="filter()">
-            <qas-input v-model="search" :debounce="debounce" dense hide-bottom-space :outlined="false" :placeholder="searchPlaceholder" type="search">
+            <qas-input v-model="search" data-cy="filters-search-input" :debounce="debounce" dense hide-bottom-space :outlined="false" :placeholder="searchPlaceholder" type="search">
               <template #append>
                 <qas-btn v-if="hasSearch" color="grey-9" flat icon="o_clear" unelevated @click="clearSearch" />
                 <qas-btn v-if="!debounce" color="grey-9" flat icon="o_search" type="submit" unelevated @click="filter()" />
@@ -15,7 +15,7 @@
       </div>
 
       <slot v-if="showFilterButton" :filter="filter" name="filter-button">
-        <qas-btn v-if="useFilterButton" :color="filterButtonColor" flat icon="o_filter_list" :label="filterButtonLabel">
+        <qas-btn v-if="useFilterButton" :color="filterButtonColor" data-cy="filters-btn" flat icon="o_filter_list" :label="filterButtonLabel">
           <q-menu class="full-width" max-width="240px">
             <div v-if="isFetching" class="q-pa-xl text-center">
               <q-spinner color="grey" size="2em" />
@@ -27,12 +27,12 @@
 
             <q-form v-else class="q-gutter-y-md q-pa-md" @submit.prevent="filter()">
               <div v-for="(field, index) in fields" :key="index">
-                <qas-field v-model="filters[field.name]" dense :field="field" />
+                <qas-field v-model="filters[field.name]" :data-cy="`filters-${field.name}-field`" dense :field="field" />
               </div>
 
               <div class="text-right">
-                <qas-btn class="q-mr-sm" flat label="Limpar" :no-caps="false" size="12px" unelevated @click="clearFilters" />
-                <qas-btn color="primary" label="Filtrar" :no-caps="false" size="12px" type="submit" unelevated />
+                <qas-btn class="q-mr-sm" data-cy="filters-clear-btn" flat label="Limpar" :no-caps="false" size="12px" unelevated @click="clearFilters" />
+                <qas-btn color="primary" data-cy="filters-submit-btn" label="Filtrar" :no-caps="false" size="12px" type="submit" unelevated />
               </div>
             </q-form>
           </q-menu>
@@ -41,7 +41,7 @@
     </div>
 
     <div v-if="useChip && hasActiveFilters" class="q-mt-md">
-      <q-chip v-for="(filterItem, key) in activeFilters" :key="key" color="primary" dense removable size="md" text-color="white" @remove="removeFilter(filterItem)">{{ filterItem.label }} = "{{ getChipValue(filterItem.value) }}"</q-chip>
+      <q-chip v-for="(filterItem, key) in activeFilters" :key="key" color="primary" :data-cy="`filters-${filterItem.value}-chip`" dense removable size="md" text-color="white" @remove="removeFilter(filterItem)">{{ filterItem.label }} = "{{ getChipValue(filterItem.value) }}"</q-chip>
     </div>
 
     <slot :context="mx_context" :filter="filter" :filters="activeFilters" :remove-filter="removeFilter" />
@@ -55,6 +55,7 @@ import QasBtn from '../btn/QasBtn.vue'
 import { camelize, camelizeKeys } from 'humps'
 import { humanize, parseValue } from '../../helpers/filters.js'
 import contextMixin from '../../mixins/context.js'
+import { getState, getAction } from '@bildvitta/store-adapter'
 
 export default {
   name: 'QasFilters',
@@ -148,7 +149,7 @@ export default {
     },
 
     fields () {
-      return this.$store.getters[`${this.entity}/filters`]
+      return getState.call(this, { entity: this.entity, key: 'filters' })
     },
 
     filterButtonColor () {
@@ -164,7 +165,7 @@ export default {
     },
 
     hasFields () {
-      return !!Object.keys(this.fields).length
+      return !!Object.keys(this.fields || {}).length
     },
 
     hasSearch () {
@@ -246,7 +247,12 @@ export default {
           [{ url: this.url }]
         )
 
-        const response = await this.$store.dispatch(`${this.entity}/fetchFilters`, { url: this.url })
+        const response = await getAction.call(this, {
+          entity: this.entity,
+          key: 'fetchFilters',
+          payload: { url: this.url }
+        })
+
         this.$emit('fetch-success', response)
 
         this.$qas.logger.group(

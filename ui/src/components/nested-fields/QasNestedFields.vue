@@ -12,7 +12,7 @@
               <div class="flex items-center justify-between q-py-xs">
                 <qas-label v-if="!useSingleLabel" :label="getRowLabel(index)" />
 
-                <div v-if="!useInlineActions" class="q-gutter-x-sm">
+                <div v-if="hasBlockActions(row)" class="q-gutter-x-sm">
                   <qas-btn v-if="useDuplicate" v-bind="buttonDuplicateProps" @click="add(row)" />
                   <qas-btn v-if="showDestroyBtn" v-bind="buttonDestroyProps" @click="destroy(index, row)" />
                 </div>
@@ -20,14 +20,14 @@
 
               <div ref="formGenerator" class="col-12 justify-between q-col-gutter-x-md row">
                 <slot :errors="transformedErrors" :fields="children" :index="index" name="fields" :update-value="updateValuesFromInput">
-                  <qas-form-generator v-model="nested[index]" :class="formClasses" :columns="formColumns" :errors="transformedErrors[index]" :fields="children" :fields-props="fieldsProps" @update:model-value="updateValuesFromInput($event, index)">
+                  <qas-form-generator v-model="nested[index]" :class="formClasses" :columns="formColumns" :disable="isDisabledRow(row)" :errors="transformedErrors[index]" :fields="children" :fields-props="fieldsProps" @update:model-value="updateValuesFromInput($event, index)">
                     <template v-for="(slot, key) in $slots" #[key]="scope">
-                      <slot v-bind="scope" :errors="transformedErrors" :index="index" :name="key" />
+                      <slot v-bind="scope" :disabled="isDisabledRow(row)" :errors="transformedErrors" :index="index" :name="key" />
                     </template>
                   </qas-form-generator>
                 </slot>
 
-                <div v-if="useInlineActions" class="flex items-center qas-nested-fields__actions">
+                <div v-if="hasInlineActions(row)" class="flex items-center qas-nested-fields__actions">
                   <div class="col-auto">
                     <qas-btn v-if="useDuplicate" color="primary" flat icon="o_content_copy" round @click="add(row)" />
                   </div>
@@ -45,7 +45,7 @@
         </div>
       </component>
 
-      <div class="q-mt-md">
+      <div v-if="useAdd" class="q-mt-md">
         <slot :add="add" name="add-input">
           <div v-if="useInlineActions" class="cursor-pointer items-center q-col-gutter-x-md q-mt-md row" @click="add()">
             <div class="col">
@@ -125,6 +125,11 @@ export default {
       default: 'destroyed'
     },
 
+    disabledRows: {
+      type: [Array, Boolean],
+      default: false
+    },
+
     errors: {
       type: [Array, Object],
       default: () => ({})
@@ -172,6 +177,11 @@ export default {
     rowObject: {
       type: Object,
       default: () => ({})
+    },
+
+    useAdd: {
+      type: Boolean,
+      default: true
     },
 
     useAnimation: {
@@ -266,6 +276,7 @@ export default {
       handler (value) {
         this.nested = extend(true, [], value)
       },
+      deep: true,
       immediate: true
     },
 
@@ -347,6 +358,22 @@ export default {
       }
 
       return this.fieldLabel
+    },
+
+    isDisabledRow (row) {
+      if (!this.disabledRows) return false
+
+      if (typeof this.disabledRows === 'boolean') return true
+
+      return this.disabledRows.includes(row[this.identifierItemKey])
+    },
+
+    hasBlockActions (row) {
+      return !this.useInlineActions && !this.isDisabledRow(row)
+    },
+
+    hasInlineActions (row) {
+      return this.useInlineActions && !this.isDisabledRow(row)
     }
   }
 }

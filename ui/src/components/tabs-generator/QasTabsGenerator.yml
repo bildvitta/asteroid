@@ -30,7 +30,8 @@ props:
 
   model-value:
     desc: Model do componente, controla qual é a tab atual selecionada.
-    type: String
+    type: [String, Number]
+    model: true
 
   tab-class:
     desc: Classe do QTab

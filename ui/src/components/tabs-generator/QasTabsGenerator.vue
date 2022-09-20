@@ -3,7 +3,7 @@
     <slot v-for="(tab, key) in formattedTabs" :item="tab" :name="`tab-${tab.value}`">
       <q-tab :key="key" v-bind="tab" :class="tabClass" :label="tab.label" :name="tab.value">
         <slot :item="tab" :name="`tab-after-${tab.value}`">
-          <q-badge v-if="counters[key]" :label="counters[key]" v-bind="defaultCounterProps" />
+          <q-badge v-if="counters[tab.value]" :label="counters[tab.value]" v-bind="defaultCounterProps" />
         </slot>
       </q-tab>
     </slot>
@@ -39,7 +39,7 @@ export default {
 
     modelValue: {
       default: '',
-      type: String
+      type: [String, Number]
     },
 
     tabClass: {

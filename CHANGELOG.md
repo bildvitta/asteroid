@@ -10,6 +10,59 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 ### Sobre os "BREAKING CHANGES"
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
+
+## 3.1.0 - 19-09-22
+### Adicionado
+Adicionado suporte para Pinia/Vuex Seguindo os padrões da biblioteca `@bildvitta/store-adapter` e `@bildvitta/store-module`.
+- `QasFormGenerator`: adicionado propriedade `disabled` para desativar todos os campos de uma vez.
+- `QasNestedFields`: adicionado propriedade `disableRows`com esta propriedade é possível desabilitar rows (linhas) especificas passando um array com chaves identificadoras, ou caso queira desativar todas passando um boolean "true" (isto vai remover todos os botões da linha, duplicar e excluir).
+- `QasNestedFields`: adicionado propriedade `useAdd` para controla quando vai ter seção de "adicionar" novas rows (linhas).
+- `QasFilters`: adicionado data-cy no input, dropdown e botões
+- `QasGridGenerator`: adicionado data-cy nos campos e resultados
+
+### Modificado
+- [`QasBox`, `QasListItems`, `QasCard`, `QasAppBar`]: alterado cor shadow padrão de `shadow-14` para `shadow-2`.
+- `QasListItems`: alterado como usa shadow para resolver problema de borda que cortava o shadow, agora o componente usa o `QasBox` e removido prop `bordered`.
+
+### Corrigido
+- `QasActionsMenu`: Alterado propriedade `use-label-on-small-screen` para `:use-label-on-small-screen="false"` para seguir o padrão.
+- `QasTabsGenerator`: Alterado type do `modelValue` para `[String, Number]` para aceitar numbers também.
+- `QasTableGenerator`: Alterado `counters[key]` para `counters[tab.value]` para funcionar o counters quando utilizar tabs como `array`.
+- `QasNestedFields`: Adicionado prop `deep: true` no watch no `modelValue` para resolver bug quando usa um custom slot, ou altera o v-model e perde a reatividade.
+
+### Removido
+- `shadow.scss`: Removido arquivo de sombras que alteravam cores para deixar estilo original do quasar.
+
+## 3.1.0-beta.4 - 15-09-22
+### Corrigido
+- `QasNestedFields`: Adicionado prop `deep: true` no watch no `modelValue` para resolver bug quando usa um custom slot, ou altera o v-model e perde a reatividade.
+
+## 3.1.0-beta.3 - 14-09-22
+### Corrigido
+- `QasActionsMenu`: Alterado propriedade `use-label-on-small-screen` para `:use-label-on-small-screen="false"` para seguir o padrão.
+- `QasTabsGenerator`: Alterado type do `modelValue` para `[String, Number]` para aceitar numbers também.
+- `QasTableGenerator`: Alterado `counters[key]` para `counters[tab.value]` para funcionar o counters quando utilizar tabs como `array`.
+
+## 3.1.0-beta.2 - 06-09-22
+### Modificado
+- [`QasBox`, `QasListItems`, `QasCard`, `QasAppBar`]: alterado cor shadow padrão de `shadow-14` para `shadow-2`.
+- `QasListItems`: alterado como usa shadow para resolver problema de borda que cortava o shadow, agora o componente usa o `QasBox` e removido prop `bordered`.
+
+### Removido
+- `shadow.scss`: Removido arquivo de sombras que alteravam cores para deixar estilo original do quasar.
+
+## 3.1.0-beta.1 - 02-09-22
+### Adicionado
+- `QasFilters`: adicionado data-cy no input, dropdown e botões
+- `QasGridGenerator`: adicionado data-cy nos campos e resultados
+
+## 3.1.0-beta.0 - 02-09-22
+### Adicionado
+Adicionado suporte para Pinia/Vuex Seguindo os padrões da biblioteca `@bildvitta/store-adapter` e `@bildvitta/store-module`.
+- `QasFormGenerator`: adicionado propriedade `disabled` para desativar todos os campos de uma vez.
+- `QasNestedFields`: adicionado propriedade `disableRows`com esta propriedade é possível desabilitar rows (linhas) especificas passando um array com chaves identificadoras, ou caso queira desativar todas passando um boolean "true" (isto vai remover todos os botões da linha, duplicar e excluir).
+- `QasNestedFields`: adicionado propriedade `useAdd` para controla quando vai ter seção de "adicionar" novas rows (linhas).
+
 ## 3.0.0 - 22-08-22
 ## Versão estável lançada
 
@@ -125,7 +178,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 ### Modificado
 - `QasNestedFields`: removido logica do camelize na computada `children` já que agora os fields já vem formatados.
 - `viewMixin`: `mx_setFields` usando helper `camelizeFieldsName` de forma recursiva para formatar os `names` dos `fields`.
-- `QasFilters`: Adicionados props `color="grey-9"` e `flat` para os <qas-btn /> do input de busca para deixar o estilo igual quando era com <q-btn>.
+- `QasFilters`: Adicionados props `color="grey-9"` e `flat` para os <qas-btn /> do input de busca para deixar o estilo igual quando era com <q-btn />.
 
 ## [3.0.0-beta.12] - 02-06-2022
 ### Modificado

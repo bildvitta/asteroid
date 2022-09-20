@@ -26,6 +26,12 @@ props:
     default: destroyed
     type: String
 
+  disabled-rows:
+    desc: Com esta propriedade é possível desabilitar rows (linhas) especificas passando um array com chaves identificadoras, ou caso queira desativar todas passando um boolean "true" (isto vai remover todos os botões da linha, duplicar e excluir).
+    default: "false"
+    type: [Array, Boolean]
+    examples: ["['my-uuid-from-row-1']", true]
+
   errors:
     desc: Propriedade de erros para mostrar nos campos gerados.
     default: {}
@@ -78,6 +84,11 @@ props:
     default: {}
     type: Object
     examples: ["{ name: '', cities: [] }"]
+
+  use-add:
+    desc: Controla quando vai ter seção de "adicionar" novas rows (linhas).
+    default: true
+    type: Boolean
 
   use-animation:
     desc: Controla a animação na hora de setar o scroll.
@@ -164,12 +175,16 @@ slots:
   'field-[nome-da-chave]':
     desc: Repassa todos os slots e escopos do "QasFormGenerator".
     scope:
+      disabled:
+        desc: Retorna se a linha esta desabilitada
+        type: boolean
+
       index:
         desc: Index atual dos campos
         type: Number
 
       errors:
-        desc: Index atual dos campos
+        desc: Erros dos campos
         type: Number
 
       'updateValue -> function(value, index)':
