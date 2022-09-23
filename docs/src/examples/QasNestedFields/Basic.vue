@@ -59,12 +59,14 @@ export default {
         {
           name: 'John',
           email: 'john@teste.com',
-          cities: 1
+          cities: 1,
+          uuid: 'uuid-1'
         },
         {
           name: 'John 2',
           email: 'john@teste.com',
-          cities: 2
+          cities: 2,
+          uuid: 'uuid-2'
         }
       ]
     }
