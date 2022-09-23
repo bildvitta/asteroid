@@ -329,7 +329,7 @@ export default {
     * ao invés de adicionar a flag [destroyKey]
     */
     destroy (index, row) {
-      (!row[this.identifierItemKey] && !this.useRemoveOnDestroy) || this.useRemoveOnDestroy
+      !row[this.identifierItemKey] || this.useRemoveOnDestroy
         ? this.nested.splice(index, 1)
         : this.nested.splice(index, 1, { [this.destroyKey]: true, ...row })
 
