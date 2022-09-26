@@ -10,7 +10,11 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 ### Sobre os "BREAKING CHANGES"
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
-## 3.1.0 - 19-09-22
+## [3.1.1-beta.0] - 23-09-22
+### Corrigido
+- `QasNestedFields`: Corrigido botão de excluir ao adicionar um novo item sem salvar ele não removia o item independente da prop useRemoveOnDestroy.
+
+## [3.1.0] - 19-09-22
 ### Adicionado
 Adicionado suporte para Pinia/Vuex Seguindo os padrões da biblioteca `@bildvitta/store-adapter` e `@bildvitta/store-module`.
 - `QasFormGenerator`: adicionado propriedade `disabled` para desativar todos os campos de uma vez.
@@ -32,17 +36,17 @@ Adicionado suporte para Pinia/Vuex Seguindo os padrões da biblioteca `@bildvitt
 ### Removido
 - `shadow.scss`: Removido arquivo de sombras que alteravam cores para deixar estilo original do quasar.
 
-## 3.1.0-beta.4 - 15-09-22
+## [3.1.0-beta.4] - 15-09-22
 ### Corrigido
 - `QasNestedFields`: Adicionado prop `deep: true` no watch no `modelValue` para resolver bug quando usa um custom slot, ou altera o v-model e perde a reatividade.
 
-## 3.1.0-beta.3 - 14-09-22
+## [3.1.0-beta.3] - 14-09-22
 ### Corrigido
 - `QasActionsMenu`: Alterado propriedade `use-label-on-small-screen` para `:use-label-on-small-screen="false"` para seguir o padrão.
 - `QasTabsGenerator`: Alterado type do `modelValue` para `[String, Number]` para aceitar numbers também.
 - `QasTableGenerator`: Alterado `counters[key]` para `counters[tab.value]` para funcionar o counters quando utilizar tabs como `array`.
 
-## 3.1.0-beta.2 - 06-09-22
+## [3.1.0-beta.2] - 06-09-22
 ### Modificado
 - [`QasBox`, `QasListItems`, `QasCard`, `QasAppBar`]: alterado cor shadow padrão de `shadow-14` para `shadow-2`.
 - `QasListItems`: alterado como usa shadow para resolver problema de borda que cortava o shadow, agora o componente usa o `QasBox` e removido prop `bordered`.
@@ -50,12 +54,12 @@ Adicionado suporte para Pinia/Vuex Seguindo os padrões da biblioteca `@bildvitt
 ### Removido
 - `shadow.scss`: Removido arquivo de sombras que alteravam cores para deixar estilo original do quasar.
 
-## 3.1.0-beta.1 - 02-09-22
+## [3.1.0-beta.1] - 02-09-22
 ### Adicionado
 - `QasFilters`: adicionado data-cy no input, dropdown e botões
 - `QasGridGenerator`: adicionado data-cy nos campos e resultados
 
-## 3.1.0-beta.0 - 02-09-22
+## [3.1.0-beta.0] - 02-09-22
 ### Adicionado
 Adicionado suporte para Pinia/Vuex Seguindo os padrões da biblioteca `@bildvitta/store-adapter` e `@bildvitta/store-module`.
 - `QasFormGenerator`: adicionado propriedade `disabled` para desativar todos os campos de uma vez.
@@ -286,6 +290,13 @@ Adicionado suporte para Pinia/Vuex Seguindo os padrões da biblioteca `@bildvitt
 ### Corrigido
 - Corrigido `QasBtn`, quando usa a prop `hideLabelOnSmallScreen` e utiliza o slot default, quando a tela está em tamanho pequeno, o botão remove o slot default, o problema disto é que se usar com um `QMenu` dentro do botão, o `QMenu` não é chamado pois não existe mais slot default.
 
+[3.1.1-beta.0]: https://github.com/bildvitta/asteroid/compare/3.1.0...3.1.1-beta.0?expand=1
+[3.1.0]: https://github.com/bildvitta/asteroid/compare/3.0.0...3.1.0?expand=1
+[3.1.0-beta.4]: https://github.com/bildvitta/asteroid/compare/3.1.0-beta.3...3.1.0-beta.4?expand=1
+[3.1.0-beta.3]: https://github.com/bildvitta/asteroid/compare/3.1.0-beta.2...3.1.0-beta.3?expand=1
+[3.1.0-beta.2]: https://github.com/bildvitta/asteroid/compare/3.1.0-beta.1...3.1.0-beta.2?expand=1
+[3.1.0-beta.1]: https://github.com/bildvitta/asteroid/compare/3.1.0-beta.0...3.1.0-beta.1?expand=1
+[3.1.0-beta.0]: https://github.com/bildvitta/asteroid/compare/v3.0.0...3.1.0-beta.0?expand=1
 [3.0.0]: https://github.com/bildvitta/asteroid/compare/v3.0.0-beta.20...v3.0.0?expand=1
 [3.0.0-beta.20]: https://github.com/bildvitta/asteroid/compare/v3.0.0-beta.19...v3.0.0-beta.20?expand=1
 [3.0.0-beta.19]: https://github.com/bildvitta/asteroid/compare/v3.0.0-beta.18...v3.0.0-beta.19?expand=1

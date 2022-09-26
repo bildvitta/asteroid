@@ -2,7 +2,7 @@
 title: QasNestedFields
 ---
 
-Componente para gerar dinâmicamente campos nested.
+Componente para gerar dinamicamente campos nested.
 
 <doc-api file="nested-fields/QasNestedFields" name="QasNestedFields" />
 
