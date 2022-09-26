@@ -24,6 +24,7 @@
     "QasLayout",
     "QasListView",
     "QasDateTimeInput",
-    "QasNestedFields"
+    "QasNestedFields",
+    "QasTreeGenerator"
   ]
 }

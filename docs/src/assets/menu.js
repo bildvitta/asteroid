@@ -222,6 +222,10 @@ module.exports = [
         path: '/components/transfer'
       },
       {
+        name: 'TreeGenerator',
+        path: '/components/tree-generator'
+      },
+      {
         name: 'Uploader',
         path: '/components/uploader'
       }
