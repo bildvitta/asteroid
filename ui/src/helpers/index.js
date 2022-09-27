@@ -11,6 +11,8 @@ export { default as filterListByHandle } from './filter-list-by-handle.js'
 export { default as camelizeFieldsName } from './camelize-fields-name.js'
 export { default as getNormalizedOptions } from './get-normalized-options.js'
 export { default as handleProcess } from './handle-process.js'
+export { default as destroyNestedChildrenByKey } from './destroy-nested-children-by-key.js'
+export { default as promiseHandler } from './promise-handler.js'
 
 export * from './filters.js'
 export * from './images.js'

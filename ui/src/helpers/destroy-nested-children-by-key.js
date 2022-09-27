@@ -1,4 +1,4 @@
-export default function nestedField (nested = [], destroyedKey = 'destroyed') {
+export default function destroyNestedChildrenByKey (nested = [], destroyedKey = 'destroyed') {
   if (!Array.isArray(nested)) {
     throw new Error('Please provide a valid array.')
   }
@@ -24,7 +24,7 @@ export default function nestedField (nested = [], destroyedKey = 'destroyed') {
 
     for (const key in current) {
       if (Array.isArray(current[key]) && current[key].length) {
-        nestedField(nested[index - 1][key])
+        destroyNestedChildrenByKey(nested[index - 1][key])
       }
     }
   }

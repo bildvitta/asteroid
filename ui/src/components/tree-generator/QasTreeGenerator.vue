@@ -1,6 +1,6 @@
 <template>
   <div>
-    <q-tree ref="tree" v-bind="treeProps" node-key="uuid" :nodes="nodes" @lazy-load="onLazyLoad">
+    <q-tree ref="tree" v-bind="treeProps" node-key="uuid" :nodes="parsedNodes" @lazy-load="onLazyLoad">
       <template #default-header="{ node, tree }">
         <div>
           <span>
@@ -48,6 +48,8 @@
 
             <qas-nested-fields v-if="isAdd" v-model="nestedModel" class="q-mt-md" :field="nestedFieldProp" :fields-props="fieldsProps" :form-columns="nestedColumns" :row-object="rowObject" :use-duplicate="false" use-inline-actions />
 
+            <qas-tree-form v-if="useFormView" :form-generator-props="formGeneratorProps" :form-view-props="formViewProps" />
+
             <!-- <app-complement-fields v-if="hasComplementFieldsComponent" ref="complementFields" :custom-id="nodeToBeUpdated.uuid" @submit-success="onSubmitComplementFields" /> -->
           </div>
           <div v-else>
@@ -56,28 +58,32 @@
         </div>
       </template>
     </qas-dialog>
-
-    <pre>{{ nodes }}</pre>
-    <pre>{{ parsedNodes }}</pre>
+    <!-- <pre>{{ parsedNodes }}</pre> -->
+    <!-- <pre>{{ nodes }}</pre> -->
   </div>
 </template>
 
 <script>
-import nestedField from '../../helpers/nested-fields'
-import findChildrenByKey from '../../helpers/find-children-by-key'
+import destroyNestedChildrenByKey from '../../helpers/destroy-nested-children-by-key.js'
+import findChildrenByKey from '../../helpers/find-children-by-key.js'
+import promiseHandler from '../../helpers/promise-handler.js'
 // import promiseHandler from 'src/helpers/promise-handler'
 import { extend } from 'quasar'
-// import axios from 'axios'
+import axios from 'axios'
 import { required } from '../../helpers/rules.js'
+
+import QasTreeForm from './QasTreeForm.vue'
+
+axios.defaults.headers.Authorization = 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI5M2Y1MmRlMC0xYmViLTQ2ODYtODZiOC0xMjdjMWNjZDIzNGYiLCJqdGkiOiJiODg3YmM2NzkzZjJhODBiN2Q3NTc0YjE4YjVkODM4ZGM3M2M3OTA0ZjExOTkwMzA3M2NlYWJjMDYyMGQ4YWNjMDQyZDk5MGY0Y2ZiMDU0NCIsImlhdCI6MTY2Mzg1NTY0NC4zODc5MTUsIm5iZiI6MTY2Mzg1NTY0NC4zODc5MTksImV4cCI6MTY5NTM5MTY0NC4zNTUwNTksInN1YiI6IjI4Iiwic2NvcGVzIjpbInByb2ZpbGUiXX0.cTx11wKhSengthAzQpOjpuLCBpNTC9tOIn0VHCrF5XR4hhOBD2R7Eb18IIgaHQR8N-hL8U2caosA0Y4wvi9JB-wdrBMPR2QQHbiKhMmYK0JC1VOU_oBCxsA27YfUkMcrNzXzjcdItjesWeLU_-i5TieRi7JDmAOIHYPP2U2EyTxIfrl-eHSeHsp9I38ez8TpgoQZaqof6RnqABmy3R_TJ-E31QenuuTAAMN98m_eHGy04LKwccCfy2veRvDDlN9tozP5ImAuSPoN4Sk692LveKj1jrW_BkSw-0m9eVumOXbFZI7QM_8dNBRXCq6JHLMguDNpsihegBRHdhLuPQidkbcnST77-RmW0pRo803IHeBraeKVuoLfg2MDEoUGiIMUZM-Xj-JQvdcVgwS0C2quxtof5GMqElzGhafVk5J4Y1f6kolSbi38OnNwcs7qnw7uh4vsjiFl_viNOHCBmlMN7QZzzYf1w3LOjJF06JCg6QnQx-ghF3nqvVxMxjUimMe--cd5k2S8oW43dqQJf8b52uoygxS2ik2yuCZR0gfPkQ5Cdk5iDF-C-T6pL3ua_AhSyKP3UswPPWFF04GpbKxdC4cPObTNbkDxGs4EZfLpfNU4jQS1g7o-_U45N_j1a--F4KEzk3ljj7Rgj9swbO0F2S_pAf7FdBelydW4HrumepI'
 
 // import AppComplementFields from './AppComplementFields.vue'
 
 export default {
-  name: 'AppTreeGenerator',
+  name: 'QasTreeGenerator',
 
-  // components: {
-  //   AppComplementFields
-  // },
+  components: {
+    QasTreeForm
+  },
 
   props: {
     modelValue: {
@@ -90,13 +96,9 @@ export default {
       default: () => ({})
     },
 
-    // resource: {
-    //   type: String,
-    //   required: true
-    // },
-
-    useComplementFields: {
-      type: Boolean
+    resource: {
+      type: String,
+      default: ''
     },
 
     entityPermission: {
@@ -121,6 +123,25 @@ export default {
 
     useDestroyOnFirstNode: {
       type: Boolean
+    },
+
+    formGeneratorProps: {
+      type: Object,
+      default: () => ({})
+    },
+
+    formViewProps: {
+      type: Object,
+      default: () => ({})
+    },
+
+    labelKey: {
+      type: String,
+      default: 'label'
+    },
+
+    useFormView: {
+      type: Boolean
     }
   },
 
@@ -133,15 +154,14 @@ export default {
       nodes: [],
       nested: null,
       showDestroyDialog: false,
-      nodeToBeDestroyed: {},
       nodeToBeUpdated: {},
+      currentNode: {},
       showFormDialog: false,
       nestedModel: [],
       singleModel: { label: '' },
       editModel: '',
       isAdd: true,
-      parsedNodes: [],
-      watchOnce: () => {}
+      parsedNodes: []
     }
   },
 
@@ -161,7 +181,7 @@ export default {
           onClick: this.destroy
         },
         cancel: {
-          onClick: this.resetNodeToBeDestroyed
+          onClick: this.resetCurrentNode
         }
       }
     },
@@ -209,7 +229,7 @@ export default {
         return 'Nome do ramo'
       }
 
-      return this.nodeToBeUpdated.label || 'ramo'
+      return this.currentNode.label || 'ramo'
     },
 
     hasNodes () {
@@ -228,22 +248,27 @@ export default {
       return this.nodes.map(({ uuid }) => uuid)
     },
 
-    hasComplementFieldsComponent () {
-      return this.useComplementFields && !this.isAdd
+    hasAddInput () {
+      return this.isAdd || true
+      // return this.useComplementFields ? this.isAdd : true
     },
 
-    hasAddInput () {
-      return this.useComplementFields ? this.isAdd : true
+    messages () {
+      return {
+        error: 'Ops! Erro ao salvar item.',
+        success: 'Item salvo com sucesso!'
+      }
     }
   },
 
   watch: {
     modelValue: {
-      handler (value) {
-        // nodes é o valor real da árvore.
-        // TODO revisar com calma futuramente.
+      handler (value, oldValue) {
+        // se o uuid atual for igual ao uuid antigo significa que que o model atualizou internamente
+        if (value?.[0]?.uuid === oldValue?.[0]?.uuid) return
+
         this.nodes = extend(true, [], value)
-        this.parsedNodes = extend(true, [], value)
+        this.setInitialValue()
       },
       immediate: true,
       deep: true
@@ -255,39 +280,24 @@ export default {
 
     handleTreeFormDialog (node, isAdd) {
       this.showFormDialog = !this.showFormDialog
+      this.isAdd = !!isAdd
+      this.currentNode = node
 
-      this.nodeToBeUpdated = {
-        ...node,
-        parsedChildrenNode: this.findNextNode(this.nodes, node?.uuid, true),
-        childrenNode: this.findNextNode(this.nodes, node?.uuid)
-      }
-
-      if (!isAdd) {
+      if (!this.isAdd) {
         this.editModel = node.label
       }
-
-      this.isAdd = !!isAdd
     },
 
     async add () {
-      // ramo pai que foi criado o nó.
-      const childrenNode = findChildrenByKey(this.nodes, 'uuid', this.nodeToBeUpdated?.uuid)
-      const parsedChildrenNode = findChildrenByKey(this.parsedNodes, 'uuid', this.nodeToBeUpdated?.uuid)
-
-      // const nestedModel = nestedField(this.nestedModel)
-
-      const { data = [], error } = {}
-
-      // const { data, error } = await promiseHandler(
-      //   nestedModel.map(({ label: name }) => {
-      //     return axios.post(this.resource, { parent: childrenNode.uuid, name })
-      //   }),
-      //   {
-      //     useLoading: true,
-      //     successMessage: 'Item salvo com sucesso!',
-      //     errorMessage: 'Ops! Erro ao salvar item.'
-      //   }
-      // )
+      const { data, error } = await promiseHandler(
+        this.nestedModel.map(({ label }) => {
+          return axios.post(`http://localhost:8002/api/${this.resource}`, { parent: this.currentNode.uuid, [this.labelKey]: label })
+        }),
+        {
+          successMessage: this.messages.success,
+          errorMessage: this.messages.error
+        }
+      )
 
       if (error) return
 
@@ -297,49 +307,55 @@ export default {
 
         return {
           label: name,
-          uuid,
-          lazy: true
+          lazy: true,
+          uuid
         }
       })
 
-      // adicionar nó diretamente no nó pai através do endereço de memória.
-      childrenNode.children = [...this.nodeToBeUpdated?.childrenNode, ...nestedResponse]
-      parsedChildrenNode.children = [...this.nodeToBeUpdated?.parsedChildrenNode, ...nestedResponse]
+      // Precisa abrir antes de adicionar para casos de ramos que ainda não foram abertos.
+      this.$refs.tree.setExpanded(this.currentNode.uuid, true)
 
-      this.$refs.tree.setExpanded(this.nodeToBeUpdated.uuid, true)
+      if (this.currentNode.children) {
+        this.currentNode.children.push(...nestedResponse)
+      } else {
+        this.currentNode.children = [...nestedResponse]
+      }
 
-      this.emit()
-      this.$forceUpdate()
+      this.$nextTick(() => this.$refs.tree.setExpanded(this.currentNode.uuid, true))
+
+      this.updateModelValue()
     },
 
     async edit () {
-      const node = findChildrenByKey(this.nodes, 'uuid', this.nodeToBeUpdated.uuid)
-      const parsedNode = findChildrenByKey(this.parsedNodes, 'uuid', this.nodeToBeUpdated.uuid)
+      const { uuid } = this.currentNode
 
-      // const { uuid } = parsedNode
-
-      const { error } = {}
-      // const { error } = await promiseHandler(
-      //   axios.put(`${this.resource}/${uuid}`, { name: this.editModel, uuid, lazy: true }),
-      //   {
-      //     useLoading: true,
-      //     errorMessage: 'Ocorreu um erro ao editar o ramo'
-      //   }
-      // )
+      const { error } = await promiseHandler(
+        axios.put(
+          `http://localhost:8002/api/${this.resource}/${uuid}`,
+          {
+            [this.labelKey]: this.editModel,
+            uuid,
+            lazy: true,
+            building_system: '58c453e5-6e97-40f5-b4ab-7e6799078161' // TODO: remover
+          }
+        ),
+        {
+          successMessage: this.messages.success,
+          errorMessage: this.messages.error
+        }
+      )
 
       if (error) return
 
-      parsedNode.label = this.editModel
-      node.label = this.editModel
+      this.currentNode.label = this.editModel
+      this.$refs.tree.setExpanded(uuid, true)
 
-      this.$refs.tree.setExpanded(this.nodeToBeUpdated.uuid, true)
-
-      this.emit()
+      this.updateModelValue()
     },
 
     onDestroy (children) {
       this.showDestroyDialog = !this.showDestroyDialog
-      this.nodeToBeDestroyed = children
+      this.currentNode = children
     },
 
     async destroy () {
@@ -355,22 +371,14 @@ export default {
 
       if (error) return
 
-      this.nodeToBeDestroyed.destroyed = true
-
-      const node = findChildrenByKey(this.nodes, 'uuid', this.nodeToBeDestroyed.uuid)
-      const parsedNode = findChildrenByKey(this.parsedNodes, 'uuid', this.nodeToBeDestroyed.uuid)
-
-      node.destroyed = true
-      parsedNode.destroyed = true
-      nestedField(this.nodes)
-      nestedField(this.parsedNodes)
-
-      this.$forceUpdate()
-      this.emit()
+      this.currentNode.destroyed = true
+      destroyNestedChildrenByKey(this.parsedNodes)
+      this.updateModelValue()
     },
 
-    resetNodeToBeDestroyed () {
-      this.nodeToBeDestroyed = {}
+    resetCurrentNode () {
+      // this.nodeToBeDestroyed = {}
+      this.currentNode = {}
     },
 
     resetModels () {
@@ -379,16 +387,16 @@ export default {
       this.editModel = ''
     },
 
-    emit () {
-      return this.$emit('update:modelValue', extend(true, [], this.nodes))
+    updateModelValue () {
+      return this.$emit('update:modelValue', extend(true, [], this.parsedNodes))
     },
 
     async handleValidation (isValid) {
       if (isValid) {
-        if (this.useComplementFields && !this.isAdd) {
-          this.$refs.complementFields.submit()
-          return
-        }
+        // if (this.useComplementFields && !this.isAdd) {
+        //   this.$refs.complementFields.submit()
+        //   return
+        // }
 
         // espera requisição finalizar para poder adicionar/editar
         this.isAdd ? await this.add() : await this.edit()
@@ -397,18 +405,18 @@ export default {
       this.showFormDialog = !isValid
     },
 
+    /*
+    * neste método pode ser implementado uma logica para receber os nós da árvore parcialmente
+    * utilizando chamadas de API.
+    */
     onLazyLoad ({ key, done }) {
-      // se existir próximo nó, retornar o próximo nó para a exibição.
+      // retorna um proximo nó caso exista.
       return done(this.findNextNode(this.nodes, key, true) || [])
     },
 
     setInitialValue () {
-      // formata a árvore que o lazy-load espera.
-      this.parsedNodes = (extend(true, [], [this.modelValue?.[0]]) || []).map(item => {
-        const { children, ...rest } = item
-
-        return rest
-      })
+      const { children, ...payload } = { ...this.modelValue?.[0] }
+      this.parsedNodes = Object.keys(payload).length ? [payload] : []
     },
 
     findNextNode (list, key, deleteMode) {
@@ -416,32 +424,22 @@ export default {
 
       if (!children?.length) return []
 
-      // se existir próximo nó, retornar o próximo nó para a exibição.
+      // retorna um proximo nó caso exista.
       return (extend(true, [], children).map(item => {
-        // if (deleteMode) {
-        //   delete item.children
-        // }
+        if (deleteMode) {
+          delete item.children
+        }
 
         return item
       }))
     },
 
-    // TODO não esta sendo utilizado por hr, mas no futuro seria bom olhar com calma
-    watchOnceModelValue () {
-      this.watchOnce = this.$watch('modelValue', value => {
-        if (value?.length) {
-          this.setInitialValue()
-          this.watchOnce()
-        }
-      }, { immediate: true })
-    },
-
     onSubmitComplementFields ({ data: { result: { name } } }) {
-      const node = findChildrenByKey(this.nodes, 'uuid', this.nodeToBeUpdated.uuid)
-      const parsedNode = findChildrenByKey(this.parsedNodes, 'uuid', this.nodeToBeUpdated.uuid)
+      // const node = findChildrenByKey(this.nodes, 'uuid', this.currenNode.uuid)
+      // const parsedNode = findChildrenByKey(this.parsedNodes, 'uuid', this.currenNode.uuid)
 
-      parsedNode.label = name
-      node.label = name
+      // parsedNode.label = name
+      // node.label = name
 
       this.showFormDialog = false
     }
