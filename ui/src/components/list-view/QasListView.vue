@@ -45,6 +45,7 @@
 import { viewMixin, contextMixin } from '../../mixins'
 import QasFilters from '../filters/QasFilters.vue'
 import { extend } from 'quasar'
+import { getState, getAction } from '@bildvitta/store-adapter'
 
 export default {
   components: {
@@ -106,11 +107,11 @@ export default {
     },
 
     resultsModel () {
-      return this.$store.getters[`${this.entity}/list`]
+      return getState.call(this, { entity: this.entity, key: 'list' })
     },
 
     totalPages () {
-      return this.$store.getters[`${this.entity}/totalPages`]
+      return getState.call(this, { entity: this.entity, key: 'totalPages' })
     },
 
     showResults () {
@@ -161,7 +162,11 @@ export default {
           `QasListView - fetchList -> Payload do parâmetro do ${this.entity}/fetchList`, [payload]
         )
 
-        const response = await this.$store.dispatch(`${this.entity}/fetchList`, payload)
+        const response = await getAction.call(this, {
+          entity: this.entity,
+          key: 'fetchList',
+          payload
+        })
 
         const { errors, fields, metadata } = response.data
 

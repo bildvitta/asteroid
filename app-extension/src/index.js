@@ -8,7 +8,8 @@ function extendQuasar (quasar) {
     'boot/api.js',
     'boot/error-pages.js',
     'boot/register.js',
-    'boot/history.js'
+    'boot/history.js',
+    'boot/store-adapter'
   ))
 
   // Transpilação de arquivos!

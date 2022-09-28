@@ -10,11 +10,18 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 ### Sobre os "BREAKING CHANGES"
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
-## Unreleased
 
+## Unreleased
 ### Adicionado
 - `QasFilters`: adicionado data-cy no input, dropdow e botões
 - `QasGridGenerator`: adicionado data-cy nos campos e resultados
+
+## 3.1.0-beta.0 - 02-09-22
+### Adicionado
+Adicionado suporte para Pinia/Vuex Seguindo os padrões da biblioteca `@bildvitta/store-adapter` e `@bildvitta/store-module`.
+- `QasFormGenerator`: adicionado propriedade `disabled` para desativar todos os campos de uma vez.
+- `QasNestedFields`: adicionado propriedade `disableRows`com esta propriedade é possível desabilitar rows (linhas) especificas passando um array com chaves identificadoras, ou caso queira desativar todas passando um boolean "true" (isto vai remover todos os botões da linha, duplicar e excluir).
+- `QasNestedFields`: adicionado propriedade `useAdd` para controla quando vai ter seção de "adicionar" novas rows (linhas).
 
 ## 3.0.0 - 22-08-22
 ## Versão estável lançada
