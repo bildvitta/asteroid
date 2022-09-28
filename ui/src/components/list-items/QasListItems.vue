@@ -1,6 +1,6 @@
 <template>
-  <div class="qas-list-items shadow-14">
-    <q-list bordered class="rounded-borders" separator>
+  <qas-box class="qas-list-items">
+    <q-list separator>
       <q-item v-for="(item, index) in list" :key="index" v-ripple :clickable="useClickableItem" @click="onClick({ item, index }, true)">
         <slot :index="index" :item="item" name="item">
           <q-item-section>
@@ -17,16 +17,18 @@
         </slot>
       </q-item>
     </q-list>
-  </div>
+  </qas-box>
 </template>
 
 <script>
 import QasBtn from '../btn/QasBtn.vue'
+import QasBox from '../box/QasBox.vue'
 
 export default {
   name: 'QasListItems',
 
   components: {
+    QasBox,
     QasBtn
   },
 
