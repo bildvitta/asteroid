@@ -1,5 +1,6 @@
 import { createStore } from 'vuex'
 import users from './modules/users'
+import treeNodes from './modules/tree-nodes'
 import VuexOffline from '@bildvitta/vuex-offline'
 import mock from './mock.json'
 
@@ -30,12 +31,13 @@ export default async function (/* { ssrContext } */) {
 
   const Store = createStore({
     modules: {
-      ...vuexOffline.getStoreModules()
+      ...vuexOffline.getStoreModules(),
+      treeNodes
     },
 
     // enable strict mode (adds overhead!)
     // for dev mode and --debug builds only
-    strict: process.env.DEBUGGING
+    strict: false
   })
 
   return Store

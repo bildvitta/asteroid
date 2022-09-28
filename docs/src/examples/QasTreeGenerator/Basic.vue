@@ -1,7 +1,7 @@
 <template>
   <div class="container spaced">
     <div>
-      <qas-tree-generator v-model="nodes2" label-key="name" resource="tree-nodes" />
+      <qas-tree-generator v-model="nodes2" :form-generator-props="formGeneratorProps" :form-view-props="{ entity: 'treeNodes' }" label-key="name" resource="tree-nodes" :use-form-view-edit="false" />
     </div>
     <pre>{{ nodes2 }}</pre>
 
@@ -29,6 +29,8 @@
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
   data () {
     const normalizedNodes = [
@@ -114,6 +116,13 @@ export default {
   },
 
   computed: {
+    formGeneratorProps () {
+      return {
+        columns: {
+          sla: { col: 12 }
+        }
+      }
+    },
     nodes () {
       return [
         {
@@ -172,6 +181,14 @@ export default {
         }
       ]
     }
+  },
+
+  async created () {
+    const { data: { metadata: { tree_nodes: treeNodes } } } = await axios.get('http://localhost:8002/api/trees/4bcfe124-9fea-4ac7-b185-0b5061e87ced/edit')
+
+    this.nodes2 = treeNodes
+
+    console.log(treeNodes)
   }
 }
 </script>

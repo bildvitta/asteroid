@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="qas-tree-generator">
     <q-tree ref="tree" v-bind="treeProps" node-key="uuid" :nodes="parsedNodes" @lazy-load="onLazyLoad">
       <template #default-header="{ node, tree }">
         <div>
@@ -7,27 +7,31 @@
             {{ node.label }}
           </span>
 
-          <span>
-            <qas-btn class="q-ml-sm" dense flat icon="o_more_vert" round @click.stop>
+          <span class="q-ml-sm">
+            <qas-btn dense flat icon="o_more_vert" round @click.stop>
               <q-menu auto-close>
                 <q-list separator>
-                  <q-item v-ripple clickable @click="handleTreeFormDialog(node, true, tree)">
+                  <q-item v-ripple class="qas-tree-generator__item" clickable @click="handleTreeFormDialog(node, true, tree)">
                     <q-item-section avatar>
                       <q-icon name="o_add_circle_outline" />
                     </q-item-section>
+
                     <q-item-section>Adicionar subnível</q-item-section>
                   </q-item>
-                  <q-item v-ripple clickable @click="handleTreeFormDialog(node)">
+
+                  <q-item v-ripple class="qas-tree-generator__item" clickable @click="handleTreeFormDialog(node)">
                     <q-item-section avatar>
                       <q-icon name="o_edit" />
                     </q-item-section>
+
                     <q-item-section>Editar</q-item-section>
                   </q-item>
 
-                  <q-item v-ripple clickable @click="onDestroy(node)">
+                  <q-item v-ripple class="qas-tree-generator__item" clickable @click="onDestroy(node)">
                     <q-item-section avatar>
                       <q-icon name="o_highlight_off" />
                     </q-item-section>
+
                     <q-item-section>Excluir</q-item-section>
                   </q-item>
                 </q-list>
@@ -40,26 +44,17 @@
 
     <qas-dialog v-model="showDestroyDialog" v-bind="destroyDialogConfig" />
 
-    <qas-dialog v-model="showFormDialog" v-bind="formDialogConfig" use-form @hide="resetModels" @validate="handleValidation">
+    <qas-dialog v-model="showFormDialog" v-bind="formDialogConfig" use-form @hide="resetModels" @validate="onValidate">
       <template #description>
         <div>
-          <div v-if="hasNodes">
-            <qas-field v-if="hasAddInput" v-model="editModel" :disable="isAdd" :field="addField" :label="nodeTitle" :rules="[required]" />
+          <qas-field v-if="!hasFormView" v-model="editModel" :disable="isAdd" :field="addField" :label="nodeTitle" :rules="[required]" />
 
-            <qas-nested-fields v-if="isAdd" v-model="nestedModel" class="q-mt-md" :field="nestedFieldProp" :fields-props="fieldsProps" :form-columns="nestedColumns" :row-object="rowObject" :use-duplicate="false" use-inline-actions />
+          <qas-nested-fields v-if="hasNestedAdd" v-model="nestedModel" class="q-mt-md" :field="nestedFieldProp" :fields-props="fieldsProps" :form-columns="nestedColumns" :row-object="rowObject" :use-duplicate="false" use-inline-actions />
 
-            <qas-tree-form v-if="useFormView" :form-generator-props="formGeneratorProps" :form-view-props="formViewProps" />
-
-            <!-- <app-complement-fields v-if="hasComplementFieldsComponent" ref="complementFields" :custom-id="nodeToBeUpdated.uuid" @submit-success="onSubmitComplementFields" /> -->
-          </div>
-          <div v-else>
-            <qas-input v-model="singleModel.label" autofocus label="Nome do ramo" outlined :rules="[required]" />
-          </div>
+          <qas-tree-form v-if="hasFormView" ref="treeForm" v-model:submitting="isSubmitting" :form-generator-props="formGeneratorProps" :form-view-props="defaultFormViewProps" @submit-success="onSubmitSuccess" />
         </div>
       </template>
     </qas-dialog>
-    <!-- <pre>{{ parsedNodes }}</pre> -->
-    <!-- <pre>{{ nodes }}</pre> -->
   </div>
 </template>
 
@@ -67,13 +62,11 @@
 import destroyNestedChildrenByKey from '../../helpers/destroy-nested-children-by-key.js'
 import findChildrenByKey from '../../helpers/find-children-by-key.js'
 import promiseHandler from '../../helpers/promise-handler.js'
-// import promiseHandler from 'src/helpers/promise-handler'
+import { required } from '../../helpers/rules.js'
 import { extend } from 'quasar'
 import axios from 'axios'
-import { required } from '../../helpers/rules.js'
 
 import QasTreeForm from './QasTreeForm.vue'
-// import AppComplementFields from './AppComplementFields.vue'
 
 export default {
   name: 'QasTreeGenerator',
@@ -103,22 +96,22 @@ export default {
       default: ''
     },
 
-    useDestroyNode: {
+    useDestroyButton: {
       type: Boolean,
       default: true
     },
 
-    useAddNode: {
+    useAddButton: {
       type: Boolean,
       default: true
     },
 
-    useEditNode: {
+    useEditButton: {
       type: Boolean,
       default: true
     },
 
-    useDestroyOnFirstNode: {
+    useDestroyOnlyFirstNode: {
       type: Boolean
     },
 
@@ -137,7 +130,11 @@ export default {
       default: 'label'
     },
 
-    useFormView: {
+    useFormViewEdit: {
+      type: Boolean
+    },
+
+    useFormViewCreate: {
       type: Boolean
     }
   },
@@ -149,16 +146,15 @@ export default {
   data () {
     return {
       nodes: [],
-      nested: null,
       showDestroyDialog: false,
-      nodeToBeUpdated: {},
       currentNode: {},
       showFormDialog: false,
       nestedModel: [],
       singleModel: { label: '' },
       editModel: '',
       isAdd: true,
-      parsedNodes: []
+      parsedNodes: [],
+      isSubmitting: false
     }
   },
 
@@ -189,7 +185,8 @@ export default {
           title: this.isAdd ? 'Adicionar ramo' : 'Editar ramo'
         },
         ok: {
-          label: 'Salvar'
+          label: 'Salvar',
+          loading: this.isSubmitting
         }
       }
     },
@@ -198,7 +195,7 @@ export default {
       return {
         type: 'nested',
         label: 'Adicionar itens',
-        name: 'test',
+        name: 'nested',
         children: {
           label: {
             type: 'text',
@@ -229,10 +226,6 @@ export default {
       return this.currentNode.label || 'ramo'
     },
 
-    hasNodes () {
-      return this.nodes.length
-    },
-
     fieldsProps () {
       return {
         label: {
@@ -241,20 +234,29 @@ export default {
       }
     },
 
-    parentsList () {
-      return this.nodes.map(({ uuid }) => uuid)
-    },
-
-    hasAddInput () {
-      return this.isAdd || true
-      // return this.useComplementFields ? this.isAdd : true
-    },
-
     messages () {
       return {
         error: 'Ops! Erro ao salvar item.',
         success: 'Item salvo com sucesso!'
       }
+    },
+
+    defaultFormViewProps () {
+      return {
+        ...this.formViewProps,
+        ...(!this.isAdd && { customId: this.currentNode.uuid }),
+        ...(this.isAdd && { parent: this.currentNode.uuid }),
+        mode: this.isAdd ? 'create' : 'replace'
+
+      }
+    },
+
+    hasNestedAdd () {
+      return (!this.hasFormView || !this.useFormViewCreate) && this.isAdd
+    },
+
+    hasFormView () {
+      return this.isAdd ? this.useFormViewCreate : this.useFormViewEdit
     }
   },
 
@@ -356,15 +358,13 @@ export default {
     },
 
     async destroy () {
-      const { error } = {}
-      // const { error } = await promiseHandler(
-      //   axios.delete(`${this.resource}/${this.nodeToBeDestroyed.uuid}`),
-      //   {
-      //     useLoading: true,
-      //     successMessage: 'Item deletado com sucesso!',
-      //     errorMessage: 'Ops! Não foi possível deletar o item.'
-      //   }
-      // )
+      const { error } = await promiseHandler(
+        axios.delete(`http://localhost:8002/api/${this.resource}/${this.currentNode.uuid}`),
+        {
+          successMessage: 'Item deletado com sucesso!',
+          errorMessage: 'Ops! Não foi possível deletar o item.'
+        }
+      )
 
       if (error) return
 
@@ -374,7 +374,6 @@ export default {
     },
 
     resetCurrentNode () {
-      // this.nodeToBeDestroyed = {}
       this.currentNode = {}
     },
 
@@ -388,12 +387,12 @@ export default {
       return this.$emit('update:modelValue', extend(true, [], this.parsedNodes))
     },
 
-    async handleValidation (isValid) {
+    async onValidate (isValid) {
       if (isValid) {
-        // if (this.useComplementFields && !this.isAdd) {
-        //   this.$refs.complementFields.submit()
-        //   return
-        // }
+        if (this.useFormViewCreate || this.useFormViewEdit) {
+          this.$refs.treeForm.submit()
+          return
+        }
 
         // espera requisição finalizar para poder adicionar/editar
         this.isAdd ? await this.add() : await this.edit()
@@ -431,15 +430,32 @@ export default {
       }))
     },
 
-    onSubmitComplementFields ({ data: { result: { name } } }) {
-      // const node = findChildrenByKey(this.nodes, 'uuid', this.currenNode.uuid)
-      // const parsedNode = findChildrenByKey(this.parsedNodes, 'uuid', this.currenNode.uuid)
+    onSubmitSuccess (response) {
+      const { data: { result } } = response
 
-      // parsedNode.label = name
-      // node.label = name
-
+      this.currentNode.label = result[this.labelKey]
       this.showFormDialog = false
     }
   }
 }
 </script>
+
+<style lang="scss">
+.qas-tree-generator {
+  &__item:hover {
+    color: var(--q-primary);
+  }
+
+  .q-tree__node-header {
+    margin-top: 16px;
+
+    &::before {
+      top: -16px;
+    }
+
+    &::after {
+      top: -16px;
+    }
+  }
+}
+</style>
