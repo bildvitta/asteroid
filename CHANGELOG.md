@@ -11,10 +11,18 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
 ## [3.2.0-beta.0]
+### Adicionado
+- `QasTreeGenerator`: adicionado novo componente para criação de árvore.
+- `promiseHandler`: adicionado novo helper para lidar com promises.
+- `destroyNestedChildrenByKey`: adicionado novo helper para lidar com remoção em campos nested.
+- `findChildrenByKey`: adicionado novo helper para encontrar children através de chave e valor.
+- `rules`: adicionado novo helper para lidar com validações de componentes, no momento existe apenas `required`.
+
 ### Corrigido
 - `add-counter-suffix.md`: corrigido title da documentação.
 - `filter-object.md`: corrigido title da documentação.
 - `checkbox-group.md`: corrigido documentação que estava pegando com base da do select.
+- `transfer.yml`: adicionado chave `model: true` na propriedade `model-value`.
 
 ## [3.1.1-beta.0] - 26-09-22
 ### Corrigido
