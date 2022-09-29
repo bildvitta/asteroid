@@ -1,5 +1,5 @@
 ---
-title: AddCounterSuffix
+title: addCounterSuffix
 ---
 
 Função para adicionar um contador como sufixo, caso exista.

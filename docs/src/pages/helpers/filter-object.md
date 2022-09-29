@@ -1,5 +1,5 @@
 ---
-title: constructObject
+title: filterObject
 ---
 
 Função para filtrar um objeto, muito utilizado em conjunto com o "QasFormGenerator", por exemplo, a API te retorna vários campos, mas você só precisa mostrar alguns, para isto, você pode utilizar essa função.
