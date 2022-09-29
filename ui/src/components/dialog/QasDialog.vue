@@ -4,8 +4,8 @@
       <q-card-section>
         <slot name="header">
           <div class="justify-between row">
-            <div class="text-bold text-h6">{{ card.title }}</div>
-            <qas-btn v-if="useCloseButton" v-close-popup dense flat icon="o_close" rounded />
+            <div class="text-bold text-h6" data-cy="dialog-card-title">{{ card.title }}</div>
+            <qas-btn v-if="useCloseButton" v-close-popup dense flat icon="o_close" rounded data-cy="dialog-close-btn" />
           </div>
         </slot>
       </q-card-section>
@@ -13,7 +13,7 @@
       <q-card-section class="q-pt-none">
         <component :is="componentTag" ref="form">
           <slot name="description">
-            <div v-if="card.description">{{ card.description }}</div>
+            <div v-if="card.description" data-cy="dialog-card-description">{{ card.description }}</div>
           </slot>
         </component>
       </q-card-section>
@@ -22,11 +22,11 @@
         <slot name="actions">
           <qas-actions v-bind="actionsProps">
             <template #primary>
-              <qas-btn v-if="ok" v-close-popup="!useForm" class="full-width" v-bind="defaultOk" @click="submitHandler" />
+              <qas-btn v-if="ok" v-close-popup="!useForm" data-cy="dialog-card-ok-btn" class="full-width" v-bind="defaultOk" @click="submitHandler" />
             </template>
 
             <template #secondary>
-              <qas-btn v-if="cancel" v-close-popup class="full-width" v-bind="defaultCancel" />
+              <qas-btn v-if="cancel" data-cy="dialog-card-cancel-btn" v-close-popup class="full-width" v-bind="defaultCancel" />
             </template>
           </qas-actions>
         </slot>
