@@ -1,10 +1,10 @@
 <template>
   <qas-box class="q-mb-xl q-px-lg q-py-md">
     <q-table ref="table" class="bg-transparent qas-table-generator" :class="tableClass" v-bind="attributes">
-      <template v-for="(_, name) in $slots" #[name]="context" :data-cy="name">
-        <slot v-if="hasBodySlot" name="body" :props="context" />
+      <template v-for="(_, name) in $slots" #[name]="context">
+        <slot v-if="hasBodySlot" :data-cy="name" name="body" :props="context" />
 
-        <q-td v-else :key="name">
+        <q-td v-else :key="name" :data-cy="name">
           <slot :name="name" v-bind="context || {}" />
         </q-td>
       </template>

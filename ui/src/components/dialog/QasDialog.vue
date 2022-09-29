@@ -5,7 +5,7 @@
         <slot name="header">
           <div class="justify-between row">
             <div class="text-bold text-h6" data-cy="dialog-card-title">{{ card.title }}</div>
-            <qas-btn v-if="useCloseButton" v-close-popup dense flat icon="o_close" rounded data-cy="dialog-close-btn" />
+            <qas-btn v-if="useCloseButton" v-close-popup data-cy="dialog-close-btn" dense flat icon="o_close" rounded />
           </div>
         </slot>
       </q-card-section>
@@ -22,11 +22,11 @@
         <slot name="actions">
           <qas-actions v-bind="actionsProps">
             <template #primary>
-              <qas-btn v-if="ok" v-close-popup="!useForm" data-cy="dialog-card-ok-btn" class="full-width" v-bind="defaultOk" @click="submitHandler" />
+              <qas-btn v-if="ok" v-close-popup="!useForm" class="full-width" data-cy="dialog-card-ok-btn" v-bind="defaultOk" @click="submitHandler" />
             </template>
 
             <template #secondary>
-              <qas-btn v-if="cancel" data-cy="dialog-card-cancel-btn" v-close-popup class="full-width" v-bind="defaultCancel" />
+              <qas-btn v-if="cancel" v-close-popup class="full-width" data-cy="dialog-card-cancel-btn" v-bind="defaultCancel" />
             </template>
           </qas-actions>
         </slot>
