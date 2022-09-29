@@ -1,7 +1,7 @@
 <template>
   <div class="container spaced">
     <div>
-      <qas-tree-generator v-model:lazyNodes="lazyNodes" :nodes="nodes" resource="endpoint-da-api" />
+      <qas-tree-generator v-model:lazyNodes="lazyNodes" :form-view-props="formViewProps" :nodes="nodes" resource="tree-nodes" use-form-view-add />
     </div>
 
     <div class="q-my-lg">
@@ -20,11 +20,17 @@ export default {
   },
 
   computed: {
+    formViewProps () {
+      return {
+        entity: 'treeNodes'
+      }
+    },
+
     nodes () {
       return [
         {
           label: 'Nó pai',
-          uuid: 'no-pai',
+          uuid: '23818240-5d8f-453b-bedf-f9a38a704218',
           lazy: true,
           children: [
             {

@@ -280,12 +280,12 @@ module.exports = [
         path: '/helpers/construct-object'
       },
       {
-        name: 'filterObject',
-        path: '/helpers/filter-object'
+        name: 'destroyNestedChildrenByKey',
+        path: '/helpers/destroy-nested-children-by-key'
       },
       {
-        name: 'filters',
-        path: '/helpers/filters'
+        name: 'filterObject',
+        path: '/helpers/filter-object'
       },
       {
         name: 'filterListByHandle',
@@ -294,6 +294,14 @@ module.exports = [
       {
         name: 'filterObjectToArray',
         path: '/helpers/filter-object-to-array'
+      },
+      {
+        name: 'filters',
+        path: '/helpers/filters'
+      },
+      {
+        name: 'findChildrenByKey',
+        path: '/helpers/find-children-by-key'
       },
       {
         name: 'getSlotChildrenText',
@@ -310,6 +318,14 @@ module.exports = [
       {
         name: 'handleProcess',
         path: '/helpers/handle-process'
+      },
+      {
+        name: 'promiseHandler',
+        path: '/helpers/promise-handler'
+      },
+      {
+        name: 'rules',
+        path: '/helpers/rules'
       },
       {
         name: 'images',

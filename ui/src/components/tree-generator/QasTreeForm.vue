@@ -3,23 +3,9 @@
   * por isto não existe documentação para este componente e nem é exportado para fora do asteroid
 -->
 <template>
-  <qas-form-view
-    ref="formView"
-    v-model="values"
-    v-model:errors="errors"
-    v-model:fields="fields"
-    mode="replace"
-    :use-actions="false"
-    :use-boundary="false"
-    v-bind="formViewProps"
-  >
+  <qas-form-view ref="formView" v-model="values" v-model:errors="errors" v-model:fields="fields" :use-actions="false" :use-boundary="false" v-bind="formViewProps">
     <template #default>
-      <qas-form-generator
-        v-model="values"
-        :errors="errors"
-        :fields="fields"
-        v-bind="formGeneratorProps"
-      />
+      <qas-form-generator v-model="values" :errors="errors" :fields="fields" v-bind="formGeneratorProps" />
     </template>
   </qas-form-view>
 </template>
@@ -45,6 +31,11 @@ export default {
     formViewProps: {
       type: Object,
       default: () => ({})
+    },
+
+    parent: {
+      type: String,
+      default: ''
     }
   },
 
@@ -56,13 +47,15 @@ export default {
     }
   },
 
+  watch: {
+    parent (parent) {
+      Object.assign(this.values, { parent })
+    }
+  },
+
   methods: {
     submit () {
       return this.$refs.formView.submitHandler()
-    },
-
-    validate () {
-      return this.$refs.formView.$refs.form.validate()
     }
   }
 }

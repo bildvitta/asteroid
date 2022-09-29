@@ -7,11 +7,11 @@
             {{ node.label }}
           </span>
 
-          <span class="q-ml-sm">
+          <span v-if="hasMenuButton(node)" class="q-ml-sm">
             <qas-btn dense flat icon="o_more_vert" round @click.stop>
               <q-menu auto-close>
                 <q-list separator>
-                  <q-item v-ripple class="qas-tree-generator__item" clickable @click="handleTreeFormDialog(node, true, tree)">
+                  <q-item v-if="useAddButton" v-ripple class="qas-tree-generator__item" clickable @click="handleTreeFormDialog(node, true, tree)">
                     <q-item-section avatar>
                       <q-icon name="o_add_circle_outline" />
                     </q-item-section>
@@ -19,7 +19,7 @@
                     <q-item-section>Adicionar subnível</q-item-section>
                   </q-item>
 
-                  <q-item v-ripple class="qas-tree-generator__item" clickable @click="handleTreeFormDialog(node)">
+                  <q-item v-if="useEditButton" v-ripple class="qas-tree-generator__item" clickable @click="handleTreeFormDialog(node)">
                     <q-item-section avatar>
                       <q-icon name="o_edit" />
                     </q-item-section>
@@ -27,7 +27,7 @@
                     <q-item-section>Editar</q-item-section>
                   </q-item>
 
-                  <q-item v-ripple class="qas-tree-generator__item" clickable @click="onDestroy(node)">
+                  <q-item v-if="hasDestroyButton(node)" v-ripple class="qas-tree-generator__item" clickable @click="onDestroy(node)">
                     <q-item-section avatar>
                       <q-icon name="o_highlight_off" />
                     </q-item-section>
@@ -47,7 +47,7 @@
     <qas-dialog v-model="showFormDialog" v-bind="formDialogConfig" use-form @hide="resetModels" @validate="onValidate">
       <template #description>
         <div>
-          <qas-field v-if="!hasFormView" v-model="editModel" :disable="isAdd" :field="addField" :label="nodeTitle" :rules="[required]" />
+          <qas-field v-if="hasAddField" v-model="editModel" :disable="isAdd" :field="addField" :label="nodeTitle" :rules="[required]" />
 
           <qas-nested-fields v-if="hasNestedAdd" v-model="nestedModel" class="q-mt-md" :field="nestedFieldProp" :fields-props="fieldsProps" :form-columns="nestedColumns" :row-object="rowObject" :use-duplicate="false" use-inline-actions />
 
@@ -76,45 +76,6 @@ export default {
   },
 
   props: {
-    modelValue: {
-      type: Array,
-      default: () => []
-    },
-
-    treeProps: {
-      type: Object,
-      default: () => ({})
-    },
-
-    resource: {
-      type: String,
-      default: ''
-    },
-
-    entityPermission: {
-      type: String,
-      default: ''
-    },
-
-    useDestroyButton: {
-      type: Boolean,
-      default: true
-    },
-
-    useAddButton: {
-      type: Boolean,
-      default: true
-    },
-
-    useEditButton: {
-      type: Boolean,
-      default: true
-    },
-
-    useDestroyOnlyFirstNode: {
-      type: Boolean
-    },
-
     formGeneratorProps: {
       type: Object,
       default: () => ({})
@@ -127,25 +88,67 @@ export default {
 
     labelKey: {
       type: String,
-      default: 'label'
+      default: 'name'
+    },
+
+    lazyNodes: {
+      type: Array,
+      default: () => []
+    },
+
+    nodes: {
+      type: Array,
+      default: () => []
+    },
+
+    readonly: {
+      type: Boolean
+    },
+
+    resource: {
+      type: String,
+      default: ''
+    },
+
+    treeProps: {
+      type: Object,
+      default: () => ({})
+    },
+
+    useAddButton: {
+      type: Boolean,
+      default: true
+    },
+
+    useDestroyButton: {
+      type: Boolean,
+      default: true
+    },
+
+    useDestroyOnFirstNode: {
+      type: Boolean
+    },
+
+    useEditButton: {
+      type: Boolean,
+      default: true
     },
 
     useFormViewEdit: {
       type: Boolean
     },
 
-    useFormViewCreate: {
+    useFormViewAdd: {
       type: Boolean
     }
   },
 
   emits: [
-    'update:modelValue'
+    'update:lazyNodes'
   ],
 
   data () {
     return {
-      nodes: [],
       showDestroyDialog: false,
       currentNode: {},
       showFormDialog: false,
@@ -247,27 +250,38 @@ export default {
         ...(!this.isAdd && { customId: this.currentNode.uuid }),
         ...(this.isAdd && { parent: this.currentNode.uuid }),
         mode: this.isAdd ? 'create' : 'replace'
-
       }
     },
 
+    hasAddField () {
+      return this.isAdd || !this.hasFormView
+    },
+
     hasNestedAdd () {
-      return (!this.hasFormView || !this.useFormViewCreate) && this.isAdd
+      return (!this.hasFormView || !this.useFormViewAdd) && this.isAdd
     },
 
     hasFormView () {
-      return this.isAdd ? this.useFormViewCreate : this.useFormViewEdit
+      return this.isAdd ? this.useFormViewAdd : this.useFormViewEdit
+    },
+
+    parentsList () {
+      return this.nodes.map(({ uuid }) => uuid)
     }
   },
 
   watch: {
-    modelValue: {
-      handler (value, oldValue) {
-        // se o uuid atual for igual ao uuid antigo significa que que o model atualizou internamente
-        if (value?.[0]?.uuid === oldValue?.[0]?.uuid) return
-
-        this.nodes = extend(true, [], value)
+    nodes: {
+      handler () {
         this.setInitialValue()
+      },
+      immediate: true,
+      deep: true
+    },
+
+    parsedNodes: {
+      handler (nodes) {
+        this.$emit('update:lazyNodes', nodes)
       },
       immediate: true,
       deep: true
@@ -290,7 +304,7 @@ export default {
     async add () {
       const { data, error } = await promiseHandler(
         this.nestedModel.map(({ label }) => {
-          return axios.post(`http://localhost:8002/api/${this.resource}`, { parent: this.currentNode.uuid, [this.labelKey]: label })
+          return axios.post(this.resource, { parent: this.currentNode.uuid, [this.labelKey]: label, lazy: true })
         }),
         {
           successMessage: this.messages.success,
@@ -321,8 +335,6 @@ export default {
       }
 
       this.$nextTick(() => this.$refs.tree.setExpanded(this.currentNode.uuid, true))
-
-      this.updateModelValue()
     },
 
     async edit () {
@@ -330,12 +342,11 @@ export default {
 
       const { error } = await promiseHandler(
         axios.put(
-          `http://localhost:8002/api/${this.resource}/${uuid}`,
+          `${this.resource}/${uuid}`,
           {
             [this.labelKey]: this.editModel,
             uuid,
-            lazy: true,
-            building_system: '58c453e5-6e97-40f5-b4ab-7e6799078161' // TODO: remover
+            lazy: true
           }
         ),
         {
@@ -348,8 +359,6 @@ export default {
 
       this.currentNode.label = this.editModel
       this.$refs.tree.setExpanded(uuid, true)
-
-      this.updateModelValue()
     },
 
     onDestroy (children) {
@@ -359,7 +368,7 @@ export default {
 
     async destroy () {
       const { error } = await promiseHandler(
-        axios.delete(`http://localhost:8002/api/${this.resource}/${this.currentNode.uuid}`),
+        axios.delete(`${this.resource}/${this.currentNode.uuid}`),
         {
           successMessage: 'Item deletado com sucesso!',
           errorMessage: 'Ops! Não foi possível deletar o item.'
@@ -370,7 +379,6 @@ export default {
 
       this.currentNode.destroyed = true
       destroyNestedChildrenByKey(this.parsedNodes)
-      this.updateModelValue()
     },
 
     resetCurrentNode () {
@@ -383,13 +391,12 @@ export default {
       this.editModel = ''
     },
 
-    updateModelValue () {
-      return this.$emit('update:modelValue', extend(true, [], this.parsedNodes))
-    },
-
     async onValidate (isValid) {
       if (isValid) {
-        if (this.useFormViewCreate || this.useFormViewEdit) {
+        const canUseFormViewOnAdd = this.isAdd && this.useFormViewAdd
+        const canUseFormViewOnEdit = !this.isAdd && this.useFormViewEdit
+
+        if (canUseFormViewOnAdd || canUseFormViewOnEdit) {
           this.$refs.treeForm.submit()
           return
         }
@@ -411,7 +418,7 @@ export default {
     },
 
     setInitialValue () {
-      const { children, ...payload } = { ...this.modelValue?.[0] }
+      const { children, ...payload } = { ...this.nodes?.[0] }
       this.parsedNodes = Object.keys(payload).length ? [payload] : []
     },
 
@@ -435,6 +442,26 @@ export default {
 
       this.currentNode.label = result[this.labelKey]
       this.showFormDialog = false
+    },
+
+    hasDestroyButton ({ uuid }) {
+      if (!this.useDestroyButton) return false
+
+      return !this.useDestroyOnFirstNode ? !this.parentsList.includes(uuid) : true
+    },
+
+    hasMenuButton (node) {
+      if (this.readonly) return false
+
+      const hasEditOrAddButton = this.useAddButton || this.useEditButton
+
+      if (!this.useDestroyOnFirstNode) {
+        const hasDestroyButton = this.hasDestroyButton(node)
+
+        return hasEditOrAddButton || hasDestroyButton
+      }
+
+      return hasEditOrAddButton || this.useDestroyButton
     }
   }
 }
