@@ -10,7 +10,7 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 ### Sobre os "BREAKING CHANGES"
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
-## [3.2.0-beta.0]
+## [3.2.0-beta.0] - 30-09-2022
 ### Adicionado
 - `QasTreeGenerator`: adicionado novo componente para criação de árvore.
 - `promiseHandler`: adicionado novo helper para lidar com promises.
@@ -304,6 +304,7 @@ Adicionado suporte para Pinia/Vuex Seguindo os padrões da biblioteca `@bildvitt
 ### Corrigido
 - Corrigido `QasBtn`, quando usa a prop `hideLabelOnSmallScreen` e utiliza o slot default, quando a tela está em tamanho pequeno, o botão remove o slot default, o problema disto é que se usar com um `QMenu` dentro do botão, o `QMenu` não é chamado pois não existe mais slot default.
 
+[3.2.0-beta.0]: https://github.com/bildvitta/asteroid/compare/3.1.1-beta.0...3.2.0-beta.0?expand=1
 [3.1.1-beta.0]: https://github.com/bildvitta/asteroid/compare/3.1.0...3.1.1-beta.0?expand=1
 [3.1.0]: https://github.com/bildvitta/asteroid/compare/3.0.0...3.1.0?expand=1
 [3.1.0-beta.4]: https://github.com/bildvitta/asteroid/compare/3.1.0-beta.3...3.1.0-beta.4?expand=1
