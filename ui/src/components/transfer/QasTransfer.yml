@@ -27,6 +27,7 @@ props:
     desc: Model do componente, controla quais itens estão na segunda coluna.
     default: []
     type: Array
+    model: true
 
   options:
     desc: Array de objetos com todos items que serão transferidos
