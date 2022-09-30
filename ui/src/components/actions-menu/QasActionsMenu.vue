@@ -3,9 +3,9 @@
     <q-menu class="qas-actions-menu__menu">
       <q-list class="qas-actions-menu__list" separator>
         <slot v-for="(item, key) in list" :item="item" :name="key">
-          <q-item :key="key" class="text-primary" clickable v-bind="item.props" @click="onClick(item)">
+          <q-item :key="key" class="text-primary" clickable v-bind="item.props" :data-cy="`actions-menu-${item}-btn`" @click="onClick(item)">
             <q-item-section>
-              <div class="flex items-center justify-center q-gutter-x-md" :data-cy="`actions-menu-${item}-btn`">
+              <div class="flex items-center justify-center q-gutter-x-md">
                 <q-icon :name="item.icon" size="sm" />
                 <div>{{ item.label }}</div>
               </div>
@@ -13,9 +13,9 @@
           </q-item>
         </slot>
 
-        <qas-delete v-if="hasDelete" v-bind="deleteProps" class="text-negative" clickable tag="q-item">
+        <qas-delete v-if="hasDelete" v-bind="deleteProps" class="text-negative" clickable data-cy="actions-menu-delete-btn" tag="q-item">
           <q-item-section>
-            <div class="flex items-center justify-center q-gutter-x-sm" data-cy="actions-menu-delete-btn">
+            <div class="flex items-center justify-center q-gutter-x-sm">
               <q-icon :name="deleteIcon" size="sm" />
               <div>{{ deleteLabel }}</div>
             </div>
