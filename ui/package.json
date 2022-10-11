@@ -30,7 +30,7 @@
   "devDependencies": {
     "@rollup/plugin-json": "^4.1.0",
     "@rollup/plugin-replace": "^3.0.1",
-    "@rollup/plugin-url": "^6.1.0",
+    "@rollup/plugin-url": "^8.0.0",
     "@vue/compiler-sfc": "^3.2.31",
     "autoprefixer": "^10.4.2",
     "core-js": "^3.20.2",
