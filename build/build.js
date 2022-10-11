@@ -222,7 +222,6 @@ async function main () {
     })
 
     createdReleaseFromAPI = success
-    console.log('🚀 ~ file: build.js ~ line 234 ~ main ~ createdReleaseFromAPI', createdReleaseFromAPI)
   } else {
     createGithubReleaseFromBrowser({
       changelogContent,
