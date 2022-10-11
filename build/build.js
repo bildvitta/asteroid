@@ -3,7 +3,7 @@
 require('colors') // https://github.com/Marak/colors.js
 const { prompt } = require('enquirer') // https://github.com/enquirer/enquirer
 const jetpack = require('fs-jetpack') // https://github.com/szwacz/fs-jetpack
-const ghpages = require('gh-pages') // https://github.com/tschaub/gh-pages
+// const ghpages = require('gh-pages') // https://github.com/tschaub/gh-pages
 const path = require('path') // https://nodejs.org/api/path.html
 const semver = require('semver') // https://github.com/npm/node-semver
 
@@ -65,13 +65,13 @@ async function main () {
   )
 
   const currentBranch = execaSync('git', ['branch', '--show-current']).stdout
-  const acceptableBranch = ['main', 'main-homolog']
+  // const acceptableBranch = ['main', 'main-homolog']
   const isBeta = currentBranch === 'main-homolog'
 
-  if (!acceptableBranch.includes(currentBranch)) {
-    ora.fail('Só é possível publicar nas branchs "main" e "main-homolog"')
-    return
-  }
+  // if (!acceptableBranch.includes(currentBranch)) {
+  //   ora('Só é possível publicar nas branchs "main" e "main-homolog"').fail()
+  //   return
+  // }
 
   const latestVersions = getLatestVersions({ execaSync, ora, isBeta })
   const model = isBeta ? 'beta' : 'stable'
@@ -123,14 +123,14 @@ async function main () {
   }
 
   // API
-  const apiSpinner = ora('Gerando arquivos da "API"...').start()
-  execaSync('node', ['./api.js'], { cwd: __dirname })
-  apiSpinner.succeed('Arquivos da "API" gerados.')
+  // const apiSpinner = ora('Gerando arquivos da "API"...').start()
+  // execaSync('node', ['./api.js'], { cwd: __dirname })
+  // apiSpinner.succeed('Arquivos da "API" gerados.')
 
   // Vetur
-  const veturSpinner = ora('Gerando arquivos para o "Vetur"...').start()
-  execaSync('node', ['./vetur.js'], { cwd: __dirname })
-  veturSpinner.succeed('Arquivos para o "Vetur" gerados.')
+  // const veturSpinner = ora('Gerando arquivos para o "Vetur"...').start()
+  // execaSync('node', ['./vetur.js'], { cwd: __dirname })
+  // veturSpinner.succeed('Arquivos para o "Vetur" gerados.')
 
   // Lint
   const lintSpinner = ora('Lintando arquivos...').start()
@@ -138,27 +138,27 @@ async function main () {
   lintSpinner.succeed('Arquivos lintados.')
 
   // Build UI
-  const uiSpinner = ora('Gerando o "ui"...').start()
-  execaSync('npm', ['run', 'build'], { cwd: packages.ui.resolved })
-  uiSpinner.succeed('Geração do "ui" concluída.')
+  // const uiSpinner = ora('Gerando o "ui"...').start()
+  // execaSync('npm', ['run', 'build'], { cwd: packages.ui.resolved })
+  // uiSpinner.succeed('Geração do "ui" concluída.')
 
   // Build docs
-  const docsSpinner = ora('Gerando a "documentação"...').start()
-  execaSync('npm', ['run', 'build'], { cwd: packages.docs.resolved })
-  docsSpinner.succeed('Geração da "documentação" concluída.')
+  // const docsSpinner = ora('Gerando a "documentação"...').start()
+  // execaSync('npm', ['run', 'build'], { cwd: packages.docs.resolved })
+  // docsSpinner.succeed('Geração da "documentação" concluída.')
 
   // Deploy docs
-  const deploySpinner = ora('Publicando a "documentação"...').start()
-  ghpages.publish(`${packages.docs.resolved}/dist/pwa`, {
-    remove: '!(v*)/**/*'
-  }, error => {
-    if (error) {
-      deploySpinner.fail('Falha ao publicar a "documentação".')
-      return console.error(error)
-    }
+  // const deploySpinner = ora('Publicando a "documentação"...').start()
+  // ghpages.publish(`${packages.docs.resolved}/dist/pwa`, {
+  //   remove: '!(v*)/**/*'
+  // }, error => {
+  //   if (error) {
+  //     deploySpinner.fail('Falha ao publicar a "documentação".')
+  //     return console.error(error)
+  //   }
 
-    deploySpinner.succeed('Publicação da "documentação" concluída.')
-  })
+  //   deploySpinner.succeed('Publicação da "documentação" concluída.')
+  // })
 
   // ----------------------- A partir daqui tudo é referente a publicação do asteroid -----------------------
 

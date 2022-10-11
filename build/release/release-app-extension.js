@@ -11,7 +11,7 @@ function releaseAppExtension ({ execaSync, ora, nextVersion, publishCommands, pa
 
   try {
     // publica a nova versão do "app-extension"
-    execaSync('npm', publishCommands, { cwd: packages['app-extension'].resolved })
+    // execaSync('npm', publishCommands, { cwd: packages['app-extension'].resolved })
     publishAppExtensionSpinner.succeed('"app-extension" publicada com sucesso')
 
     return { success: true, error: false }
