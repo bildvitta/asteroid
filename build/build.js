@@ -3,7 +3,6 @@
 require('colors') // https://github.com/Marak/colors.js
 const { prompt } = require('enquirer') // https://github.com/enquirer/enquirer
 const jetpack = require('fs-jetpack') // https://github.com/szwacz/fs-jetpack
-// const ghpages = require('gh-pages') // https://github.com/tschaub/gh-pages
 const path = require('path') // https://nodejs.org/api/path.html
 const semver = require('semver') // https://github.com/npm/node-semver
 
@@ -122,12 +121,12 @@ async function main () {
     installSpinner.succeed(`Dependências instaladas em "${packageName}".`)
   }
 
-  // API
+  // TODO: "API" não usado por hora
   // const apiSpinner = ora('Gerando arquivos da "API"...').start()
   // execaSync('node', ['./api.js'], { cwd: __dirname })
   // apiSpinner.succeed('Arquivos da "API" gerados.')
 
-  // Vetur
+  // TODO: "Vetur" não usado por hora
   // const veturSpinner = ora('Gerando arquivos para o "Vetur"...').start()
   // execaSync('node', ['./vetur.js'], { cwd: __dirname })
   // veturSpinner.succeed('Arquivos para o "Vetur" gerados.')
@@ -136,29 +135,6 @@ async function main () {
   const lintSpinner = ora('Lintando arquivos...').start()
   execaSync('npm', ['run', 'lint'], { cwd: packages.global.resolved })
   lintSpinner.succeed('Arquivos lintados.')
-
-  // Build UI
-  // const uiSpinner = ora('Gerando o "ui"...').start()
-  // execaSync('npm', ['run', 'build'], { cwd: packages.ui.resolved })
-  // uiSpinner.succeed('Geração do "ui" concluída.')
-
-  // Build docs
-  // const docsSpinner = ora('Gerando a "documentação"...').start()
-  // execaSync('npm', ['run', 'build'], { cwd: packages.docs.resolved })
-  // docsSpinner.succeed('Geração da "documentação" concluída.')
-
-  // Deploy docs
-  // const deploySpinner = ora('Publicando a "documentação"...').start()
-  // ghpages.publish(`${packages.docs.resolved}/dist/pwa`, {
-  //   remove: '!(v*)/**/*'
-  // }, error => {
-  //   if (error) {
-  //     deploySpinner.fail('Falha ao publicar a "documentação".')
-  //     return console.error(error)
-  //   }
-
-  //   deploySpinner.succeed('Publicação da "documentação" concluída.')
-  // })
 
   // ----------------------- A partir daqui tudo é referente a publicação do asteroid -----------------------
 
