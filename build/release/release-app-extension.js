@@ -15,7 +15,7 @@ function releaseAppExtension ({ execaSync, ora, nextVersion, publishCommands, pa
     publishAppExtensionSpinner.succeed('"app-extension" publicada com sucesso')
 
     return { success: true, error: false }
-  } catch (error) {
+  } catch {
     publishAppExtensionSpinner.fail('Falha ao publicar "app-extension"')
     return { success: false, error: true }
   }
