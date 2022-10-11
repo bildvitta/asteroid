@@ -44,7 +44,7 @@ async function main () {
   const { execaSync } = await import('execa') // https://github.com/sindresorhus/execa
   const { default: ora } = await import('ora') // https://github.com/sindresorhus/ora
 
-  // const notifyDiscordChat = require('./release/notify-discord-chat')
+  const notifyDiscordChat = require('./release/notify-discord-chat')
   const createGithubRelease = require('./release/create-github-release')
   const getLatestVersions = require('./release/get-latest-versions')
   const changelogHandler = require('./release/changelog-handler')
@@ -64,13 +64,13 @@ async function main () {
   )
 
   const currentBranch = execaSync('git', ['branch', '--show-current']).stdout
-  // const acceptableBranch = ['main', 'main-homolog']
+  const acceptableBranch = ['main', 'main-homolog']
   const isBeta = currentBranch === 'main-homolog'
 
-  // if (!acceptableBranch.includes(currentBranch)) {
-  //   ora('Só é possível publicar nas branchs "main" e "main-homolog"').fail()
-  //   return
-  // }
+  if (!acceptableBranch.includes(currentBranch)) {
+    ora('Só é possível publicar nas branchs "main" e "main-homolog"').fail()
+    return
+  }
 
   const latestVersions = getLatestVersions({ execaSync, ora, isBeta })
   const model = isBeta ? 'beta' : 'stable'
@@ -231,16 +231,15 @@ async function main () {
     })
   }
 
-  // TODO Voltar
-  // if (process.env.DISCORD_WEBHOOK_CHANGELOG) {
-  //   notifyDiscordChat({
-  //     changelogContent,
-  //     ora,
-  //     nextVersion,
-  //     isBeta,
-  //     hasGithubRelease: !!process.env.GITHUB_TOKEN && createdReleaseFromAPI
-  //   })
-  // }
+  if (process.env.DISCORD_WEBHOOK_CHANGELOG) {
+    notifyDiscordChat({
+      changelogContent,
+      ora,
+      nextVersion,
+      isBeta,
+      hasGithubRelease: !!process.env.GITHUB_TOKEN && createdReleaseFromAPI
+    })
+  }
 }
 
 main()
