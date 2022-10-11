@@ -3,9 +3,7 @@ function releaseAppExtension ({ execaSync, ora, nextVersion, publishCommands, pa
 
   const { error } = installNextUi({ execaSync, ora, nextVersion, packages })
 
-  if (error) {
-    return { success: false, error: true }
-  }
+  if (error) return { success: false, error: true }
 
   const publishAppExtensionSpinner = ora('Publicando "app-extension"...')
 
