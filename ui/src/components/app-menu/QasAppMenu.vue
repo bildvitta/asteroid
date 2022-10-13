@@ -45,17 +45,30 @@
               </div>
             </router-link>
 
-            <div v-else :key="`children-${index}`" class="q-px-md">
-              <div class="items-center q-py-md qas-app-menu__label row">{{ header.label }}</div>
+            <div v-else :key="`children-${index}`">
+              <!-- <div class="items-center q-px-md q-py-md qas-app-menu__label row">{{ header.label }}</div> -->
 
-              <router-link v-for="(child, childIndex) in header.children" :key="childIndex" class="q-my-xs q-px-xs q-py-sm qas-app-menu__item row" :to="child.to || {}">
+              <!-- <router-link class="q-my-xs q-px-xs q-py-sm qas-app-menu__item row" :to="child.to || {}">
                 <div class="items-center no-wrap row">
                   <div v-if="child.icon">
                     <q-icon class="q-pr-md" :name="child.icon" size="sm" />
                   </div>
                   <div>{{ child.label }}</div>
                 </div>
-              </router-link>
+              </router-link> -->
+
+              <q-item class="qas-app-menu__item-children">
+                {{ header.label }}
+              </q-item>
+
+              <q-item v-for="(child, childIndex) in header.children" :key="childIndex" class="qas-app-menu__item-children" :to="child.to || {}">
+                <q-item-section v-if="child.icon" avatar>
+                  <q-icon :name="child.icon" />
+                </q-item-section>
+                <q-item-section>
+                  <q-item-label>{{ child.label }}</q-item-label>
+                </q-item-section>
+              </q-item>
             </div>
           </template>
         </div>
@@ -272,17 +285,54 @@ export default {
     }
   }
 
-  .q-item .q-focus-helper {
-    display: none;
+  &__item-children {
+    &.q-item {
+      padding-left: 20px;
+    }
+
+    &.q-item + &.q-item {
+      margin-top: 8px;
+    }
   }
 
-  // .q-item {
-  //   font-size: 16px;
-  //   transition: color 300ms;
-
-  //   &:hover {
-  //     color: var(--q-primary);
-  //   }
+  // .q-item + .q-item {
+  //   margin-top: 4px;
   // }
+}
+
+.q-item .q-focus-helper {
+  display: none;
+}
+
+.q-item__section--avatar {
+  min-width: 0;
+}
+
+// .q-item {
+//   font-size: 16px;
+
+//   &.q-router-link--exact-active {
+//     background-color: transparent !important;
+//     font-weight: 600;
+
+//     &::before {
+//       background-color: var(--q-primary);
+//       bottom: 0;
+//       color: var(--q-primary);
+//       content: '';
+//       left: 0;
+//       position: absolute;
+//       top: 0;
+//       width: 4px;
+//     }
+//   }
+// }
+
+.q-item--clickable {
+  transition: color 300ms;
+
+  &:hover {
+    color: var(--q-primary);
+  }
 }
 </style>
