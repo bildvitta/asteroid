@@ -35,24 +35,23 @@
         </q-list>
 
         <div v-if="items.length" class="text-grey-9 text-weight-medium">
-          <!-- {{ items }} -->
           <template v-for="(header, index) in items">
-            <router-link v-if="!hasChildren(header)" :key="index" class="q-my-sm q-px-md q-py-sm qas-app-menu__item row text-subtitle2" :class="handleActiveClass(header)" :to="header.to || {}">
+            <router-link v-if="!hasChildren(header)" :key="index" class="q-my-sm q-px-md q-py-sm qas-app-menu__item row" :class="handleActiveClass(header)" :to="header.to || {}">
               <div class="items-center no-wrap row">
                 <div v-if="header.icon">
-                  <q-icon class="q-pr-md" :name="header.icon" size="16px" />
+                  <q-icon class="q-pr-md" :name="header.icon" size="sm" />
                 </div>
                 <div>{{ header.label }}</div>
               </div>
             </router-link>
 
             <div v-else :key="`children-${index}`" class="q-px-md">
-              <div class="items-center q-py-md qas-app-menu__label row text-body2">{{ header.label }}</div>
+              <div class="items-center q-py-md qas-app-menu__label row">{{ header.label }}</div>
 
-              <router-link v-for="(child, childIndex) in header.children" :key="childIndex" class="q-my-xs q-px-xs q-py-sm qas-app-menu__item row text-subtitle2" :to="child.to || {}">
+              <router-link v-for="(child, childIndex) in header.children" :key="childIndex" class="q-my-xs q-px-xs q-py-sm qas-app-menu__item row" :to="child.to || {}">
                 <div class="items-center no-wrap row">
                   <div v-if="child.icon">
-                    <q-icon class="q-pr-md" :name="child.icon" size="16px" />
+                    <q-icon class="q-pr-md" :name="child.icon" size="sm" />
                   </div>
                   <div>{{ child.label }}</div>
                 </div>
@@ -177,6 +176,10 @@ export default {
     }
   },
 
+  created () {
+    console.log(this.$route)
+  },
+
   methods: {
     hasChildren ({ children }) {
       return !!(children || []).length
@@ -214,6 +217,7 @@ export default {
     },
 
     handleActiveClass ({ to }) {
+      // const getRoutes = this.$router.getRoutes
       // console.log('🚀 ~ file: QasAppMenu.vue ~ line 200 ~ handleActiveClass ~ to', to)
       // console.log(this.$route)
       // console.log(this.normalizedRoutePaths)
@@ -236,6 +240,7 @@ export default {
 
   &__item {
     color: inherit;
+    font-size: 16px !important;
     min-height: 48px;
     position: relative;
     text-decoration: none;
@@ -266,5 +271,18 @@ export default {
       }
     }
   }
+
+  .q-item .q-focus-helper {
+    display: none;
+  }
+
+  // .q-item {
+  //   font-size: 16px;
+  //   transition: color 300ms;
+
+  //   &:hover {
+  //     color: var(--q-primary);
+  //   }
+  // }
 }
 </style>
