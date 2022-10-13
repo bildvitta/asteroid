@@ -51,12 +51,28 @@ export default {
         {
           label: 'Home',
           icon: 'home',
-          to: '/'
+          to: '/components/app-menu'
         },
         {
           label: 'About',
           icon: 'info',
-          to: '/contact'
+          to: '/contacto'
+        },
+        {
+          label: 'About',
+          icon: 'info',
+          children: [
+            {
+              label: 'About',
+              icon: 'info',
+              to: '/contact'
+            },
+            {
+              label: 'Home',
+              icon: 'home',
+              to: '/components/app-menu'
+            }
+          ]
         }
       ]
     }
