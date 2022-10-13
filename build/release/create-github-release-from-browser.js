@@ -9,7 +9,7 @@ async function createGithubReleaseFromBrowser ({ changelogContent, nextVersion, 
 
   try {
     await open(
-      `https://github.com/bildvitta/assistencia-digital/releases/new?tag=${tag}&title=${tag}&body=${body}`
+      `https://github.com/bildvitta/asteroid/releases/new?tag=${tag}&title=${tag}&body=${body}`
     )
 
     browserSpinner.succeed('Redirecionado para github release.')

@@ -35,9 +35,7 @@ function changelogHandler ({ ora, nextVersion, packages, latestVersions, isBeta 
         )
       }
 
-      const content = currentChangelog.substring(startIndex, endIndex)
-
-      return content
+      return currentChangelog.substring(startIndex, endIndex)
     },
 
     updateContent () {

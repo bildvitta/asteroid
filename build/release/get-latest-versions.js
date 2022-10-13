@@ -36,6 +36,7 @@ function getLatestVersions ({ execaSync, ora }) {
   }
 
   latestVersionsSpinner.succeed('Versões do npm obtidas!')
+
   return versions
 }
 
