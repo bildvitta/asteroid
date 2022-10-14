@@ -10,7 +10,7 @@ const routes = [
       {
         path: 'components',
         component: () => import('src/pages/index.vue'),
-        alias: ['/test']
+        name: 'Components'
       }
     ]
   },

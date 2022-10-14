@@ -49,42 +49,52 @@ export default {
     menuList () {
       return [
         {
-          label: 'Home',
+          label: 'Home 1',
           icon: 'home',
-          to: '/components/app-menu'
+          to: { name: 'Components' }
         },
         {
-          label: 'About',
+          label: 'About 1',
           icon: 'info',
           to: '/contacto'
         },
         {
-          label: 'About',
+          label: 'About 2',
           icon: 'info',
           children: [
             {
-              label: 'About',
+              label: 'About 2.1',
               icon: 'info',
               to: '/contact'
             },
             {
-              label: 'Home',
+              label: 'Home 2.2',
               icon: 'home',
               to: '/components/app-menu'
             }
           ]
         },
         {
-          label: 'About',
+          label: 'About 3',
           icon: 'info',
           children: [
             {
-              label: 'About',
+              label: 'About 3.1',
               icon: 'info',
               to: '/contact'
             },
             {
-              label: 'Home',
+              label: 'Home 3.2',
+              icon: 'home',
+              to: '/components/app-menu'
+            },
+            {
+              label: 'Home 3.3',
+              icon: 'home',
+              to: '/components/app-menu'
+            },
+            {
+              label: 'Home 3.4',
               icon: 'home',
               to: '/components/app-menu'
             }
