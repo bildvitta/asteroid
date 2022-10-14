@@ -1,5 +1,5 @@
 <template>
-  <q-drawer v-model="model" class="qas-app-menu" :width="288" @before-hide="beforeHide" @mini-state="setMiniState">
+  <q-drawer v-model="model" :breakpoint="1023" class="qas-app-menu" :width="288">
     <div class="column flex full-height justify-between no-wrap overflow-x-hidden">
       <div class="q-mt-lg">
         <div v-if="displayModuleSection" class="q-mb-lg q-mx-md">
@@ -140,10 +140,6 @@ export default {
       if (this.$qas.screen.isLarge) {
         this.model = true
       }
-    },
-
-    setMiniState (value) {
-      this.isMini = value
     },
 
     redirectHandler ({ value }) {

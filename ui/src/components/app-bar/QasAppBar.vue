@@ -3,9 +3,9 @@
     <q-toolbar class="qas-app-bar__toolbar" color="bg-white">
       <q-ajax-bar color="white" position="top" size="2px" />
 
-      <qas-btn color="grey-7" dense flat icon="o_menu" round @click="toggleMenuDrawer" />
+      <qas-btn v-if="$qas.screen.untilLarge" color="grey-7" dense flat icon="o_menu" round @click="toggleMenuDrawer" />
 
-      <q-toolbar-title class="flex">
+      <q-toolbar-title class="flex" :class="toolbarTitleClass">
         <div class="cursor-pointer" @click="goToRoot">
           <img v-if="brand" :alt="title" class="q-mr-sm qas-app-bar__brand" :src="brand">
           <span v-if="showTitle" class="text-bold text-grey-9 text-subtitle1 text-uppercase">{{ title }}</span>
@@ -138,6 +138,10 @@ export default {
 
     userName () {
       return this.user.name || this.user.givenName
+    },
+
+    toolbarTitleClass () {
+      return !this.$qas.screen.untilLarge && 'q-pl-none'
     }
   },
 
@@ -147,7 +151,11 @@ export default {
     },
 
     goToRoot () {
-      this.$router.push({ name: 'Root' })
+      const hasRoot = this.$router.hasRoute('Root')
+
+      this.$router.push({
+        ...(hasRoot ? { name: 'Root' } : { path: '/' })
+      })
     },
 
     signOut () {

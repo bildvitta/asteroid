@@ -1,7 +1,7 @@
 <template>
   <div>
     <q-layout class="flex items-center justify-center" container style="height: 600px;">
-      <qas-app-menu v-model="isMenuOpened" :items="menuList2" :modules="modules" title="Documentação" />
+      <qas-app-menu :items="menuList2" :modules="modules" title="Documentação" />
     </q-layout>
   </div>
 </template>
