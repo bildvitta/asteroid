@@ -10,6 +10,17 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 ### Sobre os "BREAKING CHANGES"
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
+## Não publicado
+### Modificado
+- `fonts.scss`: alterado font `Inter` para `Nunito`.
+- `item.scss`: alterado estilo padrão do `QItem`.
+- `spacing.scss`: alterado espaçamento padrão do `lg` para `32px`.
+- `QasAppMenu`: alterado estilos e comportamento do componente, entre eles o modo "mini".
+- `quasar`: atualizado o quasar para a versão 2.10.0.
+
+### Removido
+- `QasAppMenu`: removido propriedade `brand-menu` pois não existe mais a logo "modular" no menu.
+
 ## [3.2.0-beta.1] - 13-10-2022
 ### Adicionado
 - Criado automatização de todo processo de publicação do asteroid.

@@ -4,10 +4,6 @@ meta:
   desc: Menu lateral.
 
 props:
-  brand-menu:
-    desc: Imagem para ser usada como logo no menu.
-    type: String
-
   items:
     desc: Itens do menu.
     type: Array

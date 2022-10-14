@@ -1,0 +1,46 @@
+/*
+* O único valor que de fato é alterado diferente do padrão do Quasar é o tamanho "lg"
+*/
+$space-base   : 16px;
+$space-x-base : $space-base;
+$space-y-base : $space-base;
+
+$space-none : (
+  x: 0,
+  y: 0
+);
+
+$space-xs: (
+  x: ($space-x-base * 0.25),
+  y: ($space-y-base * 0.25)
+);
+
+$space-sm: (
+  x: ($space-x-base * 0.5),
+  y: ($space-y-base * 0.5)
+);
+
+$space-md: (
+  x: $space-x-base,
+  y: $space-y-base
+);
+
+// O tamanho original seria "*1.5" ou "24px", alterado para ter "32px"
+$space-lg: (
+  x: ($space-x-base * 2),
+  y: ($space-y-base * 2)
+);
+
+$space-xl: (
+  x: ($space-x-base * 3),
+  y: ($space-y-base * 3)
+);
+
+$spaces: (
+  'none': $space-none,
+  'xs': $space-xs,
+  'sm': $space-sm,
+  'md': $space-md,
+  'lg': $space-lg,
+  'xl': $space-xl
+);

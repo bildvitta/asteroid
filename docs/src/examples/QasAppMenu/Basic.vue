@@ -1,7 +1,7 @@
 <template>
   <div>
     <q-layout class="flex items-center justify-center" container style="height: 600px;">
-      <qas-app-menu v-model="isMenuOpened" :items="menuList" :modules="modules" title="Documentação" />
+      <qas-app-menu v-model="isMenuOpened" :items="menuList2" :modules="modules" title="Documentação" />
     </q-layout>
   </div>
 </template>
@@ -51,7 +51,7 @@ export default {
         {
           label: 'Home 1',
           icon: 'home',
-          to: { name: 'Components' }
+          to: '/components'
         },
         {
           label: 'About 1',
@@ -99,6 +99,83 @@ export default {
               to: '/components/app-menu'
             }
           ]
+        }
+      ]
+    },
+
+    menuList2 () {
+      return [
+        {
+          label: 'Home',
+          icon: 'o_home',
+          to: { name: 'Home' }
+        },
+        {
+          label: 'Home',
+          icon: 'o_home',
+          to: { name: 'Home' }
+        },
+        {
+          label: 'Usuários',
+          icon: 'o_people_alt',
+          to: { path: '/users' },
+          children: [
+            {
+              label: 'Lista de usuários',
+              to: { name: 'Components' },
+              role: 'users.list'
+            },
+            {
+              label: 'Grupos',
+              to: { name: 'GroupsList' },
+              role: 'userGroups.list'
+            },
+            {
+              label: 'Aprovação de cadastro',
+              to: { name: 'ApprovalsList' },
+              role: 'users.approvals'
+            }
+          ]
+        },
+        {
+          label: 'Usuários',
+          icon: 'o_people_alt',
+          to: { path: '/users' },
+          children: [
+            {
+              label: 'Lista de usuários',
+              to: { name: 'UsersList' },
+              role: 'users.list'
+            },
+            {
+              label: 'Grupos',
+              to: { name: 'GroupsList' },
+              role: 'userGroups.list'
+            },
+            {
+              label: 'Aprovação de cadastro',
+              to: { name: 'ApprovalsList' },
+              role: 'users.approvals'
+            }
+          ]
+        },
+        {
+          label: 'Políticas',
+          icon: 'o_supervised_user_circle',
+          to: { name: 'RolesList' },
+          role: 'roles.list'
+        },
+        {
+          label: 'Empresas',
+          icon: 'o_business_center',
+          to: { name: 'CompaniesList' },
+          role: 'companies.list'
+        },
+        {
+          label: 'Registro de atividades',
+          icon: 'o_assignment',
+          role: 'activityRecord.list',
+          to: { name: 'ActivitiesRecordList' }
         }
       ]
     }

@@ -1,0 +1,35 @@
+.q-item {
+  font-size: 16px;
+
+  &.q-router-link--active {
+    background-color: transparent !important;
+    font-weight: 600;
+
+    &::before {
+      background-color: var(--q-primary);
+      bottom: 0;
+      color: var(--q-primary);
+      content: '';
+      left: 0;
+      position: absolute;
+      top: 0;
+      width: 4px;
+    }
+  }
+
+  &--clickable {
+    transition: color 300ms;
+
+    &:hover {
+      color: var(--q-primary);
+    }
+  }
+
+  &__section--avatar {
+    min-width: 0;
+  }
+
+  & .q-focus-helper {
+    display: none;
+  }
+}
