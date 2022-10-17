@@ -19,6 +19,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - `spacing.scss`: alterado espaçamento padrão do `lg` para `32px`.
 - `QasAppMenu`: alterado estilos e comportamento do componente, entre eles o modo "mini".
 - `quasar`: atualizado o quasar para a versão 2.10.0.
+- `QasLayout`: modificado screen `untilMedium` para `untilLarge`.
 
 ### Removido
 - `QasAppMenu`: removido propriedade `brand-menu` pois não existe mais a logo "modular" no menu.
