@@ -1,5 +1,5 @@
 <template>
-  <q-drawer v-model="model" :breakpoint="1023" class="qas-app-menu" :width="288">
+  <q-drawer v-model="model" :behavior="behavior" bordered class="qas-app-menu" :width="288">
     <div class="column flex full-height justify-between no-wrap overflow-x-hidden">
       <div class="q-mt-lg">
         <div v-if="displayModuleSection" class="q-mb-lg q-mx-md">
@@ -13,7 +13,7 @@
         <q-list v-if="items.length" class="q-mb-lg text-grey-9">
           <template v-for="(header, index) in items">
             <div v-if="hasChildren(header)" :key="`children-${index}`" class="qas-app-menu__content">
-              <q-item class="items-center qas-app-menu__item-children">
+              <q-item class="items-center">
                 {{ header.label }}
               </q-item>
 
@@ -119,6 +119,10 @@ export default {
       const hostname = window.location.hostname
 
       return this.defaultModules.find(module => module?.value.includes(hostname))?.value
+    },
+
+    behavior () {
+      return this.$qas.screen.untilLarge ? 'mobile' : 'desktop'
     }
   },
 
@@ -183,31 +187,31 @@ export default {
 <style lang="scss">
 .qas-app-menu {
   .q-item + .q-item {
-    margin-top: 4px;
+    margin-top: var(--qas-spacing-xs);
   }
 
   &__children {
     &.q-item {
-      padding-left: 20px;
+      padding-left: var(--qas-spacing-lg);
     }
   }
 
   &__item-children {
     &.q-item + &.q-item {
-      margin-top: 8px;
+      margin-top: var(--qas-spacing-md);
     }
   }
 
   &__content + &__content {
-    margin-top: 16px;
+    margin-top: var(--qas-spacing-md);
   }
 
   &__content + &__item {
-    margin-top: 16px;
+    margin-top: var(--qas-spacing-md);
   }
 
   &__item + &__content {
-    margin-top: 16px;
+    margin-top: var(--qas-spacing-md);
   }
 }
 </style>

@@ -12,6 +12,8 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 
 ## Não publicado
 ### Modificado
+- `QasAvatar`: forçando a sempre ser "redondo", removido propriedades `rounded` e `square`.
+- `QasAppBar`: alterado estilos do componente.
 - `fonts.scss`: alterado font `Inter` para `Nunito`.
 - `item.scss`: alterado estilo padrão do `QItem`.
 - `spacing.scss`: alterado espaçamento padrão do `lg` para `32px`.
