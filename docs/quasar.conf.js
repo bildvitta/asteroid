@@ -147,14 +147,13 @@ module.exports = configure(function (quasar) {
 
     // https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-framework
     framework: {
-      lang: 'en-US',
+      lang: 'pt-BR',
       iconSet: 'material-icons',
 
       components: [
         'QPage',
         'QMarkupTable',
-        'QItem',
-        'QExpansionItem'
+        'QItem'
       ],
 
       config: {},

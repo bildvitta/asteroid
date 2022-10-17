@@ -155,13 +155,6 @@ export default {
     getPathFromObject ({ path, name }) {
       if (path) return this.getNormalizedPath(path)
 
-      const hasRoute = this.$router.hasRoute(name)
-
-      // TODO remover este if
-      if (!hasRoute) {
-        return ''
-      }
-
       const resolvedRoute = this.$router.resolve({ name })
 
       return this.getNormalizedPath(resolvedRoute.path)
@@ -196,10 +189,14 @@ export default {
     }
   }
 
-  &__item-children {
-    &.q-item + &.q-item {
-      margin-top: var(--qas-spacing-md);
-    }
+  // &__item-children {
+  //   &.q-item + &.q-item {
+  //     margin-top: var(--qas-spacing-sm);
+  //   }
+  // }
+
+  &__item-children.q-item + &__item-children.q-item {
+    margin-top: var(--qas-spacing-sm);
   }
 
   &__content + &__content {

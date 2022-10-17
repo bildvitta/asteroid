@@ -51,7 +51,7 @@ export default {
         {
           label: 'AppMenu',
           icon: 'o_menu',
-          to: { path: '/why-asteroid' }
+          to: { path: '/components/app-menu' }
         },
         {
           label: 'Por que asteroid?',
