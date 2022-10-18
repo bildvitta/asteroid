@@ -1,11 +1,11 @@
 <template>
   <q-header class="bg-white qas-app-bar shadow-2" height-hint="70">
-    <q-toolbar class="qas-app-bar__toolbar" color="bg-white">
+    <q-toolbar class="q-px-md qas-app-bar__toolbar" color="bg-white">
       <q-ajax-bar color="white" position="top" size="2px" />
 
-      <qas-btn color="grey-7" dense flat icon="o_menu" round @click="toggleMenuDrawer" />
+      <qas-btn v-if="$qas.screen.untilLarge" color="grey-7" dense flat icon="o_menu" round @click="toggleMenuDrawer" />
 
-      <q-toolbar-title class="flex">
+      <q-toolbar-title class="flex" :class="toolbarTitleClass">
         <div class="cursor-pointer" @click="goToRoot">
           <img v-if="brand" :alt="title" class="q-mr-sm qas-app-bar__brand" :src="brand">
           <span v-if="showTitle" class="text-bold text-grey-9 text-subtitle1 text-uppercase">{{ title }}</span>
@@ -22,23 +22,23 @@
       <div class="items-center no-wrap q-gutter-md row">
         <slot name="tools" />
 
-        <div v-if="hasUser" class="cursor-pointer items-center q-mr-sm qas-app-bar__user rounded-borders row text-grey-9" :title="userName">
-          <qas-avatar class="rounded-borders-left" color="white" dark :image="user.photo" rounded size="42px" text-color="primary" :title="userName" />
+        <div v-if="hasUser" class="cursor-pointer items-center qas-app-bar__user-content rounded-borders row text-grey-9" :title="userName">
+          <qas-avatar color="white" dark :image="user.photo" rounded size="42px" text-color="primary" :title="userName" />
 
-          <div class="q-px-sm qas-app-bar__user-data qs-lh-lg text-caption">
-            <div class="ellipsis">{{ userName }}</div>
-            <div class="ellipsis text-bold">{{ user.email }}</div>
+          <div class="q-ml-md qas-app-bar__user-data qs-lh-lg">
+            <div class="ellipsis q-mb-xs qas-app-bar__user-name">{{ userName }}</div>
+            <div class="ellipsis qas-app-bar__user-email">{{ user.email }}</div>
           </div>
 
-          <q-menu anchor="bottom end" class="shadow-2" max-height="400px" :offset="[0, 5]" self="top end">
+          <q-menu anchor="bottom end" class="shadow-2 text-grey-9" max-height="400px" :offset="[0, 5]" self="top end">
             <div class="qas-app-bar__user-menu">
               <div class="q-pa-lg text-center">
                 <button class="unset" @click="goToProfile">
                   <qas-avatar :image="user.photo" size="145px" :title="userName" />
                 </button>
 
-                <div class="ellipsis q-mt-lg qs-lh-sm text-bold text-subtitle1">{{ userName }}</div>
-                <div class="ellipsis q-mt-xs text-caption">{{ user.email }}</div>
+                <div class="ellipsis q-mt-lg qas-app-bar__user-name qs-lh-sm">{{ userName }}</div>
+                <div class="ellipsis q-mt-xs">{{ user.email }}</div>
 
                 <div class="q-mt-sm">
                   <qas-btn flat icon="o_edit" label="Editar" :to="user.to" />
@@ -138,6 +138,10 @@ export default {
 
     userName () {
       return this.user.name || this.user.givenName
+    },
+
+    toolbarTitleClass () {
+      return !this.$qas.screen.untilLarge && 'q-pl-none'
     }
   },
 
@@ -147,7 +151,11 @@ export default {
     },
 
     goToRoot () {
-      this.$router.push({ name: 'Root' })
+      const hasRoot = this.$router.hasRoute('Root')
+
+      this.$router.push({
+        ...(hasRoot ? { name: 'Root' } : { path: '/' })
+      })
     },
 
     signOut () {
@@ -169,23 +177,20 @@ export default {
 
   &__brand {
     height: 24px;
-    margin-right: 8px;
     position: relative;
     top: 4px;
   }
 
-  &__user {
-    background-color: var(--qas-background-color);
-    transition: background-color $generic-hover-transition;
-
-    &:focus,
-    &:hover {
-      background-color: rgba(white, 0.2);
-    }
+  &__user-content {
+    width: 230px;
   }
 
   &__user-data {
     max-width: 180px;
+  }
+
+  &__user-name {
+    font-weight: 600;
   }
 
   &__user-menu {
@@ -193,6 +198,10 @@ export default {
   }
 
   @media (max-width: $breakpoint-xs) {
+    &__user-content {
+      width: auto;
+    }
+
     &__user-data {
       display: none;
     }

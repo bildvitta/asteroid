@@ -65,6 +65,8 @@ export default {
   watch: {
     modelValue: {
       handler (value) {
+        if (!this.$qas.screen.untilLarge) return
+
         this.menuDrawer = value
       },
       immediate: true
@@ -72,7 +74,7 @@ export default {
   },
 
   mounted () {
-    this.menuDrawer = !this.$qas.screen.untilMedium
+    this.menuDrawer = !this.$qas.screen.untilLarge
   },
 
   methods: {

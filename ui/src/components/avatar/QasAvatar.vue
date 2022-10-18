@@ -1,5 +1,5 @@
 <template>
-  <q-avatar class="text-bold" :class="avatarClass" rounded>
+  <q-avatar class="text-bold" :class="avatarClass" v-bind="attributes">
     <q-img v-if="hasImage" :alt="title" :ratio="1" spinner-color="primary" spinner-size="16px" :src="image" @error="onImageLoadedError" />
     <template v-else-if="hasTitle">{{ firstLetter }}</template>
     <q-icon v-else :name="icon" />
@@ -9,6 +9,8 @@
 <script>
 export default {
   name: 'QasAvatar',
+
+  inheritAttrs: false,
 
   props: {
     color: {
@@ -76,6 +78,12 @@ export default {
 
     hasTitle () {
       return !!this.title
+    },
+
+    attributes () {
+      const { square, rounded, ...attributes } = this.$attrs
+
+      return attributes
     }
   },
 
