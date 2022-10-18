@@ -12,8 +12,9 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 
 ## Não publicado
 ## BREAKING CHANGES
-- `QasAppMenu`: Removido logo do modular no menu.
-- `QasAppMenu`: Agora os itens com children no item pai não tem redirecionamento, nem ícone, apenas os filhos dele.
+- `QasAppMenu`: removido logo do modular no menu.
+- `QasAppMenu`: agora os itens com children no item pai não tem redirecionamento, nem ícone, apenas os filhos dele.
+- `quasar`: atualizado para 2.10.0.
 
 ### Modificado
 - `QasAvatar`: forçando a sempre ser "redondo", removido propriedades `rounded` e `square`.
