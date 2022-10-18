@@ -26,7 +26,7 @@
           <qas-avatar color="white" dark :image="user.photo" rounded size="42px" text-color="primary" :title="userName" />
 
           <div class="q-ml-md qas-app-bar__user-data qs-lh-lg">
-            <div class="ellipsis qas-app-bar__user-name">{{ userName }}</div>
+            <div class="ellipsis q-mb-xs qas-app-bar__user-name">{{ userName }}</div>
             <div class="ellipsis qas-app-bar__user-email">{{ user.email }}</div>
           </div>
 
@@ -37,8 +37,8 @@
                   <qas-avatar :image="user.photo" size="145px" :title="userName" />
                 </button>
 
-                <div class="ellipsis q-mt-lg qs-lh-sm text-bold text-subtitle1">{{ userName }}</div>
-                <div class="ellipsis q-mt-xs text-caption">{{ user.email }}</div>
+                <div class="ellipsis q-mt-lg qas-app-bar__user-name qs-lh-sm">{{ userName }}</div>
+                <div class="ellipsis q-mt-xs">{{ user.email }}</div>
 
                 <div class="q-mt-sm">
                   <qas-btn flat icon="o_edit" label="Editar" :to="user.to" />

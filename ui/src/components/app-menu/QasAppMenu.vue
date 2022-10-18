@@ -189,12 +189,6 @@ export default {
     }
   }
 
-  // &__item-children {
-  //   &.q-item + &.q-item {
-  //     margin-top: var(--qas-spacing-sm);
-  //   }
-  // }
-
   &__item-children.q-item + &__item-children.q-item {
     margin-top: var(--qas-spacing-sm);
   }
