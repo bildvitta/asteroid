@@ -11,6 +11,10 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
 ## Não publicado
+## BREAKING CHANGES
+- `QasAppMenu`: Removido logo do modular no menu.
+- `QasAppMenu`: Agora os itens com children no item pai não tem redirecionamento, nem ícone, apenas os filhos dele.
+
 ### Modificado
 - `QasAvatar`: forçando a sempre ser "redondo", removido propriedades `rounded` e `square`.
 - `QasAppBar`: alterado estilos do componente.
