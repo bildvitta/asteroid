@@ -11,30 +11,30 @@
         </div>
 
         <q-list v-if="items.length" class="q-mb-lg text-grey-9">
-          <template v-for="(header, index) in items">
-            <div v-if="hasChildren(header)" :key="`children-${index}`" class="qas-app-menu__content">
+          <template v-for="(menuItem, index) in items">
+            <div v-if="hasChildren(menuItem)" :key="`children-${index}`" class="qas-app-menu__content">
               <q-item class="items-center">
-                {{ header.label }}
+                {{ menuItem.label }}
               </q-item>
 
-              <q-item v-for="(child, childIndex) in header.children" :key="childIndex" :active="isActive(child)" class="qas-app-menu__children qas-app-menu__item-children" :to="getRouterRedirect(child)">
-                <q-item-section v-if="child.icon" avatar>
-                  <q-icon :name="child.icon" />
+              <q-item v-for="(menuChildItem, childIndex) in menuItem.children" :key="childIndex" :active="isActive(menuChildItem)" class="qas-app-menu__children qas-app-menu__item-children" :to="getRouterRedirect(menuChildItem)">
+                <q-item-section v-if="menuChildItem.icon" avatar>
+                  <q-icon :name="menuChildItem.icon" />
                 </q-item-section>
 
                 <q-item-section>
-                  <q-item-label>{{ child.label }}</q-item-label>
+                  <q-item-label>{{ menuChildItem.label }}</q-item-label>
                 </q-item-section>
               </q-item>
             </div>
 
-            <q-item v-else :key="index" :active="isActive(header)" active-class="q-router-link--active" class="qas-app-menu__item" :to="getRouterRedirect(header)">
-              <q-item-section v-if="header.icon" avatar>
-                <q-icon :name="header.icon" />
+            <q-item v-else :key="index" :active="isActive(menuItem)" active-class="q-router-link--active" class="qas-app-menu__item" :to="getRouterRedirect(menuItem)">
+              <q-item-section v-if="menuItem.icon" avatar>
+                <q-icon :name="menuItem.icon" />
               </q-item-section>
 
               <q-item-section>
-                <q-item-label>{{ header.label }}</q-item-label>
+                <q-item-label>{{ menuItem.label }}</q-item-label>
               </q-item-section>
             </q-item>
           </template>
@@ -140,12 +140,6 @@ export default {
       return !!(children || []).length
     },
 
-    beforeHide () {
-      if (this.$qas.screen.isLarge) {
-        this.model = true
-      }
-    },
-
     redirectHandler ({ value }) {
       if (!value.includes(window.location.host)) {
         window.location.href = value
@@ -171,6 +165,7 @@ export default {
     isActive ({ to }) {
       const currentPath = this.getNormalizedPath(this.$route.path)
       const itemPath = typeof to === 'string' ? this.getNormalizedPath(to) : this.getPathFromObject(to)
+
       return currentPath === itemPath
     }
   }
@@ -183,10 +178,8 @@ export default {
     margin-top: var(--qas-spacing-xs);
   }
 
-  &__children {
-    &.q-item {
-      padding-left: var(--qas-spacing-lg);
-    }
+  &__children.q-item {
+    padding-left: var(--qas-spacing-lg);
   }
 
   &__item-children.q-item + &__item-children.q-item {
