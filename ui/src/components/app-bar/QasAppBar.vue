@@ -22,10 +22,10 @@
       <div class="items-center no-wrap q-gutter-md row">
         <slot name="tools" />
 
-        <div v-if="hasUser" class="cursor-pointer items-center qas-app-bar__user-content rounded-borders row text-grey-9" :title="userName">
+        <div v-if="hasUser" class="cursor-pointer items-center no-wrap qas-app-bar__user-content rounded-borders row text-grey-9" :title="userName">
           <qas-avatar color="white" dark :image="user.photo" rounded size="42px" text-color="primary" :title="userName" />
 
-          <div class="q-ml-md qas-app-bar__user-data qs-lh-lg">
+          <div class="q-ml-md q-pr-sm qas-app-bar__user-data qs-lh-lg">
             <div class="ellipsis q-mb-xs qas-app-bar__user-name">{{ userName }}</div>
             <div class="ellipsis qas-app-bar__user-email">{{ user.email }}</div>
           </div>
