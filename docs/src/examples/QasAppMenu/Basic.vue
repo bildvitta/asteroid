@@ -1,7 +1,7 @@
 <template>
   <div>
-    <q-layout class="flex items-center justify-center" container style="height: 600px;">
-      <qas-app-menu v-model="isMenuOpened" :items="menuList" :modules="modules" title="Documentação" />
+    <q-layout class="flex items-center justify-center" :container="$qas.screen.untilLarge" style="height: 600px;">
+      <qas-app-menu :items="menuList" :modules="modules" title="Documentação" />
     </q-layout>
   </div>
 </template>
@@ -49,14 +49,29 @@ export default {
     menuList () {
       return [
         {
-          label: 'Home',
-          icon: 'home',
-          to: '/'
+          label: 'AppMenu',
+          icon: 'o_menu',
+          to: { path: '/components/app-menu' }
         },
         {
-          label: 'About',
-          icon: 'info',
-          to: '/contact'
+          label: 'Por que asteroid?',
+          icon: 'o_pin',
+          to: { path: '/why-asteroid' }
+        },
+        {
+          label: 'Começando',
+          children: [
+            {
+              label: 'Dialog',
+              to: { path: '/plugins/dialog' },
+              icon: 'o_settings_input_hdmi'
+            },
+            {
+              label: 'Logger',
+              to: { path: '/plugins/dialog' },
+              icon: 'o_info'
+            }
+          ]
         }
       ]
     }

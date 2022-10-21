@@ -65,14 +65,29 @@ export default {
     menuList () {
       return [
         {
-          label: 'Home',
-          icon: 'home',
-          to: '/'
+          label: 'AppMenu',
+          icon: 'o_menu',
+          to: { path: '/components/app-menu' }
         },
         {
-          label: 'About',
-          icon: 'info',
-          to: '/contact'
+          label: 'Por que asteroid?',
+          icon: 'o_pin',
+          to: { path: '/why-asteroid' }
+        },
+        {
+          label: 'Começando',
+          children: [
+            {
+              label: 'Dialog',
+              to: { path: '/plugins/dialog' },
+              icon: 'o_settings_input_hdmi'
+            },
+            {
+              label: 'Logger',
+              to: { path: '/plugins/dialog' },
+              icon: 'o_info'
+            }
+          ]
         }
       ]
     }

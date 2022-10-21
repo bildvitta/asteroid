@@ -10,7 +10,86 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 ### Sobre os "BREAKING CHANGES"
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
-## 3.1.0 - 19-09-22
+## Não publicado
+## BREAKING CHANGES
+- `QasAppMenu`: removido logo do modular no menu.
+- `QasAppMenu`: agora os itens com children no item pai não tem redirecionamento, nem ícone, apenas os filhos dele.
+- `quasar`: atualizado para 2.10.0.
+
+### Adicionado
+- `QasTreeGenerator`: adicionado novo componente para criação de árvore.
+- `promiseHandler`: adicionado novo helper para lidar com promises.
+- `destroyNestedChildrenByKey`: adicionado novo helper para lidar com remoção em campos nested.
+- `findChildrenByKey`: adicionado novo helper para encontrar children através de chave e valor.
+- `rules`: adicionado novo helper para lidar com validações de componentes, no momento existe apenas `required`.
+- Criado automatização de todo processo de publicação do asteroid.
+
+### Modificado
+- `QasAvatar`: forçando a sempre ser "redondo", removido propriedades `rounded` e `square`.
+- `QasAppBar`: alterado estilos do componente.
+- `fonts.scss`: alterado font `Inter` para `Nunito`.
+- `item.scss`: alterado estilo padrão do `QItem`.
+- `spacing.scss`: alterado espaçamento padrão do `lg` para `32px`.
+- `QasAppMenu`: alterado estilos e comportamento do componente, entre eles o modo "mini".
+- `quasar`: atualizado o quasar para a versão 2.10.0.
+- `QasLayout`: modificado screen `untilMedium` para `untilLarge`.
+
+### Corrigido
+- `add-counter-suffix.md`: corrigido title da documentação.
+- `filter-object.md`: corrigido title da documentação.
+- `checkbox-group.md`: corrigido documentação que estava pegando com base da do select.
+- `transfer.yml`: adicionado chave `model: true` na propriedade `model-value`.
+- `QasNestedFields`: Corrigido botão de excluir ao adicionar um novo item sem salvar ele não removia o item independente da prop useRemoveOnDestroy.
+
+### Removido
+- `QasAppMenu`: removido propriedade `brand-menu` pois não existe mais a logo "modular" no menu.
+
+## [3.2.0-beta.3] - 19-10-2022
+### Corrigido
+- `QasAppBar`: adicionado classe `no-wrap` para não quebrar o menu de usuário.
+
+## [3.2.0-beta.2] - 18-10-2022
+## BREAKING CHANGES
+- `QasAppMenu`: removido logo do modular no menu.
+- `QasAppMenu`: agora os itens com children no item pai não tem redirecionamento, nem ícone, apenas os filhos dele.
+- `quasar`: atualizado para 2.10.0.
+
+### Modificado
+- `QasAvatar`: forçando a sempre ser "redondo", removido propriedades `rounded` e `square`.
+- `QasAppBar`: alterado estilos do componente.
+- `fonts.scss`: alterado font `Inter` para `Nunito`.
+- `item.scss`: alterado estilo padrão do `QItem`.
+- `spacing.scss`: alterado espaçamento padrão do `lg` para `32px`.
+- `QasAppMenu`: alterado estilos e comportamento do componente, entre eles o modo "mini".
+- `quasar`: atualizado o quasar para a versão 2.10.0.
+- `QasLayout`: modificado screen `untilMedium` para `untilLarge`.
+
+### Removido
+- `QasAppMenu`: removido propriedade `brand-menu` pois não existe mais a logo "modular" no menu.
+
+## [3.2.0-beta.1] - 13-10-2022
+### Adicionado
+- Criado automatização de todo processo de publicação do asteroid.
+
+## [3.2.0-beta.0] - 30-09-2022
+### Adicionado
+- `QasTreeGenerator`: adicionado novo componente para criação de árvore.
+- `promiseHandler`: adicionado novo helper para lidar com promises.
+- `destroyNestedChildrenByKey`: adicionado novo helper para lidar com remoção em campos nested.
+- `findChildrenByKey`: adicionado novo helper para encontrar children através de chave e valor.
+- `rules`: adicionado novo helper para lidar com validações de componentes, no momento existe apenas `required`.
+
+### Corrigido
+- `add-counter-suffix.md`: corrigido title da documentação.
+- `filter-object.md`: corrigido title da documentação.
+- `checkbox-group.md`: corrigido documentação que estava pegando com base da do select.
+- `transfer.yml`: adicionado chave `model: true` na propriedade `model-value`.
+
+## [3.1.1-beta.0] - 26-09-22
+### Corrigido
+- `QasNestedFields`: Corrigido botão de excluir ao adicionar um novo item sem salvar ele não removia o item independente da prop useRemoveOnDestroy.
+
+## [3.1.0] - 19-09-22
 ### Adicionado
 Adicionado suporte para Pinia/Vuex Seguindo os padrões da biblioteca `@bildvitta/store-adapter` e `@bildvitta/store-module`.
 - `QasFormGenerator`: adicionado propriedade `disabled` para desativar todos os campos de uma vez.
@@ -32,17 +111,17 @@ Adicionado suporte para Pinia/Vuex Seguindo os padrões da biblioteca `@bildvitt
 ### Removido
 - `shadow.scss`: Removido arquivo de sombras que alteravam cores para deixar estilo original do quasar.
 
-## 3.1.0-beta.4 - 15-09-22
+## [3.1.0-beta.4] - 15-09-22
 ### Corrigido
 - `QasNestedFields`: Adicionado prop `deep: true` no watch no `modelValue` para resolver bug quando usa um custom slot, ou altera o v-model e perde a reatividade.
 
-## 3.1.0-beta.3 - 14-09-22
+## [3.1.0-beta.3] - 14-09-22
 ### Corrigido
 - `QasActionsMenu`: Alterado propriedade `use-label-on-small-screen` para `:use-label-on-small-screen="false"` para seguir o padrão.
 - `QasTabsGenerator`: Alterado type do `modelValue` para `[String, Number]` para aceitar numbers também.
 - `QasTableGenerator`: Alterado `counters[key]` para `counters[tab.value]` para funcionar o counters quando utilizar tabs como `array`.
 
-## 3.1.0-beta.2 - 06-09-22
+## [3.1.0-beta.2] - 06-09-22
 ### Modificado
 - [`QasBox`, `QasListItems`, `QasCard`, `QasAppBar`]: alterado cor shadow padrão de `shadow-14` para `shadow-2`.
 - `QasListItems`: alterado como usa shadow para resolver problema de borda que cortava o shadow, agora o componente usa o `QasBox` e removido prop `bordered`.
@@ -50,12 +129,12 @@ Adicionado suporte para Pinia/Vuex Seguindo os padrões da biblioteca `@bildvitt
 ### Removido
 - `shadow.scss`: Removido arquivo de sombras que alteravam cores para deixar estilo original do quasar.
 
-## 3.1.0-beta.1 - 02-09-22
+## [3.1.0-beta.1] - 02-09-22
 ### Adicionado
 - `QasFilters`: adicionado data-cy no input, dropdown e botões
 - `QasGridGenerator`: adicionado data-cy nos campos e resultados
 
-## 3.1.0-beta.0 - 02-09-22
+## [3.1.0-beta.0] - 02-09-22
 ### Adicionado
 Adicionado suporte para Pinia/Vuex Seguindo os padrões da biblioteca `@bildvitta/store-adapter` e `@bildvitta/store-module`.
 - `QasFormGenerator`: adicionado propriedade `disabled` para desativar todos os campos de uma vez.
@@ -286,19 +365,30 @@ Adicionado suporte para Pinia/Vuex Seguindo os padrões da biblioteca `@bildvitt
 ### Corrigido
 - Corrigido `QasBtn`, quando usa a prop `hideLabelOnSmallScreen` e utiliza o slot default, quando a tela está em tamanho pequeno, o botão remove o slot default, o problema disto é que se usar com um `QMenu` dentro do botão, o `QMenu` não é chamado pois não existe mais slot default.
 
-[3.0.0]: https://github.com/bildvitta/asteroid/compare/v3.0.0-beta.20...v3.0.0?expand=1
-[3.0.0-beta.20]: https://github.com/bildvitta/asteroid/compare/v3.0.0-beta.19...v3.0.0-beta.20?expand=1
-[3.0.0-beta.19]: https://github.com/bildvitta/asteroid/compare/v3.0.0-beta.18...v3.0.0-beta.19?expand=1
-[3.0.0-beta.18]: https://github.com/bildvitta/asteroid/compare/v3.0.0-beta.17...v3.0.0-beta.18?expand=1
-[3.0.0-beta.17]: https://github.com/bildvitta/asteroid/compare/v3.0.0-beta.16...v3.0.0-beta.17?expand=1
-[3.0.0-beta.16]: https://github.com/bildvitta/asteroid/compare/v3.0.0-beta.15...v3.0.0-beta.16?expand=1
-[3.0.0-beta.15]: https://github.com/bildvitta/asteroid/compare/v3.0.0-beta.14...v3.0.0-beta.15?expand=1
-[3.0.0-beta.14]: https://github.com/bildvitta/asteroid/compare/v3.0.0-beta.13...v3.0.0-beta.14?expand=1
-[3.0.0-beta.13]: https://github.com/bildvitta/asteroid/compare/v3.0.0-beta.12...v3.0.0-beta.13?expand=1
-[3.0.0-beta.12]: https://github.com/bildvitta/asteroid/compare/v3.0.0-beta.11...v3.0.0-beta.12?expand=1
-[3.0.0-beta.11]: https://github.com/bildvitta/asteroid/compare/v3.0.0-beta.10...v3.0.0-beta.11?expand=1
-[3.0.0-beta.10]: https://github.com/bildvitta/asteroid/compare/v3.0.0-beta.9...v3.0.0-beta.10?expand=1
-[3.0.0-beta.9]: https://github.com/bildvitta/asteroid/compare/v3.0.0-beta.8...v3.0.0-beta.9?expand=1
-[3.0.0-beta.8]: https://github.com/bildvitta/asteroid/compare/v3.0.0-beta.7...v3.0.0-beta.8?expand=1
-[3.0.0-beta.7]: https://github.com/bildvitta/asteroid/compare/v3.0.0-beta.6...v3.0.0-beta.7?expand=1
 [3.0.0-beta.6]: https://github.com/bildvitta/asteroid/compare/v3.0.0-beta.5...v3.0.0-beta.6?expand=1
+[3.0.0-beta.7]: https://github.com/bildvitta/asteroid/compare/v3.0.0-beta.6...v3.0.0-beta.7?expand=1
+[3.0.0-beta.8]: https://github.com/bildvitta/asteroid/compare/v3.0.0-beta.7...v3.0.0-beta.8?expand=1
+[3.0.0-beta.9]: https://github.com/bildvitta/asteroid/compare/v3.0.0-beta.8...v3.0.0-beta.9?expand=1
+[3.0.0-beta.10]: https://github.com/bildvitta/asteroid/compare/v3.0.0-beta.9...v3.0.0-beta.10?expand=1
+[3.0.0-beta.11]: https://github.com/bildvitta/asteroid/compare/v3.0.0-beta.10...v3.0.0-beta.11?expand=1
+[3.0.0-beta.12]: https://github.com/bildvitta/asteroid/compare/v3.0.0-beta.11...v3.0.0-beta.12?expand=1
+[3.0.0-beta.13]: https://github.com/bildvitta/asteroid/compare/v3.0.0-beta.12...v3.0.0-beta.13?expand=1
+[3.0.0-beta.14]: https://github.com/bildvitta/asteroid/compare/v3.0.0-beta.13...v3.0.0-beta.14?expand=1
+[3.0.0-beta.15]: https://github.com/bildvitta/asteroid/compare/v3.0.0-beta.14...v3.0.0-beta.15?expand=1
+[3.0.0-beta.16]: https://github.com/bildvitta/asteroid/compare/v3.0.0-beta.15...v3.0.0-beta.16?expand=1
+[3.0.0-beta.17]: https://github.com/bildvitta/asteroid/compare/v3.0.0-beta.16...v3.0.0-beta.17?expand=1
+[3.0.0-beta.18]: https://github.com/bildvitta/asteroid/compare/v3.0.0-beta.17...v3.0.0-beta.18?expand=1
+[3.0.0-beta.19]: https://github.com/bildvitta/asteroid/compare/v3.0.0-beta.18...v3.0.0-beta.19?expand=1
+[3.0.0-beta.20]: https://github.com/bildvitta/asteroid/compare/v3.0.0-beta.19...v3.0.0-beta.20?expand=1
+[3.0.0]: https://github.com/bildvitta/asteroid/compare/v3.0.0-beta.20...v3.0.0?expand=1
+[3.1.0]: https://github.com/bildvitta/asteroid/compare/3.0.0...3.1.0?expand=1
+[3.1.0-beta.0]: https://github.com/bildvitta/asteroid/compare/v3.0.0...3.1.0-beta.0?expand=1
+[3.1.0-beta.1]: https://github.com/bildvitta/asteroid/compare/3.1.0-beta.0...3.1.0-beta.1?expand=1
+[3.1.0-beta.2]: https://github.com/bildvitta/asteroid/compare/3.1.0-beta.1...3.1.0-beta.2?expand=1
+[3.1.0-beta.3]: https://github.com/bildvitta/asteroid/compare/3.1.0-beta.2...3.1.0-beta.3?expand=1
+[3.1.0-beta.4]: https://github.com/bildvitta/asteroid/compare/3.1.0-beta.3...3.1.0-beta.4?expand=1
+[3.1.1-beta.0]: https://github.com/bildvitta/asteroid/compare/3.1.0...3.1.1-beta.0?expand=1
+[3.2.0-beta.0]: https://github.com/bildvitta/asteroid/compare/3.1.1-beta.0...3.2.0-beta.0?expand=1
+[3.2.0-beta.1]: https://github.com/bildvitta/asteroid/compare/v3.2.0-beta.0...v3.2.0-beta.1?expand=1
+[3.2.0-beta.2]: https://github.com/bildvitta/asteroid/compare/v3.2.0-beta.1...v3.2.0-beta.2?expand=1
+[3.2.0-beta.3]: https://github.com/bildvitta/asteroid/compare/v3.2.0-beta.2...v3.2.0-beta.3?expand=1

@@ -320,8 +320,16 @@ export default {
       return this.$emit('update:modelValue', value || this.nested)
     },
 
+    /*
+    * Se o item que for removido não tiver o identificador (uuid por ex) e "useRemoveOnDestroy" for "false"
+    * ou "useRemoveOnDestroy" for "true" removemos o item do array, senão adicionamos a flag [destroyKey]
+    * no item referente do array.
+    *
+    * Ex: ao adicionar um item e remover sem salvar, mesmo que useRemoveOnDestroy for false ele será removido
+    * ao invés de adicionar a flag [destroyKey]
+    */
     destroy (index, row) {
-      !row[this.identifierItemKey] && this.useRemoveOnDestroy
+      !row[this.identifierItemKey] || this.useRemoveOnDestroy
         ? this.nested.splice(index, 1)
         : this.nested.splice(index, 1, { [this.destroyKey]: true, ...row })
 

@@ -1,0 +1,81 @@
+type: component
+
+meta:
+  desc: Componente de árvore onde é possível adicionar/editar/excluir sem limites de ramos.
+
+props:
+  form-generator-props:
+    desc: Propriedades enviadas para o "QasFormGenerator".
+    type: Object
+    default: {}
+
+  form-view-props:
+    desc: Propriedades enviadas para o "QasFormView".
+    type: Object
+    default: {}
+
+  label-key:
+    desc: Chave identificadora da label, por padrão o componente considera label, é possível alterar o valor enviado para API através desta chave.
+    type: String
+    default: name
+
+  lazy-nodes:
+    desc: Model do lazy, toda vez que é adicionado/editado/excluído um nó este model é atualizado, ele não é um "two way data binding" alterações fora do componente não afetarão o componente.
+    type: Array
+    default: []
+    model: true
+    examples: [v-model:lazyNodes="lazyNodes"]
+
+  nodes:
+    desc: Nested de Array de objeto contendo label, uuid, lazy e children, é a propriedade responsável por montar a árvore, precisa ser enviado toda a árvore de uma vez.
+    type: Array
+    default: []
+
+  readonly:
+    desc: Habilita a árvore para modo de visualização somente, não sendo possível adicionar/editar/remover nenhum ramo.
+    type: Boolean
+
+  resource:
+    desc: Usado como endpoint da API para adicionar/remover/excluir, quando não utilizar o QasFormView.
+    type: String
+    default: ''
+
+  tree-props:
+    desc: Propriedades enviada para o QTree.
+    default: {}
+    type: Object
+
+  use-add-button:
+    desc: Habilita o botão de adicionar novos ramos.
+    default: true
+    type: Boolean
+
+  use-destroy-button:
+    desc: Habilita o botão de remover os ramos.
+    default: true
+    type: Boolean
+
+  use-destroy-on-first-node:
+    desc: Habilita o botão de remover o primeiro ramo da árvore.
+    type: Boolean
+
+  use-edit-button:
+    desc: Habilita o botão de editar os ramos.
+    default: true
+    type: Boolean
+
+  use-form-view-edit:
+    desc: Habilita o form-view como componente a ser renderizado ao abrir o dialog em modo de edição.
+    type: Boolean
+
+  use-form-view-add:
+    desc: Habilita o form-view como componente a ser renderizado ao abrir o dialog em modo de adição.
+    type: Boolean
+
+events:
+  '@update:lazy-nodes -> function(value)':
+    desc: Dispara toda vez que é adicionado/editado/excluído um nó este model é atualizado, também usado para v-model.
+    params:
+      value:
+        desc: Novo valor do model.
+        type: Array
