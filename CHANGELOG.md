@@ -10,6 +10,40 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 ### Sobre os "BREAKING CHANGES"
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
+## Não publicado
+## BREAKING CHANGES
+- `QasAppMenu`: removido logo do modular no menu.
+- `QasAppMenu`: agora os itens com children no item pai não tem redirecionamento, nem ícone, apenas os filhos dele.
+- `quasar`: atualizado para 2.10.0.
+
+### Adicionado
+- `QasTreeGenerator`: adicionado novo componente para criação de árvore.
+- `promiseHandler`: adicionado novo helper para lidar com promises.
+- `destroyNestedChildrenByKey`: adicionado novo helper para lidar com remoção em campos nested.
+- `findChildrenByKey`: adicionado novo helper para encontrar children através de chave e valor.
+- `rules`: adicionado novo helper para lidar com validações de componentes, no momento existe apenas `required`.
+- Criado automatização de todo processo de publicação do asteroid.
+
+### Modificado
+- `QasAvatar`: forçando a sempre ser "redondo", removido propriedades `rounded` e `square`.
+- `QasAppBar`: alterado estilos do componente.
+- `fonts.scss`: alterado font `Inter` para `Nunito`.
+- `item.scss`: alterado estilo padrão do `QItem`.
+- `spacing.scss`: alterado espaçamento padrão do `lg` para `32px`.
+- `QasAppMenu`: alterado estilos e comportamento do componente, entre eles o modo "mini".
+- `quasar`: atualizado o quasar para a versão 2.10.0.
+- `QasLayout`: modificado screen `untilMedium` para `untilLarge`.
+
+### Corrigido
+- `add-counter-suffix.md`: corrigido title da documentação.
+- `filter-object.md`: corrigido title da documentação.
+- `checkbox-group.md`: corrigido documentação que estava pegando com base da do select.
+- `transfer.yml`: adicionado chave `model: true` na propriedade `model-value`.
+- `QasNestedFields`: Corrigido botão de excluir ao adicionar um novo item sem salvar ele não removia o item independente da prop useRemoveOnDestroy.
+
+### Removido
+- `QasAppMenu`: removido propriedade `brand-menu` pois não existe mais a logo "modular" no menu.
+
 ## [3.2.0-beta.3] - 19-10-2022
 ### Corrigido
 - `QasAppBar`: adicionado classe `no-wrap` para não quebrar o menu de usuário.
