@@ -1,15 +1,19 @@
 
 <template>
-  <qas-box class="gallery">
+  <div>
     <div class="q-col-gutter-md row">
       <div v-for="(image, index) in initialImages()" :key="index" :class="galleryColumnsClasses">
-        <q-img class="cursor-pointer rounded-borders" :height="imageHeight" :src="image" @click="toggleCarouselDialog(index)" @error="onError(image)" />
+        <div class="q-pa-md rounded-borders shadow-2">
+          <q-img class="cursor-pointer rounded-borders" :height="imageHeight" :src="image" @click="toggleCarouselDialog(index)" @error="onError(image)" />
+        </div>
       </div>
+
       <slot>
         <div v-if="!hideShowMore" class="full-width text-center">
-          <qas-btn class="text-weight-bolder" color="primary" flat @click="showMore">{{ showMoreLabel }}</qas-btn>
+          <qas-btn color="primary" flat :label="showMoreLabel" @click="showMore" />
         </div>
       </slot>
+
       <qas-dialog v-model="carouselDialog" :cancel="false" class="q-pa-xl" min-width="1100px" :ok="false" :persistent="false">
         <template #header>
           <div class="text-right">
@@ -27,12 +31,20 @@
         </template>
       </qas-dialog>
     </div>
-  </qas-box>
+  </div>
 </template>
 
 <script>
+import QasBtn from '../btn/QasBtn.vue'
+import QasDialog from '../dialog/QasDialog.vue'
+
 export default {
   name: 'QasGallery',
+
+  components: {
+    QasBtn,
+    QasDialog
+  },
 
   props: {
     carouselNextIcon: {
@@ -52,17 +64,17 @@ export default {
 
     initialSize: {
       type: Number,
-      default: 6
+      default: 4,
+      validator: value => {
+        const acceptableValues = [1, 2, 3, 4, 6, 12]
+
+        return acceptableValues.includes(value)
+      }
     },
 
     images: {
       type: Array,
       default: () => []
-    },
-
-    loadSize: {
-      type: Number,
-      default: 6
     },
 
     showMoreLabel: {
@@ -94,9 +106,12 @@ export default {
     },
 
     galleryColumnsClasses () {
-      if (this.isSingleImage) return 'col-12'
+      if (this.isSingleImage) return 'col-3'
 
-      return this.$qas.screen.isSmall ? 'col-6' : 'col-2'
+      const size = 12 / this.initialSize
+      const col = `col-${size}`
+
+      return this.$qas.screen.isSmall ? 'col-12' : col
     },
 
     hideShowMore () {
@@ -132,7 +147,7 @@ export default {
     },
 
     showMore () {
-      this.displayedImages += this.loadSize
+      this.displayedImages += this.displayedImages
     },
 
     onError (error) {
