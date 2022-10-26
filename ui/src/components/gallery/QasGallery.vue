@@ -1,16 +1,20 @@
 
 <template>
-  <div>
+  <div class="qas-gallery">
     <div class="q-col-gutter-md row">
-      <div v-for="(image, index) in initialImages()" :key="index" :class="galleryColumnsClasses">
+      <div v-for="(image, index) in initialImages()" :key="index" :class="galleryColumnsClasses" :data-cy="`image-${index}`">
         <div class="q-pa-md rounded-borders shadow-2">
-          <q-img class="cursor-pointer rounded-borders" :height="imageHeight" :src="image" @click="toggleCarouselDialog(index)" @error="onError(image)" />
+          <div v-if="image.name" class="ellipsis q-mb-xs qas-gallery__name text-grey-9">
+            {{ image.name }}
+          </div>
+
+          <q-img class="cursor-pointer rounded-borders" height="150px" :src="image.url" @click="toggleCarouselDialog(index)" @error="onError(image.url)" />
         </div>
       </div>
 
       <slot>
         <div v-if="!hideShowMore" class="full-width text-center">
-          <qas-btn color="primary" flat :label="showMoreLabel" @click="showMore" />
+          <qas-btn color="primary" data-cy="btn-show-more" flat :label="showMoreLabel" @click="showMore" />
         </div>
       </slot>
 
@@ -20,9 +24,10 @@
             <qas-btn v-close-popup dense flat icon="o_close" rounded @click="toggleCarouselDialog" />
           </div>
         </template>
+
         <template #description>
-          <q-carousel v-model="imageIndex" animated :arrows="!$qas.screen.isSmall" control-text-color="primary" :fullscreen="$qas.screen.isSmall" :height="carouselImageHeight" :next-icon="carouselNextIcon" :prev-icon="carouselPreviousIcon" swipeable :thumbnails="showThumbnails">
-            <q-carousel-slide v-for="(image, index) in clonedImages" :key="index" class="bg-no-repeat bg-size-contain" :img-src="image" :name="index">
+          <q-carousel v-model="imageIndex" animated :arrows="!$qas.screen.isSmall" control-text-color="primary" data-cy="carousel" :fullscreen="$qas.screen.isSmall" :height="carouselImageHeight" :next-icon="carouselNextIcon" :prev-icon="carouselPreviousIcon" swipeable :thumbnails="showThumbnails">
+            <q-carousel-slide v-for="(image, index) in normalizedImages" :key="index" class="bg-no-repeat bg-size-contain" :data-cy="`carousel-slide-${index}`" :img-src="image.url" :name="index">
               <div v-if="$qas.screen.isSmall" class="full-width justify-end row">
                 <qas-btn dense flat icon="o_close" @click="toggleCarouselDialog" />
               </div>
@@ -37,6 +42,7 @@
 <script>
 import QasBtn from '../btn/QasBtn.vue'
 import QasDialog from '../dialog/QasDialog.vue'
+import { extend } from 'quasar'
 
 export default {
   name: 'QasGallery',
@@ -90,24 +96,13 @@ export default {
   data () {
     return {
       carouselDialog: false,
-      clonedImages: [],
       imageIndex: [],
       displayedImages: this.initialSize
     }
   },
 
   computed: {
-    imageHeight () {
-      if (this.isSingleImage) {
-        return this.height || 'auto'
-      }
-
-      return this.$qas.screen.isSmall ? '90px' : '120px'
-    },
-
     galleryColumnsClasses () {
-      if (this.isSingleImage) return 'col-3'
-
       const size = 12 / this.initialSize
       const col = `col-${size}`
 
@@ -115,7 +110,7 @@ export default {
     },
 
     hideShowMore () {
-      return (this.clonedImages.length <= this.displayedImages) || this.useLoadAll
+      return (this.normalizedImages.length <= this.displayedImages) || this.useLoadAll
     },
 
     carouselImageHeight () {
@@ -127,16 +122,23 @@ export default {
     },
 
     isSingleImage () {
-      return this.clonedImages.length === 1
-    }
-  },
+      return this.normalizedImages.length === 1
+    },
 
-  watch: {
-    images: {
-      handler (value) {
-        this.clonedImages = [...value]
-      },
-      immediate: true
+    isArrayOfString () {
+      return typeof this.clonedImages[0] === 'string'
+    },
+
+    normalizedImages () {
+      if (this.isArrayOfString) {
+        return this.clonedImages.map(url => ({ url }))
+      }
+
+      return this.clonedImages
+    },
+
+    clonedImages () {
+      return extend(true, [], this.images)
     }
   },
 
@@ -151,17 +153,28 @@ export default {
     },
 
     onError (error) {
-      const index = this.clonedImages.findIndex(image => image === error)
+      const index = this.normalizedImages.findIndex(image => image.url === error)
 
       if (~index) {
-        this.clonedImages.splice(index, 1)
+        this.normalizedImages.splice(index, 1)
         this.$forceUpdate()
       }
     },
 
     initialImages () {
-      return this.useLoadAll ? this.clonedImages : this.clonedImages.slice(0, this.displayedImages)
+      return this.useLoadAll
+        ? this.normalizedImages
+        : this.normalizedImages.slice(0, this.displayedImages)
     }
   }
 }
 </script>
+
+<style lang="scss">
+.qas-gallery {
+  &__name {
+    font-size: 16px;
+    font-weight: 600;
+  }
+}
+</style>

@@ -8,8 +8,4 @@ Componente para galeria, mostrando images dentro de um "QasDialog" ao clicar nel
 
 ## Uso
 
-:::tip
-Componente implementa o `QasBox` repassando todas propriedades.
-:::
-
 <doc-example file="QasGallery/Basic" title="Básico" />
