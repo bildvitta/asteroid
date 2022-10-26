@@ -3,7 +3,6 @@ type: component
 mixins:
   - '@bildvitta/quasar-ui-asteroid/dist/api/QasBox.json'
 
-
 meta:
   desc: Componente para galeria, mostrando images dentro de um "QasDialog" ao clicar nelas.
 
@@ -29,11 +28,6 @@ props:
 
   initial-size:
     desc: Quantidade de imagens iniciais.
-    default: 6
-    type: Number
-
-  load-size:
-    desc: Quantidade de fotos carregadas por vez.
     default: 6
     type: Number
 

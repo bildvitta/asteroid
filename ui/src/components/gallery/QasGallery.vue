@@ -2,10 +2,18 @@
 <template>
   <div class="qas-gallery">
     <div class="q-col-gutter-md row">
-      <div v-for="(image, index) in initialImages()" :key="index" :class="galleryColumnsClasses" :data-cy="`image-${index}`">
+      <div v-for="(image, index) in getInitialImages()" :key="index" :class="galleryColumnsClasses" :data-cy="`gallery-image-${index}`">
         <div class="q-pa-md rounded-borders shadow-2">
-          <div v-if="image.name" class="ellipsis q-mb-xs qas-gallery__name text-grey-9">
-            {{ image.name }}
+          <div class="flat items-center justify-between no-wrap q-mb-xs row text-grey-9">
+            <div v-if="image.name" class="ellipsis q-mr-xs qas-gallery__name">
+              {{ image.name }}
+            </div>
+
+            <div v-if="useDelete">
+              <qas-btn color="grey-9" dense flat round size="sm" @click="onDestroy(image, index)">
+                <q-icon name="o_delete" size="xs" />
+              </qas-btn>
+            </div>
           </div>
 
           <q-img class="cursor-pointer rounded-borders" height="150px" :src="image.url" @click="toggleCarouselDialog(index)" @error="onError(image.url)" />
@@ -14,7 +22,7 @@
 
       <slot>
         <div v-if="!hideShowMore" class="full-width text-center">
-          <qas-btn color="primary" data-cy="btn-show-more" flat :label="showMoreLabel" @click="showMore" />
+          <qas-btn color="primary" data-cy="gallery-btn-show-more" flat :label="showMoreLabel" @click="showMore" />
         </div>
       </slot>
 
@@ -26,8 +34,8 @@
         </template>
 
         <template #description>
-          <q-carousel v-model="imageIndex" animated :arrows="!$qas.screen.isSmall" control-text-color="primary" data-cy="carousel" :fullscreen="$qas.screen.isSmall" :height="carouselImageHeight" :next-icon="carouselNextIcon" :prev-icon="carouselPreviousIcon" swipeable :thumbnails="showThumbnails">
-            <q-carousel-slide v-for="(image, index) in normalizedImages" :key="index" class="bg-no-repeat bg-size-contain" :data-cy="`carousel-slide-${index}`" :img-src="image.url" :name="index">
+          <q-carousel v-model="imageIndex" animated :arrows="!$qas.screen.isSmall" control-text-color="primary" data-cy="gallery-carousel" :fullscreen="$qas.screen.isSmall" :height="carouselImageHeight" :next-icon="carouselNextIcon" :prev-icon="carouselPreviousIcon" swipeable :thumbnails="showThumbnails">
+            <q-carousel-slide v-for="(image, index) in normalizedImages" :key="index" class="bg-no-repeat bg-size-contain" :data-cy="`gallery-carousel-slide-${index}`" :img-src="image.url" :name="index">
               <div v-if="$qas.screen.isSmall" class="full-width justify-end row">
                 <qas-btn dense flat icon="o_close" @click="toggleCarouselDialog" />
               </div>
@@ -90,8 +98,19 @@ export default {
 
     useLoadAll: {
       type: Boolean
+    },
+
+    useDelete: {
+      type: Boolean
+    },
+
+    modelValue: {
+      type: Array,
+      default: () => []
     }
   },
+
+  emits: ['update:modelValue'],
 
   data () {
     return {
@@ -138,7 +157,7 @@ export default {
     },
 
     clonedImages () {
-      return extend(true, [], this.images)
+      return extend(true, [], this.modelValue)
     }
   },
 
@@ -161,10 +180,16 @@ export default {
       }
     },
 
-    initialImages () {
+    getInitialImages () {
       return this.useLoadAll
         ? this.normalizedImages
         : this.normalizedImages.slice(0, this.displayedImages)
+    },
+
+    onDestroy (image, index) {
+      this.normalizedImages.splice(index, 1)
+
+      this.$emit('update:modelValue', this.normalizedImages)
     }
   }
 }
@@ -173,7 +198,7 @@ export default {
 <style lang="scss">
 .qas-gallery {
   &__name {
-    font-size: 16px;
+    font-size: 14px;
     font-weight: 600;
   }
 }

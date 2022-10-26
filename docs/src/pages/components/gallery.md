@@ -9,3 +9,4 @@ Componente para galeria, mostrando images dentro de um "QasDialog" ao clicar nel
 ## Uso
 
 <doc-example file="QasGallery/Basic" title="Básico" />
+<doc-example file="QasGallery/ObjectImages" title="Imagens sendo array de objeto" />
