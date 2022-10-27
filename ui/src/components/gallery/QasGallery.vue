@@ -5,14 +5,18 @@
       <div v-for="(image, index) in getInitialImages()" :key="index" :class="galleryColumnsClasses" :data-cy="`gallery-image-${index}`">
         <div class="q-pa-md rounded-borders shadow-2">
           <div class="flat items-center justify-between no-wrap q-mb-xs row text-grey-9">
-            <div v-if="image.name" class="ellipsis q-mr-xs qas-gallery__name">
-              {{ image.name }}
+            <div class="ellipsis q-mr-xs qas-gallery__name">
+              <slot v-if="image.name" :image="image" :index="index" name="header">
+                {{ image.name }}
+              </slot>
             </div>
 
-            <div v-if="useDelete">
-              <qas-btn color="grey-9" dense flat round size="sm" @click="onDestroy(image, index)">
-                <q-icon name="o_delete" size="xs" />
-              </qas-btn>
+            <div v-if="useDestroy">
+              <slot :destroy="onDestroy" :image="image" :index="index" name="destroy">
+                <qas-btn color="grey-9" dense :disabled="isDestroyDisabled(image)" flat round size="sm" @click="onDestroy(image, index)">
+                  <q-icon name="o_delete" size="xs" />
+                </qas-btn>
+              </slot>
             </div>
           </div>
 
@@ -26,39 +30,30 @@
         </div>
       </slot>
 
-      <qas-dialog v-model="carouselDialog" :cancel="false" class="q-pa-xl" min-width="1100px" :ok="false" :persistent="false">
-        <template #header>
-          <div class="text-right">
-            <qas-btn v-close-popup dense flat icon="o_close" rounded @click="toggleCarouselDialog" />
-          </div>
-        </template>
+      <qas-gallery-carousel-dialog v-model="carouselDialog" v-model:imageIndex="imageIndex" :images="normalizedImages" />
 
-        <template #description>
-          <q-carousel v-model="imageIndex" animated :arrows="!$qas.screen.isSmall" control-text-color="primary" data-cy="gallery-carousel" :fullscreen="$qas.screen.isSmall" :height="carouselImageHeight" :next-icon="carouselNextIcon" :prev-icon="carouselPreviousIcon" swipeable :thumbnails="showThumbnails">
-            <q-carousel-slide v-for="(image, index) in normalizedImages" :key="index" class="bg-no-repeat bg-size-contain" :data-cy="`gallery-carousel-slide-${index}`" :img-src="image.url" :name="index">
-              <div v-if="$qas.screen.isSmall" class="full-width justify-end row">
-                <qas-btn dense flat icon="o_close" @click="toggleCarouselDialog" />
-              </div>
-            </q-carousel-slide>
-          </q-carousel>
-        </template>
-      </qas-dialog>
+      <qas-gallery-delete-dialog v-model="showDeleteDialog" v-bind="deleteGalleryDialogProps" @cancel="resetCurrentModel()" @error="onDeleteError" @success="onDeleteSuccess" />
     </div>
   </div>
 </template>
 
 <script>
 import QasBtn from '../btn/QasBtn.vue'
-import QasDialog from '../dialog/QasDialog.vue'
+import QasGalleryDeleteDialog from './QasGalleryDeleteDialog.vue'
+import QasGalleryCarouselDialog from './QasGalleryCarouselDialog.vue'
 import { extend } from 'quasar'
+import { deleteMixin } from '../../mixins'
 
 export default {
   name: 'QasGallery',
 
   components: {
     QasBtn,
-    QasDialog
+    QasGalleryDeleteDialog,
+    QasGalleryCarouselDialog
   },
+
+  mixins: [deleteMixin],
 
   props: {
     carouselNextIcon: {
@@ -71,11 +66,6 @@ export default {
       default: 'o_chevron_left'
     },
 
-    height: {
-      type: String,
-      default: ''
-    },
-
     initialSize: {
       type: Number,
       default: 4,
@@ -84,11 +74,6 @@ export default {
 
         return acceptableValues.includes(value)
       }
-    },
-
-    images: {
-      type: Array,
-      default: () => []
     },
 
     showMoreLabel: {
@@ -100,23 +85,35 @@ export default {
       type: Boolean
     },
 
-    useDelete: {
+    useDestroy: {
       type: Boolean
     },
 
     modelValue: {
       type: Array,
       default: () => []
+    },
+
+    modelKey: {
+      type: String,
+      default: ''
     }
   },
 
-  emits: ['update:modelValue'],
+  emits: [
+    'delete-error',
+    'delete-success',
+    'update:modelValue'
+  ],
 
   data () {
     return {
       carouselDialog: false,
-      imageIndex: [],
-      displayedImages: this.initialSize
+      imageIndex: 0,
+      displayedImages: this.initialSize,
+      showDeleteDialog: false,
+      currentModel: [],
+      imageToBeDestroyed: { index: null }
     }
   },
 
@@ -130,18 +127,6 @@ export default {
 
     hideShowMore () {
       return (this.normalizedImages.length <= this.displayedImages) || this.useLoadAll
-    },
-
-    carouselImageHeight () {
-      return 'calc((500/976) * 100vh)'
-    },
-
-    showThumbnails () {
-      return !this.isSingleImage
-    },
-
-    isSingleImage () {
-      return this.normalizedImages.length === 1
     },
 
     isArrayOfString () {
@@ -158,12 +143,33 @@ export default {
 
     clonedImages () {
       return extend(true, [], this.modelValue)
+    },
+
+    deleteGalleryDialogProps () {
+      return {
+        customId: this.customId,
+        dialogProps: this.dialogProps,
+        entity: this.entity,
+        modelKey: this.modelKey,
+        payload: this.currentModel,
+        url: this.url
+      }
+    }
+  },
+
+  watch: {
+    normalizedImages: {
+      handler (value) {
+        this.currentModel = extend(true, [], value)
+      },
+
+      immediate: true
     }
   },
 
   methods: {
-    toggleCarouselDialog (image) {
-      this.imageIndex = image
+    toggleCarouselDialog (index) {
+      this.imageIndex = index
       this.carouselDialog = !this.carouselDialog
     },
 
@@ -187,18 +193,51 @@ export default {
     },
 
     onDestroy (image, index) {
-      this.normalizedImages.splice(index, 1)
+      if (this.isDestroyDisabled(image)) return
+
+      this.imageToBeDestroyed.index = index
+
+      this.currentModel.splice(this.imageToBeDestroyed.index, 1)
+
+      this.showDeleteDialog = !this.showDeleteDialog
+    },
+
+    isDestroyDisabled (image) {
+      return 'destroyable' in image && !image.destroyable
+    },
+
+    onDeleteSuccess () {
+      this.normalizedImages.splice(this.imageToBeDestroyed.index, 1)
 
       this.$emit('update:modelValue', this.normalizedImages)
+
+      this.$emit(
+        'delete-success',
+        { data: this.normalizedImages, index: this.imageToBeDestroyed.index }
+      )
+    },
+
+    resetCurrentModel () {
+      this.currentModel = extend(true, [], this.normalizedImages)
+    },
+
+    onDeleteError (error) {
+      this.resetCurrentModel()
+
+      this.$emit(
+        'delete-error',
+        { data: error, index: this.imageToBeDestroyed.index }
+      )
     }
   }
 }
 </script>
 
+<!-- TODO rever tipografia -->
 <style lang="scss">
 .qas-gallery {
   &__name {
-    font-size: 14px;
+    font-size: 16px;
     font-weight: 600;
   }
 }

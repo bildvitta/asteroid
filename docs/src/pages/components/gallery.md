@@ -9,4 +9,15 @@ Componente para galeria, mostrando images dentro de um "QasDialog" ao clicar nel
 ## Uso
 
 <doc-example file="QasGallery/Basic" title="Básico" />
-<doc-example file="QasGallery/ObjectImages" title="Imagens sendo array de objeto" />
+
+:::tip
+Para conseguir **remover** um item você precisa configurar as seguintes propriedades:
+
+```
+- custom-id: referente ao model, ex: users/:id, e não ao id da imagem (não obrigatória);
+- entity: referente ao model, ex: "users" (obrigatória);
+- url: referente ao endpoint que a action "update" irá executar (não obrigatória);
+- model-key: referente ao campo que está querendo atualizar, ex: "photos" (obrigatória);
+```
+:::
+<doc-example file="QasGallery/ObjectImages" title="Imagens com nome e opção de remoção" />
