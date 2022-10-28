@@ -1,4 +1,3 @@
-<!-- Componente privado, utilizado internamente e não exportado para uso externo da biblioteca -->
 <template>
   <qas-dialog v-bind="mx_defaultDialogProps" />
 </template>
@@ -6,12 +5,12 @@
 <script>
 import { getAction } from '@bildvitta/store-adapter'
 
-import QasDialog from '../dialog/QasDialog.vue'
-import { promiseHandler } from '../../helpers'
-import { deleteMixin } from '../../mixins'
+import QasDialog from '../../dialog/QasDialog.vue'
+import { promiseHandler } from '../../../helpers'
+import { deleteMixin } from '../../../mixins'
 
 export default {
-  name: 'QasGalleryDeleteDialog',
+  name: 'PvGalleryDeleteDialog',
 
   components: {
     QasDialog

@@ -1,4 +1,3 @@
-<!-- Componente privado, utilizado internamente e não exportado para uso externo da biblioteca -->
 <template>
   <qas-dialog v-model="model" :cancel="false" class="q-pa-xl" max-width="1100px" :ok="false" :persistent="false" use-full-max-width>
     <template #header>
@@ -21,7 +20,7 @@
 
 <script>
 export default {
-  name: 'QasGalleryCarouselDialog',
+  name: 'PvGalleryCarouselDialog',
 
   props: {
     images: {

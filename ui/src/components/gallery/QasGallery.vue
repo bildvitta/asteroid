@@ -30,17 +30,17 @@
         </div>
       </slot>
 
-      <qas-gallery-carousel-dialog v-model="carouselDialog" v-model:imageIndex="imageIndex" :images="normalizedImages" />
+      <pv-gallery-carousel-dialog v-model="carouselDialog" v-model:imageIndex="imageIndex" :images="normalizedImages" />
 
-      <qas-gallery-delete-dialog v-model="showDeleteDialog" v-bind="deleteGalleryDialogProps" @cancel="resetCurrentModel" @error="onDeleteError" @success="onDeleteSuccess" />
+      <pv-gallery-delete-dialog v-model="showDeleteDialog" v-bind="deleteGalleryDialogProps" @cancel="resetCurrentModel" @error="onDeleteError" @success="onDeleteSuccess" />
     </div>
   </div>
 </template>
 
 <script>
 import QasBtn from '../btn/QasBtn.vue'
-import QasGalleryDeleteDialog from './QasGalleryDeleteDialog.vue'
-import QasGalleryCarouselDialog from './QasGalleryCarouselDialog.vue'
+import PvGalleryDeleteDialog from './private/PvGalleryDeleteDialog.vue'
+import PvGalleryCarouselDialog from './private/PvGalleryCarouselDialog.vue'
 import { extend } from 'quasar'
 import { deleteMixin } from '../../mixins'
 
@@ -48,9 +48,9 @@ export default {
   name: 'QasGallery',
 
   components: {
-    QasBtn,
-    QasGalleryDeleteDialog,
-    QasGalleryCarouselDialog
+    PvGalleryCarouselDialog,
+    PvGalleryDeleteDialog,
+    QasBtn
   },
 
   mixins: [deleteMixin],
