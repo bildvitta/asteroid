@@ -19,7 +19,6 @@ props:
 
   entity:
     desc: Entidade da store, por exemplo se tiver que trabalhar com modulo de usuários, teremos o model "users" na store, que vai ser nossa "entity" (utilizado para remover imagem).
-    required: true
     type: String
 
   initial-size:

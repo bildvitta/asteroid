@@ -32,7 +32,7 @@
 
       <qas-gallery-carousel-dialog v-model="carouselDialog" v-model:imageIndex="imageIndex" :images="normalizedImages" />
 
-      <qas-gallery-delete-dialog v-model="showDeleteDialog" v-bind="deleteGalleryDialogProps" @cancel="resetCurrentModel()" @error="onDeleteError" @success="onDeleteSuccess" />
+      <qas-gallery-delete-dialog v-model="showDeleteDialog" v-bind="deleteGalleryDialogProps" @cancel="resetCurrentModel" @error="onDeleteError" @success="onDeleteSuccess" />
     </div>
   </div>
 </template>
