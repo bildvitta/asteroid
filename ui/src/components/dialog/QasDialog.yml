@@ -61,7 +61,7 @@ props:
     type: Boolean
 
   use-full-max-width:
-    desc: propriedade para utilizar `100% do maxWidth`useFullMaxWidth.
+    desc: propriedade para utilizar `100% do maxWidth`.
     type: Boolean
 
   use-validation-at-once:
