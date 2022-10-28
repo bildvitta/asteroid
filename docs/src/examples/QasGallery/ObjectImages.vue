@@ -1,7 +1,7 @@
 <template>
   <div class="container spaced">
     <div>
-      <qas-gallery v-model="images" custom-id="31362c39-2cb5-4fe2-982a-c270f88d2462" entity="users" model-key="photos" use-destroy />
+      <qas-gallery v-model="images" custom-id="31362c39-2cb5-4fe2-982a-c270f88d2462" entity="users" model-key="photos" use-destroy use-object-model />
     </div>
   </div>
 </template>

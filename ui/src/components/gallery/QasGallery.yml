@@ -48,8 +48,16 @@ props:
     desc: Envia como parâmetro para a action "update" do modulo correspondente a "entity" (utilizado para remover imagem).
     type: String
 
+  use-destroy:
+    desc: Usado para habilitar botão de remover imagem da galeroa.
+    type: Boolean
+
   use-load-all:
     desc: Carrega todas imagens de uma única vez.
+    type: Boolean
+
+  use-object-model:
+    desc: Usado para definir o model como objeto.
     type: Boolean
 
 slots:

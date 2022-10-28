@@ -89,6 +89,10 @@ export default {
       type: Boolean
     },
 
+    useObjectModel: {
+      type: Boolean
+    },
+
     modelValue: {
       type: Array,
       default: () => []
@@ -129,12 +133,8 @@ export default {
       return (this.normalizedImages.length <= this.displayedImages) || this.useLoadAll
     },
 
-    isArrayOfString () {
-      return typeof this.clonedImages[0] === 'string'
-    },
-
     normalizedImages () {
-      if (this.isArrayOfString) {
+      if (!this.useObjectModel) {
         return this.clonedImages.map(url => ({ url }))
       }
 
