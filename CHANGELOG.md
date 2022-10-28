@@ -21,6 +21,13 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 ### Adicionado
 - `QasDialog`: adicionado nova propriedade `useFullMaxWidth` para utilizar `100% do maxWidth`.
 - `QasGallery`: adicionado funcionalidade para deletar imagem a partir da galeria.
+- `QasGallery`: adicionado propriedade `customId` usada para deletar a imagem da galeria.
+- `QasGallery`: adicionado propriedade `dialogProps` usada para configurar dialog de deleção.
+- `QasGallery`: adicionado propriedade `entity` usada para deletar a imagem da galeria.
+- `QasGallery`: adicionado propriedade `modelValue` usada para controlar as imagens.
+- `QasGallery`: adicionado propriedade `modelKey` usada para deletar a imagem da galeria.
+- `QasGallery`: adicionado propriedade `url` usada para deletar a imagem da galeria.
+- `QasGallery`: adicionado propriedade `entity` usada para deletar a imagem da galeria.
 - `QasGallery`: adicionado evento `@update:modelValue` para atualização do model.
 - `QasGallery`: adicionado evento `@delete-success` que é disparado quando acontece uma deleção com sucesso.
 - `QasGallery`: adicionado evento `@delete-error` que é a deleção falha.
