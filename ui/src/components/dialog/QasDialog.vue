@@ -68,11 +68,6 @@ export default {
       type: Object
     },
 
-    width: {
-      default: '',
-      type: String
-    },
-
     maxWidth: {
       default: '',
       type: String
