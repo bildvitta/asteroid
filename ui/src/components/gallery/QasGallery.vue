@@ -3,7 +3,7 @@
   <div class="qas-gallery">
     <div class="q-col-gutter-md row">
       <div v-for="(image, index) in getInitialImages()" :key="index" :class="galleryColumnsClasses" :data-cy="`gallery-image-${index}`">
-        <div class="q-pa-md rounded-borders shadow-2">
+        <div class="bg-white q-pa-md rounded-borders shadow-2">
           <div class="flat items-center justify-between no-wrap q-mb-xs row text-grey-9">
             <div class="ellipsis q-mr-xs qas-gallery__name">
               <slot v-if="image.name" :image="image" :index="index" name="header">
