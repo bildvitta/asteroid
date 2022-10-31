@@ -1,12 +1,16 @@
 <template>
-  <q-input ref="input" v-model="model" bottom-slots :error="errorData" v-bind="$attrs" :error-message="errorMessageData" :mask="mask" :outlined="outlined" :unmasked-value="unmaskedValue" @paste="onPaste">
+  <!-- <div> -->
+  <q-input ref="input" bottom-slots :error="errorData" :error-message="errorMessageData" v-bind="$attrs" :mask="mask" :model-value="model2" :outlined="outlined" :unmasked-value="unmaskedValue" @update:model-value="onUpdateModelValue">
     <template v-for="(_, name) in $slots" #[name]="context">
       <slot :name="name" v-bind="context || {}" />
     </template>
   </q-input>
+  <!-- </div> -->
 </template>
 
 <script>
+import { extend } from 'quasar'
+
 export default {
   name: 'QasInput',
 
@@ -47,7 +51,8 @@ export default {
   data () {
     return {
       errorData: false,
-      messageErrorData: ''
+      messageErrorData: '',
+      model2: ''
     }
   },
 
@@ -61,7 +66,7 @@ export default {
     },
 
     mask () {
-      const { mask } = this.$attrs
+      const { mask } = extend(true, {}, this.$attrs)
       const hasDefaultMask = Object.prototype.hasOwnProperty.call(this.masks, mask)
 
       return hasDefaultMask ? this.masks[mask]() : mask
@@ -83,13 +88,20 @@ export default {
       },
 
       set (value) {
-        if (this.useRemoveErrorOnType && this.error) {
-          this.errorData = false
-          this.errorMessageData = ''
-        }
+        // if (this.useRemoveErrorOnType && this.error) {
+        //   this.errorData = false
+        //   this.errorMessageData = ''
+        // }
 
-        return this.$emit('update:modelValue', value)
+        this.$emit('update:modelValue', value)
       }
+    },
+
+    attributes () {
+      const { 'onUpdate:modelValue': event, ...rest } = this.$attrs
+      console.log(event, 'KRL')
+
+      return rest
     }
   },
 
@@ -101,6 +113,19 @@ export default {
         input.selectionStart = input.value ? input.value.length : ''
       })
     },
+
+    modelValue: {
+      handler (value, oldValue) {
+        this.model2 = value
+      },
+      immediate: true
+    },
+
+    // model2: {
+    //   handler (value) {
+    //     this.$emit('update:modelValue', value)
+    //   }
+    // },
 
     error: {
       handler (value) {
@@ -153,6 +178,11 @@ export default {
 
     getInput () {
       return this.inputReference.$el?.querySelector('input')
+    },
+
+    onUpdateModelValue (value) {
+      console.log(value, 'fui chamado quantas vezes?')
+      this.$emit('update:modelValue', value)
     }
   }
 }
