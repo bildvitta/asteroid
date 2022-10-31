@@ -104,6 +104,10 @@ export default {
       type: Boolean
     },
 
+    useFullMaxWidth: {
+      type: Boolean
+    },
+
     useValidationAllAtOnce: {
       type: Boolean
     }
@@ -133,6 +137,7 @@ export default {
 
     style () {
       return {
+        ...(this.useFullMaxWidth && { width: '100%' }),
         maxWidth: this.maxWidth || (this.$qas.screen.isSmall ? '' : '600px'),
         minWidth: this.minWidth || (this.$qas.screen.isSmall ? '' : '400px')
       }
