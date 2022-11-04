@@ -13,7 +13,8 @@
       model: {{ personalDocument }}
     </div>
     <div class="q-my-md">
-      <qas-input v-model="phone" label="phone" mask="phone" type="text" />
+      <qas-input v-model="phone" label="phone" mask="phone" />
+      model: {{ phone }}
     </div>
     <div class="q-my-md">
       <qas-input v-model="postalCode" label="postal-code" mask="postal-code" />
