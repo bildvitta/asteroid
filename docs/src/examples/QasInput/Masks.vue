@@ -13,11 +13,7 @@
       model: {{ personalDocument }}
     </div>
     <div class="q-my-md">
-      <qas-input v-model="phone" label="phone" mask="phone" type="text" @update:model-value="alert('aa')" />
-      <!-- <q-input v-model="phone" label="phone" mask="(##) #####-####" /> -->
-      model: {{ phone }}
-
-      <qas-btn @click="phone = '16'" />
+      <qas-input v-model="phone" label="phone" mask="phone" type="text" />
     </div>
     <div class="q-my-md">
       <qas-input v-model="postalCode" label="postal-code" mask="postal-code" />
@@ -34,7 +30,8 @@ export default {
       document: '99999999999',
       personalDocument: '99999999999',
       phone: '99999999999',
-      postalCode: '99999-999'
+      postalCode: '99999-999',
+      teste: ''
     }
   }
 }

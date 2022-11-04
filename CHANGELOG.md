@@ -11,6 +11,9 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
 ## Não publicado
+### Modificado
+- `quasar`: atualizado quasar para `2.10.1`.
+
 ### Corrigido
 - `QasInput`: corrigido problemas de mascara ao alterar valor do model fora do componente.
 
