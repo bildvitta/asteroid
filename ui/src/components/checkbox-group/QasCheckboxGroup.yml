@@ -21,11 +21,11 @@ props:
     default: []
     type: Array
 
-
 events:
   '@update:model-value -> function(value)':
     desc: Dispara quando o model-value altera, também usado para v-model.
     params:
       value:
         desc: Novo valor do model.
-        type: []
+        default: []
+        type: Array

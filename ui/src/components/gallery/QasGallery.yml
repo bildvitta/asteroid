@@ -3,37 +3,26 @@ type: component
 mixins:
   - '@bildvitta/quasar-ui-asteroid/dist/api/QasBox.json'
 
-
 meta:
   desc: Componente para galeria, mostrando images dentro de um "QasDialog" ao clicar nelas.
 
 props:
-  carousel-next-icon:
-    desc: Ícone dentro do carousel para passar para próxima imagem.
-    default: o_chevron_right
+  custom-id:
+    desc: Por padrão, o componente vai pegar o "id" que vem como parâmetro na url, caso queira que o id seja diferente da url, use esta prop (utilizado para remover imagem, custom-id referente ao model e não a imagem).
     type: String
+    examples: ['my-custom-id']
 
-  carousel-previous-icon:
-    desc: Ícone dentro do carousel para passar para a imagem anterior.
-    default: o_chevron_left
+  dialog-props:
+    desc: Props para ser repassada para o componente "QasDialog" (utilizado para dialog de remover imagem).
+    default: {}
+    type: Object
+
+  entity:
+    desc: Entidade da store, por exemplo se tiver que trabalhar com modulo de usuários, teremos o model "users" na store, que vai ser nossa "entity" (utilizado para remover imagem).
     type: String
-
-  height:
-    desc: Altura da imagem (fora do dialog).
-    type: String
-
-  images:
-    desc: Imagens a serem exibidas.
-    default: 6
-    type: Number
 
   initial-size:
     desc: Quantidade de imagens iniciais.
-    default: 6
-    type: Number
-
-  load-size:
-    desc: Quantidade de fotos carregadas por vez.
     default: 6
     type: Number
 
@@ -42,10 +31,101 @@ props:
     default: Ver mais
     type: String
 
+  model-value:
+    desc: Model do componente, usado para v-model.
+    default: []
+    type: Array
+    examples: [v-model"value"]
+    model: true
+
+  model-key:
+    desc: Chave identificadora do model, usada para identificar qual campo ela é referente.
+    default: ''
+    type: String
+    examples: [photos]
+
+  url:
+    desc: Envia como parâmetro para a action "update" do modulo correspondente a "entity" (utilizado para remover imagem).
+    type: String
+
+  use-destroy:
+    desc: Usado para habilitar botão de remover imagem da galeroa.
+    type: Boolean
+
   use-load-all:
     desc: Carrega todas imagens de uma única vez.
+    type: Boolean
+
+  use-object-model:
+    desc: Usado para definir o model como objeto.
     type: Boolean
 
 slots:
   default:
     desc: Slot para todo conteúdo onde fica o botão "mostrar mais".
+
+  destroy:
+    desc: Slot para o ícone de remover.
+    scope:
+      destroy:
+        desc: Função para remover e atualizar o model.
+        default: undefined
+        type: Function
+
+      index:
+        desc: index atual.
+        default: 0
+        type: Number
+
+      image:
+        desc: imagem atual.
+        default: {}
+        type: Object
+
+  header:
+    desc: Slot para o header.
+    scope:
+      index:
+        desc: index atual.
+        default: 0
+        type: Number
+
+      image:
+        desc: imagem atual.
+        default: {}
+        type: Object
+
+events:
+  '@update:model-value -> function(value)':
+    desc: Dispara quando o model-value altera, também usado para v-model.
+    params:
+      value:
+        desc: Novo valor do model.
+        default: []
+        type: Array
+
+  'delete-success -> function({ data, index })':
+    desc: Dispara quando deleta uma imagem da galeria com sucesso.
+    params:
+      data:
+        desc: Novo valor do v-model.
+        default: []
+        type: Array
+
+      index:
+        desc: Index da imagem deletada.
+        default: []
+        type: Array
+
+  'delete-error -> function({ data, index })':
+    desc: Dispara ocorre uma falha ao deletar uma imagem da galeria.
+    params:
+      data:
+        desc: Valor retornado no erro.
+        default: []
+        type: Array
+
+      index:
+        desc: Index da imagem que seria deletada.
+        default: []
+        type: Array
