@@ -31,8 +31,7 @@ export default {
       document: '99999999999',
       personalDocument: '99999999999',
       phone: '99999999999',
-      postalCode: '99999-999',
-      teste: ''
+      postalCode: '99999-999'
     }
   }
 }
