@@ -10,6 +10,45 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 ### Sobre os "BREAKING CHANGES"
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
+## Não publicado
+## BREAKING CHANGES
+- `QasGallery`: propriedade `images` substituída para `modelValue` uma vez que agora é possível excluir itens da galeria.
+- `QasGallery`: propriedade `height` removida para padronização.
+- `QasGallery`: propriedade `carouselNextIcon` removida para padronização.
+- `QasGallery`: propriedade `carouselPreviousIcon` removida para padronização.
+- `QasGallery`: propriedade `loadSize` removida, agora o tamanho de carregamento de imagens é relativo ao `initialSize`.
+
+### Adicionado
+- `QasDialog`: adicionado nova propriedade `useFullMaxWidth` para utilizar `100% do maxWidth`.
+- `QasGallery`: adicionado funcionalidade para deletar imagem a partir da galeria.
+- `QasGallery`: adicionado propriedade `customId` usada para deletar a imagem da galeria.
+- `QasGallery`: adicionado propriedade `dialogProps` usada para configurar dialog de deleção.
+- `QasGallery`: adicionado propriedade `entity` usada para deletar a imagem da galeria.
+- `QasGallery`: adicionado propriedade `modelValue` usada para controlar as imagens.
+- `QasGallery`: adicionado propriedade `modelKey` usada para deletar a imagem da galeria.
+- `QasGallery`: adicionado propriedade `url` usada para deletar a imagem da galeria.
+- `QasGallery`: adicionado propriedade `entity` usada para deletar a imagem da galeria.
+- `QasGallery`: adicionado propriedade `useDestroy` usada para deletar a imagem da galeria.
+- `QasGallery`: adicionado propriedade `useObjectModel` usada para definir model como objeto.
+- `QasGallery`: adicionado evento `@update:modelValue` para atualização do model.
+- `QasGallery`: adicionado evento `@delete-success` que é disparado quando acontece uma deleção com sucesso.
+- `QasGallery`: adicionado evento `@delete-error` que é a deleção falha.
+
+### Modificado
+- `QasGallery`: alterado estilos/comportamento quando é imagem única do componente.
+- `QasGallery`: refatoração de código.
+- `QasGallery`: Adicionado classe `bg-white` para espaço entre a sombra e imagem sempre ficar `branca`.
+
+### Corrigido
+- `QasGallery`: resolvido pequeno problema referente a tamanhos
+
+### Removido
+- `QasGallery`: propriedade `images` substituída para `modelValue` uma vez que agora é possível excluir itens da galeria.
+- `QasGallery`: propriedade `height` removida para padronização.
+- `QasGallery`: propriedade `carouselNextIcon` removida para padronização.
+- `QasGallery`: propriedade `carouselPreviousIcon` removida para padronização.
+- `QasGallery`: propriedade `loadSize` removida, agora o tamanho de carregamento de imagens é relativo ao `initialSize`.
+
 ## [3.3.0-beta.1] - 31-10-2022
 ### Modificado
 - `QasGallery`: Adicionado classe `bg-white` para espaço entre a sombra e imagem sempre ficar `branca`.
