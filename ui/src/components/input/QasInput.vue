@@ -47,7 +47,8 @@ export default {
   data () {
     return {
       errorData: false,
-      messageErrorData: ''
+      messageErrorData: '',
+      mask: ''
     }
   },
 
@@ -58,13 +59,6 @@ export default {
 
     inputReference () {
       return this.$refs.input
-    },
-
-    mask () {
-      const { mask } = this.$attrs
-      const hasDefaultMask = Object.prototype.hasOwnProperty.call(this.masks, mask)
-
-      return hasDefaultMask ? this.masks[mask]() : mask
     },
 
     masks () {
@@ -83,10 +77,7 @@ export default {
       },
 
       set (value) {
-        if (this.useRemoveErrorOnType && this.error) {
-          this.errorData = false
-          this.errorMessageData = ''
-        }
+        this.handleErrors()
 
         return this.$emit('update:modelValue', value)
       }
@@ -94,12 +85,21 @@ export default {
   },
 
   watch: {
-    mask () {
+    mask (value) {
+      if (!value) return
+
       const input = this.getInput()
 
       requestAnimationFrame(() => {
         input.selectionStart = input.value ? input.value.length : ''
       })
+    },
+
+    modelValue: {
+      handler () {
+        this.handleMask()
+      },
+      immediate: true
     },
 
     error: {
@@ -129,8 +129,6 @@ export default {
     },
 
     toggleMask (first, second) {
-      if (!this.modelValue?.length) return
-
       const length = first.split('#').length - 2
       return this.modelValue?.length > length ? second : first
     },
@@ -152,7 +150,25 @@ export default {
     },
 
     getInput () {
-      return this.inputReference.$el?.querySelector('input')
+      return this.inputReference?.$el?.querySelector('input')
+    },
+
+    handleErrors () {
+      if (this.useRemoveErrorOnType && this.error) {
+        this.errorData = false
+        this.errorMessageData = ''
+      }
+    },
+
+    handleMask () {
+      if (!this.modelValue?.length) return
+
+      const { mask } = this.$attrs
+      const hasDefaultMask = Object.prototype.hasOwnProperty.call(this.masks, mask)
+
+      this.$nextTick(() => {
+        this.mask = hasDefaultMask ? this.masks[mask]() : mask
+      })
     }
   }
 }
