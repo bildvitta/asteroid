@@ -15,7 +15,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - `copyToClipboard`: adicionado novo helper copyToClipboard para ser utilizado no componente `QasCopy` e fora do asteroid.
 
 ### Modificado
-- [`QasFormView`, `QasListView`, `QasSingleView`]: Removido notify de erro do método `mx_fetchError` quando o status code é `401 | 403 | 404 | >= 500`.
+- [`QasFormView`, `QasListView`, `QasSingleView`]: removido notify de erro do método `mx_fetchError` quando o status code é `401 | 403 | 404 | >= 500`.
 - `QasCopy`: utilizando novo helper`copyToClipboard`.
 
 ## [3.3.1-beta.0] - 04-11-2022
