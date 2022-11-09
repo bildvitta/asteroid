@@ -10,6 +10,14 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 ### Sobre os "BREAKING CHANGES"
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
+## Não publicado
+### Adicionado
+- `copyToClipboard`: adicionado novo helper copyToClipboard para ser utilizado no componente `QasCopy` e fora do asteroid.
+
+### Modificado
+- [`QasFormView`, `QasListView`, `QasSingleView`]: Removido notify de erro do método `mx_fetchError` quando o status code é `401 | 403 | 404 | >= 500`.
+- `QasCopy`: utilizando novo helper`copyToClipboard`.
+
 ## [3.3.1-beta.0] - 04-11-2022
 ### Modificado
 - `quasar`: atualizado quasar para `2.10.1`.
