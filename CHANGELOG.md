@@ -10,6 +10,18 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 ### Sobre os "BREAKING CHANGES"
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
+## Não publicado
+### Adicionado
+- `QasField`: repassando `useStrengthChecker` no QasField.
+
+### Modificado
+- `QasSearchBox`: modificado tempo de `debounce` no lazy loading de `500` para `800`.
+- `QasSearchBox`: removido `disable` do campo de busca enquanto ocorria uma request.
+
+### Corrigido
+- `QasAppBar`: corrigido badge que mostra se o ambiente é de `Develop`.
+- `QasPasswordInput`: corrigido problema de slots que não mostrada `QasPasswordStrengthChecker` quando renderizado pelo `QasField` e também não respeitava a prop `hideBottomSpace` quando usado diretamente.
+
 ## [3.4.0-beta.0] - 10-11-2022
 ### Adicionado
 - `copyToClipboard`: adicionado novo helper copyToClipboard para ser utilizado no componente `QasCopy` e fora do asteroid.
