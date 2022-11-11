@@ -105,8 +105,7 @@ export default {
     developmentBadgeLabel () {
       const hosts = {
         localhost: 'Local',
-        develop: 'Develop',
-        release: 'Release'
+        '.dev.': 'Develop'
       }
 
       if (process.env.DEV) {

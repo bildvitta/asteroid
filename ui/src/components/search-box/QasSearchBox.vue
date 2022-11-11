@@ -112,7 +112,7 @@ export default {
       return {
         clearable: true,
         disable: this.isDisabled,
-        debounce: this.useLazyLoading ? 500 : 0,
+        debounce: this.useLazyLoading ? 800 : 0,
         outlined: true,
         placeholder: this.placeholder,
         hideBottomSpace: true,
@@ -161,7 +161,7 @@ export default {
     },
 
     isDisabled () {
-      return (!this.useLazyLoading && !this.list.length) || this.mx_isFetching || this.hasNoOptionsOnFirstFetch
+      return (!this.useLazyLoading && !this.list.length) || this.hasNoOptionsOnFirstFetch
     },
 
     showEmptyResult () {

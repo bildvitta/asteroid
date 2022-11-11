@@ -1,5 +1,5 @@
 <template>
-  <qas-input v-model="model" :bottom-slots="false" v-bind="$attrs" :type="type" use-remove-error-on-type>
+  <qas-input v-model="model" :bottom-slots="hasBottomSlots" v-bind="$attrs" :type="type" use-remove-error-on-type>
     <template #append>
       <q-icon class="cursor-pointer" :color="iconColor" :name="icon" @click="toggle" />
     </template>
@@ -8,13 +8,14 @@
       <slot :name="name" v-bind="context || {}" />
     </template>
 
-    <template v-if="useStrengthChecker" #hint>
+    <template v-if="hasStrengthChecker" #hint>
       <qas-password-strength-checker v-bind="strengthCheckerProps" :password="model" />
     </template>
   </qas-input>
 </template>
 
 <script>
+import QasInput from '../input/QasInput.vue'
 import passwordMixin from '../../mixins/password.js'
 import QasPasswordStrengthChecker from '../password-strength-checker/QasPasswordStrengthChecker.vue'
 
@@ -22,6 +23,7 @@ export default {
   name: 'QasPasswordInput',
 
   components: {
+    QasInput,
     QasPasswordStrengthChecker
   },
 
@@ -76,6 +78,14 @@ export default {
 
     type () {
       return this.toggleType ? 'password' : 'text'
+    },
+
+    hasBottomSlots () {
+      return !!this.model.length
+    },
+
+    hasStrengthChecker () {
+      return this.useStrengthChecker && this.hasBottomSlots
     }
   },
 

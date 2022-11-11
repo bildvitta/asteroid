@@ -76,8 +76,9 @@ export default {
         mask,
         maxFiles,
         useIso,
+        useLazyLoading,
         useSearch,
-        useLazyLoading
+        useStrengthChecker
       } = this.formattedField
 
       // Default error attributes for Quasar.
@@ -125,7 +126,7 @@ export default {
         number: { is: 'qas-input', type: 'number', ...input },
         hidden: { is: 'input', name, type },
         email: { is: 'qas-input', type, ...input },
-        password: { is: 'qas-password-input', ...input },
+        password: { is: 'qas-password-input', ...input, useStrengthChecker },
 
         decimal: { ...numericInput, mode: 'decimal' },
         money: { ...numericInput, mode: 'money' },
