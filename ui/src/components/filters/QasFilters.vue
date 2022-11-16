@@ -27,7 +27,7 @@
 
             <q-form v-else class="q-gutter-y-md q-pa-md" @submit.prevent="filter()">
               <div v-for="(field, index) in fields" :key="index">
-                <qas-field v-model="filters[field.name]" :data-cy="`filters-${field.name}-field`" dense :field="field" />
+                <qas-field v-model="filters[field.name]" :data-cy="`filters-${field.name}-field`" dense :field="field" v-bind="fieldsProps[field.name]" />
               </div>
 
               <div class="text-right">
@@ -76,6 +76,11 @@ export default {
     entity: {
       required: true,
       type: String
+    },
+
+    fieldsProps: {
+      default: () => ({}),
+      type: Object
     },
 
     useFilterButton: {
