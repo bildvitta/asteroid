@@ -11,9 +11,10 @@ import QasCheckboxGroup from '../checkbox-group/QasCheckboxGroup.vue'
 import QasDateTimeInput from '../date-time-input/QasDateTimeInput.vue'
 import QasInput from '../input/QasInput.vue'
 import QasNumericInput from '../numeric-input/QasNumericInput.vue'
+import QasOptionGroup from '../option-group/QasOptionGroup.vue'
 import QasPasswordInput from '../password-input/QasPasswordInput.vue'
-import QasUploader from '../uploader/QasUploader.vue'
 import QasSignatureUploader from '../signature-uploader/QasSignatureUploader.vue'
+import QasUploader from '../uploader/QasUploader.vue'
 
 const attributesProfile = {
   maxLength: 'maxlength',
@@ -29,9 +30,10 @@ export default {
     QasDateTimeInput,
     QasInput,
     QasNumericInput,
+    QasOptionGroup,
     QasPasswordInput,
-    QasUploader,
-    QasSignatureUploader
+    QasSignatureUploader,
+    QasUploader
   },
 
   inheritAttrs: false,
@@ -138,7 +140,7 @@ export default {
 
         boolean: { is: 'q-toggle', label, ...error },
         checkbox: { is: 'qas-checkbox-group', label, options, ...error },
-        radio: { is: 'q-option-group', label, options, type: 'radio', ...error },
+        radio: { is: 'qas-option-group', label, options },
 
         upload: { is: 'qas-uploader', accept, autoUpload: true, entity, label, multiple, readonly, maxFiles, ...error },
         editor: { is: 'q-editor', toolbar, ...error },

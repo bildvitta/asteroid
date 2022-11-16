@@ -27,7 +27,8 @@
     "QasNestedFields",
     "QasTreeGenerator",
     "QasGallery",
-    "QasFilters"
+    "QasFilters",
+    "QasOptionGroup"
   ],
   "cSpell.words": [
     "Nunito"

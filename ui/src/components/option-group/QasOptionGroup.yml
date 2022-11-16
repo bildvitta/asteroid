@@ -1,0 +1,30 @@
+type: component
+
+meta:
+  desc: Componente para gerar dinamicamente campos nested.
+
+props:
+  options:
+    desc: Opções contendo objetos com chaves "label" e "value".
+    default: []
+    type: Array
+
+  model-value:
+    desc: Model do componente, usado para v-model.
+    default: []
+    type: [String, Number, Array, Boolean]
+    examples: [v-model"value"]
+    model: true
+
+  type:
+    desc: Tipo de componente, podendo ser radio, checkbox ou toggle.
+    default: 'radio'
+    type: String
+
+events:
+  '@update:model-value -> function (value)':
+    desc: Dispara toda vez que o model é atualizado, também utilizado para v-model.
+    params:
+      value:
+        desc: Novo valor do v-model
+        type: String
