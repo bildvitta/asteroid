@@ -18,7 +18,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 
 ### Adicionado
 - `QasFilters`: adicionado nova propriedade `fieldsProps` para repassar propriedades para os campos do filtro.
-- `QaSelect`: adicionado busca quando existe mais de pelo menos 10 opções.
+- `QaSelect`: adicionado busca automaticamente quando existem pelo menos 10 opções.
 - `QasOptionGroup`: adicionado novo componente wrapper do `QOptionGroup` do quasar, para deixar padronizado propriedade `inline` e deixar mais componentizado.
 
 ### Modificado
