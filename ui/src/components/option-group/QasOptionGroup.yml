@@ -1,7 +1,7 @@
 type: component
 
 meta:
-  desc: Componente para gerar dinamicamente campos nested.
+  desc: Componente wrapper do [QOptionGroup](https://quasar.dev/vue-components/option-group#introduction).
 
 props:
   options:
