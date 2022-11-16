@@ -112,7 +112,7 @@ export default {
     },
 
     isSearchable () {
-      return this.useSearch || this.useLazyLoading
+      return this.hasFuse || this.useLazyLoading
     },
 
     defaultOptions () {
@@ -125,6 +125,16 @@ export default {
 
     hasLoading () {
       return this.mx_isFetching || this.$attrs.loading
+    },
+
+    hasFuse () {
+      /*
+      * quantidade de option que precisa ter para o fuse funcionar automaticamente
+      * sem necessidade de passar prop manualmente
+      */
+      const autoFuseQuantity = 10
+
+      return this.useSearch || this.options.length >= autoFuseQuantity
     },
 
     model: {
@@ -147,7 +157,7 @@ export default {
       handler () {
         if (this.useLazyLoading && this.mx_hasFilteredOptions) return
 
-        if (this.fuse) this.setFuse()
+        if (this.fuse || this.hasFuse) this.setFuse()
 
         this.mx_filteredOptions = this.defaultOptions
       },
@@ -163,7 +173,7 @@ export default {
 
   methods: {
     setFuse () {
-      if (this.useSearch) {
+      if (this.hasFuse) {
         this.fuse = new Fuse(this.defaultOptions, this.defaultFuseOptions)
       }
     },
@@ -173,7 +183,7 @@ export default {
         await this.mx_filterOptionsByStore(value)
       }
 
-      if (!this.useLazyLoading && this.useSearch) {
+      if (!this.useLazyLoading && this.hasFuse) {
         this.filterOptionsByFuse(value)
       }
 
