@@ -68,10 +68,6 @@ export default {
     valueKey: {
       default: '',
       type: String
-    },
-
-    useSearch: {
-      type: Boolean
     }
   },
 
@@ -133,8 +129,9 @@ export default {
       * sem necessidade de passar prop manualmente
       */
       const autoFuseQuantity = 10
+      const hasAutoFuseSearch = this.options.length >= autoFuseQuantity && !this.useLazyLoading
 
-      return this.useSearch || this.options.length >= autoFuseQuantity
+      return hasAutoFuseSearch
     },
 
     model: {

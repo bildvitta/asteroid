@@ -79,7 +79,6 @@ export default {
         maxFiles,
         useIso,
         useLazyLoading,
-        useSearch,
         useStrengthChecker
       } = this.formattedField
 
@@ -147,7 +146,7 @@ export default {
 
         'signature-uploader': { is: 'qas-signature-uploader', entity, uploadLabel: label, ...error },
 
-        select: { is: 'qas-select', entity, name, multiple, options, useSearch, useLazyLoading, ...input }
+        select: { is: 'qas-select', entity, name, multiple, options, useLazyLoading, ...input }
       }
 
       return { ...(profiles[type] || profiles.default), ...this.$attrs }
