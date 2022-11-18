@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import { copyToClipboard } from 'quasar'
+import { copyToClipboard } from '../../helpers'
 
 export default {
   name: 'QasCopy',
@@ -38,17 +38,10 @@ export default {
   },
 
   methods: {
-    async copy () {
-      this.isLoading = true
-
-      try {
-        await copyToClipboard(this.text)
-        this.$qas.success('Copiado!', this.text)
-      } catch (error) {
-        this.$qas.error('Não foi possível copiar.', this.text)
-      } finally {
-        setTimeout(() => { this.isLoading = false }, 500)
-      }
+    copy () {
+      copyToClipboard(this.text, isLoading => {
+        this.isLoading = isLoading
+      })
     }
   }
 }

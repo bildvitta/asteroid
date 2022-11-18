@@ -280,6 +280,10 @@ module.exports = [
         path: '/helpers/construct-object'
       },
       {
+        name: 'copyToClipboard',
+        path: '/helpers/copy-to-clipboard'
+      },
+      {
         name: 'destroyNestedChildrenByKey',
         path: '/helpers/destroy-nested-children-by-key'
       },

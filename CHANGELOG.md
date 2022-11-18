@@ -10,6 +10,55 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 ### Sobre os "BREAKING CHANGES"
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
+## Não publicado
+### Adicionado
+- `QasField`: repassando `useStrengthChecker` no QasField.
+- `copyToClipboard`: adicionado novo helper copyToClipboard para ser utilizado no componente `QasCopy` e fora do asteroid.
+
+### Modificado
+- [`QasFormView`, `QasListView`, `QasSingleView`]: removido notify de erro do método `mx_fetchError` quando o status code é `401 | 403 | 404 | >= 500`.
+- `QasCopy`: utilizando novo helper`copyToClipboard`.
+- `QasSearchBox`: modificado tempo de `debounce` no lazy loading de `500` para `800`.
+- `QasSearchBox`: removido `disable` do campo de busca enquanto ocorria uma request.
+- `quasar`: atualizado quasar para `2.10.1`.
+
+### Corrigido
+- `QasAppBar`: corrigido badge que mostra se o ambiente é de `Develop`.
+- `QasPasswordInput`: corrigido problema de slots que não mostrada `QasPasswordStrengthChecker` quando renderizado pelo `QasField` e também não respeitava a prop `hideBottomSpace` quando usado diretamente.
+- `QasFormGenerator`: corrigido problema que não deixava campo disabled quando a prop vinha pelo `QasField`.
+- `QasInput`: corrigido problemas de mascara ao alterar valor do model fora do componente.
+
+## [3.4.0-beta.2] - 17-11-2022
+### Corrigido
+- `QasFormGenerator`: corrigido problema que não deixava campo disabled quando a prop vinha pelo `QasField`.
+
+## [3.4.0-beta.1] - 11-11-2022
+### Adicionado
+- `QasField`: repassando `useStrengthChecker` no QasField.
+
+### Modificado
+- `QasSearchBox`: modificado tempo de `debounce` no lazy loading de `500` para `800`.
+- `QasSearchBox`: removido `disable` do campo de busca enquanto ocorria uma request.
+
+### Corrigido
+- `QasAppBar`: corrigido badge que mostra se o ambiente é de `Develop`.
+- `QasPasswordInput`: corrigido problema de slots que não mostrada `QasPasswordStrengthChecker` quando renderizado pelo `QasField` e também não respeitava a prop `hideBottomSpace` quando usado diretamente.
+
+## [3.4.0-beta.0] - 10-11-2022
+### Adicionado
+- `copyToClipboard`: adicionado novo helper copyToClipboard para ser utilizado no componente `QasCopy` e fora do asteroid.
+
+### Modificado
+- [`QasFormView`, `QasListView`, `QasSingleView`]: removido notify de erro do método `mx_fetchError` quando o status code é `401 | 403 | 404 | >= 500`.
+- `QasCopy`: utilizando novo helper`copyToClipboard`.
+
+## [3.3.1-beta.0] - 04-11-2022
+### Modificado
+- `quasar`: atualizado quasar para `2.10.1`.
+
+### Corrigido
+- `QasInput`: corrigido problemas de mascara ao alterar valor do model fora do componente.
+
 ## [3.3.0] - 04-11-2022
 ## BREAKING CHANGES
 - `QasGallery`: propriedade `images` substituída para `modelValue` uma vez que agora é possível excluir itens da galeria.
@@ -51,7 +100,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 
 ## [3.3.0-beta.1] - 31-10-2022
 ### Modificado
-- `QasGallery`: Adicionado classe `bg-white` para espaço entre a sombra e imagem sempre ficar `branca`.
+- `QasGallery`: adicionado classe `bg-white` para espaço entre a sombra e imagem sempre ficar `branca`.
 
 ## [3.3.0-beta.0] - 31-10-2022
 ## BREAKING CHANGES
@@ -477,3 +526,7 @@ Adicionado suporte para Pinia/Vuex Seguindo os padrões da biblioteca `@bildvitt
 [3.3.0-beta.0]: https://github.com/bildvitta/asteroid/compare/v3.2.0...v3.3.0-beta.0?expand=1
 [3.3.0-beta.1]: https://github.com/bildvitta/asteroid/compare/v3.3.0-beta.0...v3.3.0-beta.1?expand=1
 [3.3.0]: https://github.com/bildvitta/asteroid/compare/v3.2.0...v3.3.0?expand=1
+[3.3.1-beta.0]: https://github.com/bildvitta/asteroid/compare/v3.3.0...v3.3.1-beta.0?expand=1
+[3.4.0-beta.0]: https://github.com/bildvitta/asteroid/compare/v3.3.1-beta.0...v3.4.0-beta.0?expand=1
+[3.4.0-beta.1]: https://github.com/bildvitta/asteroid/compare/v3.4.0-beta.0...v3.4.0-beta.1?expand=1
+[3.4.0-beta.2]: https://github.com/bildvitta/asteroid/compare/v3.4.0-beta.1...v3.4.0-beta.2?expand=1
