@@ -158,6 +158,10 @@ module.exports = [
         path: '/components/numeric-input'
       },
       {
+        name: 'OptionGroup',
+        path: '/components/option-group'
+      },
+      {
         name: 'PageHeader',
         path: '/components/page-header'
       },

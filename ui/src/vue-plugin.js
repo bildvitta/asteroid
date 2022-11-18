@@ -29,6 +29,7 @@ import QasListView from './components/list-view/QasListView.vue'
 import QasMap from './components/map/QasMap.vue'
 import QasNestedFields from './components/nested-fields/QasNestedFields.vue'
 import QasNumericInput from './components/numeric-input/QasNumericInput.vue'
+import QasOptionGroup from './components/option-group/QasOptionGroup.vue'
 import QasPageHeader from './components/page-header/QasPageHeader.vue'
 import QasPasswordInput from './components/password-input/QasPasswordInput.vue'
 import QasPasswordStrengthChecker from './components/password-strength-checker/QasPasswordStrengthChecker.vue'
@@ -99,6 +100,7 @@ function install (app) {
   app.component('QasMap', QasMap)
   app.component('QasNestedFields', QasNestedFields)
   app.component('QasNumericInput', QasNumericInput)
+  app.component('QasOptionGroup', QasOptionGroup)
   app.component('QasPageHeader', QasPageHeader)
   app.component('QasPasswordInput', QasPasswordInput)
   app.component('QasPasswordStrengthChecker', QasPasswordStrengthChecker)
@@ -170,6 +172,7 @@ export {
   QasMap,
   QasNestedFields,
   QasNumericInput,
+  QasOptionGroup,
   QasPageHeader,
   QasPasswordInput,
   QasPasswordStrengthChecker,
