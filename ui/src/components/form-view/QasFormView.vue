@@ -44,7 +44,7 @@ import { NotifyError, NotifySuccess } from '../../plugins'
 import QasBtn from '../btn/QasBtn.vue'
 import QasDialog from '../dialog/QasDialog.vue'
 
-import { viewMixin } from '../../mixins'
+import { viewMixin, formMixin } from '../../mixins'
 
 export default {
   name: 'QasFormView',
@@ -54,7 +54,7 @@ export default {
     QasDialog
   },
 
-  mixins: [viewMixin],
+  mixins: [viewMixin, formMixin],
 
   props: {
     cancelButtonLabel: {
@@ -77,7 +77,7 @@ export default {
     },
 
     mode: {
-      default: 'create',
+      default: '',
       type: String
     },
 
@@ -179,7 +179,7 @@ export default {
     },
 
     isCreateMode () {
-      return this.mode === 'create'
+      return this.formMode === 'create'
     },
 
     resolvedRoute () {
@@ -196,6 +196,10 @@ export default {
 
     isCancelButtonDisabled () {
       return this.disable || this.isSubmitting
+    },
+
+    formMode () {
+      return this.mode || this.mx_mode
     }
   },
 
@@ -406,12 +410,12 @@ export default {
         }
 
         this.$qas.logger.group(
-          `QasFormView - submit -> payload do ${this.entity}/${this.mode}`, [payload]
+          `QasFormView - submit -> payload do ${this.entity}/${this.formMode}`, [payload]
         )
 
         const response = await getAction.call(this, {
           entity: this.entity,
-          key: this.mode,
+          key: this.formMode,
           payload
         })
 
@@ -424,7 +428,7 @@ export default {
         this.$emit('submit-success', response, this.modelValue)
 
         this.$qas.logger.group(
-          `QasFormView - submit -> resposta da action ${this.entity}/${this.mode}`, [response]
+          `QasFormView - submit -> resposta da action ${this.entity}/${this.formMode}`, [response]
         )
       } catch (error) {
         const errors = error?.response?.data?.errors
@@ -443,7 +447,7 @@ export default {
         this.$emit('submit-error', error)
 
         this.$qas.logger.group(
-          `QasFormView - submit -> exceção da action ${this.entity}/${this.mode}`,
+          `QasFormView - submit -> exceção da action ${this.entity}/${this.formMode}`,
           [error],
           { error: true }
         )

@@ -1,3 +1,5 @@
+import handleProcess from '../helpers/handle-process'
+
 export default {
   computed: {
     mx_isEditMode () {
@@ -5,7 +7,9 @@ export default {
     },
 
     mx_mode () {
-      return this.$route.name.endsWith('Edit') ? 'replace' : 'create'
+      const editModeType = handleProcess(() => process.env.EDIT_MODE_TYPE, 'replace')
+
+      return this.$route?.name?.endsWith('Edit') ? editModeType : 'create'
     }
   }
 }

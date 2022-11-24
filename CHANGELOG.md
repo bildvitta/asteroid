@@ -10,6 +10,13 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 ### Sobre os "BREAKING CHANGES"
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
+## Não publicado
+### Adicionado
+- `QasFormView`: Adicionado computada `formMode` para lidar com o modo padrão do formulário. Essa computada remove a necessidade do usuário passar o mixin `mx_mode` como propriedade para o `QasFormView`, pois internamente o mixin já será repassado como padrão.
+
+### Modificado
+- `form.js`: Modificado mixin `mx_mode` para utilizar o modo de edição padrão por meio da variável de ambiente `EDIT_MODE_TYPE`.
+
 ## [3.5.0-beta.0] - 18-11-2022
 ## BREAKING CHANGE
 - `QasField`: Alterado type `radio` par utilizar o novo componente `QasOptionGroup` e removido prop de erro pois não existe no componente `QOptionGroup`, testar bem para validar.

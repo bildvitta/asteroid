@@ -80,8 +80,7 @@ props:
     model: true
 
   mode:
-    desc: Existem 3 modos no QasFormView, para criação (create) (equivalente a um método POST no http), e edição que são 2 diferentes, replace (equivalente a um método PUT no http) e update (equivalente a um método PATCH no http).
-    default: create
+    desc: Existem 3 modos no QasFormView, para criação (create) (equivalente a um método POST no http), e edição que são 2 diferentes, replace (equivalente a um método PUT no http) e update (equivalente a um método PATCH no http). Por padrão, para criação será utilizado o "create" e para edição o "replace". Para mudar o padrão utilizado na edição, utilize a variável de ambiente "EDIT_MODE_TYPE" com o valor "update".
     type: String
     examples: [create, replace, update]
 
