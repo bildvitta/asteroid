@@ -1,11 +1,11 @@
 <template>
-  <qas-btn class="qas-actions-menu" color="primary" :icon="icon" :label="label" outline padding="md" :use-label-on-small-screen="false">
-    <q-menu class="qas-actions-menu__menu">
-      <q-list class="qas-actions-menu__list" separator>
+  <qas-btn class="qas-actions-menu" flat :icon-right="icon" :label="label" padding="xs" :ripple="false" text-color="dark" :use-label-on-small-screen="false">
+    <q-menu class="q-py-xs qas-actions-menu__menu">
+      <q-list class="qas-actions-menu__list">
         <slot v-for="(item, key) in list" :item="item" :name="key">
-          <q-item :key="key" class="text-primary" clickable v-bind="item.props" @click="onClick(item)">
+          <q-item :key="key" v-bind="item.props" clickable color="dark" @click="onClick(item)">
             <q-item-section>
-              <div class="flex items-center justify-center q-gutter-x-md">
+              <div class="flex items-center q-gutter-x-md">
                 <q-icon :name="item.icon" size="sm" />
                 <div>{{ item.label }}</div>
               </div>
@@ -13,9 +13,9 @@
           </q-item>
         </slot>
 
-        <qas-delete v-if="hasDelete" v-bind="deleteProps" class="text-negative" clickable tag="q-item">
+        <qas-delete v-if="hasDelete" v-bind="deleteProps" clickable tag="q-item">
           <q-item-section>
-            <div class="flex items-center justify-center q-gutter-x-sm">
+            <div class="flex items-center q-gutter-x-sm">
               <q-icon :name="deleteIcon" size="sm" />
               <div>{{ deleteLabel }}</div>
             </div>
@@ -38,12 +38,12 @@ export default {
 
   props: {
     icon: {
-      default: 'o_settings',
+      default: 'o_more_vert',
       type: String
     },
 
     label: {
-      default: 'Configurações',
+      default: 'Opções',
       type: String
     },
 
@@ -87,9 +87,22 @@ export default {
 
 <style lang="scss">
 .qas-actions-menu {
+  transition: color 300ms;
+
+  &:hover {
+    color: var(--q-primary) !important;
+  }
+
+  .q-focus-helper {
+    display: none;
+  }
+
   &__list {
-    width: 265px;
     z-index: 1;
+
+    .q-item {
+      font-weight: 600;
+    }
   }
 }
 </style>
