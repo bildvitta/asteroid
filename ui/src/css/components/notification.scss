@@ -1,0 +1,32 @@
+.q-notification {
+  &__content .q-icon {
+    margin-right: 8px;
+  }
+
+  &__actions {
+    align-self: start;
+    padding-top: 4px;
+
+    .q-btn {
+      color: white;
+      height: 18px;
+      min-height: auto;
+      min-width: auto;
+      padding: 0;
+      text-align: center;
+      text-transform: none;
+      width: 18px;
+
+      &__content {
+        height: 18px;
+
+        span {
+          align-self: center;
+          height: 18px;
+          line-height: 1;
+          width: 18px;
+        }
+      }
+    }
+  }
+}
