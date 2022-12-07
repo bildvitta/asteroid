@@ -13,7 +13,7 @@ export default {
     },
 
     gutter: {
-      default: 'md',
+      default: 'lg',
       type: [String, Boolean],
       validator: value => {
         return typeof value === 'boolean' || ['xs', 'sm', 'md', 'lg', 'xl'].includes(value)
