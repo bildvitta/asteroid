@@ -10,6 +10,16 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 ### Sobre os "BREAKING CHANGES"
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
+## Unreleased
+### Modificado
+- [`NotifySuccess`, `NotifyError`]: Mudança de posição que será exibido(era bottom, agora será top).
+- [`NotifySuccess`, `NotifyError`]: Mudança de cor, agora será `grey-9`.
+
+### Adicionado
+- [`NotifySuccess`, `NotifyError`]: Adicionado botão de fechar.
+- [`NotifySuccess`, `NotifyError`]: Adicinado ícones de sucesso e erro.
+
+
 ## [3.5.0-beta.0] - 18-11-2022
 ## BREAKING CHANGE
 - `QasField`: Alterado type `radio` par utilizar o novo componente `QasOptionGroup` e removido prop de erro pois não existe no componente `QOptionGroup`, testar bem para validar.
