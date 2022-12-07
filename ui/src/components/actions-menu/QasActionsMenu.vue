@@ -2,25 +2,16 @@
   <qas-btn class="qas-actions-menu" flat :icon-right="icon" :label="label" padding="xs" :ripple="false" text-color="dark" :use-label-on-small-screen="false">
     <q-menu class="q-py-xs qas-actions-menu__menu">
       <q-list class="qas-actions-menu__list">
-        <slot v-for="(item, key) in list" :item="item" :name="key">
-          <q-item :key="key" v-bind="item.props" clickable color="dark" @click="onClick(item)">
+        <slot v-for="(item, key) in actions" :item="item" :name="key">
+          <component :is="getComponent(key)" v-bind="item.props" :key="key" clickable @click="onClick(item)">
             <q-item-section>
               <div class="flex items-center q-gutter-x-md">
                 <q-icon :name="item.icon" size="sm" />
                 <div>{{ item.label }}</div>
               </div>
             </q-item-section>
-          </q-item>
+          </component>
         </slot>
-
-        <qas-delete v-if="hasDelete" v-bind="deleteProps" clickable tag="q-item">
-          <q-item-section>
-            <div class="flex items-center q-gutter-x-sm">
-              <q-icon :name="deleteIcon" size="sm" />
-              <div>{{ deleteLabel }}</div>
-            </div>
-          </q-item-section>
-        </qas-delete>
       </q-list>
     </q-menu>
   </qas-btn>
@@ -28,12 +19,14 @@
 
 <script>
 import QasBtn from '../btn/QasBtn.vue'
+import QasDelete from '../delete/QasDelete.vue'
 
 export default {
   name: 'QasActionsMenu',
 
   components: {
-    QasBtn
+    QasBtn,
+    QasDelete
   },
 
   props: {
@@ -71,10 +64,32 @@ export default {
   computed: {
     hasDelete () {
       return !!Object.keys(this.deleteProps).length
+    },
+
+    actions () {
+      return {
+        ...this.list,
+        ...(this.hasDelete && {
+          delete: {
+            icon: this.deleteIcon,
+            label: this.deleteLabel,
+            props: {
+              ...this.deleteProps,
+              tag: 'q-item'
+            }
+          }
+        })
+      }
     }
   },
 
   methods: {
+    getComponent (key) {
+      if (key === 'delete') return 'qas-delete'
+
+      return 'q-item'
+    },
+
     onClick (item) {
       if (typeof item.handler === 'function') {
         const { handler, ...filtered } = item
