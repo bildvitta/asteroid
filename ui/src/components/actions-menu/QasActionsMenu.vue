@@ -1,32 +1,24 @@
 <template>
-  <qas-btn class="qas-actions-menu" flat :icon-right="icon" :label="label" padding="xs" :ripple="false" text-color="dark" :use-label-on-small-screen="false">
-    <q-menu class="q-py-xs qas-actions-menu__menu">
-      <q-list class="qas-actions-menu__list">
-        <slot v-for="(item, key) in actions" :item="item" :name="key">
-          <component :is="getComponent(key)" v-bind="item.props" :key="key" clickable @click="onClick(item)">
-            <q-item-section>
-              <div class="flex items-center q-gutter-x-md">
-                <q-icon :name="item.icon" size="sm" />
-                <div>{{ item.label }}</div>
-              </div>
-            </q-item-section>
-          </component>
-        </slot>
-      </q-list>
-    </q-menu>
-  </qas-btn>
+  <div v-if="hasActions" class="qas-actions-menu">
+    <qas-btn v-if="hasMoreThanOneAction" class="qas-actions-menu__button" flat :icon-right="icon" :label="label" padding="xs" :ripple="false" text-color="dark">
+      <q-menu class="q-py-xs qas-actions-menu__menu">
+        <pv-actions-menu-list :list="actions" />
+      </q-menu>
+    </qas-btn>
+    <pv-actions-menu-list v-else :list="actions" />
+  </div>
 </template>
 
 <script>
 import QasBtn from '../btn/QasBtn.vue'
-import QasDelete from '../delete/QasDelete.vue'
+import PvActionsMenuList from './private/PvActionsMenuList.vue'
 
 export default {
   name: 'QasActionsMenu',
 
   components: {
     QasBtn,
-    QasDelete
+    PvActionsMenuList
   },
 
   props: {
@@ -62,10 +54,6 @@ export default {
   },
 
   computed: {
-    hasDelete () {
-      return !!Object.keys(this.deleteProps).length
-    },
-
     actions () {
       return {
         ...this.list,
@@ -80,21 +68,18 @@ export default {
           }
         })
       }
-    }
-  },
-
-  methods: {
-    getComponent (key) {
-      if (key === 'delete') return 'qas-delete'
-
-      return 'q-item'
     },
 
-    onClick (item) {
-      if (typeof item.handler === 'function') {
-        const { handler, ...filtered } = item
-        item.handler(filtered)
-      }
+    hasActions () {
+      return !!Object.keys(this.actions).length
+    },
+
+    hasDelete () {
+      return !!Object.keys(this.deleteProps).length
+    },
+
+    hasMoreThanOneAction () {
+      return Object.keys(this.actions).length > 1
     }
   }
 }
@@ -102,21 +87,19 @@ export default {
 
 <style lang="scss">
 .qas-actions-menu {
-  transition: color 300ms;
+  &__button {
+    transition: color 300ms;
 
-  &:hover {
-    color: var(--q-primary) !important;
-  }
+    &:hover {
+      color: var(--q-primary) !important;
+    }
 
-  .q-focus-helper {
-    display: none;
-  }
+    .on-right {
+      margin-left: var(--qas-spacing-xs);
+    }
 
-  &__list {
-    z-index: 1;
-
-    .q-item {
-      font-weight: 600;
+    .q-focus-helper {
+      display: none;
     }
   }
 }
