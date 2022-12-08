@@ -40,9 +40,7 @@ export default {
 
   methods: {
     getComponent (key) {
-      if (key === 'delete') return 'qas-delete'
-
-      return 'q-item'
+      return key === 'delete' ? 'qas-delete' : 'q-item'
     },
 
     onClick (item) {
@@ -57,8 +55,6 @@ export default {
 
 <style lang="scss">
 .pv-actions-menu-list {
-  z-index: 1;
-
   .q-item {
     font-weight: 600;
   }
