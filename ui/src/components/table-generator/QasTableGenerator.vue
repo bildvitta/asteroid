@@ -226,6 +226,7 @@ export default {
     },
 
     onRowClick () {
+      if (this.scrollOnGrab.haveMoved()) return
       this.$emit('row-click', ...arguments)
     },
 
