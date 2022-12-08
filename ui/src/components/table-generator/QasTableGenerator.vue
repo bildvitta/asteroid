@@ -225,7 +225,7 @@ export default {
       }
     },
 
-    onRowClick (event, row, index) {
+    onRowClick () {
       this.$emit('row-click', ...arguments)
     },
 
