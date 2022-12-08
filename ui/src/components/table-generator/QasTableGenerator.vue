@@ -53,8 +53,6 @@ export default {
     }
   },
 
-  emits: ['row-click'],
-
   data () {
     return {
       scrollableElement: null,
@@ -75,7 +73,7 @@ export default {
         rowKey: this.rowKey,
 
         // Eventos.
-        onRowClick: this.onRowClick
+        onRowClick: this.$attrs.onRowClick && this.onRowClick
       }
 
       return attributes
@@ -227,7 +225,7 @@ export default {
 
     onRowClick () {
       if (this.scrollOnGrab.haveMoved()) return
-      this.$emit('row-click', ...arguments)
+      this.$attrs.onRowClick(...arguments)
     },
 
     setObserver () {
