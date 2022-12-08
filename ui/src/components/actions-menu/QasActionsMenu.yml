@@ -21,13 +21,13 @@ props:
 
   icon:
     desc: Ícone do botão.
-    default: o_settings
+    default: o_more_vert
     type: String
     examples: [start, end, between, around, center]
 
   label:
     desc: Rotulo do botão.
-    default: Configurações
+    default: Opções
     type: String
 
   list:

@@ -1,7 +1,7 @@
 <template>
-  <q-list class="actions-menu-list">
+  <q-list class="pv-actions-menu-list">
     <slot v-for="(item, key) in list" :item="item" :name="key">
-      <component :is="getComponent(key)" v-bind="item.props" :key="key" clickable :style="itemStyles" @click="onClick(item)">
+      <component :is="getComponent(key)" v-bind="item.props" :key="key" :class="itemClasses" clickable @click="onClick(item)">
         <q-item-section>
           <div class="flex items-center q-gutter-x-sm">
             <q-icon :name="item.icon" size="sm" />
@@ -31,9 +31,9 @@ export default {
   },
 
   computed: {
-    itemStyles () {
+    itemClasses () {
       return {
-        padding: Object.keys(this.list).length > 1 ? 'var(--qas-spacing-sm) var(--qas-spacing-md)' : 'var(--qas-spacing-xs)'
+        'q-pa-xs': Object.keys(this.list).length === 1
       }
     }
   },
@@ -56,7 +56,7 @@ export default {
 </script>
 
 <style lang="scss">
-.actions-menu-list {
+.pv-actions-menu-list {
   z-index: 1;
 
   .q-item {

@@ -13,6 +13,11 @@ export default {
           icon: 'o_visibility',
           label: 'Visualizar',
           handler: () => alert('handler ativado')
+        },
+        edit: {
+          icon: 'o_create',
+          label: 'Editar',
+          handler: () => alert('handler ativado')
         }
       }
     }

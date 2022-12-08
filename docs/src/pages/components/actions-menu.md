@@ -27,15 +27,19 @@ A prop `list` é um objeto de objetos, que contem os seguintes atributos:
 ```
 :::
 
+:::warning
+Quando há mais de uma ação proveniente da propriedade `list`, o componente `QasActionsMenu` renderiza um menu dropdown com todas as ações. Quando houver apenas uma ação será renderizado apenas um botão com a ação proveniente.
+:::
+
 :::danger
 A chave `iconSize` dentro da propriedade `list` foi **removida**, pois sempre os ícones devem ser do tamanho `sm`.
 :::
 
+<doc-example file="QasActionsMenu/Basic" title="Básico" />
+
 :::tip
 A prop `deleteProps` ativa o componente `QasDelete`, quando é passada o `QasActionsMenu` adiciona a opção de deletar o item como padrão, caso não seja passado, o componente `QasDelete` não é adicionado por padrão.
 :::
-
-<doc-example file="QasActionsMenu/Basic" title="Básico" />
 
 :::tip
 Para receber o evento de sucesso ao deletar, dentro da propriedade `deleteProps` adicione a chave `onSuccess`, por exemplo:
