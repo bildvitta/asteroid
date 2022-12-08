@@ -53,6 +53,8 @@ export default {
     }
   },
 
+  emits: ['row-click'],
+
   data () {
     return {
       scrollableElement: null,
@@ -70,7 +72,10 @@ export default {
         flat: true,
         hideBottom: true,
         pagination: { rowsPerPage: 0 },
-        rowKey: this.rowKey
+        rowKey: this.rowKey,
+
+        // Eventos.
+        onRowClick: this.onRowClick
       }
 
       return attributes
@@ -218,6 +223,10 @@ export default {
         this.scrollOnGrab.element.style.cursor = 'auto'
         this.scrollOnGrab = {}
       }
+    },
+
+    onRowClick (event, row, index) {
+      this.$emit('row-click', ...arguments)
     },
 
     setObserver () {
