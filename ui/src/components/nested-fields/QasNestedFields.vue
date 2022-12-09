@@ -11,11 +11,7 @@
             <div>
               <div class="flex items-center justify-between q-py-xs">
                 <qas-label v-if="!useSingleLabel" :label="getRowLabel(index)" />
-
-                <div v-if="hasBlockActions(row)" class="q-gutter-x-sm">
-                  <qas-btn v-if="useDuplicate" v-bind="buttonDuplicateProps" @click="add(row)" />
-                  <qas-btn v-if="showDestroyBtn" v-bind="buttonDestroyProps" @click="destroy(index, row)" />
-                </div>
+                <qas-actions-menu v-if="hasBlockActions(row)" ref="actionsMenu" :list="actionsList(index, row)" />
               </div>
 
               <div ref="formGenerator" class="col-12 justify-between q-col-gutter-x-md row">
@@ -67,6 +63,7 @@
 </template>
 
 <script>
+import QasActionsMenu from '../actions-menu/QasActionsMenu.vue'
 import QasBtn from '../btn/QasBtn.vue'
 import QasFormGenerator from '../form-generator/QasFormGenerator.vue'
 import QasInput from '../input/QasInput.vue'
@@ -80,12 +77,13 @@ export default {
   name: 'QasNestedFields',
 
   components: {
+    QasActionsMenu,
     QasBtn,
     QasFormGenerator,
     QasInput,
     QasLabel,
 
-    // vue
+    // Vue
     TransitionGroup
   },
 
@@ -99,8 +97,8 @@ export default {
       type: Object,
       default: () => {
         return {
-          label: 'Remover',
-          icon: 'o_cancel',
+          label: 'Excluir',
+          icon: 'o_delete',
           flat: true,
           dense: true
         }
@@ -230,31 +228,8 @@ export default {
   },
 
   computed: {
-    fieldLabel () {
-      return this.field?.label
-    },
-
-    fieldName () {
-      return this.field?.name
-    },
-
     children () {
       return this.field?.children
-    },
-
-    showDestroyBtn () {
-      return this.nested.filter(item => !item[this.destroyKey]).length > 1 || this.useDestroyAlways
-    },
-
-    formClasses () {
-      return {
-        col: true,
-        [`q-col-gutter-x-${this.formGutter}`]: this.useInlineActions
-      }
-    },
-
-    transformedErrors () {
-      return Array.isArray(this.errors) ? this.errors : constructObject(this.fieldName, this.errors)
     },
 
     componentTag () {
@@ -268,6 +243,29 @@ export default {
         tag: 'div',
         enterActiveClass: 'animated slideInDown'
       }
+    },
+
+    fieldLabel () {
+      return this.field?.label
+    },
+
+    fieldName () {
+      return this.field?.name
+    },
+
+    formClasses () {
+      return {
+        col: true,
+        [`q-col-gutter-x-${this.formGutter}`]: this.useInlineActions
+      }
+    },
+
+    showDestroyBtn () {
+      return this.nested.filter(item => !item[this.destroyKey]).length > 1 || this.useDestroyAlways
+    },
+
+    transformedErrors () {
+      return Array.isArray(this.errors) ? this.errors : constructObject(this.fieldName, this.errors)
     }
   },
 
@@ -289,6 +287,26 @@ export default {
   },
 
   methods: {
+    actionsList (index, row) {
+      const list = {}
+
+      if (this.useDuplicate) {
+        list.duplicate = {
+          ...this.buttonDuplicateProps,
+          handler: () => this.add(row)
+        }
+      }
+
+      if (this.showDestroyBtn) {
+        list.destroy = {
+          ...this.buttonDestroyProps,
+          handler: () => this.destroy(index, row)
+        }
+      }
+
+      return list
+    },
+
     add (row = {}) {
       const payload = { ...this.rowObject, ...row }
       const hasIdentifierKey = payload[this.identifierItemKey]

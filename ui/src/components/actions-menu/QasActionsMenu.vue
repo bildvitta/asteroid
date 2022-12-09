@@ -1,7 +1,7 @@
 <template>
   <div v-if="hasActions" class="qas-actions-menu">
     <qas-btn v-if="hasMoreThanOneAction" class="qas-actions-menu__button" flat :icon-right="icon" :label="label" padding="xs" :ripple="false" text-color="dark">
-      <q-menu class="q-py-xs qas-actions-menu__menu">
+      <q-menu auto-close class="q-py-xs qas-actions-menu__menu">
         <pv-actions-menu-list :list="actions" />
       </q-menu>
     </qas-btn>

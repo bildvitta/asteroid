@@ -18,6 +18,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - `QasPagination`: adicionado novo componente de paginação que é um wrapper do `QPagination`.
 - `QasField`: Adicionado `*` na label no caso do campo ser obrigatório com base na propriedade `required: true`.
 - `QasListView`: adicionado nova propriedade `use-auto-handle-on-delete` para controlar se o componente vai lidar automaticamente quando acontecer algum delete compatível com a listagem.
+- `QasActionsMenu`: adicionada a propriedade `auto-close` para fechar o menu após a ação ser executada.
 
 ### Modificado
 - `generator.js`: Modificado o padrão da prop de gutter de `md` para `lg`.
@@ -25,6 +26,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - `QasActionsMenu`: modificado a label padrão do botão para "Opções" e ícone para `o_more_vert`.
 - `QasTableGenerator`: removido classe `q-mb-xl` para adaptação de layout, responsabilidade de espaçamento fica com quem implementa.
 - `QasListView`: utilizando `QasPagination` no lugar do `QPagination` e adicionado de informação de quantos itens existem por página.
+- `QNestedFields`: agora usa o `QActionsMenu` para as ações exibidas no tipo bloco.
 
 ## [3.5.0-beta.0] - 18-11-2022
 ## BREAKING CHANGE
