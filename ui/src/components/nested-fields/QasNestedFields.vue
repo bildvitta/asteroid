@@ -25,10 +25,10 @@
 
                 <div v-if="hasInlineActions(row)" class="flex items-center qas-nested-fields__actions">
                   <div class="col-auto">
-                    <qas-btn v-if="useDuplicate" color="primary" flat icon="o_content_copy" round @click="add(row)" />
+                    <qas-btn v-if="useDuplicate" color="dark" flat icon="o_content_copy" round @click="add(row)" />
                   </div>
                   <div class="col-auto">
-                    <qas-btn v-if="showDestroyBtn" color="negative" flat icon="o_cancel" round @click="destroy(index, row)" />
+                    <qas-btn v-if="showDestroyBtn" color="dark" flat icon="o_delete" round @click="destroy(index, row)" />
                   </div>
                 </div>
               </div>
@@ -49,7 +49,7 @@
             </div>
 
             <div class="col-auto">
-              <qas-btn color="green" flat icon="o_add_circle_outline" round />
+              <qas-btn color="dark" flat icon="o_add_circle_outline" round />
             </div>
           </div>
 
