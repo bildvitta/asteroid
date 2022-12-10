@@ -11,7 +11,7 @@ props:
 
   button-destroy-props:
     desc: Props do botão de excluir linha contendo os campos.
-    default: "{ label: 'Remover', o_cancel, flat: true, dense: true }"
+    default: "{ label: 'Excluir', icon: 'o_delete', flat: true, dense: true }"
     debugger: true
     type: Object
 

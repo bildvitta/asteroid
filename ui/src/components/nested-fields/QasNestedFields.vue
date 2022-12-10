@@ -11,7 +11,7 @@
             <div>
               <div class="flex items-center justify-between q-py-xs">
                 <qas-label v-if="!useSingleLabel" :label="getRowLabel(index)" />
-                <qas-actions-menu v-if="hasBlockActions(row)" ref="actionsMenu" :list="actionsList(index, row)" />
+                <qas-actions-menu v-if="hasBlockActions(row)" :list="actionsList(index, row)" />
               </div>
 
               <div ref="formGenerator" class="col-12 justify-between q-col-gutter-x-md row">
