@@ -1,6 +1,8 @@
 .q-notification {
-  &__content .q-icon {
-    margin-right: var(--qas-spacing-sm);
+  &__content {
+    .q-icon {
+      margin-right: var(--qas-spacing-sm);
+    }
   }
 
   &__actions {
