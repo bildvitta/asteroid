@@ -23,7 +23,7 @@ Este componente serve para lidar com **listagem**, se você precisar de um compo
 :::
 
 ## Uso
-<!-- <doc-example file="QasListView/Basic" title="Básico" /> -->
+<doc-example file="QasListView/Basic" title="Básico" />
 
 Aqui está um exemplo de como normalmente utilizamos este componente, lembrando que isto não é uma regra, em muitos casos por exemplo precisamos utilizar cards ao invés do `QasTable`, porém na maioria das vezes você vai se deparar com códigos semelhantes a este.
 
@@ -31,7 +31,7 @@ Aqui está um exemplo de como normalmente utilizamos este componente, lembrando 
 
 Para usar `QasFilters` você não precisa fazer nada! Porém, em alguns casos, você pode precisar de algum filtro especifico ou alguma outra customização, para isto você pode usar o slot `filter`.
 
-<!-- <doc-example file="QasListView/CustomFilter" title="Com filtro customizado" /> -->
+<doc-example file="QasListView/CustomFilter" title="Com filtro customizado" />
 
 :::tip
 O callback do `beforeFetch` recebe 2 parâmetros, `:before-submit="onBeforeSubmit({ payload, resolve, done })"`
@@ -53,4 +53,4 @@ resolve({ url: 'minha-url-personalizada' })
 Agora ao fazer o fetch, o valor da url enviada para a action do fetchList será `minha-url-personalizada`.
 :::
 
-<!-- <doc-example file="QasListView/BeforeFetch" title="Controlando fetch" /> -->
+<doc-example file="QasListView/BeforeFetch" title="Controlando fetch" />
