@@ -28,10 +28,6 @@
         </div>
 
         <div v-if="hasPages" class="flex items-center q-mt-sm" :class="paginationClasses">
-          <div class="text-body1 text-grey-7">
-            Itens por página: {{ results.length }}
-          </div>
-
           <qas-pagination v-model="page" :max="totalPages" @click="changePage" />
         </div>
 
@@ -125,7 +121,7 @@ export default {
     },
 
     paginationClasses () {
-      return this.$qas.screen.isSmall ? 'justify-center column' : 'justify-between'
+      return this.$qas.screen.isSmall ? 'justify-center column' : 'justify-end'
     }
   },
 
