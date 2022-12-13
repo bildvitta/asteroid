@@ -29,7 +29,8 @@
     "QasGallery",
     "QasFilters",
     "QasOptionGroup",
-    "QasNotify"
+    "QasNotify",
+    "QasActionsMenu"
   ],
   "cSpell.words": [
     "Nunito"

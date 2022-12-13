@@ -31,6 +31,7 @@ import QasNestedFields from './components/nested-fields/QasNestedFields.vue'
 import QasNumericInput from './components/numeric-input/QasNumericInput.vue'
 import QasOptionGroup from './components/option-group/QasOptionGroup.vue'
 import QasPageHeader from './components/page-header/QasPageHeader.vue'
+import QasPagination from './components/pagination/QasPagination.vue'
 import QasPasswordInput from './components/password-input/QasPasswordInput.vue'
 import QasPasswordStrengthChecker from './components/password-strength-checker/QasPasswordStrengthChecker.vue'
 import QasProfile from './components/profile/QasProfile.vue'
@@ -102,6 +103,7 @@ function install (app) {
   app.component('QasNumericInput', QasNumericInput)
   app.component('QasOptionGroup', QasOptionGroup)
   app.component('QasPageHeader', QasPageHeader)
+  app.component('QasPagination', QasPagination)
   app.component('QasPasswordInput', QasPasswordInput)
   app.component('QasPasswordStrengthChecker', QasPasswordStrengthChecker)
   app.component('QasProfile', QasProfile)
@@ -174,6 +176,7 @@ export {
   QasNumericInput,
   QasOptionGroup,
   QasPageHeader,
+  QasPagination,
   QasPasswordInput,
   QasPasswordStrengthChecker,
   QasProfile,

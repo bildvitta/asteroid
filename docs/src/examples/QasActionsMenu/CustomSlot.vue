@@ -1,6 +1,6 @@
 <template>
   <div class="container q-py-lg">
-    <qas-actions-menu label="configurações" :list="list">
+    <qas-actions-menu label="Configurações" :list="list">
       <template #visibility="{ item }">
         <div class="q-pa-md">
           item: <qas-debugger :inspect="[item]" />
