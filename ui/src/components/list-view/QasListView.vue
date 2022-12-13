@@ -1,5 +1,5 @@
 <template>
-  <component :is="mx_componentTag" ref="listView" :class="mx_componentClass">
+  <component :is="mx_componentTag" :class="mx_componentClass">
     <q-pull-to-refresh :disable="!useRefresh" @refresh="refresh">
       <header v-if="hasHeaderSlot">
         <slot name="header" />
