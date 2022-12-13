@@ -1,5 +1,5 @@
 <template>
-  <component :is="mx_componentTag" :class="mx_componentClass">
+  <component :is="mx_componentTag" ref="listView" :class="mx_componentClass">
     <q-pull-to-refresh :disable="!useRefresh" @refresh="refresh">
       <header v-if="hasHeaderSlot">
         <slot name="header" />
@@ -67,6 +67,11 @@ export default {
       type: Array
     },
 
+    useAutoHandleOnDelete: {
+      type: Boolean,
+      default: true
+    },
+
     useRefresh: {
       default: true,
       type: Boolean
@@ -91,7 +96,8 @@ export default {
 
   data () {
     return {
-      page: 1
+      page: 1,
+      resultsQuantity: 0
     }
   },
 
@@ -148,6 +154,18 @@ export default {
     this.setCurrentPage()
   },
 
+  mounted () {
+    if (!this.useAutoHandleOnDelete) return
+
+    window.addEventListener('delete-success', this.onDeleteResult)
+  },
+
+  unmounted () {
+    if (!this.useAutoHandleOnDelete) return
+
+    window.removeEventListener('delete-success', this.onDeleteResult)
+  },
+
   methods: {
     changePage () {
       const query = { ...this.$route.query, page: this.page }
@@ -174,7 +192,8 @@ export default {
           payload
         })
 
-        const { errors, fields, metadata } = response.data
+        const { errors, fields, metadata, results } = response.data
+        this.resultsQuantity = results.length
 
         this.mx_setErrors(errors)
         this.mx_setFields(fields)
@@ -216,6 +235,29 @@ export default {
 
     setCurrentPage () {
       this.page = parseInt(this.$route.query.page || 1)
+    },
+
+    onDeleteResult ({ detail: { entity } }) {
+      const { page } = this.mx_context
+
+      const skipRefreshList = [
+        (entity !== this.entity),
+        (this.totalPages === page && this.resultsQuantity > 1),
+        (this.totalPages === 1)
+      ]
+
+      this.resultsQuantity -= 1
+
+      if (skipRefreshList.find(Boolean)) return
+
+      if (this.resultsQuantity === 1 || !this.resultsQuantity) {
+        const { path, query } = this.$route
+
+        this.$router.replace({ path, query: { ...query, page: query.page - 1 } })
+        return
+      }
+
+      this.mx_fetchHandler({ ...this.mx_context, url: this.url }, this.fetchList)
     }
   }
 }
