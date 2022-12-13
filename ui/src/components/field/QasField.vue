@@ -159,14 +159,15 @@ export default {
     // This computed will change the key name when the server sends different key.
     formattedField () {
       const field = {}
-      const { label, required, type } = this.field
-      const notRequiredFields = ['boolean', 'checkbox', 'radio']
+      const nonRequiredFieldsLabel = ['boolean', 'checkbox', 'radio']
 
       for (const key in this.field) {
         field[attributesProfile[key] || key] = this.field[key]
       }
 
-      if (required && label && !notRequiredFields.includes(type)) {
+      const { label, required, type } = field
+
+      if (required && label && !nonRequiredFieldsLabel.includes(type)) {
         field.label = `${label}*`
       }
 
