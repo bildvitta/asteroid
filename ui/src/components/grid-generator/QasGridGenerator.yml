@@ -28,7 +28,7 @@ props:
 
   gutter:
     desc: Espaçamento entre colunas.
-    default: md
+    default: lg
     type: String
     examples: [xs, sm, md, lg, xl]
 

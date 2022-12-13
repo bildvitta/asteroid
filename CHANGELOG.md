@@ -12,7 +12,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 
 ## Não publicado
 ### Modificado
-- `generator.js` - Modificado o padrão da props de gutter de `md` para `lg`.
+- `generator.js` - Modificado o padrão da prop de gutter de `md` para `lg`.
 
 ## [3.5.0-beta.0] - 18-11-2022
 ## BREAKING CHANGE
