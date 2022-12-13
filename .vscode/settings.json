@@ -29,7 +29,8 @@
     "QasGallery",
     "QasFilters",
     "QasOptionGroup",
-    "Mixins"
+    "Mixins",
+    "QasActionsMenu"
   ],
   "cSpell.words": [
     "Nunito"

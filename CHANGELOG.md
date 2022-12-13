@@ -12,7 +12,9 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 
 ## Não publicado
 ### Modificado
-- `generator.js` - Modificado o padrão da prop de gutter de `md` para `lg`.
+- `generator.js`: Modificado o padrão da prop de gutter de `md` para `lg`.
+- `QasActionsMenu`: modificado o estilo padrão do componente e comportamento quando há uma ação ou mais ações.
+- `QasActionsMenu`: modificado a label padrão do botão para "Opções" e ícone para `o_more_vert`.
 
 ## [3.5.0-beta.0] - 18-11-2022
 ## BREAKING CHANGE
