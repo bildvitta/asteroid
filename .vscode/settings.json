@@ -30,6 +30,7 @@
     "QasFilters",
     "QasOptionGroup",
     "Notify",
+    "Mixins",
     "QasActionsMenu"
   ],
   "cSpell.words": [

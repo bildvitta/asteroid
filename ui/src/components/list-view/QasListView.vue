@@ -27,8 +27,8 @@
           <q-spinner color="grey" size="3em" />
         </div>
 
-        <div v-if="hasPages" class="justify-center q-mt-lg">
-          <q-pagination v-model="page" boundary-links class="flex-center" direction-links :input="$q.screen.lt.sm" :max="totalPages" :max-pages="6" @click="changePage" />
+        <div v-if="hasPages" class="flex items-center q-mt-sm" :class="paginationClasses">
+          <qas-pagination v-model="page" :max="totalPages" @click="changePage" />
         </div>
 
         <q-inner-loading :showing="hasResults && mx_isFetching">
@@ -44,12 +44,14 @@
 <script>
 import { viewMixin, contextMixin } from '../../mixins'
 import QasFilters from '../filters/QasFilters.vue'
+import QasPagination from '../pagination/QasPagination.vue'
 import { extend } from 'quasar'
 import { getState, getAction } from '@bildvitta/store-adapter'
 
 export default {
   components: {
-    QasFilters
+    QasFilters,
+    QasPagination
   },
 
   mixins: [contextMixin, viewMixin],
@@ -116,6 +118,10 @@ export default {
 
     showResults () {
       return this.hasResults || this.useResultsAreaOnly
+    },
+
+    paginationClasses () {
+      return this.$qas.screen.isSmall ? 'justify-center column' : 'justify-end'
     }
   },
 
