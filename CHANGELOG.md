@@ -16,6 +16,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 
 ### Adicionado
 - `QasPagination`: adicionado novo componente de paginação que é um wrapper do `QPagination`.
+- `QasField`: Adicionado `*` na label no caso do campo ser obrigatório com base na propriedade `required: true`.
 
 ### Modificado
 - `generator.js`: Modificado o padrão da prop de gutter de `md` para `lg`.
