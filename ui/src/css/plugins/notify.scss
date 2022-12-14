@@ -1,4 +1,6 @@
 .q-notification {
+  margin-top: 80px;
+
   &__content {
     .q-icon {
       margin-right: var(--qas-spacing-sm);
@@ -30,5 +32,9 @@
         }
       }
     }
+  }
+
+  @media (max-width: $breakpoint-xs) {
+    margin-top: 40px;
   }
 }

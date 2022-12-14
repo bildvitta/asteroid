@@ -18,6 +18,9 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 ### Adicionado
 - [`NotifySuccess`, `NotifyError`]: Adicionado botão de fechar.
 - [`NotifySuccess`, `NotifyError`]: Adicinado ícones de sucesso e erro.
+- `shared`: Adicionado pasta para arquivos de configurações que iremos utilizar internamente.
+- `plugins`: Adicionado pasta para plugins css.
+- `notify.scss` - Adicionado arquivo de css para o novo padrão de layout dos notifies.
 - `QasActionsMenu`: modificado o estilo padrão do componente e comportamento quando há uma ação ou mais ações.
 - `QasActionsMenu`: modificado a label padrão do botão para "Opções" e ícone para `o_more_vert`.
 

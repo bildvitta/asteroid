@@ -29,7 +29,7 @@
     "QasGallery",
     "QasFilters",
     "QasOptionGroup",
-    "QasNotify",
+    "Notify",
     "QasActionsMenu"
   ],
   "cSpell.words": [
