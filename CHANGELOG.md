@@ -11,12 +11,19 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
 ## Não publicado
+## BREAKING CHANGE
+- `QasTableGenerator`: pode haver breaking change de design no espaçamento embaixo do componente uma vez que foi removido a classe `q-mb-xl`.
+
 ### Adicionado
+- `QasPagination`: adicionado novo componente de paginação que é um wrapper do `QPagination`.
 - `QasField`: Adicionado `*` na label no caso do campo ser obrigatório com base na propriedade `required: true`.
 
 ### Modificado
+- `generator.js`: Modificado o padrão da prop de gutter de `md` para `lg`.
 - `QasActionsMenu`: modificado o estilo padrão do componente e comportamento quando há uma ação ou mais ações.
 - `QasActionsMenu`: modificado a label padrão do botão para "Opções" e ícone para `o_more_vert`.
+- `QasTableGenerator`: removido classe `q-mb-xl` para adaptação de layout, responsabilidade de espaçamento fica com quem implementa.
+- `QasListView`: utilizando `QasPagination` no lugar do `QPagination` e adicionado de informação de quantos itens existem por página.
 
 ## [3.5.0-beta.0] - 18-11-2022
 ## BREAKING CHANGE
