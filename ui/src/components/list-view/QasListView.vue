@@ -240,6 +240,11 @@ export default {
     onDeleteResult ({ detail: { entity } }) {
       const { page } = this.mx_context
 
+      /*
+      * - se a entidade que estiver sendo excluída for diferente da entidade da listagem, ignora.
+      * - se a ultima pagina da paginação for igual a pagina atual e tiver mais de um resultado, ignora.
+      * - se não existir paginação (somente 1), ignora.
+      */
       const skipRefreshList = [
         (entity !== this.entity),
         (this.totalPages === page && this.resultsQuantity > 1),
@@ -250,6 +255,10 @@ export default {
 
       if (skipRefreshList.find(Boolean)) return
 
+      /*
+      * caso eu remova o ultimo item da ultima pagina eu volto ele para a pagina anterior
+      * ex: estou na pagina 3 que é a ultima pagina, e removo o ultimo item dela, eu volto o usuário para pagina 2
+      */
       if (this.resultsQuantity === 1 || !this.resultsQuantity) {
         const { path, query } = this.$route
 
@@ -257,6 +266,10 @@ export default {
         return
       }
 
+      /*
+      * caso remova algo de uma pagina que não seja a ultima, chama o método fetchList novamente
+      * ex: estou na pagina 2 e existem 3 paginas, removo um item da pagina 2, então chamo o método fetchList
+      */
       this.mx_fetchHandler({ ...this.mx_context, url: this.url }, this.fetchList)
     }
   }
