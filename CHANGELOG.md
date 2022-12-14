@@ -18,6 +18,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - `QasPagination`: adicionado novo componente de paginação que é um wrapper do `QPagination`.
 
 ### Modificado
+- `generator.js`: Modificado o padrão da prop de gutter de `md` para `lg`.
 - `QasActionsMenu`: modificado o estilo padrão do componente e comportamento quando há uma ação ou mais ações.
 - `QasActionsMenu`: modificado a label padrão do botão para "Opções" e ícone para `o_more_vert`.
 - `QasTableGenerator`: removido classe `q-mb-xl` para adaptação de layout, responsabilidade de espaçamento fica com quem implementa.

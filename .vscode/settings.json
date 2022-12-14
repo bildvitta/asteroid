@@ -29,6 +29,7 @@
     "QasGallery",
     "QasFilters",
     "QasOptionGroup",
+    "Mixins",
     "QasActionsMenu"
   ],
   "cSpell.words": [
