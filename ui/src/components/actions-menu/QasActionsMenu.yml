@@ -25,11 +25,6 @@ props:
     type: String
     examples: [start, end, between, around, center]
 
-  label:
-    desc: Rotulo do botão.
-    default: Opções
-    type: String
-
   list:
     desc: Lista de items que vão ser criados dentro do menu de ações.
     default: '{}'

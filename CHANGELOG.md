@@ -13,6 +13,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 ## Não publicado
 ## BREAKING CHANGE
 - `QasTableGenerator`: pode haver breaking change de design no espaçamento embaixo do componente uma vez que foi removido a classe `q-mb-xl`.
+- `QasActionsMenu`: removido propriedade `label`, agora o label sempre será fixo "Opções".
 
 ### Adicionado
 - `QasPagination`: adicionado novo componente de paginação que é um wrapper do `QPagination`.
@@ -34,6 +35,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 
 ### Removido
 - `QasActionsMenu`: removido componente privado `PvActionsMenusList` e adicionado o código internamente.
+- `QasActionsMenu`: removido propriedade `label`, agora o label sempre será fixo "Opções".
 
 ## [3.5.0-beta.0] - 18-11-2022
 ## BREAKING CHANGE

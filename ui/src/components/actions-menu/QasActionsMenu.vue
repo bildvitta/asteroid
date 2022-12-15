@@ -91,7 +91,7 @@ export default {
       const { icon, label } = this.actions.delete || {}
 
       if (this.hasMoreThanOneAction) {
-        props.label = this.label
+        props.label = 'Opções'
         props.iconRight = this.icon
         props.textColor = 'dark'
       } else {
