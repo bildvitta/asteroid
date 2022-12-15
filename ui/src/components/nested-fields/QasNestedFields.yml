@@ -4,6 +4,11 @@ meta:
   desc: Componente para gerar dinamicamente campos nested.
 
 props:
+  actions-menu-props:
+    desc: Repassa as propriedades para o componente QasActionsMenu.
+    default: {}
+    type: Object
+
   add-input-label:
     desc: Rótulo do input de adicionar novos campos.
     default: Inserir novo campo

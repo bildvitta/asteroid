@@ -11,7 +11,7 @@
             <div>
               <div class="flex items-center justify-between q-py-xs">
                 <qas-label v-if="!useSingleLabel" :label="getRowLabel(index)" />
-                <qas-actions-menu v-if="hasBlockActions(row)" :list="actionsList(index, row)" />
+                <qas-actions-menu v-if="hasBlockActions(row)" :list="getActionsList(index, row)" :use-label-on-small-screen="false" />
               </div>
 
               <div ref="formGenerator" class="col-12 justify-between q-col-gutter-x-md row">
@@ -24,12 +24,7 @@
                 </slot>
 
                 <div v-if="hasInlineActions(row)" class="flex items-center qas-nested-fields__actions">
-                  <div class="col-auto">
-                    <qas-btn v-if="useDuplicate" color="dark" flat icon="o_content_copy" round @click="add(row)" />
-                  </div>
-                  <div class="col-auto">
-                    <qas-btn v-if="showDestroyBtn" color="dark" flat icon="o_delete" round @click="destroy(index, row)" />
-                  </div>
+                  <qas-actions-menu :list="getActionsList(index, row)" :use-label-on-small-screen="false" />
                 </div>
               </div>
 
@@ -88,6 +83,11 @@ export default {
   },
 
   props: {
+    actionsMenuProps: {
+      type: Object,
+      default: () => ({})
+    },
+
     addInputLabel: {
       type: String,
       default: 'Inserir novo campo'
@@ -287,7 +287,7 @@ export default {
   },
 
   methods: {
-    actionsList (index, row) {
+    getActionsList (index, row) {
       const list = {}
 
       if (this.useDuplicate) {
@@ -301,6 +301,15 @@ export default {
         list.destroy = {
           ...this.buttonDestroyProps,
           handler: () => this.destroy(index, row)
+        }
+      }
+
+      for (const key in this.actionsMenuProps.list) {
+        const { handler, ...content } = this.actionsMenuProps.list[key] || {}
+
+        list[key] = {
+          handler: payload => handler?.({ payload, row, index }),
+          ...content
         }
       }
 

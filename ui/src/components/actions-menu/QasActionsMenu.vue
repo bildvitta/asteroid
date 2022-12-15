@@ -1,24 +1,35 @@
 <template>
-  <div v-if="hasActions" class="qas-actions-menu">
-    <qas-btn v-if="hasMoreThanOneAction" class="qas-actions-menu__button" flat :icon-right="icon" :label="label" padding="xs" :ripple="false" text-color="dark">
-      <q-menu auto-close class="q-py-xs qas-actions-menu__menu">
-        <pv-actions-menu-list :list="actions" />
+  <div v-if="hasActions">
+    <component :is="component.is" flat v-bind="component.props" :use-label-on-small-screen="useLabelOnSmallScreen" @click="onClick()">
+      <q-menu v-if="hasMoreThanOneAction" auto-close class="q-py-xs">
+        <q-list>
+          <slot v-for="(item, key) in actions" :item="item" :name="key">
+            <component :is="getComponent(key)" v-bind="item.props" :key="key" clickable @click="onClick(item)">
+              <q-item-section avatar>
+                <q-icon :name="item.icon" />
+              </q-item-section>
+
+              <q-item-section>
+                <div>{{ item.label }}</div>
+              </q-item-section>
+            </component>
+          </slot>
+        </q-list>
       </q-menu>
-    </qas-btn>
-    <pv-actions-menu-list v-else :list="actions" />
+    </component>
   </div>
 </template>
 
 <script>
 import QasBtn from '../btn/QasBtn.vue'
-import PvActionsMenuList from './private/PvActionsMenuList.vue'
+import QasDelete from '../delete/QasDelete.vue'
 
 export default {
   name: 'QasActionsMenu',
 
   components: {
     QasBtn,
-    PvActionsMenuList
+    QasDelete
   },
 
   props: {
@@ -50,6 +61,11 @@ export default {
     deleteProps: {
       default: () => ({}),
       type: Object
+    },
+
+    useLabelOnSmallScreen: {
+      default: true,
+      type: Boolean
     }
   },
 
@@ -63,11 +79,37 @@ export default {
             label: this.deleteLabel,
             props: {
               ...this.deleteProps,
-              tag: 'q-item'
+              tag: this.hasMoreThanOneAction ? 'q-item' : 'qas-btn'
             }
           }
         })
       }
+    },
+
+    component () {
+      const props = {}
+      const { icon, label } = this.actions.delete || {}
+
+      if (this.hasMoreThanOneAction) {
+        props.label = this.label
+        props.iconRight = this.icon
+        props.textColor = 'dark'
+      } else {
+        props.icon = this.hasDelete ? icon : this.list[this.firstItemKey]?.icon
+        props.label = this.hasDelete ? label : this.list[this.firstItemKey]?.label
+        props.color = 'primary'
+      }
+
+      this.hasDelete && Object.assign(props, this.deleteProps)
+
+      return {
+        is: this.hasMoreThanOneAction || !this.hasDelete ? 'qas-btn' : 'qas-delete',
+        props
+      }
+    },
+
+    firstItemKey () {
+      return Object.keys(this.actions)?.[0]
     },
 
     hasActions () {
@@ -79,28 +121,25 @@ export default {
     },
 
     hasMoreThanOneAction () {
-      return Object.keys(this.actions).length > 1
+      return Object.keys(this.actions || {}).length > 1
+    }
+  },
+
+  methods: {
+    getComponent (key) {
+      return key === 'delete' ? 'qas-delete' : 'q-item'
+    },
+
+    onClick (item = {}) {
+      if (!this.hasMoreThanOneAction) {
+        item = this.actions[this.firstItemKey]
+      }
+
+      if (typeof item.handler === 'function') {
+        const { handler, ...filtered } = item
+        item.handler(filtered)
+      }
     }
   }
 }
 </script>
-
-<style lang="scss">
-.qas-actions-menu {
-  &__button {
-    transition: color 300ms;
-
-    &:hover {
-      color: var(--q-primary) !important;
-    }
-
-    .on-right {
-      margin-left: var(--qas-spacing-xs);
-    }
-
-    .q-focus-helper {
-      display: none;
-    }
-  }
-}
-</style>

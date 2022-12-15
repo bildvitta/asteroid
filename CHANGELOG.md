@@ -19,6 +19,8 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - `QasField`: Adicionado `*` na label no caso do campo ser obrigatório com base na propriedade `required: true`.
 - `QasListView`: adicionado nova propriedade `use-auto-handle-on-delete` para controlar se o componente vai lidar automaticamente quando acontecer algum delete compatível com a listagem.
 - `QasActionsMenu`: adicionada a propriedade `auto-close` para fechar o menu após a ação ser executada.
+- `QasNestedFields`: adicionado propriedade `actions-menu-props` para repassar propriedades para o `QasActionsMenu`.
+- `QasActionsMenu`: adicionado propriedade `useLabelOnSmallScreen`.
 
 ### Modificado
 - `generator.js`: Modificado o padrão da prop de gutter de `md` para `lg`.
@@ -27,6 +29,11 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - `QasTableGenerator`: removido classe `q-mb-xl` para adaptação de layout, responsabilidade de espaçamento fica com quem implementa.
 - `QasListView`: utilizando `QasPagination` no lugar do `QPagination` e adicionado de informação de quantos itens existem por página.
 - `QNestedFields`: agora usa o `QActionsMenu` para as ações exibidas no tipo bloco.
+- `QasActionsMenu`: refatorado código, alterado estilos.
+- `items.scss`: modificado classe global do `q-item` para adicionar `fonte-weight: 600` sempre que não estiver desativado.
+
+### Removido
+- `QasActionsMenu`: removido componente privado `PvActionsMenusList` e adicionado o código internamente.
 
 ## [3.5.0-beta.0] - 18-11-2022
 ## BREAKING CHANGE
