@@ -7,12 +7,12 @@ props:
   add-first-input-label:
     desc: Rótulo do input para adicionar o primeiro campo.
     default: Clique aqui para adicionar
-    type: Boolean
+    type: String
 
   add-input-label:
     desc: Rótulo do input de adicionar novos campos.
     default: Adicionar
-    type: Boolean
+    type: String
 
   button-destroy-props:
     desc: Props do botão de excluir linha contendo os campos.
@@ -102,7 +102,6 @@ props:
 
   use-destroy-always:
     desc: Controla o botão de remover em todas linhas, incluindo a primeira.
-    default: true
     type: Boolean
 
   use-duplicate:

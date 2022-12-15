@@ -66,6 +66,10 @@ Para saber mais sobre o **API Design Pattern** clice [aqui](https://www.notion.s
 :::
 
 :::warning
+A propriedade `useDestroyAlways` caso não seja repassada ao componente, assume o inicial como o mesmo valor da propriedade `useStartsEmpty`.
+:::
+
+:::warning
 A propriedade `fieldsEvents` não existe mais, para passar eventos para os campos basta passar dentro de `fieldsProps`, já que tudo que é referente a eventos está dentro de `$attrs` no vue 3, por exemplo:
 
 ```js
@@ -83,9 +87,9 @@ Para saber mais clique [aqui](https://v3-migration.vuejs.org/breaking-changes/li
 ## Uso
 
 <doc-example file="QasNestedFields/Basic" title="Básico" />
-<doc-example file="QasNestedFields/StartsEmptyFalse" title="Começando com formulário" />
+<!-- <doc-example file="QasNestedFields/StartsEmptyFalse" title="Começando com formulário" />
 <doc-example file="QasNestedFields/DisabledRows" title="Linhas desabilitadas" />
 <doc-example file="QasNestedFields/InlineActions" title="Propriedade useInlineActions" />
 <doc-example file="QasNestedFields/SlotDynamic" title="Slot field-[nome-da-chave]" />
 <doc-example file="QasNestedFields/SlotFields" title="Slot fields" />
-<doc-example file="QasNestedFields/SlotAddInput" title="Slot add-input" />
+<doc-example file="QasNestedFields/SlotAddInput" title="Slot add-input" /> -->

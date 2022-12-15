@@ -200,7 +200,7 @@ export default {
 
     useDestroyAlways: {
       type: Boolean,
-      default: true
+      default: undefined
     },
 
     useDuplicate: {
@@ -245,7 +245,8 @@ export default {
 
   data () {
     return {
-      nested: []
+      nested: [],
+      hasDestroyAlways: true
     }
   },
 
@@ -263,7 +264,7 @@ export default {
     },
 
     showDestroyButton () {
-      return this.nested.filter(item => !item[this.destroyKey]).length > 1 || this.useDestroyAlways
+      return this.nested.filter(item => !item[this.destroyKey]).length > 1 || this.hasDestroyAlways
     },
 
     formClasses () {
@@ -307,6 +308,13 @@ export default {
     rowObject: {
       handler () {
         this.setDefaultNestedValue()
+      },
+      immediate: true
+    },
+
+    useDestroyAlways: {
+      handler (value) {
+        this.hasDestroyAlways = value ?? this.useStartsEmpty
       },
       immediate: true
     }

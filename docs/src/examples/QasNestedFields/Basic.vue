@@ -1,9 +1,10 @@
 <template>
   <div class="container spaced">
     <div class="full-width">
-      <div class="q-mt-lg text-center">
+      <div class="q-mt-lg">
+        <qas-label label="Meu campo" />
         <div>
-          <qas-nested-fields v-model="model" class="full-width" :field="nested" :fields-props="fieldsProps" :form-columns="formColumns" :row-object="rowObject" />
+          <qas-nested-fields v-model="model" class="full-width" :field="nested" :fields-props="fieldsProps" :form-columns="formColumns" row-label="Meu teste" :row-object="rowObject" />
         </div>
 
         <div class="q-my-lg">
@@ -18,7 +19,7 @@
 const nested = {
   name: 'nested',
   type: 'nested',
-  label: 'Meu nested',
+  label: 'Meu nested2',
   children: {
     name: {
       name: 'name',
