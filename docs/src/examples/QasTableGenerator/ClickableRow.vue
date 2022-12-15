@@ -40,10 +40,6 @@ export default {
     rowClick (event, row, index) {
       alert(`Clicou na linha ${index} do usuário "${row.name}".`)
       // Use o Vue Router para navegar para a rota desejada.
-    },
-
-    test () {
-      console.log('aq')
     }
   }
 }
