@@ -17,9 +17,16 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 ### Adicionado
 - `QasPagination`: adicionado novo componente de paginação que é um wrapper do `QPagination`.
 - `QasField`: Adicionado `*` na label no caso do campo ser obrigatório com base na propriedade `required: true`.
+- [`NotifySuccess`, `NotifyError`]: Adicionado botão de fechar.
+- [`NotifySuccess`, `NotifyError`]: Adicinado ícones de sucesso e erro.
+- `shared`: Adicionado pasta para arquivos de configurações que iremos utilizar internamente.
+- `plugins`: Adicionado pasta para plugins css.
+- `notify.scss`: Adicionado arquivo de css para o novo padrão de layout dos notifies.
 - `QasListView`: adicionado nova propriedade `use-auto-handle-on-delete` para controlar se o componente vai lidar automaticamente quando acontecer algum delete compatível com a listagem.
 
 ### Modificado
+- [`NotifySuccess`, `NotifyError`]: Mudança de posição que será exibido(era bottom, agora será top).
+- [`NotifySuccess`, `NotifyError`]: Mudança de cor, agora será `grey-9`.
 - `generator.js`: Modificado o padrão da prop de gutter de `md` para `lg`.
 - `QasActionsMenu`: modificado o estilo padrão do componente e comportamento quando há uma ação ou mais ações.
 - `QasActionsMenu`: modificado a label padrão do botão para "Opções" e ícone para `o_more_vert`.

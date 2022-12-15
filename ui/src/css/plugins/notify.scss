@@ -1,0 +1,40 @@
+.q-notification {
+  margin-top: 80px;
+
+  &__content {
+    .q-icon {
+      margin-right: var(--qas-spacing-sm);
+    }
+  }
+
+  &__actions {
+    align-self: start;
+    padding-top: var(--qas-spacing-xs);
+
+    .q-btn {
+      color: white;
+      height: var(--qas-spacing-md);
+      min-height: auto;
+      min-width: auto;
+      padding: 0;
+      text-align: center;
+      text-transform: none;
+      width: var(--qas-spacing-md);
+
+      &__content {
+        height: var(--qas-spacing-md);
+
+        span {
+          align-self: center;
+          height: var(--qas-spacing-md);
+          line-height: 0.9;
+          width: var(--qas-spacing-md);
+        }
+      }
+    }
+  }
+
+  @media (max-width: $breakpoint-xs) {
+    margin-top: 40px;
+  }
+}

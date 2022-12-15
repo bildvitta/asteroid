@@ -29,6 +29,7 @@
     "QasGallery",
     "QasFilters",
     "QasOptionGroup",
+    "Notify",
     "Mixins",
     "QasActionsMenu"
   ],
