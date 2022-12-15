@@ -224,7 +224,7 @@ export default {
     },
 
     onRowClick () {
-      if (this.scrollOnGrab.haveMoved()) return
+      if (this.hasScrollOnGrab && this.scrollOnGrab.haveMoved()) return
       this.$attrs.onRowClick(...arguments)
     },
 

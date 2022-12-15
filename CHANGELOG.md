@@ -23,7 +23,6 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - `QasField`: Alterado type `radio` par utilizar o novo componente `QasOptionGroup` e removido prop de erro pois não existe no componente `QOptionGroup`, testar bem para validar.
 - Componentes de radio agora existe padronização, a partir do mobile componente segue comportamento de linha, em telas mobile segue comportamento de bloco, não sendo possível alterar este comportamento, verificar locais que utilizam para não quebrar o estilo.
 - `QasSelect`: removido propriedade `useSearch` pois agora existe o padrão de ter pesquisa pelo fuse sempre que existir pelo menos 10 opções e nunca menos que isto.
-
 ### Adicionado
 - `QasFilters`: adicionado nova propriedade `fieldsProps` para repassar propriedades para os campos do filtro.
 - `QasSelect`: adicionado busca automaticamente quando existem pelo menos 10 opções.
@@ -33,6 +32,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - `QasField`: alterado type `radio` par utilizar o novo componente `QasOptionGroup` e removido prop de erro pois não existe no componente `QOptionGroup`.
 - `QasField`: removido propriedade `useSearch` que era repassado para o `QasSelect` já que ela foi removido do mesmo.
 - `typography.scss`: alterado tipografia para seguir novo padrão de design.
+- [`QasTextTruncate`, `QasDelete`, `QasCopy`]: adicionado modificador `.stop` nos eventos `@click.stop` para prevenir evento de click quando utilizado dentro da tabela.
 
 ### Removido
 - `QasSelect`: removido propriedade `useSearch` pois agora existe o padrão de ter pesquisa pelo fuse sempre que existir pelo menos 10 opções e nunca menos que isto.
