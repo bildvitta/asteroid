@@ -34,7 +34,6 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - `items.scss`: modificado classe global do `q-item` para adicionar `fonte-weight: 600` sempre que não estiver desativado.
 
 ### Removido
-- `QasActionsMenu`: removido componente privado `PvActionsMenusList` e adicionado o código internamente.
 - `QasActionsMenu`: removido propriedade `label`, agora o label sempre será fixo "Opções".
 
 ## [3.5.0-beta.0] - 18-11-2022

@@ -39,6 +39,11 @@ props:
       }"
     ]
 
+  use-label-on-small-screen:
+    desc: Esconde o rótulo (label) do botão quando o tamanho da tela for pequeno (esta propriedade só funciona se o "rotulo") for passado via propriedade "label".
+    default: true
+    type: Boolean
+
 slots:
   '[nome-da-chave]':
     desc: 'Slot dinâmico gerado a partir das chaves dentro do objeto da prop "list"'

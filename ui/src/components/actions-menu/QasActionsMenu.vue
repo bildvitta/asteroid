@@ -88,15 +88,14 @@ export default {
 
     component () {
       const props = {}
-      const { icon, label } = this.actions.delete || {}
 
       if (this.hasMoreThanOneAction) {
         props.label = 'Opções'
         props.iconRight = this.icon
         props.textColor = 'dark'
       } else {
-        props.icon = this.hasDelete ? icon : this.list[this.firstItemKey]?.icon
-        props.label = this.hasDelete ? label : this.list[this.firstItemKey]?.label
+        props.icon = this.actions[this.firstItemKey]?.icon
+        props.label = this.actions[this.firstItemKey]?.label
         props.color = 'primary'
       }
 
