@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## Unreleased
+
+### Added
+- `QasSelect`: added `Boolean` type suport for `value` prop.
+- `QasFilters`: added `fieldsProps` and `fieldsEvents` props to filter fields.
+- `QasFilters`: added `cachedOptions`from `fieldsProps` to use in `activeFilters` to customs options fields.
+
+### Fixed
+- `QasFielters`: added conditional to check if filter value is empty array, undefined or null in `updateValues`.
+
 ## 2.23.0 - 2022-06-29
 
 ## BREAKING CHANGES
