@@ -27,7 +27,7 @@
 
             <q-form v-else class="q-gutter-y-md q-pa-md" @submit.prevent="filter()">
               <div v-for="(field, index) in fields" :key="index">
-                <qas-field :value="filters[field.name]" dense :field="field" v-bind="fieldsProps[field.name]" v-on="fieldsEvents[field.name]" @input="emitter(field.name, $event)" />
+                <qas-field dense :field="field" :value="filters[field.name]" v-bind="fieldsProps[field.name]" v-on="fieldsEvents[field.name]" @input="emitter(field.name, $event)" />
               </div>
 
               <div class="text-right">
@@ -144,8 +144,8 @@ export default {
         const cachedOptions = this.fieldsProps?.[key]?.cachedOptions || []
 
         if (hasField) {
-          const field = { ...this.fields[key], ...this.fieldsProps?.[key]}
-          
+          const field = { ...this.fields[key], ...this.fieldsProps?.[key] }
+
           field.options = [...field.options, ...cachedOptions]
 
           const value = humanize(field, this.normalizeValues(filters[key], this.fields[key]?.multiple))
@@ -305,7 +305,6 @@ export default {
       this.search = search || ''
 
       for (const key in filters) {
-
         if (!filters[key]?.length || isNil(filters[key])) {
           delete filters[key]
           continue
@@ -333,7 +332,7 @@ export default {
     emitter (key, value) {
       this.$nextTick(() => {
         this.filters[key] = value
-  
+
         this.$emit('input', this.filters)
       })
     }
