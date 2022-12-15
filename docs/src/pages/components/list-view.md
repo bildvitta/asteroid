@@ -7,6 +7,10 @@ Componente para C.R.U.D. responsável pela parte de listagem (Read).
 <doc-api file="list-view/QasListView" name="QasListView" />
 
 :::warning
+Quando utilizar deleção de itens na listagem, lembre-se de utilizar a propriedade `use-auto-handle-on-delete`.
+:::
+
+:::warning
 Este componente depende do `Vuex`, utiliza módulos com actions, state e getters para manipular/recuperar os dados. Por exemplo, para você utilizar em uma entidade de listagem de usuários, você **deve** ter um modulo de `users` e dentro de dele ter os seguinte requisitos:
 - state: list e totalPages.
 - getters: list e totalPages.
@@ -19,7 +23,7 @@ Para fazer esses exemplos na documentação, estamos utilizando o `VuexOffline`,
 :::
 
 :::tip
-Este componente serve para lidar com **listagem**, se você precisar de um componente para lidar com um item unitário, como por exemplo, um unico usuário, use o componente `QasSingleView`.
+Este componente serve para lidar com **listagem**, se você precisar de um componente para lidar com um item unitário, como por exemplo, um único usuário, use o componente `QasSingleView`.
 :::
 
 ## Uso

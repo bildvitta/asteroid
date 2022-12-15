@@ -59,8 +59,7 @@ props:
     type: String
 
   use-auto-handle-on-delete:
-    desc: Controla se o componente vai lidar automaticamente quando acontecer algum delete compatível com a listagem. 
-    default: true
+    desc: Controla se o componente vai lidar automaticamente quando acontecer algum delete compatível com a listagem.
     type: Boolean
 
   use-boundary:

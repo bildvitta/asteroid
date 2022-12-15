@@ -68,8 +68,7 @@ export default {
     },
 
     useAutoHandleOnDelete: {
-      type: Boolean,
-      default: true
+      type: Boolean
     },
 
     useRefresh: {
