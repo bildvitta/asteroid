@@ -67,7 +67,7 @@ export default {
 
     value: {
       default: () => [],
-      type: [Array, Object, String, Number]
+      type: [Array, Object, String, Number, Boolean]
     },
 
     valueKey: {
