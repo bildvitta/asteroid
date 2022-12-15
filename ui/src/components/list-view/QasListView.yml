@@ -58,6 +58,10 @@ props:
     desc: Envia como parâmetro para a action "fetchList" do modulo correspondente a "entity".
     type: String
 
+  use-auto-handle-on-delete:
+    desc: Controla se o componente vai lidar automaticamente quando acontecer algum delete compatível com a listagem.
+    type: Boolean
+
   use-boundary:
     desc: Controla o limite que o FormView terá, quando é "false", a tag pai deixa de ser um "QPage" para ser uma "div" e é removido as classes "container" e "spaced", comumente utilizando quando precisa usar o QasFormView dentro de um dialog.
     default: true
