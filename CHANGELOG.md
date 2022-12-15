@@ -21,7 +21,8 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - [`NotifySuccess`, `NotifyError`]: Adicinado ícones de sucesso e erro.
 - `shared`: Adicionado pasta para arquivos de configurações que iremos utilizar internamente.
 - `plugins`: Adicionado pasta para plugins css.
-- `notify.scss` - Adicionado arquivo de css para o novo padrão de layout dos notifies.
+- `notify.scss`: Adicionado arquivo de css para o novo padrão de layout dos notifies.
+- `QasListView`: adicionado nova propriedade `use-auto-handle-on-delete` para controlar se o componente vai lidar automaticamente quando acontecer algum delete compatível com a listagem.
 
 ### Modificado
 - [`NotifySuccess`, `NotifyError`]: Mudança de posição que será exibido(era bottom, agora será top).

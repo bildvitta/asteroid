@@ -11,9 +11,10 @@
         <template #body-cell-isActive="{ row }">
           <div class="text-weight-bold">{{ row.isActive }}</div>
         </template>
-        <template #body-cell-actions>
+        <template #body-cell-actions="{ row }">
           <div class="flex justify-end no-wrap q-gutter-x-sm">
             <qas-btn dense flat icon="o_edit" rounded size="sm" />
+            <qas-delete :custom-id="row.uuid" dense entity="users" flat icon="delete" rounded size="sm" />
           </div>
         </template>
       </qas-table-generator>
