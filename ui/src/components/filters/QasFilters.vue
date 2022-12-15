@@ -27,7 +27,7 @@
 
             <q-form v-else class="q-gutter-y-md q-pa-md" @submit.prevent="filter()">
               <div v-for="(field, index) in fields" :key="index">
-                <qas-field v-model="filters[field.name]" dense :field="field" />
+                <qas-field :value="filters[field.name]" dense :field="field" v-bind="fieldsProps[field.name]" v-on="fieldsEvents[field.name]" @input="emitter(field.name, $event)" />
               </div>
 
               <div class="text-right">
@@ -51,6 +51,7 @@
 <script>
 import QasField from '../field/QasField'
 
+import { isNil } from 'lodash'
 import { camelize, camelizeKeys } from 'humps'
 import { humanize, parseValue } from '../../helpers/filters'
 import contextMixin from '../../mixins/context'
@@ -71,6 +72,16 @@ export default {
     entity: {
       required: true,
       type: String
+    },
+
+    fieldsProps: {
+      default: () => ({}),
+      type: Object
+    },
+
+    fieldsEvents: {
+      default: () => ({}),
+      type: Object
     },
 
     noFilterButton: {
@@ -100,6 +111,11 @@ export default {
 
     forceRefetch: {
       type: Boolean
+    },
+
+    value: {
+      default: () => ({}),
+      type: Object
     }
   },
 
@@ -125,9 +141,14 @@ export default {
 
       for (const key in filters) {
         const hasField = fields.includes(key)
+        const cachedOptions = this.fieldsProps?.[key]?.cachedOptions || []
 
         if (hasField) {
-          const value = humanize(this.fields[key], this.normalizeValues(filters[key], this.fields[key]?.multiple))
+          const field = { ...this.fields[key], ...this.fieldsProps?.[key]}
+          
+          field.options = [...field.options, ...cachedOptions]
+
+          const value = humanize(field, this.normalizeValues(filters[key], this.fields[key]?.multiple))
           const { label, name } = this.fields[key]
 
           activeFilters[key] = { label, name, value }
@@ -188,12 +209,21 @@ export default {
       if (this.debounce) {
         this.filter()
       }
+    },
+
+    value: {
+      immediate: true,
+      deep: true,
+      handler (value) {
+        this.filters = { ...value }
+      }
     }
   },
 
   created () {
     this.fetchFilters()
     this.watchOnceFields()
+    this.$emit('input', this.context.filters)
   },
 
   methods: {
@@ -275,6 +305,12 @@ export default {
       this.search = search || ''
 
       for (const key in filters) {
+
+        if (!filters[key]?.length || isNil(filters[key])) {
+          delete filters[key]
+          continue
+        }
+
         this.$set(this.filters, key, parseValue(this.normalizeValues(filters[key], this.fields[key]?.multiple)))
       }
     },
@@ -291,6 +327,14 @@ export default {
           this.updateValues()
           watchOnce()
         }
+      })
+    },
+
+    emitter (key, value) {
+      this.$nextTick(() => {
+        this.filters[key] = value
+  
+        this.$emit('input', this.filters)
       })
     }
   }
