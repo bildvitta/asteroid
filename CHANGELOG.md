@@ -13,6 +13,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 ## Não publicado
 ## BREAKING CHANGE
 - `QasTableGenerator`: pode haver breaking change de design no espaçamento embaixo do componente uma vez que foi removido a classe `q-mb-xl`.
+- `QasNestedFields`: mudanças de comportamento e estilo do nested, rever implementações.
 
 ### Adicionado
 - `QasPagination`: adicionado novo componente de paginação que é um wrapper do `QPagination`.
@@ -36,7 +37,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - `QasTableGenerator`: removido classe `q-mb-xl` para adaptação de layout, responsabilidade de espaçamento fica com quem implementa.
 - `QasListView`: utilizando `QasPagination` no lugar do `QPagination` e adicionado de informação de quantos itens existem por página.
 - `QasNestedFields`: modificado o valor padrão da propriedade `addInputLabel` para "Adicionar".
-- `QasNestedFields`: modificado o valor padrão da propriedade `useDestroyAlways` para `true`.
+- `QasNestedFields`: modificado o valor padrão da propriedade `useDestroyAlways` para ser um espelho da propriedade `useStartsEmpty` como valor default.
 
 ## [3.5.0-beta.0] - 18-11-2022
 ## BREAKING CHANGE
