@@ -44,6 +44,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - `QasNestedFields`: agora usa o `QActionsMenu` para as ações exibidas no tipo bloco.
 - `QasActionsMenu`: refatorado código, alterado estilos.
 - `items.scss`: modificado classe global do `q-item` para adicionar `fonte-weight: 600` sempre que não estiver desativado.
+- `spacing.scss`: modificado espaçamento do `lg` de 32px para 24px e do `xl` de 48px para 32px.
 
 ### Removido
 - `QasActionsMenu`: removido propriedade `label`, agora o label sempre será fixo "Opções".
