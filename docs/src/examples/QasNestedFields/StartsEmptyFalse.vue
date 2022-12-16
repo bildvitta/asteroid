@@ -3,7 +3,7 @@
     <div class="full-width">
       <div class="q-mt-lg text-center">
         <div>
-          <qas-nested-fields v-model="model" class="full-width" :field="nested" :fields-props="fieldsProps" :form-columns="formColumns" :row-object="rowObject" :use-duplicate="false" use-inline-actions />
+          <qas-nested-fields v-model="model" class="full-width" :field="nested" :fields-props="fieldsProps" :form-columns="formColumns" :row-object="rowObject" :use-destroy-always="false" :use-starts-empty="false" />
         </div>
 
         <div class="q-my-lg">
@@ -55,18 +55,7 @@ export default {
   data () {
     return {
       nested: nested,
-      model: [
-        {
-          name: 'John',
-          email: 'john@teste.com',
-          cities: 1
-        },
-        {
-          name: 'John 2',
-          email: 'john@teste.com',
-          cities: 2
-        }
-      ]
+      model: []
     }
   },
 

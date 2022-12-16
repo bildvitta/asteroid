@@ -27,8 +27,8 @@
           <q-spinner color="grey" size="3em" />
         </div>
 
-        <div v-if="hasPages" class="justify-center q-mt-lg">
-          <q-pagination v-model="page" boundary-links class="flex-center" direction-links :input="$q.screen.lt.sm" :max="totalPages" :max-pages="6" @click="changePage" />
+        <div v-if="hasPages" class="flex items-center q-mt-sm" :class="paginationClasses">
+          <qas-pagination v-model="page" :max="totalPages" @click="changePage" />
         </div>
 
         <q-inner-loading :showing="hasResults && mx_isFetching">
@@ -44,12 +44,14 @@
 <script>
 import { viewMixin, contextMixin } from '../../mixins'
 import QasFilters from '../filters/QasFilters.vue'
+import QasPagination from '../pagination/QasPagination.vue'
 import { extend } from 'quasar'
 import { getState, getAction } from '@bildvitta/store-adapter'
 
 export default {
   components: {
-    QasFilters
+    QasFilters,
+    QasPagination
   },
 
   mixins: [contextMixin, viewMixin],
@@ -63,6 +65,10 @@ export default {
     results: {
       default: () => [],
       type: Array
+    },
+
+    useAutoHandleOnDelete: {
+      type: Boolean
     },
 
     useRefresh: {
@@ -89,7 +95,8 @@ export default {
 
   data () {
     return {
-      page: 1
+      page: 1,
+      resultsQuantity: 0
     }
   },
 
@@ -116,6 +123,10 @@ export default {
 
     showResults () {
       return this.hasResults || this.useResultsAreaOnly
+    },
+
+    paginationClasses () {
+      return this.$qas.screen.isSmall ? 'justify-center column' : 'justify-end'
     }
   },
 
@@ -140,6 +151,18 @@ export default {
     this.mx_fetchHandler({ ...this.mx_context, url: this.url }, this.fetchList)
 
     this.setCurrentPage()
+  },
+
+  mounted () {
+    if (!this.useAutoHandleOnDelete) return
+
+    window.addEventListener('delete-success', this.onDeleteResult)
+  },
+
+  unmounted () {
+    if (!this.useAutoHandleOnDelete) return
+
+    window.removeEventListener('delete-success', this.onDeleteResult)
   },
 
   methods: {
@@ -168,7 +191,8 @@ export default {
           payload
         })
 
-        const { errors, fields, metadata } = response.data
+        const { errors, fields, metadata, results } = response.data
+        this.resultsQuantity = results.length
 
         this.mx_setErrors(errors)
         this.mx_setFields(fields)
@@ -210,6 +234,42 @@ export default {
 
     setCurrentPage () {
       this.page = parseInt(this.$route.query.page || 1)
+    },
+
+    onDeleteResult ({ detail: { entity } }) {
+      const { page } = this.mx_context
+
+      /*
+      * - se a entidade que estiver sendo excluída for diferente da entidade da listagem, ignora.
+      * - se a ultima pagina da paginação for igual a pagina atual e tiver mais de um resultado, ignora.
+      * - se não existir paginação (somente 1), ignora.
+      */
+      const skipRefreshList = [
+        (entity !== this.entity),
+        (this.totalPages === page && this.resultsQuantity > 1),
+        (this.totalPages === 1)
+      ]
+
+      this.resultsQuantity -= 1
+
+      if (skipRefreshList.find(Boolean)) return
+
+      /*
+      * caso eu remova o ultimo item da ultima pagina eu volto ele para a pagina anterior
+      * ex: estou na pagina 3 que é a ultima pagina, e removo o ultimo item dela, eu volto o usuário para pagina 2
+      */
+      if (this.resultsQuantity === 1 || !this.resultsQuantity) {
+        const { path, query } = this.$route
+
+        this.$router.replace({ path, query: { ...query, page: query.page - 1 } })
+        return
+      }
+
+      /*
+      * caso remova algo de uma pagina que não seja a ultima, chama o método fetchList novamente
+      * ex: estou na pagina 2 e existem 3 paginas, removo um item da pagina 2, então chamo o método fetchList
+      */
+      this.mx_fetchHandler({ ...this.mx_context, url: this.url }, this.fetchList)
     }
   }
 }

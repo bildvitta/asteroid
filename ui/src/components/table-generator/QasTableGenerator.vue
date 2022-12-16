@@ -1,5 +1,5 @@
 <template>
-  <qas-box class="q-mb-xl q-px-lg q-py-md">
+  <qas-box class="q-px-lg q-py-md">
     <q-table ref="table" class="bg-transparent qas-table-generator" :class="tableClass" v-bind="attributes">
       <template v-for="(_, name) in $slots" #[name]="context">
         <slot v-if="hasBodySlot" name="body" :props="context" />

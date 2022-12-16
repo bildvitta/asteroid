@@ -166,6 +166,10 @@ module.exports = [
         path: '/components/page-header'
       },
       {
+        name: 'Pagination',
+        path: '/components/pagination'
+      },
+      {
         name: 'PasswordInput',
         path: '/components/password-input'
       },

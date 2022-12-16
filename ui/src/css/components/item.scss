@@ -1,6 +1,10 @@
 .q-item {
   font-size: 16px;
 
+  &:not(.disabled) {
+    font-weight: 600;
+  }
+
   &.q-router-link--active {
     background-color: transparent !important;
     font-weight: 600;
