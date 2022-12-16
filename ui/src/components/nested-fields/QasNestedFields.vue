@@ -11,11 +11,7 @@
             <div>
               <div class="flex items-center justify-between q-py-xs">
                 <qas-label v-if="!useSingleLabel" :label="getRowLabel(index)" />
-
-                <div v-if="hasBlockActions(row)" class="q-gutter-x-sm">
-                  <qas-btn v-if="useDuplicate" v-bind="buttonDuplicateProps" @click="add(row)" />
-                  <qas-btn v-if="showDestroyButton" v-bind="buttonDestroyProps" @click="destroy(index, row)" />
-                </div>
+                <qas-actions-menu v-if="hasBlockActions(row)" :list="getActionsList(index, row)" :use-label-on-small-screen="false" />
               </div>
 
               <div ref="formGenerator" class="col-12 justify-between q-col-gutter-x-md row">
@@ -28,12 +24,7 @@
                 </slot>
 
                 <div v-if="hasInlineActions(row)" class="flex items-center qas-nested-fields__actions">
-                  <div class="col-auto">
-                    <qas-btn v-if="useDuplicate" color="primary" flat icon="o_content_copy" round @click="add(row)" />
-                  </div>
-                  <div class="col-auto">
-                    <qas-btn v-if="showDestroyButton" color="negative" flat icon="o_cancel" round @click="destroy(index, row)" />
-                  </div>
+                  <qas-actions-menu :list="getActionsList(index, row)" :use-label-on-small-screen="false" />
                 </div>
               </div>
 
@@ -57,7 +48,7 @@
             </div>
 
             <div class="col-auto">
-              <qas-btn color="green" flat icon="o_add_circle_outline" round />
+              <qas-btn color="dark" flat icon="o_add_circle_outline" round />
             </div>
           </div>
 
@@ -71,6 +62,7 @@
 </template>
 
 <script>
+import QasActionsMenu from '../actions-menu/QasActionsMenu.vue'
 import QasBtn from '../btn/QasBtn.vue'
 import QasFormGenerator from '../form-generator/QasFormGenerator.vue'
 import QasInput from '../input/QasInput.vue'
@@ -84,16 +76,22 @@ export default {
   name: 'QasNestedFields',
 
   components: {
+    QasActionsMenu,
     QasBtn,
     QasFormGenerator,
     QasInput,
     QasLabel,
 
-    // vue
+    // Vue
     TransitionGroup
   },
 
   props: {
+    actionsMenuProps: {
+      type: Object,
+      default: () => ({})
+    },
+
     addFirstInputLabel: {
       type: String,
       default: 'Clique aqui para adicionar'
@@ -108,8 +106,8 @@ export default {
       type: Object,
       default: () => {
         return {
-          label: 'Remover',
-          icon: 'o_cancel',
+          label: 'Excluir',
+          icon: 'o_delete',
           flat: true,
           dense: true
         }
@@ -251,31 +249,8 @@ export default {
   },
 
   computed: {
-    fieldLabel () {
-      return this.field?.label
-    },
-
-    fieldName () {
-      return this.field?.name
-    },
-
     children () {
       return this.field?.children
-    },
-
-    showDestroyButton () {
-      return this.nested.filter(item => !item[this.destroyKey]).length > 1 || this.hasDestroyAlways
-    },
-
-    formClasses () {
-      return {
-        col: true,
-        [`q-col-gutter-x-${this.formGutter}`]: this.useInlineActions
-      }
-    },
-
-    transformedErrors () {
-      return Array.isArray(this.errors) ? this.errors : constructObject(this.fieldName, this.errors)
     },
 
     componentTag () {
@@ -289,6 +264,29 @@ export default {
         tag: 'div',
         enterActiveClass: 'animated slideInDown'
       }
+    },
+
+    fieldLabel () {
+      return this.field?.label
+    },
+
+    fieldName () {
+      return this.field?.name
+    },
+
+    formClasses () {
+      return {
+        col: true,
+        [`q-col-gutter-x-${this.formGutter}`]: this.useInlineActions
+      }
+    },
+
+    showDestroyBtn () {
+      return this.nested.filter(item => !item[this.destroyKey]).length > 1 || this.useDestroyAlways
+    },
+
+    transformedErrors () {
+      return Array.isArray(this.errors) ? this.errors : constructObject(this.fieldName, this.errors)
     },
 
     showAddFirstInputButton () {
@@ -321,6 +319,35 @@ export default {
   },
 
   methods: {
+    getActionsList (index, row) {
+      const list = {}
+
+      if (this.useDuplicate) {
+        list.duplicate = {
+          ...this.buttonDuplicateProps,
+          handler: () => this.add(row)
+        }
+      }
+
+      if (this.showDestroyBtn) {
+        list.destroy = {
+          ...this.buttonDestroyProps,
+          handler: () => this.destroy(index, row)
+        }
+      }
+
+      for (const key in this.actionsMenuProps.list) {
+        const { handler, ...content } = this.actionsMenuProps.list[key] || {}
+
+        list[key] = {
+          handler: payload => handler?.({ payload, row, index }),
+          ...content
+        }
+      }
+
+      return list
+    },
+
     add (row = {}) {
       const payload = { ...this.rowObject, ...row }
       const hasIdentifierKey = payload[this.identifierItemKey]

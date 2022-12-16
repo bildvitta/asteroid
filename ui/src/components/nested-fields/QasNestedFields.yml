@@ -4,6 +4,11 @@ meta:
   desc: Componente para gerar dinamicamente campos nested.
 
 props:
+  actions-menu-props:
+    desc: Repassa as propriedades para o componente QasActionsMenu.
+    default: {}
+    type: Object
+
   add-first-input-label:
     desc: Rótulo do input para adicionar o primeiro campo.
     default: Clique aqui para adicionar
@@ -16,7 +21,7 @@ props:
 
   button-destroy-props:
     desc: Props do botão de excluir linha contendo os campos.
-    default: "{ label: 'Remover', o_cancel, flat: true, dense: true }"
+    default: "{ label: 'Excluir', icon: 'o_delete', flat: true, dense: true }"
     debugger: true
     type: Object
 

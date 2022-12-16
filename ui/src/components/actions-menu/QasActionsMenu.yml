@@ -25,11 +25,6 @@ props:
     type: String
     examples: [start, end, between, around, center]
 
-  label:
-    desc: Rotulo do botão.
-    default: Opções
-    type: String
-
   list:
     desc: Lista de items que vão ser criados dentro do menu de ações.
     default: '{}'
@@ -43,6 +38,11 @@ props:
         }
       }"
     ]
+
+  use-label-on-small-screen:
+    desc: Esconde o rótulo (label) do botão quando o tamanho da tela for pequeno (esta propriedade só funciona se o "rotulo") for passado via propriedade "label".
+    default: true
+    type: Boolean
 
 slots:
   '[nome-da-chave]':
