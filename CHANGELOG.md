@@ -45,6 +45,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - `QasActionsMenu`: refatorado código, alterado estilos.
 - `items.scss`: modificado classe global do `q-item` para adicionar `fonte-weight: 600` sempre que não estiver desativado.
 - `spacing.scss`: modificado espaçamento do `lg` de 32px para 24px e do `xl` de 48px para 32px.
+- `QasListView`: modificado estilo do `empty-results`.
 
 ### Removido
 - `QasActionsMenu`: removido propriedade `label`, agora o label sempre será fixo "Opções".
