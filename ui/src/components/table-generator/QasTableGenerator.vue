@@ -70,7 +70,10 @@ export default {
         flat: true,
         hideBottom: true,
         pagination: { rowsPerPage: 0 },
-        rowKey: this.rowKey
+        rowKey: this.rowKey,
+
+        // Eventos.
+        onRowClick: this.$attrs.onRowClick && this.onRowClick
       }
 
       return attributes
@@ -218,6 +221,11 @@ export default {
         this.scrollOnGrab.element.style.cursor = 'auto'
         this.scrollOnGrab = {}
       }
+    },
+
+    onRowClick () {
+      if (this.hasScrollOnGrab && this.scrollOnGrab.haveMoved()) return
+      this.$attrs.onRowClick(...arguments)
     },
 
     setObserver () {

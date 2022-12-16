@@ -20,7 +20,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - `QasPagination`: adicionado novo componente de paginação que é um wrapper do `QPagination`.
 - `QasField`: Adicionado `*` na label no caso do campo ser obrigatório com base na propriedade `required: true`.
 - [`NotifySuccess`, `NotifyError`]: Adicionado botão de fechar.
-- [`NotifySuccess`, `NotifyError`]: Adicinado ícones de sucesso e erro.
+- [`NotifySuccess`, `NotifyError`]: Adicionado ícones de sucesso e erro.
 - `shared`: Adicionado pasta para arquivos de configurações que iremos utilizar internamente.
 - `plugins`: Adicionado pasta para plugins css.
 - `notify.scss`: Adicionado arquivo de css para o novo padrão de layout dos notifies.
@@ -31,6 +31,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - `QasNestedFields`: adicionada nova propriedade `addFirstInputLabel` para modificar o texto do botão de adicionar o primeiro item.
 - `QasNestedFields`: adicionada nova propriedade `useFirstInputButton` para usar um botão diferente para adicionar o primeiro item.
 - `QasNestedFields`: adicionada nova propriedade `useStartsEmpty` para iniciar o componente sem nenhum item.
+- `QasTableGenerator`: Suporte ao evento `rowClick`, nativo do `QTable`.
 
 ### Modificado
 - [`NotifySuccess`, `NotifyError`]: Mudança de posição que será exibido(era bottom, agora será top).
@@ -54,7 +55,6 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - `QasField`: Alterado type `radio` par utilizar o novo componente `QasOptionGroup` e removido prop de erro pois não existe no componente `QOptionGroup`, testar bem para validar.
 - Componentes de radio agora existe padronização, a partir do mobile componente segue comportamento de linha, em telas mobile segue comportamento de bloco, não sendo possível alterar este comportamento, verificar locais que utilizam para não quebrar o estilo.
 - `QasSelect`: removido propriedade `useSearch` pois agora existe o padrão de ter pesquisa pelo fuse sempre que existir pelo menos 10 opções e nunca menos que isto.
-
 ### Adicionado
 - `QasFilters`: adicionado nova propriedade `fieldsProps` para repassar propriedades para os campos do filtro.
 - `QasSelect`: adicionado busca automaticamente quando existem pelo menos 10 opções.
@@ -64,6 +64,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - `QasField`: alterado type `radio` par utilizar o novo componente `QasOptionGroup` e removido prop de erro pois não existe no componente `QOptionGroup`.
 - `QasField`: removido propriedade `useSearch` que era repassado para o `QasSelect` já que ela foi removido do mesmo.
 - `typography.scss`: alterado tipografia para seguir novo padrão de design.
+- [`QasTextTruncate`, `QasDelete`, `QasCopy`]: adicionado modificador `.stop` nos eventos `@click.stop` para prevenir evento de click quando utilizado dentro da tabela.
 
 ### Removido
 - `QasSelect`: removido propriedade `useSearch` pois agora existe o padrão de ter pesquisa pelo fuse sempre que existir pelo menos 10 opções e nunca menos que isto.
