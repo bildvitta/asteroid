@@ -14,27 +14,40 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 ## BREAKING CHANGE
 - `QasTableGenerator`: pode haver breaking change de design no espaçamento embaixo do componente uma vez que foi removido a classe `q-mb-xl`.
 - `QasActionsMenu`: removido propriedade `label`, agora o label sempre será fixo "Opções".
+- `QasNestedFields`: mudanças de comportamento e estilo do nested, rever implementações.
 
 ### Adicionado
 - `QasPagination`: adicionado novo componente de paginação que é um wrapper do `QPagination`.
 - `QasField`: Adicionado `*` na label no caso do campo ser obrigatório com base na propriedade `required: true`.
+- [`NotifySuccess`, `NotifyError`]: Adicionado botão de fechar.
+- [`NotifySuccess`, `NotifyError`]: Adicinado ícones de sucesso e erro.
+- `shared`: Adicionado pasta para arquivos de configurações que iremos utilizar internamente.
+- `plugins`: Adicionado pasta para plugins css.
+- `notify.scss`: Adicionado arquivo de css para o novo padrão de layout dos notifies.
 - `QasListView`: adicionado nova propriedade `use-auto-handle-on-delete` para controlar se o componente vai lidar automaticamente quando acontecer algum delete compatível com a listagem.
 - `QasActionsMenu`: adicionada a propriedade `auto-close` para fechar o menu após a ação ser executada.
 - `QasNestedFields`: adicionado propriedade `actions-menu-props` para repassar propriedades para o `QasActionsMenu`.
 - `QasActionsMenu`: adicionado propriedade `useLabelOnSmallScreen`.
+- `QasNestedFields`: adicionada nova propriedade `addFirstInputLabel` para modificar o texto do botão de adicionar o primeiro item.
+- `QasNestedFields`: adicionada nova propriedade `useFirstInputButton` para usar um botão diferente para adicionar o primeiro item.
+- `QasNestedFields`: adicionada nova propriedade `useStartsEmpty` para iniciar o componente sem nenhum item.
 
 ### Modificado
+- [`NotifySuccess`, `NotifyError`]: Mudança de posição que será exibido(era bottom, agora será top).
+- [`NotifySuccess`, `NotifyError`]: Mudança de cor, agora será `grey-9`.
 - `generator.js`: Modificado o padrão da prop de gutter de `md` para `lg`.
 - `QasActionsMenu`: modificado o estilo padrão do componente e comportamento quando há uma ação ou mais ações.
 - `QasActionsMenu`: modificado a label padrão do botão para "Opções" e ícone para `o_more_vert`.
 - `QasTableGenerator`: removido classe `q-mb-xl` para adaptação de layout, responsabilidade de espaçamento fica com quem implementa.
 - `QasListView`: utilizando `QasPagination` no lugar do `QPagination` e adicionado de informação de quantos itens existem por página.
-- `QNestedFields`: agora usa o `QActionsMenu` para as ações exibidas no tipo bloco.
+- `QasNestedFields`: agora usa o `QActionsMenu` para as ações exibidas no tipo bloco.
 - `QasActionsMenu`: refatorado código, alterado estilos.
 - `items.scss`: modificado classe global do `q-item` para adicionar `fonte-weight: 600` sempre que não estiver desativado.
 
 ### Removido
 - `QasActionsMenu`: removido propriedade `label`, agora o label sempre será fixo "Opções".
+- `QasNestedFields`: modificado o valor padrão da propriedade `addInputLabel` para "Adicionar".
+- `QasNestedFields`: modificado o valor padrão da propriedade `useDestroyAlways` para ser um espelho da propriedade `useStartsEmpty` como valor default.
 
 ## [3.5.0-beta.0] - 18-11-2022
 ## BREAKING CHANGE

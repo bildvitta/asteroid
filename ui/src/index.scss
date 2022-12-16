@@ -22,8 +22,11 @@ $generic-border-radius: var(--qas-generic-border-radius);
 // components
 @import './css/components/index';
 
+// plugins
+@import './css/plugins/index';
+
 // utils
 @import './css/utils/index';
 
 // mixins
-@import './css/mixins/index'
+@import './css/mixins/index';

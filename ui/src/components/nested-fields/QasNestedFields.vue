@@ -38,7 +38,11 @@
 
       <div v-if="useAdd" class="q-mt-md">
         <slot :add="add" name="add-input">
-          <div v-if="useInlineActions" class="cursor-pointer items-center q-col-gutter-x-md q-mt-md row" @click="add()">
+          <div v-if="showAddFirstInputButton" class="text-left">
+            <qas-btn class="q-px-sm" color="dark" flat @click="add()">{{ addFirstInputLabel }}</qas-btn>
+          </div>
+
+          <div v-else-if="useInlineActions" class="cursor-pointer items-center q-col-gutter-x-md q-mt-md row" @click="add()">
             <div class="col">
               <qas-input class="disabled no-pointer-events" hide-bottom-space :label="addInputLabel" outlined @focus="add()" />
             </div>
@@ -48,8 +52,8 @@
             </div>
           </div>
 
-          <div v-else class="q-mt-lg">
-            <qas-btn class="full-width q-py-md" icon="o_add" outline @click="add()">{{ addInputLabel }}</qas-btn>
+          <div v-else class="text-left">
+            <qas-btn class="q-px-sm" color="dark" flat icon="o_add" @click="add()">{{ addInputLabel }}</qas-btn>
           </div>
         </slot>
       </div>
@@ -88,9 +92,14 @@ export default {
       default: () => ({})
     },
 
+    addFirstInputLabel: {
+      type: String,
+      default: 'Clique aqui para adicionar'
+    },
+
     addInputLabel: {
       type: String,
-      default: 'Inserir novo campo'
+      default: 'Adicionar'
     },
 
     buttonDestroyProps: {
@@ -188,10 +197,16 @@ export default {
     },
 
     useDestroyAlways: {
-      type: Boolean
+      type: Boolean,
+      default: undefined
     },
 
     useDuplicate: {
+      type: Boolean,
+      default: true
+    },
+
+    useFirstInputButton: {
       type: Boolean,
       default: true
     },
@@ -213,6 +228,11 @@ export default {
       default: true
     },
 
+    useStartsEmpty: {
+      default: true,
+      type: Boolean
+    },
+
     modelValue: {
       type: Array,
       default: () => []
@@ -223,7 +243,8 @@ export default {
 
   data () {
     return {
-      nested: []
+      nested: [],
+      hasDestroyAlways: true
     }
   },
 
@@ -266,6 +287,10 @@ export default {
 
     transformedErrors () {
       return Array.isArray(this.errors) ? this.errors : constructObject(this.fieldName, this.errors)
+    },
+
+    showAddFirstInputButton () {
+      return this.useFirstInputButton && !this.nested.length
     }
   },
 
@@ -280,7 +305,14 @@ export default {
 
     rowObject: {
       handler () {
-        if (!this.nested.length) return this.setDefaultNestedValue()
+        this.setDefaultNestedValue()
+      },
+      immediate: true
+    },
+
+    useDestroyAlways: {
+      handler (value) {
+        this.hasDestroyAlways = value ?? this.useStartsEmpty
       },
       immediate: true
     }
@@ -372,6 +404,7 @@ export default {
     },
 
     setDefaultNestedValue () {
+      if (this.nested.length || this.useStartsEmpty) return
       this.nested.splice(0, 0, { ...this.rowObject })
     },
 
