@@ -179,7 +179,7 @@ export default {
   }
 
   &__children.q-item {
-    padding-left: var(--qas-spacing-lg);
+    padding-left: var(--qas-spacing-xl);
   }
 
   &__item-children.q-item + &__item-children.q-item {
