@@ -141,12 +141,9 @@ export default {
 
       for (const key in filters) {
         const hasField = fields.includes(key)
-        const cachedOptions = this.fieldsProps?.[key]?.cachedOptions || []
 
         if (hasField) {
           const field = { ...this.fields[key], ...this.fieldsProps?.[key] }
-
-          field.options = [...field.options, ...cachedOptions]
 
           const value = humanize(field, this.normalizeValues(filters[key], this.fields[key]?.multiple))
           const { label, name } = this.fields[key]
@@ -330,11 +327,8 @@ export default {
     },
 
     emitter (key, value) {
-      this.$nextTick(() => {
-        this.filters[key] = value
-
-        this.$emit('input', this.filters)
-      })
+      this.filters[key] = value
+      this.$emit('input', this.filters)
     }
   }
 }
