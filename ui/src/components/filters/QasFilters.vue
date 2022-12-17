@@ -51,7 +51,7 @@
 <script>
 import QasField from '../field/QasField'
 
-import { isNil } from 'lodash'
+import { isNil, isEmpty } from 'lodash'
 import { camelize, camelizeKeys } from 'humps'
 import { humanize, parseValue } from '../../helpers/filters'
 import contextMixin from '../../mixins/context'
@@ -305,7 +305,7 @@ export default {
       this.search = search || ''
 
       for (const key in filters) {
-        if (!filters[key]?.length || isNil(filters[key])) {
+        if (isEmpty(filters[key]) || isNil(filters[key])) {
           delete filters[key]
           continue
         }
