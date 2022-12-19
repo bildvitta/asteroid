@@ -1,0 +1,28 @@
+type: component
+
+meta:
+  desc: Exibe o avatar e o nome do usuário, ao clicar abre um menu com as opções.
+
+props:
+  notifications:
+    desc: Lista com as notificações do usuário.
+    type: Object
+    default: {}
+
+  user:
+    desc: Informações do usuário.
+    type: Object
+    default: {}
+    examples: [
+      "
+      {
+        photo: 'minha-img',
+        name: 'Eduardo Lima',
+        email: 'eduardolima@gmail.com'
+      }
+      "
+    ]
+
+events:
+  '@sign-out -> function()':
+    desc: Dispara quando o botão de "sair" é clicado.
