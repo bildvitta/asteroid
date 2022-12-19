@@ -265,7 +265,7 @@ export default {
   }
 
   // Media: untilLarge
-  @media (min-width: $breakpoint-sm + 1px) {
+  @media (min-width: $breakpoint-sm-max) {
     // Menu
     &__menu {
       max-height: calc(100vh - 352px);
