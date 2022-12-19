@@ -255,7 +255,6 @@ export default {
     }
   }
 
-  // Menu
   &__menu .q-item {
     padding-left: var(--qas-spacing-lg);
   }
@@ -263,6 +262,15 @@ export default {
   // User
   .qas-app-user__data {
     line-height: 1.25;
+  }
+
+  // Media: untilLarge
+  @media (min-width: $breakpoint-sm + 1px) {
+    // Menu
+    &__menu {
+      max-height: calc(100vh - 352px);
+      overflow-x: auto;
+    }
   }
 }
 </style>
