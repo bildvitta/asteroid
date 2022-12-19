@@ -11,7 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `QasFilters`: added `fieldsProps` and `fieldsEvents` props to filter fields.
 
 ### Fixed
-- `QasFielters`: added conditional to check if filter value is empty array, undefined or null in `updateValues`.
+- `QasFilters`: added conditional to check if filter value is empty array, undefined or null in `updateValues`.
 
 ## 2.23.0 - 2022-06-29
 
