@@ -202,7 +202,7 @@ export default {
       this.updateValues()
     },
 
-    '$route.query' : {
+    '$route.query': {
       immediate: true,
       handler () {
         this.$emit('input', this.context.filters)
