@@ -6,7 +6,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
-### Added
+### Added 
 - `QasSelect`: added `Boolean` type suport for `value` prop.
 - `QasFilters`: added `fieldsProps` and `fieldsEvents` props to filter fields.
 
