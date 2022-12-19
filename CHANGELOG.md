@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## 2.23.0 - 2022-06-29 
+## 2.23.0 - 2022-06-29
 
 ## BREAKING CHANGES
 - `QasListView`: before what was passed as a parameter like `filters`, now it is the entire payload, so if you need to pass a filters as before use `fetchList({ filters: {...} })`.
