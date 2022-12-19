@@ -202,6 +202,13 @@ export default {
       this.updateValues()
     },
 
+    '$route.query' : {
+      immediate: true,
+      handler () {
+        this.$emit('input', this.context.filters)
+      }
+    },
+
     search () {
       if (this.debounce) {
         this.filter()
@@ -220,7 +227,6 @@ export default {
   created () {
     this.fetchFilters()
     this.watchOnceFields()
-    this.$emit('input', this.context.filters)
   },
 
   methods: {
