@@ -23,6 +23,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - `plugins`: Adicionado pasta para plugins css.
 - `notify.scss`: Adicionado arquivo de css para o novo padrão de layout dos notifies.
 - `QasListView`: adicionado nova propriedade `use-auto-handle-on-delete` para controlar se o componente vai lidar automaticamente quando acontecer algum delete compatível com a listagem.
+- `QasAppUser`: Novo componente para exibir informações do usuário logado.
 
 ### Modificado
 - [`NotifySuccess`, `NotifyError`]: Mudança de posição que será exibido(era bottom, agora será top).
@@ -32,6 +33,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - `QasActionsMenu`: modificado a label padrão do botão para "Opções" e ícone para `o_more_vert`.
 - `QasTableGenerator`: removido classe `q-mb-xl` para adaptação de layout, responsabilidade de espaçamento fica com quem implementa.
 - `QasListView`: utilizando `QasPagination` no lugar do `QPagination` e adicionado de informação de quantos itens existem por página.
+- [`QasLayout`, `QasAppBar`, `QasAppMenu`]: Modificado inteiramente em razão do novo layout.
 
 ## [3.5.0-beta.0] - 18-11-2022
 ## BREAKING CHANGE
