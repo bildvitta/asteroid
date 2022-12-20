@@ -77,7 +77,7 @@ export default {
 
     user: {
       default: () => ({}),
-      require: true,
+      required: true,
       type: Object
     }
   },

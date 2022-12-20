@@ -11,6 +11,7 @@ props:
 
   user:
     desc: Informações do usuário.
+    required: true
     type: Object
     default: {}
     examples: [
