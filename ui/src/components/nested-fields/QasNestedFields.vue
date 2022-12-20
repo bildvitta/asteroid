@@ -281,8 +281,8 @@ export default {
       }
     },
 
-    showDestroyBtn () {
-      return this.nested.filter(item => !item[this.destroyKey]).length > 1 || this.useDestroyAlways
+    showDestroyButton () {
+      return this.nested.filter(item => !item[this.destroyKey]).length > 1 || this.hasDestroyAlways
     },
 
     transformedErrors () {
@@ -329,7 +329,7 @@ export default {
         }
       }
 
-      if (this.showDestroyBtn) {
+      if (this.showDestroyButton) {
         list.destroy = {
           ...this.buttonDestroyProps,
           handler: () => this.destroy(index, row)

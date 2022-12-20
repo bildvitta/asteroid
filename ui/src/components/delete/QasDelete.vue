@@ -92,6 +92,13 @@ export default {
 
     id () {
       return this.customId || this.$route.params.id
+    },
+
+    defaultNotifyMessages () {
+      return {
+        error: 'Não conseguimos excluir as informações. Por favor, tente novamente em alguns minutos.',
+        success: 'Informações excluídas com sucesso.'
+      }
     }
   },
 
@@ -117,7 +124,7 @@ export default {
           payload
         })
 
-        NotifySuccess('Item deletado com sucesso!')
+        NotifySuccess(this.defaultNotifyMessages.success)
 
         if (this.useAutoDeleteRoute) {
           const { destroyRoutes, history } = useHistory()
@@ -134,7 +141,7 @@ export default {
 
         this.$qas.logger.info('QasDelete - destroy -> item deletado com sucesso!')
       } catch (error) {
-        NotifyError('Ops! Não foi possível deletar o item.')
+        NotifyError(this.defaultNotifyMessages.error)
         this.$emit('error', error)
 
         this.$qas.logger.group(
