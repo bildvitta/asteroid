@@ -12,6 +12,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 
 ## Não publicado
 ### Modificado
+- `QasPageHeader`: removido botão de voltar ao lado do título da página.
 - `QasSelect`: alterado ícone de busca para a esquerda ao invés da direita.
 - `QasNestedFields`: alterado nome da computada `showDestroyBtn` para `showDestroyButton`.
 - [`QasFormView`, `view.js`, `QasDelete`]: alterado mensagens padrão do nofity, e removido `exception` dos notifies.

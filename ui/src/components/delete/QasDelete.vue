@@ -112,8 +112,6 @@ export default {
       this.$emit('update:deleting', true)
 
       try {
-        const { destroyRoutes, history } = useHistory()
-
         const payload = { id: this.id, url: this.url }
 
         this.$qas.logger.group(
@@ -129,6 +127,8 @@ export default {
         NotifySuccess(this.defaultNotifyMessages.success)
 
         if (this.useAutoDeleteRoute) {
+          const { destroyRoutes, history } = useHistory()
+
           // remove todas rotas que possuem o id do item excluído.
           const routesToBeDeleted = this.getRoutesToBeDeletedById(history.list)
           destroyRoutes(routesToBeDeleted)

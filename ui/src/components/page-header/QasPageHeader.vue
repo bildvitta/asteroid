@@ -2,7 +2,6 @@
   <q-toolbar class="justify-between q-mb-lg q-px-none">
     <div class="ellipsis">
       <q-toolbar-title v-if="title" class="text-bold text-h5">
-        <q-icon v-if="hasPreviousRoute" class="cursor-pointer vertical-baseline" name="o_arrow_back" size="18px" @click="back" />
         {{ title }}
       </q-toolbar-title>
 
@@ -19,7 +18,7 @@ import { castArray } from 'lodash-es'
 import { useHistory } from '../../composables'
 import { createMetaMixin } from 'quasar'
 
-const { hasPreviousRoute, history, getPreviousRoute } = useHistory()
+const { history } = useHistory()
 
 export default {
   name: 'QasPageHeader',
@@ -55,10 +54,6 @@ export default {
   },
 
   computed: {
-    hasPreviousRoute () {
-      return hasPreviousRoute.value
-    },
-
     transformedBreadcrumbs () {
       const list = [...castArray(this.breadcrumbs || this.title)]
       this.root && list.unshift(this.root)
@@ -85,10 +80,6 @@ export default {
   },
 
   methods: {
-    back () {
-      this.$router.push(getPreviousRoute(this.$route))
-    },
-
     getBreadcrumbsClass (index) {
       const lastIndex = this.transformedBreadcrumbs.length - 1
 
