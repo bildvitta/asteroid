@@ -1,43 +1,53 @@
 <template>
-  <section class="q-mb-lg">
+  <section class="q-mb-lg qas-filters">
     <div v-if="showFilters" class="q-gutter-x-md row">
-      <div v-if="showSearch" class="col">
+      <div v-if="showSearch" class="col-6">
         <slot :filter="filter" name="search">
           <q-form v-if="useSearch" @submit.prevent="filter()">
-            <qas-input v-model="search" data-cy="filters-search-input" :debounce="debounce" dense hide-bottom-space :outlined="false" :placeholder="searchPlaceholder" type="search">
+            <qas-input v-model="search" class="qas-filters__input shadow-2" data-cy="filters-search-input" :debounce="debounce" dense hide-bottom-space :outlined="false" :placeholder="searchPlaceholder" type="search">
+              <template #prepend>
+                <q-icon class="q-ml-sm" name="o_search" />
+              </template>
+
               <template #append>
-                <qas-btn v-if="hasSearch" color="grey-9" flat icon="o_clear" unelevated @click="clearSearch" />
-                <qas-btn v-if="!debounce" color="grey-9" flat icon="o_search" type="submit" unelevated @click="filter()" />
+                <div class="q-mr-sm">
+                  <qas-btn v-if="hasSearch" color="grey-9" flat icon="o_clear" unelevated @click="clearSearch" />
+
+                  <qas-btn v-if="!debounce" color="grey-9" flat icon="o_search" type="submit" unelevated @click="filter()" />
+
+                  <qas-btn v-if="useFilterButton" :color="filterButtonColor" data-cy="filters-btn" flat icon="o_filter_list" round size="sm">
+                    <q-menu class="full-width" max-width="270px">
+                      <div v-if="isFetching" class="q-pa-xl text-center">
+                        <q-spinner color="grey" size="2em" />
+                      </div>
+
+                      <div v-else-if="hasFetchError" class="q-pa-xl text-center">
+                        <q-icon color="negative" name="o_warning" size="2em" />
+                      </div>
+
+                      <q-form v-else class="q-gutter-y-md q-pa-md" @submit.prevent="filter()">
+                        <div v-for="(field, index) in fields" :key="index">
+                          <qas-field v-model="filters[field.name]" :data-cy="`filters-${field.name}-field`" dense :field="field" v-bind="fieldsProps[field.name]" />
+                        </div>
+
+                        <div class="q-col-gutter-x-md q-mt-lg row">
+                          <div class="col-6">
+                            <qas-btn class="full-width" data-cy="filters-clear-btn" label="Limpar" outline size="12px" unelevated @click="clearFilters" />
+                          </div>
+
+                          <div class="col-6">
+                            <qas-btn class="full-width" color="primary" data-cy="filters-submit-btn" label="Filtrar" size="12px" type="submit" unelevated />
+                          </div>
+                        </div>
+                      </q-form>
+                    </q-menu>
+                  </qas-btn>
+                </div>
               </template>
             </qas-input>
           </q-form>
         </slot>
       </div>
-
-      <slot v-if="showFilterButton" :filter="filter" name="filter-button">
-        <qas-btn v-if="useFilterButton" :color="filterButtonColor" data-cy="filters-btn" flat icon="o_filter_list" :label="filterButtonLabel">
-          <q-menu class="full-width" max-width="240px">
-            <div v-if="isFetching" class="q-pa-xl text-center">
-              <q-spinner color="grey" size="2em" />
-            </div>
-
-            <div v-else-if="hasFetchError" class="q-pa-xl text-center">
-              <q-icon color="negative" name="o_warning" size="2em" />
-            </div>
-
-            <q-form v-else class="q-gutter-y-md q-pa-md" @submit.prevent="filter()">
-              <div v-for="(field, index) in fields" :key="index">
-                <qas-field v-model="filters[field.name]" :data-cy="`filters-${field.name}-field`" dense :field="field" v-bind="fieldsProps[field.name]" />
-              </div>
-
-              <div class="text-right">
-                <qas-btn class="q-mr-sm" data-cy="filters-clear-btn" flat label="Limpar" :no-caps="false" size="12px" unelevated @click="clearFilters" />
-                <qas-btn color="primary" data-cy="filters-submit-btn" label="Filtrar" :no-caps="false" size="12px" type="submit" unelevated />
-              </div>
-            </q-form>
-          </q-menu>
-        </qas-btn>
-      </slot>
     </div>
 
     <div v-if="useChip && hasActiveFilters" class="q-mt-md">
@@ -161,6 +171,7 @@ export default {
       return this.hasActiveFilters ? 'primary' : 'grey-9'
     },
 
+    // TODO: remover
     filterButtonLabel () {
       return this.$q.screen.gt.xs ? 'Filtrar' : undefined
     },
@@ -330,3 +341,18 @@ export default {
   }
 }
 </script>
+
+<style lang="scss">
+.qas-filters {
+  &__input {
+    // TODO adicionar no qas-input
+    border-radius: 4px;
+
+    // TODO rever
+    .q-field__control::before,
+    .q-field__control::after {
+      display: none;
+    }
+  }
+}
+</style>
