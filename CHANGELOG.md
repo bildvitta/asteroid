@@ -12,6 +12,10 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 
 ## Não publicado
 ### Modificado
+- `QasNestedFields`: alterado nome da computada `showDestroyBtn` para `showDestroyButton`.
+
+### Corrigido
+- `QasNestedFields`: resolvido validação do `showDestroyBtn`.
 - [`QasFormView`, `view.js`, `QasDelete`]: alterado mensagens padrão do nofity, e removido `exception` dos notifies.
 - `notify.scss`: adicionado tamanho máximo de `560px`.
 
