@@ -17,8 +17,8 @@ props:
     examples: ['beforeSubmit({ payload, resolve })']
 
   cancel-button-label:
-    desc: Rótulo do botão "cancelar".
-    default: Cancelar
+    desc: Rótulo do botão "voltar".
+    default: Voltar
     type: String
 
   cancel-route:

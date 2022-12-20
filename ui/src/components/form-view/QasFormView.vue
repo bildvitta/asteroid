@@ -58,7 +58,7 @@ export default {
 
   props: {
     cancelButtonLabel: {
-      default: 'Cancelar',
+      default: 'Voltar',
       type: String
     },
 
