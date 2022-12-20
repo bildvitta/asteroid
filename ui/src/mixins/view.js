@@ -81,13 +81,16 @@ export default {
 
     mx_hasHeaderSlot () {
       return !!(this.$slots.header)
+    },
+
+    mx_fetchErrorMessage () {
+      return 'Ops… Não conseguimos acessar as informações. Por favor, tente novamente em alguns minutos.'
     }
   },
 
   methods: {
     mx_fetchError (error) {
       const { response } = error
-      const exception = response?.data?.exception || error.message
 
       const status = response?.status
 
@@ -102,7 +105,7 @@ export default {
         return
       }
 
-      this.$qas.error('Ops! Erro ao obter os dados.', exception)
+      this.$qas.error(this.mx_fetchErrorMessage)
     },
 
     mx_setErrors (errors = {}) {
