@@ -13,6 +13,12 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 ## Não publicado
 ### Modificado
 - `QasSelect`: alterado ícone de busca para a esquerda ao invés da direita.
+- `QasNestedFields`: alterado nome da computada `showDestroyBtn` para `showDestroyButton`.
+- [`QasFormView`, `view.js`, `QasDelete`]: alterado mensagens padrão do nofity, e removido `exception` dos notifies.
+- `notify.scss`: adicionado tamanho máximo de `560px`.
+
+### Corrigido
+- `QasNestedFields`: resolvido validação do `showDestroyBtn`.
 
 ## [3.5.0-beta.1] - 16-12-2022
 ## BREAKING CHANGE
