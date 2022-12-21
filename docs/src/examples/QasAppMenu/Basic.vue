@@ -1,7 +1,7 @@
 <template>
   <div>
     <q-layout class="flex items-center justify-center" :container="$qas.screen.untilLarge" style="height: 600px;">
-      <qas-app-menu :items="menuList" :modules="modules" title="Documentação" />
+      <qas-app-menu :items="menuList" :modules="modules" title="Documentação" :user="user" />
     </q-layout>
   </div>
 </template>
@@ -33,6 +33,12 @@ const modules = [
     value: 'https://develop.vendas.nave.dev'
   }
 ]
+
+const user = {
+  photo: 'https://www.abc.net.au/cm/lb/6367016/data/alan2c-see-the-person-data.jpg',
+  name: 'Eduardo Lima',
+  email: 'eduardolima@gmail.com'
+}
 
 export default {
   data () {
@@ -74,6 +80,10 @@ export default {
           ]
         }
       ]
+    },
+
+    user () {
+      return user
     }
   }
 }
