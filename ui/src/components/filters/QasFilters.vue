@@ -351,16 +351,16 @@ export default {
 // TODO rever
 .qas-filters {
   .q-field::before {
-    transition: border-color var(--qas-generic-transition);
-    content: '';
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    pointer-events: none;
     border: 2px solid transparent;
     border-radius: 4px;
+    bottom: 0;
+    content: '';
+    left: 0;
+    pointer-events: none;
+    position: absolute;
+    right: 0;
+    top: 0;
+    transition: border-color var(--qas-generic-transition);
   }
 
   .q-field--focused::before {
@@ -380,8 +380,8 @@ export default {
     }
 
     .q-field__native {
-      padding-top: var(--qas-spacing-sm);
       padding-bottom: var(--qas-spacing-sm);
+      padding-top: var(--qas-spacing-sm);
     }
   }
 }
