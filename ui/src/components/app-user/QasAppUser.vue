@@ -55,6 +55,8 @@
 import QasAvatar from '../avatar/QasAvatar.vue'
 
 export default {
+  name: 'QasAppUser',
+
   components: {
     QasAvatar
   },
@@ -126,7 +128,6 @@ export default {
   }
 
   &__menu-item {
-    font-size: 1rem;
     min-height: 36px;
     padding: 0;
   }

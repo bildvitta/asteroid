@@ -42,7 +42,6 @@ export default {
     },
 
     title: {
-      default: '',
       required: true,
       type: String
     },
