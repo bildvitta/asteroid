@@ -27,7 +27,7 @@ Este componente serve para lidar com **filtros dinâmicos**, e normalmente utili
 
 Normalmente este componente é utilizando junto ao `QasListView` para filtrar os dados.
 
-<doc-example file="QasFilters/CommonUsage" title="Normalmente utilizado" />
+<!-- <doc-example file="QasFilters/CommonUsage" title="Normalmente utilizado" /> -->
 
-<doc-example file="QasFilters/CustomFilter" title="Usando slot default com funções 'filter' e 'removeFilter'" />
+<!-- <doc-example file="QasFilters/CustomFilter" title="Usando slot default com funções 'filter' e 'removeFilter'" /> -->
 
