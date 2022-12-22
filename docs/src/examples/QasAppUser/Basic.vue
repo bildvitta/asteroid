@@ -1,5 +1,7 @@
 <template>
-  <qas-app-user :user="user" />
+  <div class="q-pa-md">
+    <qas-app-user :user="user" />
+  </div>
 </template>
 
 <script>
