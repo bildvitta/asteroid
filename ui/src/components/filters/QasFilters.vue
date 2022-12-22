@@ -1,10 +1,10 @@
 <template>
-  <section class="q-mb-lg qas-filters">
+  <section class="q-mb-xl qas-filters">
     <div v-if="showFilters" class="q-col-gutter-x-md row">
       <div v-if="showSearch" class="col-12 col-md-6">
         <slot :filter="filter" name="search">
           <q-form v-if="useSearch" @submit.prevent="filter()">
-            <qas-input v-model="search" class="q-px-sm qas-filters__input rounded-borders-sm shadow-2" data-cy="filters-search-input" :debounce="debounce" dense hide-bottom-space input-class="ellipsis text-grey-8" :outlined="false" :placeholder="searchPlaceholder" type="search">
+            <qas-input v-model="search" class="bg-white q-px-sm qas-filters__input rounded-borders-sm shadow-2" data-cy="filters-search-input" :debounce="debounce" dense hide-bottom-space input-class="ellipsis text-grey-8" :outlined="false" :placeholder="searchPlaceholder" type="search">
               <template #prepend>
                 <q-icon color="grey-8" name="o_search" />
               </template>
