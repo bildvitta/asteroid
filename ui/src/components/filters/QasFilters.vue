@@ -4,7 +4,7 @@
       <div v-if="showSearch" class="col-12 col-md-6">
         <slot :filter="filter" name="search">
           <q-form v-if="useSearch" @submit.prevent="filter()">
-            <qas-input v-model="search" class="q-px-sm qas-filters__input rounded-borders-sm shadow-2" :class="inputClass" data-cy="filters-search-input" :debounce="debounce" dense hide-bottom-space input-class="ellipsis text-grey-8" :outlined="false" :placeholder="searchPlaceholder" type="search" @blur="onFocus(false)" @focus="onFocus(true)">
+            <qas-input v-model="search" class="q-px-sm qas-filters__input rounded-borders-sm shadow-2" data-cy="filters-search-input" :debounce="debounce" dense hide-bottom-space input-class="ellipsis text-grey-8" :outlined="false" :placeholder="searchPlaceholder" type="search">
               <template #prepend>
                 <q-icon color="grey-8" name="o_search" />
               </template>
@@ -161,7 +161,7 @@ export default {
     },
 
     debounce () {
-      return this.useSearchOnType ? '500' : ''
+      return this.useSearchOnType ? '800' : ''
     },
 
     fields () {
@@ -199,10 +199,6 @@ export default {
 
     showSearch () {
       return !!this.$slots.search || this.useSearch
-    },
-
-    inputClass () {
-      return this.isInputFocused && 'qas-filters__input--active'
     }
   },
 
@@ -369,11 +365,6 @@ export default {
   }
 
   &__input {
-    .q-field--focused::before {
-      border-color: var(--q-primary);
-      color: var(--q-primary);
-    }
-
     .q-field__control::before,
     .q-field__control::after {
       display: none;
