@@ -30,6 +30,9 @@ slots:
     desc: Slot para substituir o "QPageContainer".
 
 events:
+  '@sign-out -> function()':
+    desc: Dispara quando o botão de "sair" é clicado.
+
   '@update:model-value -> function(value)':
     desc: Dispara quando o model-value altera, também usado para v-model.
     params:

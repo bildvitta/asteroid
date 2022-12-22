@@ -1,18 +1,22 @@
 <template>
   <q-layout view="hHh Lpr lFf">
-    <slot name="app-bar">
-      <qas-app-bar v-bind="appBarProps" @toggle-menu="toggleMenuDrawer" />
+    <slot v-if="$qas.screen.untilLarge" name="app-bar">
+      <qas-app-bar v-bind="appBarProps" @sign-out="signOut" @toggle-menu="toggleMenuDrawer" />
     </slot>
 
     <slot name="app-menu">
-      <qas-app-menu v-model="menuDrawer" v-bind="defaultAppMenuProps" />
+      <qas-app-menu :model-value="showMenuDrawer" v-bind="defaultAppMenuProps" @sign-out="signOut" @update:model-value="updateMenuDrawer" />
     </slot>
 
     <slot>
       <q-page-container>
-        <router-view />
+        <q-page padding>
+          <router-view />
+        </q-page>
       </q-page-container>
     </slot>
+
+    <q-ajax-bar color="primary" position="bottom" size="2px" />
   </q-layout>
 </template>
 
@@ -45,42 +49,39 @@ export default {
     }
   },
 
-  emits: ['update:modelValue'],
+  emits: ['sign-out', 'update:modelValue'],
 
   data () {
     return {
-      menuDrawer: true
+      menuDrawer: false
     }
   },
 
   computed: {
     defaultAppMenuProps () {
       return {
-        ...this.appMenuProps,
-        title: this.appBarProps?.title
+        ...this.appBarProps,
+        ...this.appMenuProps
       }
+    },
+
+    showMenuDrawer () {
+      return !this.$qas.screen.untilLarge || this.menuDrawer
     }
-  },
-
-  watch: {
-    modelValue: {
-      handler (value) {
-        if (!this.$qas.screen.untilLarge) return
-
-        this.menuDrawer = value
-      },
-      immediate: true
-    }
-  },
-
-  mounted () {
-    this.menuDrawer = !this.$qas.screen.untilLarge
   },
 
   methods: {
+    signOut () {
+      this.$emit('sign-out')
+    },
+
     toggleMenuDrawer () {
-      this.menuDrawer = !this.menuDrawer
-      this.$emit('update:modelValue', this.menuDrawer)
+      this.updateMenuDrawer(!this.menuDrawer)
+    },
+
+    updateMenuDrawer (value) {
+      this.menuDrawer = value
+      this.$emit('update:modelValue', value)
     }
   }
 }
