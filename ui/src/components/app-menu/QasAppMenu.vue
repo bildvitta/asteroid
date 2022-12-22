@@ -49,7 +49,7 @@
       </div>
 
       <!-- User -->
-      <div v-if="showUser" class="q-pb-lg q-px-lg">
+      <div v-if="showUser" class="full-width q-pb-lg q-px-lg">
         <qas-app-user avatar-size="48px" :user="user" @sign-out="signOut" />
       </div>
     </div>
@@ -268,7 +268,7 @@ export default {
   @media (min-width: $breakpoint-sm-max) {
     // Menu
     &__menu {
-      max-height: calc(100vh - 352px);
+      max-height: calc(100vh - 310px);
       overflow-x: auto;
     }
   }

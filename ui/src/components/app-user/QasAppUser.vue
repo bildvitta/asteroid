@@ -5,9 +5,9 @@
       <q-badge v-if="hasNotifications" color="red" floating>{{ notifications.count }}</q-badge>
     </div>
 
-    <div class="qas-app-user__data">
-      <div class="ellipsis qas-app-user__name">{{ userName }}</div>
-      <div class="ellipsis qas-app-user__email">{{ user.email }}</div>
+    <div class="ellipsis qas-app-user__data">
+      <div class="ellipsis qas-app-user__name text-grey-9">{{ userName }}</div>
+      <div class="ellipsis qas-app-user__email text-grey-8">{{ user.email }}</div>
     </div>
 
     <q-menu class="shadow-2 text-grey-9" max-height="400px" v-bind="menuProps">
@@ -18,9 +18,9 @@
         <div class="ellipsis">{{ user.email }}</div>
 
         <q-list class="q-mt-sm">
-          <q-item v-close-popup class="qas-app-user__menu-item" clickable :to="user.to">
+          <q-item v-close-popup :active="false" class="qas-app-user__menu-item" clickable :to="user.to">
             <q-item-section avatar>
-              <q-icon color="grey-9" name="o_person" size="20px" />
+              <q-icon name="o_person" size="20px" />
             </q-item-section>
 
             <q-item-section>Editar</q-item-section>
@@ -28,7 +28,7 @@
 
           <q-item v-if="hasNotifications" v-close-popup class="qas-app-user__menu-item" clickable>
             <q-item-section avatar>
-              <q-icon color="grey-9" name="o_notifications" size="20px" />
+              <q-icon name="o_notifications" size="20px" />
             </q-item-section>
 
             <q-item-section>Notificações</q-item-section>
@@ -40,7 +40,7 @@
 
           <q-item v-close-popup class="qas-app-user__menu-item" clickable @click="signOut">
             <q-item-section avatar>
-              <q-icon color="grey-9" name="o_logout" size="20px" />
+              <q-icon name="o_logout" size="20px" />
             </q-item-section>
 
             <q-item-section>Sair</q-item-section>
