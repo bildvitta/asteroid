@@ -66,6 +66,10 @@ export default {
     valueKey: {
       default: '',
       type: String
+    },
+
+    useSearch: {
+      type: Boolean
     }
   },
 
@@ -122,6 +126,8 @@ export default {
     },
 
     hasFuse () {
+      if (!this.useSearch) return false
+
       /*
       * quantidade de option que precisa ter para o fuse funcionar automaticamente
       * sem necessidade de passar prop manualmente

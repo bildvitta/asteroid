@@ -1,7 +1,7 @@
 <template>
   <q-drawer v-model="model" :behavior="behavior" class="qas-app-menu" :width="280">
     <div class="column full-height justify-between">
-      <div>
+      <div class="full-width">
         <!-- Brand -->
         <div v-if="!$qas.screen.untilLarge" class="q-pt-xl q-px-lg">
           <router-link class="block q-toolbar__title relative-position text-no-decoration" :to="rootRoute">
@@ -13,7 +13,7 @@
 
         <!-- Module -->
         <div v-if="displayModuleSection" class="q-mt-xl q-px-lg qas-app-menu__module">
-          <qas-select v-model="module" borderless class="q-py-xs rounded-borders shadow-2" dense input-class="q-px-md" :options="defaultModules" :outlined="false" @update:model-value="redirectHandler(currentModelOption)" />
+          <qas-select v-model="module" borderless class="q-py-xs rounded-borders shadow-2" dense input-class="q-px-md" :options="defaultModules" :outlined="false" :use-search="false" @update:model-value="redirectHandler(currentModelOption)" />
         </div>
 
         <!-- Menu -->
