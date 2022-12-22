@@ -12,7 +12,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 
 ## Não publicado
 ### Adicionado
-- `QasSelect`: adicionado propriedade `useSearch` para casos que não queira busca automática do fuse.
+- `QasSelect`: adicionado propriedade `useSearch` para caso que não queira busca automática do fuse, se não passar essa prop a busca vai depender da quantidade de options.
 
 ### Modificado
 - `QasAppMenu`: removido busca dos módulos.

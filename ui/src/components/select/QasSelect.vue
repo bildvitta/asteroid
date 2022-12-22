@@ -69,7 +69,8 @@ export default {
     },
 
     useSearch: {
-      type: Boolean
+      type: Boolean,
+      default: undefined
     }
   },
 
@@ -126,7 +127,8 @@ export default {
     },
 
     hasFuse () {
-      if (!this.useSearch) return false
+      // se for "undefined" (default) cai na logica por quantidade da option
+      if (this.useSearch === false) return false
 
       /*
       * quantidade de option que precisa ter para o fuse funcionar automaticamente
