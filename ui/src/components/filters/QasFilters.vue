@@ -6,12 +6,13 @@
           <q-form v-if="useSearch" @submit.prevent="filter()">
             <qas-input v-model="search" class="bg-white q-px-sm qas-filters__input rounded-borders-sm shadow-2" data-cy="filters-search-input" :debounce="debounce" dense hide-bottom-space input-class="ellipsis text-grey-8" :outlined="false" :placeholder="searchPlaceholder" type="search">
               <template #prepend>
-                <q-icon color="grey-8" name="o_search" />
+                <q-icon v-if="useSearchOnType" color="grey-8" name="o_search" />
+                <qas-btn v-else color="grey-8" flat icon="o_search" padding="0" />
               </template>
 
               <template #append>
-                <qas-btn v-if="hasSearch" class="q-mr-sm" color="grey-9" flat icon="o_clear" padding="0" size="sm" unelevated @click="clearSearch" />
-                <qas-btn v-if="!debounce" color="grey-9" flat icon="o_search" type="submit" unelevated @click="filter()" />
+                <qas-btn v-if="hasSearch" class="q-mr-sm" color="grey-9" flat icon="o_clear" padding="0" size="sm" @click="clearSearch" />
+                <qas-btn v-if="!debounce" color="grey-9" flat icon="o_search" type="submit" @click="filter()" />
 
                 <qas-btn v-if="useFilterButton" :color="filterButtonColor" data-cy="filters-btn" flat icon="o_tune" padding="0">
                   <q-menu class="full-width" max-width="270px">
@@ -30,11 +31,11 @@
 
                       <div class="q-col-gutter-x-md q-mt-xl row">
                         <div class="col-6">
-                          <qas-btn class="full-width" data-cy="filters-clear-btn" label="Limpar" outline size="12px" unelevated @click="clearFilters" />
+                          <qas-btn class="full-width" data-cy="filters-clear-btn" label="Limpar" outline size="12px" @click="clearFilters" />
                         </div>
 
                         <div class="col-6">
-                          <qas-btn class="full-width" color="primary" data-cy="filters-submit-btn" label="Filtrar" size="12px" type="submit" unelevated />
+                          <qas-btn class="full-width" color="primary" data-cy="filters-submit-btn" label="Filtrar" size="12px" type="submit" />
                         </div>
                       </div>
                     </q-form>
