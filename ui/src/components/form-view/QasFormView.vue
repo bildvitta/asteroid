@@ -58,7 +58,7 @@ export default {
 
   props: {
     cancelButtonLabel: {
-      default: 'Cancelar',
+      default: 'Voltar',
       type: String
     },
 
@@ -196,6 +196,14 @@ export default {
 
     isCancelButtonDisabled () {
       return this.disable || this.isSubmitting
+    },
+
+    defaultNotifyMessages () {
+      return {
+        validationError: 'Existem campos no formulário que ainda não foram preenchidos. Complete todas as informações para avançar.',
+        error: 'Não conseguimos salvar as informações. Por favor, tente novamente em alguns minutos.',
+        success: 'Informações salvas com sucesso.'
+      }
     }
   },
 
@@ -420,7 +428,7 @@ export default {
         }
 
         this.mx_setErrors()
-        NotifySuccess(response.data.status.text || 'Item salvo com sucesso!')
+        NotifySuccess(response.data.status.text || this.defaultNotifyMessages.success)
         this.$emit('submit-success', response, this.modelValue)
 
         this.$qas.logger.group(
@@ -429,16 +437,15 @@ export default {
       } catch (error) {
         const errors = error?.response?.data?.errors
         const message = error?.response?.data?.status?.text
-        const exceptionResponse = error?.response?.data?.exception
 
-        const exception = errors
-          ? 'Existem erros de validação no formulário.'
-          : exceptionResponse || error.message
+        const defaultMessage = error
+          ? this.defaultNotifyMessages.validationError
+          : this.defaultNotifyMessages.error
 
         this.mx_setErrors(errors)
         this.$emit('update:errors', this.mx_errors)
 
-        NotifyError(message || 'Ops! Erro ao salvar item.', exception)
+        NotifyError(message || defaultMessage)
 
         this.$emit('submit-error', error)
 

@@ -11,10 +11,10 @@ A propriedade `field` deve respeitar a seguinte estrutura:
 
 ```js
 {
-  name: 'nested', // pode ser qualquer coisa
+  name: 'nested', // pode ser qualquer nome.
   type: 'nested',
   label: 'Meu nested',
-  children: { // aqui dentro vai todos os os campos nested, abaixo apenas um exemplo de como pode ser
+  children: { // aqui dentro vão todos os os campos nested, veja um exemplo.
     name: {
       name: 'name',
       type: 'text',
@@ -49,7 +49,7 @@ A propriedade `field` deve respeitar a seguinte estrutura:
 :::
 
 :::tip
-A propriedade `rowObject` é usado para definir quais os valores **default** de cada campo na linha, por exemplo se você quiser que sempre que adicionar uma nova linha o campo de cidades já venha selecionado você poderia fazer desta forma:
+A propriedade `rowObject` é usada para definir quais os valores **default** de cada campo na linha, por exemplo, se você quiser que ao adicionar uma nova linha o campo de cidades já venha selecionado:
 
 ```js
 {
@@ -62,7 +62,11 @@ A propriedade `rowObject` é usado para definir quais os valores **default** de 
 :::
 
 :::tip
-Para saber mais sobre o **API Design Pattern** clice [aqui](https://www.notion.so/bildvitta/API-Design-Patterns-5c2509b697614bbbac49cbed0aab70a1).
+Para saber mais sobre o **API Design Pattern** clique [aqui](https://www.notion.so/bildvitta/API-Design-Patterns-5c2509b697614bbbac49cbed0aab70a1).
+:::
+
+:::warning
+A propriedade `useDestroyAlways` caso não seja repassada ao componente, assume o inicial como o mesmo valor da propriedade `useStartsEmpty`.
 :::
 
 :::warning
@@ -83,6 +87,7 @@ Para saber mais clique [aqui](https://v3-migration.vuejs.org/breaking-changes/li
 ## Uso
 
 <doc-example file="QasNestedFields/Basic" title="Básico" />
+<doc-example file="QasNestedFields/StartsEmptyFalse" title="Começando com formulário" />
 <doc-example file="QasNestedFields/DisabledRows" title="Linhas desabilitadas" />
 <doc-example file="QasNestedFields/InlineActions" title="Propriedade useInlineActions" />
 <doc-example file="QasNestedFields/SlotDynamic" title="Slot field-[nome-da-chave]" />

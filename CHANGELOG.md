@@ -11,19 +11,46 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
 ## Não publicado
+### Adicionado
+- `QasAppUser`: Novo componente para exibir informações do usuário logado.
+
+### Modificado
+- [`QasLayout`, `QasAppBar`, `QasAppMenu`]: Modificado inteiramente em razão do novo layout.
+
+## [3.5.0-beta.2] - 20-12-2022
+### Modificado
+- `QasFormView`: alterado valor default da propriedade `cancelButtonLabel` de "Cancelar" para "Voltar".
+- `QasPageHeader`: removido botão de voltar ao lado do título da página.
+- `QasSelect`: alterado ícone de busca para a esquerda ao invés da direita.
+- `QasNestedFields`: alterado nome da computada `showDestroyBtn` para `showDestroyButton`.
+- [`QasFormView`, `view.js`, `QasDelete`]: alterado mensagens padrão do nofity, e removido `exception` dos notifies.
+- `notify.scss`: adicionado tamanho máximo de `560px`.
+
+### Corrigido
+- `QasNestedFields`: resolvido validação do `showDestroyBtn`.
+
+## [3.5.0-beta.1] - 16-12-2022
 ## BREAKING CHANGE
 - `QasTableGenerator`: pode haver breaking change de design no espaçamento embaixo do componente uma vez que foi removido a classe `q-mb-xl`.
+- `QasActionsMenu`: removido propriedade `label`, agora o label sempre será fixo "Opções".
+- `QasNestedFields`: mudanças de comportamento e estilo do nested, rever implementações.
 
 ### Adicionado
 - `QasPagination`: adicionado novo componente de paginação que é um wrapper do `QPagination`.
 - `QasField`: Adicionado `*` na label no caso do campo ser obrigatório com base na propriedade `required: true`.
 - [`NotifySuccess`, `NotifyError`]: Adicionado botão de fechar.
-- [`NotifySuccess`, `NotifyError`]: Adicinado ícones de sucesso e erro.
+- [`NotifySuccess`, `NotifyError`]: Adicionado ícones de sucesso e erro.
 - `shared`: Adicionado pasta para arquivos de configurações que iremos utilizar internamente.
 - `plugins`: Adicionado pasta para plugins css.
 - `notify.scss`: Adicionado arquivo de css para o novo padrão de layout dos notifies.
 - `QasListView`: adicionado nova propriedade `use-auto-handle-on-delete` para controlar se o componente vai lidar automaticamente quando acontecer algum delete compatível com a listagem.
-- `QasAppUser`: Novo componente para exibir informações do usuário logado.
+- `QasActionsMenu`: adicionada a propriedade `auto-close` para fechar o menu após a ação ser executada.
+- `QasNestedFields`: adicionado propriedade `actions-menu-props` para repassar propriedades para o `QasActionsMenu`.
+- `QasActionsMenu`: adicionado propriedade `useLabelOnSmallScreen`.
+- `QasNestedFields`: adicionada nova propriedade `addFirstInputLabel` para modificar o texto do botão de adicionar o primeiro item.
+- `QasNestedFields`: adicionada nova propriedade `useFirstInputButton` para usar um botão diferente para adicionar o primeiro item.
+- `QasNestedFields`: adicionada nova propriedade `useStartsEmpty` para iniciar o componente sem nenhum item.
+- `QasTableGenerator`: Suporte ao evento `rowClick`, nativo do `QTable`.
 
 ### Modificado
 - [`NotifySuccess`, `NotifyError`]: Mudança de posição que será exibido(era bottom, agora será top).
@@ -33,14 +60,22 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - `QasActionsMenu`: modificado a label padrão do botão para "Opções" e ícone para `o_more_vert`.
 - `QasTableGenerator`: removido classe `q-mb-xl` para adaptação de layout, responsabilidade de espaçamento fica com quem implementa.
 - `QasListView`: utilizando `QasPagination` no lugar do `QPagination` e adicionado de informação de quantos itens existem por página.
-- [`QasLayout`, `QasAppBar`, `QasAppMenu`]: Modificado inteiramente em razão do novo layout.
+- `QasNestedFields`: agora usa o `QActionsMenu` para as ações exibidas no tipo bloco.
+- `QasActionsMenu`: refatorado código, alterado estilos.
+- `items.scss`: modificado classe global do `q-item` para adicionar `fonte-weight: 600` sempre que não estiver desativado.
+- `spacing.scss`: modificado espaçamento do `lg` de 32px para 24px e do `xl` de 48px para 32px.
+- `QasListView`: modificado estilo do `empty-results`.
+
+### Removido
+- `QasActionsMenu`: removido propriedade `label`, agora o label sempre será fixo "Opções".
+- `QasNestedFields`: modificado o valor padrão da propriedade `addInputLabel` para "Adicionar".
+- `QasNestedFields`: modificado o valor padrão da propriedade `useDestroyAlways` para ser um espelho da propriedade `useStartsEmpty` como valor default.
 
 ## [3.5.0-beta.0] - 18-11-2022
 ## BREAKING CHANGE
 - `QasField`: Alterado type `radio` par utilizar o novo componente `QasOptionGroup` e removido prop de erro pois não existe no componente `QOptionGroup`, testar bem para validar.
 - Componentes de radio agora existe padronização, a partir do mobile componente segue comportamento de linha, em telas mobile segue comportamento de bloco, não sendo possível alterar este comportamento, verificar locais que utilizam para não quebrar o estilo.
 - `QasSelect`: removido propriedade `useSearch` pois agora existe o padrão de ter pesquisa pelo fuse sempre que existir pelo menos 10 opções e nunca menos que isto.
-
 ### Adicionado
 - `QasFilters`: adicionado nova propriedade `fieldsProps` para repassar propriedades para os campos do filtro.
 - `QasSelect`: adicionado busca automaticamente quando existem pelo menos 10 opções.
@@ -50,6 +85,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - `QasField`: alterado type `radio` par utilizar o novo componente `QasOptionGroup` e removido prop de erro pois não existe no componente `QOptionGroup`.
 - `QasField`: removido propriedade `useSearch` que era repassado para o `QasSelect` já que ela foi removido do mesmo.
 - `typography.scss`: alterado tipografia para seguir novo padrão de design.
+- [`QasTextTruncate`, `QasDelete`, `QasCopy`]: adicionado modificador `.stop` nos eventos `@click.stop` para prevenir evento de click quando utilizado dentro da tabela.
 
 ### Removido
 - `QasSelect`: removido propriedade `useSearch` pois agora existe o padrão de ter pesquisa pelo fuse sempre que existir pelo menos 10 opções e nunca menos que isto.
@@ -576,3 +612,5 @@ Adicionado suporte para Pinia/Vuex Seguindo os padrões da biblioteca `@bildvitt
 [3.4.0-beta.2]: https://github.com/bildvitta/asteroid/compare/v3.4.0-beta.1...v3.4.0-beta.2?expand=1
 [3.4.0]: https://github.com/bildvitta/asteroid/compare/v3.3.0...v3.4.0?expand=1
 [3.5.0-beta.0]: https://github.com/bildvitta/asteroid/compare/v3.4.0...v3.5.0-beta.0?expand=1
+[3.5.0-beta.1]: https://github.com/bildvitta/asteroid/compare/v3.5.0-beta.0...v3.5.0-beta.1?expand=1
+[3.5.0-beta.2]: https://github.com/bildvitta/asteroid/compare/v3.5.0-beta.1...v3.5.0-beta.2?expand=1

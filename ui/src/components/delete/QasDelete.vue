@@ -1,5 +1,5 @@
 <template>
-  <component v-bind="$attrs" :is="tag" @click="openConfirmDialog">
+  <component v-bind="$attrs" :is="tag" @click.stop="openConfirmDialog">
     <template v-for="(_, name) in $slots" #[name]="context">
       <slot :name="name" v-bind="context || {}" />
     </template>
@@ -92,6 +92,13 @@ export default {
 
     id () {
       return this.customId || this.$route.params.id
+    },
+
+    defaultNotifyMessages () {
+      return {
+        error: 'Não conseguimos excluir as informações. Por favor, tente novamente em alguns minutos.',
+        success: 'Informações excluídas com sucesso.'
+      }
     }
   },
 
@@ -105,8 +112,6 @@ export default {
       this.$emit('update:deleting', true)
 
       try {
-        const { destroyRoutes, history } = useHistory()
-
         const payload = { id: this.id, url: this.url }
 
         this.$qas.logger.group(
@@ -119,9 +124,11 @@ export default {
           payload
         })
 
-        NotifySuccess('Item deletado com sucesso!')
+        NotifySuccess(this.defaultNotifyMessages.success)
 
         if (this.useAutoDeleteRoute) {
+          const { destroyRoutes, history } = useHistory()
+
           // remove todas rotas que possuem o id do item excluído.
           const routesToBeDeleted = this.getRoutesToBeDeletedById(history.list)
           destroyRoutes(routesToBeDeleted)
@@ -134,7 +141,7 @@ export default {
 
         this.$qas.logger.info('QasDelete - destroy -> item deletado com sucesso!')
       } catch (error) {
-        NotifyError('Ops! Não foi possível deletar o item.')
+        NotifyError(this.defaultNotifyMessages.error)
         this.$emit('error', error)
 
         this.$qas.logger.group(

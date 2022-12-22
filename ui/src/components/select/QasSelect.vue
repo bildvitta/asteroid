@@ -1,9 +1,7 @@
 <template>
   <q-select v-model="model" v-bind="attributes">
-    <template #append>
-      <slot name="append">
-        <q-icon v-if="isSearchable" name="o_search" />
-      </slot>
+    <template v-if="isSearchable" #prepend>
+      <q-icon name="o_search" />
     </template>
 
     <template #no-option>

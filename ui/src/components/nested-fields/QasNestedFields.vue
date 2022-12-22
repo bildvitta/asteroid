@@ -11,11 +11,7 @@
             <div>
               <div class="flex items-center justify-between q-py-xs">
                 <qas-label v-if="!useSingleLabel" :label="getRowLabel(index)" />
-
-                <div v-if="hasBlockActions(row)" class="q-gutter-x-sm">
-                  <qas-btn v-if="useDuplicate" v-bind="buttonDuplicateProps" @click="add(row)" />
-                  <qas-btn v-if="showDestroyBtn" v-bind="buttonDestroyProps" @click="destroy(index, row)" />
-                </div>
+                <qas-actions-menu v-if="hasBlockActions(row)" :list="getActionsList(index, row)" :use-label-on-small-screen="false" />
               </div>
 
               <div ref="formGenerator" class="col-12 justify-between q-col-gutter-x-md row">
@@ -28,12 +24,7 @@
                 </slot>
 
                 <div v-if="hasInlineActions(row)" class="flex items-center qas-nested-fields__actions">
-                  <div class="col-auto">
-                    <qas-btn v-if="useDuplicate" color="primary" flat icon="o_content_copy" round @click="add(row)" />
-                  </div>
-                  <div class="col-auto">
-                    <qas-btn v-if="showDestroyBtn" color="negative" flat icon="o_cancel" round @click="destroy(index, row)" />
-                  </div>
+                  <qas-actions-menu :list="getActionsList(index, row)" :use-label-on-small-screen="false" />
                 </div>
               </div>
 
@@ -47,18 +38,22 @@
 
       <div v-if="useAdd" class="q-mt-md">
         <slot :add="add" name="add-input">
-          <div v-if="useInlineActions" class="cursor-pointer items-center q-col-gutter-x-md q-mt-md row" @click="add()">
+          <div v-if="showAddFirstInputButton" class="text-left">
+            <qas-btn class="q-px-sm" color="dark" flat @click="add()">{{ addFirstInputLabel }}</qas-btn>
+          </div>
+
+          <div v-else-if="useInlineActions" class="cursor-pointer items-center q-col-gutter-x-md q-mt-md row" @click="add()">
             <div class="col">
               <qas-input class="disabled no-pointer-events" hide-bottom-space :label="addInputLabel" outlined @focus="add()" />
             </div>
 
             <div class="col-auto">
-              <qas-btn color="green" flat icon="o_add_circle_outline" round />
+              <qas-btn color="dark" flat icon="o_add_circle_outline" round />
             </div>
           </div>
 
-          <div v-else class="q-mt-lg">
-            <qas-btn class="full-width q-py-md" icon="o_add" outline @click="add()">{{ addInputLabel }}</qas-btn>
+          <div v-else class="text-left">
+            <qas-btn class="q-px-sm" color="dark" flat icon="o_add" @click="add()">{{ addInputLabel }}</qas-btn>
           </div>
         </slot>
       </div>
@@ -67,6 +62,7 @@
 </template>
 
 <script>
+import QasActionsMenu from '../actions-menu/QasActionsMenu.vue'
 import QasBtn from '../btn/QasBtn.vue'
 import QasFormGenerator from '../form-generator/QasFormGenerator.vue'
 import QasInput from '../input/QasInput.vue'
@@ -80,27 +76,38 @@ export default {
   name: 'QasNestedFields',
 
   components: {
+    QasActionsMenu,
     QasBtn,
     QasFormGenerator,
     QasInput,
     QasLabel,
 
-    // vue
+    // Vue
     TransitionGroup
   },
 
   props: {
+    actionsMenuProps: {
+      type: Object,
+      default: () => ({})
+    },
+
+    addFirstInputLabel: {
+      type: String,
+      default: 'Clique aqui para adicionar'
+    },
+
     addInputLabel: {
       type: String,
-      default: 'Inserir novo campo'
+      default: 'Adicionar'
     },
 
     buttonDestroyProps: {
       type: Object,
       default: () => {
         return {
-          label: 'Remover',
-          icon: 'o_cancel',
+          label: 'Excluir',
+          icon: 'o_delete',
           flat: true,
           dense: true
         }
@@ -190,10 +197,16 @@ export default {
     },
 
     useDestroyAlways: {
-      type: Boolean
+      type: Boolean,
+      default: undefined
     },
 
     useDuplicate: {
+      type: Boolean,
+      default: true
+    },
+
+    useFirstInputButton: {
       type: Boolean,
       default: true
     },
@@ -215,6 +228,11 @@ export default {
       default: true
     },
 
+    useStartsEmpty: {
+      default: true,
+      type: Boolean
+    },
+
     modelValue: {
       type: Array,
       default: () => []
@@ -225,36 +243,14 @@ export default {
 
   data () {
     return {
-      nested: []
+      nested: [],
+      hasDestroyAlways: true
     }
   },
 
   computed: {
-    fieldLabel () {
-      return this.field?.label
-    },
-
-    fieldName () {
-      return this.field?.name
-    },
-
     children () {
       return this.field?.children
-    },
-
-    showDestroyBtn () {
-      return this.nested.filter(item => !item[this.destroyKey]).length > 1 || this.useDestroyAlways
-    },
-
-    formClasses () {
-      return {
-        col: true,
-        [`q-col-gutter-x-${this.formGutter}`]: this.useInlineActions
-      }
-    },
-
-    transformedErrors () {
-      return Array.isArray(this.errors) ? this.errors : constructObject(this.fieldName, this.errors)
     },
 
     componentTag () {
@@ -268,6 +264,33 @@ export default {
         tag: 'div',
         enterActiveClass: 'animated slideInDown'
       }
+    },
+
+    fieldLabel () {
+      return this.field?.label
+    },
+
+    fieldName () {
+      return this.field?.name
+    },
+
+    formClasses () {
+      return {
+        col: true,
+        [`q-col-gutter-x-${this.formGutter}`]: this.useInlineActions
+      }
+    },
+
+    showDestroyButton () {
+      return this.nested.filter(item => !item[this.destroyKey]).length > 1 || this.hasDestroyAlways
+    },
+
+    transformedErrors () {
+      return Array.isArray(this.errors) ? this.errors : constructObject(this.fieldName, this.errors)
+    },
+
+    showAddFirstInputButton () {
+      return this.useFirstInputButton && !this.nested.length
     }
   },
 
@@ -282,13 +305,49 @@ export default {
 
     rowObject: {
       handler () {
-        if (!this.nested.length) return this.setDefaultNestedValue()
+        this.setDefaultNestedValue()
+      },
+      immediate: true
+    },
+
+    useDestroyAlways: {
+      handler (value) {
+        this.hasDestroyAlways = value ?? this.useStartsEmpty
       },
       immediate: true
     }
   },
 
   methods: {
+    getActionsList (index, row) {
+      const list = {}
+
+      if (this.useDuplicate) {
+        list.duplicate = {
+          ...this.buttonDuplicateProps,
+          handler: () => this.add(row)
+        }
+      }
+
+      if (this.showDestroyButton) {
+        list.destroy = {
+          ...this.buttonDestroyProps,
+          handler: () => this.destroy(index, row)
+        }
+      }
+
+      for (const key in this.actionsMenuProps.list) {
+        const { handler, ...content } = this.actionsMenuProps.list[key] || {}
+
+        list[key] = {
+          handler: payload => handler?.({ payload, row, index }),
+          ...content
+        }
+      }
+
+      return list
+    },
+
     add (row = {}) {
       const payload = { ...this.rowObject, ...row }
       const hasIdentifierKey = payload[this.identifierItemKey]
@@ -345,6 +404,7 @@ export default {
     },
 
     setDefaultNestedValue () {
+      if (this.nested.length || this.useStartsEmpty) return
       this.nested.splice(0, 0, { ...this.rowObject })
     },
 

@@ -44,3 +44,17 @@ slots:
         desc: Payload da linha da tabela.
         default: {}
         type: Object
+
+events:
+  '@row-click -> function(event, row, index)':
+    desc: Dispara ao clicar em uma linha. Não funciona usando slots personalizados (body, row e item).
+    params:
+      event:
+        desc: Evento do click.
+        type: Event
+      row:
+        desc: Payload da linha da tabela.
+        type: Object
+      index:
+        desc: Índice da linha.
+        type: Number
