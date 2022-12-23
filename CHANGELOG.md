@@ -20,6 +20,9 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - `QasFilters`: alterado debounce de `500ms` para `800ms`.
 - `QasPageHeader`: alterado espaçamento de `q-mb-lg` para `q-mb-xl` para manter o que era anteriormente.
 
+### Removido
+- `QasFilters`: removido slot `filter-button`.
+
 ## [3.5.0-beta.4] - 22-12-2022
 ### Adicionado
 - `QasSelect`: adicionado propriedade `useSearch` para caso que não queira busca automática do fuse, se não passar essa prop a busca vai depender da quantidade de options.
