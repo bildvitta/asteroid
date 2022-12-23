@@ -71,6 +71,11 @@ props:
     type: String
     examples: [value-key="uuid"]
 
+  use-search:
+    desc: Controla se vai ou não ter campo de busca no select.
+    default: undefined
+    type: Boolean
+
   use-lazy-loading:
     desc: Controla a busca pela store "fetchFieldOptions".
     default: false

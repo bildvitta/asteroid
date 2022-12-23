@@ -3,6 +3,7 @@ import QasActionsMenu from './components/actions-menu/QasActionsMenu.vue'
 import QasAlert from './components/alert/QasAlert.vue'
 import QasAppBar from './components/app-bar/QasAppBar.vue'
 import QasAppMenu from './components/app-menu/QasAppMenu.vue'
+import QasAppUser from './components/app-user/QasAppUser.vue'
 import QasAvatar from './components/avatar/QasAvatar.vue'
 import QasBox from './components/box/QasBox.vue'
 import QasBreakline from './components/breakline/QasBreakline.vue'
@@ -75,6 +76,7 @@ function install (app) {
   app.component('QasAlert', QasAlert)
   app.component('QasAppBar', QasAppBar)
   app.component('QasAppMenu', QasAppMenu)
+  app.component('QasAppUser', QasAppUser)
   app.component('QasAvatar', QasAvatar)
   app.component('QasBox', QasBox)
   app.component('QasBreakline', QasBreakline)
@@ -148,6 +150,7 @@ export {
   QasAlert,
   QasAppBar,
   QasAppMenu,
+  QasAppUser,
   QasAvatar,
   QasBox,
   QasBreakline,

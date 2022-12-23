@@ -4,6 +4,9 @@ meta:
   desc: Menu lateral.
 
 props:
+  brand:
+    desc: Path do logotipo.
+    type: String
   items:
     desc: Itens do menu.
     type: Array
@@ -19,11 +22,43 @@ props:
     type: Array
     default: []
 
+  notifications:
+    desc: Lista com as notificações do usuário.
+    type: Object
+    default: {}
+
   title:
     desc: Título que vai ficar no label do select de módulos.
+    required: true
     type: String
 
+  user:
+    desc: Informações do usuário.
+    type: Object
+    default: {}
+    examples: [
+      "
+      {
+        photo: 'minha-img',
+        name: 'Eduardo Lima',
+        email: 'eduardolima@gmail.com'
+      }
+      "
+    ]
+
+slots:
+  user:
+    desc: Slot para acessar o menu de usuário.
+    scope:
+      user:
+        desc: Informações do usuário, recebe o objeto "user".
+        type: Object
+        default: {}
+
 events:
+  '@sign-out -> function()':
+    desc: Dispara quando o botão de "sair" é clicado.
+
   '@update:model-value -> function(value)':
     desc: Dispara quando o model-value altera, também usado para v-model.
     params:

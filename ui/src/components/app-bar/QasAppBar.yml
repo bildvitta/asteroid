@@ -1,20 +1,25 @@
 type: component
 
 meta:
-  desc: Cria um seção para alertar sobre um conteúdo.
+  desc: Gerencia a barra superior da aplicação
 
 props:
+  brand:
+    desc: Path do logotipo.
+    type: String
+
   notifications:
-    desc: Ícone de notificação que fica ao lado do menu de usuário.
+    desc: Lista com as notificações do usuário.
     type: Object
     default: {}
 
   title:
-    desc: Título do header, normalmente usado como título da aplicação.
+    desc: Título da aplicação.
+    required: true
     type: String
 
   user:
-    desc: Informações de usuário para ser usado no menu.
+    desc: Informações do usuário.
     type: Object
     default: {}
     examples: [
@@ -29,15 +34,12 @@ props:
 
 slots:
   user:
-    desc: Slot para acessar o menu de usuário
+    desc: Slot para acessar o menu de usuário.
     scope:
       user:
-        desc: Informações de usuário para ser usado no menu, valor vai depender da prop "user".
+        desc: Informações do usuário, recebe o objeto "user".
         type: Object
         default: {}
-
-  tools:
-    desc: Slot para acessar o header após o elemento de notificações.
 
 events:
   '@sign-out -> function()':
