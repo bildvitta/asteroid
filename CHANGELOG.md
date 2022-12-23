@@ -13,6 +13,12 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 ## Não publicado
 ### Adicionado
 - `QasSelect`: adicionado documentação do `useSearch`.
+-`ui/src/index.scss`: adicionado nova variável css para transição: `--qas-generic-transition: 300ms`;
+
+### Modificado
+- `QasFilters`: mudanças de design.
+- `QasFilters`: alterado debounce de `500ms` para `800ms`.
+- `QasPageHeader`: alterado espaçamento de `q-mb-lg` para `q-mb-xl` para manter o que era anteriormente.
 
 ## [3.5.0-beta.4] - 22-12-2022
 ### Adicionado
