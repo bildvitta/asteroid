@@ -7,15 +7,14 @@
             <qas-input v-model="search" class="bg-white q-px-sm qas-filters__input rounded-borders-sm shadow-2" data-cy="filters-search-input" :debounce="debounce" dense hide-bottom-space input-class="ellipsis text-grey-8" :outlined="false" :placeholder="searchPlaceholder" type="search">
               <template #prepend>
                 <q-icon v-if="useSearchOnType" color="grey-8" name="o_search" />
-                <qas-btn v-else color="grey-8" flat icon="o_search" padding="0" />
+                <qas-btn v-else color="grey-9" flat icon="o_search" padding="0" @click="filter()" />
               </template>
 
               <template #append>
                 <qas-btn v-if="hasSearch" class="q-mr-sm" color="grey-9" flat icon="o_clear" padding="0" size="sm" @click="clearSearch" />
-                <qas-btn v-if="!debounce" color="grey-9" flat icon="o_search" type="submit" @click="filter()" />
 
                 <qas-btn v-if="useFilterButton" :color="filterButtonColor" data-cy="filters-btn" flat icon="o_tune" padding="0">
-                  <q-menu class="full-width" max-width="270px">
+                  <q-menu anchor="center right" class="full-width" max-width="270px" self="top right">
                     <div v-if="isFetching" class="q-pa-xl text-center">
                       <q-spinner color="grey" size="2em" />
                     </div>
@@ -52,8 +51,9 @@
       </div>
     </div>
 
-    <div v-if="useChip && hasActiveFilters" class="q-mt-md">
-      <q-chip v-for="(filterItem, key) in activeFilters" :key="key" color="primary" :data-cy="`filters-${filterItem.value}-chip`" dense removable size="md" text-color="white" @remove="removeFilter(filterItem)">{{ filterItem.label }} = "{{ getChipValue(filterItem.value) }}"</q-chip>
+    <div v-if="hasChip" class="q-mt-md">
+      <!-- TODO rever com novo estilo -->
+      <q-chip v-for="(filterItem, key) in activeFilters" :key="key" color="white" :data-cy="`filters-${filterItem.value}-chip`" dense icon-remove="o_close" removable size="md" text-color="grey-8" @remove="removeFilter(filterItem)">{{ getChipValue(filterItem.value) }}</q-chip>
     </div>
 
     <slot :context="mx_context" :filter="filter" :filters="activeFilters" :remove-filter="removeFilter" />
@@ -200,6 +200,10 @@ export default {
 
     showSearch () {
       return !!this.$slots.search || this.useSearch
+    },
+
+    hasChip () {
+      return this.useChip && this.hasActiveFilters
     }
   },
 
@@ -363,6 +367,14 @@ export default {
   .q-field--focused::before {
     border-color: var(--q-primary);
     color: var(--q-primary);
+  }
+
+  .q-field--dense .q-field__prepend {
+    padding-right: var(--qas-spacing-xs);
+  }
+
+  .q-field--dense .q-field__append {
+    padding-left: var(--qas-spacing-sm);
   }
 
   &__input {

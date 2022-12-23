@@ -1,5 +1,5 @@
 <template>
-  <q-toolbar class="justify-between q-mb-lg q-px-none">
+  <q-toolbar class="justify-between q-mb-xl q-px-none">
     <div class="ellipsis">
       <q-toolbar-title v-if="title" class="text-bold text-h5">
         {{ title }}
