@@ -26,6 +26,9 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 ### Removido
 - `QasFilters`: removido slot `filter-button`.
 
+### Corrigido
+- `QasFormView`: agora quando faz um submit com sucesso os erros são resetados.
+
 ## [3.5.0-beta.4] - 22-12-2022
 ### Adicionado
 - `QasSelect`: adicionado propriedade `useSearch` para caso que não queira busca automática do fuse, se não passar essa prop a busca vai depender da quantidade de options.
