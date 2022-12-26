@@ -14,6 +14,9 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 ### Modificado
 - `QasFormView`: modificado comportamento da propriedade `disable`, agora só desabilita o botão de salvar (submit), deixando o botão voltar habilitado.
 
+### Corrigido
+- `QasField`: agora o label de required também é modificado caso passe através dos `$attrs`.
+
 ## [3.5.0-beta.5] - 26-12-2022
 ## BREAKING CHANGE
 - `QasFilters`: removido slot `filter-button`.
