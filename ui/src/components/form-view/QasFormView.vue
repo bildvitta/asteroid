@@ -428,6 +428,8 @@ export default {
         }
 
         this.mx_setErrors()
+        this.$emit('update:errors', this.mx_errors)
+
         NotifySuccess(response.data.status.text || this.defaultNotifyMessages.success)
         this.$emit('submit-success', response, this.modelValue)
 
