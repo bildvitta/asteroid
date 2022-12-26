@@ -10,7 +10,7 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 ### Sobre os "BREAKING CHANGES"
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
-## Não publicado
+## [3.5.0-beta.6] - 26-12-2022
 ### Modificado
 - `QasFormView`: modificado comportamento da propriedade `disable`, agora só desabilita o botão de salvar (submit), deixando o botão voltar habilitado.
 
@@ -650,3 +650,4 @@ Adicionado suporte para Pinia/Vuex Seguindo os padrões da biblioteca `@bildvitt
 [3.5.0-beta.3]: https://github.com/bildvitta/asteroid/compare/v3.5.0-beta.2...v3.5.0-beta.3?expand=1
 [3.5.0-beta.4]: https://github.com/bildvitta/asteroid/compare/v3.5.0-beta.3...v3.5.0-beta.4?expand=1
 [3.5.0-beta.5]: https://github.com/bildvitta/asteroid/compare/v3.5.0-beta.4...v3.5.0-beta.5?expand=1
+[3.5.0-beta.6]: https://github.com/bildvitta/asteroid/compare/v3.5.0-beta.5...v3.5.0-beta.6?expand=1
