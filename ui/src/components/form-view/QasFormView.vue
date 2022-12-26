@@ -10,7 +10,7 @@
       <slot v-if="useActions" name="actions">
         <div class="justify-end q-col-gutter-md q-my-lg row">
           <div v-if="hasCancelButton" class="col-12 col-sm-2" :class="cancelButtonClass">
-            <qas-btn v-close-popup class="full-width" :data-cy="`btnCancel-${entity}`" :disable="isCancelButtonDisabled" :label="cancelButtonLabel" outline type="button" @click="cancel" />
+            <qas-btn v-close-popup class="full-width" :data-cy="`btnCancel-${entity}`" :disable="isSubmitting" :label="cancelButtonLabel" outline type="button" @click="cancel" />
           </div>
 
           <div v-if="useSubmitButton" class="col-12 col-sm-2" :class="submitButtonClass">
@@ -192,10 +192,6 @@ export default {
 
     submitButtonClass () {
       return this.$qas.screen.isSmall && 'order-first'
-    },
-
-    isCancelButtonDisabled () {
-      return this.disable || this.isSubmitting
     },
 
     defaultNotifyMessages () {
