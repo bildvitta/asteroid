@@ -56,13 +56,6 @@ slots:
         desc: função usada para fazer o filtro
         type: Function
 
-  filter-button:
-    desc: Slot para seção do botão do menu lateral.
-    scope:
-      filter:
-        desc: função usada para fazer o filtro
-        type: Function
-
   default:
     desc: Slot para acessar o final do componente.
     scope:

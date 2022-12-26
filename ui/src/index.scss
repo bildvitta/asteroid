@@ -11,6 +11,7 @@ $accent: var(--q-accent);
 :root {
   --qas-background-color: #fbfbfb;
   --qas-generic-border-radius: 8px;
+  --qas-generic-transition: 300ms;
 }
 
 $background-color: var(--qas-background-color);

@@ -1,6 +1,6 @@
 <template>
   <div class="container spaced">
-    <qas-filters :entity="entity" :fields-props="fieldsProps" />
+    <qas-filters :entity="entity" :fields-props="fieldsProps" search-placeholder="Gabriel Assen de Vasconcelos Belin Queiroz Gabrielle Ra" />
   </div>
 </template>
 
