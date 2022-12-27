@@ -177,7 +177,7 @@ export default {
       return this[isFirst
         ? 'firstQueue'
         : 'secondQueue'
-      ].some(item => item[this.valueKey] === object[this.valueKey]) && 'bg-secondary'
+      ].some(item => item[this.valueKey] === object[this.valueKey]) && 'bg-grey-4'
     },
 
     getItemLabel (item) {

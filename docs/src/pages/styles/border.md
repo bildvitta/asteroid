@@ -20,3 +20,4 @@ Define uma cor para a borda de acordo com as variáveis `$primary` `$secondary`
 |`border-primary-contrast`  | Cria uma Borda com a cor da variável `$primary-contrast`   |`border: 0 solid $primary-contrast`  |
 |`border-secondary`         | Cria uma Borda com a cor da variável `$secondary`          |`border: 0 solid $secondary`         |
 |`border-secondary-contrast`| Cria uma Borda com a cor da variável `$secondary-contrast` |`border: 0 solid $secondary-contrast`|
+|`border-grey`| Cria uma Borda com a cor da variável `$border-grey` |`border: 0 solid $secondary-contrast`|
