@@ -23,7 +23,7 @@
         </div>
       </q-card-section>
 
-      <div v-if="hasActionsSlot" class="border-primary-contrast border-top overflow-hidden row">
+      <div v-if="hasActionsSlot" class="border-grey border-top overflow-hidden row">
         <slot name="actions" />
       </div>
     </q-card>

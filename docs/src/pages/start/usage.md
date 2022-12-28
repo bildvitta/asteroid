@@ -19,21 +19,19 @@ O arquivo gerado deve conter as seguintes informações:
 
 @import '~@bildvitta/quasar-ui-asteroid/src/index';
 
-$primary   : #00527A;
-// TODO: No futuro a ideia é não ter uma cor secundária.
-// TODO: Por hora vamos usar a mesma de $primary-contrast.
-$secondary : #B8D3E0A3;
+$primary   : #004198;
+$secondary : #1565C0;
 $tertiary  : #c7ceff;
-$accent    : #00365280;
-$dark      : #1d1d1d;
-$positive  : #21ba45;
-$negative  : #c10015;
+$accent    : rgba(33, 33, 33, 20%);
+$dark      : #424242;
+$positive  : #212121;
+$negative  : #D40000;
 $info      : #31ccec;
 $warning   : #f2c037;
 
 // Asteroid
-$primary-contrast: $secondary;
-$secondary-contrast: #3691BF80;
+$primary-contrast: #002E6C;
+$secondary-contrast: #90CAF9;
 
 @include set-brand(primary-contrast, $primary-contrast);
 @include set-brand(secondary-contrast, $secondary-contrast);

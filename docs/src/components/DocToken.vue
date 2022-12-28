@@ -28,7 +28,7 @@ export default {
 @use 'sass:color';
 
 .doc-token {
-  background-color: $primary-contrast;
+  background-color: $grey-4;
   border-radius: $generic-border-radius;
   display: inline-block;
   letter-spacing: -0.03em;

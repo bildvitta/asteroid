@@ -17,6 +17,7 @@
 @include set-border-color(primary-contrast, $primary-contrast);
 @include set-border-color(secondary, $secondary);
 @include set-border-color(secondary-contrast, $secondary-contrast);
+@include set-border-color('grey', $border-grey);
 
 // Direction
 .border-top {

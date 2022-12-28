@@ -21,7 +21,7 @@ export default {
   computed: {
     boxClass () {
       return {
-        'border-primary-contrast': this.outlined,
+        'border-grey': this.outlined,
         'shadow-2': !this.unelevated
       }
     }

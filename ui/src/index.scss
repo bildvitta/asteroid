@@ -10,12 +10,14 @@ $accent: var(--q-accent);
 // Asteroid variables
 :root {
   --qas-background-color: #fbfbfb;
+  --qas-border-grey: #{$grey-4};
   --qas-generic-border-radius: 8px;
   --qas-generic-transition: 300ms;
 }
 
 $background-color: var(--qas-background-color);
 $generic-border-radius: var(--qas-generic-border-radius);
+$border-grey: var(--qas-border-grey);
 
 // variables
 @import './css/variables/index';

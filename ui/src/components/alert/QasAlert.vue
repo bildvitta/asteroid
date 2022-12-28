@@ -1,5 +1,5 @@
 <template>
-  <div v-if="model" class="q-pa-lg qas-alert relative-position rounded-borders" :class="classes">
+  <div v-if="model" class="bg-white q-pa-lg qas-alert relative-position rounded-borders" :class="classes">
     <qas-btn class="absolute-top-right q-mr-md q-mt-sm" :color="color" dense flat icon="o_close" rounded @click="close" />
 
     <div class="q-gutter-md q-mr-lg">
@@ -58,10 +58,7 @@ export default {
 
   computed: {
     classes () {
-      return {
-        [`text-${this.color}`]: true,
-        [`bg-${this.color}-contrast`]: ['primary', 'secondary'].includes(this.color)
-      }
+      return `text-${this.color}`
     }
   },
 

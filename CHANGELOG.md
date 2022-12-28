@@ -11,8 +11,19 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
 ## Não publicado
+### Adicionado
+- `border.scss`: adicionado nova cor de borda `border-grey`.
+- `index.scss`: adicionado nova var css `--qas-border-grey`.
+
+### Modificado
+- [`QasAlert`, `QasAvatar`, `QasBox`, `QasCard`, `QasTransfer`]: modificado cores referente a `primary-contrast` e `secondary-contrast`.
+- `quasar.variables.scss`: modificado cores.
+
 ### Corrigido
 - `QasAppMenu`: adicionado validação na badge de desenvolvimento.
+
+### Removido
+`QasAvatar`: removido propriedades `color` e `text-color` agora sempre vai ser background primary com cor de texto branca.
 
 ## [3.5.0-beta.6] - 26-12-2022
 ### Modificado

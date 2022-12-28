@@ -21,8 +21,8 @@ Inclui uma nova Brand
   }
 }
 
-$primary-contrast: #eaeaff;
-$secondary-contrast: #bbd3d0;
+$primary-contrast: #002E6C;
+$secondary-contrast: #90CAF9;
 
 @include set-brand(primary-contrast, $primary-contrast);
 @include set-brand(secondary-contrast, $secondary-contrast);
