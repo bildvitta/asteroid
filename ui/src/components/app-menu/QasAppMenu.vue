@@ -7,7 +7,7 @@
           <router-link class="block q-toolbar__title relative-position text-no-decoration" :to="rootRoute">
             <img v-if="brand" :alt="title" class="full-width" :src="brand">
             <span v-else class="ellipsis text-bold text-primary">{{ title }}</span>
-            <q-badge color="red" floating :label="developmentBadgeLabel" />
+            <q-badge v-if="hasDevelopmentBadge" color="red" floating :label="developmentBadgeLabel" />
           </router-link>
         </div>
 

@@ -19,6 +19,9 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - [`QasAlert`, `QasAvatar`, `QasBox`, `QasCard`, `QasTransfer`]: modificado cores referente a `primary-contrast` e `secondary-contrast`.
 - `quasar.variables.scss`: modificado cores.
 
+### Corrigido
+- `QasAppMenu`: adicionado validação na badge de desenvolvimento.
+
 ### Removido
 `QasAvatar`: removido propriedades `color` e `text-color` agora sempre vai ser background primary com cor de texto branca.
 
