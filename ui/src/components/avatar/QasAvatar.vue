@@ -1,5 +1,5 @@
 <template>
-  <q-avatar class="text-bold" :class="avatarClasses" v-bind="attributes">
+  <q-avatar class="text-bold" v-bind="attributes">
     <q-img v-if="hasImage" :alt="title" :ratio="1" spinner-color="primary" spinner-size="16px" :src="image" @error="onImageLoadedError" />
     <template v-else-if="hasTitle">{{ firstLetter }}</template>
     <q-icon v-else :name="icon" />
@@ -13,8 +13,15 @@ export default {
   inheritAttrs: false,
 
   props: {
-    dark: {
-      type: Boolean
+    color: {
+      type: String,
+      default: 'primary',
+      validator: value => ['primary', 'secondary-contrast'].includes(value)
+    },
+
+    size: {
+      type: String,
+      default: ''
     },
 
     icon: {
@@ -40,14 +47,6 @@ export default {
   },
 
   computed: {
-    avatarClasses () {
-      if (this.hasImage) {
-        return null
-      }
-
-      return 'bg-primary text-white'
-    },
-
     firstLetter () {
       return this.title[0].toUpperCase()
     },
@@ -61,9 +60,16 @@ export default {
     },
 
     attributes () {
-      const { square, rounded, ...attributes } = this.$attrs
+      const colors = {
+        primary: 'white',
+        'secondary-contrast': 'primary'
+      }
 
-      return attributes
+      return {
+        size: this.size,
+        color: this.color,
+        textColor: colors[this.color]
+      }
     }
   },
 

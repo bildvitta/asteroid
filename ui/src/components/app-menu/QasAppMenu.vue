@@ -13,7 +13,7 @@
 
         <!-- Module -->
         <div v-if="displayModuleSection" class="q-mt-xl q-px-lg qas-app-menu__module">
-          <qas-select v-model="module" borderless class="q-py-xs rounded-borders shadow-2" dense input-class="q-px-md" :options="defaultModules" :outlined="false" :use-search="false" @update:model-value="redirectHandler(currentModelOption)" />
+          <qas-select v-model="module" borderless class="q-py-xs qas-app-menu__select shadow-2" dense input-class="q-px-md" :options="defaultModules" :outlined="false" :use-search="false" @update:model-value="redirectHandler(currentModelOption)" />
         </div>
 
         <!-- Menu -->
@@ -257,6 +257,10 @@ export default {
 
   &__menu .q-item {
     padding-left: var(--qas-spacing-lg);
+  }
+
+  &__select {
+    border-radius: 4px;
   }
 
   // User
