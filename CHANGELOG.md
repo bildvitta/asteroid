@@ -10,6 +10,17 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 ### Sobre os "BREAKING CHANGES"
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
+## Não publicado
+### Adicionado
+- `QasAvatar`: adicionado propriedade `size`.
+- `QasAvatar`: adicionado propriedade color sendo possível passar 2 valores `primary` e `secondary-contrast`.
+
+### Modificado
+- QasAppMenu: adicionado `border-radius: 4px` no select de módulos.
+
+### Corrigido
+- `QasAppUser`: corrigido avatar.
+
 ## [3.5.0-beta.7] - 28-12-2022
 ### Adicionado
 - `border.scss`: adicionado nova cor de borda `border-grey`.

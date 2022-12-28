@@ -1,7 +1,7 @@
 <template>
   <div class="cursor-pointer items-center no-wrap q-gutter-sm qas-app-user row">
     <div class="relative-position">
-      <qas-avatar color="white" dark :image="user.photo" rounded :size="avatarSize" text-color="primary" :title="userName" />
+      <qas-avatar :image="user.photo" :size="avatarSize" :title="userName" />
       <q-badge v-if="hasNotifications" color="red" floating>{{ notifications.count }}</q-badge>
     </div>
 
