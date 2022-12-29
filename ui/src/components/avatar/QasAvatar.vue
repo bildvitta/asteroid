@@ -60,6 +60,14 @@ export default {
     },
 
     attributes () {
+      const {
+        rounded,
+        square,
+        fontSize,
+        textColor,
+        ...attributes
+      } = this.$attrs
+
       const colors = {
         primary: 'white',
         'secondary-contrast': 'primary'
@@ -68,7 +76,8 @@ export default {
       return {
         size: this.size,
         color: this.color,
-        textColor: colors[this.color]
+        textColor: colors[this.color],
+        ...attributes
       }
     }
   },
