@@ -120,7 +120,7 @@ export default {
     },
 
     hasMoreThanOneAction () {
-      return Object.keys(this.actions || {}).length > 1
+      return Object.keys(this.list || {}).length + Number(this.hasDelete) > 1
     }
   },
 
