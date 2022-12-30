@@ -22,7 +22,20 @@ export default {
           route: { path: '/' }
         },
         {
-          label: 'Users'
+          label: 'Algum caminho',
+          route: { path: '/' }
+        },
+        {
+          label: 'Algum caminho',
+          route: { path: '/' }
+        },
+        {
+          label: 'Algum caminho',
+          route: { path: '/' }
+        },
+        {
+          label: 'Page header',
+          route: { path: 'components/page-header' }
         }
       ]
     }
