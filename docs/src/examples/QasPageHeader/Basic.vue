@@ -1,7 +1,7 @@
 <template>
   <div class="container spaced">
     <qas-page-header :breadcrumbs="breadcrumbs" title="Meu título!">
-      <qas-btn hide-mobile-label icon="o_add" label="Alguma ação!" />
+      <!-- <qas-btn icon="o_add" label="Alguma ação!" :use-label-on-small-screen="false" /> -->
     </qas-page-header>
   </div>
 </template>
@@ -31,11 +31,11 @@ export default {
         },
         {
           label: 'Algum caminho',
-          route: { path: '/' }
+          route: { path: '/styles/background' }
         },
         {
           label: 'Page header',
-          route: { path: 'components/page-header' }
+          route: { path: '/components/page-header' }
         }
       ]
     }

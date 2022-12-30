@@ -1,25 +1,20 @@
 <template>
   <q-toolbar class="justify-between q-mb-xl q-px-none qas-page-header">
     <div class="ellipsis">
-      <q-toolbar-title v-if="title" class="text-bold text-h3">
+      <q-toolbar-title v-if="title" class="text-grey-9 text-h3">
         {{ title }}
       </q-toolbar-title>
 
       <q-breadcrumbs v-if="useBreadcrumbs" class="text-caption" gutter="xs" separator-color="grey-8">
-        <q-breadcrumbs-el v-if="useHomeIcon" class="qas-page-header__breadcrumbs-el" :class="getBreadcrumbsClass(0)" icon="home" to="/" />
+        <q-breadcrumbs-el v-if="useHomeIcon" class="qas-page-header__breadcrumbs-el text-grey-8" icon="home" to="/" />
 
         <q-breadcrumbs-el v-for="(item, index) in normalizedBreadcrumbs" :key="item.label" class="qas-page-header__breadcrumbs-el" :class="getBreadcrumbsClass(index)" :label="item.label" :to="item.route" />
       </q-breadcrumbs>
-
-      <!-- <pre>
-        {{ transformedBreadcrumbs }}
-      </pre>
-
-      <pre>
-        {{ normalizedBreadcrumbs }}
-      </pre> -->
     </div>
-    <slot />
+
+    <slot>
+      <qas-btn v-if="hasDefaultButton" :use-label-on-small-screen="false" v-bind="buttonProps" />
+    </slot>
   </q-toolbar>
 </template>
 
@@ -65,6 +60,11 @@ export default {
     useHomeIcon: {
       default: true,
       type: Boolean
+    },
+
+    buttonProps: {
+      default: () => ({}),
+      type: Object
     }
   },
 
@@ -94,15 +94,28 @@ export default {
     },
 
     normalizedBreadcrumbs () {
+      const breadcrumbsSize = this.transformedBreadcrumbs.length
+
+      if (breadcrumbsSize < 5) return this.transformedBreadcrumbs
+
       const [first, second] = this.transformedBreadcrumbs
       const last = this.transformedBreadcrumbs[this.transformedBreadcrumbs.length - 1]
+
+      const beforeLast = {
+        ...this.transformedBreadcrumbs[this.transformedBreadcrumbs.length - 2],
+        label: '...'
+      }
 
       return [
         first,
         second,
-        { label: '...' },
+        beforeLast,
         last
       ]
+    },
+
+    hasDefaultButton () {
+      return !!Object.keys(this.buttonProps).length
     }
   },
 
@@ -119,6 +132,12 @@ export default {
 <style lang="scss">
 .qas-page-header {
   &__breadcrumbs-el {
+    transition: color var(--qas-generic-transition);
+
+    &.q-breadcrumbs__el:not(.q-router-link--exact-active):hover {
+      color: var(--qas-primary-contrast) !important;
+    }
+
     .q-breadcrumbs__el-icon {
       font-size: 16px;
     }
