@@ -10,6 +10,11 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 ### Sobre os "BREAKING CHANGES"
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
+## Não publicado
+### Modificado
+- `shadow.scss`: modificado cor `shadow-2` do quasar.
+- modificado cor `accent` para opacidade de `10%` ao invés de `20%`.
+
 ## [3.5.0-beta.10] - 30-12-2022
 ### Corrigido
 - `QasActionsMenu`: corrigido problema de circular dependency entre as propriedades computadas `actions` e `hasMoreThanOneAction`.
