@@ -15,6 +15,11 @@ props:
     desc: Título do cabeçalho.
     type: String
 
+  header-actions-props:
+    desc: Propriedades do QasHeaderActions.
+    default: {}
+    type: Object
+
   root:
     desc: Rota raiz do breadcrumbs.
     type: [Object, String]
@@ -22,3 +27,10 @@ props:
   use-breadcrumbs:
     desc: Habilita ou não o breadcrumbs.
     type: [Array, String]
+
+slots:
+  bottom:
+    desc: slot para acessar abaixo do titulo e breadcrumbs.
+
+  default:
+    desc: slot para acessar lado direito do titulo e breadcrumbs.

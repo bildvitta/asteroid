@@ -13,20 +13,20 @@
         </q-breadcrumbs>
       </div>
 
-      <slot>
-        <qas-actions-menu v-if="hasDefaultActionsMenu" v-bind="actionsMenuProps" />
-
-        <qas-btn v-if="hasDefaultButton" :use-label-on-small-screen="false" v-bind="buttonProps" />
-      </slot>
+      <slot />
     </q-toolbar>
 
     <div>
-      <slot name="bottom" />
+      <slot name="bottom">
+        <qas-header-actions v-if="hasHeaderActions" v-bind="headerActionsProps" />
+      </slot>
     </div>
   </div>
 </template>
 
 <script>
+import QasHeaderActions from '../header-actions/QasHeaderActions.vue'
+
 import { castArray } from 'lodash-es'
 import { useHistory } from '../../composables'
 import { createMetaMixin } from 'quasar'
@@ -35,6 +35,10 @@ const { history } = useHistory()
 
 export default {
   name: 'QasPageHeader',
+
+  components: {
+    QasHeaderActions
+  },
 
   mixins: [
     createMetaMixin(function () {
@@ -45,14 +49,14 @@ export default {
   ],
 
   props: {
-    actionsMenuProps: {
-      type: Object,
-      default: () => ({})
-    },
-
     breadcrumbs: {
       default: '',
       type: [Array, String]
+    },
+
+    headerActionsProps: {
+      default: () => ({}),
+      type: Object
     },
 
     root: {
@@ -73,11 +77,6 @@ export default {
     useHomeIcon: {
       default: true,
       type: Boolean
-    },
-
-    buttonProps: {
-      default: () => ({}),
-      type: Object
     }
   },
 
@@ -127,12 +126,8 @@ export default {
       ]
     },
 
-    hasDefaultButton () {
-      return !!Object.keys(this.buttonProps).length
-    },
-
-    hasDefaultActionsMenu () {
-      return !!Object.keys(this.actionsMenuProps).length
+    hasHeaderActions () {
+      return !!Object.keys(this.headerActionsProps).length
     },
 
     homeRoute () {
