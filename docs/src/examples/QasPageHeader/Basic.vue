@@ -1,8 +1,6 @@
 <template>
   <div class="container spaced">
-    <qas-page-header :breadcrumbs="breadcrumbs" title="Meu título!">
-      <!-- <qas-btn icon="o_add" label="Alguma ação!" :use-label-on-small-screen="false" /> -->
-    </qas-page-header>
+    <qas-page-header :breadcrumbs="breadcrumbs" :button-props="addButton" title="Nome do usuário" />
   </div>
 </template>
 
@@ -14,30 +12,25 @@ export default {
     breadcrumbs () {
       return [
         {
-          label: 'Início',
+          label: 'Lista de usuários',
           route: { path: '/' }
         },
         {
-          label: 'Algum caminho',
+          label: 'Usuário',
           route: { path: '/' }
         },
         {
-          label: 'Algum caminho',
-          route: { path: '/' }
-        },
-        {
-          label: 'Algum caminho',
-          route: { path: '/' }
-        },
-        {
-          label: 'Algum caminho',
-          route: { path: '/styles/background' }
-        },
-        {
-          label: 'Page header',
+          label: 'Nome do usuário',
           route: { path: '/components/page-header' }
         }
       ]
+    },
+
+    addButton () {
+      return {
+        icon: 'o_add',
+        label: 'Novo usuário'
+      }
     }
   }
 }

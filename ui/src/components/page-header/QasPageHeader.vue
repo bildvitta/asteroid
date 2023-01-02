@@ -6,13 +6,15 @@
       </q-toolbar-title>
 
       <q-breadcrumbs v-if="useBreadcrumbs" class="text-caption" gutter="xs" separator-color="grey-8">
-        <q-breadcrumbs-el v-if="useHomeIcon" class="qas-page-header__breadcrumbs-el text-grey-8" icon="home" to="/" />
+        <q-breadcrumbs-el v-if="useHomeIcon" class="qas-page-header__breadcrumbs-el text-grey-8" icon="o_home" :to="homeRoute" />
 
-        <q-breadcrumbs-el v-for="(item, index) in normalizedBreadcrumbs" :key="item.label" class="qas-page-header__breadcrumbs-el" :class="getBreadcrumbsClass(index)" :label="item.label" :to="item.route" />
+        <q-breadcrumbs-el v-for="(item, index) in normalizedBreadcrumbs" :key="index" class="qas-page-header__breadcrumbs-el" :label="item.label" :to="item.route" />
       </q-breadcrumbs>
     </div>
 
     <slot>
+      <qas-actions-menu v-if="hasDefaultActionsMenu" v-bind="actionsMenuProps" />
+
       <qas-btn v-if="hasDefaultButton" :use-label-on-small-screen="false" v-bind="buttonProps" />
     </slot>
   </q-toolbar>
@@ -37,6 +39,11 @@ export default {
   ],
 
   props: {
+    actionsMenuProps: {
+      type: Object,
+      default: () => ({})
+    },
+
     breadcrumbs: {
       default: '',
       type: [Array, String]
@@ -116,14 +123,16 @@ export default {
 
     hasDefaultButton () {
       return !!Object.keys(this.buttonProps).length
-    }
-  },
+    },
 
-  methods: {
-    getBreadcrumbsClass (index) {
-      const lastIndex = this.normalizedBreadcrumbs.length - 1
+    hasDefaultActionsMenu () {
+      return !!Object.keys(this.actionsMenuProps).length
+    },
 
-      return lastIndex === index ? 'text-primary' : 'text-grey-8'
+    homeRoute () {
+      const hasRoot = this.$router.hasRoute('Root')
+
+      return hasRoot ? { name: 'Root' } : '/'
     }
   }
 }
@@ -141,6 +150,15 @@ export default {
     .q-breadcrumbs__el-icon {
       font-size: 16px;
     }
+  }
+
+  // aplica cor "grey-8" a todos os .q-breadcrumbs__el que não uma classe .q-breadcrumbs--last como pai
+  .q-breadcrumbs__el:not(.q-breadcrumbs--last .q-breadcrumbs__el) {
+    color: $grey-8;
+  }
+
+  .q-breadcrumbs--last {
+    color: var(--q-primary);
   }
 }
 </style>
