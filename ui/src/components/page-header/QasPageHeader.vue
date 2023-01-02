@@ -1,23 +1,29 @@
 <template>
-  <q-toolbar class="justify-between q-mb-xl q-px-none qas-page-header">
-    <div class="ellipsis">
-      <q-toolbar-title v-if="title" class="text-grey-9 text-h3">
-        {{ title }}
-      </q-toolbar-title>
+  <div>
+    <q-toolbar class="justify-between q-mb-xl q-px-none qas-page-header">
+      <div class="ellipsis">
+        <q-toolbar-title v-if="title" class="text-grey-9 text-h3">
+          {{ title }}
+        </q-toolbar-title>
 
-      <q-breadcrumbs v-if="useBreadcrumbs" class="text-caption" gutter="xs" separator-color="grey-8">
-        <q-breadcrumbs-el v-if="useHomeIcon" class="qas-page-header__breadcrumbs-el text-grey-8" icon="o_home" :to="homeRoute" />
+        <q-breadcrumbs v-if="useBreadcrumbs" class="text-caption" gutter="xs" separator-color="grey-8">
+          <q-breadcrumbs-el v-if="useHomeIcon" class="qas-page-header__breadcrumbs-el text-grey-8" icon="o_home" :to="homeRoute" />
 
-        <q-breadcrumbs-el v-for="(item, index) in normalizedBreadcrumbs" :key="index" class="qas-page-header__breadcrumbs-el" :label="item.label" :to="item.route" />
-      </q-breadcrumbs>
+          <q-breadcrumbs-el v-for="(item, index) in normalizedBreadcrumbs" :key="index" class="qas-page-header__breadcrumbs-el" :label="item.label" :to="item.route" />
+        </q-breadcrumbs>
+      </div>
+
+      <slot>
+        <qas-actions-menu v-if="hasDefaultActionsMenu" v-bind="actionsMenuProps" />
+
+        <qas-btn v-if="hasDefaultButton" :use-label-on-small-screen="false" v-bind="buttonProps" />
+      </slot>
+    </q-toolbar>
+
+    <div>
+      <slot name="bottom" />
     </div>
-
-    <slot>
-      <qas-actions-menu v-if="hasDefaultActionsMenu" v-bind="actionsMenuProps" />
-
-      <qas-btn v-if="hasDefaultButton" :use-label-on-small-screen="false" v-bind="buttonProps" />
-    </slot>
-  </q-toolbar>
+  </div>
 </template>
 
 <script>

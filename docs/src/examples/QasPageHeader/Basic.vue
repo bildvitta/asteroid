@@ -1,6 +1,10 @@
 <template>
   <div class="container spaced">
-    <qas-page-header :breadcrumbs="breadcrumbs" :button-props="addButton" title="Nome do usuário" />
+    <qas-page-header :breadcrumbs="breadcrumbs" :button-props="addButton" title="Nome do usuário">
+      <template #bottom>
+        informações em baixo
+      </template>
+    </qas-page-header>
   </div>
 </template>
 
