@@ -1,12 +1,12 @@
 <template>
-  <div class="items-center justify-between no-wrap q-gutter-x-md q-mb-xl row">
-    <div class="text-body1 text-grey-8">
+  <div class="items-center justify-between no-wrap q-col-gutter-x-md q-mb-xl row text-body1 text-grey-8">
+    <div class="" :class="leftClass">
       <slot name="left">
-        {{ description }}
+        {{ text }}
       </slot>
     </div>
 
-    <div>
+    <div v-if="hasRightSide" class="col-3 col-md-3 col-sm-4 justify-end row">
       <slot name="right">
         <qas-actions-menu v-if="hasDefaultActionsMenu" v-bind="actionsMenuProps" />
 
@@ -31,7 +31,7 @@ export default {
       type: Object
     },
 
-    description: {
+    text: {
       type: String,
       default: ''
     }
@@ -44,6 +44,18 @@ export default {
 
     hasDefaultActionsMenu () {
       return !!Object.keys(this.actionsMenuProps).length
+    },
+
+    hasRightSlot () {
+      return !!this.$slots.right
+    },
+
+    hasRightSide () {
+      return this.hasRightSlot || this.hasDefaultActionsMenu || this.hasDefaultButton
+    },
+
+    leftClass () {
+      return this.hasRightSide ? 'col-9 col-md-9 col-sm-8' : 'col-12'
     }
   }
 }

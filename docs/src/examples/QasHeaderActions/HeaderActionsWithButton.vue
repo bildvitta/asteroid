@@ -1,6 +1,6 @@
 <template>
   <div class="container spaced">
-    <qas-header-actions v-bind="headerActionsProps" />
+    <qas-header-actions class="q-mb-sm" v-bind="headerActionsProps" />
   </div>
 </template>
 
@@ -9,7 +9,7 @@ export default {
   computed: {
     headerActionsProps () {
       return {
-        description: 'Algum texto de exemplo para ficar ao lado do botão de adicionar.',
+        text: 'Algum texto de exemplo para ficar ao lado do botão de adicionar.',
         buttonProps: {
           icon: 'o_add',
           label: 'Novo usuário'

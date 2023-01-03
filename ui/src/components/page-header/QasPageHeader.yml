@@ -26,7 +26,13 @@ props:
 
   use-breadcrumbs:
     desc: Habilita ou não o breadcrumbs.
-    type: [Array, String]
+    default: true
+    type: Boolean
+
+  use-home-icon:
+    desc: Habilita o ícone de início como primeiro nível do breadcrumbs.
+    default: true
+    type: Boolean
 
 slots:
   bottom:

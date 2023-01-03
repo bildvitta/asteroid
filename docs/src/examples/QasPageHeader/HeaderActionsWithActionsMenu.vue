@@ -28,7 +28,7 @@ export default {
 
     headerActionsProps () {
       return {
-        description: 'Algum texto de exemplo para ficar ao lado do botão de adicionar.',
+        text: 'Algum texto de exemplo para ficar ao lado do botão de adicionar.',
         actionsMenuProps: {
           deleteProps: {
             entity: 'users'
