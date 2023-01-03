@@ -1,6 +1,6 @@
 <template>
   <div class="items-center justify-between no-wrap q-col-gutter-x-md q-mb-xl row text-body1 text-grey-8">
-    <div class="" :class="leftClass">
+    <div :class="leftClass">
       <slot name="left">
         {{ text }}
       </slot>

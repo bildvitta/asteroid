@@ -64,7 +64,6 @@ export default {
     },
 
     useLabelOnSmallScreen: {
-      default: false,
       type: Boolean
     }
   },

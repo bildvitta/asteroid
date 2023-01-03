@@ -111,10 +111,10 @@ export default {
       if (breadcrumbsSize < 5) return this.transformedBreadcrumbs
 
       const [first, second] = this.transformedBreadcrumbs
-      const last = this.transformedBreadcrumbs[this.transformedBreadcrumbs.length - 1]
+      const last = this.transformedBreadcrumbs.at(-1)
 
       const beforeLast = {
-        ...this.transformedBreadcrumbs[this.transformedBreadcrumbs.length - 2],
+        ...this.transformedBreadcrumbs.at(-2),
         label: '...'
       }
 
