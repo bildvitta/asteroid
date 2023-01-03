@@ -21,6 +21,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - `QasPageHeader`: mudanças de layout e comportamento, agora caso o breadcrumbs tenha mais de 4 níveis é adicionado uma label "...".
 - `typography.scss`: alterado `font-weight` do `$caption` para `400`.
 - `QasPageHeader`: adicionada nova propriedade `useHomeIcon` que habilita o ícone de início como primeiro nível do breadcrumbs, com default `true` para respeitar novo padrão de design.
+- `QasActionsMenu`: alterado valor default da propriedade `useLabelOnSmallScreen` para `false`.
 
 ## [3.5.0-beta.11] - 02-01-2023
 ### Modificado
