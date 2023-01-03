@@ -20,6 +20,14 @@ export default {
           route: { path: '/' }
         },
         {
+          label: 'Usuário 2',
+          route: { path: '/' }
+        },
+        {
+          label: 'Usuário 3',
+          route: { path: '/' }
+        },
+        {
           label: 'Nome do usuário',
           route: { path: '/components/page-header' }
         }

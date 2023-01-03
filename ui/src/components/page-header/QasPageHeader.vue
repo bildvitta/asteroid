@@ -1,19 +1,32 @@
 <template>
-  <q-toolbar class="justify-between q-mb-xl q-px-none">
-    <div class="ellipsis">
-      <q-toolbar-title v-if="title" class="text-bold text-h5">
-        {{ title }}
-      </q-toolbar-title>
+  <div>
+    <q-toolbar class="justify-between q-mb-xl q-px-none qas-page-header">
+      <div class="ellipsis">
+        <q-toolbar-title v-if="title" class="text-grey-9 text-h3">
+          {{ title }}
+        </q-toolbar-title>
 
-      <q-breadcrumbs v-if="useBreadcrumbs" class="text-caption" separator-color="grey-7">
-        <q-breadcrumbs-el v-for="(item, index) in transformedBreadcrumbs" :key="item.label" :class="getBreadcrumbsClass(index)" :label="item.label" :to="item.route" />
-      </q-breadcrumbs>
+        <q-breadcrumbs v-if="useBreadcrumbs" class="text-caption" gutter="xs" separator-color="grey-8">
+          <q-breadcrumbs-el v-if="useHomeIcon" class="qas-page-header__breadcrumbs-el text-grey-8" icon="o_home" :to="homeRoute" />
+
+          <q-breadcrumbs-el v-for="(item, index) in normalizedBreadcrumbs" :key="index" class="qas-page-header__breadcrumbs-el" :label="item.label" :to="item.route" />
+        </q-breadcrumbs>
+      </div>
+
+      <slot />
+    </q-toolbar>
+
+    <div>
+      <slot name="bottom">
+        <qas-header-actions v-if="hasHeaderActions" v-bind="headerActionsProps" />
+      </slot>
     </div>
-    <slot />
-  </q-toolbar>
+  </div>
 </template>
 
 <script>
+import QasHeaderActions from '../header-actions/QasHeaderActions.vue'
+
 import { castArray } from 'lodash-es'
 import { useHistory } from '../../composables'
 import { createMetaMixin } from 'quasar'
@@ -22,6 +35,10 @@ const { history } = useHistory()
 
 export default {
   name: 'QasPageHeader',
+
+  components: {
+    QasHeaderActions
+  },
 
   mixins: [
     createMetaMixin(function () {
@@ -37,6 +54,11 @@ export default {
       type: [Array, String]
     },
 
+    headerActionsProps: {
+      default: () => ({}),
+      type: Object
+    },
+
     root: {
       default: '',
       type: [Object, String]
@@ -48,6 +70,11 @@ export default {
     },
 
     useBreadcrumbs: {
+      default: true,
+      type: Boolean
+    },
+
+    useHomeIcon: {
       default: true,
       type: Boolean
     }
@@ -76,15 +103,63 @@ export default {
 
         return item
       })
-    }
-  },
+    },
 
-  methods: {
-    getBreadcrumbsClass (index) {
-      const lastIndex = this.transformedBreadcrumbs.length - 1
+    normalizedBreadcrumbs () {
+      const breadcrumbsSize = this.transformedBreadcrumbs.length
 
-      return lastIndex === index ? 'text-grey-7' : 'text-primary'
+      if (breadcrumbsSize < 5) return this.transformedBreadcrumbs
+
+      const [first, second] = this.transformedBreadcrumbs
+      const last = this.transformedBreadcrumbs.at(-1)
+
+      const beforeLast = {
+        ...this.transformedBreadcrumbs.at(-2),
+        label: '...'
+      }
+
+      return [
+        first,
+        second,
+        beforeLast,
+        last
+      ]
+    },
+
+    hasHeaderActions () {
+      return !!Object.keys(this.headerActionsProps).length
+    },
+
+    homeRoute () {
+      const hasRoot = this.$router.hasRoute('Root')
+
+      return hasRoot ? { name: 'Root' } : '/'
     }
   }
 }
 </script>
+
+<style lang="scss">
+.qas-page-header {
+  &__breadcrumbs-el {
+    transition: color var(--qas-generic-transition);
+
+    &.q-breadcrumbs__el:not(.q-router-link--exact-active):hover {
+      color: var(--qas-primary-contrast) !important;
+    }
+
+    .q-breadcrumbs__el-icon {
+      font-size: 16px;
+    }
+  }
+
+  // aplica cor "grey-8" a todos os .q-breadcrumbs__el que não uma classe .q-breadcrumbs--last como pai
+  .q-breadcrumbs__el:not(.q-breadcrumbs--last .q-breadcrumbs__el) {
+    color: $grey-8;
+  }
+
+  .q-breadcrumbs--last {
+    color: var(--q-primary);
+  }
+}
+</style>

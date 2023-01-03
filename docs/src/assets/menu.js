@@ -130,6 +130,10 @@ module.exports = [
         path: '/components/grid-generator'
       },
       {
+        name: 'HeaderActions',
+        path: '/components/header-actions'
+      },
+      {
         name: 'Input',
         path: '/components/input'
       },
