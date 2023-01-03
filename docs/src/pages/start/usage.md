@@ -22,7 +22,7 @@ O arquivo gerado deve conter as seguintes informações:
 $primary   : #004198;
 $secondary : #1565C0;
 $tertiary  : #c7ceff;
-$accent    : rgba(33, 33, 33, 20%);
+$accent    : rgba(33, 33, 33, 10%);
 $dark      : #424242;
 $positive  : #212121;
 $negative  : #D40000;

@@ -12,7 +12,12 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 
 ## Não publicado
 ### Modificado
-- `QasPageHeader`: mudanças de layout e comportamento, agora caso o breadcrumbs tenha mais de 4 níveis. 
+- `QasPageHeader`: mudanças de layout e comportamento, agora caso o breadcrumbs tenha mais de 4 níveis.
+
+## [3.5.0-beta.11] - 02-01-2023
+### Modificado
+- `shadow.scss`: modificado cor `shadow-2` do quasar.
+- modificado cor `accent` para opacidade de `10%` ao invés de `20%`.
 
 ## [3.5.0-beta.10] - 30-12-2022
 ### Corrigido
@@ -696,3 +701,4 @@ Adicionado suporte para Pinia/Vuex Seguindo os padrões da biblioteca `@bildvitt
 [3.5.0-beta.8]: https://github.com/bildvitta/asteroid/compare/v3.5.0-beta.7...v3.5.0-beta.8?expand=1
 [3.5.0-beta.9]: https://github.com/bildvitta/asteroid/compare/v3.5.0-beta.8...v3.5.0-beta.9?expand=1
 [3.5.0-beta.10]: https://github.com/bildvitta/asteroid/compare/v3.5.0-beta.9...v3.5.0-beta.10?expand=1
+[3.5.0-beta.11]: https://github.com/bildvitta/asteroid/compare/v3.5.0-beta.10...v3.5.0-beta.11?expand=1
