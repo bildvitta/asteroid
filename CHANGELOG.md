@@ -27,6 +27,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 
 ### Corrigido
 - `QasTabsGenerator`: corrigido documentação.
+- `QasTabsGenerator`: agora o model não é alterado internamente ao clicar em uma tab desabilitada.
 
 ### Removido
 - `QasTabsGenerator`: removido propriedades: `activeColor`, `counterProps`, `indicatorColor` e `tabClass` com intuito de padronizar novos estilos.
