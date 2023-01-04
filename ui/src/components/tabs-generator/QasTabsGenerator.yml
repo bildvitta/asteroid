@@ -8,7 +8,7 @@ meta:
 
 props:
   counters:
-    desc: Contador que ficara justo a label "Todos (24)"
+    desc: Contador que ficará junto a label "Todos (24)"
     default: {}
     type: Object
     examples: ["{ all: 24 }"]
