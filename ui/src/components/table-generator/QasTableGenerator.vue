@@ -1,6 +1,6 @@
 <template>
   <qas-box class="q-px-lg q-py-md">
-    <q-table ref="table" class="bg-transparent qas-table-generator" :class="tableClass" v-bind="attributes">
+    <q-table ref="table" class="bg-transparent qas-table-generator text-grey-8" :class="tableClass" table-class="text-body1" v-bind="attributes">
       <template v-for="(_, name) in $slots" #[name]="context">
         <slot v-if="hasBodySlot" name="body" :props="context" />
 
@@ -94,7 +94,8 @@ export default {
           field: name,
           label,
           name,
-          headerClasses: 'text-primary'
+          headerClasses: 'text-grey-9 text-subtitle1',
+          titleClass: 'text-subtitle1'
         })
       }
 
@@ -247,7 +248,32 @@ export default {
 <style lang="scss">
 .qas-table-generator {
   .q-table th {
+    font-size: inherit;
     font-weight: bold;
+  }
+
+  .q-table {
+    td {
+      font-size: inherit;
+    }
+
+    tr {
+      transition: background-color var(--qas-generic-transition);
+
+      &:hover {
+        background-color: $grey-2;
+      }
+    }
+
+    th:first-child,
+    td:first-child {
+      padding-left: 0;
+    }
+
+    // th,
+    td:last-child {
+      padding-right: 0;
+    }
   }
 
   &--mobile {
