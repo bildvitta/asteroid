@@ -13,6 +13,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 ## Não publicado
 ## BREAKING CHANGES:
 - `QasPageHeader`: adicionada nova propriedade `useHomeIcon` que habilita o ícone de início como primeiro nível do breadcrumbs, com default `true` para respeitar novo padrão de design, caso já tenha um nível de "início" declarado no breadcrumbs, remova.
+- `QasGenerator`: removido propriedades: `activeColor`, `counterProps`, `indicatorColor` e `tabClass` com intuito de padronizar novos estilos.
 
 ### Adicionado
 - `QasHeaderActions`: adicionado novo componente para trabalhar com descrição e ações.
@@ -22,6 +23,13 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - `typography.scss`: alterado `font-weight` do `$caption` para `400`.
 - `QasPageHeader`: adicionada nova propriedade `useHomeIcon` que habilita o ícone de início como primeiro nível do breadcrumbs, com default `true` para respeitar novo padrão de design.
 - `QasActionsMenu`: alterado valor default da propriedade `useLabelOnSmallScreen` para `false`.
+- `QasTabsGenerator`: alteração de estilos.
+
+### Corrigido
+- `QasTabsGenerator`: corrigido documentação.
+
+### Removido
+- `QasTabsGenerator`: removido propriedades: `activeColor`, `counterProps`, `indicatorColor` e `tabClass` com intuito de padronizar novos estilos.
 
 ## [3.5.0-beta.11] - 02-01-2023
 ### Modificado

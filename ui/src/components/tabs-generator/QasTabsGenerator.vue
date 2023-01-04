@@ -1,50 +1,44 @@
 <template>
-  <q-tabs v-model="model" :active-color="activeColor" :indicator-color="indicatorColor" outside-arrows>
-    <slot v-for="(tab, key) in formattedTabs" :item="tab" :name="`tab-${tab.value}`">
-      <q-tab :key="key" v-bind="tab" :class="tabClass" :label="tab.label" :name="tab.value">
-        <slot :item="tab" :name="`tab-after-${tab.value}`">
-          <q-badge v-if="counters[tab.value]" :label="counters[tab.value]" v-bind="defaultCounterProps" />
-        </slot>
-      </q-tab>
-    </slot>
-  </q-tabs>
+  <div class="qas-tabs-generator">
+    <q-tabs v-model="model" active-color="primary" align="left" :breakpoint="0" content-class="text-grey-8" dense inline-label left-icon="o_chevron_left" outside-arrows right-icon="o_chevron_right">
+      <slot v-for="(tab, key) in formattedTabs" :item="tab" :name="`tab-${tab.value}`">
+        <q-tab :key="key" v-bind="getTabProps(tab)" class="text-subtitle1" :label="undefined" :name="tab.value" no-caps :ripple="false">
+          <slot :item="tab" :name="`tab-after-${tab.value}`">
+            <q-icon v-if="tab.icon" :name="tab.icon" size="sm" />
+
+            <pv-tabs-generator-status v-if="tab.status" :color="tab.status" />
+
+            <div class="q-ml-xs">
+              {{ getFormattedLabel(tab) }}
+            </div>
+          </slot>
+        </q-tab>
+      </slot>
+    </q-tabs>
+  </div>
 </template>
 
 <script>
+import PvTabsGeneratorStatus from './private/PvTabsGeneratorStatus.vue'
+
 import { extend } from 'quasar'
 
 export default {
   name: 'QasTabsGenerator',
 
+  components: {
+    PvTabsGeneratorStatus
+  },
+
   props: {
-    activeColor: {
-      default: 'primary',
-      type: String
-    },
-
-    counterProps: {
-      default: () => ({}),
-      type: Object
-    },
-
     counters: {
       default: () => ({}),
       type: Object
     },
 
-    indicatorColor: {
-      default: 'primary',
-      type: String
-    },
-
     modelValue: {
       default: '',
       type: [String, Number]
-    },
-
-    tabClass: {
-      default: 'text-primary',
-      type: String
     },
 
     tabs: {
@@ -57,14 +51,6 @@ export default {
   emits: ['update:modelValue'],
 
   computed: {
-    defaultCounterProps () {
-      return {
-        color: 'negative',
-        floating: true,
-        ...this.counterProps
-      }
-    },
-
     formattedTabs () {
       const tabs = extend(true, {}, this.tabs)
 
@@ -83,9 +69,124 @@ export default {
       },
 
       set (value) {
+        const currentTab = Array.isArray(this.tabs)
+          ? this.tabs.find(tab => tab?.value === value)
+          : this.formattedTabs[value]
+
+        if (currentTab?.disabled) return
+
         this.$emit('update:modelValue', value)
       }
+    }
+  },
+
+  methods: {
+    getFormattedLabel ({ label, counter, value }) {
+      const normalizedCount = this.counters[value] || counter
+
+      if (!normalizedCount) return label
+
+      const countString = String(normalizedCount)
+
+      return `${label} (${countString.padStart(2, '0')})`
+    },
+
+    getTabProps (tab) {
+      const { icon, ...payload } = tab
+      return payload
     }
   }
 }
 </script>
+
+<style lang="scss">
+.qas-tabs-generator {
+  .q-tabs {
+    &--scrollable {
+      .q-tab {
+        &:first-child {
+          padding-left: var(--qas-spacing-xs);
+        }
+
+        &:last-child {
+          padding-right: var(--qas-spacing-xs);
+        }
+      }
+    }
+
+    .q-tab {
+      &--inactive {
+        opacity: 1;
+      }
+
+      &__content {
+        position: relative;
+
+        &::before {
+          background: var(--q-primary);
+          bottom: 0;
+          content: '';
+          height: 2px;
+          left: 0;
+          position: absolute;
+          right: 0;
+          transform: scale(0);
+          transition: transform var(--qas-generic-transition);
+        }
+      }
+
+      &--active {
+        .q-tab__content {
+          position: relative;
+
+          &::before {
+            transform: scale(100%);
+          }
+        }
+      }
+
+      &:not(.q-tabs--scrollable .q-tab):first-child {
+        padding-left: 0;
+      }
+
+      &:not(.q-tabs--scrollable .q-tab):last-child {
+        padding-right: 0;
+      }
+
+      &:not(&--active) {
+        transition: color var(--qas-generic-transition);
+
+        &:not([disabled]):hover {
+          color: var(--q-primary-contrast) !important;
+        }
+      }
+
+      &__icon {
+        font-size: 24px;
+      }
+
+      &__arrow--faded {
+        color: $grey-6;
+        opacity: 1 !important;
+      }
+
+      &__indicator {
+        display: none;
+      }
+    }
+
+    &__arrow:not(&--faded) {
+      color: $grey-9;
+      transition: color var(--qas-generic-transition);
+
+      &:hover {
+        color: var(--q-primary-contrast);
+      }
+    }
+  }
+
+  .q-focus-helper {
+    display: none;
+  }
+}
+</style>

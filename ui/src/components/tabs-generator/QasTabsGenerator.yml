@@ -4,39 +4,19 @@ mixins:
   - quasar/dist/api/QTabs.json
 
 meta:
-  desc: Componente para gerar tab dinamicamente, implementa o QTab e Qtabs.
+  desc: Componente para gerar tabs dinamicamente, implementa o QTab e QTabs.
 
 props:
-  active-color:
-    desc: Cor da tab quando ela está ativa.
-    type: String
-    examples: ['primary', 'negative', 'positive']
-
-  counter-props:
-    desc: Contador de cada tags, funciona como um "notificação"
+  counters:
+    desc: Contador que ficara justo a label "Todos (24)"
     default: {}
     type: Object
-    examples: ["{ tab: 2 }"]
-
-  fuse-options:
-    desc: Configurações do [fuse.js](https://fusejs.io/api/options.html).
-    default: { keys: ['label'] }
-    type: Object
-
-  indicator-color:
-    desc: Cor do indicador.
-    default: primary
-    type: String
+    examples: ["{ all: 24 }"]
 
   model-value:
     desc: Model do componente, controla qual é a tab atual selecionada.
     type: [String, Number]
     model: true
-
-  tab-class:
-    desc: Classe do QTab
-    default: text-primary
-    type: String
 
   tabs:
     desc: Objeto ou Array contendo todas as tabs a serem geradas.
