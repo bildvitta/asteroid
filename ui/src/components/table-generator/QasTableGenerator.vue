@@ -251,6 +251,13 @@ export default {
       @include set-typography($subtitle1);
     }
 
+    td,
+    th,
+    thead,
+    tr {
+      border-color: $grey-4;
+    }
+
     td {
       @include set-typography($body1);
     }
