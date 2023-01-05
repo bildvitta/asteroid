@@ -23,6 +23,10 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - `QasPageHeader`: adicionada nova propriedade `useHomeIcon` que habilita o ícone de início como primeiro nível do breadcrumbs, com default `true` para respeitar novo padrão de design.
 - `QasActionsMenu`: alterado valor default da propriedade `useLabelOnSmallScreen` para `false`.
 
+## Não publicado
+### Adicionado
+- `QasDateTimeInput`: adicionado validações de datas invalidas.
+
 ## [3.5.0-beta.11] - 02-01-2023
 ### Modificado
 - `shadow.scss`: modificado cor `shadow-2` do quasar.

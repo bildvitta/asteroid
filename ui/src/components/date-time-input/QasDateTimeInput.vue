@@ -1,5 +1,5 @@
 <template>
-  <qas-input ref="input" v-bind="attributes" v-model="currentValue" :unmasked-value="false" @update:model-value="updateModelValue">
+  <qas-input ref="input" v-bind="attributes" v-model="currentValue" :unmasked-value="false" @blur="validateDateTimeOnBlur" @focus="resetError" @update:model-value="updateModelValue">
     <template #append>
       <q-icon v-if="!useTimeOnly" class="cursor-pointer" name="o_event">
         <q-popup-proxy ref="dateProxy" transition-hide="scale" transition-show="scale">
@@ -69,6 +69,8 @@ export default {
   data () {
     return {
       currentValue: '',
+      error: false,
+      errorMessage: '',
       lastValue: ''
     }
   },
@@ -78,6 +80,8 @@ export default {
       const { modelValue, ...attributes } = this.$attrs
 
       return {
+        error: this.error,
+        errorMessage: this.errorMessage,
         ...attributes,
         mask: this.mask
       }
@@ -111,6 +115,10 @@ export default {
       if (current !== original && current !== this.lastValue) {
         this.currentValue = this.toMask(current)
       }
+    },
+
+    error (hasError) {
+      this.errorMessage = hasError ? 'Data inválida.' : ''
     }
   },
 
@@ -131,6 +139,10 @@ export default {
       this.currentValue = value
       const valueLength = value?.replace?.(/_/g, '')?.length
 
+      this.error = this.hasErrorOnDateOrTime(value)
+
+      if (this.error) return
+
       if (value === '' || valueLength === this.mask.length) {
         this.lastValue = this.useTimeOnly ? value : this.toISOString(value)
         this.$emit('update:modelValue', this.lastValue)
@@ -146,9 +158,7 @@ export default {
     },
 
     toISOString (value) {
-      if (!value) {
-        return ''
-      }
+      if (!value) return ''
 
       if (this.useDateOnly && !this.useIso) {
         return dateFn(date.extractDate(value, this.maskDate), 'yyyy-MM-dd')
@@ -172,6 +182,37 @@ export default {
         this.useDateOnly ? newDate.slice(0, 23) : newDate,
         this.maskDate
       )
+    },
+
+    validateDateTimeOnBlur () {
+      const valueLength = this.currentValue?.replace?.(/_/g, '')?.length
+
+      this.error = !!((valueLength < this.mask.length || this.error) && valueLength)
+
+      if (this.error) {
+        this.currentValue = ''
+        this.$emit('update:modelValue', '')
+      }
+    },
+
+    hasErrorOnDateOrTime (value) {
+      if (!value) return false
+
+      if (this.useTimeOnly) {
+        const [hour, minute] = value.split(':')
+
+        return hour > 23 || minute > 59
+      }
+
+      const [day, month] = value.split('/')
+
+      return day > 31 || month > 12
+    },
+
+    resetError () {
+      if (!this.currentValue) {
+        this.error = false
+      }
     }
   }
 }
