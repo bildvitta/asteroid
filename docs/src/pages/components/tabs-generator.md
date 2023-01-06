@@ -25,13 +25,13 @@ const tabs = [
   {
     label: 'Tab 1',
     value: 'tab1',
-    icon: 'o_person',
+    icon: 'sym_r_person',
     counter: 2
   },
   {
     label: 'Tab 2',
     value: 'tab2',
-    icon: 'o_person',
+    icon: 'sym_r_person',
     counter: 5
   },
 ]
@@ -43,12 +43,12 @@ const tabs = [
   {
     label: 'Tab 1',
     value: 'tab1',
-    icon: 'o_person'
+    icon: 'sym_r_person'
   },
   {
     label: 'Tab 2',
     value: 'tab2',
-    icon: 'o_person'
+    icon: 'sym_r_person'
   },
 ]
 

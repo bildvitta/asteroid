@@ -24,61 +24,61 @@ export default {
         {
           label: 'Tab 1',
           value: 'tab1',
-          icon: 'o_person',
+          icon: 'sym_r_person',
           counter: 10
         },
         {
           label: 'Tab 2',
           value: 'tab2',
-          icon: 'o_person',
+          icon: 'sym_r_person',
           counter: 10
         },
         {
           label: 'Tab 3',
           value: 'tab3',
-          icon: 'o_person',
+          icon: 'sym_r_person',
           counter: 10
         },
         {
           label: 'Tab 4',
           value: 'tab4',
-          icon: 'o_person',
+          icon: 'sym_r_person',
           counter: 10
         },
         {
           label: 'Tab 5',
           value: 'tab5',
-          icon: 'o_person',
+          icon: 'sym_r_person',
           counter: 10
         },
         {
           label: 'Tab 6',
           value: 'tab6',
-          icon: 'o_person',
+          icon: 'sym_r_person',
           counter: 10
         },
         {
           label: 'Tab 7',
           value: 'tab7',
-          icon: 'o_person',
+          icon: 'sym_r_person',
           counter: 10
         },
         {
           label: 'Tab 8',
           value: 'tab8',
-          icon: 'o_person',
+          icon: 'sym_r_person',
           counter: 10
         },
         {
           label: 'Tab 9',
           value: 'tab9',
-          icon: 'o_person',
+          icon: 'sym_r_person',
           counter: 10
         },
         {
           label: 'Tab 10',
           value: 'tab10',
-          icon: 'o_person',
+          icon: 'sym_r_person',
           counter: 10
         }
       ]
