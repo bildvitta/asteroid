@@ -16,7 +16,7 @@ export default {
     list () {
       return {
         visibility: {
-          icon: 'o_visibility',
+          icon: 'sym_r_visibility',
           label: 'Visualizar',
           handler: () => alert('handler ativado')
         }

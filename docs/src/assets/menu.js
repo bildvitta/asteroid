@@ -1,12 +1,12 @@
 module.exports = [
   {
-    icon: 'room',
+    icon: 'sym_r_room',
     name: 'Por que o Asteroid existe?',
     path: '/why-asteroid'
   },
 
   {
-    icon: 'flight_takeoff',
+    icon: 'sym_r_flight_takeoff',
     name: 'Começando',
     children: [
       {
@@ -29,7 +29,7 @@ module.exports = [
   },
 
   {
-    icon: 'widgets',
+    icon: 'sym_r_widgets',
     name: 'Componentes',
 
     children: [
@@ -249,7 +249,7 @@ module.exports = [
   },
 
   {
-    icon: 'settings_input_hdmi',
+    icon: 'sym_r_settings_input_hdmi',
     name: 'Plugins',
     children: [
       {
@@ -276,7 +276,7 @@ module.exports = [
   },
 
   {
-    icon: 'healing',
+    icon: 'sym_r_healing',
     name: 'Utilitários',
     children: [
       {
@@ -363,7 +363,7 @@ module.exports = [
   },
 
   {
-    icon: 'palette',
+    icon: 'sym_r_palette',
     name: 'Estilos',
     children: [
       {
@@ -402,7 +402,7 @@ module.exports = [
   },
 
   {
-    icon: 'add_to_photos',
+    icon: 'sym_r_add_to_photos',
     name: 'Composição',
     children: [
       {

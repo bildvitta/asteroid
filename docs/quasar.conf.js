@@ -43,7 +43,7 @@ module.exports = configure(function (quasar) {
     extras: [
       'roboto-font',
       'material-icons',
-      'material-icons-outlined'
+      'material-symbols-rounded'
     ],
 
     // Full list of options: https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-build

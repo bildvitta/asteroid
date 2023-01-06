@@ -21,13 +21,13 @@ props:
 
   button-destroy-props:
     desc: Props do botão de excluir linha contendo os campos.
-    default: "{ label: 'Excluir', icon: 'o_delete', flat: true, dense: true }"
+    default: "{ label: 'Excluir', icon: 'sym_r_delete', flat: true, dense: true }"
     debugger: true
     type: Object
 
   button-duplicate-props:
     desc: Props do botão de duplicar linha contendo os campos.
-    default: "{ label: 'Duplicar', o_content_copy, flat: true, dense: true, useLabelOnSmallScreen: false }"
+    default: "{ label: 'Duplicar', sym_r_content_copy, flat: true, dense: true, useLabelOnSmallScreen: false }"
     debugger: true
     type: Object
 

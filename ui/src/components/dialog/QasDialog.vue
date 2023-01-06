@@ -5,7 +5,7 @@
         <slot name="header">
           <div class="justify-between row">
             <div class="text-bold text-h6">{{ card.title }}</div>
-            <qas-btn v-if="useCloseButton" v-close-popup dense flat icon="o_close" rounded />
+            <qas-btn v-if="useCloseButton" v-close-popup dense flat icon="sym_r_close" rounded />
           </div>
         </slot>
       </q-card-section>

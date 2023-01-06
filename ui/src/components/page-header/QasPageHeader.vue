@@ -7,7 +7,7 @@
         </q-toolbar-title>
 
         <q-breadcrumbs v-if="useBreadcrumbs" class="text-caption" gutter="xs" separator-color="grey-8">
-          <q-breadcrumbs-el v-if="useHomeIcon" class="qas-page-header__breadcrumbs-el text-grey-8" icon="o_home" :to="homeRoute" />
+          <q-breadcrumbs-el v-if="useHomeIcon" class="qas-page-header__breadcrumbs-el text-grey-8" icon="sym_r_home" :to="homeRoute" />
 
           <q-breadcrumbs-el v-for="(item, index) in normalizedBreadcrumbs" :key="index" class="qas-page-header__breadcrumbs-el" :label="item.label" :to="item.route" />
         </q-breadcrumbs>

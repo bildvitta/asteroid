@@ -1,7 +1,7 @@
 <template>
   <div ref="signatureContainer" class="qas-signature-pad relative-position">
     <canvas :id="canvasId" :ref="$attrs.ref" class="qas-signature-pad__canvas rounded-borders vertical-bottom" :height="height" />
-    <qas-btn v-if="!empty" class="absolute-bottom-right q-mb-sm q-mr-sm" color="primary" dense icon="o_delete" round @click="clearSignature" />
+    <qas-btn v-if="!empty" class="absolute-bottom-right q-mb-sm q-mr-sm" color="primary" dense icon="sym_r_delete" round @click="clearSignature" />
   </div>
 
   <div>

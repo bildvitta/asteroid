@@ -36,7 +36,7 @@ export default {
           list: {
             add: {
               label: 'Novo usuário',
-              icon: 'o_add'
+              icon: 'sym_r_add'
             }
           }
         }

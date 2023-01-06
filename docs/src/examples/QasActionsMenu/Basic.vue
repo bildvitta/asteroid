@@ -10,12 +10,12 @@ export default {
     list () {
       return {
         visibility: {
-          icon: 'o_visibility',
+          icon: 'sym_r_visibility',
           label: 'Visualizar',
           handler: () => alert('handler ativado')
         },
         edit: {
-          icon: 'o_create',
+          icon: 'sym_r_create',
           label: 'Editar',
           handler: () => alert('handler ativado')
         }

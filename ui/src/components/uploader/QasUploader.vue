@@ -13,13 +13,13 @@
               </div>
             </div>
 
-            <qas-btn v-if="showAddFile" ref="buttonUpload" color="white" dense flat icon="o_add" round @click="$refs.hiddenInput.click()" />
+            <qas-btn v-if="showAddFile" ref="buttonUpload" color="white" dense flat icon="sym_r_add" round @click="$refs.hiddenInput.click()" />
 
             <input ref="hiddenInput" :accept="attributes.accept" class="qas-uploader__input" :multiple="isMultiple" type="file">
 
             <qas-btn ref="buttonCleanFiles" class="hidden" color="white" @click="scope.removeUploadedFiles" />
-            <qas-btn v-if="scope.canUpload" color="white" dense flat icon="o_cloud_upload" round @click="scope.upload" />
-            <qas-btn v-if="scope.isUploading" color="white" dense flat icon="o_clear" round @click="scope.abort" />
+            <qas-btn v-if="scope.canUpload" color="white" dense flat icon="sym_r_cloud_upload" round @click="scope.upload" />
+            <qas-btn v-if="scope.isUploading" color="white" dense flat icon="sym_r_clear" round @click="scope.abort" />
           </div>
         </slot>
       </template>
@@ -28,7 +28,7 @@
         <slot name="list" :scope="scope">
           <div class="col-12 q-col-gutter-md row">
             <div v-for="(file, index) in getFilesList(scope.files, scope)" :key="index" class="row" :class="itemClass">
-              <qas-avatar class="q-mr-sm" color="contrast-primary" icon="o_attach_file" :image="file.url" rounded :text-color="getColorFileIcon(file)" />
+              <qas-avatar class="q-mr-sm" color="primary" icon="sym_r_attach_file" :image="file.url" rounded :text-color="getColorFileIcon(file)" />
 
               <div class="col items-center no-wrap row">
                 <div class="column no-wrap" :class="{ col: isMultiple }">
@@ -36,8 +36,8 @@
                   <div v-if="file.isUploaded" class="text-caption">{{ file.progressLabel }} ({{ file.sizeLabel }})</div>
                 </div>
                 <div class="items-center q-ml-sm row">
-                  <q-icon v-if="file.isFailed" color="negative" name="o_warning" size="20px" />
-                  <qas-btn v-if="!scope.readonly" dense flat icon="o_delete" round @click="removeItem(index, scope, file)" />
+                  <q-icon v-if="file.isFailed" color="negative" name="sym_r_warning" size="20px" />
+                  <qas-btn v-if="!scope.readonly" dense flat icon="sym_r_delete" round @click="removeItem(index, scope, file)" />
                 </div>
               </div>
             </div>
@@ -49,7 +49,7 @@
     <slot :context="self" name="custom-upload" />
 
     <template v-if="hasErrorMessage" #after>
-      <q-icon color="negative" name="o_error" />
+      <q-icon color="negative" name="sym_r_error" />
     </template>
   </q-field>
 </template>
@@ -370,7 +370,7 @@ export default {
     },
 
     getColorFileIcon (file) {
-      return this.isFailed(file) ? 'negative' : 'primary'
+      return this.isFailed(file) ? 'negative' : 'white'
     },
 
     async addFiles () {

@@ -14,7 +14,7 @@
             <div v-if="useDestroy">
               <slot :destroy="onDestroy" :image="image" :index="index" name="destroy">
                 <qas-btn color="grey-9" dense :disabled="isDestroyDisabled(image)" flat round size="sm" @click="onDestroy(image, index)">
-                  <q-icon name="o_delete" size="xs" />
+                  <q-icon name="sym_r_delete" size="xs" />
                 </qas-btn>
               </slot>
             </div>
@@ -58,12 +58,12 @@ export default {
   props: {
     carouselNextIcon: {
       type: String,
-      default: 'o_chevron_right'
+      default: 'sym_r_chevron_right'
     },
 
     carouselPreviousIcon: {
       type: String,
-      default: 'o_chevron_left'
+      default: 'sym_r_chevron_left'
     },
 
     initialSize: {

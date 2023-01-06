@@ -2,7 +2,7 @@
   <qas-list-view v-model:fields="fields" v-model:results="results" :before-fetch="onBeforeFetch" :entity="entity">
     <template #header>
       <qas-page-header title="Lista de materiais" :use-breadcrumbs="false">
-        <qas-btn hide-mobile-label icon="o_add" label="Novo [item]" />
+        <qas-btn hide-mobile-label icon="sym_r_add" label="Novo [item]" />
       </qas-page-header>
     </template>
 
@@ -13,7 +13,7 @@
         </template>
         <template #body-cell-actions>
           <div class="flex justify-end no-wrap q-gutter-x-sm">
-            <qas-btn dense flat icon="o_edit" rounded size="sm" />
+            <qas-btn dense flat icon="sym_r_edit" rounded size="sm" />
           </div>
         </template>
       </qas-table-generator>

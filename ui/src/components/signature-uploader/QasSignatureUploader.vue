@@ -7,7 +7,7 @@
             <div v-if="uploadLabel" class="q-uploader__title">{{ uploadLabel }}</div>
           </div>
 
-          <qas-btn v-if="!readonly" color="white" dense flat icon="o_add" round @click="openDialog" />
+          <qas-btn v-if="!readonly" color="white" dense flat icon="sym_r_add" round @click="openDialog" />
 
           <qas-btn ref="forceUpload" class="hidden" @click="upload(scope)" />
           <qas-btn ref="buttonCleanFiles" class="hidden" @click="scope.removeUploadedFiles" />

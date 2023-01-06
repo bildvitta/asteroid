@@ -18,7 +18,7 @@ props:
 
   icon:
     desc: Ícone de fundo do avatar que vai aparecer caso não tenha imagem nem título.
-    default: o_error
+    default: sym_r_error
     type: String
 
   image:

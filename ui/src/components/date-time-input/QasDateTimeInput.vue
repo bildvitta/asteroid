@@ -1,13 +1,13 @@
 <template>
   <qas-input ref="input" v-bind="attributes" v-model="currentValue" :unmasked-value="false" @blur="validateDateTimeOnBlur" @focus="resetError" @update:model-value="updateModelValue">
     <template #append>
-      <q-icon v-if="!useTimeOnly" class="cursor-pointer" name="o_event">
+      <q-icon v-if="!useTimeOnly" class="cursor-pointer" name="sym_r_event">
         <q-popup-proxy ref="dateProxy" transition-hide="scale" transition-show="scale">
           <q-date v-model="currentValue" v-bind="dateProps" :mask="maskDate" @update:model-value="updateModelValue" />
         </q-popup-proxy>
       </q-icon>
 
-      <q-icon v-if="!useDateOnly" class="cursor-pointer q-ml-md" name="o_access_time">
+      <q-icon v-if="!useDateOnly" class="cursor-pointer q-ml-md" name="sym_r_access_time">
         <q-popup-proxy ref="timeProxy" transition-hide="scale" transition-show="scale">
           <q-time v-model="currentValue" v-bind="timeProps" format24h :mask="maskDate" @update:model-value="updateModelValue" />
         </q-popup-proxy>

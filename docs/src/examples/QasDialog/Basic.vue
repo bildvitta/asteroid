@@ -17,6 +17,7 @@ export default {
   computed: {
     dialogProps () {
       return {
+        useCloseButton: true,
         card: {
           title: 'Título do Dialog',
           description: 'Descrição do Dialog'

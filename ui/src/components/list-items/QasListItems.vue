@@ -34,7 +34,7 @@ export default {
 
   props: {
     iconProps: {
-      default: () => ({ color: 'primary', name: 'o_chevron_right' }),
+      default: () => ({ color: 'primary', name: 'sym_r_chevron_right' }),
       type: Object
     },
 
