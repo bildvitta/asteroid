@@ -13,7 +13,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 ## Não publicado
 ## BREAKING CHANGES:
 - `QasPageHeader`: adicionada nova propriedade `useHomeIcon` que habilita o ícone de início como primeiro nível do breadcrumbs, com default `true` para respeitar novo padrão de design, caso já tenha um nível de "início" declarado no breadcrumbs, remova.
-- - `ícones`: modificado biblioteca de ícones para `material-symbols-rounded`, agora é necessário alterar o prefixo dos ícones de `o_` para `sym_r_`.
+- - `icons`: modificado biblioteca de ícones para `material-symbols-rounded`, agora é necessário alterar o prefixo dos ícones de `o_` para `sym_r_`.
 
 ### Adicionado
 - `QasHeaderActions`: adicionado novo componente para trabalhar com descrição e ações.
@@ -24,7 +24,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - `QasPageHeader`: adicionada nova propriedade `useHomeIcon` que habilita o ícone de início como primeiro nível do breadcrumbs, com default `true` para respeitar novo padrão de design.
 - `QasActionsMenu`: alterado valor default da propriedade `useLabelOnSmallScreen` para `false`.
 - `QasDateTimeInput`: adicionado validações para datas invalidas.
-- `ícones`: modificado biblioteca de ícones para `material-symbols-rounded`, agora é necessário alterar o prefixo dos ícones de `o_` para `sym_r_`.
+- `icons`: modificado biblioteca de ícones para `material-symbols-rounded`, agora é necessário alterar o prefixo dos ícones de `o_` para `sym_r_`.
 
 ### Corrigido
 - `QasUploader`: corrigido propriedade `color` do `QasAvatar` dentro do uploader.
