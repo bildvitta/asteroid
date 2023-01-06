@@ -112,7 +112,7 @@ export default {
       return {
         clearable: true,
         disable: this.isDisabled,
-        debounce: this.useLazyLoading ? 800 : 0,
+        debounce: this.useLazyLoading ? 1200 : 0,
         outlined: true,
         placeholder: this.placeholder,
         hideBottomSpace: true,

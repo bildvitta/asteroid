@@ -162,7 +162,7 @@ export default {
     },
 
     debounce () {
-      return this.useSearchOnType ? '800' : ''
+      return this.useSearchOnType ? '1200' : ''
     },
 
     fields () {

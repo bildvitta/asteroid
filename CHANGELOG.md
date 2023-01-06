@@ -30,13 +30,13 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - `QasPagination`: modificado cor das paginas para `grey-8` e cor dos ícones de setas para `grey-9`.
 - `QasDateTimeInput`: adicionado validações para datas invalidas.
 - `icons`: modificado biblioteca de ícones para `material-symbols-rounded`, agora é necessário alterar o prefixo dos ícones de `o_` para `sym_r_`.
-
-### Corrigido
-- `QasUploader`: corrigido propriedade `color` do `QasAvatar` dentro do uploader.
+- [`QasFilters`, `QasSearchBox`]: alterado debounce de `800ms` para `1200ms`.
+- `QasSelect`: alterado debounce de `500ms` (default) para `1200ms` e quando não tem `useLazyLoading` removido o debounce.
 
 ### Corrigido
 - `QasTabsGenerator`: corrigido documentação.
 - `QasTabsGenerator`: agora o model não é alterado internamente ao clicar em uma tab desabilitada.
+- `QasUploader`: corrigido propriedade `color` do `QasAvatar` dentro do uploader.
 
 ### Removido
 - `QasTabsGenerator`: removido propriedades: `activeColor`, `counterProps`, `indicatorColor` e `tabClass` com intuito de padronizar novos estilos.
