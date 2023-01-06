@@ -17,6 +17,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 
 ### Adicionado
 - `QasHeaderActions`: adicionado novo componente para trabalhar com descrição e ações.
+- `set-typography.scss`: adicionado novo mixin para setar estilos de tipografia quando não é possível através das classes do quasar.
 
 ### Modificado
 - `QasPageHeader`: mudanças de layout e comportamento, agora caso o breadcrumbs tenha mais de 4 níveis é adicionado uma label "...".
@@ -24,6 +25,9 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - `QasPageHeader`: adicionada nova propriedade `useHomeIcon` que habilita o ícone de início como primeiro nível do breadcrumbs, com default `true` para respeitar novo padrão de design.
 - `QasActionsMenu`: alterado valor default da propriedade `useLabelOnSmallScreen` para `false`.
 - `QasTabsGenerator`: alteração de estilos.
+- `QasTableGenerator`: modificado cores e fontes.
+- `QasPagination`: modificado cor das paginas para `grey-8` e cor dos ícones de setas para `grey-9`.
+- `QasDateTimeInput`: adicionado validações para datas invalidas.
 
 ### Corrigido
 - `QasTabsGenerator`: corrigido documentação.
