@@ -91,12 +91,13 @@ export default {
         outlined: true,
         ...this.$attrs,
 
+        error: this.hasError,
+        inputDebounce: this.useLazyLoading ? 800 : 0,
+        loading: this.hasLoading,
         options: this.mx_filteredOptions,
         useInput: this.isSearchable,
-        error: this.hasError,
-        loading: this.hasLoading,
-        ...(this.useLazyLoading && { onVirtualScroll: this.mx_onVirtualScroll }),
-        ...(this.isSearchable && { onFilter: this.onFilter })
+        ...(this.isSearchable && { onFilter: this.onFilter }),
+        ...(this.useLazyLoading && { onVirtualScroll: this.mx_onVirtualScroll })
       }
     },
 

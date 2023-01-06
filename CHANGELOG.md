@@ -24,6 +24,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - `QasActionsMenu`: alterado valor default da propriedade `useLabelOnSmallScreen` para `false`.
 - `QasDateTimeInput`: adicionado validações para datas invalidas.
 - [`QasFilters`, `QasSearchBox`]: alterado debounce de `800ms` para `1200ms`.
+- `QasSelect`: alterado debounce de `500ms` (default) para `1200ms` e quando não tem `useLazyLoading` removido o debounce.
 
 ## [3.5.0-beta.11] - 02-01-2023
 ### Modificado
