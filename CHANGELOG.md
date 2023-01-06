@@ -28,6 +28,8 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - `QasTableGenerator`: modificado cores e fontes.
 - `QasPagination`: modificado cor das paginas para `grey-8` e cor dos ícones de setas para `grey-9`.
 - `QasDateTimeInput`: adicionado validações para datas invalidas.
+- [`QasFilters`, `QasSearchBox`]: alterado debounce de `800ms` para `1200ms`.
+- `QasSelect`: alterado debounce de `500ms` (default) para `1200ms` e quando não tem `useLazyLoading` removido o debounce.
 
 ### Corrigido
 - `QasTabsGenerator`: corrigido documentação.
