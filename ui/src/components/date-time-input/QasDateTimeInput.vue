@@ -71,6 +71,7 @@ export default {
       currentValue: '',
       error: false,
       errorMessage: '',
+      hasInvalidDate: false,
       lastValue: ''
     }
   },
@@ -115,10 +116,6 @@ export default {
       if (current !== original && current !== this.lastValue) {
         this.currentValue = this.toMask(current)
       }
-    },
-
-    error (hasError) {
-      this.errorMessage = hasError ? 'Data inválida.' : ''
     }
   },
 
@@ -139,9 +136,15 @@ export default {
       this.currentValue = value
       const valueLength = value?.replace?.(/_/g, '')?.length
 
-      this.error = this.hasErrorOnDateOrTime(value)
+      this.error = this.validateDateAndTime(value)
 
-      if (this.error) return
+      if (this.error) {
+        this.hasInvalidDate = true
+        this.errorMessage = 'Data inválida.'
+        return
+      }
+
+      this.hasInvalidDate = false
 
       if (value === '' || valueLength === this.mask.length) {
         this.lastValue = this.useTimeOnly ? value : this.toISOString(value)
@@ -187,26 +190,43 @@ export default {
     validateDateTimeOnBlur () {
       const valueLength = this.currentValue?.replace?.(/_/g, '')?.length
 
+      // valida se o tamanho digitado é o tamanho que a mascara espera receber
       this.error = !!((valueLength < this.mask.length || this.error) && valueLength)
 
-      if (this.error) {
+      if (this.error && !this.hasInvalidDate) {
+        this.errorMessage = 'Data incompleta.'
+      }
+
+      if (this.hasInvalidDate) {
         this.currentValue = ''
+      }
+
+      if (this.error || this.hasInvalidDate) {
         this.$emit('update:modelValue', '')
       }
     },
 
-    hasErrorOnDateOrTime (value) {
+    validateDateAndTime (value) {
       if (!value) return false
 
-      if (this.useTimeOnly) {
-        const [hour, minute] = value.split(':')
+      if (this.useDateOnly) return this.validateDateOnly(value)
+      if (this.useTimeOnly) return this.validateTimeOnly(value)
 
-        return hour > 23 || minute > 59
-      }
+      const [date, time] = value?.split(' ')
 
+      return this.validateDateOnly(date) || this.validateTimeOnly(time)
+    },
+
+    validateDateOnly (value = '') {
       const [day, month] = value.split('/')
 
       return day > 31 || month > 12
+    },
+
+    validateTimeOnly (value = '') {
+      const [hour, minute] = value.split(':')
+
+      return hour > 23 || minute > 59
     },
 
     resetError () {
