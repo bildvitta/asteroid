@@ -92,7 +92,7 @@ export default {
         ...this.$attrs,
 
         error: this.hasError,
-        inputDebounce: this.useLazyLoading ? 800 : 0,
+        inputDebounce: this.useLazyLoading ? 1200 : 0,
         loading: this.hasLoading,
         options: this.mx_filteredOptions,
         useInput: this.isSearchable,
