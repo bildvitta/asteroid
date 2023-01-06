@@ -8,7 +8,7 @@
         </template>
         <template #body-cell-actions="{ row }">
           <div class="flex justify-end no-wrap q-gutter-x-sm">
-            <qas-delete :custom-id="row.uuid" dense entity="users" flat icon="o_delete" rounded />
+            <qas-delete :custom-id="row.uuid" dense entity="users" flat icon="sym_r_delete" rounded />
           </div>
         </template>
       </qas-table-generator>

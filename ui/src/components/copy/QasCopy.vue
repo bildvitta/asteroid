@@ -16,7 +16,7 @@ export default {
 
   props: {
     icon: {
-      default: 'o_file_copy',
+      default: 'sym_r_file_copy',
       type: String
     },
 

@@ -25,7 +25,7 @@ export default {
     },
 
     icon: {
-      default: 'o_error',
+      default: 'sym_r_error',
       type: String
     },
 

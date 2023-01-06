@@ -1,6 +1,6 @@
 <template>
   <div class="qas-tabs-generator">
-    <q-tabs v-model="model" active-color="primary" align="left" :breakpoint="0" content-class="text-grey-8" dense inline-label left-icon="o_chevron_left" outside-arrows right-icon="o_chevron_right">
+    <q-tabs v-model="model" active-color="primary" align="left" :breakpoint="0" content-class="text-grey-8" dense inline-label left-icon="sym_r_chevron_left" outside-arrows right-icon="sym_r_chevron_right">
       <slot v-for="(tab, key) in formattedTabs" :item="tab" :name="`tab-${tab.value}`">
         <q-tab :key="key" v-bind="getTabProps(tab)" class="text-body1" :name="tab.value" no-caps :ripple="false">
           <slot :item="tab" :name="`tab-after-${tab.value}`">

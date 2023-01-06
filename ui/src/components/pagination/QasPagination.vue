@@ -14,9 +14,11 @@ export default {
         activeColor: 'primary',
         activeDesign: 'flat',
         boundaryNumbers: true,
-        color: 'grey-8',
         class: 'qas-pagination',
+        color: 'grey-8',
         directionLinks: true,
+        iconNext: 'sym_r_chevron_right',
+        iconPrev: 'sym_r_chevron_left',
         maxPages: modelValue < 3 ? 3 : 6,
         modelValue,
 

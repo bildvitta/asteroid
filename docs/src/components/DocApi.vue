@@ -7,7 +7,7 @@
 
       <q-input v-model="search" borderless dense input-class="text-right" placeholder="Buscar..." type="search">
         <template #append>
-          <q-btn dense flat icon="search" />
+          <q-btn dense flat icon="sym_r_search" />
         </template>
       </q-input>
     </q-toolbar>

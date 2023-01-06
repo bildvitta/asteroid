@@ -34,7 +34,7 @@ register(process.env.SERVICE_WORKER_FILE, {
       message: 'Conteúdo atualizado disponível. Por favor atualize a pagina.',
       timeout: 0,
       multiLine: true,
-      icon: 'o_cached',
+      icon: 'sym_r_cached',
       position: 'top',
       actions: [
         {

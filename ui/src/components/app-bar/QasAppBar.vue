@@ -1,7 +1,7 @@
 <template>
   <q-header class="qas-app-bar shadow-2" height-hint="56">
     <q-toolbar class="bg-white qas-app-bar__toolbar text-grey-9">
-      <qas-btn color="grey-7" dense flat icon="o_menu" round @click="toggleMenuDrawer" />
+      <qas-btn color="grey-7" dense flat icon="sym_r_menu" round @click="toggleMenuDrawer" />
 
       <q-toolbar-title>
         <router-link class="flex items-center no-wrap text-no-decoration" :to="rootRoute">

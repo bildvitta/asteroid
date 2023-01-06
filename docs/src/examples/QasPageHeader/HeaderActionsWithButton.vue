@@ -30,7 +30,7 @@ export default {
       return {
         text: 'Algum texto de exemplo para ficar ao lado do botão de adicionar.',
         buttonProps: {
-          icon: 'o_add',
+          icon: 'sym_r_add',
           label: 'Novo usuário'
         }
       }

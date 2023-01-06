@@ -20,7 +20,7 @@
         <q-list class="q-mt-sm">
           <q-item v-close-popup :active="false" class="qas-app-user__menu-item" clickable :to="user.to">
             <q-item-section avatar>
-              <q-icon name="o_person" size="20px" />
+              <q-icon name="sym_r_person" size="20px" />
             </q-item-section>
 
             <q-item-section>Editar</q-item-section>
@@ -28,7 +28,7 @@
 
           <q-item v-if="hasNotifications" v-close-popup class="qas-app-user__menu-item" clickable>
             <q-item-section avatar>
-              <q-icon name="o_notifications" size="20px" />
+              <q-icon name="sym_r_notifications" size="20px" />
             </q-item-section>
 
             <q-item-section>Notificações</q-item-section>
@@ -40,7 +40,7 @@
 
           <q-item v-close-popup class="qas-app-user__menu-item" clickable @click="signOut">
             <q-item-section avatar>
-              <q-icon name="o_logout" size="20px" />
+              <q-icon name="sym_r_logout" size="20px" />
             </q-item-section>
 
             <q-item-section>Sair</q-item-section>

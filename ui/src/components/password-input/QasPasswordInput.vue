@@ -58,7 +58,7 @@ export default {
 
   computed: {
     icon () {
-      return this.toggleType ? 'o_visibility_off' : 'o_visibility'
+      return this.toggleType ? 'sym_r_visibility_off' : 'sym_r_visibility'
     },
 
     model: {

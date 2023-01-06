@@ -34,7 +34,7 @@ export default {
 
   props: {
     icon: {
-      default: 'o_more_vert',
+      default: 'sym_r_more_vert',
       type: String
     },
 
@@ -55,7 +55,7 @@ export default {
 
     deleteIcon: {
       type: String,
-      default: 'o_delete'
+      default: 'sym_r_delete'
     },
 
     deleteProps: {

@@ -130,7 +130,7 @@ export default {
       return {
         dense: this.$qas.screen.isSmall,
         useLabelOnSmallScreen: false,
-        icon: !this.$qas.screen.isSmall ? undefined : isSelected ? 'o_close' : 'o_add',
+        icon: !this.$qas.screen.isSmall ? undefined : isSelected ? 'sym_r_close' : 'sym_r_add',
         label: isSelected ? 'Remover' : 'Adicionar',
         outline: isSelected,
         size: 'sm'

@@ -1,7 +1,7 @@
 <template>
   <q-select v-model="model" v-bind="attributes">
     <template v-if="isSearchable" #prepend>
-      <q-icon name="o_search" />
+      <q-icon name="sym_r_search" />
     </template>
 
     <template #no-option>

@@ -6,7 +6,7 @@ meta:
 props:
   delete-icon:
     desc: Ícone do botão de deletar.
-    default: o_delete
+    default: sym_r_delete
     type: String
 
   delete-label:
@@ -21,7 +21,7 @@ props:
 
   icon:
     desc: Ícone do botão.
-    default: o_more_vert
+    default: sym_r_more_vert
     type: String
     examples: [start, end, between, around, center]
 
@@ -32,7 +32,7 @@ props:
     examples: [
       "{
         delete: {
-          icon: 'o_visibility',
+          icon: 'sym_r_visibility',
           label: 'Visualizar',
           handler: () => alert('handler ativado')
         }
@@ -56,7 +56,7 @@ slots:
         examples: [
           "
           {
-            icon: 'o_delete',
+            icon: 'sym_r_delete',
             label: 'Delete',
             }
           "

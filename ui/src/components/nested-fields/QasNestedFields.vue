@@ -48,12 +48,12 @@
             </div>
 
             <div class="col-auto">
-              <qas-btn color="dark" flat icon="o_add_circle_outline" round />
+              <qas-btn color="dark" flat icon="sym_r_add_circle_outline" round />
             </div>
           </div>
 
           <div v-else class="text-left">
-            <qas-btn class="q-px-sm" color="dark" flat icon="o_add" @click="add()">{{ addInputLabel }}</qas-btn>
+            <qas-btn class="q-px-sm" color="dark" flat icon="sym_r_add" @click="add()">{{ addInputLabel }}</qas-btn>
           </div>
         </slot>
       </div>
@@ -107,7 +107,7 @@ export default {
       default: () => {
         return {
           label: 'Excluir',
-          icon: 'o_delete',
+          icon: 'sym_r_delete',
           flat: true,
           dense: true
         }
@@ -119,7 +119,7 @@ export default {
       default: () => {
         return {
           label: 'Duplicar',
-          icon: 'o_content_copy',
+          icon: 'sym_r_content_copy',
           flat: true,
           useLabelOnSmallScreen: false,
           dense: true

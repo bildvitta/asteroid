@@ -6,21 +6,21 @@
           <q-form v-if="useSearch" @submit.prevent="filter()">
             <qas-input v-model="search" class="bg-white q-px-sm qas-filters__input rounded-borders-sm shadow-2" data-cy="filters-search-input" :debounce="debounce" dense hide-bottom-space input-class="ellipsis text-grey-8" :outlined="false" :placeholder="searchPlaceholder" type="search">
               <template #prepend>
-                <q-icon v-if="useSearchOnType" color="grey-8" name="o_search" />
-                <qas-btn v-else color="grey-9" flat icon="o_search" padding="0" @click="filter()" />
+                <q-icon v-if="useSearchOnType" color="grey-8" name="sym_r_search" />
+                <qas-btn v-else color="grey-9" flat icon="sym_r_search" padding="0" @click="filter()" />
               </template>
 
               <template #append>
-                <qas-btn v-if="hasSearch" class="q-mr-sm" color="grey-9" flat icon="o_clear" padding="0" size="sm" @click="clearSearch" />
+                <qas-btn v-if="hasSearch" class="q-mr-sm" color="grey-9" flat icon="sym_r_clear" padding="0" size="sm" @click="clearSearch" />
 
-                <qas-btn v-if="useFilterButton" :color="filterButtonColor" data-cy="filters-btn" flat icon="o_tune" padding="0">
+                <qas-btn v-if="useFilterButton" :color="filterButtonColor" data-cy="filters-btn" flat icon="sym_r_tune" padding="0">
                   <q-menu anchor="center right" class="full-width" max-width="270px" self="top right">
                     <div v-if="isFetching" class="q-pa-xl text-center">
                       <q-spinner color="grey" size="2em" />
                     </div>
 
                     <div v-else-if="hasFetchError" class="q-pa-xl text-center">
-                      <q-icon color="negative" name="o_warning" size="2em" />
+                      <q-icon color="negative" name="sym_r_warning" size="2em" />
                     </div>
 
                     <q-form v-else class="q-gutter-y-md q-pa-md" @submit.prevent="filter()">
@@ -53,7 +53,7 @@
 
     <div v-if="hasChip" class="q-mt-md">
       <!-- TODO rever com novo estilo -->
-      <q-chip v-for="(filterItem, key) in activeFilters" :key="key" color="white" :data-cy="`filters-${filterItem.value}-chip`" dense icon-remove="o_close" removable size="md" text-color="grey-8" @remove="removeFilter(filterItem)">{{ getChipValue(filterItem.value) }}</q-chip>
+      <q-chip v-for="(filterItem, key) in activeFilters" :key="key" color="white" :data-cy="`filters-${filterItem.value}-chip`" dense icon-remove="sym_r_close" removable size="md" text-color="grey-8" @remove="removeFilter(filterItem)">{{ getChipValue(filterItem.value) }}</q-chip>
     </div>
 
     <slot :context="mx_context" :filter="filter" :filters="activeFilters" :remove-filter="removeFilter" />
