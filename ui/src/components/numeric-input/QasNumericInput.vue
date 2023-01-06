@@ -117,6 +117,15 @@ export default {
       options.decimalPlaces = this.decimalPlaces
     }
 
+    if (this.mode === 'money') {
+      // TODO
+      /*
+      * adicionado manualmente por conta do espaçamento, neste formato não esta preparado para
+      * outras linguas, teria que adaptar no futuro, o que não é um problema no momento
+      */
+      options.currencySymbol = 'R$ '
+    }
+
     Object.assign(options, this.autonumericOptions)
 
     this.$nextTick(() => {
