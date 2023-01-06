@@ -25,6 +25,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - `QasActionsMenu`: alterado valor default da propriedade `useLabelOnSmallScreen` para `false`.
 - `QasTableGenerator`: modificado cores e fontes.
 - `QasPagination`: modificado cor das paginas para `grey-8` e cor dos ícones de setas para `grey-9`.
+- `QasDateTimeInput`: adicionado validações para datas invalidas.
 
 ## [3.5.0-beta.11] - 02-01-2023
 ### Modificado
