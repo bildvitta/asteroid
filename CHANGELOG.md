@@ -14,6 +14,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 ## BREAKING CHANGES:
 - `QasPageHeader`: adicionada nova propriedade `useHomeIcon` que habilita o ícone de início como primeiro nível do breadcrumbs, com default `true` para respeitar novo padrão de design, caso já tenha um nível de "início" declarado no breadcrumbs, remova.
 - - `icons`: modificado biblioteca de ícones para `material-symbols-rounded`, agora é necessário alterar o prefixo dos ícones de `o_` para `sym_r_`.
+- `QasTabsGenerator`: removido propriedades: `activeColor`, `counterProps`, `indicatorColor` e `tabClass` com intuito de padronizar novos estilos.
 
 ### Adicionado
 - `QasHeaderActions`: adicionado novo componente para trabalhar com descrição e ações.
@@ -24,6 +25,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - `typography.scss`: alterado `font-weight` do `$caption` para `400`.
 - `QasPageHeader`: adicionada nova propriedade `useHomeIcon` que habilita o ícone de início como primeiro nível do breadcrumbs, com default `true` para respeitar novo padrão de design.
 - `QasActionsMenu`: alterado valor default da propriedade `useLabelOnSmallScreen` para `false`.
+- `QasTabsGenerator`: alteração de estilos.
 - `QasTableGenerator`: modificado cores e fontes.
 - `QasPagination`: modificado cor das paginas para `grey-8` e cor dos ícones de setas para `grey-9`.
 - `QasDateTimeInput`: adicionado validações para datas invalidas.
@@ -31,6 +33,13 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 
 ### Corrigido
 - `QasUploader`: corrigido propriedade `color` do `QasAvatar` dentro do uploader.
+
+### Corrigido
+- `QasTabsGenerator`: corrigido documentação.
+- `QasTabsGenerator`: agora o model não é alterado internamente ao clicar em uma tab desabilitada.
+
+### Removido
+- `QasTabsGenerator`: removido propriedades: `activeColor`, `counterProps`, `indicatorColor` e `tabClass` com intuito de padronizar novos estilos.
 
 ## [3.5.0-beta.11] - 02-01-2023
 ### Modificado
