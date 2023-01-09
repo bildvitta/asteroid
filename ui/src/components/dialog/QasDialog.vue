@@ -1,16 +1,49 @@
 <template>
-  <q-dialog ref="dialog" :persistent="persistent" v-bind="dialogProps" @update:model-value="updateModelValue">
-    <q-card v-bind="cardProps" class="q-pa-sm" :style="style">
-      <q-card-section>
+  <q-dialog ref="dialog" class="qas-dialog" :persistent="persistent" v-bind="dialogProps" @update:model-value="updateModelValue">
+    <div class="bg-white q-pa-lg" :style="style">
+      <header class="q-mb-lg">
+        <slot name="header">
+          <div class="items-center justify-between row">
+            <h5 class="text-grey-9 text-h5">{{ card.title }}</h5>
+
+            <qas-btn v-if="isInfoDialog" v-close-popup dense flat icon="sym_r_close" rounded />
+          </div>
+        </slot>
+      </header>
+
+      <section class="text-body1 text-grey-8">
+        <component :is="componentTag" ref="form">
+          <slot name="description">
+            <div v-if="card.description">{{ card.description }}</div>
+          </slot>
+        </component>
+      </section>
+
+      <footer v-if="!isInfoDialog" class="q-mt-xl">
+        <slot name="actions">
+          <qas-actions v-bind="actionsProps" :use-equal-width="hasAllActions" :use-full-width="hasSingleAction">
+            <template v-if="hasOk" #primary>
+              <qas-btn v-close-popup="!useForm" class="full-width" v-bind="defaultOk" @click="submitHandler" />
+            </template>
+
+            <template v-if="hasCancel" #secondary>
+              <qas-btn v-close-popup class="full-width" v-bind="defaultCancel" />
+            </template>
+          </qas-actions>
+        </slot>
+      </footer>
+    </div>
+    <!-- <q-card v-bind="cardProps" class="q-pa-lg text-body1 text-grey-8" :style="style">
+      <q-card-section class="q-pa-none">
         <slot name="header">
           <div class="justify-between row">
-            <div class="text-bold text-h6">{{ card.title }}</div>
+            <h5 class="text-grey-9 text-h5">{{ card.title }}</h5>
             <qas-btn v-if="useCloseButton" v-close-popup dense flat icon="sym_r_close" rounded />
           </div>
         </slot>
       </q-card-section>
 
-      <q-card-section class="q-pt-none">
+      <q-card-section class="q-pa-none">
         <component :is="componentTag" ref="form">
           <slot name="description">
             <div v-if="card.description">{{ card.description }}</div>
@@ -20,7 +53,7 @@
 
       <q-card-section>
         <slot name="actions">
-          <qas-actions v-bind="actionsProps">
+          <qas-actions v-bind="actionsProps" :use-full-width="hasSingleAction">
             <template #primary>
               <qas-btn v-if="ok" v-close-popup="!useForm" class="full-width" v-bind="defaultOk" @click="submitHandler" />
             </template>
@@ -31,7 +64,7 @@
           </qas-actions>
         </slot>
       </q-card-section>
-    </q-card>
+    </q-card> -->
   </q-dialog>
 </template>
 
@@ -59,11 +92,6 @@ export default {
     },
 
     card: {
-      default: () => ({}),
-      type: Object
-    },
-
-    cardProps: {
       default: () => ({}),
       type: Object
     },
@@ -138,8 +166,8 @@ export default {
     style () {
       return {
         ...(this.useFullMaxWidth && { width: '100%' }),
-        maxWidth: this.maxWidth || (this.$qas.screen.isSmall ? '' : '600px'),
-        minWidth: this.minWidth || (this.$qas.screen.isSmall ? '' : '400px')
+        maxWidth: this.maxWidth || '470px',
+        minWidth: this.minWidth || (this.$qas.screen.isSmall ? '' : '366px')
       }
     },
 
@@ -152,6 +180,26 @@ export default {
         ...(!this.usePlugin && { modelValue: this.modelValue }),
         ...this.$attrs
       }
+    },
+
+    hasOk () {
+      return typeof this.ok === 'boolean' ? this.ok : !!Object.keys(this.ok)
+    },
+
+    hasCancel () {
+      return typeof this.cancel === 'boolean' ? this.cancel : !!Object.keys(this.cancel)
+    },
+
+    hasAllActions () {
+      return this.hasOk && this.hasCancel
+    },
+
+    hasSingleAction () {
+      return (this.hasOk && !this.hasCancel) || (!this.hasOk && this.hasCancel)
+    },
+
+    isInfoDialog () {
+      return !this.hasOk && !this.hasCancel
     }
   },
 
@@ -195,3 +243,11 @@ export default {
   }
 }
 </script>
+
+<style lang="scss">
+.qas-dialog {
+  .q-dialog__inner > div {
+    box-shadow: $shadow-2;
+  }
+}
+</style>

@@ -20,10 +20,16 @@ export default {
         useCloseButton: true,
         card: {
           title: 'Título do Dialog',
-          description: 'Descrição do Dialog'
+          description: 'Cerca elétrica perto do corrimão risco iminente de choque. Código da ordem de serviço: 159488 CRM ID: 1179512'
         },
 
-        ok: { onClick: () => alert('clicado') }
+        ok: false,
+        // ok: true,
+
+        // cancel: true
+        cancel: false
+
+        // ok: { onClick: () => alert('clicado') }
       }
     }
   },

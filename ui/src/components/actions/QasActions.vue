@@ -1,10 +1,10 @@
 <template>
-  <div :class="classes">
-    <div class="col-12 col-sm-auto">
+  <div class="qas-actions" :class="classes">
+    <div v-if="hasSecondarySlot" :class="secondaryClasses">
       <slot name="secondary" />
     </div>
 
-    <div class="col-12 col-sm-auto">
+    <div v-if="hasPrimarySlot" :class="primaryClasses">
       <slot name="primary" />
     </div>
   </div>
@@ -22,9 +22,17 @@ export default {
     },
 
     gutter: {
-      default: 'md',
+      default: 'lg',
       type: String,
       validator: value => ['xs', 'sm', 'md', 'lg', 'xl'].includes(value)
+    },
+
+    useFullWidth: {
+      type: Boolean
+    },
+
+    useEqualWidth: {
+      type: Boolean
     }
   },
 
@@ -32,9 +40,37 @@ export default {
     classes () {
       return [
         `justify-${this.align}`,
-        `q-col-gutter-${this.gutter}`,
+        `q-col-gutter-${this.defaultGutter}`,
         this.$qas.screen.isSmall ? 'column reverse' : 'row'
       ]
+    },
+
+    defaultGutter () {
+      return this.$qas.screen.isSmall ? 'md' : 'lg'
+    },
+
+    equalClasses () {
+      return 'col-12 col-sm-6'
+    },
+
+    primaryClasses () {
+      if (this.useEqualWidth) return this.equalClasses
+
+      return this.useFullWidth ? 'col-12' : 'col-12 col-sm-auto'
+    },
+
+    secondaryClasses () {
+      if (this.useEqualWidth) return this.equalClasses
+
+      return this.useFullWidth ? 'col-12' : 'col-12 col-sm-auto'
+    },
+
+    hasPrimarySlot () {
+      return !!this.$slots.primary
+    },
+
+    hasSecondarySlot () {
+      return !!this.$slots.secondary
     }
   }
 }
