@@ -12,19 +12,25 @@
         </div>
 
         <!-- Module -->
-        <div v-if="displayModuleSection" class="q-mt-xl q-px-lg qas-app-menu__module">
-          <qas-select v-model="module" borderless class="q-py-xs qas-app-menu__select shadow-2" dense input-class="q-px-md" :options="defaultModules" :outlined="false" :use-search="false" @update:model-value="redirectHandler(currentModelOption)" />
+        <div v-if="displayModuleSection" class="items-center no-wrap q-col-gutter-sm q-mt-xl q-px-lg qas-app-menu__module row">
+          <div class="col">
+            <qas-select v-model="module" borderless class="q-py-xs qas-app-menu__select shadow-2" dense input-class="q-px-md" :options="defaultModules" :outlined="false" :use-search="false" @update:model-value="redirectHandler(currentModelOption)" />
+          </div>
+
+          <div class="col-auto">
+            <qas-btn dense flat icon="sym_r_close" padding="0" size="xs" />
+          </div>
         </div>
 
         <!-- Menu -->
         <q-list v-if="items.length" class="q-mt-xl qas-app-menu__menu text-grey-9">
           <template v-for="(menuItem, index) in items">
-            <div v-if="hasChildren(menuItem)" :key="`children-${index}`">
-              <q-item class="items-center q-pb-none q-pt-md text-weight-bold">
+            <div v-if="hasChildren(menuItem)" :key="`children-${index}`" class="qas-app-menu__content">
+              <q-item class="items-center q-pb-none q-pt-md qas-app-menu__label text-weight-bold">
                 {{ menuItem.label }}
               </q-item>
 
-              <q-item v-for="(menuChildItem, childIndex) in menuItem.children" :key="childIndex" :active="isActive(menuChildItem)" :to="getRouterRedirect(menuChildItem)">
+              <q-item v-for="(menuChildItem, childIndex) in menuItem.children" :key="childIndex" :active="isActive(menuChildItem)" class="qas-app-menu__children qas-app-menu__item-children" :to="getRouterRedirect(menuChildItem)">
                 <q-item-section v-if="menuChildItem.icon" avatar>
                   <q-icon :name="menuChildItem.icon" />
                 </q-item-section>
@@ -262,6 +268,33 @@ export default {
   &__select {
     border-radius: 4px;
   }
+
+  .q-item:not(&__label) + .q-item:not(&__label) {
+    margin-top: var(--qas-spacing-sm);
+  }
+
+  .q-item + &__content,
+  &__content + .q-item {
+    margin-top: var(--qas-spacing-lg);
+  }
+
+  &__label {
+    margin-bottom: var(--qas-spacing-md);
+    min-height: 0;
+    padding-top: 0;
+  }
+
+  &__children.q-item {
+    padding-left: calc(var(--qas-spacing-xl) + var(--qas-spacing-sm));
+
+    & + & {
+      margin-top: var(--qas-spacing-sm);
+    }
+  }
+
+  // &__item-children.q-item + &__item-children.q-item {
+  //   margin-top: var(--qas-spacing-sm);
+  // }
 
   // User
   .qas-app-user__data {

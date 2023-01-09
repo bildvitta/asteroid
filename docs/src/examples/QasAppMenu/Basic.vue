@@ -55,6 +55,21 @@ export default {
     menuList () {
       return [
         {
+          label: 'Começando',
+          children: [
+            {
+              label: 'Dialog',
+              to: { path: '/plugins/dialog' },
+              icon: 'sym_r_settings_input_hdmi'
+            },
+            {
+              label: 'Logger',
+              to: { path: '/plugins/dialog' },
+              icon: 'sym_r_info'
+            }
+          ]
+        },
+        {
           label: 'AppMenu',
           icon: 'sym_r_menu',
           to: { path: '/components/app-menu' }
@@ -78,7 +93,32 @@ export default {
               icon: 'sym_r_info'
             }
           ]
+        },
+        {
+          label: 'AppMenu',
+          icon: 'sym_r_menu',
+          to: { path: '/components/app-menu' }
+        },
+        {
+          label: 'Por que asteroid?',
+          icon: 'sym_r_pin',
+          to: { path: '/why-asteroid' }
         }
+        // {
+        //   label: 'Começando',
+        //   children: [
+        //     {
+        //       label: 'Dialog',
+        //       to: { path: '/plugins/dialog' },
+        //       icon: 'sym_r_settings_input_hdmi'
+        //     },
+        //     {
+        //       label: 'Logger',
+        //       to: { path: '/plugins/dialog' },
+        //       icon: 'sym_r_info'
+        //     }
+        //   ]
+        // }
       ]
     },
 
