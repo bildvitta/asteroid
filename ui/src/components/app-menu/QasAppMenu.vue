@@ -18,7 +18,7 @@
           </div>
 
           <div v-if="$qas.screen.isSmall" class="q-ml-xl">
-            <qas-btn dense flat icon="sym_r_close" padding="0" size="xs" />
+            <qas-btn color="grey-9" dense flat icon="sym_r_close" rounded />
           </div>
         </div>
 
