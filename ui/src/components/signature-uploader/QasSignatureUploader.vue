@@ -1,6 +1,6 @@
 <template>
   <div>
-    <qas-uploader ref="uploader" v-model="model" :label="uploadLabel" :readonly="readonly" :use-resize="false" v-bind="$attrs">
+    <qas-uploader ref="uploader" v-model="model" :label="uploadLabel" v-bind="$attrs" :readonly="readonly" :use-resize="false">
       <template #header="{ scope }">
         <div class="cursor-pointer flex flex-center full-width justify-between no-border no-wrap q-gutter-xs text-white transparent" :class="headerClass" @click="openDialog">
           <div class="col column items-start justify-center">
@@ -26,10 +26,10 @@
         </div>
       </template>
 
-      <template #actions>
+      <!-- <template #actions>
         <qas-btn class="full-width" color="primary" :disable="isEmpty" label="Salvar" no-caps @click="getSignatureData" />
         <qas-btn class="full-width q-mt-sm" color="primary" flat label="Cancelar" no-caps @click="closeSignature" />
-      </template>
+      </template> -->
     </qas-dialog>
   </div>
 </template>
@@ -111,7 +111,11 @@ export default {
     defaultDialogProps () {
       return {
         maxWidth: '620px',
-        ...this.dialogProps
+        ...this.dialogProps,
+        ok: {
+          label: 'Salvar',
+          onClick: () => this.getSignatureData()
+        }
       }
     },
 

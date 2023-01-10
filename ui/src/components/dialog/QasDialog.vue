@@ -1,12 +1,12 @@
 <template>
   <q-dialog ref="dialog" class="qas-dialog" :persistent="persistent" v-bind="dialogProps" @update:model-value="updateModelValue">
     <div class="bg-white q-pa-lg" :style="style">
-      <header class="q-mb-lg">
+      <header v-if="hasHeader" class="q-mb-lg">
         <slot name="header">
           <div class="items-center justify-between row">
             <h5 class="text-grey-9 text-h5">{{ card.title }}</h5>
 
-            <qas-btn v-if="isInfoDialog" v-close-popup dense flat icon="sym_r_close" rounded />
+            <qas-btn v-if="isInfoDialog" v-close-popup color="grey-9" dense flat icon="sym_r_close" rounded />
           </div>
         </slot>
       </header>
@@ -112,8 +112,8 @@ export default {
     },
 
     persistent: {
-      default: true,
-      type: Boolean
+      type: Boolean,
+      default: true
     },
 
     useForm: {
@@ -196,6 +196,14 @@ export default {
 
     hasSingleAction () {
       return (this.hasOk && !this.hasCancel) || (!this.hasOk && this.hasCancel)
+    },
+
+    hasHeaderSlot () {
+      return !!this.$slots.header
+    },
+
+    hasHeader () {
+      return this.hasHeaderSlot || this.card.title
     },
 
     isInfoDialog () {

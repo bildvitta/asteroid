@@ -169,7 +169,6 @@ export default {
     destroyDialogConfig () {
       return {
         card: {
-          title: 'Excluir ramo da árvore?',
           description: 'Todas as informações serão perdidas. Deseja realmente continuar?'
         },
         ok: {

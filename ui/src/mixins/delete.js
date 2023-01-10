@@ -25,7 +25,6 @@ export default {
     mx_defaultDialogProps () {
       return {
         card: {
-          title: 'Confirmar',
           description: 'Tem certeza que deseja excluir este item?'
         },
 

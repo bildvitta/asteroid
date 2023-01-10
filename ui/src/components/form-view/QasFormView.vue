@@ -150,7 +150,6 @@ export default {
 
       defaultDialogProps: {
         card: {
-          title: 'Atenção!',
           description: 'Você está deixando a página e suas alterações serão perdidas. Tem certeza que deseja sair sem salvar?'
         },
 
