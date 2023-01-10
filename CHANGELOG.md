@@ -13,6 +13,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 ## Não publicado
 ### Modificado
 - `QasNumericInput`: adicionado manualmente prefixo `R$ ` com espaçamento a mais propositalmente.
+- [`QasAppMenu`, `QasAppBar`, `QasAppUser`]: mudanças de layout.
 
 ## [3.5.0-beta.12] - 06-01-2023
 ## BREAKING CHANGES:

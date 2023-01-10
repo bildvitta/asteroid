@@ -17,10 +17,10 @@
         <div class="ellipsis qas-app-user__menu-name">{{ userName }}</div>
         <div class="ellipsis">{{ user.email }}</div>
 
-        <q-list class="q-mt-sm">
+        <q-list class="q-mt-md">
           <q-item v-close-popup :active="false" class="qas-app-user__menu-item" clickable :to="user.to">
             <q-item-section avatar>
-              <q-icon name="sym_r_person" size="20px" />
+              <q-icon name="sym_r_person" />
             </q-item-section>
 
             <q-item-section>Editar</q-item-section>
@@ -28,7 +28,7 @@
 
           <q-item v-if="hasNotifications" v-close-popup class="qas-app-user__menu-item" clickable>
             <q-item-section avatar>
-              <q-icon name="sym_r_notifications" size="20px" />
+              <q-icon name="sym_r_notifications" />
             </q-item-section>
 
             <q-item-section>Notificações</q-item-section>
@@ -40,7 +40,7 @@
 
           <q-item v-close-popup class="qas-app-user__menu-item" clickable @click="signOut">
             <q-item-section avatar>
-              <q-icon name="sym_r_logout" size="20px" />
+              <q-icon name="sym_r_logout" />
             </q-item-section>
 
             <q-item-section>Sair</q-item-section>
@@ -130,6 +130,10 @@ export default {
   &__menu-item {
     min-height: 36px;
     padding: 0;
+
+    & + & {
+      margin-top: var(--qas-spacing-sm);
+    }
   }
 
   @media (max-width: $breakpoint-xs) {
