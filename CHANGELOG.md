@@ -11,9 +11,25 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
 ## Não publicado
+### Adicionado
+- `QasActions`: adicionado propriedade `use-full-width` para deixar as colunas 100%, com col-12.
+- `QasActions`: adicionado propriedade `use-equal-width` para deixar as colunas 50% no desktop e 100% no mobile, col-12 col-sm-6.
+`ui/src/css/variables/shadow.scss`: adicionado shadow.scss para modificar através de variável.
+
 ### Modificado
 - `QasNumericInput`: adicionado manualmente prefixo `R$ ` com espaçamento a mais propositalmente.
 - [`QasAppMenu`, `QasAppBar`, `QasAppUser`]: mudanças de layout.
+- `QasActions`: modificado default da propriedade `gutter` para `lg` porém no mobile ela continua `md`.
+- `QasDialog`: modificado estilos do dialog.
+- [`QasDelete`, `delete.js`, `QasFormView`]: removido titulo do dialog.
+- `QasTreeGenerator`: removido titulo do dialog de excluir ramo.
+- `spacing.scss`: modificado variáveis de gutter para aplicar mudanças do spacing.
+- `QasSignatureUploader`: modificado customização do template `actions` do `qas-dialog` para utilizar o default.
+
+### Removido
+- `ui/src/css/utils/shadow.scss`: removido util shadow.scss para mudar shadow por variável.
+- `QasDialog`: removido propriedade `cardProps` pois não utilizamos mais o `QCard`.
+- `QasDialog`: removido propriedade `useCloseButton` pois agora o controle de mostrar o botão é feito automaticamente.
 
 ## [3.5.0-beta.12] - 06-01-2023
 ## BREAKING CHANGES:

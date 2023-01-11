@@ -15,11 +15,6 @@ props:
     type: [Object, Boolean]
     examples: ["{ label: 'Meu botão de cancelar', onClick: () => alert('fui clicado!') }"]
 
-  card-props:
-    desc: Props repassadas para o componente "<q-card />".
-    default: {}
-    type: Object
-
   card:
     desc: Objeto contendo as informações para serem exibidas dentro do dialog como "title" e "description".
     default: {}
@@ -50,10 +45,6 @@ props:
   persistent:
     desc: Define se o dialog vai fechar ou não após clicar fora do dialog.
     default: true
-    type: Boolean
-
-  use-close-button:
-    desc: Define se vai ter ou não Ícone de fechar o dialog.
     type: Boolean
 
   use-form:
