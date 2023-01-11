@@ -81,7 +81,6 @@ export default {
       return {
         cancel: false,
         ok: false,
-        useCloseButton: true,
         ...this.dialogProps,
         card: {
           title: this.dialogTitle,
