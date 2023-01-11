@@ -25,11 +25,6 @@
           <qas-signature-pad ref="signaturePadModal" v-model:empty="isEmpty" :height="signaturePadHeight" />
         </div>
       </template>
-
-      <!-- <template #actions>
-        <qas-btn class="full-width" color="primary" :disable="isEmpty" label="Salvar" no-caps @click="getSignatureData" />
-        <qas-btn class="full-width q-mt-sm" color="primary" flat label="Cancelar" no-caps @click="closeSignature" />
-      </template> -->
     </qas-dialog>
   </div>
 </template>
