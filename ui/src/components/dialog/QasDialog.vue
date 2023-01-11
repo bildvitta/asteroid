@@ -33,38 +33,6 @@
         </slot>
       </footer>
     </div>
-    <!-- <q-card v-bind="cardProps" class="q-pa-lg text-body1 text-grey-8" :style="style">
-      <q-card-section class="q-pa-none">
-        <slot name="header">
-          <div class="justify-between row">
-            <h5 class="text-grey-9 text-h5">{{ card.title }}</h5>
-            <qas-btn v-if="useCloseButton" v-close-popup dense flat icon="sym_r_close" rounded />
-          </div>
-        </slot>
-      </q-card-section>
-
-      <q-card-section class="q-pa-none">
-        <component :is="componentTag" ref="form">
-          <slot name="description">
-            <div v-if="card.description">{{ card.description }}</div>
-          </slot>
-        </component>
-      </q-card-section>
-
-      <q-card-section>
-        <slot name="actions">
-          <qas-actions v-bind="actionsProps" :use-full-width="hasSingleAction">
-            <template #primary>
-              <qas-btn v-if="ok" v-close-popup="!useForm" class="full-width" v-bind="defaultOk" @click="submitHandler" />
-            </template>
-
-            <template #secondary>
-              <qas-btn v-if="cancel" v-close-popup class="full-width" v-bind="defaultCancel" />
-            </template>
-          </qas-actions>
-        </slot>
-      </q-card-section>
-    </q-card> -->
   </q-dialog>
 </template>
 
@@ -112,8 +80,8 @@ export default {
     },
 
     persistent: {
-      type: Boolean,
-      default: true
+      default: true,
+      type: Boolean
     },
 
     useForm: {
@@ -125,10 +93,6 @@ export default {
     },
 
     usePlugin: {
-      type: Boolean
-    },
-
-    useCloseButton: {
       type: Boolean
     },
 

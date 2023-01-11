@@ -9,3 +9,5 @@ Componente de dialog.
 ## Uso
 
 <doc-example file="QasDialog/Basic" title="Básico" />
+<doc-example file="QasDialog/ExWithActions" title="Com ações" />
+<doc-example file="QasDialog/ExWithSingleAction" title="Com uma única ação" />

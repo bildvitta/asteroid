@@ -12,9 +12,19 @@ props:
 
   gutter:
     desc: Espaçamento entre os elementos.
-    default: md
+    default: lg
     type: String
     examples: ['xs', 'sm', 'md', 'lg', 'xl']
+
+  use-full-width:
+    desc: Deixa as colunas 100%, com col-12.
+    default: false
+    type: Boolean
+
+  use-equal-width:
+    desc: Deixa as colunas 50% no desktop e 100% no mobile, col-12 col-sm-6.
+    default: false
+    type: Boolean
 
 slots:
   primary:

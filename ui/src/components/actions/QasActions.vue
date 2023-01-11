@@ -22,9 +22,9 @@ export default {
     },
 
     gutter: {
-      default: 'lg',
+      default: '',
       type: String,
-      validator: value => ['xs', 'sm', 'md', 'lg', 'xl'].includes(value)
+      validator: value => !value || ['xs', 'sm', 'md', 'lg', 'xl'].includes(value)
     },
 
     useFullWidth: {
@@ -46,7 +46,7 @@ export default {
     },
 
     defaultGutter () {
-      return this.$qas.screen.isSmall ? 'md' : 'lg'
+      return this.gutter || this.$qas.screen.isSmall ? 'md' : 'lg'
     },
 
     equalClasses () {
