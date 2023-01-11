@@ -51,6 +51,7 @@ import QasTextTruncate from './components/text-truncate/QasTextTruncate.vue'
 import QasTransfer from './components/transfer/QasTransfer.vue'
 import QasTreeGenerator from './components/tree-generator/QasTreeGenerator.vue'
 import QasUploader from './components/uploader/QasUploader.vue'
+import QasWelcome from './components/welcome/QasWelcome.vue'
 
 import VueGoogleMaps from '@fawmi/vue-google-maps'
 import { Notify, Quasar, Dialog as QuasarDialog } from 'quasar'
@@ -125,6 +126,7 @@ function install (app) {
   app.component('QasTransfer', QasTransfer)
   app.component('QasTreeGenerator', QasTreeGenerator)
   app.component('QasUploader', QasUploader)
+  app.component('QasWelcome', QasWelcome)
 
   app.use(Quasar, { plugins: { Notify, QuasarDialog, Dialog } })
 
@@ -200,6 +202,7 @@ export {
   QasTransfer,
   QasTreeGenerator,
   QasUploader,
+  QasWelcome,
 
   // plugins
   Dialog,
