@@ -1,30 +1,36 @@
 <template>
-  <q-drawer v-model="model" :behavior="behavior" class="qas-app-menu" :width="280">
-    <div class="column full-height justify-between">
+  <q-drawer v-model="model" :behavior="behavior" :width="drawerWidth">
+    <div class="column full-height justify-between qas-app-menu">
       <div class="full-width">
         <!-- Brand -->
         <div v-if="!$qas.screen.untilLarge" class="q-pt-xl q-px-lg">
           <router-link class="block q-toolbar__title relative-position text-no-decoration" :to="rootRoute">
-            <img v-if="brand" :alt="title" class="full-width" :src="brand">
+            <img v-if="brand" :alt="title" class="qas-app-menu__brand" :src="brand">
             <span v-else class="ellipsis text-bold text-primary">{{ title }}</span>
             <q-badge v-if="hasDevelopmentBadge" color="red" floating :label="developmentBadgeLabel" />
           </router-link>
         </div>
 
         <!-- Module -->
-        <div v-if="displayModuleSection" class="q-mt-xl q-px-lg qas-app-menu__module">
-          <qas-select v-model="module" borderless class="q-py-xs qas-app-menu__select shadow-2" dense input-class="q-px-md" :options="defaultModules" :outlined="false" :use-search="false" @update:model-value="redirectHandler(currentModelOption)" />
+        <div v-if="displayModuleSection" class="items-center justify-between no-wrap q-mt-xl q-px-lg qas-app-menu__module row">
+          <div class="full-width">
+            <qas-select v-model="module" borderless class="q-py-xs qas-app-menu__select shadow-2" dense input-class="q-px-md" :options="defaultModules" :outlined="false" :use-search="false" @update:model-value="redirectHandler(currentModelOption)" />
+          </div>
+
+          <div v-if="$qas.screen.isSmall" class="q-ml-xl">
+            <qas-btn color="grey-9" dense flat icon="sym_r_close" rounded />
+          </div>
         </div>
 
         <!-- Menu -->
         <q-list v-if="items.length" class="q-mt-xl qas-app-menu__menu text-grey-9">
           <template v-for="(menuItem, index) in items">
-            <div v-if="hasChildren(menuItem)" :key="`children-${index}`">
-              <q-item class="items-center q-pb-none q-pt-md text-weight-bold">
+            <div v-if="hasChildren(menuItem)" :key="`children-${index}`" class="qas-app-menu__content">
+              <q-item class="items-center q-pb-none q-pt-md qas-app-menu__item qas-app-menu__item--label text-weight-bold">
                 {{ menuItem.label }}
               </q-item>
 
-              <q-item v-for="(menuChildItem, childIndex) in menuItem.children" :key="childIndex" :active="isActive(menuChildItem)" :to="getRouterRedirect(menuChildItem)">
+              <q-item v-for="(menuChildItem, childIndex) in menuItem.children" :key="childIndex" :active="isActive(menuChildItem)" class="qas-app-menu__children qas-app-menu__item qas-app-menu__item--children" :to="getRouterRedirect(menuChildItem)">
                 <q-item-section v-if="menuChildItem.icon" avatar>
                   <q-icon :name="menuChildItem.icon" />
                 </q-item-section>
@@ -35,7 +41,7 @@
               </q-item>
             </div>
 
-            <q-item v-else :key="index" :active="isActive(menuItem)" active-class="q-router-link--active" :to="getRouterRedirect(menuItem)">
+            <q-item v-else :key="index" :active="isActive(menuItem)" active-class="q-router-link--active" class="qas-app-menu__item" :to="getRouterRedirect(menuItem)">
               <q-item-section v-if="menuItem.icon" avatar>
                 <q-icon :name="menuItem.icon" />
               </q-item-section>
@@ -165,6 +171,10 @@ export default {
       return this.defaultModules.length
     },
 
+    drawerWidth () {
+      return this.$qas.screen.isSmall ? 280 : 320
+    },
+
     hasDevelopmentBadge () {
       return !!this.developmentBadgeLabel
     },
@@ -255,12 +265,43 @@ export default {
     }
   }
 
+  &__brand {
+    max-width: 208px;
+    width: 100%;
+  }
+
   &__menu .q-item {
     padding-left: var(--qas-spacing-lg);
   }
 
   &__select {
     border-radius: 4px;
+  }
+
+  &__item {
+    &:not(&--label) + &:not(&--label) {
+      margin-top: var(--qas-spacing-sm);
+    }
+
+    &--label {
+      margin-bottom: var(--qas-spacing-md);
+      min-height: 0;
+      padding-top: 0;
+    }
+
+    &--children.q-item {
+      padding-left: calc(var(--qas-spacing-xl) + var(--qas-spacing-sm));
+
+      & + & {
+        margin-top: var(--qas-spacing-sm);
+      }
+    }
+  }
+
+  &__content + &__content,
+  &__item + &__content,
+  &__content + &__item {
+    margin-top: var(--qas-spacing-lg);
   }
 
   // User

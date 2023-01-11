@@ -4,7 +4,7 @@
       <qas-btn color="grey-7" dense flat icon="sym_r_menu" round @click="toggleMenuDrawer" />
 
       <q-toolbar-title>
-        <router-link class="flex items-center no-wrap text-no-decoration" :to="rootRoute">
+        <router-link class="flex items-center no-wrap text-no-decoration" :class="routerLinkClass" :to="rootRoute">
           <img v-if="brand" :alt="title" class="qas-app-bar__brand" :src="brand">
           <span v-else class="ellipsis text-bold text-primary">{{ title }}</span>
           <q-badge v-if="hasDevelopmentBadge" class="q-ml-sm" color="red" :label="developmentBadgeLabel" />
@@ -97,6 +97,10 @@ export default {
 
     rootRoute () {
       return this.$router.hasRoute('Root') ? { name: 'Root' } : { path: '/' }
+    },
+
+    routerLinkClass () {
+      return this.$qas.screen.isSmall && 'justify-center'
     }
   },
 
@@ -119,7 +123,7 @@ export default {
   }
 
   &__brand {
-    height: 24px;
+    max-width: 164px;
   }
 }
 </style>

@@ -18,6 +18,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 
 ### Modificado
 - `QasNumericInput`: adicionado manualmente prefixo `R$ ` com espaçamento a mais propositalmente.
+- [`QasAppMenu`, `QasAppBar`, `QasAppUser`]: mudanças de layout.
 - `QasActions`: modificado default da propriedade `gutter` para `lg` porém no mobile ela continua `md`.
 - `QasDialog`: modificado estilos do dialog.
 - [`QasDelete`, `delete.js`, `QasFormView`]: removido titulo do dialog.
