@@ -1,10 +1,10 @@
 <template>
   <div class="qas-actions" :class="classes">
-    <div v-if="hasSecondarySlot" :class="secondaryClasses">
+    <div v-if="hasSecondarySlot" :class="columnClasses">
       <slot name="secondary" />
     </div>
 
-    <div v-if="hasPrimarySlot" :class="primaryClasses">
+    <div v-if="hasPrimarySlot" :class="columnClasses">
       <slot name="primary" />
     </div>
   </div>
@@ -49,18 +49,8 @@ export default {
       return this.gutter || this.$qas.screen.isSmall ? 'md' : 'lg'
     },
 
-    equalClasses () {
-      return 'col-12 col-sm-6'
-    },
-
-    primaryClasses () {
-      if (this.useEqualWidth) return this.equalClasses
-
-      return this.useFullWidth ? 'col-12' : 'col-12 col-sm-auto'
-    },
-
-    secondaryClasses () {
-      if (this.useEqualWidth) return this.equalClasses
+    columnClasses () {
+      if (this.useEqualWidth) return 'col-12 col-sm-6'
 
       return this.useFullWidth ? 'col-12' : 'col-12 col-sm-auto'
     },
