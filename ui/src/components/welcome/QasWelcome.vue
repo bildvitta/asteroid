@@ -10,7 +10,7 @@
       <div class="q-mb-md q-mt-md text-grey-9 text-subtitle2">Atalhos</div>
 
       <div class="qas-welcome__container">
-        <div ref="scrollArea" :class="contentClasses">
+        <div ref="scrollArea" class="row" :class="contentClasses">
           <div v-for="(shortcut, index) in shortcuts" :key="index" :class="shortcutClasses">
             <pv-welcome-shortcut-card :shortcut="shortcut" />
           </div>
@@ -50,7 +50,7 @@ export default {
       const timeStamp = Date.now()
       const { daysList, monthsList } = dateConfig
 
-      // exemplo: Quarta, 11 de janeiro de 2023
+      // exemplo: Quarta-feira, 11 de janeiro de 2023
       return date.formatDate(
         timeStamp, 'dddd, DDD [de] MMMM [de] YYYY', { days: daysList, months: monthsList }
       )
@@ -69,8 +69,8 @@ export default {
 
     contentClasses () {
       return this.$qas.screen.isSmall
-        ? 'no-wrap overflow-hidden-y q-gutter-x-md q-pb-md q-pt-xs qas-welcome__scroll-area row'
-        : 'row q-col-gutter-md'
+        ? 'no-wrap overflow-hidden-y q-gutter-x-md q-pb-md q-pt-xs qas-welcome__scroll-area'
+        : 'q-col-gutter-md'
     },
 
     shortcutClasses () {

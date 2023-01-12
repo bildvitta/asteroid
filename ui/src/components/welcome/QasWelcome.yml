@@ -1,7 +1,7 @@
 type: component
 
 meta:
-  desc: Cria um seção para alertar sobre um conteúdo.
+  desc: Componente de boas-vindas para ser usado na Home dos sistemas.
 
 props:
   name:
