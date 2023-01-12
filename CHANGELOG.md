@@ -15,6 +15,8 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - `QasActions`: adicionado propriedade `use-full-width` para deixar as colunas 100%, com col-12.
 - `QasActions`: adicionado propriedade `use-equal-width` para deixar as colunas 50% no desktop e 100% no mobile, col-12 col-sm-6.
 `ui/src/css/variables/shadow.scss`: adicionado shadow.scss para modificar através de variável.
+- `QasWelcome`: adicionado novo componente de boas-vindas para uso na Home.
+- `date-config.js`: adicionado arquivo para configurações de datas.
 
 ### Modificado
 - `QasNumericInput`: adicionado manualmente prefixo `R$ ` com espaçamento a mais propositalmente.
