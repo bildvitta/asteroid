@@ -15,6 +15,8 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - `QasActions`: adicionado propriedade `use-full-width` para deixar as colunas 100%, com col-12.
 - `QasActions`: adicionado propriedade `use-equal-width` para deixar as colunas 50% no desktop e 100% no mobile, col-12 col-sm-6.
 `ui/src/css/variables/shadow.scss`: adicionado shadow.scss para modificar através de variável.
+- `QasActionsMenu`: adicionado propriedade `useLabel` com default `true` para esconder o label em todas as telas necessárias.
+- `QasActionsMenu`: adicionado propriedade `color` com default `grey-9` para controlar cor do botão.
 
 ### Modificado
 - `QasNumericInput`: adicionado manualmente prefixo `R$ ` com espaçamento a mais propositalmente.
@@ -25,6 +27,9 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - `QasTreeGenerator`: removido titulo do dialog de excluir ramo.
 - `spacing.scss`: modificado variáveis de gutter para aplicar mudanças do spacing.
 - `QasSignatureUploader`: modificado customização do template `actions` do `qas-dialog` para utilizar o default.
+- `QasActionsMenu`: alterado cor padrão em todos os casos para `grey-9`.
+- `item.scss`: modificado cor do hover para `$primary-color`;
+- `item.scss`: modificado cor do item quando clicável para `grey-9` e quando não clicável para `grey-8`;
 
 ### Removido
 - `ui/src/css/utils/shadow.scss`: removido util shadow.scss para mudar shadow por variável.

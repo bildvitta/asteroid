@@ -1,6 +1,6 @@
 <template>
   <div v-if="hasActions">
-    <component :is="component.is" flat v-bind="component.props" :use-label-on-small-screen="useLabelOnSmallScreen" @click="onClick()">
+    <component :is="component.is" :color="color" flat v-bind="component.props" :use-label-on-small-screen="useLabelOnSmallScreen" @click="onClick()">
       <q-menu v-if="hasMoreThanOneAction" auto-close class="q-py-xs">
         <q-list>
           <slot v-for="(item, key) in actions" :item="item" :name="key">
@@ -16,6 +16,10 @@
           </slot>
         </q-list>
       </q-menu>
+
+      <q-tooltip v-if="!hasMoreThanOneAction" class="text-caption">
+        {{ tooltipLabel }}
+      </q-tooltip>
     </component>
   </div>
 </template>
@@ -33,13 +37,13 @@ export default {
   },
 
   props: {
-    icon: {
-      default: 'sym_r_more_vert',
+    color: {
+      default: 'grey-9',
       type: String
     },
 
-    label: {
-      default: 'Opções',
+    icon: {
+      default: 'sym_r_more_vert',
       type: String
     },
 
@@ -61,6 +65,11 @@ export default {
     deleteProps: {
       default: () => ({}),
       type: Object
+    },
+
+    useLabel: {
+      default: true,
+      type: Boolean
     },
 
     useLabelOnSmallScreen: {
@@ -89,13 +98,11 @@ export default {
       const props = {}
 
       if (this.hasMoreThanOneAction) {
-        props.label = 'Opções'
+        props.label = this.useLabel ? 'Opções' : ''
         props.iconRight = this.icon
-        props.textColor = 'dark'
       } else {
         props.icon = this.actions[this.firstItemKey]?.icon
-        props.label = this.actions[this.firstItemKey]?.label
-        props.color = 'primary'
+        props.label = this.useLabel ? this.actions[this.firstItemKey]?.label : ''
       }
 
       this.hasDelete && Object.assign(props, this.deleteProps)
@@ -120,6 +127,10 @@ export default {
 
     hasMoreThanOneAction () {
       return Object.keys(this.list || {}).length + Number(this.hasDelete) > 1
+    },
+
+    tooltipLabel () {
+      return this.actions[this.firstItemKey]?.label
     }
   },
 
