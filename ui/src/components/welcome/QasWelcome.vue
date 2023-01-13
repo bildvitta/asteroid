@@ -1,12 +1,12 @@
 <template>
   <div class="q-mb-xl qas-welcome text-left">
     <h3 class="text-grey-9 text-h3">
-      {{ welcomeMessage }}<span v-if="name">, {{ name }}</span>
+      {{ welcomeMessage }}<span v-if="firstName">, {{ firstName }}</span>
     </h3>
 
     <div class="text-caption text-grey-8">{{ currentDay }}</div>
 
-    <div>
+    <div v-if="hasShortcuts">
       <div class="q-mb-md q-mt-md text-grey-9 text-subtitle2">Atalhos</div>
 
       <div class="qas-welcome__container">
@@ -46,6 +46,12 @@ export default {
   },
 
   computed: {
+    contentClasses () {
+      return this.$qas.screen.isSmall
+        ? 'no-wrap overflow-hidden-y q-gutter-x-md q-pb-md q-pt-xs qas-welcome__scroll-area'
+        : 'q-col-gutter-md'
+    },
+
     currentDay () {
       const timeStamp = Date.now()
       const { daysList, monthsList } = dateConfig
@@ -54,6 +60,20 @@ export default {
       return date.formatDate(
         timeStamp, 'dddd, DDD [de] MMMM [de] YYYY', { days: daysList, months: monthsList }
       )
+    },
+
+    firstName () {
+      if (!this.name) return ''
+
+      return this.name.split(' ')?.[0]
+    },
+
+    hasShortcuts () {
+      return !!this.shortcuts.length
+    },
+
+    shortcutClasses () {
+      return !this.$qas.screen.isSmall && 'col-3 col-lg-2'
     },
 
     welcomeMessage () {
@@ -65,16 +85,6 @@ export default {
       if (time >= '12:00' && time < '18:59') return 'Boa tarde'
 
       return 'Boa noite'
-    },
-
-    contentClasses () {
-      return this.$qas.screen.isSmall
-        ? 'no-wrap overflow-hidden-y q-gutter-x-md q-pb-md q-pt-xs qas-welcome__scroll-area'
-        : 'q-col-gutter-md'
-    },
-
-    shortcutClasses () {
-      return !this.$qas.screen.isSmall && 'col-3 col-lg-2'
     }
   }
 }
@@ -91,7 +101,7 @@ export default {
     }
 
     > *:last-child {
-      margin-right: 8px;
+      margin-right: var(--qas-spacing-sm);
     }
   }
 }
