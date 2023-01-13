@@ -31,7 +31,6 @@ module.exports = [
   {
     icon: 'sym_r_widgets',
     name: 'Componentes',
-
     children: [
       {
         name: 'Actions',
@@ -244,6 +243,10 @@ module.exports = [
       {
         name: 'Uploader',
         path: '/components/uploader'
+      },
+      {
+        name: 'Welcome',
+        path: '/components/welcome'
       }
     ]
   },
