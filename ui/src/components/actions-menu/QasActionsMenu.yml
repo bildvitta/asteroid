@@ -4,11 +4,6 @@ meta:
   desc: Componente para abrir um menu de ação a partir de um botão, muito utilizado em tela de edição.
 
 props:
-  color:
-    desc: Cor do ícone.
-    default: grey-9
-    type: String
-
   delete-icon:
     desc: Ícone do botão de deletar.
     default: sym_r_delete
