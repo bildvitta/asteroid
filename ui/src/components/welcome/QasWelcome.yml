@@ -1,0 +1,14 @@
+type: component
+
+meta:
+  desc: Componente de boas-vindas para ser usado na Home dos sistemas.
+
+props:
+  name:
+    desc: Nome do usuário a ser mostrado na tela.
+    type: String
+
+  shortcuts:
+    desc: Lista de cards de atalhos.
+    default: []
+    type: Array
