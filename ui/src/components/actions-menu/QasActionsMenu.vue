@@ -105,7 +105,7 @@ export default {
       } else {
         props.color = this.color || 'primary'
         props.icon = this.actions[this.firstItemKey]?.icon
-        props.label = this.useLabel ? this.actions[this.firstItemKey]?.label : ''
+        props.label = this.useLabel ? this.tooltipLabel : ''
       }
 
       this.hasDelete && Object.assign(props, this.deleteProps)
