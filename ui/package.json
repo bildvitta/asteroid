@@ -28,12 +28,22 @@
     "components"
   ],
   "devDependencies": {
+    "@babel/core": "^7.20.12",
+    "@babel/preset-env": "^7.20.2",
     "@rollup/plugin-json": "^4.1.0",
     "@rollup/plugin-replace": "^3.0.1",
     "@rollup/plugin-url": "^6.1.0",
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/vue": "^6.6.1",
     "@vue/compiler-sfc": "^3.2.31",
+    "@vue/test-utils": "^2.2.7",
     "autoprefixer": "^10.4.2",
+    "babel-core": "^7.0.0-bridge.0",
+    "babel-jest": "^29.3.1",
     "core-js": "^3.20.2",
+    "jest": "^29.3.1",
+    "jest-environment-jsdom": "^29.3.1",
+    "jsdom": "^21.0.0",
     "postcss": "^8.4.5",
     "quasar": "^2.10.1",
     "rimraf": "^3.0.2",
@@ -45,8 +55,10 @@
     "sass": "^1.49.0"
   },
   "dependencies": {
+    "@babel/plugin-transform-runtime": "^7.19.6",
     "@bildvitta/store-adapter": "^1.0.0-beta.22",
     "@fawmi/vue-google-maps": "^0.9.4",
+    "@vue/vue3-jest": "^29.2.2",
     "autonumeric": "^4.6.0",
     "axios": "^0.21.1",
     "date-fns": "^2.28.0",
