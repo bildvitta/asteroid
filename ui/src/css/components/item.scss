@@ -5,6 +5,10 @@
     font-weight: 600;
   }
 
+  &:not(&--clickable) {
+    color: $grey-8;
+  }
+
   &.q-router-link--active {
     background-color: transparent !important;
     font-weight: 600;
@@ -22,10 +26,11 @@
   }
 
   &--clickable {
+    color: $grey-9;
     transition: color 300ms;
 
-    &:hover {
-      color: var(--q-primary);
+    &:not(&.q-router-link--active):hover {
+      color: var(--q-primary-contrast);
     }
   }
 

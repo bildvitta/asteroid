@@ -16,6 +16,10 @@
           </slot>
         </q-list>
       </q-menu>
+
+      <q-tooltip v-if="hasTooltip" class="text-caption">
+        {{ tooltipLabel }}
+      </q-tooltip>
     </component>
   </div>
 </template>
@@ -33,13 +37,13 @@ export default {
   },
 
   props: {
-    icon: {
-      default: 'sym_r_more_vert',
+    color: {
+      default: '',
       type: String
     },
 
-    label: {
-      default: 'Opções',
+    icon: {
+      default: 'sym_r_more_vert',
       type: String
     },
 
@@ -61,6 +65,11 @@ export default {
     deleteProps: {
       default: () => ({}),
       type: Object
+    },
+
+    useLabel: {
+      default: true,
+      type: Boolean
     },
 
     useLabelOnSmallScreen: {
@@ -88,14 +97,15 @@ export default {
     component () {
       const props = {}
 
+      // TODO: solução do color é temporária até ser definido o novo QasBtn.
       if (this.hasMoreThanOneAction) {
-        props.label = 'Opções'
+        props.color = this.color || 'grey-9'
         props.iconRight = this.icon
-        props.textColor = 'dark'
+        props.label = this.useLabel ? 'Opções' : ''
       } else {
+        props.color = this.color || 'primary'
         props.icon = this.actions[this.firstItemKey]?.icon
-        props.label = this.actions[this.firstItemKey]?.label
-        props.color = 'primary'
+        props.label = this.useLabel ? this.tooltipLabel : ''
       }
 
       this.hasDelete && Object.assign(props, this.deleteProps)
@@ -120,6 +130,14 @@ export default {
 
     hasMoreThanOneAction () {
       return Object.keys(this.list || {}).length + Number(this.hasDelete) > 1
+    },
+
+    hasTooltip () {
+      return !this.hasMoreThanOneAction && !this.useLabel
+    },
+
+    tooltipLabel () {
+      return this.actions[this.firstItemKey]?.label
     }
   },
 

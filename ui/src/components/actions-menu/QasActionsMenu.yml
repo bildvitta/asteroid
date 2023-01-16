@@ -4,6 +4,10 @@ meta:
   desc: Componente para abrir um menu de ação a partir de um botão, muito utilizado em tela de edição.
 
 props:
+  color:
+    desc: Cor do ícone.
+    type: String
+
   delete-icon:
     desc: Ícone do botão de deletar.
     default: sym_r_delete
@@ -41,6 +45,11 @@ props:
 
   use-label-on-small-screen:
     desc: Esconde o rótulo (label) do botão quando o tamanho da tela for pequeno (esta propriedade só funciona se o "rotulo") for passado via propriedade "label".
+    default: true
+    type: Boolean
+
+  use-label:
+    desc: Habilita ou não o label no botão.
     default: true
     type: Boolean
 
