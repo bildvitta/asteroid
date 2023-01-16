@@ -6,7 +6,6 @@ meta:
 props:
   color:
     desc: Cor do ícone.
-    default: grey-9
     type: String
 
   delete-icon:

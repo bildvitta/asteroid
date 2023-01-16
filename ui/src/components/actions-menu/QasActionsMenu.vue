@@ -1,6 +1,6 @@
 <template>
   <div v-if="hasActions">
-    <component :is="component.is" :color="color" flat v-bind="component.props" :use-label-on-small-screen="useLabelOnSmallScreen" @click="onClick()">
+    <component :is="component.is" flat v-bind="component.props" :use-label-on-small-screen="useLabelOnSmallScreen" @click="onClick()">
       <q-menu v-if="hasMoreThanOneAction" auto-close class="q-py-xs">
         <q-list>
           <slot v-for="(item, key) in actions" :item="item" :name="key">
@@ -38,7 +38,7 @@ export default {
 
   props: {
     color: {
-      default: 'grey-9',
+      default: '',
       type: String
     },
 
@@ -97,10 +97,13 @@ export default {
     component () {
       const props = {}
 
+      // TODO: solução do color é temporária até ser definido o novo QasBtn.
       if (this.hasMoreThanOneAction) {
-        props.label = this.useLabel ? 'Opções' : ''
+        props.color = this.color || 'grey-9'
         props.iconRight = this.icon
+        props.label = this.useLabel ? 'Opções' : ''
       } else {
+        props.color = this.color || 'primary'
         props.icon = this.actions[this.firstItemKey]?.icon
         props.label = this.useLabel ? this.actions[this.firstItemKey]?.label : ''
       }
