@@ -17,7 +17,7 @@
         </q-list>
       </q-menu>
 
-      <q-tooltip v-if="!hasMoreThanOneAction" class="text-caption">
+      <q-tooltip v-if="hasTooltip" class="text-caption">
         {{ tooltipLabel }}
       </q-tooltip>
     </component>
@@ -127,6 +127,10 @@ export default {
 
     hasMoreThanOneAction () {
       return Object.keys(this.list || {}).length + Number(this.hasDelete) > 1
+    },
+
+    hasTooltip () {
+      return !this.hasMoreThanOneAction && !this.useLabel
     },
 
     tooltipLabel () {
