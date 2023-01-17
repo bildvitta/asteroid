@@ -10,7 +10,7 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 ### Sobre os "BREAKING CHANGES"
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
-## Não publicado
+## [3.5.0-beta.13] - 17-01-2023
 ### Adicionado
 - `QasActions`: adicionado propriedade `use-full-width` para deixar as colunas 100%, com col-12.
 - `QasActions`: adicionado propriedade `use-equal-width` para deixar as colunas 50% no desktop e 100% no mobile, col-12 col-sm-6.
@@ -756,3 +756,4 @@ Adicionado suporte para Pinia/Vuex Seguindo os padrões da biblioteca `@bildvitt
 [3.5.0-beta.10]: https://github.com/bildvitta/asteroid/compare/v3.5.0-beta.9...v3.5.0-beta.10?expand=1
 [3.5.0-beta.11]: https://github.com/bildvitta/asteroid/compare/v3.5.0-beta.10...v3.5.0-beta.11?expand=1
 [3.5.0-beta.12]: https://github.com/bildvitta/asteroid/compare/v3.5.0-beta.11...v3.5.0-beta.12?expand=1
+[3.5.0-beta.13]: https://github.com/bildvitta/asteroid/compare/v3.5.0-beta.12...v3.5.0-beta.13?expand=1
