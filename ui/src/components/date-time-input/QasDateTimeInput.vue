@@ -6,23 +6,12 @@
           <q-date v-model="currentValue" v-bind="defaultDateProps" :mask="maskDate" @update:model-value="updateModelValue" />
         </q-popup-proxy>
       </qas-btn>
-      <!-- <q-icon v-if="!useTimeOnly" class="cursor-pointer" name="sym_r_event">
-        <q-popup-proxy ref="dateProxy" transition-hide="scale" transition-show="scale">
-          <q-date v-model="currentValue" v-bind="defaultDateProps" :mask="maskDate" @update:model-value="updateModelValue" />
-        </q-popup-proxy>
-      </q-icon> -->
 
       <qas-btn v-if="!useTimeOnly" class="q-ml-sm" color="grey-9" dense :disable="$attrs.readonly" flat icon="sym_r_access_time" readonly rounded>
         <q-popup-proxy ref="timeProxy" transition-hide="scale" transition-show="scale">
           <q-time v-model="currentValue" v-bind="defaultTimeProps" format24h :mask="maskDate" @update:model-value="updateModelValue" />
         </q-popup-proxy>
       </qas-btn>
-
-      <!-- <q-icon v-if="!useDateOnly" class="cursor-pointer q-ml-md" name="sym_r_access_time">
-        <q-popup-proxy ref="timeProxy" transition-hide="scale" transition-show="scale">
-          <q-time v-model="currentValue" v-bind="defaultTimeProps" format24h :mask="maskDate" @update:model-value="updateModelValue" />
-        </q-popup-proxy>
-      </q-icon> -->
     </template>
   </qas-input>
 </template>
