@@ -14,3 +14,4 @@ Componente implementa o `QasInput`, podendo ser repassado propriedades e eventos
 
 <doc-example file="QasDateTimeInput/Basic" title="Básico" />
 <doc-example file="QasDateTimeInput/DateAndISO" title="Somente data e ISO" />
+<doc-example file="QasDateTimeInput/ExDisableAndReadonly" title="Desabilitado e readonly" />
