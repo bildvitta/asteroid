@@ -18,7 +18,7 @@
           </div>
 
           <div v-if="$qas.screen.isSmall" class="q-ml-xl">
-            <qas-btn color="grey-9" dense flat icon="sym_r_close" rounded />
+            <qas-btn color="grey-9" dense flat icon="sym_r_close" rounded @click="closeDrawer" />
           </div>
         </div>
 
@@ -172,7 +172,7 @@ export default {
     },
 
     drawerWidth () {
-      return this.$qas.screen.isSmall ? 280 : 320
+      return this.$qas.screen.isSmall ? 320 : 280
     },
 
     hasDevelopmentBadge () {
@@ -247,6 +247,10 @@ export default {
 
     signOut () {
       this.$emit('sign-out')
+    },
+
+    closeDrawer () {
+      this.$emit('update:modelValue', false)
     }
   }
 }

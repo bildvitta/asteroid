@@ -29,7 +29,11 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - `spacing.scss`: modificado variáveis de gutter para aplicar mudanças do spacing.
 - `QasSignatureUploader`: modificado customização do template `actions` do `qas-dialog` para utilizar o default.
 - `item.scss`: modificado cor do hover para `$primary-color`;
-- `item.scss`: modificado cor do item quando clicável para `grey-9` e quando não clicável para `grey-8`;
+- `item.scss`: modificado cor do item quando clicável para `grey-9` e quando não clicável para `grey-8`.
+
+### Corrigido
+- `QasAppMenu`: corrigido tamanho do drawer, estava invertido, 320px deve ser no mobile e não desktop.
+- `QasAppMenu`: corrigido botão de fechar drawer no mobile, não tinha nenhuma ação ao clicar nele.
 
 ### Removido
 - `ui/src/css/utils/shadow.scss`: removido util shadow.scss para mudar shadow por variável.
