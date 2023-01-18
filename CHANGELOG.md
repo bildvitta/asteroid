@@ -12,7 +12,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 
 ## Não publicado
 ### Modificado
-- [`NotifyError`, `NotifySuccess`]: time de design definiu que os ícones não tem mais ícones para diferentes feedbacks, sendo a mensagem que diferem os feedbacks.
+- [`NotifyError`, `NotifySuccess`]: time de design definiu que não tem mais ícones para diferentes feedbacks, sendo a mensagem que diferem os feedbacks.
 - `QasFormView`: modificado mensagem default de validação de campos para algo mais genérico.
 
 ## Corrigido
