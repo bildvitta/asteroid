@@ -10,6 +10,14 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 ### Sobre os "BREAKING CHANGES"
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
+## Não publicado
+### Modificado
+- [`NotifyError`, `NotifySuccess`]: time de design definiu que os ícones não tem mais ícones para diferentes feedbacks, sendo a mensagem que diferem os feedbacks.
+- `QasFormView`: modificado mensagem default de validação de campos para algo mais genérico.
+
+## Corrigido
+- `QasFormView`: corrigido validação de mensagem de notify que sempre mostrada mensagem de campo obrigatório mesmo se não fosse erro de validação.
+
 ## [3.5.0-beta.14] - 17-01-2023
 ### Corrigido
 - `QasAppMenu`: corrigido tamanho do drawer, estava invertido, 320px deve ser no mobile e não desktop.
