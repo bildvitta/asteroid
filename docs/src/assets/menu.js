@@ -394,16 +394,16 @@ module.exports = [
         path: '/styles/opacity'
       },
       {
-        name: 'text',
-        path: '/styles/text'
-      },
-      {
         name: 'set-brand',
         path: '/styles/set-brand'
       },
       {
         name: 'set-typography',
         path: '/styles/set-typography'
+      },
+      {
+        name: 'typography',
+        path: '/styles/typography'
       }
     ]
   },

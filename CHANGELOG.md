@@ -10,6 +10,16 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 ### Sobre os "BREAKING CHANGES"
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
+## Não publicado
+### Adicionada
+- `typography.md`: adicionado documentação para classes de tipografia.
+
+### Modificado
+- `typography.scss`: alterado line-height fixo de `1.5rem` para o mesmo de cada `font-size`.
+
+### Removido
+- `text.md`: removido aquivo para ser unificado no `typography.md`.
+
 ## [3.5.0-beta.14] - 17-01-2023
 ### Corrigido
 - `QasAppMenu`: corrigido tamanho do drawer, estava invertido, 320px deve ser no mobile e não desktop.
