@@ -11,9 +11,11 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
 ## Não publicado
+### Adicionado
+- `QasBadge` adicionado novo componente wrapper do quasar para badges.
+
 ### Modificado
-- [`NotifyError`, `NotifySuccess`]: time de design definiu que não tem mais ícones para diferentes feedbacks, sendo a mensagem que diferem os feedbacks.
-- `QasFormView`: modificado mensagem default de validação de campos para algo mais genérico.
+- `ui/src/index.scss`: modificado `--qas-generic-border-radius` para `4px`.
 
 ## Corrigido
 - `QasFormView`: corrigido validação de mensagem de notify que sempre mostrada mensagem de campo obrigatório mesmo se não fosse erro de validação.
