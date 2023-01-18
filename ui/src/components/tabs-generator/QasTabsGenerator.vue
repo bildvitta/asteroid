@@ -6,7 +6,7 @@
           <slot :item="tab" :name="`tab-after-${tab.value}`">
             <q-icon v-if="tab.icon" :name="tab.icon" size="sm" />
 
-            <pv-tabs-generator-status v-if="tab.status" :color="tab.status" />
+            <qas-status v-if="tab.status" :color="tab.status" />
 
             <div class="q-ml-xs">
               {{ getFormattedLabel(tab) }}
@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import PvTabsGeneratorStatus from './private/PvTabsGeneratorStatus.vue'
+import QasStatus from '../status/QasStatus.vue'
 
 import { extend } from 'quasar'
 
@@ -27,7 +27,7 @@ export default {
   name: 'QasTabsGenerator',
 
   components: {
-    PvTabsGeneratorStatus
+    QasStatus
   },
 
   props: {

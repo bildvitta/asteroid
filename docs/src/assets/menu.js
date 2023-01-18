@@ -221,6 +221,10 @@ module.exports = [
         path: '/components/sortable'
       },
       {
+        name: 'Status',
+        path: '/components/Status'
+      },
+      {
         name: 'TableGenerator',
         path: '/components/table-generator'
       },
