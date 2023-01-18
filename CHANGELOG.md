@@ -17,9 +17,6 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 ### Modificado
 - `ui/src/index.scss`: modificado `--qas-generic-border-radius` para `4px`.
 
-## Corrigido
-- `QasFormView`: corrigido validação de mensagem de notify que sempre mostrada mensagem de campo obrigatório mesmo se não fosse erro de validação.
-
 ## [3.5.0-beta.14] - 17-01-2023
 ### Corrigido
 - `QasAppMenu`: corrigido tamanho do drawer, estava invertido, 320px deve ser no mobile e não desktop.
