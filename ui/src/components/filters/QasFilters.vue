@@ -353,7 +353,7 @@ export default {
 .qas-filters {
   .q-field::before {
     border: 2px solid transparent;
-    border-radius: 4px;
+    border-radius: var(--qas-generic-border-radius);
     bottom: 0;
     content: '';
     left: 0;

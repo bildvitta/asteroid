@@ -279,7 +279,7 @@ export default {
   }
 
   &__select {
-    border-radius: 4px;
+    border-radius: var(--qas-generic-border-radius);
   }
 
   &__item {
