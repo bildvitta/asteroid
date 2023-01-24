@@ -25,7 +25,7 @@
     }
   }
 
-  &--clickable {
+  &--clickable:not(&--active) {
     color: $grey-9;
     transition: color 300ms;
 
