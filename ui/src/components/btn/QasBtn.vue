@@ -14,7 +14,7 @@ export default {
 
   props: {
     color: {
-      default: 'grey-9',
+      default: 'primary',
       type: String,
       validator: value => ['grey-9', 'primary', 'white'].includes(value)
     },
@@ -34,23 +34,9 @@ export default {
       type: String
     },
 
-    icon: {
-      default: undefined,
-      type: String
-    },
-
-    iconRight: {
-      default: undefined,
-      type: String
-    },
-
-    loading: {
-      type: Boolean
-    },
-
     variant: {
       type: String,
-      default: 'primary',
+      default: 'tertiary',
       validator: value => {
         const variants = ['primary', 'secondary', 'tertiary']
 
@@ -62,29 +48,37 @@ export default {
   computed: {
     attributes () {
       const {
+        align,
         dense,
+        fab,
+        fabMini,
         flat,
         glossy,
+        noWrap,
         outline,
         padding,
+        push,
+        ripple,
         round,
+        size,
+        square,
+        stack,
+        stretch,
+        textColor,
         unelevated,
         ...attributes
       } = this.$attrs
 
       return {
         ...(this.showLabel && { label: this.label }),
-        class: this.classes,
 
         ...attributes,
-        icon: this.icon,
-        iconRight: this.iconRight,
-        loading: this.loading
+        class: this.classes
       }
     },
 
     hasIconOnly () {
-      return !this.label && (this.icon || this.iconRight)
+      return !this.label && (this.$attrs.icon || this.$attrs.iconRight)
     },
 
     classes () {
@@ -127,98 +121,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss">
-// .qas-btn {
-//   $root: &;
-
-//   border-radius: 32px;
-//   min-height: 48px;
-//   padding: var(--qas-spacing-xs) var(--qas-spacing-lg);
-//   text-transform: initial;
-//   transition: color var(--qas-generic-transition), background-color var(--qas-generic-transition);
-
-//   &:disabled {
-//     opacity: 1 !important;
-//   }
-
-//   &:not(&--primary):not(:disabled):hover {
-//     color: var(--q-primary-contrast) !important;
-//   }
-
-//   &--primary {
-//     background-color: var(--q-primary);
-//     color: white;
-
-//     &:disabled {
-//       background-color: $grey-4;
-//       color: $grey-8;
-//     }
-
-//     &:not(:disabled):hover {
-//       background-color: var(--q-primary-contrast) !important;
-//     }
-//   }
-
-//   &--secondary {
-//     border: 1px solid currentColor;
-//     color: var(--q-primary);
-//     position: relative;
-
-//     &:disabled {
-//       color: $grey-8 !important;
-//     }
-//   }
-
-//   &--tertiary {
-//     min-height: 24px !important;
-//     padding-bottom: 0;
-//     padding-top: 0;
-
-//     &:disabled {
-//       color: $grey-8 !important;
-//     }
-
-//     &-grey-9 {
-//       color: $grey-9;
-//     }
-
-//     &-primary {
-//       color: var(--q-primary);
-//     }
-
-//     &-white {
-//       color: white;
-//     }
-//   }
-
-//   &--icon-only {
-//     padding: 0;
-
-//     &:not(#{$root}--tertiary) {
-//       height: 48px;
-//       width: 48px;
-//     }
-//   }
-
-//   &.q-btn {
-//     &::before {
-//       display: none;
-//     }
-//   }
-
-//   .q-icon.on-left {
-//     margin-right: var(--qas-spacing-xs);
-//   }
-
-//   .q-icon.on-right {
-//     margin-left: var(--qas-spacing-xs);
-//   }
-
-//   .q-ripple,
-//   .q-focus-helper {
-//     display: none;
-//   }
-// }
-
-</style>

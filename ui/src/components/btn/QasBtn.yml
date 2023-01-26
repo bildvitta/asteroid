@@ -13,30 +13,23 @@ props:
     type: String
     examples: ['grey-9', 'primary', 'white']
 
+  use-hover-on-white-color:
+    desc: Quando usamos a cor branda para contrast, em alguns casos podemos não querer ter um hover de outra cor justamente por conta do contraste, esta propriedade só funciona com variante "tertiary" e cor "white", para remover o hover sete o valor para "false".
+    default: true
+    type: Boolean
+
   use-label-on-small-screen:
     desc: Esconde o rótulo (label) do botão quando o tamanho da tela for pequeno (esta propriedade só funciona se o "rotulo") for passado via propriedade "label".
     default: true
     type: Boolean
 
+
   label:
     desc: Rótulo do botão.
     type: String
 
-  icon:
-    desc: Ícone do botão, caso exista label, ficará a esquerda.
-    type: String
-
-  icon-right:
-    desc: Ícone do botão, caso exista label, ficará a direita.
-    type: String
-
-  loading:
-    desc: Propriedade para mostrar um spinner de carregamento
-    default: false
-    type: Boolean
-
   variant:
     desc: Variantes do botão, que define para qual comportamento o botão será usado, podendo ser "primary", "secondary" ou "tertiary".
-    default: primary
+    default: tertiary
     type: String
     examples: ['primary', 'secondary', 'tertiary']

@@ -11,6 +11,30 @@ Tem a função de criar gatilhos para ações. Eles podem ser utilizados isolada
 Sempre que utilizar "label" e "ícone", certifique-se de usar as propriedades correspondentes, como `label`, `icon` e `iconRight`. Evite usar esses conteúdos através do slot padrão, pois essa prática pode causar problemas de estilo. O slot padrão deve ser reservado para casos específicos, como chamar um `QMenu` dentro dele. Se você não utilizar as propriedades `label`, `icon` e `iconRight` e adicionar esses conteúdos via slot, há uma grande possibilidade de ocorrerem problemas de estilo.
 :::
 
+:::warning
+Algumas propriedades do quasar não são repassadas, como:
+
+- align
+- class
+- dense
+- fab
+- fabMini
+- flat
+- glossy
+- noWrap
+- outline
+- padding
+- push
+- ripple
+- round
+- size
+- square
+- stack
+- stretch
+- textColor
+- unelevated
+:::
+
 :::tip
 ##### Propriedade "color"
 A prop `color` só é configurável caso a variante seja `tertiary`, não é possível alterar as cores das variantes `primary` e `secondary`, as possíveis opções de cores para tertiary são:
@@ -48,10 +72,6 @@ A cor "grey-9" é usado para quando não é uma ação direta ou ação negativa
 
 ###### white
 A cor "white" é usada quando necessita de um contraste, sendo possível ter ou não uma cor de hover, sendo possível modificar através da prop `useHoverOnWhiteColor`.
-
-
 <doc-example file="QasBtn/ExTertiaryVariant" title='Variante "tertiary"' />
-
-<!-- <doc-example file="QasBtn/Basic" title="Básico" /> -->
 
 <doc-example file="QasBtn/UseLabelOnSmallScreen" title="use-label-on-small-screen" />

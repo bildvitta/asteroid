@@ -11,8 +11,9 @@
     opacity: 1 !important;
   }
 
-  &:not(&--primary):not(:disabled):not(&--no-hover-on-white):hover {
+  &:not(&--primary):not(:disabled):not(&--no-hover-on-white.qas-btn--tertiary-white):hover {
     color: var(--q-primary-contrast) !important;
+    color: red;
   }
 
   &--primary {
@@ -59,7 +60,13 @@
     &-white {
       color: white;
     }
+
+    // &-white.#{$root}--no-hover-on-white:
   }
+
+  // &--tertiary-white.&--no-hover-on-white {
+  //   color: red !important;
+  // }
 
   &--icon-only {
     padding: 0;

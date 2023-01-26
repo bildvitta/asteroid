@@ -10,20 +10,20 @@
       </div>
 
       <div class="q-gutter-sm q-mb-lg">
-        <qas-btn color="primary" label="tertiary" variant="tertiary" />
-        <qas-btn color="primary" icon="sym_r_search" label="tertiary" variant="tertiary" />
-        <qas-btn color="primary" icon-right="sym_r_more_vert" label="tertiary" variant="tertiary" />
-        <qas-btn color="primary" icon="sym_r_search" variant="tertiary" />
+        <qas-btn color="grey-9" label="tertiary" variant="tertiary" />
+        <qas-btn color="grey-9" icon="sym_r_search" label="tertiary" variant="tertiary" />
+        <qas-btn color="grey-9" icon-right="sym_r_more_vert" label="tertiary" variant="tertiary" />
+        <qas-btn color="grey-9" icon="sym_r_search" variant="tertiary" />
       </div>
 
-      <div class="bg-secondary-contrast q-gutter-sm q-mb-lg q-py-lg">
+      <div class="bg-secondary-contrast q-gutter-x-sm q-mb-lg q-py-lg">
         <qas-btn color="white" label="tertiary" variant="tertiary" />
         <qas-btn color="white" icon="sym_r_search" label="tertiary" variant="tertiary" />
         <qas-btn color="white" icon-right="sym_r_more_vert" label="tertiary" variant="tertiary" />
         <qas-btn color="white" icon="sym_r_search" variant="tertiary" />
       </div>
 
-      <div class="bg-primary q-gutter-sm q-mb-lg q-py-lg">
+      <div class="bg-primary q-gutter-x-sm q-mb-lg q-py-lg">
         <qas-btn color="white" label="tertiary" :use-hover-on-white-color="false" variant="tertiary" />
         <qas-btn color="white" icon="sym_r_search" label="tertiary" :use-hover-on-white-color="false" variant="tertiary" />
         <qas-btn color="white" icon-right="sym_r_more_vert" label="tertiary" :use-hover-on-white-color="false" variant="tertiary" />
