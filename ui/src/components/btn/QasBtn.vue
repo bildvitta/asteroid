@@ -12,6 +12,8 @@
 export default {
   name: 'QasBtn',
 
+  inheritAttrs: false,
+
   props: {
     color: {
       default: 'primary',
@@ -66,6 +68,7 @@ export default {
         stretch,
         textColor,
         unelevated,
+        class: externalClass,
         ...attributes
       } = this.$attrs
 
@@ -73,7 +76,7 @@ export default {
         ...(this.showLabel && { label: this.label }),
 
         ...attributes,
-        class: this.classes
+        class: [this.classes, externalClass]
       }
     },
 

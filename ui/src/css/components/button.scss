@@ -1,8 +1,8 @@
 .qas-btn {
   $root: &;
 
-  border-radius: 32px;
-  min-height: 48px;
+  border-radius: 32px !important;
+  min-height: 48px !important;
   padding: var(--qas-spacing-xs) var(--qas-spacing-lg);
   text-transform: initial;
   transition: color var(--qas-generic-transition), background-color var(--qas-generic-transition);
@@ -17,12 +17,12 @@
   }
 
   &--primary {
-    background-color: var(--q-primary);
-    color: white;
+    background-color: var(--q-primary) !important;
+    color: white !important;
 
     &:disabled {
-      background-color: $grey-4;
-      color: $grey-8;
+      background-color: $grey-4 !important;
+      color: $grey-8 !important;
     }
 
     &:not(:disabled):hover {
@@ -32,7 +32,7 @@
 
   &--secondary {
     border: 1px solid currentColor;
-    color: var(--q-primary);
+    color: var(--q-primary) !important;
     position: relative;
 
     &:disabled {
@@ -42,23 +42,23 @@
 
   &--tertiary {
     min-height: 24px !important;
-    padding-bottom: 0;
-    padding-top: 0;
+    padding-bottom: 0 !important;
+    padding-top: 0 !important;
 
     &:disabled {
       color: $grey-8 !important;
     }
 
     &-grey-9 {
-      color: $grey-9;
+      color: $grey-9 !important;
     }
 
     &-primary {
-      color: var(--q-primary);
+      color: var(--q-primary) !important;
     }
 
     &-white {
-      color: white;
+      color: white !important;
     }
 
     // &-white.#{$root}--no-hover-on-white:
@@ -69,7 +69,7 @@
   // }
 
   &--icon-only {
-    padding: 0;
+    padding: 0 !important;
 
     &:not(#{$root}--tertiary) {
       height: 48px;
@@ -94,5 +94,14 @@
   .q-ripple,
   .q-focus-helper {
     display: none;
+  }
+}
+
+@mixin set-button($variant) {
+  @extend .qas-btn;
+  @extend .qas-btn--icon-only;
+
+  @if $variant == primary {
+    @extend .qas-btn--primary;
   }
 }

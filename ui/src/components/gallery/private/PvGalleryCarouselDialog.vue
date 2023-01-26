@@ -1,21 +1,23 @@
 <template>
-  <qas-dialog v-model="model" :cancel="false" class="q-pa-xl" max-width="1100px" :ok="false" :persistent="false" use-full-max-width>
-    <template #header>
-      <div class="text-right">
-        <qas-btn v-close-popup dense flat icon="sym_r_close" rounded @click="close" />
-      </div>
-    </template>
+  <div class="pv-gallery-carousel-dialog">
+    <qas-dialog v-model="model" :cancel="false" class="q-pa-xl" max-width="1100px" :ok="false" :persistent="false" use-full-max-width>
+      <template #header>
+        <div class="text-right">
+          <qas-btn v-close-popup color="grey-9" icon="sym_r_close" variant="tertiary" @click="close" />
+        </div>
+      </template>
 
-    <template #description>
-      <q-carousel v-model="imageIndexModel" animated :arrows="!$qas.screen.isSmall" control-text-color="primary" data-cy="gallery-carousel" :fullscreen="$qas.screen.isSmall" :height="carouselImageHeight" next-icon="sym_r_chevron_right" prev-icon="sym_r_chevron_left" swipeable :thumbnails="!isSingleImage">
-        <q-carousel-slide v-for="(image, index) in images" :key="index" class="bg-no-repeat bg-size-contain" :data-cy="`gallery-carousel-slide-${index}`" :img-src="image.url" :name="index">
-          <div v-if="$qas.screen.isSmall" class="full-width justify-end row">
-            <qas-btn dense flat icon="sym_r_close" @click="close" />
-          </div>
-        </q-carousel-slide>
-      </q-carousel>
-    </template>
-  </qas-dialog>
+      <template #description>
+        <q-carousel v-model="imageIndexModel" animated :arrows="!$qas.screen.isSmall" class="pv-gallery-carousel-dialog__carousel" control-text-color="primary" data-cy="gallery-carousel" :fullscreen="$qas.screen.isSmall" :height="carouselImageHeight" next-icon="sym_r_chevron_right" prev-icon="sym_r_chevron_left" swipeable :thumbnails="!isSingleImage">
+          <q-carousel-slide v-for="(image, index) in images" :key="index" class="bg-no-repeat bg-size-contain" :data-cy="`gallery-carousel-slide-${index}`" :img-src="image.url" :name="index">
+            <div v-if="$qas.screen.isSmall" class="full-width justify-end row">
+              <qas-btn color="grey-9" icon="sym_r_close" variant="tertiary" @click="close" />
+            </div>
+          </q-carousel-slide>
+        </q-carousel>
+      </template>
+    </qas-dialog>
+  </div>
 </template>
 
 <script>
@@ -80,3 +82,16 @@ export default {
   }
 }
 </script>
+
+<style lang="scss">
+.pv-gallery-carousel-dialog {
+  &__carousel .q-carousel__control .q-btn {
+    // background-color: $primary;
+    // @extend .qas-btn;
+    // @extend .qas-btn--tertiary;
+    // @extend .qas-btn--tertiary-primary;
+
+    @include set-button(primary);
+  }
+}
+</style>

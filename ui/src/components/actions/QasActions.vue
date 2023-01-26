@@ -1,5 +1,5 @@
 <template>
-  <div class="qas-actions" :class="classes">
+  <div class="q-mt-sm" :class="classes">
     <div v-if="hasSecondarySlot" :class="columnClasses">
       <slot name="secondary" />
     </div>
@@ -41,7 +41,7 @@ export default {
       return [
         `justify-${this.align}`,
         `q-col-gutter-${this.defaultGutter}`,
-        this.$qas.screen.isSmall ? 'column reverse' : 'row'
+        this.$qas.screen.isSmall ? 'column row reverse' : 'row'
       ]
     },
 

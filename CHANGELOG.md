@@ -10,6 +10,10 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 ### Sobre os "BREAKING CHANGES"
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
+## Não publicado
+### Removido
+- `QasCopy`: removido propriedade `size` uma vez que não é mais repassado pro `QasBtn`.
+
 ## [3.5.0-beta.15] - 24-01-2023
 ### Corrigido
 - `item.scss`: corrigido cor quando o item está ativo, estava sobrescrevendo com a cor `grey-9` mesmo o item sendo ativo, agora não mais.
