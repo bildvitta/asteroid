@@ -3,9 +3,13 @@
 
   border-radius: 32px !important;
   min-height: 48px !important;
-  padding: var(--qas-spacing-xs) var(--qas-spacing-lg);
-  text-transform: initial;
+  padding: var(--qas-spacing-xs) var(--qas-spacing-lg) !important;
+  text-transform: initial !important;
   transition: color var(--qas-generic-transition), background-color var(--qas-generic-transition);
+
+  .q-icon {
+    font-size: 24px !important;
+  }
 
   &:disabled {
     opacity: 1 !important;
@@ -13,7 +17,6 @@
 
   &:not(&--primary):not(:disabled):not(&--no-hover-on-white.qas-btn--tertiary-white):hover {
     color: var(--q-primary-contrast) !important;
-    color: red;
   }
 
   &--primary {
@@ -28,15 +31,29 @@
     &:not(:disabled):hover {
       background-color: var(--q-primary-contrast) !important;
     }
+
+    &-icon-only {
+      height: 48px !important;
+      min-width: auto !important;
+      padding: 0 !important;
+      width: 48px !important;
+    }
   }
 
   &--secondary {
-    border: 1px solid currentColor;
+    border: 1px solid currentColor !important;
     color: var(--q-primary) !important;
     position: relative;
 
     &:disabled {
       color: $grey-8 !important;
+    }
+
+    &-icon-only {
+      height: 48px !important;
+      min-width: auto !important;
+      padding: 0 !important;
+      width: 48px !important;
     }
   }
 
@@ -61,19 +78,11 @@
       color: white !important;
     }
 
-    // &-white.#{$root}--no-hover-on-white:
-  }
-
-  // &--tertiary-white.&--no-hover-on-white {
-  //   color: red !important;
-  // }
-
-  &--icon-only {
-    padding: 0 !important;
-
-    &:not(#{$root}--tertiary) {
-      height: 48px;
-      width: 48px;
+    &-icon-only {
+      height: 24px !important;
+      min-width: auto !important;
+      padding: 0 !important;
+      width: 24px !important;
     }
   }
 
@@ -94,14 +103,5 @@
   .q-ripple,
   .q-focus-helper {
     display: none;
-  }
-}
-
-@mixin set-button($variant) {
-  @extend .qas-btn;
-  @extend .qas-btn--icon-only;
-
-  @if $variant == primary {
-    @extend .qas-btn--primary;
   }
 }

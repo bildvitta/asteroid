@@ -85,13 +85,15 @@ export default {
 
 <style lang="scss">
 .pv-gallery-carousel-dialog {
-  &__carousel .q-carousel__control .q-btn {
-    // background-color: $primary;
-    // @extend .qas-btn;
-    // @extend .qas-btn--tertiary;
-    // @extend .qas-btn--tertiary-primary;
+  // https://quasar.dev/style/sass-scss-variables#caveat: $
 
-    @include set-button(primary);
+  &__carousel .q-carousel__control .q-btn {
+    @include set-button(
+      tertiary,
+      true,
+      false,
+      primary
+    );
   }
 }
 </style>

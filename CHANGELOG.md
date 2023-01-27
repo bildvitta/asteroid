@@ -11,8 +11,15 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
 ## Não publicado
+### Adicionado
+- `QasListItems`: adicionado nova propriedade `icon` para repassar o nom do ícone.
+
+### Modificado
+- `QasDelete`: fixado cor `grey-9` quando a prop `tag` for `qas-btn`.
+
 ### Removido
 - `QasCopy`: removido propriedade `size` uma vez que não é mais repassado pro `QasBtn`.
+- `QasListItems`: removido propriedade `iconProps` para ser passado somente o nome ícone.
 
 ## [3.5.0-beta.15] - 24-01-2023
 ### Corrigido

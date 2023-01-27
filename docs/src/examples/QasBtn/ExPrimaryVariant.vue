@@ -1,6 +1,9 @@
 <template>
   <div class="q-pa-md">
     <div class="q-mb-lg">
+      <div class="bg-primary1 q-py-xl">
+        <q-btn class="teste" icon="sym_r_search" />
+      </div>
       <div class="q-gutter-sm q-mb-lg">
         <qas-label>Habilitado</qas-label>
         <qas-btn label="primary" variant="primary" />
@@ -19,3 +22,16 @@
     </div>
   </div>
 </template>
+
+<!-- <style lang="scss">
+@import '../../../../ui/src/index';
+
+.teste {
+  @include set-button(
+    primary,
+    true,
+    true,
+    white
+  );
+}
+</style> -->

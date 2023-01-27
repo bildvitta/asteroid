@@ -4,10 +4,10 @@ meta:
   desc: Componente para listagem.
 
 props:
-  icon-props:
-    desc: Props do [QIcon](https://quasar.dev/vue-components/icon#introduction)
-    default: { color: 'primary', name: 'sym_r_chevron_right' }
-    type: Object
+  icon:
+    desc: Nome do ícone
+    default: sym_r_chevron_right
+    type: String
 
   list:
     desc: Lista para ser selecionada.

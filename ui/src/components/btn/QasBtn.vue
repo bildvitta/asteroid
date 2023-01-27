@@ -96,6 +96,10 @@ export default {
         // icon
         'qas-btn--icon-only': this.hasIconOnly,
 
+        'qas-btn--primary-icon-only': this.hasIconOnly && this.isPrimary,
+        'qas-btn--secondary-icon-only': this.hasIconOnly && this.isSecondary,
+        'qas-btn--tertiary-icon-only': this.hasIconOnly && this.isTertiary,
+
         // hover
         'qas-btn--no-hover-on-white': !this.useHoverOnWhiteColor
       }

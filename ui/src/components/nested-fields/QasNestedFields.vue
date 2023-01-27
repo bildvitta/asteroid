@@ -11,7 +11,7 @@
             <div>
               <div class="flex items-center justify-between q-py-xs">
                 <qas-label v-if="!useSingleLabel" :label="getRowLabel(index)" />
-                <qas-actions-menu v-if="hasBlockActions(row)" :list="getActionsList(index, row)" :use-label-on-small-screen="false" />
+                <qas-actions-menu v-if="hasBlockActions(row)" :color="actionsMenuColor" :list="getActionsList(index, row)" :use-label-on-small-screen="false" />
               </div>
 
               <div ref="formGenerator" class="col-12 justify-between q-col-gutter-x-md row">
@@ -39,7 +39,7 @@
       <div v-if="useAdd" class="q-mt-md">
         <slot :add="add" name="add-input">
           <div v-if="showAddFirstInputButton" class="text-left">
-            <qas-btn class="q-px-sm" color="dark" flat @click="add()">{{ addFirstInputLabel }}</qas-btn>
+            <qas-btn class="q-px-sm" color="primary" variant="tertiary" @click="add()">{{ addFirstInputLabel }}</qas-btn>
           </div>
 
           <div v-else-if="useInlineActions" class="cursor-pointer items-center q-col-gutter-x-md q-mt-md row" @click="add()">
@@ -48,12 +48,12 @@
             </div>
 
             <div class="col-auto">
-              <qas-btn color="dark" flat icon="sym_r_add_circle_outline" round />
+              <qas-btn color="primary" icon="sym_r_add_circle_outline" variant="tertiary" />
             </div>
           </div>
 
           <div v-else class="text-left">
-            <qas-btn class="q-px-sm" color="dark" flat icon="sym_r_add" @click="add()">{{ addInputLabel }}</qas-btn>
+            <qas-btn class="q-px-sm" color="primary" icon="sym_r_add" :label="addInputLabel" variant="tertiary" @click="add()" />
           </div>
         </slot>
       </div>
@@ -249,6 +249,38 @@ export default {
   },
 
   computed: {
+    actionsMenuColor () {
+      // const hasMoreThanOnAction = this.
+      return this.useDuplicate ? 'primary' : 'grey-9'
+    },
+
+    actionsList (index, row) {
+      const list = {}
+
+      if (this.useDuplicate) {
+        list.duplicate = {
+          ...this.buttonDuplicateProps
+        }
+      }
+
+      if (this.showDestroyButton) {
+        list.destroy = {
+          ...this.buttonDestroyProps
+        }
+      }
+
+      for (const key in this.actionsMenuProps.list) {
+        const { handler, ...content } = this.actionsMenuProps.list[key] || {}
+
+        list[key] = {
+          handler: payload => handler?.({ payload, row, index }),
+          ...content
+        }
+      }
+
+      return list
+    },
+
     children () {
       return this.field?.children
     },
