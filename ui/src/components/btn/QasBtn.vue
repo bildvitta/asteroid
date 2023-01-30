@@ -81,7 +81,7 @@ export default {
     },
 
     hasIconOnly () {
-      return !this.label && (this.$attrs.icon || this.$attrs.iconRight)
+      return (!this.label || !this.showLabel) && (this.$attrs.icon || this.$attrs.iconRight)
     },
 
     classes () {

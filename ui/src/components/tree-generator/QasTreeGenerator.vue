@@ -2,13 +2,14 @@
   <div class="qas-tree-generator">
     <q-tree ref="tree" v-bind="treeProps" node-key="uuid" :nodes="parsedNodes" @lazy-load="onLazyLoad">
       <template #default-header="{ node, tree }">
-        <div>
+        <div class="flex items-center">
           <span>
             {{ node.label }}
           </span>
 
           <span v-if="hasMenuButton(node)" class="q-ml-sm">
-            <qas-btn dense flat icon="sym_r_more_vert" round @click.stop>
+            <!-- TODO: rever para o uso QasActionsMenu -->
+            <qas-btn color="grey-9" icon="sym_r_more_vert" variant="tertiary" @click.stop>
               <q-menu auto-close>
                 <q-list separator>
                   <q-item v-if="useAddButton" v-ripple class="qas-tree-generator__item" clickable @click="handleTreeFormDialog(node, true, tree)">

@@ -103,8 +103,10 @@ export default {
         props.iconRight = this.icon
         props.label = this.useLabel ? 'Opções' : ''
       } else {
-        props.color = this.color || 'primary'
-        props.icon = this.actions[this.firstItemKey]?.icon
+        const { color, icon } = this.actions[this.firstItemKey] || {}
+
+        props.color = color || this.color || 'primary'
+        props.icon = icon
         props.label = this.useLabel ? this.tooltipLabel : ''
       }
 

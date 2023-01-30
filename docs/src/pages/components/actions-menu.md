@@ -16,6 +16,7 @@ A prop `list` é um objeto de objetos, que contem os seguintes atributos:
   visibility: { // key que será usado para abrir o slot
     label: 'Nome do item',
     icon: 'Icone dentro do item',
+    color: 'grey-9' // propriedade color sobrescreve a propriedade do componente `color` porém só é usada quando existe apenas um item na listagem
     props: {
       // Propriedades do q-item: https://quasar.dev/vue-components/list-and-list-items#api--qitem
     },

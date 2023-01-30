@@ -2,10 +2,14 @@
   <div class="column error-component items-center justify-around q-px-xl">
     <div class="column full-width items-center justify-center q-gutter-md q-py-md row">
       <q-img src="../assets/gear.svg" :width="gearSize" />
+
       <div class="text-bold text-h1 text-primary">{{ code }}</div>
+
       <div class="text-bold text-center text-grey-9 text-h6">{{ title }}</div>
+
       <div v-if="subtitle" class="text-bold text-center text-grey-9 text-subtitle2">{{ subtitle }}</div>
-      <qas-btn v-if="hasButtonProps" class="text-bold text-primary" v-bind="buttonProps" />
+
+      <qas-btn v-if="hasButtonProps" v-bind="buttonProps" color="primary" variant="tertiary" />
     </div>
   </div>
 </template>

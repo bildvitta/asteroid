@@ -31,8 +31,19 @@ export default {
 
 <style lang="scss">
 .qas-pagination {
-  .q-icon {
-    color: $grey-9;
+  // https://quasar.dev/style/sass-scss-variables#caveat: $
+
+  .q-pagination__content .q-btn {
+    @include set-button(
+      tertiary,
+      true,
+      false,
+      grey-9
+    );
+
+    &.text-primary {
+      color: var(--q-primary) !important;
+    }
   }
 }
 </style>

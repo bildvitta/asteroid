@@ -16,6 +16,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 
 ### Modificado
 - `QasDelete`: fixado cor `grey-9` quando a prop `tag` for `qas-btn`.
+- `QasActionsMenu`: recebendo propriedade `color` dentro dos itens do `list`, que sobrepõe a propriedade `color`, porém só é usado quando existe apenas um único item na listam.
 
 ### Removido
 - `QasCopy`: removido propriedade `size` uma vez que não é mais repassado pro `QasBtn`.

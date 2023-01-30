@@ -11,10 +11,10 @@
             <div>
               <div class="flex items-center justify-between q-py-xs">
                 <qas-label v-if="!useSingleLabel" :label="getRowLabel(index)" />
-                <qas-actions-menu v-if="hasBlockActions(row)" :color="actionsMenuColor" :list="getActionsList(index, row)" :use-label-on-small-screen="false" />
+                <qas-actions-menu v-if="hasBlockActions(row)" :list="getActionsList(index, row)" :use-label-on-small-screen="false" />
               </div>
 
-              <div ref="formGenerator" class="col-12 justify-between q-col-gutter-x-md row">
+              <div ref="formGenerator" class="col-12 justify-between row">
                 <slot :errors="transformedErrors" :fields="children" :index="index" name="fields" :update-value="updateValuesFromInput">
                   <qas-form-generator v-model="nested[index]" :class="formClasses" :columns="formColumns" :disable="isDisabledRow(row)" :errors="transformedErrors[index]" :fields="children" :fields-props="fieldsProps" @update:model-value="updateValuesFromInput($event, index)">
                     <template v-for="(slot, key) in $slots" #[key]="scope">
@@ -108,8 +108,7 @@ export default {
         return {
           label: 'Excluir',
           icon: 'sym_r_delete',
-          flat: true,
-          dense: true
+          color: 'grey-9'
         }
       }
     },
@@ -120,9 +119,7 @@ export default {
         return {
           label: 'Duplicar',
           icon: 'sym_r_content_copy',
-          flat: true,
-          useLabelOnSmallScreen: false,
-          dense: true
+          useLabelOnSmallScreen: false
         }
       }
     },
@@ -249,11 +246,6 @@ export default {
   },
 
   computed: {
-    actionsMenuColor () {
-      // const hasMoreThanOnAction = this.
-      return this.useDuplicate ? 'primary' : 'grey-9'
-    },
-
     actionsList (index, row) {
       const list = {}
 
