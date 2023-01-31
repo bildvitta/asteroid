@@ -3,7 +3,7 @@
     <q-card class="border-radius-lg column full-height overflow-hidden" :class="cardClasses">
       <header v-if="useHeader" class="overflow-hidden relative-position w-full">
         <slot name="header">
-          <q-carousel v-model="slideImage" animated class="cursor-pointer" height="205px" infinite :navigation="hasImages" navigation-icon="o_fiber_manual_record" swipeable>
+          <q-carousel v-model="slideImage" animated class="cursor-pointer" height="205px" infinite :navigation="hasImages" navigation-icon="sym_r_fiber_manual_record" swipeable>
             <template #navigation-icon="{ active, btnProps, onClick }">
               <qas-btn color="white" dense flat :icon="getNavigationIcon(active, btnProps)" round size="sm" @click="onClick" />
             </template>
@@ -23,7 +23,7 @@
         </div>
       </q-card-section>
 
-      <div v-if="hasActionsSlot" class="border-primary-contrast border-top overflow-hidden row">
+      <div v-if="hasActionsSlot" class="border-grey border-top overflow-hidden row">
         <slot name="actions" />
       </div>
     </q-card>
@@ -106,7 +106,7 @@ export default {
 
   methods: {
     getNavigationIcon (active, { icon }) {
-      return active ? 'o_radio_button_checked' : icon
+      return active ? 'sym_r_radio_button_checked' : icon
     }
   }
 }

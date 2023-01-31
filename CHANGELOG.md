@@ -10,6 +10,359 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 ### Sobre os "BREAKING CHANGES"
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
+## Não publicado
+## BREAKING CHANGE
+- `QasField`: removido propriedade `useSearch` que era repassado para o `QasSelect` já que agora o componente QasSelect já adiciona uma busca automática quando existem muitas opções, porém ainda é possível passar a propriedade `useSearch` mas não de forma automática, precisa setar manualmente.
+- `QasField`: Alterado type `radio` par utilizar o novo componente `QasOptionGroup` e removido prop de erro pois não existe no componente `QOptionGroup`, testar bem para validar.
+- Componentes de radio agora existe padronização, a partir do mobile componente segue comportamento de linha, em telas mobile segue comportamento de bloco, não sendo possível alterar este comportamento, verificar locais que utilizam para não quebrar o estilo.
+- `QasTableGenerator`: pode haver breaking change de design no espaçamento embaixo do componente uma vez que foi removido a classe `q-mb-xl`.
+- `QasActionsMenu`: removido propriedade `label`, agora o label sempre será fixo "Opções".
+- `QasNestedFields`: mudanças de comportamento e estilo do nested, rever implementações.
+- `QasFilters`: removido slot `filter-button`.
+`QasAvatar`: removido propriedades `color` e `text-color` agora sempre vai ser background primary com cor de texto branca.
+- `QasAvatar`: mudanças relacionadas a cor.
+- `QasPageHeader`: adicionada nova propriedade `useHomeIcon` que habilita o ícone de início como primeiro nível do breadcrumbs, com default `true` para respeitar novo padrão de design, caso já tenha um nível de "início" declarado no breadcrumbs, remova.
+- - `icons`: modificado biblioteca de ícones para `material-symbols-rounded`, agora é necessário alterar o prefixo dos ícones de `o_` para `sym_r_`.
+- `QasTabsGenerator`: removido propriedades: `activeColor`, `counterProps`, `indicatorColor` e `tabClass` com intuito de padronizar novos estilos.
+- `ui/src/css/utils/shadow.scss`: removido util shadow.scss para mudar shadow por variável.
+- `QasDialog`: removido propriedade `cardProps` pois não utilizamos mais o `QCard`.
+- `QasDialog`: removido propriedade `useCloseButton` pois agora o controle de mostrar o botão é feito automaticamente.
+
+### Adicionado
+- `QasFilters`: adicionado nova propriedade `fieldsProps` para repassar propriedades para os campos do filtro.
+- `QasSelect`: adicionado busca automática quando existem pelo menos 10 opções.
+- `QasOptionGroup`: adicionado novo componente wrapper do `QOptionGroup` do quasar, para deixar padronizado propriedade `inline` e deixar mais componentizado.
+- `QasPagination`: adicionado novo componente de paginação que é um wrapper do `QPagination`.
+- `QasField`: Adicionado `*` na label no caso do campo ser obrigatório com base na propriedade `required: true`.
+- [`NotifySuccess`, `NotifyError`]: Adicionado botão de fechar.
+- `shared`: Adicionado pasta para arquivos de configurações que iremos utilizar internamente.
+- `plugins`: Adicionado pasta para plugins css.
+- `notify.scss`: Adicionado arquivo de css para o novo padrão de layout dos notifies.
+- `QasListView`: adicionado nova propriedade `use-auto-handle-on-delete` para controlar se o componente vai lidar automaticamente quando acontecer algum delete compatível com a listagem.
+- `QasActionsMenu`: adicionada a propriedade `auto-close` para fechar o menu após a ação ser executada.
+- `QasNestedFields`: adicionado propriedade `actions-menu-props` para repassar propriedades para o `QasActionsMenu`.
+- `QasActionsMenu`: adicionado propriedade `useLabelOnSmallScreen`.
+- `QasNestedFields`: adicionada nova propriedade `addFirstInputLabel` para modificar o texto do botão de adicionar o primeiro item.
+- `QasNestedFields`: adicionada nova propriedade `useFirstInputButton` para usar um botão diferente para adicionar o primeiro item.
+- `QasNestedFields`: adicionada nova propriedade `useStartsEmpty` para iniciar o componente sem nenhum item.
+- `QasTableGenerator`: Suporte ao evento `rowClick`, nativo do `QTable`.
+- `QasAppUser`: Novo componente para exibir informações do usuário logado.
+-`ui/src/index.scss`: adicionado nova variável css para transição: `--qas-generic-transition: 300ms`.
+- `border.scss`: adicionado nova cor de borda `border-grey`.
+- `index.scss`: adicionado nova var css `--qas-border-grey`.
+- `QasAvatar`: adicionado propriedade `size`.
+- `QasAvatar`: adicionado propriedade color sendo possível passar 2 valores `primary` e `secondary-contrast`.
+- `QasHeaderActions`: adicionado novo componente para trabalhar com descrição e ações.
+- `set-typography.scss`: adicionado novo mixin para setar estilos de tipografia quando não é possível através das classes do quasar.
+- `QasActions`: adicionado propriedade `use-full-width` para deixar as colunas 100%, com col-12.
+- `QasActions`: adicionado propriedade `use-equal-width` para deixar as colunas 50% no desktop e 100% no mobile, col-12 col-sm-6.
+`ui/src/css/variables/shadow.scss`: adicionado shadow.scss para modificar através de variável.
+- `QasActionsMenu`: adicionado propriedade `useLabel` com default `true` para esconder o label em todas as telas necessárias.
+- `QasWelcome`: adicionado novo componente de boas-vindas para uso na Home.
+- `date-config.js`: adicionado arquivo para configurações de datas.
+
+### Corrigido
+- `QasNestedFields`: resolvido validação do `showDestroyBtn`.
+- `QasFormView`: agora quando faz um submit com sucesso os erros são resetados.
+- `QasField`: agora o label de required também é modificado caso passe através dos `$attrs`.
+- `QasAppMenu`: adicionado validação na badge de desenvolvimento.
+- `QasAppUser`: corrigido avatar.
+- `QasAvatar`: corrigido $attrs.
+- `QasActionsMenu`: corrigido problema de circular dependency entre as propriedades computadas `actions` e `hasMoreThanOneAction`.
+- `QasTabsGenerator`: corrigido documentação.
+- `QasTabsGenerator`: agora o model não é alterado internamente ao clicar em uma tab desabilitada.
+- `QasUploader`: corrigido propriedade `color` do `QasAvatar` dentro do uploader.
+- `QasPageHeader`: mudanças de layout e comportamento, agora caso o breadcrumbs tenha mais de 4 níveis é adicionado uma label "...".
+- `typography.scss`: alterado `font-weight` do `$caption` para `400`.
+- `QasPageHeader`: adicionada nova propriedade `useHomeIcon` que habilita o ícone de início como primeiro nível do breadcrumbs, com default `true` para respeitar novo padrão de design.
+- `QasActionsMenu`: alterado valor default da propriedade `useLabelOnSmallScreen` para `false`.
+- `QasTabsGenerator`: alteração de estilos.
+- `QasTableGenerator`: modificado cores e fontes.
+- `QasPagination`: modificado cor das paginas para `grey-8` e cor dos ícones de setas para `grey-9`.
+- `QasDateTimeInput`: adicionado validações para datas invalidas.
+- `icons`: modificado biblioteca de ícones para `material-symbols-rounded`, agora é necessário alterar o prefixo dos ícones de `o_` para `sym_r_`.
+- [`QasFilters`, `QasSearchBox`]: alterado debounce de `500ms` para `1200ms`.
+- `QasSelect`: alterado debounce de `500ms` (default) para `1200ms` e quando não tem `useLazyLoading` removido o debounce.
+- `QasAppMenu`: corrigido tamanho do drawer, estava invertido, 320px deve ser no mobile e não desktop.
+- `QasAppMenu`: corrigido botão de fechar drawer no mobile, não tinha nenhuma ação ao clicar nele.
+- `item.scss`: corrigido cor quando o item está ativo, estava sobrescrevendo com a cor `grey-9` mesmo o item sendo ativo, agora não mais.
+
+### Modificado
+- `QasField`: alterado type `radio` par utilizar o novo componente `QasOptionGroup` e removido prop de erro pois não existe no componente `QOptionGroup`.
+- `typography.scss`: alterado tipografia para seguir novo padrão de design.
+- [`QasTextTruncate`, `QasDelete`, `QasCopy`]: adicionado modificador `.stop` nos eventos `@click.stop` para prevenir evento de click quando utilizado dentro da tabela.
+- `QasNestedFields`: modificado o valor padrão da propriedade `useDestroyAlways` para ser um espelho da propriedade `useStartsEmpty` como valor default.
+- [`NotifySuccess`, `NotifyError`]: Mudança de posição que será exibido(era bottom, agora será top).
+- [`NotifySuccess`, `NotifyError`]: Mudança de cor, agora será `grey-9`.
+- `generator.js`: Modificado o padrão da prop de gutter de `md` para `lg`.
+- `QasActionsMenu`: modificado o estilo padrão do componente e comportamento quando há uma ação ou mais ações.
+- `QasActionsMenu`: modificado a label padrão do botão para "Opções" e ícone para `o_more_vert`.
+- `QasTableGenerator`: removido classe `q-mb-xl` para adaptação de layout, responsabilidade de espaçamento fica com quem implementa.
+- `QasListView`: utilizando `QasPagination` no lugar do `QPagination` e adicionado de informação de quantos itens existem por página.
+- `QasNestedFields`: agora usa o `QActionsMenu` para as ações exibidas no tipo bloco.
+- `QasActionsMenu`: refatorado código, alterado estilos.
+- `items.scss`: modificado classe global do `q-item` para adicionar `fonte-weight: 600` sempre que não estiver desativado.
+- `spacing.scss`: modificado espaçamento do `lg` de 32px para 24px e do `xl` de 48px para 32px.
+- `QasListView`: modificado estilo do `empty-results`.
+- `QasFormView`: alterado valor default da propriedade `cancelButtonLabel` de "Cancelar" para "Voltar".
+- `QasPageHeader`: removido botão de voltar ao lado do título da página.
+- `QasSelect`: alterado ícone de busca para a esquerda ao invés da direita.
+- `QasNestedFields`: alterado nome da computada `showDestroyBtn` para `showDestroyButton`.
+- [`QasFormView`, `view.js`, `QasDelete`]: alterado mensagens padrão do nofity, e removido `exception` dos notifies.
+- `notify.scss`: adicionado tamanho máximo de `560px`.
+- [`QasLayout`, `QasAppBar`, `QasAppMenu`]: Modificado internamente em razão do novo layout.
+- `QasAppMenu`: removido busca dos módulos.
+- `QasFilters`: mudanças de design.
+- `QasPageHeader`: alterado espaçamento de `q-mb-lg` para `q-mb-xl` para manter o que era anteriormente.
+- `QasFormView`: modificado comportamento da propriedade `disable`, agora só desabilita o botão de salvar (submit), deixando o botão voltar habilitado.
+- [`QasAlert`, `QasAvatar`, `QasBox`, `QasCard`, `QasTransfer`]: modificado cores referente a `primary-contrast` e `secondary-contrast`.
+- `quasar.variables.scss`: modificado cores.
+- QasAppMenu: adicionado `border-radius: 4px` no select de módulos.
+- `shadow.scss`: modificado cor `shadow-2` do quasar.
+- modificado cor `accent` para opacidade de `10%` ao invés de `20%`.
+- `QasNumericInput`: adicionado manualmente prefixo `R$ ` com espaçamento a mais propositalmente.
+- [`QasAppMenu`, `QasAppBar`, `QasAppUser`]: mudanças de layout.
+- `QasActions`: modificado default da propriedade `gutter` para `lg` porém no mobile ela continua `md`.
+- `QasDialog`: modificado estilos do dialog.
+- [`QasDelete`, `delete.js`, `QasFormView`]: removido titulo do dialog.
+- `QasTreeGenerator`: removido titulo do dialog de excluir ramo.
+- `spacing.scss`: modificado variáveis de gutter para aplicar mudanças do spacing.
+- `QasSignatureUploader`: modificado customização do template `actions` do `qas-dialog` para utilizar o default.
+- `item.scss`: modificado cor do hover para `$primary-color`;
+- `item.scss`: modificado cor do item quando clicável para `grey-9` e quando não clicável para `grey-8`.
+
+### Removido
+- `QasField`: removido propriedade `useSearch` que era repassado para o `QasSelect` já que agora o componente QasSelect já adiciona uma busca automática quando existem muitas opções, porém ainda é possível passar a propriedade `useSearch` mas não de forma automática, precisa setar manualmente.
+- `QasActionsMenu`: removido propriedade `label`, agora o label sempre será fixo "Opções".
+- `QasNestedFields`: modificado o valor padrão da propriedade `addInputLabel` para "Adicionar".
+- `QasFilters`: removido slot `filter-button`.
+`QasAvatar`: removido propriedades `color` e `text-color` agora sempre vai ser background primary com cor de texto branca.
+- `QasTabsGenerator`: removido propriedades: `activeColor`, `counterProps`, `indicatorColor` e `tabClass` com intuito de padronizar novos estilos.
+- `ui/src/css/utils/shadow.scss`: removido util shadow.scss para mudar shadow por variável.
+- `QasDialog`: removido propriedade `cardProps` pois não utilizamos mais o `QCard`.
+- `QasDialog`: removido propriedade `useCloseButton` pois agora o controle de mostrar o botão é feito automaticamente.
+
+## [3.5.0-beta.15] - 24-01-2023
+### Corrigido
+- `item.scss`: corrigido cor quando o item está ativo, estava sobrescrevendo com a cor `grey-9` mesmo o item sendo ativo, agora não mais.
+
+## [3.5.0-beta.14] - 17-01-2023
+### Corrigido
+- `QasAppMenu`: corrigido tamanho do drawer, estava invertido, 320px deve ser no mobile e não desktop.
+- `QasAppMenu`: corrigido botão de fechar drawer no mobile, não tinha nenhuma ação ao clicar nele.
+
+## [3.5.0-beta.13] - 17-01-2023
+### Adicionado
+- `QasActions`: adicionado propriedade `use-full-width` para deixar as colunas 100%, com col-12.
+- `QasActions`: adicionado propriedade `use-equal-width` para deixar as colunas 50% no desktop e 100% no mobile, col-12 col-sm-6.
+`ui/src/css/variables/shadow.scss`: adicionado shadow.scss para modificar através de variável.
+- `QasActionsMenu`: adicionado propriedade `useLabel` com default `true` para esconder o label em todas as telas necessárias.
+- `QasWelcome`: adicionado novo componente de boas-vindas para uso na Home.
+- `date-config.js`: adicionado arquivo para configurações de datas.
+
+### Modificado
+- `QasNumericInput`: adicionado manualmente prefixo `R$ ` com espaçamento a mais propositalmente.
+- [`QasAppMenu`, `QasAppBar`, `QasAppUser`]: mudanças de layout.
+- `QasActions`: modificado default da propriedade `gutter` para `lg` porém no mobile ela continua `md`.
+- `QasDialog`: modificado estilos do dialog.
+- [`QasDelete`, `delete.js`, `QasFormView`]: removido titulo do dialog.
+- `QasTreeGenerator`: removido titulo do dialog de excluir ramo.
+- `spacing.scss`: modificado variáveis de gutter para aplicar mudanças do spacing.
+- `QasSignatureUploader`: modificado customização do template `actions` do `qas-dialog` para utilizar o default.
+- `item.scss`: modificado cor do hover para `$primary-color`;
+- `item.scss`: modificado cor do item quando clicável para `grey-9` e quando não clicável para `grey-8`.
+
+### Removido
+- `ui/src/css/utils/shadow.scss`: removido util shadow.scss para mudar shadow por variável.
+- `QasDialog`: removido propriedade `cardProps` pois não utilizamos mais o `QCard`.
+- `QasDialog`: removido propriedade `useCloseButton` pois agora o controle de mostrar o botão é feito automaticamente.
+
+## [3.5.0-beta.12] - 06-01-2023
+## BREAKING CHANGES:
+- `QasPageHeader`: adicionada nova propriedade `useHomeIcon` que habilita o ícone de início como primeiro nível do breadcrumbs, com default `true` para respeitar novo padrão de design, caso já tenha um nível de "início" declarado no breadcrumbs, remova.
+- - `icons`: modificado biblioteca de ícones para `material-symbols-rounded`, agora é necessário alterar o prefixo dos ícones de `o_` para `sym_r_`.
+- `QasTabsGenerator`: removido propriedades: `activeColor`, `counterProps`, `indicatorColor` e `tabClass` com intuito de padronizar novos estilos.
+
+### Adicionado
+- `QasHeaderActions`: adicionado novo componente para trabalhar com descrição e ações.
+- `set-typography.scss`: adicionado novo mixin para setar estilos de tipografia quando não é possível através das classes do quasar.
+
+### Modificado
+- `QasPageHeader`: mudanças de layout e comportamento, agora caso o breadcrumbs tenha mais de 4 níveis é adicionado uma label "...".
+- `typography.scss`: alterado `font-weight` do `$caption` para `400`.
+- `QasPageHeader`: adicionada nova propriedade `useHomeIcon` que habilita o ícone de início como primeiro nível do breadcrumbs, com default `true` para respeitar novo padrão de design.
+- `QasActionsMenu`: alterado valor default da propriedade `useLabelOnSmallScreen` para `false`.
+- `QasTabsGenerator`: alteração de estilos.
+- `QasTableGenerator`: modificado cores e fontes.
+- `QasPagination`: modificado cor das paginas para `grey-8` e cor dos ícones de setas para `grey-9`.
+- `QasDateTimeInput`: adicionado validações para datas invalidas.
+- `icons`: modificado biblioteca de ícones para `material-symbols-rounded`, agora é necessário alterar o prefixo dos ícones de `o_` para `sym_r_`.
+- [`QasFilters`, `QasSearchBox`]: alterado debounce de `800ms` para `1200ms`.
+- `QasSelect`: alterado debounce de `500ms` (default) para `1200ms` e quando não tem `useLazyLoading` removido o debounce.
+
+### Corrigido
+- `QasTabsGenerator`: corrigido documentação.
+- `QasTabsGenerator`: agora o model não é alterado internamente ao clicar em uma tab desabilitada.
+- `QasUploader`: corrigido propriedade `color` do `QasAvatar` dentro do uploader.
+
+### Removido
+- `QasTabsGenerator`: removido propriedades: `activeColor`, `counterProps`, `indicatorColor` e `tabClass` com intuito de padronizar novos estilos.
+
+## [3.5.0-beta.11] - 02-01-2023
+### Modificado
+- `shadow.scss`: modificado cor `shadow-2` do quasar.
+- modificado cor `accent` para opacidade de `10%` ao invés de `20%`.
+
+## [3.5.0-beta.10] - 30-12-2022
+### Corrigido
+- `QasActionsMenu`: corrigido problema de circular dependency entre as propriedades computadas `actions` e `hasMoreThanOneAction`.
+
+## [3.5.0-beta.9] - 29-12-2022
+### Corrigido
+- `QasAvatar`: corrigido $attrs.
+
+## [3.5.0-beta.8] - 28-12-2022
+## BREAKING CHANGES
+- `QasAvatar`: mudanças relacionadas a cor.
+
+### Adicionado
+- `QasAvatar`: adicionado propriedade `size`.
+- `QasAvatar`: adicionado propriedade color sendo possível passar 2 valores `primary` e `secondary-contrast`.
+
+### Modificado
+- QasAppMenu: adicionado `border-radius: 4px` no select de módulos.
+
+### Corrigido
+- `QasAppUser`: corrigido avatar.
+
+## [3.5.0-beta.7] - 28-12-2022
+### Adicionado
+- `border.scss`: adicionado nova cor de borda `border-grey`.
+- `index.scss`: adicionado nova var css `--qas-border-grey`.
+
+### Modificado
+- [`QasAlert`, `QasAvatar`, `QasBox`, `QasCard`, `QasTransfer`]: modificado cores referente a `primary-contrast` e `secondary-contrast`.
+- `quasar.variables.scss`: modificado cores.
+
+### Corrigido
+- `QasAppMenu`: adicionado validação na badge de desenvolvimento.
+
+### Removido
+`QasAvatar`: removido propriedades `color` e `text-color` agora sempre vai ser background primary com cor de texto branca.
+
+## [3.5.0-beta.6] - 26-12-2022
+### Modificado
+- `QasFormView`: modificado comportamento da propriedade `disable`, agora só desabilita o botão de salvar (submit), deixando o botão voltar habilitado.
+
+### Corrigido
+- `QasField`: agora o label de required também é modificado caso passe através dos `$attrs`.
+
+## [3.5.0-beta.5] - 26-12-2022
+## BREAKING CHANGE
+- `QasFilters`: removido slot `filter-button`.
+
+### Adicionado
+- `QasSelect`: adicionado documentação do `useSearch`.
+-`ui/src/index.scss`: adicionado nova variável css para transição: `--qas-generic-transition: 300ms`;
+
+### Modificado
+- `QasFilters`: mudanças de design.
+- `QasFilters`: alterado debounce de `500ms` para `800ms`.
+- `QasPageHeader`: alterado espaçamento de `q-mb-lg` para `q-mb-xl` para manter o que era anteriormente.
+
+### Removido
+- `QasFilters`: removido slot `filter-button`.
+
+### Corrigido
+- `QasFormView`: agora quando faz um submit com sucesso os erros são resetados.
+
+## [3.5.0-beta.4] - 22-12-2022
+### Adicionado
+- `QasSelect`: adicionado propriedade `useSearch` para caso que não queira busca automática do fuse, se não passar essa prop a busca vai depender da quantidade de options.
+
+### Modificado
+- `QasAppMenu`: removido busca dos módulos.
+
+## [3.5.0-beta.3] - 22-12-2022
+### Adicionado
+- `QasAppUser`: Novo componente para exibir informações do usuário logado.
+
+### Modificado
+- [`QasLayout`, `QasAppBar`, `QasAppMenu`]: Modificado inteiramente em razão do novo layout.
+
+## [3.5.0-beta.2] - 20-12-2022
+### Modificado
+- `QasFormView`: alterado valor default da propriedade `cancelButtonLabel` de "Cancelar" para "Voltar".
+- `QasPageHeader`: removido botão de voltar ao lado do título da página.
+- `QasSelect`: alterado ícone de busca para a esquerda ao invés da direita.
+- `QasNestedFields`: alterado nome da computada `showDestroyBtn` para `showDestroyButton`.
+- [`QasFormView`, `view.js`, `QasDelete`]: alterado mensagens padrão do nofity, e removido `exception` dos notifies.
+- `notify.scss`: adicionado tamanho máximo de `560px`.
+
+### Corrigido
+- `QasNestedFields`: resolvido validação do `showDestroyBtn`.
+
+## [3.5.0-beta.1] - 16-12-2022
+## BREAKING CHANGE
+- `QasTableGenerator`: pode haver breaking change de design no espaçamento embaixo do componente uma vez que foi removido a classe `q-mb-xl`.
+- `QasActionsMenu`: removido propriedade `label`, agora o label sempre será fixo "Opções".
+- `QasNestedFields`: mudanças de comportamento e estilo do nested, rever implementações.
+
+### Adicionado
+- `QasPagination`: adicionado novo componente de paginação que é um wrapper do `QPagination`.
+- `QasField`: Adicionado `*` na label no caso do campo ser obrigatório com base na propriedade `required: true`.
+- [`NotifySuccess`, `NotifyError`]: Adicionado botão de fechar.
+- [`NotifySuccess`, `NotifyError`]: Adicionado ícones de sucesso e erro.
+- `shared`: Adicionado pasta para arquivos de configurações que iremos utilizar internamente.
+- `plugins`: Adicionado pasta para plugins css.
+- `notify.scss`: Adicionado arquivo de css para o novo padrão de layout dos notifies.
+- `QasListView`: adicionado nova propriedade `use-auto-handle-on-delete` para controlar se o componente vai lidar automaticamente quando acontecer algum delete compatível com a listagem.
+- `QasActionsMenu`: adicionada a propriedade `auto-close` para fechar o menu após a ação ser executada.
+- `QasNestedFields`: adicionado propriedade `actions-menu-props` para repassar propriedades para o `QasActionsMenu`.
+- `QasActionsMenu`: adicionado propriedade `useLabelOnSmallScreen`.
+- `QasNestedFields`: adicionada nova propriedade `addFirstInputLabel` para modificar o texto do botão de adicionar o primeiro item.
+- `QasNestedFields`: adicionada nova propriedade `useFirstInputButton` para usar um botão diferente para adicionar o primeiro item.
+- `QasNestedFields`: adicionada nova propriedade `useStartsEmpty` para iniciar o componente sem nenhum item.
+- `QasTableGenerator`: Suporte ao evento `rowClick`, nativo do `QTable`.
+
+### Modificado
+- [`NotifySuccess`, `NotifyError`]: Mudança de posição que será exibido(era bottom, agora será top).
+- [`NotifySuccess`, `NotifyError`]: Mudança de cor, agora será `grey-9`.
+- `generator.js`: Modificado o padrão da prop de gutter de `md` para `lg`.
+- `QasActionsMenu`: modificado o estilo padrão do componente e comportamento quando há uma ação ou mais ações.
+- `QasActionsMenu`: modificado a label padrão do botão para "Opções" e ícone para `o_more_vert`.
+- `QasTableGenerator`: removido classe `q-mb-xl` para adaptação de layout, responsabilidade de espaçamento fica com quem implementa.
+- `QasListView`: utilizando `QasPagination` no lugar do `QPagination` e adicionado de informação de quantos itens existem por página.
+- `QasNestedFields`: agora usa o `QActionsMenu` para as ações exibidas no tipo bloco.
+- `QasActionsMenu`: refatorado código, alterado estilos.
+- `items.scss`: modificado classe global do `q-item` para adicionar `fonte-weight: 600` sempre que não estiver desativado.
+- `spacing.scss`: modificado espaçamento do `lg` de 32px para 24px e do `xl` de 48px para 32px.
+- `QasListView`: modificado estilo do `empty-results`.
+
+### Removido
+- `QasActionsMenu`: removido propriedade `label`, agora o label sempre será fixo "Opções".
+- `QasNestedFields`: modificado o valor padrão da propriedade `addInputLabel` para "Adicionar".
+- `QasNestedFields`: modificado o valor padrão da propriedade `useDestroyAlways` para ser um espelho da propriedade `useStartsEmpty` como valor default.
+
+## [3.5.0-beta.0] - 18-11-2022
+## BREAKING CHANGE
+- `QasField`: Alterado type `radio` par utilizar o novo componente `QasOptionGroup` e removido prop de erro pois não existe no componente `QOptionGroup`, testar bem para validar.
+- Componentes de radio agora existe padronização, a partir do mobile componente segue comportamento de linha, em telas mobile segue comportamento de bloco, não sendo possível alterar este comportamento, verificar locais que utilizam para não quebrar o estilo.
+- `QasSelect`: removido propriedade `useSearch` pois agora existe o padrão de ter pesquisa pelo fuse sempre que existir pelo menos 10 opções e nunca menos que isto.
+### Adicionado
+- `QasFilters`: adicionado nova propriedade `fieldsProps` para repassar propriedades para os campos do filtro.
+- `QasSelect`: adicionado busca automaticamente quando existem pelo menos 10 opções.
+- `QasOptionGroup`: adicionado novo componente wrapper do `QOptionGroup` do quasar, para deixar padronizado propriedade `inline` e deixar mais componentizado.
+
+### Modificado
+- `QasField`: alterado type `radio` par utilizar o novo componente `QasOptionGroup` e removido prop de erro pois não existe no componente `QOptionGroup`.
+- `QasField`: removido propriedade `useSearch` que era repassado para o `QasSelect` já que ela foi removido do mesmo.
+- `typography.scss`: alterado tipografia para seguir novo padrão de design.
+- [`QasTextTruncate`, `QasDelete`, `QasCopy`]: adicionado modificador `.stop` nos eventos `@click.stop` para prevenir evento de click quando utilizado dentro da tabela.
+
+### Removido
+- `QasSelect`: removido propriedade `useSearch` pois agora existe o padrão de ter pesquisa pelo fuse sempre que existir pelo menos 10 opções e nunca menos que isto.
+
 ## [3.4.0] - 18-11-2022
 ### Adicionado
 - `QasField`: repassando `useStrengthChecker` no QasField.
@@ -531,3 +884,19 @@ Adicionado suporte para Pinia/Vuex Seguindo os padrões da biblioteca `@bildvitt
 [3.4.0-beta.1]: https://github.com/bildvitta/asteroid/compare/v3.4.0-beta.0...v3.4.0-beta.1?expand=1
 [3.4.0-beta.2]: https://github.com/bildvitta/asteroid/compare/v3.4.0-beta.1...v3.4.0-beta.2?expand=1
 [3.4.0]: https://github.com/bildvitta/asteroid/compare/v3.3.0...v3.4.0?expand=1
+[3.5.0-beta.0]: https://github.com/bildvitta/asteroid/compare/v3.4.0...v3.5.0-beta.0?expand=1
+[3.5.0-beta.1]: https://github.com/bildvitta/asteroid/compare/v3.5.0-beta.0...v3.5.0-beta.1?expand=1
+[3.5.0-beta.2]: https://github.com/bildvitta/asteroid/compare/v3.5.0-beta.1...v3.5.0-beta.2?expand=1
+[3.5.0-beta.3]: https://github.com/bildvitta/asteroid/compare/v3.5.0-beta.2...v3.5.0-beta.3?expand=1
+[3.5.0-beta.4]: https://github.com/bildvitta/asteroid/compare/v3.5.0-beta.3...v3.5.0-beta.4?expand=1
+[3.5.0-beta.5]: https://github.com/bildvitta/asteroid/compare/v3.5.0-beta.4...v3.5.0-beta.5?expand=1
+[3.5.0-beta.6]: https://github.com/bildvitta/asteroid/compare/v3.5.0-beta.5...v3.5.0-beta.6?expand=1
+[3.5.0-beta.7]: https://github.com/bildvitta/asteroid/compare/v3.5.0-beta.6...v3.5.0-beta.7?expand=1
+[3.5.0-beta.8]: https://github.com/bildvitta/asteroid/compare/v3.5.0-beta.7...v3.5.0-beta.8?expand=1
+[3.5.0-beta.9]: https://github.com/bildvitta/asteroid/compare/v3.5.0-beta.8...v3.5.0-beta.9?expand=1
+[3.5.0-beta.10]: https://github.com/bildvitta/asteroid/compare/v3.5.0-beta.9...v3.5.0-beta.10?expand=1
+[3.5.0-beta.11]: https://github.com/bildvitta/asteroid/compare/v3.5.0-beta.10...v3.5.0-beta.11?expand=1
+[3.5.0-beta.12]: https://github.com/bildvitta/asteroid/compare/v3.5.0-beta.11...v3.5.0-beta.12?expand=1
+[3.5.0-beta.13]: https://github.com/bildvitta/asteroid/compare/v3.5.0-beta.12...v3.5.0-beta.13?expand=1
+[3.5.0-beta.14]: https://github.com/bildvitta/asteroid/compare/v3.5.0-beta.13...v3.5.0-beta.14?expand=1
+[3.5.0-beta.15]: https://github.com/bildvitta/asteroid/compare/v3.5.0-beta.14...v3.5.0-beta.15?expand=1

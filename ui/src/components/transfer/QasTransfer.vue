@@ -19,12 +19,12 @@
 
     <div class="col-12 col-sm-auto items-center justify-center q-col-gutter-md row" :class="actionsClass">
       <div>
-        <qas-btn :class="iconClass" dense :disabled="!firstQueue.length" flat icon="o_arrow_circle_down" rounded @click="setSelectedFromClick(true)" />
+        <qas-btn :class="iconClass" dense :disabled="!firstQueue.length" flat icon="sym_r_arrow_circle_down" rounded @click="setSelectedFromClick(true)" />
         <q-tooltip anchor="top middle" self="center middle">Selecionar</q-tooltip>
       </div>
       <div>
         <div>
-          <qas-btn :class="iconClass" dense :disabled="!secondQueue.length" flat icon="o_arrow_circle_up" rounded @click="setSelectedFromClick()" />
+          <qas-btn :class="iconClass" dense :disabled="!secondQueue.length" flat icon="sym_r_arrow_circle_up" rounded @click="setSelectedFromClick()" />
           <q-tooltip anchor="bottom middle" self="center middle">Remover</q-tooltip>
         </div>
       </div>
@@ -177,7 +177,7 @@ export default {
       return this[isFirst
         ? 'firstQueue'
         : 'secondQueue'
-      ].some(item => item[this.valueKey] === object[this.valueKey]) && 'bg-secondary'
+      ].some(item => item[this.valueKey] === object[this.valueKey]) && 'bg-grey-4'
     },
 
     getItemLabel (item) {

@@ -8,13 +8,13 @@
         :to="page.path"
       >
         <q-item-section avatar>
-          <q-icon name="o_pages" />
+          <q-icon name="sym_r_pages" />
         </q-item-section>
         <q-item-section>
           {{ page.label }}
         </q-item-section>
         <q-item-section side>
-          <q-icon name="o_chevron_right" />
+          <q-icon name="sym_r_chevron_right" />
         </q-item-section>
       </q-item>
     </q-list>

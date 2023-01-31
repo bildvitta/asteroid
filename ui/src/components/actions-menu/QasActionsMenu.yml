@@ -4,9 +4,13 @@ meta:
   desc: Componente para abrir um menu de ação a partir de um botão, muito utilizado em tela de edição.
 
 props:
+  color:
+    desc: Cor do ícone.
+    type: String
+
   delete-icon:
     desc: Ícone do botão de deletar.
-    default: o_delete
+    default: sym_r_delete
     type: String
 
   delete-label:
@@ -21,14 +25,9 @@ props:
 
   icon:
     desc: Ícone do botão.
-    default: o_settings
+    default: sym_r_more_vert
     type: String
     examples: [start, end, between, around, center]
-
-  label:
-    desc: Rotulo do botão.
-    default: Configurações
-    type: String
 
   list:
     desc: Lista de items que vão ser criados dentro do menu de ações.
@@ -37,12 +36,22 @@ props:
     examples: [
       "{
         delete: {
-          icon: 'o_visibility',
+          icon: 'sym_r_visibility',
           label: 'Visualizar',
           handler: () => alert('handler ativado')
         }
       }"
     ]
+
+  use-label-on-small-screen:
+    desc: Esconde o rótulo (label) do botão quando o tamanho da tela for pequeno (esta propriedade só funciona se o "rotulo") for passado via propriedade "label".
+    default: true
+    type: Boolean
+
+  use-label:
+    desc: Habilita ou não o label no botão.
+    default: true
+    type: Boolean
 
 slots:
   '[nome-da-chave]':
@@ -56,7 +65,7 @@ slots:
         examples: [
           "
           {
-            icon: 'o_delete',
+            icon: 'sym_r_delete',
             label: 'Delete',
             }
           "

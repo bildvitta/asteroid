@@ -23,6 +23,7 @@ module.exports = {
     'scss/double-slash-comment-empty-line-before': null,
     'scss/dollar-variable-colon-space-before': null,
     'custom-property-pattern': null,
+    'no-descending-specificity': null,
 
     // Plugins
     'order/properties-alphabetical-order': true

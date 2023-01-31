@@ -27,15 +27,15 @@ $space-md: (
   y: $space-y-base
 );
 
-// O tamanho original seria "16px * 1.5" ou "24px", alterado para ter "32px"
 $space-lg: (
-  x: ($space-x-base * 2),
-  y: ($space-y-base * 2)
+  x: ($space-x-base * 1.5),
+  y: ($space-y-base * 1.5)
 );
 
+// O tamanho original seria "16px * 3" ou "48px", alterado para ter "32px"
 $space-xl: (
-  x: ($space-x-base * 3),
-  y: ($space-y-base * 3)
+  x: ($space-x-base * 2),
+  y: ($space-y-base * 2)
 );
 
 $spaces: (
@@ -45,6 +45,21 @@ $spaces: (
   md: $space-md,
   lg: $space-lg,
   xl: $space-xl
+);
+
+$flex-gutter-xs : map.get($space-xs, 'x');
+$flex-gutter-sm : map.get($space-sm, 'x');
+$flex-gutter-md : map.get($space-md, 'x');
+$flex-gutter-lg : map.get($space-lg, 'x');
+$flex-gutter-xl : map.get($space-xl, 'x');
+
+$flex-gutter: (
+  none: 0,
+  xs: $flex-gutter-xs,
+  sm: $flex-gutter-sm,
+  md: $flex-gutter-md,
+  lg: $flex-gutter-lg,
+  xl: $flex-gutter-xl
 );
 
 :root {

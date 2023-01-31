@@ -2,7 +2,7 @@
   <qas-box>
     <qas-input v-bind="attributes" ref="search" v-model="mx_search">
       <template #append>
-        <q-icon color="primary" name="o_search" />
+        <q-icon color="primary" name="sym_r_search" />
       </template>
     </qas-input>
 
@@ -19,7 +19,7 @@
 
       <slot v-if="showEmptyResult" name="empty-result">
         <div class="absolute-center text-center">
-          <q-icon class="q-mb-sm text-center" color="primary" name="o_search" size="38px" />
+          <q-icon class="q-mb-sm text-center" color="primary" name="sym_r_search" size="38px" />
           <div>{{ emptyResultText }}</div>
         </div>
       </slot>
@@ -112,7 +112,7 @@ export default {
       return {
         clearable: true,
         disable: this.isDisabled,
-        debounce: this.useLazyLoading ? 800 : 0,
+        debounce: this.useLazyLoading ? 1200 : 0,
         outlined: true,
         placeholder: this.placeholder,
         hideBottomSpace: true,

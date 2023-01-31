@@ -73,6 +73,7 @@ props:
 
   use-search:
     desc: Controla se vai ou não ter campo de busca no select.
+    default: undefined
     type: Boolean
 
   use-lazy-loading:

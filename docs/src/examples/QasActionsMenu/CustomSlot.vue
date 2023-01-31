@@ -1,6 +1,6 @@
 <template>
   <div class="container q-py-lg">
-    <qas-actions-menu label="configurações" :list="list">
+    <qas-actions-menu :list="list">
       <template #visibility="{ item }">
         <div class="q-pa-md">
           item: <qas-debugger :inspect="[item]" />
@@ -16,7 +16,7 @@ export default {
     list () {
       return {
         visibility: {
-          icon: 'o_visibility',
+          icon: 'sym_r_visibility',
           label: 'Visualizar',
           handler: () => alert('handler ativado')
         }

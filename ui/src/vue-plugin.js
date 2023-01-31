@@ -3,6 +3,7 @@ import QasActionsMenu from './components/actions-menu/QasActionsMenu.vue'
 import QasAlert from './components/alert/QasAlert.vue'
 import QasAppBar from './components/app-bar/QasAppBar.vue'
 import QasAppMenu from './components/app-menu/QasAppMenu.vue'
+import QasAppUser from './components/app-user/QasAppUser.vue'
 import QasAvatar from './components/avatar/QasAvatar.vue'
 import QasBox from './components/box/QasBox.vue'
 import QasBreakline from './components/breakline/QasBreakline.vue'
@@ -21,6 +22,7 @@ import QasFormGenerator from './components/form-generator/QasFormGenerator.vue'
 import QasFormView from './components/form-view/QasFormView.vue'
 import QasGallery from './components/gallery/QasGallery.vue'
 import QasGridGenerator from './components/grid-generator/QasGridGenerator.vue'
+import QasHeaderActions from './components/header-actions/QasHeaderActions.vue'
 import QasInput from './components/input/QasInput.vue'
 import QasLabel from './components/label/QasLabel.vue'
 import QasLayout from './components/layout/QasLayout.vue'
@@ -29,7 +31,9 @@ import QasListView from './components/list-view/QasListView.vue'
 import QasMap from './components/map/QasMap.vue'
 import QasNestedFields from './components/nested-fields/QasNestedFields.vue'
 import QasNumericInput from './components/numeric-input/QasNumericInput.vue'
+import QasOptionGroup from './components/option-group/QasOptionGroup.vue'
 import QasPageHeader from './components/page-header/QasPageHeader.vue'
+import QasPagination from './components/pagination/QasPagination.vue'
 import QasPasswordInput from './components/password-input/QasPasswordInput.vue'
 import QasPasswordStrengthChecker from './components/password-strength-checker/QasPasswordStrengthChecker.vue'
 import QasProfile from './components/profile/QasProfile.vue'
@@ -47,6 +51,7 @@ import QasTextTruncate from './components/text-truncate/QasTextTruncate.vue'
 import QasTransfer from './components/transfer/QasTransfer.vue'
 import QasTreeGenerator from './components/tree-generator/QasTreeGenerator.vue'
 import QasUploader from './components/uploader/QasUploader.vue'
+import QasWelcome from './components/welcome/QasWelcome.vue'
 
 import VueGoogleMaps from '@fawmi/vue-google-maps'
 import { Notify, Quasar, Dialog as QuasarDialog } from 'quasar'
@@ -73,6 +78,7 @@ function install (app) {
   app.component('QasAlert', QasAlert)
   app.component('QasAppBar', QasAppBar)
   app.component('QasAppMenu', QasAppMenu)
+  app.component('QasAppUser', QasAppUser)
   app.component('QasAvatar', QasAvatar)
   app.component('QasBox', QasBox)
   app.component('QasBreakline', QasBreakline)
@@ -91,6 +97,7 @@ function install (app) {
   app.component('QasFormView', QasFormView)
   app.component('QasGallery', QasGallery)
   app.component('QasGridGenerator', QasGridGenerator)
+  app.component('QasHeaderActions', QasHeaderActions)
   app.component('QasInput', QasInput)
   app.component('QasLabel', QasLabel)
   app.component('QasLayout', QasLayout)
@@ -99,7 +106,9 @@ function install (app) {
   app.component('QasMap', QasMap)
   app.component('QasNestedFields', QasNestedFields)
   app.component('QasNumericInput', QasNumericInput)
+  app.component('QasOptionGroup', QasOptionGroup)
   app.component('QasPageHeader', QasPageHeader)
+  app.component('QasPagination', QasPagination)
   app.component('QasPasswordInput', QasPasswordInput)
   app.component('QasPasswordStrengthChecker', QasPasswordStrengthChecker)
   app.component('QasProfile', QasProfile)
@@ -117,6 +126,7 @@ function install (app) {
   app.component('QasTransfer', QasTransfer)
   app.component('QasTreeGenerator', QasTreeGenerator)
   app.component('QasUploader', QasUploader)
+  app.component('QasWelcome', QasWelcome)
 
   app.use(Quasar, { plugins: { Notify, QuasarDialog, Dialog } })
 
@@ -144,6 +154,7 @@ export {
   QasAlert,
   QasAppBar,
   QasAppMenu,
+  QasAppUser,
   QasAvatar,
   QasBox,
   QasBreakline,
@@ -162,6 +173,7 @@ export {
   QasFormView,
   QasGallery,
   QasGridGenerator,
+  QasHeaderActions,
   QasInput,
   QasLabel,
   QasLayout,
@@ -170,7 +182,9 @@ export {
   QasMap,
   QasNestedFields,
   QasNumericInput,
+  QasOptionGroup,
   QasPageHeader,
+  QasPagination,
   QasPasswordInput,
   QasPasswordStrengthChecker,
   QasProfile,
@@ -188,6 +202,7 @@ export {
   QasTransfer,
   QasTreeGenerator,
   QasUploader,
+  QasWelcome,
 
   // plugins
   Dialog,

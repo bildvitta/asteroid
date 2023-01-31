@@ -4,20 +4,30 @@ meta:
   desc: Componente para gerar dinamicamente campos nested.
 
 props:
+  actions-menu-props:
+    desc: Repassa as propriedades para o componente QasActionsMenu.
+    default: {}
+    type: Object
+
+  add-first-input-label:
+    desc: Rótulo do input para adicionar o primeiro campo.
+    default: Clique aqui para adicionar
+    type: String
+
   add-input-label:
     desc: Rótulo do input de adicionar novos campos.
-    default: Inserir novo campo
-    type: Boolean
+    default: Adicionar
+    type: String
 
   button-destroy-props:
     desc: Props do botão de excluir linha contendo os campos.
-    default: "{ label: 'Remover', o_cancel, flat: true, dense: true }"
+    default: "{ label: 'Excluir', icon: 'sym_r_delete', flat: true, dense: true }"
     debugger: true
     type: Object
 
   button-duplicate-props:
     desc: Props do botão de duplicar linha contendo os campos.
-    default: "{ label: 'Duplicar', o_content_copy, flat: true, dense: true, useLabelOnSmallScreen: false }"
+    default: "{ label: 'Duplicar', sym_r_content_copy, flat: true, dense: true, useLabelOnSmallScreen: false }"
     debugger: true
     type: Object
 
@@ -76,17 +86,17 @@ props:
     model: true
 
   row-label:
-    desc: Rótulo entre cada linha (row).
+    desc: Rótulo entre cada linha.
     type: String
 
   row-object:
-    desc: Objeto contendo valores iniciais do model de cada linha (row).
+    desc: Objeto contendo valores iniciais do model de cada linha.
     default: {}
     type: Object
     examples: ["{ name: '', cities: [] }"]
 
   use-add:
-    desc: Controla quando vai ter seção de "adicionar" novas rows (linhas).
+    desc: Controla quando vai ter seção de "adicionar" novas linhas.
     default: true
     type: Boolean
 
@@ -96,11 +106,16 @@ props:
     type: Boolean
 
   use-destroy-always:
-    desc: Controla o botão de remover em todas linhas (row), incluindo a primeira.
+    desc: Controla o botão de remover em todas linhas, incluindo a primeira.
     type: Boolean
 
   use-duplicate:
     desc: Controla o botão de duplicar linha.
+    default: true
+    type: Boolean
+
+  use-first-input-button:
+    desc: Controla se vai ter um botão diferente para adicionar o primeiro campo.
     default: true
     type: Boolean
 
@@ -109,15 +124,20 @@ props:
     type: Boolean
 
   use-inline-actions:
-    desc: Controla o comportamento referente aos estilos das ações de duplicar/adicionar/remover
+    desc: Controla o comportamento referente aos estilos das ações de duplicar/adicionar/remover.
     type: Boolean
 
   use-single-label:
-    desc: Se o valor for "true", então vai exibir apenas uma label referente a todas linhas (row) e não uma por linha
+    desc: Exibe apenas uma label referente a todas linhas, e não uma por linha.
     type: Boolean
 
   use-remove-on-destroy:
-    desc: Se o valor for "true" o valor do model será removido senão será adicionar uma flag como `destroyed` por exemplo.
+    desc: O valor do model será removido senão será adicionar uma flag como `destroyed` por exemplo.
+    default: true
+    type: Boolean
+
+  use-starts-empty:
+    desc: O componente iniciará sem nenhuma linha.
     default: true
     type: Boolean
 

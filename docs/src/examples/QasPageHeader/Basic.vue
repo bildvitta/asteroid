@@ -1,8 +1,6 @@
 <template>
   <div class="container spaced">
-    <qas-page-header :breadcrumbs="breadcrumbs" title="Meu título!">
-      <qas-btn hide-mobile-label icon="o_add" label="Alguma ação!" />
-    </qas-page-header>
+    <qas-page-header :breadcrumbs="breadcrumbs" title="Nome do usuário" />
   </div>
 </template>
 
@@ -14,15 +12,16 @@ export default {
     breadcrumbs () {
       return [
         {
-          label: 'Início',
+          label: 'Lista de usuários',
           route: { path: '/' }
         },
         {
-          label: 'Algum caminho',
+          label: 'Usuário',
           route: { path: '/' }
         },
         {
-          label: 'Users'
+          label: 'Nome do usuário',
+          route: { path: '/components/page-header' }
         }
       ]
     }

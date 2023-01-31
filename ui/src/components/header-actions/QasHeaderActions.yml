@@ -1,0 +1,26 @@
+type: component
+
+meta:
+  desc: Componente para cabeçalho usado com alguma descrição e ação.
+
+props:
+  actions-menu-props:
+    desc: Propriedades do QasActionsMenu.
+    default: {}
+    type: Object
+
+  button-props:
+    desc: Propriedades do QasBtn.
+    default: {}
+    type: Object
+
+  text:
+    desc: Descrição da seção a esquerda.
+    type: String
+
+slots:
+  left:
+    desc: slot para acessar seção da esquerda (descrição).
+
+  right:
+    desc: slot para acessar seção da direita (ação).

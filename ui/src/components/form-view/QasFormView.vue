@@ -10,7 +10,7 @@
       <slot v-if="useActions" name="actions">
         <div class="justify-end q-col-gutter-md q-my-lg row">
           <div v-if="hasCancelButton" class="col-12 col-sm-2" :class="cancelButtonClass">
-            <qas-btn v-close-popup class="full-width" :data-cy="`btnCancel-${entity}`" :disable="isCancelButtonDisabled" :label="cancelButtonLabel" outline type="button" @click="cancel" />
+            <qas-btn v-close-popup class="full-width" :data-cy="`btnCancel-${entity}`" :disable="isSubmitting" :label="cancelButtonLabel" outline type="button" @click="cancel" />
           </div>
 
           <div v-if="useSubmitButton" class="col-12 col-sm-2" :class="submitButtonClass">
@@ -58,7 +58,7 @@ export default {
 
   props: {
     cancelButtonLabel: {
-      default: 'Cancelar',
+      default: 'Voltar',
       type: String
     },
 
@@ -150,7 +150,6 @@ export default {
 
       defaultDialogProps: {
         card: {
-          title: 'Atenção!',
           description: 'Você está deixando a página e suas alterações serão perdidas. Tem certeza que deseja sair sem salvar?'
         },
 
@@ -194,8 +193,12 @@ export default {
       return this.$qas.screen.isSmall && 'order-first'
     },
 
-    isCancelButtonDisabled () {
-      return this.disable || this.isSubmitting
+    defaultNotifyMessages () {
+      return {
+        validationError: 'Existem campos no formulário que ainda não foram preenchidos. Complete todas as informações para avançar.',
+        error: 'Não conseguimos salvar as informações. Por favor, tente novamente em alguns minutos.',
+        success: 'Informações salvas com sucesso.'
+      }
     }
   },
 
@@ -420,7 +423,9 @@ export default {
         }
 
         this.mx_setErrors()
-        NotifySuccess(response.data.status.text || 'Item salvo com sucesso!')
+        this.$emit('update:errors', this.mx_errors)
+
+        NotifySuccess(response.data.status.text || this.defaultNotifyMessages.success)
         this.$emit('submit-success', response, this.modelValue)
 
         this.$qas.logger.group(
@@ -429,16 +434,15 @@ export default {
       } catch (error) {
         const errors = error?.response?.data?.errors
         const message = error?.response?.data?.status?.text
-        const exceptionResponse = error?.response?.data?.exception
 
-        const exception = errors
-          ? 'Existem erros de validação no formulário.'
-          : exceptionResponse || error.message
+        const defaultMessage = error
+          ? this.defaultNotifyMessages.validationError
+          : this.defaultNotifyMessages.error
 
         this.mx_setErrors(errors)
         this.$emit('update:errors', this.mx_errors)
 
-        NotifyError(message || 'Ops! Erro ao salvar item.', exception)
+        NotifyError(message || defaultMessage)
 
         this.$emit('submit-error', error)
 

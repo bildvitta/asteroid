@@ -1,9 +1,7 @@
 <template>
   <q-select v-model="model" v-bind="attributes">
-    <template #append>
-      <slot name="append">
-        <q-icon v-if="isSearchable" name="o_search" />
-      </slot>
+    <template v-if="isSearchable" #prepend>
+      <q-icon name="sym_r_search" />
     </template>
 
     <template #no-option>
@@ -71,7 +69,8 @@ export default {
     },
 
     useSearch: {
-      type: Boolean
+      type: Boolean,
+      default: undefined
     }
   },
 
@@ -92,12 +91,13 @@ export default {
         outlined: true,
         ...this.$attrs,
 
+        error: this.hasError,
+        inputDebounce: this.useLazyLoading ? 1200 : 0,
+        loading: this.hasLoading,
         options: this.mx_filteredOptions,
         useInput: this.isSearchable,
-        error: this.hasError,
-        loading: this.hasLoading,
-        ...(this.useLazyLoading && { onVirtualScroll: this.mx_onVirtualScroll }),
-        ...(this.isSearchable && { onFilter: this.onFilter })
+        ...(this.isSearchable && { onFilter: this.onFilter }),
+        ...(this.useLazyLoading && { onVirtualScroll: this.mx_onVirtualScroll })
       }
     },
 
@@ -112,7 +112,7 @@ export default {
     },
 
     isSearchable () {
-      return this.useSearch || this.useLazyLoading
+      return this.hasFuse || this.useLazyLoading
     },
 
     defaultOptions () {
@@ -125,6 +125,20 @@ export default {
 
     hasLoading () {
       return this.mx_isFetching || this.$attrs.loading
+    },
+
+    hasFuse () {
+      // se for "undefined" (default) cai na logica por quantidade da option
+      if (this.useSearch === false) return false
+
+      /*
+      * quantidade de option que precisa ter para o fuse funcionar automaticamente
+      * sem necessidade de passar prop manualmente
+      */
+      const autoFuseQuantity = 10
+      const hasAutoFuseSearch = this.options.length >= autoFuseQuantity && !this.useLazyLoading
+
+      return hasAutoFuseSearch
     },
 
     model: {
@@ -147,7 +161,7 @@ export default {
       handler () {
         if (this.useLazyLoading && this.mx_hasFilteredOptions) return
 
-        if (this.fuse) this.setFuse()
+        if (this.fuse || this.hasFuse) this.setFuse()
 
         this.mx_filteredOptions = this.defaultOptions
       },
@@ -163,7 +177,7 @@ export default {
 
   methods: {
     setFuse () {
-      if (this.useSearch) {
+      if (this.hasFuse) {
         this.fuse = new Fuse(this.defaultOptions, this.defaultFuseOptions)
       }
     },
@@ -173,7 +187,7 @@ export default {
         await this.mx_filterOptionsByStore(value)
       }
 
-      if (!this.useLazyLoading && this.useSearch) {
+      if (!this.useLazyLoading && this.hasFuse) {
         this.filterOptionsByFuse(value)
       }
 

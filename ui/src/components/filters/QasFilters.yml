@@ -9,6 +9,12 @@ props:
     required: true
     type: String
 
+  fields-props:
+    desc: Propriedade para repassar propriedades para cada campo individualmente.
+    default: {}
+    type: Object
+    examples: ["{ name: { dense: true, onClick: () => alert('Estou sendo clicado') } }"]
+
   search-placeholder:
     desc: Placeholder do campo de busca.
     default: Pesquisar...
@@ -45,13 +51,6 @@ props:
 slots:
   search:
     desc: Slot para seção do campo de busca.
-    scope:
-      filter:
-        desc: função usada para fazer o filtro
-        type: Function
-
-  filter-button:
-    desc: Slot para seção do botão do menu lateral.
     scope:
       filter:
         desc: função usada para fazer o filtro

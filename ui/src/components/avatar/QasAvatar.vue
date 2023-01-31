@@ -1,5 +1,5 @@
 <template>
-  <q-avatar class="text-bold" :class="avatarClass" v-bind="attributes">
+  <q-avatar class="text-bold" v-bind="attributes">
     <q-img v-if="hasImage" :alt="title" :ratio="1" spinner-color="primary" spinner-size="16px" :src="image" @error="onImageLoadedError" />
     <template v-else-if="hasTitle">{{ firstLetter }}</template>
     <q-icon v-else :name="icon" />
@@ -14,26 +14,23 @@ export default {
 
   props: {
     color: {
-      default: '',
-      type: String
+      type: String,
+      default: 'primary',
+      validator: value => ['primary', 'secondary-contrast'].includes(value)
     },
 
-    dark: {
-      type: Boolean
+    size: {
+      type: String,
+      default: ''
     },
 
     icon: {
-      default: 'o_error',
+      default: 'sym_r_error',
       type: String
     },
 
     image: {
       default: '',
-      type: String
-    },
-
-    textColor: {
-      default: 'primary',
       type: String
     },
 
@@ -50,24 +47,6 @@ export default {
   },
 
   computed: {
-    avatarClass () {
-      if (this.hasImage) {
-        return null
-      }
-
-      const contrastColor = this.color ? this.color : this.contrastColor
-
-      return [
-        this.dark
-          ? `bg-${this.textColor} text-${contrastColor}`
-          : `bg-${contrastColor} text-${this.textColor}`
-      ]
-    },
-
-    contrastColor () {
-      return `${this.textColor}-contrast`
-    },
-
     firstLetter () {
       return this.title[0].toUpperCase()
     },
@@ -81,9 +60,25 @@ export default {
     },
 
     attributes () {
-      const { square, rounded, ...attributes } = this.$attrs
+      const {
+        rounded,
+        square,
+        fontSize,
+        textColor,
+        ...attributes
+      } = this.$attrs
 
-      return attributes
+      const colors = {
+        primary: 'white',
+        'secondary-contrast': 'primary'
+      }
+
+      return {
+        size: this.size,
+        color: this.color,
+        textColor: colors[this.color],
+        ...attributes
+      }
     }
   },
 

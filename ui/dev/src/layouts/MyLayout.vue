@@ -9,23 +9,23 @@ import pages from '../router/pages'
 const menuList = [
   {
     label: 'Dialog',
-    icon: 'o_home',
+    icon: 'sym_r_home',
     to: { path: '/test-dialog' }
   },
 
   {
     label: 'Teste expansivo',
-    icon: 'o_edit',
-    children: [...pages].splice(1, 4).map(page => ({ label: getPageTitle(page), to: '/' + page.path, icon: 'o_edit' }))
+    icon: 'sym_r_edit',
+    children: [...pages].splice(1, 4).map(page => ({ label: getPageTitle(page), to: '/' + page.path, icon: 'sym_r_edit' }))
   },
 
   {
     label: 'Páginas',
-    icon: 'o_layers',
+    icon: 'sym_r_layers',
     to: {
       path: ''
     },
-    children: [...pages].splice(5).map(page => ({ label: getPageTitle(page), to: '/' + page.path, icon: 'o_edit' }))
+    children: [...pages].splice(5).map(page => ({ label: getPageTitle(page), to: '/' + page.path, icon: 'sym_r_edit' }))
   }
 ]
 

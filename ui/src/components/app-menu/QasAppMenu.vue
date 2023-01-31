@@ -1,23 +1,36 @@
 <template>
-  <q-drawer v-model="model" :behavior="behavior" bordered class="qas-app-menu" :width="288">
-    <div class="column flex full-height justify-between no-wrap overflow-x-hidden">
-      <div class="q-mt-lg">
-        <div v-if="displayModuleSection" class="q-mb-lg q-mx-md">
-          <div class="q-mb-sm text-caption text-grey-7 text-weight-medium">
-            Você está em:
-          </div>
-
-          <qas-select v-model="module" :options="defaultModules" @update:model-value="redirectHandler(currentModelOption)" />
+  <q-drawer v-model="model" :behavior="behavior" :width="drawerWidth">
+    <div class="column full-height justify-between qas-app-menu">
+      <div class="full-width">
+        <!-- Brand -->
+        <div v-if="!$qas.screen.untilLarge" class="q-pt-xl q-px-lg">
+          <router-link class="block q-toolbar__title relative-position text-no-decoration" :to="rootRoute">
+            <img v-if="brand" :alt="title" class="qas-app-menu__brand" :src="brand">
+            <span v-else class="ellipsis text-bold text-primary">{{ title }}</span>
+            <q-badge v-if="hasDevelopmentBadge" color="red" floating :label="developmentBadgeLabel" />
+          </router-link>
         </div>
 
-        <q-list v-if="items.length" class="q-mb-lg text-grey-9">
+        <!-- Module -->
+        <div v-if="displayModuleSection" class="items-center justify-between no-wrap q-mt-xl q-px-lg qas-app-menu__module row">
+          <div class="full-width">
+            <qas-select v-model="module" borderless class="q-py-xs qas-app-menu__select shadow-2" dense input-class="q-px-md" :options="defaultModules" :outlined="false" :use-search="false" @update:model-value="redirectHandler(currentModelOption)" />
+          </div>
+
+          <div v-if="$qas.screen.isSmall" class="q-ml-xl">
+            <qas-btn color="grey-9" dense flat icon="sym_r_close" rounded @click="closeDrawer" />
+          </div>
+        </div>
+
+        <!-- Menu -->
+        <q-list v-if="items.length" class="q-mt-xl qas-app-menu__menu text-grey-9">
           <template v-for="(menuItem, index) in items">
             <div v-if="hasChildren(menuItem)" :key="`children-${index}`" class="qas-app-menu__content">
-              <q-item class="items-center">
+              <q-item class="items-center q-pb-none q-pt-md qas-app-menu__item qas-app-menu__item--label text-weight-bold">
                 {{ menuItem.label }}
               </q-item>
 
-              <q-item v-for="(menuChildItem, childIndex) in menuItem.children" :key="childIndex" :active="isActive(menuChildItem)" class="qas-app-menu__children qas-app-menu__item-children" :to="getRouterRedirect(menuChildItem)">
+              <q-item v-for="(menuChildItem, childIndex) in menuItem.children" :key="childIndex" :active="isActive(menuChildItem)" class="qas-app-menu__children qas-app-menu__item qas-app-menu__item--children" :to="getRouterRedirect(menuChildItem)">
                 <q-item-section v-if="menuChildItem.icon" avatar>
                   <q-icon :name="menuChildItem.icon" />
                 </q-item-section>
@@ -40,17 +53,32 @@
           </template>
         </q-list>
       </div>
+
+      <!-- User -->
+      <div v-if="showUser" class="full-width q-pb-lg q-px-lg">
+        <qas-app-user avatar-size="48px" :user="user" @sign-out="signOut" />
+      </div>
     </div>
   </q-drawer>
 </template>
 
 <script>
+import QasAppUser from '../app-user/QasAppUser.vue'
 import { isLocalDevelopment } from '../../helpers'
 
 export default {
   name: 'QasAppMenu',
 
+  components: {
+    QasAppUser
+  },
+
   props: {
+    brand: {
+      default: '',
+      type: String
+    },
+
     items: {
       default: () => [],
       type: Array
@@ -61,18 +89,30 @@ export default {
       type: Boolean
     },
 
-    title: {
-      default: '',
-      type: String
-    },
-
     modules: {
       default: () => [],
       type: Array
+    },
+
+    notifications: {
+      default: () => ({}),
+      type: Object
+    },
+
+    title: {
+      default: '',
+      required: true,
+      type: String
+    },
+
+    user: {
+      default: () => ({}),
+      require: true,
+      type: Object
     }
   },
 
-  emits: ['update:modelValue'],
+  emits: ['sign-out', 'update:modelValue'],
 
   data () {
     return {
@@ -81,6 +121,19 @@ export default {
   },
 
   computed: {
+    behavior () {
+      return this.$qas.screen.untilLarge ? 'mobile' : 'desktop'
+    },
+
+    currentModelOption () {
+      return this.defaultModules.find(module => module?.value === this.module)
+    },
+
+    currentModule () {
+      const hostname = window.location.hostname
+      return this.defaultModules.find(module => module?.value.includes(hostname))?.value
+    },
+
     defaultModules () {
       if (!isLocalDevelopment()) return this.modules
 
@@ -88,13 +141,42 @@ export default {
       const { host, protocol } = window.location
       const value = `${protocol}//${host}`
 
-      // if app is in development mode (local) it's added a default module
+      // Add a default module called "Localhost" when app is running in local development.
       defaultModules.unshift({
         label: `Localhost ${this.title ? `(${this.title})` : ''}`,
         value
       })
 
       return defaultModules
+    },
+
+    developmentBadgeLabel () {
+      const hosts = {
+        localhost: 'Local',
+        '.dev.': 'Develop'
+      }
+
+      if (process.env.DEV) {
+        return hosts.localhost
+      }
+
+      const current = Object.keys(hosts).find(
+        host => location.hostname.includes(host)
+      )
+
+      return current ? hosts[current] : ''
+    },
+
+    displayModuleSection () {
+      return this.defaultModules.length
+    },
+
+    drawerWidth () {
+      return this.$qas.screen.isSmall ? 320 : 280
+    },
+
+    hasDevelopmentBadge () {
+      return !!this.developmentBadgeLabel
     },
 
     model: {
@@ -107,22 +189,12 @@ export default {
       }
     },
 
-    currentModelOption () {
-      return this.defaultModules.find(module => module?.value === this.module)
+    rootRoute () {
+      return this.$router.hasRoute('Root') ? { name: 'Root' } : { path: '/' }
     },
 
-    displayModuleSection () {
-      return this.defaultModules.length
-    },
-
-    currentModule () {
-      const hostname = window.location.hostname
-
-      return this.defaultModules.find(module => module?.value.includes(hostname))?.value
-    },
-
-    behavior () {
-      return this.$qas.screen.untilLarge ? 'mobile' : 'desktop'
+    showUser () {
+      return this.hasUser && !this.$qas.screen.untilLarge
     }
   },
 
@@ -131,13 +203,40 @@ export default {
       handler (value) {
         this.module = value
       },
+
       immediate: true
     }
   },
 
   methods: {
+    getNormalizedPath (path) {
+      return path.split('/').filter(Boolean)?.[0]
+    },
+
+    getPathFromObject ({ path, name }) {
+      if (path) return this.getNormalizedPath(path)
+
+      const resolvedRoute = this.$router.resolve({ name })
+      return this.getNormalizedPath(resolvedRoute.path)
+    },
+
+    getRouterRedirect ({ to }) {
+      return to || ''
+    },
+
     hasChildren ({ children }) {
       return !!(children || []).length
+    },
+
+    hasUser () {
+      return !!Object.keys(this.user).length
+    },
+
+    isActive ({ to }) {
+      const currentPath = this.getNormalizedPath(this.$route.path)
+      const itemPath = typeof to === 'string' ? this.getNormalizedPath(to) : this.getPathFromObject(to)
+
+      return currentPath === itemPath
     },
 
     redirectHandler ({ value }) {
@@ -146,27 +245,12 @@ export default {
       }
     },
 
-    getPathFromObject ({ path, name }) {
-      if (path) return this.getNormalizedPath(path)
-
-      const resolvedRoute = this.$router.resolve({ name })
-
-      return this.getNormalizedPath(resolvedRoute.path)
+    signOut () {
+      this.$emit('sign-out')
     },
 
-    getNormalizedPath (path) {
-      return path.split('/').filter(Boolean)?.[0]
-    },
-
-    getRouterRedirect ({ to }) {
-      return to || ''
-    },
-
-    isActive ({ to }) {
-      const currentPath = this.getNormalizedPath(this.$route.path)
-      const itemPath = typeof to === 'string' ? this.getNormalizedPath(to) : this.getPathFromObject(to)
-
-      return currentPath === itemPath
+    closeDrawer () {
+      this.$emit('update:modelValue', false)
     }
   }
 }
@@ -174,28 +258,68 @@ export default {
 
 <style lang="scss">
 .qas-app-menu {
-  .q-item + .q-item {
-    margin-top: var(--qas-spacing-xs);
+  // Workaround para alterar o padding interno do QSelect sem influenciar na caixa de opções.
+  &__module {
+    .q-field__native {
+      padding-left: var(--qas-spacing-md);
+    }
+
+    .q-field__append {
+      margin-right: var(--qas-spacing-sm);
+    }
   }
 
-  &__children.q-item {
+  &__brand {
+    max-width: 208px;
+    width: 100%;
+  }
+
+  &__menu .q-item {
     padding-left: var(--qas-spacing-lg);
   }
 
-  &__item-children.q-item + &__item-children.q-item {
-    margin-top: var(--qas-spacing-sm);
+  &__select {
+    border-radius: 4px;
   }
 
-  &__content + &__content {
-    margin-top: var(--qas-spacing-md);
+  &__item {
+    &:not(&--label) + &:not(&--label) {
+      margin-top: var(--qas-spacing-sm);
+    }
+
+    &--label {
+      margin-bottom: var(--qas-spacing-md);
+      min-height: 0;
+      padding-top: 0;
+    }
+
+    &--children.q-item {
+      padding-left: calc(var(--qas-spacing-xl) + var(--qas-spacing-sm));
+
+      & + & {
+        margin-top: var(--qas-spacing-sm);
+      }
+    }
   }
 
+  &__content + &__content,
+  &__item + &__content,
   &__content + &__item {
-    margin-top: var(--qas-spacing-md);
+    margin-top: var(--qas-spacing-lg);
   }
 
-  &__item + &__content {
-    margin-top: var(--qas-spacing-md);
+  // User
+  .qas-app-user__data {
+    line-height: 1.25;
+  }
+
+  // Media: untilLarge
+  @media (min-width: $breakpoint-sm-max) {
+    // Menu
+    &__menu {
+      max-height: calc(100vh - 310px);
+      overflow-x: auto;
+    }
   }
 }
 </style>

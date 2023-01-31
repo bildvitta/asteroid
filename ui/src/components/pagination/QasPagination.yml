@@ -1,0 +1,4 @@
+type: component
+
+meta:
+  desc: Componente para paginação de listagens.

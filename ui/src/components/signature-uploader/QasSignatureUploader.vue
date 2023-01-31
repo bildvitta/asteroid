@@ -1,13 +1,13 @@
 <template>
   <div>
-    <qas-uploader ref="uploader" v-model="model" :label="uploadLabel" :readonly="readonly" :use-resize="false" v-bind="$attrs">
+    <qas-uploader ref="uploader" v-model="model" :label="uploadLabel" v-bind="$attrs" :readonly="readonly" :use-resize="false">
       <template #header="{ scope }">
         <div class="cursor-pointer flex flex-center full-width justify-between no-border no-wrap q-gutter-xs text-white transparent" :class="headerClass" @click="openDialog">
           <div class="col column items-start justify-center">
             <div v-if="uploadLabel" class="q-uploader__title">{{ uploadLabel }}</div>
           </div>
 
-          <qas-btn v-if="!readonly" color="white" dense flat icon="o_add" round @click="openDialog" />
+          <qas-btn v-if="!readonly" color="white" dense flat icon="sym_r_add" round @click="openDialog" />
 
           <qas-btn ref="forceUpload" class="hidden" @click="upload(scope)" />
           <qas-btn ref="buttonCleanFiles" class="hidden" @click="scope.removeUploadedFiles" />
@@ -24,11 +24,6 @@
         <div :style="signaturePadWidth">
           <qas-signature-pad ref="signaturePadModal" v-model:empty="isEmpty" :height="signaturePadHeight" />
         </div>
-      </template>
-
-      <template #actions>
-        <qas-btn class="full-width" color="primary" :disable="isEmpty" label="Salvar" no-caps @click="getSignatureData" />
-        <qas-btn class="full-width q-mt-sm" color="primary" flat label="Cancelar" no-caps @click="closeSignature" />
       </template>
     </qas-dialog>
   </div>
@@ -111,7 +106,11 @@ export default {
     defaultDialogProps () {
       return {
         maxWidth: '620px',
-        ...this.dialogProps
+        ...this.dialogProps,
+        ok: {
+          label: 'Salvar',
+          onClick: () => this.getSignatureData()
+        }
       }
     },
 

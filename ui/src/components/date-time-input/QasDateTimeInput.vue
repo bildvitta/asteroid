@@ -1,13 +1,13 @@
 <template>
-  <qas-input ref="input" v-bind="attributes" v-model="currentValue" :unmasked-value="false" @update:model-value="updateModelValue">
+  <qas-input ref="input" v-bind="attributes" v-model="currentValue" :unmasked-value="false" @blur="validateDateTimeOnBlur" @focus="resetError" @update:model-value="updateModelValue">
     <template #append>
-      <q-icon v-if="!useTimeOnly" class="cursor-pointer" name="o_event">
+      <q-icon v-if="!useTimeOnly" class="cursor-pointer" name="sym_r_event">
         <q-popup-proxy ref="dateProxy" transition-hide="scale" transition-show="scale">
           <q-date v-model="currentValue" v-bind="dateProps" :mask="maskDate" @update:model-value="updateModelValue" />
         </q-popup-proxy>
       </q-icon>
 
-      <q-icon v-if="!useDateOnly" class="cursor-pointer q-ml-md" name="o_access_time">
+      <q-icon v-if="!useDateOnly" class="cursor-pointer q-ml-md" name="sym_r_access_time">
         <q-popup-proxy ref="timeProxy" transition-hide="scale" transition-show="scale">
           <q-time v-model="currentValue" v-bind="timeProps" format24h :mask="maskDate" @update:model-value="updateModelValue" />
         </q-popup-proxy>
@@ -69,6 +69,9 @@ export default {
   data () {
     return {
       currentValue: '',
+      error: false,
+      errorMessage: '',
+      hasInvalidDate: false,
       lastValue: ''
     }
   },
@@ -78,6 +81,8 @@ export default {
       const { modelValue, ...attributes } = this.$attrs
 
       return {
+        error: this.error,
+        errorMessage: this.errorMessage,
         ...attributes,
         mask: this.mask
       }
@@ -131,6 +136,16 @@ export default {
       this.currentValue = value
       const valueLength = value?.replace?.(/_/g, '')?.length
 
+      this.error = this.validateDateAndTime(value)
+
+      if (this.error) {
+        this.hasInvalidDate = true
+        this.errorMessage = 'Data inválida.'
+        return
+      }
+
+      this.hasInvalidDate = false
+
       if (value === '' || valueLength === this.mask.length) {
         this.lastValue = this.useTimeOnly ? value : this.toISOString(value)
         this.$emit('update:modelValue', this.lastValue)
@@ -146,9 +161,7 @@ export default {
     },
 
     toISOString (value) {
-      if (!value) {
-        return ''
-      }
+      if (!value) return ''
 
       if (this.useDateOnly && !this.useIso) {
         return dateFn(date.extractDate(value, this.maskDate), 'yyyy-MM-dd')
@@ -172,6 +185,54 @@ export default {
         this.useDateOnly ? newDate.slice(0, 23) : newDate,
         this.maskDate
       )
+    },
+
+    validateDateTimeOnBlur () {
+      const valueLength = this.currentValue?.replace?.(/_/g, '')?.length
+
+      // valida se o tamanho digitado é o tamanho que a mascara espera receber
+      this.error = !!((valueLength < this.mask.length || this.error) && valueLength)
+
+      if (this.error && !this.hasInvalidDate) {
+        this.errorMessage = 'Data incompleta.'
+      }
+
+      if (this.hasInvalidDate) {
+        this.currentValue = ''
+      }
+
+      if (this.error || this.hasInvalidDate) {
+        this.$emit('update:modelValue', '')
+      }
+    },
+
+    validateDateAndTime (value) {
+      if (!value) return false
+
+      if (this.useDateOnly) return this.validateDateOnly(value)
+      if (this.useTimeOnly) return this.validateTimeOnly(value)
+
+      const [date, time] = value?.split(' ')
+
+      return this.validateDateOnly(date) || this.validateTimeOnly(time)
+    },
+
+    validateDateOnly (value = '') {
+      const [day, month] = value.split('/')
+
+      return day > 31 || month > 12
+    },
+
+    validateTimeOnly (value = '') {
+      const [hour, minute] = value.split(':')
+
+      return hour > 23 || minute > 59
+    },
+
+    resetError () {
+      if (!this.currentValue) {
+        this.error = false
+      }
     }
   }
 }

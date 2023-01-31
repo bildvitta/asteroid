@@ -4,7 +4,7 @@
       <div ref="truncate" :class="truncateTextClass">
         <slot>{{ text }}</slot>
       </div>
-      <div v-if="isTruncated" class="cursor-pointer text-primary" @click="toggleDialog">{{ seeMoreLabel }}</div>
+      <div v-if="isTruncated" class="cursor-pointer text-primary" @click.stop="toggleDialog">{{ seeMoreLabel }}</div>
     </div>
 
     <qas-dialog v-model="showDialog" v-bind="defaultDialogProps">
@@ -81,7 +81,6 @@ export default {
       return {
         cancel: false,
         ok: false,
-        useCloseButton: true,
         ...this.dialogProps,
         card: {
           title: this.dialogTitle,

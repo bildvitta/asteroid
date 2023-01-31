@@ -18,11 +18,11 @@ export default {
     dialogProps () {
       return {
         card: {
-          title: 'Título do Dialog',
-          description: 'Descrição do Dialog'
+          title: 'Título do dialog',
+          description: 'Cerca elétrica perto do corrimão risco iminente de choque. Código da ordem de serviço: 159488 CRM ID: 1179512'
         },
-
-        ok: { onClick: () => alert('clicado') }
+        cancel: false,
+        ok: false
       }
     }
   },

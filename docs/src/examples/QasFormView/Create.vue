@@ -3,7 +3,7 @@
   <div class="container spaced">
     <qas-form-view v-model="values" v-model:errors="errors" v-model:fields="fields" :cancel-route="cancelRoute" :entity="entity" @submit-success="onSubmitSuccess">
       <template #header>
-        <qas-page-header :breadcrumbs="breadcrumbs" title="Criar novo usuário" />
+        <qas-page-header :breadcrumbs="breadcrumbs" title="Novo usuário" />
       </template>
 
       <template #filter>

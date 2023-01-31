@@ -66,12 +66,12 @@ export default {
       return [
         {
           label: 'AppMenu',
-          icon: 'o_menu',
+          icon: 'sym_r_menu',
           to: { path: '/components/app-menu' }
         },
         {
           label: 'Por que asteroid?',
-          icon: 'o_pin',
+          icon: 'sym_r_pin',
           to: { path: '/why-asteroid' }
         },
         {
@@ -80,12 +80,12 @@ export default {
             {
               label: 'Dialog',
               to: { path: '/plugins/dialog' },
-              icon: 'o_settings_input_hdmi'
+              icon: 'sym_r_settings_input_hdmi'
             },
             {
               label: 'Logger',
               to: { path: '/plugins/dialog' },
-              icon: 'o_info'
+              icon: 'sym_r_info'
             }
           ]
         }

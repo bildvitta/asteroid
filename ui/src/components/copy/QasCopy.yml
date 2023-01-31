@@ -7,7 +7,7 @@ props:
   icon:
     desc: Ícone para mostrar no botão.
     type: String
-    default: o_file_copy
+    default: sym_r_file_copy
 
   text:
     desc: Texto a ser copiado.

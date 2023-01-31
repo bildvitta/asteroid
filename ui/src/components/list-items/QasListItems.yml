@@ -6,7 +6,7 @@ meta:
 props:
   icon-props:
     desc: Props do [QIcon](https://quasar.dev/vue-components/icon#introduction)
-    default: { color: 'primary', name: 'o_chevron_right' }
+    default: { color: 'primary', name: 'sym_r_chevron_right' }
     type: Object
 
   list:

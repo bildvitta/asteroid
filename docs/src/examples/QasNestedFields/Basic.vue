@@ -55,20 +55,7 @@ export default {
   data () {
     return {
       nested: nested,
-      model: [
-        {
-          name: 'John',
-          email: 'john@teste.com',
-          cities: 1,
-          uuid: 'uuid-1'
-        },
-        {
-          name: 'John 2',
-          email: 'john@teste.com',
-          cities: 2,
-          uuid: 'uuid-2'
-        }
-      ]
+      model: []
     }
   },
 

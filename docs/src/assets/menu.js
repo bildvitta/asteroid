@@ -1,12 +1,12 @@
 module.exports = [
   {
-    icon: 'room',
+    icon: 'sym_r_room',
     name: 'Por que o Asteroid existe?',
     path: '/why-asteroid'
   },
 
   {
-    icon: 'flight_takeoff',
+    icon: 'sym_r_flight_takeoff',
     name: 'Começando',
     children: [
       {
@@ -29,9 +29,8 @@ module.exports = [
   },
 
   {
-    icon: 'widgets',
+    icon: 'sym_r_widgets',
     name: 'Componentes',
-
     children: [
       {
         name: 'Actions',
@@ -52,6 +51,10 @@ module.exports = [
       {
         name: 'AppMenu',
         path: '/components/app-menu'
+      },
+      {
+        name: 'AppUser',
+        path: '/components/app-user'
       },
       {
         name: 'Avatar',
@@ -126,6 +129,10 @@ module.exports = [
         path: '/components/grid-generator'
       },
       {
+        name: 'HeaderActions',
+        path: '/components/header-actions'
+      },
+      {
         name: 'Input',
         path: '/components/input'
       },
@@ -158,8 +165,16 @@ module.exports = [
         path: '/components/numeric-input'
       },
       {
+        name: 'OptionGroup',
+        path: '/components/option-group'
+      },
+      {
         name: 'PageHeader',
         path: '/components/page-header'
+      },
+      {
+        name: 'Pagination',
+        path: '/components/pagination'
       },
       {
         name: 'PasswordInput',
@@ -228,12 +243,16 @@ module.exports = [
       {
         name: 'Uploader',
         path: '/components/uploader'
+      },
+      {
+        name: 'Welcome',
+        path: '/components/welcome'
       }
     ]
   },
 
   {
-    icon: 'settings_input_hdmi',
+    icon: 'sym_r_settings_input_hdmi',
     name: 'Plugins',
     children: [
       {
@@ -260,7 +279,7 @@ module.exports = [
   },
 
   {
-    icon: 'healing',
+    icon: 'sym_r_healing',
     name: 'Utilitários',
     children: [
       {
@@ -347,7 +366,7 @@ module.exports = [
   },
 
   {
-    icon: 'palette',
+    icon: 'sym_r_palette',
     name: 'Estilos',
     children: [
       {
@@ -381,12 +400,16 @@ module.exports = [
       {
         name: 'set-brand',
         path: '/styles/set-brand'
+      },
+      {
+        name: 'set-typography',
+        path: '/styles/set-typography'
       }
     ]
   },
 
   {
-    icon: 'add_to_photos',
+    icon: 'sym_r_add_to_photos',
     name: 'Composição',
     children: [
       {

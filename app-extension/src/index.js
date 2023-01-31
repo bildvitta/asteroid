@@ -41,10 +41,10 @@ function extendQuasar (quasar) {
 
   // Configurações
   quasar.extras.push(
-    'material-icons-outlined'
+    'material-symbols-rounded'
   )
 
-  quasar.framework.iconSet = 'material-icons-outlined'
+  quasar.framework.iconSet = 'material-symbols-rounded'
   quasar.framework.lang = 'pt-BR'
 }
 

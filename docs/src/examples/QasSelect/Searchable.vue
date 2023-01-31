@@ -1,14 +1,7 @@
 <template>
   <div class="container q-py-lg">
-    <div>
-      <qas-select v-model="model" label="Meu select!" :options="options" use-search />
-      Model: {{ model }}
-    </div>
-
-    <div class="q-mt-lg">
-      <qas-select v-model="model2" label="Meu select multiple" multiple :options="options" use-search />
-      Model múltiplo: {{ model2 }}
-    </div>
+    <qas-select v-model="model" label="Meu select com busca habilitado automaticamente a partir de 10 options" :options="options" />
+    Model múltiplo: {{ model }}
   </div>
 </template>
 
@@ -16,8 +9,7 @@
 export default {
   data () {
     return {
-      model: '',
-      model2: []
+      model: ''
     }
   },
 
@@ -55,6 +47,14 @@ export default {
         {
           label: 'Opção 8',
           value: 8
+        },
+        {
+          label: 'Opção 9',
+          value: 9
+        },
+        {
+          label: 'Opção 10',
+          value: 10
         }
       ]
     }

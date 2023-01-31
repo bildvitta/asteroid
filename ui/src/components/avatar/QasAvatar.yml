@@ -10,15 +10,15 @@ props:
   color:
     desc: Cor de fundo (background-color).
     type: String
-    examples: ['primary', 'positive']
+    examples: ['primary', 'secondary-contrast']
 
-  dark:
-    desc: Habilita o modo escuro.
-    type: Boolean
+  size:
+    desc: Tamanho do avatar.
+    type: String
 
   icon:
     desc: Ícone de fundo do avatar que vai aparecer caso não tenha imagem nem título.
-    default: o_error
+    default: sym_r_error
     type: String
 
   image:
