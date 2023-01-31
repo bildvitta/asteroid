@@ -9,22 +9,6 @@
 <script>
 export default {
   computed: {
-    colors () {
-      return [
-        'light-blue-2',
-        'green-14',
-        'blue-8',
-        'grey-10',
-        'orange-8',
-        'red-14',
-        'yellow-14',
-        'grey-7',
-        'purple-7',
-        'amber-2',
-        'green-11'
-      ]
-    },
-
     badges () {
       return {
         'light-blue-2': 'grey-9',
