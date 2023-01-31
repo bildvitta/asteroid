@@ -12,9 +12,11 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 
 ## Não publicado
 ### Adicionado
+- `QasBadge` adicionado novo componente wrapper do quasar para badges.
 - `QasStatus`: adicionado componente circular de status.
 
 ### Modificado
+- `ui/src/index.scss`: modificado `--qas-generic-border-radius` para `4px`.
 - `QasTabsGenerator`: utilizando `QasStatus` no lugar do `PvTabsGeneratorStatus`.
 - [`QasSelect`, `QasSearchBox`]: removido `threshold: 0.1`, deixando o default do `fuse.js` (0.6), assim a busca fica menos precisa e mais fácil de filtrar o que deseja.
 

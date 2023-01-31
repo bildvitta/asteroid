@@ -61,6 +61,10 @@ module.exports = [
         path: '/components/avatar'
       },
       {
+        name: 'Badge',
+        path: '/components/Badge'
+      },
+      {
         name: 'Box',
         path: '/components/box'
       },
