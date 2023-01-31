@@ -16,6 +16,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 
 ### Modificado
 - `QasTabsGenerator`: utilizando `QasStatus` no lugar do `PvTabsGeneratorStatus`.
+- [`QasSelect`, `QasSearchBox`]: removido `threshold: 0.1`, deixando o default do `fuse.js` (0.6), assim a busca fica menos precisa e mais fácil de filtrar o que deseja.
 
 ### Corrigido
 - `QasTextTruncate`: corrigido bug quando o texto tinha como valor inicial `undefined`.

@@ -105,7 +105,6 @@ export default {
       return {
         ignoreLocation: true,
         keys: ['label', 'value'],
-        threshold: 0.1,
 
         ...this.fuseOptions
       }
