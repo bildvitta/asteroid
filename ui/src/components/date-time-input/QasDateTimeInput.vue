@@ -1,17 +1,17 @@
 <template>
   <qas-input ref="input" v-bind="attributes" v-model="currentValue" :unmasked-value="false" @blur="validateDateTimeOnBlur" @focus="resetError" @update:model-value="updateModelValue">
     <template #append>
-      <q-icon v-if="!useTimeOnly" class="cursor-pointer" name="sym_r_event">
+      <qas-btn v-if="!useTimeOnly" color="grey-9" dense :disable="$attrs.readonly" flat icon="sym_r_event" rounded>
         <q-popup-proxy ref="dateProxy" transition-hide="scale" transition-show="scale">
-          <q-date v-model="currentValue" v-bind="dateProps" :mask="maskDate" @update:model-value="updateModelValue" />
+          <q-date v-model="currentValue" v-bind="defaultDateProps" :mask="maskDate" @update:model-value="updateModelValue" />
         </q-popup-proxy>
-      </q-icon>
+      </qas-btn>
 
-      <q-icon v-if="!useDateOnly" class="cursor-pointer q-ml-md" name="sym_r_access_time">
+      <qas-btn v-if="!useDateOnly" class="q-ml-sm" color="grey-9" dense :disable="$attrs.readonly" flat icon="sym_r_access_time" rounded>
         <q-popup-proxy ref="timeProxy" transition-hide="scale" transition-show="scale">
-          <q-time v-model="currentValue" v-bind="timeProps" format24h :mask="maskDate" @update:model-value="updateModelValue" />
+          <q-time v-model="currentValue" v-bind="defaultTimeProps" format24h :mask="maskDate" @update:model-value="updateModelValue" />
         </q-popup-proxy>
-      </q-icon>
+      </qas-btn>
     </template>
   </qas-input>
 </template>
@@ -85,6 +85,27 @@ export default {
         errorMessage: this.errorMessage,
         ...attributes,
         mask: this.mask
+      }
+    },
+
+    defaultDateProps () {
+      return {
+        ...this.defaultDateTimeProps,
+        ...this.dateProps
+      }
+    },
+
+    defaultTimeProps () {
+      return {
+        ...this.defaultDateTimeProps,
+        ...this.timeProps
+      }
+    },
+
+    defaultDateTimeProps () {
+      return {
+        readonly: this.$attrs.readonly,
+        disable: this.$attrs.disable
       }
     },
 

@@ -26,6 +26,8 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - `QasTextTruncate`: corrigido bug quando o texto tinha como valor inicial `undefined`.
 - `QasFilters`: corrigido model search que vinha vazio mesmo estando na URL quando usado propriedade `:use-filter-button="false"`.
 - `QasFilters`: corrigido problema de style sendo aplicado a demais componentes com a classe `q-field` quando usado dentro do slot do QasFilters.
+- `QasDateTimeInput`: corrigido ícone `q-icon` para `QasBtn` com ícone, já que existe uma ação.
+- `QasDateTimeInput`: corrigido problema quando o input era `readonly` e isto não repassado para os ícones de date e time.
 
 ### Removido
 - `PvTabsGeneratorStatus`: removido componente privado em favor do componente publico `QasStatus`.
