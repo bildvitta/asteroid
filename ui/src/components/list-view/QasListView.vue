@@ -26,7 +26,7 @@
           <q-spinner color="grey" size="3em" />
         </div>
 
-        <div v-if="hasPages" class="flex items-center q-mt-sm" :class="paginationClasses">
+        <div v-if="hasPages" class="flex items-center q-mt-md" :class="paginationClasses">
           <qas-pagination v-model="page" :max="totalPages" @click="changePage" />
         </div>
 

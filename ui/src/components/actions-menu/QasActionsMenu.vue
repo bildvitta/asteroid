@@ -1,6 +1,6 @@
 <template>
   <div v-if="hasActions">
-    <component :is="component.is" flat v-bind="component.props" :use-label-on-small-screen="useLabelOnSmallScreen" variant="tertiary" @click="onClick()">
+    <component :is="component.is" v-bind="component.props" :use-label-on-small-screen="useLabelOnSmallScreen" variant="tertiary" @click="onClick()">
       <q-menu v-if="hasMoreThanOneAction" auto-close class="q-py-xs">
         <q-list>
           <slot v-for="(item, key) in actions" :item="item" :name="key">

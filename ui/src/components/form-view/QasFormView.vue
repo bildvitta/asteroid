@@ -8,20 +8,11 @@
       <slot />
 
       <slot v-if="useActions" name="actions">
-        <!-- <div class="justify-end q-col-gutter-md q-my-lg row">
-          <div v-if="hasCancelButton" class="col-12 col-sm-2" :class="cancelButtonClass">
-            <qas-btn v-close-popup class="full-width" :data-cy="`btnCancel-${entity}`" :disable="isSubmitting" :label="cancelButtonLabel" type="button" variant="secondary" @click="cancel" />
-          </div>
-
-          <div v-if="useSubmitButton" class="col-12 col-sm-2" :class="submitButtonClass">
-            <qas-btn class="full-width" :data-cy="`btnSave-${entity}`" :disable="disable" :label="submitButtonLabel" :loading="isSubmitting" type="submit" variant="primary" />
-          </div>
-        </div> -->
-
-        <qas-actions class="">
+        <qas-actions>
           <template #primary>
             <qas-btn class="qas-form-view__btn" :data-cy="`btnSave-${entity}`" :disable="disable" :label="submitButtonLabel" :loading="isSubmitting" type="submit" variant="primary" />
           </template>
+
           <template #secondary>
             <qas-btn v-close-popup class="qas-form-view__btn" :data-cy="`btnCancel-${entity}`" :disable="isSubmitting" :label="cancelButtonLabel" type="button" variant="secondary" @click="cancel" />
           </template>
