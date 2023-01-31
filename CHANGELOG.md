@@ -10,6 +10,11 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 ### Sobre os "BREAKING CHANGES"
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
+## Não publicado
+### Corrigido
+- `QasFilters`: corrigido model search que vinha vazio mesmo estando na URL quando usado propriedade `:use-filter-button="false"`.
+- `QasFilters`: corrigido problema de style sendo aplicado a demais componentes com a classe `q-field` quando usado dentro do slot do QasFilters.
+
 ## [3.5.0] - 31-01-2023
 ## BREAKING CHANGE
 - `QasField`: removido propriedade `useSearch` que era repassado para o `QasSelect` já que agora o componente QasSelect já adiciona uma busca automática quando existem muitas opções, porém ainda é possível passar a propriedade `useSearch` mas não de forma automática, precisa setar manualmente.
