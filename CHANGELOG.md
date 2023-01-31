@@ -14,11 +14,13 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 ### Adicionado
 - `QasBadge` adicionado novo componente wrapper do quasar para badges.
 - `QasStatus`: adicionado componente circular de status.
+- `typography.md`: adicionado documentação para classes de tipografia.
 
 ### Modificado
 - `ui/src/index.scss`: modificado `--qas-generic-border-radius` para `4px`.
 - `QasTabsGenerator`: utilizando `QasStatus` no lugar do `PvTabsGeneratorStatus`.
 - [`QasSelect`, `QasSearchBox`]: removido `threshold: 0.1`, deixando o default do `fuse.js` (0.6), assim a busca fica menos precisa e mais fácil de filtrar o que deseja.
+- `typography.scss`: alterado line-height fixo de `1.5rem` para o mesmo de cada `font-size`.
 
 ### Corrigido
 - `QasTextTruncate`: corrigido bug quando o texto tinha como valor inicial `undefined`.
@@ -27,6 +29,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 
 ### Removido
 - `PvTabsGeneratorStatus`: removido componente privado em favor do componente publico `QasStatus`.
+- `text.md`: removido aquivo para ser unificado no `typography.md`.
 
 ## [3.5.0] - 31-01-2023
 ## BREAKING CHANGE
