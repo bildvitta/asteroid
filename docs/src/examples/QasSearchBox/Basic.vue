@@ -24,17 +24,17 @@ export default {
     list () {
       return [
         {
-          label: 'item 1',
+          label: "Old Man's War",
           email: 'email1@example.com',
           value: 'uuid1'
         },
         {
-          label: 'item 2',
+          label: 'The Lock Artist',
           email: 'email2@example.com',
           value: 'uuid2'
         },
         {
-          label: 'item 3',
+          label: 'Artist for Life',
           email: 'email3@example.com',
           value: 'uuid3'
         }

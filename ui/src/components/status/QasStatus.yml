@@ -1,0 +1,10 @@
+type: component
+
+meta:
+  desc: Componente que gera um status circular com a cor do status.
+
+props:
+  color:
+    desc: cor dos status.
+    default: light-blue-2
+    type: String

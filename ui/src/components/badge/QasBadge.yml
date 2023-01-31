@@ -1,0 +1,28 @@
+type: component
+
+meta:
+  desc: Componente wrapper do QBadge do quasar.
+
+props:
+  color:
+    desc: Cor da badge.
+    default: light-blue-2
+    type: String
+
+  label:
+    desc: Texto do badge.
+    type: String
+
+  multi-line:
+    desc: Habilita o texto a quebrar.
+    default: false
+    type: Boolean
+
+  text-color:
+    desc: Cor do texto.
+    default: grey-9
+    type: String
+
+slots:
+  default:
+    desc: Slot do conteúdo do badge.

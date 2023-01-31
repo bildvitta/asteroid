@@ -1,17 +1,17 @@
 <template>
-  <div class="pv-tabs-generator-status" :class="backgroundClass" />
+  <div aria-live="polite" class="qas-status" :class="backgroundClass" role="status" />
 </template>
 
 <script>
 export default {
-  name: 'PvTabsGeneratorStatus',
+  name: 'QasStatus',
 
   inheritAttrs: false,
 
   props: {
     color: {
       type: String,
-      default: ''
+      default: 'light-blue-2'
     }
   },
 
@@ -24,7 +24,7 @@ export default {
 </script>
 
 <style lang="scss">
-.pv-tabs-generator-status {
+.qas-status {
   border-radius: 100%;
   height: 16px;
   width: 16px;
