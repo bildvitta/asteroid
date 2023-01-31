@@ -11,10 +11,19 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
 ## Não publicado
+### Adicionado
+- `QasStatus`: adicionado componente circular de status.
+
+### Modificado
+- `QasTabsGenerator`: utilizando `QasStatus` no lugar do `PvTabsGeneratorStatus`.
+
 ### Corrigido
 - `QasTextTruncate`: corrigido bug quando o texto tinha como valor inicial `undefined`.
 - `QasFilters`: corrigido model search que vinha vazio mesmo estando na URL quando usado propriedade `:use-filter-button="false"`.
 - `QasFilters`: corrigido problema de style sendo aplicado a demais componentes com a classe `q-field` quando usado dentro do slot do QasFilters.
+
+### Removido
+- `PvTabsGeneratorStatus`: removido componente privado em favor do componente publico `QasStatus`.
 
 ## [3.5.0] - 31-01-2023
 ## BREAKING CHANGE
