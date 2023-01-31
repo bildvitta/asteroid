@@ -61,6 +61,10 @@ module.exports = [
         path: '/components/avatar'
       },
       {
+        name: 'Badge',
+        path: '/components/Badge'
+      },
+      {
         name: 'Box',
         path: '/components/box'
       },
@@ -219,6 +223,10 @@ module.exports = [
       {
         name: 'Sortable',
         path: '/components/sortable'
+      },
+      {
+        name: 'Status',
+        path: '/components/Status'
       },
       {
         name: 'TableGenerator',
