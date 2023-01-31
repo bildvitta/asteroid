@@ -61,6 +61,10 @@ module.exports = [
         path: '/components/avatar'
       },
       {
+        name: 'Badge',
+        path: '/components/Badge'
+      },
+      {
         name: 'Box',
         path: '/components/box'
       },
@@ -219,6 +223,10 @@ module.exports = [
       {
         name: 'Sortable',
         path: '/components/sortable'
+      },
+      {
+        name: 'Status',
+        path: '/components/Status'
       },
       {
         name: 'TableGenerator',
@@ -394,16 +402,16 @@ module.exports = [
         path: '/styles/opacity'
       },
       {
-        name: 'text',
-        path: '/styles/text'
-      },
-      {
         name: 'set-brand',
         path: '/styles/set-brand'
       },
       {
         name: 'set-typography',
         path: '/styles/set-typography'
+      },
+      {
+        name: 'typography',
+        path: '/styles/typography'
       }
     ]
   },

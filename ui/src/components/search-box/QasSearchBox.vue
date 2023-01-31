@@ -153,7 +153,6 @@ export default {
 
     defaultFuseOptions () {
       return {
-        threshold: 0.1,
         ignoreLocation: true,
 
         ...this.fuseOptions

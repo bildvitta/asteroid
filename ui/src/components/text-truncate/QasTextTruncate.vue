@@ -4,16 +4,13 @@
       <div ref="truncate" :class="truncateTextClass">
         <slot>{{ text }}</slot>
       </div>
-      <div v-if="isTruncated" class="cursor-pointer text-primary" @click.stop="toggleDialog">{{ seeMoreLabel }}</div>
+
+      <div v-if="isTruncated" class="cursor-pointer text-primary" @click.stop="toggleDialog">
+        {{ seeMoreLabel }}
+      </div>
     </div>
 
-    <qas-dialog v-model="showDialog" v-bind="defaultDialogProps">
-      <template #description>
-        <slot>
-          <div>{{ text }}</div>
-        </slot>
-      </template>
-    </qas-dialog>
+    <qas-dialog v-model="showDialog" v-bind="defaultDialogProps" aria-label="Diálogo de texto completo" role="dialog" />
   </div>
 </template>
 
@@ -60,7 +57,8 @@ export default {
     return {
       maxPossibleWidth: '',
       showDialog: false,
-      textWidth: ''
+      textWidth: '',
+      observer: null
     }
   },
 
@@ -98,6 +96,11 @@ export default {
 
   mounted () {
     this.truncateText()
+    this.observeContentChange()
+  },
+
+  unmounted () {
+    this.observer.disconnect()
   },
 
   methods: {
@@ -110,6 +113,18 @@ export default {
 
     toggleDialog () {
       this.showDialog = !this.showDialog
+    },
+
+    observeContentChange () {
+      const element = this.$refs.truncate
+      const config = { childList: true, subtree: true, characterData: true }
+
+      const callback = mutationList => {
+        mutationList.forEach(() => this.truncateText())
+      }
+
+      this.observer = new MutationObserver(callback)
+      this.observer.observe(element, config)
     }
   }
 }
