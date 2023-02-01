@@ -14,7 +14,7 @@
                 <qas-actions-menu v-if="hasBlockActions(row)" :list="getActionsList(index, row)" :use-label-on-small-screen="false" />
               </div>
 
-              <div ref="formGenerator" class="col-12 justify-between row">
+              <div ref="formGenerator" class="col-12 justify-between q-col-gutter-x-md row">
                 <slot :errors="transformedErrors" :fields="children" :index="index" name="fields" :update-value="updateValuesFromInput">
                   <qas-form-generator v-model="nested[index]" :class="formClasses" :columns="formColumns" :disable="isDisabledRow(row)" :errors="transformedErrors[index]" :fields="children" :fields-props="fieldsProps" @update:model-value="updateValuesFromInput($event, index)">
                     <template v-for="(slot, key) in $slots" #[key]="scope">

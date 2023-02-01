@@ -1,5 +1,5 @@
 <template>
-  <q-badge v-bind="$props" :aria-multiline="multiLine" class="q-px-sm q-py-xs text-caption">
+  <q-badge v-bind="$props" :aria-multiline="multiLine" class="q-px-sm q-py-xs qas-badge text-caption">
     <slot />
   </q-badge>
 </template>
@@ -32,3 +32,9 @@ export default {
   }
 }
 </script>
+
+<style lang="scss">
+.qas-badge {
+  min-height: 24px;
+}
+</style>

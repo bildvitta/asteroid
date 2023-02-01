@@ -39,7 +39,7 @@
                 </div>
                 <div class="items-center q-ml-sm row">
                   <q-icon v-if="file.isFailed" color="negative" name="sym_r_warning" size="20px" />
-                  <qas-btn v-if="!scope.readonly" color="primary" icon="sym_r_delete" variant="tertiary" @click="removeItem(index, scope, file)" />
+                  <qas-btn v-if="!scope.readonly" color="grey-9" icon="sym_r_delete" variant="tertiary" @click="removeItem(index, scope, file)" />
                 </div>
               </div>
             </div>

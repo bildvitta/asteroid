@@ -1,7 +1,6 @@
 .qas-btn {
   $root: &;
 
-  border-radius: 32px !important;
   min-height: 48px !important;
   padding: var(--qas-spacing-xs) var(--qas-spacing-lg) !important;
   text-transform: initial !important;
@@ -59,8 +58,7 @@
 
   &--tertiary {
     min-height: 24px !important;
-    padding-bottom: 0 !important;
-    padding-top: 0 !important;
+    padding: 0 !important;
 
     &:disabled {
       color: $grey-8 !important;
