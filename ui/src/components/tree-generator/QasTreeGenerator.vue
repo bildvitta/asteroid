@@ -2,7 +2,7 @@
   <div class="qas-tree-generator">
     <q-tree ref="tree" v-bind="treeProps" node-key="uuid" :nodes="parsedNodes" @lazy-load="onLazyLoad">
       <template #default-header="{ node, tree }">
-        <div class="flex items-center">
+        <div>
           <span>
             {{ node.label }}
           </span>

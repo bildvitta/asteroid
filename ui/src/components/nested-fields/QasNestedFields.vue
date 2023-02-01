@@ -9,7 +9,7 @@
         <div v-for="(row, index) in nested" :id="`row-${index}`" :key="`row-${index}`" class="full-width">
           <div v-if="!row[destroyKey]" :key="index" class="col-12 q-mt-md">
             <div>
-              <div class="flex items-center justify-between q-py-xs">
+              <div class="flex items-center justify-between q-py-md">
                 <qas-label v-if="!useSingleLabel" :label="getRowLabel(index)" />
                 <qas-actions-menu v-if="hasBlockActions(row)" :list="getActionsList(index, row)" :use-label-on-small-screen="false" />
               </div>
@@ -106,9 +106,10 @@ export default {
       type: Object,
       default: () => {
         return {
-          label: 'Excluir',
+          color: 'grey-9',
           icon: 'sym_r_delete',
-          color: 'grey-9'
+          label: 'Excluir',
+          variant: 'tertiary'
         }
       }
     },
@@ -117,9 +118,10 @@ export default {
       type: Object,
       default: () => {
         return {
-          label: 'Duplicar',
           icon: 'sym_r_content_copy',
-          useLabelOnSmallScreen: false
+          label: 'Duplicar',
+          useLabelOnSmallScreen: false,
+          variant: 'tertiary'
         }
       }
     },
@@ -246,33 +248,6 @@ export default {
   },
 
   computed: {
-    actionsList (index, row) {
-      const list = {}
-
-      if (this.useDuplicate) {
-        list.duplicate = {
-          ...this.buttonDuplicateProps
-        }
-      }
-
-      if (this.showDestroyButton) {
-        list.destroy = {
-          ...this.buttonDestroyProps
-        }
-      }
-
-      for (const key in this.actionsMenuProps.list) {
-        const { handler, ...content } = this.actionsMenuProps.list[key] || {}
-
-        list[key] = {
-          handler: payload => handler?.({ payload, row, index }),
-          ...content
-        }
-      }
-
-      return list
-    },
-
     children () {
       return this.field?.children
     },

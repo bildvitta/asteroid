@@ -13,9 +13,3 @@ props:
     desc: Texto a ser copiado.
     type: String
 
-  size:
-    desc: Tamanho do botão.
-    type: String
-    default: xs
-    examples: [xs, sm, md, lg, xl]
-
