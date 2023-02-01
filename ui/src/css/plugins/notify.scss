@@ -2,6 +2,16 @@
   margin-top: 80px;
   max-width: 560px;
 
+  &.qas-notification {
+    &--success {
+      box-shadow: inset 4px 0 0 0 var(--q-positive);
+    }
+
+    &--error {
+      box-shadow: inset 4px 0 0 0 var(--q-negative);
+    }
+  }
+
   &__content {
     .q-icon {
       margin-right: var(--qas-spacing-sm);
