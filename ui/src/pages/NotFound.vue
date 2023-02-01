@@ -16,7 +16,7 @@ export default {
     errorProps () {
       return {
         code: '404',
-        title: 'Ops! Parece que a página que está tentando acessar não existe!',
+        description: 'A página que você está tentando acessar está indisponível ou não existe.',
         buttonProps: {
           to: { path: '/' },
           label: 'Voltar ao início'

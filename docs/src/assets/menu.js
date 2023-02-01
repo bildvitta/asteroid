@@ -410,6 +410,10 @@ module.exports = [
         path: '/styles/set-typography'
       },
       {
+        name: 'spacing',
+        path: '/styles/spacing'
+      },
+      {
         name: 'typography',
         path: '/styles/typography'
       }
