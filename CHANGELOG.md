@@ -19,7 +19,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - `QasDelete`: fixado cor `grey-9` quando for tag `qas-btn`.
 
 ### Adicionado
-- `QasListItems`: adicionado nova propriedade `icon` para repassar o nom do ícone.
+- `QasListItems`: adicionado nova propriedade `icon` para repassar o nome do ícone.
 - `QasBtn`: adicionado propriedade `useHoverOnWhiteColor` para remover cor de hover quando a cor for `white` e variant `tertiary`, para resolver problemas de contrast em alguns casos específicos.
 - `QasBtn`: adicionado propriedade `variant` para escolher comportamento / design do botão, sendo 3 possibilidades: `primary`, `secondary` e `tertiary` (default).
 - `QasBtn`: adicionado no componente a propriedade `color` com 3 possibilidades: `primary`, `grey-9` e `white`, porem esta propriedade só funciona quando a variante for `tertiary`.
@@ -28,7 +28,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 
 ### Modificado
 - `QasDelete`: fixado cor `grey-9` quando a prop `tag` for `qas-btn`.
-- `QasActionsMenu`: recebendo propriedade `color` dentro dos itens do `list`, que sobrepõe a propriedade `color`, porém só é usado quando existe apenas um único item na listam.
+- `QasActionsMenu`: recebendo propriedade `color` dentro dos itens do `list`, que sobrepõe a propriedade `color`, porém só é usado quando existe apenas um único item na lista.
 - `QasBtn`: mudanças de design system, tanto de comportamento quando design.
 - `QasBtn`: melhorado documentação.
 - `QasActions.vue`: alterado espaçamento `top`.
