@@ -3,12 +3,23 @@
   max-width: 560px;
 
   &.qas-notification {
-    &--success {
-      box-shadow: inset 4px 0 0 0 var(--q-positive);
+    &--error::before,
+    &--success::before {
+      border-radius: var(--qas-generic-border-radius) 0 0 var(--qas-generic-border-radius);
+      bottom: 0;
+      content: '';
+      left: calc(var(--qas-spacing-md) * -1);
+      position: relative;
+      top: 0;
+      width: 4px;
     }
 
-    &--error {
-      box-shadow: inset 4px 0 0 0 var(--q-negative);
+    &--error::before {
+      background-color: var(--q-negative);
+    }
+
+    &--success::before {
+      background-color: var(--q-positive);
     }
   }
 
