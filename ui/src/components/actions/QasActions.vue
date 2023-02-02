@@ -1,5 +1,5 @@
 <template>
-  <div class="qas-actions" :class="classes">
+  <div class="q-mt-sm" :class="classes">
     <div v-if="hasSecondarySlot" :class="columnClasses">
       <slot name="secondary" />
     </div>

@@ -9,9 +9,7 @@
 
           <q-item-section v-if="useSectionActions" side>
             <slot :index="index" :item="item" name="item-section-side">
-              <qas-btn flat round @click="onClick({ item, index })">
-                <q-icon v-bind="iconProps" />
-              </qas-btn>
+              <qas-btn color="primary" :icon="icon" variant="tertiary" @click="onClick({ item, index })" />
             </slot>
           </q-item-section>
         </slot>
@@ -33,9 +31,9 @@ export default {
   },
 
   props: {
-    iconProps: {
-      default: () => ({ color: 'primary', name: 'sym_r_chevron_right' }),
-      type: Object
+    icon: {
+      type: String,
+      default: 'sym_r_chevron_right'
     },
 
     list: {

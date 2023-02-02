@@ -128,12 +128,9 @@ export default {
       const isSelected = this.values.includes(value)
 
       return {
-        dense: this.$qas.screen.isSmall,
-        useLabelOnSmallScreen: false,
-        icon: !this.$qas.screen.isSmall ? undefined : isSelected ? 'sym_r_close' : 'sym_r_add',
-        label: isSelected ? 'Remover' : 'Adicionar',
-        outline: isSelected,
-        size: 'sm'
+        variant: 'tertiary',
+        color: isSelected ? 'grey-9' : 'primary',
+        icon: isSelected ? 'sym_r_remove' : 'sym_r_add'
       }
     },
 

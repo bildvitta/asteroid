@@ -8,13 +8,13 @@
               <qas-input v-model="search" class="bg-white q-px-sm rounded-borders-sm shadow-2" data-cy="filters-search-input" :debounce="debounce" dense hide-bottom-space input-class="ellipsis text-grey-8" :outlined="false" :placeholder="searchPlaceholder" type="search">
                 <template #prepend>
                   <q-icon v-if="useSearchOnType" color="grey-8" name="sym_r_search" />
-                  <qas-btn v-else color="grey-9" flat icon="sym_r_search" padding="0" @click="filter()" />
+                  <qas-btn v-else color="grey-9" icon="sym_r_search" variant="tertiary" @click="filter()" />
                 </template>
 
                 <template #append>
-                  <qas-btn v-if="hasSearch" class="q-mr-sm" color="grey-9" flat icon="sym_r_clear" padding="0" size="sm" @click="clearSearch" />
+                  <qas-btn v-if="hasSearch" class="q-mr-sm" color="grey-9" icon="sym_r_clear" variant="tertiary" @click="clearSearch" />
 
-                  <qas-btn v-if="useFilterButton" :color="filterButtonColor" data-cy="filters-btn" flat icon="sym_r_tune" padding="0">
+                  <qas-btn v-if="useFilterButton" :color="filterButtonColor" data-cy="filters-btn" icon="sym_r_tune" variant="tertiary">
                     <q-menu anchor="center right" class="full-width" max-width="270px" self="top right">
                       <div v-if="isFetching" class="q-pa-xl text-center">
                         <q-spinner color="grey" size="2em" />
@@ -31,11 +31,11 @@
 
                         <div class="q-col-gutter-x-md q-mt-xl row">
                           <div class="col-6">
-                            <qas-btn class="full-width" data-cy="filters-clear-btn" label="Limpar" outline size="12px" @click="clearFilters" />
+                            <qas-btn class="full-width" data-cy="filters-clear-btn" label="Limpar" variant="secondary" @click="clearFilters" />
                           </div>
 
                           <div class="col-6">
-                            <qas-btn class="full-width" color="primary" data-cy="filters-submit-btn" label="Filtrar" size="12px" type="submit" />
+                            <qas-btn class="full-width" data-cy="filters-submit-btn" label="Filtrar" type="submit" variant="primary" />
                           </div>
                         </div>
                       </q-form>

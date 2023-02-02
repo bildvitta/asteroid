@@ -18,7 +18,7 @@
           </div>
 
           <div v-if="$qas.screen.isSmall" class="q-ml-xl">
-            <qas-btn color="grey-9" dense flat icon="sym_r_close" rounded @click="closeDrawer" />
+            <qas-btn color="grey-9" icon="sym_r_close" variant="tertiary" @click="closeDrawer" />
           </div>
         </div>
 
