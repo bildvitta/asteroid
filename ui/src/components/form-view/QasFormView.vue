@@ -187,7 +187,7 @@ export default {
 
     defaultNotifyMessages () {
       return {
-        validationError: 'Existem campos no formulário que ainda não foram preenchidos. Complete todas as informações para avançar.',
+        validationError: 'Não conseguimos salvar as informações. Por favor, revise os campos e tente novamente.',
         error: 'Não conseguimos salvar as informações. Por favor, tente novamente em alguns minutos.',
         success: 'Informações salvas com sucesso.'
       }
@@ -426,8 +426,9 @@ export default {
       } catch (error) {
         const errors = error?.response?.data?.errors
         const message = error?.response?.data?.status?.text
+        const hasFieldError = !!Object.keys(errors || {})?.length
 
-        const defaultMessage = error
+        const defaultMessage = hasFieldError
           ? this.defaultNotifyMessages.validationError
           : this.defaultNotifyMessages.error
 

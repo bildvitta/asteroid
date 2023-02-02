@@ -2,6 +2,27 @@
   margin-top: 80px;
   max-width: 560px;
 
+  &.qas-notification {
+    &--error::before,
+    &--success::before {
+      border-radius: var(--qas-generic-border-radius) 0 0 var(--qas-generic-border-radius);
+      bottom: 0;
+      content: '';
+      left: calc(var(--qas-spacing-md) * -1);
+      position: relative;
+      top: 0;
+      width: 4px;
+    }
+
+    &--error::before {
+      background-color: var(--q-negative);
+    }
+
+    &--success::before {
+      background-color: var(--q-positive);
+    }
+  }
+
   &__content {
     .q-icon {
       margin-right: var(--qas-spacing-sm);

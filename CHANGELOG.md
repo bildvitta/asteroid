@@ -40,6 +40,8 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - `ui/src/css/variables/button.scss`: modificado valores.
 - `QasSelectList`: removido label dos botões de "Adicionar" e "Remover" para existir apenas ícones.
 - modificações referentes as mudanças do `QasBtn`: [QasActionsMenu, QasAlert, QasAppBar, QasAppMenu, QasCard, QasCopy, QasDateTimeInput, QasDelete, QasDialog, QasFilters, QasFormView, QasGallery, PvGalleryCarouselDialog, QasListItems, QasNestedFields, QasPagination, QasSelectList, QasSignaturePad, QasSignatureUploader, QasTransfer, QasTreeGenerator, QasUploader, ErrorComponent].
+- [`NotifyError`, `NotifySuccess`]: adicionado flag para diferenciar notifies de erro e sucesso.
+- `QasFormView`: alterado mensagem de erro de "Existem campos no formulário que ainda não foram preenchidos. Complete todas as informações para avançar." para "Não conseguimos salvar as informações. Por favor, revise os campos e tente novamente."
 
 ### Corrigido
 - `QasDialog`: corrigido espaçamento do `QasActions`.
