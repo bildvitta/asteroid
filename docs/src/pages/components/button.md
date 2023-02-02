@@ -15,7 +15,6 @@ Sempre que utilizar "label" e "ícone", certifique-se de usar as propriedades co
 Algumas propriedades do quasar não são repassadas, como:
 
 - align
-- class
 - dense
 - fab
 - fabMini

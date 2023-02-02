@@ -14,7 +14,7 @@ props:
     examples: ['grey-9', 'primary', 'white']
 
   use-hover-on-white-color:
-    desc: Quando usamos a cor branda para contrast, em alguns casos podemos não querer ter um hover de outra cor justamente por conta do contraste, esta propriedade só funciona com variante "tertiary" e cor "white", para remover o hover sete o valor para "false".
+    desc: Quando usamos a cor branca para contrast, em alguns casos podemos não querer ter um hover de outra cor justamente por conta do contraste, esta propriedade só funciona com variante "tertiary" e cor "white", para remover o hover sete o valor para "false".
     default: true
     type: Boolean
 

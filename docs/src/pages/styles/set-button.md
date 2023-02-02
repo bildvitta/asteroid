@@ -12,7 +12,7 @@ Caso ocorra algum erro ao encontrar este mixin, use uma variável scss comentada
 <style lang="scss">
 // $
 
-@include set-typography(
+@include set-button(
   primary,
   false,
   false
@@ -46,25 +46,25 @@ Isto é um problema do quasar que só consegue identificar quando existe alguma 
 
 #### Uso
 ```scss
-@include set-typography(
+@include set-button(
   primary,
   false,
   false
 ); // aplica botão primary sem ser somente ícone
 
-@include set-typography(
+@include set-button(
   primary,
   true,
   false
 ); // aplica botão primary somente ícone
 
-@include set-typography(
+@include set-button(
   secondary,
   true,
   false
 ); // aplica botão secondary somente ícone
 
-@include set-typography(
+@include set-button(
   tertiary,
   true,
   true
