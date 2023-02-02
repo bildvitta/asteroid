@@ -8,11 +8,11 @@
       <qas-btn v-if="hasButtonProps" class="text-bold text-primary" v-bind="buttonProps" />
     </div>
   </div> -->
-  <div class="container page-error-component">
+  <div class="container flex page-error-component">
     <div class="column full-width items-center justify-center row">
       <h2 class="q-mb-sm text-grey-9 text-h2 text-primary">{{ code }}</h2>
 
-      <div class="q-mb-2xl text-body1 text-bold text-center text-grey-8">
+      <div class="q-mb-2xl text-body1 text-center text-grey-8">
         <qas-breakline :text="description" />
       </div>
 
@@ -60,6 +60,10 @@ export default {
 .page-error-component {
   background-color: var(--qas-background-color);
   min-height: 100vh;
-  padding-top: 64px;
+  padding: var(--qas-spacing-3xl) 0;
+
+  @media (max-width: $breakpoint-xs) {
+    padding: var(--qas-spacing-xl) 0;
+  }
 }
 </style>
