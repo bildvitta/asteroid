@@ -16,8 +16,12 @@ export default {
     errorProps () {
       return {
         code: '500',
-        title: 'Ops, ocorreu um erro interno no nosso servidor!',
-        subtitle: 'Tente novamente em alguns instantes.'
+        description: 'Ops... O sistema está passando por uma instabilidade. \n Já identificamos o problema e estamos trabalhando na solução.',
+        imagePath: require('../assets/big-shoes-sitting-on-rock.svg'),
+        buttonProps: {
+          to: { path: '/' },
+          label: 'Voltar ao início'
+        }
       }
     }
   }

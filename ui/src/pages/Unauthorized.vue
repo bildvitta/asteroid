@@ -16,7 +16,8 @@ export default {
     errorProps () {
       return {
         code: '401',
-        title: 'Ops! Parece que você está sem acesso ao sistema!',
+        description: 'Parece que você está sem acesso ao sistema. \n Sugerimos que entre em contato com o administrador.',
+        imagePath: require('../assets/big-shoes-walking-the-dog.svg'),
         buttonProps: {
           to: { path: '/auth/login' },
           label: 'Fazer login'

@@ -10,7 +10,10 @@ const routes = [
 
   {
     path: '/:catchAll(.*)*',
-    component: () => import('../../../ui/src/pages/NotFound.vue')
+    component: () => import('../../../ui/src/pages/ServerError.vue')
+    // component: () => import('../../../ui/src/pages/Forbidden.vue')
+    // component: () => import('../../../ui/src/pages/Unauthorized.vue')
+    // component: () => import('../../../ui/src/pages/NotFound.vue')
   }
 ]
 

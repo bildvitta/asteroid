@@ -16,7 +16,8 @@ export default {
     errorProps () {
       return {
         code: '403',
-        title: 'Ops, parece que você não tem acesso para este recurso!',
+        description: 'Parece que você não tem permissão para acessar esta página. \n Sugerimos que entre em contato com o administrador.',
+        imagePath: require('../assets/big-shoes-walking-the-dog.svg'),
         buttonProps: {
           to: { path: '/' },
           label: 'Voltar ao início'

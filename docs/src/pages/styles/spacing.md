@@ -2,7 +2,7 @@
 title: spacing
 ---
 
-Tamanho dos espaçamentos paras classes `q-p[n]-[n]`, `q-m[n]-[n]` e `q-col-[n]-gutter-[n]`.
+Tamanho dos espaçamentos paras classes `q-p[n]-[n]`, `q-m[n]-[n]`, `q-gutter-[n]-[n]` e `q-col-gutter-[n]-[n]`.
 Aqui alteramos tamanho default do quasar e criamos nossos próprios tamanhos.
 
 :::tip
