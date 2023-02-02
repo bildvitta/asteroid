@@ -406,6 +406,10 @@ module.exports = [
         path: '/styles/set-brand'
       },
       {
+        name: 'set-button',
+        path: '/styles/set-button'
+      },
+      {
         name: 'set-typography',
         path: '/styles/set-typography'
       },

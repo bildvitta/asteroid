@@ -2,10 +2,10 @@
   <div class="container q-py-lg">
     <qas-actions>
       <template #primary>
-        <qas-btn>Primeiro</qas-btn>
+        <qas-btn label="Primeiro" variant="primary" />
       </template>
       <template #secondary>
-        <qas-btn>Segundo</qas-btn>
+        <qas-btn label="Segundo" variant="secondary" />
       </template>
     </qas-actions>
   </div>

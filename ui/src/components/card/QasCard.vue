@@ -5,7 +5,7 @@
         <slot name="header">
           <q-carousel v-model="slideImage" animated class="cursor-pointer" height="205px" infinite :navigation="hasImages" navigation-icon="sym_r_fiber_manual_record" swipeable>
             <template #navigation-icon="{ active, btnProps, onClick }">
-              <qas-btn color="white" dense flat :icon="getNavigationIcon(active, btnProps)" round size="sm" @click="onClick" />
+              <qas-btn color="white" :icon="getNavigationIcon(active, btnProps)" variant="tertiary" @click="onClick" />
             </template>
 
             <q-carousel-slide v-for="(item, index) in imagesList" :key="index" class="bg-no-repeat" :class="imagePositionClass" :img-src="item" :name="index" />

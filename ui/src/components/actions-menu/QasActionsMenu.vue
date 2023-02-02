@@ -1,6 +1,6 @@
 <template>
   <div v-if="hasActions">
-    <component :is="component.is" flat v-bind="component.props" :use-label-on-small-screen="useLabelOnSmallScreen" @click="onClick()">
+    <component :is="component.is" v-bind="component.props" :use-label-on-small-screen="useLabelOnSmallScreen" variant="tertiary" @click="onClick()">
       <q-menu v-if="hasMoreThanOneAction" auto-close class="q-py-xs">
         <q-list>
           <slot v-for="(item, key) in actions" :item="item" :name="key">
@@ -103,8 +103,10 @@ export default {
         props.iconRight = this.icon
         props.label = this.useLabel ? 'Opções' : ''
       } else {
-        props.color = this.color || 'primary'
-        props.icon = this.actions[this.firstItemKey]?.icon
+        const { color, icon } = this.actions[this.firstItemKey] || {}
+
+        props.color = color || this.color || 'primary'
+        props.icon = icon
         props.label = this.useLabel ? this.tooltipLabel : ''
       }
 

@@ -13,13 +13,15 @@
               </div>
             </div>
 
-            <qas-btn v-if="showAddFile" ref="buttonUpload" color="white" dense flat icon="sym_r_add" round @click="$refs.hiddenInput.click()" />
+            <qas-btn v-if="showAddFile" ref="buttonUpload" color="white" icon="sym_r_add" :use-hover-on-white-color="false" variant="tertiary" @click="$refs.hiddenInput.click()" />
 
             <input ref="hiddenInput" :accept="attributes.accept" class="qas-uploader__input" :multiple="isMultiple" type="file">
 
-            <qas-btn ref="buttonCleanFiles" class="hidden" color="white" @click="scope.removeUploadedFiles" />
-            <qas-btn v-if="scope.canUpload" color="white" dense flat icon="sym_r_cloud_upload" round @click="scope.upload" />
-            <qas-btn v-if="scope.isUploading" color="white" dense flat icon="sym_r_clear" round @click="scope.abort" />
+            <qas-btn ref="buttonCleanFiles" class="hidden" @click="scope.removeUploadedFiles" />
+
+            <qas-btn v-if="scope.canUpload" color="white" icon="sym_r_cloud_upload" :use-hover-on-white-color="false" variant="tertiary" @click="scope.upload" />
+
+            <qas-btn v-if="scope.isUploading" color="white" icon="sym_r_clear" :use-hover-on-white-color="false" variant="tertiary" @click="scope.abort" />
           </div>
         </slot>
       </template>
@@ -37,7 +39,7 @@
                 </div>
                 <div class="items-center q-ml-sm row">
                   <q-icon v-if="file.isFailed" color="negative" name="sym_r_warning" size="20px" />
-                  <qas-btn v-if="!scope.readonly" dense flat icon="sym_r_delete" round @click="removeItem(index, scope, file)" />
+                  <qas-btn v-if="!scope.readonly" color="grey-9" icon="sym_r_delete" variant="tertiary" @click="removeItem(index, scope, file)" />
                 </div>
               </div>
             </div>

@@ -1,6 +1,6 @@
 <template>
   <div v-if="model" class="bg-white q-pa-lg qas-alert relative-position rounded-borders" :class="classes">
-    <qas-btn class="absolute-top-right q-mr-md q-mt-sm" :color="color" dense flat icon="sym_r_close" rounded @click="close" />
+    <qas-btn class="absolute-top-right q-mr-md q-mt-sm" color="grey-9" icon="sym_r_close" variant="tertiary" @click="close" />
 
     <div class="q-gutter-md q-mr-lg">
       <slot name="header">

@@ -58,11 +58,16 @@ export default {
       maxPossibleWidth: '',
       showDialog: false,
       textWidth: '',
+      textContent: '',
       observer: null
     }
   },
 
   computed: {
+    description () {
+      return this.text || this.textContent
+    },
+
     truncateTextClass () {
       return (this.isTruncated || this.$qas.screen.isSmall) && 'ellipsis q-pr-sm'
     },
@@ -82,7 +87,7 @@ export default {
         ...this.dialogProps,
         card: {
           title: this.dialogTitle,
-          description: this.text
+          description: this.description
         }
       }
     }
@@ -107,6 +112,8 @@ export default {
     truncateText () {
       this.$refs.parent.style.maxWidth = '100%'
       this.textWidth = this.$refs.truncate.clientWidth
+      this.textContent = this.$refs.truncate?.innerHTML
+
       this.maxPossibleWidth = this.maxWidth || this.$refs.truncate.parentElement.clientWidth * 0.90
       this.$refs.parent.style.maxWidth = `${this.maxPossibleWidth}px`
     },
