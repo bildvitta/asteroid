@@ -7,11 +7,29 @@ meta:
   desc: O mesmo botão do Quasar (QBtn), mas com o nosso estilo, tem acesso a todas propriedades do componente do quasar. Tem a função de criar gatilhos para ações. Eles podem ser utilizados isoladamente ou ​​como parte de outros componentes de padrões maiores, como formulários, caixas de diálogo e feedbacks.
 
 props:
+  color:
+    desc: Cor do botão, sendo possível alterar somente quando a variante for "tertiary", podendo ser "primary", "grey-9" ou "white".
+    default: primary
+    type: String
+    examples: ['grey-9', 'primary', 'white']
+
+  use-hover-on-white-color:
+    desc: Quando usamos a cor branca para contrast, em alguns casos podemos não querer ter um hover de outra cor justamente por conta do contraste, esta propriedade só funciona com variante "tertiary" e cor "white", para remover o hover sete o valor para "false".
+    default: true
+    type: Boolean
+
   use-label-on-small-screen:
     desc: Esconde o rótulo (label) do botão quando o tamanho da tela for pequeno (esta propriedade só funciona se o "rotulo") for passado via propriedade "label".
     default: true
     type: Boolean
 
+
   label:
     desc: Rótulo do botão.
     type: String
+
+  variant:
+    desc: Variantes do botão, que define para qual comportamento o botão será usado, podendo ser "primary", "secondary" ou "tertiary".
+    default: tertiary
+    type: String
+    examples: ['primary', 'secondary', 'tertiary']

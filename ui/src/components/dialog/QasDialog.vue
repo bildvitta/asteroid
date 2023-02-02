@@ -6,7 +6,7 @@
           <div class="items-center justify-between row">
             <h5 class="text-grey-9 text-h5">{{ card.title }}</h5>
 
-            <qas-btn v-if="isInfoDialog" v-close-popup color="grey-9" dense flat icon="sym_r_close" rounded />
+            <qas-btn v-if="isInfoDialog" v-close-popup color="grey-9" icon="sym_r_close" variant="tertiary" />
           </div>
         </slot>
       </header>
@@ -19,15 +19,15 @@
         </component>
       </section>
 
-      <footer v-if="!isInfoDialog" class="q-mt-xl">
+      <footer v-if="!isInfoDialog">
         <slot name="actions">
           <qas-actions v-bind="actionsProps" :use-equal-width="hasAllActions" :use-full-width="hasSingleAction">
             <template v-if="hasOk" #primary>
-              <qas-btn v-close-popup="!useForm" class="full-width" v-bind="defaultOk" @click="submitHandler" />
+              <qas-btn v-close-popup="!useForm" class="full-width" variant="primary" v-bind="defaultOk" @click="submitHandler" />
             </template>
 
             <template v-if="hasCancel" #secondary>
-              <qas-btn v-close-popup class="full-width" v-bind="defaultCancel" />
+              <qas-btn v-close-popup class="full-width" v-bind="defaultCancel" variant="secondary" />
             </template>
           </qas-actions>
         </slot>

@@ -24,6 +24,7 @@ module.exports = {
     'scss/dollar-variable-colon-space-before': null,
     'custom-property-pattern': null,
     'no-descending-specificity': null,
+    'scss/at-extend-no-missing-placeholder': null,
 
     // Plugins
     'order/properties-alphabetical-order': true

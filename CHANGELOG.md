@@ -10,6 +10,47 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 ### Sobre os "BREAKING CHANGES"
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
+## Não publicado
+## BREAKING CHANGES
+- `QasBtn`: componente passou por muitas mudanças, é preciso repassar em **TODOS** os lugares que utilizam ele e rever as propriedades adicionando o comportamento / estilo correto.
+- `QasCopy`: removido propriedade `size` uma vez que não é mais repassado pro `QasBtn`.
+- `QasListItems`: removido propriedade `iconProps` para ser passado somente o nome ícone.
+- `QasBtn`: não é repassado mais algumas propriedades para o quasar, elas são: [align, dense, fab, fabMini, flat, glossy, noWrap, outline, padding, push, ripple, round, size, square, stack, stretch, textColor, unelevated].
+- `QasDelete`: fixado cor `grey-9` quando for tag `qas-btn`.
+
+### Adicionado
+- `QasListItems`: adicionado nova propriedade `icon` para repassar o nome do ícone.
+- `QasBtn`: adicionado propriedade `useHoverOnWhiteColor` para remover cor de hover quando a cor for `white` e variant `tertiary`, para resolver problemas de contrast em alguns casos específicos.
+- `QasBtn`: adicionado propriedade `variant` para escolher comportamento / design do botão, sendo 3 possibilidades: `primary`, `secondary` e `tertiary` (default).
+- `QasBtn`: adicionado no componente a propriedade `color` com 3 possibilidades: `primary`, `grey-9` e `white`, porem esta propriedade só funciona quando a variante for `tertiary`.
+- `ui/src/css/components/button.scss`: adicionado classe `button.scss` para modificar o QasBtn, foi criado uma classe ao invés de modificar no componente para ser possível alterar o estilo do botão quando não for utilizado o QasBtn.
+- `ui/src/css/mixins/set-button.scss`: adicionado novo mixin para forçar `QBtn` internos a terem mesmos estilos do `QasBtn`.
+
+### Modificado
+- `QasDelete`: fixado cor `grey-9` quando a prop `tag` for `qas-btn`.
+- `QasActionsMenu`: recebendo propriedade `color` dentro dos itens do `list`, que sobrepõe a propriedade `color`, porém só é usado quando existe apenas um único item na lista.
+- `QasBtn`: mudanças de design system, tanto de comportamento quando design.
+- `QasBtn`: melhorado documentação.
+- `QasActions.vue`: alterado espaçamento `top`.
+- `QasBadge`: adicionado tamanho mínimo de `24px` para respeitar layout.
+- `QasFormView`: modificado actions para usar `QasActions`.
+- `QasListView`: modificado espaçamento usado na paginação.
+- `QasPagination`: mudanças de responsividade.
+- `QasSearchBox`: mudanças de estilo no ícone de input para ficar semelhante ao `QasSelect` quando tem busca.
+- `ui/src/css/variables/button.scss`: modificado valores.
+- `QasSelectList`: removido label dos botões de "Adicionar" e "Remover" para existir apenas ícones.
+- modificações referentes as mudanças do `QasBtn`: [QasActionsMenu, QasAlert, QasAppBar, QasAppMenu, QasCard, QasCopy, QasDateTimeInput, QasDelete, QasDialog, QasFilters, QasFormView, QasGallery, PvGalleryCarouselDialog, QasListItems, QasNestedFields, QasPagination, QasSelectList, QasSignaturePad, QasSignatureUploader, QasTransfer, QasTreeGenerator, QasUploader, ErrorComponent].
+
+### Corrigido
+- `QasDialog`: corrigido espaçamento do `QasActions`.
+- `QasTextTruncate`: corrigido texto de descrição quando vem por slot.
+
+### Removido
+- `QasCopy`: removido propriedade `size` uma vez que não é mais repassado pro `QasBtn`.
+- `QasListItems`: removido propriedade `iconProps` para ser passado somente o nome ícone.
+- `QasBtn`: não é repassado mais algumas propriedades para o quasar, elas são: [align, dense, fab, fabMini, flat, glossy, noWrap, outline, padding, push, ripple, round, size, square, stack, stretch, textColor, unelevated].
+- `QasDelete`: fixado cor `grey-9` quando for tag `qas-btn`.
+
 ## [3.6.0-beta.0] - 31-01-2023
 ### Adicionado
 - `QasBadge` adicionado novo componente wrapper do quasar para badges.

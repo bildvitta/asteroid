@@ -13,9 +13,7 @@
 
             <div v-if="useDestroy">
               <slot :destroy="onDestroy" :image="image" :index="index" name="destroy">
-                <qas-btn color="grey-9" dense :disabled="isDestroyDisabled(image)" flat round size="sm" @click="onDestroy(image, index)">
-                  <q-icon name="sym_r_delete" size="xs" />
-                </qas-btn>
+                <qas-btn color="grey-9" :disabled="isDestroyDisabled(image)" icon="sym_r_delete" variant="tertiary" @click="onDestroy(image, index)" />
               </slot>
             </div>
           </div>
@@ -26,7 +24,7 @@
 
       <slot>
         <div v-if="!hideShowMore" class="full-width text-center">
-          <qas-btn color="primary" data-cy="gallery-btn-show-more" flat :label="showMoreLabel" @click="showMore" />
+          <qas-btn color="primary" data-cy="gallery-btn-show-more" :label="showMoreLabel" variant="tertiary" @click="showMore" />
         </div>
       </slot>
 
