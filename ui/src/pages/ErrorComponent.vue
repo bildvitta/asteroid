@@ -61,7 +61,7 @@ export default {
   padding: var(--qas-spacing-3xl) 0;
 
   &__image {
-    width: 350px;
+    width: 300px;
   }
 
   @media (max-width: $breakpoint-xs) {

@@ -26,7 +26,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - `ui/src/css/components/button.scss`: adicionado classe `button.scss` para modificar o QasBtn, foi criado uma classe ao invés de modificar no componente para ser possível alterar o estilo do botão quando não for utilizado o QasBtn.
 - `ui/src/css/mixins/set-button.scss`: adicionado novo mixin para forçar `QBtn` internos a terem mesmos estilos do `QasBtn`.
 - `spacing.md`: adicionado documentação para espaçamentos.
-- [`Forbidden`, `NotFound`, `ServerError`]: adicionado documentação das paginas de erros.
+- [`Forbidden`, `NotFound`, `ServerError`]: adicionado documentação das páginas de erros.
 
 ### Modificado
 - `QasDelete`: fixado cor `grey-9` quando a prop `tag` for `qas-btn`.
