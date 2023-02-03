@@ -26,6 +26,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - `ui/src/css/components/button.scss`: adicionado classe `button.scss` para modificar o QasBtn, foi criado uma classe ao invés de modificar no componente para ser possível alterar o estilo do botão quando não for utilizado o QasBtn.
 - `ui/src/css/mixins/set-button.scss`: adicionado novo mixin para forçar `QBtn` internos a terem mesmos estilos do `QasBtn`.
 - `spacing.md`: adicionado documentação para espaçamentos.
+- [`Forbidden`, `NotFound`, `ServerError`]: adicionado documentação das paginas de erros.
 
 ### Modificado
 - `QasDelete`: fixado cor `grey-9` quando a prop `tag` for `qas-btn`.
@@ -54,6 +55,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - `QasBtn`: não é repassado mais algumas propriedades para o quasar, elas são: [align, dense, fab, fabMini, flat, glossy, noWrap, outline, padding, push, ripple, round, size, square, stack, stretch, textColor, unelevated].
 - `QasDelete`: fixado cor `grey-9` quando for tag `qas-btn`.
 - `ui/src/asset/gear.svg`: removido ilustração.
+- `Unauthorized`: removido uso da pagina de 401 já que ele nunca cai nela, o fluxo sempre leva para refazer login ou dar refresh no token.
 
 ## [3.6.0-beta.0] - 31-01-2023
 ### Adicionado

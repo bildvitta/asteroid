@@ -16,11 +16,11 @@ export default {
     errorProps () {
       return {
         code: '401',
-        description: 'Parece que você está sem acesso ao sistema. \n Sugerimos que entre em contato com o administrador.',
+        description: 'Ops... Parece que você foi desconectado do sistema. \n Por favor, entre na sua conta novamente.',
         imagePath: require('../assets/big-shoes-walking-the-dog.svg'),
         buttonProps: {
           to: { path: '/auth/login' },
-          label: 'Fazer login'
+          label: 'Entrar novamente'
         }
       }
     }
