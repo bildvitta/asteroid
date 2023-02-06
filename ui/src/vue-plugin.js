@@ -56,7 +56,7 @@ import QasUploader from './components/uploader/QasUploader.vue'
 import QasWelcome from './components/welcome/QasWelcome.vue'
 
 import VueGoogleMaps from '@fawmi/vue-google-maps'
-import { Notify, Quasar, Dialog as QuasarDialog } from 'quasar'
+import { Notify, Loading, Quasar, Dialog as QuasarDialog } from 'quasar'
 
 // Plugins
 import {
@@ -132,7 +132,7 @@ function install (app) {
   app.component('QasUploader', QasUploader)
   app.component('QasWelcome', QasWelcome)
 
-  app.use(Quasar, { plugins: { Notify, QuasarDialog, Dialog } })
+  app.use(Quasar, { plugins: { Notify, Loading, QuasarDialog, Dialog } })
 
   if (process.env.MAPS_API_KEY) {
     app.use(VueGoogleMaps, { load: { key: process.env.MAPS_API_KEY, libraries: 'places' } })
