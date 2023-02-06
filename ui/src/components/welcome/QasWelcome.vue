@@ -53,12 +53,12 @@ export default {
     },
 
     currentDay () {
-      const timeStamp = Date.now()
+      const timestamp = Date.now()
       const { daysList, monthsList } = dateConfig
 
       // exemplo: Quarta-feira, 11 de janeiro de 2023
       return date.formatDate(
-        timeStamp, 'dddd, DDD [de] MMMM [de] YYYY', { days: daysList, months: monthsList }
+        timestamp, 'dddd, D [de] MMMM [de] YYYY', { days: daysList, months: monthsList }
       )
     },
 

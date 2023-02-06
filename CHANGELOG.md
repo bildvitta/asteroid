@@ -11,7 +11,12 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
 ## Não publicado
+### Modificado
+- [`/`, `/docs`, `/ui`, `app-extension`]: atualizadas bibliotecas do quasar, @quasar/extras, @quasar/app-webpack, store-adapter e vue.
+
 ### Corrigido
+- `vue-plugin.js`: adicionado plugin de `Loading` para corrigir problema de variável global interna causado pela atualizações do quasar.
+- `QasWelcome`: corrigido problema de data.
 - `ErrorComponent`: adicionado prefixo `sym_r_`.
 
 ## [3.6.0-beta.1] - 06-02-2023
