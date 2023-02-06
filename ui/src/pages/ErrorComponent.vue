@@ -11,7 +11,7 @@
 
       <q-img alt="ilustração do código de erro" class="error-component__image" :src="imagePath" />
 
-      <qas-btn v-if="hasButtonProps" class="q-mt-xl" v-bind="buttonProps" color="primary" icon="chevron_left" variant="tertiary" />
+      <qas-btn v-if="hasButtonProps" class="q-mt-xl" v-bind="buttonProps" color="primary" icon="sym_r_chevron_left" variant="tertiary" />
     </div>
   </div>
 </template>
