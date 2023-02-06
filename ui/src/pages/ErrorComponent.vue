@@ -1,15 +1,17 @@
 <template>
-  <div class="column error-component items-center justify-around q-px-xl">
-    <div class="column full-width items-center justify-center q-gutter-md q-py-md row">
-      <q-img src="../assets/gear.svg" :width="gearSize" />
+  <div class="container error-component flex">
+    <div class="column full-width items-center justify-center row">
+      <h2 :aria-label="ariaLabelCode" class="q-mb-sm text-grey-9 text-h2" role="heading">
+        {{ code }}
+      </h2>
 
-      <div class="text-bold text-h1 text-primary">{{ code }}</div>
+      <div class="q-mb-2xl text-body1 text-center text-grey-8">
+        <qas-breakline :text="description" />
+      </div>
 
-      <div class="text-bold text-center text-grey-9 text-h6">{{ title }}</div>
+      <q-img alt="ilustração do código de erro" class="error-component__image" :src="imagePath" />
 
-      <div v-if="subtitle" class="text-bold text-center text-grey-9 text-subtitle2">{{ subtitle }}</div>
-
-      <qas-btn v-if="hasButtonProps" v-bind="buttonProps" color="primary" variant="tertiary" />
+      <qas-btn v-if="hasButtonProps" class="q-mt-xl" v-bind="buttonProps" color="primary" icon="chevron_left" variant="tertiary" />
     </div>
   </div>
 </template>
@@ -29,24 +31,24 @@ export default {
       required: true
     },
 
-    subtitle: {
+    description: {
       type: String,
       default: ''
     },
 
-    title: {
+    imagePath: {
       type: String,
-      required: true
+      default: ''
     }
   },
 
   computed: {
-    gearSize () {
-      return this.$qas.screen.isSmall ? '90px' : '160px'
-    },
-
     hasButtonProps () {
       return !!Object.keys(this.buttonProps).length
+    },
+
+    ariaLabelCode () {
+      return `Código de erro ${this.code}`
     }
   }
 }
@@ -56,5 +58,18 @@ export default {
 .error-component {
   background-color: var(--qas-background-color);
   min-height: 100vh;
+  padding: var(--qas-spacing-3xl) 0;
+
+  &__image {
+    width: 300px;
+  }
+
+  @media (max-width: $breakpoint-xs) {
+    padding: var(--qas-spacing-xl) 0;
+
+    &__image {
+      width: 265px;
+    }
+  }
 }
 </style>

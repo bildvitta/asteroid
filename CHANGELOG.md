@@ -25,6 +25,8 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - `QasBtn`: adicionado no componente a propriedade `color` com 3 possibilidades: `primary`, `grey-9` e `white`, porem esta propriedade só funciona quando a variante for `tertiary`.
 - `ui/src/css/components/button.scss`: adicionado classe `button.scss` para modificar o QasBtn, foi criado uma classe ao invés de modificar no componente para ser possível alterar o estilo do botão quando não for utilizado o QasBtn.
 - `ui/src/css/mixins/set-button.scss`: adicionado novo mixin para forçar `QBtn` internos a terem mesmos estilos do `QasBtn`.
+- `spacing.md`: adicionado documentação para espaçamentos.
+- [`Forbidden`, `NotFound`, `ServerError`]: adicionado documentação das páginas de erros.
 
 ### Modificado
 - `QasDelete`: fixado cor `grey-9` quando a prop `tag` for `qas-btn`.
@@ -38,7 +40,9 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - `QasPagination`: mudanças de responsividade.
 - `QasSearchBox`: mudanças de estilo no ícone de input para ficar semelhante ao `QasSelect` quando tem busca.
 - `ui/src/css/variables/button.scss`: modificado valores.
+- [`ErrorComponent`, `Forbidden`, `Unauthorized`, `ServerError`]: modificado layout.
 - `QasSelectList`: removido label dos botões de "Adicionar" e "Remover" para existir apenas ícones.
+- `spacing.scss`: adicionado 2 novos tokens: `2xl` e `3xl`.
 - modificações referentes as mudanças do `QasBtn`: [QasActionsMenu, QasAlert, QasAppBar, QasAppMenu, QasCard, QasCopy, QasDateTimeInput, QasDelete, QasDialog, QasFilters, QasFormView, QasGallery, PvGalleryCarouselDialog, QasListItems, QasNestedFields, QasPagination, QasSelectList, QasSignaturePad, QasSignatureUploader, QasTransfer, QasTreeGenerator, QasUploader, ErrorComponent].
 - [`NotifyError`, `NotifySuccess`]: adicionado flag para diferenciar notifies de erro e sucesso.
 - `QasFormView`: alterado mensagem de erro de "Existem campos no formulário que ainda não foram preenchidos. Complete todas as informações para avançar." para "Não conseguimos salvar as informações. Por favor, revise os campos e tente novamente."
@@ -52,6 +56,8 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - `QasListItems`: removido propriedade `iconProps` para ser passado somente o nome ícone.
 - `QasBtn`: não é repassado mais algumas propriedades para o quasar, elas são: [align, dense, fab, fabMini, flat, glossy, noWrap, outline, padding, push, ripple, round, size, square, stack, stretch, textColor, unelevated].
 - `QasDelete`: fixado cor `grey-9` quando for tag `qas-btn`.
+- `ui/src/asset/gear.svg`: removido ilustração.
+- `Unauthorized`: removido uso da pagina de 401 já que ele nunca cai nela, o fluxo sempre leva para refazer login ou dar refresh no token.
 
 ## [3.6.0-beta.0] - 31-01-2023
 ### Adicionado

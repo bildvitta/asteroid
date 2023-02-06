@@ -96,7 +96,7 @@ export default {
 
       const redirect = status >= 500
         ? 'ServerError'
-        : ({ 401: 'Unauthorized', 403: 'Forbidden', 404: 'NotFound' })[status]
+        : ({ 403: 'Forbidden', 404: 'NotFound' })[status]
 
       // caso exista um desses status será redirecionado sem aparecer o "notify"
       if (redirect) {

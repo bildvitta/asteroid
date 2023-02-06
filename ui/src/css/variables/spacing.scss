@@ -1,11 +1,8 @@
 @use 'sass:map';
 
-/*
-* O único valor que de fato é alterado diferente do padrão do Quasar é o tamanho "lg"
-*/
 $space-base   : 16px;
-$space-x-base : $space-base;
-$space-y-base : $space-base;
+$space-x-base : $space-base; // 16px
+$space-y-base : $space-base; // 16px
 
 $space-none : (
   x: 0,
@@ -13,38 +10,50 @@ $space-none : (
 );
 
 $space-xs: (
-  x: ($space-x-base * 0.25),
-  y: ($space-y-base * 0.25)
+  x: ($space-x-base * 0.25), // 4px
+  y: ($space-y-base * 0.25) // 4px
 );
 
 $space-sm: (
-  x: ($space-x-base * 0.5),
-  y: ($space-y-base * 0.5)
+  x: ($space-x-base * 0.5), // 8px
+  y: ($space-y-base * 0.5) // 8px
 );
 
 $space-md: (
-  x: $space-x-base,
-  y: $space-y-base
+  x: $space-x-base, // 16px
+  y: $space-y-base // 16px
 );
 
 $space-lg: (
-  x: ($space-x-base * 1.5),
-  y: ($space-y-base * 1.5)
+  x: ($space-x-base * 1.5), // 24px
+  y: ($space-y-base * 1.5) // 24px
 );
 
 // O tamanho original seria "16px * 3" ou "48px", alterado para ter "32px"
 $space-xl: (
-  x: ($space-x-base * 2),
-  y: ($space-y-base * 2)
+  x: ($space-x-base * 2), // 32px
+  y: ($space-y-base * 2) // 32px
+);
+
+$space-2xl: (
+  x: ($space-x-base * 2.5), // 40px
+  y: ($space-y-base * 2.5) // 40px
+);
+
+$space-3xl: (
+  x: ($space-x-base * 3), // 48px
+  y: ($space-y-base * 3) // 48px
 );
 
 $spaces: (
-  none: $space-none,
-  xs: $space-xs,
-  sm: $space-sm,
-  md: $space-md,
-  lg: $space-lg,
-  xl: $space-xl
+  none: $space-none, // 0px
+  xs: $space-xs, // 4px
+  sm: $space-sm, // 8px
+  md: $space-md, // 16px
+  lg: $space-lg, // 24px
+  xl: $space-xl, // 32px
+  2xl: $space-2xl, // 40px
+  3xl: $space-3xl // 48px
 );
 
 $flex-gutter-xs : map.get($space-xs, 'x');
@@ -52,14 +61,18 @@ $flex-gutter-sm : map.get($space-sm, 'x');
 $flex-gutter-md : map.get($space-md, 'x');
 $flex-gutter-lg : map.get($space-lg, 'x');
 $flex-gutter-xl : map.get($space-xl, 'x');
+$flex-gutter-2xl : map.get($space-2xl, 'x');
+$flex-gutter-3xl : map.get($space-3xl, 'x');
 
 $flex-gutter: (
-  none: 0,
-  xs: $flex-gutter-xs,
-  sm: $flex-gutter-sm,
-  md: $flex-gutter-md,
-  lg: $flex-gutter-lg,
-  xl: $flex-gutter-xl
+  none: 0, // 0px
+  xs: $flex-gutter-xs, // 4px
+  sm: $flex-gutter-sm, // 8px
+  md: $flex-gutter-md, // 16px
+  lg: $flex-gutter-lg, // 24px
+  xl: $flex-gutter-xl, // 32px
+  2xl: $flex-gutter-2xl, // 48px
+  3xl: $flex-gutter-3xl // 40px
 );
 
 :root {

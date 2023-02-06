@@ -414,6 +414,10 @@ module.exports = [
         path: '/styles/set-typography'
       },
       {
+        name: 'spacing',
+        path: '/styles/spacing'
+      },
+      {
         name: 'typography',
         path: '/styles/typography'
       }
@@ -427,6 +431,25 @@ module.exports = [
       {
         name: 'useHistory',
         path: '/composables/use-history'
+      }
+    ]
+  },
+
+  {
+    icon: 'sym_r_pages',
+    name: 'Paginas',
+    children: [
+      {
+        name: 'Forbidden - 403',
+        path: '/paginas/forbidden'
+      },
+      {
+        name: 'NotFound - 404',
+        path: '/paginas/not-found'
+      },
+      {
+        name: 'ServerError - 500',
+        path: '/paginas/server-error'
       }
     ]
   }
