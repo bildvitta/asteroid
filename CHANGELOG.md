@@ -16,6 +16,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 
 ### Corrigido
 - `vue-plugin.js`: adicionado plugin de `Loading` para corrigir problema de variável global interna causado pela atualizações do quasar.
+- `QasWelcome`: corrigido problema de data.
 
 ## [3.6.0-beta.1] - 06-02-2023
 ## BREAKING CHANGES
