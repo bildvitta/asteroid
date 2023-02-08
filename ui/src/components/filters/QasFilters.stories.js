@@ -36,7 +36,7 @@ export default {
     },
 
     fieldsProps: {
-      description: 'Defines each field prop.'
+      description: 'Defines each field props.'
     },
 
     noFilterButton: {
