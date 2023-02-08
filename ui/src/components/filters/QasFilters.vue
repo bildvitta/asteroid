@@ -219,7 +219,7 @@ export default {
       immediate: true,
       deep: true,
       handler (value) {
-        this.filters = { ...value }
+        this.filters = value
       }
     }
   },
