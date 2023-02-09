@@ -31,6 +31,14 @@ export default {
       description: '[VuexStoreModule](https://github.com/bildvitta/vuex-store-module) entity.'
     },
 
+    fieldsEvents: {
+      description: 'Defines each field events.'
+    },
+
+    fieldsProps: {
+      description: 'Defines each field props.'
+    },
+
     noFilterButton: {
       description: 'Hides filter button.'
     },

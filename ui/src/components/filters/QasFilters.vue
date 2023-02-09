@@ -27,7 +27,7 @@
 
             <q-form v-else class="q-gutter-y-md q-pa-md" @submit.prevent="filter()">
               <div v-for="(field, index) in fields" :key="index">
-                <qas-field v-model="filters[field.name]" dense :field="field" />
+                <qas-field dense :field="field" :value="filters[field.name]" v-bind="fieldsProps[field.name]" v-on="fieldsEvents[field.name]" @input="emitter(field.name, $event)" />
               </div>
 
               <div class="text-right">
@@ -51,6 +51,7 @@
 <script>
 import QasField from '../field/QasField'
 
+import { isNil, isEmpty } from 'lodash'
 import { camelize, camelizeKeys } from 'humps'
 import { humanize, parseValue } from '../../helpers/filters'
 import contextMixin from '../../mixins/context'
@@ -71,6 +72,16 @@ export default {
     entity: {
       required: true,
       type: String
+    },
+
+    fieldsProps: {
+      default: () => ({}),
+      type: Object
+    },
+
+    fieldsEvents: {
+      default: () => ({}),
+      type: Object
     },
 
     noFilterButton: {
@@ -100,6 +111,11 @@ export default {
 
     forceRefetch: {
       type: Boolean
+    },
+
+    value: {
+      default: () => ({}),
+      type: Object
     }
   },
 
@@ -127,7 +143,9 @@ export default {
         const hasField = fields.includes(key)
 
         if (hasField) {
-          const value = humanize(this.fields[key], this.normalizeValues(filters[key], this.fields[key]?.multiple))
+          const field = { ...this.fields[key], ...this.fieldsProps?.[key] }
+
+          const value = humanize(field, this.normalizeValues(filters[key], this.fields[key]?.multiple))
           const { label, name } = this.fields[key]
 
           activeFilters[key] = { label, name, value }
@@ -184,9 +202,24 @@ export default {
       this.updateValues()
     },
 
+    '$route.query': {
+      immediate: true,
+      handler () {
+        this.$emit('input', this.context.filters)
+      }
+    },
+
     search () {
       if (this.debounce) {
         this.filter()
+      }
+    },
+
+    value: {
+      immediate: true,
+      deep: true,
+      handler (value) {
+        this.filters = value
       }
     }
   },
@@ -275,6 +308,11 @@ export default {
       this.search = search || ''
 
       for (const key in filters) {
+        if (isEmpty(filters[key]) || isNil(filters[key])) {
+          delete filters[key]
+          continue
+        }
+
         this.$set(this.filters, key, parseValue(this.normalizeValues(filters[key], this.fields[key]?.multiple)))
       }
     },
@@ -292,6 +330,11 @@ export default {
           watchOnce()
         }
       })
+    },
+
+    emitter (key, value) {
+      this.filters[key] = value
+      this.$emit('input', this.filters)
     }
   }
 }

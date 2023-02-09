@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## Unreleased
+
+### Added
+- `QasSelect`: added `Boolean` type suport for `value` prop.
+- `QasFilters`: added `fieldsProps` and `fieldsEvents` props to filter fields.
+
+### Fixed
+- `QasFilters`: added conditional to check if filter value is empty array, undefined or null in `updateValues`.
+- Updated libs: `@babel/core`, `@babel/eslint-parser`, `@babel/preset-env`, `@storybook/addon-actions`, `@storybook/addon-essentials`, `@storybook/addon-links`, `@storybook/vue`, `@testing-library/jest-dom`, `@vue/test-utils`, `autoprefixer`, `babel-loader`, `core-js`, `eslint-webpack-plugin`, `postcss`, `sass`, `sass-loader`, `vue-loader`, `vue-template-compi`, `@quasar/extras`, `date-fns`, `quasar`, `vue-router`.
+
 ## 2.23.0 - 2022-06-29
 
 ## BREAKING CHANGES
