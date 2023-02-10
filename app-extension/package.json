@@ -1,6 +1,6 @@
 {
   "name": "@bildvitta/quasar-app-extension-asteroid",
-  "version": "2.24.0-beta.1",
+  "version": "2.24.0-beta.2",
   "description": "A Quasar App Extension",
   "author": "Inovação Bild & Vitta <inova@bild.com.br>",
   "license": "MIT",
@@ -24,7 +24,7 @@
   "bugs": "https://github.com/bildvitta/asteroid/issues",
   "homepage": "",
   "dependencies": {
-    "@bildvitta/quasar-ui-asteroid": "^2.24.0-beta.1"
+    "@bildvitta/quasar-ui-asteroid": "^2.24.0-beta.2"
   },
   "engines": {
     "node": ">= 8.9.0",
