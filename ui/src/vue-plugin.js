@@ -5,6 +5,7 @@ import QasAppBar from './components/app-bar/QasAppBar.vue'
 import QasAppMenu from './components/app-menu/QasAppMenu.vue'
 import QasAppUser from './components/app-user/QasAppUser.vue'
 import QasAvatar from './components/avatar/QasAvatar.vue'
+import QasBadge from './components/badge/QasBadge.vue'
 import QasBox from './components/box/QasBox.vue'
 import QasBreakline from './components/breakline/QasBreakline.vue'
 import QasBtn from './components/btn/QasBtn.vue'
@@ -45,6 +46,7 @@ import QasSignaturePad from './components/signature-pad/QasSignaturePad.vue'
 import QasSignatureUploader from './components/signature-uploader/QasSignatureUploader.vue'
 import QasSingleView from './components/single-view/QasSingleView.vue'
 import QasSortable from './components/sortable/QasSortable.vue'
+import QasStatus from './components/status/QasStatus.vue'
 import QasTableGenerator from './components/table-generator/QasTableGenerator.vue'
 import QasTabsGenerator from './components/tabs-generator/QasTabsGenerator.vue'
 import QasTextTruncate from './components/text-truncate/QasTextTruncate.vue'
@@ -54,7 +56,7 @@ import QasUploader from './components/uploader/QasUploader.vue'
 import QasWelcome from './components/welcome/QasWelcome.vue'
 
 import VueGoogleMaps from '@fawmi/vue-google-maps'
-import { Notify, Quasar, Dialog as QuasarDialog } from 'quasar'
+import { Notify, Loading, Quasar, Dialog as QuasarDialog } from 'quasar'
 
 // Plugins
 import {
@@ -80,6 +82,7 @@ function install (app) {
   app.component('QasAppMenu', QasAppMenu)
   app.component('QasAppUser', QasAppUser)
   app.component('QasAvatar', QasAvatar)
+  app.component('QasBadge', QasBadge)
   app.component('QasBox', QasBox)
   app.component('QasBreakline', QasBreakline)
   app.component('QasBtn', QasBtn)
@@ -120,6 +123,7 @@ function install (app) {
   app.component('QasSignatureUploader', QasSignatureUploader)
   app.component('QasSingleView', QasSingleView)
   app.component('QasSortable', QasSortable)
+  app.component('QasStatus', QasStatus)
   app.component('QasTableGenerator', QasTableGenerator)
   app.component('QasTabsGenerator', QasTabsGenerator)
   app.component('QasTextTruncate', QasTextTruncate)
@@ -128,7 +132,7 @@ function install (app) {
   app.component('QasUploader', QasUploader)
   app.component('QasWelcome', QasWelcome)
 
-  app.use(Quasar, { plugins: { Notify, QuasarDialog, Dialog } })
+  app.use(Quasar, { plugins: { Notify, Loading, QuasarDialog, Dialog } })
 
   if (process.env.MAPS_API_KEY) {
     app.use(VueGoogleMaps, { load: { key: process.env.MAPS_API_KEY, libraries: 'places' } })
@@ -156,6 +160,7 @@ export {
   QasAppMenu,
   QasAppUser,
   QasAvatar,
+  QasBadge,
   QasBox,
   QasBreakline,
   QasBtn,
@@ -196,6 +201,7 @@ export {
   QasSignatureUploader,
   QasSingleView,
   QasSortable,
+  QasStatus,
   QasTableGenerator,
   QasTabsGenerator,
   QasTextTruncate,

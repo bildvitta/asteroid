@@ -4,44 +4,46 @@
       <div v-if="showSearch" class="col-12 col-md-6">
         <slot :filter="filter" name="search">
           <q-form v-if="useSearch" @submit.prevent="filter()">
-            <qas-input v-model="search" class="bg-white q-px-sm qas-filters__input rounded-borders-sm shadow-2" data-cy="filters-search-input" :debounce="debounce" dense hide-bottom-space input-class="ellipsis text-grey-8" :outlined="false" :placeholder="searchPlaceholder" type="search">
-              <template #prepend>
-                <q-icon v-if="useSearchOnType" color="grey-8" name="sym_r_search" />
-                <qas-btn v-else color="grey-9" flat icon="sym_r_search" padding="0" @click="filter()" />
-              </template>
+            <div class="qas-filters__input-content">
+              <qas-input v-model="search" class="bg-white q-px-sm rounded-borders-sm shadow-2" data-cy="filters-search-input" :debounce="debounce" dense hide-bottom-space input-class="ellipsis text-grey-8" :outlined="false" :placeholder="searchPlaceholder" type="search">
+                <template #prepend>
+                  <q-icon v-if="useSearchOnType" color="grey-8" name="sym_r_search" />
+                  <qas-btn v-else color="grey-9" icon="sym_r_search" variant="tertiary" @click="filter()" />
+                </template>
 
-              <template #append>
-                <qas-btn v-if="hasSearch" class="q-mr-sm" color="grey-9" flat icon="sym_r_clear" padding="0" size="sm" @click="clearSearch" />
+                <template #append>
+                  <qas-btn v-if="hasSearch" class="q-mr-sm" color="grey-9" icon="sym_r_clear" variant="tertiary" @click="clearSearch" />
 
-                <qas-btn v-if="useFilterButton" :color="filterButtonColor" data-cy="filters-btn" flat icon="sym_r_tune" padding="0">
-                  <q-menu anchor="center right" class="full-width" max-width="270px" self="top right">
-                    <div v-if="isFetching" class="q-pa-xl text-center">
-                      <q-spinner color="grey" size="2em" />
-                    </div>
-
-                    <div v-else-if="hasFetchError" class="q-pa-xl text-center">
-                      <q-icon color="negative" name="sym_r_warning" size="2em" />
-                    </div>
-
-                    <q-form v-else class="q-gutter-y-md q-pa-md" @submit.prevent="filter()">
-                      <div v-for="(field, index) in fields" :key="index">
-                        <qas-field v-model="filters[field.name]" :data-cy="`filters-${field.name}-field`" :field="field" v-bind="fieldsProps[field.name]" />
+                  <qas-btn v-if="useFilterButton" :color="filterButtonColor" data-cy="filters-btn" icon="sym_r_tune" variant="tertiary">
+                    <q-menu anchor="center right" class="full-width" max-width="270px" self="top right">
+                      <div v-if="isFetching" class="q-pa-xl text-center">
+                        <q-spinner color="grey" size="2em" />
                       </div>
 
-                      <div class="q-col-gutter-x-md q-mt-xl row">
-                        <div class="col-6">
-                          <qas-btn class="full-width" data-cy="filters-clear-btn" label="Limpar" outline size="12px" @click="clearFilters" />
+                      <div v-else-if="hasFetchError" class="q-pa-xl text-center">
+                        <q-icon color="negative" name="sym_r_warning" size="2em" />
+                      </div>
+
+                      <q-form v-else class="q-gutter-y-md q-pa-md" @submit.prevent="filter()">
+                        <div v-for="(field, index) in fields" :key="index">
+                          <qas-field v-model="filters[field.name]" :data-cy="`filters-${field.name}-field`" :field="field" v-bind="fieldsProps[field.name]" />
                         </div>
 
-                        <div class="col-6">
-                          <qas-btn class="full-width" color="primary" data-cy="filters-submit-btn" label="Filtrar" size="12px" type="submit" />
+                        <div class="q-col-gutter-x-md q-mt-xl row">
+                          <div class="col-6">
+                            <qas-btn class="full-width" data-cy="filters-clear-btn" label="Limpar" variant="secondary" @click="clearFilters" />
+                          </div>
+
+                          <div class="col-6">
+                            <qas-btn class="full-width" data-cy="filters-submit-btn" label="Filtrar" type="submit" variant="primary" />
+                          </div>
                         </div>
-                      </div>
-                    </q-form>
-                  </q-menu>
-                </qas-btn>
-              </template>
-            </qas-input>
+                      </q-form>
+                    </q-menu>
+                  </qas-btn>
+                </template>
+              </qas-input>
+            </div>
           </q-form>
         </slot>
       </div>
@@ -225,6 +227,7 @@ export default {
   created () {
     this.fetchFilters()
     this.watchOnceFields()
+    this.handleSearchModelOnCreate()
   },
 
   methods: {
@@ -322,8 +325,9 @@ export default {
     },
 
     updateValues () {
-      const { filters, search } = this.mx_context
-      this.search = search || ''
+      this.setSearch()
+
+      const { filters } = this.mx_context
 
       for (const key in filters) {
         this.filters[key] = parseValue(this.normalizeValues(filters[key], this.fields[key]?.multiple))
@@ -343,6 +347,15 @@ export default {
           watchOnce()
         }
       })
+    },
+
+    handleSearchModelOnCreate () {
+      !this.useFilterButton && this.setSearch()
+    },
+
+    setSearch () {
+      const { search } = this.mx_context
+      this.search = search || ''
     }
   }
 }
@@ -351,41 +364,43 @@ export default {
 <style lang="scss">
 // TODO rever
 .qas-filters {
-  .q-field::before {
-    border: 2px solid transparent;
-    border-radius: 4px;
-    bottom: 0;
-    content: '';
-    left: 0;
-    pointer-events: none;
-    position: absolute;
-    right: 0;
-    top: 0;
-    transition: border-color var(--qas-generic-transition);
-  }
+  &__input-content {
+    .q-field {
+      &::before {
+        border: 2px solid transparent;
+        border-radius: var(--qas-generic-border-radius);
+        bottom: 0;
+        content: '';
+        left: 0;
+        pointer-events: none;
+        position: absolute;
+        right: 0;
+        top: 0;
+        transition: border-color var(--qas-generic-transition);
+      }
 
-  .q-field--focused::before {
-    border-color: var(--q-primary);
-    color: var(--q-primary);
-  }
+      &--dense .q-field__prepend {
+        padding-right: var(--qas-spacing-xs);
+      }
 
-  .q-field--dense .q-field__prepend {
-    padding-right: var(--qas-spacing-xs);
-  }
+      &--dense .q-field__append {
+        padding-left: var(--qas-spacing-sm);
+      }
 
-  .q-field--dense .q-field__append {
-    padding-left: var(--qas-spacing-sm);
-  }
+      &--focused::before {
+        border-color: var(--q-primary);
+        color: var(--q-primary);
+      }
 
-  &__input {
-    .q-field__control::before,
-    .q-field__control::after {
-      display: none;
-    }
+      &__control::after,
+      &__control::before {
+        display: none !important;
+      }
 
-    .q-field__native {
-      padding-bottom: var(--qas-spacing-sm);
-      padding-top: var(--qas-spacing-sm);
+      &__native {
+        padding-bottom: var(--qas-spacing-sm);
+        padding-top: var(--qas-spacing-sm);
+      }
     }
   }
 }

@@ -18,6 +18,20 @@ Inclui os estilos de tipografia do quasar manualmente ao invés de classe, valor
 - $caption
 
 :::warning
+Caso ocorra algum erro ao encontrar este mixin, use uma variável scss comentada no style `"// $"`, por exemplo:
+
+```html
+<style lang="scss">
+// $
+
+@include set-typography($h1);
+</style>
+```
+
+Isto é um problema do quasar que só consegue identificar quando existe alguma scss var declarada no arquivo, para saber mais clique <a target="_blank" href="https://quasar.dev/style/sass-scss-variables#caveat">aqui</a>.
+:::
+
+:::warning
 Use este mixin somente quando aplicar as classes de tipografia não funcionarem.
 :::
 

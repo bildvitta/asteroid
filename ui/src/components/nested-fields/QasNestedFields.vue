@@ -9,7 +9,7 @@
         <div v-for="(row, index) in nested" :id="`row-${index}`" :key="`row-${index}`" class="full-width">
           <div v-if="!row[destroyKey]" :key="index" class="col-12 q-mt-md">
             <div>
-              <div class="flex items-center justify-between q-py-xs">
+              <div class="flex items-center justify-between q-py-md">
                 <qas-label v-if="!useSingleLabel" :label="getRowLabel(index)" />
                 <qas-actions-menu v-if="hasBlockActions(row)" :list="getActionsList(index, row)" :use-label-on-small-screen="false" />
               </div>
@@ -39,7 +39,7 @@
       <div v-if="useAdd" class="q-mt-md">
         <slot :add="add" name="add-input">
           <div v-if="showAddFirstInputButton" class="text-left">
-            <qas-btn class="q-px-sm" color="dark" flat @click="add()">{{ addFirstInputLabel }}</qas-btn>
+            <qas-btn class="q-px-sm" color="primary" variant="tertiary" @click="add()">{{ addFirstInputLabel }}</qas-btn>
           </div>
 
           <div v-else-if="useInlineActions" class="cursor-pointer items-center q-col-gutter-x-md q-mt-md row" @click="add()">
@@ -48,12 +48,12 @@
             </div>
 
             <div class="col-auto">
-              <qas-btn color="dark" flat icon="sym_r_add_circle_outline" round />
+              <qas-btn color="primary" icon="sym_r_add_circle_outline" variant="tertiary" />
             </div>
           </div>
 
           <div v-else class="text-left">
-            <qas-btn class="q-px-sm" color="dark" flat icon="sym_r_add" @click="add()">{{ addInputLabel }}</qas-btn>
+            <qas-btn class="q-px-sm" color="primary" icon="sym_r_add" :label="addInputLabel" variant="tertiary" @click="add()" />
           </div>
         </slot>
       </div>
@@ -106,10 +106,10 @@ export default {
       type: Object,
       default: () => {
         return {
-          label: 'Excluir',
+          color: 'grey-9',
           icon: 'sym_r_delete',
-          flat: true,
-          dense: true
+          label: 'Excluir',
+          variant: 'tertiary'
         }
       }
     },
@@ -118,11 +118,10 @@ export default {
       type: Object,
       default: () => {
         return {
-          label: 'Duplicar',
           icon: 'sym_r_content_copy',
-          flat: true,
+          label: 'Duplicar',
           useLabelOnSmallScreen: false,
-          dense: true
+          variant: 'tertiary'
         }
       }
     },

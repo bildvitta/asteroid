@@ -1,8 +1,8 @@
 <template>
   <qas-box>
     <qas-input v-bind="attributes" ref="search" v-model="mx_search">
-      <template #append>
-        <q-icon color="primary" name="sym_r_search" />
+      <template #prepend>
+        <q-icon color="grey-8" name="sym_r_search" />
       </template>
     </qas-input>
 
@@ -153,7 +153,6 @@ export default {
 
     defaultFuseOptions () {
       return {
-        threshold: 0.1,
         ignoreLocation: true,
 
         ...this.fuseOptions

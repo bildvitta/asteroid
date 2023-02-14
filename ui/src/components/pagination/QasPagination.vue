@@ -19,7 +19,7 @@ export default {
         directionLinks: true,
         iconNext: 'sym_r_chevron_right',
         iconPrev: 'sym_r_chevron_left',
-        maxPages: modelValue < 3 ? 3 : 6,
+        maxPages: 3,
         modelValue,
 
         ...attributes
@@ -31,8 +31,41 @@ export default {
 
 <style lang="scss">
 .qas-pagination {
-  .q-icon {
-    color: $grey-9;
+  // https://quasar.dev/style/sass-scss-variables#caveat: $
+
+  .q-pagination__content .q-btn {
+    @include set-button(
+      tertiary,
+      true,
+      false,
+      grey-9
+    );
+
+    min-width: max-content !important;
+
+    &.text-primary {
+      color: var(--q-primary) !important;
+    }
+  }
+
+  .q-pagination__middle + .q-btn,
+  .q-btn + .q-pagination__middle,
+  .q-btn + .q-btn {
+    margin-left: var(--qas-spacing-md) !important;
+  }
+
+  .q-pagination__content > .q-btn,
+  .q-pagination__middle > .q-btn {
+    margin-left: 0;
+    margin-top: 0;
+  }
+
+  @media (max-width: $breakpoint-xs) {
+    .q-pagination__middle + .q-btn,
+    .q-btn + .q-pagination__middle,
+    .q-btn + .q-btn {
+      margin-left: var(--qas-spacing-sm) !important;
+    }
   }
 }
 </style>

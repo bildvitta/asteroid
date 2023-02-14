@@ -1,0 +1,16 @@
+@mixin set-button($variant, $icon-only: false, $no-hover-on-white: false, $color: false) {
+  @extend .qas-btn;
+  @extend .qas-btn--#{$variant};
+
+  @if $variant == tertiary and $color {
+    @extend .qas-btn--tertiary-#{$color};
+  }
+
+  @if $icon-only {
+    @extend .qas-btn--#{$variant}-icon-only;
+  }
+
+  @if $no-hover-on-white {
+    @extend .qas-btn--no-hover-on-white;
+  }
+}

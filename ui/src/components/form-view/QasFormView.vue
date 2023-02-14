@@ -1,5 +1,5 @@
 <template>
-  <component :is="mx_componentTag" :class="mx_componentClass">
+  <component :is="mx_componentTag" class="qas-form-view" :class="mx_componentClass">
     <header v-if="mx_hasHeaderSlot">
       <slot name="header" />
     </header>
@@ -8,15 +8,15 @@
       <slot />
 
       <slot v-if="useActions" name="actions">
-        <div class="justify-end q-col-gutter-md q-my-lg row">
-          <div v-if="hasCancelButton" class="col-12 col-sm-2" :class="cancelButtonClass">
-            <qas-btn v-close-popup class="full-width" :data-cy="`btnCancel-${entity}`" :disable="isSubmitting" :label="cancelButtonLabel" outline type="button" @click="cancel" />
-          </div>
+        <qas-actions>
+          <template #primary>
+            <qas-btn class="qas-form-view__btn" :data-cy="`btnSave-${entity}`" :disable="disable" :label="submitButtonLabel" :loading="isSubmitting" type="submit" variant="primary" />
+          </template>
 
-          <div v-if="useSubmitButton" class="col-12 col-sm-2" :class="submitButtonClass">
-            <qas-btn class="full-width" :data-cy="`btnSave-${entity}`" :disable="disable" :label="submitButtonLabel" :loading="isSubmitting" type="submit" />
-          </div>
-        </div>
+          <template #secondary>
+            <qas-btn v-close-popup class="qas-form-view__btn" :data-cy="`btnCancel-${entity}`" :disable="isSubmitting" :label="cancelButtonLabel" type="button" variant="secondary" @click="cancel" />
+          </template>
+        </qas-actions>
       </slot>
     </q-form>
 
@@ -161,10 +161,6 @@ export default {
   },
 
   computed: {
-    cancelButtonClass () {
-      return this.$qas.screen.isSmall && 'order-last'
-    },
-
     fetchURL () {
       return this.url ? (`${this.url}/${this.isCreateMode ? 'new' : 'edit'}`) : ''
     },
@@ -189,13 +185,9 @@ export default {
       return this.$route
     },
 
-    submitButtonClass () {
-      return this.$qas.screen.isSmall && 'order-first'
-    },
-
     defaultNotifyMessages () {
       return {
-        validationError: 'Existem campos no formulário que ainda não foram preenchidos. Complete todas as informações para avançar.',
+        validationError: 'Não conseguimos salvar as informações. Por favor, revise os campos e tente novamente.',
         error: 'Não conseguimos salvar as informações. Por favor, tente novamente em alguns minutos.',
         success: 'Informações salvas com sucesso.'
       }
@@ -434,8 +426,9 @@ export default {
       } catch (error) {
         const errors = error?.response?.data?.errors
         const message = error?.response?.data?.status?.text
+        const hasFieldError = !!Object.keys(errors || {})?.length
 
-        const defaultMessage = error
+        const defaultMessage = hasFieldError
           ? this.defaultNotifyMessages.validationError
           : this.defaultNotifyMessages.error
 
@@ -462,3 +455,12 @@ export default {
   }
 }
 </script>
+
+<style lang="scss">
+.qas-form-view {
+  &__btn {
+    min-width: 132px;
+    width: 100%;
+  }
+}
+</style>

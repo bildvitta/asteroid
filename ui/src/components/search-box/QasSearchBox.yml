@@ -34,7 +34,7 @@ props:
     examples: ["{ keys: ['label'] }"]
     default:
       ignoreLocation: true
-      threshold: 0.1
+      threshold: 0.6
 
   height:
     desc: Define altura do box quando a lista não está vazia.

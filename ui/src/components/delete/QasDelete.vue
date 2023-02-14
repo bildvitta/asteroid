@@ -1,5 +1,5 @@
 <template>
-  <component v-bind="$attrs" :is="tag" @click.stop="openConfirmDialog">
+  <component v-bind="attributes" :is="tag" @click.stop="openConfirmDialog">
     <template v-for="(_, name) in $slots" #[name]="context">
       <slot :name="name" v-bind="context || {}" />
     </template>
@@ -24,6 +24,8 @@ export default {
     QasBtn,
     QasDialog
   },
+
+  inheritAttrs: false,
 
   props: {
     customId: {
@@ -74,6 +76,13 @@ export default {
   },
 
   computed: {
+    attributes () {
+      return {
+        ...this.$attrs,
+        color: this.isButton ? 'grey-9' : this.$attrs.color
+      }
+    },
+
     defaultDialogProps () {
       return {
         card: {
@@ -98,6 +107,10 @@ export default {
         error: 'Não conseguimos excluir as informações. Por favor, tente novamente em alguns minutos.',
         success: 'Informações excluídas com sucesso.'
       }
+    },
+
+    isButton () {
+      return this.tag === 'qas-btn'
     }
   },
 
