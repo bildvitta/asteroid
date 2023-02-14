@@ -9,6 +9,7 @@ function extendQuasar (quasar) {
     'boot/error-pages.js',
     'boot/register.js',
     'boot/history.js',
+    'boot/loading.js',
     'boot/store-adapter'
   ))
 
