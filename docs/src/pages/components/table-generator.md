@@ -39,3 +39,5 @@ Este componente renderiza componentes dinamicamente através da prop `fields`, c
 Também é possível configurar o componente para executar uma ação ao clicar em uma linha, para isso, basta escutar o evento `row-click`.
 
 <doc-example file="QasTableGenerator/ClickableRow" title="Linha clicável" />
+
+<doc-example file="QasTableGenerator/TableLink" title="Tabela com links" />

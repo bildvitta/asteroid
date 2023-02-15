@@ -1,11 +1,15 @@
 <template>
   <qas-box class="q-px-lg q-py-md">
     <q-table ref="table" class="bg-white qas-table-generator text-grey-8" :class="tableClass" v-bind="attributes">
-      <template v-for="(_, name) in $slots" #[name]="context">
+      <template v-for="(slotName, index) in fieldsKeysList" #[slotName]="context">
         <slot v-if="hasBodySlot" name="body" :props="context" />
 
-        <q-td v-else :key="name">
-          <slot :name="name" v-bind="context || {}" />
+        <q-td v-else :key="index">
+          <component :is="contentComponent" v-bind="contentBind(context)">
+            <slot :name="slotName" v-bind="context || {}">
+              {{ resultsByFields?.[index]?.[getFieldKey(slotName)] }}
+            </slot>
+          </component>
         </q-td>
       </template>
     </q-table>
@@ -24,6 +28,11 @@ export default {
     columns: {
       default: () => [],
       type: Array
+    },
+
+    rowRouteFn: {
+      type: Function,
+      default: undefined
     },
 
     fields: {
@@ -63,6 +72,22 @@ export default {
   },
 
   computed: {
+    contentComponent () {
+      return this.rowRouteFn ? 'router-link' : 'span'
+    },
+
+    fieldsKeysList () {
+      if (!this.rowRouteFn) return this.$slots
+
+      const slots = []
+
+      for (const fieldKey in this.fields) {
+        slots.push(`body-cell-${fieldKey}`)
+      }
+
+      return { ...slots, ...this.$slots }
+    },
+
     attributes () {
       const attributes = {
         columns: this.columnsByFields,
@@ -239,6 +264,19 @@ export default {
 
     destroyObserver () {
       this.resizeObserver.unobserve(this.elementToObserve)
+    },
+
+    getFieldKey (slotName) {
+      return slotName.split('body-cell-')?.join('')
+    },
+
+    contentBind (context) {
+      if (!this.rowRouteFn) return
+
+      return {
+        classes: 'qas-table-generator__router-link text-grey-8',
+        to: this.rowRouteFn(context.row)
+      }
     }
   }
 }
@@ -281,6 +319,10 @@ export default {
     .q-table {
       margin-left: 10px;
     }
+  }
+
+  &__router-link {
+    text-decoration: none;
   }
 }
 </style>
