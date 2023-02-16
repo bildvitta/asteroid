@@ -1,13 +1,13 @@
 <template>
   <qas-box class="q-px-lg q-py-md">
     <q-table ref="table" class="bg-white qas-table-generator text-grey-8" :class="tableClass" v-bind="attributes">
-      <template v-for="(slotName, index) in fieldsKeysList" #[slotName]="context">
+      <template v-for="(fieldName, index) in fieldsKeysList" #[`body-cell-${fieldName}`]="context">
         <slot v-if="hasBodySlot" name="body" :props="context" />
 
         <q-td v-else :key="index">
           <component :is="contentComponent" v-bind="contentBind(context)">
-            <slot :name="slotName" v-bind="context || {}">
-              {{ resultsByFields?.[index]?.[getFieldKey(slotName)] }}
+            <slot :name="`body-cell-${fieldName}`" v-bind="context || {}">
+              {{ context.row?.[fieldName] }}
             </slot>
           </component>
         </q-td>
@@ -30,7 +30,7 @@ export default {
       type: Array
     },
 
-    rowRouteFn: {
+    onRowClick: {
       type: Function,
       default: undefined
     },
@@ -59,6 +59,10 @@ export default {
     useScrollOnGrab: {
       type: Boolean,
       default: true
+    },
+
+    useExternalLink: {
+      type: Boolean
     }
   },
 
@@ -73,19 +77,23 @@ export default {
 
   computed: {
     contentComponent () {
-      return this.rowRouteFn ? 'router-link' : 'span'
+      if (this.useExternalLink) return 'a'
+
+      return this.onRowClick ? 'router-link' : 'span'
     },
 
     fieldsKeysList () {
-      if (!this.rowRouteFn) return this.$slots
-
-      const slots = []
-
-      for (const fieldKey in this.fields) {
-        slots.push(`body-cell-${fieldKey}`)
+      if (!this.onRowClick) {
+        return Object.keys(this.$slots).map(field => field.replace('body-cell-', ''))
       }
 
-      return { ...slots, ...this.$slots }
+      const fieldsKeys = []
+
+      for (const fieldKey in this.fields) {
+        fieldsKeys.push(fieldKey)
+      }
+
+      return fieldsKeys
     },
 
     attributes () {
@@ -95,10 +103,7 @@ export default {
         flat: true,
         hideBottom: true,
         pagination: { rowsPerPage: 0 },
-        rowKey: this.rowKey,
-
-        // Eventos.
-        onRowClick: this.$attrs.onRowClick && this.onRowClick
+        rowKey: this.rowKey
       }
 
       return attributes
@@ -248,11 +253,6 @@ export default {
       }
     },
 
-    onRowClick () {
-      if (this.hasScrollOnGrab && this.scrollOnGrab.haveMoved()) return
-      this.$attrs.onRowClick(...arguments)
-    },
-
     setObserver () {
       this.elementToObserve = this.getTableElement()
       this.resizeObserver = new ResizeObserver(entries => {
@@ -266,16 +266,15 @@ export default {
       this.resizeObserver.unobserve(this.elementToObserve)
     },
 
-    getFieldKey (slotName) {
-      return slotName.split('body-cell-')?.join('')
-    },
-
     contentBind (context) {
-      if (!this.rowRouteFn) return
+      if (!this.onRowClick) return
 
       return {
-        classes: 'qas-table-generator__router-link text-grey-8',
-        to: this.rowRouteFn(context.row)
+        class: 'text-no-decoration text-grey-8',
+        [this.useExternalLink ? 'href' : 'to']: this.onRowClick(context.row),
+        onClick: event => {
+          if (this.hasScrollOnGrab && this.scrollOnGrab.haveMoved()) return event.preventDefault()
+        }
       }
     }
   }
@@ -319,10 +318,6 @@ export default {
     .q-table {
       margin-left: 10px;
     }
-  }
-
-  &__router-link {
-    text-decoration: none;
   }
 }
 </style>
