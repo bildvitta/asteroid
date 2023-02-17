@@ -30,14 +30,16 @@ Componente implementa o `QasBox` repassando todas propriedades.
 
 ## Uso
 
-<!-- <doc-example file="QasTableGenerator/Basic" title="Básico" /> -->
+<doc-example file="QasTableGenerator/Basic" title="Básico" />
 
 Este componente renderiza componentes dinamicamente através da prop `fields`, cada field dentro de fields tem um `name`, através dele, você consegue acessar os slots dinâmicos.
 
-<!-- <doc-example file="QasTableGenerator/CustomSlot" title="Slots personalizados" /> -->
+<doc-example file="QasTableGenerator/CustomSlot" title="Slots personalizados" />
 
 Também é possível configurar o componente para executar uma ação ao clicar em uma linha, para isso, basta escutar o evento `row-click`.
 
-<!-- <doc-example file="QasTableGenerator/ClickableRow" title="Linha clicável" /> -->
+<doc-example file="QasTableGenerator/ClickableRow" title="Linha clicável" />
+
+Caso queira que ao clicar em uma linha, vá para outra rota, é possível utilizar a prop `row-route-fn` na qual o retorno deve ser um objeto com a estrutura aceita pelo vue-router. Caso precise que a mudança de página seja um link externo, também é possível através da prop `use-external-link` na qual o retorno da prop `row-route-fn` deverá ser um path.
 
 <doc-example file="QasTableGenerator/TableLink" title="Tabela com links" />

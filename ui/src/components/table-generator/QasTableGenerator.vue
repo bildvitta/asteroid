@@ -30,7 +30,7 @@ export default {
       type: Array
     },
 
-    onRowClick: {
+    rowRouteFn: {
       type: Function,
       default: undefined
     },
@@ -79,11 +79,11 @@ export default {
     contentComponent () {
       if (this.useExternalLink) return 'a'
 
-      return this.onRowClick ? 'router-link' : 'span'
+      return this.rowRouteFn ? 'router-link' : 'span'
     },
 
     fieldsKeysList () {
-      if (!this.onRowClick) {
+      if (!this.rowRouteFn) {
         return Object.keys(this.$slots).map(field => field.replace('body-cell-', ''))
       }
 
@@ -103,7 +103,10 @@ export default {
         flat: true,
         hideBottom: true,
         pagination: { rowsPerPage: 0 },
-        rowKey: this.rowKey
+        rowKey: this.rowKey,
+
+        // Eventos.
+        onRowClick: this.$attrs.onRowClick && this.onRowClick
       }
 
       return attributes
@@ -267,15 +270,20 @@ export default {
     },
 
     contentBind (context) {
-      if (!this.onRowClick) return
+      if (!this.rowRouteFn) return
 
       return {
         class: 'text-no-decoration text-grey-8',
-        [this.useExternalLink ? 'href' : 'to']: this.onRowClick(context.row),
+        [this.useExternalLink ? 'href' : 'to']: this.rowRouteFn(context.row),
         onClick: event => {
           if (this.hasScrollOnGrab && this.scrollOnGrab.haveMoved()) return event.preventDefault()
         }
       }
+    },
+
+    onRowClick () {
+      if (this.hasScrollOnGrab && this.scrollOnGrab.haveMoved()) return
+      this.$attrs.onRowClick(...arguments)
     }
   }
 }
