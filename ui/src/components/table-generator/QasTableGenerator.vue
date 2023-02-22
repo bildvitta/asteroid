@@ -2,10 +2,10 @@
   <qas-box class="q-px-lg q-py-md">
     <q-table ref="table" class="bg-white qas-table-generator text-grey-8" :class="tableClass" v-bind="attributes">
       <template v-for="(_, name) in $slots" #[name]="context">
-        <slot :name="name" :props="context" />
+        <slot :name="name" v-bind="context" />
       </template>
 
-      <template v-for="(_, fieldName) in fields" :key="fieldName" #[`body-cell-${fieldName}`]="context">
+      <template v-for="(fieldName, index) in formattedFields" :key="index" #[`body-cell-${fieldName}`]="context">
         <q-td>
           <component :is="contentComponent" v-bind="contentBind(context.row)">
             <slot :name="`body-cell-${fieldName}`" v-bind="context || {}">
@@ -82,6 +82,12 @@ export default {
       if (this.useExternalLink) return 'a'
 
       return this.rowRouteFn ? 'router-link' : 'span'
+    },
+
+    formattedFields () {
+      const columnsFields = this.columns.map(column => typeof column === 'object' ? column.name : column)
+
+      return [...Object.keys(this.fields), ...columnsFields]
     },
 
     attributes () {

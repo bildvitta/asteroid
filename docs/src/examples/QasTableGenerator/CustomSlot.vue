@@ -4,7 +4,7 @@
     <template #default>
       <qas-table-generator :columns="columns" :fields="fields" :results="results" row-key="uuid">
         <template #body-cell-isActive="{ row }">
-          <div class="text-weight-bold">{{ row.isActive }}</div>
+          <div class="text-weight-bold">{{ row.isActive }} - :)</div>
         </template>
         <template #body-cell-actions="{ row }">
           <div class="flex justify-end no-wrap q-gutter-x-sm">
