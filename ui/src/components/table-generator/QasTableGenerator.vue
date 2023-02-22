@@ -1,11 +1,13 @@
 <template>
   <qas-box class="q-px-lg q-py-md">
     <q-table ref="table" class="bg-white qas-table-generator text-grey-8" :class="tableClass" v-bind="attributes">
-      <template v-for="(fieldName, index) in fieldsKeysList" #[`body-cell-${fieldName}`]="context">
-        <slot v-if="hasBodySlot" name="body" :props="context" />
+      <template v-for="(_, name) in $slots" #[name]="context">
+        <slot :name="name" :props="context" />
+      </template>
 
-        <q-td v-else :key="index">
-          <component :is="contentComponent" v-bind="contentBind(context)">
+      <template v-for="(_, fieldName) in fields" :key="fieldName" #[`body-cell-${fieldName}`]="context">
+        <q-td>
+          <component :is="contentComponent" v-bind="contentBind(context.row)">
             <slot :name="`body-cell-${fieldName}`" v-bind="context || {}">
               {{ context.row?.[fieldName] }}
             </slot>
@@ -80,20 +82,6 @@ export default {
       if (this.useExternalLink) return 'a'
 
       return this.rowRouteFn ? 'router-link' : 'span'
-    },
-
-    fieldsKeysList () {
-      if (!this.rowRouteFn) {
-        return Object.keys(this.$slots).map(field => field.replace('body-cell-', ''))
-      }
-
-      const fieldsKeys = []
-
-      for (const fieldKey in this.fields) {
-        fieldsKeys.push(fieldKey)
-      }
-
-      return fieldsKeys
     },
 
     attributes () {
@@ -269,12 +257,12 @@ export default {
       this.resizeObserver.unobserve(this.elementToObserve)
     },
 
-    contentBind (context) {
+    contentBind (row) {
       if (!this.rowRouteFn) return
 
       return {
-        class: 'text-no-decoration text-grey-8',
-        [this.useExternalLink ? 'href' : 'to']: this.rowRouteFn(context.row),
+        class: 'text-no-decoration text-grey-8 flex full-width items-center full-height',
+        [this.useExternalLink ? 'href' : 'to']: this.rowRouteFn(row),
         onClick: event => {
           if (this.hasScrollOnGrab && this.scrollOnGrab.haveMoved()) return event.preventDefault()
         }

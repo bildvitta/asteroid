@@ -36,13 +36,13 @@ props:
     default: true
     type: Boolean
 
-  row-function-fn:
+  row-route-fn:
     desc: Usado quando há a necessidade de alteração de rota ao clicar em um item da tabela.
     type: 'Function'
     examples: ["() => ({ name: 'UsersList' })"]
 
   use-external-link:
-    desc: Usado em conjunto com a prop "row-function-fn" quando há a necessidade da rota ser um link externo.
+    desc: Usado em conjunto com a prop "row-route-fn" quando há a necessidade da rota ser um link externo.
     default: false
     type: Boolean
 
