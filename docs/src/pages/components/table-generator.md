@@ -40,6 +40,21 @@ Também é possível configurar o componente para executar uma ação ao clicar 
 
 <doc-example file="QasTableGenerator/ClickableRow" title="Linha clicável" />
 
-Caso queira que ao clicar em uma linha, vá para outra rota, é possível utilizar a prop `row-route-fn` na qual o retorno deve ser um objeto com a estrutura aceita pelo vue-router. Caso precise que a mudança de página seja um link externo, também é possível através da prop `use-external-link` na qual o retorno da prop `row-route-fn` deverá ser um path.
+Caso queira que ao clicar em uma linha, vá para outra rota, é possível utilizar a prop `row-route-fn` na qual o retorno deve ser um objeto com a estrutura aceita pelo vue-router.
+
+:::tip
+Caso precise que a mudança de página seja um link externo, é possível utilizando a prop `use-external-link`, na qual o retorno da prop `row-route-fn` é esperado que seja um path.
+
+Exemplo:
+```html
+<qas-table-generator :row-route-fn="rowExternalRouteFn" use-external-link />
+```
+
+```js
+rowExternalRouteFn () {
+  return 'https://asteroid.nave.dev/'
+}
+```
+:::
 
 <doc-example file="QasTableGenerator/TableLink" title="Tabela com links" />

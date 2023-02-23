@@ -1,11 +1,11 @@
 <template>
   <qas-box class="q-px-lg q-py-md">
     <q-table ref="table" class="bg-white qas-table-generator text-grey-8" :class="tableClass" v-bind="attributes">
-      <template v-for="(_, name) in $slots" #[name]="context">
+      <template v-for="(_, name) in slots" #[name]="context">
         <slot :name="name" v-bind="context" />
       </template>
 
-      <template v-for="(fieldName, index) in formattedFields" :key="index" #[`body-cell-${fieldName}`]="context">
+      <template v-for="(fieldName, index) in bodyCellNameSlots" :key="index" #[`body-cell-${fieldName}`]="context">
         <q-td>
           <component :is="contentComponent" v-bind="contentBind(context.row)">
             <slot :name="`body-cell-${fieldName}`" v-bind="context || {}">
@@ -84,10 +84,28 @@ export default {
       return this.rowRouteFn ? 'router-link' : 'span'
     },
 
-    formattedFields () {
-      const columnsFields = this.columns.map(column => typeof column === 'object' ? column.name : column)
+    bodyCellNameSlots () {
+      if (this.hasBodyCellSlot) return []
 
-      return [...Object.keys(this.fields), ...columnsFields]
+      return this.columns.length
+        ? this.columns.map(column => typeof column === 'object' ? column.name : column)
+        : Object.keys(this.fields)
+    },
+
+    slots () {
+      const slots = {}
+
+      for (const slotKey in this.$slots) {
+        if (slotKey.includes('bod y-cell-')) continue
+
+        slots[slotKey] = this.$slots[slotKey]
+      }
+
+      return slots
+    },
+
+    hasBodyCellSlot () {
+      return !!this.$slots['body-cell']
     },
 
     attributes () {
@@ -148,14 +166,6 @@ export default {
       this.$qas.logger.group('QasTableGenerator - columns', [columns])
 
       return columns
-    },
-
-    hasBodySlot () {
-      return !!this.$slots.body
-    },
-
-    hasTbodySlot () {
-      return !!this.$slots.tbody
     },
 
     hasFields () {
@@ -271,7 +281,8 @@ export default {
         [this.useExternalLink ? 'href' : 'to']: this.rowRouteFn(row),
         onClick: event => {
           if (this.hasScrollOnGrab && this.scrollOnGrab.haveMoved()) return event.preventDefault()
-        }
+        },
+        ...(this.useExternalLink && { target: '_blank' })
       }
     },
 
