@@ -20,7 +20,7 @@ Este componente utiliza a biblioteca [autonumeric](http://autonumeric.org/).
 <doc-example file="QasNumericInput/Basic" title="Básico" />
 
 :::tip
-Para utilizar valores negativos, utilize a propriedade `use-negative` com o valor `true`.
+Utilize a propriedade `use-negative` com o valor `true` para permitir valores negativos.
 :::
 
 <doc-example file="QasNumericInput/Negative" title="Valores negativos" />
