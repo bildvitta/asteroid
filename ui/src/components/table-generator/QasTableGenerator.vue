@@ -7,7 +7,7 @@
 
       <template v-for="(fieldName, index) in bodyCellNameSlots" :key="index" #[`body-cell-${fieldName}`]="context">
         <q-td>
-          <component :is="contentComponent" v-bind="contentBind(context.row)">
+          <component :is="tdChildComponent" v-bind="getTdChildComponentProps(context.row)">
             <slot :name="`body-cell-${fieldName}`" v-bind="context || {}">
               {{ context.row?.[fieldName] }}
             </slot>
@@ -78,7 +78,7 @@ export default {
   },
 
   computed: {
-    contentComponent () {
+    tdChildComponent () {
       if (this.useExternalLink) return 'a'
 
       return this.rowRouteFn ? 'router-link' : 'span'
@@ -201,6 +201,10 @@ export default {
 
     hasScrollOnGrab () {
       return !!Object.keys(this.scrollOnGrab).length
+    },
+
+    isScrolling () {
+      return this.hasScrollOnGrab && this.scrollOnGrab.haveMoved()
     }
   },
 
@@ -273,21 +277,24 @@ export default {
       this.resizeObserver.unobserve(this.elementToObserve)
     },
 
-    contentBind (row) {
+    getTdChildComponentProps (row) {
       if (!this.rowRouteFn) return
 
       return {
         class: 'text-no-decoration text-grey-8 flex full-width items-center full-height',
         [this.useExternalLink ? 'href' : 'to']: this.rowRouteFn(row),
-        onClick: event => {
-          if (this.hasScrollOnGrab && this.scrollOnGrab.haveMoved()) return event.preventDefault()
-        },
+        onClick: this.onRowClickHandler,
         ...(this.useExternalLink && { target: '_blank' })
       }
     },
 
+    onRowClickHandler (event) {
+      if (this.isScrolling) return event.preventDefault()
+    },
+
     onRowClick () {
-      if (this.hasScrollOnGrab && this.scrollOnGrab.haveMoved()) return
+      if (this.isScrolling) return
+
       this.$attrs.onRowClick(...arguments)
     }
   }

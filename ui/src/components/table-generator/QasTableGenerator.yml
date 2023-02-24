@@ -37,8 +37,8 @@ props:
     type: Boolean
 
   row-route-fn:
-    desc: Usado quando há a necessidade de alteração de rota ao clicar em um item da tabela.
-    type: 'Function'
+    desc: Usado quando há a necessidade de alteração de rota ao clicar em um item da tabela(a linha passa ser um <a> habilitando a opção de abrir em uma nova aba).
+    type: Function
     examples: ["() => ({ name: 'UsersList' })"]
 
   use-external-link:
