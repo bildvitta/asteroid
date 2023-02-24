@@ -15,6 +15,10 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - `QasTableGenerator`: Adicionado prop `row-route-fn` caso queira que ao clicar em uma linha, vá para outra rota.
 - `QasTableGenerator`: Adicionado prop `use-external-link` que é usado em conjunto com a prop `row-function-fn` quando há a necessidade da rota ser um link externo.
 
+## [3.7.0-beta.1] - 23-02-2023
+### Corrigido
+- [`loading.js`, `loading.scss`]: adicionado custom class `qas-loading` para só estilizar o loading quando existir esta classe.
+
 ## [3.7.0-beta.0] - 14-02-2023
 ### Adicionado
 - [`app-extension/src/boot/loading.js`, `ui/src/css/plugins/loading.scss`]: adicionado novos arquivos para mudar o estilo do Loading.
@@ -1066,3 +1070,4 @@ Adicionado suporte para Pinia/Vuex Seguindo os padrões da biblioteca `@bildvitt
 [3.6.0-beta.2]: https://github.com/bildvitta/asteroid/compare/v3.6.0-beta.1...v3.6.0-beta.2?expand=1
 [3.6.0]: https://github.com/bildvitta/asteroid/compare/v3.5.0...v3.6.0?expand=1
 [3.7.0-beta.0]: https://github.com/bildvitta/asteroid/compare/v3.6.0...v3.7.0-beta.0?expand=1
+[3.7.0-beta.1]: https://github.com/bildvitta/asteroid/compare/v3.7.0-beta.0...v3.7.0-beta.1?expand=1

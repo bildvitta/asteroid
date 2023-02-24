@@ -3,10 +3,11 @@ import { Loading } from 'quasar'
 
 export default boot(() => {
   Loading.setDefaults({
-    spinnerColor: 'primary',
-    messageColor: 'primary',
     backgroundColor: 'white',
+    boxClass: 'text-body1',
+    customClass: 'qas-loading',
     message: 'Carregando...',
-    boxClass: 'text-body1'
+    messageColor: 'primary',
+    spinnerColor: 'primary'
   })
 })
