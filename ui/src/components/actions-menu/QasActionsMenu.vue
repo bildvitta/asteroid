@@ -19,6 +19,22 @@
         {{ tooltipLabel }}
       </q-tooltip>
     </component>
+
+    <PvActionsMenuBtnDropdown1 :button-props="{ label: 'teste', iconRight: 'sym_r_person' }" split>
+      <q-list v-if="hasMoreThanOneAction">
+        <slot v-for="(item, key) in actions" :item="item" :name="key">
+          <component :is="getComponent(key)" v-bind="item.props" :key="key" clickable @click="onClick(item)">
+            <q-item-section avatar>
+              <q-icon :name="item.icon" />
+            </q-item-section>
+
+            <q-item-section>
+              <div>{{ item.label }}</div>
+            </q-item-section>
+          </component>
+        </slot>
+      </q-list>
+    </PvActionsMenuBtnDropdown1>
   </div>
 </template>
 
@@ -26,6 +42,7 @@
 import QasBtn from '../btn/QasBtn.vue'
 import QasDelete from '../delete/QasDelete.vue'
 import PvActionsMenuBtnDropdown from './private/PvActionsMenuBtnDropdown.vue'
+import PvActionsMenuBtnDropdown1 from './private/PvActionsMenuBtnDropdown1.vue'
 
 export default {
   name: 'QasActionsMenu',
@@ -33,7 +50,8 @@ export default {
   components: {
     QasBtn,
     QasDelete,
-    PvActionsMenuBtnDropdown
+    PvActionsMenuBtnDropdown,
+    PvActionsMenuBtnDropdown1
   },
 
   props: {
@@ -70,6 +88,11 @@ export default {
     splitName: {
       type: String,
       default: ''
+    },
+
+    useHoverOnWhiteColor: {
+      default: true,
+      type: Boolean
     },
 
     useLabel: {
@@ -125,9 +148,12 @@ export default {
         const { color, icon } = this.actions[this.firstItemKey] || {}
 
         props.color = color || this.color || 'primary'
+        console.log(props)
         props.icon = icon
         props.label = this.useLabel ? this.tooltipLabel : ''
       }
+
+      props.useHoverOnWhiteColor = this.useHoverOnWhiteColor
 
       if (this.hasDelete) Object.assign(props, this.deleteProps)
 

@@ -33,6 +33,11 @@ export default {
     icon: {
       default: '',
       type: String
+    },
+
+    useHoverOnWhiteColor: {
+      default: true,
+      type: Boolean
     }
   },
 
@@ -40,8 +45,10 @@ export default {
 
   computed: {
     classes () {
+      console.log(this.useHoverOnWhiteColor, '>>>this.useHoverOnWhiteColor')
       return {
-        'pv-actions-menu-btn-dropdown--split': this.split
+        'pv-actions-menu-btn-dropdown--split': this.split,
+        'pv-actions-menu-btn-dropdown--no-hover': !this.useHoverOnWhiteColor
       }
     },
 
@@ -56,16 +63,22 @@ export default {
 </script>
 
 <style lang="scss">
-.pv-actions-menu-btn-dropdown {
+.pv-actions-menu-btn-dropdown2 {
   // $ (necessário para funcionar o @include)
 
   .q-btn {
-    @include set-button(tertiary, false, false);
+    @include set-button(tertiary, false, true);
   }
 
   &:not(&--split) {
     .q-btn-dropdown--simple * + .q-btn-dropdown__arrow {
       margin-left: var(--qas-spacing-xs) !important;
+    }
+  }
+
+  &--no-hover {
+    .q-btn {
+      // @include set-button(tertiary, false, true);
     }
   }
 

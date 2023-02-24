@@ -1,6 +1,6 @@
 <template>
   <div class="container q-py-lg">
-    <qas-actions-menu color="primary" :list="list" split-name="visibility" />
+    <qas-actions-menu color="primary" :delete-props="{ entity: 'users', customId: 'my-custom-id-from-user', }" :list="list" split-name="delete" />
   </div>
 </template>
 
@@ -14,9 +14,9 @@ export default {
           label: 'Visualizar',
           handler: () => alert('handler ativado')
         },
-        edit: {
+        delete: {
           icon: 'sym_r_create',
-          label: 'Editar',
+          label: 'deletar',
           handler: () => alert('handler ativado')
         },
         user: {

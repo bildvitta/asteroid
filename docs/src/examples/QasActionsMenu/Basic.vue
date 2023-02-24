@@ -1,6 +1,6 @@
 <template>
-  <div class="container q-py-lg">
-    <qas-actions-menu color="primary" :list="list" />
+  <div class="bg-negative container q-py-lg">
+    <qas-actions-menu color="white" :list="list" :use-hover-on-white-color="false" />
   </div>
 </template>
 

@@ -60,8 +60,8 @@ Para receber o evento de sucesso ao deletar, dentro da propriedade `deleteProps`
 ```
 :::
 
-<doc-example file="QasActionsMenu/Delete" title="QasDelete como padrão" />
+<!-- <doc-example file="QasActionsMenu/Delete" title="QasDelete como padrão" />
 
 <doc-example file="QasActionsMenu/CustomSlot" title="Templates dinâmicos" />
 
-<doc-example file="QasActionsMenu/ExUseLabel" title="Ícone sem label" />
+<doc-example file="QasActionsMenu/ExUseLabel" title="Ícone sem label" /> -->
