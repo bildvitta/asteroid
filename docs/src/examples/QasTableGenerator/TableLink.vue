@@ -24,9 +24,12 @@ export default {
   },
 
   methods: {
-    rowRouteFn (row) {
-      /* Poderá ter acesso ao row, caso precise passar uma rota com id da linha por exemplo. */
-      return { path: 'table-generator', params: { id: row.uuid } }
+    rowRouteFn (/* row */) {
+      /*
+        Poderá ter acesso ao row, caso precise passar uma rota com id da linha por exemplo:
+        { path: 'table-generator', params: { id: row.uuid } }
+      */
+      return { path: 'table-generator' }
     }
   }
 }
