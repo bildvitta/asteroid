@@ -1,6 +1,7 @@
 .qas-btn {
   $root: &;
 
+  box-shadow: none;
   min-height: 48px !important;
   padding: var(--qas-spacing-xs) var(--qas-spacing-lg) !important;
   text-transform: initial !important;

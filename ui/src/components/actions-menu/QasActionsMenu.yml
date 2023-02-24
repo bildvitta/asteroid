@@ -35,13 +35,19 @@ props:
     type: Object
     examples: [
       "{
-        delete: {
+        visibility: {
           icon: 'sym_r_visibility',
           label: 'Visualizar',
           handler: () => alert('handler ativado')
         }
       }"
     ]
+
+  split-name:
+    desc: propriedade para definir o slipt, habilita 2 ações diferentes no mesmo componente, separando o mesmo por uma barra, o valor deve ser alguma chave (key) existente na propriedade "list".
+    default: ''
+    type: String
+    examples: [visibility]
 
   use-label-on-small-screen:
     desc: Esconde o rótulo (label) do botão quando o tamanho da tela for pequeno (esta propriedade só funciona se o "rotulo") for passado via propriedade "label".

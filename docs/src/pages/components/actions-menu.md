@@ -38,6 +38,12 @@ A chave `iconSize` dentro da propriedade `list` foi **removida**, pois sempre os
 
 <doc-example file="QasActionsMenu/Basic" title="Básico" />
 
+
+:::warning
+Quando usado o evento @click no componente, caso esteja habilitado o slit, o @click vai pegar no click do ícone a direita e não no botão a esquerda, caso o slot não esteja habilitado, o @click pega no botão inteiro
+:::
+<doc-example file="QasActionsMenu/ExWithSplit" title="Usando com split" />
+
 :::tip
 A prop `deleteProps` ativa o componente `QasDelete`, quando é passada o `QasActionsMenu` adiciona a opção de deletar o item como padrão, caso não seja passado, o componente `QasDelete` não é adicionado por padrão.
 :::

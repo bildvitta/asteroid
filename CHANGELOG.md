@@ -10,6 +10,14 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 ### Sobre os "BREAKING CHANGES"
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
+## Não publicado
+### Adicionado
+- `QasActionsMenu`: adicionado propriedade `splitName` que habilita o slit no QBtnDropdown internamente separando 2 ações no componente por uma barra.
+
+### Modificado
+- `QasActionsMenu`: modificado componente para utilizar nativamente o `QBtnDropdown`ao invés de fazer a logica manual com `QMenu`.
+- `/ui/src/css/components/button.scss`: adicionado propriedade `box-shadow: none` para zerar o shadow em todos os casos.
+
 ## [3.7.0-beta.1] - 23-02-2023
 ### Corrigido
 - [`loading.js`, `loading.scss`]: adicionado custom class `qas-loading` para só estilizar o loading quando existir esta classe.

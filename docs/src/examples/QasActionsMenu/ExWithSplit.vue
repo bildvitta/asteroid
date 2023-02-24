@@ -18,6 +18,11 @@ export default {
           icon: 'sym_r_create',
           label: 'Editar',
           handler: () => alert('handler ativado')
+        },
+        user: {
+          icon: 'sym_r_person',
+          label: 'usuário',
+          handler: () => alert('handler ativado')
         }
       }
     }
