@@ -96,7 +96,7 @@ export default {
       const slots = {}
 
       for (const slotKey in this.$slots) {
-        if (slotKey.includes('bod y-cell-')) continue
+        if (slotKey.includes('body-cell-')) continue
 
         slots[slotKey] = this.$slots[slotKey]
       }
