@@ -1,6 +1,6 @@
 <template>
   <div class="container q-py-lg">
-    <qas-actions-menu color="primary" :list="list" split-name="visibility" @click="teste" />
+    <qas-actions-menu color="primary" :list="list" />
   </div>
 </template>
 
@@ -20,12 +20,6 @@ export default {
           handler: () => alert('handler ativado')
         }
       }
-    }
-  },
-
-  methods: {
-    teste () {
-      console.log('PELO LADO DE FORA MANO')
     }
   }
 }
