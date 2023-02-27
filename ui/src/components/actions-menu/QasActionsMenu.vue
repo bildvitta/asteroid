@@ -20,7 +20,7 @@
       </q-tooltip>
     </component>
 
-    <PvActionsMenuBtnDropdown1 :button-props="{ label: 'teste', iconRight: 'sym_r_person' }" split>
+    <qas-btn-dropdown :button-props="{ label: 'teste', iconRight: 'sym_r_person' }" split>
       <q-list v-if="hasMoreThanOneAction">
         <slot v-for="(item, key) in actions" :item="item" :name="key">
           <component :is="getComponent(key)" v-bind="item.props" :key="key" clickable @click="onClick(item)">
@@ -34,24 +34,22 @@
           </component>
         </slot>
       </q-list>
-    </PvActionsMenuBtnDropdown1>
+    </qas-btn-dropdown>
   </div>
 </template>
 
 <script>
 import QasBtn from '../btn/QasBtn.vue'
 import QasDelete from '../delete/QasDelete.vue'
-import PvActionsMenuBtnDropdown from './private/PvActionsMenuBtnDropdown.vue'
-import PvActionsMenuBtnDropdown1 from './private/PvActionsMenuBtnDropdown1.vue'
+import QasBtnDropdown from '../btn-dropdown/QasBtnDropdown.vue'
 
 export default {
   name: 'QasActionsMenu',
 
   components: {
     QasBtn,
-    QasDelete,
-    PvActionsMenuBtnDropdown,
-    PvActionsMenuBtnDropdown1
+    QasBtnDropdown,
+    QasDelete
   },
 
   props: {
@@ -139,6 +137,11 @@ export default {
         props.split = this.hasSplit
         props.icon = icon
 
+        props.buttonProps = {
+          icon,
+          ...(this.useLabel && { label: this.hasSplit ? label : 'Opções' })
+        }
+
         props.onSplitClick = () => this.onClick(this.list[this.splitName])
 
         if (this.useLabel) {
@@ -160,7 +163,7 @@ export default {
       const isButtonComponent = (this.hasMoreThanOneAction || !this.hasDelete)
       const singleActionComponent = isButtonComponent ? 'qas-btn' : 'qas-delete'
 
-      const is = this.hasMoreThanOneAction ? 'pv-actions-menu-btn-dropdown' : singleActionComponent
+      const is = this.hasMoreThanOneAction ? 'qas-btn-dropdown' : singleActionComponent
 
       return { is, props }
     },

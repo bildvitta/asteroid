@@ -77,6 +77,10 @@ module.exports = [
         path: '/components/button'
       },
       {
+        name: 'BtnDropdown',
+        path: '/components/btn-dropdown'
+      },
+      {
         name: 'Card',
         path: '/components/card'
       },

@@ -45,7 +45,6 @@ export default {
 
   computed: {
     classes () {
-      console.log(this.useHoverOnWhiteColor, '>>>this.useHoverOnWhiteColor')
       return {
         'pv-actions-menu-btn-dropdown--split': this.split,
         'pv-actions-menu-btn-dropdown--no-hover': !this.useHoverOnWhiteColor
