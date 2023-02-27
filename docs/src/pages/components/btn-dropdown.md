@@ -16,4 +16,5 @@ Componente semelhante ao QBtnDropdown porém utilizando o QasBtn e QSeparator.
 <doc-example file="QasBtnDropdown/Basic" title='Básico' />
 <doc-example file="QasBtnDropdown/ExWithSplit" title='Uso com divisão' />
 <doc-example file="QasBtnDropdown/ExWithMenuPadding" title='Uso com padding no dropdown menu' />
+<doc-example file="QasBtnDropdown/ExWithLeftButtonSlot" title='Uso do slot do botão a esquerda' />
 <doc-example file="QasBtnDropdown/ExWithClickEvent" title='Uso do evento de click' />
