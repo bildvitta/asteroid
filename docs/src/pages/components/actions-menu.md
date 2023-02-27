@@ -15,7 +15,7 @@ A prop `list` é um objeto de objetos, que contem os seguintes atributos:
 {
   visibility: { // key que será usado para abrir o slot
     label: 'Nome do item',
-    icon: 'Icone dentro do item',
+    icon: 'Ícone dentro do item',
     color: 'grey-9' // propriedade color sobrescreve a propriedade do componente `color` porém só é usada quando existe apenas um item na listagem
     props: {
       // Propriedades do q-item: https://quasar.dev/vue-components/list-and-list-items#api--qitem
@@ -60,8 +60,8 @@ Para receber o evento de sucesso ao deletar, dentro da propriedade `deleteProps`
 ```
 :::
 
-<!-- <doc-example file="QasActionsMenu/Delete" title="QasDelete como padrão" />
+<doc-example file="QasActionsMenu/Delete" title="QasDelete como padrão" />
 
-<doc-example file="QasActionsMenu/CustomSlot" title="Templates dinâmicos" />
+<!-- <doc-example file="QasActionsMenu/CustomSlot" title="Templates dinâmicos" /> -->
 
-<doc-example file="QasActionsMenu/ExUseLabel" title="Ícone sem label" /> -->
+<!-- <doc-example file="QasActionsMenu/ExUseLabel" title="Ícone sem label" /> -->

@@ -3,7 +3,7 @@
     <div :class="leftSideClasses">
       <slot name="left-button">
         <qas-btn color="primary" variant="tertiary" v-bind="defaultButtonProps" @click="$emit('click', $event)">
-          <q-menu v-if="hasMenuOnLeftSide" anchor="bottom right" self="top right">
+          <q-menu v-if="hasMenuOnLeftSide" anchor="bottom right" auto-close self="top right">
             <div :class="menuContentClasses">
               <slot />
             </div>
@@ -16,7 +16,7 @@
 
     <div v-if="split" class="q-ml-sm">
       <qas-btn color="grey-9" :icon="dropdownIcon" variant="tertiary">
-        <q-menu v-if="hasDefaultSlot" anchor="bottom right" self="top right">
+        <q-menu v-if="hasDefaultSlot" anchor="bottom right" auto-close self="top right">
           <div :class="menuContentClasses">
             <slot />
           </div>
@@ -76,7 +76,7 @@ export default {
     },
 
     defaultButtonProps () {
-      const { icon, ...defaultProps } = this.buttonProps
+      const { icon, iconRight, ...defaultProps } = this.buttonProps
       const { label } = defaultProps
 
       return {

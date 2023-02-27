@@ -11,6 +11,10 @@ Componente semelhante ao QBtnDropdown porém utilizando o QasBtn e QSeparator.
 - Quando utilizado o componente sem passar a propriedade `split`, e sem passar o `label` para o `buttonProps` não é possível passar as propriedade `iconRight` e `icon` já que ficaria 2 ícones, para controlar o ícone de dropdown, utilize a propriedade `dropdownIcon`.
 :::
 
+:::warning
+Não é possível alterar o ícone a direita (iconRight) dentro do da prop `buttonProps`, pois ícone a direita é para casos onde existe uma ação secundaria, e nestes casos sempre vai ser uma ação primaria.
+:::
+
 ## Uso
 
 <doc-example file="QasBtnDropdown/Basic" title='Básico' />
