@@ -11,9 +11,15 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
 ## Não publicado
+## BREAKING CHANGES
+- `QasNumericInput`: modificado o valor padrão da propriedade `use-negative` para `false`. Anteriormente por padrão era possível inserir valores negativos, porém com essa modificação será necessário passar a propriedade `use-negative` como `true` para ter o mesmo comportamento anterior.
+
 ### Adicionado
 - `QasTableGenerator`: Adicionado prop `row-route-fn` caso queira que ao clicar em uma linha, vá para outra rota.
 - `QasTableGenerator`: Adicionado prop `use-external-link` que é usado em conjunto com a prop `row-function-fn` quando há a necessidade da rota ser um link externo.
+
+### Modificado
+- `QasNumericInput`: modificado o valor padrão da propriedade `use-negative` para `false`.
 
 ## [3.7.0-beta.1] - 23-02-2023
 ### Corrigido

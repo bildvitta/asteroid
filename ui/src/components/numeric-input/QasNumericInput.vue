@@ -55,7 +55,6 @@ export default {
     },
 
     useNegative: {
-      default: true,
       type: Boolean
     },
 
