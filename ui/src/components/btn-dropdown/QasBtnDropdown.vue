@@ -1,8 +1,8 @@
 <template>
   <div class="flex inline items-center qas-btn-dropdown">
-    <div :class="leftSideClasses">
+    <div v-if="hasLeftButton" :class="leftSideClasses">
       <slot name="left-button">
-        <qas-btn color="primary" variant="tertiary" v-bind="defaultButtonProps" @click="$emit('click', $event)">
+        <qas-btn variant="tertiary" v-bind="defaultButtonProps" @click="$emit('click', $event)">
           <q-menu v-if="hasMenuOnLeftSide" anchor="bottom right" auto-close self="top right">
             <div :class="menuContentClasses">
               <slot />
@@ -12,9 +12,9 @@
       </slot>
     </div>
 
-    <q-separator v-if="split" class="qas-btn-dropdown__separator self-center" dark vertical />
+    <q-separator v-if="hasSeparator" class="q-mr-sm qas-btn-dropdown__separator self-center" dark vertical />
 
-    <div v-if="split" class="q-ml-sm">
+    <div v-if="split">
       <qas-btn color="grey-9" :icon="dropdownIcon" variant="tertiary">
         <q-menu v-if="hasDefaultSlot" anchor="bottom right" auto-close self="top right">
           <div :class="menuContentClasses">
@@ -34,8 +34,8 @@ export default {
 
   props: {
     buttonProps: {
-      type: Object,
-      default: () => ({})
+      default: () => ({}),
+      type: Object
     },
 
     dropdownIcon: {
@@ -76,17 +76,30 @@ export default {
     },
 
     defaultButtonProps () {
-      const { icon, iconRight, ...defaultProps } = this.buttonProps
+      const { icon, iconRight, color, ...defaultProps } = this.buttonProps
       const { label } = defaultProps
 
       return {
-        ...(!this.split && { color: 'grey-9' }),
+        useLabelOnSmallScreen: false,
 
         ...defaultProps,
 
+        color: color || (!this.split ? 'grey-9' : 'primary'),
         ...(!this.split && { iconRight: this.dropdownIcon }),
         ...((this.split || (!this.split && label)) && { icon })
       }
+    },
+
+    isSmall () {
+      return this.$qas.screen.isSmall
+    },
+
+    hasLeftButton () {
+      return !this.isSmall || !this.split
+    },
+
+    hasSeparator () {
+      return !this.isSmall && this.split
     }
   }
 }

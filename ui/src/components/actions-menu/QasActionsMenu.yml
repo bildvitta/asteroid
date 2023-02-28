@@ -4,6 +4,11 @@ meta:
   desc: Componente para abrir um menu de ação a partir de um botão, muito utilizado em tela de edição.
 
 props:
+  button-props:
+    desc: Props para repassar para o componente "QasBtn", sendo que não são repassados as props "variant" e "label"
+    default: {}
+    type: Object
+
   color:
     desc: Cor do ícone.
     type: String

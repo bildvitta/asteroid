@@ -1,7 +1,7 @@
 <template>
   <div v-if="hasActions" class="qas-actions-menu">
     <component :is="component.is" v-bind="component.props" :use-label-on-small-screen="useLabelOnSmallScreen" variant="tertiary">
-      <q-list v-if="hasMoreThanOneAction">
+      <q-list v-if="isBtnDropdown">
         <slot v-for="(item, key) in actions" :item="item" :name="key">
           <component :is="getComponent(key)" v-bind="item.props" :key="key" clickable @click="onClick(item)">
             <q-item-section avatar>
@@ -38,7 +38,7 @@ export default {
 
   props: {
     buttonProps: {
-      default: () => {},
+      default: () => ({}),
       type: Object
     },
 
@@ -96,8 +96,10 @@ export default {
     actions () {
       const list = { ...this.list }
 
-      if (this.hasSplit && this.list[this.splitName] && this.hasMoreThanOneAction) {
-        delete list[this.splitName]
+      if (this.hasSplit && this.list[this.splitName] && this.isBtnDropdown) {
+        this.isSmall
+          ? Object.assign(list, { [this.splitName]: this.list[this.splitName] })
+          : delete list[this.splitName]
       }
 
       return {
@@ -108,7 +110,7 @@ export default {
             label: this.deleteLabel,
             props: {
               ...this.deleteProps,
-              tag: this.hasMoreThanOneAction ? 'q-item' : 'qas-btn'
+              tag: this.isBtnDropdown ? 'q-item' : 'qas-btn'
             }
           }
         })
@@ -116,76 +118,15 @@ export default {
     },
 
     component () {
-      // const props = {}
-
-      if (this.hasMoreThanOneAction) {
-        // const { icon, label } = this.list[this.splitName] || {}
-
-        // Object.assign(props, {
-        //   split: this.hasSplit,
-        //   dropdownIcon: this.icon,
-        //   buttonProps: {
-        //     // icon,
-        //     // color: this.color || 'grey-9',
-        //     // ...(this.useLabel && { label: this.hasSplit ? label : 'Opções' })
-        //     icon,
-        //     useHoverOnWhiteColor: this.defaultButtonProps.useHoverOnWhiteColor,
-        //     color: this.defaultButtonProps.color,
-        //     ...(this.useLabel && { label: this.hasSplit ? label : 'Opções' })
-        //   },
-        //   onClick: () => this.onClick(this.list[this.splitName])
-        // })
-
-        // props.color = this.color || 'grey-9'
-        // props.dropdownIcon = this.icon
-        // props.split = this.hasSplit
-        // props.icon = icon
-
-        // props.buttonProps = {
-        //   icon,
-        //   ...(this.useLabel && { label: this.hasSplit ? label : 'Opções' })
-        // }
-
-        // props.onClick = () => this.onClick(this.list[this.splitName])
-
-        // if (this.useLabel) {
-        //   props.label = this.hasSplit ? label : 'Opções'
-        // }
-      } else {
-        // const { color, icon } = this.actions[this.firstItemKey] || {}
-
-        // Object.assign(props, {
-        //   icon,
-        //   color: color || this.color || 'primary',
-        //   label: this.useLabel ? this.tooltipLabel : '',
-        //   useHoverOnWhiteColor: this.defaultButtonProps.useHoverOnWhiteColor
-        // })
-
-        // props.color = color || this.color || 'primary'
-        // props.icon = icon
-        // props.label = this.useLabel ? this.tooltipLabel : ''
-      }
-
-      // Object.assign(props.buttonProps, this.useHoverOnWhiteColor)
-
-      // props.useHoverOnWhiteColor = this.useHoverOnWhiteColor
-
-      // Object.assign(
-      //   props,
-      //   this.hasMoreThanOneAction ? this.btnDropdownProps : this.btnProps
-      // )
-
-      // if (this.hasDelete) Object.assign(props, this.deleteProps)
-
-      const isButtonComponent = (this.hasMoreThanOneAction || !this.hasDelete)
+      const isButtonComponent = (this.isBtnDropdown || !this.hasDelete)
       const singleActionComponent = isButtonComponent ? 'qas-btn' : 'qas-delete'
 
-      const is = this.hasMoreThanOneAction ? 'qas-btn-dropdown' : singleActionComponent
+      const is = this.isBtnDropdown ? 'qas-btn-dropdown' : singleActionComponent
 
       return {
         is,
         props: {
-          ...(this.hasMoreThanOneAction ? this.btnDropdownProps : this.btnProps),
+          ...(this.isBtnDropdown ? this.btnDropdownProps : this.btnProps),
           ...(this.hasDelete && this.deleteProps)
         }
       }
@@ -207,12 +148,12 @@ export default {
       return !!this.splitName
     },
 
-    hasMoreThanOneAction () {
+    isBtnDropdown () {
       return Object.keys(this.list || {}).length + Number(this.hasDelete) > 1
     },
 
     hasTooltip () {
-      return !this.hasMoreThanOneAction && !this.useLabel
+      return !this.isBtnDropdown && !this.useLabel
     },
 
     tooltipLabel () {
@@ -220,24 +161,29 @@ export default {
     },
 
     defaultButtonProps () {
+      const { label, variant, ...buttonProps } = this.buttonProps
+
       return {
-        color: this.color,
-        icon: this.icon,
-        useHoverOnWhiteColor: this.useHoverOnWhiteColor,
-        useLabelOnSmallScreen: this.useLabelOnSmallScreen
+        useHoverOnWhiteColor: true,
+        ...buttonProps
       }
     },
 
     btnDropdownProps () {
       const { icon, label } = this.list[this.splitName] || {}
-      const { color, useHoverOnWhiteColor } = this.defaultButtonProps
+      const { icon: defaultIcon, ...defaultButtonProps } = this.defaultButtonProps
+
+      console.log({
+        ...(this.useLabel && { label: this.hasSplit ? label : 'Opções' }),
+        ...defaultButtonProps,
+        icon: icon || defaultIcon
+      })
 
       return {
         buttonProps: {
           ...(this.useLabel && { label: this.hasSplit ? label : 'Opções' }),
-          color,
-          icon,
-          useHoverOnWhiteColor
+          ...defaultButtonProps,
+          icon: icon || defaultIcon
         },
 
         dropdownIcon: this.icon,
@@ -250,14 +196,19 @@ export default {
 
     btnProps () {
       const { color, icon } = this.actions[this.firstItemKey] || {}
-      const { color: defaultButtonColor, useHoverOnWhiteColor } = this.defaultButtonProps
+      const { color: defaultColor, ...defaultButtonProps } = this.defaultButtonProps
+      console.log(this.buttonProps, 'this.defaultButtonProps btnProps')
 
       return {
-        color: color || defaultButtonColor || 'primary',
+        color: color || defaultColor,
         icon,
         label: this.useLabel ? this.tooltipLabel : '',
-        useHoverOnWhiteColor
+        ...defaultButtonProps
       }
+    },
+
+    isSmall () {
+      return this.$qas.screen.isSmall
     }
   },
 
@@ -267,7 +218,7 @@ export default {
     },
 
     onClick (item = {}) {
-      if (!this.hasMoreThanOneAction) {
+      if (!this.isBtnDropdown) {
         item = this.actions[this.firstItemKey]
       }
 

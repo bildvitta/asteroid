@@ -61,6 +61,7 @@ import { Notify, Loading, Quasar, Dialog as QuasarDialog } from 'quasar'
 
 // Plugins
 import {
+  Delete,
   Dialog,
   NotifyError,
   NotifySuccess,
@@ -141,6 +142,7 @@ function install (app) {
   }
 
   app.config.globalProperties.$qas = {
+    delete: params => Delete.call(app.config.globalProperties, params),
     dialog: Dialog,
     error: NotifyError,
     logger: Logger(),

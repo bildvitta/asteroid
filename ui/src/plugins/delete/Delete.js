@@ -1,31 +1,28 @@
 import { Dialog, NotifySuccess, NotifyError } from 'asteroid'
-import { useHistory } from '../../composables'
 import { Loading } from 'quasar'
 import { getAction } from '@bildvitta/store-adapter'
+import { useHistory } from '../../composables'
 
-export default (config = {}) => {
+export default function (config = {}, deleteFn = () => {}) {
   const {
-    customId,
+    id,
     dialogProps = {},
     entity,
     url,
     useAutoDeleteRoute,
+
+    // callbacks
     onDelete = () => {},
     onDeleteError = () => {},
     onDeleteSuccess = () => {}
   } = config
 
   const defaultDialogProps = {
-    card: {
-      description: 'Tem certeza que deseja excluir este item?'
-    },
+    card: { description: 'Tem certeza que deseja excluir este item?' },
 
-    ok: {
-      label: 'Excluir',
-      onClick: destroy
-    },
+    ok: { label: 'Excluir', onClick: () => destroy.call(this) },
 
-    dialogProps
+    ...dialogProps
   }
 
   const defaultNotifyMessages = {
@@ -39,13 +36,19 @@ export default (config = {}) => {
     try {
       onDelete(true)
 
-      const payload = { id: customId, url: url }
+      const payload = { id, url: url }
 
       const response = await getAction.call(this, {
         entity: entity,
         key: 'destroy',
         payload
       })
+
+      // const response = await deleteFn({
+      //   entity: entity,
+      //   key: 'destroy',
+      //   payload
+      // })
 
       NotifySuccess(defaultNotifyMessages.success)
 
@@ -62,6 +65,7 @@ export default (config = {}) => {
 
       onDeleteSuccess(response)
     } catch (error) {
+      console.log(error)
       onDeleteError(error)
       NotifyError(defaultNotifyMessages.error)
     } finally {
@@ -71,7 +75,7 @@ export default (config = {}) => {
   }
 
   function getRoutesToBeDeletedById (routes = []) {
-    return routes.filter(({ params }) => params.id === customId)
+    return routes.filter(({ params }) => params.id === id)
   }
 
   function createDeleteSuccessEvent () {
@@ -81,7 +85,7 @@ export default (config = {}) => {
       detail: {
         entity: entity,
         url: url,
-        id: customId
+        id
       }
     })
 

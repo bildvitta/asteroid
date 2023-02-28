@@ -29,6 +29,13 @@ A prop `list` é um objeto de objetos, que contem os seguintes atributos:
 :::
 
 :::warning
+#### buttonsProps
+Propriedade `buttonProps` repassa as propriedades do `QasBtn` exceto:
+- label
+- variant
+:::
+
+:::warning
 Quando há mais de uma ação proveniente da propriedade `list`, o componente `QasActionsMenu` renderiza um menu dropdown com todas as ações. Quando houver apenas uma ação será renderizado apenas um botão com a ação proveniente.
 :::
 
@@ -42,7 +49,7 @@ A chave `iconSize` dentro da propriedade `list` foi **removida**, pois sempre os
 :::warning
 Quando usado o evento @click no componente, caso esteja habilitado o slit, o @click vai pegar no click do ícone a direita e não no botão a esquerda, caso o slot não esteja habilitado, o @click pega no botão inteiro
 :::
-<doc-example file="QasActionsMenu/ExWithSplit" title="Usando com split" />
+<!-- <doc-example file="QasActionsMenu/ExWithSplit" title="Usando com split" /> -->
 
 :::tip
 A prop `deleteProps` ativa o componente `QasDelete`, quando é passada o `QasActionsMenu` adiciona a opção de deletar o item como padrão, caso não seja passado, o componente `QasDelete` não é adicionado por padrão.
@@ -60,7 +67,7 @@ Para receber o evento de sucesso ao deletar, dentro da propriedade `deleteProps`
 ```
 :::
 
-<doc-example file="QasActionsMenu/Delete" title="QasDelete como padrão" />
+<!-- <doc-example file="QasActionsMenu/Delete" title="QasDelete como padrão" /> -->
 
 <!-- <doc-example file="QasActionsMenu/CustomSlot" title="Templates dinâmicos" /> -->
 

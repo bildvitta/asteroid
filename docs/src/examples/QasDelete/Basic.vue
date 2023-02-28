@@ -1,6 +1,9 @@
 <template>
   <div class="container spaced">
-    <qas-delete v-model:deleting="isDeleting" :custom-id="customId" entity="users" label="Deletar este usuário" />
+    <!-- <qas-delete v-model:deleting="isDeleting" :custom-id="customId" entity="users" label="Deletar este usuário" />
+    <qas-btn :custom-id="customId" entity="users" label="Deletar pelo dialog" @click="$qas.delete({ id: customId, entity: 'users' })" /> -->
+    <qas-btn :custom-id="customId" entity="users" label="Deletar pelo dialog" @click="Delete({ id: customId, entity: 'users' })" />
+    <!-- <qas-btn :custom-id="customId" entity="users" label="Deletar pelo dialog" @click="Delete.call(this, { id: customId, entity: 'users' })" /> -->
 
     <!-- Remover este código -->
     <div class="q-mt-lg">
@@ -13,6 +16,8 @@
 <script>
 // estes scripts tem a finalidade de utilização na documentação.
 import { mapGetters, mapActions } from 'vuex'
+
+import Delete from '../../../../ui/src/plugins/delete/Delete.js'
 
 export default {
   data () {
@@ -40,7 +45,8 @@ export default {
   },
 
   methods: {
-    ...mapActions('users', ['fetchSingle'])
+    Delete,
+    ...mapActions('users', ['fetchSingle', 'destroy'])
   }
 }
 </script>
