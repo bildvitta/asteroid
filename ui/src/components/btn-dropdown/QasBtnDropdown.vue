@@ -76,7 +76,15 @@ export default {
     },
 
     defaultButtonProps () {
-      const { icon, iconRight, color, ...defaultProps } = this.buttonProps
+      const {
+        icon,
+        iconRight = this.split ?? this.dropdownIcon,
+        color,
+        ...defaultProps
+      } = this.buttonProps
+
+      console.log(icon)
+
       const { label } = defaultProps
 
       return {
@@ -85,7 +93,8 @@ export default {
         ...defaultProps,
 
         color: color || (!this.split ? 'grey-9' : 'primary'),
-        ...(!this.split && { iconRight: this.dropdownIcon }),
+        ...(!this.split && { iconRight }),
+        ...(this.split && { icon }),
         ...((this.split || (!this.split && label)) && { icon })
       }
     },

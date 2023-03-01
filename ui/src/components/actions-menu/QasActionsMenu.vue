@@ -1,9 +1,9 @@
 <template>
   <div v-if="hasActions" class="qas-actions-menu">
-    <component :is="component.is" v-bind="component.props" :use-label-on-small-screen="useLabelOnSmallScreen" variant="tertiary">
+    <component :is="component.is" v-bind="component.props" variant="tertiary">
       <q-list v-if="isBtnDropdown">
         <slot v-for="(item, key) in actions" :item="item" :name="key">
-          <component :is="getComponent(key)" v-bind="item.props" :key="key" clickable @click="onClick(item)">
+          <q-item v-bind="item.props" :key="key" clickable @click="onClick(item)">
             <q-item-section avatar>
               <q-icon :name="item.icon" />
             </q-item-section>
@@ -11,7 +11,7 @@
             <q-item-section>
               <div>{{ item.label }}</div>
             </q-item-section>
-          </component>
+          </q-item>
         </slot>
       </q-list>
 
@@ -42,9 +42,9 @@ export default {
       type: Object
     },
 
-    color: {
-      default: '',
-      type: String
+    buttonDropdownProps: {
+      default: () => ({}),
+      type: Object
     },
 
     deleteLabel: {
@@ -62,7 +62,7 @@ export default {
       type: Object
     },
 
-    icon: {
+    dropdownIcon: {
       default: 'sym_r_more_vert',
       type: String
     },
@@ -77,51 +77,48 @@ export default {
       default: ''
     },
 
-    useHoverOnWhiteColor: {
-      default: true,
-      type: Boolean
-    },
-
     useLabel: {
       default: true,
-      type: Boolean
-    },
-
-    useLabelOnSmallScreen: {
       type: Boolean
     }
   },
 
   computed: {
     actions () {
-      const list = { ...this.list }
+      const list = { ...this.cachedList }
 
-      if (this.hasSplit && this.list[this.splitName] && this.isBtnDropdown) {
+      if (this.hasSplit && list[this.splitName] && this.isBtnDropdown) {
         this.isSmall
-          ? Object.assign(list, { [this.splitName]: this.list[this.splitName] })
+          ? Object.assign(list, { [this.splitName]: list[this.splitName] })
           : delete list[this.splitName]
       }
 
+      return list
+    },
+
+    cachedList () {
       return {
-        ...list,
+        ...this.list,
         ...(this.hasDelete && {
           delete: {
             icon: this.deleteIcon,
             label: this.deleteLabel,
-            props: {
-              ...this.deleteProps,
-              tag: this.isBtnDropdown ? 'q-item' : 'qas-btn'
-            }
+            handler: () => this.$qas.delete(this.deleteProps)
           }
         })
       }
     },
 
-    component () {
-      const isButtonComponent = (this.isBtnDropdown || !this.hasDelete)
-      const singleActionComponent = isButtonComponent ? 'qas-btn' : 'qas-delete'
+    defaultBtnDeleteProps () {
+      return {
+        icon: this.deleteIcon,
+        label: this.deleteLabel,
+        handler: () => this.$qas.delete(this.deleteProps)
+      }
+    },
 
-      const is = this.isBtnDropdown ? 'qas-btn-dropdown' : singleActionComponent
+    component () {
+      const is = this.isBtnDropdown ? 'qas-btn-dropdown' : 'qas-btn'
 
       return {
         is,
@@ -149,7 +146,7 @@ export default {
     },
 
     isBtnDropdown () {
-      return Object.keys(this.list || {}).length + Number(this.hasDelete) > 1
+      return Object.keys(this.cachedList || {}).length
     },
 
     hasTooltip () {
@@ -165,19 +162,22 @@ export default {
 
       return {
         useHoverOnWhiteColor: true,
+        useLabelOnSmallScreen: true,
         ...buttonProps
       }
     },
 
-    btnDropdownProps () {
-      const { icon, label } = this.list[this.splitName] || {}
-      const { icon: defaultIcon, ...defaultButtonProps } = this.defaultButtonProps
+    defaultButtonDropdownProps () {
+      const { dropdownIcon } = this.buttonDropdownProps
 
-      console.log({
-        ...(this.useLabel && { label: this.hasSplit ? label : 'Opções' }),
-        ...defaultButtonProps,
-        icon: icon || defaultIcon
-      })
+      return {
+        dropdownIcon
+      }
+    },
+
+    btnDropdownProps () {
+      const { icon, label } = this.cachedList[this.splitName] || {}
+      const { icon: defaultIcon, ...defaultButtonProps } = this.defaultButtonProps
 
       return {
         buttonProps: {
@@ -186,23 +186,23 @@ export default {
           icon: icon || defaultIcon
         },
 
-        dropdownIcon: this.icon,
+        dropdownIcon: this.dropdownIcon,
         split: this.hasSplit,
 
         // evento
-        onClick: () => this.onClick(this.list[this.splitName])
+        onClick: () => this.onClick(this.cachedList[this.splitName])
       }
     },
 
     btnProps () {
       const { color, icon } = this.actions[this.firstItemKey] || {}
       const { color: defaultColor, ...defaultButtonProps } = this.defaultButtonProps
-      console.log(this.buttonProps, 'this.defaultButtonProps btnProps')
 
       return {
         color: color || defaultColor,
         icon,
         label: this.useLabel ? this.tooltipLabel : '',
+        onClick: this.onClick,
         ...defaultButtonProps
       }
     },
@@ -213,10 +213,6 @@ export default {
   },
 
   methods: {
-    getComponent (key) {
-      return key === 'delete' ? 'qas-delete' : 'q-item'
-    },
-
     onClick (item = {}) {
       if (!this.isBtnDropdown) {
         item = this.actions[this.firstItemKey]

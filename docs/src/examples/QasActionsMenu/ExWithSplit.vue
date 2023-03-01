@@ -1,6 +1,6 @@
 <template>
   <div class="container q-py-lg">
-    <qas-actions-menu color="primary" :delete-props="{ entity: 'users', customId: 'my-custom-id-from-user', }" :list="list" split-name="delete2" />
+    <qas-actions-menu color="primary" :delete-props="{ deleteActionParams: { entity: 'users', id: 'my-custom-id' } }" :list="list" split-name="delete" />
   </div>
 </template>
 
@@ -19,7 +19,7 @@ export default {
           label: 'usuário',
           handler: () => alert('handler ativado')
         },
-        delete2: {
+        edit: {
           icon: 'sym_r_create',
           label: 'deletar',
           handler: () => alert('handler ativado')

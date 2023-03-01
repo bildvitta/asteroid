@@ -9,10 +9,6 @@ props:
     default: {}
     type: Object
 
-  color:
-    desc: Cor do ícone.
-    type: String
-
   delete-icon:
     desc: Ícone do botão de deletar.
     default: sym_r_delete
@@ -27,12 +23,6 @@ props:
     desc: Props para repassar para o componente "QasDelete", caso seja um objeto vazio, o componente não vai adicionar a opção de deletar por padrão.
     default: {}
     type: Object
-
-  icon:
-    desc: Ícone do botão.
-    default: sym_r_more_vert
-    type: String
-    examples: [start, end, between, around, center]
 
   list:
     desc: Lista de items que vão ser criados dentro do menu de ações.
