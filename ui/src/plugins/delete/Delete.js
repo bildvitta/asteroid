@@ -3,19 +3,20 @@ import { Loading } from 'quasar'
 import { getAction } from '@bildvitta/store-adapter'
 import { useHistory } from '../../composables'
 
-export default function (config = {}, deleteFn = () => {}) {
+export default function (config = {}) {
   const {
-    id,
     dialogProps = {},
-    entity,
-    url,
+    deleteActionParams = {},
     useAutoDeleteRoute,
 
     // callbacks
     onDelete = () => {},
     onDeleteError = () => {},
-    onDeleteSuccess = () => {}
+    onDeleteSuccess = () => {},
+    deleteAction
   } = config
+
+  const { entity, id, url } = deleteActionParams
 
   const defaultDialogProps = {
     card: { description: 'Tem certeza que deseja excluir este item?' },
@@ -36,19 +37,14 @@ export default function (config = {}, deleteFn = () => {}) {
     try {
       onDelete(true)
 
-      const payload = { id, url: url }
+      const hasDeleteAction = typeof deleteAction === 'function'
 
-      const response = await getAction.call(this, {
-        entity: entity,
-        key: 'destroy',
-        payload
-      })
+      const payload = { id, url }
+      const destroyActionParams = { entity, key: 'destroy', payload }
 
-      // const response = await deleteFn({
-      //   entity: entity,
-      //   key: 'destroy',
-      //   payload
-      // })
+      const response = hasDeleteAction
+        ? await deleteAction(payload)
+        : await getAction.call(this, destroyActionParams)
 
       NotifySuccess(defaultNotifyMessages.success)
 
@@ -65,11 +61,12 @@ export default function (config = {}, deleteFn = () => {}) {
 
       onDeleteSuccess(response)
     } catch (error) {
-      console.log(error)
       onDeleteError(error)
+
       NotifyError(defaultNotifyMessages.error)
     } finally {
       onDelete(false)
+
       Loading.hide()
     }
   }
@@ -82,11 +79,7 @@ export default function (config = {}, deleteFn = () => {}) {
     const event = new CustomEvent('delete-success', {
       bubbles: false,
       cancelable: false,
-      detail: {
-        entity: entity,
-        url: url,
-        id
-      }
+      detail: deleteActionParams
     })
 
     window.dispatchEvent(event)

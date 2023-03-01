@@ -13,10 +13,12 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 ## Não publicado
 ### Adicionado
 - `QasActionsMenu`: adicionado propriedade `splitName` que habilita o slit no QBtnDropdown internamente separando 2 ações no componente por uma barra.
+-`Delete.js`: adicionado novo plugin para dar a possibilidade de utilização de deleção de items sem ser pelo uso do componente `QasDelete`, com isto é possível utilizar fora de componentes `vue`.
 
 ### Modificado
 - `QasActionsMenu`: modificado componente para utilizar nativamente o `QBtnDropdown`ao invés de fazer a logica manual com `QMenu`.
 - `/ui/src/css/components/button.scss`: adicionado propriedade `box-shadow: none` para zerar o shadow em todos os casos.
+- `QasDelete`: reimplementado componente para fazer utilização do plugin `Delete.js`.
 
 ## [3.7.0-beta.1] - 23-02-2023
 ### Corrigido

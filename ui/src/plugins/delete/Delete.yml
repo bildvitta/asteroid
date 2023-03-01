@@ -1,0 +1,71 @@
+type: component
+
+meta:
+  desc: Plugin que implementa a action `destroy` do `StoreModule` adicionando comportamento de confirmação antes de excluir, este mesmo plugin é utilizado no componente `QasDelete`.
+
+inject:
+  'this.$qas.delete(config)':
+    params:
+      config:
+        type: Object
+        desc: Objeto de configuração do plugin.
+        params:
+          dialogProps:
+            type: Object
+            desc: Propriedades repassadas para o "QasDialog".
+
+          deleteActionParams:
+            type: Object
+            desc: Propriedades de configuração da action destroy.
+            params:
+              entity:
+                type: String
+                desc: entidade da store.
+                default: ''
+
+              id:
+                type: String
+                desc: Identificador (id, uuid, slug) do item a ser deletado.
+                default: ''
+
+              url:
+                type: String
+                desc: URL do endpoint do item a ser deletado.
+                default: ''
+
+          'onDelete -> function (isDeleting)':
+            type: Function
+            desc: Este callback é chamado quando inicializa a ação de deleção e quando finaliza, independente se der erro ou sucesso.
+            params:
+              isDeleting:
+                type: Boolean
+                desc: Retorna "true" caso esteja ocorrendo a ação de deleção e "false" quando finalizada.
+                default: false
+
+          'onDeleteError -> function (error)':
+            type: Function
+            desc: Este callback é chamado quando a ação de deleção é finalizada com erro.
+            params:
+              error:
+                type: Object
+                desc: Objeto de retorno de erro
+                default: {}
+
+          'onDeleteSuccess -> function (response)':
+            type: Function
+            desc: Este callback é chamado quando a ação de deleção é finalizada com sucesso.
+            params:
+              error:
+                type: Object
+                desc: Objeto de resposta da API
+                default: {}
+
+          'deleteAction -> function (deleteActionParams) || undefined':
+            type: [Function, undefined]
+            desc: Quando utilizado este plugin fora de componentes vue, não temos acesso ao contexto "this", neste caso é necessário passar a action "destroy" que deseja executar, é neste momento que o callback é chamado / utilizado, caso esteja dentro do componente vue, não repasse esse callback.
+            params:
+              error:
+                type: Object
+                desc: Objeto deleteActionParams enviado anteriormente como configuração do plugin Delete.
+                default: {}
+                examples: ["{ ..., deleteAction: params => useUsers.destroy(params) }"]

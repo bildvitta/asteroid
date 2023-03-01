@@ -268,6 +268,10 @@ module.exports = [
     name: 'Plugins',
     children: [
       {
+        name: 'Delete',
+        path: '/plugins/delete'
+      },
+      {
         name: 'Dialog',
         path: '/plugins/dialog'
       },

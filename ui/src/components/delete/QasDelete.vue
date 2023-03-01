@@ -1,28 +1,19 @@
 <template>
-  <component v-bind="attributes" :is="tag" @click.stop="openConfirmDialog">
+  <component v-bind="attributes" :is="tag" @click.stop="onDelete">
     <template v-for="(_, name) in $slots" #[name]="context">
       <slot :name="name" v-bind="context || {}" />
     </template>
   </component>
-
-  <qas-dialog v-model="showDialog" v-bind="defaultDialogProps" />
 </template>
 
 <script>
-import { Loading } from 'quasar'
-import { getAction } from '@bildvitta/store-adapter'
-import { NotifyError, NotifySuccess } from '../../plugins'
-import { useHistory } from '../../composables'
-
 import QasBtn from '../btn/QasBtn.vue'
-import QasDialog from '../dialog/QasDialog.vue'
 
 export default {
   name: 'QasDelete',
 
   components: {
-    QasBtn,
-    QasDialog
+    QasBtn
   },
 
   inheritAttrs: false,
@@ -69,12 +60,6 @@ export default {
     'update:deleting'
   ],
 
-  data () {
-    return {
-      showDialog: false
-    }
-  },
-
   computed: {
     attributes () {
       return {
@@ -83,30 +68,8 @@ export default {
       }
     },
 
-    defaultDialogProps () {
-      return {
-        card: {
-          description: 'Tem certeza que deseja excluir este item?'
-        },
-
-        ok: {
-          label: 'Excluir',
-          onClick: this.destroy
-        },
-
-        ...this.dialogProps
-      }
-    },
-
     id () {
       return this.customId || this.$route.params.id
-    },
-
-    defaultNotifyMessages () {
-      return {
-        error: 'Não conseguimos excluir as informações. Por favor, tente novamente em alguns minutos.',
-        success: 'Informações excluídas com sucesso.'
-      }
     },
 
     isButton () {
@@ -115,74 +78,31 @@ export default {
   },
 
   methods: {
-    openConfirmDialog () {
-      this.showDialog = true
-    },
-
-    async destroy () {
-      Loading.show()
-      this.$emit('update:deleting', true)
-
-      try {
-        const payload = { id: this.id, url: this.url }
-
-        this.$qas.logger.group(
-          `QasDelete - destroy -> Payload do parâmetro do ${this.entity}/destroy`, [payload]
-        )
-
-        await getAction.call(this, {
+    onDelete () {
+      this.$qas.delete({
+        deleteActionParams: {
           entity: this.entity,
-          key: 'destroy',
-          payload
-        })
+          id: this.id,
+          url: this.url
+        },
 
-        NotifySuccess(this.defaultNotifyMessages.success)
+        dialogProps: this.dialogProps,
 
-        if (this.useAutoDeleteRoute) {
-          const { destroyRoutes, history } = useHistory()
+        useAutoDeleteRoute: this.useAutoDeleteRoute,
 
-          // remove todas rotas que possuem o id do item excluído.
-          const routesToBeDeleted = this.getRoutesToBeDeletedById(history.list)
-          destroyRoutes(routesToBeDeleted)
-        }
+        // callbacks
+        onDelete: isDeleting => {
+          this.$emit('update:deleting', isDeleting)
+        },
 
-        // cria um evento para notificar que o item foi excluído no "window".
-        this.createDeleteSuccessEvent()
+        onDeleteError: error => {
+          this.$emit('error', error)
+        },
 
-        this.$emit('success')
-
-        this.$qas.logger.info('QasDelete - destroy -> item deletado com sucesso!')
-      } catch (error) {
-        NotifyError(this.defaultNotifyMessages.error)
-        this.$emit('error', error)
-
-        this.$qas.logger.group(
-          `QasDelete - destroy -> exceção da action ${this.entity}/destroy`,
-          [error],
-          { error: true }
-        )
-      } finally {
-        Loading.hide()
-        this.$emit('update:deleting', false)
-      }
-    },
-
-    getRoutesToBeDeletedById (routes = []) {
-      return routes.filter(({ params }) => params.id === this.id)
-    },
-
-    createDeleteSuccessEvent () {
-      const event = new CustomEvent('delete-success', {
-        bubbles: false,
-        cancelable: false,
-        detail: {
-          entity: this.entity,
-          url: this.url,
-          id: this.id
+        onDeleteSuccess: response => {
+          this.$emit('success', response)
         }
       })
-
-      window.dispatchEvent(event)
     }
   }
 }

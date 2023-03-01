@@ -1,8 +1,7 @@
 <template>
   <div class="container spaced">
-    <qas-delete v-model:deleting="isDeleting" :custom-id="customId" entity="users" label="Deletar este usuário" />
+    <qas-btn :custom-id="customId" entity="users" label="Deletar usuário" @click="$qas.delete({ deleteActionParams: { id: customId, entity: 'users' } })" />
 
-    <!-- Remover este código -->
     <div class="q-mt-lg">
       user: <qas-debugger :inspect="[user]" />
       isDeleting: {{ isDeleting }}
@@ -11,7 +10,6 @@
 </template>
 
 <script>
-// estes scripts tem a finalidade de utilização na documentação.
 import { mapGetters, mapActions } from 'vuex'
 
 export default {
@@ -40,7 +38,7 @@ export default {
   },
 
   methods: {
-    ...mapActions('users', ['fetchSingle'])
+    ...mapActions('users', ['fetchSingle', 'destroy'])
   }
 }
 </script>
