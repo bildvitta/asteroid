@@ -11,6 +11,10 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
 ## Não publicado
+## BREAKING CHANGES
+- `QasActionsMenu`: removido propriedades [`useLabelOnSmallScreen`, `color`, `icon`] pois agora é possível passar as propriedades para o `buttonProps` e `dropdownIcon`.
+- `QasActionsMenu`: como agora o componente não faz mais uso do `QasDelete`, mas sim do `Delete.js` muda um pouco a utilização, checar documentação.
+
 ### Adicionado
 - `QasActionsMenu`: adicionado propriedade `splitName` que habilita o slit no QBtnDropdown internamente separando 2 ações no componente por uma barra.
 -`Delete.js`: adicionado novo plugin para dar a possibilidade de utilização de deleção de items sem ser pelo uso do componente `QasDelete`, com isto é possível utilizar fora de componentes `vue`.
@@ -28,6 +32,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - `QasActionsMenu`: refatorado código para troca no `QasDelete` pelo `Delete.js`.
 - `QasActionsMenu`: refatorado código para utilização do `QasBtnDropdown`.
 - `QasActionsMenu`: mudanças de comportamento.
+- `QasNestedFields`: repassando todas propriedades do `QasActionsMenu` e não somente o `list`.
 
 ### Removido
 - `QasActionsMenu`: removido propriedades [`useLabelOnSmallScreen`, `color`, `icon`] pois agora é possível passar as propriedades para o `buttonProps` e `dropdownIcon`.
