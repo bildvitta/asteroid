@@ -1,10 +1,9 @@
 <template>
   <div class="container spaced">
-    <qas-btn :custom-id="customId" entity="users" label="Deletar usuário" @click="$qas.delete({ deleteActionParams: { id: customId, entity: 'users' } })" />
+    <qas-bt label="Deletar usuário" @click="$qas.delete({ deleteActionParams: { id: customId, entity: 'users' } })" />
 
     <div class="q-mt-lg">
       user: <qas-debugger :inspect="[user]" />
-      isDeleting: {{ isDeleting }}
     </div>
   </div>
 </template>
@@ -13,12 +12,6 @@
 import { mapGetters, mapActions } from 'vuex'
 
 export default {
-  data () {
-    return {
-      isDeleting: false
-    }
-  },
-
   computed: {
     ...mapGetters('users', {
       userById: 'byId'

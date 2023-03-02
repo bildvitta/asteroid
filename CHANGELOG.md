@@ -18,6 +18,8 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - `QasActionsMenu`: adicionado propriedade `dropdownIcon` para ser repassado para o `QasBtnDropdown`.
 - `QasActionsMenu`: adicionado propriedade `buttonProps` para ser repassado para o `QasBtn` e `QasBtnDropdown` (dependendo da quantidade de itens dentro da prop `list`).
 - `QasActionsMenu`: adicionado propriedade `splitName` que habilita o `slit` do `QasBtnDropdown` e também é responsável por sinalizar qual item da lista será o botão a esquerda do QasBtnDropdown.
+- `QasBtn`: adicionadas propriedades [`icon`, `iconRight`], antes essas props vinha através do `$attrs`, porém por logica interna foi necessário fixar elas no componente.
+- `ui/src/css/variables/separator.scss`: modificado cores do QSeparator.
 
 ### Modificado
 - `QasActionsMenu`: modificado componente para utilizar nativamente o `QBtnDropdown`ao invés de fazer a logica manual com `QMenu`.
@@ -25,6 +27,10 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - `QasDelete`: reimplementado componente para fazer utilização do plugin `Delete.js`.
 - `QasActionsMenu`: refatorado código para troca no `QasDelete` pelo `Delete.js`.
 - `QasActionsMenu`: refatorado código para utilização do `QasBtnDropdown`.
+- `QasActionsMenu`: mudanças de comportamento.
+
+### Removido
+- `QasActionsMenu`: removido propriedades [`useLabelOnSmallScreen`, `color`, `icon`] pois agora é possível passar as propriedades para o `buttonProps` e `dropdownIcon`.
 
 ## [3.7.0-beta.1] - 23-02-2023
 ### Corrigido

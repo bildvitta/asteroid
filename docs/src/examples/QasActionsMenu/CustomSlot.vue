@@ -21,7 +21,7 @@ export default {
           handler: () => alert('handler ativado')
         },
         edit: {
-          icon: 'sym_r_create',
+          icon: 'sym_r_edit',
           label: 'Editar',
           handler: () => alert('handler ativado')
         }

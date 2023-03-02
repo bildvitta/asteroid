@@ -12,7 +12,5 @@
 
   @if $no-hover-on-white {
     @extend .qas-btn--no-hover-on-white;
-
-    // background-color: black !important;
   }
 }

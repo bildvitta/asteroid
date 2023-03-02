@@ -1,6 +1,6 @@
 <template>
   <div class="container q-py-lg">
-    <qas-actions-menu color="primary" :list="list" split-name="user" />
+    <qas-actions-menu :list="list" split-name="user" />
   </div>
 </template>
 
