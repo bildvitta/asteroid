@@ -11,7 +11,7 @@
             <div>
               <div class="flex items-center justify-between q-py-md">
                 <qas-label v-if="!useSingleLabel" :label="getRowLabel(index)" />
-                <qas-actions-menu v-if="hasBlockActions(row)" :list="getActionsList(index, row)" :use-label-on-small-screen="false" />
+                <qas-actions-menu v-if="hasBlockActions(row)" v-bind="actionsMenuProps" :list="getActionsList(index, row)" />
               </div>
 
               <div ref="formGenerator" class="col-12 justify-between q-col-gutter-x-md row">
@@ -24,7 +24,7 @@
                 </slot>
 
                 <div v-if="hasInlineActions(row)" class="flex items-center qas-nested-fields__actions">
-                  <qas-actions-menu :list="getActionsList(index, row)" :use-label-on-small-screen="false" />
+                  <qas-actions-menu v-bind="actionsMenuProps" :list="getActionsList(index, row)" />
                 </div>
               </div>
 

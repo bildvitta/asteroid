@@ -1,6 +1,6 @@
 <template>
   <div class="container q-py-lg">
-    <qas-btn-dropdown :button-props="{ label: 'Teste', icon: 'sym_r_person', useLabelOnSmallScreen: false }">
+    <qas-btn-dropdown :button-props="{ label: 'Teste', icon: 'sym_r_add', iconRight: 'sym_r_edit', useLabelOnSmallScreen: false }" split1>
       <q-list>
         <q-item v-for="item in 10" :key="item">
           Meu item - {{ item }}

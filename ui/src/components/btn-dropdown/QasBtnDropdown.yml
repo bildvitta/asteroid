@@ -8,7 +8,7 @@ props:
     desc: Propriedades repassadas para o QasBtn.
     default: {}
     type: Object
-    examples: ['{ label: Usuário, icon: sym_r_person }']
+    examples: ["{ color: 'white', icon: 'sym_r_person' }"]
 
   dropdown-icon:
     desc: Ícone a direita do dropdown.

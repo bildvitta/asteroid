@@ -78,14 +78,12 @@ export default {
     defaultButtonProps () {
       const {
         icon,
-        iconRight = this.split ?? this.dropdownIcon,
+        iconRight,
         color,
         ...defaultProps
       } = this.buttonProps
 
-      console.log(icon)
-
-      const { label } = defaultProps
+      const defaultIconRight = iconRight || this.dropdownIcon
 
       return {
         useLabelOnSmallScreen: false,
@@ -93,9 +91,8 @@ export default {
         ...defaultProps,
 
         color: color || (!this.split ? 'grey-9' : 'primary'),
-        ...(!this.split && { iconRight }),
-        ...(this.split && { icon }),
-        ...((this.split || (!this.split && label)) && { icon })
+        ...(!this.split && { iconRight: defaultIconRight }),
+        ...(this.split && { icon })
       }
     },
 

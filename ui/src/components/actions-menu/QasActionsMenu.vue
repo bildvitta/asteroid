@@ -24,7 +24,6 @@
 
 <script>
 import QasBtn from '../btn/QasBtn.vue'
-import QasDelete from '../delete/QasDelete.vue'
 import QasBtnDropdown from '../btn-dropdown/QasBtnDropdown.vue'
 
 export default {
@@ -32,17 +31,11 @@ export default {
 
   components: {
     QasBtn,
-    QasBtnDropdown,
-    QasDelete
+    QasBtnDropdown
   },
 
   props: {
     buttonProps: {
-      default: () => ({}),
-      type: Object
-    },
-
-    buttonDropdownProps: {
       default: () => ({}),
       type: Object
     },
@@ -101,19 +94,12 @@ export default {
         ...this.list,
         ...(this.hasDelete && {
           delete: {
+            color: 'grey-9',
             icon: this.deleteIcon,
             label: this.deleteLabel,
             handler: () => this.$qas.delete(this.deleteProps)
           }
         })
-      }
-    },
-
-    defaultBtnDeleteProps () {
-      return {
-        icon: this.deleteIcon,
-        label: this.deleteLabel,
-        handler: () => this.$qas.delete(this.deleteProps)
       }
     },
 
@@ -146,7 +132,7 @@ export default {
     },
 
     isBtnDropdown () {
-      return Object.keys(this.cachedList || {}).length
+      return Object.keys(this.cachedList || {}).length > 1
     },
 
     hasTooltip () {
@@ -162,22 +148,18 @@ export default {
 
       return {
         useHoverOnWhiteColor: true,
-        useLabelOnSmallScreen: true,
+        useLabelOnSmallScreen: false,
         ...buttonProps
-      }
-    },
-
-    defaultButtonDropdownProps () {
-      const { dropdownIcon } = this.buttonDropdownProps
-
-      return {
-        dropdownIcon
       }
     },
 
     btnDropdownProps () {
       const { icon, label } = this.cachedList[this.splitName] || {}
-      const { icon: defaultIcon, ...defaultButtonProps } = this.defaultButtonProps
+
+      const {
+        icon: defaultIcon,
+        ...defaultButtonProps
+      } = this.defaultButtonProps
 
       return {
         buttonProps: {

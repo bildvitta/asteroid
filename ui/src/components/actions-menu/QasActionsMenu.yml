@@ -5,9 +5,10 @@ meta:
 
 props:
   button-props:
-    desc: Props para repassar para o componente "QasBtn", sendo que não são repassados as props "variant" e "label"
+    desc: Propriedades repassadas para o "QasBtn" caso esteja em modo de botão (apenas um item na prop "list"), caso esteja em modo de dropdown (mais de 1 item na prop "list") é enviado para a propriedade buttonProps do "QasBtnDropdown".
     default: {}
     type: Object
+    examples: ["{ color: 'white', icon: 'sym_r_person', useLabelOnSmallScreen: false }"]
 
   delete-icon:
     desc: Ícone do botão de deletar.
@@ -43,11 +44,6 @@ props:
     default: ''
     type: String
     examples: [visibility]
-
-  use-label-on-small-screen:
-    desc: Esconde o rótulo (label) do botão quando o tamanho da tela for pequeno (esta propriedade só funciona se o "rotulo") for passado via propriedade "label".
-    default: true
-    type: Boolean
 
   use-label:
     desc: Habilita ou não o label no botão.
