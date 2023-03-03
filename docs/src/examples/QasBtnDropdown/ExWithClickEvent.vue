@@ -10,7 +10,7 @@
     </qas-btn-dropdown>
 
     <qas-label class="q-mt-lg" label="Evento click sem split" />
-    <qas-btn-dropdown :button-props="{ label: 'Usuário', icon: 'sym_r_person' }" split @click="onClick">
+    <qas-btn-dropdown :button-props="{ label: 'Usuário', icon: 'sym_r_person' }" use-split @click="onClick">
       <q-list>
         <q-item v-for="item in 10" :key="item">
           Meu item - {{ item }}

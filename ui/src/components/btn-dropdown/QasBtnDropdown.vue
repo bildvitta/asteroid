@@ -14,7 +14,7 @@
 
     <q-separator v-if="hasSeparator" class="q-mr-sm qas-btn-dropdown__separator self-center" dark vertical />
 
-    <div v-if="split">
+    <div v-if="useSplit">
       <qas-btn color="grey-9" :icon="dropdownIcon" variant="tertiary">
         <q-menu v-if="hasDefaultSlot" anchor="bottom right" auto-close self="top right">
           <div :class="menuContentClasses">
@@ -43,7 +43,7 @@ export default {
       type: String
     },
 
-    split: {
+    useSplit: {
       type: Boolean
     },
 
@@ -57,7 +57,7 @@ export default {
   computed: {
     leftSideClasses () {
       return {
-        'q-mr-sm': this.split
+        'q-mr-sm': this.useSplit
       }
     },
 
@@ -72,7 +72,7 @@ export default {
     },
 
     hasMenuOnLeftSide () {
-      return this.hasDefaultSlot && !this.split
+      return this.hasDefaultSlot && !this.useSplit
     },
 
     defaultButtonProps () {
@@ -90,9 +90,9 @@ export default {
 
         ...defaultProps,
 
-        color: color || (!this.split ? 'grey-9' : 'primary'),
-        ...(!this.split && { iconRight: defaultIconRight }),
-        ...(this.split && { icon })
+        color: color || (!this.useSplit ? 'grey-9' : 'primary'),
+        ...(!this.useSplit && { iconRight: defaultIconRight }),
+        ...(this.useSplit && { icon })
       }
     },
 
@@ -101,11 +101,11 @@ export default {
     },
 
     hasLeftButton () {
-      return !this.isSmall || !this.split
+      return !this.isSmall || !this.useSplit
     },
 
     hasSeparator () {
-      return !this.isSmall && this.split
+      return !this.isSmall && this.useSplit
     }
   }
 }

@@ -169,7 +169,7 @@ export default {
         },
 
         dropdownIcon: this.dropdownIcon,
-        split: this.hasSplit,
+        useSplit: this.hasSplit,
 
         // evento
         onClick: () => this.onClick(this.fullList[this.splitName])
