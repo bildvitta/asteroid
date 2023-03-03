@@ -91,17 +91,11 @@ export default {
         useAutoDeleteRoute: this.useAutoDeleteRoute,
 
         // callbacks
-        onDelete: isDeleting => {
-          this.$emit('update:deleting', isDeleting)
-        },
+        onDelete: isDeleting => this.$emit('update:deleting', isDeleting),
 
-        onDeleteError: error => {
-          this.$emit('error', error)
-        },
+        onDeleteError: error => this.$emit('error', error),
 
-        onDeleteSuccess: response => {
-          this.$emit('success', response)
-        }
+        onDeleteSuccess: response => this.$emit('success', response)
       })
     }
   }
