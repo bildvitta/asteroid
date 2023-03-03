@@ -21,7 +21,7 @@
 
       <footer v-if="!isInfoDialog">
         <slot name="actions">
-          <qas-actions v-bind="actionsProps" :use-equal-width="hasAllActions" :use-full-width="hasSingleAction">
+          <qas-actions v-bind="formattedActionsProps">
             <template v-if="hasOk" #primary>
               <qas-btn v-close-popup="!useForm" class="full-width" variant="primary" v-bind="defaultOk" @click="submitHandler" />
             </template>
@@ -172,6 +172,20 @@ export default {
 
     isInfoDialog () {
       return !this.hasOk && !this.hasCancel
+    },
+
+    formattedActionsProps () {
+      const { useFullWidth, useEqualWidth } = this.actionsProps
+
+      if (useFullWidth || useEqualWidth) {
+        return this.actionsProps
+      }
+
+      return {
+        useFullWidth: this.hasSingleAction,
+        useEqualWidth: this.hasAllActions,
+        ...this.actionsProps
+      }
     }
   },
 
