@@ -78,7 +78,7 @@ export default {
 
   computed: {
     actions () {
-      const list = { ...this.cachedList }
+      const list = { ...this.fullList }
 
       if (this.hasSplit && list[this.splitName] && this.isBtnDropdown) {
         this.isSmall
@@ -89,7 +89,7 @@ export default {
       return list
     },
 
-    cachedList () {
+    fullList () {
       return {
         ...this.list,
         ...(this.hasDelete && {
@@ -132,7 +132,7 @@ export default {
     },
 
     isBtnDropdown () {
-      return Object.keys(this.cachedList || {}).length > 1
+      return Object.keys(this.fullList || {}).length > 1
     },
 
     hasTooltip () {
@@ -154,7 +154,7 @@ export default {
     },
 
     btnDropdownProps () {
-      const { icon, label } = this.cachedList[this.splitName] || {}
+      const { icon, label } = this.fullList[this.splitName] || {}
 
       const {
         icon: defaultIcon,
@@ -172,7 +172,7 @@ export default {
         split: this.hasSplit,
 
         // evento
-        onClick: () => this.onClick(this.cachedList[this.splitName])
+        onClick: () => this.onClick(this.fullList[this.splitName])
       }
     },
 

@@ -1,6 +1,6 @@
 <template>
   <div class="container spaced">
-    <qas-bt label="Deletar usuário" @click="$qas.delete({ deleteActionParams: { id: customId, entity: 'users' } })" />
+    <qas-btn label="Deletar usuário" @click="$qas.delete({ deleteActionParams: { id: customId, entity: 'users' } })" />
 
     <div class="q-mt-lg">
       user: <qas-debugger :inspect="[user]" />

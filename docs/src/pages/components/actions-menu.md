@@ -17,7 +17,9 @@ Caso a prop `list` contenha **apenas 1** item dentro, ele renderiza um `QasBtn`,
 
 - Quando há mais de uma ação proveniente da propriedade `list`, o componente `QasActionsMenu` renderiza um menu dropdown com todas as ações. Quando houver apenas uma ação será renderizado apenas um botão com a ação proveniente.
 
-- Quando usado o evento @click no componente, caso esteja habilitado o slit, o @click vai pegar no click do ícone a direita e não no botão a esquerda, caso o slot não esteja habilitado, o @click pega no botão inteiro.
+- Quando usado o evento @click no componente, caso esteja habilitado o split, o @click vai pegar no click do botão a esquerda e não no botão de dropdown, caso o split não esteja habilitado, o @click pega no botão inteiro.
+
+- A prop `deleteProps` ativa o plugin `Delete.js`, quando é passada o `QasActionsMenu` adiciona a opção de deletar o item como padrão, caso não seja passado, o plugin `Delete.js` não é adicionado por padrão.
 :::
 
 :::tip
@@ -38,8 +40,6 @@ Caso a prop `list` contenha **apenas 1** item dentro, ele renderiza um `QasBtn`,
     }
   }
   ```
-
-- A prop `deleteProps` ativa o componente `QasDelete`, quando é passada o `QasActionsMenu` adiciona a opção de deletar o item como padrão, caso não seja passado, o componente `QasDelete` não é adicionado por padrão.
 :::
 
 <doc-example file="QasActionsMenu/Basic" title="Básico" />

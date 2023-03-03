@@ -40,7 +40,7 @@ props:
     ]
 
   split-name:
-    desc: propriedade para definir o slipt, habilita 2 ações diferentes no mesmo componente, separando o mesmo por uma barra, o valor deve ser alguma chave (key) existente na propriedade "list".
+    desc: propriedade para definir o split, habilita 2 ações diferentes no mesmo componente, separando o mesmo por uma barra, o valor deve ser alguma chave (key) existente na propriedade "list".
     default: ''
     type: String
     examples: [visibility]

@@ -17,12 +17,12 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - `QasNumericInput`: modificado o valor padrão da propriedade `use-negative` para `false`. Anteriormente por padrão era possível inserir valores negativos, porém com essa modificação será necessário passar a propriedade `use-negative` como `true` para ter o mesmo comportamento anterior.
 
 ### Adicionado
-- `QasActionsMenu`: adicionado propriedade `splitName` que habilita o slit no QBtnDropdown internamente separando 2 ações no componente por uma barra.
+- `QasActionsMenu`: adicionado propriedade `splitName` que habilita o split no QBtnDropdown internamente separando 2 ações no componente por uma barra.
 -`Delete.js`: adicionado novo plugin para dar a possibilidade de utilização de deleção de items sem ser pelo uso do componente `QasDelete`, com isto é possível utilizar fora de componentes `vue`.
 - `QasBtnDropdown`: adicionado novo componente semelhante ao QBtnDropdown, porém nossas regras, e estilos.
 - `QasActionsMenu`: adicionado propriedade `dropdownIcon` para ser repassado para o `QasBtnDropdown`.
 - `QasActionsMenu`: adicionado propriedade `buttonProps` para ser repassado para o `QasBtn` e `QasBtnDropdown` (dependendo da quantidade de itens dentro da prop `list`).
-- `QasActionsMenu`: adicionado propriedade `splitName` que habilita o `slit` do `QasBtnDropdown` e também é responsável por sinalizar qual item da lista será o botão a esquerda do QasBtnDropdown.
+- `QasActionsMenu`: adicionado propriedade `splitName` que habilita o `split` do `QasBtnDropdown` e também é responsável por sinalizar qual item da lista será o botão a esquerda do QasBtnDropdown.
 - `QasBtn`: adicionadas propriedades [`icon`, `iconRight`], antes essas props vinha através do `$attrs`, porém por logica interna foi necessário fixar elas no componente.
 - `ui/src/css/variables/separator.scss`: modificado cores do QSeparator.
 
