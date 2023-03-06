@@ -41,7 +41,7 @@ export default {
       return [
         `justify-${this.align}`,
         `q-col-gutter-${this.defaultGutter}`,
-        this.$qas.screen.isSmall ? 'column reverse' : 'row'
+        (this.$qas.screen.isSmall || this.useFullWidth) ? 'column reverse' : 'row'
       ]
     },
 

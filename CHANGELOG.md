@@ -16,6 +16,8 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 
 ### Modificado
 - `QasNumericInput`: modificado o valor padrão da propriedade `use-negative` para `false`.
+- `QasDialog`: modificado a forma de repassar as props para o `QasActions`, para que sobrescreva os valores defaults.
+- `QasActions`: modificado a lógica de inverter os botões a partir do momento que for passada a prop `useFullWidth`.
 
 ## [3.7.0-beta.1] - 23-02-2023
 ### Corrigido
