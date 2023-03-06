@@ -35,6 +35,8 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - `QasActionsMenu`: mudanças de comportamento.
 - `QasNestedFields`: repassando todas propriedades do `QasActionsMenu` e não somente o `list`.
 - `QasNumericInput`: modificado o valor padrão da propriedade `use-negative` para `false`.
+- `QasDialog`: modificado a forma de repassar as props para o `QasActions`, para que sobrescreva os valores defaults.
+- `QasActions`: modificado a lógica de inverter os botões a partir do momento que for passada a prop `useFullWidth`.
 
 ### Removido
 - `QasActionsMenu`: removido propriedades [`useLabelOnSmallScreen`, `color`, `icon`] pois agora é possível passar as propriedades para o `buttonProps` e `dropdownIcon`.
