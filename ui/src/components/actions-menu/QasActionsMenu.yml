@@ -4,9 +4,11 @@ meta:
   desc: Componente para abrir um menu de ação a partir de um botão, muito utilizado em tela de edição.
 
 props:
-  color:
-    desc: Cor do ícone.
-    type: String
+  button-props:
+    desc: Propriedades repassadas para o "QasBtn" caso esteja em modo de botão (apenas um item na prop "list"), caso esteja em modo de dropdown (mais de 1 item na prop "list") é enviado para a propriedade buttonProps do "QasBtnDropdown".
+    default: {}
+    type: Object
+    examples: ["{ color: 'white', icon: 'sym_r_person', useLabelOnSmallScreen: false }"]
 
   delete-icon:
     desc: Ícone do botão de deletar.
@@ -23,19 +25,13 @@ props:
     default: {}
     type: Object
 
-  icon:
-    desc: Ícone do botão.
-    default: sym_r_more_vert
-    type: String
-    examples: [start, end, between, around, center]
-
   list:
     desc: Lista de items que vão ser criados dentro do menu de ações.
     default: '{}'
     type: Object
     examples: [
       "{
-        delete: {
+        visibility: {
           icon: 'sym_r_visibility',
           label: 'Visualizar',
           handler: () => alert('handler ativado')
@@ -43,10 +39,11 @@ props:
       }"
     ]
 
-  use-label-on-small-screen:
-    desc: Esconde o rótulo (label) do botão quando o tamanho da tela for pequeno (esta propriedade só funciona se o "rotulo") for passado via propriedade "label".
-    default: true
-    type: Boolean
+  split-name:
+    desc: propriedade para definir o useSplit, habilita 2 ações diferentes no mesmo componente, separando o mesmo por uma barra, o valor deve ser alguma chave (key) existente na propriedade "list".
+    default: ''
+    type: String
+    examples: [visibility]
 
   use-label:
     desc: Habilita ou não o label no botão.

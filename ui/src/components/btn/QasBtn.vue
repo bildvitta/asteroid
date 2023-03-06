@@ -21,6 +21,16 @@ export default {
       validator: value => ['grey-9', 'primary', 'white'].includes(value)
     },
 
+    icon: {
+      type: String,
+      default: undefined
+    },
+
+    iconRight: {
+      type: String,
+      default: undefined
+    },
+
     useLabelOnSmallScreen: {
       default: true,
       type: Boolean
@@ -76,12 +86,17 @@ export default {
         ...(this.showLabel && { label: this.label }),
 
         ...attributes,
+        icon: this.icon,
+        iconRight: this.iconRight,
         class: [this.classes, externalClass]
       }
     },
 
     hasIconOnly () {
-      return (!this.label || !this.showLabel) && (this.$attrs.icon || this.$attrs.iconRight)
+      return (
+        (!this.label || !this.showLabel) &&
+        ((this.icon && !this.iconRight) || (this.iconRight && !this.icon))
+      )
     },
 
     classes () {

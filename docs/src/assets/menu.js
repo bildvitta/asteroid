@@ -77,6 +77,10 @@ module.exports = [
         path: '/components/button'
       },
       {
+        name: 'BtnDropdown',
+        path: '/components/btn-dropdown'
+      },
+      {
         name: 'Card',
         path: '/components/card'
       },
@@ -263,6 +267,10 @@ module.exports = [
     icon: 'sym_r_settings_input_hdmi',
     name: 'Plugins',
     children: [
+      {
+        name: 'Delete',
+        path: '/plugins/delete'
+      },
       {
         name: 'Dialog',
         path: '/plugins/dialog'
