@@ -17,6 +17,8 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - `QasNumericInput`: modificado o valor padrão da propriedade `use-negative` para `false`. Anteriormente por padrão era possível inserir valores negativos, porém com essa modificação será necessário passar a propriedade `use-negative` como `true` para ter o mesmo comportamento anterior.
 
 ### Adicionado
+- `QasTableGenerator`: Adicionado prop `row-route-fn` caso queira que ao clicar em uma linha, vá para outra rota.
+- `QasTableGenerator`: Adicionado prop `use-external-link` que é usado em conjunto com a prop `row-function-fn` quando há a necessidade da rota ser um link externo.
 - `QasActionsMenu`: adicionado propriedade `splitName` que habilita o useSplit no QBtnDropdown internamente separando 2 ações no componente por uma barra.
 -`Delete.js`: adicionado novo plugin para dar a possibilidade de utilização de deleção de items sem ser pelo uso do componente `QasDelete`, com isto é possível utilizar fora de componentes `vue`.
 - `QasBtnDropdown`: adicionado novo componente semelhante ao QBtnDropdown, porém nossas regras, e estilos.

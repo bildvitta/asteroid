@@ -1,11 +1,17 @@
 <template>
   <qas-box class="q-px-lg q-py-md">
     <q-table ref="table" class="bg-white qas-table-generator text-grey-8" :class="tableClass" v-bind="attributes">
-      <template v-for="(_, name) in $slots" #[name]="context">
-        <slot v-if="hasBodySlot" name="body" :props="context" />
+      <template v-for="(_, name) in slots" #[name]="context">
+        <slot :name="name" v-bind="context" />
+      </template>
 
-        <q-td v-else :key="name">
-          <slot :name="name" v-bind="context || {}" />
+      <template v-for="(fieldName, index) in bodyCellNameSlots" :key="index" #[`body-cell-${fieldName}`]="context">
+        <q-td>
+          <component :is="tdChildComponent" v-bind="getTdChildComponentProps(context.row)">
+            <slot :name="`body-cell-${fieldName}`" v-bind="context || {}">
+              {{ context.row?.[fieldName] }}
+            </slot>
+          </component>
         </q-td>
       </template>
     </q-table>
@@ -24,6 +30,11 @@ export default {
     columns: {
       default: () => [],
       type: Array
+    },
+
+    rowRouteFn: {
+      type: Function,
+      default: undefined
     },
 
     fields: {
@@ -50,6 +61,10 @@ export default {
     useScrollOnGrab: {
       type: Boolean,
       default: true
+    },
+
+    useExternalLink: {
+      type: Boolean
     }
   },
 
@@ -63,6 +78,36 @@ export default {
   },
 
   computed: {
+    tdChildComponent () {
+      if (this.useExternalLink) return 'a'
+
+      return this.rowRouteFn ? 'router-link' : 'span'
+    },
+
+    bodyCellNameSlots () {
+      if (this.hasBodyCellSlot) return []
+
+      return this.columns.length
+        ? this.columns.map(column => typeof column === 'object' ? column.name : column)
+        : Object.keys(this.fields)
+    },
+
+    slots () {
+      const slots = {}
+
+      for (const slotKey in this.$slots) {
+        if (slotKey.includes('body-cell-')) continue
+
+        slots[slotKey] = this.$slots[slotKey]
+      }
+
+      return slots
+    },
+
+    hasBodyCellSlot () {
+      return !!this.$slots['body-cell']
+    },
+
     attributes () {
       const attributes = {
         columns: this.columnsByFields,
@@ -123,14 +168,6 @@ export default {
       return columns
     },
 
-    hasBodySlot () {
-      return !!this.$slots.body
-    },
-
-    hasTbodySlot () {
-      return !!this.$slots.tbody
-    },
-
     hasFields () {
       return Object.keys(this.fields).length
     },
@@ -164,6 +201,10 @@ export default {
 
     hasScrollOnGrab () {
       return !!Object.keys(this.scrollOnGrab).length
+    },
+
+    isScrolling () {
+      return this.hasScrollOnGrab && this.scrollOnGrab.haveMoved()
     }
   },
 
@@ -223,11 +264,6 @@ export default {
       }
     },
 
-    onRowClick () {
-      if (this.hasScrollOnGrab && this.scrollOnGrab.haveMoved()) return
-      this.$attrs.onRowClick(...arguments)
-    },
-
     setObserver () {
       this.elementToObserve = this.getTableElement()
       this.resizeObserver = new ResizeObserver(entries => {
@@ -239,6 +275,27 @@ export default {
 
     destroyObserver () {
       this.resizeObserver.unobserve(this.elementToObserve)
+    },
+
+    getTdChildComponentProps (row) {
+      if (!this.rowRouteFn) return
+
+      return {
+        class: 'text-no-decoration text-grey-8 flex full-width items-center full-height',
+        [this.useExternalLink ? 'href' : 'to']: this.rowRouteFn(row),
+        onClick: this.onRowClickHandler,
+        ...(this.useExternalLink && { target: '_blank' })
+      }
+    },
+
+    onRowClickHandler (event) {
+      if (this.isScrolling) return event.preventDefault()
+    },
+
+    onRowClick () {
+      if (this.isScrolling) return
+
+      this.$attrs.onRowClick(...arguments)
     }
   }
 }

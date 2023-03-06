@@ -36,6 +36,16 @@ props:
     default: true
     type: Boolean
 
+  row-route-fn:
+    desc: Usado quando há a necessidade de alteração de rota ao clicar em um item da tabela(a linha passa ser um <a> habilitando a opção de abrir em uma nova aba).
+    type: Function
+    examples: ["() => ({ name: 'UsersList' })"]
+
+  use-external-link:
+    desc: Usado em conjunto com a prop "row-route-fn" quando há a necessidade da rota ser um link externo.
+    default: false
+    type: Boolean
+
 slots:
   body:
     desc: Acesso direto dentro do `tbody`.
