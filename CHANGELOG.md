@@ -10,6 +10,24 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 ### Sobre os "BREAKING CHANGES"
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
+## Não publicado
+## BREAKING CHANGES
+- `QasPasswordInput`: removido propriedade `iconColor` uma vez que não deve ser possível mudar a cor do ícone.
+- `QasStrengthChecker`: removido model `modelValue` pois não estava sendo repassado para o `QasPasswordInput`.
+
+### Adicionado
+- [`QasPasswordInput`, `QasStrengthChecker`]: model `currentLevel` que retorna o level atual.
+
+### Modificado
+- `QasPasswordInput`: Corrigido `QIcon` que foi substituído para um `QasBtn`.
+
+### Corrigido
+- `QasPasswordInput`: Corrigido slot do hint que texto ficava em cima de conteúdos abaixo do input.
+
+### Removido
+- `QasPasswordInput`: removido propriedade `iconColor` uma vez que não deve ser possível mudar a cor do ícone.
+- `QasStrengthChecker`: removido model `modelValue` pois não estava sendo repassado para o `QasPasswordInput`.
+
 ## [3.7.0-beta.2] - 06-03-2023
 ## BREAKING CHANGES
 - `QasActionsMenu`: removido propriedades [`useLabelOnSmallScreen`, `color`, `icon`] pois agora é possível passar as propriedades para o `buttonProps` e `dropdownIcon`.

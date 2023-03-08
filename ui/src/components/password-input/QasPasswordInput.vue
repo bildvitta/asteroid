@@ -1,7 +1,11 @@
 <template>
-  <qas-input v-model="model" :bottom-slots="hasBottomSlots" v-bind="$attrs" :type="type" use-remove-error-on-type>
+  <qas-input v-model="model" class="qas-password-input" :hide-bottom-space="hideBottomSpace" v-bind="$attrs" :type="type" use-remove-error-on-type>
+    <template #prepend>
+      <q-icon color="grey-8" name="sym_r_lock" />
+    </template>
+
     <template #append>
-      <q-icon class="cursor-pointer" :color="iconColor" :name="icon" @click="toggle" />
+      <qas-btn color="primary" :icon="icon" variant="tertiary" @click="toggle" />
     </template>
 
     <template v-for="(_, name) in $slots" #[name]="context">
@@ -9,7 +13,7 @@
     </template>
 
     <template v-if="hasStrengthChecker" #hint>
-      <qas-password-strength-checker v-bind="strengthCheckerProps" :password="model" />
+      <qas-password-strength-checker v-bind="strengthCheckerProps" :password="model" @update:current-level="updateCurrentLevel" />
     </template>
   </qas-input>
 </template>
@@ -37,18 +41,13 @@ export default {
       type: Boolean
     },
 
-    iconColor: {
-      type: String,
-      default: 'primary'
-    },
-
     modelValue: {
       type: String,
       default: ''
     }
   },
 
-  emits: ['update:modelValue'],
+  emits: ['update:modelValue', 'update:currentLevel'],
 
   data () {
     return {
@@ -72,7 +71,12 @@ export default {
     },
 
     strengthCheckerProps () {
-      const { modelValue, ...props } = this.$props
+      const {
+        modelValue,
+        useStrengthChecker,
+        ...props
+      } = this.$props
+
       return props
     },
 
@@ -86,12 +90,20 @@ export default {
 
     hasStrengthChecker () {
       return this.useStrengthChecker && this.hasBottomSlots
+    },
+
+    hideBottomSpace () {
+      return this.$attrs.error || !!this.model.length
     }
   },
 
   methods: {
     toggle () {
       this.toggleType = !this.toggleType
+    },
+
+    updateCurrentLevel (currentLevel) {
+      this.$emit('update:currentLevel', currentLevel)
     }
   }
 }

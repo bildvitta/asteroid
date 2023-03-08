@@ -37,6 +37,11 @@ const levels = {
 
 export default {
   props: {
+    currentLevel: {
+      default: 0,
+      type: Number
+    },
+
     levels: {
       default: () => levels,
       type: Object

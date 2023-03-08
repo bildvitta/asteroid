@@ -1,8 +1,8 @@
 <template>
   <div v-if="length">
     <slot :level="level">
-      <q-linear-progress :color="level.color" :track-color="trackColor" :value="level.progress" />
-      <div class="text-caption" :class="level.textClass">{{ level.label }}</div>
+      <q-linear-progress :color="level.color" rounded :track-color="trackColor" :value="level.progress" />
+      <div class="q-mt-sm text-subtitle2" :class="level.textClass">{{ level.label }}</div>
     </slot>
   </div>
 </template>
@@ -16,18 +16,13 @@ export default {
   mixins: [passwordMixin],
 
   props: {
-    modelValue: {
-      default: false,
-      type: Boolean
-    },
-
     password: {
       default: '',
       type: String
     }
   },
 
-  emits: ['update:modelValue'],
+  emits: ['update:modelValue', 'update:currentLevel'],
 
   computed: {
     length () {
@@ -64,18 +59,12 @@ export default {
   },
 
   watch: {
-    password () {
-      this.emitValue()
-    }
-  },
+    score: {
+      handler (score) {
+        this.$emit('update:currentLevel', score)
+      },
 
-  created () {
-    this.emitValue()
-  },
-
-  methods: {
-    emitValue () {
-      this.$emit('update:modelValue', this.score === 4)
+      immediate: true
     }
   }
 }
