@@ -1,12 +1,13 @@
 <template>
   <div class="container q-py-lg">
-    <qas-password-input v-model="password" v-model:currentLevel="currentLevel" :error="error" error-message="testeee" label="senha" :strength-checker-props="props" />
+    <qas-password-input v-model="password" v-model:currentLevel="currentLevel" label="Senha" />
 
-    Senha: {{ password }}
-
-    {{ currentLevel }}
-
-    <qas-btn label="teste" @click="error = !error" />
+    <div>
+      Senha: {{ password }}
+    </div>
+    <div>
+      currentLevel: {{ currentLevel }}
+    </div>
   </div>
 </template>
 
@@ -14,17 +15,8 @@
 export default {
   data () {
     return {
-      error: false,
       password: '',
       currentLevel: 0
-    }
-  },
-
-  computed: {
-    props () {
-      return {
-        useNumbers: false
-      }
     }
   }
 }

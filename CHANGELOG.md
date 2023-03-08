@@ -23,6 +23,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 
 ### Corrigido
 - `QasPasswordInput`: Corrigido slot do hint que texto ficava em cima de conteúdos abaixo do input.
+- `QasInput`: corrigido `errorMessage` que não deveria ser resetado ao usar a propriedade `use-remove-error-on-type`.
 
 ### Removido
 - `QasPasswordInput`: removido propriedade `iconColor` uma vez que não deve ser possível mudar a cor do ícone.
