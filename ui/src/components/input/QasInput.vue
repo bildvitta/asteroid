@@ -1,5 +1,5 @@
 <template>
-  <q-input ref="input" v-model="model" bottom-slots :error="errorData" v-bind="$attrs" :error-message="errorMessageData" :mask="mask" :outlined="outlined" :unmasked-value="unmaskedValue" @paste="onPaste">
+  <q-input ref="input" v-model="model" bottom-slots :error="errorData" v-bind="$attrs" :error-message="errorMessage" :mask="mask" :outlined="outlined" :unmasked-value="unmaskedValue" @paste="onPaste">
     <template v-for="(_, name) in $slots" #[name]="context">
       <slot :name="name" v-bind="context || {}" />
     </template>
@@ -47,7 +47,6 @@ export default {
   data () {
     return {
       errorData: false,
-      messageErrorData: '',
       mask: ''
     }
   },
@@ -108,14 +107,6 @@ export default {
       },
 
       immediate: true
-    },
-
-    errorMessage: {
-      handler (value) {
-        this.errorMessageData = value
-      },
-
-      immediate: true
     }
   },
 
@@ -156,7 +147,6 @@ export default {
     handleErrors () {
       if (this.useRemoveErrorOnType && this.error) {
         this.errorData = false
-        this.errorMessageData = ''
       }
     },
 
