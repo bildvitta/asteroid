@@ -10,7 +10,7 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 ### Sobre os "BREAKING CHANGES"
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
-## Não publicado
+## [3.7.0-beta.3] - 09-03-2023
 ## BREAKING CHANGES
 - `QasPasswordInput`: removido propriedade `iconColor` uma vez que não deve ser possível mudar a cor do ícone.
 - `QasPasswordStrengthChecker`: removido model `modelValue` pois não estava sendo repassado para o `QasPasswordInput`.
@@ -1119,3 +1119,4 @@ Adicionado suporte para Pinia/Vuex Seguindo os padrões da biblioteca `@bildvitt
 [3.7.0-beta.0]: https://github.com/bildvitta/asteroid/compare/v3.6.0...v3.7.0-beta.0?expand=1
 [3.7.0-beta.1]: https://github.com/bildvitta/asteroid/compare/v3.7.0-beta.0...v3.7.0-beta.1?expand=1
 [3.7.0-beta.2]: https://github.com/bildvitta/asteroid/compare/v3.7.0-beta.1...v3.7.0-beta.2?expand=1
+[3.7.0-beta.3]: https://github.com/bildvitta/asteroid/compare/v3.7.0-beta.2...v3.7.0-beta.3?expand=1
