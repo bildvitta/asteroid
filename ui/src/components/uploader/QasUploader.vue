@@ -30,7 +30,7 @@
         <slot name="list" :scope="scope">
           <div class="col-12 q-col-gutter-md row">
             <div v-for="(file, index) in getFilesList(scope.files, scope)" :key="index" class="row" :class="itemClass">
-              <qas-avatar class="q-mr-sm" color="primary" icon="sym_r_attach_file" :image="file.url" rounded :text-color="getColorFileIcon(file)" />
+              <qas-avatar class="q-mr-sm" :color="avatarColor" icon="sym_r_attach_file" :image="file.url" rounded />
 
               <div class="col items-center no-wrap row">
                 <div class="column no-wrap" :class="{ col: isMultiple }">
@@ -85,6 +85,11 @@ export default {
         'image/jpg'
       ],
       type: Array
+    },
+
+    avatarColor: {
+      type: String,
+      default: 'primary'
     },
 
     entity: {
@@ -369,10 +374,6 @@ export default {
 
     isFailed (file) {
       return file.__status === 'failed'
-    },
-
-    getColorFileIcon (file) {
-      return this.isFailed(file) ? 'negative' : 'white'
     },
 
     async addFiles () {
