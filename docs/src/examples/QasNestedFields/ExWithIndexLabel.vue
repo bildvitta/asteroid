@@ -3,17 +3,13 @@
     <div class="full-width">
       <div class="q-mt-lg text-center">
         <div>
-          <qas-nested-fields v-model="model" class="full-width" :field="nested" :fields-props="fieldsProps" :form-columns="formColumns" row-label="Minha linha" :row-object="rowObject" :use-duplicate="false" use-index-label :use-remove-on-destroy="true" :use-starts-empty="false" />
+          <qas-nested-fields v-model="model" class="full-width" :field="nested" :fields-props="fieldsProps" :form-columns="formColumns" row-label="Minha linha" :row-object="rowObject" :use-duplicate="false" use-index-label :use-remove-on-destroy="false" :use-starts-empty="false" />
         </div>
 
         <div class="q-my-lg">
           Model: <qas-debugger :inspect="[model]" />
-          <!-- <pre>{{ model }}</pre> -->
-          <!-- <pre>{{ model.filter(item => !item.destroyed) }}</pre> -->
         </div>
       </div>
-
-      <qas-btn label="me clica ai bro" @click="model.push({ teste: 'eae man', destroyed: true })" />
     </div>
   </div>
 </template>

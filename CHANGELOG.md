@@ -11,8 +11,12 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
 ## Não publicado
+### BREAKING CHANGE
+- `QasNestedFields`: mudanças de model no componente, pode ter breaking changes.
+
 ### Corrigido
 - `QasNestedFields`: corrigido disposição da label quando existe a prop `useSingleLabel`, estava alinhada a esquerda quando deveria ser aliado a direita.
+- `QasNestedFields`: corrigido model do componente para quando a prop `useRemoveOnDestroy` for false.
 
 ## [3.7.0-beta.3] - 09-03-2023
 ## BREAKING CHANGES

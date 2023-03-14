@@ -296,15 +296,6 @@ export default {
     },
 
     nested () {
-      // const model = [...this.modelValue]
-
-      // for (const key in this.destroyKeyList) {
-      //   const index = model.findIndex(item => item.uuid === key)
-
-      //   model.splice(index, 1)
-      // }
-
-      // return model
       return this.modelValue.filter(item => !item[this.destroyKey])
     },
 
