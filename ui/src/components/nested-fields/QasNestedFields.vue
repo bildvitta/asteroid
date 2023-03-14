@@ -7,12 +7,12 @@
     <div ref="inputContent">
       <component :is="componentTag" v-bind="componentProps">
         <div v-for="(row, index) in nested" :id="`row-${index}`" :key="`row-${index}`" class="full-width">
-          <div v-if="!row[destroyKey]" :key="index" class="col-12 q-mt-md">
+          <div :key="index" class="col-12 q-mt-md">
             <div>
-              <div class="flex items-center justify-between q-py-md">
+              <header class="flex items-center q-py-md" :class="headerClasses">
                 <qas-label v-if="!useSingleLabel" :label="getRowLabel(index)" />
                 <qas-actions-menu v-if="hasBlockActions(row)" v-bind="actionsMenuProps" :list="getActionsList(index, row)" />
-              </div>
+              </header>
 
               <div ref="formGenerator" class="col-12 justify-between q-col-gutter-x-md row">
                 <slot :errors="transformedErrors" :fields="children" :index="index" name="fields" :update-value="updateValuesFromInput">
@@ -70,7 +70,6 @@ import QasLabel from '../label/QasLabel.vue'
 import { TransitionGroup } from 'vue'
 
 import { constructObject } from '../../helpers'
-import { extend } from 'quasar'
 
 export default {
   name: 'QasNestedFields',
@@ -242,7 +241,7 @@ export default {
 
   data () {
     return {
-      nested: [],
+      destroyKeyList: {},
       hasDestroyAlways: true
     }
   },
@@ -290,18 +289,31 @@ export default {
 
     showAddFirstInputButton () {
       return this.useFirstInputButton && !this.nested.length
+    },
+
+    headerClasses () {
+      return this.useSingleLabel ? 'justify-end' : 'justify-between'
+    },
+
+    nested () {
+      // const model = [...this.modelValue]
+
+      // for (const key in this.destroyKeyList) {
+      //   const index = model.findIndex(item => item.uuid === key)
+
+      //   model.splice(index, 1)
+      // }
+
+      // return model
+      return this.modelValue.filter(item => !item[this.destroyKey])
+    },
+
+    hasDestroyKeyList () {
+      return !!Object.keys(this.destroyKeyList).length
     }
   },
 
   watch: {
-    modelValue: {
-      handler (value) {
-        this.nested = extend(true, [], value)
-      },
-      deep: true,
-      immediate: true
-    },
-
     rowObject: {
       handler () {
         this.setDefaultNestedValue()
@@ -367,15 +379,13 @@ export default {
       return this.updateModelValue()
     },
 
-    setFocus () {
+    async setFocus () {
+      await this.$nextTick()
+
       const { formGenerator } = this.$refs
       const firstElementToBeFocused = formGenerator.pop().querySelector('input, select, textarea')
 
       return firstElementToBeFocused?.focus && firstElementToBeFocused.focus()
-    },
-
-    updateModelValue (value) {
-      return this.$emit('update:modelValue', value || this.nested)
     },
 
     /*
@@ -387,19 +397,43 @@ export default {
     * ao invés de adicionar a flag [destroyKey]
     */
     destroy (index, row) {
-      !row[this.identifierItemKey] || this.useRemoveOnDestroy
-        ? this.nested.splice(index, 1)
-        : this.nested.splice(index, 1, { [this.destroyKey]: true, ...row })
+      if (!row[this.identifierItemKey] || this.useRemoveOnDestroy) {
+        this.nested.splice(index, 1)
+      } else {
+        const [removedRow] = this.nested.splice(index, 1)
+        this.destroyKeyList[row[this.identifierItemKey]] = { row: removedRow, index }
+      }
 
       this.$qas.logger.group('QasNestedFields - destroy', [{ index, row }])
 
       return this.updateModelValue()
     },
 
+    updateModelValue (value) {
+      const nested = [...this.nested]
+
+      if (value) {
+        this.destroyKeyList = {}
+        this.$emit('update:modelValue', value)
+
+        return
+      }
+
+      if (this.hasDestroyKeyList) {
+        for (const key in this.destroyKeyList) {
+          const { row, index } = this.destroyKeyList[key]
+
+          nested.splice(index, 0, { ...row, [this.destroyKey]: true })
+        }
+      }
+
+      this.$emit('update:modelValue', nested)
+    },
+
     updateValuesFromInput (value, index) {
       this.nested.splice(index, 1, value)
 
-      return this.updateModelValue(null, index)
+      return this.updateModelValue()
     },
 
     setDefaultNestedValue () {
