@@ -12,11 +12,18 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 
 ## Não publicado
 ### BREAKING CHANGE
-- `QasNestedFields`: mudanças de model no componente, pode ter breaking changes, principalmente se utilizado a propriedade `:use-remove-on-destroy=false`.
+- `QasNestedFields`: mudanças de model no componente, pode ter breaking changes, principalmente se utilizado a propriedade `:use-remove-on-destroy="false"`.
+
+### Adicionado
+- `QasUploader`: adicionado nova propriedade `avatarColor`.
+
+### Modificado
+- `QasSignatureUploader`: repassando propriedade `avatar-color="secondary-contrast" ` para o QasUploader.
 
 ### Corrigido
 - `QasNestedFields`: corrigido disposição da label quando existe a prop `useSingleLabel`, estava alinhada a esquerda quando deveria ser aliado a direita.
 - `QasNestedFields`: corrigido model do componente para quando a prop `useRemoveOnDestroy` for false.
+- `docs/src/pages/helpers/filters.md`: corrigido doc.
 
 ## [3.7.0-beta.3] - 09-03-2023
 ## BREAKING CHANGES

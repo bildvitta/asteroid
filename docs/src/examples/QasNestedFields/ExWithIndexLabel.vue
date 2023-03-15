@@ -120,12 +120,6 @@ export default {
         }
       }
     }
-  },
-
-  methods: {
-    onUpdateModelValue (value) {
-      // console.log('atualizadoooo', value)
-    }
   }
 }
 </script>
