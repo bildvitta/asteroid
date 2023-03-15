@@ -350,7 +350,7 @@ export default {
       return list
     },
 
-    async add (row = {}) {
+    add (row = {}) {
       const payload = { ...this.rowObject, ...row }
       const hasIdentifierKey = payload[this.identifierItemKey]
 
@@ -367,7 +367,7 @@ export default {
 
       this.$qas.logger.group('QasNestedFields - add', [payload])
 
-      return this.updateModelValue()
+      this.updateModelValue()
     },
 
     /*
@@ -387,7 +387,7 @@ export default {
 
       this.$qas.logger.group('QasNestedFields - destroy', [{ index, row }])
 
-      return this.updateModelValue()
+      this.updateModelValue()
     },
 
     updateModelValue () {
