@@ -69,8 +69,6 @@ import QasInput from '../input/QasInput.vue'
 import QasLabel from '../label/QasLabel.vue'
 import { TransitionGroup } from 'vue'
 
-import { extend } from 'quasar'
-
 import { constructObject } from '../../helpers'
 
 export default {
