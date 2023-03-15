@@ -1,50 +1,37 @@
 <template>
   <q-field borderless class="qas-uploader" :error="hasErrorMessage" :error-message="errorMessage" :hint="hintValue" no-error-icon>
-    <q-uploader ref="uploader" auto-upload bordered :class="uploaderClasses" :factory="factory" flat :max-files="maxFiles" method="PUT" :readonly="readonly" v-bind="attributes" @factory-failed="factoryFailed" @uploaded="uploaded" @uploading="updateUploading(true)">
-      <template #header="scope">
-        <slot name="header" :scope="scope">
-          <div class="flex flex-center full-width justify-between no-border no-wrap q-gutter-xs q-pa-sm text-white transparent">
-            <q-spinner v-if="scope.isUploading" size="24px" />
-
-            <div class="col column items-start justify-center">
-              <div v-if="$attrs.label" class="q-uploader__title">{{ $attrs.label }}</div>
-              <div v-if="scope.files.length" class="q-uploader__subtitle">
-                {{ scope.uploadProgressLabel }} ({{ scope.uploadSizeLabel }})
-              </div>
-            </div>
-
-            <qas-btn v-if="showAddFile" ref="buttonUpload" color="white" icon="sym_r_add" :use-hover-on-white-color="false" variant="tertiary" @click="$refs.hiddenInput.click()" />
-
-            <input ref="hiddenInput" :accept="attributes.accept" class="qas-uploader__input" :multiple="isMultiple" type="file">
-
-            <qas-btn ref="buttonCleanFiles" class="hidden" @click="scope.removeUploadedFiles" />
-
-            <qas-btn v-if="scope.canUpload" color="white" icon="sym_r_cloud_upload" :use-hover-on-white-color="false" variant="tertiary" @click="scope.upload" />
-
-            <qas-btn v-if="scope.isUploading" color="white" icon="sym_r_clear" :use-hover-on-white-color="false" variant="tertiary" @click="scope.abort" />
-          </div>
-        </slot>
-      </template>
+    <q-uploader ref="uploader" auto-upload :class="uploaderClasses" :factory="factory" flat :max-files="maxFiles" method="PUT" :readonly="readonly" v-bind="attributes" @factory-failed="factoryFailed" @uploaded="uploaded" @uploading="updateUploading(true)">
+      <template #header />
 
       <template #list="scope">
-        <slot name="list" :scope="scope">
-          <div class="col-12 q-col-gutter-md row">
-            <div v-for="(file, index) in getFilesList(scope.files, scope)" :key="index" class="row" :class="itemClass">
-              <qas-avatar class="q-mr-sm" color="primary" icon="sym_r_attach_file" :image="file.url" rounded :text-color="getColorFileIcon(file)" />
+        <!-- <pre>{{ scope }}</pre> -->
+        <input ref="hiddenInput" :accept="attributes.accept" class="qas-uploader__input" :multiple="isMultiple" type="file">
 
-              <div class="col items-center no-wrap row">
-                <div class="column no-wrap" :class="{ col: isMultiple }">
-                  <div class="ellipsis" :class="getFileNameClass(file.isFailed)">{{ file.name }}</div>
-                  <div v-if="file.isUploaded" class="text-caption">{{ file.progressLabel }} ({{ file.sizeLabel }})</div>
+        <div v-if="modelValue.length" class="q-col-gutter-lg row">
+          <div v-for="(file, key, index) in getFilesList(scope.files, scope)" :key="index" class="col-6">
+            <div class="bg-white q-pa-md rounded-borders shadow-2">
+              <div class="flat items-center justify-between no-wrap q-mb-xs row text-grey-9">
+                <div class="ellipsis q-mr-xs qas-gallery__name">
+                  <slot v-if="file.name" name="header">
+                    {{ file.name }}
+                  </slot>
                 </div>
-                <div class="items-center q-ml-sm row">
-                  <q-icon v-if="file.isFailed" color="negative" name="sym_r_warning" size="20px" />
-                  <qas-btn v-if="!scope.readonly" color="grey-9" icon="sym_r_delete" variant="tertiary" @click="removeItem(index, scope, file)" />
-                </div>
+              </div>
+
+              <q-img class="cursor-pointer rounded-borders" height="150px" :src="file.url" />
+
+              <div class="q-mt-md">
+                <slot :index="index" name="card-content" :update-model="updateModelValue" :value="modelValue[index]">
+                  <qas-form-generator v-bind="defaultFormGeneratorProps" :model-value="modelValue[index]" @update:model-value="updateModelValue({ index, payload: $event })" />
+                </slot>
               </div>
             </div>
           </div>
-        </slot>
+        </div>
+
+        <div class="q-mt-xl">
+          <qas-btn color="primary" icon="sym_r_add" label="Adicionar novo arquivo" variant="tertiary" @click="$refs.hiddenInput.click()" />
+        </div>
       </template>
     </q-uploader>
 
@@ -57,20 +44,22 @@
 </template>
 
 <script>
-import QasAvatar from '../avatar/QasAvatar.vue'
-
 import { uid, extend } from 'quasar'
 import { NotifyError } from '../../plugins'
 import { getImageSize, getResizeDimensions } from '../../helpers/images'
 
 import Pica from 'pica'
 
+// TODO remover
+import axios from 'axios'
+
+const token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiJhZjY0Y2Q1Zi00OTlmLTExZWQtOTdjYy0wMmMxMWVlNThhODciLCJqdGkiOiIyNTE3NjdiMTdkY2RlZmIzZGQ0ZDA2ZGQ1NTEyNzNhYTBiMTIyMTNlZTNjMGY3MWNhZjczYjk4MDdmMzQ0ZWNmN2M0ZDg3YWNjMDU0NDUzYyIsImlhdCI6MTY3ODQ2NDk4NS4xMjI5LCJuYmYiOjE2Nzg0NjQ5ODUuMTIyOTAyLCJleHAiOjE3MTAwODczODUuMTA0NTA3LCJzdWIiOiI3NTYwNCIsInNjb3BlcyI6WyJwcm9maWxlIl19.jRIEGag_OgKRRD7QwP934B0ZExOgQ8lrUFMzrzcEfTIve2eHEiAcdseLXBr23onBQ2WWHSBZu_I2En2GCvjlH7iKWiMrHfpHUTdnEL__Umln20zTNhD0ze3xltS74vgAJcwRA_WQ7KaZk83li819XZ1C08hPU59I1rJqsNDoPimdkKssaeMkB_Jk2c08CgPqcJLWbR3jASbdw1mdZBn-q-TO7rzQqvaDWqwL-2YLmbk_vYnawdX1N3rqt-8bWfPgNzHCSiymdw9PQNHOCIOcxxgjMVASag-538aX85fDF0tGff5GlWmkhHeEoiWP5f5tdsLAnBoV4p-LxWRyBnnibgeeW39JsZiUv9dRnmsM2fl0BWeRROu6P8x8gBfV8OGIG9LIIzusVABSTrqoIMYkmfsrD34QQ9F3dvMltpKRxfL_7mouC4JybU1RHiWq0wyVkEFFt_dRTvjQoGL7ovKopvtkXO0DMveyFM7Gxxu37IbEn8eezMekAkFaK6uIPSh32wwTqHa3AffJPt7sU25uNKOwjKNLwZyrboECcFAM4lBlX2J8fe1bdwN4qKBOy8Tos34mgCKYqlMSRO20e73__tjP7cERm23F9J3jgmDnbeQvc6USt_0uCIcR5Qeewl0fCZmRw1HC3pjISF86IgKziQt5Zgm0ctt-x0PDGkwK2SY'
+
+axios.defaults.baseURL = 'https://server-assistencia-tecnica.modular.dev.br/api/'
+axios.defaults.headers.Authorization = `Bearer ${token}`
+
 export default {
   name: 'QasUploader',
-
-  components: {
-    QasAvatar
-  },
 
   inheritAttrs: false,
 
@@ -95,6 +84,11 @@ export default {
     errorMessage: {
       default: '',
       type: String
+    },
+
+    formGeneratorProps: {
+      default: () => ({}),
+      type: Object
     },
 
     hint: {
@@ -147,7 +141,21 @@ export default {
       isFetching: false,
       isUploading: false,
       hiddenInputElement: null,
-      uploader: null
+      uploader: null,
+      images: [
+        'https://via.placeholder.com/200x300/ff0000/969696',
+        'https://via.placeholder.com/200x300/09ff00/969696',
+        'https://via.placeholder.com/200x300/0044ff/969696',
+        'https://via.placeholder.com/200x300/ff0000/969696',
+        'https://via.placeholder.com/200x300/09ff00/969696',
+        'https://via.placeholder.com/200x300/0044ff/969696',
+        'https://via.placeholder.com/200x300/ff0000/969696',
+        'https://via.placeholder.com/200x300/09ff00/969696',
+        'https://via.placeholder.com/200x300/0044ff/969696',
+        'https://via.placeholder.com/200x300/ff0000/969696',
+        'https://via.placeholder.com/200x300/09ff00/969696',
+        'https://via.placeholder.com/200x300/0044ff/969696'
+      ]
     }
   },
 
@@ -204,6 +212,30 @@ export default {
         unsharpThreshold: 1,
         ...this.picaResizeOptions
       }
+    },
+
+    defaultFormGeneratorProps () {
+      return {
+        columns: this.defaultFormGeneratorColumns,
+        ...this.formGeneratorProps
+      }
+    },
+
+    hasFormGenerator () {
+      return !!Object.keys(this.formGeneratorProps).length
+    },
+
+    defaultFormGeneratorColumns () {
+      if (!this.hasFormGenerator) return
+
+      const columns = {}
+      const { fields } = this.formGeneratorProps || {}
+
+      for (const key in fields) {
+        columns[key] = { col: 12 }
+      }
+
+      return columns
     }
   },
 
@@ -269,7 +301,9 @@ export default {
       this.isFetching = true
 
       try {
-        const { data } = await this.$axios.post('/upload-credentials/', {
+        // TODO voltar código comentado
+        const { data } = await axios.post('/upload-credentials/', {
+          // const { data } = await this.$axios.post('/upload-credentials/', {
           entity: this.entity,
           filename
         })
@@ -297,6 +331,7 @@ export default {
       }
 
       const clonedValue = extend(true, [], this.modelValue)
+
       const numberIndex = this.modelValue.findIndex(file => {
         if (this.useObjectModel) {
           return file.uuid === index || file.url.includes(index)
@@ -438,6 +473,17 @@ export default {
 
     updateUploading (uploading) {
       this.$emit('update:uploading', uploading)
+    },
+
+    updateModelValue ({ index, payload = {} }) {
+      if (!this.useObjectModel) return
+
+      const modelValue = [...this.modelValue]
+      const value = modelValue[index]
+
+      modelValue[index] = { ...value, ...payload }
+
+      this.$emit('update:modelValue', modelValue)
     }
   }
 }
@@ -447,6 +493,18 @@ export default {
 .qas-uploader {
   &__input {
     display: none;
+  }
+
+  .q-uploader {
+    max-height: 100%;
+  }
+
+  .q-uploader__list {
+    padding: 0;
+
+    &.scroll {
+      overflow: unset;
+    }
   }
 }
 </style>
