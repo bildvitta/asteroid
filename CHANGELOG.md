@@ -12,7 +12,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 
 ## Não publicado
 ### BREAKING CHANGE
-- `QasNestedFields`: mudanças de model no componente, pode ter breaking changes.
+- `QasNestedFields`: mudanças de model no componente, pode ter breaking changes, principalmente se utilizado a propriedade `:use-remove-on-destroy=false`.
 
 ### Corrigido
 - `QasNestedFields`: corrigido disposição da label quando existe a prop `useSingleLabel`, estava alinhada a esquerda quando deveria ser aliado a direita.

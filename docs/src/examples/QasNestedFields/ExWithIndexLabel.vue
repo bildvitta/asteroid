@@ -3,7 +3,7 @@
     <div class="full-width">
       <div class="q-mt-lg text-center">
         <div>
-          <qas-nested-fields v-model="model" class="full-width" :field="nested" :fields-props="fieldsProps" :form-columns="formColumns" row-label="Minha linha" :row-object="rowObject" :use-duplicate="false" use-index-label :use-remove-on-destroy="false" :use-starts-empty="false" />
+          <qas-nested-fields v-model="model" class="full-width" :field="nested" :fields-props="fieldsProps" :form-columns="formColumns" row-label="Minha linha" :row-object="rowObject" use-destroy-always :use-duplicate="false" use-index-label :use-remove-on-destroy="false" :use-starts-empty="false" @update:model-value="onUpdateModelValue" />
         </div>
 
         <div class="q-my-lg">
@@ -57,7 +57,6 @@ export default {
       nested: nested,
       model: [
         {
-          destroyed: false,
           name: 'meu-uuid',
           email: '',
           cities: [],
@@ -120,6 +119,12 @@ export default {
           label: 'Novo label'
         }
       }
+    }
+  },
+
+  methods: {
+    onUpdateModelValue (value) {
+      // console.log('atualizadoooo', value)
     }
   }
 }

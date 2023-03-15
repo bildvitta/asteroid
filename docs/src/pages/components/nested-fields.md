@@ -66,11 +66,11 @@ Componente para gerar dinamicamente campos nested.
 
 ## Uso
 
-<!-- <doc-example file="QasNestedFields/Basic" title="Básico" />
+<doc-example file="QasNestedFields/Basic" title="Básico" />
 <doc-example file="QasNestedFields/StartsEmptyFalse" title="Começando com formulário" />
 <doc-example file="QasNestedFields/DisabledRows" title="Linhas desabilitadas" />
 <doc-example file="QasNestedFields/InlineActions" title="Propriedade useInlineActions" />
-<doc-example file="QasNestedFields/SlotDynamic" title="Slot field-[nome-da-chave]" /> -->
-<!-- <doc-example file="QasNestedFields/SlotFields" title="Slot fields" /> -->
-<!-- <doc-example file="QasNestedFields/SlotAddInput" title="Slot add-input" /> -->
+<doc-example file="QasNestedFields/SlotDynamic" title="Slot field-[nome-da-chave]" />
+<doc-example file="QasNestedFields/SlotFields" title="Slot fields" />
+<doc-example file="QasNestedFields/SlotAddInput" title="Slot add-input" />
 <doc-example file="QasNestedFields/ExWithIndexLabel" title="Com index no label" />

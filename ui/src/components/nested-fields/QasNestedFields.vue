@@ -69,6 +69,8 @@ import QasInput from '../input/QasInput.vue'
 import QasLabel from '../label/QasLabel.vue'
 import { TransitionGroup } from 'vue'
 
+import { extend } from 'quasar'
+
 import { constructObject } from '../../helpers'
 
 export default {
@@ -350,7 +352,7 @@ export default {
       return list
     },
 
-    add (row = {}) {
+    async add (row = {}) {
       const payload = { ...this.rowObject, ...row }
       const hasIdentifierKey = payload[this.identifierItemKey]
 
@@ -370,15 +372,6 @@ export default {
       return this.updateModelValue()
     },
 
-    async setFocus () {
-      await this.$nextTick()
-
-      const { formGenerator } = this.$refs
-      const firstElementToBeFocused = formGenerator.pop().querySelector('input, select, textarea')
-
-      return firstElementToBeFocused?.focus && firstElementToBeFocused.focus()
-    },
-
     /*
     * Se o item que for removido não tiver o identificador (uuid por ex) e "useRemoveOnDestroy" for "false"
     * ou "useRemoveOnDestroy" for "true" removemos o item do array, senão adicionamos a flag [destroyKey]
@@ -388,10 +381,9 @@ export default {
     * ao invés de adicionar a flag [destroyKey]
     */
     destroy (index, row) {
-      if (!row[this.identifierItemKey] || this.useRemoveOnDestroy) {
-        this.nested.splice(index, 1)
-      } else {
-        const [removedRow] = this.nested.splice(index, 1)
+      const [removedRow] = this.nested.splice(index, 1)
+
+      if (!this.useRemoveOnDestroy && row[this.identifierItemKey]) {
         this.destroyKeyList[row[this.identifierItemKey]] = { row: removedRow, index }
       }
 
@@ -400,15 +392,8 @@ export default {
       return this.updateModelValue()
     },
 
-    updateModelValue (value) {
+    updateModelValue () {
       const nested = [...this.nested]
-
-      if (value) {
-        this.destroyKeyList = {}
-        this.$emit('update:modelValue', value)
-
-        return
-      }
 
       if (this.hasDestroyKeyList) {
         for (const key in this.destroyKeyList) {
@@ -442,6 +427,15 @@ export default {
         behavior: 'smooth',
         top: pageOffset + top
       })
+    },
+
+    async setFocus () {
+      await this.$nextTick()
+
+      const { formGenerator } = this.$refs
+      const firstElementToBeFocused = formGenerator.pop().querySelector('input, select, textarea')
+
+      return firstElementToBeFocused?.focus && firstElementToBeFocused.focus()
     },
 
     getRowLabel (rowKey) {
