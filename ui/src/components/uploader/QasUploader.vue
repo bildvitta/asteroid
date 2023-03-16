@@ -1,36 +1,32 @@
 <template>
   <q-field borderless class="qas-uploader" :error="hasErrorMessage" :error-message="errorMessage" :hint="hintValue" no-error-icon>
     <q-uploader ref="uploader" auto-upload :class="uploaderClasses" :factory="factory" flat :max-files="maxFiles" method="PUT" :readonly="readonly" v-bind="attributes" @factory-failed="factoryFailed" @uploaded="uploaded" @uploading="updateUploading(true)">
-      <template #header />
+      <template #header="scope">
+        <div class="flex items-center justify-between q-mb-xl">
+          <div class="text-subtitle1">Documentos</div>
 
-      <template #list="scope">
-        <!-- <pre>{{ scope }}</pre> -->
-        <input ref="hiddenInput" :accept="attributes.accept" class="qas-uploader__input" :multiple="isMultiple" type="file">
-
-        <div v-if="modelValue.length" class="q-col-gutter-lg row">
-          <div v-for="(file, key, index) in getFilesList(scope.files, scope)" :key="index" class="col-6">
-            <div class="bg-white q-pa-md rounded-borders shadow-2">
-              <div class="flat items-center justify-between no-wrap q-mb-xs row text-grey-9">
-                <div class="ellipsis q-mr-xs qas-gallery__name">
-                  <slot v-if="file.name" name="header">
-                    {{ file.name }}
-                  </slot>
-                </div>
-              </div>
-
-              <q-img class="cursor-pointer rounded-borders" height="150px" :src="file.url" />
-
-              <div class="q-mt-md">
-                <slot :index="index" name="card-content" :update-model="updateModelValue" :value="modelValue[index]">
-                  <qas-form-generator v-bind="defaultFormGeneratorProps" :model-value="modelValue[index]" @update:model-value="updateModelValue({ index, payload: $event })" />
-                </slot>
-              </div>
-            </div>
+          <div>
+            <qas-btn color="primary" icon="sym_r_add" label="Adicionar novo arquivo" variant="tertiary" @click="$refs.hiddenInput.click()" />
           </div>
         </div>
 
-        <div class="q-mt-xl">
-          <qas-btn color="primary" icon="sym_r_add" label="Adicionar novo arquivo" variant="tertiary" @click="$refs.hiddenInput.click()" />
+        <!-- ------------------------------------ tags hidden -------------------------------------- -->
+        <input ref="hiddenInput" :accept="attributes.accept" class="qas-uploader__input" :multiple="isMultiple" type="file">
+        <qas-btn ref="buttonCleanFiles" class="hidden" @click="scope.removeUploadedFiles" />
+      </template>
+
+      <template #list="scope">
+        <div v-if="modelValue" class="q-col-gutter-lg row">
+          <div v-for="(file, key, index) in getFilesList(scope.files, scope)" :key="index" class="col-6">
+            <pv-uploader-gallery-card v-bind="getUploaderGalleryCardProps({ key, scope, file, index })" />
+            <!-- <qas-gallery-card :card="file" v-bind="getGalleryCardProps(key, scope, file)">
+              <template #bottom>
+                <slot :index="index" name="card-content" :update-model="updateModelValue" :value="modelValue[index]">
+                  <qas-form-generator v-bind="defaultFormGeneratorProps" :model-value="getModelValue(index)" @update:model-value="updateModelValue({ index, payload: $event })" />
+                </slot>
+              </template>
+            </qas-gallery-card> -->
+          </div>
         </div>
       </template>
     </q-uploader>
@@ -46,9 +42,11 @@
 <script>
 import { uid, extend } from 'quasar'
 import { NotifyError } from '../../plugins'
-import { getImageSize, getResizeDimensions } from '../../helpers/images'
-
+import { getImageSize, getResizeDimensions } from '../../helpers/images.js'
+import downloadFile from '../../helpers/download-file.js'
 import Pica from 'pica'
+
+import PvUploaderGalleryCard from './private/PvUploaderGalleryCard.vue'
 
 // TODO remover
 import axios from 'axios'
@@ -60,6 +58,10 @@ axios.defaults.headers.Authorization = `Bearer ${token}`
 
 export default {
   name: 'QasUploader',
+
+  components: {
+    PvUploaderGalleryCard
+  },
 
   inheritAttrs: false,
 
@@ -122,7 +124,7 @@ export default {
 
     modelValue: {
       default: '',
-      type: [Array, String]
+      type: [String, Array, Object]
     },
 
     uploading: {
@@ -130,6 +132,15 @@ export default {
     },
 
     useObjectModel: {
+      type: Boolean
+    },
+
+    useDownload: {
+      default: true,
+      type: Boolean
+    },
+
+    useEdit: {
       type: Boolean
     }
   },
@@ -142,20 +153,7 @@ export default {
       isUploading: false,
       hiddenInputElement: null,
       uploader: null,
-      images: [
-        'https://via.placeholder.com/200x300/ff0000/969696',
-        'https://via.placeholder.com/200x300/09ff00/969696',
-        'https://via.placeholder.com/200x300/0044ff/969696',
-        'https://via.placeholder.com/200x300/ff0000/969696',
-        'https://via.placeholder.com/200x300/09ff00/969696',
-        'https://via.placeholder.com/200x300/0044ff/969696',
-        'https://via.placeholder.com/200x300/ff0000/969696',
-        'https://via.placeholder.com/200x300/09ff00/969696',
-        'https://via.placeholder.com/200x300/0044ff/969696',
-        'https://via.placeholder.com/200x300/ff0000/969696',
-        'https://via.placeholder.com/200x300/09ff00/969696',
-        'https://via.placeholder.com/200x300/0044ff/969696'
-      ]
+      addedFiles: {}
     }
   },
 
@@ -236,6 +234,18 @@ export default {
       }
 
       return columns
+    },
+
+    hasAddedFiles () {
+      return !!Object.keys(this.addedFiles).length
+    },
+
+    useCardContent () {
+      return this.$slots['card-content'] || (this.hasFormGenerator && this.hasAddedFiles)
+    },
+
+    hasEdit () {
+      return this.useEdit || true
     }
   },
 
@@ -289,6 +299,10 @@ export default {
       }
 
       const model = this.useObjectModel ? objectValue : fullPath
+
+      if (this.useObjectModel) {
+        this.addedFiles[objectValue.name] = true
+      }
 
       this.$emit('update:modelValue', this.isMultiple ? [...this.modelValue, model] : model || '')
 
@@ -478,12 +492,83 @@ export default {
     updateModelValue ({ index, payload = {} }) {
       if (!this.useObjectModel) return
 
-      const modelValue = [...this.modelValue]
-      const value = modelValue[index]
+      console.log(index, payload)
 
-      modelValue[index] = { ...value, ...payload }
+      if (this.isMultiple) {
+        const modelValue = [...this.modelValue]
+        const value = modelValue[index]
 
-      this.$emit('update:modelValue', modelValue)
+        modelValue[index] = { ...value, ...payload }
+
+        this.$emit('update:modelValue', modelValue)
+
+        return
+      }
+
+      this.$emit('update:modelValue', { ...this.modelValue, ...payload })
+    },
+
+    getModelValue (index) {
+      if (!this.useObjectModel) return {}
+
+      return this.isMultiple ? this.modelValue[index] : this.modelValue
+    },
+
+    getUploaderGalleryCardProps ({ key, scope, file, index }) {
+      return {
+        formGeneratorProps: this.getFormGeneratorProps({ index }),
+        galleryCardProps: this.getGalleryCardProps({ key, scope, file })
+      }
+    },
+
+    getFormGeneratorProps ({ index }) {
+      return {
+        ...this.defaultFormGeneratorProps,
+        modelValue: this.getModelValue(index),
+
+        'onUpdate:modelValue': value => this.updateModelValue({ index, payload: value })
+      }
+    },
+
+    getGalleryCardProps ({ key, scope, file }) {
+      const hasEdit = !this.addedFiles[file.name]
+
+      return {
+        actionsMenuProps: {
+          list: {
+            ...(
+              this.hasEdit && hasEdit &&
+              {
+                edit: {
+                  label: 'Editar',
+                  icon: 'sym_r_edit',
+                  handler: () => this.$qas.dialog({ card: { title: 'Qualé!!' } })
+                }
+              }
+            ),
+
+            ...(
+              this.useDownload &&
+              {
+                download: {
+                  label: 'Baixar arquivo',
+                  icon: 'sym_r_download',
+                  handler: () => downloadFile(file)
+                }
+              }
+            ),
+
+            destroy: {
+              label: 'Excluir',
+              color: 'grey-9',
+              icon: 'sym_r_delete',
+              handler: () => this.removeItem(key, scope, file)
+            }
+          }
+        },
+
+        card: file
+      }
     }
   }
 }
@@ -497,6 +582,11 @@ export default {
 
   .q-uploader {
     max-height: 100%;
+  }
+
+  .q-uploader__header {
+    background-color: transparent;
+    color: $grey-9;
   }
 
   .q-uploader__list {
