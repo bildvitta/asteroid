@@ -1,10 +1,12 @@
 :root {
   --scrollbar-size: 9px;
   --scrollbar-background: #E0E0E0;
+  --scrollbar-thumb-background: var(--q-primary);
+  --scrollbar-thumb-background-hover: var(--q-primary-contrast);
   --scrollbar-border-radius: calc(var(--qas-generic-border-radius) * 2);
 
   // Firefox support
-  scrollbar-color: var(--q-primary) var(--scrollbar-background);
+  scrollbar-color: var(--scrollbar-thumb-background) var(--scrollbar-background);
   scrollbar-width: thin;
 }
 
@@ -17,7 +19,7 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--q-primary);
+  background: var(--scrollbar-thumb-background);
   background-clip: padding-box;
   border: 1px solid rgba(0%, 0%, 0%, 0%);
   border-radius: var(--scrollbar-border-radius);
@@ -25,6 +27,6 @@
   width: var(--scrollbar-size);
 
   &:hover {
-    background: var(--q-primary-contrast);
+    background: var(--scrollbar-thumb-background-hover);
   }
 }
