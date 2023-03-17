@@ -10,6 +10,11 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 ### Sobre os "BREAKING CHANGES"
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
+## Não publicado
+### Adicionado
+- `QasTableGenerator`: Adicionado propriedade `use-sticky-header` e `sticky-header-table-height` para manter o header da tabela fixo na rolagem do conteúdo.
+- `scrollbar.scss`: Adicionado estilo padrão para o scrollbar.
+
 ## [3.7.0-beta.3] - 09-03-2023
 ## BREAKING CHANGES
 - `QasPasswordInput`: removido propriedade `iconColor` uma vez que não deve ser possível mudar a cor do ícone.

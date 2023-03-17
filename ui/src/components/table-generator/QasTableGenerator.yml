@@ -51,8 +51,8 @@ props:
     default: false
     type: Boolean
 
-  sticky-header-max-height:
-    desc: Usado para definir a altura máxima da tabela e exibir o scroll vertical.
+  sticky-header-table-height:
+    desc: Usado para definir a altura máxima da tabela e exibir o scroll vertical quando a propriedade "use-sticky-header" é utilizada.
     default: 528px
     type: String
 

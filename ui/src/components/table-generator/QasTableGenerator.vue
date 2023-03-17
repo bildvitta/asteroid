@@ -71,7 +71,7 @@ export default {
       type: Boolean
     },
 
-    stickyHeaderMaxHeight: {
+    stickyHeaderTableHeight: {
       default: '528px',
       type: String
     }
@@ -215,7 +215,7 @@ export default {
 
     tableStyles () {
       return {
-        maxHeight: this.useStickyHeader ? this.stickyHeaderMaxHeight : 'initial'
+        maxHeight: this.useStickyHeader ? this.stickyHeaderTableHeight : 'initial'
       }
     },
 
