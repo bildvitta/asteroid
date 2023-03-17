@@ -126,7 +126,7 @@ export default {
         pagination: { rowsPerPage: 0 },
         rowKey: this.rowKey,
         rows: this.resultsByFields,
-        style: this.tableStyles,
+        style: this.tableStyle,
 
         // Eventos.
         onRowClick: this.$attrs.onRowClick && this.onRowClick
@@ -213,7 +213,7 @@ export default {
       }
     },
 
-    tableStyles () {
+    tableStyle () {
       return {
         maxHeight: this.useStickyHeader ? this.stickyHeaderTableHeight : 'initial'
       }
