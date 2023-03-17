@@ -1,6 +1,6 @@
 <template>
   <qas-box class="q-px-lg q-py-md">
-    <q-table ref="table" class="bg-white qas-table-generator text-grey-8" :class="tableClass" v-bind="attributes">
+    <q-table ref="table" class="bg-white qas-table-generator text-grey-8" v-bind="attributes">
       <template v-for="(_, name) in slots" #[name]="context">
         <slot :name="name" v-bind="context" />
       </template>
@@ -65,6 +65,15 @@ export default {
 
     useExternalLink: {
       type: Boolean
+    },
+
+    useStickyHeader: {
+      type: Boolean
+    },
+
+    stickyHeaderMaxHeight: {
+      default: '528px',
+      type: String
     }
   },
 
@@ -110,12 +119,14 @@ export default {
 
     attributes () {
       const attributes = {
+        class: this.tableClass,
         columns: this.columnsByFields,
-        rows: this.resultsByFields,
         flat: true,
         hideBottom: true,
         pagination: { rowsPerPage: 0 },
         rowKey: this.rowKey,
+        rows: this.resultsByFields,
+        style: this.tableStyles,
 
         // Eventos.
         onRowClick: this.$attrs.onRowClick && this.onRowClick
@@ -196,7 +207,16 @@ export default {
     },
 
     tableClass () {
-      return this.$qas.screen.isSmall && 'qas-table-generator--mobile'
+      return {
+        'qas-table-generator--mobile': this.$qas.screen.isSmall,
+        'qas-table-generator--sticky-header': this.useStickyHeader
+      }
+    },
+
+    tableStyles () {
+      return {
+        maxHeight: this.useStickyHeader ? this.stickyHeaderMaxHeight : 'initial'
+      }
     },
 
     hasScrollOnGrab () {
@@ -337,6 +357,26 @@ export default {
 
     .q-table {
       margin-left: 10px;
+    }
+  }
+
+  &--sticky-header {
+    .q-table {
+      thead {
+        tr {
+          th {
+            position: sticky;
+            z-index: 1;
+          }
+
+          &:first-child {
+            th {
+              background-color: #fff;
+              top: 0;
+            }
+          }
+        }
+      }
     }
   }
 }
