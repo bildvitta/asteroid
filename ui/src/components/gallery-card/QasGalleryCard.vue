@@ -1,6 +1,6 @@
 <template>
-  <div class="bg-white q-pa-md rounded-borders shadow-2">
-    <header class="flat items-center no-wrap q-mb-xs row text-grey-9" :class="headerClasses">
+  <div class="bg-white q-pa-md rounded-borders shadow-2" :class="classes">
+    <header class="flat items-center no-wrap q-mb-md q-mb-xs row" :class="headerClasses">
       <slot name="header">
         <div class="ellipsis q-mr-xs qas-gallery__name">
           <slot v-if="card.name">
@@ -14,9 +14,19 @@
       </slot>
     </header>
 
-    <slot name="image">
-      <q-img class="rounded-borders" height="150px" :src="card.url" />
-    </slot>
+    <div style="height: 180px;">
+      <slot name="image">
+        <q-img class="rounded-borders" height="180px" :src="card.url || ''" v-bind="imageProps">
+          <template #default>
+            <slot name="image-default" />
+          </template>
+
+          <template #error>
+            <slot name="image-error" />
+          </template>
+        </q-img>
+      </slot>
+    </div>
 
     <div v-if="hasBottom" class="q-mt-md">
       <slot name="bottom" />
@@ -34,6 +44,10 @@ export default {
       default: () => ({})
     },
 
+    disable: {
+      type: Boolean
+    },
+
     formGeneratorProps: {
       type: Object,
       default: () => ({})
@@ -42,6 +56,11 @@ export default {
     card: {
       type: Object,
       default: () => ({})
+    },
+
+    imageProps: {
+      type: Object,
+      default: () => {}
     }
   },
 
@@ -54,8 +73,18 @@ export default {
       return !!this.$slots.bottom
     },
 
+    classes () {
+      return {
+        'text-grey-6': this.disable
+      }
+    },
+
     headerClasses () {
-      return this.card.name ? 'justify-between' : 'justify-right'
+      return {
+        'justify-between': this.card.name,
+        'justify-right': !this.card.name,
+        'text-grey-9': !this.disable
+      }
     }
   }
 }

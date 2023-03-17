@@ -1,5 +1,5 @@
 <template>
-  <q-field borderless class="qas-uploader" :error="hasErrorMessage" :error-message="errorMessage" :hint="hintValue" no-error-icon>
+  <div borderless class="qas-uploader" :error="hasErrorMessage" :error-message="errorMessage" :hint="hintValue" no-error-icon>
     <q-uploader ref="uploader" auto-upload :class="uploaderClasses" :factory="factory" flat :max-files="maxFiles" method="PUT" :readonly="readonly" v-bind="attributes" @factory-failed="factoryFailed" @uploaded="uploaded" @uploading="updateUploading(true)">
       <template #header="scope">
         <div class="flex items-center justify-between q-mb-xl">
@@ -19,13 +19,6 @@
         <div v-if="modelValue" class="q-col-gutter-lg row">
           <div v-for="(file, key, index) in getFilesList(scope.files, scope)" :key="index" class="col-6">
             <pv-uploader-gallery-card v-bind="getUploaderGalleryCardProps({ key, scope, file, index })" />
-            <!-- <qas-gallery-card :card="file" v-bind="getGalleryCardProps(key, scope, file)">
-              <template #bottom>
-                <slot :index="index" name="card-content" :update-model="updateModelValue" :value="modelValue[index]">
-                  <qas-form-generator v-bind="defaultFormGeneratorProps" :model-value="getModelValue(index)" @update:model-value="updateModelValue({ index, payload: $event })" />
-                </slot>
-              </template>
-            </qas-gallery-card> -->
           </div>
         </div>
       </template>
@@ -33,10 +26,10 @@
 
     <slot :context="self" name="custom-upload" />
 
-    <template v-if="hasErrorMessage" #after>
+    <!-- <template v-if="hasErrorMessage" #after>
       <q-icon color="negative" name="sym_r_error" />
-    </template>
-  </q-field>
+    </template> -->
+  </div>
 </template>
 
 <script>
@@ -153,6 +146,8 @@ export default {
       isUploading: false,
       hiddenInputElement: null,
       uploader: null,
+      showDialog: false,
+      currentKeyToEdit: '',
       addedFiles: {}
     }
   },
@@ -212,40 +207,12 @@ export default {
       }
     },
 
-    defaultFormGeneratorProps () {
-      return {
-        columns: this.defaultFormGeneratorColumns,
-        ...this.formGeneratorProps
-      }
-    },
-
     hasFormGenerator () {
       return !!Object.keys(this.formGeneratorProps).length
     },
 
-    defaultFormGeneratorColumns () {
-      if (!this.hasFormGenerator) return
-
-      const columns = {}
-      const { fields } = this.formGeneratorProps || {}
-
-      for (const key in fields) {
-        columns[key] = { col: 12 }
-      }
-
-      return columns
-    },
-
     hasAddedFiles () {
       return !!Object.keys(this.addedFiles).length
-    },
-
-    useCardContent () {
-      return this.$slots['card-content'] || (this.hasFormGenerator && this.hasAddedFiles)
-    },
-
-    hasEdit () {
-      return this.useEdit || true
     }
   },
 
@@ -307,8 +274,6 @@ export default {
       this.$emit('update:modelValue', this.isMultiple ? [...this.modelValue, model] : model || '')
 
       this.updateUploading(false)
-
-      this.$qas.logger.group('QasUploader - uploaded', [this.modelValue])
     },
 
     async fetchCredentials (filename) {
@@ -321,11 +286,6 @@ export default {
           entity: this.entity,
           filename
         })
-
-        this.$qas.logger.group(
-          'QasUploader - fetchCredentials -> resposta de /upload-credentials/',
-          [data]
-        )
 
         return data
       } finally {
@@ -407,8 +367,6 @@ export default {
         }
       })
 
-      this.$qas.logger.group('QasUploader - getFilesList', [files])
-
       return files
     },
 
@@ -449,12 +407,8 @@ export default {
         // Retorna largura e altura da original da imagem
         const { width, height } = await getImageSize(image)
 
+        // Tamanho da imagem menor que o tamanho limite, sendo assim, não faz o resize
         if (width <= this.sizeLimit) {
-          this.$qas.logger.info(`
-            QasUploader - resizeImage -> Tamanho da imagem menor que o tamanho limite,
-            sendo assim, não faz o resize
-          `)
-
           return file
         }
 
@@ -476,8 +430,6 @@ export default {
 
         const newFile = new File([blob], file.name, { type })
 
-        this.$qas.logger.group('QasUploader - resizeImage -> nova imagem', [newFile])
-
         return newFile
       } catch {
         // Caso não consiga redimensionar retorna o arquivo original
@@ -491,8 +443,6 @@ export default {
 
     updateModelValue ({ index, payload = {} }) {
       if (!this.useObjectModel) return
-
-      console.log(index, payload)
 
       if (this.isMultiple) {
         const modelValue = [...this.modelValue]
@@ -516,43 +466,61 @@ export default {
 
     getUploaderGalleryCardProps ({ key, scope, file, index }) {
       return {
+        currentKey: this.currentKeyToEdit,
+        dialogProps: this.getDialogProps(),
+        error: file.isFailed,
         formGeneratorProps: this.getFormGeneratorProps({ index }),
-        galleryCardProps: this.getGalleryCardProps({ key, scope, file })
+        galleryCardProps: this.getGalleryCardProps({ key, scope, file }),
+        useGallery: !this.addedFiles[file.name],
+
+        // eventos
+        onUpdateModel: value => this.updateModelValue({ index, payload: value })
+      }
+    },
+
+    getDialogProps () {
+      return {
+        onHide: () => {
+          this.currentKeyToEdit = ''
+        }
       }
     },
 
     getFormGeneratorProps ({ index }) {
       return {
-        ...this.defaultFormGeneratorProps,
-        modelValue: this.getModelValue(index),
-
-        'onUpdate:modelValue': value => this.updateModelValue({ index, payload: value })
+        ...this.formGeneratorProps,
+        modelValue: this.getModelValue(index)
       }
     },
 
     getGalleryCardProps ({ key, scope, file }) {
-      const hasEdit = !this.addedFiles[file.name]
+      const hasEdit = (!this.addedFiles[file.name] || this.useEdit) && !file.isFailed
+      const hasDowload = this.useDownload && !file.isFailed
 
       return {
         actionsMenuProps: {
           list: {
             ...(
-              this.hasEdit && hasEdit &&
+              hasEdit &&
               {
                 edit: {
                   label: 'Editar',
                   icon: 'sym_r_edit',
-                  handler: () => this.$qas.dialog({ card: { title: 'Qualé!!' } })
+
+                  handler: () => {
+                    this.currentKeyToEdit = key
+                  }
                 }
               }
             ),
 
             ...(
-              this.useDownload &&
+              hasDowload &&
               {
                 download: {
                   label: 'Baixar arquivo',
                   icon: 'sym_r_download',
+
                   handler: () => downloadFile(file)
                 }
               }
@@ -562,6 +530,7 @@ export default {
               label: 'Excluir',
               color: 'grey-9',
               icon: 'sym_r_delete',
+
               handler: () => this.removeItem(key, scope, file)
             }
           }

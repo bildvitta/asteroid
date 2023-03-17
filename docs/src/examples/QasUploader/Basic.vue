@@ -1,21 +1,20 @@
 <template>
-  <div class="container spaced">
+  <q-form class="container spaced">
     <div>
-      <qas-uploader v-model="model2" entity="serviceOrders" :form-generator-props="formGeneratorProps" label="Meu uploader" :multiple="true" use-object-model>
+      <qas-uploader v-model="model" entity="serviceOrders" :form-generator-props="formGeneratorProps" label="Meu uploader" :multiple="false" use-object-model>
         <!-- <template #card-content="{ index, updateModel }">
           <qas-input v-model="model[index].type" @update:model-value="updateModel({ index, payload: { type: $event } })" />
         </template> -->
       </qas-uploader>
     </div>
 
-    <pre>{{ model2 }}</pre>
-    <pre>{{ values }}</pre>
-    <qas-btn label="mudar model" @click="model = model2" />
-  </div>
+    <qas-debugger :inspect="[model, model2]" />
+    <qas-btn label="submit" type="submit" />
+  </q-form>
 </template>
 
 <script>
-// import { filterObject } from 'asteroid'
+import { required } from '../../../../ui/src/helpers'
 
 export default {
   data () {
@@ -23,7 +22,8 @@ export default {
       model2: [{
         format: 'image/jpeg',
         url: 'https://s3.amazonaws.com/uploads.assistencia-digital.nave.dev/uploads/v2/development/serviceOrders/d5648a15-c66f-401a-9c97-0a55efda0b72.jpg',
-        name: 'teste-2 (5th copy).jpg'
+        name: 'teste-2 (5th copy).jpg',
+        email: 'test@example.com'
       }],
       model: {
         format: 'image/jpeg',
@@ -49,12 +49,20 @@ export default {
           type: 'email',
           name: 'email',
           label: 'e-mail',
-          default: 'email_padrao@exemplo.com'
+          required: true
         }
       }
 
       return {
-        fields
+        fields,
+        fieldsProps: {
+          email: {
+            rules: [value => required(value)]
+          },
+          name: {
+            rules: [value => required(value)]
+          }
+        }
         // fields: filterObject(fields, [''])
       }
     }

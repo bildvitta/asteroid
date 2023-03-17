@@ -61,11 +61,6 @@ export default {
   computed: {
     formattedFields () {
       if (this.useEmptyResult) {
-        this.$qas.logger.group(
-          'QasGridGenerator - formattedFields -> this.useEmptyResult tem valor "true"',
-          [this.fields]
-        )
-
         return this.fields
       }
 
