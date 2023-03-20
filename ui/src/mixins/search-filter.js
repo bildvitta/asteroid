@@ -82,7 +82,7 @@ export default {
     },
 
     mx_isMultiple () {
-      return this.$attrs?.multiple || false
+      return this.$attrs.multiple || this.$attrs.multiple === ''
     }
   },
 
