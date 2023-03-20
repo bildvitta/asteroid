@@ -1,5 +1,6 @@
 <template>
   <div borderless class="qas-uploader" :error="hasErrorMessage" :error-message="errorMessage" :hint="hintValue" no-error-icon>
+    <!-- <pre>{{ addedFiles }}</pre> -->
     <q-uploader ref="uploader" auto-upload :class="uploaderClasses" :factory="factory" flat :max-files="maxFiles" method="PUT" :readonly="readonly" v-bind="attributes" @factory-failed="factoryFailed" @uploaded="uploaded" @uploading="updateUploading(true)">
       <template #header="scope">
         <slot name="header" :scope="scope">
@@ -18,6 +19,7 @@
       </template>
 
       <template #list="scope">
+        <pre>{{ addedFiles }}</pre>
         <div v-if="modelValue" class="q-col-gutter-lg row">
           <div v-for="(file, key, index) in getFilesList(scope.files, scope)" :key="index" :class="columnClasses">
             <pv-uploader-gallery-card v-model="model" :index="index" v-bind="getUploaderGalleryCardProps({ key, scope, file, index })">
@@ -203,10 +205,6 @@ export default {
       return this.$slots['custom-upload']
     },
 
-    itemClass () {
-      return this.isMultiple ? 'col-12 col-md-3 col-sm-4' : 'col-12'
-    },
-
     hintValue () {
       return this.hint || undefined
     },
@@ -287,7 +285,15 @@ export default {
       const irregularClasses = ['col']
 
       const classes = []
-      const profiles = { col: 'col', xs: 'col-xs', sm: 'col-sm', md: 'col-md', lg: 'col-lg', xl: 'col-xl' }
+
+      const profiles = {
+        col: 'col',
+        xs: 'col-xs',
+        sm: 'col-sm',
+        md: 'col-md',
+        lg: 'col-lg',
+        xl: 'col-xl'
+      }
 
       for (const key in this.columns) {
         const column = this.columns[key]
@@ -346,6 +352,7 @@ export default {
 
     uploaded (response) {
       const fullPath = response.xhr.responseURL.split('?').shift()
+      const { files: [file] } = response
 
       const objectValue = {
         format: response.files[0].type,
@@ -355,8 +362,11 @@ export default {
 
       const model = this.useObjectModel ? objectValue : fullPath
 
+      console.log(file, '>>> upado')
+
       if (this.useObjectModel) {
-        this.addedFiles[objectValue.name] = true
+        this.addedFiles[file.name] = true
+        // this.addedFiles[objectValue.name] = true
       }
 
       this.$emit('update:modelValue', this.isMultiple ? [...this.modelValue, model] : model || '')
@@ -540,7 +550,7 @@ export default {
 
     getGalleryCardProps ({ key, scope, file }) {
       const hasEdit = (
-        !this.addedFiles[file.name] &&
+        !this.addedFiles[key] &&
         !file.isFailed &&
         this.useObjectModel &&
         this.useEdit

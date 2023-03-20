@@ -39,7 +39,7 @@ export default {
         format: 'image/jpeg',
         url: 'https://s3.amazonaws.com/uploads.assistencia-digital.nave.dev/uploads/v2/development/serviceOrders/d5648a15-c66f-401a-9c97-0a55efda0b72.jpg',
         name: 'teste-2 (5th copy).jpg',
-        email: 'test@example.com'
+        email: 'meu-deus'
       }],
       model: {
         format: 'image/jpeg',
