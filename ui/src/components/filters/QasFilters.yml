@@ -24,7 +24,7 @@ props:
     desc: Envia como parâmetro para a action "fetchFilters" do modulo correspondente a "entity".
     type: String
 
-  use-badges:
+  use-chip:
     desc: Habilita ou não os "chips" mostrando os filtros ativos.
     default: true
     type: Boolean
@@ -38,6 +38,11 @@ props:
     desc: Força refazer o "fetch" mesmo caso já exista dados na store de filters.
     type: Boolean
 
+  use-route-update:
+    desc: Habilita ou não a atualização da rota com base nos filtros.
+    default: true
+    type: Boolean
+
   use-search-on-type:
     desc: Habilita ou não o filtro de busca sempre que o usuário digita.
     default: true
@@ -48,19 +53,17 @@ props:
     default: true
     type: Boolean
 
-slots:
-  search:
-    desc: Slot para seção do campo de busca.
-    scope:
-      filter:
-        desc: função usada para fazer o filtro
-        type: Function
+  use-spacing:
+    desc: Habilita ou não o espaçamento padrão do componente.
+    default: true
+    type: Boolean
 
+slots:
   default:
     desc: Slot para acessar o final do componente.
     scope:
       filter:
-        desc: Função usada para fazer o filtro
+        desc: Função usada para realizar o filtro
         type: Function
 
       filters:
@@ -77,6 +80,38 @@ slots:
         desc: Contexto referente a query da url.
         default: { filters: {}, page: 1 }
         type: Object
+
+  filter-button:
+    desc: Slot para seção do botão de filtro.
+    scope:
+      filter:
+        desc: Função usada para realizar o filtro
+        type: Function
+
+      filters:
+        desc: Objeto que retorna os filtros ativos
+        default: {}
+        type: Object
+
+      remove-filter:
+        desc: Função usada para remover os filtro
+        type: Function
+        examples: ["removeFilter({ name: '[nome-do-filtro]' })"]
+
+      context:
+        desc: Contexto referente a query da url.
+        default: { filters: {}, page: 1 }
+        type: Object
+
+  right-side:
+    desc: Slot para a seção na lateral direita.
+
+  search:
+    desc: Slot para seção do campo de busca.
+    scope:
+      filter:
+        desc: função usada para realizar o filtro
+        type: Function
 
 events:
   '@fetch-success -> function(value)':

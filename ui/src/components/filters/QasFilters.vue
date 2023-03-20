@@ -1,5 +1,5 @@
 <template>
-  <section class="q-mb-xl qas-filters">
+  <section class="qas-filters" :class="filtersClass">
     <div v-if="showFilters" class="q-col-gutter-x-md row">
       <div v-if="showSearch" class="col-12 col-md-6">
         <slot :filter="filter" name="search">
@@ -14,37 +14,21 @@
                 <template #append>
                   <qas-btn v-if="hasSearch" class="q-mr-sm" color="grey-9" icon="sym_r_clear" variant="tertiary" @click="clearSearch" />
 
-                  <qas-btn v-if="useFilterButton" :color="filterButtonColor" data-cy="filters-btn" icon="sym_r_tune" variant="tertiary">
-                    <q-menu anchor="center right" class="full-width" max-width="270px" self="top right">
-                      <div v-if="isFetching" class="q-pa-xl text-center">
-                        <q-spinner color="grey" size="2em" />
-                      </div>
-
-                      <div v-else-if="hasFetchError" class="q-pa-xl text-center">
-                        <q-icon color="negative" name="sym_r_warning" size="2em" />
-                      </div>
-
-                      <q-form v-else class="q-gutter-y-md q-pa-md" @submit.prevent="filter()">
-                        <div v-for="(field, index) in fields" :key="index">
-                          <qas-field v-model="filters[field.name]" :data-cy="`filters-${field.name}-field`" :field="field" v-bind="fieldsProps[field.name]" />
-                        </div>
-
-                        <div class="q-col-gutter-x-md q-mt-xl row">
-                          <div class="col-6">
-                            <qas-btn class="full-width" data-cy="filters-clear-btn" label="Limpar" variant="secondary" @click="clearFilters" />
-                          </div>
-
-                          <div class="col-6">
-                            <qas-btn class="full-width" data-cy="filters-submit-btn" label="Filtrar" type="submit" variant="primary" />
-                          </div>
-                        </div>
-                      </q-form>
-                    </q-menu>
-                  </qas-btn>
+                  <template v-if="showFilterButton">
+                    <slot :context="mx_context" :filter="filter" :filters="activeFilters" name="filter-button" :remove-filter="removeFilter">
+                      <pv-filters-button v-if="useFilterButton" v-model="filters" v-bind="filterButtonProps" />
+                    </slot>
+                  </template>
                 </template>
               </qas-input>
             </div>
           </q-form>
+        </slot>
+      </div>
+
+      <div v-else-if="showFilterButton" class="col-12 col-md-6">
+        <slot :context="mx_context" :filter="filter" :filters="activeFilters" name="filter-button" :remove-filter="removeFilter">
+          <pv-filters-button v-if="useFilterButton" v-model="filters" v-bind="filterButtonProps" />
         </slot>
       </div>
 
@@ -63,8 +47,8 @@
 </template>
 
 <script>
-import QasField from '../field/QasField.vue'
 import QasBtn from '../btn/QasBtn.vue'
+import PvFiltersButton from './private/PvFiltersButton.vue'
 
 import { camelize, camelizeKeys } from 'humps'
 import { humanize, parseValue } from '../../helpers/filters.js'
@@ -76,7 +60,7 @@ export default {
 
   components: {
     QasBtn,
-    QasField
+    PvFiltersButton
   },
 
   mixins: [contextMixin],
@@ -124,10 +108,20 @@ export default {
 
     useForceRefetch: {
       type: Boolean
+    },
+
+    useRouteUpdate: {
+      default: true,
+      type: Boolean
+    },
+
+    useSpacing: {
+      default: true,
+      type: Boolean
     }
   },
 
-  emits: ['fetch-success', 'fetch-error'],
+  emits: ['clear', 'fetch-success', 'fetch-error', 'filter'],
 
   data () {
     return {
@@ -171,13 +165,26 @@ export default {
       return getState.call(this, { entity: this.entity, key: 'filters' })
     },
 
+    filtersClass () {
+      return {
+        'q-mb-xl': this.useSpacing
+      }
+    },
+
     filterButtonColor () {
       return this.hasActiveFilters ? 'primary' : 'grey-9'
     },
 
-    // TODO: remover
-    filterButtonLabel () {
-      return this.$q.screen.gt.xs ? 'Filtrar' : undefined
+    filterButtonProps () {
+      return {
+        color: this.filterButtonColor,
+        error: this.hasFetchError,
+        fields: this.fields,
+        fieldsProps: this.fieldsProps,
+        loading: this.isFetching,
+        onClear: this.clearFilters,
+        onFilter: () => this.filter()
+      }
     },
 
     hasActiveFilters () {
@@ -250,7 +257,8 @@ export default {
         this.filters = {}
       }
 
-      this.$router.push({ query })
+      this.$emit('clear', query)
+      this.useRouteUpdate && this.$router.push({ query })
     },
 
     clearSearch () {
@@ -308,7 +316,8 @@ export default {
         search: this.search || undefined
       }
 
-      this.$router.push({ query })
+      this.$emit('filter', query)
+      this.useRouteUpdate && this.$router.push({ query })
     },
 
     getChipValue (value) {
@@ -321,7 +330,8 @@ export default {
       delete query[name]
       delete this.filters[name]
 
-      this.$router.push({ query })
+      this.$emit('filter', query)
+      this.useRouteUpdate && this.$router.push({ query })
     },
 
     updateValues () {

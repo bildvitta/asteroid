@@ -1,0 +1,88 @@
+<template>
+  <qas-btn :color="color" data-cy="filters-btn" icon="sym_r_tune" variant="tertiary">
+    <q-menu anchor="center right" class="full-width" max-width="270px" self="top right">
+      <div v-if="loading" class="q-pa-xl text-center">
+        <q-spinner color="grey" size="2em" />
+      </div>
+
+      <div v-else-if="error" class="q-pa-xl text-center">
+        <q-icon color="negative" name="sym_r_warning" size="2em" />
+      </div>
+
+      <q-form v-else class="q-gutter-y-md q-pa-md" @submit.prevent="$emit('filter')">
+        <div v-for="(field, index) in fields" :key="index">
+          <qas-field v-model="filters[field.name]" :data-cy="`filters-${field.name}-field`" :field="field" v-bind="fieldsProps[field.name]" />
+        </div>
+
+        <div class="q-col-gutter-x-md q-mt-xl row">
+          <div class="col-6">
+            <qas-btn class="full-width" data-cy="filters-clear-btn" label="Limpar" variant="secondary" @click="$emit('clear')" />
+          </div>
+
+          <div class="col-6">
+            <qas-btn class="full-width" data-cy="filters-submit-btn" label="Filtrar" type="submit" variant="primary" />
+          </div>
+        </div>
+      </q-form>
+    </q-menu>
+  </qas-btn>
+</template>
+
+<script>
+import QasField from '../../field/QasField.vue'
+import QasBtn from '../../btn/QasBtn.vue'
+
+export default {
+  name: 'PvFiltersButton',
+
+  components: {
+    QasField,
+    QasBtn
+  },
+
+  props: {
+    color: {
+      type: String,
+      default: 'grey-9',
+      validator: value => ['grey-9', 'primary', 'white'].includes(value)
+    },
+
+    error: {
+      type: Boolean
+    },
+
+    fields: {
+      default: () => ({}),
+      type: Object
+    },
+
+    fieldsProps: {
+      default: () => ({}),
+      type: Object
+    },
+
+    loading: {
+      type: Boolean
+    },
+
+    modelValue: {
+      default: () => ({}),
+      type: Object
+    }
+  },
+
+  emits: ['clear', 'filter', 'update:modelValue'],
+
+  computed: {
+    filters: {
+      get () {
+        return this.modelValue
+      },
+
+      set (value) {
+        return this.$emit('update:modelValue', value)
+      }
+    }
+  }
+}
+</script>

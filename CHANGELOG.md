@@ -10,6 +10,16 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 ### Sobre os "BREAKING CHANGES"
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
+## Não publicado
+### Adicionado
+- `QasFilters`: Adicionado slot `filter-button`.
+- `QasFilters`: Adicionado documentação para o slot `right-side`.
+- `QasFilters`: Adicionado propriedade `use-spacing` com o valor default `true` para habilitar ou não o espaçamento padrão do componente.
+- `QasFilters`: Adicionado propriedade `use-route-update` com o valor default `true` para habilitar ou não a atualização da rota com base nos filtros.
+
+### Corrigido
+- `QasFilters`: corrigido problema onde não era possível ter o botão de filtro sem o campo de busca.
+
 ## [3.7.0-beta.3] - 09-03-2023
 ## BREAKING CHANGES
 - `QasPasswordInput`: removido propriedade `iconColor` uma vez que não deve ser possível mudar a cor do ícone.

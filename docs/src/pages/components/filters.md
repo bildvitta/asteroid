@@ -29,5 +29,10 @@ Normalmente este componente é utilizando junto ao `QasListView` para filtrar os
 
 <doc-example file="QasFilters/CommonUsage" title="Normalmente utilizado" />
 
+<doc-example file="QasFilters/NoSearch" title="Sem o campo de busca" />
+
 <doc-example file="QasFilters/CustomFilter" title="Usando slot default com funções 'filter' e 'removeFilter'" />
 
+<doc-example file="QasFilters/CustomFilterButton" title="Usando slot filter-button com a função 'filter'" />
+
+<doc-example file="QasFilters/RightSide" title="Usando o slot right-side" />
