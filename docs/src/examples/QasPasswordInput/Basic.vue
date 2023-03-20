@@ -1,7 +1,13 @@
 <template>
   <div class="container q-py-lg">
-    <qas-password-input v-model="password" />
-    Senha: {{ password }}
+    <qas-password-input v-model="password" v-model:currentLevel="currentLevel" label="Senha" />
+
+    <div>
+      Senha: {{ password }}
+    </div>
+    <div>
+      currentLevel: {{ currentLevel }}
+    </div>
   </div>
 </template>
 
@@ -9,7 +15,8 @@
 export default {
   data () {
     return {
-      password: ''
+      password: '',
+      currentLevel: 0
     }
   }
 }

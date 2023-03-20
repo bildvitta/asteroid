@@ -1,7 +1,7 @@
 type: component
 
 meta:
-  desc: Plugin que implementa o "QNotify" do quasar para notificações de sucesso.
+  desc: Plugin que implementa o `QasDialog`.
 
 inject:
   'this.$qas.dialog(config)':

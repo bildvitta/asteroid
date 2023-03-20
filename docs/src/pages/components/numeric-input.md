@@ -18,3 +18,9 @@ Este componente utiliza a biblioteca [autonumeric](http://autonumeric.org/).
 ## Uso
 
 <doc-example file="QasNumericInput/Basic" title="Básico" />
+
+:::tip
+Utilize a propriedade `use-negative` com o valor `true` para permitir valores negativos.
+:::
+
+<doc-example file="QasNumericInput/Negative" title="Valores negativos" />

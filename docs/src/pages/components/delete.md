@@ -2,7 +2,8 @@
 title: QasDelete
 ---
 
-Componente para C.R.U.D. responsável por deletar (Delete).
+Componente para C.R.U.D. responsável por deletar (Delete), que implementa o plugin `Delete`.
+
 
 <doc-api file="delete/QasDelete" name="QasDelete" />
 
@@ -17,15 +18,13 @@ Para fazer esses exemplos na documentação, estamos utilizando o `VuexOffline`,
 :::
 
 :::warning
-Estamos utilizando nos exemplos um `custom-id` pois é necessario para conseguir utilizar os mocks de dados, **não** significa que você precisa sempre utiliza-lo para lidar com o id, na verdade na maioria das vezes você não vai precisar do `custom-id`, ele é para quando precisa de um caso de uso mais específico.
+Estamos utilizando nos exemplos um `custom-id` pois é necessário para conseguir utilizar os mocks de dados, **não** significa que você precisa sempre utiliza-lo para lidar com o id, na verdade na maioria das vezes você não vai precisar do `custom-id`, ele é para quando precisa de um caso de uso mais específico.
 :::
 
 :::tip
-Este componente serve para lidar com **delete**.
-:::
-
-:::tip
-Este componente renderiza componentes dinâmicamente através da prop `tag` o que significa que você pode utilizar qualquer prop/evento/slot do componente que você utilizou, por exemplo:
+- É recomendado utilizar o plugin `Delete` ao invés do componente `QasDelete`.
+- Este componente serve para lidar com **delete**.
+- Este componente renderiza componentes dinamicamente através da prop `tag` o que significa que você pode utilizar qualquer prop/evento/slot do componente que você utilizou, por exemplo:
 No exemplo abaixo estamos renderizando um `QasBtn` (que é o valor default da prop `tag`), com isto podemos utilizar todas as prop/evento/slot que este componente tem.
 :::
 

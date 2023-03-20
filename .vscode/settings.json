@@ -31,7 +31,8 @@
     "QasOptionGroup",
     "Notify",
     "Mixins",
-    "QasActionsMenu"
+    "QasActionsMenu",
+    "QasTableGenerator"
   ],
   "cSpell.words": [
     "Nunito"

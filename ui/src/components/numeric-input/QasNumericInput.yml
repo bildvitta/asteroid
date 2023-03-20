@@ -35,7 +35,7 @@ props:
 
   use-negative:
     desc: Controla se pode ou não números negativos.
-    default: true
+    default: false
     type: Boolean
 
   use-positive:

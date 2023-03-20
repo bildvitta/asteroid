@@ -1,21 +1,19 @@
 <template>
-  <div v-if="hasActions">
-    <component :is="component.is" v-bind="component.props" :use-label-on-small-screen="useLabelOnSmallScreen" variant="tertiary" @click="onClick()">
-      <q-menu v-if="hasMoreThanOneAction" auto-close class="q-py-xs">
-        <q-list>
-          <slot v-for="(item, key) in actions" :item="item" :name="key">
-            <component :is="getComponent(key)" v-bind="item.props" :key="key" clickable @click="onClick(item)">
-              <q-item-section avatar>
-                <q-icon :name="item.icon" />
-              </q-item-section>
+  <div v-if="hasActions" class="qas-actions-menu">
+    <component :is="component.is" v-bind="component.props" variant="tertiary">
+      <q-list v-if="isBtnDropdown">
+        <slot v-for="(item, key) in actions" :item="item" :name="key">
+          <q-item v-bind="item.props" :key="key" clickable @click="onClick(item)">
+            <q-item-section avatar>
+              <q-icon :name="item.icon" />
+            </q-item-section>
 
-              <q-item-section>
-                <div>{{ item.label }}</div>
-              </q-item-section>
-            </component>
-          </slot>
-        </q-list>
-      </q-menu>
+            <q-item-section>
+              <div>{{ item.label }}</div>
+            </q-item-section>
+          </q-item>
+        </slot>
+      </q-list>
 
       <q-tooltip v-if="hasTooltip" class="text-caption">
         {{ tooltipLabel }}
@@ -26,28 +24,18 @@
 
 <script>
 import QasBtn from '../btn/QasBtn.vue'
-import QasDelete from '../delete/QasDelete.vue'
+import QasBtnDropdown from '../btn-dropdown/QasBtnDropdown.vue'
 
 export default {
   name: 'QasActionsMenu',
 
   components: {
     QasBtn,
-    QasDelete
+    QasBtnDropdown
   },
 
   props: {
-    color: {
-      default: '',
-      type: String
-    },
-
-    icon: {
-      default: 'sym_r_more_vert',
-      type: String
-    },
-
-    list: {
+    buttonProps: {
       default: () => ({}),
       type: Object
     },
@@ -67,54 +55,63 @@ export default {
       type: Object
     },
 
-    useLabel: {
-      default: true,
-      type: Boolean
+    dropdownIcon: {
+      default: 'sym_r_more_vert',
+      type: String
     },
 
-    useLabelOnSmallScreen: {
+    list: {
+      default: () => ({}),
+      type: Object
+    },
+
+    splitName: {
+      type: String,
+      default: ''
+    },
+
+    useLabel: {
+      default: true,
       type: Boolean
     }
   },
 
   computed: {
     actions () {
+      const list = { ...this.fullList }
+
+      if (this.hasSplit && list[this.splitName] && this.isBtnDropdown) {
+        this.isSmall
+          ? Object.assign(list, { [this.splitName]: list[this.splitName] })
+          : delete list[this.splitName]
+      }
+
+      return list
+    },
+
+    fullList () {
       return {
         ...this.list,
         ...(this.hasDelete && {
           delete: {
+            color: 'grey-9',
             icon: this.deleteIcon,
             label: this.deleteLabel,
-            props: {
-              ...this.deleteProps,
-              tag: this.hasMoreThanOneAction ? 'q-item' : 'qas-btn'
-            }
+            handler: () => this.$qas.delete(this.deleteProps)
           }
         })
       }
     },
 
     component () {
-      const props = {}
-
-      // TODO: solução do color é temporária até ser definido o novo QasBtn.
-      if (this.hasMoreThanOneAction) {
-        props.color = this.color || 'grey-9'
-        props.iconRight = this.icon
-        props.label = this.useLabel ? 'Opções' : ''
-      } else {
-        const { color, icon } = this.actions[this.firstItemKey] || {}
-
-        props.color = color || this.color || 'primary'
-        props.icon = icon
-        props.label = this.useLabel ? this.tooltipLabel : ''
-      }
-
-      this.hasDelete && Object.assign(props, this.deleteProps)
+      const is = this.isBtnDropdown ? 'qas-btn-dropdown' : 'qas-btn'
 
       return {
-        is: this.hasMoreThanOneAction || !this.hasDelete ? 'qas-btn' : 'qas-delete',
-        props
+        is,
+        props: {
+          ...(this.isBtnDropdown ? this.btnDropdownProps : this.btnProps),
+          ...(this.hasDelete && this.deleteProps)
+        }
       }
     },
 
@@ -130,26 +127,76 @@ export default {
       return !!Object.keys(this.deleteProps).length
     },
 
-    hasMoreThanOneAction () {
-      return Object.keys(this.list || {}).length + Number(this.hasDelete) > 1
+    hasSplit () {
+      return !!this.splitName
+    },
+
+    isBtnDropdown () {
+      return Object.keys(this.fullList || {}).length > 1
     },
 
     hasTooltip () {
-      return !this.hasMoreThanOneAction && !this.useLabel
+      return !this.isBtnDropdown && !this.useLabel
     },
 
     tooltipLabel () {
       return this.actions[this.firstItemKey]?.label
+    },
+
+    defaultButtonProps () {
+      const { label, variant, ...buttonProps } = this.buttonProps
+
+      return {
+        useHoverOnWhiteColor: true,
+        useLabelOnSmallScreen: false,
+        ...buttonProps
+      }
+    },
+
+    btnDropdownProps () {
+      const { icon, label } = this.fullList[this.splitName] || {}
+
+      const {
+        icon: defaultIcon,
+        ...defaultButtonProps
+      } = this.defaultButtonProps
+
+      return {
+        buttonProps: {
+          ...(this.useLabel && { label: this.hasSplit ? label : 'Opções' }),
+          ...defaultButtonProps,
+          icon: icon || defaultIcon
+        },
+
+        dropdownIcon: this.dropdownIcon,
+        useSplit: this.hasSplit,
+
+        // evento
+        onClick: () => this.onClick(this.fullList[this.splitName])
+      }
+    },
+
+    btnProps () {
+      const { color, icon } = this.actions[this.firstItemKey] || {}
+      const { color: defaultColor, ...defaultButtonProps } = this.defaultButtonProps
+
+      return {
+        color: color || defaultColor,
+        icon,
+        label: this.useLabel ? this.tooltipLabel : '',
+        onClick: this.onClick,
+        ...defaultButtonProps
+      }
+    },
+
+    isSmall () {
+      return this.$qas.screen.isSmall
     }
   },
 
   methods: {
-    getComponent (key) {
-      return key === 'delete' ? 'qas-delete' : 'q-item'
-    },
-
     onClick (item = {}) {
-      if (!this.hasMoreThanOneAction) {
+      if (!this.isBtnDropdown) {
         item = this.actions[this.firstItemKey]
       }
 
