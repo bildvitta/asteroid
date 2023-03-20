@@ -362,8 +362,6 @@ export default {
 
       const model = this.useObjectModel ? objectValue : fullPath
 
-      console.log(file, '>>> upado')
-
       if (this.useObjectModel) {
         this.addedFiles[file.name] = true
         // this.addedFiles[objectValue.name] = true
@@ -539,18 +537,42 @@ export default {
       this.$emit('update:uploading', uploading)
     },
 
+    updateModelValue ({ index, payload = {} }) {
+      if (!this.useObjectModel) return
+
+      if (this.isMultiple) {
+        const modelValue = [...this.modelValue]
+        const value = modelValue[index]
+
+        modelValue[index] = { ...value, ...payload }
+
+        this.$emit('update:modelValue', modelValue)
+
+        return
+      }
+
+      this.$emit('update:modelValue', { ...this.modelValue, ...payload })
+    },
+
     getUploaderGalleryCardProps ({ key, scope, file, index }) {
+      const currentModelValue = this.getModelValue(index)
+
       return {
         ...this.defaultUploaderGalleryCardProps,
+        // formGeneratorProps: {
+        //   modelValue: this.getModelValue(index)
+        // },
         error: file.isFailed,
-        galleryCardProps: this.getGalleryCardProps({ key, scope, file }),
-        useGallery: !this.addedFiles[file.name]
+        galleryCardProps: this.getGalleryCardProps({ key, scope, file, index, modelValue: currentModelValue }),
+        useGallery: !file.isUploaded,
+
+        onUpdateModel: value => this.updateModelValue({ index, payload: value })
       }
     },
 
-    getGalleryCardProps ({ key, scope, file }) {
+    getGalleryCardProps ({ key, scope, file, modelValue }) {
       const hasEdit = (
-        !this.addedFiles[key] &&
+        !file.isUploaded &&
         !file.isFailed &&
         this.useObjectModel &&
         this.useEdit
@@ -586,7 +608,7 @@ export default {
                   label: 'Baixar arquivo',
                   icon: 'sym_r_download',
 
-                  handler: () => downloadFile(file)
+                  handler: () => downloadFile(modelValue)
                 }
               }
             ),
@@ -603,8 +625,14 @@ export default {
           }
         },
 
-        card: file
+        card: modelValue
       }
+    },
+
+    getModelValue (index) {
+      if (!this.useObjectModel) return {}
+
+      return this.isMultiple ? this.modelValue[index] : this.modelValue
     }
   }
 }

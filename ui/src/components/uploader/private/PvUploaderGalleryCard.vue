@@ -139,8 +139,8 @@ export default {
 
     defaultFormGeneratorProps () {
       return {
-        'onUpdate:modelValue': value => this.updateModelValue({ index: this.index, value }),
-        // 'onUpdate:modelValue': value => this.$emit('update-model', value),
+        // 'onUpdate:modelValue': value => this.updateModelValue({ index: this.index, value }),
+        'onUpdate:modelValue': value => this.$emit('update-model', value),
 
         modelValue: this.currentModel,
         disable: this.error,
@@ -230,8 +230,8 @@ export default {
       if (!isValid) return
 
       this.showDialog = false
-      this.updateModelValue({ index: this.index, payload: this.dialogValues })
-      // this.$emit('update-model', this.dialogValues)
+      // this.updateModelValue({ index: this.index, payload: this.dialogValues })
+      this.$emit('update-model', this.dialogValues)
     },
 
     updateModelValue ({ index, payload = {} }) {
