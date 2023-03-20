@@ -19,7 +19,7 @@
 
       <template #list="scope">
         <div v-if="modelValue" class="q-col-gutter-lg row">
-          <div v-for="(file, key, index) in getFilesList(scope.files, scope)" :key="index" class="col-6">
+          <div v-for="(file, key, index) in getFilesList(scope.files, scope)" :key="index" :class="columnClasses">
             <pv-uploader-gallery-card v-model="model" :index="index" v-bind="getUploaderGalleryCardProps({ key, scope, file, index })">
               <template v-for="(_, name) in $slots" #[name]="context">
                 <slot :name="name" v-bind="context || {}" />
@@ -46,7 +46,7 @@ import PvUploaderGalleryCard from './private/PvUploaderGalleryCard.vue'
 // TODO remover
 import axios from 'axios'
 
-const token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiJhZjY0Y2Q1Zi00OTlmLTExZWQtOTdjYy0wMmMxMWVlNThhODciLCJqdGkiOiIyNTE3NjdiMTdkY2RlZmIzZGQ0ZDA2ZGQ1NTEyNzNhYTBiMTIyMTNlZTNjMGY3MWNhZjczYjk4MDdmMzQ0ZWNmN2M0ZDg3YWNjMDU0NDUzYyIsImlhdCI6MTY3ODQ2NDk4NS4xMjI5LCJuYmYiOjE2Nzg0NjQ5ODUuMTIyOTAyLCJleHAiOjE3MTAwODczODUuMTA0NTA3LCJzdWIiOiI3NTYwNCIsInNjb3BlcyI6WyJwcm9maWxlIl19.jRIEGag_OgKRRD7QwP934B0ZExOgQ8lrUFMzrzcEfTIve2eHEiAcdseLXBr23onBQ2WWHSBZu_I2En2GCvjlH7iKWiMrHfpHUTdnEL__Umln20zTNhD0ze3xltS74vgAJcwRA_WQ7KaZk83li819XZ1C08hPU59I1rJqsNDoPimdkKssaeMkB_Jk2c08CgPqcJLWbR3jASbdw1mdZBn-q-TO7rzQqvaDWqwL-2YLmbk_vYnawdX1N3rqt-8bWfPgNzHCSiymdw9PQNHOCIOcxxgjMVASag-538aX85fDF0tGff5GlWmkhHeEoiWP5f5tdsLAnBoV4p-LxWRyBnnibgeeW39JsZiUv9dRnmsM2fl0BWeRROu6P8x8gBfV8OGIG9LIIzusVABSTrqoIMYkmfsrD34QQ9F3dvMltpKRxfL_7mouC4JybU1RHiWq0wyVkEFFt_dRTvjQoGL7ovKopvtkXO0DMveyFM7Gxxu37IbEn8eezMekAkFaK6uIPSh32wwTqHa3AffJPt7sU25uNKOwjKNLwZyrboECcFAM4lBlX2J8fe1bdwN4qKBOy8Tos34mgCKYqlMSRO20e73__tjP7cERm23F9J3jgmDnbeQvc6USt_0uCIcR5Qeewl0fCZmRw1HC3pjISF86IgKziQt5Zgm0ctt-x0PDGkwK2SY__'
+const token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiJhZjY0Y2Q1Zi00OTlmLTExZWQtOTdjYy0wMmMxMWVlNThhODciLCJqdGkiOiIyNTE3NjdiMTdkY2RlZmIzZGQ0ZDA2ZGQ1NTEyNzNhYTBiMTIyMTNlZTNjMGY3MWNhZjczYjk4MDdmMzQ0ZWNmN2M0ZDg3YWNjMDU0NDUzYyIsImlhdCI6MTY3ODQ2NDk4NS4xMjI5LCJuYmYiOjE2Nzg0NjQ5ODUuMTIyOTAyLCJleHAiOjE3MTAwODczODUuMTA0NTA3LCJzdWIiOiI3NTYwNCIsInNjb3BlcyI6WyJwcm9maWxlIl19.jRIEGag_OgKRRD7QwP934B0ZExOgQ8lrUFMzrzcEfTIve2eHEiAcdseLXBr23onBQ2WWHSBZu_I2En2GCvjlH7iKWiMrHfpHUTdnEL__Umln20zTNhD0ze3xltS74vgAJcwRA_WQ7KaZk83li819XZ1C08hPU59I1rJqsNDoPimdkKssaeMkB_Jk2c08CgPqcJLWbR3jASbdw1mdZBn-q-TO7rzQqvaDWqwL-2YLmbk_vYnawdX1N3rqt-8bWfPgNzHCSiymdw9PQNHOCIOcxxgjMVASag-538aX85fDF0tGff5GlWmkhHeEoiWP5f5tdsLAnBoV4p-LxWRyBnnibgeeW39JsZiUv9dRnmsM2fl0BWeRROu6P8x8gBfV8OGIG9LIIzusVABSTrqoIMYkmfsrD34QQ9F3dvMltpKRxfL_7mouC4JybU1RHiWq0wyVkEFFt_dRTvjQoGL7ovKopvtkXO0DMveyFM7Gxxu37IbEn8eezMekAkFaK6uIPSh32wwTqHa3AffJPt7sU25uNKOwjKNLwZyrboECcFAM4lBlX2J8fe1bdwN4qKBOy8Tos34mgCKYqlMSRO20e73__tjP7cERm23F9J3jgmDnbeQvc6USt_0uCIcR5Qeewl0fCZmRw1HC3pjISF86IgKziQt5Zgm0ctt-x0PDGkwK2SY'
 
 axios.defaults.baseURL = 'https://server-assistencia-tecnica.modular.dev.br/api/'
 axios.defaults.headers.Authorization = `Bearer ${token}`
@@ -158,6 +158,11 @@ export default {
     useEdit: {
       default: true,
       type: Boolean
+    },
+
+    columns: {
+      type: Object,
+      default: () => ({ col: 12, sm: 6, md: 4, lg: 3 })
     }
   },
 
@@ -276,6 +281,26 @@ export default {
       set (value) {
         this.$emit('update:modelValue', value)
       }
+    },
+
+    columnClasses () {
+      const irregularClasses = ['col']
+
+      const classes = []
+      const profiles = { col: 'col', xs: 'col-xs', sm: 'col-sm', md: 'col-md', lg: 'col-lg', xl: 'col-xl' }
+
+      for (const key in this.columns) {
+        const column = this.columns[key]
+
+        if (irregularClasses.includes(column)) {
+          classes.push(profiles[key])
+          continue
+        }
+
+        classes.push(`${profiles[key]}-${column}`)
+      }
+
+      return classes
     }
   },
 

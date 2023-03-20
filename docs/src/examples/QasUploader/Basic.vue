@@ -1,7 +1,7 @@
 <template>
   <q-form class="container spaced">
     <div>
-      <qas-uploader v-model="model2" entity="serviceOrders" :fields2="fields" :form-generator-props="formGeneratorProps" label="Meu uploader" :multiple="true" use-object-model>
+      <qas-uploader v-model="model2" entity="serviceOrders" :fields="fields" :form-generator-props="formGeneratorProps" label="Meu uploader" :multiple="true" use-object-model>
         <!-- <template #bottom>
           Tetse
         </template> -->

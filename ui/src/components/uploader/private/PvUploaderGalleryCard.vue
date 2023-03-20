@@ -25,9 +25,9 @@
 
       <template #bottom>
         <slot :index="index" name="card-bottom" :update-model="updateModelValue">
-          <qas-grid-generator v-if="useGallery && !error" v-bind="defaultGridGeneratorProps" />
+          <qas-grid-generator v-if="hasGridGenerator" v-bind="defaultGridGeneratorProps" />
 
-          <qas-form-generator v-else v-bind="defaultFormGeneratorProps" />
+          <qas-form-generator v-else-if="hasFormGenerator" v-bind="defaultFormGeneratorProps" />
         </slot>
       </template>
     </qas-gallery-card>
@@ -193,6 +193,21 @@ export default {
 
     errorClasses () {
       return 'bg-grey-4 flex full-height full-width items-center justify-center text-grey-9 text-subtitle2'
+    },
+
+    hasGridGenerator () {
+      const { fields } = this.defaultGridGeneratorProps
+      const hasFields = !!Object.keys(fields).length
+
+      console.log(this.useGallery && !this.error && hasFields)
+
+      return this.useGallery && !this.error && hasFields
+    },
+
+    hasFormGenerator () {
+      const { fields } = this.defaultFormGeneratorProps
+
+      return !!Object.keys(fields).length
     }
   },
 

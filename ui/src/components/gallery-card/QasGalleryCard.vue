@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-white q-pa-md rounded-borders shadow-2" :class="classes">
+  <div class="bg-white q-pa-md qas-gallery-card rounded-borders shadow-2" :class="classes">
     <header class="flat items-center no-wrap q-mb-md q-mb-xs row" :class="headerClasses">
       <slot name="header">
         <div class="ellipsis q-mr-xs qas-gallery__name">
@@ -14,13 +14,9 @@
       </slot>
     </header>
 
-    <div style="height: 180px;">
+    <div class="qas-gallery-card__image">
       <slot name="image">
-        <q-img class="rounded-borders" height="180px" :src="card.url" v-bind="imageProps">
-          <template #default>
-            <slot name="image-default" />
-          </template>
-
+        <q-img class="rounded-borders" height="100%" :src="card.url" v-bind="imageProps">
           <template #error>
             <slot name="image-error" />
           </template>
@@ -100,3 +96,11 @@ export default {
   }
 }
 </script>
+
+<style lang="scss">
+.qas-gallery-card {
+  &__image {
+    height: 180px;
+  }
+}
+</style>
