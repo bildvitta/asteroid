@@ -11,7 +11,51 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
 ## Não publicado
+
+## BREAKING CHANGES
+- `QasPasswordInput`: removido propriedade `iconColor` uma vez que não deve ser possível mudar a cor do ícone.
+- `QasPasswordStrengthChecker`: removido model `modelValue` pois não estava sendo repassado para o `QasPasswordInput`.
+- `QasActionsMenu`: removido propriedades [`useLabelOnSmallScreen`, `color`, `icon`] pois agora é possível passar as propriedades para o `buttonProps` e `dropdownIcon`.
+- `QasActionsMenu`: como agora o componente não faz mais uso do `QasDelete`, mas sim do `Delete.js` muda um pouco a utilização, checar documentação.
+- `QasNumericInput`: modificado o valor padrão da propriedade `use-negative` para `false`. Anteriormente por padrão era possível inserir valores negativos, porém com essa modificação será necessário passar a propriedade `use-negative` como `true` para ter o mesmo comportamento anterior.
+
+### Adicionado
+- [`QasPasswordInput`, `QasPasswordStrengthChecker`]: model `currentLevel` que retorna o level atual.
+- `QasTableGenerator`: Adicionado prop `row-route-fn` caso queira que ao clicar em uma linha, vá para outra rota.
+- `QasTableGenerator`: Adicionado prop `use-external-link` que é usado em conjunto com a prop `row-function-fn` quando há a necessidade da rota ser um link externo.
+- `QasActionsMenu`: adicionado propriedade `splitName` que habilita o useSplit no QBtnDropdown internamente separando 2 ações no componente por uma barra.
+-`Delete.js`: adicionado novo plugin para dar a possibilidade de utilização de deleção de items sem ser pelo uso do componente `QasDelete`, com isto é possível utilizar fora de componentes `vue`.
+- `QasBtnDropdown`: adicionado novo componente semelhante ao QBtnDropdown, porém nossas regras, e estilos.
+- `QasActionsMenu`: adicionado propriedade `dropdownIcon` para ser repassado para o `QasBtnDropdown`.
+- `QasActionsMenu`: adicionado propriedade `buttonProps` para ser repassado para o `QasBtn` e `QasBtnDropdown` (dependendo da quantidade de itens dentro da prop `list`).
+- `QasActionsMenu`: adicionado propriedade `splitName` que habilita o `useSplit` do `QasBtnDropdown` e também é responsável por sinalizar qual item da lista será o botão a esquerda do QasBtnDropdown.
+- `QasBtn`: adicionadas propriedades [`icon`, `iconRight`], antes essas props vinha através do `$attrs`, porém por logica interna foi necessário fixar elas no componente.
+- `ui/src/css/variables/separator.scss`: modificado cores do QSeparator.
+- [`app-extension/src/boot/loading.js`, `ui/src/css/plugins/loading.scss`]: adicionado novos arquivos para mudar o estilo do Loading.
+
+### Modificado
+- `QasPasswordInput`: Corrigido `QIcon` que foi substituído para um `QasBtn`.
+- `QasActionsMenu`: modificado componente para utilizar nativamente o `QBtnDropdown`ao invés de fazer a logica manual com `QMenu`.
+- `/ui/src/css/components/button.scss`: adicionado propriedade `box-shadow: none` para zerar o shadow em todos os casos.
+- `QasDelete`: reimplementado componente para fazer utilização do plugin `Delete.js`.
+- `QasActionsMenu`: refatorado código para troca no `QasDelete` pelo `Delete.js`.
+- `QasActionsMenu`: refatorado código para utilização do `QasBtnDropdown`.
+- `QasActionsMenu`: mudanças de comportamento.
+- `QasNestedFields`: repassando todas propriedades do `QasActionsMenu` e não somente o `list`.
+- `QasNumericInput`: modificado o valor padrão da propriedade `use-negative` para `false`.
+- `QasDialog`: modificado a forma de repassar as props para o `QasActions`, para que sobrescreva os valores defaults.
+- `QasActions`: modificado a lógica de inverter os botões a partir do momento que for passada a prop `useFullWidth`.
+- `Loading` adicionado estilos default para o Loading do `quasar`.
+
+### Removido
+- `QasPasswordInput`: removido propriedade `iconColor` uma vez que não deve ser possível mudar a cor do ícone.
+- `QasPasswordStrengthChecker`: removido model `modelValue` pois não estava sendo repassado para o `QasPasswordInput`.
+- `QasActionsMenu`: removido propriedades [`useLabelOnSmallScreen`, `color`, `icon`] pois agora é possível passar as propriedades para o `buttonProps` e `dropdownIcon`.
+
 ### Corrigido
+- `QasPasswordInput`: Corrigido slot do hint que texto ficava em cima de conteúdos abaixo do input.
+- `QasInput`: corrigido `errorMessage` que não deveria ser resetado ao usar a propriedade `use-remove-error-on-type`.
+- [`loading.js`, `loading.scss`]: adicionado custom class `qas-loading` para só estilizar o loading quando existir esta classe.
 - `searchFilterMixin`: corrigido problema ao emitir o evento `update:modelValue` para campos de select múltiplos ao alterar a propriedade `lazyLoadingProps`.
 
 ## [3.7.0-beta.3] - 09-03-2023
