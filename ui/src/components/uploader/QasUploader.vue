@@ -2,33 +2,35 @@
   <div borderless class="qas-uploader" :error="hasErrorMessage" :error-message="errorMessage" :hint="hintValue" no-error-icon>
     <q-uploader ref="uploader" auto-upload :class="uploaderClasses" :factory="factory" flat :max-files="maxFiles" method="PUT" :readonly="readonly" v-bind="attributes" @factory-failed="factoryFailed" @uploaded="uploaded" @uploading="updateUploading(true)">
       <template #header="scope">
-        <div class="flex items-center justify-between q-mb-xl">
-          <div class="text-subtitle1">Documentos</div>
+        <slot name="header" :scope="scope">
+          <div class="flex items-center justify-between q-mb-xl">
+            <div class="text-subtitle1">Documentos</div>
 
-          <div>
-            <qas-btn color="primary" icon="sym_r_add" label="Adicionar novo arquivo" variant="tertiary" @click="$refs.hiddenInput.click()" />
+            <div>
+              <qas-btn color="primary" icon="sym_r_add" label="Adicionar novo arquivo" variant="tertiary" @click="$refs.hiddenInput.click()" />
+            </div>
           </div>
-        </div>
 
-        <!-- ------------------------------------ tags hidden -------------------------------------- -->
-        <input ref="hiddenInput" :accept="attributes.accept" class="qas-uploader__input" :multiple="isMultiple" type="file">
-        <qas-btn ref="buttonCleanFiles" class="hidden" @click="scope.removeUploadedFiles" />
+          <!-- ------------------------------------ tags hidden -------------------------------------- -->
+          <input ref="hiddenInput" :accept="attributes.accept" class="qas-uploader__input" :multiple="isMultiple" type="file">
+          <qas-btn ref="buttonCleanFiles" class="hidden" @click="scope.removeUploadedFiles" />
+        </slot>
       </template>
 
       <template #list="scope">
         <div v-if="modelValue" class="q-col-gutter-lg row">
           <div v-for="(file, key, index) in getFilesList(scope.files, scope)" :key="index" class="col-6">
-            <pv-uploader-gallery-card v-bind="getUploaderGalleryCardProps({ key, scope, file, index })" />
+            <pv-uploader-gallery-card v-model="model" :index="index" v-bind="getUploaderGalleryCardProps({ key, scope, file, index })">
+              <template v-for="(_, name) in $slots" #[name]="context">
+                <slot :name="name" v-bind="context || {}" />
+              </template>
+            </pv-uploader-gallery-card>
           </div>
         </div>
       </template>
     </q-uploader>
 
     <slot :context="self" name="custom-upload" />
-
-    <!-- <template v-if="hasErrorMessage" #after>
-      <q-icon color="negative" name="sym_r_error" />
-    </template> -->
   </div>
 </template>
 
@@ -44,7 +46,7 @@ import PvUploaderGalleryCard from './private/PvUploaderGalleryCard.vue'
 // TODO remover
 import axios from 'axios'
 
-const token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiJhZjY0Y2Q1Zi00OTlmLTExZWQtOTdjYy0wMmMxMWVlNThhODciLCJqdGkiOiIyNTE3NjdiMTdkY2RlZmIzZGQ0ZDA2ZGQ1NTEyNzNhYTBiMTIyMTNlZTNjMGY3MWNhZjczYjk4MDdmMzQ0ZWNmN2M0ZDg3YWNjMDU0NDUzYyIsImlhdCI6MTY3ODQ2NDk4NS4xMjI5LCJuYmYiOjE2Nzg0NjQ5ODUuMTIyOTAyLCJleHAiOjE3MTAwODczODUuMTA0NTA3LCJzdWIiOiI3NTYwNCIsInNjb3BlcyI6WyJwcm9maWxlIl19.jRIEGag_OgKRRD7QwP934B0ZExOgQ8lrUFMzrzcEfTIve2eHEiAcdseLXBr23onBQ2WWHSBZu_I2En2GCvjlH7iKWiMrHfpHUTdnEL__Umln20zTNhD0ze3xltS74vgAJcwRA_WQ7KaZk83li819XZ1C08hPU59I1rJqsNDoPimdkKssaeMkB_Jk2c08CgPqcJLWbR3jASbdw1mdZBn-q-TO7rzQqvaDWqwL-2YLmbk_vYnawdX1N3rqt-8bWfPgNzHCSiymdw9PQNHOCIOcxxgjMVASag-538aX85fDF0tGff5GlWmkhHeEoiWP5f5tdsLAnBoV4p-LxWRyBnnibgeeW39JsZiUv9dRnmsM2fl0BWeRROu6P8x8gBfV8OGIG9LIIzusVABSTrqoIMYkmfsrD34QQ9F3dvMltpKRxfL_7mouC4JybU1RHiWq0wyVkEFFt_dRTvjQoGL7ovKopvtkXO0DMveyFM7Gxxu37IbEn8eezMekAkFaK6uIPSh32wwTqHa3AffJPt7sU25uNKOwjKNLwZyrboECcFAM4lBlX2J8fe1bdwN4qKBOy8Tos34mgCKYqlMSRO20e73__tjP7cERm23F9J3jgmDnbeQvc6USt_0uCIcR5Qeewl0fCZmRw1HC3pjISF86IgKziQt5Zgm0ctt-x0PDGkwK2SY'
+const token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiJhZjY0Y2Q1Zi00OTlmLTExZWQtOTdjYy0wMmMxMWVlNThhODciLCJqdGkiOiIyNTE3NjdiMTdkY2RlZmIzZGQ0ZDA2ZGQ1NTEyNzNhYTBiMTIyMTNlZTNjMGY3MWNhZjczYjk4MDdmMzQ0ZWNmN2M0ZDg3YWNjMDU0NDUzYyIsImlhdCI6MTY3ODQ2NDk4NS4xMjI5LCJuYmYiOjE2Nzg0NjQ5ODUuMTIyOTAyLCJleHAiOjE3MTAwODczODUuMTA0NTA3LCJzdWIiOiI3NTYwNCIsInNjb3BlcyI6WyJwcm9maWxlIl19.jRIEGag_OgKRRD7QwP934B0ZExOgQ8lrUFMzrzcEfTIve2eHEiAcdseLXBr23onBQ2WWHSBZu_I2En2GCvjlH7iKWiMrHfpHUTdnEL__Umln20zTNhD0ze3xltS74vgAJcwRA_WQ7KaZk83li819XZ1C08hPU59I1rJqsNDoPimdkKssaeMkB_Jk2c08CgPqcJLWbR3jASbdw1mdZBn-q-TO7rzQqvaDWqwL-2YLmbk_vYnawdX1N3rqt-8bWfPgNzHCSiymdw9PQNHOCIOcxxgjMVASag-538aX85fDF0tGff5GlWmkhHeEoiWP5f5tdsLAnBoV4p-LxWRyBnnibgeeW39JsZiUv9dRnmsM2fl0BWeRROu6P8x8gBfV8OGIG9LIIzusVABSTrqoIMYkmfsrD34QQ9F3dvMltpKRxfL_7mouC4JybU1RHiWq0wyVkEFFt_dRTvjQoGL7ovKopvtkXO0DMveyFM7Gxxu37IbEn8eezMekAkFaK6uIPSh32wwTqHa3AffJPt7sU25uNKOwjKNLwZyrboECcFAM4lBlX2J8fe1bdwN4qKBOy8Tos34mgCKYqlMSRO20e73__tjP7cERm23F9J3jgmDnbeQvc6USt_0uCIcR5Qeewl0fCZmRw1HC3pjISF86IgKziQt5Zgm0ctt-x0PDGkwK2SY__'
 
 axios.defaults.baseURL = 'https://server-assistencia-tecnica.modular.dev.br/api/'
 axios.defaults.headers.Authorization = `Bearer ${token}`
@@ -71,6 +73,16 @@ export default {
       type: Array
     },
 
+    actionsMenuProps: {
+      type: Object,
+      default: () => ({})
+    },
+
+    dialogProps: {
+      type: Object,
+      default: () => ({})
+    },
+
     entity: {
       required: true,
       type: String
@@ -81,7 +93,17 @@ export default {
       type: String
     },
 
+    fields: {
+      default: () => ({}),
+      type: Object
+    },
+
     formGeneratorProps: {
+      default: () => ({}),
+      type: Object
+    },
+
+    gridGeneratorProps: {
       default: () => ({}),
       type: Object
     },
@@ -134,6 +156,7 @@ export default {
     },
 
     useEdit: {
+      default: true,
       type: Boolean
     }
   },
@@ -213,6 +236,46 @@ export default {
 
     hasAddedFiles () {
       return !!Object.keys(this.addedFiles).length
+    },
+
+    defaultDialogProps () {
+      return {
+        ...this.dialogProps,
+
+        onHide: () => {
+          this.currentKeyToEdit = ''
+        }
+      }
+    },
+
+    defaultUploaderGalleryCardProps () {
+      const {
+        fields,
+        formGeneratorProps,
+        gridGeneratorProps,
+        useObjectModel
+      } = this.$props
+
+      return {
+        fields,
+        formGeneratorProps,
+        gridGeneratorProps,
+        useObjectModel,
+
+        currentKey: this.currentKeyToEdit,
+        dialogProps: this.defaultDialogProps,
+        useMultiple: this.isMultiple
+      }
+    },
+
+    model: {
+      get () {
+        return this.modelValue
+      },
+
+      set (value) {
+        this.$emit('update:modelValue', value)
+      }
     }
   },
 
@@ -441,64 +504,31 @@ export default {
       this.$emit('update:uploading', uploading)
     },
 
-    updateModelValue ({ index, payload = {} }) {
-      if (!this.useObjectModel) return
-
-      if (this.isMultiple) {
-        const modelValue = [...this.modelValue]
-        const value = modelValue[index]
-
-        modelValue[index] = { ...value, ...payload }
-
-        this.$emit('update:modelValue', modelValue)
-
-        return
-      }
-
-      this.$emit('update:modelValue', { ...this.modelValue, ...payload })
-    },
-
-    getModelValue (index) {
-      if (!this.useObjectModel) return {}
-
-      return this.isMultiple ? this.modelValue[index] : this.modelValue
-    },
-
     getUploaderGalleryCardProps ({ key, scope, file, index }) {
       return {
-        currentKey: this.currentKeyToEdit,
-        dialogProps: this.getDialogProps(),
+        ...this.defaultUploaderGalleryCardProps,
         error: file.isFailed,
-        formGeneratorProps: this.getFormGeneratorProps({ index }),
         galleryCardProps: this.getGalleryCardProps({ key, scope, file }),
-        useGallery: !this.addedFiles[file.name],
-
-        // eventos
-        onUpdateModel: value => this.updateModelValue({ index, payload: value })
-      }
-    },
-
-    getDialogProps () {
-      return {
-        onHide: () => {
-          this.currentKeyToEdit = ''
-        }
-      }
-    },
-
-    getFormGeneratorProps ({ index }) {
-      return {
-        ...this.formGeneratorProps,
-        modelValue: this.getModelValue(index)
+        useGallery: !this.addedFiles[file.name]
       }
     },
 
     getGalleryCardProps ({ key, scope, file }) {
-      const hasEdit = (!this.addedFiles[file.name] || this.useEdit) && !file.isFailed
+      const hasEdit = (
+        !this.addedFiles[file.name] &&
+        !file.isFailed &&
+        this.useObjectModel &&
+        this.useEdit
+      )
+
       const hasDowload = this.useDownload && !file.isFailed
+
+      const { list, ...actionsMenuProps } = this.actionsMenuProps
 
       return {
         actionsMenuProps: {
+          ...actionsMenuProps,
+
           list: {
             ...(
               hasEdit &&
@@ -532,7 +562,9 @@ export default {
               icon: 'sym_r_delete',
 
               handler: () => this.removeItem(key, scope, file)
-            }
+            },
+
+            ...list
           }
         },
 

@@ -16,7 +16,7 @@
 
     <div style="height: 180px;">
       <slot name="image">
-        <q-img class="rounded-borders" height="180px" :src="card.url || ''" v-bind="imageProps">
+        <q-img class="rounded-borders" height="180px" :src="card.url" v-bind="imageProps">
           <template #default>
             <slot name="image-default" />
           </template>
@@ -29,7 +29,9 @@
     </div>
 
     <div v-if="hasBottom" class="q-mt-md">
-      <slot name="bottom" />
+      <slot name="bottom">
+        <qas-grid-generator v-if="hasGridGenerator" v-bind="gridGeneratorProps" />
+      </slot>
     </div>
   </div>
 </template>
@@ -61,6 +63,11 @@ export default {
     imageProps: {
       type: Object,
       default: () => {}
+    },
+
+    gridGeneratorProps: {
+      type: Object,
+      default: () => ({})
     }
   },
 
@@ -71,6 +78,10 @@ export default {
 
     hasBottom () {
       return !!this.$slots.bottom
+    },
+
+    hasGridGenerator () {
+      return !!Object.keys(this.gridGeneratorProps).length
     },
 
     classes () {
