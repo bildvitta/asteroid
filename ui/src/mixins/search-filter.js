@@ -79,6 +79,10 @@ export default {
 
     mx_isFilterByFuse () {
       return !this.useLazyLoading
+    },
+
+    mx_isMultiple () {
+      return this.$attrs.multiple || this.$attrs.multiple === ''
     }
   },
 
@@ -88,7 +92,8 @@ export default {
         if (isEqual(value, oldValue)) return
 
         this.mx_filterOptionsByStore('')
-        this.$emit('update:modelValue', '')
+
+        this.$emit('update:modelValue', this.mx_isMultiple ? [] : '')
       }
     }
   },
