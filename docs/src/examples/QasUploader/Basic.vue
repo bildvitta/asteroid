@@ -1,7 +1,7 @@
 <template>
   <q-form class="container spaced">
     <div>
-      <qas-uploader v-model="model2" entity="serviceOrders" :fields="fields" :form-generator-props="formGeneratorProps" label="Meu uploader" :multiple="true" use-object-model>
+      <qas-uploader v-model="model4" entity="serviceOrders" :fields="fields" :form-generator-props="formGeneratorProps" label="Meu uploader" :multiple1="true" use-object-model>
         <!-- <template #bottom>
           Tetse
         </template> -->
@@ -21,7 +21,7 @@
       <!-- <qas-uploader v-model="model4" entity="serviceOrders" :form-generator-props="formGeneratorProps" label="Meu uploader" :multiple="true" /> -->
     </div>
 
-    <qas-debugger :inspect="[model2]" />
+    <qas-debugger :inspect="[model4]" />
     <!-- <qas-debugger :inspect="[model, model2, model3, model4]" /> -->
     <qas-btn label="submit" type="submit" />
   </q-form>
@@ -87,7 +87,7 @@ export default {
       // }
 
       return {
-        // fields,
+        fields: this.fields,
         fieldsProps: {
           email: {
             rules: [value => required(value)]

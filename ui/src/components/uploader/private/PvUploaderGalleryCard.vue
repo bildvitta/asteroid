@@ -23,12 +23,12 @@
         </div>
       </template>
 
-      <template #bottom>
-        <slot :index="index" name="card-bottom" :update-model="updateModelValue">
+      <template v-if="hasGenerator" #bottom>
+        <div>
           <qas-grid-generator v-if="hasGridGenerator" v-bind="defaultGridGeneratorProps" />
 
           <qas-form-generator v-else-if="hasFormGenerator" v-bind="defaultFormGeneratorProps" />
-        </slot>
+        </div>
       </template>
     </qas-gallery-card>
 
@@ -88,11 +88,6 @@ export default {
       type: Boolean
     },
 
-    index: {
-      default: 0,
-      type: Number
-    },
-
     useObjectModel: {
       type: Boolean
     },
@@ -112,10 +107,6 @@ export default {
   },
 
   computed: {
-    currentModel () {
-      return this.getModelValue(this.index)
-    },
-
     dialogFormGeneratorProps () {
       const { modelValue, ...props } = this.defaultFormGeneratorProps
 
@@ -139,10 +130,7 @@ export default {
 
     defaultFormGeneratorProps () {
       return {
-        // 'onUpdate:modelValue': value => this.updateModelValue({ index: this.index, value }),
-        'onUpdate:modelValue': value => this.$emit('update-model', value),
-
-        modelValue: this.currentModel,
+        'onUpdate:modelValue': this.updateModel,
         disable: this.error,
 
         ...this.defaultGeneratorProps,
@@ -153,7 +141,7 @@ export default {
     defaultGridGeneratorProps () {
       return {
         useEmptyResult: false,
-        result: this.currentModel,
+        result: this.defaultFormGeneratorProps.modelValue,
 
         ...this.defaultGeneratorProps,
         ...this.gridGeneratorProps
@@ -192,14 +180,21 @@ export default {
     },
 
     errorClasses () {
-      return 'bg-grey-4 flex full-height full-width items-center justify-center text-grey-9 text-subtitle2'
+      return [
+        'bg-grey-4',
+        'flex',
+        'full-height',
+        'full-width',
+        'items-center',
+        'justify-center',
+        'text-grey-9',
+        'text-subtitle2'
+      ]
     },
 
     hasGridGenerator () {
       const { fields } = this.defaultGridGeneratorProps
       const hasFields = !!Object.keys(fields).length
-
-      console.log(this.useGallery && !this.error && hasFields)
 
       return this.useGallery && !this.error && hasFields
     },
@@ -207,7 +202,11 @@ export default {
     hasFormGenerator () {
       const { fields } = this.defaultFormGeneratorProps
 
-      return !!Object.keys(fields).length
+      return !!Object.keys(fields).length && !this.useGallery
+    },
+
+    hasGenerator () {
+      return this.useObjectModel && (this.hasGridGenerator || this.hasFormGenerator)
     }
   },
 
@@ -230,31 +229,11 @@ export default {
       if (!isValid) return
 
       this.showDialog = false
-      // this.updateModelValue({ index: this.index, payload: this.dialogValues })
-      this.$emit('update-model', this.dialogValues)
+      this.updateModel(this.dialogValues)
     },
 
-    updateModelValue ({ index, payload = {} }) {
-      if (!this.useObjectModel) return
-
-      if (this.useMultiple) {
-        const modelValue = [...this.modelValue]
-        const value = modelValue[index]
-
-        modelValue[index] = { ...value, ...payload }
-
-        this.$emit('update:modelValue', modelValue)
-
-        return
-      }
-
-      this.$emit('update:modelValue', { ...this.modelValue, ...payload })
-    },
-
-    getModelValue (index) {
-      if (!this.useObjectModel) return {}
-
-      return this.useMultiple ? this.modelValue[index] : this.modelValue
+    updateModel (value) {
+      this.$emit('update-model', value)
     }
   }
 }

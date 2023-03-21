@@ -8,9 +8,13 @@
 export default ({ url, name }) => {
   const link = document.createElement('a')
 
+  console.log({ url, name })
+
   link.download = name
   link.href = url
   link.style.display = 'none'
+
+  console.log(link, '>>> link')
 
   document.body.appendChild(link)
 

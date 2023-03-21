@@ -1,11 +1,10 @@
 <template>
   <div borderless class="qas-uploader" :error="hasErrorMessage" :error-message="errorMessage" :hint="hintValue" no-error-icon>
-    <!-- <pre>{{ addedFiles }}</pre> -->
     <q-uploader ref="uploader" auto-upload :class="uploaderClasses" :factory="factory" flat :max-files="maxFiles" method="PUT" :readonly="readonly" v-bind="attributes" @factory-failed="factoryFailed" @uploaded="uploaded" @uploading="updateUploading(true)">
       <template #header="scope">
         <slot name="header" :scope="scope">
           <div class="flex items-center justify-between q-mb-xl">
-            <div class="text-subtitle1">Documentos</div>
+            <qas-label label="Documentos" />
 
             <div>
               <qas-btn color="primary" icon="sym_r_add" label="Adicionar novo arquivo" variant="tertiary" @click="$refs.hiddenInput.click()" />
@@ -19,10 +18,9 @@
       </template>
 
       <template #list="scope">
-        <pre>{{ addedFiles }}</pre>
         <div v-if="modelValue" class="q-col-gutter-lg row">
           <div v-for="(file, key, index) in getFilesList(scope.files, scope)" :key="index" :class="columnClasses">
-            <pv-uploader-gallery-card v-model="model" :index="index" v-bind="getUploaderGalleryCardProps({ key, scope, file, index })">
+            <pv-uploader-gallery-card v-bind="getUploaderGalleryCardProps({ key, scope, file, index })">
               <template v-for="(_, name) in $slots" #[name]="context">
                 <slot :name="name" v-bind="context || {}" />
               </template>
@@ -172,13 +170,10 @@ export default {
 
   data () {
     return {
-      isFetching: false,
-      isUploading: false,
       hiddenInputElement: null,
       uploader: null,
       showDialog: false,
-      currentKeyToEdit: '',
-      addedFiles: {}
+      currentKeyToEdit: ''
     }
   },
 
@@ -233,14 +228,6 @@ export default {
       }
     },
 
-    hasFormGenerator () {
-      return !!Object.keys(this.formGeneratorProps).length
-    },
-
-    hasAddedFiles () {
-      return !!Object.keys(this.addedFiles).length
-    },
-
     defaultDialogProps () {
       return {
         ...this.dialogProps,
@@ -268,16 +255,6 @@ export default {
         currentKey: this.currentKeyToEdit,
         dialogProps: this.defaultDialogProps,
         useMultiple: this.isMultiple
-      }
-    },
-
-    model: {
-      get () {
-        return this.modelValue
-      },
-
-      set (value) {
-        this.$emit('update:modelValue', value)
       }
     },
 
@@ -352,7 +329,6 @@ export default {
 
     uploaded (response) {
       const fullPath = response.xhr.responseURL.split('?').shift()
-      const { files: [file] } = response
 
       const objectValue = {
         format: response.files[0].type,
@@ -362,19 +338,12 @@ export default {
 
       const model = this.useObjectModel ? objectValue : fullPath
 
-      if (this.useObjectModel) {
-        this.addedFiles[file.name] = true
-        // this.addedFiles[objectValue.name] = true
-      }
-
       this.$emit('update:modelValue', this.isMultiple ? [...this.modelValue, model] : model || '')
 
       this.updateUploading(false)
     },
 
     async fetchCredentials (filename) {
-      this.isFetching = true
-
       try {
         // TODO voltar código comentado
         const { data } = await axios.post('/upload-credentials/', {
@@ -384,9 +353,7 @@ export default {
         })
 
         return data
-      } finally {
-        this.isFetching = false
-      }
+      } catch {}
     },
 
     removeItem (index, scope, file) {
@@ -554,18 +521,35 @@ export default {
       this.$emit('update:modelValue', { ...this.modelValue, ...payload })
     },
 
+    getFormGeneratorProps (modelValue) {
+      return {
+        modelValue,
+        ...this.formGeneratorProps
+      }
+    },
+
     getUploaderGalleryCardProps ({ key, scope, file, index }) {
-      const currentModelValue = this.getModelValue(index)
+      const modelValue = this.getModelValue(index)
+
+      console.log(modelValue, '>>> modelValue')
 
       return {
         ...this.defaultUploaderGalleryCardProps,
-        // formGeneratorProps: {
-        //   modelValue: this.getModelValue(index)
-        // },
+
         error: file.isFailed,
-        galleryCardProps: this.getGalleryCardProps({ key, scope, file, index, modelValue: currentModelValue }),
         useGallery: !file.isUploaded,
 
+        formGeneratorProps: this.getFormGeneratorProps(modelValue),
+
+        galleryCardProps: this.getGalleryCardProps({
+          key,
+          scope,
+          file,
+          index,
+          modelValue
+        }),
+
+        // eventos
         onUpdateModel: value => this.updateModelValue({ index, payload: value })
       }
     },
@@ -577,6 +561,8 @@ export default {
         this.useObjectModel &&
         this.useEdit
       )
+
+      const normalizedFile = this.useObjectModel ? modelValue : file
 
       const hasDowload = this.useDownload && !file.isFailed
 
@@ -594,6 +580,7 @@ export default {
                   label: 'Editar',
                   icon: 'sym_r_edit',
 
+                  // callback
                   handler: () => {
                     this.currentKeyToEdit = key
                   }
@@ -608,7 +595,8 @@ export default {
                   label: 'Baixar arquivo',
                   icon: 'sym_r_download',
 
-                  handler: () => downloadFile(modelValue)
+                  // callback
+                  handler: () => downloadFile(normalizedFile)
                 }
               }
             ),
@@ -618,6 +606,7 @@ export default {
               color: 'grey-9',
               icon: 'sym_r_delete',
 
+              // callback
               handler: () => this.removeItem(key, scope, file)
             },
 
@@ -625,7 +614,7 @@ export default {
           }
         },
 
-        card: modelValue
+        card: normalizedFile
       }
     },
 
