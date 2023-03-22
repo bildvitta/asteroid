@@ -1,7 +1,7 @@
 <template>
   <q-form class="container spaced">
     <div>
-      <qas-uploader v-model="model4" entity="serviceOrders" :fields="fields" :form-generator-props="formGeneratorProps" label="Meu uploader" :multiple1="true" use-object-model>
+      <qas-uploader v-model="values.model2" entity="serviceOrders" :fields="fields" :form-generator-props="formGeneratorProps" label="Meu uploader" :multiple="true" use-object-model>
         <!-- <template #bottom>
           Tetse
         </template> -->
@@ -21,9 +21,11 @@
       <!-- <qas-uploader v-model="model4" entity="serviceOrders" :form-generator-props="formGeneratorProps" label="Meu uploader" :multiple="true" /> -->
     </div>
 
-    <qas-debugger :inspect="[model4]" />
+    <qas-debugger :inspect="[values]" />
     <!-- <qas-debugger :inspect="[model, model2, model3, model4]" /> -->
-    <qas-btn label="submit" type="submit" />
+    <qas-btn
+      label="submit" @click="values = { ...newModel }"
+    />
   </q-form>
 </template>
 
@@ -33,21 +35,29 @@ import { required } from '../../../../ui/src/helpers'
 export default {
   data () {
     return {
+      counter: 0,
+      newModel: {
+        model2: [{
+          format: 'image/jpeg',
+          url: 'https://s3.amazonaws.com/uploads.assistencia-digital.nave.dev/uploads/v2/development/serviceOrders/d5648a15-c66f-401a-9c97-0a55efda0b72.jpg',
+          name: 'teste-2 (5th copy).jpg',
+          email: 'meu-deus'
+        }]
+      },
       model4: ['https://s3.amazonaws.com/uploads.assistencia-digital.nave.dev/uploads/v2/development/serviceOrders/d5648a15-c66f-401a-9c97-0a55efda0b72.jpg'],
       model3: 'https://s3.amazonaws.com/uploads.assistencia-digital.nave.dev/uploads/v2/development/serviceOrders/d5648a15-c66f-401a-9c97-0a55efda0b72.jpg',
-      model2: [{
-        format: 'image/jpeg',
-        url: 'https://s3.amazonaws.com/uploads.assistencia-digital.nave.dev/uploads/v2/development/serviceOrders/d5648a15-c66f-401a-9c97-0a55efda0b72.jpg',
-        name: 'teste-2 (5th copy).jpg',
-        email: 'meu-deus'
-      }],
+      values: {
+        model2: [{
+          format: 'image/jpeg',
+          url: 'https://s3.amazonaws.com/uploads.assistencia-digital.nave.dev/uploads/v2/development/serviceOrders/d5648a15-c66f-401a-9c97-0a55efda0b72.jpg',
+          name: 'teste-2 (5th copy).jpg',
+          email: 'meu-deus'
+        }]
+      },
       model: {
         format: 'image/jpeg',
         url: 'https://s3.amazonaws.com/uploads.assistencia-digital.nave.dev/uploads/v2/development/serviceOrders/d5648a15-c66f-401a-9c97-0a55efda0b72.jpg',
         name: 'teste-2 (5th copy).jpg'
-      },
-      values: {
-        uploader: []
       }
     }
   },
@@ -98,6 +108,16 @@ export default {
         }
         // fields: filterObject(fields, [''])
       }
+    }
+  },
+
+  watch: {
+    values: {
+      handler (value) {
+        this.newModel = value
+      },
+
+      imemediate: true
     }
   },
 

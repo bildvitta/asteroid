@@ -15,6 +15,8 @@
       <template #default>
         <div>
           <qas-form-generator v-model="values" :errors="errors" :fields="fields" />
+
+          <qas-uploader v-model="values.uploader" entity="serviceOrders" :fields="fields" label="Meu uploader" :multiple="true" use-object-model />
         </div>
       </template>
     </qas-form-view>
@@ -33,7 +35,9 @@ export default {
     return {
       fields: {},
       errors: {},
-      values: {},
+      values: {
+        uploader: []
+      },
       metadata: {},
       isFormSubmitted: false
     }

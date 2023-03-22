@@ -7,7 +7,7 @@
             <qas-label label="Documentos" />
 
             <div>
-              <qas-btn color="primary" icon="sym_r_add" label="Adicionar novo arquivo" variant="tertiary" @click="$refs.hiddenInput.click()" />
+              <qas-btn color="primary" icon="sym_r_add" label="Adicionar" variant="tertiary" @click="$refs.hiddenInput.click()" />
             </div>
           </div>
 
@@ -20,6 +20,7 @@
       <template #list="scope">
         <div v-if="modelValue" class="q-col-gutter-lg row">
           <div v-for="(file, key, index) in getFilesList(scope.files, scope)" :key="index" :class="columnClasses">
+            <pre>{{ index }}</pre>
             <pv-uploader-gallery-card v-bind="getUploaderGalleryCardProps({ key, scope, file, index })">
               <template v-for="(_, name) in $slots" #[name]="context">
                 <slot :name="name" v-bind="context || {}" />
@@ -173,7 +174,10 @@ export default {
       hiddenInputElement: null,
       uploader: null,
       showDialog: false,
-      currentKeyToEdit: ''
+      currentKeyToEdit: '',
+      addedFiles: {},
+      cachedModelValue: null,
+      isGridMode: false
     }
   },
 
@@ -287,11 +291,26 @@ export default {
     }
   },
 
+  watch: {
+    modelValue: {
+      handler (value, oldValue) {
+        this.cachedModelValue = oldValue
+      },
+
+      immediate: true
+    }
+  },
+
   mounted () {
     this.hiddenInputElement = this.$refs.hiddenInput
     this.uploader = this.$refs.uploader
 
     this.hiddenInputElement?.addEventListener?.('change', this.addFiles)
+
+    window.addEventListener('submit-success', ({ detail }) => {
+      this.isGridMode = true
+      // this.$emit('update:modelValue', this.modelValue)
+    })
   },
 
   unmounted () {
@@ -335,6 +354,10 @@ export default {
         url: fullPath,
         name: response.files[0].name
       }
+
+      const fileName = this.getFileName(fullPath)
+
+      this.addedFiles[fileName] = true
 
       const model = this.useObjectModel ? objectValue : fullPath
 
@@ -392,8 +415,6 @@ export default {
           isUploaded: true,
           url: file.xhr ? file.xhr.responseURL.split('?').shift() : '',
           name: file.name,
-          progressLabel: file.__progressLabel,
-          sizeLabel: file.__sizeLabel,
           indexToDelete,
           isFailed: this.isFailed(file)
         }
@@ -402,6 +423,19 @@ export default {
       const pathsList = Array.isArray(this.modelValue)
         ? this.modelValue
         : (this.modelValue ? [this.modelValue] : [])
+
+      // console.log(pathsList, '>>>> pathsList')
+
+      // // const newList = []
+
+      // pathsList.forEach((item, index) => {
+      //   if (
+      //     (this.useObjectModel && uploadedFiles.find(({ url }) => url === item.url)) ||
+      //     uploadedFiles.includes(item)
+      //   ) {
+      //     uploadedFiles.splice(index, 1, item)
+      //   }
+      // })
 
       const mergedList = [...pathsList, ...uploadedFiles]
 
@@ -452,6 +486,8 @@ export default {
       this.$refs.hiddenInput.value = ''
 
       filesList.forEach(file => processedFiles.push(this.resizeImage(file)))
+
+      this.isGridMode = false
       this.uploader.addFiles(await Promise.all(processedFiles))
     },
 
@@ -531,13 +567,15 @@ export default {
     getUploaderGalleryCardProps ({ key, scope, file, index }) {
       const modelValue = this.getModelValue(index)
 
-      console.log(modelValue, '>>> modelValue')
+      console.log(this.isGridMode, '::::::::::: krl')
 
       return {
         ...this.defaultUploaderGalleryCardProps,
 
         error: file.isFailed,
-        useGallery: !file.isUploaded,
+        // useGallery: !this.addedFiles[key],
+        useGallery: 'isUploaded' in file && this.isGridMode,
+        // useGallery: !file.isUploaded && this.isGridMode,
 
         formGeneratorProps: this.getFormGeneratorProps(modelValue),
 
@@ -562,7 +600,8 @@ export default {
         this.useEdit
       )
 
-      const normalizedFile = this.useObjectModel ? modelValue : file
+      // const normalizedFile = this.useObjectModel ? modelValue : file
+      const normalizedFile = file
 
       const hasDowload = this.useDownload && !file.isFailed
 
