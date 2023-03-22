@@ -110,7 +110,7 @@ export default {
       type: Boolean
     },
 
-    useRouteUpdate: {
+    useUpdateRoute: {
       default: true,
       type: Boolean
     },
@@ -240,11 +240,15 @@ export default {
   methods: {
     clearFilters () {
       const { filters, ...query } = this.mx_context
+      const allFilters = {
+        ...this.filters,
+        ...filters
+      }
 
       if (this.hasFields) {
         const fields = Object.keys(this.fields)
 
-        for (const key in filters) {
+        for (const key in allFilters) {
           const camelizedKey = camelize(key)
           const hasField = fields.includes(camelizedKey)
 
@@ -258,12 +262,15 @@ export default {
       }
 
       this.$emit('clear', query)
-      this.useRouteUpdate && this.$router.push({ query })
+      this.useUpdateRoute && this.$router.push({ query })
     },
 
     clearSearch () {
       this.search = ''
-      this.filter()
+
+      if (!this.debounce) {
+        this.filter()
+      }
     },
 
     async fetchFilters () {
@@ -317,7 +324,7 @@ export default {
       }
 
       this.$emit('filter', query)
-      this.useRouteUpdate && this.$router.push({ query })
+      this.useUpdateRoute && this.$router.push({ query })
     },
 
     getChipValue (value) {
@@ -331,7 +338,7 @@ export default {
       delete this.filters[name]
 
       this.$emit('filter', query)
-      this.useRouteUpdate && this.$router.push({ query })
+      this.useUpdateRoute && this.$router.push({ query })
     },
 
     updateValues () {

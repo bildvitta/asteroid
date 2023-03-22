@@ -38,7 +38,7 @@ props:
     desc: Força refazer o "fetch" mesmo caso já exista dados na store de filters.
     type: Boolean
 
-  use-route-update:
+  use-update-route:
     desc: Habilita ou não a atualização da rota com base nos filtros.
     default: true
     type: Boolean

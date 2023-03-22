@@ -31,6 +31,8 @@ Normalmente este componente é utilizando junto ao `QasListView` para filtrar os
 
 <doc-example file="QasFilters/NoSearch" title="Sem o campo de busca" />
 
+<doc-example file="QasFilters/NoRouteUpdate" title="Não realizando a atualização padrão da rota" />
+
 <doc-example file="QasFilters/CustomFilter" title="Usando slot default com funções 'filter' e 'removeFilter'" />
 
 <doc-example file="QasFilters/CustomFilterButton" title="Usando slot filter-button com a função 'filter'" />
