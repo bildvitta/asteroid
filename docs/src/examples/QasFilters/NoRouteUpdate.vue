@@ -14,7 +14,7 @@ export default {
 
   methods: {
     onFilterUpdate (query) {
-      console.log(query)
+      // console.log(query)
     }
   }
 }
