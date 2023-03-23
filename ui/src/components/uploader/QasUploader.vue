@@ -1,13 +1,17 @@
 <template>
-  <div borderless class="qas-uploader" :error="hasErrorMessage" :error-message="errorMessage" :hint="hintValue" no-error-icon>
-    <q-uploader ref="uploader" auto-upload :class="uploaderClasses" :factory="factory" flat :max-files="maxFiles" method="PUT" :readonly="readonly" v-bind="attributes" @factory-failed="factoryFailed" @uploaded="uploaded" @uploading="updateUploading(true)">
+  <div class="qas-uploader">
+    <q-uploader ref="uploader" auto-upload :class="uploaderClasses" :factory="factory" flat :max-files="maxFiles" method="PUT" v-bind="attributes" @factory-failed="factoryFailed" @uploaded="uploaded" @uploading="updateUploading(true)">
       <template #header="scope">
         <slot name="header" :scope="scope">
-          <div class="flex items-center justify-between q-mb-xl">
-            <qas-label label="Documentos" />
+          <div class="flex items-center justify-between">
+            <div>
+              <qas-label v-bind="labelProps" />
+
+              <div v-if="errorMessage" class="q-mt-xs text-caption text-negative">{{ errorMessage }}</div>
+            </div>
 
             <div>
-              <qas-btn color="primary" icon="sym_r_add" label="Adicionar" variant="tertiary" @click="$refs.hiddenInput.click()" />
+              <qas-btn color="primary" icon="sym_r_add" label="Adicionar" variant="tertiary" v-bind="addButtonProps" @click="$refs.hiddenInput.click()" />
             </div>
           </div>
 
@@ -18,9 +22,8 @@
       </template>
 
       <template #list="scope">
-        <div v-if="modelValue" class="q-col-gutter-lg row">
+        <div v-if="hasModelValue" class="q-col-gutter-lg q-mt-xl row">
           <div v-for="(file, key, index) in getFilesList(scope.files, scope)" :key="index" :class="columnClasses">
-            <pre>{{ index }}</pre>
             <pv-uploader-gallery-card v-bind="getUploaderGalleryCardProps({ key, scope, file, index })">
               <template v-for="(_, name) in $slots" #[name]="context">
                 <slot :name="name" v-bind="context || {}" />
@@ -39,7 +42,6 @@
 import { uid, extend } from 'quasar'
 import { NotifyError } from '../../plugins'
 import { getImageSize, getResizeDimensions } from '../../helpers/images.js'
-import downloadFile from '../../helpers/download-file.js'
 import Pica from 'pica'
 
 import PvUploaderGalleryCard from './private/PvUploaderGalleryCard.vue'
@@ -62,6 +64,11 @@ export default {
   inheritAttrs: false,
 
   props: {
+    addButtonProps: {
+      type: Object,
+      default: () => ({})
+    },
+
     acceptResizeTypes: {
       default: () => [
         'image/jpeg',
@@ -74,9 +81,9 @@ export default {
       type: Array
     },
 
-    actionsMenuProps: {
+    columns: {
       type: Object,
-      default: () => ({})
+      default: () => ({ col: 12, sm: 6, md: 4, lg: 3 })
     },
 
     dialogProps: {
@@ -87,6 +94,10 @@ export default {
     entity: {
       required: true,
       type: String
+    },
+
+    error: {
+      type: Boolean
     },
 
     errorMessage: {
@@ -104,19 +115,29 @@ export default {
       type: Object
     },
 
+    galleryCardProps: {
+      type: Object,
+      default: () => ({})
+    },
+
     gridGeneratorProps: {
       default: () => ({}),
       type: Object
     },
 
-    hint: {
-      default: '',
-      type: String
+    label: {
+      type: String,
+      default: ''
     },
 
     maxFiles: {
       default: undefined,
       type: Number
+    },
+
+    modelValue: {
+      default: '',
+      type: [String, Array, Object]
     },
 
     picaResizeOptions: {
@@ -138,11 +159,6 @@ export default {
       type: Boolean
     },
 
-    modelValue: {
-      default: '',
-      type: [String, Array, Object]
-    },
-
     uploading: {
       type: Boolean
     },
@@ -154,16 +170,6 @@ export default {
     useDownload: {
       default: true,
       type: Boolean
-    },
-
-    useEdit: {
-      default: true,
-      type: Boolean
-    },
-
-    columns: {
-      type: Object,
-      default: () => ({ col: 12, sm: 6, md: 4, lg: 3 })
     }
   },
 
@@ -174,14 +180,15 @@ export default {
       hiddenInputElement: null,
       uploader: null,
       showDialog: false,
-      currentKeyToEdit: '',
-      addedFiles: {},
-      cachedModelValue: null,
-      isGridMode: false
+      savedFiles: {}
     }
   },
 
   computed: {
+    attributes () {
+      return this.$attrs
+    },
+
     self () {
       return this
     },
@@ -204,23 +211,8 @@ export default {
       return this.$slots['custom-upload']
     },
 
-    hintValue () {
-      return this.hint || undefined
-    },
-
     hasHeaderSlot () {
       return this.$slots.header
-    },
-
-    hasErrorMessage () {
-      return !!this.errorMessage.length
-    },
-
-    attributes () {
-      return {
-        ...this.$attrs,
-        ...this.$props
-      }
     },
 
     defaultPicaResizeOptions () {
@@ -232,32 +224,26 @@ export default {
       }
     },
 
-    defaultDialogProps () {
-      return {
-        ...this.dialogProps,
-
-        onHide: () => {
-          this.currentKeyToEdit = ''
-        }
-      }
-    },
-
     defaultUploaderGalleryCardProps () {
       const {
         fields,
         formGeneratorProps,
+        galleryCardProps,
         gridGeneratorProps,
-        useObjectModel
+        useDownload,
+        useObjectModel,
+        dialogProps
       } = this.$props
 
       return {
+        dialogProps,
         fields,
         formGeneratorProps,
+        galleryCardProps,
         gridGeneratorProps,
+        useDownload,
         useObjectModel,
 
-        currentKey: this.currentKeyToEdit,
-        dialogProps: this.defaultDialogProps,
         useMultiple: this.isMultiple
       }
     },
@@ -288,16 +274,21 @@ export default {
       }
 
       return classes
-    }
-  },
+    },
 
-  watch: {
-    modelValue: {
-      handler (value, oldValue) {
-        this.cachedModelValue = oldValue
-      },
+    hasModelValue () {
+      if (!this.useObjectModel) return !!this.modelValue.length
 
-      immediate: true
+      return this.useObjectModel ? !!Object.keys(this.modelValue).length : !!this.modelValue.length
+    },
+
+    labelProps () {
+      return {
+        label: this.label,
+        margin: 'none',
+
+        ...(this.error && { color: 'negative' })
+      }
     }
   },
 
@@ -307,14 +298,17 @@ export default {
 
     this.hiddenInputElement?.addEventListener?.('change', this.addFiles)
 
-    window.addEventListener('submit-success', ({ detail }) => {
-      this.isGridMode = true
-      // this.$emit('update:modelValue', this.modelValue)
-    })
+    if (this.useObjectModel) {
+      window.addEventListener('submit-success', this.handleSubmitSuccess)
+    }
   },
 
   unmounted () {
     this.hiddenInputElement?.removeEventListener?.('change', this.addFiles)
+
+    if (this.useObjectModel) {
+      window.removeEventListener('submit-success', this.handleSubmitSuccess)
+    }
   },
 
   methods: {
@@ -355,10 +349,6 @@ export default {
         name: response.files[0].name
       }
 
-      const fileName = this.getFileName(fullPath)
-
-      this.addedFiles[fileName] = true
-
       const model = this.useObjectModel ? objectValue : fullPath
 
       this.$emit('update:modelValue', this.isMultiple ? [...this.modelValue, model] : model || '')
@@ -379,7 +369,7 @@ export default {
       } catch {}
     },
 
-    removeItem (index, scope, file) {
+    removeFile (key, scope, file) {
       if (file.isUploaded) {
         scope.removeFile(scope.files[file.indexToDelete])
       }
@@ -394,10 +384,10 @@ export default {
 
       const numberIndex = this.modelValue.findIndex(file => {
         if (this.useObjectModel) {
-          return file.uuid === index || file.url.includes(index)
+          return file.uuid === key || file.url.includes(key)
         }
 
-        return this.getFileName(file) === index
+        return this.getFileName(file) === key
       })
 
       clonedValue.splice(numberIndex, 1)
@@ -423,19 +413,6 @@ export default {
       const pathsList = Array.isArray(this.modelValue)
         ? this.modelValue
         : (this.modelValue ? [this.modelValue] : [])
-
-      // console.log(pathsList, '>>>> pathsList')
-
-      // // const newList = []
-
-      // pathsList.forEach((item, index) => {
-      //   if (
-      //     (this.useObjectModel && uploadedFiles.find(({ url }) => url === item.url)) ||
-      //     uploadedFiles.includes(item)
-      //   ) {
-      //     uploadedFiles.splice(index, 1, item)
-      //   }
-      // })
 
       const mergedList = [...pathsList, ...uploadedFiles]
 
@@ -467,16 +444,8 @@ export default {
       return files
     },
 
-    getFileNameClass (isFailed) {
-      return isFailed ? 'text-negative' : 'text-grey-9'
-    },
-
     isFailed (file) {
       return file.__status === 'failed'
-    },
-
-    getColorFileIcon (file) {
-      return this.isFailed(file) ? 'negative' : 'white'
     },
 
     async addFiles () {
@@ -487,7 +456,6 @@ export default {
 
       filesList.forEach(file => processedFiles.push(this.resizeImage(file)))
 
-      this.isGridMode = false
       this.uploader.addFiles(await Promise.all(processedFiles))
     },
 
@@ -557,103 +525,20 @@ export default {
       this.$emit('update:modelValue', { ...this.modelValue, ...payload })
     },
 
-    getFormGeneratorProps (modelValue) {
-      return {
-        modelValue,
-        ...this.formGeneratorProps
-      }
-    },
-
-    getUploaderGalleryCardProps ({ key, scope, file, index }) {
+    getUploaderGalleryCardProps ({ index, key, file, scope }) {
       const modelValue = this.getModelValue(index)
-
-      console.log(this.isGridMode, '::::::::::: krl')
 
       return {
         ...this.defaultUploaderGalleryCardProps,
 
-        error: file.isFailed,
-        // useGallery: !this.addedFiles[key],
-        useGallery: 'isUploaded' in file && this.isGridMode,
-        // useGallery: !file.isUploaded && this.isGridMode,
-
-        formGeneratorProps: this.getFormGeneratorProps(modelValue),
-
-        galleryCardProps: this.getGalleryCardProps({
-          key,
-          scope,
-          file,
-          index,
-          modelValue
-        }),
+        currentModelValue: modelValue,
+        file,
+        fileKey: key,
+        savedFiles: this.savedFiles,
 
         // eventos
+        onRemove: () => this.removeFile(key, scope, file),
         onUpdateModel: value => this.updateModelValue({ index, payload: value })
-      }
-    },
-
-    getGalleryCardProps ({ key, scope, file, modelValue }) {
-      const hasEdit = (
-        !file.isUploaded &&
-        !file.isFailed &&
-        this.useObjectModel &&
-        this.useEdit
-      )
-
-      // const normalizedFile = this.useObjectModel ? modelValue : file
-      const normalizedFile = file
-
-      const hasDowload = this.useDownload && !file.isFailed
-
-      const { list, ...actionsMenuProps } = this.actionsMenuProps
-
-      return {
-        actionsMenuProps: {
-          ...actionsMenuProps,
-
-          list: {
-            ...(
-              hasEdit &&
-              {
-                edit: {
-                  label: 'Editar',
-                  icon: 'sym_r_edit',
-
-                  // callback
-                  handler: () => {
-                    this.currentKeyToEdit = key
-                  }
-                }
-              }
-            ),
-
-            ...(
-              hasDowload &&
-              {
-                download: {
-                  label: 'Baixar arquivo',
-                  icon: 'sym_r_download',
-
-                  // callback
-                  handler: () => downloadFile(normalizedFile)
-                }
-              }
-            ),
-
-            destroy: {
-              label: 'Excluir',
-              color: 'grey-9',
-              icon: 'sym_r_delete',
-
-              // callback
-              handler: () => this.removeItem(key, scope, file)
-            },
-
-            ...list
-          }
-        },
-
-        card: normalizedFile
       }
     },
 
@@ -661,6 +546,26 @@ export default {
       if (!this.useObjectModel) return {}
 
       return this.isMultiple ? this.modelValue[index] : this.modelValue
+    },
+
+    handleSubmitSuccess ({ detail: { entity } }) {
+      if (entity === this.entity) this.setSavedFiled()
+    },
+
+    setSavedFiled () {
+      if (this.isMultiple) {
+        this.modelValue.forEach(model => {
+          const fileName = this.getFileName(model.url)
+
+          this.savedFiles[fileName] = true
+        })
+
+        return
+      }
+
+      const fileName = this.getFileName(this.modelValue.url)
+
+      this.savedFiles[fileName] = true
     }
   }
 }
@@ -674,18 +579,19 @@ export default {
 
   .q-uploader {
     max-height: 100%;
-  }
 
-  .q-uploader__header {
-    background-color: transparent;
-    color: $grey-9;
-  }
+    &__header {
+      background-color: transparent;
+      color: $grey-9;
+    }
 
-  .q-uploader__list {
-    padding: 0;
+    &__list {
+      min-height: 0;
+      padding: 0;
 
-    &.scroll {
-      overflow: unset;
+      &.scroll {
+        overflow: unset;
+      }
     }
   }
 }

@@ -437,8 +437,6 @@ export default {
         this.mx_setErrors(errors)
         this.$emit('update:errors', this.mx_errors)
 
-        this.createSubmitSuccessEvent({ entity: this.entity })
-
         NotifyError(message || defaultMessage)
 
         this.$emit('submit-error', error)

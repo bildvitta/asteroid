@@ -1,7 +1,7 @@
 <template>
   <q-form class="container spaced">
     <div>
-      <qas-uploader v-model="values.model2" entity="serviceOrders" :fields="fields" :form-generator-props="formGeneratorProps" label="Meu uploader" :multiple="true" use-object-model>
+      <qas-uploader v-model="values.model2" :columns="columns" entity="serviceOrders" :fields="fields" :form-generator-props="formGeneratorProps" v-bind="props" label="Meu uploader" :multiple="true" use-object-model>
         <!-- <template #bottom>
           Tetse
         </template> -->
@@ -80,26 +80,39 @@ export default {
       }
     },
 
-    formGeneratorProps () {
-      // const fields = {
-      //   name: {
-      //     type: 'text',
-      //     name: 'name',
-      //     label: 'Alterar nome'
-      //   },
+    columns () {
+      return { col: 12, sm: 4 }
+    },
 
-      //   email: {
-      //     type: 'email',
-      //     name: 'email',
-      //     label: 'e-mail',
-      //     required: true
-      //   }
-      // }
-
+    props () {
       return {
-        fields: this.fields,
+        addButtonProps: {
+          // label: 'eae'
+        },
+
+        error: true,
+
+        errorMessage: 'Campo obrigatório',
+
+        label: 'documentos',
+
+        useDownload: false,
+
+        dialogProps: {
+          card: {
+            title: 'qualé'
+          }
+        }
+      }
+    },
+
+    formGeneratorProps () {
+      const { email, ...rest } = this.fields
+      return {
+        fields: rest,
         fieldsProps: {
           email: {
+            'onUpdate:modelValue': value => console.log(value, '>>> !hasFormFields && hasFields'),
             rules: [value => required(value)]
           },
           name: {
