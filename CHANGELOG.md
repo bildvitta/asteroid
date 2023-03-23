@@ -16,6 +16,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - `QasFilters`: Adicionado documentação para o slot `right-side`.
 - `QasFilters`: Adicionado propriedade `use-spacing` com o valor default `true` para habilitar ou não o espaçamento padrão do componente.
 - `QasFilters`: Adicionado propriedade `use-update-route` com o valor default `true` para habilitar ou não a atualização da rota com base nos filtros.
+- `QasFilters`: Adicionado evento `@update` que dispara sempre que é realizada alguma atualização no filtro.
 
 ### Corrigido
 - `QasFilters`: corrigido problema onde não era possível ter o botão de filtro sem o campo de busca.

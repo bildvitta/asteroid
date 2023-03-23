@@ -121,7 +121,7 @@ export default {
     }
   },
 
-  emits: ['clear', 'fetch-success', 'fetch-error', 'filter'],
+  emits: ['fetch-success', 'fetch-error', 'update'],
 
   data () {
     return {
@@ -241,8 +241,8 @@ export default {
     clearFilters () {
       const { filters, ...query } = this.mx_context
       const allFilters = {
-        ...this.filters,
-        ...filters
+        ...filters,
+        ...this.filters
       }
 
       if (this.hasFields) {
@@ -261,7 +261,11 @@ export default {
         this.filters = {}
       }
 
-      this.$emit('clear', query)
+      this.$emit('update', {
+        ...query,
+        search: this.search || undefined
+      })
+
       this.useUpdateRoute && this.$router.push({ query })
     },
 
@@ -323,7 +327,8 @@ export default {
         search: this.search || undefined
       }
 
-      this.$emit('filter', query)
+      this.$emit('update', query)
+
       this.useUpdateRoute && this.$router.push({ query })
     },
 
@@ -337,7 +342,8 @@ export default {
       delete query[name]
       delete this.filters[name]
 
-      this.$emit('filter', query)
+      this.$emit('update', query)
+
       this.useUpdateRoute && this.$router.push({ query })
     },
 

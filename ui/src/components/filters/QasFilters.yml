@@ -127,3 +127,10 @@ events:
       value:
         desc: Retorna todos os dados "cru" respondido na exceção do fetch.
         type: Object
+
+  '@update -> function(value)':
+    desc: Dispara quando é realizado ou removido uma pesquisa no campo de busca e quando é clicado no botão "Filtrar" ou "Limpar" do filtro.
+    params:
+      value:
+        desc: Retorna todos os filtros realizados.
+        type: Object

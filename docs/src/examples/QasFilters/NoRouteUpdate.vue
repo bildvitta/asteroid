@@ -1,6 +1,6 @@
 <template>
   <div class="container spaced">
-    <qas-filters :entity="entity" search-placeholder="Pesquisar por nome do usuário" :use-update-route="false" @clear="onClear" @filter="onFilter" />
+    <qas-filters :entity="entity" search-placeholder="Pesquisar por nome do usuário" :use-update-route="false" @update="onFilterUpdate" />
   </div>
 </template>
 
@@ -13,11 +13,7 @@ export default {
   },
 
   methods: {
-    onFilter (query) {
-      console.log(query)
-    },
-
-    onClear (query) {
+    onFilterUpdate (query) {
       console.log(query)
     }
   }
