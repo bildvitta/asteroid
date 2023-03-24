@@ -4,6 +4,13 @@ meta:
   desc: Componente para criação de filtros dinâmicos.
 
 props:
+  current-filters:
+    model: true
+    desc: Model utilizado para recuperar os filtros realizados pelo componente.
+    default: {}
+    type: Object
+    examples: [v-model:current-filters="currentFilters"]
+
   entity:
     desc: Entidade da store, por exemplo se tiver que trabalhar com modulo de usuários, teremos o model "users" na store, que vai ser nossa "entity".
     required: true
@@ -128,7 +135,7 @@ events:
         desc: Retorna todos os dados "cru" respondido na exceção do fetch.
         type: Object
 
-  '@update -> function(value)':
+  '@update:current-filters -> function(value)':
     desc: Dispara quando é realizado ou removido uma pesquisa no campo de busca e quando é clicado no botão "Filtrar" ou "Limpar" do filtro.
     params:
       value:

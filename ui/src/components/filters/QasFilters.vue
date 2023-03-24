@@ -66,6 +66,11 @@ export default {
   mixins: [contextMixin],
 
   props: {
+    currentFilters: {
+      default: () => ({}),
+      type: Object
+    },
+
     useChip: {
       default: true,
       type: Boolean
@@ -121,7 +126,7 @@ export default {
     }
   },
 
-  emits: ['fetch-success', 'fetch-error', 'update'],
+  emits: ['fetch-success', 'fetch-error', 'update:current-filters'],
 
   data () {
     return {
@@ -141,7 +146,7 @@ export default {
       const activeFilters = {}
 
       const fields = Object.keys(this.fields)
-      const filters = camelizeKeys(this.mx_context.filters)
+      const filters = camelizeKeys(this.useUpdateRoute ? this.mx_context.filters : this.currentFilters)
 
       for (const key in filters) {
         const hasField = fields.includes(key)
@@ -261,10 +266,7 @@ export default {
         this.filters = {}
       }
 
-      this.$emit('update', {
-        ...query,
-        search: this.search || undefined
-      })
+      this.updateCurrentFilters()
 
       this.useUpdateRoute && this.$router.push({ query })
     },
@@ -327,7 +329,7 @@ export default {
         search: this.search || undefined
       }
 
-      this.$emit('update', query)
+      this.updateCurrentFilters()
 
       this.useUpdateRoute && this.$router.push({ query })
     },
@@ -342,12 +344,23 @@ export default {
       delete query[name]
       delete this.filters[name]
 
-      this.$emit('update', query)
+      this.updateCurrentFilters()
 
       this.useUpdateRoute && this.$router.push({ query })
     },
 
+    updateCurrentFilters () {
+      const filters = {
+        ...this.filters,
+        ...(this.search && { search: this.search })
+      }
+
+      this.$emit('update:current-filters', filters)
+    },
+
     updateValues () {
+      if (!this.useUpdateRoute) return
+
       this.setSearch()
 
       const { filters } = this.mx_context
