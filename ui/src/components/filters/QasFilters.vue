@@ -5,7 +5,7 @@
         <slot :filter="filter" name="search">
           <q-form v-if="useSearch" @submit.prevent="filter()">
             <div class="qas-filters__input-content">
-              <qas-input v-model="search" class="bg-white q-px-sm rounded-borders-sm shadow-2" data-cy="filters-search-input" :debounce="debounce" dense hide-bottom-space input-class="ellipsis text-grey-8" :outlined="false" :placeholder="searchPlaceholder" type="search">
+              <qas-input v-model="search" class="bg-white q-px-sm rounded-borders-sm shadow-2" data-cy="filters-search-input" :debounce="debounce" dense hide-bottom-space input-class="ellipsis text-grey-8" :outlined="false" :placeholder="searchPlaceholder" type="search" @update:model-value="onSearch">
                 <template #prepend>
                   <q-icon v-if="useSearchOnType" color="grey-8" name="sym_r_search" />
                   <qas-btn v-else color="grey-9" icon="sym_r_search" variant="tertiary" @click="filter()" />
@@ -66,11 +66,6 @@ export default {
   mixins: [contextMixin],
 
   props: {
-    currentFilters: {
-      default: () => ({}),
-      type: Object
-    },
-
     useChip: {
       default: true,
       type: Boolean
@@ -130,6 +125,7 @@ export default {
 
   data () {
     return {
+      currentFilters: {},
       filters: {},
       hasFetchError: false,
       isFetching: false,
@@ -225,13 +221,7 @@ export default {
     $route (to, from) {
       if (to.name === from.name) {
         this.fetchFilters()
-        this.updateValues()
-      }
-    },
-
-    search () {
-      if (this.debounce) {
-        this.filter()
+        this.useUpdateRoute && this.updateValues()
       }
     }
   },
@@ -245,7 +235,7 @@ export default {
   methods: {
     clearFilters () {
       const { filters, ...query } = this.mx_context
-      const allFilters = {
+      const activeFilters = {
         ...filters,
         ...this.filters
       }
@@ -253,7 +243,7 @@ export default {
       if (this.hasFields) {
         const fields = Object.keys(this.fields)
 
-        for (const key in allFilters) {
+        for (const key in activeFilters) {
           const camelizedKey = camelize(key)
           const hasField = fields.includes(camelizedKey)
 
@@ -266,17 +256,14 @@ export default {
         this.filters = {}
       }
 
-      this.updateCurrentFilters()
+      this.setCurrentFilters()
 
       this.useUpdateRoute && this.$router.push({ query })
     },
 
     clearSearch () {
       this.search = ''
-
-      if (!this.debounce) {
-        this.filter()
-      }
+      this.filter()
     },
 
     async fetchFilters () {
@@ -329,7 +316,7 @@ export default {
         search: this.search || undefined
       }
 
-      this.updateCurrentFilters()
+      this.setCurrentFilters()
 
       this.useUpdateRoute && this.$router.push({ query })
     },
@@ -344,23 +331,21 @@ export default {
       delete query[name]
       delete this.filters[name]
 
-      this.updateCurrentFilters()
+      this.setCurrentFilters()
 
       this.useUpdateRoute && this.$router.push({ query })
     },
 
-    updateCurrentFilters () {
-      const filters = {
+    setCurrentFilters () {
+      this.currentFilters = {
         ...this.filters,
         ...(this.search && { search: this.search })
       }
 
-      this.$emit('update:current-filters', filters)
+      this.$emit('update:current-filters', this.currentFilters)
     },
 
     updateValues () {
-      if (!this.useUpdateRoute) return
-
       this.setSearch()
 
       const { filters } = this.mx_context
@@ -377,16 +362,27 @@ export default {
     },
 
     watchOnceFields () {
+      if (!this.useUpdateRoute) return
+
       const watchOnce = this.$watch('fields', values => {
         if (Object.keys(values).length) {
           this.updateValues()
+          this.setCurrentFilters()
           watchOnce()
         }
       })
     },
 
     handleSearchModelOnCreate () {
-      !this.useFilterButton && this.setSearch()
+      if (this.useUpdateRoute && !this.useFilterButton) {
+        this.setSearch()
+      }
+    },
+
+    onSearch () {
+      if (this.debounce) {
+        this.filter()
+      }
     },
 
     setSearch () {

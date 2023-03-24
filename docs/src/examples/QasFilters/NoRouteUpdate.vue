@@ -1,25 +1,19 @@
 <template>
   <div class="container spaced">
-    <qas-filters v-model:current-filters="currentFilters" :entity="entity" search-placeholder="Pesquisar por nome do usuário" :use-update-route="false" />
+    <qas-filters :entity="entity" :use-update-route="false" @update:current-filters="onUpdateCurrentFilters" />
   </div>
 </template>
 
 <script>
 export default {
-  data () {
-    return {
-      currentFilters: {}
-    }
-  },
-
   computed: {
     entity () {
       return 'users'
     }
   },
 
-  watch: {
-    currentFilters (query) {
+  methods: {
+    onUpdateCurrentFilters (query) {
       // console.log(query)
     }
   }
