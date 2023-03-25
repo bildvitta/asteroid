@@ -133,6 +133,10 @@ module.exports = [
         path: '/components/gallery'
       },
       {
+        name: 'GalleryCard',
+        path: '/components/gallery-card'
+      },
+      {
         name: 'GridGenerator',
         path: '/components/grid-generator'
       },

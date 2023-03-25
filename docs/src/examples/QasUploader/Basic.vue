@@ -1,7 +1,7 @@
 <template>
   <q-form class="container spaced">
     <div>
-      <qas-uploader v-model="values.model2" :columns="columns" entity="serviceOrders" :fields="fields" :form-generator-props="formGeneratorProps" v-bind="props" label="Meu uploader" :multiple="true" use-object-model>
+      <qas-uploader v-model="values.model2" :columns="columns" entity="serviceOrders" :fields="fields" :form-generator-props="formGeneratorProps" v-bind="props" label="Meu uploader" :max-files="2" :multiple="true" use-object-model>
         <!-- <template #bottom>
           Tetse
         </template> -->
@@ -20,7 +20,8 @@
 
       <!-- <qas-uploader v-model="model4" entity="serviceOrders" :form-generator-props="formGeneratorProps" label="Meu uploader" :multiple="true" /> -->
     </div>
-
+    <pre>{{ newModel }}</pre>
+    ?
     <qas-debugger :inspect="[values]" />
     <!-- <qas-debugger :inspect="[model, model2, model3, model4]" /> -->
     <qas-btn
@@ -90,26 +91,26 @@ export default {
           // label: 'eae'
         },
 
-        error: true,
+        // error: true,
 
-        errorMessage: 'Campo obrigatório',
+        // errorMessage: 'Campo obrigatório',
 
         label: 'documentos',
 
-        useDownload: false,
+        // useDownload: false,
 
         dialogProps: {
           card: {
-            title: 'qualé'
+            // title: 'qualé'
           }
         }
       }
     },
 
     formGeneratorProps () {
-      const { email, ...rest } = this.fields
+      // const { email, ...rest } = this.fields
       return {
-        fields: rest,
+        fields: this.fields,
         fieldsProps: {
           email: {
             'onUpdate:modelValue': value => console.log(value, '>>> !hasFormFields && hasFields'),
@@ -130,7 +131,8 @@ export default {
         this.newModel = value
       },
 
-      imemediate: true
+      immediate: true,
+      deep: true
     }
   },
 

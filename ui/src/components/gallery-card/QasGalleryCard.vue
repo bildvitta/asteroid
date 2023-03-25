@@ -3,7 +3,7 @@
     <header class="flat items-center no-wrap q-mb-md q-mb-xs row" :class="headerClasses">
       <slot name="header">
         <div class="ellipsis q-mr-xs qas-gallery__name">
-          <slot v-if="card.name">
+          <slot v-if="card.name" name="name">
             {{ card.name }}
           </slot>
         </div>
@@ -42,23 +42,18 @@ export default {
       default: () => ({})
     },
 
-    disable: {
-      type: Boolean
-    },
-
-    formGeneratorProps: {
-      type: Object,
-      default: () => ({})
-    },
-
     card: {
       type: Object,
       default: () => ({})
     },
 
+    disable: {
+      type: Boolean
+    },
+
     imageProps: {
       type: Object,
-      default: () => {}
+      default: () => ({})
     },
 
     gridGeneratorProps: {
@@ -73,7 +68,7 @@ export default {
     },
 
     hasBottom () {
-      return !!this.$slots.bottom
+      return !!this.$slots.bottom || this.hasGridGenerator
     },
 
     hasGridGenerator () {
@@ -91,6 +86,15 @@ export default {
         'justify-between': this.card.name,
         'justify-right': !this.card.name,
         'text-grey-9': !this.disable
+      }
+    },
+
+    defaultActionsMenuProps () {
+      return {
+        buttonProps: {
+          disable: true
+        },
+        ...this.actionsMenuProps
       }
     }
   }

@@ -1,6 +1,6 @@
 <template>
   <div class="qas-uploader">
-    <q-uploader ref="uploader" auto-upload :class="uploaderClasses" :factory="factory" flat :max-files="maxFiles" method="PUT" v-bind="attributes" @factory-failed="factoryFailed" @uploaded="uploaded" @uploading="updateUploading(true)">
+    <q-uploader ref="uploader" auto-upload :class="uploaderClasses" v-bind="attributes" :factory="factory" flat :max-files="maxFiles" method="PUT" @factory-failed="factoryFailed" @uploaded="uploaded" @uploading="updateUploading(true)">
       <template #header="scope">
         <slot name="header" :scope="scope">
           <div class="flex items-center justify-between">
@@ -10,7 +10,7 @@
               <div v-if="errorMessage" class="q-mt-xs text-caption text-negative">{{ errorMessage }}</div>
             </div>
 
-            <div>
+            <div v-if="showAddFile">
               <qas-btn color="primary" icon="sym_r_add" label="Adicionar" variant="tertiary" v-bind="addButtonProps" @click="$refs.hiddenInput.click()" />
             </div>
           </div>
@@ -22,13 +22,9 @@
       </template>
 
       <template #list="scope">
-        <div v-if="hasModelValue" class="q-col-gutter-lg q-mt-xl row">
+        <div v-if="hasModelValue" class="q-col-gutter-lg q-mt-sm row">
           <div v-for="(file, key, index) in getFilesList(scope.files, scope)" :key="index" :class="columnClasses">
-            <pv-uploader-gallery-card v-bind="getUploaderGalleryCardProps({ key, scope, file, index })">
-              <template v-for="(_, name) in $slots" #[name]="context">
-                <slot :name="name" v-bind="context || {}" />
-              </template>
-            </pv-uploader-gallery-card>
+            <pv-uploader-gallery-card v-bind="getUploaderGalleryCardProps({ key, scope, file, index })" />
           </div>
         </div>
       </template>
@@ -200,7 +196,11 @@ export default {
     showAddFile () {
       if (this.readonly) return
 
-      return this.maxFiles ? this.modelValue.length < this.maxFiles : true
+      const modelLength = this.useObjectModel
+        ? Object.keys(this.modelValue).length
+        : this.modelValue.length
+
+      return this.maxFiles && this.isMultiple ? modelLength < this.maxFiles : true
     },
 
     isMultiple () {
@@ -277,8 +277,6 @@ export default {
     },
 
     hasModelValue () {
-      if (!this.useObjectModel) return !!this.modelValue.length
-
       return this.useObjectModel ? !!Object.keys(this.modelValue).length : !!this.modelValue.length
     },
 
@@ -549,10 +547,10 @@ export default {
     },
 
     handleSubmitSuccess ({ detail: { entity } }) {
-      if (entity === this.entity) this.setSavedFiled()
+      if (entity === this.entity) this.setSavedFiles()
     },
 
-    setSavedFiled () {
+    setSavedFiles () {
       if (this.isMultiple) {
         this.modelValue.forEach(model => {
           const fileName = this.getFileName(model.url)

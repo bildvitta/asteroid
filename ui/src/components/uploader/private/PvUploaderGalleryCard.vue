@@ -46,6 +46,8 @@ import downloadFile from '../../../helpers/download-file.js'
 export default {
   name: 'PvUploaderGalleryCard',
 
+  inheritAttrs: false,
+
   props: {
     dialogProps: {
       type: Object,
@@ -116,9 +118,8 @@ export default {
 
   computed: {
     dialogFormGeneratorProps () {
-      const { modelValue, ...props } = this.defaultFormGeneratorProps
+      const { modelValue, 'onUpdate:modelValue': _, ...props } = this.defaultFormGeneratorProps
 
-      props['onUpdate:modelValue'] = undefined
       return props
     },
 
@@ -133,7 +134,7 @@ export default {
       return {
         modelValue: this.currentModelValue,
         disable: this.hasError,
-        columns: this.getDefaultColumns(this.formFields || this.fields),
+        columns: this.getDefaultColumns(this.formFields),
 
         'onUpdate:modelValue': this.updateModel,
 
@@ -146,7 +147,7 @@ export default {
       return {
         useEmptyResult: false,
         result: this.currentModelValue,
-        columns: this.getDefaultColumns(this.gridFields || this.fields),
+        columns: this.getDefaultColumns(this.gridFields),
 
         ...this.defaultGeneratorProps,
         ...this.gridGeneratorProps
@@ -296,7 +297,7 @@ export default {
     },
 
     getDefaultColumns (fields) {
-      if (!fields) return {}
+      fields ??= this.fields
 
       const columns = {}
 
