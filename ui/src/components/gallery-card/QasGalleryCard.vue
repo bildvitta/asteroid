@@ -1,3 +1,4 @@
+<!-- TODO: componente adaptado somente para o uso do QasUploader, precisa ser revisitado para ser implementado no QasGallery -->
 <template>
   <div class="bg-white q-pa-md qas-gallery-card rounded-borders shadow-2" :class="classes">
     <header class="flat items-center no-wrap q-mb-md q-mb-xs row" :class="headerClasses">
@@ -9,7 +10,7 @@
         </div>
 
         <div v-if="hasActionsMenu">
-          <qas-actions-menu :use-label="false" v-bind="actionsMenuProps" />
+          <qas-actions-menu :use-label="false" v-bind="defaultActionsMenuProps" />
         </div>
       </slot>
     </header>
@@ -90,11 +91,15 @@ export default {
     },
 
     defaultActionsMenuProps () {
+      const { buttonProps } = this.actionsMenuProps
+
       return {
+        ...this.actionsMenuProps,
+
         buttonProps: {
-          disable: true
-        },
-        ...this.actionsMenuProps
+          disable: this.disable,
+          ...buttonProps
+        }
       }
     }
   }

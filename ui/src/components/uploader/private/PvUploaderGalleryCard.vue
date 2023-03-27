@@ -155,13 +155,18 @@ export default {
     },
 
     defaultGalleryCardProps () {
-      const { list, ...actionsMenuProps } = this.galleryCardProps.actionsMenuProps || {}
+      const { list, buttonProps, ...actionsMenuProps } = this.galleryCardProps.actionsMenuProps || {}
 
       return {
         ...this.galleryCardProps,
         disable: this.hasError,
 
         actionsMenuProps: {
+          buttonProps: {
+            disable: false,
+            ...buttonProps
+          },
+
           ...actionsMenuProps,
 
           list: {

@@ -1,7 +1,7 @@
 <template>
   <div>
-    <qas-uploader ref="uploader" v-model="model" :label="uploadLabel" v-bind="$attrs" :readonly="readonly" :use-resize="false">
-      <template #header="{ scope }">
+    <qas-uploader ref="uploader" v-model="model" :add-button-fn="openDialog" :use-resize="false" v-bind="defaultUploaderProps">
+      <!-- <template #header="{ scope }">
         <div class="cursor-pointer flex flex-center full-width justify-between no-border no-wrap q-gutter-xs text-white transparent" :class="headerClass" @click="openDialog">
           <div class="col column items-start justify-center">
             <div v-if="uploadLabel" class="q-uploader__title">{{ uploadLabel }}</div>
@@ -12,7 +12,7 @@
           <qas-btn ref="forceUpload" class="hidden" @click="upload(scope)" />
           <qas-btn ref="buttonCleanFiles" class="hidden" @click="scope.removeUploadedFiles" />
         </div>
-      </template>
+      </template> -->
     </qas-uploader>
 
     <qas-dialog v-model="isOpenedDialog" v-bind="defaultDialogProps">
@@ -30,7 +30,7 @@
 </template>
 
 <script>
-import QasBtn from '../btn/QasBtn.vue'
+// import QasBtn from '../btn/QasBtn.vue'
 import QasDialog from '../dialog/QasDialog.vue'
 import QasUploader from '../uploader/QasUploader.vue'
 import QasSignaturePad from '../signature-pad/QasSignaturePad.vue'
@@ -41,11 +41,13 @@ export default {
   name: 'QasSignatureUploader',
 
   components: {
-    QasBtn,
+    // QasBtn,
     QasDialog,
     QasUploader,
     QasSignaturePad
   },
+
+  inheritAttrs: false,
 
   props: {
     dialogProps: {
@@ -53,10 +55,10 @@ export default {
       default: () => ({})
     },
 
-    uploadLabel: {
-      default: '',
-      type: String
-    },
+    // uploadLabel: {
+    //   default: '',
+    //   type: String
+    // },
 
     signatureLabel: {
       default: 'Assinatura',
@@ -73,8 +75,13 @@ export default {
       type: String
     },
 
-    readonly: {
-      type: Boolean
+    // readonly: {
+    //   type: Boolean
+    // },
+
+    uploaderProps: {
+      type: Object,
+      default: () => ({})
     }
   },
 
@@ -96,6 +103,12 @@ export default {
 
       set (value) {
         this.$emit('update:modelValue', value)
+      }
+    },
+
+    defaultUploaderProps () {
+      return {
+        ...this.uploaderProps
       }
     },
 
@@ -131,6 +144,10 @@ export default {
       }
 
       return sizes.true
+    },
+
+    uploaderScope () {
+      return this.$refs?.uploader?.uploader
     }
   },
 
@@ -144,9 +161,11 @@ export default {
     },
 
     getSignatureData () {
-      this.$refs.buttonCleanFiles.$el.click()
+      this.uploaderScope.removeUploadedFiles()
+      // this.$refs.buttonCleanFiles.$el.click()
       this.base64 = this.$refs.signaturePadModal.getSignatureData()
-      this.$refs.forceUpload.$el.click()
+      // this.$refs.forceUpload.$el.click()
+      this.upload(this.uploaderScope)
       this.closeSignature()
     },
 
