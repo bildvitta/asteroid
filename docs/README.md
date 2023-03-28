@@ -46,12 +46,19 @@ Olha só essa dica para utilizar **este componente**.
 :::
 ```
 
-
 **Warning** (Aviso, caixa na cor amarela).
 
 ``` md
 ::: warning
 Atenção ao utilizar **este componente**.
+:::
+```
+
+**Info** (Informação).
+
+``` md
+::: warning
+Este componente não funciona na documentação.
 :::
 ```
 

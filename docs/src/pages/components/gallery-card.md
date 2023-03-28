@@ -6,11 +6,16 @@ Componente de card de galeria (utilizado no QasUploader, QasGallery e nos produt
 
 <doc-api file="gallery-card/QasGalleryCard" name="QasGalleryCard" />
 
+:::danger
+Componente adaptado somente para utilização dentro do `QasUploader`.
+:::
+
 ## Uso
 
 <doc-example file="QasGalleryCard/Basic" title="Básico" />
 <doc-example file="QasGalleryCard/ExGridAndActionsMenu" title="Com QasActionsMenu e QasGridGenerator" />
 
+:::info
 Caso não queria que o `QasActionsMenu` seja desabilitado pode enviar a prop `disable: false` por exemplo:
 ```js
 {
@@ -21,4 +26,5 @@ Caso não queria que o `QasActionsMenu` seja desabilitado pode enviar a prop `di
   }
 }
 ```
+:::
 <doc-example file="QasGalleryCard/ExDisable" title="Desabilitados" />

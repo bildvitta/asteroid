@@ -19,14 +19,14 @@ props:
     desc: Propriedade que aplica estilos de desabilitado.
     type: Boolean
 
+  grid-generator-props:
+    desc: Propriedades repassadas para o QasGridGenerator.
+    type: Boolean
+
   image-props:
     desc: Propriedades repassadas para o QImg.
     default: {}
     type: Object
-
-  grid-generator-props:
-    desc: Propriedades repassadas para o QasGridGenerator.
-    type: Boolean
 
 slots:
   bottom:

@@ -93,7 +93,7 @@ export default {
         fields: rest,
         fieldsProps: {
           email: {
-            'onUpdate:modelValue': value => console.log(value, '>>> !hasFormFields && hasFields'),
+            'onUpdate:modelValue': value => alert(value, '>>> !hasFormFields && hasFields'),
             rules: [value => required(value)]
           },
           name: {
@@ -117,7 +117,7 @@ export default {
 
   methods: {
     getScope (scope) {
-      console.log(scope)
+      alert(scope)
     }
   }
 }

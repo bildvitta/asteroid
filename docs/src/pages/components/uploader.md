@@ -30,3 +30,7 @@ Com o QasFormGenerator é possível altear o model do `QasUploader`, para isto �
 ## Uso
 
 <doc-example file="QasUploader/Basic" title="Básico" />
+<doc-example file="QasUploader/ExUploaderMultiple" title="Múltiplo" />
+<doc-example file="QasUploader/ExUploaderMultipleObjectModel" title="Múltiplo com useObjectModel" />
+<doc-example file="QasUploader/ExUploaderSingleObjectModel" title="Múltiplo com useObjectModel" />
+<doc-example file="QasUploader/ExUploaderMultipleObjectModelGrid" title="Múltiplo com useObjectModel e somente grid" />

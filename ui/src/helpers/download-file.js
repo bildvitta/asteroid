@@ -12,6 +12,7 @@ export default ({ url, name }) => {
   link.href = url
   link.style.display = 'none'
 
+  link.setAttribute('target', '_blank')
   document.body.appendChild(link)
 
   link.click()

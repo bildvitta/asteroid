@@ -11,13 +11,13 @@
       <!-- este template é para quando existe um erro ao fazer um UPLOAD! -->
       <template v-if="hasError" #image>
         <div :class="errorClasses">
-          <div>
-            <div class="text-center">
+          <div class="q-pa-sm text-center">
+            <div>
               <q-icon name="sym_r_cancel" size="sm" />
             </div>
 
             <div class="q-mt-sm">
-              Falha ao carregar arquivo
+              Falha ao carregar arquivo.
             </div>
           </div>
         </div>
@@ -49,12 +49,12 @@ export default {
   inheritAttrs: false,
 
   props: {
-    dialogProps: {
-      type: Object,
-      default: () => ({})
+    currentModelValue: {
+      default: '',
+      type: [String, Array, Object]
     },
 
-    galleryCardProps: {
+    dialogProps: {
       type: Object,
       default: () => ({})
     },
@@ -64,7 +64,22 @@ export default {
       default: () => ({})
     },
 
+    file: {
+      type: Object,
+      default: () => ({})
+    },
+
+    fileKey: {
+      type: String,
+      default: ''
+    },
+
     formGeneratorProps: {
+      type: Object,
+      default: () => ({})
+    },
+
+    galleryCardProps: {
       type: Object,
       default: () => ({})
     },
@@ -83,27 +98,12 @@ export default {
       type: Boolean
     },
 
-    useObjectModel: {
-      type: Boolean
-    },
-
     useMultiple: {
       type: Boolean
     },
 
-    file: {
-      type: Object,
-      default: () => ({})
-    },
-
-    fileKey: {
-      type: String,
-      default: ''
-    },
-
-    currentModelValue: {
-      default: '',
-      type: [String, Array, Object]
+    useObjectModel: {
+      type: Boolean
     }
   },
 
@@ -111,8 +111,8 @@ export default {
 
   data () {
     return {
-      showDialog: false,
-      dialogValues: {}
+      dialogValues: {},
+      showDialog: false
     }
   },
 
@@ -121,13 +121,6 @@ export default {
       const { modelValue, 'onUpdate:modelValue': _, ...props } = this.defaultFormGeneratorProps
 
       return props
-    },
-
-    defaultGeneratorProps () {
-      return {
-        fields: this.fields,
-        gutter: 'md'
-      }
     },
 
     defaultFormGeneratorProps () {
@@ -140,17 +133,6 @@ export default {
 
         ...this.defaultGeneratorProps,
         ...this.formGeneratorProps
-      }
-    },
-
-    defaultGridGeneratorProps () {
-      return {
-        useEmptyResult: false,
-        result: this.currentModelValue,
-        columns: this.getDefaultColumns(this.gridFields),
-
-        ...this.defaultGeneratorProps,
-        ...this.gridGeneratorProps
       }
     },
 
@@ -216,20 +198,22 @@ export default {
       }
     },
 
-    normalizedModelValue () {
-      return this.useObjectModel && !this.hasError ? this.currentModelValue : this.file
+    defaultGeneratorProps () {
+      return {
+        fields: this.fields,
+        gutter: 'md'
+      }
     },
 
-    url () {
-      return this.defaultGalleryCardProps?.card?.url
-    },
+    defaultGridGeneratorProps () {
+      return {
+        useEmptyResult: false,
+        result: this.currentModelValue,
+        columns: this.getDefaultColumns(this.gridFields),
 
-    fileName () {
-      return this.url.split('/').pop()
-    },
-
-    fileType () {
-      return this.fileName.split('.').pop()
+        ...this.defaultGeneratorProps,
+        ...this.gridGeneratorProps
+      }
     },
 
     errorClasses () {
@@ -245,6 +229,14 @@ export default {
       ]
     },
 
+    fileName () {
+      return this.url.split('/').pop()
+    },
+
+    fileType () {
+      return this.fileName.split('.').pop()
+    },
+
     formFields () {
       return this.formGeneratorProps.fields
     },
@@ -253,29 +245,21 @@ export default {
       return this.gridGeneratorProps.fields
     },
 
-    isGalleryMode () {
-      return (!('isUploaded' in this.file) || this.savedFiles[this.fileKey])
-    },
-
-    hasError () {
-      return this.file.isFailed
+    hasDownloadButton () {
+      return this.useDownload && !this.hasError
     },
 
     hasEditButton () {
       return this.isGalleryMode && this.useObjectModel && this.hasFormFields
     },
 
-    hasDownloadButton () {
-      return this.useDownload && !this.hasError
+    hasError () {
+      return this.file.isFailed
     },
 
-    hasGridGenerator () {
-      const { fields } = this.defaultGridGeneratorProps
-      const hasFields = !!Object.keys(fields).length
-
-      if (!this.hasFormFields && hasFields) return true
-
-      return this.isGalleryMode && hasFields && !this.hasError
+    hasFormFields () {
+      const { fields } = this.defaultFormGeneratorProps
+      return !!Object.keys(fields).length
     },
 
     hasFormGenerator () {
@@ -290,17 +274,29 @@ export default {
       return (this.hasGridGenerator) || this.hasFormGenerator
     },
 
-    hasFormFields () {
-      const { fields } = this.defaultFormGeneratorProps
-      return !!Object.keys(fields).length
+    hasGridGenerator () {
+      const { fields } = this.defaultGridGeneratorProps
+      const hasFields = !!Object.keys(fields).length
+
+      if (!this.hasFormFields && hasFields) return true
+
+      return this.isGalleryMode && hasFields && !this.hasError
+    },
+
+    isGalleryMode () {
+      return (!('isUploaded' in this.file) || this.savedFiles[this.fileKey])
+    },
+
+    normalizedModelValue () {
+      return this.useObjectModel && !this.hasError ? this.currentModelValue : this.file
+    },
+
+    url () {
+      return this.defaultGalleryCardProps?.card?.url
     }
   },
 
   methods: {
-    getFileName (value) {
-      return value.split('/').pop()
-    },
-
     getDefaultColumns (fields) {
       fields ??= this.fields
 
@@ -311,6 +307,10 @@ export default {
       }
 
       return columns
+    },
+
+    getFileName (value) {
+      return value.split('/').pop()
     },
 
     onValidate (isValid) {

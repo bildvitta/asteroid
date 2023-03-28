@@ -7,12 +7,13 @@
             <div>
               <qas-label v-bind="labelProps" />
 
-              <div v-if="errorMessage" class="q-mt-xs text-caption text-negative">{{ errorMessage }}</div>
+              <div v-if="errorMessage" class="q-mt-xs text-caption text-negative">
+                {{ errorMessage }}
+              </div>
             </div>
 
-            <div v-if="showAddFile">
+            <div v-if="hasAddFile">
               <qas-btn color="primary" icon="sym_r_add" :label="addButtonLabel" :use-label-on-small-screen="false" variant="tertiary" @click="onAddButtonClick(scope)" />
-              <!-- <qas-btn color="primary" icon="sym_r_add" variant="tertiary" v-bind="addButtonProps" @click="$refs.hiddenInput.click()" /> -->
             </div>
           </div>
 
@@ -23,7 +24,7 @@
       </template>
 
       <template #list="scope">
-        <div v-if="hasModelValue" class="q-col-gutter-lg q-mt-sm row">
+        <div v-if="hasGalleryCardSection" class="q-col-gutter-lg q-mt-sm row">
           <div v-for="(file, key, index) in getFilesList(scope.files, scope)" :key="index" :class="columnClasses">
             <pv-uploader-gallery-card v-bind="getUploaderGalleryCardProps({ key, scope, file, index })" />
           </div>
@@ -46,7 +47,7 @@ import PvUploaderGalleryCard from './private/PvUploaderGalleryCard.vue'
 // TODO remover
 import axios from 'axios'
 
-const token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiJhZjY0Y2Q1Zi00OTlmLTExZWQtOTdjYy0wMmMxMWVlNThhODciLCJqdGkiOiIyNTE3NjdiMTdkY2RlZmIzZGQ0ZDA2ZGQ1NTEyNzNhYTBiMTIyMTNlZTNjMGY3MWNhZjczYjk4MDdmMzQ0ZWNmN2M0ZDg3YWNjMDU0NDUzYyIsImlhdCI6MTY3ODQ2NDk4NS4xMjI5LCJuYmYiOjE2Nzg0NjQ5ODUuMTIyOTAyLCJleHAiOjE3MTAwODczODUuMTA0NTA3LCJzdWIiOiI3NTYwNCIsInNjb3BlcyI6WyJwcm9maWxlIl19.jRIEGag_OgKRRD7QwP934B0ZExOgQ8lrUFMzrzcEfTIve2eHEiAcdseLXBr23onBQ2WWHSBZu_I2En2GCvjlH7iKWiMrHfpHUTdnEL__Umln20zTNhD0ze3xltS74vgAJcwRA_WQ7KaZk83li819XZ1C08hPU59I1rJqsNDoPimdkKssaeMkB_Jk2c08CgPqcJLWbR3jASbdw1mdZBn-q-TO7rzQqvaDWqwL-2YLmbk_vYnawdX1N3rqt-8bWfPgNzHCSiymdw9PQNHOCIOcxxgjMVASag-538aX85fDF0tGff5GlWmkhHeEoiWP5f5tdsLAnBoV4p-LxWRyBnnibgeeW39JsZiUv9dRnmsM2fl0BWeRROu6P8x8gBfV8OGIG9LIIzusVABSTrqoIMYkmfsrD34QQ9F3dvMltpKRxfL_7mouC4JybU1RHiWq0wyVkEFFt_dRTvjQoGL7ovKopvtkXO0DMveyFM7Gxxu37IbEn8eezMekAkFaK6uIPSh32wwTqHa3AffJPt7sU25uNKOwjKNLwZyrboECcFAM4lBlX2J8fe1bdwN4qKBOy8Tos34mgCKYqlMSRO20e73__tjP7cERm23F9J3jgmDnbeQvc6USt_0uCIcR5Qeewl0fCZmRw1HC3pjISF86IgKziQt5Zgm0ctt-x0PDGkwK2SY__'
+const token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiJhZjY0Y2Q1Zi00OTlmLTExZWQtOTdjYy0wMmMxMWVlNThhODciLCJqdGkiOiIyNTE3NjdiMTdkY2RlZmIzZGQ0ZDA2ZGQ1NTEyNzNhYTBiMTIyMTNlZTNjMGY3MWNhZjczYjk4MDdmMzQ0ZWNmN2M0ZDg3YWNjMDU0NDUzYyIsImlhdCI6MTY3ODQ2NDk4NS4xMjI5LCJuYmYiOjE2Nzg0NjQ5ODUuMTIyOTAyLCJleHAiOjE3MTAwODczODUuMTA0NTA3LCJzdWIiOiI3NTYwNCIsInNjb3BlcyI6WyJwcm9maWxlIl19.jRIEGag_OgKRRD7QwP934B0ZExOgQ8lrUFMzrzcEfTIve2eHEiAcdseLXBr23onBQ2WWHSBZu_I2En2GCvjlH7iKWiMrHfpHUTdnEL__Umln20zTNhD0ze3xltS74vgAJcwRA_WQ7KaZk83li819XZ1C08hPU59I1rJqsNDoPimdkKssaeMkB_Jk2c08CgPqcJLWbR3jASbdw1mdZBn-q-TO7rzQqvaDWqwL-2YLmbk_vYnawdX1N3rqt-8bWfPgNzHCSiymdw9PQNHOCIOcxxgjMVASag-538aX85fDF0tGff5GlWmkhHeEoiWP5f5tdsLAnBoV4p-LxWRyBnnibgeeW39JsZiUv9dRnmsM2fl0BWeRROu6P8x8gBfV8OGIG9LIIzusVABSTrqoIMYkmfsrD34QQ9F3dvMltpKRxfL_7mouC4JybU1RHiWq0wyVkEFFt_dRTvjQoGL7ovKopvtkXO0DMveyFM7Gxxu37IbEn8eezMekAkFaK6uIPSh32wwTqHa3AffJPt7sU25uNKOwjKNLwZyrboECcFAM4lBlX2J8fe1bdwN4qKBOy8Tos34mgCKYqlMSRO20e73__tjP7cERm23F9J3jgmDnbeQvc6USt_0uCIcR5Qeewl0fCZmRw1HC3pjISF86IgKziQt5Zgm0ctt-x0PDGkwK2SY'
 
 axios.defaults.baseURL = 'https://server-assistencia-tecnica.modular.dev.br/api/'
 axios.defaults.headers.Authorization = `Bearer ${token}`
@@ -147,21 +148,21 @@ export default {
       type: Object
     },
 
+    readonly: {
+      type: Boolean
+    },
+
     sizeLimit: {
       default: 1280,
       type: Number
     },
 
-    useResize: {
-      default: true,
-      type: Boolean
-    },
-
-    readonly: {
-      type: Boolean
-    },
-
     uploading: {
+      type: Boolean
+    },
+
+    useDownload: {
+      default: true,
       type: Boolean
     },
 
@@ -169,7 +170,7 @@ export default {
       type: Boolean
     },
 
-    useDownload: {
+    useResize: {
       default: true,
       type: Boolean
     }
@@ -179,10 +180,10 @@ export default {
 
   data () {
     return {
+      hasError: false,
       hiddenInputElement: null,
-      uploader: null,
-      showDialog: false,
-      savedFiles: {}
+      savedFiles: {},
+      uploader: null
     }
   },
 
@@ -191,34 +192,40 @@ export default {
       return this.$attrs
     },
 
-    self () {
-      return this
+    columnClasses () {
+      const irregularClasses = ['col']
+      const columns = this.defaultColumns
+
+      const classes = []
+
+      const profiles = {
+        col: 'col',
+        xs: 'col-xs',
+        sm: 'col-sm',
+        md: 'col-md',
+        lg: 'col-lg',
+        xl: 'col-xl'
+      }
+
+      for (const key in columns) {
+        const column = columns[key]
+
+        if (irregularClasses.includes(column)) {
+          classes.push(profiles[key])
+          continue
+        }
+
+        classes.push(`${profiles[key]}-${column}`)
+      }
+
+      return classes
     },
 
-    uploaderClasses () {
-      return this.hasCustomUpload ? 'hidden' : 'fit'
-    },
-
-    showAddFile () {
-      if (this.readonly) return
-
-      const modelLength = this.useObjectModel
-        ? Object.keys(this.modelValue).length
-        : this.modelValue.length
-
-      return this.maxFiles && this.isMultiple ? modelLength < this.maxFiles : true
-    },
-
-    isMultiple () {
-      return this.$attrs.multiple || this.$attrs.multiple === ''
-    },
-
-    hasCustomUpload () {
-      return this.$slots['custom-upload']
-    },
-
-    hasHeaderSlot () {
-      return this.$slots.header
+    defaultColumns () {
+      return {
+        ...(this.isMultiple ? { col: 12, sm: 6, md: 4, lg: 3 } : { col: 12, sm: 6 }),
+        ...this.columns
+      }
     },
 
     defaultPicaResizeOptions () {
@@ -254,44 +261,32 @@ export default {
       }
     },
 
-    defaultColumns () {
-      return {
-        ...(this.isMultiple ? { col: 12, sm: 6, md: 4, lg: 3 } : { col: 12, sm: 6 }),
-        ...this.columns
-      }
+    hasAddFile () {
+      if (this.readonly) return
+
+      const modelLength = this.useObjectModel
+        ? Object.keys(this.modelValue).length
+        : this.modelValue.length
+
+      return this.maxFiles && this.isMultiple ? modelLength < this.maxFiles : true
     },
 
-    columnClasses () {
-      const irregularClasses = ['col']
-      const columns = this.defaultColumns
-
-      const classes = []
-
-      const profiles = {
-        col: 'col',
-        xs: 'col-xs',
-        sm: 'col-sm',
-        md: 'col-md',
-        lg: 'col-lg',
-        xl: 'col-xl'
-      }
-
-      for (const key in columns) {
-        const column = columns[key]
-
-        if (irregularClasses.includes(column)) {
-          classes.push(profiles[key])
-          continue
-        }
-
-        classes.push(`${profiles[key]}-${column}`)
-      }
-
-      return classes
+    hasCustomUpload () {
+      return this.$slots['custom-upload']
     },
 
-    hasModelValue () {
-      return this.useObjectModel ? !!Object.keys(this.modelValue).length : !!this.modelValue.length
+    hasGalleryCardSection () {
+      return (
+        (this.useObjectModel ? !!Object.keys(this.modelValue).length : !!this.modelValue.length) || this.hasError
+      )
+    },
+
+    hasHeaderSlot () {
+      return this.$slots.header
+    },
+
+    isMultiple () {
+      return this.$attrs.multiple || this.$attrs.multiple === ''
     },
 
     labelProps () {
@@ -301,6 +296,14 @@ export default {
 
         ...(this.error && { color: 'negative' })
       }
+    },
+
+    self () {
+      return this
+    },
+
+    uploaderClasses () {
+      return this.hasCustomUpload ? 'hidden' : 'fit'
     }
   },
 
@@ -324,13 +327,31 @@ export default {
   },
 
   methods: {
+    async addFiles () {
+      const filesList = Array.from(this.hiddenInputElement.files)
+      const processedFiles = []
+
+      this.$refs.hiddenInput.value = ''
+
+      filesList.forEach(file => processedFiles.push(this.resizeImage(file)))
+
+      this.uploader.addFiles(await Promise.all(processedFiles))
+    },
+
+    dispatchUpload () {
+      this.$refs.buttonCleanFiles.$el.click()
+      this.hiddenInputElement.click()
+    },
+
     async factory ([file]) {
       if (!this.isMultiple && !this.hasHeaderSlot) {
         this.$refs.buttonCleanFiles.$el.click()
       }
 
       const name = `${uid()}.${file.name.split('.').pop()}`
-      const { endpoint } = await this.fetchCredentials(name)
+      const { endpoint } = await this.fetchCredentials(name) || {}
+
+      if (!endpoint) return
 
       return {
         headers: [
@@ -343,29 +364,11 @@ export default {
     },
 
     factoryFailed () {
-      this.updateUploading(false)
-      NotifyError('Ops! Erro ao enviar o arquivo.')
-    },
-
-    dispatchUpload () {
-      this.$refs.buttonCleanFiles.$el.click()
-      this.hiddenInputElement.click()
-    },
-
-    uploaded (response) {
-      const fullPath = response.xhr.responseURL.split('?').shift()
-
-      const objectValue = {
-        format: response.files[0].type,
-        url: fullPath,
-        name: response.files[0].name
-      }
-
-      const model = this.useObjectModel ? objectValue : fullPath
-
-      this.$emit('update:modelValue', this.isMultiple ? [...this.modelValue, model] : model || '')
+      this.hasError = true
 
       this.updateUploading(false)
+
+      NotifyError('Falha ao carregar arquivo.')
     },
 
     async fetchCredentials (filename) {
@@ -379,36 +382,6 @@ export default {
 
         return data
       } catch {}
-    },
-
-    removeFile (key, scope, file) {
-      if (file.isUploaded) {
-        scope.removeFile(scope.files[file.indexToDelete])
-      }
-
-      if (file.isFailed) return
-
-      if (!this.isMultiple) {
-        return this.$emit('update:modelValue')
-      }
-
-      const clonedValue = extend(true, [], this.modelValue)
-
-      const numberIndex = this.modelValue.findIndex(file => {
-        if (this.useObjectModel) {
-          return file.uuid === key || file.url.includes(key)
-        }
-
-        return this.getFileName(file) === key
-      })
-
-      clonedValue.splice(numberIndex, 1)
-
-      this.$emit('update:modelValue', clonedValue)
-    },
-
-    getFileName (value) {
-      return value.split('/').pop()
     },
 
     getFilesList (uploadedFiles) {
@@ -427,7 +400,6 @@ export default {
         : (this.modelValue ? [this.modelValue] : [])
 
       const mergedList = [...pathsList, ...uploadedFiles]
-
       const files = {}
 
       mergedList.forEach(file => {
@@ -456,19 +428,69 @@ export default {
       return files
     },
 
+    getFileName (value) {
+      return value.split('/').pop()
+    },
+
+    getModelValue (index) {
+      if (!this.useObjectModel) return {}
+
+      return this.isMultiple ? this.modelValue[index] || {} : this.modelValue
+    },
+
+    getUploaderGalleryCardProps ({ index, key, file, scope }) {
+      const modelValue = this.getModelValue(index)
+
+      return {
+        ...this.defaultUploaderGalleryCardProps,
+
+        currentModelValue: modelValue,
+        file,
+        fileKey: key,
+        savedFiles: this.savedFiles,
+
+        // eventos
+        onRemove: () => this.removeFile(key, scope, file),
+        onUpdateModel: value => this.updateModelValue({ index, payload: value })
+      }
+    },
+
+    handleSubmitSuccess ({ detail: { entity } }) {
+      if (entity === this.entity) this.setSavedFiles()
+    },
+
     isFailed (file) {
       return file.__status === 'failed'
     },
 
-    async addFiles () {
-      const filesList = Array.from(this.hiddenInputElement.files)
-      const processedFiles = []
+    onAddButtonClick (scope) {
+      return this.addButtonFn ? this.addButtonFn(scope) : this.$refs.hiddenInput.click()
+    },
 
-      this.$refs.hiddenInput.value = ''
+    removeFile (key, scope, file) {
+      if (file.isUploaded) {
+        scope.removeFile(scope.files[file.indexToDelete])
+      }
 
-      filesList.forEach(file => processedFiles.push(this.resizeImage(file)))
+      if (file.isFailed) return
 
-      this.uploader.addFiles(await Promise.all(processedFiles))
+      if (!this.isMultiple) {
+        return this.$emit('update:modelValue')
+      }
+
+      const clonedValue = extend(true, [], this.modelValue)
+
+      const numberIndex = this.modelValue.findIndex(file => {
+        if (this.useObjectModel) {
+          return file.uuid === key || file.url.includes(key)
+        }
+
+        return this.getFileName(file) === key
+      })
+
+      clonedValue.splice(numberIndex, 1)
+
+      this.$emit('update:modelValue', clonedValue)
     },
 
     // Função para redimensionar imagens
@@ -516,8 +538,20 @@ export default {
       }
     },
 
-    updateUploading (uploading) {
-      this.$emit('update:uploading', uploading)
+    setSavedFiles () {
+      if (this.isMultiple) {
+        this.modelValue.forEach(model => {
+          const fileName = this.getFileName(model.url)
+
+          this.savedFiles[fileName] = true
+        })
+
+        return
+      }
+
+      const fileName = this.getFileName(this.modelValue.url)
+
+      this.savedFiles[fileName] = true
     },
 
     updateModelValue ({ index, payload = {} }) {
@@ -537,51 +571,26 @@ export default {
       this.$emit('update:modelValue', { ...this.modelValue, ...payload })
     },
 
-    getUploaderGalleryCardProps ({ index, key, file, scope }) {
-      const modelValue = this.getModelValue(index)
-
-      return {
-        ...this.defaultUploaderGalleryCardProps,
-
-        currentModelValue: modelValue,
-        file,
-        fileKey: key,
-        savedFiles: this.savedFiles,
-
-        // eventos
-        onRemove: () => this.removeFile(key, scope, file),
-        onUpdateModel: value => this.updateModelValue({ index, payload: value })
-      }
+    updateUploading (uploading) {
+      this.$emit('update:uploading', uploading)
     },
 
-    getModelValue (index) {
-      if (!this.useObjectModel) return {}
+    uploaded (response) {
+      this.hasError = false
 
-      return this.isMultiple ? this.modelValue[index] || {} : this.modelValue
-    },
+      const fullPath = response.xhr.responseURL.split('?').shift()
 
-    handleSubmitSuccess ({ detail: { entity } }) {
-      if (entity === this.entity) this.setSavedFiles()
-    },
-
-    setSavedFiles () {
-      if (this.isMultiple) {
-        this.modelValue.forEach(model => {
-          const fileName = this.getFileName(model.url)
-
-          this.savedFiles[fileName] = true
-        })
-
-        return
+      const objectValue = {
+        format: response.files[0].type,
+        url: fullPath,
+        name: response.files[0].name
       }
 
-      const fileName = this.getFileName(this.modelValue.url)
+      const model = this.useObjectModel ? objectValue : fullPath
 
-      this.savedFiles[fileName] = true
-    },
+      this.$emit('update:modelValue', this.isMultiple ? [...this.modelValue, model] : model || '')
 
-    onAddButtonClick (scope) {
-      return this.addButtonFn ? this.addButtonFn(scope) : this.$refs.hiddenInput.click()
+      this.updateUploading(false)
     }
   }
 }

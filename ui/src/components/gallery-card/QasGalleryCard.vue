@@ -52,41 +52,21 @@ export default {
       type: Boolean
     },
 
-    imageProps: {
+    gridGeneratorProps: {
       type: Object,
       default: () => ({})
     },
 
-    gridGeneratorProps: {
+    imageProps: {
       type: Object,
       default: () => ({})
     }
   },
 
   computed: {
-    hasActionsMenu () {
-      return !!Object.keys(this.actionsMenuProps).length
-    },
-
-    hasBottom () {
-      return !!this.$slots.bottom || this.hasGridGenerator
-    },
-
-    hasGridGenerator () {
-      return !!Object.keys(this.gridGeneratorProps).length
-    },
-
     classes () {
       return {
         'text-grey-6': this.disable
-      }
-    },
-
-    headerClasses () {
-      return {
-        'justify-between': this.card.name,
-        'justify-right': !this.card.name,
-        'text-grey-9': !this.disable
       }
     },
 
@@ -100,6 +80,26 @@ export default {
           disable: this.disable,
           ...buttonProps
         }
+      }
+    },
+
+    hasActionsMenu () {
+      return !!Object.keys(this.actionsMenuProps).length
+    },
+
+    hasBottom () {
+      return !!this.$slots.bottom || this.hasGridGenerator
+    },
+
+    hasGridGenerator () {
+      return !!Object.keys(this.gridGeneratorProps).length
+    },
+
+    headerClasses () {
+      return {
+        'justify-between': this.card.name,
+        'justify-right': !this.card.name,
+        'text-grey-9': !this.disable
       }
     }
   }
