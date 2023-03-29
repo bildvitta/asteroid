@@ -50,6 +50,8 @@ export default {
     appMenuProps () {
       return {
         modules,
+        brand: 'https://placehold.co/188x36',
+        miniBrand: 'https://placehold.co/36x36',
         items: this.menuList
       }
     },
@@ -70,15 +72,15 @@ export default {
           to: { path: '/components/app-menu' }
         },
         {
-          label: 'Por que asteroid?',
+          label: 'Por que asteroid? Mas com um texto bem grande',
           icon: 'sym_r_pin',
           to: { path: '/why-asteroid' }
         },
         {
-          label: 'Começando',
+          label: 'Começando com um titulo muito muito longo',
           children: [
             {
-              label: 'Dialog',
+              label: 'Dialog com um texto muuuuuito longo',
               to: { path: '/plugins/dialog' },
               icon: 'sym_r_settings_input_hdmi'
             },

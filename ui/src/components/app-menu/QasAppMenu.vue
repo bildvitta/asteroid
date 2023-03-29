@@ -1,20 +1,33 @@
 <template>
-  <q-drawer v-model="model" :behavior="behavior" :width="drawerWidth">
+  <q-drawer v-model="model" :behavior="behavior" :mini="isMiniMode" :mini-width="88" :width="drawerWidth">
     <div class="column full-height justify-between qas-app-menu">
       <div class="full-width">
         <!-- Brand -->
-        <div v-if="!$qas.screen.untilLarge" class="q-pt-xl q-px-lg">
+        <div v-if="!$qas.screen.untilLarge" class="q-mb-xl q-pt-xl q-px-lg">
           <router-link class="block q-toolbar__title relative-position text-no-decoration" :to="rootRoute">
-            <img v-if="brand" :alt="title" class="qas-app-menu__brand" :src="brand">
-            <span v-else class="ellipsis text-bold text-primary">{{ title }}</span>
+            <img v-if="brand" :alt="title" class="qas-app-menu__brand" :src="normalizedBrand">
+            <span v-else class="ellipsis text-bold text-primary text-subtitle2">{{ title }}</span>
             <q-badge v-if="hasDevelopmentBadge" color="red" floating :label="developmentBadgeLabel" />
           </router-link>
+        </div>
+
+        <div class="q-px-lg">
+          <q-separator />
         </div>
 
         <!-- Module -->
         <div v-if="displayModuleSection" class="items-center justify-between no-wrap q-mt-xl q-px-lg qas-app-menu__module row">
           <div class="full-width">
-            <qas-select v-model="module" borderless class="q-py-xs qas-app-menu__select shadow-2" dense input-class="q-px-md" :options="defaultModules" :outlined="false" :use-search="false" @update:model-value="redirectHandler(currentModelOption)" />
+            <!-- <qas-btn-dropdown :button-props="{ label: 'Usuário' }" use-menu-padding>
+              <q-list>
+                <q-item v-for="moduleItem in defaultModules" :key="moduleItem">
+                  Meu moduleItem - {{ moduleItem }}
+                </q-item>
+              </q-list>
+            </qas-btn-dropdown> -->
+
+            <pv-app-menu-dropdown :current-module="currentModelOption" :options="defaultModules" />
+            <!-- <qas-select v-model="module" borderless class="q-py-xs qas-app-menu__select shadow-2" dense input-class="q-px-md" :options="defaultModules" :outlined="false" :use-search="false" @update:model-value="redirectHandler(currentModelOption)" /> -->
           </div>
 
           <div v-if="$qas.screen.isSmall" class="q-ml-xl">
@@ -27,7 +40,9 @@
           <template v-for="(menuItem, index) in items">
             <div v-if="hasChildren(menuItem)" :key="`children-${index}`" class="qas-app-menu__content">
               <q-item class="items-center q-pb-none q-pt-md qas-app-menu__item qas-app-menu__item--label text-weight-bold">
-                {{ menuItem.label }}
+                <div class="ellipsis text-grey-9 text-subtitle2">
+                  {{ menuItem.label }}
+                </div>
               </q-item>
 
               <q-item v-for="(menuChildItem, childIndex) in menuItem.children" :key="childIndex" :active="isActive(menuChildItem)" class="qas-app-menu__children qas-app-menu__item qas-app-menu__item--children" :to="getRouterRedirect(menuChildItem)">
@@ -36,7 +51,11 @@
                 </q-item-section>
 
                 <q-item-section>
-                  <q-item-label>{{ menuChildItem.label }}</q-item-label>
+                  <q-item-label>
+                    <div class="ellipsis text-subtitle2">
+                      {{ menuChildItem.label }}
+                    </div>
+                  </q-item-label>
                 </q-item-section>
               </q-item>
             </div>
@@ -47,7 +66,11 @@
               </q-item-section>
 
               <q-item-section>
-                <q-item-label>{{ menuItem.label }}</q-item-label>
+                <q-item-label>
+                  <div class="ellipsis text-subtitle2">
+                    {{ menuItem.label }}
+                  </div>
+                </q-item-label>
               </q-item-section>
             </q-item>
           </template>
@@ -63,13 +86,18 @@
 </template>
 
 <script>
+import PvAppMenuDropdown from './private/PvAppMenuDropdown.vue'
+
 import QasAppUser from '../app-user/QasAppUser.vue'
+
 import { isLocalDevelopment } from '../../helpers'
 
 export default {
   name: 'QasAppMenu',
 
   components: {
+    PvAppMenuDropdown,
+
     QasAppUser
   },
 
@@ -82,6 +110,11 @@ export default {
     items: {
       default: () => [],
       type: Array
+    },
+
+    miniBrand: {
+      type: String,
+      default: ''
     },
 
     modelValue: {
@@ -122,6 +155,7 @@ export default {
 
   computed: {
     behavior () {
+      // return 'desktop'
       return this.$qas.screen.untilLarge ? 'mobile' : 'desktop'
     },
 
@@ -172,11 +206,16 @@ export default {
     },
 
     drawerWidth () {
-      return this.$qas.screen.isSmall ? 320 : 280
+      return 220
+      // return this.$qas.screen.isSmall ? 320 : 280
     },
 
     hasDevelopmentBadge () {
       return !!this.developmentBadgeLabel
+    },
+
+    isMiniMode () {
+      return this.$qas.screen.isLarge
     },
 
     model: {
@@ -187,6 +226,10 @@ export default {
       set (value) {
         return this.$emit('update:modelValue', value)
       }
+    },
+
+    normalizedBrand () {
+      return this.isMiniMode ? this.miniBrand : this.brand
     },
 
     rootRoute () {
@@ -288,13 +331,13 @@ export default {
     }
 
     &--label {
-      margin-bottom: var(--qas-spacing-md);
-      min-height: 0;
-      padding-top: 0;
+      // margin-bottom: var(--qas-spacing-md);
+      // min-height: 0;
+      // padding-top: 0;
     }
 
     &--children.q-item {
-      padding-left: calc(var(--qas-spacing-xl) + var(--qas-spacing-sm));
+      // padding-left: calc(var(--qas-spacing-xl) + var(--qas-spacing-sm));
 
       & + & {
         margin-top: var(--qas-spacing-sm);
@@ -302,11 +345,11 @@ export default {
     }
   }
 
-  &__content + &__content,
-  &__item + &__content,
-  &__content + &__item {
-    margin-top: var(--qas-spacing-lg);
-  }
+  // &__content + &__content,
+  // &__item + &__content,
+  // &__content + &__item {
+  //   margin-top: var(--qas-spacing-lg);
+  // }
 
   // User
   .qas-app-user__data {
