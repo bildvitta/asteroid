@@ -420,7 +420,7 @@ export default {
         NotifySuccess(response.data.status.text || this.defaultNotifyMessages.success)
         this.$emit('submit-success', response, this.modelValue)
 
-        this.createSubmitSuccessEvent(payload)
+        this.createSubmitSuccessEvent({ ...payload, entity: this.entity })
 
         this.$qas.logger.group(
           `QasFormView - submit -> resposta da action ${this.entity}/${this.mode}`, [response]
