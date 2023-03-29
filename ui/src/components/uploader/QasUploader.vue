@@ -264,9 +264,11 @@ export default {
     hasAddFile () {
       if (this.readonly) return
 
+      console.log(this.modelValue, '>>> this.modelValue')
+
       const modelLength = this.useObjectModel
         ? Object.keys(this.modelValue).length
-        : this.modelValue.length
+        : this.modelValue?.length
 
       return this.maxFiles && this.isMultiple ? modelLength < this.maxFiles : true
     },
@@ -277,7 +279,7 @@ export default {
 
     hasGalleryCardSection () {
       return (
-        (this.useObjectModel ? !!Object.keys(this.modelValue).length : !!this.modelValue.length) || this.hasError
+        (this.useObjectModel ? !!Object.keys(this.modelValue).length : !!this.modelValue?.length) || this.hasError
       )
     },
 
@@ -312,6 +314,8 @@ export default {
     this.uploader = this.$refs.uploader
 
     this.hiddenInputElement?.addEventListener?.('change', this.addFiles)
+
+    console.log('qualé? ué?')
 
     if (this.useObjectModel) {
       window.addEventListener('submit-success', this.handleSubmitSuccess)
