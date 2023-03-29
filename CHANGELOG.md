@@ -10,6 +10,25 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 ### Sobre os "BREAKING CHANGES"
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
+## Não publicado
+### Adicionado
+- `downloadFile`: adicionado novo helper para fazer download de arquivos.
+- `docs/src/components/DocPrint.vue`: adicionado novo componente para **documentação** para adicionar imagens (prints) de exemplos.
+- `QasGalleryCard`: novo componente adicionado para ser utilizado no QasUploader (futuramente no QasGallery também).
+- `QasSignatureUploader`: adicionado nova propriedade `uploaderProps` para repassar as propriedades para o QasUploader.
+- `QasFormView`: adicionado novo evento no `window` que dispara toda vez que o submit ocorre com sucesso chamado `submit-success`.
+- `QasLabel`: adicionado propriedade `color` para controle da cor com default `grey-9`.
+- `QasUploader`: adicionado novas propriedades: `addButtonFn`, `addButtonLabel`, `columns`, `dialogProps`, `error`, `fields`, `formGeneratorProps`, `galleryCardProps`, `gridGeneratorProps`, e `useDownload`
+
+### Modificado
+- `QasSignatureUploader`: atualizações para se adequar as mudanças do QasUploader.
+- [`QasSignatureUploader`, `QasUploader`]: adicionado ordem alfabética em métodos / data / props.
+- `QasField`: atualizações para se adequar as mudanças do QasSignatureUploader.
+- `QasGridGenerator`: removido logger.
+
+### Removido
+- `QasSignatureUploader`: removido propriedades `readonly`, `uploadLabel` pois agora esse controle é feito pela propriedade `uploaderProps`.
+
 ## [3.8.0-beta.0] - 21-03-2023
 ### Corrigido
 - `searchFilterMixin`: corrigido problema ao emitir o evento `update:modelValue` para campos de select múltiplos ao alterar a propriedade `lazyLoadingProps`.

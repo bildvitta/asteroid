@@ -37,20 +37,13 @@
 </template>
 
 <script>
+import PvUploaderGalleryCard from './private/PvUploaderGalleryCard.vue'
+
 import { uid, extend } from 'quasar'
 import { NotifyError } from '../../plugins'
 import { getImageSize, getResizeDimensions } from '../../helpers/images.js'
+
 import Pica from 'pica'
-
-import PvUploaderGalleryCard from './private/PvUploaderGalleryCard.vue'
-
-// TODO remover
-import axios from 'axios'
-
-const token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiJhZjY0Y2Q1Zi00OTlmLTExZWQtOTdjYy0wMmMxMWVlNThhODciLCJqdGkiOiIyNTE3NjdiMTdkY2RlZmIzZGQ0ZDA2ZGQ1NTEyNzNhYTBiMTIyMTNlZTNjMGY3MWNhZjczYjk4MDdmMzQ0ZWNmN2M0ZDg3YWNjMDU0NDUzYyIsImlhdCI6MTY3ODQ2NDk4NS4xMjI5LCJuYmYiOjE2Nzg0NjQ5ODUuMTIyOTAyLCJleHAiOjE3MTAwODczODUuMTA0NTA3LCJzdWIiOiI3NTYwNCIsInNjb3BlcyI6WyJwcm9maWxlIl19.jRIEGag_OgKRRD7QwP934B0ZExOgQ8lrUFMzrzcEfTIve2eHEiAcdseLXBr23onBQ2WWHSBZu_I2En2GCvjlH7iKWiMrHfpHUTdnEL__Umln20zTNhD0ze3xltS74vgAJcwRA_WQ7KaZk83li819XZ1C08hPU59I1rJqsNDoPimdkKssaeMkB_Jk2c08CgPqcJLWbR3jASbdw1mdZBn-q-TO7rzQqvaDWqwL-2YLmbk_vYnawdX1N3rqt-8bWfPgNzHCSiymdw9PQNHOCIOcxxgjMVASag-538aX85fDF0tGff5GlWmkhHeEoiWP5f5tdsLAnBoV4p-LxWRyBnnibgeeW39JsZiUv9dRnmsM2fl0BWeRROu6P8x8gBfV8OGIG9LIIzusVABSTrqoIMYkmfsrD34QQ9F3dvMltpKRxfL_7mouC4JybU1RHiWq0wyVkEFFt_dRTvjQoGL7ovKopvtkXO0DMveyFM7Gxxu37IbEn8eezMekAkFaK6uIPSh32wwTqHa3AffJPt7sU25uNKOwjKNLwZyrboECcFAM4lBlX2J8fe1bdwN4qKBOy8Tos34mgCKYqlMSRO20e73__tjP7cERm23F9J3jgmDnbeQvc6USt_0uCIcR5Qeewl0fCZmRw1HC3pjISF86IgKziQt5Zgm0ctt-x0PDGkwK2SY'
-
-axios.defaults.baseURL = 'https://server-assistencia-tecnica.modular.dev.br/api/'
-axios.defaults.headers.Authorization = `Bearer ${token}`
 
 export default {
   name: 'QasUploader',
@@ -264,8 +257,6 @@ export default {
     hasAddFile () {
       if (this.readonly) return
 
-      console.log(this.modelValue, '>>> this.modelValue')
-
       const modelLength = this.useObjectModel
         ? Object.keys(this.modelValue).length
         : this.modelValue?.length
@@ -314,8 +305,6 @@ export default {
     this.uploader = this.$refs.uploader
 
     this.hiddenInputElement?.addEventListener?.('change', this.addFiles)
-
-    console.log('qualé? ué?')
 
     if (this.useObjectModel) {
       window.addEventListener('submit-success', this.handleSubmitSuccess)
@@ -377,9 +366,7 @@ export default {
 
     async fetchCredentials (filename) {
       try {
-        // TODO voltar código comentado
-        const { data } = await axios.post('/upload-credentials/', {
-          // const { data } = await this.$axios.post('/upload-credentials/', {
+        const { data } = await this.$axios.post('/upload-credentials/', {
           entity: this.entity,
           filename
         })
@@ -607,6 +594,7 @@ export default {
   }
 
   .q-uploader {
+    background-color: transparent;
     max-height: 100%;
 
     &__header {

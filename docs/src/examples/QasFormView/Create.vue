@@ -15,8 +15,6 @@
       <template #default>
         <div>
           <qas-form-generator v-model="values" :errors="errors" :fields="fields" />
-
-          <qas-uploader v-model="values.uploader" entity="serviceOrders" :fields="{ name: { name: 'name', type: 'text', label: 'eae' } } " :grid-generator-props="{ fields: { name: { name: 'name', type: 'text', label: 'E-mail' } } }" label="Meu uploader" :multiple1="true" use-object-model />
         </div>
       </template>
     </qas-form-view>
@@ -35,13 +33,7 @@ export default {
     return {
       fields: {},
       errors: {},
-      values: {
-        uploader: {
-          // format: 'image/jpeg',
-          // url: 'https://s3.amazonaws.com/uploads.assistencia-digital.nave.dev/uploads/v2/development/serviceOrders/d5648a15-c66f-401a-9c97-0a55efda0b72.jpg',
-          // name: 'teste-2 (5th copy).jpg'
-        }
-      },
+      values: {},
       metadata: {},
       isFormSubmitted: false
     }
@@ -49,7 +41,7 @@ export default {
 
   computed: {
     entity () {
-      return 'serviceOrders'
+      return 'users'
     },
 
     cancelRoute () {
