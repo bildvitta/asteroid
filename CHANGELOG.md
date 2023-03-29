@@ -11,6 +11,11 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
 ## Não publicado
+## BREAKING CHANGES
+- `QasUploader`: mudanças significativas de layout e comportamento que podem ou não gerar quebras.
+- `QasUploader`: removido propriedade `hint`.
+- `QasSignatureUploader`: removido propriedades `readonly`, `uploadLabel` pois agora esse controle é feito pela propriedade `uploaderProps`.
+
 ### Adicionado
 - `downloadFile`: adicionado novo helper para fazer download de arquivos.
 - `docs/src/components/DocPrint.vue`: adicionado novo componente para **documentação** para adicionar imagens (prints) de exemplos.
@@ -25,9 +30,11 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - [`QasSignatureUploader`, `QasUploader`]: adicionado ordem alfabética em métodos / data / props.
 - `QasField`: atualizações para se adequar as mudanças do QasSignatureUploader.
 - `QasGridGenerator`: removido logger.
+- `QasUploader`: mudanças de layout e comportamento.
 
 ### Removido
 - `QasSignatureUploader`: removido propriedades `readonly`, `uploadLabel` pois agora esse controle é feito pela propriedade `uploaderProps`.
+- `QasUploader`: removido propriedade `hint`.
 
 ## [3.8.0-beta.0] - 21-03-2023
 ### Corrigido
