@@ -1,7 +1,7 @@
 <template>
   <q-form class="container spaced">
     <div>
-      <qas-uploader v-model="model" entity="serviceOrders" label="Meu uploader" multiple />
+      <qas-uploader v-model="model" add-button-label="Adicionar imagem" entity="serviceOrders" label="Meu uploader" multiple />
       <qas-debugger :inspect="[model]" />
     </div>
   </q-form>

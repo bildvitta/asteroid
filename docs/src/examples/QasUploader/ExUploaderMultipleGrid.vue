@@ -1,14 +1,13 @@
 <template>
   <q-form class="container spaced">
     <div>
-      <qas-uploader v-model="model" entity="serviceOrders" :fields="fields" label="Meu uploader" multiple use-object-model />
+      <qas-uploader v-model="model" add-button-label="Adicionar imagem" entity="serviceOrders" :grid-generator-props="gridGeneratorProps" label="Meu uploader" multiple use-object-model />
       <qas-debugger :inspect="[model]" />
     </div>
   </q-form>
 </template>
 
 <script>
-
 export default {
   data () {
     return {
@@ -38,12 +37,14 @@ export default {
   },
 
   computed: {
-    fields () {
+    gridGeneratorProps () {
       return {
-        format: {
-          name: 'format',
-          label: 'Formato',
-          type: 'text'
+        fields: {
+          format: {
+            name: 'format',
+            label: 'Formato',
+            type: 'text'
+          }
         }
       }
     }

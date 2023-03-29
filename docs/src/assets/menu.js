@@ -327,6 +327,10 @@ module.exports = [
         path: '/helpers/destroy-nested-children-by-key'
       },
       {
+        name: 'downloadFile',
+        path: '/helpers/download-file'
+      },
+      {
         name: 'filterObject',
         path: '/helpers/filter-object'
       },

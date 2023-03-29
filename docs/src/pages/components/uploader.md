@@ -6,7 +6,7 @@ Componente para upload com auto redimensionamento que implementa o "QField" e "Q
 
 <doc-api file="uploader/QasUploader" name="QasUploader" />
 
-:::danger
+:::info
 Por hora, este componente não funciona na documentação e é preciso testar ele em algum projeto que tenha um bucket para upload.
 :::
 
@@ -23,14 +23,27 @@ O formato padrão do model de objeto é:
 ```
 :::
 
-Agora o componente implementa o `QasGridGenerator` e o `QasFormGenerator`, existem propriedades para cada componente, porém é possível passar uma única propriedade `fields` que é repassado para cada componente caso ambos tenha os mesmos fields.
-Com o QasFormGenerator é possível altear o model do `QasUploader`, para isto é necessário usar a propriedade `useObjectModel`.
-
-- Caso a prop `fields` não é repassada e não é passada no `form
 ## Uso
 
 <doc-example file="QasUploader/Basic" title="Básico" />
 <doc-example file="QasUploader/ExUploaderMultiple" title="Múltiplo" />
 <doc-example file="QasUploader/ExUploaderMultipleObjectModel" title="Múltiplo com useObjectModel" />
 <doc-example file="QasUploader/ExUploaderSingleObjectModel" title="Múltiplo com useObjectModel" />
-<doc-example file="QasUploader/ExUploaderMultipleObjectModelGrid" title="Múltiplo com useObjectModel e somente grid" />
+
+:::info
+- Para que o modo com grid funcione, é necessário utilizar a propriedade `useObjectModel` e que exista pelo menos a propriedade `fields` ou então o fields dentro de `gridGeneratorProps`.
+:::
+
+<doc-example file="QasUploader/ExUploaderMultipleGrid" title="Múltiplo e com grid" />
+
+:::info
+- Quando o componente pode ser editável, sempre que for adicionado novos arquivos **antes** de salvar, vai ter a opção de editar os campos no próprio card (não é possível simular pois o upload não funciona na documentação). Se o arquivo já esta salvo ou foi salvo, a opção de editar fica dentro do menu de ações de cada card.
+
+- O QasUploader fica escutando o evento `submit-success` disparado pelo `QasFormView`, caso as entidades sejam as mesmas, ele seta o componente para o modo "grid" sumindo com os inputs do card e habilitando o editar no menu de ações.
+
+- Para que o modo edição funcione, é necessário utilizar a propriedade `useObjectModel` e que exista pelo menos a propriedade `fields` ou então o fields dentro de `formGeneratorProps`.
+:::
+
+<doc-print :src="require('assets/prints/uploader-editable.png')" />
+
+<doc-example file="QasUploader/ExUploaderMultipleEditable" title="Múltiplo e editável" />

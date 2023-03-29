@@ -11,6 +11,7 @@ import DocMenu from 'components/DocMenu.vue'
 import DocNote from 'components/DocNote.vue'
 import DocPage from 'components/DocPage.vue'
 import DocToken from 'components/DocToken.vue'
+import DocPrint from 'components/DocPrint.vue'
 
 export default boot(({ app }) => {
   app.component('DocApi', DocApi)
@@ -24,4 +25,5 @@ export default boot(({ app }) => {
   app.component('DocNote', DocNote)
   app.component('DocPage', DocPage)
   app.component('DocToken', DocToken)
+  app.component('DocPrint', DocPrint)
 })
