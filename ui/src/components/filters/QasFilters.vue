@@ -110,12 +110,12 @@ export default {
       type: Boolean
     },
 
-    useUpdateRoute: {
+    useSpacing: {
       default: true,
       type: Boolean
     },
 
-    useSpacing: {
+    useUpdateRoute: {
       default: true,
       type: Boolean
     }
@@ -183,6 +183,7 @@ export default {
         fields: this.fields,
         fieldsProps: this.fieldsProps,
         loading: this.isFetching,
+
         onClear: this.clearFilters,
         onFilter: () => this.filter()
       }
@@ -256,8 +257,8 @@ export default {
         this.filters = {}
       }
 
-      this.setCurrentFilters()
-      this.setQuery(query)
+      this.updateCurrentFilters()
+      this.updateRouteQuery(query)
     },
 
     clearSearch () {
@@ -315,8 +316,8 @@ export default {
         search: this.search || undefined
       }
 
-      this.setCurrentFilters()
-      this.setQuery(query)
+      this.updateCurrentFilters()
+      this.updateRouteQuery(query)
     },
 
     getChipValue (value) {
@@ -329,11 +330,11 @@ export default {
       delete query[name]
       delete this.filters[name]
 
-      this.setCurrentFilters()
-      this.setQuery(query)
+      this.updateCurrentFilters()
+      this.updateRouteQuery(query)
     },
 
-    setCurrentFilters () {
+    updateCurrentFilters () {
       this.currentFilters = {
         ...this.filters,
         ...(this.search && { search: this.search })
@@ -342,7 +343,7 @@ export default {
       this.$emit('update:current-filters', this.currentFilters)
     },
 
-    setQuery (query) {
+    updateRouteQuery (query) {
       this.useUpdateRoute && this.$router.push({ query })
     },
 
@@ -368,7 +369,7 @@ export default {
       const watchOnce = this.$watch('fields', values => {
         if (Object.keys(values).length) {
           this.updateValues()
-          this.setCurrentFilters()
+          this.updateCurrentFilters()
           watchOnce()
         }
       })

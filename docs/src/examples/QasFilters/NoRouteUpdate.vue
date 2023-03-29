@@ -1,20 +1,20 @@
 <template>
   <div class="container spaced">
-    <qas-filters :entity="entity" :use-update-route="false" @update:current-filters="onUpdateCurrentFilters" />
+    <qas-filters v-model:currentFilters="currentFilters" :entity="entity" :use-update-route="false" />
   </div>
 </template>
 
 <script>
 export default {
-  computed: {
-    entity () {
-      return 'users'
+  data () {
+    return {
+      currentFilters: {}
     }
   },
 
-  methods: {
-    onUpdateCurrentFilters (query) {
-      // console.log(query)
+  computed: {
+    entity () {
+      return 'users'
     }
   }
 }

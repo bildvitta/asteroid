@@ -14,30 +14,31 @@
           <qas-field v-model="filters[field.name]" :data-cy="`filters-${field.name}-field`" :field="field" v-bind="fieldsProps[field.name]" />
         </div>
 
-        <div class="q-col-gutter-x-md q-mt-xl row">
-          <div class="col-6">
-            <qas-btn class="full-width" data-cy="filters-clear-btn" label="Limpar" variant="secondary" @click="$emit('clear')" />
-          </div>
-
-          <div class="col-6">
+        <qas-actions gutter="sm" use-equal-width>
+          <template #primary>
             <qas-btn class="full-width" data-cy="filters-submit-btn" label="Filtrar" type="submit" variant="primary" />
-          </div>
-        </div>
+          </template>
+          <template #secondary>
+            <qas-btn class="full-width" data-cy="filters-clear-btn" label="Limpar" variant="secondary" @click="$emit('clear')" />
+          </template>
+        </qas-actions>
       </q-form>
     </q-menu>
   </qas-btn>
 </template>
 
 <script>
-import QasField from '../../field/QasField.vue'
+import QasActions from '../../actions/QasActions.vue'
 import QasBtn from '../../btn/QasBtn.vue'
+import QasField from '../../field/QasField.vue'
 
 export default {
   name: 'PvFiltersButton',
 
   components: {
-    QasField,
-    QasBtn
+    QasActions,
+    QasBtn,
+    QasField
   },
 
   props: {
