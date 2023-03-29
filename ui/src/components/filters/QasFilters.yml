@@ -63,16 +63,16 @@ slots:
     desc: Slot para acessar o final do componente.
     scope:
       filter:
-        desc: Função usada para realizar o filtro
+        desc: Função usada para realizar o filtro.
         type: Function
 
       filters:
-        desc: Objeto que retorna os filtros ativos
+        desc: Objeto que retorna os filtros ativos.
         default: {}
         type: Object
 
       remove-filter:
-        desc: Função usada para remover os filtro
+        desc: Função usada para remover os filtro.
         type: Function
         examples: ["removeFilter({ name: '[nome-do-filtro]' })"]
 
@@ -85,16 +85,16 @@ slots:
     desc: Slot para seção do botão de filtro.
     scope:
       filter:
-        desc: Função usada para realizar o filtro
+        desc: Função usada para realizar o filtro.
         type: Function
 
       filters:
-        desc: Objeto que retorna os filtros ativos
+        desc: Objeto que retorna os filtros ativos.
         default: {}
         type: Object
 
       remove-filter:
-        desc: Função usada para remover os filtro
+        desc: Função usada para remover os filtro.
         type: Function
         examples: ["removeFilter({ name: '[nome-do-filtro]' })"]
 
@@ -110,7 +110,7 @@ slots:
     desc: Slot para seção do campo de busca.
     scope:
       filter:
-        desc: função usada para realizar o filtro
+        desc: função usada para realizar o filtro.
         type: Function
 
 events:

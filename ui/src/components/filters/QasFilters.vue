@@ -257,8 +257,7 @@ export default {
       }
 
       this.setCurrentFilters()
-
-      this.useUpdateRoute && this.$router.push({ query })
+      this.setQuery(query)
     },
 
     clearSearch () {
@@ -317,8 +316,7 @@ export default {
       }
 
       this.setCurrentFilters()
-
-      this.useUpdateRoute && this.$router.push({ query })
+      this.setQuery(query)
     },
 
     getChipValue (value) {
@@ -332,8 +330,7 @@ export default {
       delete this.filters[name]
 
       this.setCurrentFilters()
-
-      this.useUpdateRoute && this.$router.push({ query })
+      this.setQuery(query)
     },
 
     setCurrentFilters () {
@@ -343,6 +340,10 @@ export default {
       }
 
       this.$emit('update:current-filters', this.currentFilters)
+    },
+
+    setQuery (query) {
+      this.useUpdateRoute && this.$router.push({ query })
     },
 
     updateValues () {
