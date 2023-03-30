@@ -361,20 +361,16 @@ export default {
   }
 
   &--sticky-header {
-    .q-table {
-      thead {
-        tr {
-          th {
-            position: sticky;
-            z-index: 1;
-          }
+    .q-table thead tr {
+      th {
+        position: sticky;
+        z-index: 1;
+      }
 
-          &:first-child {
-            th {
-              background-color: #fff;
-              top: 0;
-            }
-          }
+      &:first-child {
+        th {
+          background-color: white;
+          top: 0;
         }
       }
     }
