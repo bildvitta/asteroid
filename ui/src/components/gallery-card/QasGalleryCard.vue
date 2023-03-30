@@ -1,7 +1,7 @@
 <!-- TODO: componente adaptado somente para o uso do QasUploader, precisa ser revisitado para ser implementado no QasGallery -->
 <template>
   <div class="bg-white q-pa-md qas-gallery-card rounded-borders shadow-2" :class="classes">
-    <header class="flat items-center no-wrap q-mb-md q-mb-xs row" :class="headerClasses">
+    <header class="flat items-center no-wrap q-mb-md row" :class="headerClasses">
       <slot name="header">
         <div class="ellipsis q-mr-xs qas-gallery__name">
           <slot v-if="card.name" name="name">

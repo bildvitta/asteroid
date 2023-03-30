@@ -116,6 +116,7 @@ export default {
         [this.$qas.screen.isMedium]: { width: '570px' },
         [this.$qas.screen.isLarge]: { width: '350px' }
       }
+
       return sizes.true
     },
 

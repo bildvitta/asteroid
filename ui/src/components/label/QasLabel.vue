@@ -23,7 +23,12 @@ export default {
 
     margin: {
       default: 'sm',
-      type: String
+      type: String,
+      validator: value => {
+        const marginList = ['none', 'auto', 'xs', 'sm', 'md', 'lg', 'xl', '2xl', '3xl']
+
+        return marginList.includes(value)
+      }
     },
 
     color: {

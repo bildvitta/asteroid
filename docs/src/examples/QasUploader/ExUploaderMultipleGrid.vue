@@ -1,9 +1,7 @@
 <template>
   <q-form class="container spaced">
-    <div>
-      <qas-uploader v-model="model" add-button-label="Adicionar imagem" entity="serviceOrders" :grid-generator-props="gridGeneratorProps" label="Meu uploader" multiple use-object-model />
-      <qas-debugger :inspect="[model]" />
-    </div>
+    <qas-uploader v-model="model" add-button-label="Adicionar imagem" entity="serviceOrders" :grid-generator-props="gridGeneratorProps" label="Meu uploader" multiple use-object-model />
+    <qas-debugger :inspect="[model]" />
   </q-form>
 </template>
 
