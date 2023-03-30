@@ -1,6 +1,6 @@
 <template>
   <div>
-    <qas-uploader ref="uploader" v-model="model" v-bind="$attrs" avatar-color="secondary-contrast" :label="uploadLabel" :readonly="readonly" :use-resize="false">
+    <qas-uploader ref="uploader" v-model="model" v-bind="$attrs" :label="uploadLabel" :readonly="readonly" :use-resize="false">
       <template #header="{ scope }">
         <div class="cursor-pointer flex flex-center full-width justify-between no-border no-wrap q-gutter-xs text-white transparent" :class="headerClass" @click="openDialog">
           <div class="col column items-start justify-center">
