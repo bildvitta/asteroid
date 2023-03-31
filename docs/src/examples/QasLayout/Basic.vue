@@ -58,9 +58,9 @@ export default {
 
     appBarProps () {
       return {
-        user,
-        title: 'QasLayout',
-        isAuth: true
+        user
+        // title: 'QasLayout',
+        // isAuth: true
       }
     },
 
@@ -80,7 +80,7 @@ export default {
           label: 'Começando com um titulo muito muito longo',
           children: [
             {
-              label: 'Dialog com um texto muuuuuito longo',
+              label: 'Configurações',
               to: { path: '/plugins/dialog' },
               icon: 'sym_r_settings_input_hdmi'
             },

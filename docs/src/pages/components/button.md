@@ -51,7 +51,7 @@ Usar o ícone à esquerda para ações diretas e o ícone à direita para açõe
 
 ## Uso
 
-#### primary
+<!-- #### primary
 Os botões primários são utilizados em ações positivas e/ou primárias, como confirmar, avançar, ir para, acessar. Eles também são usados quando houver somente um botão disponível, como entendi, ok. Esses botões primários são utilizados para indicar ao usuário a ação principal que deve ser realizada, como salvar, adicionar, excluir, ativar, desativar. Eles são utilizados como uma forma de "guiar" o usuário, indicando qual é a ação principal que deve ser tomada. O objetivo é tornar a interface clara e intuitiva para o usuário, facilitando a navegação e a realização das ações desejadas.
 <doc-example file="QasBtn/ExPrimaryVariant" title='Variante "primary"' />
 
@@ -73,4 +73,5 @@ A cor "grey-9" é usado para quando não é uma ação direta ou ação negativa
 A cor "white" é usada quando necessita de um contraste, sendo possível ter ou não uma cor de hover, sendo possível modificar através da prop `useHoverOnWhiteColor`.
 <doc-example file="QasBtn/ExTertiaryVariant" title='Variante "tertiary"' />
 
-<doc-example file="QasBtn/UseLabelOnSmallScreen" title="use-label-on-small-screen" />
+<doc-example file="QasBtn/UseLabelOnSmallScreen" title="use-label-on-small-screen" /> -->
+<doc-example file="QasBtn/WxWithEllipsis" title="WxWithEllipsis" />

@@ -34,7 +34,8 @@ export default {
       return {
         ...this.buttonDropdownProps,
         buttonProps: {
-          label: this.currentModule.label
+          label: 'Testeeeeeeeee'
+          // label: this.currentModule.label
         }
       }
     }

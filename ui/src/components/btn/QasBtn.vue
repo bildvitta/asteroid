@@ -1,5 +1,5 @@
 <template>
-  <q-btn class="qas-btn" v-bind="attributes">
+  <q-btn ref="button" class="qas-btn" v-bind="attributes">
     <slot />
 
     <template v-for="(_, name) in slots" #[name]="context">
@@ -36,11 +36,6 @@ export default {
       type: Boolean
     },
 
-    useHoverOnWhiteColor: {
-      default: true,
-      type: Boolean
-    },
-
     label: {
       default: '',
       type: String
@@ -54,6 +49,15 @@ export default {
 
         return variants.includes(value)
       }
+    },
+
+    useEllipsis: {
+      type: Boolean
+    },
+
+    useHoverOnWhiteColor: {
+      default: true,
+      type: Boolean
     }
   },
 
@@ -116,7 +120,10 @@ export default {
         'qas-btn--tertiary-icon-only': this.hasIconOnly && this.isTertiary,
 
         // hover
-        'qas-btn--no-hover-on-white': !this.useHoverOnWhiteColor
+        'qas-btn--no-hover-on-white': !this.useHoverOnWhiteColor,
+
+        // ellipsis
+        'qas-btn--ellipsis': this.useEllipsis
       }
     },
 
