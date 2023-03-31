@@ -55,7 +55,7 @@ props:
     desc: propriedade para utilizar `100% do maxWidth`.
     type: Boolean
 
-  use-validation-at-once:
+  use-validation-all-at-once:
     desc: Valida todos os campos de uma única vez, ao invés de ser um por vez (que é o padrão).
     type: Boolean
 

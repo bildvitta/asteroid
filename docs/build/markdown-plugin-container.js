@@ -18,6 +18,7 @@ function createContainer (className, defaultTitle) {
 module.exports = function (markdown) {
   markdown
     .use(...createContainer('danger', 'Cuidado'))
+    .use(...createContainer('info', 'Informação'))
     .use(...createContainer('tip', 'Dica'))
     .use(...createContainer('warning', 'Atenção'))
 }

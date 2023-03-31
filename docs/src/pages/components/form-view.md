@@ -26,6 +26,27 @@ Estamos utilizando nos exemplos um `custom-id` pois é necessário para consegui
 Este componente serve para lidar com **criação** e **edição** de dados.
 :::
 
+:::info
+Componente dispara evento `submit-success` sempre que ocorre sucesso no submit, enviando o payload do método interno `submit` + entity do componente, sendo:
+
+```js
+{
+  id: this.id,
+  payload: this.modelValue,
+  url: this.url,
+  entity: this.entity,
+  ...externalPayload
+}
+```
+
+Exemplo escutando evento fora do componente QasFormView:
+
+```js
+window.addEventListener('submit-success', ({ detail: { id, payload, url, entity, ...externalPayload } }) => {
+  // faça alguma coisa.
+})
+:::
+
 ## Uso
 <doc-example file="QasFormView/Basic" title="Básico" />
 

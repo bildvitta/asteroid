@@ -144,7 +144,7 @@ export default {
         upload: { is: 'qas-uploader', accept, autoUpload: true, entity, label, multiple, readonly, maxFiles, ...error },
         editor: { is: 'q-editor', toolbar, ...error },
 
-        'signature-uploader': { is: 'qas-signature-uploader', entity, uploadLabel: label, ...error },
+        'signature-uploader': { is: 'qas-signature-uploader', uploaderProps: { entity, label, ...error } },
 
         select: { is: 'qas-select', entity, name, multiple, options, useLazyLoading, ...input }
       }
