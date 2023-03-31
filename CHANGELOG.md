@@ -21,6 +21,10 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 ### Corrigido
 - `QasFilters`: corrigido problema onde não era possível ter o botão de filtro sem o campo de busca.
 
+## [3.8.0-beta.1] - 30-03-2023
+### Corrigido
+- `QasPagination`: corrigido problema com propriedade `max-content` que quebrava no `safari`.
+
 ## [3.8.0-beta.0] - 21-03-2023
 ### Corrigido
 - `searchFilterMixin`: corrigido problema ao emitir o evento `update:modelValue` para campos de select múltiplos ao alterar a propriedade `lazyLoadingProps`.
@@ -1183,3 +1187,4 @@ Adicionado suporte para Pinia/Vuex Seguindo os padrões da biblioteca `@bildvitt
 [3.7.0-beta.3]: https://github.com/bildvitta/asteroid/compare/v3.7.0-beta.2...v3.7.0-beta.3?expand=1
 [3.7.0]: https://github.com/bildvitta/asteroid/compare/v3.6.0...v3.7.0?expand=1
 [3.8.0-beta.0]: https://github.com/bildvitta/asteroid/compare/v3.7.0...v3.8.0-beta.0?expand=1
+[3.8.0-beta.1]: https://github.com/bildvitta/asteroid/compare/v3.8.0-beta.0...v3.8.0-beta.1?expand=1
