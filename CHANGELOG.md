@@ -12,6 +12,8 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 
 ## Não publicado
 ### Adicionado
+- `QasTableGenerator`: Adicionado propriedade `use-sticky-header` e `sticky-header-table-height` para manter o header da tabela fixo na rolagem do conteúdo.
+- `scrollbar.scss`: Adicionado estilo padrão para o scrollbar.
 - `QasFilters`: Adicionado slot `filter-button`.
 - `QasFilters`: Adicionado documentação para o slot `right-side`.
 - `QasFilters`: Adicionado propriedade `use-spacing` com o valor default `true` para habilitar ou não o espaçamento padrão do componente.
