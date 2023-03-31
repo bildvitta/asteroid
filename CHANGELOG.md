@@ -11,6 +11,9 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
 ## Não publicado
+### BREAKING CHANGE
+- `QasNestedFields`: mudanças de model no componente, pode ter breaking changes, principalmente se utilizado a propriedade `:use-remove-on-destroy="false"`.
+
 ### Adicionado
 - `QasTableGenerator`: Adicionado propriedade `use-sticky-header` e `sticky-header-table-height` para manter o header da tabela fixo na rolagem do conteúdo.
 - `scrollbar.scss`: Adicionado estilo padrão para o scrollbar.
@@ -21,6 +24,9 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - `QasFilters`: Adicionado evento `@update:currentFilters` que dispara sempre que é realizada alguma atualização no filtro.
 
 ### Corrigido
+- `QasNestedFields`: corrigido disposição da label quando existe a prop `useSingleLabel`, estava alinhada a esquerda quando deveria ser aliado a direita.
+- `QasNestedFields`: corrigido model do componente para quando a prop `useRemoveOnDestroy` for false.
+- `docs/src/pages/helpers/filters.md`: corrigido doc.
 - `QasFilters`: corrigido problema onde não era possível ter o botão de filtro sem o campo de busca.
 
 ## [3.8.0-beta.1] - 30-03-2023
