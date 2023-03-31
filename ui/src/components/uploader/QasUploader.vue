@@ -1,6 +1,6 @@
 <template>
   <div class="qas-uploader">
-    <q-uploader ref="uploader" auto-upload :class="uploaderClasses" v-bind="attributes" :factory="factory" flat :max-files="maxFiles" method="PUT" @factory-failed="factoryFailed" @uploaded="uploaded" @uploading="updateUploading(true)">
+    <q-uploader ref="uploader" auto-upload class="bg-transparent" :class="uploaderClasses" v-bind="attributes" :factory="factory" flat :max-files="maxFiles" method="PUT" @factory-failed="factoryFailed" @uploaded="uploaded" @uploading="updateUploading(true)">
       <template #header="scope">
         <slot name="header" :scope="scope">
           <div class="flex items-center justify-between">
@@ -594,7 +594,6 @@ export default {
   }
 
   .q-uploader {
-    background-color: transparent;
     max-height: 100%;
 
     &__header {

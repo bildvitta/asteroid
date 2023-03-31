@@ -10,7 +10,7 @@
         </div>
 
         <div v-if="hasActionsMenu">
-          <qas-actions-menu :use-label="false" v-bind="defaultActionsMenuProps" />
+          <qas-actions-menu v-bind="defaultActionsMenuProps" />
         </div>
       </slot>
     </header>
@@ -74,6 +74,7 @@ export default {
       const { buttonProps } = this.actionsMenuProps
 
       return {
+        useLabel: false,
         ...this.actionsMenuProps,
 
         buttonProps: {
