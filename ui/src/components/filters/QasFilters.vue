@@ -121,7 +121,7 @@ export default {
     }
   },
 
-  emits: ['fetch-success', 'fetch-error', 'update:current-filters'],
+  emits: ['fetch-success', 'fetch-error', 'update:currentFilters'],
 
   data () {
     return {
@@ -340,7 +340,7 @@ export default {
         ...(this.search && { search: this.search })
       }
 
-      this.$emit('update:current-filters', this.currentFilters)
+      this.$emit('update:currentFilters', this.currentFilters)
     },
 
     updateRouteQuery (query) {
