@@ -36,12 +36,12 @@ export default {
   .q-pagination__content .q-btn {
     @include set-button(
       tertiary,
-      true,
+      false,
       false,
       grey-9
     );
 
-    min-width: max-content !important;
+    min-width: 24px !important;
 
     &.text-primary {
       color: var(--q-primary) !important;

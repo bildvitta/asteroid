@@ -15,6 +15,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - `QasUploader`: mudanças significativas de layout e comportamento que podem ou não gerar quebras.
 - `QasUploader`: removido propriedade `hint`.
 - `QasSignatureUploader`: removido propriedades `readonly`, `uploadLabel` pois agora esse controle é feito pela propriedade `uploaderProps`.
+- `QasNestedFields`: mudanças de model no componente, pode ter breaking changes, principalmente se utilizado a propriedade `:use-remove-on-destroy="false"`.
 
 ### Adicionado
 - `downloadFile`: adicionado novo helper para fazer download de arquivos.
@@ -24,6 +25,13 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - `QasFormView`: adicionado novo evento no `window` que dispara toda vez que o submit ocorre com sucesso chamado `submit-success`.
 - `QasLabel`: adicionado propriedade `color` para controle da cor com default `grey-9`.
 - `QasUploader`: adicionado novas propriedades: `addButtonFn`, `addButtonLabel`, `columns`, `dialogProps`, `error`, `fields`, `formGeneratorProps`, `galleryCardProps`, `gridGeneratorProps`, e `useDownload`
+- `QasTableGenerator`: Adicionado propriedade `use-sticky-header` e `sticky-header-table-height` para manter o header da tabela fixo na rolagem do conteúdo.
+- `scrollbar.scss`: Adicionado estilo padrão para o scrollbar.
+- `QasFilters`: Adicionado slot `filter-button`.
+- `QasFilters`: Adicionado documentação para o slot `right-side`.
+- `QasFilters`: Adicionado propriedade `use-spacing` com o valor default `true` para habilitar ou não o espaçamento padrão do componente.
+- `QasFilters`: Adicionado propriedade `use-update-route` com o valor default `true` para habilitar ou não a atualização da rota com base nos filtros.
+- `QasFilters`: Adicionado evento `@update:currentFilters` que dispara sempre que é realizada alguma atualização no filtro.
 
 ### Modificado
 - `QasSignatureUploader`: atualizações para se adequar as mudanças do QasUploader.
@@ -32,9 +40,19 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - `QasGridGenerator`: removido logger.
 - `QasUploader`: mudanças de layout e comportamento.
 
+### Corrigido
+- `QasNestedFields`: corrigido disposição da label quando existe a prop `useSingleLabel`, estava alinhada a esquerda quando deveria ser aliado a direita.
+- `QasNestedFields`: corrigido model do componente para quando a prop `useRemoveOnDestroy` for false.
+- `docs/src/pages/helpers/filters.md`: corrigido doc.
+- `QasFilters`: corrigido problema onde não era possível ter o botão de filtro sem o campo de busca.
+
 ### Removido
 - `QasSignatureUploader`: removido propriedades `readonly`, `uploadLabel` pois agora esse controle é feito pela propriedade `uploaderProps`.
 - `QasUploader`: removido propriedade `hint`.
+
+## [3.8.0-beta.1] - 30-03-2023
+### Corrigido
+- `QasPagination`: corrigido problema com propriedade `max-content` que quebrava no `safari`.
 
 ## [3.8.0-beta.0] - 21-03-2023
 ### Corrigido
@@ -1198,3 +1216,4 @@ Adicionado suporte para Pinia/Vuex Seguindo os padrões da biblioteca `@bildvitt
 [3.7.0-beta.3]: https://github.com/bildvitta/asteroid/compare/v3.7.0-beta.2...v3.7.0-beta.3?expand=1
 [3.7.0]: https://github.com/bildvitta/asteroid/compare/v3.6.0...v3.7.0?expand=1
 [3.8.0-beta.0]: https://github.com/bildvitta/asteroid/compare/v3.7.0...v3.8.0-beta.0?expand=1
+[3.8.0-beta.1]: https://github.com/bildvitta/asteroid/compare/v3.8.0-beta.0...v3.8.0-beta.1?expand=1
