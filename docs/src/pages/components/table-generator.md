@@ -58,3 +58,11 @@ rowExternalRouteFn () {
 :::
 
 <doc-example file="QasTableGenerator/TableLink" title="Tabela com links" />
+
+Funcionalidade que permite que o cabeçalho da tabela permaneça visível na parte superior enquanto o usuário faz rolagem do conteúdo da tabela. Para utilizar atribua a prop `use-sticky-header`.
+
+:::tip
+É possível alterar a altura máxima da tabela utilizando a prop `sticky-header-table-height`.
+:::
+
+<doc-example file="QasTableGenerator/StickyHeader" title="Header fixo" />
