@@ -12,7 +12,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 
 ## Não publicado
 ### Corrigido
-- `QasNestedFields`: corrigido model do componente para quando a prop `useRemoveOnDestroy` for false e `useIndexLabel` for `true`.
+- `QasNestedFields`: corrigido model do componente para quando a prop `useRemoveOnDestroy` for `false` e `useIndexLabel` for `true`.
 
 ## [3.8.0-beta.2] - 31-03-2023
 ## BREAKING CHANGES

@@ -392,8 +392,7 @@ export default {
     },
 
     updateModelValue () {
-      console.log('nested: ', this.nested)
-      return this.$emit('update:modelValue', this.nested)
+      this.$emit('update:modelValue', this.nested)
     },
 
     updateValuesFromInput (value, index) {
@@ -432,11 +431,11 @@ export default {
       if (this.rowLabel) {
         if (!this.useIndexLabel) return this.rowLabel
 
-        const getRealIndexCounter = index => {
+        const getRealIndex = index => {
           return [...this.nested]?.splice(0, index).filter(item => !item[this.destroyKey])?.length || 0
         }
 
-        const index = this.useRemoveOnDestroy ? rowIndex : getRealIndexCounter(rowIndex)
+        const index = this.useRemoveOnDestroy ? rowIndex : getRealIndex(rowIndex)
 
         return `${this.rowLabel} ${index + 1}`
       }
