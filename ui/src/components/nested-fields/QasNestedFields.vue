@@ -6,34 +6,36 @@
 
     <div ref="inputContent">
       <component :is="componentTag" v-bind="componentProps">
-        <div v-for="(row, index) in nested" :id="`row-${index}`" :key="`row-${index}`" class="full-width">
-          <div :key="index" class="col-12 q-mt-md">
-            <div>
-              <header class="flex items-center q-py-md" :class="headerClasses">
-                <qas-label v-if="!useSingleLabel" :label="getRowLabel(index)" />
-                <qas-actions-menu v-if="hasBlockActions(row)" v-bind="actionsMenuProps" :list="getActionsList(index, row)" />
-              </header>
+        <template v-for="(row, index) in nested" :key="`row-${index}`">
+          <div v-if="!row[destroyKey]" :id="`row-${index}`" class="full-width">
+            <div :key="index" class="col-12 q-mt-md">
+              <div>
+                <header class="flex items-center q-py-md" :class="headerClasses">
+                  <qas-label v-if="!useSingleLabel" :label="getRowLabel(index)" />
+                  <qas-actions-menu v-if="hasBlockActions(row)" v-bind="actionsMenuProps" :list="getActionsList(index, row)" />
+                </header>
 
-              <div ref="formGenerator" class="col-12 justify-between q-col-gutter-x-md row">
-                <slot :errors="transformedErrors" :fields="children" :index="index" name="fields" :update-value="updateValuesFromInput">
-                  <qas-form-generator v-model="nested[index]" :class="formClasses" :columns="formColumns" :disable="isDisabledRow(row)" :errors="transformedErrors[index]" :fields="children" :fields-props="fieldsProps" @update:model-value="updateValuesFromInput($event, index)">
-                    <template v-for="(slot, key) in $slots" #[key]="scope">
-                      <slot v-bind="scope" :disabled="isDisabledRow(row)" :errors="transformedErrors" :index="index" :name="key" />
-                    </template>
-                  </qas-form-generator>
-                </slot>
+                <div ref="formGenerator" class="col-12 justify-between q-col-gutter-x-md row">
+                  <slot :errors="transformedErrors" :fields="children" :index="index" name="fields" :update-value="updateValuesFromInput">
+                    <qas-form-generator v-model="nested[index]" :class="formClasses" :columns="formColumns" :disable="isDisabledRow(row)" :errors="transformedErrors[index]" :fields="children" :fields-props="fieldsProps" @update:model-value="updateValuesFromInput($event, index)">
+                      <template v-for="(slot, key) in $slots" #[key]="scope">
+                        <slot v-bind="scope" :disabled="isDisabledRow(row)" :errors="transformedErrors" :index="index" :name="key" />
+                      </template>
+                    </qas-form-generator>
+                  </slot>
 
-                <div v-if="hasInlineActions(row)" class="flex items-center qas-nested-fields__actions">
-                  <qas-actions-menu v-bind="actionsMenuProps" :list="getActionsList(index, row)" />
+                  <div v-if="hasInlineActions(row)" class="flex items-center qas-nested-fields__actions">
+                    <qas-actions-menu v-bind="actionsMenuProps" :list="getActionsList(index, row)" />
+                  </div>
                 </div>
-              </div>
 
-              <div class="col-12">
-                <slot :fields="children" :index="index" :model="nested[index]" name="custom-fields" :update-value="updateValuesFromInput" />
+                <div class="col-12">
+                  <slot :fields="children" :index="index" :model="nested[index]" name="custom-fields" :update-value="updateValuesFromInput" />
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        </template>
       </component>
 
       <div v-if="useAdd" class="q-mt-md">
@@ -68,6 +70,7 @@ import QasFormGenerator from '../form-generator/QasFormGenerator.vue'
 import QasInput from '../input/QasInput.vue'
 import QasLabel from '../label/QasLabel.vue'
 import { TransitionGroup } from 'vue'
+import { extend } from 'quasar'
 
 import { constructObject } from '../../helpers'
 
@@ -241,7 +244,7 @@ export default {
 
   data () {
     return {
-      destroyKeyList: {},
+      nested: [],
       hasDestroyAlways: true
     }
   },
@@ -293,18 +296,18 @@ export default {
 
     headerClasses () {
       return this.useSingleLabel ? 'justify-end' : 'justify-between'
-    },
-
-    nested () {
-      return this.modelValue.filter(item => !item[this.destroyKey])
-    },
-
-    hasDestroyKeyList () {
-      return !!Object.keys(this.destroyKeyList).length
     }
   },
 
   watch: {
+    modelValue: {
+      handler (value) {
+        this.nested = extend(true, [], value)
+      },
+      deep: true,
+      immediate: true
+    },
+
     rowObject: {
       handler () {
         this.setDefaultNestedValue()
@@ -379,11 +382,9 @@ export default {
     * ao invés de adicionar a flag [destroyKey]
     */
     destroy (index, row) {
-      const [removedRow] = this.nested.splice(index, 1)
-
-      if (!this.useRemoveOnDestroy && row[this.identifierItemKey]) {
-        this.destroyKeyList[row[this.identifierItemKey]] = { row: removedRow, index }
-      }
+      !row[this.identifierItemKey] || this.useRemoveOnDestroy
+        ? this.nested.splice(index, 1)
+        : this.nested.splice(index, 1, { [this.destroyKey]: true, ...row })
 
       this.$qas.logger.group('QasNestedFields - destroy', [{ index, row }])
 
@@ -391,23 +392,14 @@ export default {
     },
 
     updateModelValue () {
-      const nested = [...this.nested]
-
-      if (this.hasDestroyKeyList) {
-        for (const key in this.destroyKeyList) {
-          const { row, index } = this.destroyKeyList[key]
-
-          nested.splice(index, 0, { ...row, [this.destroyKey]: true })
-        }
-      }
-
-      this.$emit('update:modelValue', nested)
+      console.log('nested: ', this.nested)
+      return this.$emit('update:modelValue', this.nested)
     },
 
     updateValuesFromInput (value, index) {
       this.nested.splice(index, 1, value)
 
-      return this.updateModelValue()
+      this.updateModelValue()
     },
 
     setDefaultNestedValue () {
@@ -436,9 +428,17 @@ export default {
       return firstElementToBeFocused?.focus && firstElementToBeFocused.focus()
     },
 
-    getRowLabel (rowKey) {
+    getRowLabel (rowIndex) {
       if (this.rowLabel) {
-        return this.useIndexLabel ? `${this.rowLabel} ${rowKey + 1}` : this.rowLabel
+        if (!this.useIndexLabel) return this.rowLabel
+
+        const getRealIndexCounter = index => {
+          return [...this.nested]?.splice(0, index).filter(item => !item[this.destroyKey])?.length || 0
+        }
+
+        const index = this.useRemoveOnDestroy ? rowIndex : getRealIndexCounter(rowIndex)
+
+        return `${this.rowLabel} ${index + 1}`
       }
 
       return this.fieldLabel
