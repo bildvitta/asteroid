@@ -64,7 +64,6 @@ export default {
   computed: {
     attributes () {
       const {
-        align,
         dense,
         fab,
         fabMini,

@@ -1,12 +1,12 @@
 <template>
   <div class="qas-app-menu">
-    <q-drawer v-model="model" :behavior="behavior" class="shadow-2" :mini="isMiniMode" mini-to-overlay :mini-width="88" show-if-above :width="drawerWidth" @mouseenter="onMouseEvent" @mouseleave="onMouseEvent">
-      <div class="column full-height justify-between">
+    <q-drawer v-model="model" :behavior="behavior" class="shadow-2" :mini="isMiniMode" :mini-width="88" show-if-above :width="drawerWidth" @mouseenter="onMouseEvent" @mouseleave="onMouseEvent">
+      <div class="column full-height justify-between no-wrap">
         <div class="full-width">
           <!-- Brand -->
-          <div v-if="!$qas.screen.untilLarge" class="q-mb-xl q-pt-xl q-px-md">
+          <div v-if="!isUntilLarge" class="q-mb-xl q-pt-xl q-px-md">
             <router-link class="flex justify-center q-toolbar__title relative-position text-no-decoration" :to="rootRoute">
-              <q-img v-if="brand" :key="imageCounterKey" :alt="title" :class="brandClass" height="36px" :src="normalizedBrand" />
+              <q-img v-if="normalizedBrand" :alt="title" class="qas-app-menu__image-size" :class="brandClass" height="36px" :src="normalizedBrand" />
 
               <span v-else-if="!isMiniMode" class="ellipsis text-bold text-primary text-subtitle2">{{ title }}</span>
 
@@ -14,38 +14,27 @@
             </router-link>
           </div>
 
-          <div class="q-px-lg">
+          <div v-if="false" class="q-px-lg">
             <q-separator />
           </div>
 
-          <div v-if="$qas.screen.isSmall" class="q-pr-md q-pt-md text-right">
+          <div v-if="isUntilLarge" class="q-pr-md q-pt-md text-right">
             <qas-btn color="grey-9" icon="sym_r_close" variant="tertiary" @click="closeDrawer" />
           </div>
 
           <!-- Module -->
-          <div v-if="displayModuleSection" class="items-center justify-between no-wrap q-mt-xl q-px-lg qas-app-menu__module row">
+          <div v-if="displayModuleSection" class="items-center justify-between no-wrap q-mt-xl qas-app-menu__label qas-app-menu__module row" :class="{ 'qas-app-menu__label--spaced': !isMiniMode }">
             <div class="full-width text-center">
-              <!-- <qas-btn-dropdown :button-props="{ label: 'Usuário' }" use-menu-padding>
-              <q-list>
-                <q-item v-for="moduleItem in defaultModules" :key="moduleItem">
-                  Meu moduleItem - {{ moduleItem }}
-                </q-item>
-              </q-list>
-            </qas-btn-dropdown> -->
-
-              <!-- <pv-app-menu-dropdown :current-module="currentModelOption" :options="defaultModules" /> -->
-            <!-- <qas-select v-model="module" borderless class="q-py-xs qas-app-menu__select shadow-2" dense input-class="q-px-md" :options="defaultModules" :outlined="false" :use-search="false" @update:model-value="redirectHandler(currentModelOption)" /> -->
+              <pv-app-menu-dropdown :current-module="currentModelOption" :options="defaultModules" v-bind="appMenuDropdownProps" />
             </div>
           </div>
 
           <!-- Menu -->
-
           <q-list v-if="items.length" class="q-mt-xl qas-app-menu__menu text-grey-9">
             <template v-for="(menuItem, index) in items">
               <div v-if="hasChildren(menuItem)" :key="`children-${index}`" class="qas-app-menu__content">
-                <q-item class="ellipsis items-center q- q-pb-none q-pt-md qas-app-menu__item text-weight-bold" :class="{ 'qas-app-menu__item--label-mini': isMiniMode }">
-                  <!-- <q-item class="ellipsis items-center q- q-pb-none q-pt-md qas-app-menu__item text-weight-bold" :class="{ 'qas-app-menu__item--label-mini': isMiniMode }" style="padding-left: 16px; padding-right: 16px;"> -->
-                  <div class="ellipsis text-grey-9 text-subtitle2" :class="{ 'q-px-md': isMiniMode }">
+                <q-item class="ellipsis items-center q- q-pb-none qas-app-menu__item qas-app-menu__item--label-mini text-weight-bold">
+                  <div class="ellipsis qas-app-menu__label text-grey-9 text-subtitle2" :class="{ 'qas-app-menu__label--spaced': !isMiniMode }">
                     {{ menuItem.label }}
                   </div>
                 </q-item>
@@ -84,7 +73,7 @@
 
         <!-- User -->
         <div v-if="showUser" class="full-width q-pb-lg q-px-lg">
-          <qas-app-user avatar-size="40px" :user="user" @sign-out="signOut" />
+          <qas-app-user v-bind="appUserProps" />
         </div>
       </div>
     </q-drawer>
@@ -92,7 +81,7 @@
 </template>
 
 <script>
-// import PvAppMenuDropdown from './private/PvAppMenuDropdown.vue'
+import PvAppMenuDropdown from './private/PvAppMenuDropdown.vue'
 
 import QasAppUser from '../app-user/QasAppUser.vue'
 
@@ -102,7 +91,7 @@ export default {
   name: 'QasAppMenu',
 
   components: {
-    // PvAppMenuDropdown,
+    PvAppMenuDropdown,
 
     QasAppUser
   },
@@ -110,6 +99,7 @@ export default {
   props: {
     brand: {
       default: '',
+      required: true,
       type: String
     },
 
@@ -120,6 +110,7 @@ export default {
 
     miniBrand: {
       type: String,
+      required: true,
       default: ''
     },
 
@@ -157,17 +148,43 @@ export default {
     return {
       module: '',
       isMini: this.$qas.screen.isLarge,
-      imageCounterKey: 0
+      hasOpenedMenu: false
     }
   },
 
   computed: {
+    appMenuDropdownProps () {
+      return {
+        buttonDropdownProps: {
+          'onUpdate:menuOpened': this.setHasOpenedMenu
+        },
+
+        currentModule: this.currentModelOption,
+        options: this.defaultModules
+      }
+    },
+
+    appUserProps () {
+      return {
+        avatarSize: '40px',
+        user: this.user,
+
+        menuProps: {
+          'onUpdate:modelValue': this.setHasOpenedMenu
+        },
+
+        // eventos
+        onSignOut: this.signOut
+      }
+    },
+
     behavior () {
-      return this.$qas.screen.untilLarge ? 'mobile' : 'desktop'
+      return this.isUntilLarge ? 'mobile' : 'desktop'
     },
 
     brandClass () {
-      return this.isMiniMode ? 'qas-app-menu__brand-mini' : 'qas-app-menu__brand'
+      return !this.isMiniMode && 'qas-app-menu__image-size--spaced'
+      // return this.isMiniMode ? 'qas-app-menu__brand-mini' : 'qas-app-menu__brand'
     },
 
     currentModelOption () {
@@ -189,6 +206,7 @@ export default {
       // Add a default module called "Localhost" when app is running in local development.
       defaultModules.unshift({
         label: `Localhost ${this.title ? `(${this.title})` : ''}`,
+        icon: 'sym_r_home',
         value
       })
 
@@ -217,8 +235,8 @@ export default {
     },
 
     drawerWidth () {
-      return 220
-      // return this.$qas.screen.isSmall ? 320 : 280
+      // return 220
+      return this.isUntilLarge ? 320 : 280
     },
 
     hasDevelopmentBadge () {
@@ -228,11 +246,15 @@ export default {
     isMiniMode () {
       // return false
       // return true
-      return this.isLargeScreen && this.isMini
+      return this.isLargeScreen && this.isMini && !this.hasOpenedMenu
     },
 
     isLargeScreen () {
       return this.$qas.screen.isLarge
+    },
+
+    isUntilLarge () {
+      return this.$qas.screen.untilLarge
     },
 
     model: {
@@ -254,7 +276,7 @@ export default {
     },
 
     showUser () {
-      return this.hasUser && !this.$qas.screen.untilLarge
+      return this.hasUser && !this.isUntilLarge
     }
   },
 
@@ -265,10 +287,6 @@ export default {
       },
 
       immediate: true
-    },
-
-    isMiniMode () {
-      // this.imageCounterKey++
     }
   },
 
@@ -290,6 +308,10 @@ export default {
 
     hasChildren ({ children }) {
       return !!(children || []).length
+    },
+
+    setHasOpenedMenu (value) {
+      this.hasOpenedMenu = value
     },
 
     hasUser () {
@@ -330,7 +352,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .qas-app-menu {
   // Workaround para alterar o padding interno do QSelect sem influenciar na caixa de opções.
   &__module {
@@ -381,16 +403,48 @@ export default {
     }
   }
 
-  .q-item:not(&__item--label-mini) {
-    padding-left: 32px !important;
-    padding-right: 32px !important;
+  &__label {
+    padding-left: var(--qas-spacing-md) !important;
+    padding-right: var(--qas-spacing-md) !important;
+    transition: padding 120ms;
+    will-change: auto;
+
+    &--spaced {
+      padding-left: var(--qas-spacing-xl) !important;
+      padding-right: var(--qas-spacing-xl) !important;
+    }
   }
 
-  // &__content + &__content,
-  // &__item + &__content,
-  // &__content + &__item {
-  //   margin-top: var(--qas-spacing-lg);
-  // }
+  &__image-size {
+    // width: 100%;
+    transition: width 120ms;
+    width: 36px;
+    will-change: auto;
+
+    &--spaced {
+      width: 188px;
+    }
+  }
+
+  &__item--label-mini {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
+  .q-item:not(&__item--label-mini) {
+    padding-left: var(--qas-spacing-xl) !important;
+    padding-right: var(--qas-spacing-xl) !important;
+  }
+
+  &__content .q-item {
+    padding-top: 0;
+  }
+
+  &__content + &__content,
+  &__item + &__content,
+  &__content + &__item {
+    margin-top: var(--qas-spacing-sm);
+  }
 
   // User
   .qas-app-user__data {
@@ -405,11 +459,5 @@ export default {
       overflow-x: auto;
     }
   }
-}
-
-.q-drawer__content .q-drawer-container:not(.q-drawer--mini-animate) .q-drawer--mini .q-item,
-.q-drawer__content .q-drawer-container:not(.q-drawer--mini-animate) .q-drawer--mini .q-item__section {
-  padding-left: 16 !important;
-  padding-right: 16 !important;
 }
 </style>

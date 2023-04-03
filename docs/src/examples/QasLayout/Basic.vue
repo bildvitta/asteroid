@@ -15,27 +15,33 @@ const user = {
 const modules = [
   {
     label: 'Assistência Digital',
-    value: 'https://develop.assistencia-digital.nave.dev'
+    value: 'https://develop.assistencia-digital.nave.dev',
+    icon: 'sym_r_home'
   },
   {
     label: 'Bolso Virtual BPO',
-    value: 'https://app.bolsovirtual.com.br'
+    value: 'https://app.bolsovirtual.com.br',
+    icon: 'sym_r_home'
   },
   {
     label: 'Crm',
-    value: 'https://develop.crm.nave.dev'
+    value: 'https://develop.crm.nave.dev',
+    icon: 'sym_r_home'
   },
   {
     label: 'HUB',
-    value: 'https://develop.hub.nave.dev'
+    value: 'https://develop.hub.nave.dev',
+    icon: 'sym_r_home'
   },
   {
     label: 'Produto',
-    value: 'https://develop.produto.nave.dev'
+    value: 'https://develop.produto.nave.dev',
+    icon: 'sym_r_home'
   },
   {
     label: 'Vendas',
-    value: 'https://develop.vendas.nave.dev'
+    value: 'https://develop.vendas.nave.dev',
+    icon: 'sym_r_home'
   }
 ]
 
@@ -58,8 +64,8 @@ export default {
 
     appBarProps () {
       return {
-        user
-        // title: 'QasLayout',
+        user,
+        title: 'QasLayout'
         // isAuth: true
       }
     },
