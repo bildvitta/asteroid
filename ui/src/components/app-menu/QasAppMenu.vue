@@ -4,9 +4,9 @@
       <div class="column full-height justify-between no-wrap">
         <div class="full-width">
           <!-- Brand -->
-          <div v-if="!isUntilLarge" class="q-mb-xl q-pt-xl q-px-md">
-            <router-link class="flex justify-center q-toolbar__title relative-position text-no-decoration" :to="rootRoute">
-              <q-img v-if="normalizedBrand" :alt="title" class="qas-app-menu__image-size" :class="brandClass" height="36px" :src="normalizedBrand" />
+          <div v-if="!isUntilLarge" class="q-mb-xl q-pt-xl qas-app-menu__label" :class="{ 'qas-app-menu__label--spaced': !isMiniMode }">
+            <router-link class="flex relative-position text-no-decoration" :class="brandPositionClass" :to="rootRoute">
+              <q-img v-if="normalizedBrand" :alt="title" class="qas-app-menu__image-size qas-app-menu__label" :class="brandClass" height="36px" :src="normalizedBrand" />
 
               <span v-else-if="!isMiniMode" class="ellipsis text-bold text-primary text-subtitle2">{{ title }}</span>
 
@@ -131,7 +131,6 @@ export default {
 
     title: {
       default: '',
-      // required: true,
       type: String
     },
 
@@ -146,9 +145,9 @@ export default {
 
   data () {
     return {
-      module: '',
+      hasOpenedMenu: false,
       isMini: this.$qas.screen.isLarge,
-      hasOpenedMenu: false
+      module: ''
     }
   },
 
@@ -183,8 +182,15 @@ export default {
     },
 
     brandClass () {
-      return !this.isMiniMode && 'qas-app-menu__image-size--spaced'
-      // return this.isMiniMode ? 'qas-app-menu__brand-mini' : 'qas-app-menu__brand'
+      return {
+        'qas-app-menu__image-size--spaced': !this.isMiniMode
+      }
+    },
+
+    brandPositionClass () {
+      return {
+        'justify-center': true
+      }
     },
 
     currentModelOption () {
@@ -243,14 +249,14 @@ export default {
       return !!this.developmentBadgeLabel
     },
 
+    isLargeScreen () {
+      return this.$qas.screen.isLarge
+    },
+
     isMiniMode () {
       // return false
       // return true
       return this.isLargeScreen && this.isMini && !this.hasOpenedMenu
-    },
-
-    isLargeScreen () {
-      return this.$qas.screen.isLarge
     },
 
     isUntilLarge () {
@@ -291,6 +297,10 @@ export default {
   },
 
   methods: {
+    closeDrawer () {
+      this.$emit('update:modelValue', false)
+    },
+
     getNormalizedPath (path) {
       return path.split('/').filter(Boolean)?.[0]
     },
@@ -308,10 +318,6 @@ export default {
 
     hasChildren ({ children }) {
       return !!(children || []).length
-    },
-
-    setHasOpenedMenu (value) {
-      this.hasOpenedMenu = value
     },
 
     hasUser () {
@@ -335,18 +341,12 @@ export default {
       this.model = false
     },
 
-    redirectHandler ({ value }) {
-      if (!value.includes(window.location.host)) {
-        window.location.href = value
-      }
-    },
-
     signOut () {
       this.$emit('sign-out')
     },
 
-    closeDrawer () {
-      this.$emit('update:modelValue', false)
+    setHasOpenedMenu (value) {
+      this.hasOpenedMenu = value
     }
   }
 }
@@ -365,20 +365,6 @@ export default {
     }
   }
 
-  &__brand {
-    max-width: 188px;
-    width: 100%;
-  }
-
-  &__brand-mini {
-    max-width: 36px;
-    width: 100%;
-  }
-
-  &__menu .q-item {
-    // padding-left: var(--qas-spacing-lg);
-  }
-
   &__select {
     border-radius: var(--qas-generic-border-radius);
   }
@@ -388,15 +374,7 @@ export default {
       margin-top: var(--qas-spacing-sm);
     }
 
-    &--label {
-      // margin-bottom: var(--qas-spacing-md);
-      // min-height: 0;
-      // padding-top: 0;
-    }
-
     &--children.q-item {
-      // padding-left: calc(var(--qas-spacing-xl) + var(--qas-spacing-sm));
-
       & + & {
         margin-top: var(--qas-spacing-sm);
       }
@@ -416,8 +394,7 @@ export default {
   }
 
   &__image-size {
-    // width: 100%;
-    transition: width 120ms;
+    // transition: width 120ms;
     width: 36px;
     will-change: auto;
 
