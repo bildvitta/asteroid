@@ -423,15 +423,15 @@ export default {
       return firstElementToBeFocused?.focus && firstElementToBeFocused.focus()
     },
 
+    getRealRowIndex (index) {
+      return [...this.nested].splice(0, index).filter(item => !item[this.destroyKey]).length
+    },
+
     getRowLabel (rowIndex) {
       if (this.rowLabel) {
         if (!this.useIndexLabel) return this.rowLabel
 
-        const getRealIndex = index => {
-          return [...this.nested]?.splice(0, index).filter(item => !item[this.destroyKey])?.length || 0
-        }
-
-        const index = this.useRemoveOnDestroy ? rowIndex : getRealIndex(rowIndex)
+        const index = this.useRemoveOnDestroy ? rowIndex : this.getRealRowIndex(rowIndex)
 
         return `${this.rowLabel} ${index + 1}`
       }
