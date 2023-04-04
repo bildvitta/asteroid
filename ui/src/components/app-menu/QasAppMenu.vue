@@ -4,9 +4,9 @@
       <div class="column full-height justify-between no-wrap">
         <div class="full-width">
           <!-- Brand -->
-          <div v-if="!isUntilLarge" class="q-mb-xl q-pt-xl qas-app-menu__label" :class="{ 'qas-app-menu__label--spaced': !isMiniMode }">
+          <div v-if="!isUntilLarge" class="q-mb-xl q-pt-xl qas-app-menu__label" :class="spacedItemClass">
             <router-link class="flex relative-position text-no-decoration" :class="brandPositionClass" :to="rootRoute">
-              <q-img v-if="normalizedBrand" :alt="title" class="qas-app-menu__image-size qas-app-menu__label" :class="brandClass" height="36px" :src="normalizedBrand" />
+              <q-img v-if="normalizedBrand" :alt="title" class="qas-app-menu__brand qas-app-menu__label" :class="brandClass" height="40px" :src="normalizedBrand" />
 
               <span v-else-if="!isMiniMode" class="ellipsis text-bold text-primary text-subtitle2">{{ title }}</span>
 
@@ -14,27 +14,27 @@
             </router-link>
           </div>
 
-          <div v-if="false" class="q-px-lg">
+          <div v-if="normalizedBrand" class="qas-app-menu__label" :class="spacedItemClass">
             <q-separator />
           </div>
 
-          <div v-if="isUntilLarge" class="q-pr-md q-pt-md text-right">
+          <div v-if="isUntilLarge" class="q-pr-xl q-pt-md text-right">
             <qas-btn color="grey-9" icon="sym_r_close" variant="tertiary" @click="closeDrawer" />
           </div>
 
           <!-- Module -->
-          <div v-if="displayModuleSection" class="items-center justify-between no-wrap q-mt-xl qas-app-menu__label qas-app-menu__module row" :class="{ 'qas-app-menu__label--spaced': !isMiniMode }">
+          <div v-if="displayModuleSection" class="items-center justify-between no-wrap q-mt-xl qas-app-menu__label qas-app-menu__module row" :class="spacedItemClass">
             <div class="full-width text-center">
               <pv-app-menu-dropdown :current-module="currentModelOption" :options="defaultModules" v-bind="appMenuDropdownProps" />
             </div>
           </div>
 
-          <!-- Menu -->
+          <!-- List -->
           <q-list v-if="items.length" class="q-mt-xl qas-app-menu__menu text-grey-9">
             <template v-for="(menuItem, index) in items">
               <div v-if="hasChildren(menuItem)" :key="`children-${index}`" class="qas-app-menu__content">
                 <q-item class="ellipsis items-center q- q-pb-none qas-app-menu__item qas-app-menu__item--label-mini text-weight-bold">
-                  <div class="ellipsis qas-app-menu__label text-grey-9 text-subtitle2" :class="{ 'qas-app-menu__label--spaced': !isMiniMode }">
+                  <div class="ellipsis qas-app-menu__label text-grey-9 text-subtitle2" :class="spacedItemClass">
                     {{ menuItem.label }}
                   </div>
                 </q-item>
@@ -92,9 +92,10 @@ export default {
 
   components: {
     PvAppMenuDropdown,
-
     QasAppUser
   },
+
+  inheritAttrs: false,
 
   props: {
     brand: {
@@ -183,13 +184,13 @@ export default {
 
     brandClass () {
       return {
-        'qas-app-menu__image-size--spaced': !this.isMiniMode
+        'qas-app-menu__brand--spaced': !this.isMiniMode
       }
     },
 
     brandPositionClass () {
       return {
-        'justify-center': true
+        'justify-center': this.isMiniMode
       }
     },
 
@@ -280,6 +281,12 @@ export default {
 
     showUser () {
       return this.hasUser && !this.isUntilLarge
+    },
+
+    spacedItemClass () {
+      return {
+        'qas-app-menu__label--spaced': !this.isMiniMode
+      }
     }
   },
 
@@ -381,7 +388,7 @@ export default {
   &__label {
     padding-left: var(--qas-spacing-md) !important;
     padding-right: var(--qas-spacing-md) !important;
-    transition: padding 120ms;
+    transition: padding 120ms; // 120ms é o mesmo tempo utilizado na abertura do QDrawer.
     will-change: auto;
 
     &--spaced {
@@ -390,11 +397,11 @@ export default {
     }
   }
 
-  &__image-size {
-    width: 36px;
+  &__brand {
+    width: 40px;
 
     &--spaced {
-      width: 188px;
+      width: 208px;
     }
   }
 

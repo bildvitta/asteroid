@@ -1,6 +1,5 @@
 <template>
   <q-layout view="hHh Lpr lff">
-    <!-- <q-layout view="hHh Lpr lFf"> -->
     <slot v-if="$qas.screen.untilLarge" name="app-bar">
       <qas-app-bar v-bind="appBarProps" @sign-out="signOut" @toggle-menu="toggleMenuDrawer" />
     </slot>

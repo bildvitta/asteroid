@@ -56,8 +56,8 @@ export default {
     appMenuProps () {
       return {
         modules,
-        brand: 'https://placehold.co/188x36',
-        miniBrand: 'https://placehold.co/36x36',
+        brand: 'https://placehold.co/208x40',
+        miniBrand: 'https://placehold.co/40x40',
         items: this.menuList
       }
     },
