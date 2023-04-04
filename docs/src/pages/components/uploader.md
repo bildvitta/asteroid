@@ -6,25 +6,44 @@ Componente para upload com auto redimensionamento que implementa o "QField" e "Q
 
 <doc-api file="uploader/QasUploader" name="QasUploader" />
 
-:::danger
+:::info
 Por hora, este componente não funciona na documentação e é preciso testar ele em algum projeto que tenha um bucket para upload.
-:::
-
-:::warning
-Este componente implementa o [QUploader](https://quasar.dev/vue-components/uploader#usage) e o [QField](https://quasar.dev/vue-components/field#introduction), o que significa que ele repassa  props e eventos para os componentes.
 :::
 
 :::tip
 O comportamento padrão do componente **QasUploader** é emitir/receber a `url` de upload do arquivo. Porém, ao utilizar a prop `useObjectModel` o componente começará a emitir/receber o valor como objeto.
 
-O formato padrão do model de objeto é: 
+O formato padrão do model de objeto é:
 ```js
-{ format: '.fileFormat', url: 'filePath', name: 'fileName' }
+{
+  format: '.fileFormat',
+  url: 'filePath',
+  name: 'fileName'
+}
 ```
-
-Ao utilizar essa propriedade, é necessário que a API esteja pronta para receber o objeto acima invés da URL. E caso o **QasUploader** seja do tipo múltiplo (quando há a propriedade `multiple`), a API deverá estar pronta para receber um array deste objeto.
 :::
 
 ## Uso
 
 <doc-example file="QasUploader/Basic" title="Básico" />
+<doc-example file="QasUploader/ExUploaderMultiple" title="Múltiplo" />
+<doc-example file="QasUploader/ExUploaderMultipleObjectModel" title="Múltiplo com useObjectModel" />
+<doc-example file="QasUploader/ExUploaderSingleObjectModel" title="Múltiplo com useObjectModel" />
+
+:::info
+- Para que o modo com grid funcione, é necessário utilizar a propriedade `useObjectModel` e que exista pelo menos a propriedade `fields` ou então o fields dentro de `gridGeneratorProps`.
+:::
+
+<doc-example file="QasUploader/ExUploaderMultipleGrid" title="Múltiplo e com grid" />
+
+:::info
+- Quando o componente pode ser editável, sempre que for adicionado novos arquivos **antes** de salvar, vai ter a opção de editar os campos no próprio card (não é possível simular pois o upload não funciona na documentação). Se o arquivo já esta salvo ou foi salvo, a opção de editar fica dentro do menu de ações de cada card.
+
+- O QasUploader fica escutando o evento `submit-success` disparado pelo `QasFormView`, caso as entidades sejam as mesmas, ele seta o componente para o modo "grid" sumindo com os inputs do card e habilitando o editar no menu de ações.
+
+- Para que o modo edição funcione, é necessário utilizar a propriedade `useObjectModel` e que exista pelo menos a propriedade `fields` ou então o fields dentro de `formGeneratorProps`.
+:::
+
+<doc-print :src="require('assets/prints/uploader-editable.png')" />
+
+<doc-example file="QasUploader/ExUploaderMultipleEditable" title="Múltiplo e editável" />

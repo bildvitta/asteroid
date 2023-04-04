@@ -1,16 +1,15 @@
 <template>
-  <div class="container spaced">
-    <div>
-      <qas-uploader v-model="model" entity="test" label="Meu uploader" />
-    </div>
-  </div>
+  <q-form class="container spaced">
+    <qas-uploader v-model="model" add-button-label="Adicionar imagem" entity="serviceOrders" label="Meu uploader" />
+    <qas-debugger :inspect="[model]" />
+  </q-form>
 </template>
 
 <script>
 export default {
   data () {
     return {
-      model: ''
+      model: 'https://placehold.co/600x400/orange/white?text=img1'
     }
   }
 }

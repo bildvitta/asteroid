@@ -1,67 +1,47 @@
 <template>
-  <q-field borderless class="qas-uploader" :error="hasErrorMessage" :error-message="errorMessage" :hint="hintValue" no-error-icon>
-    <q-uploader ref="uploader" auto-upload bordered :class="uploaderClasses" :factory="factory" flat :max-files="maxFiles" method="PUT" :readonly="readonly" v-bind="attributes" @factory-failed="factoryFailed" @uploaded="uploaded" @uploading="updateUploading(true)">
+  <div class="qas-uploader">
+    <q-uploader ref="uploader" auto-upload class="bg-transparent" :class="uploaderClasses" v-bind="attributes" :factory="factory" flat :max-files="maxFiles" method="PUT" @factory-failed="factoryFailed" @uploaded="uploaded" @uploading="updateUploading(true)">
       <template #header="scope">
         <slot name="header" :scope="scope">
-          <div class="flex flex-center full-width justify-between no-border no-wrap q-gutter-xs q-pa-sm text-white transparent">
-            <q-spinner v-if="scope.isUploading" size="24px" />
+          <div class="flex items-center justify-between">
+            <div>
+              <qas-label v-bind="labelProps" />
 
-            <div class="col column items-start justify-center">
-              <div v-if="$attrs.label" class="q-uploader__title">{{ $attrs.label }}</div>
-              <div v-if="scope.files.length" class="q-uploader__subtitle">
-                {{ scope.uploadProgressLabel }} ({{ scope.uploadSizeLabel }})
+              <div v-if="errorMessage" class="q-mt-xs text-caption text-negative">
+                {{ errorMessage }}
               </div>
             </div>
 
-            <qas-btn v-if="showAddFile" ref="buttonUpload" color="white" icon="sym_r_add" :use-hover-on-white-color="false" variant="tertiary" @click="$refs.hiddenInput.click()" />
-
-            <input ref="hiddenInput" :accept="attributes.accept" class="qas-uploader__input" :multiple="isMultiple" type="file">
-
-            <qas-btn ref="buttonCleanFiles" class="hidden" @click="scope.removeUploadedFiles" />
-
-            <qas-btn v-if="scope.canUpload" color="white" icon="sym_r_cloud_upload" :use-hover-on-white-color="false" variant="tertiary" @click="scope.upload" />
-
-            <qas-btn v-if="scope.isUploading" color="white" icon="sym_r_clear" :use-hover-on-white-color="false" variant="tertiary" @click="scope.abort" />
+            <div v-if="hasAddFile">
+              <qas-btn color="primary" icon="sym_r_add" :label="addButtonLabel" :use-label-on-small-screen="false" variant="tertiary" @click="onAddButtonClick(scope)" />
+            </div>
           </div>
+
+          <!-- ------------------------------------ tags hidden -------------------------------------- -->
+          <input ref="hiddenInput" :accept="attributes.accept" class="qas-uploader__input" :multiple="isMultiple" type="file">
+          <qas-btn ref="buttonCleanFiles" class="hidden" @click="scope.removeUploadedFiles" />
         </slot>
       </template>
 
       <template #list="scope">
-        <slot name="list" :scope="scope">
-          <div class="col-12 q-col-gutter-md row">
-            <div v-for="(file, index) in getFilesList(scope.files, scope)" :key="index" class="row" :class="itemClass">
-              <qas-avatar class="q-mr-sm" color="primary" icon="sym_r_attach_file" :image="file.url" rounded :text-color="getColorFileIcon(file)" />
-
-              <div class="col items-center no-wrap row">
-                <div class="column no-wrap" :class="{ col: isMultiple }">
-                  <div class="ellipsis" :class="getFileNameClass(file.isFailed)">{{ file.name }}</div>
-                  <div v-if="file.isUploaded" class="text-caption">{{ file.progressLabel }} ({{ file.sizeLabel }})</div>
-                </div>
-                <div class="items-center q-ml-sm row">
-                  <q-icon v-if="file.isFailed" color="negative" name="sym_r_warning" size="20px" />
-                  <qas-btn v-if="!scope.readonly" color="grey-9" icon="sym_r_delete" variant="tertiary" @click="removeItem(index, scope, file)" />
-                </div>
-              </div>
-            </div>
+        <div v-if="hasGalleryCardSection" class="q-col-gutter-lg q-mt-sm row">
+          <div v-for="(file, key, index) in getFilesList(scope.files, scope)" :key="index" :class="columnClasses">
+            <pv-uploader-gallery-card v-bind="getUploaderGalleryCardProps({ key, scope, file, index })" />
           </div>
-        </slot>
+        </div>
       </template>
     </q-uploader>
 
     <slot :context="self" name="custom-upload" />
-
-    <template v-if="hasErrorMessage" #after>
-      <q-icon color="negative" name="sym_r_error" />
-    </template>
-  </q-field>
+  </div>
 </template>
 
 <script>
-import QasAvatar from '../avatar/QasAvatar.vue'
+import PvUploaderGalleryCard from './private/PvUploaderGalleryCard.vue'
 
 import { uid, extend } from 'quasar'
 import { NotifyError } from '../../plugins'
-import { getImageSize, getResizeDimensions } from '../../helpers/images'
+import { getImageSize, getResizeDimensions } from '../../helpers/images.js'
 
 import Pica from 'pica'
 
@@ -69,12 +49,22 @@ export default {
   name: 'QasUploader',
 
   components: {
-    QasAvatar
+    PvUploaderGalleryCard
   },
 
   inheritAttrs: false,
 
   props: {
+    addButtonFn: {
+      type: Function,
+      default: undefined
+    },
+
+    addButtonLabel: {
+      default: 'Adicionar',
+      type: String
+    },
+
     acceptResizeTypes: {
       default: () => [
         'image/jpeg',
@@ -87,9 +77,23 @@ export default {
       type: Array
     },
 
+    columns: {
+      type: Object,
+      default: () => ({})
+    },
+
+    dialogProps: {
+      type: Object,
+      default: () => ({})
+    },
+
     entity: {
       required: true,
       type: String
+    },
+
+    error: {
+      type: Boolean
     },
 
     errorMessage: {
@@ -97,9 +101,29 @@ export default {
       type: String
     },
 
-    hint: {
-      default: '',
-      type: String
+    fields: {
+      default: () => ({}),
+      type: Object
+    },
+
+    formGeneratorProps: {
+      default: () => ({}),
+      type: Object
+    },
+
+    galleryCardProps: {
+      type: Object,
+      default: () => ({})
+    },
+
+    gridGeneratorProps: {
+      default: () => ({}),
+      type: Object
+    },
+
+    label: {
+      type: String,
+      default: ''
     },
 
     maxFiles: {
@@ -107,9 +131,18 @@ export default {
       type: Number
     },
 
+    modelValue: {
+      default: '',
+      type: [String, Array, Object]
+    },
+
     picaResizeOptions: {
       default: () => ({}),
       type: Object
+    },
+
+    readonly: {
+      type: Boolean
     },
 
     sizeLimit: {
@@ -117,25 +150,21 @@ export default {
       type: Number
     },
 
-    useResize: {
-      default: true,
-      type: Boolean
-    },
-
-    readonly: {
-      type: Boolean
-    },
-
-    modelValue: {
-      default: '',
-      type: [Array, String]
-    },
-
     uploading: {
       type: Boolean
     },
 
+    useDownload: {
+      default: true,
+      type: Boolean
+    },
+
     useObjectModel: {
+      type: Boolean
+    },
+
+    useResize: {
+      default: true,
       type: Boolean
     }
   },
@@ -144,56 +173,51 @@ export default {
 
   data () {
     return {
-      isFetching: false,
-      isUploading: false,
+      hasError: false,
       hiddenInputElement: null,
+      savedFiles: {},
       uploader: null
     }
   },
 
   computed: {
-    self () {
-      return this
-    },
-
-    uploaderClasses () {
-      return this.hasCustomUpload ? 'hidden' : 'fit'
-    },
-
-    showAddFile () {
-      if (this.readonly) return
-
-      return this.maxFiles ? this.modelValue.length < this.maxFiles : true
-    },
-
-    isMultiple () {
-      return this.$attrs.multiple || this.$attrs.multiple === ''
-    },
-
-    hasCustomUpload () {
-      return this.$slots['custom-upload']
-    },
-
-    itemClass () {
-      return this.isMultiple ? 'col-12 col-md-3 col-sm-4' : 'col-12'
-    },
-
-    hintValue () {
-      return this.hint || undefined
-    },
-
-    hasHeaderSlot () {
-      return this.$slots.header
-    },
-
-    hasErrorMessage () {
-      return !!this.errorMessage.length
-    },
-
     attributes () {
+      return this.$attrs
+    },
+
+    columnClasses () {
+      const irregularClasses = ['col']
+      const columns = this.defaultColumns
+
+      const classes = []
+
+      const profiles = {
+        col: 'col',
+        xs: 'col-xs',
+        sm: 'col-sm',
+        md: 'col-md',
+        lg: 'col-lg',
+        xl: 'col-xl'
+      }
+
+      for (const key in columns) {
+        const column = columns[key]
+
+        if (irregularClasses.includes(column)) {
+          classes.push(profiles[key])
+          continue
+        }
+
+        classes.push(`${profiles[key]}-${column}`)
+      }
+
+      return classes
+    },
+
+    defaultColumns () {
       return {
-        ...this.$attrs,
-        ...this.$props
+        ...(this.isMultiple ? { col: 12, sm: 6, md: 4, lg: 3 } : { col: 12, sm: 6 }),
+        ...this.columns
       }
     },
 
@@ -204,6 +228,75 @@ export default {
         unsharpThreshold: 1,
         ...this.picaResizeOptions
       }
+    },
+
+    defaultUploaderGalleryCardProps () {
+      const {
+        fields,
+        formGeneratorProps,
+        galleryCardProps,
+        gridGeneratorProps,
+        useDownload,
+        useObjectModel,
+        dialogProps
+      } = this.$props
+
+      return {
+        dialogProps,
+        fields,
+        formGeneratorProps,
+        galleryCardProps,
+        gridGeneratorProps,
+        useDownload,
+        useObjectModel,
+
+        useMultiple: this.isMultiple
+      }
+    },
+
+    hasAddFile () {
+      if (this.readonly) return
+
+      const modelLength = this.useObjectModel
+        ? Object.keys(this.modelValue).length
+        : this.modelValue?.length
+
+      return this.maxFiles && this.isMultiple ? modelLength < this.maxFiles : true
+    },
+
+    hasCustomUpload () {
+      return this.$slots['custom-upload']
+    },
+
+    hasGalleryCardSection () {
+      return (
+        (this.useObjectModel ? !!Object.keys(this.modelValue).length : !!this.modelValue?.length) || this.hasError
+      )
+    },
+
+    hasHeaderSlot () {
+      return this.$slots.header
+    },
+
+    isMultiple () {
+      return this.$attrs.multiple || this.$attrs.multiple === ''
+    },
+
+    labelProps () {
+      return {
+        label: this.label,
+        margin: 'none',
+
+        ...(this.error && { color: 'negative' })
+      }
+    },
+
+    self () {
+      return this
+    },
+
+    uploaderClasses () {
+      return this.hasCustomUpload ? 'hidden' : 'fit'
     }
   },
 
@@ -212,20 +305,46 @@ export default {
     this.uploader = this.$refs.uploader
 
     this.hiddenInputElement?.addEventListener?.('change', this.addFiles)
+
+    if (this.useObjectModel) {
+      window.addEventListener('submit-success', this.handleSubmitSuccess)
+    }
   },
 
   unmounted () {
     this.hiddenInputElement?.removeEventListener?.('change', this.addFiles)
+
+    if (this.useObjectModel) {
+      window.removeEventListener('submit-success', this.handleSubmitSuccess)
+    }
   },
 
   methods: {
+    async addFiles () {
+      const filesList = Array.from(this.hiddenInputElement.files)
+      const processedFiles = []
+
+      this.$refs.hiddenInput.value = ''
+
+      filesList.forEach(file => processedFiles.push(this.resizeImage(file)))
+
+      this.uploader.addFiles(await Promise.all(processedFiles))
+    },
+
+    dispatchUpload () {
+      this.$refs.buttonCleanFiles.$el.click()
+      this.hiddenInputElement.click()
+    },
+
     async factory ([file]) {
       if (!this.isMultiple && !this.hasHeaderSlot) {
         this.$refs.buttonCleanFiles.$el.click()
       }
 
       const name = `${uid()}.${file.name.split('.').pop()}`
-      const { endpoint } = await this.fetchCredentials(name)
+      const { endpoint } = await this.fetchCredentials(name) || {}
+
+      if (!endpoint) return
 
       return {
         headers: [
@@ -238,80 +357,22 @@ export default {
     },
 
     factoryFailed () {
-      this.updateUploading(false)
-      NotifyError('Ops! Erro ao enviar o arquivo.')
-    },
-
-    dispatchUpload () {
-      this.$refs.buttonCleanFiles.$el.click()
-      this.hiddenInputElement.click()
-    },
-
-    uploaded (response) {
-      const fullPath = response.xhr.responseURL.split('?').shift()
-
-      const objectValue = {
-        format: response.files[0].type,
-        url: fullPath,
-        name: response.files[0].name
-      }
-
-      const model = this.useObjectModel ? objectValue : fullPath
-
-      this.$emit('update:modelValue', this.isMultiple ? [...this.modelValue, model] : model || '')
+      this.hasError = true
 
       this.updateUploading(false)
 
-      this.$qas.logger.group('QasUploader - uploaded', [this.modelValue])
+      NotifyError('Falha ao carregar arquivo.')
     },
 
     async fetchCredentials (filename) {
-      this.isFetching = true
-
       try {
         const { data } = await this.$axios.post('/upload-credentials/', {
           entity: this.entity,
           filename
         })
 
-        this.$qas.logger.group(
-          'QasUploader - fetchCredentials -> resposta de /upload-credentials/',
-          [data]
-        )
-
         return data
-      } finally {
-        this.isFetching = false
-      }
-    },
-
-    removeItem (index, scope, file) {
-      if (file.isUploaded) {
-        scope.removeFile(scope.files[file.indexToDelete])
-      }
-
-      if (file.isFailed) return
-
-      if (!this.isMultiple) {
-        return this.$emit('update:modelValue')
-      }
-
-      const clonedValue = extend(true, [], this.modelValue)
-      const numberIndex = this.modelValue.findIndex(file => {
-        if (this.useObjectModel) {
-          return file.uuid === index || file.url.includes(index)
-        }
-
-        return this.getFileName(file) === index
-      })
-
-      clonedValue.splice(numberIndex, 1)
-
-      this.$emit('update:modelValue', clonedValue)
-    },
-
-    getFileName (value) {
-      return value.split('/').pop()
+      } catch {}
     },
 
     getFilesList (uploadedFiles) {
@@ -320,8 +381,6 @@ export default {
           isUploaded: true,
           url: file.xhr ? file.xhr.responseURL.split('?').shift() : '',
           name: file.name,
-          progressLabel: file.__progressLabel,
-          sizeLabel: file.__sizeLabel,
           indexToDelete,
           isFailed: this.isFailed(file)
         }
@@ -332,7 +391,6 @@ export default {
         : (this.modelValue ? [this.modelValue] : [])
 
       const mergedList = [...pathsList, ...uploadedFiles]
-
       const files = {}
 
       mergedList.forEach(file => {
@@ -358,31 +416,72 @@ export default {
         }
       })
 
-      this.$qas.logger.group('QasUploader - getFilesList', [files])
-
       return files
     },
 
-    getFileNameClass (isFailed) {
-      return isFailed ? 'text-negative' : 'text-grey-9'
+    getFileName (value) {
+      return value.split('/').pop()
+    },
+
+    getModelValue (index) {
+      if (!this.useObjectModel) return {}
+
+      return this.isMultiple ? this.modelValue[index] || {} : this.modelValue
+    },
+
+    getUploaderGalleryCardProps ({ index, key, file, scope }) {
+      const modelValue = this.getModelValue(index)
+
+      return {
+        ...this.defaultUploaderGalleryCardProps,
+
+        currentModelValue: modelValue,
+        file,
+        fileKey: key,
+        savedFiles: this.savedFiles,
+
+        // eventos
+        onRemove: () => this.removeFile(key, scope, file),
+        onUpdateModel: value => this.updateModelValue({ index, payload: value })
+      }
+    },
+
+    handleSubmitSuccess ({ detail: { entity } }) {
+      if (entity === this.entity) this.setSavedFiles()
     },
 
     isFailed (file) {
       return file.__status === 'failed'
     },
 
-    getColorFileIcon (file) {
-      return this.isFailed(file) ? 'negative' : 'white'
+    onAddButtonClick (scope) {
+      return this.addButtonFn ? this.addButtonFn(scope) : this.$refs.hiddenInput.click()
     },
 
-    async addFiles () {
-      const filesList = Array.from(this.hiddenInputElement.files)
-      const processedFiles = []
+    removeFile (key, scope, file) {
+      if (file.isUploaded) {
+        scope.removeFile(scope.files[file.indexToDelete])
+      }
 
-      this.$refs.hiddenInput.value = ''
+      if (file.isFailed) return
 
-      filesList.forEach(file => processedFiles.push(this.resizeImage(file)))
-      this.uploader.addFiles(await Promise.all(processedFiles))
+      if (!this.isMultiple) {
+        return this.$emit('update:modelValue')
+      }
+
+      const clonedValue = extend(true, [], this.modelValue)
+
+      const numberIndex = this.modelValue.findIndex(file => {
+        if (this.useObjectModel) {
+          return file.uuid === key || file.url.includes(key)
+        }
+
+        return this.getFileName(file) === key
+      })
+
+      clonedValue.splice(numberIndex, 1)
+
+      this.$emit('update:modelValue', clonedValue)
     },
 
     // Função para redimensionar imagens
@@ -400,12 +499,8 @@ export default {
         // Retorna largura e altura da original da imagem
         const { width, height } = await getImageSize(image)
 
+        // Tamanho da imagem menor que o tamanho limite, sendo assim, não faz o resize
         if (width <= this.sizeLimit) {
-          this.$qas.logger.info(`
-            QasUploader - resizeImage -> Tamanho da imagem menor que o tamanho limite,
-            sendo assim, não faz o resize
-          `)
-
           return file
         }
 
@@ -427,8 +522,6 @@ export default {
 
         const newFile = new File([blob], file.name, { type })
 
-        this.$qas.logger.group('QasUploader - resizeImage -> nova imagem', [newFile])
-
         return newFile
       } catch {
         // Caso não consiga redimensionar retorna o arquivo original
@@ -436,8 +529,59 @@ export default {
       }
     },
 
+    setSavedFiles () {
+      if (this.isMultiple) {
+        this.modelValue.forEach(model => {
+          const fileName = this.getFileName(model.url)
+
+          this.savedFiles[fileName] = true
+        })
+
+        return
+      }
+
+      const fileName = this.getFileName(this.modelValue.url)
+
+      this.savedFiles[fileName] = true
+    },
+
+    updateModelValue ({ index, payload = {} }) {
+      if (!this.useObjectModel) return
+
+      if (this.isMultiple) {
+        const modelValue = [...this.modelValue]
+        const value = modelValue[index]
+
+        modelValue[index] = { ...value, ...payload }
+
+        this.$emit('update:modelValue', modelValue)
+
+        return
+      }
+
+      this.$emit('update:modelValue', { ...this.modelValue, ...payload })
+    },
+
     updateUploading (uploading) {
       this.$emit('update:uploading', uploading)
+    },
+
+    uploaded (response) {
+      this.hasError = false
+
+      const fullPath = response.xhr.responseURL.split('?').shift()
+
+      const objectValue = {
+        format: response.files[0].type,
+        url: fullPath,
+        name: response.files[0].name
+      }
+
+      const model = this.useObjectModel ? objectValue : fullPath
+
+      this.$emit('update:modelValue', this.isMultiple ? [...this.modelValue, model] : model || '')
+
+      this.updateUploading(false)
     }
   }
 }
@@ -447,6 +591,24 @@ export default {
 .qas-uploader {
   &__input {
     display: none;
+  }
+
+  .q-uploader {
+    max-height: 100%;
+
+    &__header {
+      background-color: transparent;
+      color: $grey-9;
+    }
+
+    &__list {
+      min-height: 0;
+      padding: 0;
+
+      &.scroll {
+        overflow: unset;
+      }
+    }
   }
 }
 </style>

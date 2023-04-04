@@ -6,12 +6,8 @@ Componente que implementa o "QasUploader" e "QasSignaturePad" para fazer upload 
 
 <doc-api file="signature-uploader/QasSignatureUploader" name="QasSignatureUploader" />
 
-:::danger
+:::info
 Por hora, este componente não funciona na documentação e é preciso testar ele em algum projeto que tenha um bucket para upload.
-:::
-
-:::warning
-Este componente implementa o `QasUploader`, o que significa que ele repassa  props e eventos para os componentes.
 :::
 
 ## Uso

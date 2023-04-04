@@ -420,6 +420,8 @@ export default {
         NotifySuccess(response.data.status.text || this.defaultNotifyMessages.success)
         this.$emit('submit-success', response, this.modelValue)
 
+        this.createSubmitSuccessEvent({ ...payload, entity: this.entity })
+
         this.$qas.logger.group(
           `QasFormView - submit -> resposta da action ${this.entity}/${this.mode}`, [response]
         )
@@ -447,6 +449,16 @@ export default {
       } finally {
         this.isSubmitting = false
       }
+    },
+
+    createSubmitSuccessEvent (detail = {}) {
+      const event = new CustomEvent('submit-success', {
+        bubbles: false,
+        cancelable: false,
+        detail
+      })
+
+      window.dispatchEvent(event)
     },
 
     setIgnoreRouterGuard ({ detail: { id, entity } }) {

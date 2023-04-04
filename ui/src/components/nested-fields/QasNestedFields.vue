@@ -6,34 +6,32 @@
 
     <div ref="inputContent">
       <component :is="componentTag" v-bind="componentProps">
-        <div v-for="(row, index) in nested" :id="`row-${index}`" :key="`row-${index}`" class="full-width">
-          <div v-if="!row[destroyKey]" :key="index" class="col-12 q-mt-md">
-            <div>
-              <div class="flex items-center justify-between q-py-md">
-                <qas-label v-if="!useSingleLabel" :label="getRowLabel(index)" />
-                <qas-actions-menu v-if="hasBlockActions(row)" v-bind="actionsMenuProps" :list="getActionsList(index, row)" />
-              </div>
+        <template v-for="(row, index) in nested" :key="`row-${index}`">
+          <div v-if="!row[destroyKey]" :id="`row-${index}`" class="full-width q-mt-md">
+            <header class="flex items-center q-py-md" :class="headerClasses">
+              <qas-label v-if="!useSingleLabel" :label="getRowLabel(index)" />
+              <qas-actions-menu v-if="hasBlockActions(row)" v-bind="actionsMenuProps" :list="getActionsList(index, row)" />
+            </header>
 
-              <div ref="formGenerator" class="col-12 justify-between q-col-gutter-x-md row">
-                <slot :errors="transformedErrors" :fields="children" :index="index" name="fields" :update-value="updateValuesFromInput">
-                  <qas-form-generator v-model="nested[index]" :class="formClasses" :columns="formColumns" :disable="isDisabledRow(row)" :errors="transformedErrors[index]" :fields="children" :fields-props="fieldsProps" @update:model-value="updateValuesFromInput($event, index)">
-                    <template v-for="(slot, key) in $slots" #[key]="scope">
-                      <slot v-bind="scope" :disabled="isDisabledRow(row)" :errors="transformedErrors" :index="index" :name="key" />
-                    </template>
-                  </qas-form-generator>
-                </slot>
+            <div ref="formGenerator" class="col-12 justify-between q-col-gutter-x-md row">
+              <slot :errors="transformedErrors" :fields="children" :index="index" name="fields" :update-value="updateValuesFromInput">
+                <qas-form-generator v-model="nested[index]" :class="formClasses" :columns="formColumns" :disable="isDisabledRow(row)" :errors="transformedErrors[index]" :fields="children" :fields-props="fieldsProps" @update:model-value="updateValuesFromInput($event, index)">
+                  <template v-for="(slot, key) in $slots" #[key]="scope">
+                    <slot v-bind="scope" :disabled="isDisabledRow(row)" :errors="transformedErrors" :index="index" :name="key" />
+                  </template>
+                </qas-form-generator>
+              </slot>
 
-                <div v-if="hasInlineActions(row)" class="flex items-center qas-nested-fields__actions">
-                  <qas-actions-menu v-bind="actionsMenuProps" :list="getActionsList(index, row)" />
-                </div>
-              </div>
-
-              <div class="col-12">
-                <slot :fields="children" :index="index" :model="nested[index]" name="custom-fields" :update-value="updateValuesFromInput" />
+              <div v-if="hasInlineActions(row)" class="flex items-center qas-nested-fields__actions">
+                <qas-actions-menu v-bind="actionsMenuProps" :list="getActionsList(index, row)" />
               </div>
             </div>
+
+            <div class="col-12">
+              <slot :fields="children" :index="index" :model="nested[index]" name="custom-fields" :update-value="updateValuesFromInput" />
+            </div>
           </div>
-        </div>
+        </template>
       </component>
 
       <div v-if="useAdd" class="q-mt-md">
@@ -68,9 +66,9 @@ import QasFormGenerator from '../form-generator/QasFormGenerator.vue'
 import QasInput from '../input/QasInput.vue'
 import QasLabel from '../label/QasLabel.vue'
 import { TransitionGroup } from 'vue'
+import { extend } from 'quasar'
 
 import { constructObject } from '../../helpers'
-import { extend } from 'quasar'
 
 export default {
   name: 'QasNestedFields',
@@ -290,6 +288,10 @@ export default {
 
     showAddFirstInputButton () {
       return this.useFirstInputButton && !this.nested.length
+    },
+
+    headerClasses () {
+      return this.useSingleLabel ? 'justify-end' : 'justify-between'
     }
   },
 
@@ -364,18 +366,7 @@ export default {
 
       this.$qas.logger.group('QasNestedFields - add', [payload])
 
-      return this.updateModelValue()
-    },
-
-    setFocus () {
-      const { formGenerator } = this.$refs
-      const firstElementToBeFocused = formGenerator.pop().querySelector('input, select, textarea')
-
-      return firstElementToBeFocused?.focus && firstElementToBeFocused.focus()
-    },
-
-    updateModelValue (value) {
-      return this.$emit('update:modelValue', value || this.nested)
+      this.updateModelValue()
     },
 
     /*
@@ -393,13 +384,17 @@ export default {
 
       this.$qas.logger.group('QasNestedFields - destroy', [{ index, row }])
 
-      return this.updateModelValue()
+      this.updateModelValue()
+    },
+
+    updateModelValue () {
+      this.$emit('update:modelValue', this.nested)
     },
 
     updateValuesFromInput (value, index) {
       this.nested.splice(index, 1, value)
 
-      return this.updateModelValue(null, index)
+      this.updateModelValue()
     },
 
     setDefaultNestedValue () {
@@ -419,9 +414,26 @@ export default {
       })
     },
 
-    getRowLabel (rowKey) {
+    async setFocus () {
+      await this.$nextTick()
+
+      const { formGenerator } = this.$refs
+      const firstElementToBeFocused = formGenerator.pop().querySelector('input, select, textarea')
+
+      return firstElementToBeFocused?.focus && firstElementToBeFocused.focus()
+    },
+
+    getRealRowIndex (index) {
+      return [...this.nested].splice(0, index).filter(item => !item[this.destroyKey]).length
+    },
+
+    getRowLabel (rowIndex) {
       if (this.rowLabel) {
-        return this.useIndexLabel ? `${this.rowLabel} ${rowKey + 1}` : this.rowLabel
+        if (!this.useIndexLabel) return this.rowLabel
+
+        const index = this.useRemoveOnDestroy ? rowIndex : this.getRealRowIndex(rowIndex)
+
+        return `${this.rowLabel} ${index + 1}`
       }
 
       return this.fieldLabel
