@@ -241,7 +241,6 @@ export default {
     },
 
     drawerWidth () {
-      // return 220
       return this.isUntilLarge ? 320 : 280
     },
 
@@ -254,8 +253,6 @@ export default {
     },
 
     isMiniMode () {
-      // return false
-      // return true
       return this.isLargeScreen && this.isMini && !this.hasOpenedMenu
     },
 
@@ -394,9 +391,7 @@ export default {
   }
 
   &__image-size {
-    // transition: width 120ms;
     width: 36px;
-    will-change: auto;
 
     &--spaced {
       width: 188px;

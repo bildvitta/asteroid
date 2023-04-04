@@ -41,6 +41,7 @@ export default {
     defaultButtonDropdownProps () {
       return {
         ...this.buttonDropdownProps,
+
         buttonProps: {
           align: 'between',
           class: 'text-subtitle2',

@@ -14,6 +14,7 @@ Este é um componente puro de dropdown, é utilizado para situações especifica
 - quando utilizado o componente junto a propriedade `useSplit` não é possível passar a propriedade `iconRight`, pois ícone a direita é para casos onde existe uma ação secundaria, e nestes casos sempre vai ser uma ação primaria.
 - quando utilizado o componente sem a propriedade `useSplit` não é possível passar a propriedade `icon`.
 - no mobile sempre o botão a esquerda é removido ficando somente o `dropdownIcon`.
+- A propriedade `useEllipsis` dentro de `buttonProps` só funciona quando `useSplit` é `false`.
 :::
 
 ## Uso
