@@ -71,7 +71,6 @@ export default {
       return {
         user,
         title: 'QasLayout'
-        // isAuth: true
       }
     },
 

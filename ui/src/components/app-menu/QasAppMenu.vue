@@ -32,7 +32,7 @@
           <!-- List -->
           <q-list v-if="items.length" class="q-mt-xl qas-app-menu__menu text-grey-9">
             <template v-for="(menuItem, index) in items">
-              <div v-if="hasChildren(menuItem)" :key="`children-${index}`" class="qas-app-menu__content">
+              <div v-if="hasChildren(menuItem)" :key="`children-${index}`" class="qas-app-menu__content" :class="contentClass">
                 <q-item class="ellipsis items-center q- q-pb-none qas-app-menu__item qas-app-menu__item--label-mini text-weight-bold">
                   <div class="ellipsis qas-app-menu__label text-grey-9 text-subtitle2" :class="spacedItemClass">
                     {{ menuItem.label }}
@@ -191,6 +191,12 @@ export default {
     brandPositionClass () {
       return {
         'justify-center': this.isMiniMode
+      }
+    },
+
+    contentClass () {
+      return {
+        'qas-app-menu__content--spaced': !this.isMiniMode
       }
     },
 
@@ -419,6 +425,27 @@ export default {
     padding-top: 0;
   }
 
+  &__content + &__content {
+    position: relative;
+    transition: left 120ms, right 120ms;
+
+    &--spaced::before {
+      left: var(--qas-spacing-xl) !important;
+      right: var(--qas-spacing-xl) !important;
+    }
+
+    &::before {
+      background-color: $separator-color;
+      content: '';
+      height: 1px;
+      left: var(--qas-spacing-md);
+      position: absolute;
+      right: var(--qas-spacing-md);
+      top: calc(var(--qas-spacing-xs) * -1);
+      transition: left 120ms, right 120ms;
+    }
+  }
+
   &__content + &__content,
   &__item + &__content,
   &__content + &__item {
@@ -432,7 +459,6 @@ export default {
 
   // Media: untilLarge
   @media (min-width: $breakpoint-sm-max) {
-    // Menu
     &__menu {
       max-height: calc(100vh - 310px);
       overflow-x: auto;
