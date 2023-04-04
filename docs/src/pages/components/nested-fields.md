@@ -60,8 +60,7 @@ Componente para gerar dinamicamente campos nested.
 :::
 
 :::warning
-- Não é possível enviar dentro do model a chave referente ao `destroyKey` com valor `true`, caso faça o model não irá funcionar de acordo com o esperado.
-- A propriedade `useDestroyAlways` caso não seja repassada ao componente, assume o inicial como o mesmo valor da propriedade `useStartsEmpty`.
+A propriedade `useDestroyAlways` caso não seja repassada ao componente, assume o inicial como o mesmo valor da propriedade `useStartsEmpty`.
 :::
 
 ## Uso
