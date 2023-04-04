@@ -1,5 +1,5 @@
 <template>
-  <component :is="mx_componentTag" :class="mx_componentClass">
+  <div :class="mx_componentClass">
     <header v-if="mx_hasHeaderSlot">
       <slot name="header" />
     </header>
@@ -20,7 +20,7 @@
     <q-inner-loading :showing="mx_isFetching">
       <q-spinner color="grey" size="3em" />
     </q-inner-loading>
-  </component>
+  </div>
 </template>
 
 <script>

@@ -10,7 +10,7 @@
 
     <slot>
       <q-page-container>
-        <q-page padding>
+        <q-page>
           <router-view />
         </q-page>
       </q-page-container>

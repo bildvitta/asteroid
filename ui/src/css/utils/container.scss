@@ -15,7 +15,7 @@
   }
 
   @media (max-width: $breakpoint-xs) {
-    width: calc(100% - 20px);
+    width: calc(100% - var(--qas-spacing-2xl));
   }
 }
 

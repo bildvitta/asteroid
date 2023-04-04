@@ -1,7 +1,12 @@
 <template>
   <!-- Ignore este <q-layout />, ele é usado apenas para funcionar na documentação. -->
   <q-layout class="basic flex items-center justify-center" container>
-    <qas-layout :app-bar-props="appBarProps" :app-menu-props="appMenuProps" />
+    <qas-layout :app-bar-props="appBarProps" :app-menu-props="appMenuProps">
+      <div class="container q-my-3xl">
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim sint quasi, ipsa at iure maiores quia eaque totam nihil laborum odit itaque sapiente veritatis vel dolore voluptatibus, perferendis rem officiis.
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim sint quasi, ipsa at iure maiores quia eaque totam nihil laborum odit itaque sapiente veritatis vel dolore voluptatibus, perferendis rem officiis.
+      </div>
+    </qas-layout>
   </q-layout>
 </template>
 

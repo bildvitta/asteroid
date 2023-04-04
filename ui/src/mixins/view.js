@@ -67,10 +67,6 @@ export default {
   },
 
   computed: {
-    mx_componentTag () {
-      return this.useBoundary ? 'q-page' : 'div'
-    },
-
     mx_componentClass () {
       return this.useBoundary && 'container spaced'
     },
