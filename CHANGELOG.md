@@ -10,6 +10,33 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 ### Sobre os "BREAKING CHANGES"
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
+## Não publicado
+## BREAKING CHANGES
+- `ui/src/mixins/view.js`: removido computada `mx_componentTag` uma vez que os componentes de view sempre renderizam uma `div`, caso esteja usando este mixin nos produtos, revisar e remover.
+- `QasLayout`: removido propriedade `padding` do componente `QPage` já que a responsabilidade deste espaçamento deve ser da classe `container`, isto pode gerar alguma(s) breaking changes visuais.
+- `ui/src/css/utils/container.scss`: modificado espaçamento do container em telas mobile, alterado para `40px` (20px para cada lado), isto pode gerar alguma(s) breaking changes visuais.
+
+### Adicionado
+- `QasBtn`: adicionado propriedade `useEllipsis`.
+- `QasAppMenu`: adicionado propriedade `miniBrand` para passar logo em modo "mini".
+- `QasBtnDropdown`: adicionado model
+- `ui/src/css/mixins/set-button.scss`: adicionado nova opção para adicionar `ellipsis`.
+
+### Corrigido
+- [`QasFormView`, `QasListView`, `QasSingleView`]: removido mixin que controlava se a tag vai seria uma `div` ou um `QPage`, uma vez que o `QasLayout` já engloba um `QPage` não deveria existir QPage dentro de QPage, já que ele gera tag main dentro de main.
+
+### Modificado
+- `QasAppMenu`: modificado layout e comportamento para se adequar ao DS.
+- `QasBtn`: agora é possível utilizar a propriedade `align` do `QBtn` do quasar.
+- `QasAppMenu`: removido `required` da propriedade `title`.
+- `QasAppMenu`: adicionado `required` na propriedade `brand`.
+- `ui/src/css/utils/container.scss`: modificado espaçamento do container em telas mobile, alterado para `40px` (20px para cada lado), isto pode gerar alguma(s) breaking changes visuais.
+- `QasLayout`: modificado propriedade `view` para se adequar ao novo layout.
+- `QasLayout`: removido propriedade `padding` do componente `QPage` já que a responsabilidade deste espaçamento deve ser da classe `container`, isto pode gerar alguma(s) breaking changes visuais.
+
+### Removido
+- `ui/src/mixins/view.js`: removido computada `mx_componentTag` uma vez que os componentes de view sempre renderizam uma `div`.
+
 ## [3.8.0-beta.3] - 04-04-2023
 ### Corrigido
 - `QasNestedFields`: corrigido model do componente para quando a prop `useRemoveOnDestroy` for `false` e `useIndexLabel` for `true`.

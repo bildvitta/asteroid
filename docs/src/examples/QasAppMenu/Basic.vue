@@ -81,21 +81,6 @@ export default {
                 icon: 'sym_r_info'
               }
             ]
-          },
-          {
-            label: 'Terminando',
-            children: [
-              {
-                label: 'Dialog',
-                to: { path: '/plugins/dialog' },
-                icon: 'sym_r_settings_input_hdmi'
-              },
-              {
-                label: 'Logger',
-                to: { path: '/plugins/dialog' },
-                icon: 'sym_r_info'
-              }
-            ]
           }
         ]
       }

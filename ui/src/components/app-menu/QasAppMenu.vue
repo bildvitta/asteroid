@@ -156,7 +156,7 @@ export default {
     appMenuDropdownProps () {
       return {
         buttonDropdownProps: {
-          'onUpdate:menuOpened': this.setHasOpenedMenu
+          'onUpdate:menu': this.setHasOpenedMenu
         },
 
         currentModule: this.currentModelOption,

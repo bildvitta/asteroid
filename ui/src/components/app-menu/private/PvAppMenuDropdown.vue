@@ -2,7 +2,7 @@
   <div class="pv-app-menu-dropdown">
     <qas-btn-dropdown v-bind="defaultButtonDropdownProps">
       <q-list>
-        <q-item v-for="moduleItem in options" :key="moduleItem" :active="isActive(moduleItem)" active-class="text-primary" :to="moduleItem.value">
+        <q-item v-for="moduleItem in options" :key="moduleItem" :active="isActive(moduleItem)" active-class="text-primary" :href="moduleItem.value">
           <q-item-section v-if="moduleItem.icon" avatar>
             <q-icon :name="moduleItem.icon" />
           </q-item-section>

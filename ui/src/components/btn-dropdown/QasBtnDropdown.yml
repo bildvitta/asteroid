@@ -15,7 +15,7 @@ props:
     default: sym_r_more_vert
     type: String
 
-  menu-opened:
+  menu:
     desc: Model do menu de dropdown.
     default: false
     type: Boolean
@@ -46,11 +46,10 @@ events:
         desc: Evento nativo de click.
         type: Object
 
-  '@update:menu-opened -> function (isMenuOpened)':
+  '@update:menu -> function (isMenuOpened)':
     desc: Retorna toda vez que o menu é aberto ou fechado
     params:
       isMenuOpened:
         desc: Estado do menu.
         default: false
         type: Boolean
-

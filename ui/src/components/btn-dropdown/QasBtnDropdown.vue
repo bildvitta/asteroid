@@ -3,7 +3,7 @@
     <div v-if="hasLeftButton" :class="leftSideClasses">
       <slot name="left-button">
         <qas-btn variant="tertiary" v-bind="defaultButtonProps" @click="$emit('click', $event)">
-          <q-menu v-if="hasMenuOnLeftSide" v-model="isMenuOpened" anchor="bottom right" auto-close self="top right" @update:model-value="onUpdateMenuOpened">
+          <q-menu v-if="hasMenuOnLeftSide" v-model="isMenuOpened" anchor="bottom right" auto-close self="top right" @update:model-value="onUpdateMenuValue">
             <div :class="menuContentClasses">
               <slot />
             </div>
@@ -51,12 +51,12 @@ export default {
       type: Boolean
     },
 
-    menuOpened: {
+    menu: {
       type: Boolean
     }
   },
 
-  emits: ['click', 'update:menuOpened'],
+  emits: ['click', 'update:menu'],
 
   data () {
     return {
@@ -126,7 +126,7 @@ export default {
   },
 
   watch: {
-    menuOpened: {
+    menu: {
       handler (value) {
         this.isMenuOpened = value
       },
@@ -136,8 +136,8 @@ export default {
   },
 
   methods: {
-    onUpdateMenuOpened (value) {
-      this.$emit('update:menuOpened', value)
+    onUpdateMenuValue (value) {
+      this.$emit('update:menu', value)
     }
   }
 }
