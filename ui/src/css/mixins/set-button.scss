@@ -1,4 +1,10 @@
-@mixin set-button($variant, $icon-only: false, $no-hover-on-white: false, $color: false) {
+@mixin set-button(
+  $variant,
+  $icon-only: false,
+  $no-hover-on-white: false,
+  $color: false,
+  $ellipsis: false
+) {
   @extend .qas-btn;
   @extend .qas-btn--#{$variant};
 
@@ -12,5 +18,9 @@
 
   @if $no-hover-on-white {
     @extend .qas-btn--no-hover-on-white;
+  }
+
+  @if $ellipsis {
+    @extend .qas-btn--ellipsis;
   }
 }

@@ -1,5 +1,5 @@
 <template>
-  <q-layout view="hHh Lpr lFf">
+  <q-layout view="hHh Lpr lff">
     <slot v-if="$qas.screen.untilLarge" name="app-bar">
       <qas-app-bar v-bind="appBarProps" @sign-out="signOut" @toggle-menu="toggleMenuDrawer" />
     </slot>
@@ -10,7 +10,7 @@
 
     <slot>
       <q-page-container>
-        <q-page padding>
+        <q-page>
           <router-view />
         </q-page>
       </q-page-container>
