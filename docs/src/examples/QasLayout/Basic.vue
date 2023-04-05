@@ -14,6 +14,16 @@ const user = {
 
 const modules = [
   {
+    label: 'Asteroid',
+    value: 'https://asteroid.nave.dev',
+    icon: 'sym_r_home'
+  },
+  {
+    label: 'Asteroid - Beta',
+    value: 'https://asteroid-homolog.vercel.app',
+    icon: 'sym_r_home'
+  },
+  {
     label: 'Assistência Digital',
     value: 'https://develop.assistencia-digital.nave.dev',
     icon: 'sym_r_home'

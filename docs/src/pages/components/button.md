@@ -72,6 +72,6 @@ A cor "grey-9" é usado para quando não é uma ação direta ou ação negativa
 A cor "white" é usada quando necessita de um contraste, sendo possível ter ou não uma cor de hover, sendo possível modificar através da prop `useHoverOnWhiteColor`.
 <doc-example file="QasBtn/ExTertiaryVariant" title='Variante "tertiary"' />
 
-<doc-example file="QasBtn/UseLabelOnSmallScreen" title="use-label-on-small-screen" />
+<doc-example file="QasBtn/ExBtnUseLabelOnSmallScreen" title="use-label-on-small-screen" />
 
 <doc-example file="QasBtn/ExBtnEllipsis" title="Com ellipsis" />

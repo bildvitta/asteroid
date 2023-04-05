@@ -9,6 +9,14 @@
 <script>
 const modules = [
   {
+    label: 'Asteroid',
+    value: 'https://asteroid.nave.dev'
+  },
+  {
+    label: 'Asteroid - Beta',
+    value: 'https://asteroid-homolog.vercel.app'
+  },
+  {
     label: 'Assistência Digital',
     value: 'https://develop.assistencia-digital.nave.dev'
   },

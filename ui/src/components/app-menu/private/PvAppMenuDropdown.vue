@@ -2,13 +2,13 @@
   <div class="pv-app-menu-dropdown">
     <qas-btn-dropdown v-bind="defaultButtonDropdownProps">
       <q-list>
-        <q-item v-for="moduleItem in options" :key="moduleItem" :active="isActive(moduleItem)" active-class="text-primary" :href="moduleItem.value">
-          <q-item-section v-if="moduleItem.icon" avatar>
-            <q-icon :name="moduleItem.icon" />
+        <q-item v-for="item in modules" :key="item" :active="isActive(item)" active-class="text-primary" :href="item.value">
+          <q-item-section v-if="item.icon" avatar>
+            <q-icon :name="item.icon" />
           </q-item-section>
 
           <q-item-section>
-            <div>{{ moduleItem.label }}</div>
+            <div>{{ item.label }}</div>
           </q-item-section>
         </q-item>
       </q-list>
@@ -31,7 +31,7 @@ export default {
       default: () => ({})
     },
 
-    options: {
+    modules: {
       type: Array,
       default: () => []
     }
@@ -69,7 +69,7 @@ export default {
 <style lang="scss">
 .pv-app-menu-dropdown {
   .qas-btn .q-icon {
-    font-size: 18px !important;
+    font-size: 1.125rem !important;
   }
 }
 </style>

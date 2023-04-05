@@ -6,7 +6,7 @@
           <!-- Brand -->
           <div v-if="!isUntilLarge" class="q-mb-xl q-pt-xl qas-app-menu__label" :class="spacedItemClass">
             <router-link class="flex relative-position text-no-decoration" :class="brandPositionClass" :to="rootRoute">
-              <q-img v-if="normalizedBrand" :alt="title" class="qas-app-menu__brand qas-app-menu__label" :class="brandClass" height="40px" :src="normalizedBrand" />
+              <q-img v-if="normalizedBrand" :alt="title" class="qas-app-menu__brand qas-app-menu__label" :class="brandClass" height="40px" no-spinner :src="normalizedBrand" />
 
               <span v-else-if="!isMiniMode" class="ellipsis text-bold text-primary text-subtitle2">{{ title }}</span>
 
@@ -25,7 +25,7 @@
           <!-- Module -->
           <div v-if="displayModuleSection" class="items-center justify-between no-wrap q-mt-xl qas-app-menu__label qas-app-menu__module row" :class="spacedItemClass">
             <div class="full-width text-center">
-              <pv-app-menu-dropdown :current-module="currentModelOption" :options="defaultModules" v-bind="appMenuDropdownProps" />
+              <pv-app-menu-dropdown v-bind="appMenuDropdownProps" />
             </div>
           </div>
 
@@ -33,7 +33,7 @@
           <q-list v-if="items.length" class="q-mt-xl qas-app-menu__menu text-grey-9">
             <template v-for="(menuItem, index) in items">
               <div v-if="hasChildren(menuItem)" :key="`children-${index}`" class="qas-app-menu__content" :class="contentClass">
-                <q-item class="ellipsis items-center q- q-pb-none qas-app-menu__item qas-app-menu__item--label-mini text-weight-bold">
+                <q-item class="ellipsis items-center q-py-none qas-app-menu__item qas-app-menu__item--label-mini text-weight-bold">
                   <div class="ellipsis qas-app-menu__label text-grey-9 text-subtitle2" :class="spacedItemClass">
                     {{ menuItem.label }}
                   </div>
@@ -160,7 +160,7 @@ export default {
         },
 
         currentModule: this.currentModelOption,
-        options: this.defaultModules
+        modules: this.defaultModules
       }
     },
 
@@ -422,7 +422,7 @@ export default {
   }
 
   &__content .q-item {
-    padding-top: 0;
+    // padding-top: 0;
   }
 
   &__content + &__content {
