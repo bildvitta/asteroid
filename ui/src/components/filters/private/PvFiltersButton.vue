@@ -84,6 +84,12 @@ export default {
         return this.$emit('update:modelValue', value)
       }
     }
+  },
+
+  methods: {
+    hideMenu () {
+      this.$refs.menu.hide()
+    }
   }
 }
 </script>

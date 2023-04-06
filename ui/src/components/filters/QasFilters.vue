@@ -327,7 +327,7 @@ export default {
     },
 
     hideFiltersMenu () {
-      this.$refs.filtersButton?.$refs?.menu?.hide()
+      this.$refs.filtersButton?.hideMenu()
     },
 
     removeFilter ({ name }) {
