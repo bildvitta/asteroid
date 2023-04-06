@@ -16,7 +16,7 @@
 
                   <template v-if="showFilterButton">
                     <slot :context="mx_context" :filter="filter" :filters="activeFilters" name="filter-button" :remove-filter="removeFilter">
-                      <pv-filters-button v-if="useFilterButton" v-model="filters" v-bind="filterButtonProps" />
+                      <pv-filters-button v-if="useFilterButton" ref="filtersButton" v-model="filters" v-bind="filterButtonProps" />
                     </slot>
                   </template>
                 </template>
@@ -28,7 +28,7 @@
 
       <div v-else-if="showFilterButton" class="col-12 col-md-6">
         <slot :context="mx_context" :filter="filter" :filters="activeFilters" name="filter-button" :remove-filter="removeFilter">
-          <pv-filters-button v-if="useFilterButton" v-model="filters" v-bind="filterButtonProps" />
+          <pv-filters-button v-if="useFilterButton" ref="filtersButton" v-model="filters" v-bind="filterButtonProps" />
         </slot>
       </div>
 
@@ -257,6 +257,7 @@ export default {
         this.filters = {}
       }
 
+      this.hideFiltersMenu()
       this.updateCurrentFilters()
       this.updateRouteQuery(query)
     },
@@ -316,12 +317,17 @@ export default {
         search: this.search || undefined
       }
 
+      this.hideFiltersMenu()
       this.updateCurrentFilters()
       this.updateRouteQuery(query)
     },
 
     getChipValue (value) {
       return Array.isArray(value) ? value.join(', ') : value
+    },
+
+    hideFiltersMenu () {
+      this.$refs.filtersButton?.$refs?.menu?.hide()
     },
 
     removeFilter ({ name }) {

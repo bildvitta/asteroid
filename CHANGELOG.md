@@ -10,6 +10,10 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 ### Sobre os "BREAKING CHANGES"
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
+## Não publicado
+### Modificado
+- `QasFilters`: Modificado comportamento para após filtrar ou limpar o filtro realizar o fechamento do menu de filtros.
+
 ## [3.8.0-beta.4] - 05-04-2023
 ## BREAKING CHANGES
 - `ui/src/mixins/view.js`: removido computada `mx_componentTag` uma vez que os componentes de view sempre renderizam uma `div`, caso esteja usando este mixin nos produtos, revisar e remover.
