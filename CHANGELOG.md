@@ -37,6 +37,10 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 ### Removido
 - `ui/src/mixins/view.js`: removido computada `mx_componentTag` uma vez que os componentes de view sempre renderizam uma `div`.
 
+## Não publicado
+### Modificado
+- atualizado quasar e package-lock geral do asteroid.
+
 ## [3.8.0-beta.3] - 04-04-2023
 ### Corrigido
 - `QasNestedFields`: corrigido model do componente para quando a prop `useRemoveOnDestroy` for `false` e `useIndexLabel` for `true`.
