@@ -80,32 +80,133 @@ export default {
     },
 
     menuList () {
+      // return [
+      //   {
+      //     label: 'AppMenu',
+      //     icon: 'sym_r_menu',
+      //     to: { path: '/components/app-menu' }
+      //   },
+      //   {
+      //     label: 'Por que asteroid?',
+      //     icon: 'sym_r_pin',
+      //     to: { path: '/why-asteroid' }
+      //   },
+      //   {
+      //     label: 'Começando com um titulo longo',
+      //     children: [
+      //       {
+      //         label: 'Configurações',
+      //         to: { path: '/plugins/dialog' },
+      //         icon: 'sym_r_settings_input_hdmi'
+      //       },
+      //       {
+      //         label: 'Logger',
+      //         to: { path: '/plugins/dialog' },
+      //         icon: 'sym_r_info'
+      //       }
+      //     ]
+      //   }
+      // ],
+
       return [
         {
-          label: 'AppMenu',
-          icon: 'sym_r_menu',
+          label: 'Home',
+          icon: 'sym_r_home',
           to: { path: '/components/app-menu' }
         },
         {
-          label: 'Por que asteroid?',
-          icon: 'sym_r_pin',
-          to: { path: '/why-asteroid' }
-        },
-        {
-          label: 'Começando com um titulo longo',
+          label: 'Usuários',
           children: [
             {
-              label: 'Configurações',
-              to: { path: '/plugins/dialog' },
-              icon: 'sym_r_settings_input_hdmi'
+              label: 'Lista de usuários',
+              to: { path: '/-' },
+              icon: 'sym_r_list_alt',
+              role: 'users.list'
             },
             {
-              label: 'Logger',
-              to: { path: '/plugins/dialog' },
-              icon: 'sym_r_info'
+              label: 'Grupos',
+              to: { path: '/sla' },
+              icon: 'sym_r_groups',
+              role: 'userGroups.list'
+            },
+            {
+              label: 'Aprovação de cadastro',
+              icon: 'sym_r_inventory',
+              to: { path: '/porra' },
+              role: 'users.approvals'
+            }
+          ]
+        },
+        {
+          label: 'Usuários',
+          children: [
+            {
+              label: 'Lista de usuários',
+              to: { path: '/-' },
+              icon: 'sym_r_list_alt',
+              role: 'users.list'
+            },
+            {
+              label: 'Grupos',
+              to: { path: '/sla' },
+              icon: 'sym_r_groups',
+              role: 'userGroups.list'
+            },
+            {
+              label: 'Aprovação de cadastro',
+              icon: 'sym_r_inventory',
+              to: { path: '/porra' },
+              role: 'users.approvals'
+            }
+          ]
+        },
+        {
+          label: 'Aprovação de cadastro',
+          icon: 'sym_r_inventory',
+          to: { path: '/porra' },
+          role: 'users.approvals'
+        },
+        {
+          label: 'Usuários',
+          children: [
+            {
+              label: 'Lista de usuários',
+              to: { path: '/-' },
+              icon: 'sym_r_list_alt',
+              role: 'users.list'
+            },
+            {
+              label: 'Grupos',
+              to: { path: '/sla' },
+              icon: 'sym_r_groups',
+              role: 'userGroups.list'
+            },
+            {
+              label: 'Aprovação de cadastro',
+              icon: 'sym_r_inventory',
+              to: { path: '/porra' },
+              role: 'users.approvals'
             }
           ]
         }
+        // {
+        //   label: 'Políticas',
+        //   icon: 'sym_r_supervised_user_circle',
+        //   to: { path: '/vtnc' },
+        //   role: 'roles.list'
+        // },
+        // {
+        //   label: 'Empresas',
+        //   icon: 'sym_r_business_center',
+        //   to: { path: '/fdp' },
+        //   role: 'companies.list'
+        // }
+        // {
+        //   label: 'Registro de atividades',
+        //   icon: 'sym_r_assignment',
+        //   role: 'activityRecord.list',
+        //   to: { path: '/components/app-menu' }}
+        // }
       ]
     }
   }
