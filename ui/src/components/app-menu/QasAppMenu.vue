@@ -260,8 +260,7 @@ export default {
     },
 
     isMiniMode () {
-      return false
-      // return this.isLargeScreen && this.isMini && !this.hasOpenedMenu
+      return this.isLargeScreen && this.isMini && !this.hasOpenedMenu
     },
 
     isUntilLarge () {
@@ -422,9 +421,11 @@ export default {
     padding-right: var(--qas-spacing-xl) !important;
   }
 
-  &__content + &__content,
-  &__content + &__item {
-    margin-top: var(--qas-spacing-md);
+  &__content .q-item {
+    // padding-top: 0;
+  }
+
+  &__content + &__content {
     position: relative;
     transition: left 120ms, right 120ms;
 
@@ -440,20 +441,20 @@ export default {
       left: var(--qas-spacing-md);
       position: absolute;
       right: var(--qas-spacing-md);
-      top: calc((var(--qas-spacing-sm) * -1) - 0.5px);
+      top: calc(var(--qas-spacing-xs) * -1);
       transition: left 120ms, right 120ms;
     }
   }
 
+  &__content + &__content,
+  &__item + &__content,
   &__content + &__item {
-    &::before {
-      left: var(--qas-spacing-xl);
-      right: var(--qas-spacing-xl);
-    }
+    margin-top: var(--qas-spacing-sm);
   }
 
-  &__item + &__content {
-    margin-top: var(--qas-spacing-sm);
+  // User
+  .qas-app-user__data {
+    line-height: 1.25;
   }
 
   // Media: untilLarge
