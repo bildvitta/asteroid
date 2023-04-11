@@ -435,6 +435,11 @@ export default {
     margin-top: var(--qas-spacing-sm);
   }
 
+  // User
+  .qas-app-user__data {
+    line-height: 1.25;
+  }
+
   // Media: untilLarge
   @media (min-width: $breakpoint-sm-max) {
     &__menu {
