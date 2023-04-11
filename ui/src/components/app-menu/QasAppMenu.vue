@@ -52,6 +52,10 @@
                     </q-item-label>
                   </q-item-section>
                 </q-item>
+
+                <div v-if="hasSeparator(index)" class="qas-app-menu__label" :class="spacedItemClass">
+                  <q-separator spaced />
+                </div>
               </div>
 
               <q-item v-else :key="index" :active="isActive(menuItem)" active-class="q-router-link--active" class="qas-app-menu__item" :to="getRouterRedirect(menuItem)">
@@ -260,8 +264,7 @@ export default {
     },
 
     isMiniMode () {
-      return false
-      // return this.isLargeScreen && this.isMini && !this.hasOpenedMenu
+      return this.isLargeScreen && this.isMini && !this.hasOpenedMenu
     },
 
     isUntilLarge () {
@@ -329,6 +332,10 @@ export default {
 
     hasChildren ({ children }) {
       return !!(children || []).length
+    },
+
+    hasSeparator (index) {
+      return !!this.items[index + 1]
     },
 
     hasUser () {
@@ -423,35 +430,7 @@ export default {
   }
 
   &__content + &__content,
-  &__content + &__item {
-    margin-top: var(--qas-spacing-md);
-    position: relative;
-    transition: left 120ms, right 120ms;
-
-    &--spaced::before {
-      left: var(--qas-spacing-xl) !important;
-      right: var(--qas-spacing-xl) !important;
-    }
-
-    &::before {
-      background-color: $separator-color;
-      content: '';
-      height: 1px;
-      left: var(--qas-spacing-md);
-      position: absolute;
-      right: var(--qas-spacing-md);
-      top: calc((var(--qas-spacing-sm) * -1) - 0.5px);
-      transition: left 120ms, right 120ms;
-    }
-  }
-
-  &__content + &__item {
-    &::before {
-      left: var(--qas-spacing-xl);
-      right: var(--qas-spacing-xl);
-    }
-  }
-
+  &__content + &__item,
   &__item + &__content {
     margin-top: var(--qas-spacing-sm);
   }
