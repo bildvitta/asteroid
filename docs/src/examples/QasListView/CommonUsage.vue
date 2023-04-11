@@ -1,5 +1,5 @@
 <template>
-  <qas-list-view v-model:fields="fields" v-model:results="results" :entity="entity">
+  <qas-list-view v-model:fields="fields" v-model:results="results" :entity="entity" use-auto-handle-on-delete>
     <template #header>
       <qas-page-header title="Lista de materiais" :use-breadcrumbs="false">
         <qas-btn icon="sym_r_add" label="Novo [item]" />
