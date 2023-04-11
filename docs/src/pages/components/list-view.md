@@ -60,3 +60,4 @@ Agora ao fazer o fetch, o valor da url enviada para a action do fetchList será 
 :::
 
 <doc-example file="QasListView/BeforeFetch" title="Controlando fetch" />
+<doc-example file="QasListView/ExAutoRefetchOnDelete" title="Controle de refetch ao deletar automático" />
