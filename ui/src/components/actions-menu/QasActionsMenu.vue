@@ -73,6 +73,11 @@ export default {
     useLabel: {
       default: true,
       type: Boolean
+    },
+
+    useTooltip: {
+      default: true,
+      type: Boolean
     }
   },
 
@@ -136,7 +141,7 @@ export default {
     },
 
     hasTooltip () {
-      return !this.isBtnDropdown && !this.useLabel
+      return !this.isBtnDropdown && !this.useLabel && this.useTooltip
     },
 
     tooltipLabel () {

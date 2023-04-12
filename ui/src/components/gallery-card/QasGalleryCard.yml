@@ -29,6 +29,9 @@ props:
     type: Object
 
 slots:
+  actions:
+    desc: Slot para ações do cabeçalho.
+
   bottom:
     desc: Slot para acessar o conteúdo abaixo da imagem.
 

@@ -6,10 +6,6 @@ Componente de card de galeria (utilizado no QasUploader, QasGallery e nos produt
 
 <doc-api file="gallery-card/QasGalleryCard" name="QasGalleryCard" />
 
-:::danger
-Componente adaptado somente para utilização dentro do `QasUploader`.
-:::
-
 ## Uso
 
 <doc-example file="QasGalleryCard/Basic" title="Básico" />

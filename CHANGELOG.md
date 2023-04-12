@@ -10,6 +10,19 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 ### Sobre os "BREAKING CHANGES"
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
+## Não publicado
+### Adicionado
+- `QasGallery`: adicionado propriedade `galleryCardProps`.
+- `QasGalleryCard`: adicionado novo slot `actions`.
+
+### Modificado
+- `QasGallery`: implementado componente `QasGalleryCard`.
+- `QasGallery`: mudanças de slots.
+- `QasGalleryCard`: mudanças de espaçamento e no `defaultActionsMenuProps`.
+
+### Removido
+- `QasGallery`: removido slot `destroy` para dar lugar aos slots do `QasGalleryCard`, olhar documentação.
+
 ## [3.8.0-beta.7] - 11-04-2023
 ### Corrigido
 - `QasAppMenu`: Corrigido separator que não estava aparecendo de uma forma correta, adicionado pelo componente `QSeparator` ao invés de css.
