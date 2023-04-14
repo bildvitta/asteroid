@@ -190,7 +190,7 @@ export default {
       if (!this.useDestroy) return {}
 
       return {
-        useTooltip: false,
+        useLabel: false,
 
         buttonProps: {
           disable: this.isDestroyDisabled(image)
@@ -198,6 +198,7 @@ export default {
 
         list: {
           destroy: {
+            label: 'Excluir',
             color: 'grey-9',
             icon: 'sym_r_delete',
 

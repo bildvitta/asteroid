@@ -14,11 +14,14 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 ### Adicionado
 - `QasGallery`: adicionado propriedade `galleryCardProps`.
 - `QasGalleryCard`: adicionado novo slot `actions`.
+- `QasActionsMenu`: adicionado propriedade `useTooltip` com default `false` para controle de tooltip.
 
 ### Modificado
 - `QasGallery`: implementado componente `QasGalleryCard`.
+- `QasGallery`: com a implementação do componente `QasGalleryCard`, a altura do card passou de `150px` para `180px`.
 - `QasGallery`: mudanças de slots.
 - `QasGalleryCard`: mudanças de espaçamento e no `defaultActionsMenuProps`.
+- `QasActionsMenu`: agora o tooltip precisa de controle por prop `useTooltip`.
 
 ### Removido
 - `QasGallery`: removido slot `destroy` para dar lugar aos slots do `QasGalleryCard`, olhar documentação.

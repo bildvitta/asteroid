@@ -76,7 +76,6 @@ export default {
     },
 
     useTooltip: {
-      default: true,
       type: Boolean
     }
   },
