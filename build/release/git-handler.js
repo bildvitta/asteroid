@@ -19,7 +19,7 @@ function gitHandler ({ ora, execaSync, nextVersion, isBeta, packages }) {
   // envia as alterações para o github
   const pushSpinner = ora('Enviando push para o github...').start()
   const pushCommands = ['push', 'origin']
-  pushCommands.push(isBeta ? 'main-homolog' : 'main')
+  pushCommands.push(isBeta ? 'develop' : 'main')
 
   execaSync('git', pushCommands, { cwd: packages.global.resolved })
   pushSpinner.succeed('Push enviado!')

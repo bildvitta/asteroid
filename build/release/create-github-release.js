@@ -14,7 +14,7 @@ async function createGithubRelease ({ body, isBeta, version, ora, onSuccess = ()
       owner: 'bildvitta',
       repo: 'asteroid',
       tag_name: versionTag,
-      target_commitish: isBeta ? 'main-homolog' : 'main',
+      target_commitish: isBeta ? 'develop' : 'main',
       name: versionTag,
       body,
       draft: false,
