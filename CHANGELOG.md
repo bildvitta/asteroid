@@ -11,8 +11,26 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
 ## Não publicado
+## BREAKING CHANGES
+- `QasGallery`: removido slot `destroy` para dar lugar aos slots do `QasGalleryCard`, olhar documentação.
+- `QasGallery`: breaking changes nos slots, verificar documentação.
+- `QasActionsMenu` agora precisa passar a prop `useTooltip` para controle de tooltip.
+
 ### Adicionado
 - `QasListView`: adicionado propriedade `useAutoRefetchOnDelete` para controlar se o componente vai fazer o fetch novamente quando acontecer algum delete compatível com a listagem.
+- `QasGallery`: adicionado propriedade `galleryCardProps`.
+- `QasGalleryCard`: adicionado novo slot `actions`.
+- `QasActionsMenu`: adicionado propriedade `useTooltip` com default `false` para controle de tooltip.
+
+### Modificado
+- `QasGallery`: implementado componente `QasGalleryCard`.
+- `QasGallery`: com a implementação do componente `QasGalleryCard`, a altura do card passou de `150px` para `180px`.
+- `QasGallery`: componente repassa todos os slots do `QasGalleryCard` passando como escopo `image` e `index`.
+- `QasGalleryCard`: mudanças de espaçamento e no `defaultActionsMenuProps`.
+- `QasActionsMenu`: agora o tooltip precisa de controle por prop `useTooltip`.
+
+### Removido
+- `QasGallery`: removido slot `destroy` para dar lugar aos slots do `QasGalleryCard`, olhar documentação.
 
 ## [3.8.0] - 14-04-2023
 ## BREAKING CHANGES

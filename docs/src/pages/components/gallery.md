@@ -4,14 +4,13 @@ title: QasGallery
 
 Componente para galeria, mostrando images dentro de um "QasDialog" ao clicar nelas.
 
-:::warning
+:::info
 Este componente depende do `Vuex` ou `Pinia`, utiliza módulos com actions. Por exemplo, para você conseguir remover uma imagem da galeria, você precisa ter:
 - action: update.
 
 Hoje Utilizamos 2 bibliotecas com propósitos diferentes que são compatíveis com o asteroid para lidar com o Vuex, elas são:
 [VuexStoreModule](https://github.com/bildvitta/vuex-store-module), [VuexOffline](https://github.com/bildvitta/vuex-offline) e [StoreModule](https://github.com/bildvitta/store-module).
 :::
-
 
 <doc-api file="gallery/QasGallery" name="QasGallery" />
 
