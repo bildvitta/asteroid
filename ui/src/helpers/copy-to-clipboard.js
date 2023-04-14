@@ -6,9 +6,9 @@ export default async (text, onLoading = () => {}) => {
 
   try {
     await copyToClipboard(text)
-    NotifySuccess('Copiado!', text)
+    NotifySuccess('Item copiado com sucesso.')
   } catch {
-    NotifyError('Não foi possível copiar.', text)
+    NotifyError('Não foi possível copiar o item.')
   } finally {
     setTimeout(() => { onLoading(false) }, 500)
   }

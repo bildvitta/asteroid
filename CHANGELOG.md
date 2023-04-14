@@ -28,6 +28,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - `QasGallery`: componente repassa todos os slots do `QasGalleryCard` passando como escopo `image` e `index`.
 - `QasGalleryCard`: mudanças de espaçamento e no `defaultActionsMenuProps`.
 - `QasActionsMenu`: agora o tooltip precisa de controle por prop `useTooltip`.
+- `copyToClipboard`: modificado helper, agora no notify aparece sempre uma mensagem genérica "Item copiado com sucesso." ao invés do texto copiado anteriormente (isto impacta diretamente no componente `QasCopy`).
 
 ### Removido
 - `QasGallery`: removido slot `destroy` para dar lugar aos slots do `QasGalleryCard`, olhar documentação.
