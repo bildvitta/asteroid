@@ -60,7 +60,7 @@ booleanLabel(true)
 Função para formatar datas, implementa o `format` do `date-fns`.
 
 ```js
-import { booleanLabel } from 'asteroid'
+import { date } from 'asteroid'
 
 // Definição
 date(
@@ -79,7 +79,7 @@ date(date)
 Função para formatar datas e hora, implementa o `format` do `date-fns`.
 
 ```js
-import { booleanLabel } from 'asteroid'
+import { dateTime } from 'asteroid'
 
 // Definição
 date(

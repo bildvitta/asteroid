@@ -1,9 +1,9 @@
 <template>
-  <div class="flex inline items-center qas-btn-dropdown">
+  <div class="qas-btn-dropdown" :class="classes">
     <div v-if="hasLeftButton" :class="leftSideClasses">
       <slot name="left-button">
         <qas-btn variant="tertiary" v-bind="defaultButtonProps" @click="$emit('click', $event)">
-          <q-menu v-if="hasMenuOnLeftSide" anchor="bottom right" auto-close self="top right">
+          <q-menu v-if="hasMenuOnLeftSide" v-model="isMenuOpened" anchor="bottom right" auto-close self="top right" @update:model-value="onUpdateMenuValue">
             <div :class="menuContentClasses">
               <slot />
             </div>
@@ -49,12 +49,28 @@ export default {
 
     useMenuPadding: {
       type: Boolean
+    },
+
+    menu: {
+      type: Boolean
     }
   },
 
-  emits: ['click'],
+  emits: ['click', 'update:menu'],
+
+  data () {
+    return {
+      isMenuOpened: false
+    }
+  },
 
   computed: {
+    classes () {
+      return {
+        'flex inline items-center': this.useSplit
+      }
+    },
+
     leftSideClasses () {
       return {
         'q-mr-sm': this.useSplit
@@ -106,6 +122,22 @@ export default {
 
     hasSeparator () {
       return !this.isSmall && this.useSplit
+    }
+  },
+
+  watch: {
+    menu: {
+      handler (value) {
+        this.isMenuOpened = value
+      },
+
+      immediate: true
+    }
+  },
+
+  methods: {
+    onUpdateMenuValue (value) {
+      this.$emit('update:menu', value)
     }
   }
 }

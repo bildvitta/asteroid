@@ -1,0 +1,20 @@
+// Webkit browsers
+::-webkit-scrollbar {
+  background: var(--qas-scrollbar-background);
+  border-radius: var(--qas-scrollbar-border-radius);
+  height: var(--qas-scrollbar-size);
+  width: var(--qas-scrollbar-size);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--qas-scrollbar-thumb-background);
+  background-clip: padding-box;
+  border: 1px solid rgba(0%, 0%, 0%, 0%);
+  border-radius: var(--qas-scrollbar-border-radius);
+  transition: background-color var(--qas-generic-transition);
+  width: var(--qas-scrollbar-size);
+
+  &:hover {
+    background: var(--qas-scrollbar-thumb-background-hover);
+  }
+}

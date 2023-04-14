@@ -23,6 +23,7 @@ import QasFilters from './components/filters/QasFilters.vue'
 import QasFormGenerator from './components/form-generator/QasFormGenerator.vue'
 import QasFormView from './components/form-view/QasFormView.vue'
 import QasGallery from './components/gallery/QasGallery.vue'
+import QasGalleryCard from './components/gallery-card/QasGalleryCard.vue'
 import QasGridGenerator from './components/grid-generator/QasGridGenerator.vue'
 import QasHeaderActions from './components/header-actions/QasHeaderActions.vue'
 import QasInput from './components/input/QasInput.vue'
@@ -102,6 +103,7 @@ function install (app) {
   app.component('QasFormGenerator', QasFormGenerator)
   app.component('QasFormView', QasFormView)
   app.component('QasGallery', QasGallery)
+  app.component('QasGalleryCard', QasGalleryCard)
   app.component('QasGridGenerator', QasGridGenerator)
   app.component('QasHeaderActions', QasHeaderActions)
   app.component('QasInput', QasInput)
@@ -182,6 +184,7 @@ export {
   QasFormGenerator,
   QasFormView,
   QasGallery,
+  QasGalleryCard,
   QasGridGenerator,
   QasHeaderActions,
   QasInput,

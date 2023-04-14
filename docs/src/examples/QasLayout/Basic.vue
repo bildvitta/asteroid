@@ -14,28 +14,44 @@ const user = {
 
 const modules = [
   {
+    label: 'Asteroid',
+    value: 'https://asteroid.nave.dev',
+    icon: 'sym_r_home'
+  },
+  {
+    label: 'Asteroid - Beta',
+    value: 'https://asteroid-homolog.vercel.app',
+    icon: 'sym_r_home'
+  },
+  {
     label: 'Assistência Digital',
-    value: 'https://develop.assistencia-digital.nave.dev'
+    value: 'https://develop.assistencia-digital.nave.dev',
+    icon: 'sym_r_home'
   },
   {
     label: 'Bolso Virtual BPO',
-    value: 'https://app.bolsovirtual.com.br'
+    value: 'https://app.bolsovirtual.com.br',
+    icon: 'sym_r_home'
   },
   {
     label: 'Crm',
-    value: 'https://develop.crm.nave.dev'
+    value: 'https://develop.crm.nave.dev',
+    icon: 'sym_r_home'
   },
   {
     label: 'HUB',
-    value: 'https://develop.hub.nave.dev'
+    value: 'https://develop.hub.nave.dev',
+    icon: 'sym_r_home'
   },
   {
     label: 'Produto',
-    value: 'https://develop.produto.nave.dev'
+    value: 'https://develop.produto.nave.dev',
+    icon: 'sym_r_home'
   },
   {
     label: 'Vendas',
-    value: 'https://develop.vendas.nave.dev'
+    value: 'https://develop.vendas.nave.dev',
+    icon: 'sym_r_home'
   }
 ]
 
@@ -50,6 +66,8 @@ export default {
     appMenuProps () {
       return {
         modules,
+        brand: 'https://placehold.co/208x40',
+        miniBrand: 'https://placehold.co/40x40',
         items: this.menuList
       }
     },
@@ -57,8 +75,7 @@ export default {
     appBarProps () {
       return {
         user,
-        title: 'QasLayout',
-        isAuth: true
+        title: 'QasLayout'
       }
     },
 
@@ -75,10 +92,10 @@ export default {
           to: { path: '/why-asteroid' }
         },
         {
-          label: 'Começando',
+          label: 'Começando com um titulo longo',
           children: [
             {
-              label: 'Dialog',
+              label: 'Configurações',
               to: { path: '/plugins/dialog' },
               icon: 'sym_r_settings_input_hdmi'
             },

@@ -5,12 +5,19 @@ meta:
 
 props:
   brand:
-    desc: Path do logotipo.
+    desc: Logotipo quando menu esta aberto.
     type: String
+    required: true
+
   items:
     desc: Itens do menu.
     type: Array
     default: []
+
+  mini-brand:
+    desc: Logotipo quando em modo "mini".
+    type: String
+    required: true
 
   model-value:
     desc: Model do componente, controla quando o menu lateral é aberto e fechado.
@@ -29,7 +36,6 @@ props:
 
   title:
     desc: Título que vai ficar no label do select de módulos.
-    required: true
     type: String
 
   user:

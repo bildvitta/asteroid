@@ -133,6 +133,10 @@ module.exports = [
         path: '/components/gallery'
       },
       {
+        name: 'GalleryCard',
+        path: '/components/gallery-card'
+      },
+      {
         name: 'GridGenerator',
         path: '/components/grid-generator'
       },
@@ -321,6 +325,10 @@ module.exports = [
       {
         name: 'destroyNestedChildrenByKey',
         path: '/helpers/destroy-nested-children-by-key'
+      },
+      {
+        name: 'downloadFile',
+        path: '/helpers/download-file'
       },
       {
         name: 'filterObject',

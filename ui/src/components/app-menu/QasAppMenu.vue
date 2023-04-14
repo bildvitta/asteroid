@@ -1,87 +1,122 @@
 <template>
-  <q-drawer v-model="model" :behavior="behavior" :width="drawerWidth">
-    <div class="column full-height justify-between qas-app-menu">
-      <div class="full-width">
-        <!-- Brand -->
-        <div v-if="!$qas.screen.untilLarge" class="q-pt-xl q-px-lg">
-          <router-link class="block q-toolbar__title relative-position text-no-decoration" :to="rootRoute">
-            <img v-if="brand" :alt="title" class="qas-app-menu__brand" :src="brand">
-            <span v-else class="ellipsis text-bold text-primary">{{ title }}</span>
-            <q-badge v-if="hasDevelopmentBadge" color="red" floating :label="developmentBadgeLabel" />
-          </router-link>
-        </div>
+  <div class="qas-app-menu">
+    <q-drawer v-model="model" :behavior="behavior" class="shadow-2" :mini="isMiniMode" :mini-width="88" show-if-above :width="drawerWidth" @mouseenter="onMouseEvent" @mouseleave="onMouseEvent">
+      <div class="column full-height justify-between no-wrap">
+        <div class="full-width">
+          <!-- Brand -->
+          <div v-if="!isUntilLarge" class="q-mb-xl q-pt-xl qas-app-menu__label" :class="spacedItemClass">
+            <router-link class="flex relative-position text-no-decoration" :class="brandPositionClass" :to="rootRoute">
+              <q-img v-if="normalizedBrand" :alt="title" class="qas-app-menu__brand qas-app-menu__label" :class="brandClass" height="40px" no-spinner :src="normalizedBrand" />
 
-        <!-- Module -->
-        <div v-if="displayModuleSection" class="items-center justify-between no-wrap q-mt-xl q-px-lg qas-app-menu__module row">
-          <div class="full-width">
-            <qas-select v-model="module" borderless class="q-py-xs qas-app-menu__select shadow-2" dense input-class="q-px-md" :options="defaultModules" :outlined="false" :use-search="false" @update:model-value="redirectHandler(currentModelOption)" />
+              <span v-else-if="!isMiniMode" class="ellipsis text-bold text-primary text-subtitle2">{{ title }}</span>
+
+              <q-badge v-if="hasDevelopmentBadge" color="red" floating :label="developmentBadgeLabel" />
+            </router-link>
           </div>
 
-          <div v-if="$qas.screen.isSmall" class="q-ml-xl">
+          <div v-if="normalizedBrand" class="qas-app-menu__label" :class="spacedItemClass">
+            <q-separator />
+          </div>
+
+          <div v-if="isUntilLarge" class="q-pr-xl q-pt-md text-right">
             <qas-btn color="grey-9" icon="sym_r_close" variant="tertiary" @click="closeDrawer" />
           </div>
-        </div>
 
-        <!-- Menu -->
-        <q-list v-if="items.length" class="q-mt-xl qas-app-menu__menu text-grey-9">
-          <template v-for="(menuItem, index) in items">
-            <div v-if="hasChildren(menuItem)" :key="`children-${index}`" class="qas-app-menu__content">
-              <q-item class="items-center q-pb-none q-pt-md qas-app-menu__item qas-app-menu__item--label text-weight-bold">
-                {{ menuItem.label }}
-              </q-item>
+          <!-- Module -->
+          <div v-if="displayModuleSection" class="items-center justify-between no-wrap q-mt-xl qas-app-menu__label qas-app-menu__module row" :class="spacedItemClass">
+            <div class="full-width text-center">
+              <pv-app-menu-dropdown v-bind="appMenuDropdownProps" />
+            </div>
+          </div>
 
-              <q-item v-for="(menuChildItem, childIndex) in menuItem.children" :key="childIndex" :active="isActive(menuChildItem)" class="qas-app-menu__children qas-app-menu__item qas-app-menu__item--children" :to="getRouterRedirect(menuChildItem)">
-                <q-item-section v-if="menuChildItem.icon" avatar>
-                  <q-icon :name="menuChildItem.icon" />
+          <!-- List -->
+          <q-list v-if="items.length" class="q-mt-xl qas-app-menu__menu text-grey-9">
+            <template v-for="(menuItem, index) in items">
+              <div v-if="hasChildren(menuItem)" :key="`children-${index}`" class="qas-app-menu__content" :class="contentClass">
+                <q-item class="ellipsis items-center q-py-none qas-app-menu__item qas-app-menu__item--label-mini text-weight-bold">
+                  <div class="ellipsis qas-app-menu__label text-grey-9 text-subtitle2" :class="spacedItemClass">
+                    {{ menuItem.label }}
+                  </div>
+                </q-item>
+
+                <q-item v-for="(menuChildItem, childIndex) in menuItem.children" :key="childIndex" :active="isActive(menuChildItem)" class="qas-app-menu__children qas-app-menu__item qas-app-menu__item--children" :to="getRouterRedirect(menuChildItem)">
+                  <q-item-section v-if="menuChildItem.icon" avatar>
+                    <q-icon :name="menuChildItem.icon" />
+                  </q-item-section>
+
+                  <q-item-section>
+                    <q-item-label>
+                      <div class="ellipsis text-subtitle2">
+                        {{ menuChildItem.label }}
+                      </div>
+                    </q-item-label>
+                  </q-item-section>
+                </q-item>
+
+                <div v-if="hasSeparator(index)" class="qas-app-menu__label" :class="spacedItemClass">
+                  <q-separator spaced />
+                </div>
+              </div>
+
+              <q-item v-else :key="index" :active="isActive(menuItem)" active-class="q-router-link--active" class="qas-app-menu__item" :to="getRouterRedirect(menuItem)">
+                <q-item-section v-if="menuItem.icon" avatar>
+                  <q-icon :name="menuItem.icon" />
                 </q-item-section>
 
                 <q-item-section>
-                  <q-item-label>{{ menuChildItem.label }}</q-item-label>
+                  <q-item-label>
+                    <div class="ellipsis text-subtitle2">
+                      {{ menuItem.label }}
+                    </div>
+                  </q-item-label>
                 </q-item-section>
               </q-item>
-            </div>
+            </template>
+          </q-list>
+        </div>
 
-            <q-item v-else :key="index" :active="isActive(menuItem)" active-class="q-router-link--active" class="qas-app-menu__item" :to="getRouterRedirect(menuItem)">
-              <q-item-section v-if="menuItem.icon" avatar>
-                <q-icon :name="menuItem.icon" />
-              </q-item-section>
-
-              <q-item-section>
-                <q-item-label>{{ menuItem.label }}</q-item-label>
-              </q-item-section>
-            </q-item>
-          </template>
-        </q-list>
+        <!-- User -->
+        <div v-if="showUser" class="full-width q-pb-lg q-px-lg">
+          <qas-app-user v-bind="appUserProps" />
+        </div>
       </div>
-
-      <!-- User -->
-      <div v-if="showUser" class="full-width q-pb-lg q-px-lg">
-        <qas-app-user avatar-size="48px" :user="user" @sign-out="signOut" />
-      </div>
-    </div>
-  </q-drawer>
+    </q-drawer>
+  </div>
 </template>
 
 <script>
+import PvAppMenuDropdown from './private/PvAppMenuDropdown.vue'
+
 import QasAppUser from '../app-user/QasAppUser.vue'
+
 import { isLocalDevelopment } from '../../helpers'
 
 export default {
   name: 'QasAppMenu',
 
   components: {
+    PvAppMenuDropdown,
     QasAppUser
   },
+
+  inheritAttrs: false,
 
   props: {
     brand: {
       default: '',
+      required: true,
       type: String
     },
 
     items: {
       default: () => [],
       type: Array
+    },
+
+    miniBrand: {
+      type: String,
+      required: true,
+      default: ''
     },
 
     modelValue: {
@@ -101,7 +136,6 @@ export default {
 
     title: {
       default: '',
-      required: true,
       type: String
     },
 
@@ -116,13 +150,58 @@ export default {
 
   data () {
     return {
+      hasOpenedMenu: false,
+      isMini: this.$qas.screen.isLarge,
       module: ''
     }
   },
 
   computed: {
+    appMenuDropdownProps () {
+      return {
+        buttonDropdownProps: {
+          'onUpdate:menu': this.setHasOpenedMenu
+        },
+
+        currentModule: this.currentModelOption,
+        modules: this.defaultModules
+      }
+    },
+
+    appUserProps () {
+      return {
+        avatarSize: '40px',
+        user: this.user,
+
+        menuProps: {
+          'onUpdate:modelValue': this.setHasOpenedMenu
+        },
+
+        // eventos
+        onSignOut: this.signOut
+      }
+    },
+
     behavior () {
-      return this.$qas.screen.untilLarge ? 'mobile' : 'desktop'
+      return this.isUntilLarge ? 'mobile' : 'desktop'
+    },
+
+    brandClass () {
+      return {
+        'qas-app-menu__brand--spaced': !this.isMiniMode
+      }
+    },
+
+    brandPositionClass () {
+      return {
+        'justify-center': this.isMiniMode
+      }
+    },
+
+    contentClass () {
+      return {
+        'qas-app-menu__content--spaced': !this.isMiniMode
+      }
     },
 
     currentModelOption () {
@@ -144,6 +223,7 @@ export default {
       // Add a default module called "Localhost" when app is running in local development.
       defaultModules.unshift({
         label: `Localhost ${this.title ? `(${this.title})` : ''}`,
+        icon: 'sym_r_home',
         value
       })
 
@@ -172,11 +252,23 @@ export default {
     },
 
     drawerWidth () {
-      return this.$qas.screen.isSmall ? 320 : 280
+      return this.isUntilLarge ? 320 : 280
     },
 
     hasDevelopmentBadge () {
       return !!this.developmentBadgeLabel
+    },
+
+    isLargeScreen () {
+      return this.$qas.screen.isLarge
+    },
+
+    isMiniMode () {
+      return this.isLargeScreen && this.isMini && !this.hasOpenedMenu
+    },
+
+    isUntilLarge () {
+      return this.$qas.screen.untilLarge
     },
 
     model: {
@@ -189,12 +281,22 @@ export default {
       }
     },
 
+    normalizedBrand () {
+      return this.isMiniMode ? this.miniBrand : this.brand
+    },
+
     rootRoute () {
       return this.$router.hasRoute('Root') ? { name: 'Root' } : { path: '/' }
     },
 
     showUser () {
-      return this.hasUser && !this.$qas.screen.untilLarge
+      return this.hasUser && !this.isUntilLarge
+    },
+
+    spacedItemClass () {
+      return {
+        'qas-app-menu__label--spaced': !this.isMiniMode
+      }
     }
   },
 
@@ -209,6 +311,10 @@ export default {
   },
 
   methods: {
+    closeDrawer () {
+      this.$emit('update:modelValue', false)
+    },
+
     getNormalizedPath (path) {
       return path.split('/').filter(Boolean)?.[0]
     },
@@ -228,6 +334,10 @@ export default {
       return !!(children || []).length
     },
 
+    hasSeparator (index) {
+      return !!this.items[index + 1]
+    },
+
     hasUser () {
       return !!Object.keys(this.user).length
     },
@@ -239,24 +349,28 @@ export default {
       return currentPath === itemPath
     },
 
-    redirectHandler ({ value }) {
-      if (!value.includes(window.location.host)) {
-        window.location.href = value
-      }
+    onMouseEvent ({ type }) {
+      if (!this.isLargeScreen) return
+
+      const isMouseLeave = type === 'mouseleave'
+
+      this.isMini = isMouseLeave
+
+      this.model = false
     },
 
     signOut () {
       this.$emit('sign-out')
     },
 
-    closeDrawer () {
-      this.$emit('update:modelValue', false)
+    setHasOpenedMenu (value) {
+      this.hasOpenedMenu = value
     }
   }
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .qas-app-menu {
   // Workaround para alterar o padding interno do QSelect sem influenciar na caixa de opções.
   &__module {
@@ -269,15 +383,6 @@ export default {
     }
   }
 
-  &__brand {
-    max-width: 208px;
-    width: 100%;
-  }
-
-  &__menu .q-item {
-    padding-left: var(--qas-spacing-lg);
-  }
-
   &__select {
     border-radius: var(--qas-generic-border-radius);
   }
@@ -287,25 +392,47 @@ export default {
       margin-top: var(--qas-spacing-sm);
     }
 
-    &--label {
-      margin-bottom: var(--qas-spacing-md);
-      min-height: 0;
-      padding-top: 0;
-    }
-
     &--children.q-item {
-      padding-left: calc(var(--qas-spacing-xl) + var(--qas-spacing-sm));
-
       & + & {
         margin-top: var(--qas-spacing-sm);
       }
     }
   }
 
+  &__label {
+    padding-left: var(--qas-spacing-md) !important;
+    padding-right: var(--qas-spacing-md) !important;
+    transition: padding 120ms; // 120ms é o mesmo tempo utilizado na abertura do QDrawer.
+    will-change: auto;
+
+    &--spaced {
+      padding-left: var(--qas-spacing-xl) !important;
+      padding-right: var(--qas-spacing-xl) !important;
+    }
+  }
+
+  &__brand {
+    width: 40px;
+
+    &--spaced {
+      width: 208px;
+    }
+  }
+
+  &__item--label-mini {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
+  .q-item:not(&__item--label-mini) {
+    padding-left: var(--qas-spacing-xl) !important;
+    padding-right: var(--qas-spacing-xl) !important;
+  }
+
   &__content + &__content,
-  &__item + &__content,
-  &__content + &__item {
-    margin-top: var(--qas-spacing-lg);
+  &__content + &__item,
+  &__item + &__content {
+    margin-top: var(--qas-spacing-sm);
   }
 
   // User
@@ -315,7 +442,6 @@ export default {
 
   // Media: untilLarge
   @media (min-width: $breakpoint-sm-max) {
-    // Menu
     &__menu {
       max-height: calc(100vh - 310px);
       overflow-x: auto;

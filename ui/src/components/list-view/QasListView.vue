@@ -1,5 +1,5 @@
 <template>
-  <component :is="mx_componentTag" :class="mx_componentClass">
+  <div :class="mx_componentClass">
     <q-pull-to-refresh :disable="!useRefresh" @refresh="refresh">
       <header v-if="hasHeaderSlot">
         <slot name="header" />
@@ -37,7 +37,7 @@
     </q-pull-to-refresh>
 
     <slot name="footer" />
-  </component>
+  </div>
 </template>
 
 <script>

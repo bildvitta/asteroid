@@ -1,11 +1,11 @@
 <template>
-  <section class="q-mb-xl qas-filters">
+  <section class="qas-filters" :class="filtersClass">
     <div v-if="showFilters" class="q-col-gutter-x-md row">
       <div v-if="showSearch" class="col-12 col-md-6">
         <slot :filter="filter" name="search">
           <q-form v-if="useSearch" @submit.prevent="filter()">
             <div class="qas-filters__input-content">
-              <qas-input v-model="search" class="bg-white q-px-sm rounded-borders-sm shadow-2" data-cy="filters-search-input" :debounce="debounce" dense hide-bottom-space input-class="ellipsis text-grey-8" :outlined="false" :placeholder="searchPlaceholder" type="search">
+              <qas-input v-model="search" class="bg-white q-px-sm rounded-borders-sm shadow-2" data-cy="filters-search-input" :debounce="debounce" dense hide-bottom-space input-class="ellipsis text-grey-8" :outlined="false" :placeholder="searchPlaceholder" type="search" @update:model-value="onSearch">
                 <template #prepend>
                   <q-icon v-if="useSearchOnType" color="grey-8" name="sym_r_search" />
                   <qas-btn v-else color="grey-9" icon="sym_r_search" variant="tertiary" @click="filter()" />
@@ -14,37 +14,21 @@
                 <template #append>
                   <qas-btn v-if="hasSearch" class="q-mr-sm" color="grey-9" icon="sym_r_clear" variant="tertiary" @click="clearSearch" />
 
-                  <qas-btn v-if="useFilterButton" :color="filterButtonColor" data-cy="filters-btn" icon="sym_r_tune" variant="tertiary">
-                    <q-menu anchor="center right" class="full-width" max-width="270px" self="top right">
-                      <div v-if="isFetching" class="q-pa-xl text-center">
-                        <q-spinner color="grey" size="2em" />
-                      </div>
-
-                      <div v-else-if="hasFetchError" class="q-pa-xl text-center">
-                        <q-icon color="negative" name="sym_r_warning" size="2em" />
-                      </div>
-
-                      <q-form v-else class="q-gutter-y-md q-pa-md" @submit.prevent="filter()">
-                        <div v-for="(field, index) in fields" :key="index">
-                          <qas-field v-model="filters[field.name]" :data-cy="`filters-${field.name}-field`" :field="field" v-bind="fieldsProps[field.name]" />
-                        </div>
-
-                        <div class="q-col-gutter-x-md q-mt-xl row">
-                          <div class="col-6">
-                            <qas-btn class="full-width" data-cy="filters-clear-btn" label="Limpar" variant="secondary" @click="clearFilters" />
-                          </div>
-
-                          <div class="col-6">
-                            <qas-btn class="full-width" data-cy="filters-submit-btn" label="Filtrar" type="submit" variant="primary" />
-                          </div>
-                        </div>
-                      </q-form>
-                    </q-menu>
-                  </qas-btn>
+                  <template v-if="showFilterButton">
+                    <slot :context="mx_context" :filter="filter" :filters="activeFilters" name="filter-button" :remove-filter="removeFilter">
+                      <pv-filters-button v-if="useFilterButton" ref="filtersButton" v-model="filters" v-bind="filterButtonProps" />
+                    </slot>
+                  </template>
                 </template>
               </qas-input>
             </div>
           </q-form>
+        </slot>
+      </div>
+
+      <div v-else-if="showFilterButton" class="col-12 col-md-6">
+        <slot :context="mx_context" :filter="filter" :filters="activeFilters" name="filter-button" :remove-filter="removeFilter">
+          <pv-filters-button v-if="useFilterButton" ref="filtersButton" v-model="filters" v-bind="filterButtonProps" />
         </slot>
       </div>
 
@@ -63,8 +47,8 @@
 </template>
 
 <script>
-import QasField from '../field/QasField.vue'
 import QasBtn from '../btn/QasBtn.vue'
+import PvFiltersButton from './private/PvFiltersButton.vue'
 
 import { camelize, camelizeKeys } from 'humps'
 import { humanize, parseValue } from '../../helpers/filters.js'
@@ -76,7 +60,7 @@ export default {
 
   components: {
     QasBtn,
-    QasField
+    PvFiltersButton
   },
 
   mixins: [contextMixin],
@@ -124,13 +108,24 @@ export default {
 
     useForceRefetch: {
       type: Boolean
+    },
+
+    useSpacing: {
+      default: true,
+      type: Boolean
+    },
+
+    useUpdateRoute: {
+      default: true,
+      type: Boolean
     }
   },
 
-  emits: ['fetch-success', 'fetch-error'],
+  emits: ['fetch-success', 'fetch-error', 'update:currentFilters'],
 
   data () {
     return {
+      currentFilters: {},
       filters: {},
       hasFetchError: false,
       isFetching: false,
@@ -147,7 +142,7 @@ export default {
       const activeFilters = {}
 
       const fields = Object.keys(this.fields)
-      const filters = camelizeKeys(this.mx_context.filters)
+      const filters = camelizeKeys(this.useUpdateRoute ? this.mx_context.filters : this.currentFilters)
 
       for (const key in filters) {
         const hasField = fields.includes(key)
@@ -171,13 +166,27 @@ export default {
       return getState.call(this, { entity: this.entity, key: 'filters' })
     },
 
+    filtersClass () {
+      return {
+        'q-mb-xl': this.useSpacing
+      }
+    },
+
     filterButtonColor () {
       return this.hasActiveFilters ? 'primary' : 'grey-9'
     },
 
-    // TODO: remover
-    filterButtonLabel () {
-      return this.$q.screen.gt.xs ? 'Filtrar' : undefined
+    filterButtonProps () {
+      return {
+        color: this.filterButtonColor,
+        error: this.hasFetchError,
+        fields: this.fields,
+        fieldsProps: this.fieldsProps,
+        loading: this.isFetching,
+
+        onClear: this.clearFilters,
+        onFilter: () => this.filter()
+      }
     },
 
     hasActiveFilters () {
@@ -213,13 +222,7 @@ export default {
     $route (to, from) {
       if (to.name === from.name) {
         this.fetchFilters()
-        this.updateValues()
-      }
-    },
-
-    search () {
-      if (this.debounce) {
-        this.filter()
+        this.useUpdateRoute && this.updateValues()
       }
     }
   },
@@ -233,11 +236,15 @@ export default {
   methods: {
     clearFilters () {
       const { filters, ...query } = this.mx_context
+      const activeFilters = {
+        ...filters,
+        ...this.filters
+      }
 
       if (this.hasFields) {
         const fields = Object.keys(this.fields)
 
-        for (const key in filters) {
+        for (const key in activeFilters) {
           const camelizedKey = camelize(key)
           const hasField = fields.includes(camelizedKey)
 
@@ -250,7 +257,9 @@ export default {
         this.filters = {}
       }
 
-      this.$router.push({ query })
+      this.hideFiltersMenu()
+      this.updateCurrentFilters()
+      this.updateRouteQuery(query)
     },
 
     clearSearch () {
@@ -308,11 +317,17 @@ export default {
         search: this.search || undefined
       }
 
-      this.$router.push({ query })
+      this.hideFiltersMenu()
+      this.updateCurrentFilters()
+      this.updateRouteQuery(query)
     },
 
     getChipValue (value) {
       return Array.isArray(value) ? value.join(', ') : value
+    },
+
+    hideFiltersMenu () {
+      this.$refs.filtersButton?.hideMenu()
     },
 
     removeFilter ({ name }) {
@@ -321,7 +336,21 @@ export default {
       delete query[name]
       delete this.filters[name]
 
-      this.$router.push({ query })
+      this.updateCurrentFilters()
+      this.updateRouteQuery(query)
+    },
+
+    updateCurrentFilters () {
+      this.currentFilters = {
+        ...this.filters,
+        ...(this.search && { search: this.search })
+      }
+
+      this.$emit('update:currentFilters', this.currentFilters)
+    },
+
+    updateRouteQuery (query) {
+      this.useUpdateRoute && this.$router.push({ query })
     },
 
     updateValues () {
@@ -341,16 +370,27 @@ export default {
     },
 
     watchOnceFields () {
+      if (!this.useUpdateRoute) return
+
       const watchOnce = this.$watch('fields', values => {
         if (Object.keys(values).length) {
           this.updateValues()
+          this.updateCurrentFilters()
           watchOnce()
         }
       })
     },
 
     handleSearchModelOnCreate () {
-      !this.useFilterButton && this.setSearch()
+      if (this.useUpdateRoute && !this.useFilterButton) {
+        this.setSearch()
+      }
+    },
+
+    onSearch () {
+      if (this.debounce) {
+        this.filter()
+      }
     },
 
     setSearch () {

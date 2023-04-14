@@ -1,19 +1,6 @@
 <template>
   <div>
-    <qas-uploader ref="uploader" v-model="model" :label="uploadLabel" v-bind="$attrs" :readonly="readonly" :use-resize="false">
-      <template #header="{ scope }">
-        <div class="cursor-pointer flex flex-center full-width justify-between no-border no-wrap q-gutter-xs text-white transparent" :class="headerClass" @click="openDialog">
-          <div class="col column items-start justify-center">
-            <div v-if="uploadLabel" class="q-uploader__title">{{ uploadLabel }}</div>
-          </div>
-
-          <qas-btn v-if="!readonly" color="white" icon="sym_r_add" :use-hover-on-white-color="false" variant="tertiary" @click="openDialog" />
-
-          <qas-btn ref="forceUpload" class="hidden" @click="upload(scope)" />
-          <qas-btn ref="buttonCleanFiles" class="hidden" @click="scope.removeUploadedFiles" />
-        </div>
-      </template>
-    </qas-uploader>
+    <qas-uploader ref="uploader" v-model="model" :add-button-fn="openDialog" :use-resize="false" v-bind="defaultUploaderProps" />
 
     <qas-dialog v-model="isOpenedDialog" v-bind="defaultDialogProps">
       <template #header>
@@ -30,7 +17,6 @@
 </template>
 
 <script>
-import QasBtn from '../btn/QasBtn.vue'
 import QasDialog from '../dialog/QasDialog.vue'
 import QasUploader from '../uploader/QasUploader.vue'
 import QasSignaturePad from '../signature-pad/QasSignaturePad.vue'
@@ -41,11 +27,12 @@ export default {
   name: 'QasSignatureUploader',
 
   components: {
-    QasBtn,
     QasDialog,
     QasUploader,
     QasSignaturePad
   },
+
+  inheritAttrs: false,
 
   props: {
     dialogProps: {
@@ -53,7 +40,7 @@ export default {
       default: () => ({})
     },
 
-    uploadLabel: {
+    modelValue: {
       default: '',
       type: String
     },
@@ -63,18 +50,14 @@ export default {
       type: String
     },
 
-    modelValue: {
-      default: '',
-      type: String
-    },
-
     type: {
       default: 'image/png',
       type: String
     },
 
-    readonly: {
-      type: Boolean
+    uploaderProps: {
+      type: Object,
+      default: () => ({})
     }
   },
 
@@ -82,25 +65,18 @@ export default {
 
   data () {
     return {
-      isOpenedDialog: false,
+      base64: '',
       isEmpty: true,
-      base64: ''
+      isOpenedDialog: false
     }
   },
 
   computed: {
-    model: {
-      get () {
-        return this.modelValue
-      },
-
-      set (value) {
-        this.$emit('update:modelValue', value)
+    defaultUploaderProps () {
+      return {
+        addButtonLabel: 'Adicionar assinatura',
+        ...this.uploaderProps
       }
-    },
-
-    headerClass () {
-      return `q-pa-${this.readonly ? 'md' : 'sm'}`
     },
 
     defaultDialogProps () {
@@ -114,13 +90,14 @@ export default {
       }
     },
 
-    signaturePadWidth () {
-      const sizes = {
-        [this.$qas.screen.isSmall]: { width: '100%' },
-        [this.$qas.screen.isMedium]: { width: '570px' },
-        [this.$qas.screen.isLarge]: { width: '350px' }
+    model: {
+      get () {
+        return this.modelValue
+      },
+
+      set (value) {
+        this.$emit('update:modelValue', value)
       }
-      return sizes.true
     },
 
     signaturePadHeight () {
@@ -131,11 +108,29 @@ export default {
       }
 
       return sizes.true
+    },
+
+    signaturePadWidth () {
+      const sizes = {
+        [this.$qas.screen.isSmall]: { width: '100%' },
+        [this.$qas.screen.isMedium]: { width: '570px' },
+        [this.$qas.screen.isLarge]: { width: '350px' }
+      }
+
+      return sizes.true
+    },
+
+    uploaderScope () {
+      return this.$refs?.uploader?.uploader
     }
   },
 
   methods: {
     NotifyError,
+
+    closeSignature () {
+      this.isOpenedDialog = false
+    },
 
     openDialog () {
       if (this.readonly) return
@@ -144,31 +139,24 @@ export default {
     },
 
     getSignatureData () {
-      this.$refs.buttonCleanFiles.$el.click()
+      this.uploaderScope.removeUploadedFiles()
+
       this.base64 = this.$refs.signaturePadModal.getSignatureData()
-      this.$refs.forceUpload.$el.click()
+
+      this.upload(this.uploaderScope)
       this.closeSignature()
     },
 
-    closeSignature () {
-      this.isOpenedDialog = false
-    },
-
-    removeSignature () {
-      this.$refs.buttonCleanFiles.$el.click()
-      this.$emit('update:modelValue')
-    },
-
-    upload (scope) {
+    upload () {
       try {
         const fileName = this.signatureLabel.split(' ').join('-')
         const extension = this.type.split('/').pop() || 'png'
         const blob = base64ToBlob(this.base64)
         const file = new File([blob], `${fileName}.${extension}`, { type: this.type })
 
-        scope.addFiles([file])
+        this.uploaderScope.addFiles([file])
       } catch {
-        NotifyError('Ops! Erro ao enviar sua assinatura.')
+        NotifyError('Falha ao carregar assinatura.')
       }
     }
   }

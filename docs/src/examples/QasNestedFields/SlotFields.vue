@@ -3,11 +3,20 @@
     <div class="full-width">
       <div class="q-mt-lg text-center">
         <div>
-          <qas-nested-fields v-model="model" class="full-width" :field="nested" :fields-props="fieldsProps" :form-columns="formColumns" :row-object="rowObject">
-            <template #fields="{ fields }">
+          <qas-nested-fields v-model="model" class="full-width" :field="nested" row-label="Minha linha" :row-object="rowObject" use-destroy-always :use-duplicate="false" use-index-label :use-remove-on-destroy="false" :use-starts-empty="false">
+            <template #fields="{ index, updateValue }">
               <div>
-                Estou no lugar do QasFormView: <pre>{{ fields }}</pre>
+                Estou no lugar do QasFormView
               </div>
+
+              <qas-form-generator
+                v-model="model[index]"
+                class="full-width"
+                :columns="formColumns"
+                :fields="nested.children"
+                :fields-props="fieldsProps"
+                @update:model-value="updateValue($event, index)"
+              />
             </template>
           </qas-nested-fields>
         </div>
@@ -39,6 +48,7 @@ const nested = {
     cities: {
       name: 'cities',
       type: 'select',
+      label: 'Cidades',
       options: [
         {
           label: 'Cidade 1',
@@ -63,14 +73,28 @@ export default {
       nested: nested,
       model: [
         {
-          name: 'John',
-          email: 'john@teste.com',
-          cities: 1
+          name: 'Teste 1',
+          email: '',
+          cities: [],
+          uuid: 'meu-uuid1'
         },
         {
-          name: 'John 2',
-          email: 'john@teste.com',
-          cities: 2
+          name: 'Teste 2',
+          email: '',
+          cities: [],
+          uuid: 'meu-uuid2'
+        },
+        {
+          name: 'Teste 3',
+          email: '',
+          cities: [],
+          uuid: 'meu-uuid3'
+        },
+        {
+          name: 'Teste 4',
+          email: '',
+          cities: [],
+          uuid: 'meu-uuid4'
         }
       ]
     }

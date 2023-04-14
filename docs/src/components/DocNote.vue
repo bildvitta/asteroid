@@ -51,6 +51,16 @@ export default {
     }
   }
 
+  &--info {
+    background-color: color.scale($primary, $lightness: 95%);
+    border-color: color.scale($primary, $lightness: 70%);
+
+    .doc-code,
+    .doc-token {
+      background: color.scale($primary, $lightness: 90%);
+    }
+  }
+
   &--tip {
     background-color: color.scale($positive, $lightness: 90%);
     border-color: color.scale($positive, $lightness: 50%);

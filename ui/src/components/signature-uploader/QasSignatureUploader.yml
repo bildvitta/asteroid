@@ -13,11 +13,6 @@ props:
     desc: Model do componente, retorna url da imagem upada, usando para v-model.
     type: String
 
-  readonly:
-    desc: Controla se o componente vai ser apenas para visualização ou pode também fazer upload.
-    default: image/png
-    type: String
-
   signature-label:
     desc: Rótulo do componente de assinatura.
     default: {}
@@ -27,10 +22,11 @@ props:
     desc: Tipo da imagem gerada.
     default: image/png
     type: String
-
-  upload-label:
-    desc: Rótulo do uploader.
-    type: String
+  
+  uploader-props:
+    desc: Propriedades repassadas para o QasUploader.
+    default: {}
+    type: Object
 
 events:
   '@update:model-value -> function(value)':
