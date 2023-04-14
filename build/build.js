@@ -64,11 +64,11 @@ async function main () {
   )
 
   const currentBranch = execaSync('git', ['branch', '--show-current']).stdout
-  const acceptableBranch = ['main', 'main-homolog']
-  const isBeta = currentBranch === 'main-homolog'
+  const acceptableBranch = ['main', 'develop']
+  const isBeta = currentBranch === 'develop'
 
   if (!acceptableBranch.includes(currentBranch)) {
-    ora('Só é possível publicar nas branchs "main" e "main-homolog"').fail()
+    ora('Só é possível publicar nas branchs "main" e "develop"').fail()
     return
   }
 
@@ -141,7 +141,7 @@ async function main () {
   /*
   * Algumas informações importantes para utilização deste script:
   *
-  * - A publicação só é possível dentro das branchs "main" e "main-homolog", sendo "main" -> stable e "main-homolog" -> beta
+  * - A publicação só é possível dentro das branchs "main" e "develop", sendo "main" -> stable e "develop" -> beta
   * - Você precisa ter acesso de publicação dentro do NPM
   * - Você precisa ter acesso "write" nas branchs para conseguir dar push nas alterações
   * - Para ser gerado a release no github automaticamente você precisa ter setado em seu pc a variável "GITHUB_TOKEN"
