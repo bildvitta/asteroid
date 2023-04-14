@@ -45,6 +45,9 @@ props:
     type: String
     examples: [visibility]
 
+  use-tooltip:
+    desc: Controla se vai ter o tooltip caso passe nas regras de exibição de tooltip
+
   use-label:
     desc: Habilita ou não o label no botão.
     default: true

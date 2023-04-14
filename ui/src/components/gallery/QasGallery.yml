@@ -21,6 +21,11 @@ props:
     desc: Entidade da store, por exemplo se tiver que trabalhar com modulo de usuários, teremos o model "users" na store, que vai ser nossa "entity" (utilizado para remover imagem).
     type: String
 
+  gallery-card-props:
+    desc: Propriedades repassadas para o QasGalleryCard
+    default: {}
+    type: Object
+
   initial-size:
     desc: Quantidade de imagens iniciais.
     default: 6
@@ -61,17 +66,39 @@ props:
     type: Boolean
 
 slots:
+  actions:
+    desc: Slot para ações do cabeçalho.
+    scope:
+      index:
+        desc: index atual.
+        default: 0
+        type: Number
+
+      image:
+        desc: imagem atual.
+        default: {}
+        type: Object
+
+  bottom:
+    desc: Slot para acessar o conteúdo abaixo da imagem.
+    scope:
+      index:
+        desc: index atual.
+        default: 0
+        type: Number
+
+      image:
+        desc: imagem atual.
+        default: {}
+        type: Object
+
+
   default:
     desc: Slot para todo conteúdo onde fica o botão "mostrar mais".
 
-  destroy:
-    desc: Slot para o ícone de remover.
+  image:
+    desc: Slot para acessar o conteúdo da imagem (onde fica o QasGridGenerator).
     scope:
-      destroy:
-        desc: Função para remover e atualizar o model.
-        default: undefined
-        type: Function
-
       index:
         desc: index atual.
         default: 0
@@ -83,7 +110,20 @@ slots:
         type: Object
 
   header:
-    desc: Slot para o header.
+    desc: Slot para acessar o conteúdo do cabeçalho.
+    scope:
+      index:
+        desc: index atual.
+        default: 0
+        type: Number
+
+      image:
+        desc: imagem atual.
+        default: {}
+        type: Object
+
+  name:
+    desc: Slot para acessar o conteúdo do nome, acima da imagem.
     scope:
       index:
         desc: index atual.
