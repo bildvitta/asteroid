@@ -12,6 +12,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 
 ## Não publicado
 ## BREAKING CHANGES
+- `QasGallery`: removido slot `destroy` para dar lugar aos slots do `QasGalleryCard`, olhar documentação.
 - `QasGallery`: breaking changes nos slots, verificar documentação.
 - `QasActionsMenu` agora precisa passar a prop `useTooltip` para controle de tooltip.
 
@@ -24,7 +25,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 ### Modificado
 - `QasGallery`: implementado componente `QasGalleryCard`.
 - `QasGallery`: com a implementação do componente `QasGalleryCard`, a altura do card passou de `150px` para `180px`.
-- `QasGallery`: mudanças de slots.
+- `QasGallery`: componente repassa todos os slots do `QasGalleryCard` passando como escopo `image` e `index`.
 - `QasGalleryCard`: mudanças de espaçamento e no `defaultActionsMenuProps`.
 - `QasActionsMenu`: agora o tooltip precisa de controle por prop `useTooltip`.
 

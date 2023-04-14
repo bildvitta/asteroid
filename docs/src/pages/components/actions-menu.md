@@ -44,13 +44,11 @@ Caso a prop `list` contenha **apenas 1** item dentro, ele renderiza um `QasBtn`,
 
 :::info
 ###### Tooltip
-
 - O `tooltip` ira aparecer o caso ele respeite as regras:
   - Propriedade `useLabel` for `false`.
   - Propriedade `useTooltip` for `true`.
   - O componente QasActionsMenu tenha apenas 1 opção (Modo QasBtn e não QasBtnDropdown).
 - A label do tooltip vai ser a label do item dentro do `list`.
-
 :::
 
 <doc-example file="QasActionsMenu/Basic" title="Básico" />
