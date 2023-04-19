@@ -11,8 +11,8 @@
         </router-link>
       </q-toolbar-title>
 
-      <slot v-if="hasUser" name="user" :user="user">
-        <qas-app-user :menu-props="appUserMenuProps" :user="user" @sign-out="signOut" />
+      <slot v-if="hasUser" name="user">
+        <qas-app-user v-bind="defaultAppUserProps" />
       </slot>
     </q-toolbar>
   </q-header>
@@ -31,6 +31,12 @@ export default {
   },
 
   props: {
+    appUserProps: {
+      type: Object,
+      required: true,
+      default: () => ({})
+    },
+
     brand: {
       default: '',
       type: String
@@ -44,12 +50,6 @@ export default {
     title: {
       required: true,
       type: String
-    },
-
-    user: {
-      default: () => ({}),
-      require: true,
-      type: Object
     }
   },
 
@@ -67,6 +67,19 @@ export default {
         anchor: 'bottom end',
         offset: [0, 5],
         self: 'top end'
+      }
+    },
+
+    defaultAppUserProps () {
+      return {
+        menuProps: {
+          anchor: 'bottom end',
+          offset: [0, 5],
+          self: 'top end'
+        },
+
+        onSignOut: this.signOut,
+        ...this.appUserProps
       }
     },
 
@@ -92,7 +105,7 @@ export default {
     },
 
     hasUser () {
-      return !!Object.keys(this.user).length
+      return !!Object.keys(this.defaultAppUserProps.user || {}).length
     },
 
     rootRoute () {
