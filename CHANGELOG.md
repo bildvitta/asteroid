@@ -20,6 +20,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - `QasAppUser`: adicionado propriedade `companiesOptions` para enviar opções de possíveis empresas para troca de vínculo.
 - `QasAppUser`: adicionado recurso para troca de vínculo de empresa.
 - [`QasAppMenu`, `QasAppBar`]: adicionado propriedade `appUserProps` para repassar todas props do `QasAppUser`.
+- `QasListView`: adicionado nova propriedade `usePagination` para controlar paginação com default `true`.
 
 ### Removido
 - [`QasAppMenu`, `QasAppBar`]: removido propriedade `user` em favor da nova propriedade `appUserProps`.

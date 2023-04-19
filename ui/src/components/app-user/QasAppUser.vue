@@ -138,8 +138,6 @@ export default {
       this.loading = true
 
       try {
-        // TODO remover
-        await new Promise(resolve => setTimeout(resolve, 2000))
         await this.$axios.patch('users/me', { companies: value })
 
         this.$qas.success('Vínculo alterado com sucesso.')

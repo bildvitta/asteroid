@@ -76,6 +76,11 @@ props:
     default: true
     type: Boolean
 
+  use-pagination:
+    desc: Controla se vai ter ou não paginação.
+    default: true
+    type: Boolean
+
   use-refresh:
     desc: Controla o [pull-to-refresh](https://quasar.dev/vue-components/pull-to-refresh#basic).
     default: true
