@@ -74,7 +74,21 @@ export default {
 
     appBarProps () {
       return {
-        user,
+        appUserProps: {
+          companiesOptions: [
+            {
+              label: 'Empresa 1',
+              value: '1'
+            },
+            {
+              label: 'Empresa 2',
+              value: '2'
+            }
+          ],
+
+          currentCompany: '1',
+          user
+        },
         title: 'QasLayout'
       }
     },

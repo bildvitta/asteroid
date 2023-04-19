@@ -17,6 +17,8 @@
         <div class="ellipsis qas-app-user__menu-name">{{ userName }}</div>
         <div class="ellipsis">{{ user.email }}</div>
 
+        <qas-select v-if="hasCompaniesSelect" v-model="companiesModel" class="q-my-md" label="Vínculo" :loading="loading" :options="companiesOptions" @update:model-value="setCompanies" />
+
         <q-list class="q-mt-md">
           <q-item v-close-popup :active="false" class="qas-app-user__menu-item" clickable :to="user.to">
             <q-item-section avatar>
@@ -67,6 +69,16 @@ export default {
       type: String
     },
 
+    companiesOptions: {
+      type: Array,
+      default: () => []
+    },
+
+    currentCompany: {
+      type: String,
+      default: ''
+    },
+
     menuProps: {
       default: () => ({}),
       type: Object
@@ -86,6 +98,13 @@ export default {
 
   emits: ['sign-out'],
 
+  data () {
+    return {
+      companiesModel: '',
+      loading: false
+    }
+  },
+
   computed: {
     hasNotifications () {
       return !!Object.keys(this.notifications).length
@@ -93,12 +112,43 @@ export default {
 
     userName () {
       return this.user.name || this.user.givenName
+    },
+
+    hasCompaniesSelect () {
+      return this.companiesOptions.length > 1
+    }
+  },
+
+  watch: {
+    currentCompany: {
+      handler (value) {
+        this.companiesModel = value
+      },
+
+      immediate: true
     }
   },
 
   methods: {
     signOut () {
       this.$emit('sign-out')
+    },
+
+    async setCompanies (value) {
+      this.loading = true
+
+      try {
+        await this.$axios.patch('users/me', { companies: value })
+
+        this.$qas.success('Vínculo alterado com sucesso.')
+
+        setTimeout(() => location.reload(), 1500)
+      } catch {
+        this.companiesModel = this.currentCompany
+        this.$qas.error('Falha ao alterar vínculo.')
+      } finally {
+        this.loading = false
+      }
     }
   }
 }

@@ -1,6 +1,6 @@
 <template>
   <q-layout>
-    <qas-app-bar title="QasAppBar" :user="user" />
+    <qas-app-bar :app-user-props="appUserProps" title="QasAppBar" />
   </q-layout>
 </template>
 
@@ -13,8 +13,22 @@ const user = {
 
 export default {
   computed: {
-    user () {
-      return user
+    appUserProps () {
+      return {
+        companiesOptions: [
+          {
+            label: 'Empresa 1',
+            value: '1'
+          },
+          {
+            label: 'Empresa 2',
+            value: '2'
+          }
+        ],
+
+        currentCompany: '1',
+        user
+      }
     }
   }
 }

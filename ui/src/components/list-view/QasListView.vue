@@ -74,12 +74,17 @@ export default {
       type: Boolean
     },
 
-    useRefresh: {
+    useFilter: {
       default: true,
       type: Boolean
     },
 
-    useFilter: {
+    usePagination: {
+      default: true,
+      type: Boolean
+    },
+
+    useRefresh: {
       default: true,
       type: Boolean
     },
@@ -113,7 +118,7 @@ export default {
     },
 
     hasPages () {
-      return this.totalPages > 1
+      return this.totalPages > 1 && this.usePagination
     },
 
     hasResults () {

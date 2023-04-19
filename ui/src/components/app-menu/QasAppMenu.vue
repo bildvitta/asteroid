@@ -76,8 +76,8 @@
         </div>
 
         <!-- User -->
-        <div v-if="showUser" class="full-width q-pb-lg q-px-lg">
-          <qas-app-user v-bind="appUserProps" />
+        <div v-if="showAppUser" class="full-width q-pb-lg q-px-lg">
+          <qas-app-user v-bind="defaultAppUserProps" />
         </div>
       </div>
     </q-drawer>
@@ -102,6 +102,12 @@ export default {
   inheritAttrs: false,
 
   props: {
+    appUserProps: {
+      type: Object,
+      required: true,
+      default: () => ({})
+    },
+
     brand: {
       default: '',
       required: true,
@@ -137,12 +143,6 @@ export default {
     title: {
       default: '',
       type: String
-    },
-
-    user: {
-      default: () => ({}),
-      require: true,
-      type: Object
     }
   },
 
@@ -165,20 +165,6 @@ export default {
 
         currentModule: this.currentModelOption,
         modules: this.defaultModules
-      }
-    },
-
-    appUserProps () {
-      return {
-        avatarSize: '40px',
-        user: this.user,
-
-        menuProps: {
-          'onUpdate:modelValue': this.setHasOpenedMenu
-        },
-
-        // eventos
-        onSignOut: this.signOut
       }
     },
 
@@ -211,6 +197,20 @@ export default {
     currentModule () {
       const hostname = window.location.hostname
       return this.defaultModules.find(module => module?.value.includes(hostname))?.value
+    },
+
+    defaultAppUserProps () {
+      return {
+        avatarSize: '40px',
+
+        menuProps: {
+          'onUpdate:modelValue': this.setHasOpenedMenu
+        },
+
+        // eventos
+        onSignOut: this.signOut,
+        ...this.appUserProps
+      }
     },
 
     defaultModules () {
@@ -289,7 +289,7 @@ export default {
       return this.$router.hasRoute('Root') ? { name: 'Root' } : { path: '/' }
     },
 
-    showUser () {
+    showAppUser () {
       return this.hasUser && !this.isUntilLarge
     },
 
@@ -339,7 +339,7 @@ export default {
     },
 
     hasUser () {
-      return !!Object.keys(this.user).length
+      return !!Object.keys(this.defaultAppUserProps.user || {}).length
     },
 
     isActive ({ to }) {
