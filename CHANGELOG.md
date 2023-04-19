@@ -10,7 +10,7 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 ### Sobre os "BREAKING CHANGES"
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
-## Não publicado
+## [3.9.0-beta.1] - 19-04-2023
 ## BREAKING CHANGES
 - [`QasAppMenu`, `QasAppBar`]: removido propriedade `user` em favor da nova propriedade `appUserProps`.
 - `QasAppBar`: removido escopo `user` do slot `user`, uma vez que já temos essa informação fora do componente.
@@ -1371,3 +1371,4 @@ Adicionado suporte para Pinia/Vuex Seguindo os padrões da biblioteca `@bildvitt
 [3.8.0-beta.7]: https://github.com/bildvitta/asteroid/compare/v3.8.0-beta.6...v3.8.0-beta.7?expand=1
 [3.8.0]: https://github.com/bildvitta/asteroid/compare/v3.7.0...v3.8.0?expand=1
 [3.9.0-beta.0]: https://github.com/bildvitta/asteroid/compare/v3.8.0...v3.9.0-beta.0?expand=1
+[3.9.0-beta.1]: https://github.com/bildvitta/asteroid/compare/v3.9.0-beta.0...v3.9.0-beta.1?expand=1
