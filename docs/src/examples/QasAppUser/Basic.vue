@@ -16,12 +16,6 @@ export default {
     user () {
       return user
     }
-  },
-
-  methods: {
-    onBoundFn (value) {
-      console.log(value, '>>>> value do user')
-    }
   }
 }
 </script>

@@ -11,6 +11,10 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
 ## Não publicado
+## BREAKING CHANGES
+- [`QasAppMenu`, `QasAppBar`]: removido propriedade `user` em favor da nova propriedade `appUserProps`.
+- `QasAppBar`: removido escopo `user` do slot `user`, uma vez que já temos essa informação fora do componente.
+
 ### Adicionado
 - `QasAppUser`: adicionado propriedade `currentCompany` para setar empresa atual vinculada.
 - `QasAppUser`: adicionado propriedade `companiesOptions` para enviar opções de possíveis empresas para troca de vínculo.
@@ -21,8 +25,6 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - [`QasAppMenu`, `QasAppBar`]: removido propriedade `user` em favor da nova propriedade `appUserProps`.
 - `QasAppBar`: removido escopo `user` do slot `user`, uma vez que já temos essa informação fora do componente.
 
-### Modificado
-- `QasAppMenu`: 
 ## [3.9.0-beta.0] - 14-04-2023
 ## BREAKING CHANGES
 - `QasGallery`: removido slot `destroy` para dar lugar aos slots do `QasGalleryCard`, olhar documentação.
