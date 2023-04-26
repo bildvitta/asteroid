@@ -94,8 +94,6 @@ export default {
 
   mounted () {
     this.setNewNavigatorDisplay()
-
-    console.log(this.getCurrentDate(), 'getCurrentDate')
     this.setInativeEvents(this.getCurrentDate())
   },
 
@@ -138,7 +136,10 @@ export default {
         const newDate = date.buildDate({ year, month: normalizedMonth, day: inactiveDay })
         const normalizedDate = asteroidDate(newDate, 'yyyy/MM/dd')
 
-        if (this.normalizedEvents.includes(normalizedDate)) {
+        const hasCallbackInactiveEvent = typeof this.events === 'function' && this.events(normalizedDate)
+        const harrAyInactiveEvent = Array.isArray(this.events) && this.normalizedEvents.includes(normalizedDate)
+
+        if (harrAyInactiveEvent || hasCallbackInactiveEvent) {
           const divElement = document.createElement('div')
           divElement.classList.add('q-date__event', 'qas-date__event-inactive')
 
