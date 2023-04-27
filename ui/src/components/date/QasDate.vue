@@ -109,11 +109,7 @@ export default {
     },
 
     classes () {
-      return {
-        'qas-date': true,
-        'shadow-2': true,
-        'qas-date--inative': this.useInactiveDates
-      }
+      return ['qas-date', 'shadow-2', { 'qas-date--inative': this.useInactiveDates }]
     },
 
     hasEvents () {
@@ -194,9 +190,9 @@ export default {
     getUnmaskedList (list) {
       const invalidTypes = ['function', 'undefined']
 
-      if (invalidTypes.includes(typeof list)) return list
-
-      return list.map(dateItem => asteroidDate(dateItem, 'yyyy/MM/dd'))
+      return invalidTypes.includes(typeof list)
+        ? list
+        : list.map(dateItem => asteroidDate(dateItem, 'yyyy/MM/dd'))
     },
 
     async setInactiveEvents ({ year, month }) {

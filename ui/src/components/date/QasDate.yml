@@ -10,10 +10,10 @@ props:
     type: [Array, Function]
 
   mask:
-    desc: Máscara do model, limitado a duas opções, "YYYY-MM-DD" e "YYYY/MM/DD" (repassada para o quasar).
+    desc: Máscara do model (repassada para o quasar).
     default: YYYY-MM-DD
     type: String
-    examples: [YYYY-MM-DD, YYYY/MM/DD]
+    examples: [YYYY-MM-DD, YYYY/MM/DD, DD/MM/YYYY, DD/MM/YYYY HH:mm]
 
   model-value:
     desc: Model do componente, usado para v-model (repassada para o quasar).
