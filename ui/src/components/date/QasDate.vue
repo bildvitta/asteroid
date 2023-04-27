@@ -269,7 +269,7 @@ export default {
         * transição terminar para que possamos fazer a logica, com isto precisamos sempre ficar atentos a atualizações
         * do componente QDate para assegurar que esta logica não quebre.
       */
-      setTimeout(() => { this.setInactiveEvents(date) }, 350)
+      if (this.useInactiveDates) setTimeout(() => { this.setInactiveEvents(date) }, 350)
 
       this.$nextTick(() => this.setNewNavigatorDisplay())
     },
