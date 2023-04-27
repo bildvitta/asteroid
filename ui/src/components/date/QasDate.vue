@@ -17,6 +17,8 @@ const MaskOptions = {
 export default {
   name: 'QasDate',
 
+  inheritAttrs: false,
+
   props: {
     events: {
       type: [Array, Function],
@@ -30,8 +32,12 @@ export default {
     },
 
     modelValue: {
-      type: String,
+      type: [String, Array],
       default: ''
+    },
+
+    multiple: {
+      type: Boolean
     },
 
     options: {
@@ -43,34 +49,77 @@ export default {
       type: Boolean
     },
 
-    useUnmaskEvent: {
+    useInactiveDates: {
       default: true,
       type: Boolean
     },
 
-    useUnmaskOption: {
+    useUnmaskEvents: {
       default: true,
       type: Boolean
+    },
+
+    useUnmaskOptions: {
+      default: true,
+      type: Boolean
+    },
+
+    width: {
+      type: String,
+      default: ''
     }
   },
 
   emits: ['update:modelValue'],
 
+  data () {
+    return {
+      currentDate: {}
+    }
+  },
+
   computed: {
     attributes () {
-      return {
-        ref: 'date',
-        color: 'white',
-        class: 'qas-date shadow-2',
-        textColor: 'primary',
-        minimal: true,
-        mask: this.mask,
-        events: this.normalizedEvents,
-        options: this.normalizedOptions,
+      const {
+        color,
+        minimal,
+        textColor,
+        ...attributes
+      } = this.$attrs
 
-        ...this.$attrs,
-        onNavigation: this.onNavigation
+      return {
+        class: this.classes,
+        color: 'white',
+        events: this.normalizedEvents,
+        mask: this.mask,
+        minimal: true,
+        multiple: this.multiple,
+        options: this.normalizedOptions,
+        ref: 'date',
+        style: this.styles,
+        textColor: 'primary',
+
+        // events
+        onNavigation: this.onNavigation,
+
+        ...attributes
       }
+    },
+
+    classes () {
+      return {
+        'qas-date': true,
+        'shadow-2': true,
+        'qas-date--inative': this.useInactiveDates
+      }
+    },
+
+    hasEvents () {
+      return !!Object.keys(this.events)?.length
+    },
+
+    hasModelValue () {
+      return this.multiple ? !!this.modelValue.length : !!this.modelValue
     },
 
     model: {
@@ -79,29 +128,65 @@ export default {
       },
 
       set (value) {
-        this.$emit('update:modelValue', this.useIso ? this.getISOValue(value) : value)
+        this.$emit('update:modelValue', this.useIso ? this.getISODate(value) : value)
+      }
+    },
+
+    styles () {
+      return {
+        ...(this.width && { width: this.width })
       }
     },
 
     normalizedEvents () {
-      return this.useUnmaskEvent ? this.getUnmaskedList(this.events) : this.events
+      return this.useUnmaskEvents ? this.getUnmaskedList(this.events) : this.events
     },
 
     normalizedOptions () {
-      return this.useUnmaskOption ? this.getUnmaskedList(this.options) : this.options
+      return this.useUnmaskOptions ? this.getUnmaskedList(this.options) : this.options
+    }
+  },
+
+  watch: {
+    events () {
+      if (this.useInactiveDates) this.setInactiveEvents(this.currentDate)
     }
   },
 
   mounted () {
     this.setNewNavigatorDisplay()
-    this.setInativeEvents(this.getCurrentDate())
+
+    if (this.useInactiveDates) {
+      this.currentDate = this.getCurrentDate()
+      this.setInactiveEvents(this.currentDate)
+    }
   },
 
   methods: {
-    getISOValue (value) {
-      if (!value) return ''
+    getCurrentDate () {
+      if (this.hasModelValue) {
+        const model = this.multiple ? this.modelValue[0] : this.modelValue
 
-      return date.extractDate(value, this.mask).toISOString()
+        const [year, month, day] = model.split(MaskOptions.Dash ? '-' : '/')
+
+        return this.toNumberValues({ year, month, day })
+      }
+
+      const todayDate = new Date()
+
+      return {
+        year: todayDate.getFullYear(),
+        month: todayDate.getMonth() + 1,
+        day: todayDate.getDate()
+      }
+    },
+
+    getISODate (value) {
+      if (!value || (this.multiple && !value.length)) return value
+
+      return this.multiple
+        ? value.map(dateItem => date.extractDate(dateItem, this.mask).toISOString())
+        : date.extractDate(value, this.mask).toISOString()
     },
 
     getUnmaskedList (list) {
@@ -109,13 +194,13 @@ export default {
 
       if (invalidTypes.includes(typeof list)) return list
 
-      return list.map(dateItem => {
-        return asteroidDate(dateItem, 'yyyy/MM/dd')
-      })
+      return list.map(dateItem => asteroidDate(dateItem, 'yyyy/MM/dd'))
     },
 
-    async setInativeEvents ({ year, month }) {
-      month = month - 1
+    async setInactiveEvents ({ year, month }) {
+      if (!this.hasEvents) return
+
+      const previousMonth = month - 1
 
       const dateElement = this.$refs.date.$el
       const inativeDays = dateElement.querySelectorAll('.q-date__calendar-item--fill')
@@ -128,18 +213,23 @@ export default {
         const previousDay = inativeList?.[index - 1]?.innerText || 0
         const inactiveDay = child.innerText
 
+        /*
+          * Se o dia anterior for 31 e o dia atual for 1, por exemplo, significa que estamos nos referindo ao próximo mês.
+          * Como o mês começa no mês anterior, por exemplo, em 31 de janeiro, o mês atual seria fevereiro.
+          * Portanto, o mês correspondente ao dia 1 seria março e, para alcançá-lo, seria necessário incrementar 2 meses.
+        */
         if (inactiveDay < previousDay) {
           monthIncrement += 2
         }
 
-        const normalizedMonth = Number(month) + monthIncrement
+        const normalizedMonth = previousMonth + monthIncrement
         const newDate = date.buildDate({ year, month: normalizedMonth, day: inactiveDay })
         const normalizedDate = asteroidDate(newDate, 'yyyy/MM/dd')
 
         const hasCallbackInactiveEvent = typeof this.events === 'function' && this.events(normalizedDate)
-        const harrAyInactiveEvent = Array.isArray(this.events) && this.normalizedEvents.includes(normalizedDate)
+        const hasArrayInactiveEvent = Array.isArray(this.events) && this.normalizedEvents.includes(normalizedDate)
 
-        if (harrAyInactiveEvent || hasCallbackInactiveEvent) {
+        if (hasArrayInactiveEvent || hasCallbackInactiveEvent) {
           const divElement = document.createElement('div')
           divElement.classList.add('q-date__event', 'qas-date__event-inactive')
 
@@ -174,22 +264,24 @@ export default {
     },
 
     async onNavigation (date) {
-      setTimeout(() => { this.setInativeEvents(date) }, 350)
+      /*
+        * O componente QDate usa um vue transition de 3ms, como estamos manipulando o DOM, precisamos esperar essa
+        * transição terminar para que possamos fazer a logica, com isto precisamos sempre ficar atentos a atualizações
+        * do componente QDate para assegurar que esta logica não quebre.
+      */
+      setTimeout(() => { this.setInactiveEvents(date) }, 350)
 
       this.$nextTick(() => this.setNewNavigatorDisplay())
     },
 
-    getCurrentDate () {
-      if (this.modelValue) {
-        const [year, month, day] = this.modelValue.split(MaskOptions.Dash ? '-' : '/')
+    toNumberValues (objet) {
+      const normalizedObjet = {}
 
-        return { year, month, day }
+      for (const key in objet) {
+        normalizedObjet[key] = Number(objet[key])
       }
 
-      const date = asteroidDate(new Date(), 'yyyy/MM/dd')
-      const [year, month, day] = date.split('/')
-
-      return { year, month, day }
+      return normalizedObjet
     }
   }
 }
@@ -199,15 +291,27 @@ export default {
 .qas-date {
   // $
 
-  .q-date__navigation > div:last-child,
-  .q-date__navigation > div:first-child {
-    min-width: auto;
-    width: auto;
-  }
+  min-width: auto;
+  width: auto;
 
   &__event-inactive {
     background-color: $grey-4;
     bottom: 4px !important;
+  }
+
+  &--inative {
+    .q-date {
+      &__calendar-item--fill {
+        color: $grey-4;
+        visibility: unset;
+      }
+    }
+  }
+
+  .q-date__navigation > div:last-child,
+  .q-date__navigation > div:first-child {
+    min-width: auto;
+    width: auto;
   }
 
   .q-date {
@@ -234,11 +338,6 @@ export default {
       }
     }
 
-    &__calendar-item--fill {
-      color: $grey-4;
-      visibility: unset;
-    }
-
     &__calendar-item--out {
       color: $grey-4;
       opacity: 1;
@@ -253,7 +352,7 @@ export default {
     &__months,
     &__years {
       .q-btn {
-        @include set-button(tertiary, true, false, grey-9);
+        @include set-button(tertiary, false, false);
       }
     }
 

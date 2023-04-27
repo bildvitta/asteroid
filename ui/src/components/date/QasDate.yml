@@ -1,48 +1,53 @@
 type: component
 
-mixins:
-  - '@bildvitta/quasar-ui-asteroid/dist/api/QasInput.json'
-
 meta:
-  desc: Componente de input data e hora, implementa o "QasInput".
+  desc: Componente wrapper do QDate, com estilização própria e funcionalidades extras.
 
 props:
-  date-mask:
-    desc: Máscara do componente de input de data.
-    default: DD/MM/YYYY
-    type: String
+  events:
+    desc: Marcador de eventos do calendário (repassada para o quasar).
+    default: []
+    type: [Array, Function]
 
-  date-props:
-    desc: Propriedades do QDate (https://quasar.dev/vue-components/date#introduction).
-    default: {}
-    type: Object
+  mask:
+    desc: Máscara do model, limitado a duas opções, "YYYY-MM-DD" e "YYYY/MM/DD" (repassada para o quasar).
+    default: YYYY-MM-DD
+    type: String
+    examples: [YYYY-MM-DD, YYYY/MM/DD]
 
   model-value:
-    desc: Model do componente, usado para v-model.
+    desc: Model do componente, usado para v-model (repassada para o quasar).
     default: ''
-    type: String
+    type: [String, Array]
     model: true
 
-  time-mask:
-    desc: Máscara do componente de input de hora.
-    default: HH:mm
-    type: String
-
-  time-props:
-    desc: Propriedades do QTime (https://quasar.dev/vue-components/time#introduction).
-    default: {}
-    type: Object
-
-  use-time-only:
-    desc: Habilita o componente para usar somente hora.
+  multiple:
+    desc: Habilita a seleção múltipla de datas, tornando o model em array (repassada para o quasar).
+    default: false
     type: Boolean
 
-  use-date-only:
-    desc: Habilita o componente para usar somente data.
-    type: Boolean
+  options:
+    desc: Controla quais datas estão habilitadas (repassada para o quasar).
+    default: []
+    type: [Array, Function]
 
   use-iso:
-    desc: Utilizado para se usar junto da prop "date-only" ou "time-only", caso "useIso" for "true", o model sempre vai ser retornado no padrão ISO 8601, independente ser apenas um campo somente de data ou hora.
+    desc: Transforma o valor das datas do model no padrão ISO 8601.
+    type: Boolean
+
+  use-inactive-dates:
+    desc: Habilita o componente a renderizar datas passadas e futuras com seus respectivos eventos.
+    default: true
+    type: Boolean
+
+  use-unmask-events:
+    desc: A propriedade 'events' do Quasar só funciona com a formatação '/' mesmo que seja passada uma outra máscara. Esta propriedade transforma a formatação da propriedade 'events' de '-' em '/' (mas só funciona caso 'events' seja um Array).
+    default: true
+    type: Boolean
+
+  use-unmask-options:
+    desc: A propriedade 'options' do Quasar só funciona com a formatação '/' mesmo que seja passada uma outra máscara. Esta propriedade transforma a formatação da propriedade 'options' de '-' em '/' (mas só funciona caso 'options' seja um Array).
+    default: true
     type: Boolean
 
 events:
@@ -51,4 +56,4 @@ events:
     params:
       value:
         desc: Novo valor do v-model
-        type: String
+        type: [String, Array]
