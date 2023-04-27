@@ -162,20 +162,17 @@ export default {
 
   methods: {
     getCurrentDate () {
-      if (this.hasModelValue) {
-        const model = this.multiple ? this.modelValue[0] : this.modelValue
+      const modelDate = this.multiple ? this.modelValue[0] : this.modelValue
+      const extractedDate = this.hasModelValue ? date.extractDate(modelDate, this.mask) : new Date()
 
-        const [year, month, day] = model.split(MaskOptions.Dash ? '-' : '/')
+      return this.getDate(extractedDate)
+    },
 
-        return this.toNumberValues({ year, month, day })
-      }
-
-      const todayDate = new Date()
-
+    getDate (date) {
       return {
-        year: todayDate.getFullYear(),
-        month: todayDate.getMonth() + 1,
-        day: todayDate.getDate()
+        year: date.getFullYear(),
+        month: date.getMonth() + 1,
+        day: date.getDate()
       }
     },
 
