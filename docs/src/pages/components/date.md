@@ -8,12 +8,26 @@ Componente wrapper do [QDate](https://quasar.dev/vue-components/date#introductio
 
 :::info
 - Como este é um componente wrapper que sofre alterações, nem todas funcionalidades podem funcionar, como `range`.
-- Prop "mask" só aceita 2 tipos: `YYYY-MM-DD` (default e recomendado) e `YYYY/MM/DD`.
+- Props `useUnmaskEvents` e `useUnmaskOptions` só funciona com Array de datas no formato `YYYY-MM-DD`.
 - Props são repassadas para o `QDate`, exceto:
   - color
   - minimal
   - textColor
 :::
+
+:::info
+Possíveis valores para prop `mask`:
+
+```js
+const MaskOptions = {
+  Dash: 'YYYY-MM-DD',
+  Slash: 'YYYY/MM/DD',
+  SlashPtBR: 'DD/MM/YYYY',
+  SlashDateAndHourPtBR: 'DD/MM/YYYY HH:mm'
+}
+```
+:::
+
 
 ## Uso
 

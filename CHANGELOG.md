@@ -14,6 +14,10 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 ### Adicionado
 - `QasDate`: adicionado novo componente wrapper do `QDate` com estilos próprios e recursos extras.
 
+### Modificado
+- `QasDateTimeInput`: substituído `QDate` pelo `QasDate`.
+
+
 ## [3.9.0-beta.1] - 19-04-2023
 ## BREAKING CHANGES
 - [`QasAppMenu`, `QasAppBar`]: removido propriedade `user` em favor da nova propriedade `appUserProps`.

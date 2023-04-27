@@ -11,7 +11,9 @@ import { date as asteroidDate } from '../../helpers/filters'
 
 const MaskOptions = {
   Dash: 'YYYY-MM-DD',
-  Slash: 'YYYY/MM/DD'
+  Slash: 'YYYY/MM/DD',
+  SlashPtBR: 'DD/MM/YYYY',
+  SlashDateAndHourPtBR: 'DD/MM/YYYY HH:mm'
 }
 
 export default {
@@ -291,8 +293,8 @@ export default {
 .qas-date {
   // $
 
-  min-width: auto;
-  width: auto;
+  min-width: 100%;
+  width: 100%;
 
   &__event-inactive {
     background-color: $grey-4;
@@ -357,7 +359,7 @@ export default {
     }
 
     &__view {
-      min-height: auto;
+      min-height: 230px;
     }
 
     &__calendar-days-container {
