@@ -72,7 +72,10 @@ export default {
     }
   },
 
-  emits: ['update:modelValue'],
+  emits: [
+    'update:modelValue',
+    'navigation'
+  ],
 
   data () {
     return {
@@ -259,6 +262,8 @@ export default {
     },
 
     async onNavigation (date) {
+      this.$emit('navigation', date)
+
       /*
         * O componente QDate usa um vue transition de 3ms, como estamos manipulando o DOM, precisamos esperar essa
         * transição terminar para que possamos fazer a logica, com isto precisamos sempre ficar atentos a atualizações

@@ -57,3 +57,13 @@ events:
       value:
         desc: Novo valor do v-model
         type: [String, Array]
+
+  '@navigation -> function ({ month, year })':
+    desc: Dispara toda vez que muda de mês/ano.
+    params:
+      month:
+        desc: Mês atual
+        type: Number
+      year:
+        desc: Ano atual
+        type: Number
