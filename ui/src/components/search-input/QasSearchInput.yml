@@ -1,0 +1,38 @@
+type: component
+
+meta:
+  desc: Componente de input para pesquisa / filtros.
+
+props:
+  model-value:
+    desc: Model do componente, utilizado para v-model.
+    default: ''
+    type: String
+    model: true
+
+  use-search-on-type:
+    desc: Controla o debounce e se vai habilitar o botão de pesquisa ao clicar.
+    default: true
+    type: Boolean
+
+slots:
+  after-clear:
+    desc: Slot para acessar área após o botão de limpar pesquisa.
+
+events:
+  '@update:clear -> function(oldValue)':
+    desc: Dispara quando é clicado no botão de limpar pesquisa.
+    params:
+      oldValue:
+        desc: Valor do model antes de ser limpo.
+        type: String
+
+  '@update:filter -> function()':
+    desc: Dispara quando a prop "useSearchOnType" for "false" e é clicado no botão de pesquisar.
+
+  '@update:model-value -> function(value)':
+    desc: Dispara quando o model-value altera, também usado para v-model.
+    params:
+      value:
+        desc: Novo valor do model.
+        type: String

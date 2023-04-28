@@ -1,11 +1,21 @@
 <template>
   <div class="container spaced">
-    <qas-filters :entity="entity" :fields-props="fieldsProps" search-placeholder="Pesquisar por nome do usuário" :use-search-on-type="false" />
+    <qas-search-input v-model="search" />
+
+    <div class="q-mt-lg">
+      Model: {{ search }}
+    </div>
   </div>
 </template>
 
 <script>
 export default {
+  data () {
+    return {
+      search: ''
+    }
+  },
+
   computed: {
     entity () {
       return 'users'
