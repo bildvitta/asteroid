@@ -7,6 +7,16 @@ meta:
   desc: Componente para selecionar dentro de uma lista com pesquisa utilizando o `QasSearchBox`.
 
 props:
+  add-label:
+    desc: Label do botão de adicionar.
+    default: Adicionar
+    type: String
+
+  delete-label:
+    desc: Label do botão de deletar.
+    default: Excluir
+    type: String
+
   delete-only:
     desc: Caso o "modelValue" tenha valor, ele remove tudo na lista que não esteja dentro do modelValue.
     type: Boolean

@@ -1,18 +1,20 @@
 <template>
-  <qas-search-box v-model:results="results" class="q-pa-md" :fuse-options="fuseOptions" :list="sortedList">
+  <qas-search-box v-model:results="results" class="qas-select-list" :fuse-options="fuseOptions" :list="sortedList">
     <template #default>
       <q-list separator>
-        <q-item v-for="result in results" :key="result.value">
+        <q-item v-for="result in results" :key="result.value" class="qas-select-list__item">
           <slot v-bind="slotData" :item="result" name="item">
             <slot name="item-section" :result="result">
-              <q-item-section class="items-start text-bold">
-                <div :class="labelClass" @click="onClickLabel({ item: result, index })">{{ result.label }}</div>
+              <q-item-section>
+                <div :class="labelClass" @click="onClickLabel({ item: result, index })">
+                  {{ result.label }}
+                </div>
               </q-item-section>
             </slot>
 
             <q-item-section avatar>
               <slot :item="result" name="item-action" v-bind="slotData">
-                <qas-btn v-bind="getButtonProps(result)" @click="handleClick(result)" />
+                <qas-btn :use-label-on-small-screen="false" v-bind="getButtonProps(result)" @click="handleClick(result)" />
               </slot>
             </q-item-section>
           </slot>
@@ -37,6 +39,16 @@ export default {
   },
 
   props: {
+    addLabel: {
+      type: String,
+      default: 'Adicionar'
+    },
+
+    deleteLabel: {
+      type: String,
+      default: 'Excluir'
+    },
+
     deleteOnly: {
       type: Boolean
     },
@@ -128,9 +140,10 @@ export default {
       const isSelected = this.values.includes(value)
 
       return {
+        label: isSelected ? this.deleteLabel : this.addLabel,
         variant: 'tertiary',
         color: isSelected ? 'grey-9' : 'primary',
-        icon: isSelected ? 'sym_r_remove' : 'sym_r_add'
+        icon: isSelected ? 'sym_r_delete' : 'sym_r_add'
       }
     },
 
@@ -176,3 +189,12 @@ export default {
   }
 }
 </script>
+
+<style lang="scss">
+.qas-select-list {
+  &__item {
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+</style>

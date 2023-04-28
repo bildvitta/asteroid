@@ -27,6 +27,11 @@ export default {
       type: String
     },
 
+    useDebounce: {
+      default: true,
+      type: Boolean
+    },
+
     useSearchOnType: {
       default: true,
       type: Boolean
@@ -41,7 +46,7 @@ export default {
 
   computed: {
     debounce () {
-      return this.useSearchOnType ? '1200' : ''
+      return this.useDebounce ? '1200' : ''
     },
 
     hasSearch () {

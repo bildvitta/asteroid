@@ -10,6 +10,15 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 ### Sobre os "BREAKING CHANGES"
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
+## Não publicado
+### Adicionado
+- `QasSelectList`: adicionado 2 novas props `addLabel` e `deleteLabel` para controlar seus respectivos labels.
+- `QasSearchInput`: adicionado novo componente que sera usado em buscas / filtros, como no `QasSearchBox` e `QasFilters`.
+
+### Modificado
+- [`QasSelectList`, `QasSearchBox`]: mudanças de estilos para se adequar a novo layout.
+- `QasSearchBox`: removido `QasInput` a adicionado `QasSearchInput`.
+
 ## [3.9.0-beta.1] - 19-04-2023
 ## BREAKING CHANGES
 - [`QasAppMenu`, `QasAppBar`]: removido propriedade `user` em favor da nova propriedade `appUserProps`.

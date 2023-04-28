@@ -1,13 +1,9 @@
 <template>
-  <qas-box>
-    <qas-input v-bind="attributes" ref="search" v-model="mx_search">
-      <template #prepend>
-        <q-icon color="grey-8" name="sym_r_search" />
-      </template>
-    </qas-input>
+  <div>
+    <qas-search-input v-bind="attributes" v-model="mx_search" />
 
-    <div ref="scrollContainer" class="overflow-auto q-mt-xs relative-position" :style="containerStyle">
-      <component :is="component.is" v-bind="component.props">
+    <div ref="scrollContainer" class="overflow-auto q-mt-md relative-position" :style="containerStyle">
+      <component :is="component.is" v-bind="component.props" class="q-mr-sm">
         <slot v-if="mx_hasFilteredOptions" />
       </component>
 
@@ -28,7 +24,7 @@
         <q-spinner color="grey" size="3em" />
       </q-inner-loading>
     </div>
-  </qas-box>
+  </div>
 </template>
 
 <script>
@@ -110,12 +106,9 @@ export default {
   computed: {
     attributes () {
       return {
-        clearable: true,
         disable: this.isDisabled,
-        debounce: this.useLazyLoading ? 1200 : 0,
-        outlined: true,
+        useDebounce: this.useLazyLoading,
         placeholder: this.placeholder,
-        hideBottomSpace: true,
         error: this.mx_hasFetchError,
         loading: this.mx_isFetching
       }

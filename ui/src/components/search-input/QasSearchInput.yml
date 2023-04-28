@@ -10,8 +10,13 @@ props:
     type: String
     model: true
 
+  use-debounce:
+    desc: Controla debounce.
+    default: true
+    type: Boolean
+
   use-search-on-type:
-    desc: Controla o debounce e se vai habilitar o botão de pesquisa ao clicar.
+    desc: Controla se vai habilitar o botão de pesquisa ao clicar.
     default: true
     type: Boolean
 
