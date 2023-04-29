@@ -38,6 +38,8 @@ export default {
 
   data () {
     return {
+      mx_cachedOptions: [],
+      mx_watchOnceOptions: () => {},
       mx_filteredOptions: [],
       mx_hasFetchError: false,
       mx_isFetching: false,
@@ -86,6 +88,10 @@ export default {
     }
   },
 
+  created () {
+    this.mx_setOptionsWatcherOnce()
+  },
+
   watch: {
     lazyLoadingProps: {
       handler (value, oldValue) {
@@ -95,6 +101,15 @@ export default {
 
         this.$emit('update:modelValue', this.mx_isMultiple ? [] : '')
       }
+    },
+
+    list: {
+      handler () {
+        console.log('aff')
+      },
+
+      immediate: true,
+      deep: true
     }
   },
 
@@ -180,7 +195,8 @@ export default {
 
         this.$emit('fetch-options-success', data)
 
-        return this.mx_handleOptions(results)
+        return this.mx_getNonDuplicatedOptions(results)
+        // return this.mx_handleOptions(results)
       } catch (error) {
         this.$qas.logger.group(
           `Mixin: searchFilterMixin - mx_fetchOptions -> exceção da action ${this.entity}/fetchFieldOptions`,
@@ -199,7 +215,37 @@ export default {
     },
 
     async mx_setFetchOptions () {
-      this.mx_filteredOptions = await this.mx_fetchOptions()
+      const options = await this.mx_fetchOptions()
+
+      // this.mx_cachedOptions.forEach((cachedOption, cachedIndex) => {
+      //   const duplicatedOptionIndex = options.findIndex(option => option.value === cachedOption.value)
+      //   console.log('🚀 ~ file: search-filter.js:212 ~ this.mx_cachedOptions.forEach ~ duplicatedOptionIndex:', duplicatedOptionIndex)
+
+      //   if (~duplicatedOptionIndex) {
+      //     this.mx_cachedOptions.splice(cachedIndex, 1)
+      //     options.splice(duplicatedOptionIndex, 1)
+      //   }
+      // })
+
+      this.mx_filteredOptions.push(...options)
+      // this.mx_filteredOptions = await this.mx_fetchOptions()
+    },
+
+    mx_getNonDuplicatedOptions (options = []) {
+      if (!options.length) return []
+
+      const nonDuplicatedOptions = [...options]
+
+      this.mx_cachedOptions.forEach((cachedOption, cachedIndex) => {
+        const duplicatedOptionIndex = nonDuplicatedOptions.findIndex(option => option.value === cachedOption.value)
+
+        if (~duplicatedOptionIndex) {
+          this.mx_cachedOptions.splice(cachedIndex, 1)
+          nonDuplicatedOptions.splice(duplicatedOptionIndex, 1)
+        }
+      })
+
+      return nonDuplicatedOptions
     },
 
     mx_canFetchOptions () {
@@ -232,6 +278,22 @@ export default {
 
     mx_getNormalizedFuseResults (results = []) {
       return results.map(({ item }) => item)
+    },
+
+    mx_setOptionsWatcherOnce () {
+      this.$watch('list', options => {
+        console.log('🚀 ~ file: search-filter.js:286 ~ mx_setOptionsWatcherOnce ~ list:', this.list)
+        if (options?.length) {
+          // this.options.forEach()
+          this.$nextTick(() => {
+            console.log('fui chamado no nextick')
+          })
+          this.mx_filteredOptions = options
+          this.mx_cachedOptions = [...options]
+          // logica
+          // this.mx_watchOnceOptions()
+        }
+      }, { immediate: true })
     }
   }
 }
