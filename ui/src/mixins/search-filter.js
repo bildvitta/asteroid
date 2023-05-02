@@ -20,13 +20,15 @@ export default {
       type: String
     },
 
-    useLazyLoading: {
+    fetching: {
       type: Boolean
     },
 
-    fetching: {
+    useLazyLoading: {
       type: Boolean
     }
+
+    // useFetchOn
   },
 
   emits: [
@@ -89,7 +91,7 @@ export default {
   },
 
   created () {
-    this.mx_setOptionsWatcherOnce()
+    this.mx_setOptionsWatcherOnce('list')
   },
 
   watch: {
@@ -101,15 +103,6 @@ export default {
 
         this.$emit('update:modelValue', this.mx_isMultiple ? [] : '')
       }
-    },
-
-    list: {
-      handler () {
-        console.log('aff')
-      },
-
-      immediate: true,
-      deep: true
     }
   },
 
@@ -280,18 +273,11 @@ export default {
       return results.map(({ item }) => item)
     },
 
-    mx_setOptionsWatcherOnce () {
-      this.$watch('list', options => {
-        console.log('🚀 ~ file: search-filter.js:286 ~ mx_setOptionsWatcherOnce ~ list:', this.list)
+    mx_setOptionsWatcherOnce (model) {
+      this.$watch(model, options => {
         if (options?.length) {
-          // this.options.forEach()
-          this.$nextTick(() => {
-            console.log('fui chamado no nextick')
-          })
-          this.mx_filteredOptions = options
+          this.mx_filteredOptions = [...options]
           this.mx_cachedOptions = [...options]
-          // logica
-          // this.mx_watchOnceOptions()
         }
       }, { immediate: true })
     }

@@ -188,6 +188,7 @@ export default {
         if (this.useLazyLoading) {
           await this.mx_filterOptionsByStore(value)
 
+          console.log('🚀 ~ file: QasSearchBox.vue:193 ~ handler ~ this.$refs.search:', this.$refs.search)
           this.$refs.infiniteScrollRef.resume()
           this.$refs.search.focus()
 
