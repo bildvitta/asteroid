@@ -10,6 +10,38 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 ### Sobre os "BREAKING CHANGES"
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
+## Não publicado
+## BREAKING CHANGES
+- `QasGallery`: removido slot `destroy` para dar lugar aos slots do `QasGalleryCard`, olhar documentação.
+- `QasGallery`: breaking changes nos slots, verificar documentação.
+- `QasActionsMenu` agora precisa passar a prop `useTooltip` para controle de tooltip.
+- [`QasAppMenu`, `QasAppBar`]: removido propriedade `user` em favor da nova propriedade `appUserProps`.
+- `QasAppBar`: removido escopo `user` do slot `user`, uma vez que já temos essa informação fora do componente.
+
+### Adicionado
+- `QasListView`: adicionado propriedade `useAutoRefetchOnDelete` para controlar se o componente vai fazer o fetch novamente quando acontecer algum delete compatível com a listagem.
+- `QasGallery`: adicionado propriedade `galleryCardProps`.
+- `QasGalleryCard`: adicionado novo slot `actions`.
+- `QasActionsMenu`: adicionado propriedade `useTooltip` com default `false` para controle de tooltip.
+- `QasAppUser`: adicionado propriedade `currentCompany` para setar empresa atual vinculada.
+- `QasAppUser`: adicionado propriedade `companiesOptions` para enviar opções de possíveis empresas para troca de vínculo.
+- `QasAppUser`: adicionado recurso para troca de vínculo de empresa.
+- [`QasAppMenu`, `QasAppBar`]: adicionado propriedade `appUserProps` para repassar todas props do `QasAppUser`.
+- `QasListView`: adicionado nova propriedade `usePagination` para controlar paginação com default `true`.
+
+### Modificado
+- `QasGallery`: implementado componente `QasGalleryCard`.
+- `QasGallery`: com a implementação do componente `QasGalleryCard`, a altura do card passou de `150px` para `180px`.
+- `QasGallery`: componente repassa todos os slots do `QasGalleryCard` passando como escopo `image` e `index`.
+- `QasGalleryCard`: mudanças de espaçamento e no `defaultActionsMenuProps`.
+- `QasActionsMenu`: agora o tooltip precisa de controle por prop `useTooltip`.
+- `copyToClipboard`: modificado helper, agora no notify aparece sempre uma mensagem genérica "Item copiado com sucesso." ao invés do texto copiado anteriormente (isto impacta diretamente no componente `QasCopy`).
+
+### Removido
+- `QasGallery`: removido slot `destroy` para dar lugar aos slots do `QasGalleryCard`, olhar documentação.
+- [`QasAppMenu`, `QasAppBar`]: removido propriedade `user` em favor da nova propriedade `appUserProps`.
+- `QasAppBar`: removido escopo `user` do slot `user`, uma vez que já temos essa informação fora do componente.
+
 ## [3.9.0-beta.1] - 19-04-2023
 ## BREAKING CHANGES
 - [`QasAppMenu`, `QasAppBar`]: removido propriedade `user` em favor da nova propriedade `appUserProps`.
