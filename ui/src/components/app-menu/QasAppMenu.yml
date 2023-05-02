@@ -4,6 +4,12 @@ meta:
   desc: Menu lateral.
 
 props:
+  app-user-props:
+    desc: Props repassadas para o QasAppUser.
+    default: {}
+    type: Object
+    required: true
+
   brand:
     desc: Logotipo quando menu esta aberto.
     type: String
@@ -37,20 +43,6 @@ props:
   title:
     desc: Título que vai ficar no label do select de módulos.
     type: String
-
-  user:
-    desc: Informações do usuário.
-    type: Object
-    default: {}
-    examples: [
-      "
-      {
-        photo: 'minha-img',
-        name: 'Eduardo Lima',
-        email: 'eduardolima@gmail.com'
-      }
-      "
-    ]
 
 slots:
   user:

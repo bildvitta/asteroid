@@ -4,6 +4,26 @@ meta:
   desc: Exibe o avatar e o nome do usuário, ao clicar abre um menu com as opções.
 
 props:
+  avatar-size:
+    desc: Define o tamanho do avatar.
+    default: 36px
+    type: String
+
+  companies-options:
+    desc: Opções para o select de vínculo de empresas.
+    default: []
+    type: Array
+
+  current-company:
+    desc: Empresa atual vinculada
+    default: ''
+    type: String
+
+  menu-props:
+    desc: Repassa props pro QMenu.
+    default: {}
+    type: Object
+
   notifications:
     desc: Lista com as notificações do usuário.
     type: Object

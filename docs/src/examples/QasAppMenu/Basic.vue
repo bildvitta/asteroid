@@ -61,7 +61,21 @@ export default {
         brand: 'https://placehold.co/208x40',
         miniBrand: 'https://placehold.co/40x40',
         modules,
-        user,
+        appUserProps: {
+          companiesOptions: [
+            {
+              label: 'Empresa 1',
+              value: '1'
+            },
+            {
+              label: 'Empresa 2',
+              value: '2'
+            }
+          ],
+
+          currentCompany: '1',
+          user
+        },
         title: 'Documentação',
 
         items: [

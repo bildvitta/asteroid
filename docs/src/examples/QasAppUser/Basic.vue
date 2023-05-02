@@ -1,6 +1,6 @@
 <template>
   <div class="q-pa-md">
-    <qas-app-user :user="user" />
+    <qas-app-user v-bind="props" />
   </div>
 </template>
 
@@ -13,8 +13,21 @@ const user = {
 
 export default {
   computed: {
-    user () {
-      return user
+    props () {
+      return {
+        user,
+        companiesOptions: [
+          {
+            label: 'Empresa 1',
+            value: '1'
+          },
+          {
+            label: 'Empresa 2',
+            value: '2'
+          }
+        ],
+        currentCompany: '1'
+      }
     }
   }
 }

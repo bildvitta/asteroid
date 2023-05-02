@@ -1,16 +1,17 @@
-<!-- TODO: componente adaptado somente para o uso do QasUploader, precisa ser revisitado para ser implementado no QasGallery -->
 <template>
   <div class="bg-white q-pa-md qas-gallery-card rounded-borders shadow-2" :class="classes">
-    <header class="flat items-center no-wrap q-mb-md row" :class="headerClasses">
+    <header class="flat items-center no-wrap row" :class="headerClasses">
       <slot name="header">
-        <div class="ellipsis q-mr-xs qas-gallery__name">
+        <div class="ellipsis q-mr-xs qas-gallery__name text-subtitle1">
           <slot v-if="card.name" name="name">
             {{ card.name }}
           </slot>
         </div>
 
-        <div v-if="hasActionsMenu">
-          <qas-actions-menu v-bind="defaultActionsMenuProps" />
+        <div v-if="hasActions">
+          <slot name="actions">
+            <qas-actions-menu v-bind="defaultActionsMenuProps" />
+          </slot>
         </div>
       </slot>
     </header>
@@ -84,8 +85,12 @@ export default {
       }
     },
 
-    hasActionsMenu () {
-      return !!Object.keys(this.actionsMenuProps).length
+    hasActions () {
+      return !!Object.keys(this.actionsMenuProps).length || this.hasActionsSlot
+    },
+
+    hasActionsSlot () {
+      return !!this.$slots.actions
     },
 
     hasBottom () {
@@ -100,7 +105,8 @@ export default {
       return {
         'justify-between': this.card.name,
         'justify-right': !this.card.name,
-        'text-grey-9': !this.disable
+        'text-grey-9': !this.disable,
+        'q-mb-md': this.hasActions || this.card.name
       }
     }
   }

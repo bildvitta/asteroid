@@ -4,6 +4,12 @@ meta:
   desc: Gerencia a barra superior da aplicação
 
 props:
+  app-user-props:
+    desc: Props repassadas para o QasAppUser.
+    default: {}
+    type: Object
+    required: true
+
   brand:
     desc: Path do logotipo.
     type: String
@@ -17,20 +23,6 @@ props:
     desc: Título da aplicação.
     required: true
     type: String
-
-  user:
-    desc: Informações do usuário.
-    type: Object
-    default: {}
-    examples: [
-      "
-      {
-        photo: 'minha-img',
-        name: 'Eduardo Lima',
-        email: 'eduardolima@gmail.com'
-      }
-      "
-    ]
 
 slots:
   user:

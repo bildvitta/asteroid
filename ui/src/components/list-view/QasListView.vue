@@ -70,12 +70,21 @@ export default {
       type: Boolean
     },
 
-    useRefresh: {
-      default: true,
+    useAutoRefetchOnDelete: {
       type: Boolean
     },
 
     useFilter: {
+      default: true,
+      type: Boolean
+    },
+
+    usePagination: {
+      default: true,
+      type: Boolean
+    },
+
+    useRefresh: {
       default: true,
       type: Boolean
     },
@@ -100,12 +109,16 @@ export default {
   },
 
   computed: {
+    hasDeleteEventListener () {
+      return this.useAutoHandleOnDelete || this.useAutoRefetchOnDelete
+    },
+
     hasHeaderSlot () {
       return !!this.$slots.header
     },
 
     hasPages () {
-      return this.totalPages > 1
+      return this.totalPages > 1 && this.usePagination
     },
 
     hasResults () {
@@ -153,13 +166,13 @@ export default {
   },
 
   mounted () {
-    if (!this.useAutoHandleOnDelete) return
+    if (!this.hasDeleteEventListener) return
 
     window.addEventListener('delete-success', this.onDeleteResult)
   },
 
   unmounted () {
-    if (!this.useAutoHandleOnDelete) return
+    if (!this.hasDeleteEventListener) return
 
     window.removeEventListener('delete-success', this.onDeleteResult)
   },
@@ -235,7 +248,7 @@ export default {
       this.page = parseInt(this.$route.query.page || 1)
     },
 
-    onDeleteResult ({ detail: { entity } }) {
+    onAutoHandleDelete ({ detail: { entity } }) {
       const { page } = this.mx_context
 
       /*
@@ -269,6 +282,15 @@ export default {
       * ex: estou na pagina 2 e existem 3 paginas, removo um item da pagina 2, então chamo o método fetchList
       */
       this.mx_fetchHandler({ ...this.mx_context, url: this.url }, this.fetchList)
+    },
+
+    onDeleteResult (event) {
+      if (this.useAutoRefetchOnDelete) {
+        this.mx_fetchHandler({ ...this.mx_context, url: this.url }, this.fetchList)
+        return
+      }
+
+      this.onAutoHandleDelete(event)
     }
   }
 }

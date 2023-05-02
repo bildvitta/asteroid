@@ -3,23 +3,11 @@
   <div class="qas-gallery">
     <div class="q-col-gutter-md row">
       <div v-for="(image, index) in getInitialImages()" :key="index" :class="galleryColumnsClasses" :data-cy="`gallery-image-${index}`">
-        <div class="bg-white q-pa-md rounded-borders shadow-2">
-          <div class="flat items-center justify-between no-wrap q-mb-xs row text-grey-9">
-            <div class="ellipsis q-mr-xs qas-gallery__name">
-              <slot v-if="image.name" :image="image" :index="index" name="header">
-                {{ image.name }}
-              </slot>
-            </div>
-
-            <div v-if="useDestroy">
-              <slot :destroy="onDestroy" :image="image" :index="index" name="destroy">
-                <qas-btn color="grey-9" :disabled="isDestroyDisabled(image)" icon="sym_r_delete" variant="tertiary" @click="onDestroy(image, index)" />
-              </slot>
-            </div>
-          </div>
-
-          <q-img class="cursor-pointer rounded-borders" height="150px" :src="image.url" @click="toggleCarouselDialog(index)" @error="onError(image.url)" />
-        </div>
+        <qas-gallery-card v-bind="getGalleryCardProps({ image, index })">
+          <template v-for="(_, name) in $slots" #[name]="context">
+            <slot v-bind="context" :image="image" :index="index" :name="name" />
+          </template>
+        </qas-gallery-card>
       </div>
 
       <slot>
@@ -62,6 +50,11 @@ export default {
     carouselPreviousIcon: {
       type: String,
       default: 'sym_r_chevron_left'
+    },
+
+    galleryCardProps: {
+      type: Object,
+      default: () => ({})
     },
 
     initialSize: {
@@ -184,6 +177,46 @@ export default {
       }
     },
 
+    getGalleryCardProps ({ image, index }) {
+      return {
+        card: image,
+        imageProps: this.getImageProps({ image, index }),
+        actionsMenuProps: this.getActionsMenuProps({ image, index }),
+        ...this.galleryCardProps
+      }
+    },
+
+    getActionsMenuProps ({ image, index }) {
+      if (!this.useDestroy) return {}
+
+      return {
+        useLabel: false,
+
+        buttonProps: {
+          disable: this.isDestroyDisabled(image)
+        },
+
+        list: {
+          destroy: {
+            label: 'Excluir',
+            color: 'grey-9',
+            icon: 'sym_r_delete',
+
+            handler: () => this.onDestroy(image, index)
+          }
+        }
+      }
+    },
+
+    getImageProps ({ image, index }) {
+      return {
+        class: 'cursor-pointer',
+
+        onClick: () => this.toggleCarouselDialog(index),
+        onError: () => this.onError(image.url)
+      }
+    },
+
     getInitialImages () {
       return this.useLoadAll
         ? this.normalizedImages
@@ -230,13 +263,3 @@ export default {
   }
 }
 </script>
-
-<!-- TODO rever tipografia -->
-<style lang="scss">
-.qas-gallery {
-  &__name {
-    font-size: 16px;
-    font-weight: 600;
-  }
-}
-</style>
