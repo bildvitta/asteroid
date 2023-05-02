@@ -9,7 +9,7 @@
     "build:docs": "cd docs && npm i && npm run build && cd ..",
     "lint": "npm run lint:scripts && npm run lint:styles",
     "lint:scripts": "npx eslint --ext .js,.vue ./",
-    "lint:styles": "npx stylelint '**/*.scss' '**/*.vue'",
+    "lint:styles": "npx stylelint \"**/*.scss\" \"**/*.vue\"",
     "setup": "npm i && npm run setup:app-extension && npm run setup:docs && npm run setup:ui",
     "setup:app-extension": "cd app-extension && npm i && cd ..",
     "setup:docs": "cd docs && npm i && cd ..",
