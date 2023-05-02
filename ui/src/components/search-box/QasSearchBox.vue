@@ -3,6 +3,7 @@
     <qas-search-input v-bind="attributes" v-model="mx_search" />
 
     mx_cachedOptions: <pre>{{ mx_cachedOptions }}</pre>
+    mx_foundDuplicatedOptions: <pre>{{ mx_foundDuplicatedOptions }}</pre>
     <div ref="scrollContainer" class="overflow-auto q-mt-md relative-position" :style="containerStyle">
       <component :is="component.is" v-bind="component.props" class="q-mr-sm">
         <slot v-if="mx_hasFilteredOptions" />
@@ -71,10 +72,10 @@ export default {
       type: Array
     },
 
-    modelValue: {
-      default: '',
-      type: String
-    },
+    // modelValue: {
+    //   default: '',
+    //   type: String
+    // },
 
     placeholder: {
       default: 'Pesquisar',
@@ -107,6 +108,7 @@ export default {
   computed: {
     attributes () {
       return {
+        ref: 'search',
         disable: this.isDisabled,
         useDebounce: this.useLazyLoading,
         placeholder: this.placeholder,
@@ -188,9 +190,8 @@ export default {
         if (this.useLazyLoading) {
           await this.mx_filterOptionsByStore(value)
 
-          console.log('🚀 ~ file: QasSearchBox.vue:193 ~ handler ~ this.$refs.search:', this.$refs.search)
           this.$refs.infiniteScrollRef.resume()
-          this.$refs.search.focus()
+          this.$refs.search.input.focus()
 
           return
         }
@@ -251,8 +252,6 @@ export default {
     setListWatcher () {
       this.$watch('list', value => {
         this.fuse = new Fuse(value, this.defaultFuseOptions)
-
-        console.log('Cai aqui?')
 
         this.filterOptionsByFuse(this.mx_search)
       }, { deep: true })

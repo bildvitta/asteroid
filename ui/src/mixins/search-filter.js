@@ -41,6 +41,10 @@ export default {
   data () {
     return {
       mx_cachedOptions: [],
+      unWatchModelValue: () => {},
+      mx_foundDuplicatedOptions: [],
+      mx_cachedModelValue: [],
+      mx_fromSearch: false,
       mx_watchOnceOptions: () => {},
       mx_filteredOptions: [],
       mx_hasFetchError: false,
@@ -91,6 +95,7 @@ export default {
   },
 
   created () {
+    this.mx_setCachedValue()
     this.mx_setOptionsWatcherOnce('list')
   },
 
@@ -109,11 +114,25 @@ export default {
   methods: {
     async mx_filterOptionsByStore (search) {
       this.mx_resetFilter(search)
+      this.mx_fromSearch = true
       await this.mx_setFetchOptions()
+
+      if (this.mx_cachedOptions.length && !search) {
+        this.mx_cachedOptions.forEach((cachedOption, cachedIndex) => {
+          const hasOption = this.mx_filteredOptions.find(filteredOption => filteredOption.value === cachedOption.value)
+
+          if (!hasOption && this.mx_filteredOptions.length) {
+            this.mx_filteredOptions.unshift(cachedOption)
+          }
+        })
+      }
+
+      // this.mx_cachedOptions = [...this.mx_filteredOptions]
     },
 
     mx_resetFilter (search) {
       this.mx_filteredOptions = []
+      this.mx_foundDuplicatedOptions = []
       this.mx_search = search
       this.mx_pagination = {
         page: 1,
@@ -210,33 +229,33 @@ export default {
     async mx_setFetchOptions () {
       const options = await this.mx_fetchOptions()
 
-      // this.mx_cachedOptions.forEach((cachedOption, cachedIndex) => {
-      //   const duplicatedOptionIndex = options.findIndex(option => option.value === cachedOption.value)
-      //   console.log('🚀 ~ file: search-filter.js:212 ~ this.mx_cachedOptions.forEach ~ duplicatedOptionIndex:', duplicatedOptionIndex)
-
-      //   if (~duplicatedOptionIndex) {
-      //     this.mx_cachedOptions.splice(cachedIndex, 1)
-      //     options.splice(duplicatedOptionIndex, 1)
-      //   }
-      // })
-
       this.mx_filteredOptions.push(...options)
       // this.mx_filteredOptions = await this.mx_fetchOptions()
     },
 
     mx_getNonDuplicatedOptions (options = []) {
+      if (this.mx_fromSearch) {
+        this.mx_fromSearch = false
+        return options
+      }
+
       if (!options.length) return []
 
       const nonDuplicatedOptions = [...options]
 
       this.mx_cachedOptions.forEach((cachedOption, cachedIndex) => {
+        if (this.mx_foundDuplicatedOptions.includes(cachedOption.value)) return
+
         const duplicatedOptionIndex = nonDuplicatedOptions.findIndex(option => option.value === cachedOption.value)
 
         if (~duplicatedOptionIndex) {
-          this.mx_cachedOptions.splice(cachedIndex, 1)
+          // this.mx_cachedOptions.splice(cachedIndex, 1)
+          this.mx_foundDuplicatedOptions.push(cachedOption.value)
           nonDuplicatedOptions.splice(duplicatedOptionIndex, 1)
         }
       })
+
+      // console.log(nonDuplicatedOptions)
 
       return nonDuplicatedOptions
     },
@@ -278,6 +297,18 @@ export default {
         if (options?.length) {
           this.mx_filteredOptions = [...options]
           this.mx_cachedOptions = [...options]
+        }
+      }, { immediate: true })
+    },
+
+    mx_setCachedValue () {
+      this.unWatchModelValue = this.$watch('model', modelValue => {
+        const hasValue = !!Object.keys(modelValue || '').length
+
+        if (hasValue) {
+          // TODO mudar
+          this.mx_cachedModelValue = this.mx_isMultiple ? modelValue : [modelValue]
+          this.unWatchModelValue()
         }
       }, { immediate: true })
     }
