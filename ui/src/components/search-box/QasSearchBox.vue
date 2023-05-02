@@ -2,8 +2,6 @@
   <div>
     <qas-search-input v-bind="attributes" v-model="mx_search" />
 
-    mx_cachedOptions: <pre>{{ mx_cachedOptions }}</pre>
-    mx_foundDuplicatedOptions: <pre>{{ mx_foundDuplicatedOptions }}</pre>
     <div ref="scrollContainer" class="overflow-auto q-mt-md relative-position" :style="containerStyle">
       <component :is="component.is" v-bind="component.props" class="q-mr-sm">
         <slot v-if="mx_hasFilteredOptions" />
@@ -72,10 +70,10 @@ export default {
       type: Array
     },
 
-    // modelValue: {
-    //   default: '',
-    //   type: String
-    // },
+    modelValue: {
+      default: '',
+      type: String
+    },
 
     placeholder: {
       default: 'Pesquisar',
@@ -219,12 +217,7 @@ export default {
   },
 
   created () {
-    if (this.useLazyLoading) return
-
-    this.mx_filteredOptions = this.list
-    this.fuse = new Fuse(this.list, this.defaultFuseOptions)
-
-    this.setListWatcher()
+    this.setSearchMethod()
   },
 
   methods: {
@@ -255,6 +248,21 @@ export default {
 
         this.filterOptionsByFuse(this.mx_search)
       }, { deep: true })
+    },
+
+    setSearchMethod () {
+      this.useLazyLoading ? this.setFuse() : this.setLazyLoading()
+    },
+
+    setFuse () {
+      this.mx_filteredOptions = this.list
+      this.fuse = new Fuse(this.list, this.defaultFuseOptions)
+
+      this.setListWatcher()
+    },
+
+    setLazyLoading () {
+      this.mx_setCachedOptions('list')
     }
   }
 }

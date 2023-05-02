@@ -1,6 +1,5 @@
 import { decamelize } from 'humps'
 import { isEqual } from 'lodash'
-import { getNormalizedOptions } from '../helpers'
 import { getAction } from '@bildvitta/store-adapter'
 
 export default {
@@ -27,8 +26,6 @@ export default {
     useLazyLoading: {
       type: Boolean
     }
-
-    // useFetchOn
   },
 
   emits: [
@@ -41,11 +38,8 @@ export default {
   data () {
     return {
       mx_cachedOptions: [],
-      unWatchModelValue: () => {},
       mx_foundDuplicatedOptions: [],
-      mx_cachedModelValue: [],
       mx_fromSearch: false,
-      mx_watchOnceOptions: () => {},
       mx_filteredOptions: [],
       mx_hasFetchError: false,
       mx_isFetching: false,
@@ -94,11 +88,6 @@ export default {
     }
   },
 
-  created () {
-    this.mx_setCachedValue()
-    this.mx_setOptionsWatcherOnce('list')
-  },
-
   watch: {
     lazyLoadingProps: {
       handler (value, oldValue) {
@@ -115,19 +104,20 @@ export default {
     async mx_filterOptionsByStore (search) {
       this.mx_resetFilter(search)
       this.mx_fromSearch = true
+
       await this.mx_setFetchOptions()
 
       if (this.mx_cachedOptions.length && !search) {
         this.mx_cachedOptions.forEach((cachedOption, cachedIndex) => {
-          const hasOption = this.mx_filteredOptions.find(filteredOption => filteredOption.value === cachedOption.value)
+          const hasOption = this.mx_filteredOptions.find(filteredOption => {
+            return filteredOption.value === cachedOption.value
+          })
 
           if (!hasOption && this.mx_filteredOptions.length) {
             this.mx_filteredOptions.unshift(cachedOption)
           }
         })
       }
-
-      // this.mx_cachedOptions = [...this.mx_filteredOptions]
     },
 
     mx_resetFilter (search) {
@@ -145,7 +135,7 @@ export default {
     async mx_onVirtualScroll ({ index, ref }) {
       const lastIndex = this.mx_filteredOptions.length - 1
 
-      if (index === lastIndex && this.mx_canFetchOptions()) {
+      if ((index === lastIndex && this.mx_canFetchOptions())) {
         await this.mx_loadMoreOptions()
 
         this.$nextTick(() => {
@@ -208,14 +198,7 @@ export default {
         this.$emit('fetch-options-success', data)
 
         return this.mx_getNonDuplicatedOptions(results)
-        // return this.mx_handleOptions(results)
       } catch (error) {
-        this.$qas.logger.group(
-          `Mixin: searchFilterMixin - mx_fetchOptions -> exceção da action ${this.entity}/fetchFieldOptions`,
-          [error],
-          { error: true }
-        )
-
         this.mx_hasFetchError = true
         this.$emit('fetch-options-error', error)
 
@@ -230,7 +213,6 @@ export default {
       const options = await this.mx_fetchOptions()
 
       this.mx_filteredOptions.push(...options)
-      // this.mx_filteredOptions = await this.mx_fetchOptions()
     },
 
     mx_getNonDuplicatedOptions (options = []) {
@@ -243,19 +225,18 @@ export default {
 
       const nonDuplicatedOptions = [...options]
 
-      this.mx_cachedOptions.forEach((cachedOption, cachedIndex) => {
+      this.mx_cachedOptions.forEach(cachedOption => {
         if (this.mx_foundDuplicatedOptions.includes(cachedOption.value)) return
 
-        const duplicatedOptionIndex = nonDuplicatedOptions.findIndex(option => option.value === cachedOption.value)
+        const duplicatedOptionIndex = nonDuplicatedOptions.findIndex(option => {
+          return option.value === cachedOption.value
+        })
 
         if (~duplicatedOptionIndex) {
-          // this.mx_cachedOptions.splice(cachedIndex, 1)
           this.mx_foundDuplicatedOptions.push(cachedOption.value)
           nonDuplicatedOptions.splice(duplicatedOptionIndex, 1)
         }
       })
-
-      // console.log(nonDuplicatedOptions)
 
       return nonDuplicatedOptions
     },
@@ -266,18 +247,6 @@ export default {
       const hasMorePages = hasCount ? lastPage && page <= lastPage : hasNextPage
 
       return hasMorePages && !this.mx_isFetching && !this.mx_isScrolling && this.useLazyLoading
-    },
-
-    mx_handleOptions (options) {
-      if (this.labelKey && this.valueKey) {
-        return getNormalizedOptions({
-          options,
-          label: this.labelKey,
-          value: this.valueKey
-        })
-      }
-
-      return options
     },
 
     mx_getMissingPropsMessage (prop) {
@@ -292,23 +261,11 @@ export default {
       return results.map(({ item }) => item)
     },
 
-    mx_setOptionsWatcherOnce (model) {
+    mx_setCachedOptions (model) {
       this.$watch(model, options => {
         if (options?.length) {
           this.mx_filteredOptions = [...options]
           this.mx_cachedOptions = [...options]
-        }
-      }, { immediate: true })
-    },
-
-    mx_setCachedValue () {
-      this.unWatchModelValue = this.$watch('model', modelValue => {
-        const hasValue = !!Object.keys(modelValue || '').length
-
-        if (hasValue) {
-          // TODO mudar
-          this.mx_cachedModelValue = this.mx_isMultiple ? modelValue : [modelValue]
-          this.unWatchModelValue()
         }
       }, { immediate: true })
     }
