@@ -16,6 +16,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - `QasSelectList`: removido props [`list`, `fuseOptions`] em favor da propriedade `searchBoxProps`.
 - `ui/src/mixins/search-filter.js`: removido computada `mx_isFilterByFuse` que não estava sendo utilizado em nenhum lugar.
 - `QasSearchBox`: removido `QasBox` e adicionado `div` no lugar para se adequar ao layout.
+- `QasFilters`: removido `data-cy="filters-search-input"` e adicionado um fixo no componente `QasSearchInput` chamado `data-cy="search-input"`.
 
 ### Adicionado
 - `QasSelectList`: adicionado 2 novas props `addLabel` e `deleteLabel` para controlar seus respectivos labels.
@@ -37,6 +38,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - `QasSelectList`: removido props [`list`, `fuseOptions`] em favor da propriedade `searchBoxProps`.
 - `ui/src/mixins/search-filter.js`: removido computada `mx_isFilterByFuse` que não estava sendo utilizado em nenhum lugar.
 - `QasSearchBox`: removido `QasBox` e adicionado `div` no lugar para se adequar ao layout.
+- `QasFilters`: removido `data-cy="filters-search-input"` e adicionado um fixo no componente `QasSearchInput` chamado `data-cy="search-input"`.
 
 ## [3.9.0-beta.1] - 19-04-2023
 ## BREAKING CHANGES

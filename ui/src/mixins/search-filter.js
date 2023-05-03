@@ -38,14 +38,14 @@ export default {
   data () {
     return {
       mx_cachedOptions: [],
+      mx_fetchCount: 0,
+      mx_filteredOptions: [],
       mx_foundDuplicatedOptions: [],
       mx_fromSearch: false,
-      mx_filteredOptions: [],
       mx_hasFetchError: false,
       mx_isFetching: false,
       mx_isScrolling: false,
       mx_search: '',
-      mx_fetchCount: 0,
       mx_pagination: {
         page: 1,
         lastPage: null,
@@ -132,7 +132,7 @@ export default {
     async mx_onVirtualScroll ({ index, ref }) {
       const lastIndex = this.mx_filteredOptions.length - 1
 
-      if ((index === lastIndex && this.mx_canFetchOptions())) {
+      if (index === lastIndex && this.mx_canFetchOptions()) {
         await this.mx_loadMoreOptions()
 
         this.$nextTick(() => {

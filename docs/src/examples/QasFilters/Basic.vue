@@ -1,6 +1,6 @@
 <template>
   <div class="container spaced">
-    <qas-filters :entity="entity" :fields-props="fieldsProps" search-placeholder="Pesquisar por nome do usuário" :use-search-on-type="false" />
+    <qas-filters :entity="entity" :fields-props="fieldsProps" search-placeholder="Pesquisar por nome do usuário" />
   </div>
 </template>
 
