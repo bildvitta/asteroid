@@ -1,5 +1,5 @@
 <template>
-  <qas-list-view v-model:fields="fields" v-model:results="results" :entity="entity">
+  <qas-list-view v-model:fields="fields" v-model:results="results" :entity="entity" :filters-props="filtersProps">
     <template #header>
       <qas-page-header title="Lista de materiais" :use-breadcrumbs="false">
         <qas-btn icon="sym_r_add" label="Novo [item]" :use-label-on-small-screen="false" />
@@ -37,6 +37,12 @@ export default {
   computed: {
     entity () {
       return 'users'
+    },
+
+    filtersProps () {
+      return {
+        useSearchOnType: true
+      }
     },
 
     columns () {

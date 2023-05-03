@@ -30,6 +30,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - `QasSearchBox`: removido `QasInput` a adicionado `QasSearchInput`.
 - `QasSelectList`: componente só faz sort da lista caso não seja lazy loading.
 - `ui/src/mixins/search-filter.js`: mudanças para adicionar ordenação de opções selecionadas.
+- `QasFilters`: mudanças para utilização do `QasSearchInput`.
 
 ### Removido
 - `QasSelect`: removido props `labelKey` e `valueKey`, componente não aceita mais fazer conversão das chaves label/value, o backend deve sempre retornar no padrão correto, em **ultimo** caso, é possível utilizar o helper `getNormalizedOptions` para converter as opções antes de enviar para o componente, porém o componente não fica mais responsável por isto.

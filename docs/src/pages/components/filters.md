@@ -23,7 +23,7 @@ Este componente serve para lidar com **filtros dinâmicos**, e normalmente utili
 :::
 
 ## Uso
-<doc-example file="QasFilters/Basic" title="Básico" />
+<!-- <doc-example file="QasFilters/Basic" title="Básico" /> -->
 
 Normalmente este componente é utilizando junto ao `QasListView` para filtrar os dados.
 
@@ -34,6 +34,7 @@ Normalmente este componente é utilizando junto ao `QasListView` para filtrar os
 :::warning
 Ao utilizar a propriedade `:use-update-route="false"`, a leitura dos filtros assim como a escrita na rota não acontecerá.
 :::
+
 <doc-example file="QasFilters/NoRouteUpdate" title="Não realizando a atualização padrão da rota" />
 
 <doc-example file="QasFilters/CustomFilter" title="Usando slot default com funções 'filter' e 'removeFilter'" />
