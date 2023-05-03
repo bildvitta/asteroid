@@ -14,7 +14,7 @@
 
             <q-item-section avatar>
               <slot :item="result" name="item-action" v-bind="slotData">
-                <qas-btn v-if="!readonly" :use-label-on-small-screen="false" v-bind="getButtonProps(result)" @click="handleClick(result)" />
+                <qas-btn :disable="readonly" :use-label-on-small-screen="false" v-bind="getButtonProps(result)" @click="handleClick(result)" />
               </slot>
             </q-item-section>
           </slot>
@@ -37,6 +37,8 @@ export default {
     QasBtn,
     QasSearchBox
   },
+
+  inheritAttrs: false,
 
   props: {
     addLabel: {
