@@ -211,8 +211,7 @@ export default {
         this.$emit('update:results', options)
       },
 
-      immediate: true,
-      deep: true
+      immediate: true
     }
   },
 
@@ -255,8 +254,9 @@ export default {
     },
 
     setFuse () {
-      this.mx_filteredOptions = this.list
-      this.fuse = new Fuse(this.list, this.defaultFuseOptions)
+      const list = [...this.list]
+      this.mx_filteredOptions = list
+      this.fuse = new Fuse(list, this.defaultFuseOptions)
 
       this.setListWatcher()
     },

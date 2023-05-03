@@ -21,22 +21,22 @@ props:
     desc: Caso o "modelValue" tenha valor, ele remove tudo na lista que não esteja dentro do modelValue.
     type: Boolean
 
-  fuse-options:
-    desc: Propriedade que será repassada para o "QasSearchBox".
-    default: "{ keys: ['label'] }"
-    type: Object
-
-  list:
-    desc: Lista que será feita a seleção e pesquisa.
-    default: []
-    type: Array
-
   model-value:
     desc: Model do componente, que será controlado tudo que foi selecionado.
     default: []
     type: Array
     examples: [v-model="value"]
     model: true
+
+  readonly:
+    desc: Habilita modo visualização.
+    default: false
+    type: Boolean
+
+  search-box-props:
+    desc: Repassa props para o componente "QasSearchBox"
+    default: {}
+    type: Object
 
   use-clickable-label:
     desc: Habilita "cursor-pointer" no label e evento "click-label".

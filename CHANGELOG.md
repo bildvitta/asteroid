@@ -13,20 +13,29 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 ## Não publicado
 ## BREAKING CHANGES
 - `QasSelect`: removido props `labelKey` e `valueKey`, componente não aceita mais fazer conversão das chaves label/value, o backend deve sempre retornar no padrão correto, em **ultimo** caso, é possível utilizar o helper `getNormalizedOptions` para converter as opções antes de enviar para o componente, porém o componente não fica mais responsável por isto.
+- `QasSelectList`: removido props [`list`, `fuseOptions`] em favor da propriedade `searchBoxProps`.
+- `ui/src/mixins/search-filter.js`: removido computada `mx_isFilterByFuse` que não estava sendo utilizado em nenhum lugar.
+- `QasSearchBox`: removido `QasBox` e adicionado `div` no lugar para se adequar ao layout.
 
 ### Adicionado
 - `QasSelectList`: adicionado 2 novas props `addLabel` e `deleteLabel` para controlar seus respectivos labels.
 - `QasSearchInput`: adicionado novo componente que sera usado em buscas / filtros, como no `QasSearchBox` e `QasFilters`.
 - `QasSelect`: adicionado nova prop `useFetchOptionsOnCreate` para controlar se o componente vai fazer um fetch das opções assim que o mesmo é criado (caso tenha lazy loading ativado).
 - `QasSelectList`: adicionado nova propriedade `readonly` para habilitar componente em modo de visualização (remove botões de ações).
+- `QasSelectList` adicionado props `addLabel` e `deleteLabel` para controlar labels dos botões.
+- `QasSelectList` adicionado prop `searchBoxProps` para repassar props do `QasSearchBox`.
 
 ### Modificado
 - [`QasSelectList`, `QasSearchBox`]: mudanças de estilos para se adequar a novo layout.
 - `QasSearchBox`: removido `QasInput` a adicionado `QasSearchInput`.
 - `QasSelectList`: componente só faz sort da lista caso não seja lazy loading.
+- `ui/src/mixins/search-filter.js`: mudanças para adicionar ordenação de opções selecionadas.
 
 ### Removido
 - `QasSelect`: removido props `labelKey` e `valueKey`, componente não aceita mais fazer conversão das chaves label/value, o backend deve sempre retornar no padrão correto, em **ultimo** caso, é possível utilizar o helper `getNormalizedOptions` para converter as opções antes de enviar para o componente, porém o componente não fica mais responsável por isto.
+- `QasSelectList`: removido props [`list`, `fuseOptions`] em favor da propriedade `searchBoxProps`.
+- `ui/src/mixins/search-filter.js`: removido computada `mx_isFilterByFuse` que não estava sendo utilizado em nenhum lugar.
+- `QasSearchBox`: removido `QasBox` e adicionado `div` no lugar para se adequar ao layout.
 
 ## [3.9.0-beta.1] - 19-04-2023
 ## BREAKING CHANGES

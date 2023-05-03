@@ -58,14 +58,14 @@ export default {
       type: Array
     },
 
-    useSearch: {
-      type: Boolean,
-      default: undefined
-    },
-
     useFetchOptionsOnCreate: {
       default: true,
       type: Boolean
+    },
+
+    useSearch: {
+      type: Boolean,
+      default: undefined
     }
   },
 

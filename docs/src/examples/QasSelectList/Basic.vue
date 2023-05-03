@@ -1,7 +1,6 @@
 <template>
   <div class="container q-py-lg">
-    <qas-label label="Grupos" />
-    <qas-select-list v-model="model" :list="list" readonly @click-label="onClickLabel" />
+    <qas-select-list v-model="model" v-bind="props" />
 
     <div class="q-mt-lg">
       Model:
@@ -98,12 +97,14 @@ export default {
           value: 'uuid15'
         }
       ]
-    }
-  },
+    },
 
-  methods: {
-    onClickLabel ({ item }) {
-      alert(JSON.stringify(item))
+    props () {
+      return {
+        searchBoxProps: {
+          list: this.list
+        }
+      }
     }
   }
 }

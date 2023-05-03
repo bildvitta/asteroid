@@ -1,5 +1,5 @@
 <template>
-  <qas-search-box v-model:results="results" class="qas-select-list" :fuse-options="fuseOptions" :list="sortedList">
+  <qas-search-box v-model:results="results" class="qas-select-list" v-bind="defaultSearchBoxProps" :list="sortedList">
     <template #default>
       <q-list separator>
         <q-item v-for="result in results" :key="result.value" class="qas-select-list__item">
@@ -53,16 +53,6 @@ export default {
       type: Boolean
     },
 
-    fuseOptions: {
-      default: () => ({ keys: ['label'] }),
-      type: Object
-    },
-
-    list: {
-      default: () => [],
-      type: Array
-    },
-
     modelValue: {
       type: Array,
       default: () => []
@@ -70,6 +60,11 @@ export default {
 
     readonly: {
       type: Boolean
+    },
+
+    searchBoxProps: {
+      type: Object,
+      default: () => ({})
     },
 
     useClickableLabel: {
@@ -93,8 +88,24 @@ export default {
   },
 
   computed: {
+    defaultSearchBoxProps () {
+      return {
+        fuseOptions: { keys: ['label'] },
+
+        ...this.searchBoxProps
+      }
+    },
+
+    hasLazyLoading () {
+      return this.defaultSearchBoxProps.useLazyLoading
+    },
+
     labelClass () {
       return this.useClickableLabel && 'cursor-pointer'
+    },
+
+    list () {
+      return this.defaultSearchBoxProps.list || []
     },
 
     slotData () {
@@ -110,9 +121,9 @@ export default {
   watch: {
     list: {
       handler (value) {
-        if (!this.sortedList.length) {
-          this.sortedList = value
-        }
+        if (!this.hasLazyLoading) return this.sortList()
+
+        this.sortedList = [...value]
       },
 
       immediate: true
@@ -129,7 +140,7 @@ export default {
   },
 
   created () {
-    if (!this.useLazyLoading) this.handleList()
+    if (!this.hasLazyLoading) this.handleList()
   },
 
   methods: {

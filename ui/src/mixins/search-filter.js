@@ -79,10 +79,6 @@ export default {
       return !!this.mx_filteredOptions.length
     },
 
-    mx_isFilterByFuse () {
-      return !this.useLazyLoading
-    },
-
     mx_isMultiple () {
       return this.$attrs.multiple || this.$attrs.multiple === ''
     }

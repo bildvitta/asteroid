@@ -71,6 +71,11 @@ props:
     type: String
     examples: [value-key="uuid"]
 
+  use-fetch-options-on-create:
+    desc: Controla se o componente vai fazer um fetch das opções assim que o mesmo é criado (caso tenha lazy loading ativado).
+    default: true
+    type: Boolean
+
   use-search:
     desc: Controla se vai ou não ter campo de busca no select.
     default: undefined

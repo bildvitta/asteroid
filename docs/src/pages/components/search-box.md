@@ -2,20 +2,16 @@
 title: QasSearchBox
 ---
 
-Componente para pesquisa utilizando Fuse.js.
+Componente para pesquisa utilizando Fuse.js / LazyLoading.
 
 <doc-api file="search-box/QasSearchBox" name="QasSearchBox" />
 
 :::warning
-Quando usado a propriedade `useLazyLoading` o componente depende do `Vuex`, utiliza módulos com action para manipular/recuperar os dados:
+Quando usado a propriedade `useLazyLoading` o componente depende do `Vuex` ou `Pinia`, utiliza módulos com action para manipular/recuperar os dados:
 - actions: fetchFieldOptions.
 
 Hoje Utilizamos 1 biblioteca compatível:
 [VuexStoreModule](https://github.com/bildvitta/vuex-store-module).
-:::
-
-:::tip
-Componente implementa o `QasBox` repassando todas propriedades.
 :::
 
 ## Uso
