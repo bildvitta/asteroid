@@ -25,6 +25,10 @@ Hoje Utilizamos 1 biblioteca compatível:
 
 #### Lazy loading
 
+:::info
+Quando as 'opções' são passadas externamente para o componente e o mesmo está em modo lazy loading, essas opções serão adicionadas como as primeiras opções, e as opções que vierem através do fetch serão adicionadas abaixo delas. As opções do fetch serão verificadas para evitar adicionar opções duplicadas. De acordo com nossos padrões, o backend sempre retorna as opções dentro de 'fields' dos itens que já foram selecionados. Essa é a maneira correta do componente sempre apresentar as opções selecionadas em ordem inicial.
+:::
+
 Quando usamos o `QasSelect` com grande quantidades de dados devemos ter um endpoint específico para buscar as suas opções, assim, eliminando o peso de retornar todas as opções do campo no _fields_ da página.
 
 Para utilizar dessa funcionalidade é necessário que dois requisitos sejam realizados, são eles: Requisitos de back-end e de front-end.
