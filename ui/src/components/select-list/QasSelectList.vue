@@ -14,7 +14,7 @@
 
             <q-item-section avatar>
               <slot :item="result" name="item-action" v-bind="slotData">
-                <qas-btn :use-label-on-small-screen="false" v-bind="getButtonProps(result)" @click="handleClick(result)" />
+                <qas-btn v-if="!readonly" :use-label-on-small-screen="false" v-bind="getButtonProps(result)" @click="handleClick(result)" />
               </slot>
             </q-item-section>
           </slot>
@@ -66,6 +66,10 @@ export default {
     modelValue: {
       type: Array,
       default: () => []
+    },
+
+    readonly: {
+      type: Boolean
     },
 
     useClickableLabel: {
@@ -125,7 +129,7 @@ export default {
   },
 
   created () {
-    this.handleList()
+    if (!this.useLazyLoading) this.handleList()
   },
 
   methods: {

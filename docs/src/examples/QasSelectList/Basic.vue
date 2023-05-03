@@ -1,7 +1,7 @@
 <template>
   <div class="container q-py-lg">
     <qas-label label="Grupos" />
-    <qas-select-list v-model="model" :list="list" @click-label="onClickLabel" />
+    <qas-select-list v-model="model" :list="list" readonly @click-label="onClickLabel" />
 
     <div class="q-mt-lg">
       Model:

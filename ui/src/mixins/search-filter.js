@@ -103,7 +103,8 @@ export default {
   methods: {
     async mx_filterOptionsByStore (search) {
       this.mx_resetFilter(search)
-      this.mx_fromSearch = true
+
+      this.mx_fromSearch = !!search
 
       await this.mx_setFetchOptions()
 
@@ -263,10 +264,10 @@ export default {
 
     mx_setCachedOptions (model) {
       this.$watch(model, options => {
-        if (options?.length) {
-          this.mx_filteredOptions = [...options]
-          this.mx_cachedOptions = [...options]
-        }
+        if (!options?.length) return
+
+        this.mx_filteredOptions = [...options]
+        this.mx_cachedOptions = [...options]
       }, { immediate: true })
     }
   }

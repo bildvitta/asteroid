@@ -251,7 +251,7 @@ export default {
     },
 
     setSearchMethod () {
-      this.useLazyLoading ? this.setFuse() : this.setLazyLoading()
+      this.useLazyLoading ? this.setLazyLoading() : this.setFuse()
     },
 
     setFuse () {
