@@ -1,5 +1,5 @@
 <template>
-  <div class="text-subtitle2" :class="classes">
+  <div class="text-subtitle1" :class="classes">
     <slot :label-with-suffix="labelWithSuffix">{{ labelWithSuffix }}</slot>
   </div>
 </template>
