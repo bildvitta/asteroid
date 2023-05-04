@@ -94,7 +94,7 @@ export default {
 
       return {
         class: this.classes,
-        color: 'white',
+        color: 'primary',
         events: this.normalizedEvents,
         mask: this.mask,
         minimal: true,
@@ -102,7 +102,8 @@ export default {
         options: this.normalizedOptions,
         ref: 'date',
         style: this.styles,
-        textColor: 'primary',
+        textColor: 'white',
+        eventColor: date => this.getEventColor(date),
 
         // events
         onNavigation: this.onNavigation,
@@ -177,6 +178,19 @@ export default {
         month: date.getMonth() + 1,
         day: date.getDate()
       }
+    },
+
+    getEventColor (currentDate) {
+      if (!this.modelValue) return 'primary'
+
+      const model = this.multiple ? this.modelValue : [this.modelValue]
+
+      const extractedModel = model.filter(Boolean).map(dateItem => {
+        const extractedDate = date.extractDate(dateItem, this.mask)
+        return asteroidDate(extractedDate, 'yyyy/MM/dd')
+      })
+
+      return extractedModel.includes(currentDate) ? 'white' : 'primary'
     },
 
     getISODate (value) {
@@ -290,7 +304,6 @@ export default {
 <style lang="scss">
 .qas-date {
   // $
-
   min-width: 100%;
   width: 100%;
 
@@ -302,6 +315,8 @@ export default {
   &--inative {
     .q-date {
       &__calendar-item--fill {
+        @include set-typography($subtitle2);
+
         color: $grey-4;
         visibility: unset;
       }
@@ -344,7 +359,7 @@ export default {
     }
 
     &__event {
-      bottom: 0;
+      bottom: -1;
       height: 6px;
       width: 6px;
     }
@@ -352,7 +367,13 @@ export default {
     &__months,
     &__years {
       .q-btn {
-        @include set-button(tertiary, false, false);
+        background-color: white !important;
+
+        &.bg-primary {
+          color: $primary !important;
+        }
+
+        @include set-button(tertiary, false, false, grey-9);
       }
     }
 
@@ -365,7 +386,24 @@ export default {
       min-height: auto;
 
       .q-btn {
-        @include set-button(tertiary, true, false);
+        border: 0;
+        box-shadow: none;
+        color: $grey-9;
+        height: 30px !important;
+        min-height: 30px;
+        min-width: 30px;
+        transition: color var(--qas-generic-transition);
+        width: 30px !important;
+
+        .q-ripple,
+        .q-focus-helper {
+          display: none !important;
+        }
+
+        &:hover {
+          color: var(--q-primary-contrast);
+        }
+
         @include set-typography($subtitle2);
       }
     }
