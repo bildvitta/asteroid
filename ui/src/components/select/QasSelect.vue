@@ -144,7 +144,7 @@ export default {
 
   watch: {
     defaultFuseOptions () {
-      this.setFuse()
+      if (this.hasFuse) this.setFuse()
     },
 
     options: {
@@ -161,16 +161,12 @@ export default {
   },
 
   created () {
-    this.setFuse()
-
     this.setSearchMethod()
   },
 
   methods: {
     setFuse () {
-      if (this.hasFuse) {
-        this.fuse = new Fuse(this.options, this.defaultFuseOptions)
-      }
+      this.fuse = new Fuse(this.options, this.defaultFuseOptions)
     },
 
     async onFilter (value, update) {

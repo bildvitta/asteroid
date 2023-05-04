@@ -104,17 +104,7 @@ export default {
 
       await this.mx_setFetchOptions()
 
-      if (this.mx_cachedOptions.length && !search) {
-        this.mx_cachedOptions.forEach((cachedOption, cachedIndex) => {
-          const hasOption = this.mx_filteredOptions.find(filteredOption => {
-            return filteredOption.value === cachedOption.value
-          })
-
-          if (!hasOption && this.mx_filteredOptions.length) {
-            this.mx_filteredOptions.unshift(cachedOption)
-          }
-        })
-      }
+      if (this.mx_cachedOptions.length && !search) this.mx_setInitialCachedOptions()
     },
 
     mx_resetFilter (search) {
@@ -212,9 +202,22 @@ export default {
       this.mx_filteredOptions.push(...options)
     },
 
+    mx_setInitialCachedOptions () {
+      this.mx_cachedOptions.forEach(cachedOption => {
+        const hasOption = this.mx_filteredOptions.find(filteredOption => {
+          return filteredOption.value === cachedOption.value
+        })
+
+        if (!hasOption && this.mx_filteredOptions.length) {
+          this.mx_filteredOptions.unshift(cachedOption)
+        }
+      })
+    },
+
     mx_getNonDuplicatedOptions (options = []) {
       if (this.mx_fromSearch) {
         this.mx_fromSearch = false
+
         return options
       }
 

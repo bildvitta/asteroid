@@ -1,8 +1,8 @@
 <template>
-  <qas-search-box v-model:results="results" class="qas-select-list" v-bind="defaultSearchBoxProps" :list="sortedList">
+  <qas-search-box v-model:results="results" v-bind="defaultSearchBoxProps" :list="sortedList">
     <template #default>
       <q-list separator>
-        <q-item v-for="result in results" :key="result.value" class="qas-select-list__item">
+        <q-item v-for="result in results" :key="result.value" class="q-px-none">
           <slot v-bind="slotData" :item="result" name="item">
             <slot name="item-section" :result="result">
               <q-item-section>
@@ -206,12 +206,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss">
-.qas-select-list {
-  &__item {
-    padding-left: 0;
-    padding-right: 0;
-  }
-}
-</style>

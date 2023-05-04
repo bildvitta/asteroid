@@ -4,15 +4,13 @@
       <div v-if="showSearch" class="col-12 col-md-6">
         <slot :filter="filter" name="search">
           <q-form v-if="useSearch" @submit.prevent="filter()">
-            <div>
-              <qas-search-input v-model="search" :placeholder="searchPlaceholder" :use-search-on-type="useSearchOnType" @filter="filter()" @update:model-value="onSearch">
-                <template v-if="showFilterButton" #after-clear>
-                  <slot :context="mx_context" :filter="filter" :filters="activeFilters" name="filter-button" :remove-filter="removeFilter">
-                    <pv-filters-button v-if="useFilterButton" ref="filtersButton" v-model="filters" v-bind="filterButtonProps" />
-                  </slot>
-                </template>
-              </qas-search-input>
-            </div>
+            <qas-search-input v-model="search" :placeholder="searchPlaceholder" :use-search-on-type="useSearchOnType" @filter="filter()" @update:model-value="onSearch">
+              <template v-if="showFilterButton" #after-clear>
+                <slot :context="mx_context" :filter="filter" :filters="activeFilters" name="filter-button" :remove-filter="removeFilter">
+                  <pv-filters-button v-if="useFilterButton" ref="filtersButton" v-model="filters" v-bind="filterButtonProps" />
+                </slot>
+              </template>
+            </qas-search-input>
           </q-form>
         </slot>
       </div>
