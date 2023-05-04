@@ -13,6 +13,7 @@ import QasBtnDropdown from './components/btn-dropdown/QasBtnDropdown.vue'
 import QasCard from './components/card/QasCard.vue'
 import QasCheckboxGroup from './components/checkbox-group/QasCheckboxGroup.vue'
 import QasCopy from './components/copy/QasCopy.vue'
+import QasDate from './components/date/QasDate.vue'
 import QasDateTimeInput from './components/date-time-input/QasDateTimeInput.vue'
 import QasDebugger from './components/debugger/QasDebugger.vue'
 import QasDelete from './components/delete/QasDelete.vue'
@@ -94,6 +95,7 @@ function install (app) {
   app.component('QasCard', QasCard)
   app.component('QasCheckboxGroup', QasCheckboxGroup)
   app.component('QasCopy', QasCopy)
+  app.component('QasDate', QasDate)
   app.component('QasDateTimeInput', QasDateTimeInput)
   app.component('QasDebugger', QasDebugger)
   app.component('QasDelete', QasDelete)
@@ -176,6 +178,7 @@ export {
   QasCard,
   QasCheckboxGroup,
   QasCopy,
+  QasDate,
   QasDateTimeInput,
   QasDebugger,
   QasDelete,

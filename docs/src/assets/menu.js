@@ -93,6 +93,10 @@ module.exports = [
         path: '/components/copy'
       },
       {
+        name: 'Date',
+        path: '/components/date'
+      },
+      {
         name: 'DateTimeInput',
         path: '/components/date-time-input'
       },

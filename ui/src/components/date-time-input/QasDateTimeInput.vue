@@ -3,7 +3,7 @@
     <template #append>
       <qas-btn v-if="!useTimeOnly" color="grey-9" :disable="$attrs.readonly" icon="sym_r_event" variant="tertiary">
         <q-popup-proxy ref="dateProxy" transition-hide="scale" transition-show="scale">
-          <q-date v-model="currentValue" v-bind="defaultDateProps" :mask="maskDate" @update:model-value="updateModelValue" />
+          <qas-date v-model="currentValue" v-bind="defaultDateProps" :mask="maskDate" width="290px" @update:model-value="updateModelValue" />
         </q-popup-proxy>
       </qas-btn>
 
