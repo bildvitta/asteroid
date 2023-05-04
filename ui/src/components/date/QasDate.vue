@@ -103,7 +103,7 @@ export default {
         ref: 'date',
         style: this.styles,
         textColor: 'white',
-        eventColor: date => this.getEventColor(date),
+        eventColor: this.getEventColor,
 
         // events
         onNavigation: this.onNavigation,
