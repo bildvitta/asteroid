@@ -20,6 +20,7 @@ import QasDelete from './components/delete/QasDelete.vue'
 import QasDialog from './components/dialog/QasDialog.vue'
 import QasDialogRouter from './components/dialog-router/QasDialogRouter.vue'
 import QasField from './components/field/QasField.vue'
+import QasSearchInput from './components/search-input/QasSearchInput.vue'
 import QasFilters from './components/filters/QasFilters.vue'
 import QasFormGenerator from './components/form-generator/QasFormGenerator.vue'
 import QasFormView from './components/form-view/QasFormView.vue'
@@ -101,6 +102,7 @@ function install (app) {
   app.component('QasDialog', QasDialog)
   app.component('QasDialogRouter', QasDialogRouter)
   app.component('QasField', QasField)
+  app.component('QasSearchInput', QasSearchInput)
   app.component('QasFilters', QasFilters)
   app.component('QasFormGenerator', QasFormGenerator)
   app.component('QasFormView', QasFormView)
@@ -183,6 +185,7 @@ export {
   QasDialog,
   QasDialogRouter,
   QasField,
+  QasSearchInput,
   QasFilters,
   QasFormGenerator,
   QasFormView,

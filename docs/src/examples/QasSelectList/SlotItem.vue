@@ -1,6 +1,6 @@
 <template>
   <div class="container q-py-lg">
-    <qas-select-list v-model="model" delete-only :list="list">
+    <qas-select-list v-model="model" v-bind="props">
       <template #item="{ item }">
         <div>
           <pre>{{ item }}</pre>
@@ -42,6 +42,14 @@ export default {
           value: 'uuid3'
         }
       ]
+    },
+
+    props () {
+      return {
+        searchBoxProps: {
+          list: this.list
+        }
+      }
     }
   }
 }

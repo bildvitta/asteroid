@@ -213,6 +213,10 @@ module.exports = [
         path: '/components/search-box'
       },
       {
+        name: 'SearchInput',
+        path: '/components/search-input'
+      },
+      {
         name: 'Select',
         path: '/components/select'
       },

@@ -1,13 +1,9 @@
 <template>
-  <qas-box>
-    <qas-input v-bind="attributes" ref="search" v-model="mx_search">
-      <template #prepend>
-        <q-icon color="grey-8" name="sym_r_search" />
-      </template>
-    </qas-input>
+  <div>
+    <qas-search-input v-bind="attributes" v-model="mx_search" />
 
-    <div ref="scrollContainer" class="overflow-auto q-mt-xs relative-position" :style="containerStyle">
-      <component :is="component.is" v-bind="component.props">
+    <div ref="scrollContainer" class="overflow-auto q-mt-md relative-position" :style="containerStyle">
+      <component :is="component.is" v-bind="component.props" class="q-mr-sm">
         <slot v-if="mx_hasFilteredOptions" />
       </component>
 
@@ -28,7 +24,7 @@
         <q-spinner color="grey" size="3em" />
       </q-inner-loading>
     </div>
-  </qas-box>
+  </div>
 </template>
 
 <script>
@@ -110,12 +106,10 @@ export default {
   computed: {
     attributes () {
       return {
-        clearable: true,
+        ref: 'search',
         disable: this.isDisabled,
-        debounce: this.useLazyLoading ? 1200 : 0,
-        outlined: true,
+        useDebounce: this.useLazyLoading,
         placeholder: this.placeholder,
-        hideBottomSpace: true,
         error: this.mx_hasFetchError,
         loading: this.mx_isFetching
       }
@@ -195,7 +189,7 @@ export default {
           await this.mx_filterOptionsByStore(value)
 
           this.$refs.infiniteScrollRef.resume()
-          this.$refs.search.focus()
+          this.$refs.search.input.focus()
 
           return
         }
@@ -222,12 +216,7 @@ export default {
   },
 
   created () {
-    if (this.useLazyLoading) return
-
-    this.mx_filteredOptions = this.list
-    this.fuse = new Fuse(this.list, this.defaultFuseOptions)
-
-    this.setListWatcher()
+    this.setSearchMethod()
   },
 
   methods: {
@@ -258,6 +247,23 @@ export default {
 
         this.filterOptionsByFuse(this.mx_search)
       }, { deep: true })
+    },
+
+    setSearchMethod () {
+      this.useLazyLoading ? this.setLazyLoading() : this.setFuse()
+    },
+
+    setFuse () {
+      const list = [...this.list]
+
+      this.mx_filteredOptions = list
+      this.fuse = new Fuse(list, this.defaultFuseOptions)
+
+      this.setListWatcher()
+    },
+
+    setLazyLoading () {
+      this.mx_setCachedOptions('list')
     }
   }
 }

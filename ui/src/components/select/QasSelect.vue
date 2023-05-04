@@ -43,11 +43,6 @@ export default {
       type: Object
     },
 
-    labelKey: {
-      default: '',
-      type: String
-    },
-
     modelValue: {
       default: () => [],
       type: [Array, Object, String, Number, Boolean]
@@ -63,9 +58,9 @@ export default {
       type: Array
     },
 
-    valueKey: {
-      default: '',
-      type: String
+    useFetchOptionsOnCreate: {
+      default: true,
+      type: Boolean
     },
 
     useSearch: {
@@ -114,10 +109,6 @@ export default {
       return this.hasFuse || this.useLazyLoading
     },
 
-    defaultOptions () {
-      return this.mx_handleOptions(this.options)
-    },
-
     hasError () {
       return this.mx_hasFetchError || this.$attrs.error
     },
@@ -153,7 +144,7 @@ export default {
 
   watch: {
     defaultFuseOptions () {
-      this.setFuse()
+      if (this.hasFuse) this.setFuse()
     },
 
     options: {
@@ -162,7 +153,7 @@ export default {
 
         if (this.fuse || this.hasFuse) this.setFuse()
 
-        this.mx_filteredOptions = this.defaultOptions
+        this.mx_filteredOptions = this.options
       },
 
       immediate: true
@@ -170,15 +161,12 @@ export default {
   },
 
   created () {
-    this.setFuse()
-    this.useLazyLoading && this.mx_setFetchOptions('')
+    this.setSearchMethod()
   },
 
   methods: {
     setFuse () {
-      if (this.hasFuse) {
-        this.fuse = new Fuse(this.defaultOptions, this.defaultFuseOptions)
-      }
+      this.fuse = new Fuse(this.options, this.defaultFuseOptions)
     },
 
     async onFilter (value, update) {
@@ -195,13 +183,25 @@ export default {
 
     filterOptionsByFuse (value) {
       if (value === '') {
-        this.mx_filteredOptions = this.defaultOptions
+        this.mx_filteredOptions = this.options
         return
       }
 
       const results = this.fuse.search(value)
 
       this.mx_filteredOptions = this.mx_getNormalizedFuseResults(results)
+    },
+
+    setLazyLoading () {
+      this.mx_setCachedOptions('options')
+
+      if (this.useFetchOptionsOnCreate) this.mx_setFetchOptions('')
+    },
+
+    setSearchMethod () {
+      if (this.useLazyLoading) return this.setLazyLoading()
+
+      if (this.hasFuse) this.setFuse()
     }
   }
 }

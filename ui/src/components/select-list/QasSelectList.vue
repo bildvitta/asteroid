@@ -1,18 +1,20 @@
 <template>
-  <qas-search-box v-model:results="results" class="q-pa-md" :fuse-options="fuseOptions" :list="sortedList">
+  <qas-search-box v-model:results="results" v-bind="defaultSearchBoxProps" :list="sortedList">
     <template #default>
       <q-list separator>
-        <q-item v-for="result in results" :key="result.value">
+        <q-item v-for="result in results" :key="result.value" class="q-px-none">
           <slot v-bind="slotData" :item="result" name="item">
             <slot name="item-section" :result="result">
-              <q-item-section class="items-start text-bold">
-                <div :class="labelClass" @click="onClickLabel({ item: result, index })">{{ result.label }}</div>
+              <q-item-section>
+                <div :class="labelClass" @click="onClickLabel({ item: result, index })">
+                  {{ result.label }}
+                </div>
               </q-item-section>
             </slot>
 
             <q-item-section avatar>
               <slot :item="result" name="item-action" v-bind="slotData">
-                <qas-btn v-bind="getButtonProps(result)" @click="handleClick(result)" />
+                <qas-btn :disable="readonly" :use-label-on-small-screen="false" v-bind="getButtonProps(result)" @click="handleClick(result)" />
               </slot>
             </q-item-section>
           </slot>
@@ -36,24 +38,35 @@ export default {
     QasSearchBox
   },
 
+  inheritAttrs: false,
+
   props: {
+    addLabel: {
+      type: String,
+      default: 'Adicionar'
+    },
+
+    deleteLabel: {
+      type: String,
+      default: 'Excluir'
+    },
+
     deleteOnly: {
       type: Boolean
-    },
-
-    fuseOptions: {
-      default: () => ({ keys: ['label'] }),
-      type: Object
-    },
-
-    list: {
-      default: () => [],
-      type: Array
     },
 
     modelValue: {
       type: Array,
       default: () => []
+    },
+
+    readonly: {
+      type: Boolean
+    },
+
+    searchBoxProps: {
+      type: Object,
+      default: () => ({})
     },
 
     useClickableLabel: {
@@ -77,8 +90,24 @@ export default {
   },
 
   computed: {
+    defaultSearchBoxProps () {
+      return {
+        fuseOptions: { keys: ['label'] },
+
+        ...this.searchBoxProps
+      }
+    },
+
+    hasLazyLoading () {
+      return this.defaultSearchBoxProps.useLazyLoading
+    },
+
     labelClass () {
       return this.useClickableLabel && 'cursor-pointer'
+    },
+
+    list () {
+      return this.defaultSearchBoxProps.list || []
     },
 
     slotData () {
@@ -94,9 +123,9 @@ export default {
   watch: {
     list: {
       handler (value) {
-        if (!this.sortedList.length) {
-          this.sortedList = value
-        }
+        if (!this.hasLazyLoading) return this.sortList()
+
+        this.sortedList = [...value]
       },
 
       immediate: true
@@ -113,7 +142,7 @@ export default {
   },
 
   created () {
-    this.handleList()
+    if (!this.hasLazyLoading) this.handleList()
   },
 
   methods: {
@@ -128,9 +157,10 @@ export default {
       const isSelected = this.values.includes(value)
 
       return {
+        label: isSelected ? this.deleteLabel : this.addLabel,
         variant: 'tertiary',
         color: isSelected ? 'grey-9' : 'primary',
-        icon: isSelected ? 'sym_r_remove' : 'sym_r_add'
+        icon: isSelected ? 'sym_r_delete' : 'sym_r_add'
       }
     },
 

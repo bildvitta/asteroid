@@ -1,27 +1,16 @@
 <template>
-  <section class="qas-filters" :class="filtersClass">
+  <section :class="filtersClass">
     <div v-if="showFilters" class="q-col-gutter-x-md row">
       <div v-if="showSearch" class="col-12 col-md-6">
         <slot :filter="filter" name="search">
           <q-form v-if="useSearch" @submit.prevent="filter()">
-            <div class="qas-filters__input-content">
-              <qas-input v-model="search" class="bg-white q-px-sm rounded-borders-sm shadow-2" data-cy="filters-search-input" :debounce="debounce" dense hide-bottom-space input-class="ellipsis text-grey-8" :outlined="false" :placeholder="searchPlaceholder" type="search" @update:model-value="onSearch">
-                <template #prepend>
-                  <q-icon v-if="useSearchOnType" color="grey-8" name="sym_r_search" />
-                  <qas-btn v-else color="grey-9" icon="sym_r_search" variant="tertiary" @click="filter()" />
-                </template>
-
-                <template #append>
-                  <qas-btn v-if="hasSearch" class="q-mr-sm" color="grey-9" icon="sym_r_clear" variant="tertiary" @click="clearSearch" />
-
-                  <template v-if="showFilterButton">
-                    <slot :context="mx_context" :filter="filter" :filters="activeFilters" name="filter-button" :remove-filter="removeFilter">
-                      <pv-filters-button v-if="useFilterButton" ref="filtersButton" v-model="filters" v-bind="filterButtonProps" />
-                    </slot>
-                  </template>
-                </template>
-              </qas-input>
-            </div>
+            <qas-search-input v-model="search" :placeholder="searchPlaceholder" :use-search-on-type="useSearchOnType" @filter="filter()" @update:model-value="onSearch">
+              <template v-if="showFilterButton" #after-clear>
+                <slot :context="mx_context" :filter="filter" :filters="activeFilters" name="filter-button" :remove-filter="removeFilter">
+                  <pv-filters-button v-if="useFilterButton" ref="filtersButton" v-model="filters" v-bind="filterButtonProps" />
+                </slot>
+              </template>
+            </qas-search-input>
           </q-form>
         </slot>
       </div>
@@ -39,7 +28,9 @@
 
     <div v-if="hasChip" class="q-mt-md">
       <!-- TODO rever com novo estilo -->
-      <q-chip v-for="(filterItem, key) in activeFilters" :key="key" color="white" :data-cy="`filters-${filterItem.value}-chip`" dense icon-remove="sym_r_close" removable size="md" text-color="grey-8" @remove="removeFilter(filterItem)">{{ getChipValue(filterItem.value) }}</q-chip>
+      <q-chip v-for="(filterItem, key) in activeFilters" :key="key" color="white" :data-cy="`filters-${filterItem.value}-chip`" dense icon-remove="sym_r_close" removable size="md" text-color="grey-8" @remove="removeFilter(filterItem)">
+        {{ getChipValue(filterItem.value) }}
+      </q-chip>
     </div>
 
     <slot :context="mx_context" :filter="filter" :filters="activeFilters" :remove-filter="removeFilter" />
@@ -47,7 +38,6 @@
 </template>
 
 <script>
-import QasBtn from '../btn/QasBtn.vue'
 import PvFiltersButton from './private/PvFiltersButton.vue'
 
 import { camelize, camelizeKeys } from 'humps'
@@ -59,7 +49,6 @@ export default {
   name: 'QasFilters',
 
   components: {
-    QasBtn,
     PvFiltersButton
   },
 
@@ -158,10 +147,6 @@ export default {
       return activeFilters
     },
 
-    debounce () {
-      return this.useSearchOnType ? '1200' : ''
-    },
-
     fields () {
       return getState.call(this, { entity: this.entity, key: 'filters' })
     },
@@ -195,10 +180,6 @@ export default {
 
     hasFields () {
       return !!Object.keys(this.fields || {}).length
-    },
-
-    hasSearch () {
-      return this.search.length
     },
 
     showFilterButton () {
@@ -388,7 +369,7 @@ export default {
     },
 
     onSearch () {
-      if (this.debounce) {
+      if (this.useSearchOnType) {
         this.filter()
       }
     },
@@ -400,48 +381,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss">
-// TODO rever
-.qas-filters {
-  &__input-content {
-    .q-field {
-      &::before {
-        border: 2px solid transparent;
-        border-radius: var(--qas-generic-border-radius);
-        bottom: 0;
-        content: '';
-        left: 0;
-        pointer-events: none;
-        position: absolute;
-        right: 0;
-        top: 0;
-        transition: border-color var(--qas-generic-transition);
-      }
-
-      &--dense .q-field__prepend {
-        padding-right: var(--qas-spacing-xs);
-      }
-
-      &--dense .q-field__append {
-        padding-left: var(--qas-spacing-sm);
-      }
-
-      &--focused::before {
-        border-color: var(--q-primary);
-        color: var(--q-primary);
-      }
-
-      &__control::after,
-      &__control::before {
-        display: none !important;
-      }
-
-      &__native {
-        padding-bottom: var(--qas-spacing-sm);
-        padding-top: var(--qas-spacing-sm);
-      }
-    }
-  }
-}
-</style>

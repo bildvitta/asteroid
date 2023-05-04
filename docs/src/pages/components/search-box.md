@@ -2,20 +2,16 @@
 title: QasSearchBox
 ---
 
-Componente para pesquisa utilizando Fuse.js.
+Componente para pesquisa utilizando Fuse.js / LazyLoading.
 
 <doc-api file="search-box/QasSearchBox" name="QasSearchBox" />
 
 :::warning
-Quando usado a propriedade `useLazyLoading` o componente depende do `Vuex`, utiliza módulos com action para manipular/recuperar os dados:
+Quando usado a propriedade `useLazyLoading` o componente depende do `Vuex` ou `Pinia`, utiliza módulos com action para manipular/recuperar os dados:
 - actions: fetchFieldOptions.
 
 Hoje Utilizamos 1 biblioteca compatível:
 [VuexStoreModule](https://github.com/bildvitta/vuex-store-module).
-:::
-
-:::tip
-Componente implementa o `QasBox` repassando todas propriedades.
 :::
 
 ## Uso
@@ -23,6 +19,10 @@ Componente implementa o `QasBox` repassando todas propriedades.
 <doc-example file="QasSearchBox/Basic" title="Básico" />
 
 #### Lazy loading
+
+:::info
+Quando as 'opções' são passadas externamente para o componente e o mesmo está em modo lazy loading, essas opções serão adicionadas como as primeiras opções, e as opções que vierem através do fetch serão adicionadas abaixo delas. As opções do fetch serão verificadas para evitar adicionar opções duplicadas. De acordo com nossos padrões, o backend sempre retorna as opções dentro de 'fields' dos itens que já foram selecionados. Essa é a maneira correta do componente sempre apresentar as opções selecionadas em ordem inicial.
+:::
 
 Quando usamos o `QasSearchBox` com grande quantidades de dados devemos ter um endpoint específico para buscar as suas opções, assim, eliminando o peso de retornar todas as opções do campo no _fields_ da página.
 

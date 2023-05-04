@@ -1,6 +1,5 @@
 import { decamelize } from 'humps'
 import { isEqual } from 'lodash'
-import { getNormalizedOptions } from '../helpers'
 import { getAction } from '@bildvitta/store-adapter'
 
 export default {
@@ -20,11 +19,11 @@ export default {
       type: String
     },
 
-    useLazyLoading: {
+    fetching: {
       type: Boolean
     },
 
-    fetching: {
+    useLazyLoading: {
       type: Boolean
     }
   },
@@ -38,12 +37,15 @@ export default {
 
   data () {
     return {
+      mx_cachedOptions: [],
+      mx_fetchCount: 0,
       mx_filteredOptions: [],
+      mx_foundDuplicatedOptions: [],
+      mx_fromSearch: false,
       mx_hasFetchError: false,
       mx_isFetching: false,
       mx_isScrolling: false,
       mx_search: '',
-      mx_fetchCount: 0,
       mx_pagination: {
         page: 1,
         lastPage: null,
@@ -77,10 +79,6 @@ export default {
       return !!this.mx_filteredOptions.length
     },
 
-    mx_isFilterByFuse () {
-      return !this.useLazyLoading
-    },
-
     mx_isMultiple () {
       return this.$attrs.multiple || this.$attrs.multiple === ''
     }
@@ -101,11 +99,17 @@ export default {
   methods: {
     async mx_filterOptionsByStore (search) {
       this.mx_resetFilter(search)
+
+      this.mx_fromSearch = !!search
+
       await this.mx_setFetchOptions()
+
+      if (this.mx_cachedOptions.length && !search) this.mx_setInitialCachedOptions()
     },
 
     mx_resetFilter (search) {
       this.mx_filteredOptions = []
+      this.mx_foundDuplicatedOptions = []
       this.mx_search = search
       this.mx_pagination = {
         page: 1,
@@ -180,14 +184,8 @@ export default {
 
         this.$emit('fetch-options-success', data)
 
-        return this.mx_handleOptions(results)
+        return this.mx_getNonDuplicatedOptions(results)
       } catch (error) {
-        this.$qas.logger.group(
-          `Mixin: searchFilterMixin - mx_fetchOptions -> exceção da action ${this.entity}/fetchFieldOptions`,
-          [error],
-          { error: true }
-        )
-
         this.mx_hasFetchError = true
         this.$emit('fetch-options-error', error)
 
@@ -199,7 +197,48 @@ export default {
     },
 
     async mx_setFetchOptions () {
-      this.mx_filteredOptions = await this.mx_fetchOptions()
+      const options = await this.mx_fetchOptions()
+
+      this.mx_filteredOptions.push(...options)
+    },
+
+    mx_setInitialCachedOptions () {
+      this.mx_cachedOptions.forEach(cachedOption => {
+        const hasOption = this.mx_filteredOptions.find(filteredOption => {
+          return filteredOption.value === cachedOption.value
+        })
+
+        if (!hasOption && this.mx_filteredOptions.length) {
+          this.mx_filteredOptions.unshift(cachedOption)
+        }
+      })
+    },
+
+    mx_getNonDuplicatedOptions (options = []) {
+      if (this.mx_fromSearch) {
+        this.mx_fromSearch = false
+
+        return options
+      }
+
+      if (!options.length) return []
+
+      const nonDuplicatedOptions = [...options]
+
+      this.mx_cachedOptions.forEach(cachedOption => {
+        if (this.mx_foundDuplicatedOptions.includes(cachedOption.value)) return
+
+        const duplicatedOptionIndex = nonDuplicatedOptions.findIndex(option => {
+          return option.value === cachedOption.value
+        })
+
+        if (~duplicatedOptionIndex) {
+          this.mx_foundDuplicatedOptions.push(cachedOption.value)
+          nonDuplicatedOptions.splice(duplicatedOptionIndex, 1)
+        }
+      })
+
+      return nonDuplicatedOptions
     },
 
     mx_canFetchOptions () {
@@ -208,18 +247,6 @@ export default {
       const hasMorePages = hasCount ? lastPage && page <= lastPage : hasNextPage
 
       return hasMorePages && !this.mx_isFetching && !this.mx_isScrolling && this.useLazyLoading
-    },
-
-    mx_handleOptions (options) {
-      if (this.labelKey && this.valueKey) {
-        return getNormalizedOptions({
-          options,
-          label: this.labelKey,
-          value: this.valueKey
-        })
-      }
-
-      return options
     },
 
     mx_getMissingPropsMessage (prop) {
@@ -232,6 +259,15 @@ export default {
 
     mx_getNormalizedFuseResults (results = []) {
       return results.map(({ item }) => item)
+    },
+
+    mx_setCachedOptions (model) {
+      this.$watch(model, options => {
+        if (!options?.length) return
+
+        this.mx_filteredOptions = [...options]
+        this.mx_cachedOptions = [...options]
+      }, { immediate: true })
     }
   }
 }
