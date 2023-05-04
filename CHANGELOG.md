@@ -11,11 +11,15 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
 ## Não publicado
-### Corrigido
-- `QasFormView`: corrigido a validação das props `useCancelButton` e `useSubmitButton`.
+### Adicionado
+- `QasDate`: adicionado novo componente wrapper do `QDate` com estilos próprios e recursos extras.
 
 ### Modificado
 - `QasLabel`: modificado a classe de fonte utilizada no componente, de `text-subtitle2` para `text-subtitle1`.
+- `QasDateTimeInput`: substituído `QDate` pelo `QasDate`.
+
+### Corrigido
+- `QasFormView`: corrigido a validação das props `useCancelButton` e `useSubmitButton`.
 
 ## [3.9.0] - 02-05-2023
 ## BREAKING CHANGES
