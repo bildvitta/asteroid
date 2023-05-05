@@ -40,8 +40,9 @@
 <script>
 import PvFiltersButton from './private/PvFiltersButton.vue'
 
-import { camelize, camelizeKeys } from 'humps'
+import { camelize, camelizeKeys, decamelizeKeys } from 'humps'
 import { humanize, parseValue } from '../../helpers/filters.js'
+import { camelizeFieldsName } from '../../helpers'
 import contextMixin from '../../mixins/context.js'
 import { getState, getAction } from '@bildvitta/store-adapter'
 
@@ -107,6 +108,11 @@ export default {
     useUpdateRoute: {
       default: true,
       type: Boolean
+    },
+
+    beforeFilter: {
+      default: null,
+      type: Function
     }
   },
 
@@ -137,8 +143,10 @@ export default {
         const hasField = fields.includes(key)
 
         if (hasField) {
-          const value = humanize(this.fields[key], this.normalizeValues(filters[key], this.fields[key]?.multiple))
-          const { label, name } = this.fields[key]
+          const field = { ...this.fields[key], ...this.fieldsProps?.[key] }
+
+          const value = humanize(field, this.normalizeValues(filters[key], field?.multiple))
+          const { label, name } = field
 
           activeFilters[key] = { label, name, value }
         }
@@ -148,7 +156,9 @@ export default {
     },
 
     fields () {
-      return getState.call(this, { entity: this.entity, key: 'filters' })
+      const fields = getState.call(this, { entity: this.entity, key: 'filters' })
+
+      return camelizeFieldsName(fields)
     },
 
     filtersClass () {
@@ -238,9 +248,7 @@ export default {
         this.filters = {}
       }
 
-      this.hideFiltersMenu()
-      this.updateCurrentFilters()
-      this.updateRouteQuery(query)
+      this.handleFilter(query)
     },
 
     clearSearch () {
@@ -298,9 +306,26 @@ export default {
         search: this.search || undefined
       }
 
+      this.handleBeforeFilter(query)
+    },
+
+    handleFilter (query) {
       this.hideFiltersMenu()
       this.updateCurrentFilters()
       this.updateRouteQuery(query)
+    },
+
+    handleBeforeFilter (payload) {
+      const hasBeforeFilter = typeof this.beforeFilter === 'function'
+
+      if (hasBeforeFilter) {
+        return this.beforeFilter({
+          payload,
+          resolve: payload => this.handleFilter(payload)
+        })
+      }
+
+      this.handleFilter(payload)
     },
 
     getChipValue (value) {
@@ -312,13 +337,13 @@ export default {
     },
 
     removeFilter ({ name }) {
-      const query = { ...this.$route.query }
+      const camelizedQuery = camelizeKeys({ ...this.$route.query })
 
-      delete query[name]
+      delete camelizedQuery[name]
       delete this.filters[name]
 
       this.updateCurrentFilters()
-      this.updateRouteQuery(query)
+      this.updateRouteQuery(camelizedQuery)
     },
 
     updateCurrentFilters () {
@@ -331,16 +356,19 @@ export default {
     },
 
     updateRouteQuery (query) {
-      this.useUpdateRoute && this.$router.push({ query })
+      const decamelizedQuery = decamelizeKeys(query)
+
+      this.useUpdateRoute && this.$router.push({ query: decamelizedQuery })
     },
 
     updateValues () {
       this.setSearch()
 
       const { filters } = this.mx_context
+      const camelizedFilters = camelizeKeys(filters)
 
-      for (const key in filters) {
-        this.filters[key] = parseValue(this.normalizeValues(filters[key], this.fields[key]?.multiple))
+      for (const key in camelizedFilters) {
+        this.filters[key] = parseValue(this.normalizeValues(camelizedFilters[key], this.fields[key]?.multiple))
       }
     },
 
