@@ -167,25 +167,7 @@ export default {
     },
 
     fields () {
-      // return getState.call(this, { entity: this.entity, key: 'filters' })
-      return {
-        supervisor: {
-          name: 'supervisor',
-          type: 'select',
-          options: [
-            { label: 'supervisor', value: 'supervisor1' },
-            { label: 'supervisor 2', value: 'supervisor2' }
-          ]
-        },
-        real_estate_broker: {
-          name: 'real_estate_broker',
-          type: 'select',
-          options: [
-            { label: 'Cleyton', value: '1' },
-            { label: 'Cleyton 2', value: '2' }
-          ]
-        }
-      }
+      return getState.call(this, { entity: this.entity, key: 'filters' })
     },
 
     filtersClass () {
