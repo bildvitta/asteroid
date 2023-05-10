@@ -40,7 +40,7 @@
 <script>
 import PvFiltersButton from './private/PvFiltersButton.vue'
 
-import { camelize, camelizeKeys } from 'humps'
+import { camelize, camelizeKeys, decamelize } from 'humps'
 import { humanize, parseValue } from '../../helpers/filters.js'
 import contextMixin from '../../mixins/context.js'
 import { getState, getAction } from '@bildvitta/store-adapter'
@@ -107,10 +107,15 @@ export default {
     useUpdateRoute: {
       default: true,
       type: Boolean
+    },
+
+    beforeFilter: {
+      default: null,
+      type: Function
     }
   },
 
-  emits: ['fetch-success', 'fetch-error', 'update:currentFilters'],
+  emits: ['fetch-success', 'fetch-error', 'update:currentFilters', 'update:filters'],
 
   data () {
     return {
@@ -137,8 +142,10 @@ export default {
         const hasField = fields.includes(key)
 
         if (hasField) {
-          const value = humanize(this.fields[key], this.normalizeValues(filters[key], this.fields[key]?.multiple))
-          const { label, name } = this.fields[key]
+          const field = { ...this.fields[key], ...this.formattedFieldsProps?.[key] }
+
+          const value = humanize(field, this.normalizeValues(filters[key], field?.multiple))
+          const { label, name } = field
 
           activeFilters[key] = { label, name, value }
         }
@@ -147,8 +154,38 @@ export default {
       return activeFilters
     },
 
+    formattedFieldsProps () {
+      const fieldsProps = {}
+
+      for (const key in this.fieldsProps) {
+        const decamelizedFieldKey = decamelize(key)
+
+        fieldsProps[decamelizedFieldKey] = { ...this.fieldsProps[key] }
+      }
+
+      return fieldsProps
+    },
+
     fields () {
-      return getState.call(this, { entity: this.entity, key: 'filters' })
+      // return getState.call(this, { entity: this.entity, key: 'filters' })
+      return {
+        supervisor: {
+          name: 'supervisor',
+          type: 'select',
+          options: [
+            { label: 'supervisor', value: 'supervisor1' },
+            { label: 'supervisor 2', value: 'supervisor2' }
+          ]
+        },
+        real_estate_broker: {
+          name: 'real_estate_broker',
+          type: 'select',
+          options: [
+            { label: 'Cleyton', value: '1' },
+            { label: 'Cleyton 2', value: '2' }
+          ]
+        }
+      }
     },
 
     filtersClass () {
@@ -166,7 +203,7 @@ export default {
         color: this.filterButtonColor,
         error: this.hasFetchError,
         fields: this.fields,
-        fieldsProps: this.fieldsProps,
+        fieldsProps: this.formattedFieldsProps,
         loading: this.isFetching,
 
         onClear: this.clearFilters,
@@ -205,6 +242,13 @@ export default {
         this.fetchFilters()
         this.useUpdateRoute && this.updateValues()
       }
+    },
+
+    filters: {
+      handler (value) {
+        this.$emit('update:filters', value)
+      },
+      deep: true
     }
   },
 
@@ -238,9 +282,7 @@ export default {
         this.filters = {}
       }
 
-      this.hideFiltersMenu()
-      this.updateCurrentFilters()
-      this.updateRouteQuery(query)
+      this.handleBeforeFilter(query)
     },
 
     clearSearch () {
@@ -298,6 +340,23 @@ export default {
         search: this.search || undefined
       }
 
+      this.handleBeforeFilter(query)
+    },
+
+    handleBeforeFilter (payload) {
+      const hasBeforeFilter = typeof this.beforeFilter === 'function'
+
+      if (hasBeforeFilter) {
+        return this.beforeFilter({
+          payload,
+          resolve: payload => this.handleFilter(payload)
+        })
+      }
+
+      this.handleFilter(payload)
+    },
+
+    handleFilter (query) {
       this.hideFiltersMenu()
       this.updateCurrentFilters()
       this.updateRouteQuery(query)
@@ -315,10 +374,14 @@ export default {
       const query = { ...this.$route.query }
 
       delete query[name]
-      delete this.filters[name]
+      this.removeKeyFilterByName(name)
 
       this.updateCurrentFilters()
       this.updateRouteQuery(query)
+    },
+
+    removeKeyFilterByName (name) {
+      delete this.filters[name]
     },
 
     updateCurrentFilters () {
