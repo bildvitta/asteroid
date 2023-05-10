@@ -14,7 +14,7 @@
       </slot>
 
       <slot v-if="showEmptyResult" name="empty-result">
-        <qas-empty-result-text class="q-mt-md" v-bind="emptyResultTextProps" />
+        <qas-empty-result-text class="q-mt-md" />
       </slot>
 
       <q-inner-loading :showing="showInnerLoading">
@@ -45,11 +45,6 @@ export default {
     emptyListHeight: {
       default: '100px',
       type: String
-    },
-
-    emptyResultTextProps: {
-      default: () => ({}),
-      type: Object
     },
 
     fuseOptions: {
