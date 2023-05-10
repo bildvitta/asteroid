@@ -117,6 +117,10 @@ module.exports = [
         path: '/components/dialog-router'
       },
       {
+        name: 'EmptyResultText',
+        path: '/components/empty-result-text'
+      },
+      {
         name: 'Field',
         path: '/components/field'
       },

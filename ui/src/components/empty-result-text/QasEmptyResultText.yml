@@ -1,0 +1,14 @@
+type: component
+
+meta:
+  desc: Componente de texto em casos de resultados vazio após filtros.
+
+props:
+  text:
+    desc: Texto a ser exibido.
+    default: Não há itens para serem exibidos.
+    type: String
+
+slots:
+  default:
+    desc: Slot que substitui a propriedade "text".

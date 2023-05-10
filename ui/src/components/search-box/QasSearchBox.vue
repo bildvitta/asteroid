@@ -14,10 +14,7 @@
       </slot>
 
       <slot v-if="showEmptyResult" name="empty-result">
-        <div class="absolute-center text-center">
-          <q-icon class="q-mb-sm text-center" color="primary" name="sym_r_search" size="38px" />
-          <div>{{ emptyResultText }}</div>
-        </div>
+        <qas-empty-result-text class="q-mt-md" />
       </slot>
 
       <q-inner-loading :showing="showInnerLoading">
@@ -47,11 +44,6 @@ export default {
   props: {
     emptyListHeight: {
       default: '100px',
-      type: String
-    },
-
-    emptyResultText: {
-      default: 'Não há resultados disponíveis.',
       type: String
     },
 
@@ -228,7 +220,9 @@ export default {
       // Se tiver erro no primeiro fetch, retorna o "done" na proxima.
       if (((this.mx_hasFetchError && !this.mx_hasFilteredOptions) || this.hasNoOptionsOnFirstFetch)) return done()
 
-      if (!this.mx_hasFilteredOptions && !this.mx_search) {
+      const canMakeFirstFetch = this.mx_fetchCount === 0 && this.mx_hasFilteredOptions
+
+      if ((!this.mx_hasFilteredOptions || canMakeFirstFetch) && !this.mx_search) {
         await this.mx_setFetchOptions()
         return done()
       }

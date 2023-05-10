@@ -102,14 +102,21 @@ export default {
 
       this.mx_fromSearch = !!search
 
-      await this.mx_setFetchOptions()
+      const options = await this.mx_fetchOptions()
+
+      this.mx_resetOptions()
+
+      this.mx_filteredOptions.push(...options)
 
       if (this.mx_cachedOptions.length && !search) this.mx_setInitialCachedOptions()
     },
 
-    mx_resetFilter (search) {
+    mx_resetOptions () {
       this.mx_filteredOptions = []
       this.mx_foundDuplicatedOptions = []
+    },
+
+    mx_resetFilter (search) {
       this.mx_search = search
       this.mx_pagination = {
         page: 1,
