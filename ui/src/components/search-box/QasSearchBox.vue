@@ -228,7 +228,9 @@ export default {
       // Se tiver erro no primeiro fetch, retorna o "done" na proxima.
       if (((this.mx_hasFetchError && !this.mx_hasFilteredOptions) || this.hasNoOptionsOnFirstFetch)) return done()
 
-      if (!this.mx_hasFilteredOptions && !this.mx_search) {
+      const canMakeFirstFetch = this.mx_fetchCount === 0 && this.mx_hasFilteredOptions
+
+      if ((!this.mx_hasFilteredOptions || canMakeFirstFetch) && !this.mx_search) {
         await this.mx_setFetchOptions()
         return done()
       }
