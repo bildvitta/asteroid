@@ -14,9 +14,7 @@
       </slot>
 
       <slot v-if="showEmptyResult" name="empty-result">
-        <div class="q-mt-sm text-body1 text-grey-8">
-          <div>{{ emptyResultText }}</div>
-        </div>
+        <qas-empty-result-text class="q-mt-md" v-bind="emptyResultTextProps" />
       </slot>
 
       <q-inner-loading :showing="showInnerLoading">
@@ -49,9 +47,9 @@ export default {
       type: String
     },
 
-    emptyResultText: {
-      default: 'Não há itens para serem exibidos.',
-      type: String
+    emptyResultTextProps: {
+      default: () => ({}),
+      type: Object
     },
 
     fuseOptions: {
