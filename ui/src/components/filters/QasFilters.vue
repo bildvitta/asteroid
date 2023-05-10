@@ -40,7 +40,7 @@
 <script>
 import PvFiltersButton from './private/PvFiltersButton.vue'
 
-import { camelize, camelizeKeys } from 'humps'
+import { camelize, camelizeKeys, decamelize } from 'humps'
 import { humanize, parseValue } from '../../helpers/filters.js'
 import contextMixin from '../../mixins/context.js'
 import { getState, getAction } from '@bildvitta/store-adapter'
@@ -137,14 +137,28 @@ export default {
         const hasField = fields.includes(key)
 
         if (hasField) {
-          const value = humanize(this.fields[key], this.normalizeValues(filters[key], this.fields[key]?.multiple))
-          const { label, name } = this.fields[key]
+          const field = { ...this.fields[key], ...this.formattedFieldsProps?.[key] }
+
+          const value = humanize(field, this.normalizeValues(filters[key], field?.multiple))
+          const { label, name } = field
 
           activeFilters[key] = { label, name, value }
         }
       }
 
       return activeFilters
+    },
+
+    formattedFieldsProps () {
+      const fieldsProps = {}
+
+      for (const key in this.fieldsProps) {
+        const decamelizedFieldKey = decamelize(key)
+
+        fieldsProps[decamelizedFieldKey] = { ...this.fieldsProps[key] }
+      }
+
+      return fieldsProps
     },
 
     fields () {
@@ -166,7 +180,7 @@ export default {
         color: this.filterButtonColor,
         error: this.hasFetchError,
         fields: this.fields,
-        fieldsProps: this.fieldsProps,
+        fieldsProps: this.formattedFieldsProps,
         loading: this.isFetching,
 
         onClear: this.clearFilters,
@@ -216,7 +230,8 @@ export default {
 
   methods: {
     clearFilters () {
-      const { filters, ...query } = this.mx_context
+      const { filters } = this.mx_context
+      const query = { ...this.$route.query }
       const activeFilters = {
         ...filters,
         ...this.filters
@@ -296,6 +311,10 @@ export default {
         ...external,
         ...context,
         search: this.search || undefined
+      }
+
+      for (const key in query) {
+        if (!query[key]) delete query[key]
       }
 
       this.hideFiltersMenu()
