@@ -11,6 +11,10 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
 ## Não publicado
+### Modificado
+- `QasSearchBox`: alterado default da prop `emptyResultText` para `Não há itens para serem exibidos.`
+- `QasSearchBox`: alterado estilo de quando não não há itens para serem exibidos.
+
 ### Corrigido
 - `QasSearchBox`: corrigido primeiro fetch quando existe `options` antes de finalizar o primeiro `fetch`.
 - `ui/src/mixins/search-filter.js`: corrigido duplicidade de opções quando acontece mais de requisição em paralelo pelas mudanças causadas no `lazyLoadingProps`.

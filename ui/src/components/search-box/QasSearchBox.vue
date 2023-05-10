@@ -14,8 +14,7 @@
       </slot>
 
       <slot v-if="showEmptyResult" name="empty-result">
-        <div class="absolute-center text-center">
-          <q-icon class="q-mb-sm text-center" color="primary" name="sym_r_search" size="38px" />
+        <div class="q-mt-sm text-body1 text-grey-8">
           <div>{{ emptyResultText }}</div>
         </div>
       </slot>
@@ -51,7 +50,7 @@ export default {
     },
 
     emptyResultText: {
-      default: 'Não há resultados disponíveis.',
+      default: 'Não há itens para serem exibidos.',
       type: String
     },
 
