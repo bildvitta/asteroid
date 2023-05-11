@@ -316,7 +316,7 @@ export default {
       for (const key in query) {
         const filterItem = query[key]
 
-        if (!filterItem && (filterItem === null || filterItem === undefined)) {
+        if (filterItem === null || filterItem === undefined) {
           delete query[key]
         }
       }
