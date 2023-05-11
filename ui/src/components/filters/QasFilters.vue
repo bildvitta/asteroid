@@ -314,11 +314,7 @@ export default {
       }
 
       for (const key in query) {
-        const filterItem = query[key]
-
-        if (filterItem === null || filterItem === undefined) {
-          delete query[key]
-        }
+        query[key] ?? delete query[key]
       }
 
       this.hideFiltersMenu()
