@@ -1,4 +1,4 @@
-import rimraf from 'rimraf'
+import { sync } from 'rimraf'
 
 import json from '@rollup/plugin-json'
 import replace from '@rollup/plugin-replace'
@@ -12,7 +12,7 @@ import postcss from 'postcss'
 import autoprefixer from 'autoprefixer'
 
 // Clean build artifacts
-rimraf.sync('dist/!(api|vetur)')
+sync('dist/!(api|vetur)')
 
 // Setup
 import { name, author, version } from './package.json'
