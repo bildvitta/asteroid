@@ -13,8 +13,10 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 ## [Não publicado]
 ### Adicionado
 - `QasFilters`: tratamento para passar os `fieldsProps` utilizando as chaves dos fields em camelCase para mantermos o padrão.
-- `QasFilters`: Ao selecionar o botão de limpar, irá limpar somente os campos do filtro e da query, mantendo outros filtros externos na query.
 - `QasFilters`: tratamento para não filtrar na query campos que não possuem valores.
+
+### Modificado
+- `QasFilters`: Ao selecionar o botão de limpar, irá limpar somente os campos do filtro e da query, mantendo outros filtros externos na query.
 
 ## [3.10.0-beta.0] - 04-05-2023
 ## BREAKING CHANGES
