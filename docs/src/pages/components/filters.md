@@ -18,6 +18,10 @@ Hoje Utilizamos 2 bibliotecas com propósitos diferentes que são compatíveis c
 Para fazer esses exemplos na documentação, estamos utilizando o `VuexOffline`, para saber mais, veja o código fonte da documentação.
 :::
 
+:::warning
+O componente irá filtrar somente campos com valores que sejam diferente de **null** ou **undefined**, caso contrário ao filtrar o campo irá ser removido da query.
+:::
+
 :::tip
 Este componente serve para lidar com **filtros dinâmicos**, e normalmente utilizado dentro do `QasListView`.
 :::
