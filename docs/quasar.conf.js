@@ -99,10 +99,7 @@ module.exports = configure(function (quasar) {
         // YAML
         const yamlRule = chain.module.rule('yaml').test(/\.ya?ml$/).pre()
 
-        yamlRule.use('json-loader').loader('json-loader').end()
-        yamlRule.use('yaml-loader').loader('yaml-loader').options({
-          type: 'json'
-        })
+        yamlRule.use('yaml-loader').loader('yaml-loader')
 
         // Markdown It
         const markdownRule = chain.module.rule('md').test(/\.md$/).pre()
