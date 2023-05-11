@@ -14,7 +14,6 @@ $warning: #f2c037;
 // Asteroid
 @mixin set-brand($name, $color) {
   :root {
-    // stylelint-disable-next-line custom-property-pattern
     --q-#{$name}: #{$color};
   }
 

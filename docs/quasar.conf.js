@@ -11,7 +11,6 @@ const { configure } = require('quasar/wrappers')
 
 /* eslint-env node */
 const ESLintPlugin = require('eslint-webpack-plugin')
-const StylelintPlugin = require('stylelint-webpack-plugin')
 
 const { getVueComponent } = require('./build/markdown.js')
 
@@ -87,9 +86,6 @@ module.exports = configure(function (quasar) {
         chain.plugin('node-polyfill').use(nodePolyfillWebpackPlugin)
         chain.plugin('eslint-webpack-plugin')
           .use(ESLintPlugin, [{ extensions: ['js', 'vue'] }])
-
-        chain.plugin('stylelint-webpack-plugin')
-          .use(StylelintPlugin, [{ extensions: ['scss', 'vue'] }])
 
         // Alias
         chain.resolve.alias.merge({
