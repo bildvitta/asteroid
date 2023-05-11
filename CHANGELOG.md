@@ -17,6 +17,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 
 ### Modificado
 - `QasFilters`: tratamento para passar os `fieldsProps` utilizando as chaves dos fields em camelCase para mantermos o padrão.
+- `typography.scss`: modificado line-height que antes seguia o tamanho do font-size agora é 140% o tamanho do font-size.
 
 ## [3.10.0-beta.1] - 10-05-2023
 ## BREAKING CHANGES
