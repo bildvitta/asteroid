@@ -16,9 +16,7 @@
 
         <div v-else-if="!mx_isFetching">
           <slot name="empty-results">
-            <div class="q-my-lg text-body1 text-grey-7">
-              Não há itens para serem exibidos.
-            </div>
+            <qas-empty-result-text />
           </slot>
         </div>
 

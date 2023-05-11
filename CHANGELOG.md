@@ -18,6 +18,25 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 ### Modificado
 - `QasFilters`: Ao selecionar o botão de limpar, irá limpar somente os campos do filtro e da query, mantendo outros filtros externos na query.
 
+## [3.10.0-beta.1] - 10-05-2023
+## BREAKING CHANGES
+- `QasSearchBox`: removido prop `emptyResultText` para manter sempre a mesma mensagem quando não encontra itens.
+
+### Adicionado
+- `QasEmptyResultText`: adicionado novo componente para resultados vazio.
+
+### Modificado
+- `QasSearchBox`: alterado default da prop `emptyResultText` para `Não há itens para serem exibidos.`
+- `QasSearchBox`: alterado estilo de quando não não há itens para serem exibidos.
+- [`QasSearchBox`, `QasListView`, `QasSingleView`]: adicionado componente `QasEmptyResultText`.
+
+### Corrigido
+- `QasSearchBox`: corrigido primeiro fetch quando existe `options` antes de finalizar o primeiro `fetch`.
+- `ui/src/mixins/search-filter.js`: corrigido duplicidade de opções quando acontece mais de requisição em paralelo pelas mudanças causadas no `lazyLoadingProps`.
+
+### Removido
+- `QasSearchBox`: removido prop `emptyResultText` para manter sempre a mesma mensagem quando não encontra itens.
+
 ## [3.10.0-beta.0] - 04-05-2023
 ## BREAKING CHANGES
 - `QasSelect`: removido props `labelKey` e `valueKey`, componente não aceita mais fazer conversão das chaves label/value, o backend deve sempre retornar no padrão correto, em **ultimo** caso, é possível utilizar o helper `getNormalizedOptions` para converter as opções antes de enviar para o componente, porém o componente não fica mais responsável por isto.
@@ -1452,3 +1471,4 @@ Adicionado suporte para Pinia/Vuex Seguindo os padrões da biblioteca `@bildvitt
 [3.9.0-beta.1]: https://github.com/bildvitta/asteroid/compare/v3.9.0-beta.0...v3.9.0-beta.1?expand=1
 [3.9.0]: https://github.com/bildvitta/asteroid/compare/v3.8.0...v3.9.0?expand=1
 [3.10.0-beta.0]: https://github.com/bildvitta/asteroid/compare/v3.9.0...v3.10.0-beta.0?expand=1
+[3.10.0-beta.1]: https://github.com/bildvitta/asteroid/compare/v3.10.0-beta.0...v3.10.0-beta.1?expand=1

@@ -8,10 +8,7 @@
       <slot />
     </template>
 
-    <div v-else-if="!mx_isFetching" class="q-my-xl text-center">
-      <q-icon class="q-mb-sm text-center" color="grey-7" name="sym_r_search" size="38px" />
-      <div class="text-grey-7">Nenhum item encontrado.</div>
-    </div>
+    <qas-empty-result-text v-else-if="!mx_isFetching" class="q-my-xl" />
 
     <footer v-if="mx_hasFooterSlot">
       <slot name="footer" />
