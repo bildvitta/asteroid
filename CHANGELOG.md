@@ -10,6 +10,13 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 ### Sobre os "BREAKING CHANGES"
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
+## Não publicado
+## BREAKING CHANGES
+- `QasFilters`: O componente irá filtrar somente campos com valores que sejam diferente de **null** ou **undefined**, caso contrário ao filtrar o campo irá ser removido da query.
+
+### Corrigido
+- `QasFilters`: tratamento para filtrar na query somente valores que são diferente de null ou undefined.
+
 ## [3.10.0-beta.2] - 11-05-2023
 ### Corrigido
 - `QasFilters`: Ao selecionar o botão de limpar, irá limpar somente os campos do filtro e da query, mantendo outros filtros externos na query.
