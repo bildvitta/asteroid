@@ -10,6 +10,17 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 ### Sobre os "BREAKING CHANGES"
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
+## Não publicado
+## BREAKING CHANGES
+- Como foi atualizado todas as libs do asteroid, é possível que existam breaking changes que não foram detectadas, é importante testar a aplicação que estiver usando o asteroid como um todo.
+
+### Modificado
+- Atualizado todas libs do asteroid (ui/app-extension/docs/raiz).
+- Mudanças referentes as atualizações de bibliotecas.
+
+### Corrigido
+- `QasDateTimeInput`: corrigido logica para seguir regra do lint.
+
 ## [3.10.0-beta.3] - 12-05-2023
 ## BREAKING CHANGES
 - `QasFilters`: O componente irá filtrar somente campos com valores que sejam diferente de **null** ou **undefined**, caso contrário ao filtrar o campo irá ser removido da query.
