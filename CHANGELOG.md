@@ -10,18 +10,6 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 ### Sobre os "BREAKING CHANGES"
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
-## Não publicado
-### Modificado
-- Atualizado dependências de ui:
-  `QasMap`: "@fawmi/vue-google-maps": "^0.9.4" -> "^0.9.79".
-  `QasNumericInput`: "autonumeric": "4.6.0" -> "^4.8.3".
-  `ui/src/helpers/filters.js`: "date-fns": "^2.28.0" -> "^2.30.0".
-  `QasSignaturePad`: "signature_pad": "^4.0.1" -> "^4.1.5".
-  `QasSortable`: ""sortablejs": "^1.4.0" -> "^1.15.0".
-  [`QasSelect`, `QasSearchBox`]: "fuse.js": "^6.5.3" -> "^6.6.2".
-  [`QasSingleView`, `QasListView`, `QasSelect`, `QasSearchBox`, `QasFormView`, `QasSortable`, `QasTreeGenerator`]: "axios": "^0.21.1" -> "1.4.0".
-  - "autoprefixer": "^10.4.2" -> "^10.4.14".
-  - "core-js": "^3.20.2" -> "^3.30.2"
 ## [3.10.0-beta.2] - 11-05-2023
 ### Corrigido
 - `QasFilters`: Ao selecionar o botão de limpar, irá limpar somente os campos do filtro e da query, mantendo outros filtros externos na query.
