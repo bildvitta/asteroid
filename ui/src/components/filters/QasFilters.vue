@@ -314,7 +314,7 @@ export default {
       }
 
       for (const key in query) {
-        if (!query[key]) delete query[key]
+        query[key] ?? delete query[key]
       }
 
       this.hideFiltersMenu()
