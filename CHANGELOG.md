@@ -21,6 +21,10 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 ### Corrigido
 - `QasDateTimeInput`: corrigido logica para seguir regra do lint.
 
+### Removido
+- `ui/scr/dev/`: removido folder pois utilizamos o `/docs` para testes.
+- `stylelint`: removido stylelint, já era desativada muitas regras e não estava ajudando no desenvolvimento, então foi removido.
+
 ## [3.10.0-beta.3] - 12-05-2023
 ## BREAKING CHANGES
 - `QasFilters`: O componente irá filtrar somente campos com valores que sejam diferente de **null** ou **undefined**, caso contrário ao filtrar o campo irá ser removido da query.
