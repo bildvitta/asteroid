@@ -388,7 +388,6 @@ export default {
       .q-btn {
         border: 0;
         box-shadow: none;
-        color: $grey-9;
         height: 30px !important;
         min-height: 30px;
         min-width: 30px;
@@ -406,10 +405,10 @@ export default {
 
         @include set-typography($subtitle2);
       }
+    }
 
-      .q-date__today {
-        color: $primary;
-      }
+    &__today {
+      color: $primary;
     }
   }
 }

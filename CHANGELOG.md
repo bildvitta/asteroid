@@ -12,7 +12,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 
 ## Não publicado
 
-### Adicionado
+### Modificado
 - `QasDate`: adicionado a cor primaria na data de hoje.
 
 ### Corrigido
