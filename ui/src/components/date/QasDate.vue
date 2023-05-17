@@ -406,6 +406,10 @@ export default {
 
         @include set-typography($subtitle2);
       }
+
+      .q-date__today {
+        color: $primary;
+      }
     }
   }
 }
