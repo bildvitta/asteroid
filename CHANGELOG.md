@@ -11,6 +11,10 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
 ## Não publicado
+
+### Modificado
+- `QasDate`: adicionado a cor primaria na data de hoje.
+
 ### Corrigido
 - `search-filter.js`: corrigido problema de quando as opções externas são setadas após o fetch interno de opções, que fazia que as opções externas sobrescreviam as opões interna erroneamente.
 
