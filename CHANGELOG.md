@@ -25,6 +25,13 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - `ui/scr/dev/`: removido folder pois utilizamos o `/docs` para testes.
 - `stylelint`: removido stylelint, já era desativada muitas regras e não estava ajudando no desenvolvimento, então foi removido.
 
+## [3.10.0-beta.4] - 17-05-2023
+### Modificado
+- `QasDate`: adicionado a cor primaria na data de hoje.
+
+### Corrigido
+- `search-filter.js`: corrigido problema de quando as opções externas são setadas após o fetch interno de opções, que fazia que as opções externas sobrescreviam as opões interna erroneamente.
+
 ## [3.10.0-beta.3] - 12-05-2023
 ## BREAKING CHANGES
 - `QasFilters`: O componente irá filtrar somente campos com valores que sejam diferente de **null** ou **undefined**, caso contrário ao filtrar o campo irá ser removido da query.
@@ -1497,3 +1504,4 @@ Adicionado suporte para Pinia/Vuex Seguindo os padrões da biblioteca `@bildvitt
 [3.10.0-beta.1]: https://github.com/bildvitta/asteroid/compare/v3.10.0-beta.0...v3.10.0-beta.1?expand=1
 [3.10.0-beta.2]: https://github.com/bildvitta/asteroid/compare/v3.10.0-beta.1...v3.10.0-beta.2?expand=1
 [3.10.0-beta.3]: https://github.com/bildvitta/asteroid/compare/v3.10.0-beta.2...v3.10.0-beta.3?expand=1
+[3.10.0-beta.4]: https://github.com/bildvitta/asteroid/compare/v3.10.0-beta.3...v3.10.0-beta.4?expand=1

@@ -30,7 +30,8 @@
     "Notify",
     "Mixins",
     "QasActionsMenu",
-    "QasTableGenerator"
+    "QasTableGenerator",
+    "QasDate"
   ],
   "cSpell.words": [
     "Nunito"
