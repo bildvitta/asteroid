@@ -272,7 +272,17 @@ export default {
       this.$watch(model, options => {
         if (!options?.length) return
 
-        this.mx_filteredOptions = [...options]
+        /*
+          * pode ser que as opções sejam inicializadas após o primeiro fetch de opções
+          * fazendo com que as opções sobrescreva as que vieram através do fetch, então é
+          * preciso tratar para nestes casos serem incrementadas ao invés de sobrescrever.
+        */
+        if (this.mx_fetchCount === 1) {
+          this.mx_filteredOptions.unshift(...options)
+        } else {
+          this.mx_filteredOptions = [...options]
+        }
+
         this.mx_cachedOptions = [...options]
       }, { immediate: true })
     }
