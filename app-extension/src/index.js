@@ -21,6 +21,7 @@ function extendQuasar (quasar, api) {
     // https://github.com/vuejs/core/pull/1600
     quasar.build.vueLoaderOptions.whitespace = 'preserve'
   }
+
   // Adiciona todas classes do asteroid
   quasar.css.push(...resolve('index.scss'))
 
@@ -66,16 +67,16 @@ module.exports = function (api) {
       }
     })
   } else {
-    api.compatibleWith('@quasar/app-vite', '^1.3.0')
+    api.compatibleWith('@quasar/app-vite', '^1.0.0')
 
     api.extendViteConf((viteConf, { isClient, isServer }, api) => {
+      Object.assign(viteConf.resolve.alias, {
+        asteroid: '/node_modules/@bildvitta/quasar-ui-asteroid/src/asteroid.js'
+      })
+
       Object.assign(viteConf.optimizeDeps, {
         include: ['fast-deep-equal'],
         exclude: ['@fawmi/vue-google-maps']
-      })
-
-      Object.assign(viteConf.resolve.alias, {
-        asteroid: api.resolve.app(asteroid)
       })
     })
   }
