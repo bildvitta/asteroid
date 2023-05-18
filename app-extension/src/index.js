@@ -1,7 +1,7 @@
 const sourcePath = '~@bildvitta/quasar-app-extension-asteroid/src/'
 const resolve = (...paths) => paths.map(path => sourcePath + path)
 
-function extendQuasar (quasar) {
+function extendQuasar (quasar, api) {
   // Arquivos de boot
   // https://quasar.dev/quasar-cli-vite/boot-files#introduction
   quasar.boot.push(...resolve(
@@ -13,13 +13,14 @@ function extendQuasar (quasar) {
     'boot/store-adapter'
   ))
 
-  // Transpilação de arquivos!
-  quasar.build.transpileDependencies.push(/quasar-app-extension-asteroid[\\/]src/)
+  if (api.hasWebpack) {
+    // Transpilação de arquivos!
+    quasar.build.transpileDependencies.push(/quasar-app-extension-asteroid[\\/]src/)
 
-  // Preserva whitespaces!
-  // https://github.com/vuejs/core/pull/1600
-  quasar.build.vueLoaderOptions.whitespace = 'preserve'
-
+    // Preserva whitespaces!
+    // https://github.com/vuejs/core/pull/1600
+    quasar.build.vueLoaderOptions.whitespace = 'preserve'
+  }
   // Adiciona todas classes do asteroid
   quasar.css.push(...resolve('index.scss'))
 
@@ -50,19 +51,36 @@ function extendQuasar (quasar) {
 }
 
 module.exports = function (api) {
+  const asteroid = 'node_modules/@bildvitta/quasar-ui-asteroid/src/asteroid.js'
+
+  if (api.hasWebpack) {
+    api.compatibleWith('@quasar/app', '^3.0.0')
+
+    api.extendWebpack(webpack => {
+      // Adiciona um "alias" chamado "asteroid" para a aplicação
+
+      webpack.resolve.alias = {
+        ...webpack.resolve.alias,
+
+        asteroid: api.resolve.app(asteroid)
+      }
+    })
+  } else {
+    api.compatibleWith('@quasar/app-vite', '^1.3.0')
+
+    api.extendViteConf((viteConf, { isClient, isServer }, api) => {
+      Object.assign(viteConf.optimizeDeps, {
+        include: ['fast-deep-equal'],
+        exclude: ['@fawmi/vue-google-maps']
+      })
+
+      Object.assign(viteConf.resolve.alias, {
+        asteroid: api.resolve.app(asteroid)
+      })
+    })
+  }
+
   api.compatibleWith('quasar', '^2.0.0')
-  api.compatibleWith('@quasar/app', '^3.0.0')
 
   api.extendQuasarConf(extendQuasar)
-
-  api.extendWebpack(webpack => {
-    // Adiciona um "alias" chamado "asteroid" para a aplicação
-    const asteroid = 'node_modules/@bildvitta/quasar-ui-asteroid/src/asteroid.js'
-
-    webpack.resolve.alias = {
-      ...webpack.resolve.alias,
-
-      asteroid: api.resolve.app(asteroid)
-    }
-  })
 }
