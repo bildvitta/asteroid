@@ -71,11 +71,11 @@ module.exports = function (api) {
 
     api.extendViteConf((viteConf, { isClient, isServer }, api) => {
       Object.assign(viteConf.resolve.alias, {
-        asteroid: '/node_modules/@bildvitta/quasar-ui-asteroid/src/asteroid.js'
+        asteroid: api.resolve.app(asteroid)
       })
 
       Object.assign(viteConf.optimizeDeps, {
-        include: ['fast-deep-equal'],
+        include: ['fast-deep-equal', 'humps', 'lodash', 'pica'],
         exclude: ['@fawmi/vue-google-maps']
       })
     })
