@@ -13,6 +13,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 ## Não publicado
 ### Corrigido
 - `QasFilters`: corrigido problema no método `updateValues`. O model interno de `filters` ficava desatualizado quando não tinha query na URL.
+- `QasFilters`: corrigido problema na checagem se há valores nos `fields` retornados da API, caso não viesse `fields` ocorria um erro no console ao recuperar o tamanho do objeto de `fields`.
 
 ## [3.10.0-beta.4] - 17-05-2023
 ### Modificado

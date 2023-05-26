@@ -368,7 +368,7 @@ export default {
       if (!this.useUpdateRoute) return
 
       const watchOnce = this.$watch('fields', values => {
-        if (Object.keys(values).length) {
+        if (Object.keys(values || {}).length) {
           this.updateValues()
           this.updateCurrentFilters()
           watchOnce()
