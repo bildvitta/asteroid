@@ -394,9 +394,9 @@ export default {
     },
 
     setFilters () {
-      const { filters } = this.mx_context
-
       this.filters = {}
+
+      const { filters } = this.mx_context
 
       for (const key in filters) {
         this.filters[key] = parseValue(this.normalizeValues(filters[key], this.fields[key]?.multiple))
