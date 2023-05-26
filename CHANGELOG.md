@@ -10,6 +10,10 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 ### Sobre os "BREAKING CHANGES"
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
+## Não publicado
+### Corrigido
+- `QasFilters`: corrigido problema no método `updateValues`. O model interno de `filters` ficava desatualizado quando não tinha query na URL.
+
 ## [3.10.0-beta.4] - 17-05-2023
 ### Modificado
 - `QasDate`: adicionado a cor primaria na data de hoje.

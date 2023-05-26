@@ -355,12 +355,7 @@ export default {
 
     updateValues () {
       this.setSearch()
-
-      const { filters } = this.mx_context
-
-      for (const key in filters) {
-        this.filters[key] = parseValue(this.normalizeValues(filters[key], this.fields[key]?.multiple))
-      }
+      this.setFilters()
     },
 
     normalizeValues (value, isMultiple) {
@@ -396,6 +391,16 @@ export default {
     setSearch () {
       const { search } = this.mx_context
       this.search = search || ''
+    },
+
+    setFilters () {
+      const { filters } = this.mx_context
+
+      this.filters = {}
+
+      for (const key in filters) {
+        this.filters[key] = parseValue(this.normalizeValues(filters[key], this.fields[key]?.multiple))
+      }
     }
   }
 }
