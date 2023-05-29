@@ -291,7 +291,7 @@ export default {
     },
 
     hasHeader () {
-      return !this.useSingleLabel && !this.useInlineActions
+      return !this.useInlineActions
     },
 
     headerClasses () {
@@ -299,7 +299,7 @@ export default {
         'justify-end': this.useSingleLabel,
         'justify-between': !this.useSingleLabel,
         'q-pb-sm': this.useSingleLabel,
-        'q-pb-md': !this.useSingleLabel
+        'q-pb-md': !this.useInlineActions
       }
     }
   },
