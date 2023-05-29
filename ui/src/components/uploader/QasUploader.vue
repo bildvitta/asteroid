@@ -30,7 +30,7 @@
           </div>
         </div>
 
-        <div v-else class="q-mt-md">
+        <div v-else class="q-mt-lg">
           <qas-empty-result-text />
         </div>
       </template>
