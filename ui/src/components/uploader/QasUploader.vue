@@ -24,10 +24,14 @@
       </template>
 
       <template #list="scope">
-        <div v-if="hasGalleryCardSection" class="q-col-gutter-lg q-mt-sm row">
+        <div v-if="hasGalleryCardSection(getFilesList(scope.files, scope))" class="q-col-gutter-lg q-mt-sm row">
           <div v-for="(file, key, index) in getFilesList(scope.files, scope)" :key="index" :class="columnClasses">
             <pv-uploader-gallery-card v-bind="getUploaderGalleryCardProps({ key, scope, file, index })" />
           </div>
+        </div>
+
+        <div v-else class="q-mt-md">
+          <qas-empty-result-text />
         </div>
       </template>
     </q-uploader>
@@ -268,12 +272,6 @@ export default {
       return this.$slots['custom-upload']
     },
 
-    hasGalleryCardSection () {
-      return (
-        (this.useObjectModel ? !!Object.keys(this.modelValue).length : !!this.modelValue?.length) || this.hasError
-      )
-    },
-
     hasHeaderSlot () {
       return this.$slots.header
     },
@@ -448,6 +446,10 @@ export default {
 
     handleSubmitSuccess ({ detail: { entity } }) {
       if (entity === this.entity) this.setSavedFiles()
+    },
+
+    hasGalleryCardSection (files) {
+      return Object.keys(files).length
     },
 
     isFailed (file) {
