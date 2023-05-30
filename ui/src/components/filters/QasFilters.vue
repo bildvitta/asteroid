@@ -229,7 +229,7 @@ export default {
   },
 
   methods: {
-    clearFilters () {
+    async clearFilters () {
       const { filters } = this.mx_context
       const query = { ...this.$route.query }
       const activeFilters = {
@@ -254,8 +254,10 @@ export default {
       }
 
       this.hideFiltersMenu()
+
+      await this.updateRouteQuery(query)
+
       this.updateCurrentFilters()
-      this.updateRouteQuery(query)
     },
 
     clearSearch () {
@@ -302,7 +304,7 @@ export default {
       }
     },
 
-    filter (external) {
+    async filter (external) {
       const { filters, page, ...context } = this.mx_context
 
       const query = {
@@ -318,8 +320,10 @@ export default {
       }
 
       this.hideFiltersMenu()
+
+      await this.updateRouteQuery(query)
+
       this.updateCurrentFilters()
-      this.updateRouteQuery(query)
     },
 
     getChipValue (value) {
@@ -330,14 +334,15 @@ export default {
       this.$refs.filtersButton?.hideMenu()
     },
 
-    removeFilter ({ name }) {
+    async removeFilter ({ name }) {
       const query = { ...this.$route.query }
 
       delete query[name]
       delete this.filters[name]
 
+      await this.updateRouteQuery(query)
+
       this.updateCurrentFilters()
-      this.updateRouteQuery(query)
     },
 
     updateCurrentFilters () {
@@ -349,18 +354,13 @@ export default {
       this.$emit('update:currentFilters', this.currentFilters)
     },
 
-    updateRouteQuery (query) {
-      this.useUpdateRoute && this.$router.push({ query })
+    async updateRouteQuery (query) {
+      this.useUpdateRoute && await this.$router.push({ query })
     },
 
     updateValues () {
       this.setSearch()
-
-      const { filters } = this.mx_context
-
-      for (const key in filters) {
-        this.filters[key] = parseValue(this.normalizeValues(filters[key], this.fields[key]?.multiple))
-      }
+      this.setFilters()
     },
 
     normalizeValues (value, isMultiple) {
@@ -373,7 +373,7 @@ export default {
       if (!this.useUpdateRoute) return
 
       const watchOnce = this.$watch('fields', values => {
-        if (Object.keys(values).length) {
+        if (Object.keys(values || {}).length) {
           this.updateValues()
           this.updateCurrentFilters()
           watchOnce()
@@ -396,6 +396,16 @@ export default {
     setSearch () {
       const { search } = this.mx_context
       this.search = search || ''
+    },
+
+    setFilters () {
+      this.filters = {}
+
+      const { filters } = this.mx_context
+
+      for (const key in filters) {
+        this.filters[key] = parseValue(this.normalizeValues(filters[key], this.fields[key]?.multiple))
+      }
     }
   }
 }
