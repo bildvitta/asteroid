@@ -4,6 +4,13 @@ meta:
   desc: Componente para criação de filtros dinâmicos.
 
 props:
+  current-filters:
+    model: true
+    desc: Utilizado para recuperar os filtros realizados internamente.
+    default: {}
+    type: Object
+    examples: [v-model:currentFilters="currentFilters"]
+
   entity:
     desc: Entidade da store, por exemplo se tiver que trabalhar com modulo de usuários, teremos o model "users" na store, que vai ser nossa "entity".
     required: true
