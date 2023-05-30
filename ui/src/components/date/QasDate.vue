@@ -27,6 +27,27 @@ export default {
       default: () => []
     },
 
+    eventsCounters: {
+      type: Array,
+      default: () => {
+        return [
+          {
+            date: '2023-05-01',
+            counter: 20,
+            color: 'negative'
+          },
+          {
+            date: '2023-05-02',
+            counter: 14
+          },
+          {
+            date: '2023-05-08',
+            counter: 25
+          }
+        ]
+      }
+    },
+
     mask: {
       type: String,
       default: MaskOptions.Dash,
@@ -116,6 +137,11 @@ export default {
       return ['qas-date', 'shadow-2', { 'qas-date--inative': this.useInactiveDates }]
     },
 
+    defaultEvents () {
+      return Object.keys({})
+      // return Object.keys(this.eventsCounters)
+    },
+
     hasEvents () {
       return !!Object.keys(this.events)?.length
     },
@@ -141,7 +167,7 @@ export default {
     },
 
     normalizedEvents () {
-      return this.useUnmaskEvents ? this.getUnmaskedList(this.events) : this.events
+      return this.useUnmaskEvents ? this.getUnmaskedList(this.defaultEvents) : this.events
     },
 
     normalizedOptions () {
@@ -158,10 +184,13 @@ export default {
   mounted () {
     this.setNewNavigatorDisplay()
 
+    this.currentDate = this.getCurrentDate()
+
     if (this.useInactiveDates) {
-      this.currentDate = this.getCurrentDate()
       this.setInactiveEvents(this.currentDate)
     }
+
+    this.setEvents(this.currentDate)
 
     this.setQuantityEvents()
   },
@@ -211,6 +240,43 @@ export default {
         : list.map(dateItem => asteroidDate(dateItem, 'yyyy/MM/dd'))
     },
 
+    setEvents ({ year, month }) {
+      // const previousMonth = month - 1
+
+      const dateElement = this.$refs.date.$el
+      // const inativeDaysElements = dateElement.querySelectorAll('.q-date__calendar-item--fill')
+      const activeDaysElements = dateElement.querySelectorAll('.q-date__calendar-item--in')
+      const activeList = Array.from(activeDaysElements)
+
+      activeList.forEach(dayElement => {
+        const [child] = dayElement.children
+        const activeDay = child.innerText
+        const newDate = date.buildDate({ year, month, day: activeDay })
+        const normalizedDate = asteroidDate(newDate, 'yyyy-MM-dd')
+
+        const currentEvent = this.eventsCounters.find(event => event.date === normalizedDate)
+
+        if (!currentEvent) return
+
+        const activeDayElement = dayElement.querySelector('.q-btn__content')
+        const eventElement = document.createElement('div')
+
+        const classes = [
+          'qas-date__event',
+          'qas-date__event--active',
+          `text-${currentEvent.color || 'primary'}`
+        ]
+
+        eventElement.classList.add(...classes)
+
+        eventElement.innerText = `(${currentEvent.counter})`
+
+        activeDayElement.appendChild(eventElement)
+      })
+
+      // let monthIncrement = 0
+    },
+
     async setInactiveEvents ({ year, month }) {
       if (!this.hasEvents) return
 
@@ -258,6 +324,7 @@ export default {
       const eventsList = Array.from(eventsDays)
 
       eventsList.forEach(element => {
+        console.log(element)
         element.innerText = '(25)'
       })
     },
@@ -290,11 +357,14 @@ export default {
     async onNavigation (date) {
       this.$emit('navigation', date)
 
+      this.currentDate = date
+
       /*
         * O componente QDate usa um vue transition de 3ms, como estamos manipulando o DOM, precisamos esperar essa
         * transição terminar para que possamos fazer a logica, com isto precisamos sempre ficar atentos a atualizações
         * do componente QDate para assegurar que esta logica não quebre.
       */
+
       if (this.useInactiveDates) setTimeout(() => { this.setInactiveEvents(date) }, 350)
 
       this.$nextTick(() => this.setNewNavigatorDisplay())
@@ -319,9 +389,29 @@ export default {
   min-width: 100%;
   width: 100%;
 
+  .q-date__calendar-days > div {
+    // height: calc(16.66% + 100px) !important;
+    height: 20%;
+  }
+
   &__event-inactive {
     background-color: $grey-4;
     bottom: 4px !important;
+  }
+
+  &__event {
+    // @include set-typography($caption);
+
+    // background-color: transparent !important;
+    // bottom: initial;
+    bottom: 6px;
+    color: $primary;
+    font-size: 10px;
+    height: 20px;
+    left: 50%;
+    position: relative;
+    transform: translateX(-50%);
+    width: 30px;
   }
 
   &--inative {
@@ -371,15 +461,17 @@ export default {
     }
 
     &__event {
-      @include set-typography($caption);
+      // @include set-typography($caption);
 
-      background-color: transparent !important;
-      // bottom: -15px;
-      bottom: initial;
+      // background-color: transparent !important;
+      // bottom: initial;
+      bottom: 6px;
       color: $primary;
+      font-size: 10px;
       height: 20px;
-      left: initial;
+      left: 50%;
       position: relative;
+      transform: translateX(-50%);
       width: 30px;
     }
 
@@ -406,8 +498,9 @@ export default {
 
       .q-btn {
         border: 0;
+        border-radius: $generic-border-radius;
         box-shadow: none;
-        height: 30px !important;
+        height: 36px !important;
         min-height: 30px;
         min-width: 30px;
         transition: color var(--qas-generic-transition);
@@ -416,6 +509,10 @@ export default {
         .q-ripple,
         .q-focus-helper {
           display: none !important;
+        }
+
+        &.bg-primary .qas-date__event--active {
+          color: white !important;
         }
 
         &:hover {
