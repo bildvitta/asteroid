@@ -11,6 +11,9 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
 ## Não publicado
+### Modificado
+- `QasUploader`: adicionado `QasEmptyResultText` para quando o modelValue do componente for vazio (também afeta o QasSignatureUploader).
+
 ### Corrigido
 - `QasNestedFields`: corrigido problemas referentes ao espaçamento do label quando é usado com `useSingleLabel`.
 - `QasFilters`: corrigido problema no método `updateValues`. O model interno de `filters` ficava desatualizado quando não tinha query na URL.
