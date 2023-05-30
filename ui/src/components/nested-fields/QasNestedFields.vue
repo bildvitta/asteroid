@@ -1,15 +1,15 @@
 <template>
   <div :id="fieldName" class="qas-nested-fields">
-    <div class="text-left">
-      <qas-label v-if="useSingleLabel" :label="fieldLabel" margin="lg" />
+    <div v-if="useSingleLabel" class="text-left">
+      <qas-label :label="fieldLabel" margin="lg" />
     </div>
 
     <div ref="inputContent">
       <component :is="componentTag" v-bind="componentProps">
         <template v-for="(row, index) in nested" :key="`row-${index}`">
           <div v-if="!row[destroyKey]" :id="`row-${index}`" class="full-width q-mt-md qas-nested-fields__field-item">
-            <header v-if="hasHeader" class="flex items-center" :class="headerClasses">
-              <qas-label v-if="!useSingleLabel" :label="getRowLabel(index)" />
+            <header v-if="hasHeader" class="flex items-center q-pb-md" :class="headerClasses">
+              <qas-label v-if="!useSingleLabel" :label="getRowLabel(index)" margin="none" />
               <qas-actions-menu v-if="hasBlockActions(row)" v-bind="actionsMenuProps" :list="getActionsList(index, row)" />
             </header>
 
@@ -291,15 +291,13 @@ export default {
     },
 
     hasHeader () {
-      return !this.useInlineActions
+      return (this.useSingleLabel && !this.useInlineActions) || !this.useSingleLabel
     },
 
     headerClasses () {
       return {
         'justify-end': this.useSingleLabel,
-        'justify-between': !this.useSingleLabel,
-        'q-pb-sm': this.useSingleLabel,
-        'q-pb-md': !this.useInlineActions
+        'justify-between': !this.useSingleLabel
       }
     }
   },
