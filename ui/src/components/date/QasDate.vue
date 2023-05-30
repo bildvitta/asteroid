@@ -411,7 +411,7 @@ export default {
         min-height: 30px;
         min-width: 30px;
         transition: color var(--qas-generic-transition);
-        width: 30px !important;;
+        width: 30px !important;
 
         .q-ripple,
         .q-focus-helper {
