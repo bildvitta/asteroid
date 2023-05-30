@@ -162,6 +162,8 @@ export default {
       this.currentDate = this.getCurrentDate()
       this.setInactiveEvents(this.currentDate)
     }
+
+    this.setQuantityEvents()
   },
 
   methods: {
@@ -247,6 +249,16 @@ export default {
 
           inativeElement.appendChild(divElement)
         }
+      })
+    },
+
+    setQuantityEvents () {
+      const dateElement = this.$refs.date.$el
+      const eventsDays = dateElement.querySelectorAll('.q-date__event')
+      const eventsList = Array.from(eventsDays)
+
+      eventsList.forEach(element => {
+        element.innerText = '(25)'
       })
     },
 
@@ -359,9 +371,16 @@ export default {
     }
 
     &__event {
-      bottom: -1;
-      height: 6px;
-      width: 6px;
+      @include set-typography($caption);
+
+      background-color: transparent !important;
+      // bottom: -15px;
+      bottom: initial;
+      color: $primary;
+      height: 20px;
+      left: initial;
+      position: relative;
+      width: 30px;
     }
 
     &__months,
@@ -392,7 +411,7 @@ export default {
         min-height: 30px;
         min-width: 30px;
         transition: color var(--qas-generic-transition);
-        width: 30px !important;
+        width: 30px !important;;
 
         .q-ripple,
         .q-focus-helper {

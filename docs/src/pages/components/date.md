@@ -31,8 +31,8 @@ const MaskOptions = {
 
 ## Uso
 
-<doc-example file="QasDate/Basic" title="Básico" />
+<!-- <doc-example file="QasDate/Basic" title="Básico" /> -->
 <doc-example file="QasDate/ExDateEvents" title="Com eventos" />
-<doc-example file="QasDate/ExDateNoInactive" title="Sem inativos" />
+<!-- <doc-example file="QasDate/ExDateNoInactive" title="Sem inativos" />
 <doc-example file="QasDate/ExDateNoInactiveEvents" title="Com eventos e sem inativos" />
-<doc-example file="QasDate/ExDateMultiple" title="Múltiplo" />
+<doc-example file="QasDate/ExDateMultiple" title="Múltiplo" /> -->
