@@ -29,8 +29,10 @@
 </template>
 
 <script>
+import { uid } from 'quasar'
 import { searchFilterMixin } from '../../mixins'
 import Fuse from 'fuse.js'
+import fuseConfig from '../../shared/fuse-config'
 
 export default {
   name: 'QasSelect',
@@ -69,21 +71,25 @@ export default {
     }
   },
 
-  emits: ['update:modelValue'],
+  emits: ['popup-hide', 'popup-show', 'update:modelValue'],
 
   data () {
     return {
-      fuse: null
+      fuse: null,
+      isPopupContentOpen: false
     }
   },
 
   computed: {
     attributes () {
       return {
+        class: 'qas-select',
         clearable: this.isSearchable,
         emitValue: true,
         mapOptions: true,
         outlined: true,
+        popupContentClass: this.popupContentClass,
+
         ...this.$attrs,
 
         error: this.hasError,
@@ -91,14 +97,20 @@ export default {
         loading: this.hasLoading,
         options: this.mx_filteredOptions,
         useInput: this.isSearchable,
+
         ...(this.isSearchable && { onFilter: this.onFilter }),
-        ...(this.useLazyLoading && { onVirtualScroll: this.mx_onVirtualScroll })
+
+        ...(this.useLazyLoading && {
+          onPopupHide: this.onPopupHide,
+          onPopupShow: this.onPopupShow,
+          onVirtualScroll: this.mx_onVirtualScroll
+        })
       }
     },
 
     defaultFuseOptions () {
       return {
-        ignoreLocation: true,
+        ...fuseConfig,
         keys: ['label', 'value'],
 
         ...this.fuseOptions
@@ -139,6 +151,10 @@ export default {
       set (value) {
         this.$emit('update:modelValue', value)
       }
+    },
+
+    popupContentClass () {
+      return `qas-select__popup-content-${uid()}`
     }
   },
 
@@ -162,6 +178,7 @@ export default {
 
   created () {
     this.setSearchMethod()
+    this.setIsFetchingWatcher()
   },
 
   methods: {
@@ -192,6 +209,30 @@ export default {
       this.mx_filteredOptions = this.mx_getNormalizedFuseResults(results)
     },
 
+    onPopupHide () {
+      this.isPopupContentOpen = false
+      this.$emit('popup-hide')
+    },
+
+    onPopupShow () {
+      this.isPopupContentOpen = true
+      this.$emit('popup-show')
+
+      if (this.mx_isFetching) {
+        this.togglePopupContentClass()
+      }
+    },
+
+    setIsFetchingWatcher () {
+      if (this.useLazyLoading) {
+        this.$watch('mx_isFetching', value => {
+          if (!this.isPopupContentOpen || value) return
+
+          this.togglePopupContentClass()
+        })
+      }
+    },
+
     setLazyLoading () {
       this.mx_setCachedOptions('options')
 
@@ -202,7 +243,33 @@ export default {
       if (this.useLazyLoading) return this.setLazyLoading()
 
       if (this.hasFuse) this.setFuse()
+    },
+
+    async togglePopupContentClass () {
+      await this.$nextTick()
+
+      const popupContentElement = document.querySelector(`.${this.popupContentClass}`)
+
+      if (popupContentElement) {
+        popupContentElement.classList.toggle('qas-select__is-fetching')
+      }
     }
   }
 }
 </script>
+
+<style lang="scss">
+.qas-select {
+  &__is-fetching {
+    cursor: not-allowed !important;
+
+    .q-virtual-scroll__content {
+      pointer-events: none;
+
+      .q-item {
+        color: $grey-6;
+      }
+    }
+  }
+}
+</style>

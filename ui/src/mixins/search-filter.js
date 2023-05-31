@@ -77,26 +77,19 @@ export default {
 
     mx_hasFilteredOptions () {
       return !!this.mx_filteredOptions.length
-    },
-
-    mx_isMultiple () {
-      return this.$attrs.multiple || this.$attrs.multiple === ''
     }
   },
 
   watch: {
     'lazyLoadingProps.params': {
       handler (newParams, oldParams) {
-        const hasNewParams = Object.values(newParams).some(value => value)
-        const hasOldParams = Object.values(oldParams).some(value => value)
-        const isEqualParams = isEqual(newParams, oldParams)
-
-        if ((!hasNewParams && !hasOldParams) || isEqualParams) return
+        if (isEqual(newParams, oldParams)) return
 
         this.mx_cachedOptions = []
+
         this.mx_filterOptionsByStore('')
 
-        this.$emit('update:modelValue', this.mx_isMultiple ? [] : '')
+        this.$emit('update:modelValue', undefined)
       }
     }
   },

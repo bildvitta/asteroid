@@ -27,7 +27,7 @@ props:
     default:
       ignoreLocation: true
       keys: [label, value]
-      threshold: 0.6
+      threshold: 0.4
 
   label-key:
     desc: O componente internamente espera receber na propriedade "options" um array de objeto contendo "label" e "value", caso o seu objeto não tenha "label" mas um "name" por exemplo, você pode definir esta prop "label-key" como "name".
