@@ -11,6 +11,9 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
 ## Não publicado
+### Modificado
+- `QasSelect`: modificado comportamento para selects do tipo lazy loading para não ser possível selecionar uma opção quando o componente estiver buscando por novas opções.
+
 ### Corrigido
 - `search-filter`: corrigido problema com filtros relacionados onde as opções cacheadas (opções iniciais) não eram limpas após mudança dos parâmetros da URL de lazy loading.
 - `search-filter`: corrigido problema com filtros relacionados que estavam sendo disparados o evento para buscar novas opções sem necessariamente ter alterado os parâmetros da URL de lazy loading.
