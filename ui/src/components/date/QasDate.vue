@@ -24,11 +24,6 @@ export default {
   props: {
     events: {
       type: [Array, Function],
-      default: () => []
-    },
-
-    eventsCounters: {
-      type: Array,
       default: () => {
         return [
           {
@@ -38,7 +33,7 @@ export default {
           },
           {
             date: '2023-05-02',
-            counter: 14
+            counter: 1
           },
           {
             date: '2023-05-08',
@@ -46,6 +41,11 @@ export default {
           }
         ]
       }
+    },
+
+    eventColor: {
+      type: [String, Function],
+      default: ''
     },
 
     mask: {
@@ -116,7 +116,6 @@ export default {
       return {
         class: this.classes,
         color: 'primary',
-        events: this.normalizedEvents,
         mask: this.mask,
         minimal: true,
         multiple: this.multiple,
@@ -124,7 +123,7 @@ export default {
         ref: 'date',
         style: this.styles,
         textColor: 'white',
-        eventColor: this.getEventColor,
+        // eventColor: this.getEventColor,
 
         // events
         onNavigation: this.onNavigation,
@@ -137,17 +136,24 @@ export default {
       return ['qas-date', 'shadow-2', { 'qas-date--inative': this.useInactiveDates }]
     },
 
-    defaultEvents () {
-      return Object.keys({})
-      // return Object.keys(this.eventsCounters)
-    },
-
     hasEvents () {
       return !!Object.keys(this.events)?.length
     },
 
     hasModelValue () {
       return this.multiple ? !!this.modelValue.length : !!this.modelValue
+    },
+
+    isArrayOfString () {
+      return typeof this.events?.[0] === 'string'
+    },
+
+    isArrayOfObject () {
+      return typeof this.events?.[0] === 'object'
+    },
+
+    isEventsFunction () {
+      return typeof this.events === 'function'
     },
 
     model: {
@@ -167,7 +173,7 @@ export default {
     },
 
     normalizedEvents () {
-      return this.useUnmaskEvents ? this.getUnmaskedList(this.defaultEvents) : this.events
+      return this.useUnmaskEvents ? this.getUnmaskedList(this.events) : this.events
     },
 
     normalizedOptions () {
@@ -192,7 +198,7 @@ export default {
 
     this.setEvents(this.currentDate)
 
-    this.setQuantityEvents()
+    // this.setQuantityEvents()
   },
 
   methods: {
@@ -235,9 +241,14 @@ export default {
     getUnmaskedList (list) {
       const invalidTypes = ['function', 'undefined']
 
+      console.log(list)
+
       return invalidTypes.includes(typeof list)
         ? list
-        : list.map(dateItem => asteroidDate(dateItem, 'yyyy/MM/dd'))
+        : list.map(dateItem => {
+          const date = this.isArrayOfObject ? dateItem.date : dateItem
+          return asteroidDate(date, 'yyyy/MM/dd')
+        })
     },
 
     setEvents ({ year, month }) {
@@ -254,9 +265,24 @@ export default {
         const newDate = date.buildDate({ year, month, day: activeDay })
         const normalizedDate = asteroidDate(newDate, 'yyyy-MM-dd')
 
-        const currentEvent = this.eventsCounters.find(event => event.date === normalizedDate)
+        const getCurrentEvent = () => this.events.find(event => {
+          return this.isArrayOfString ? event === normalizedDate : event.date === normalizedDate
+        })
+
+        const currentEvent = typeof this.events === 'function'
+          ? this.events(normalizedDate)
+          : getCurrentEvent()
+
+        // console.log(currentEvent)
 
         if (!currentEvent) return
+
+        const currentColor = (
+          (typeof this.eventColor === 'function' ? this.eventColor(normalizedDate) : this.eventColor) ||
+          currentEvent?.color
+        )
+
+        console.log(currentColor)
 
         const activeDayElement = dayElement.querySelector('.q-btn__content')
         const eventElement = document.createElement('div')
@@ -264,12 +290,24 @@ export default {
         const classes = [
           'qas-date__event',
           'qas-date__event--active',
-          `text-${currentEvent.color || 'primary'}`
+          `text-${currentColor || 'primary'}`,
+
+          this.isArrayOfString || this.isEventsFunction ? 'qas-date__event--pointer' : 'qas-date__event--counter'
         ]
+
+        if (this.isArrayOfString) {
+          const eventPointerElement = document.createElement('div')
+
+          eventPointerElement.classList.add('qas-date__event-pointer', `bg-${currentColor || 'primary'}`)
+
+          eventElement.appendChild(eventPointerElement)
+        }
 
         eventElement.classList.add(...classes)
 
-        eventElement.innerText = `(${currentEvent.counter})`
+        if (this.isArrayOfObject) {
+          eventElement.innerText = `(${currentEvent.counter})`
+        }
 
         activeDayElement.appendChild(eventElement)
       })
@@ -324,7 +362,7 @@ export default {
       const eventsList = Array.from(eventsDays)
 
       eventsList.forEach(element => {
-        console.log(element)
+        // console.log(element)
         element.innerText = '(25)'
       })
     },
@@ -404,6 +442,7 @@ export default {
 
     // background-color: transparent !important;
     // bottom: initial;
+    // position: absolute;
     bottom: 6px;
     color: $primary;
     font-size: 10px;
@@ -411,7 +450,31 @@ export default {
     left: 50%;
     position: relative;
     transform: translateX(-50%);
-    width: 30px;
+    width: 100%;
+
+    &--pointer {
+      display: flex;
+      justify-content: center;
+      // margin-top: var(--qas-spacing-xs);
+
+      // &::before {
+      //   border-radius: 100%;
+      //   // background-color: ;
+      //   content: '';
+      //   display: block;
+      //   height: 6px;
+      //   width: 6px;
+      // }
+    }
+  }
+
+  &__event-pointer {
+    border-radius: 100%;
+    display: flex;
+    height: 6px;
+    justify-content: center;
+    margin-top: var(--qas-spacing-xs);
+    width: 6px;
   }
 
   &--inative {
@@ -513,6 +576,10 @@ export default {
 
         &.bg-primary .qas-date__event--active {
           color: white !important;
+        }
+
+        &.bg-primary .qas-date__event--active .qas-date__event-pointer {
+          background-color: white !important;
         }
 
         &:hover {
