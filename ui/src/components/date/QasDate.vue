@@ -133,7 +133,8 @@ export default {
     },
 
     classes () {
-      return ['qas-date', 'shadow-2', { 'qas-date--inative': this.useInactiveDates }]
+      // TODO VOLTAR
+      return ['qas-date', 'shadow-2', { 'qas-date--inative': this.useInactiveDates || true }]
     },
 
     hasEvents () {
@@ -197,8 +198,6 @@ export default {
     }
 
     this.setEvents(this.currentDate)
-
-    // this.setQuantityEvents()
   },
 
   methods: {
@@ -241,8 +240,6 @@ export default {
     getUnmaskedList (list) {
       const invalidTypes = ['function', 'undefined']
 
-      console.log(list)
-
       return invalidTypes.includes(typeof list)
         ? list
         : list.map(dateItem => {
@@ -251,29 +248,91 @@ export default {
         })
     },
 
+    getStatusDay ({ currentDay, index }) {
+      const status = {
+        isPrevious: false,
+        isNext: false,
+        isCurrent: false,
+        currentDay
+      }
+
+      if (currentDay > index) {
+        status.isPrevious = true
+
+        return status
+      }
+
+      if (index - 7 > currentDay) {
+        status.isNext = true
+
+        return status
+      }
+
+      status.isCurrent = true
+
+      return status
+    },
+
+    getNormalizedYear ({ isNext, isPrevious, month, year }) {
+      if (isPrevious && month === 1) return year - 1
+
+      if (isNext && month === 12) return year + 1
+
+      return year
+    },
+
     setEvents ({ year, month }) {
       // const previousMonth = month - 1
 
-      const dateElement = this.$refs.date.$el
       // const inativeDaysElements = dateElement.querySelectorAll('.q-date__calendar-item--fill')
-      const activeDaysElements = dateElement.querySelectorAll('.q-date__calendar-item--in')
+      const dateElement = this.$refs.date.$el
+      const activeDaysElements = dateElement.querySelectorAll('.q-date__calendar-days .q-date__calendar-item')
       const activeList = Array.from(activeDaysElements)
 
-      activeList.forEach(dayElement => {
+      activeList.forEach((dayElement, index) => {
         const [child] = dayElement.children
         const activeDay = child.innerText
         const newDate = date.buildDate({ year, month, day: activeDay })
         const normalizedDate = asteroidDate(newDate, 'yyyy-MM-dd')
 
+        const { isCurrent, isNext, isPrevious } = this.getStatusDay({
+          currentDay: activeDay,
+          index: index++
+        })
+
+        console.log(this.getStatusDay({
+          currentDay: activeDay,
+          index: index++
+        }))
+
+        const normalizedYear = this.getNormalizedYear({
+          isNext,
+          month,
+          isPrevious,
+          year
+        })
+
+        const normalizedMonth = isCurrent ? month : isPrevious ? month - 1 : month + 1
+
+        // console.log(activeDay)
+
         const getCurrentEvent = () => this.events.find(event => {
           return this.isArrayOfString ? event === normalizedDate : event.date === normalizedDate
         })
 
+        // this.getNormalizedDateForEvent({
+        //   month,
+        //   day: activeDay,
+        //   index,
+        //   list: activeList,
+        //   year
+        // })
+
+        // console.log('2.', activeDay)
+
         const currentEvent = typeof this.events === 'function'
           ? this.events(normalizedDate)
           : getCurrentEvent()
-
-        // console.log(currentEvent)
 
         if (!currentEvent) return
 
@@ -281,8 +340,6 @@ export default {
           (typeof this.eventColor === 'function' ? this.eventColor(normalizedDate) : this.eventColor) ||
           currentEvent?.color
         )
-
-        console.log(currentColor)
 
         const activeDayElement = dayElement.querySelector('.q-btn__content')
         const eventElement = document.createElement('div')
@@ -298,9 +355,12 @@ export default {
         if (this.isArrayOfString) {
           const eventPointerElement = document.createElement('div')
 
-          eventPointerElement.classList.add('qas-date__event-pointer', `bg-${currentColor || 'primary'}`)
+          eventPointerElement.classList.add(
+            'qas-date__event-pointer',
+            `bg-${currentColor || 'primary'}`
+          )
 
-          eventElement.appendChild(eventPointerElement)
+          eventElement?.appendChild?.(eventPointerElement)
         }
 
         eventElement.classList.add(...classes)
@@ -309,10 +369,32 @@ export default {
           eventElement.innerText = `(${currentEvent.counter})`
         }
 
-        activeDayElement.appendChild(eventElement)
+        activeDayElement?.appendChild?.(eventElement)
       })
 
       // let monthIncrement = 0
+    },
+
+    getNormalizedDateForEvent ({ month, day, year, list, index }) {
+      if (this.useInactiveDates) {
+        const previousMonth = month - 1
+        const previousDay = list?.[index - 1]?.innerText || 0
+
+        let monthIncrement = 1
+
+        if (day < previousDay) {
+          monthIncrement += 1
+        }
+
+        const normalizedMonth = previousMonth + monthIncrement
+        const newDate = date.buildDate({ year, month: normalizedMonth, day })
+        const normalizedDate = asteroidDate(newDate, 'yyyy/MM/dd')
+        console.log(normalizedDate)
+
+        return normalizedDate
+      }
+
+      return date.buildDate({ year, month, day })
     },
 
     async setInactiveEvents ({ year, month }) {
@@ -353,17 +435,6 @@ export default {
 
           inativeElement.appendChild(divElement)
         }
-      })
-    },
-
-    setQuantityEvents () {
-      const dateElement = this.$refs.date.$el
-      const eventsDays = dateElement.querySelectorAll('.q-date__event')
-      const eventsList = Array.from(eventsDays)
-
-      eventsList.forEach(element => {
-        // console.log(element)
-        element.innerText = '(25)'
       })
     },
 
