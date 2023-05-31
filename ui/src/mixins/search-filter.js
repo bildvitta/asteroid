@@ -85,10 +85,15 @@ export default {
   },
 
   watch: {
-    lazyLoadingProps: {
-      handler (value, oldValue) {
-        if (isEqual(value, oldValue)) return
+    'lazyLoadingProps.params': {
+      handler (newParams, oldParams) {
+        const hasNewParams = Object.values(newParams).some(value => value)
+        const hasOldParams = Object.values(oldParams).some(value => value)
+        const isEqualParams = isEqual(newParams, oldParams)
 
+        if ((!hasNewParams && !hasOldParams) || isEqualParams) return
+
+        this.mx_cachedOptions = []
         this.mx_filterOptionsByStore('')
 
         this.$emit('update:modelValue', this.mx_isMultiple ? [] : '')
