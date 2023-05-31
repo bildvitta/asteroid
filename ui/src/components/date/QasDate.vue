@@ -295,24 +295,24 @@ export default {
         const newDate = date.buildDate({ year, month, day: activeDay })
         const normalizedDate = asteroidDate(newDate, 'yyyy-MM-dd')
 
-        const { isCurrent, isNext, isPrevious } = this.getStatusDay({
-          currentDay: activeDay,
-          index: index++
-        })
+        // const { isCurrent, isNext, isPrevious } = this.getStatusDay({
+        //   currentDay: activeDay,
+        //   index: index++
+        // })
 
         console.log(this.getStatusDay({
           currentDay: activeDay,
           index: index++
         }))
 
-        const normalizedYear = this.getNormalizedYear({
-          isNext,
-          month,
-          isPrevious,
-          year
-        })
+        // const normalizedYear = this.getNormalizedYear({
+        //   isNext,
+        //   month,
+        //   isPrevious,
+        //   year
+        // })
 
-        const normalizedMonth = isCurrent ? month : isPrevious ? month - 1 : month + 1
+        // const normalizedMonth = isCurrent ? month : isPrevious ? month - 1 : month + 1
 
         // console.log(activeDay)
 
