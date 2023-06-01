@@ -152,6 +152,7 @@ export default {
     },
 
     normalizedOptions () {
+      console.log(this.getUnmaskedList(this.options))
       return this.useUnmaskOptions ? this.getUnmaskedList(this.options) : this.options
     }
   },
@@ -212,7 +213,7 @@ export default {
 
       return invalidTypes.includes(typeof list)
         ? list
-        : list.map(({ date }) => asteroidDate(date, 'yyyy/MM/dd'))
+        : list.map(item => asteroidDate(item, 'yyyy/MM/dd'))
     },
 
     getStatusDay ({ currentDay, index }) {

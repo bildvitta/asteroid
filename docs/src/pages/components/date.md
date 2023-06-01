@@ -28,6 +28,21 @@ const MaskOptions = {
 ```
 :::
 
+:::warning
+##### Propriedade "events"
+
+A propriedade `events` **não** é a mesma do quasar, precisa seguir um padrão, sendo um `array de objetos`.
+
+```js
+[
+  {
+    date: '2023-01-01', // data que contém o evento.
+    counter: 20, // caso não tenha counter, é exibido um ponteiro no evento.
+    color: 'negative' // não é obrigatório.
+  }
+]
+:::
+
 
 ## Uso
 
