@@ -7,6 +7,7 @@
 
 <script>
 import { date } from 'quasar'
+import { constructObject } from '../../helpers'
 import { date as asteroidDate } from '../../helpers/filters'
 
 const MaskOptions = {
@@ -152,6 +153,7 @@ export default {
     },
 
     normalizedOptions () {
+      console.log(this.getUnmaskedList(this.options))
       return this.useUnmaskOptions ? this.getUnmaskedList(this.options) : this.options
     }
   },
@@ -212,7 +214,7 @@ export default {
 
       return invalidTypes.includes(typeof list)
         ? list
-        : list.map(({ date }) => asteroidDate(date, 'yyyy/MM/dd'))
+        : list.map(item => asteroidDate(item, 'yyyy/MM/dd'))
     },
 
     getStatusDay ({ currentDay, index }) {
@@ -303,7 +305,7 @@ export default {
 
         isDisabled ? 'qas-date__event--inactive' : 'qas-date__event--active',
 
-        `text-${currentColor || isDisabled ? 'grey-4' : 'primary'}`,
+        `text-${currentColor || (isDisabled ? 'grey-4' : 'primary')}`,
 
         hasCounter ? 'qas-date__event--counter' : 'qas-date__event--pointer'
       ]

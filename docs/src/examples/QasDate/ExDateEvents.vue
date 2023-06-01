@@ -2,7 +2,7 @@
   <div class="container spaced">
     <div class="q-col-gutter-y-lg row">
       <div class="col-12 col-sm-6">
-        <qas-date v-model="date" :event-color2="eventFn" :events="events" :use-inactive-date2="false" :use-unmask-options="false" />
+        <qas-date v-model="date" :event-color2="eventFn" :events="events" :options="['2022-01-01']" :use-inactive-date2="false" />
       </div>
 
       <div class="col-12">
@@ -26,11 +26,13 @@ export default {
       events: [
         {
           date: '2021-12-30',
-          counter: 10
+          counter: 10,
+          color: 'positive'
         },
         {
-          date: '2022-01-29',
-          counter: 12
+          date: '2022-01-02',
+          counter: 12,
+          color: 'negative'
         },
         {
           date: '2022-01-04',
