@@ -303,7 +303,7 @@ export default {
 
         isDisabled ? 'qas-date__event--inactive' : 'qas-date__event--active',
 
-        `text-${currentColor || isDisabled ? 'grey-4' : 'primary'}`,
+        `text-${currentColor || (isDisabled ? 'grey-4' : 'primary')}`,
 
         hasCounter ? 'qas-date__event--counter' : 'qas-date__event--pointer'
       ]
