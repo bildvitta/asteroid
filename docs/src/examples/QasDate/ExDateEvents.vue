@@ -2,7 +2,7 @@
   <div class="container spaced">
     <div class="q-col-gutter-y-lg row">
       <div class="col-12 col-sm-6">
-        <qas-date v-model="date" :event-color2="eventFn" :events="events" :options="['2022-01-01']" :use-inactive-date2="false" />
+        <qas-date v-model="date" :event-color2="eventFn" :events="events" />
       </div>
 
       <div class="col-12">
@@ -19,43 +19,18 @@ export default {
   data () {
     return {
       // date: '',
-      date: '2022-01-29',
+      date: '2023-06-10',
       // date: ['2023-05-26'],
       // events: ['2023-03-31', '2023-04-05', '2023-04-06', '2023-04-07', '2023-04-08', '2023-04-10', '2023-04-30', '2023-05-01', '2023-05-06']
       // events: []
       events: [
         {
-          date: '2021-12-30',
-          counter: 10,
-          color: 'positive'
-        },
-        {
-          date: '2022-01-02',
-          counter: 12,
-          color: 'negative'
-        },
-        {
-          date: '2022-01-04',
-          counter: 12
-        },
-        {
-          date: '2022-02-02',
-          counter: 12
-        },
-        {
           date: '2023-06-01',
-          counter: 12
+          counter: 2
         },
         {
-          date: '2023-06-02',
-          counter: 12
-        },
-        {
-          date: '2023-05-03',
-          counter: 1
-        },
-        {
-          date: '2023-05-05'
+          date: '2023-06-03',
+          counter: 2
         }
       ]
     }

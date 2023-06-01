@@ -7,7 +7,6 @@
 
 <script>
 import { date } from 'quasar'
-import { constructObject } from '../../helpers'
 import { date as asteroidDate } from '../../helpers/filters'
 
 const MaskOptions = {
