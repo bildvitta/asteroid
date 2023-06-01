@@ -124,7 +124,8 @@ export default {
       }
     },
 
-    async mx_onVirtualScroll ({ index, ref }) {
+    async mx_onVirtualScroll (details) {
+      const { index, ref } = details
       const lastIndex = this.mx_filteredOptions.length - 1
 
       if (index === lastIndex && this.mx_canFetchOptions()) {
@@ -135,6 +136,8 @@ export default {
           ref.refresh(lastIndex)
         })
       }
+
+      this.$emit('virtual-scroll', details)
     },
 
     async mx_loadMoreOptions () {

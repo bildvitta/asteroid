@@ -71,7 +71,7 @@ export default {
     }
   },
 
-  emits: ['popup-hide', 'popup-show', 'update:modelValue'],
+  emits: ['popup-hide', 'popup-show', 'update:modelValue', 'virtual-scroll'],
 
   data () {
     return {
@@ -219,16 +219,16 @@ export default {
       this.$emit('popup-show')
 
       if (this.mx_isFetching) {
-        this.togglePopupContentClass()
+        this.togglePopupContentClass(true)
       }
     },
 
     setIsFetchingWatcher () {
       if (this.useLazyLoading) {
         this.$watch('mx_isFetching', value => {
-          if (!this.isPopupContentOpen || value) return
+          if (!this.isPopupContentOpen) return
 
-          this.togglePopupContentClass()
+          this.togglePopupContentClass(value)
         })
       }
     },
@@ -245,13 +245,13 @@ export default {
       if (this.hasFuse) this.setFuse()
     },
 
-    async togglePopupContentClass () {
+    async togglePopupContentClass (force) {
       await this.$nextTick()
 
       const popupContentElement = document.querySelector(`.${this.popupContentClass}`)
 
       if (popupContentElement) {
-        popupContentElement.classList.toggle('qas-select__is-fetching')
+        popupContentElement.classList.toggle('qas-select__is-fetching', force)
       }
     }
   }
