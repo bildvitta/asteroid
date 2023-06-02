@@ -159,7 +159,7 @@ export default {
 
   watch: {
     events () {
-      this.setEvents(this.currentDate)
+      setTimeout(() => this.setEvents(this.currentDate, true), 350)
     }
   },
 
@@ -316,8 +316,15 @@ export default {
       eventElement.classList.add(...classes)
     },
 
-    setEvents ({ year, month }) {
+    setEvents ({ year, month }, removeEventElement) {
       if (!this.events.length || !year || !month) return
+
+      if (removeEventElement) {
+        const elementsToRemove = document.querySelectorAll('[data-has-event]')
+        const nodeList = Array.from(elementsToRemove)
+
+        nodeList.forEach(nodeElement => nodeElement.remove())
+      }
 
       const dateElement = this.$refs.date.$el
       const activeDaysElements = dateElement.querySelectorAll('.q-date__calendar-days .q-date__calendar-item')
@@ -325,7 +332,10 @@ export default {
 
       activeList.forEach((dayElement, index) => {
         const [child] = dayElement.children
+
         const day = child.textContent
+
+        console.log(day, '>>> day')
 
         const { isActiveMonthDay, isNext, isPrevious } = this.getStatusDay({ currentDay: day, index: index++ })
 
@@ -351,6 +361,8 @@ export default {
         const currentColor = this.getCurrentColor(normalizedDate, currentEvent?.color)
 
         const eventElement = document.createElement('div')
+
+        eventElement.setAttribute('data-has-event', true)
 
         dayElement.classList.add('qas-date__calendar-item-event')
 
