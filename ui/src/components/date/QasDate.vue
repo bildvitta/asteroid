@@ -84,7 +84,8 @@ export default {
 
   data () {
     return {
-      currentDate: {}
+      currentDate: {},
+      dateObserver: undefined
     }
   },
 
@@ -119,10 +120,6 @@ export default {
       return ['qas-date', 'shadow-2', { 'qas-date--inative': this.useInactiveDates }]
     },
 
-    hasEvents () {
-      return !!Object.keys(this.events)?.length
-    },
-
     hasModelValue () {
       return this.multiple ? !!this.modelValue.length : !!this.modelValue
     },
@@ -152,31 +149,83 @@ export default {
     },
 
     normalizedOptions () {
-      console.log(this.getUnmaskedList(this.options))
       return this.useUnmaskOptions ? this.getUnmaskedList(this.options) : this.options
     }
   },
 
   watch: {
     events () {
-      setTimeout(() => this.setEvents(this.currentDate, true), 350)
+      this.setEvents(this.currentDate)
     }
   },
 
   mounted () {
+    // muda estilo da navegação
     this.setNewNavigatorDisplay()
 
-    this.currentDate = this.getCurrentDate()
+    // observa as mudanças no DOM do QDate > .q-date__content
+    this.setObserveDate()
 
+    // seta data atual de acordo com a view do mês atual
+    this.setCurrentDate()
+
+    // seta os eventos, ativos e inativos
     this.setEvents(this.currentDate)
   },
 
+  unmounted () {
+    this.dateObserver.disconnect()
+  },
+
   methods: {
+    createActiveEventElement (dayElement, eventElement) {
+      const buttonElement = dayElement.querySelector('.q-btn__content')
+
+      buttonElement.appendChild(eventElement)
+    },
+
+    createCounterInactiveEventElement (dayElement, eventElement) {
+      const spanElement = document.createElement('span')
+      const [child] = dayElement.children
+
+      spanElement.setAttribute('data-event', true)
+      dayElement.setAttribute('data-has-inactive-event', true)
+
+      spanElement.classList.add('flex', 'items-center', 'justify-center', 'text-center')
+
+      child.setAttribute('data-day-content', child.textContent)
+
+      spanElement.appendChild(child)
+      spanElement.appendChild(eventElement)
+      dayElement.appendChild(spanElement)
+    },
+
+    createPointerEventElement (isInactive, currentColor, eventElement) {
+      const eventPointerElement = document.createElement('div')
+
+      eventPointerElement.classList.add(
+        'qas-date__event-pointer',
+        `bg-${isInactive ? 'grey-4' : currentColor || 'primary'}`
+      )
+
+      eventElement.appendChild(eventPointerElement)
+    },
+
+    getCurrentColor (date, color) {
+      return (
+        (this.isEventColorCallback ? this.eventColor(date) : this.eventColor) || color
+      )
+    },
+
     getCurrentDate () {
       const modelDate = this.multiple ? this.modelValue[0] : this.modelValue
       const extractedDate = this.hasModelValue ? date.extractDate(modelDate, this.mask) : new Date()
 
       return this.getDate(extractedDate)
+    },
+
+    getCurrentEvent (date) {
+      return this.events.find(event => event.date === date)
     },
 
     getDate (date) {
@@ -198,6 +247,18 @@ export default {
       })
 
       return extractedModel.includes(currentDate) ? 'white' : 'primary'
+    },
+
+    getEventClasses (currentColor, hasCounter, isInactive) {
+      return [
+        'qas-date__event',
+
+        isInactive ? 'qas-date__event--inactive' : 'qas-date__event--active',
+
+        `text-${currentColor || (isInactive ? 'grey-4' : 'primary')}`,
+
+        hasCounter ? 'qas-date__event--counter' : 'qas-date__event--pointer'
+      ]
     },
 
     getISODate (value) {
@@ -256,75 +317,44 @@ export default {
       return month
     },
 
-    getCurrentEvent (date) {
-      return this.events.find(event => event.date === date)
+    resetInactiveEvents () {
+      const inactiveElementsToRemove = document.querySelectorAll('[data-has-inactive-event]')
+
+      inactiveElementsToRemove.forEach(inactiveElement => {
+        const [element] = inactiveElement.children
+
+        const hasDayContent = element.querySelector('[data-day-content]')
+
+        if (hasDayContent) inactiveElement.append(hasDayContent)
+      })
     },
 
-    getCurrentColor (date, color) {
-      return (
-        (this.isEventColorCallback ? this.eventColor(date) : this.eventColor) || color
-      )
+    resetEvents () {
+      if (this.useInactiveDates) this.resetInactiveEvents()
+
+      this.resetActiveEvents()
     },
 
-    createPointerEventElement (isDisabled, currentColor, eventElement) {
-      const eventPointerElement = document.createElement('div')
+    resetActiveEvents () {
+      const elementsToRemove = document.querySelectorAll('[data-event]')
 
-      eventPointerElement.classList.add(
-        'qas-date__event-pointer',
-        `bg-${isDisabled ? 'grey-4' : currentColor || 'primary'}`
-      )
-
-      eventElement.appendChild(eventPointerElement)
+      elementsToRemove.forEach(nodeElement => nodeElement.remove())
     },
 
-    createCounterInactiveEventElement (dayElement, eventElement) {
-      const spanElement = document.createElement('span')
-      const child = dayElement.children[0]
-
-      spanElement.classList.add('flex', 'items-center', 'justify-center', 'text-center')
-
-      spanElement.appendChild(child)
-      spanElement.appendChild(eventElement)
-      dayElement.appendChild(spanElement)
+    setCurrentDate (date) {
+      this.currentDate = date || this.getCurrentDate()
     },
 
-    createActiveEventElement (dayElement, eventElement) {
-      const buttonElement = dayElement.querySelector('.q-btn__content')
-
-      buttonElement.appendChild(eventElement)
-    },
-
-    setTextCountEvent (eventElement, currentEvent) {
-      eventElement.innerText = `(${currentEvent.counter})`
-    },
-
-    getEventClasses (currentColor, hasCounter, isDisabled) {
-      return [
-        'qas-date__event',
-
-        isDisabled ? 'qas-date__event--inactive' : 'qas-date__event--active',
-
-        `text-${currentColor || (isDisabled ? 'grey-4' : 'primary')}`,
-
-        hasCounter ? 'qas-date__event--counter' : 'qas-date__event--pointer'
-      ]
-    },
-
-    setEventClasses (currentColor, eventElement, hasCounter, isDisabled) {
-      const classes = this.getEventClasses(currentColor, hasCounter, isDisabled)
+    setEventClasses (currentColor, eventElement, hasCounter, isInactive) {
+      const classes = this.getEventClasses(currentColor, hasCounter, isInactive)
 
       eventElement.classList.add(...classes)
     },
 
-    setEvents ({ year, month }, removeEventElement) {
+    setEvents ({ year, month }) {
       if (!this.events.length || !year || !month) return
 
-      if (removeEventElement) {
-        const elementsToRemove = document.querySelectorAll('[data-has-event]')
-        const nodeList = Array.from(elementsToRemove)
-
-        nodeList.forEach(nodeElement => nodeElement.remove())
-      }
+      this.resetEvents()
 
       const dateElement = this.$refs.date.$el
       const activeDaysElements = dateElement.querySelectorAll('.q-date__calendar-days .q-date__calendar-item')
@@ -334,8 +364,6 @@ export default {
         const [child] = dayElement.children
 
         const day = child.textContent
-
-        console.log(day, '>>> day')
 
         const { isActiveMonthDay, isNext, isPrevious } = this.getStatusDay({ currentDay: day, index: index++ })
 
@@ -347,7 +375,7 @@ export default {
         const currentEvent = this.isEventsCallback ? this.events(normalizedDate) : this.getCurrentEvent(normalizedDate)
 
         const hasDisabledClass = dayElement.classList.contains('q-date__calendar-item--out')
-        const isDisabled = !isActiveMonthDay || hasDisabledClass
+        const isInactive = !isActiveMonthDay || hasDisabledClass
 
         /*
           * Se não tiver evento para o dia atual no loop
@@ -362,19 +390,19 @@ export default {
 
         const eventElement = document.createElement('div')
 
-        eventElement.setAttribute('data-has-event', true)
+        eventElement.setAttribute('data-event', true)
 
         dayElement.classList.add('qas-date__calendar-item-event')
 
-        this.setEventClasses(currentColor, eventElement, hasCounter, isDisabled)
+        this.setEventClasses(currentColor, eventElement, hasCounter, isInactive)
 
         if (hasCounter) {
           this.setTextCountEvent(eventElement, currentEvent)
         } else {
-          this.createPointerEventElement(isDisabled, currentColor, eventElement)
+          this.createPointerEventElement(isInactive, currentColor, eventElement)
         }
 
-        if (isDisabled) {
+        if (isInactive) {
           this.createCounterInactiveEventElement(dayElement, eventElement)
 
           return
@@ -409,17 +437,38 @@ export default {
       this.$nextTick(() => secondList.forEach(node => newSecondElement.appendChild(node)))
     },
 
+    setObserveDate () {
+      const element = this.$refs.date.$el.querySelector('.q-date__content')
+      const config = { childList: true, subtree: true }
+
+      const callback = mutationList => {
+        mutationList.forEach(({ removedNodes, target }) => {
+          const [removedNode] = removedNodes
+
+          if (!removedNode) return
+
+          const hasCalendarDaysContainer = target.classList.contains('q-date__calendar-days-container')
+          const hasContent = target.classList.contains('q-date__content')
+          const hasMonths = removedNode.classList.contains('q-date__months')
+
+          if (hasCalendarDaysContainer || (hasContent && hasMonths)) {
+            this.setEvents(this.currentDate)
+          }
+        })
+      }
+
+      this.dateObserver = new MutationObserver(callback)
+      this.dateObserver.observe(element, config)
+    },
+
+    setTextCountEvent (eventElement, currentEvent) {
+      eventElement.innerText = `(${currentEvent.counter})`
+    },
+
     async onNavigation (date) {
       this.$emit('navigation', date)
 
-      this.currentDate = date
-
-      /*
-        * O componente QDate usa um vue transition de 3ms, como estamos manipulando o DOM, precisamos esperar essa
-        * transição terminar para que possamos fazer a logica, com isto precisamos sempre ficar atentos a atualizações
-        * do componente QDate para assegurar que esta logica não quebre.
-      */
-      setTimeout(() => { this.setEvents(date) }, 350)
+      this.setCurrentDate(date)
 
       this.$nextTick(() => this.setNewNavigatorDisplay())
     }

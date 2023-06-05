@@ -31,7 +31,7 @@ const MaskOptions = {
 :::warning
 ##### Propriedade "events"
 
-A propriedade `events` **não** é a mesma do quasar, precisa seguir um padrão, sendo um `array de objetos`.
+A propriedade `events` **não** é a mesma do quasar, precisa seguir um padrão, sendo um `array de objetos`, e **precisa** estar no padrão `YYYY-MM-DD`.
 
 ```js
 [

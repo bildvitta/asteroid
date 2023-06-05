@@ -2,7 +2,9 @@
   <div class="container spaced">
     <div class="q-col-gutter-y-lg row">
       <div class="col-12 col-sm-6">
-        <qas-date v-model="date" :event-color2="eventFn" :events="events" @navigation="navigation" />
+        <!-- <q-date v-model="date" :events="events.map(({ date }) => date)" @navigation="navigation" /> -->
+        <!-- <pre>{{ events.map(({ date }) => date) }}</pre> -->
+        <qas-date v-model="date" :event-color="eventFn" :events="events" :use-inactive-dates2="false" @navigation="navigation" />
       </div>
 
       <div class="col-12">
@@ -45,20 +47,25 @@ export default {
   },
 
   mounted () {
-    setTimeout(() => {
-      this.navigation()
-    }, 3000)
+    // this.navigation()
+    // setTimeout(() => {
+    // }, 3000)
   },
 
   methods: {
     eventFn (date) {
-      return date.includes('08') ? 'negative' : 'positive'
+      return date.includes('30') ? 'negative' : 'positive'
     },
 
-    navigation () {
+    async navigation () {
+      await new Promise(resolve => setTimeout(resolve, 3000))
       this.events = [
         {
           date: '2023-06-02',
+          counter: 2
+        },
+        {
+          date: '2023-06-30',
           counter: 2
         },
         {
