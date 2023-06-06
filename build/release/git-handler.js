@@ -1,4 +1,3 @@
-
 function gitHandler ({ ora, execaSync, nextVersion, isBeta, packages }) {
   // commita as alterações
   const commitSpinner = ora('Commitando alterações...').start()
