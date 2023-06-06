@@ -4,7 +4,7 @@
       <div class="col-12 col-sm-6">
         <!-- <q-date v-model="date" :events="events.map(({ date }) => date)" @navigation="navigation" /> -->
         <!-- <pre>{{ events.map(({ date }) => date) }}</pre> -->
-        <qas-date v-model="date" :event-color="eventFn" :events="events" :use-inactive-dates2="false" @navigation="navigation" />
+        <qas-date v-model="date" :event-color2="eventFn" :events="events" :use-inactive-dates2="false" @navigation="navigation" />
       </div>
 
       <div class="col-12">

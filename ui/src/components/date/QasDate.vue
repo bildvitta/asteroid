@@ -476,10 +476,10 @@ export default {
     async onNavigation (date) {
       this.$emit('navigation', date)
 
-      this.loading = true
+      // this.loading = true
 
       setTimeout(() => {
-        this.loading = false
+        // this.loading = false
       }, 150)
 
       this.setCurrentDate(date)
