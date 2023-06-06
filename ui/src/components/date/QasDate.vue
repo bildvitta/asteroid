@@ -90,6 +90,7 @@ export default {
   data () {
     return {
       currentDate: {},
+      dateElement: null,
       dateObserver: undefined,
       loading: false
     }
@@ -166,6 +167,8 @@ export default {
   },
 
   mounted () {
+    this.dateElement = this.$refs.date.$el
+
     // muda estilo da navegação
     this.setNewNavigatorDisplay()
 
@@ -362,8 +365,7 @@ export default {
 
       this.resetEvents()
 
-      const dateElement = this.$refs.date.$el
-      const activeDaysElements = dateElement.querySelectorAll('.q-date__calendar-days .q-date__calendar-item')
+      const activeDaysElements = this.dateElement.querySelectorAll('.q-date__calendar-days .q-date__calendar-item')
       const activeList = Array.from(activeDaysElements)
 
       activeList.forEach((dayElement, index) => {
@@ -421,8 +423,7 @@ export default {
     },
 
     setNewNavigatorDisplay () {
-      const dateElement = this.$refs.date.$el
-      const navigationElement = dateElement.querySelector('.q-date__navigation')
+      const navigationElement = this.dateElement.querySelector('.q-date__navigation')
       const navigationChildren = navigationElement?.children || []
 
       const nodesList = Array.from(navigationChildren)
@@ -446,31 +447,27 @@ export default {
     },
 
     setObserveDate () {
-      const element = this.$refs.date.$el.querySelector('.q-date__content')
+      const element = this.dateElement.querySelector('.q-date__content')
       const config = { childList: true, subtree: true }
 
-      try {
-        const callback = mutationList => {
-          mutationList.forEach(({ removedNodes, target }) => {
-            const [removedNode] = removedNodes
+      const callback = mutationList => {
+        mutationList.forEach(({ removedNodes, target }) => {
+          const [removedNode] = removedNodes
 
-            if (!removedNode) return
+          if (!removedNode) return
 
-            const hasCalendarDaysContainer = target.classList.contains('q-date__calendar-days-container')
-            const hasContent = target.classList.contains('q-date__content')
-            const hasMonths = removedNode.classList.contains('q-date__months')
+          const hasCalendarDaysContainer = target.classList.contains('q-date__calendar-days-container')
+          const hasContent = target.classList.contains('q-date__content')
+          const hasMonths = removedNode.classList.contains('q-date__months')
 
-            if (hasCalendarDaysContainer || (hasContent && hasMonths)) {
-              this.setEvents(this.currentDate)
-            }
-          })
-        }
-
-        this.dateObserver = new MutationObserver(callback)
-        this.dateObserver.observe(element, config)
-      } catch (error) {
-        console.log(error)
+          if (hasCalendarDaysContainer || (hasContent && hasMonths)) {
+            this.setEvents(this.currentDate)
+          }
+        })
       }
+
+      this.dateObserver = new MutationObserver(callback)
+      this.dateObserver.observe(element, config)
     },
 
     setTextCountEvent (eventElement, currentEvent) {
