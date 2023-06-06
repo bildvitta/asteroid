@@ -46,8 +46,8 @@ A propriedade `events` **não** é a mesma do quasar, precisa seguir um padrão,
 
 ## Uso
 
-<doc-example file="QasDate/ExDateEvents" title="Com eventos" />
 <doc-example file="QasDate/Basic" title="Básico" />
+<doc-example file="QasDate/ExDateEvents" title="Com eventos" />
 <doc-example file="QasDate/ExDateNoInactive" title="Sem inativos" />
 <doc-example file="QasDate/ExDateNoInactiveEvents" title="Com eventos e sem inativos" />
 <doc-example file="QasDate/ExDateMultiple" title="Múltiplo" />
