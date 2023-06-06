@@ -4,6 +4,7 @@
       v-model="model"
       v-bind="attributes"
     />
+
     <q-inner-loading :showing="loading">
       <q-spinner color="grey" size="3em" />
     </q-inner-loading>
@@ -190,7 +191,7 @@ export default {
     createActiveEventElement (dayElement, eventElement) {
       const buttonElement = dayElement.querySelector('.q-btn__content')
 
-      buttonElement.appendChild(eventElement)
+      buttonElement?.appendChild?.(eventElement)
     },
 
     createCounterInactiveEventElement (dayElement, eventElement) {
@@ -365,17 +366,15 @@ export default {
 
       this.resetEvents()
 
-      const activeDaysElements = this.dateElement.querySelectorAll('.q-date__calendar-days .q-date__calendar-item')
-      const activeList = Array.from(activeDaysElements)
+      const daysElement = this.dateElement.querySelectorAll('.q-date__calendar-days .q-date__calendar-item')
+      const nodeList = Array.from(daysElement)
 
-      activeList.forEach((dayElement, index) => {
+      nodeList.forEach((dayElement, index) => {
         const [child] = dayElement.children
 
         const day = child.textContent
 
-        console.log(day, '>>> day')
-
-        const { isActiveMonthDay, isNext, isPrevious } = this.getStatusDay({ currentDay: day, index: index++ })
+        const { isActiveMonthDay, isNext, isPrevious } = this.getStatusDay({ currentDay: day, index: index + 1 })
 
         const normalizedYear = this.getNormalizedYear({ isNext, month, isPrevious, year })
         const normalizedMonth = this.getNormalizedMonth({ isNext, isPrevious, month })
