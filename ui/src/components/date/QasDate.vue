@@ -86,8 +86,7 @@ export default {
     return {
       currentDate: {},
       dateElement: null,
-      dateObserver: undefined,
-      loading: false
+      dateObserver: undefined
     }
   },
 
