@@ -17,6 +17,9 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 ### Modificado
 - `QasDate`: modificado estilos e comportamentos.
 
+### Corrigido
+- `QasDate`: corrigido problema de reatividade ao trocar eventos e mudar mês/ano.
+
 ## [3.10.0-beta.6] - 30-05-2023
 ### corrigido
 - `QasNestedFields`: corrigido espaçamento das labels.
