@@ -275,9 +275,20 @@ export default {
         /*
           * pode ser que as opções sejam inicializadas após o primeiro fetch de opções
           * fazendo com que as opções sobrescreva as que vieram através do fetch, então é
-          * preciso tratar para nestes casos serem incrementadas ao invés de sobrescrever.
+          * preciso tratar para nestes casos serem incrementadas ao invés de sobrescrever,
+          * mas antes é preciso verificar se já não existe nas opções filtradas para não duplicar.
         */
         if (this.mx_fetchCount === 1) {
+          options.forEach(option => {
+            const index = this.mx_filteredOptions.findIndex(filteredOption => {
+              return filteredOption.value === option.value
+            })
+
+            if (~index) {
+              this.mx_filteredOptions.splice(index, 1)
+            }
+          })
+
           this.mx_filteredOptions.unshift(...options)
         } else {
           this.mx_filteredOptions = [...options]
