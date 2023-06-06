@@ -23,6 +23,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - `QasDateTimeInput`: corrigido logica para seguir regra do lint.
 - `search-filter`: corrigido problema com filtros relacionados onde as opções cacheadas (opções iniciais) não eram limpas após mudança dos parâmetros da URL de lazy loading.
 - `search-filter`: corrigido problema com filtros relacionados que estavam sendo disparados o evento para buscar novas opções sem necessariamente ter alterado os parâmetros da URL de lazy loading.
+- `QasFilters`: corrigido botão de limpar pesquisa que não funcionada quando utilizado com a prop `:use-search-on-type="false"`.
 
 ### Removido
 - `ui/scr/dev/`: removido folder pois utilizamos o `/docs` para testes.
