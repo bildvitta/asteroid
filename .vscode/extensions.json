@@ -3,7 +3,6 @@
     "dbaeumer.vscode-eslint",
     "editorconfig.editorconfig",
     "octref.vetur",
-    "stylelint.vscode-stylelint"
   ],
 
   "unwantedRecommendations": [
