@@ -2,7 +2,8 @@
   <doc-page>
     <div class="column items-center q-gutter-y-lg q-mt-lg text-center text-grey-7">
       <q-img src="../assets/logo/dashboard_logo.png" width="300px" />
-      <q-badge color="orange" :label="version" />
+      <q-badge class="q-pa-xs" color="primary" :label="version" />
+      <q-badge class="q-pa-xs" color="quasar" :label="quasarVersion" />
       <div>
         Asteroid é uma extensão do Quasar contendo coleções de componentes, plugins, estilos, utilitários, focado na produtividade.
       </div>
@@ -34,11 +35,18 @@
 
 <script>
 import { version } from 'asteroid'
+import packageInfo from '../../package.json'
 
 export default ({
   computed: {
     version () {
-      return version
+      return `Asteroid - v${version}`
+    },
+
+    quasarVersion () {
+      const version = packageInfo.dependencies.quasar.replace('^', '')
+
+      return `Quasar - v${version}`
     }
   }
 })
