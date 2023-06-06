@@ -1,14 +1,8 @@
 <template>
-  <div class="inline relative-position">
-    <q-date
-      v-model="model"
-      v-bind="attributes"
-    />
-
-    <q-inner-loading :showing="loading">
-      <q-spinner color="grey" size="3em" />
-    </q-inner-loading>
-  </div>
+  <q-date
+    v-model="model"
+    v-bind="attributes"
+  />
 </template>
 
 <script>
@@ -475,12 +469,6 @@ export default {
 
     async onNavigation (date) {
       this.$emit('navigation', date)
-
-      // this.loading = true
-
-      setTimeout(() => {
-        // this.loading = false
-      }, 150)
 
       this.setCurrentDate(date)
 
