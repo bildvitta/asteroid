@@ -322,7 +322,7 @@ export default {
     },
 
     resetInactiveEvents () {
-      const inactiveElementsToRemove = document.querySelectorAll('[data-has-inactive-event]')
+      const inactiveElementsToRemove = this.dateElement.querySelectorAll('[data-has-inactive-event]')
 
       inactiveElementsToRemove.forEach(inactiveElement => {
         const [element] = inactiveElement.children
@@ -340,7 +340,7 @@ export default {
     },
 
     resetActiveEvents () {
-      const elementsToRemove = document.querySelectorAll('[data-event]')
+      const elementsToRemove = this.dateElement.querySelectorAll('[data-event]')
 
       elementsToRemove.forEach(nodeElement => nodeElement.remove())
     },
