@@ -1,8 +1,13 @@
 <template>
-  <q-date
-    v-model="model"
-    v-bind="attributes"
-  />
+  <div class="inline relative-position">
+    <q-date
+      v-model="model"
+      v-bind="attributes"
+    />
+    <q-inner-loading :showing="loading">
+      <q-spinner color="grey" size="3em" />
+    </q-inner-loading>
+  </div>
 </template>
 
 <script>
@@ -85,7 +90,8 @@ export default {
   data () {
     return {
       currentDate: {},
-      dateObserver: undefined
+      dateObserver: undefined,
+      loading: false
     }
   },
 
@@ -365,6 +371,8 @@ export default {
 
         const day = child.textContent
 
+        console.log(day, '>>> day')
+
         const { isActiveMonthDay, isNext, isPrevious } = this.getStatusDay({ currentDay: day, index: index++ })
 
         const normalizedYear = this.getNormalizedYear({ isNext, month, isPrevious, year })
@@ -441,24 +449,28 @@ export default {
       const element = this.$refs.date.$el.querySelector('.q-date__content')
       const config = { childList: true, subtree: true }
 
-      const callback = mutationList => {
-        mutationList.forEach(({ removedNodes, target }) => {
-          const [removedNode] = removedNodes
+      try {
+        const callback = mutationList => {
+          mutationList.forEach(({ removedNodes, target }) => {
+            const [removedNode] = removedNodes
 
-          if (!removedNode) return
+            if (!removedNode) return
 
-          const hasCalendarDaysContainer = target.classList.contains('q-date__calendar-days-container')
-          const hasContent = target.classList.contains('q-date__content')
-          const hasMonths = removedNode.classList.contains('q-date__months')
+            const hasCalendarDaysContainer = target.classList.contains('q-date__calendar-days-container')
+            const hasContent = target.classList.contains('q-date__content')
+            const hasMonths = removedNode.classList.contains('q-date__months')
 
-          if (hasCalendarDaysContainer || (hasContent && hasMonths)) {
-            this.setEvents(this.currentDate)
-          }
-        })
+            if (hasCalendarDaysContainer || (hasContent && hasMonths)) {
+              this.setEvents(this.currentDate)
+            }
+          })
+        }
+
+        this.dateObserver = new MutationObserver(callback)
+        this.dateObserver.observe(element, config)
+      } catch (error) {
+        console.log(error)
       }
-
-      this.dateObserver = new MutationObserver(callback)
-      this.dateObserver.observe(element, config)
     },
 
     setTextCountEvent (eventElement, currentEvent) {
@@ -467,6 +479,12 @@ export default {
 
     async onNavigation (date) {
       this.$emit('navigation', date)
+
+      this.loading = true
+
+      setTimeout(() => {
+        this.loading = false
+      }, 150)
 
       this.setCurrentDate(date)
 
