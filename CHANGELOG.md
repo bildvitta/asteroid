@@ -25,6 +25,24 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - `ui/scr/dev/`: removido folder pois utilizamos o `/docs` para testes.
 - `stylelint`: removido stylelint, já era desativada muitas regras e não estava ajudando no desenvolvimento, então foi removido.
 
+## [3.10.0-beta.7] - 05-06-2023
+### Corrigido
+- `search-filter`: corrigido duplicidade de opções que acontecia quando o `mx_fetchCount` era `1`, impacta `QasSelect` e `QasSelectList`.
+
+## [3.10.0-beta.6] - 30-05-2023
+### corrigido
+- `QasNestedFields`: corrigido espaçamento das labels.
+
+## [3.10.0-beta.5] - 30-05-2023
+### Modificado
+- `QasUploader`: adicionado `QasEmptyResultText` para quando o modelValue do componente for vazio (também afeta o QasSignatureUploader).
+
+### Corrigido
+- `QasNestedFields`: corrigido problemas referentes ao espaçamento do label quando é usado com `useSingleLabel`.
+- `QasFilters`: corrigido problema no método `updateValues`. O model interno de `filters` ficava desatualizado quando não tinha query na URL.
+- `QasFilters`: corrigido problema na checagem se há valores nos `fields` retornados da API, caso não viesse `fields` ocorria um erro no console ao recuperar o tamanho do objeto de `fields`.
+- `QasFilters`: corrigido atualização do model `currentFilters` que emitia o evento de atualização antes da query ser atualizada com base no filtro realizado.
+
 ## [3.10.0-beta.4] - 17-05-2023
 ### Modificado
 - `QasDate`: adicionado a cor primaria na data de hoje.
@@ -1505,3 +1523,6 @@ Adicionado suporte para Pinia/Vuex Seguindo os padrões da biblioteca `@bildvitt
 [3.10.0-beta.2]: https://github.com/bildvitta/asteroid/compare/v3.10.0-beta.1...v3.10.0-beta.2?expand=1
 [3.10.0-beta.3]: https://github.com/bildvitta/asteroid/compare/v3.10.0-beta.2...v3.10.0-beta.3?expand=1
 [3.10.0-beta.4]: https://github.com/bildvitta/asteroid/compare/v3.10.0-beta.3...v3.10.0-beta.4?expand=1
+[3.10.0-beta.5]: https://github.com/bildvitta/asteroid/compare/v3.11.0-alpha.2...v3.10.0-beta.5?expand=1
+[3.10.0-beta.6]: https://github.com/bildvitta/asteroid/compare/v3.10.0-beta.5...v3.10.0-beta.6?expand=1
+[3.10.0-beta.7]: https://github.com/bildvitta/asteroid/compare/v3.10.0-beta.6...v3.10.0-beta.7?expand=1
