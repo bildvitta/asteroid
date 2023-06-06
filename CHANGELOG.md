@@ -18,6 +18,10 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - `search-filter`: corrigido problema com filtros relacionados onde as opções cacheadas (opções iniciais) não eram limpas após mudança dos parâmetros da URL de lazy loading.
 - `search-filter`: corrigido problema com filtros relacionados que estavam sendo disparados o evento para buscar novas opções sem necessariamente ter alterado os parâmetros da URL de lazy loading.
 
+## [3.10.0-beta.7] - 05-06-2023
+### Corrigido
+- `search-filter`: corrigido duplicidade de opções que acontecia quando o `mx_fetchCount` era `1`, impacta `QasSelect` e `QasSelectList`.
+
 ## [3.10.0-beta.6] - 30-05-2023
 ### Corrigido
 - `QasNestedFields`: corrigido espaçamento das labels.
@@ -1514,3 +1518,5 @@ Adicionado suporte para Pinia/Vuex Seguindo os padrões da biblioteca `@bildvitt
 [3.10.0-beta.4]: https://github.com/bildvitta/asteroid/compare/v3.10.0-beta.3...v3.10.0-beta.4?expand=1
 [3.10.0-beta.5]: https://github.com/bildvitta/asteroid/compare/v3.11.0-alpha.2...v3.10.0-beta.5?expand=1
 [3.10.0-beta.6]: https://github.com/bildvitta/asteroid/compare/v3.10.0-beta.5...v3.10.0-beta.6?expand=1
+[3.10.0-beta.7]: https://github.com/bildvitta/asteroid/compare/v3.10.0-beta.6...v3.10.0-beta.7?expand=1
+
