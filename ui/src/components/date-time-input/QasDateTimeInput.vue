@@ -233,7 +233,7 @@ export default {
       if (this.useDateOnly) return this.validateDateOnly(value)
       if (this.useTimeOnly) return this.validateTimeOnly(value)
 
-      const [date, time] = value?.split(' ')
+      const [date, time] = value?.split(' ') || []
 
       return this.validateDateOnly(date) || this.validateTimeOnly(time)
     },

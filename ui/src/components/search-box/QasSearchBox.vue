@@ -27,7 +27,7 @@
 <script>
 import { QInfiniteScroll } from 'quasar'
 import Fuse from 'fuse.js'
-
+import fuseConfig from '../../shared/fuse-config'
 import QasBox from '../box/QasBox.vue'
 import { searchFilterMixin } from '../../mixins'
 
@@ -139,8 +139,7 @@ export default {
 
     defaultFuseOptions () {
       return {
-        ignoreLocation: true,
-
+        ...fuseConfig,
         ...this.fuseOptions
       }
     },
