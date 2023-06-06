@@ -77,21 +77,19 @@ export default {
 
     mx_hasFilteredOptions () {
       return !!this.mx_filteredOptions.length
-    },
-
-    mx_isMultiple () {
-      return this.$attrs.multiple || this.$attrs.multiple === ''
     }
   },
 
   watch: {
-    lazyLoadingProps: {
-      handler (value, oldValue) {
-        if (isEqual(value, oldValue)) return
+    'lazyLoadingProps.params': {
+      handler (newParams, oldParams) {
+        if (isEqual(newParams, oldParams)) return
+
+        this.mx_cachedOptions = []
 
         this.mx_filterOptionsByStore('')
 
-        this.$emit('update:modelValue', this.mx_isMultiple ? [] : '')
+        this.$emit('update:modelValue', undefined)
       }
     }
   },
@@ -126,7 +124,8 @@ export default {
       }
     },
 
-    async mx_onVirtualScroll ({ index, ref }) {
+    async mx_onVirtualScroll (details) {
+      const { index, ref } = details
       const lastIndex = this.mx_filteredOptions.length - 1
 
       if (index === lastIndex && this.mx_canFetchOptions()) {
@@ -137,6 +136,8 @@ export default {
           ref.refresh(lastIndex)
         })
       }
+
+      this.$emit('virtual-scroll', details)
     },
 
     async mx_loadMoreOptions () {
