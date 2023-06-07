@@ -360,9 +360,9 @@ export default {
       this.resetEvents()
 
       const daysElement = this.dateElement.querySelectorAll('.q-date__calendar-days .q-date__calendar-item')
-      const nodeList = Array.from(daysElement)
+      const daysElementList = Array.from(daysElement)
 
-      nodeList.forEach((dayElement, index) => {
+      daysElementList.forEach((dayElement, index) => {
         const [child] = dayElement.children
 
         const day = child.textContent
