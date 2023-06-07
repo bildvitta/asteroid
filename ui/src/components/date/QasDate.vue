@@ -380,9 +380,9 @@ export default {
         const isInactive = !isActiveMonthDay || hasDisabledClass
 
         /*
-          * Se não tiver evento para o dia atual no loop
+          * Se não tiver evento para o dia atual no loop ou
           * a opção de eventos inativos estiver desabilitada e o dia atual do loop
-          * for refente ao mês anterior ou ao mês posterior, então retorna
+          * for referente ao mês anterior ou ao mês posterior, então retorna
         */
         if (!currentEvent || (!this.useInactiveDates && !isActiveMonthDay)) return
 
