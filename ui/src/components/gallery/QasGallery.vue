@@ -1,4 +1,3 @@
-
 <template>
   <div class="qas-gallery">
     <div class="q-col-gutter-md row">

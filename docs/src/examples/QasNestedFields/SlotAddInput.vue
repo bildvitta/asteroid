@@ -60,7 +60,7 @@ const nested = {
 export default {
   data () {
     return {
-      nested: nested,
+      nested,
       model: [
         {
           name: 'John',

@@ -4,7 +4,7 @@
       <div v-if="showSearch" class="col-12 col-md-6">
         <slot :filter="filter" name="search">
           <q-form v-if="useSearch" @submit.prevent="filter()">
-            <qas-search-input v-model="search" :placeholder="searchPlaceholder" :use-search-on-type="useSearchOnType" @filter="filter()" @update:model-value="onSearch">
+            <qas-search-input v-model="search" :placeholder="searchPlaceholder" :use-search-on-type="useSearchOnType" @clear="clearSearch" @filter="filter()" @update:model-value="onSearch">
               <template v-if="showFilterButton" #after-clear>
                 <slot :context="mx_context" :filter="filter" :filters="activeFilters" name="filter-button" :remove-filter="removeFilter">
                   <pv-filters-button v-if="useFilterButton" ref="filtersButton" v-model="filters" v-bind="filterButtonProps" />
