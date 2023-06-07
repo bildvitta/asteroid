@@ -1,7 +1,8 @@
 import { createStore } from 'vuex'
-import users from './modules/users'
+import { chart, users } from './modules'
 import VuexOffline from '@bildvitta/vuex-offline'
-import mock from './mock.json'
+import chartMock from './chart-mock.json'
+import usersMock from './users-mock.json'
 
 const vuexOffline = new VuexOffline({
   idKey: 'uuid',
@@ -15,6 +16,7 @@ const vuexOffline = new VuexOffline({
   },
 
   modules: [
+    chart,
     users
   ]
 })
@@ -23,9 +25,11 @@ export default async function (/* { ssrContext } */) {
   await vuexOffline.createDatabase()
   await vuexOffline.setupCollections()
 
-  const { users } = vuexOffline.collections
+  const { chart, users } = vuexOffline.collections
 
-  await users.importJSON(mock)
+  await chart.importJSON(chartMock)
+  await users.importJSON(usersMock)
+
   window.vuexOffline = vuexOffline
 
   const Store = createStore({

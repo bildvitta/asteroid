@@ -85,6 +85,10 @@ module.exports = [
         path: '/components/card'
       },
       {
+        name: 'ChartView',
+        path: '/components/chart-view'
+      },
+      {
         name: 'CheckboxGroup',
         path: '/components/checkbox-group'
       },

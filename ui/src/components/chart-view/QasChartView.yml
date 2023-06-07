@@ -1,0 +1,37 @@
+type: component
+
+meta:
+  desc: Componente responsável pela renderização de gráficos
+
+props:
+  entity:
+    desc: Entidade da store, por exemplo se tiver que trabalhar com modulo de usuários, teremos o model "users" na store, que vai ser nossa "entity".
+    required: true
+    type: String
+
+  fetching:
+    model: true
+    desc: Model de fetching, utilizado para saber se o componente está fazendo fetching de dados.
+    type: Boolean
+    examples: [v-model:fetching="isFetching"]
+
+  filters-props:
+    desc: Repassa as props para o componente "QasFilters".
+    default: {}
+    type: Object
+
+  url:
+    desc: Envia como parâmetro para a action "fetchList" do modulo correspondente a "entity".
+    type: String
+
+slots:
+  default:
+    desc: 'Slot para ter o conteúdo principal (dentro do main).'
+
+events:
+  '@update:fetching -> function(value)':
+    desc: Dispara logo antes da action "fetchList" e ao cair no bloco "finally", ou seja, quando começar o fetching e após terminar.
+    params:
+      value:
+        desc: Retorna se está ou não fazendo fetching de dados.
+        type: Boolean
