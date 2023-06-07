@@ -1,13 +1,17 @@
 <template>
   <div :class="mx_classes">
-    <div v-for="(field, key) in formattedFields" :key="key" :class="mx_getFieldClass(key, true)">
-      <slot :field="slotValue[key]" :name="`field-${field.name}`">
-        <slot :field="slotValue[key]" name="header">
-          <header :class="headerClass" :data-cy="`grid-generator-${field.name}-field`">{{ field.label }}</header>
+    <div v-for="(field, key) in fieldsByResult" :key="key" :class="mx_getFieldClass(key, true)">
+      <slot :field="field" :name="`field-${field.name}`">
+        <slot :field="field" name="header">
+          <header :class="headerClass" :data-cy="`grid-generator-${field.name}-field`">
+            {{ field.label }}
+          </header>
         </slot>
 
-        <slot :field="slotValue[key]" name="content">
-          <div :class="contentClass" :data-cy="`grid-generator-${field.name}-result`">{{ resultsByFields[key] }}</div>
+        <slot :field="field" name="content">
+          <div :class="contentClass" :data-cy="`grid-generator-${field.name}-result`">
+            {{ field.formattedResult }}
+          </div>
         </slot>
       </slot>
     </div>
@@ -17,7 +21,6 @@
 <script>
 import { generatorMixin } from '../../mixins'
 import { humanize } from '../../helpers/filters'
-import { extend } from 'quasar'
 import { isObject } from 'lodash-es'
 
 export default {
@@ -54,15 +57,13 @@ export default {
 
   data () {
     return {
-      slotValue: {}
+      fieldsByResult: {}
     }
   },
 
   computed: {
     formattedFields () {
-      if (this.useEmptyResult) {
-        return this.fields
-      }
+      if (this.useEmptyResult) return this.fields
 
       const fields = {}
 
@@ -78,37 +79,41 @@ export default {
         }
       }
 
-      this.$qas.logger.group('QasGridGenerator - formattedFields', [fields])
-
       return fields
-    },
+    }
+  },
 
-    resultsByFields () {
-      return this.getResultsByFields()
+  watch: {
+    formattedFields: {
+      handler () {
+        this.setFieldsByResult()
+      },
+
+      immediate: true
     }
   },
 
   methods: {
-    getResultsByFields () {
-      const formattedResult = {}
-      const result = extend(true, {}, this.result)
+    getFieldsByResult () {
+      const result = { ...this.result }
+      const fieldsByResult = {}
 
       for (const key in result) {
-        if (this.formattedFields[key]?.type) {
-          formattedResult[key] = (
-            humanize(this.formattedFields[key], result[key]) || this.emptyResultText
-          )
+        const field = this.formattedFields[key] || {}
 
-          this.slotValue[key] = {
-            ...this.formattedFields[key],
-            formattedResult: formattedResult[key]
-          }
+        if (!field.type) continue
+
+        fieldsByResult[key] = {
+          ...field,
+          formattedResult: humanize(field, result[key]) || this.emptyResultText
         }
       }
 
-      this.$qas.logger.group('QasGridGenerator - getResultsByFields', [formattedResult])
+      return fieldsByResult
+    },
 
-      return formattedResult
+    setFieldsByResult () {
+      this.fieldsByResult = this.getFieldsByResult()
     }
   }
 }
