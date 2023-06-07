@@ -5,9 +5,14 @@ meta:
 
 props:
   events:
-    desc: Marcador de eventos do calendário (repassada para o quasar).
+    desc: Marcador de eventos do calendário.
     default: []
     type: [Array, Function]
+
+  event-color:
+    desc: Define a cor dos eventos.
+    default: ''
+    type: [String, Function]
 
   mask:
     desc: Máscara do model (repassada para o quasar).

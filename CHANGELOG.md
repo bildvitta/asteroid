@@ -11,8 +11,15 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
 ## Não publicado
+## BREAKING CHANGES
+- `QasDate`: propriedade `events` recebe um novo padrão, deixa de ser um array de string para ser um array de objetos, olhar documentação para mais informações.
+
+### Modificado
+- `QasDate`: modificado estilos e comportamentos.
+
 ### Corrigido
 - `QasGridGenerator`: refatorado código do componente para resolver problema de variável não sendo definida caso chamasse o slot `content` do componente.
+- `QasDate`: corrigido problema de reatividade ao trocar eventos e mudar mês/ano.
 
 ## [3.10.0-beta.8] - 06-06-2023
 ## BREAKING CHANGES

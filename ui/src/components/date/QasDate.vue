@@ -27,6 +27,11 @@ export default {
       default: () => []
     },
 
+    eventColor: {
+      type: [String, Function],
+      default: ''
+    },
+
     mask: {
       type: String,
       default: MaskOptions.Dash,
@@ -79,7 +84,9 @@ export default {
 
   data () {
     return {
-      currentDate: {}
+      currentDate: {},
+      dateElement: null,
+      dateObserver: undefined
     }
   },
 
@@ -95,7 +102,6 @@ export default {
       return {
         class: this.classes,
         color: 'primary',
-        events: this.normalizedEvents,
         mask: this.mask,
         minimal: true,
         multiple: this.multiple,
@@ -103,7 +109,6 @@ export default {
         ref: 'date',
         style: this.styles,
         textColor: 'white',
-        eventColor: this.getEventColor,
 
         // events
         onNavigation: this.onNavigation,
@@ -116,12 +121,16 @@ export default {
       return ['qas-date', 'shadow-2', { 'qas-date--inative': this.useInactiveDates }]
     },
 
-    hasEvents () {
-      return !!Object.keys(this.events)?.length
-    },
-
     hasModelValue () {
       return this.multiple ? !!this.modelValue.length : !!this.modelValue
+    },
+
+    isEventsCallback () {
+      return typeof this.events === 'function'
+    },
+
+    isEventColorCallback () {
+      return typeof this.eventColor === 'function'
     },
 
     model: {
@@ -140,10 +149,6 @@ export default {
       }
     },
 
-    normalizedEvents () {
-      return this.useUnmaskEvents ? this.getUnmaskedList(this.events) : this.events
-    },
-
     normalizedOptions () {
       return this.useUnmaskOptions ? this.getUnmaskedList(this.options) : this.options
     }
@@ -151,25 +156,79 @@ export default {
 
   watch: {
     events () {
-      if (this.useInactiveDates) this.setInactiveEvents(this.currentDate)
+      this.setEvents(this.currentDate)
     }
   },
 
   mounted () {
+    this.dateElement = this.$refs.date.$el
+
+    // muda estilo da navegação
     this.setNewNavigatorDisplay()
 
-    if (this.useInactiveDates) {
-      this.currentDate = this.getCurrentDate()
-      this.setInactiveEvents(this.currentDate)
-    }
+    // observa as mudanças no DOM do QDate > .q-date__content
+    this.setObserveDate()
+
+    // seta data atual de acordo com a view do mês atual
+    this.setCurrentDate()
+
+    // seta os eventos, ativos e inativos
+    this.setEvents(this.currentDate)
+  },
+
+  unmounted () {
+    this.dateObserver.disconnect()
   },
 
   methods: {
+    createActiveEventElement (dayElement, eventElement) {
+      const buttonElement = dayElement.querySelector('.q-btn__content')
+
+      buttonElement?.appendChild?.(eventElement)
+    },
+
+    createCounterInactiveEventElement (dayElement, eventElement) {
+      const spanElement = document.createElement('span')
+      const [child] = dayElement.children
+
+      spanElement.setAttribute('data-event', true)
+      dayElement.setAttribute('data-has-inactive-event', true)
+
+      spanElement.classList.add('flex', 'items-center', 'justify-center', 'text-center')
+
+      child.setAttribute('data-day-content', child.textContent)
+
+      spanElement.appendChild(child)
+      spanElement.appendChild(eventElement)
+      dayElement.appendChild(spanElement)
+    },
+
+    createPointerEventElement (isInactive, currentColor, eventElement) {
+      const eventPointerElement = document.createElement('div')
+
+      eventPointerElement.classList.add(
+        'qas-date__event-pointer',
+        `bg-${isInactive ? 'grey-4' : currentColor || 'primary'}`
+      )
+
+      eventElement.appendChild(eventPointerElement)
+    },
+
+    getCurrentColor (date, color) {
+      return (
+        (this.isEventColorCallback ? this.eventColor(date) : this.eventColor) || color
+      )
+    },
+
     getCurrentDate () {
       const modelDate = this.multiple ? this.modelValue[0] : this.modelValue
       const extractedDate = this.hasModelValue ? date.extractDate(modelDate, this.mask) : new Date()
 
       return this.getDate(extractedDate)
+    },
+
+    getCurrentEvent (date) {
+      return this.events.find(event => event.date === date)
     },
 
     getDate (date) {
@@ -193,6 +252,18 @@ export default {
       return extractedModel.includes(currentDate) ? 'white' : 'primary'
     },
 
+    getEventClasses (currentColor, hasCounter, isInactive) {
+      return [
+        'qas-date__event',
+
+        isInactive ? 'qas-date__event--inactive' : 'qas-date__event--active',
+
+        `text-${currentColor || (isInactive ? 'grey-4' : 'primary')}`,
+
+        hasCounter ? 'qas-date__event--counter' : 'qas-date__event--pointer'
+      ]
+    },
+
     getISODate (value) {
       if (!value || (this.multiple && !value.length)) return value
 
@@ -206,53 +277,145 @@ export default {
 
       return invalidTypes.includes(typeof list)
         ? list
-        : list.map(dateItem => asteroidDate(dateItem, 'yyyy/MM/dd'))
+        : list.map(item => asteroidDate(item, 'yyyy/MM/dd'))
     },
 
-    async setInactiveEvents ({ year, month }) {
-      if (!this.hasEvents) return
+    getStatusDay ({ currentDay, index }) {
+      const status = {
+        isPrevious: false,
+        isNext: false,
+        isActiveMonthDay: false
+      }
 
-      const previousMonth = month - 1
+      if (currentDay > index) {
+        status.isPrevious = true
 
-      const dateElement = this.$refs.date.$el
-      const inativeDays = dateElement.querySelectorAll('.q-date__calendar-item--fill')
-      const inativeList = Array.from(inativeDays)
+        return status
+      }
 
-      let monthIncrement = 0
+      if (index - 7 > currentDay) {
+        status.isNext = true
 
-      inativeList.forEach((inativeElement, index) => {
-        const [child] = inativeElement.children
-        const previousDay = inativeList?.[index - 1]?.innerText || 0
-        const inactiveDay = child.innerText
+        return status
+      }
+
+      status.isActiveMonthDay = true
+
+      return status
+    },
+
+    getNormalizedYear ({ isNext, isPrevious, month, year }) {
+      if (isPrevious && month === 1) return year - 1
+
+      if (isNext && month === 12) return year + 1
+
+      return year
+    },
+
+    getNormalizedMonth ({ month, isPrevious, isNext }) {
+      if (isPrevious) return month === 1 ? (month = 12) : month - 1
+
+      if (isNext) return month === 12 ? (month = 1) : month + 1
+
+      return month
+    },
+
+    resetInactiveEvents () {
+      const inactiveElementsToRemove = this.dateElement.querySelectorAll('[data-has-inactive-event]')
+
+      inactiveElementsToRemove.forEach(inactiveElement => {
+        const [element] = inactiveElement.children
+
+        const hasDayContent = element.querySelector('[data-day-content]')
+
+        if (hasDayContent) inactiveElement.append(hasDayContent)
+      })
+    },
+
+    resetEvents () {
+      if (this.useInactiveDates) this.resetInactiveEvents()
+
+      this.resetActiveEvents()
+    },
+
+    resetActiveEvents () {
+      const elementsToRemove = this.dateElement.querySelectorAll('[data-event]')
+
+      elementsToRemove.forEach(nodeElement => nodeElement.remove())
+    },
+
+    setCurrentDate (date) {
+      this.currentDate = date || this.getCurrentDate()
+    },
+
+    setEventClasses (currentColor, eventElement, hasCounter, isInactive) {
+      const classes = this.getEventClasses(currentColor, hasCounter, isInactive)
+
+      eventElement.classList.add(...classes)
+    },
+
+    setEvents ({ year, month }) {
+      if (!this.events.length || !year || !month) return
+
+      this.resetEvents()
+
+      const daysElement = this.dateElement.querySelectorAll('.q-date__calendar-days .q-date__calendar-item')
+      const daysElementList = Array.from(daysElement)
+
+      daysElementList.forEach((dayElement, index) => {
+        const [child] = dayElement.children
+
+        const day = child.textContent
+
+        const { isActiveMonthDay, isNext, isPrevious } = this.getStatusDay({ currentDay: day, index: index + 1 })
+
+        const normalizedYear = this.getNormalizedYear({ isNext, month, isPrevious, year })
+        const normalizedMonth = this.getNormalizedMonth({ isNext, isPrevious, month })
+        const newDate = date.buildDate({ year: normalizedYear, month: normalizedMonth, day })
+        const normalizedDate = asteroidDate(newDate, 'yyyy-MM-dd')
+
+        const currentEvent = this.isEventsCallback ? this.events(normalizedDate) : this.getCurrentEvent(normalizedDate)
+
+        const hasDisabledClass = dayElement.classList.contains('q-date__calendar-item--out')
+        const isInactive = !isActiveMonthDay || hasDisabledClass
 
         /*
-          * Se o dia anterior for 31 e o dia atual for 1, por exemplo, significa que estamos nos referindo ao próximo mês.
-          * Como o mês começa no mês anterior, por exemplo, em 31 de janeiro, o mês atual seria fevereiro.
-          * Portanto, o mês correspondente ao dia 1 seria março e, para alcançá-lo, seria necessário incrementar 2 meses.
+          * Se não tiver evento para o dia atual no loop ou
+          * a opção de eventos inativos estiver desabilitada e o dia atual do loop
+          * for referente ao mês anterior ou ao mês posterior, então retorna
         */
-        if (inactiveDay < previousDay) {
-          monthIncrement += 2
+        if (!currentEvent || (!this.useInactiveDates && !isActiveMonthDay)) return
+
+        const hasCounter = currentEvent.counter
+
+        const currentColor = this.getCurrentColor(normalizedDate, currentEvent?.color)
+
+        const eventElement = document.createElement('div')
+
+        eventElement.setAttribute('data-event', true)
+
+        dayElement.classList.add('qas-date__calendar-item-event')
+
+        this.setEventClasses(currentColor, eventElement, hasCounter, isInactive)
+
+        if (hasCounter) {
+          this.setTextCountEvent(eventElement, currentEvent)
+        } else {
+          this.createPointerEventElement(isInactive, currentColor, eventElement)
         }
 
-        const normalizedMonth = previousMonth + monthIncrement
-        const newDate = date.buildDate({ year, month: normalizedMonth, day: inactiveDay })
-        const normalizedDate = asteroidDate(newDate, 'yyyy/MM/dd')
+        if (isInactive) {
+          this.createCounterInactiveEventElement(dayElement, eventElement)
 
-        const hasCallbackInactiveEvent = typeof this.events === 'function' && this.events(normalizedDate)
-        const hasArrayInactiveEvent = Array.isArray(this.events) && this.normalizedEvents.includes(normalizedDate)
-
-        if (hasArrayInactiveEvent || hasCallbackInactiveEvent) {
-          const divElement = document.createElement('div')
-          divElement.classList.add('q-date__event', 'qas-date__event-inactive')
-
-          inativeElement.appendChild(divElement)
+          return
         }
+
+        this.createActiveEventElement(dayElement, eventElement)
       })
     },
 
     setNewNavigatorDisplay () {
-      const dateElement = this.$refs.date.$el
-      const navigationElement = dateElement.querySelector('.q-date__navigation')
+      const navigationElement = this.dateElement.querySelector('.q-date__navigation')
       const navigationChildren = navigationElement?.children || []
 
       const nodesList = Array.from(navigationChildren)
@@ -275,27 +438,40 @@ export default {
       this.$nextTick(() => secondList.forEach(node => newSecondElement.appendChild(node)))
     },
 
+    setObserveDate () {
+      const element = this.dateElement.querySelector('.q-date__content')
+      const config = { childList: true, subtree: true }
+
+      const callback = mutationList => {
+        mutationList.forEach(({ removedNodes, target }) => {
+          const [removedNode] = removedNodes
+
+          if (!removedNode) return
+
+          const hasCalendarDaysContainer = target.classList.contains('q-date__calendar-days-container')
+          const hasContent = target.classList.contains('q-date__content')
+          const hasMonths = removedNode.classList.contains('q-date__months')
+
+          if (hasCalendarDaysContainer || (hasContent && hasMonths)) {
+            this.setEvents(this.currentDate)
+          }
+        })
+      }
+
+      this.dateObserver = new MutationObserver(callback)
+      this.dateObserver.observe(element, config)
+    },
+
+    setTextCountEvent (eventElement, currentEvent) {
+      eventElement.innerText = `(${currentEvent.counter})`
+    },
+
     async onNavigation (date) {
       this.$emit('navigation', date)
 
-      /*
-        * O componente QDate usa um vue transition de 3ms, como estamos manipulando o DOM, precisamos esperar essa
-        * transição terminar para que possamos fazer a logica, com isto precisamos sempre ficar atentos a atualizações
-        * do componente QDate para assegurar que esta logica não quebre.
-      */
-      if (this.useInactiveDates) setTimeout(() => { this.setInactiveEvents(date) }, 350)
+      this.setCurrentDate(date)
 
       this.$nextTick(() => this.setNewNavigatorDisplay())
-    },
-
-    toNumberValues (objet) {
-      const normalizedObjet = {}
-
-      for (const key in objet) {
-        normalizedObjet[key] = Number(objet[key])
-      }
-
-      return normalizedObjet
     }
   }
 }
@@ -307,18 +483,67 @@ export default {
   min-width: 100%;
   width: 100%;
 
-  &__event-inactive {
-    background-color: $grey-4;
-    bottom: 4px !important;
+  &__event {
+    @include set-typography($caption);
+
+    bottom: -6px;
+    color: $primary;
+    font-size: 10px !important;
+    height: 20px;
+    left: 50%;
+    position: absolute;
+    transform: translateX(-50%);
+    width: 100%;
+
+    &--pointer {
+      bottom: -6px;
+      display: flex;
+      justify-content: center;
+    }
+  }
+
+  &__event-pointer {
+    border-radius: 100%;
+    display: flex;
+    height: 6px;
+    justify-content: center;
+    margin-top: var(--qas-spacing-xs);
+    width: 6px;
   }
 
   &--inative {
     .q-date {
+      &__calendar-item--out,
       &__calendar-item--fill {
         @include set-typography($subtitle2);
 
         color: $grey-4;
         visibility: unset;
+
+        span {
+          height: 36px;
+          padding: var(--qas-spacing-xs);
+        }
+      }
+    }
+
+    .qas-date__event--inactive.qas-date__event--counter {
+      color: $grey-4 !important;
+    }
+  }
+
+  &__calendar-item-event {
+    .q-btn {
+      &.bg-primary span {
+        padding-bottom: 4px;
+      }
+
+      &.bg-primary .qas-date__event {
+        bottom: -2px;
+      }
+
+      &.bg-primary .qas-date__event--pointer {
+        bottom: -2px;
       }
     }
   }
@@ -358,12 +583,6 @@ export default {
       opacity: 1;
     }
 
-    &__event {
-      bottom: -1;
-      height: 6px;
-      width: 6px;
-    }
-
     &__months,
     &__years {
       .q-btn {
@@ -387,8 +606,9 @@ export default {
 
       .q-btn {
         border: 0;
+        border-radius: $generic-border-radius;
         box-shadow: none;
-        height: 30px !important;
+        height: 36px !important;
         min-height: 30px;
         min-width: 30px;
         transition: color var(--qas-generic-transition);
@@ -397,6 +617,14 @@ export default {
         .q-ripple,
         .q-focus-helper {
           display: none !important;
+        }
+
+        &.bg-primary .qas-date__event--active {
+          color: white !important;
+        }
+
+        &.bg-primary .qas-date__event--active .qas-date__event-pointer {
+          background-color: white !important;
         }
 
         &:hover {
