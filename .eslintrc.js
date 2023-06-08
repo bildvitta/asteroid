@@ -5,6 +5,8 @@ module.exports = {
     browser: true
   },
 
+  parser: 'vue-eslint-parser',
+
   extends: [
     'eslint:recommended',
     'plugin:vue/vue3-recommended',
@@ -21,7 +23,11 @@ module.exports = {
   ],
 
   globals: {
-    process: 'readonly'
+    process: 'readonly',
+    defineProps: 'readonly',
+    defineEmits: 'readonly',
+    defineExpose: 'readonly',
+    withDefaults: 'readonly'
   },
 
   rules: {
@@ -60,6 +66,6 @@ module.exports = {
     'vue/no-reserved-component-names': ['error'],
     'vue/script-indent': ['error'],
     'vue/static-class-names-order': ['error'],
-    'vue/v-slot-style': ['error', 'shorthand']
+    'vue/v-slot-style': ['error', 'shorthand'],
   }
 }

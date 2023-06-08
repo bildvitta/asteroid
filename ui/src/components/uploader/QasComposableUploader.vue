@@ -41,11 +41,15 @@
 </template>
 
 <script setup>
-// eslint-disable-next-line no-unused-vars
 import PvUploaderGalleryCard from './private/PvUploaderGalleryCard.vue'
+import { ref, onMounted } from 'vue'
 
-// eslint-disable-next-line no-undef
-defineProps({
+defineOptions({
+  name: 'QasUploader',
+  inheritAttrs: false
+})
+
+const props = defineProps({
   addButtonFn: {
     type: Function,
     default: undefined
@@ -160,4 +164,16 @@ defineProps({
   }
 })
 
+defineEmits(['update:modelValue', 'update:uploading'])
+
+const hiddenInput = ref(null)
+const uploader = ref(null)
+
+onMounted(() => {
+  hiddenInput.value?.addEventListener?.('change', this.addFiles)
+
+  if (props.useObjectModel) {
+    window.addEventListener('submit-success', this.handleSubmitSuccess)
+  }
+})
 </script>
