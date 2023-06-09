@@ -1,6 +1,6 @@
 <template>
   <div class="container spaced">
-    <qas-chart-view entity="chart" type="bar" />
+    <qas-chart-view entity="charts" type="bar" />
   </div>
 </template>
 

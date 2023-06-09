@@ -100,3 +100,4 @@ O retorno da API deverá conter a seguinte estrutura:
 <doc-example file="QasChartView/Bar" title="Bar" />
 <doc-example file="QasChartView/Doughnut" title="Doughnut" />
 <doc-example file="QasChartView/Line" title="Line" />
+<doc-example file="QasChartView/TwoLines" title="Two Lines" />

@@ -1,0 +1,58 @@
+{
+  "name": "charts-two-lines",
+  "encrypted": false,
+  "passwordHash": null,
+  "schemaHash": "2e018d904e2b5bbca48fd5093b0400c7",
+  "docs": [
+    {
+      "label": "01/06/2023",
+      "data": [
+        {
+          "x": "Presencial",
+          "y": 10
+        },
+        {
+          "x": "Mídia Digital",
+          "y": 22
+        },
+        {
+          "x": "Evento",
+          "y": 5
+        },
+        {
+          "x": "Indicação",
+          "y": 2
+        },
+        {
+          "x": "WhatsApp",
+          "y": 13
+        }
+      ]
+    },
+    {
+      "label": "10/06/2023",
+      "data": [
+        {
+          "x": "Presencial",
+          "y": 15
+        },
+        {
+          "x": "Mídia Digital",
+          "y": 30
+        },
+        {
+          "x": "Evento",
+          "y": 8
+        },
+        {
+          "x": "Indicação",
+          "y": 1
+        },
+        {
+          "x": "WhatsApp",
+          "y": 10
+        }
+      ]
+    }
+  ]
+}
