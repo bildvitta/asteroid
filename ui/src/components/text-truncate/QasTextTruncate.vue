@@ -14,125 +14,109 @@
   </div>
 </template>
 
-<script>
+<script setup>
+import { ref, computed, watch, onMounted, onUnmounted, inject } from 'vue'
+
 import QasDialog from '../dialog/QasDialog.vue'
 
-export default {
+defineOptions({
   name: 'QasTextTruncate',
+  inheritAttrs: false
+})
 
-  components: {
-    QasDialog
+const props = defineProps({
+  dialogProps: {
+    type: Object,
+    default: () => ({
+      persistent: false
+    })
   },
 
-  props: {
-    dialogProps: {
-      type: Object,
-      default: () => ({
-        persistent: false
-      })
-    },
-
-    dialogTitle: {
-      type: String,
-      default: ''
-    },
-
-    maxWidth: {
-      type: Number,
-      default: 0
-    },
-
-    seeMoreLabel: {
-      type: String,
-      default: 'Ver mais'
-    },
-
-    text: {
-      type: String,
-      default: ''
-    }
+  dialogTitle: {
+    type: String,
+    default: ''
   },
 
-  data () {
-    return {
-      maxPossibleWidth: '',
-      showDialog: false,
-      textWidth: '',
-      textContent: '',
-      observer: null
-    }
+  maxWidth: {
+    type: Number,
+    default: 0
   },
 
-  computed: {
-    description () {
-      return this.text || this.textContent
-    },
-
-    truncateTextClass () {
-      return (this.isTruncated || this.$qas.screen.isSmall) && 'ellipsis q-pr-sm'
-    },
-
-    isTruncated () {
-      return this.textWidth > this.maxPossibleWidth
-    },
-
-    headerClass () {
-      return this.dialogTitle ? 'justify-between' : 'justify-end'
-    },
-
-    defaultDialogProps () {
-      return {
-        cancel: false,
-        ok: false,
-        ...this.dialogProps,
-        card: {
-          title: this.dialogTitle,
-          description: this.description
-        }
-      }
-    }
+  seeMoreLabel: {
+    type: String,
+    default: 'Ver mais'
   },
 
-  watch: {
-    maxWidth () {
-      this.truncateText()
-    }
-  },
+  text: {
+    type: String,
+    default: ''
+  }
+})
 
-  mounted () {
-    this.truncateText()
-    this.observeContentChange()
-  },
+const textContent = ref('')
+const textWidth = ref('')
+const maxPossibleWidth = ref('')
+const showDialog = ref(false)
+const observer = ref(null)
 
-  unmounted () {
-    this.observer.disconnect()
-  },
+// template refs
+const truncate = ref(null)
+const parent = ref(null)
 
-  methods: {
-    truncateText () {
-      this.$refs.parent.style.maxWidth = '100%'
-      this.textWidth = this.$refs.truncate.clientWidth
-      this.textContent = this.$refs.truncate?.innerHTML
+const $qas = inject('$qas')
 
-      this.maxPossibleWidth = this.maxWidth || this.$refs.truncate.parentElement.clientWidth * 0.90
-      this.$refs.parent.style.maxWidth = `${this.maxPossibleWidth}px`
-    },
+const description = computed(() => props.text || textContent.value)
 
-    toggleDialog () {
-      this.showDialog = !this.showDialog
-    },
+const defaultDialogProps = computed(() => {
+  return {
+    cancel: false,
+    ok: false,
 
-    observeContentChange () {
-      const element = this.$refs.truncate
-      const config = { childList: true, subtree: true, characterData: true }
+    ...props.dialogProps,
 
-      const callback = mutationList => {
-        mutationList.forEach(() => this.truncateText())
-      }
-
-      this.observer = new MutationObserver(callback)
-      this.observer.observe(element, config)
+    card: {
+      title: props.dialogTitle,
+      description: description.value
     }
   }
+})
+
+const isTruncated = computed(() => textWidth.value > maxPossibleWidth.value)
+const truncateTextClass = computed(() => (isTruncated.value || $qas.screen.isSmall) && 'ellipsis q-pr-sm')
+
+watch(() => props.maxWidth, truncateText)
+
+onMounted(() => {
+  truncateText()
+  observeContentChange()
+})
+
+onUnmounted(() => observer.value.disconnect())
+
+// methods
+function truncateText () {
+  parent.value.style.maxWidth = '100%'
+  textWidth.value = truncate.value.clientWidth
+  textContent.value = truncate.value?.innerHTML
+
+  maxPossibleWidth.value = props.maxWidth || truncate.value.parentElement.clientWidth * 0.90
+
+  parent.value.style.maxWidth = `${maxPossibleWidth.value}px`
+}
+
+function toggleDialog () {
+  showDialog.value = !showDialog.value
+}
+
+function observeContentChange () {
+  const config = { childList: true, subtree: true, characterData: true }
+
+  const callback = mutationList => {
+    mutationList.forEach(() => truncateText())
+  }
+
+  observer.value = new MutationObserver(callback)
+
+  observer.value.observe(truncate.value, config)
 }
 </script>

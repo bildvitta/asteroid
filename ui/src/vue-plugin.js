@@ -158,6 +158,8 @@ function install (app) {
     success: NotifySuccess
   }
 
+  app.provide('$qas', app.config.globalProperties.$qas)
+
   app.directive(Test.name, Test)
 }
 
