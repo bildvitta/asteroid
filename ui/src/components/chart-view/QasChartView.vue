@@ -1,24 +1,17 @@
 <template>
   <div v-bind="componentProps">
-    <component
-      :is="chartType"
-      v-if="showChart"
-      v-bind="chartProps"
-    />
+    <component :is="chartType" v-if="showChart" v-bind="chartProps" />
 
     <qas-empty-result-text v-else-if="!isFetching" />
 
     <q-inner-loading :showing="isFetching">
-      <q-spinner
-        color="grey"
-        size="3em"
-      />
+      <q-spinner color="grey" size="3em" />
     </q-inner-loading>
   </div>
 </template>
 
 <script>
-// Componentes padrões do ChartJS
+// Importações do chart.js
 import {
   Chart as ChartJS,
   Title,
@@ -31,19 +24,14 @@ import {
   PointElement,
   ArcElement
 } from 'chart.js'
-
-// Tipos de gráficos do VueChartJS
-import {
-  Bar as BarChart,
-  Doughnut as DoughnutChart,
-  Line as LineChart
-} from 'vue-chartjs'
+import { Bar as BarChart, Doughnut as DoughnutChart, Line as LineChart } from 'vue-chartjs'
 
 // Configurações padrões
-// TODO: Importar tudo do index da config
-import defaultChartsConfig from './config/charts'
-import { maxDoughnutSlices } from './config/charts/doughnut'
-import { font, colors } from './config/defaults'
+import {
+  charts,
+  colors,
+  font
+} from './config'
 
 // Plugins
 import zoomPlugin from 'chartjs-plugin-zoom'
@@ -52,6 +40,7 @@ import chartDataLabels from 'chartjs-plugin-datalabels'
 // Outras importações
 import { extend } from 'quasar'
 import { filterListByHandle } from '../../helpers'
+import { getAction } from '@bildvitta/store-adapter'
 
 export default {
   name: 'QasChartView',
@@ -68,18 +57,23 @@ export default {
       type: String
     },
 
-    // TODO: Criar model de fetching
-    // TODO: Criar model de results
+    fetching: {
+      type: Boolean
+    },
 
     filtersProps: {
       default: () => ({}),
       type: Object
     },
 
-    // TODO: Definir height do gráfico de acordo com o tipo de gráfico
     height: {
       default: '380px',
       type: String
+    },
+
+    maxDoughnutSlices: {
+      default: 15,
+      type: Number
     },
 
     options: {
@@ -112,6 +106,12 @@ export default {
       type: Boolean
     }
   },
+
+  emits: [
+    'fetch-error',
+    'fetch-success',
+    'update:fetching'
+  ],
 
   data () {
     return {
@@ -171,7 +171,7 @@ export default {
     chartOptions () {
       const { options, type } = this
 
-      return extend(true, defaultChartsConfig[type], options)
+      return extend(true, charts[type], options)
     },
 
     chartPlugins () {
@@ -237,16 +237,69 @@ export default {
     filters: {
       handler () {
         this.fetchData()
-      },
-      immediate: true
+      }
+    },
+
+    isFetching (value) {
+      this.$emit('update:fetching', value)
     }
   },
 
   created () {
     this.setInitialConfig()
+    this.fetchData()
   },
 
   methods: {
+    async fetchData () {
+      try {
+        this.isFetching = true
+
+        const response = await getAction.call(this, {
+          entity: this.entity,
+          key: 'fetchList',
+          payload: {
+            url: this.url,
+            filters: this.filters
+          }
+        })
+
+        const { results } = response.data
+        this.data = results
+
+        this.$emit('fetch-success', response)
+      } catch (error) {
+        this.$qas.error('Ops… Não conseguimos acessar as informações. Por favor, tente novamente em alguns minutos.')
+
+        this.$emit('fetch-error', error)
+      } finally {
+        this.isFetching = false
+        this.isFetched = true
+      }
+    },
+
+    getXAxisData (data = []) {
+      if (this.isDoughnut && data.length > this.maxDoughnutSlices) {
+        data = data.slice(0, this.maxDoughnutSlices - 1)
+        data.push('Outros')
+      }
+
+      return data
+    },
+
+    getYAxisData (data = []) {
+      if (this.isDoughnut && data.length > this.maxDoughnutSlices) {
+        const otherSlicesValues = data
+          .slice(this.maxDoughnutSlices - 1)
+          .reduce((accumulator, currentValue) => accumulator + currentValue, 0)
+
+        data = data.slice(0, this.maxDoughnutSlices - 1)
+        data.push(otherSlicesValues)
+      }
+
+      return data
+    },
+
     setInitialConfig () {
       const defaultChartItems = [
         CategoryScale,
@@ -269,50 +322,6 @@ export default {
       )
 
       ChartJS.defaults.font = font
-    },
-
-    async fetchData () {
-      try {
-        // TODO: Emitir o evento de fetching para cima
-        this.isFetching = true
-
-        // TODO: Utilizar o store adapter
-        const { data: { results } } = await this.$store.dispatch(`${this.entity}/fetchList`, {
-          url: this.url,
-          filters: this.filters
-        })
-
-        // TODO: Emitir os resultados para cima
-        this.data = results
-      } catch {
-        this.$qas.error('Ops… Não conseguimos acessar as informações. Por favor, tente novamente em alguns minutos.')
-      } finally {
-        // TODO: Emitir o evento de fetching para cima
-        this.isFetching = false
-        this.isFetched = true
-      }
-    },
-
-    getXAxisData (data = []) {
-      if (this.isDoughnut && data.length > maxDoughnutSlices) {
-        data = data.slice(0, maxDoughnutSlices - 1)
-        data.push('Outros')
-      }
-
-      return data
-    },
-
-    getYAxisData (data = []) {
-      if (this.isDoughnut && data.length > maxDoughnutSlices) {
-        const otherSlicesValues = data
-          .slice(maxDoughnutSlices - 1)
-          .reduce((accumulator, currentValue) => accumulator + currentValue, 0)
-
-        data = data.slice(0, maxDoughnutSlices - 1)
-        data.push(otherSlicesValues)
-      }
-
-      return data
     }
   }
 }

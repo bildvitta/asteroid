@@ -39,5 +39,3 @@ export const doughnut = {
   },
   responsive: true
 }
-
-export const maxDoughnutSlices = 15
