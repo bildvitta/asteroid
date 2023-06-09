@@ -17,19 +17,16 @@
 <script setup>
 import { ref, computed, watch, onMounted, onUnmounted, inject } from 'vue'
 
+import { useTextTruncateDialog } from './composables/use-text-truncate-dialog.js'
+
 import QasDialog from '../dialog/QasDialog.vue'
 
-defineOptions({
-  name: 'QasTextTruncate',
-  inheritAttrs: false
-})
+defineOptions({ name: 'QasTextTruncate' })
 
 const props = defineProps({
   dialogProps: {
     type: Object,
-    default: () => ({
-      persistent: false
-    })
+    default: () => ({ persistent: false })
   },
 
   dialogTitle: {
@@ -53,39 +50,37 @@ const props = defineProps({
   }
 })
 
-const textContent = ref('')
-const textWidth = ref('')
-const maxPossibleWidth = ref('')
-const showDialog = ref(false)
-const observer = ref(null)
-
-// template refs
-const truncate = ref(null)
-const parent = ref(null)
-
+// global
 const $qas = inject('$qas')
 
-const description = computed(() => props.text || textContent.value)
+// reactive vars
+const maxPossibleWidth = ref('')
+const observer = ref(null)
+const textContent = ref('')
+const textWidth = ref('')
 
-const defaultDialogProps = computed(() => {
-  return {
-    cancel: false,
-    ok: false,
+// template refs
+const parent = ref(null)
+const truncate = ref(null)
 
-    ...props.dialogProps,
+// composable
+const {
+  defaultDialogProps,
+  showDialog,
+  toggleDialog
+} = useTextTruncateDialog({ props, textContent })
 
-    card: {
-      title: props.dialogTitle,
-      description: description.value
-    }
-  }
+// computed
+const isTruncated = computed(() => textWidth.value > maxPossibleWidth.value)
+
+const truncateTextClass = computed(() => {
+  return (isTruncated.value || $qas.screen.isSmall) && 'ellipsis q-pr-sm'
 })
 
-const isTruncated = computed(() => textWidth.value > maxPossibleWidth.value)
-const truncateTextClass = computed(() => (isTruncated.value || $qas.screen.isSmall) && 'ellipsis q-pr-sm')
-
+// watch
 watch(() => props.maxWidth, truncateText)
 
+// lifecycle
 onMounted(() => {
   truncateText()
   observeContentChange()
@@ -104,16 +99,10 @@ function truncateText () {
   parent.value.style.maxWidth = `${maxPossibleWidth.value}px`
 }
 
-function toggleDialog () {
-  showDialog.value = !showDialog.value
-}
-
 function observeContentChange () {
   const config = { childList: true, subtree: true, characterData: true }
 
-  const callback = mutationList => {
-    mutationList.forEach(() => truncateText())
-  }
+  const callback = mutationList => mutationList.forEach(() => truncateText())
 
   observer.value = new MutationObserver(callback)
 
