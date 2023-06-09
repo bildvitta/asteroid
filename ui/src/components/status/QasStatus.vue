@@ -2,25 +2,23 @@
   <div aria-live="polite" class="qas-status" :class="backgroundClass" role="status" />
 </template>
 
-<script>
-export default {
+<script setup>
+import { computed } from 'vue'
+
+defineOptions({
   name: 'QasStatus',
 
-  inheritAttrs: false,
+  inheritAttrs: false
+})
 
-  props: {
-    color: {
-      type: String,
-      default: 'light-blue-2'
-    }
-  },
-
-  computed: {
-    backgroundClass () {
-      return `bg-${this.color}`
-    }
+const props = defineProps({
+  color: {
+    type: String,
+    default: 'light-blue-2'
   }
-}
+})
+
+const backgroundClass = computed(() => `bg-${props.color}`)
 </script>
 
 <style lang="scss">
