@@ -28,6 +28,7 @@
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^6.1.1",
     "eslint-plugin-quasar": "^1.1.0",
+    "vue-eslint-parser": "^9.3.0",
     "eslint-plugin-vue": "^9.13.0",
     "execa": "^7.1.1",
     "fs-jetpack": "^5.1.0",
