@@ -2,7 +2,11 @@
   <div v-bind="componentProps">
     <component :is="chartType" v-if="showChart" v-bind="chartProps" />
 
-    <qas-empty-result-text v-else-if="!isFetching" />
+    <div v-else-if="!isFetching">
+      <slot name="empty-results">
+        <qas-empty-result-text />
+      </slot>
+    </div>
 
     <q-inner-loading :showing="isFetching">
       <q-spinner color="grey" size="3em" />
@@ -27,11 +31,7 @@ import {
 import { Bar as BarChart, Doughnut as DoughnutChart, Line as LineChart } from 'vue-chartjs'
 
 // Configurações padrões
-import {
-  charts,
-  colors,
-  font
-} from './config'
+import { charts, colors, font } from './config'
 
 // Plugins
 import zoomPlugin from 'chartjs-plugin-zoom'

@@ -20,15 +20,65 @@ props:
     default: {}
     type: Object
 
+  height:
+    desc: Define a altura do gráfico.
+    default: 380px
+    type: String
+
+  max-doughnut-slices:
+    desc: Define o máximo de fatias que o gráfico de Doughnut poderá ter. Passando o número máximo definido o gráfico irá exibir uma fatia chamada "Outros".
+    default: 15
+    type: Number
+
+  options:
+    desc: Opções do chart.js que serão mescladas com as opções padrões pré definidas.
+    default: {}
+    type: Object
+
+  subtitle:
+    desc: Define um subtítulo para o gráfico.
+    type: String
+
+  title:
+    desc: Define um título para o gráfico.
+    type: String
+
+  type:
+    desc: Tipo de exibição do gráfico.
+    default: bar
+    type: String
+    examples: [bar, doughnut, line]
+
   url:
     desc: Envia como parâmetro para a action "fetchList" do modulo correspondente a "entity".
     type: String
+
+  use-filter-button:
+    desc: Controla se o componente vai usar ou não o componente "QasFilters".
+    type: Boolean
 
 slots:
   default:
     desc: 'Slot para ter o conteúdo principal (dentro do main).'
 
+  empty-results:
+    desc: 'Slot acessar quando a listagem está vazia.'
+
 events:
+  '@fetch-error -> function(value)':
+    desc: Dispara quando a action "fetchList" cai em uma exceção.
+    params:
+      value:
+        desc: Retorna todos os dados "cru" respondido na exceção do fetch.
+        type: Object
+
+  '@fetch-success -> function(value)':
+    desc: Dispara quando a action "fetchList" é executada com sucesso.
+    params:
+      value:
+        desc: Retorna todos os dados "cru" respondido pelo fetch.
+        type: Object
+
   '@update:fetching -> function(value)':
     desc: Dispara logo antes da action "fetchList" e ao cair no bloco "finally", ou seja, quando começar o fetching e após terminar.
     params:
