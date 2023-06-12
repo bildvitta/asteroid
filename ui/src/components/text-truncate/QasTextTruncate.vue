@@ -5,24 +5,31 @@
         <slot>{{ text }}</slot>
       </div>
 
-      <div v-if="isTruncated" class="cursor-pointer text-primary" @click.stop="textTruncateDialog">
+      <div v-if="isTruncated" class="cursor-pointer text-primary" @click.stop="toggle">
         {{ seeMoreLabel }}
       </div>
     </div>
 
-    <qas-dialog v-model="textTruncateDialog.show" v-bind="textTruncateDialog.defaultProps" aria-label="Diálogo de texto completo" role="dialog" />
+    <qas-dialog v-model="show" v-bind="defaultProps" aria-label="Diálogo de texto completo" role="dialog" />
   </div>
 </template>
 
 <script setup>
-import { computed, inject, onMounted, onUnmounted, ref, watch } from 'vue'
-
-// import { useTextTruncateDialog } from './composables/use-text-truncate-dialog.js'
+import {
+  computed,
+  inject,
+  onMounted,
+  onUnmounted,
+  ref,
+  watch
+} from 'vue'
 
 import QasDialog from '../dialog/QasDialog.vue'
 
+// define component name
 defineOptions({ name: 'QasTextTruncate' })
 
+// props
 const props = defineProps({
   dialogProps: {
     type: Object,
@@ -50,70 +57,33 @@ const props = defineProps({
   }
 })
 
-// global
-const $qas = inject('$qas')
-
-// reactive vars
-const maxPossibleWidth = ref('')
-const observer = ref(null)
-const textContent = ref('')
-const textWidth = ref('')
-
 // template refs
-const parent = ref(null)
 const truncate = ref(null)
+const parent = ref(null)
 
 // composable
-// const {
-//   defaultDialogProps,
-//   showDialog,
-//   toggleDialog
-// } = useTextTruncateDialog({ props, textContent })
+const {
+  textContent,
+  isTruncated,
+  truncateTextClass,
 
-const textTruncateDialog = useTextTruncateDialog()
+  truncateText
+} = useTruncate({ parent, props })
 
-// computed
-const isTruncated = computed(() => textWidth.value > maxPossibleWidth.value)
+const {
+  defaultProps,
+  show,
+  toggle
+} = useDialog({ props, textContent })
 
-const truncateTextClass = computed(() => {
-  return (isTruncated.value || $qas.screen.isSmall) && 'ellipsis q-pr-sm'
-})
+useMutationObserver({ truncate, callbackFn: truncateText })
 
-// watch
-watch(() => props.maxWidth, truncateText)
-
-// lifecycle
-onMounted(() => {
-  truncateText()
-  observeContentChange()
-})
-
-onUnmounted(() => observer.value.disconnect())
-
-// methods
-function truncateText () {
-  parent.value.style.maxWidth = '100%'
-  textWidth.value = truncate.value.clientWidth
-  textContent.value = truncate.value?.innerHTML
-
-  maxPossibleWidth.value = props.maxWidth || truncate.value.parentElement.clientWidth * 0.90
-
-  parent.value.style.maxWidth = `${maxPossibleWidth.value}px`
-}
-
-function observeContentChange () {
-  const config = { childList: true, subtree: true, characterData: true }
-
-  const callback = mutationList => mutationList.forEach(() => truncateText())
-
-  observer.value = new MutationObserver(callback)
-
-  observer.value.observe(truncate.value, config)
-}
-
-// composables
-function useTextTruncateDialog () {
+// composable functions
+function useDialog ({ props, textContent }) {
+  // reactive vars
   const show = ref(false)
+
+  // computed
   const description = computed(() => props.text || textContent.value)
 
   const defaultProps = computed(() => {
@@ -130,15 +100,82 @@ function useTextTruncateDialog () {
     }
   })
 
+  // methods
   function toggle () {
     show.value = !show.value
   }
 
   return {
     defaultProps,
+
     show,
 
     toggle
+  }
+}
+
+function useMutationObserver ({ truncate, callbackFn = () => {} }) {
+  // reactive vars
+  const observer = ref(null)
+
+  // lifecycle
+  onMounted(() => observeContentChange())
+  onUnmounted(() => observer.value.disconnect())
+
+  // methods
+  function observeContentChange () {
+    const config = { childList: true, subtree: true, characterData: true }
+
+    const callback = mutationList => mutationList.forEach(() => callbackFn())
+
+    observer.value = new MutationObserver(callback)
+
+    observer.value.observe(truncate.value, config)
+  }
+}
+
+function useTruncate ({ parent, props }) {
+  // global
+  const $qas = inject('$qas')
+
+  // reactive vars
+  const maxPossibleWidth = ref('')
+  const textContent = ref('')
+  const textWidth = ref('')
+
+  // lifecycle
+  onMounted(() => truncateText())
+
+  // watch
+  watch(() => props.maxWidth, truncateText)
+
+  // computed
+  const isTruncated = computed(() => textWidth.value > maxPossibleWidth.value)
+
+  const truncateTextClass = computed(() => {
+    return (isTruncated.value || $qas.screen.isSmall) && 'ellipsis q-pr-sm'
+  })
+
+  // methods
+  function truncateText () {
+    parent.value.style.maxWidth = '100%'
+    textWidth.value = truncate.value.clientWidth
+    textContent.value = truncate.value?.innerHTML
+
+    maxPossibleWidth.value = props.maxWidth || truncate.value.parentElement.clientWidth * 0.90
+
+    parent.value.style.maxWidth = `${maxPossibleWidth.value}px`
+  }
+
+  return {
+    maxPossibleWidth,
+    textContent,
+    textWidth,
+
+    isTruncated,
+    truncateTextClass,
+
+    truncateText
   }
 }
 </script>
