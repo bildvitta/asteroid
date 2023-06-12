@@ -107,10 +107,15 @@ Para renderizar múltiplos gráficos, é necessário retornar mais de um resulta
 <doc-example file="QasChartView/MultipleResults" title="Múltiplos gráficos" />
 
 :::tip
-No gráfico acima, ao realizar o hover na coluna "Presencial", você verá que há um texto do tooltip customizado. Para conseguir esse resultado, é necessário passar juntamente ao objeto do `data` uma chave `tooltip` com um texto customizado. Essa chave é opcional, portanto só utilize-a caso necessário.
+No gráfico acima, ao realizar o hover na coluna "Presencial", você verá que há um texto do tooltip customizado. Para conseguir esse resultado, é necessário passar juntamente ao objeto `data` uma chave `tooltip` com o texto customizado. Essa chave é opcional, portanto só utilize-a caso necessário.
 :::
 
 :::info
-O componente de gráfico pode ser aprimorado ao incluir um título (title) e um subtítulo (subtitle) para fornecer uma descrição clara dos dados apresentados.
+O gráfico pode ser aprimorado ao incluir um título (title) e um subtítulo (subtitle) para fornecer uma descrição clara dos dados apresentados.
 :::
 <doc-example file="QasChartView/WithHeader" title="Com título e subtítulo" />
+
+:::info
+Para utilizar o filtro dos dados do gráfico, utilize a propriedade `useFilterButton` com o valor `true`. O filtro permite aos usuários personalizar a visualização dos dados, oferecendo uma experiência interativa e flexível.
+:::
+<doc-example file="QasChartView/WithFilter" title="Com filtro" />

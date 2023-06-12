@@ -172,6 +172,7 @@ export default {
       const { entity, useFilterButton, url } = this
 
       return {
+        class: 'q-mb-xs',
         entity,
         url,
         useChip: false,
