@@ -1,5 +1,5 @@
 {
-  "name": "charts-two-lines",
+  "name": "charts_multiple_results",
   "encrypted": false,
   "passwordHash": null,
   "schemaHash": "2e018d904e2b5bbca48fd5093b0400c7",
@@ -9,11 +9,12 @@
       "data": [
         {
           "x": "Presencial",
-          "y": 10
+          "y": 1,
+          "tooltip": "Esse aqui é um tooltip customizado"
         },
         {
           "x": "Mídia Digital",
-          "y": 22
+          "y": 4
         },
         {
           "x": "Evento",
@@ -34,11 +35,12 @@
       "data": [
         {
           "x": "Presencial",
-          "y": 15
+          "y": 4,
+          "tooltip": "Esse aqui é um tooltip customizado"
         },
         {
           "x": "Mídia Digital",
-          "y": 30
+          "y": 3
         },
         {
           "x": "Evento",

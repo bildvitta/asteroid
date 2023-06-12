@@ -52,7 +52,7 @@ O retorno da API deverá conter a seguinte estrutura:
         "tooltip": {
           "name": "tooltip",
           "type": "text",
-          "label": "Tooltip customizado"
+          "label": "Tooltip customizado (opcional)"
         },
       }
     }
@@ -97,7 +97,15 @@ O retorno da API deverá conter a seguinte estrutura:
 :::
 
 ## Uso
-<doc-example file="QasChartView/Bar" title="Bar" />
-<doc-example file="QasChartView/Doughnut" title="Doughnut" />
-<doc-example file="QasChartView/Line" title="Line" />
-<doc-example file="QasChartView/TwoLines" title="Two Lines" />
+<doc-example file="QasChartView/Bar" title="Gráfico de barra" />
+<doc-example file="QasChartView/Doughnut" title="Gráfico de rosquinha" />
+<doc-example file="QasChartView/Line" title="Gráfico de linha" />
+
+:::tip
+Para renderizar múltiplos gráficos, é necessário retornar mais de um resultado no array de `results` da API.
+:::
+<doc-example file="QasChartView/MultipleResults" title="Múltiplos gráficos" />
+
+:::tip
+No gráfico acima, ao realizar o hover na coluna "Presencial", você verá que há um texto do tooltip customizado. Para conseguir esse resultado, é necessário passar juntamente ao objeto do `data` uma chave `tooltip` com um texto customizado. Essa chave é opcional, portanto só utilize-a caso necessário.
+:::

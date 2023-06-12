@@ -26,7 +26,7 @@ props:
     type: String
 
   max-doughnut-slices:
-    desc: Define o máximo de fatias que o gráfico de Doughnut poderá ter. Passando o número máximo definido o gráfico irá exibir uma fatia chamada "Outros".
+    desc: Define o máximo de fatias que o gráfico de Doughnut poderá ter. Passando o número máximo definido, o gráfico irá exibir uma fatia chamada "Outros".
     default: 15
     type: Number
 

@@ -1,7 +1,7 @@
 import { fields, schema } from '../schemas/chart'
 
 export default {
-  name: 'charts-two-lines',
+  name: 'charts_multiple_results',
 
   fields,
 
