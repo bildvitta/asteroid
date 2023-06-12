@@ -9,6 +9,12 @@ props:
     default: {}
     type: Object
 
+  align-columns:
+    desc: Alinhamento vertical das colunas.
+    default: center
+    type: String
+    examples: [start, center, end]
+
   button-props:
     desc: Propriedades do QasBtn.
     default: {}

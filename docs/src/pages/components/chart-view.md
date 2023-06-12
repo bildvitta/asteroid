@@ -101,7 +101,7 @@ O retorno da API deverá conter a seguinte estrutura:
 <doc-example file="QasChartView/Doughnut" title="Gráfico de rosquinha" />
 <doc-example file="QasChartView/Line" title="Gráfico de linha" />
 
-:::tip
+:::info
 Para renderizar múltiplos gráficos, é necessário retornar mais de um resultado no array de `results` da API.
 :::
 <doc-example file="QasChartView/MultipleResults" title="Múltiplos gráficos" />
@@ -109,3 +109,8 @@ Para renderizar múltiplos gráficos, é necessário retornar mais de um resulta
 :::tip
 No gráfico acima, ao realizar o hover na coluna "Presencial", você verá que há um texto do tooltip customizado. Para conseguir esse resultado, é necessário passar juntamente ao objeto do `data` uma chave `tooltip` com um texto customizado. Essa chave é opcional, portanto só utilize-a caso necessário.
 :::
+
+:::info
+O componente de gráfico pode ser aprimorado ao incluir um título (title) e um subtítulo (subtitle) para fornecer uma descrição clara dos dados apresentados.
+:::
+<doc-example file="QasChartView/WithHeader" title="Com título e subtítulo" />

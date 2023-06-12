@@ -1,5 +1,5 @@
 <template>
-  <div class="items-center justify-between no-wrap q-col-gutter-x-md q-mb-xl row text-body1 text-grey-8">
+  <div :class="containerClass">
     <div :class="leftClass">
       <slot name="left">
         {{ text }}
@@ -26,6 +26,12 @@ export default {
       default: () => ({})
     },
 
+    alignColumns: {
+      default: 'center',
+      type: String,
+      validator: value => ['start', 'center', 'end'].includes(value)
+    },
+
     buttonProps: {
       default: () => ({}),
       type: Object
@@ -38,6 +44,13 @@ export default {
   },
 
   computed: {
+    containerClass () {
+      return [
+        'justify-between no-wrap q-col-gutter-x-md q-mb-xl row text-body1 text-grey-8',
+        `items-${this.alignColumns}`
+      ]
+    },
+
     hasDefaultButton () {
       return !!Object.keys(this.buttonProps).length
     },

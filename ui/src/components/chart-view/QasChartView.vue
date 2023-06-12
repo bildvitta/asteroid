@@ -1,4 +1,20 @@
 <template>
+  <qas-header-actions v-if="hasHeaderActions" align-columns="end">
+    <template #left>
+      <div v-if="title" class="text-grey-9 text-h3">
+        {{ title }}
+      </div>
+
+      <div v-if="subtitle" class="text-body1 text-grey-8">
+        {{ subtitle }}
+      </div>
+    </template>
+
+    <template #right>
+      <qas-filters v-bind="chartFilters" v-model:currentFilters="filters" />
+    </template>
+  </qas-header-actions>
+
   <div v-bind="componentProps">
     <component :is="chartType" v-if="showChart" v-bind="chartProps" />
 
@@ -214,6 +230,10 @@ export default {
 
     hasDataSets () {
       return !!this.chartData?.datasets.filter(dataset => dataset.data.length)?.length
+    },
+
+    hasHeaderActions () {
+      return this.title || this.subtitle || this.useFilterButton
     },
 
     isBar () {
