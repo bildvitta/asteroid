@@ -1,6 +1,7 @@
 <template>
-  <div :class="mx_classes">
-    <div v-for="(field, key) in fieldsByResult" :key="key" :class="mx_getFieldClass(key, true)">
+  <div>
+  <!-- <div :class="mx_classes"> -->
+    <!-- <div v-for="(field, key) in fieldsByResult" :key="key" :class="mx_getFieldClass(key, true)">
       <slot :field="field" :name="`field-${field.name}`">
         <slot :field="field" name="header">
           <header :class="headerClass" :data-cy="`grid-generator-${field.name}-field`">
@@ -14,11 +15,11 @@
           </div>
         </slot>
       </slot>
-    </div>
+    </div> -->
   </div>
 </template>
 
-<script>
+<!-- <script>
 import { generatorMixin } from '../../mixins'
 import { humanize } from '../../helpers/filters'
 import { isObject } from 'lodash-es'
@@ -117,4 +118,24 @@ export default {
     }
   }
 }
+</script> -->
+
+<script setup>
+import useGenerator, { baseProps } from '../../composables/private/use-generator'
+
+defineOptions({ name: 'QasGridGenerator' })
+
+const props = defineProps(baseProps)
+
+const {
+  classes,
+  getDefaultColumnClass,
+  getFieldClass
+} = useGenerator({ props })
+
+console.log({
+  classes,
+  getDefaultColumnClass,
+  getFieldClass
+})
 </script>
