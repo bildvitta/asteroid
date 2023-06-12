@@ -7,7 +7,6 @@ import { computed } from 'vue'
 
 defineOptions({
   name: 'QasStatus',
-
   inheritAttrs: false
 })
 
