@@ -5,19 +5,19 @@
         <slot>{{ text }}</slot>
       </div>
 
-      <div v-if="isTruncated" class="cursor-pointer text-primary" @click.stop="toggleDialog">
+      <div v-if="isTruncated" class="cursor-pointer text-primary" @click.stop="textTruncateDialog">
         {{ seeMoreLabel }}
       </div>
     </div>
 
-    <qas-dialog v-model="showDialog" v-bind="defaultDialogProps" aria-label="Diálogo de texto completo" role="dialog" />
+    <qas-dialog v-model="textTruncateDialog.show" v-bind="textTruncateDialog.defaultProps" aria-label="Diálogo de texto completo" role="dialog" />
   </div>
 </template>
 
 <script setup>
-import { ref, computed, watch, onMounted, onUnmounted, inject } from 'vue'
+import { computed, inject, onMounted, onUnmounted, ref, watch } from 'vue'
 
-import { useTextTruncateDialog } from './composables/use-text-truncate-dialog.js'
+// import { useTextTruncateDialog } from './composables/use-text-truncate-dialog.js'
 
 import QasDialog from '../dialog/QasDialog.vue'
 
@@ -64,11 +64,13 @@ const parent = ref(null)
 const truncate = ref(null)
 
 // composable
-const {
-  defaultDialogProps,
-  showDialog,
-  toggleDialog
-} = useTextTruncateDialog({ props, textContent })
+// const {
+//   defaultDialogProps,
+//   showDialog,
+//   toggleDialog
+// } = useTextTruncateDialog({ props, textContent })
+
+const textTruncateDialog = useTextTruncateDialog()
 
 // computed
 const isTruncated = computed(() => textWidth.value > maxPossibleWidth.value)
@@ -107,5 +109,36 @@ function observeContentChange () {
   observer.value = new MutationObserver(callback)
 
   observer.value.observe(truncate.value, config)
+}
+
+// composables
+function useTextTruncateDialog () {
+  const show = ref(false)
+  const description = computed(() => props.text || textContent.value)
+
+  const defaultProps = computed(() => {
+    return {
+      cancel: false,
+      ok: false,
+
+      ...props.dialogProps,
+
+      card: {
+        title: props.dialogTitle,
+        description: description.value
+      }
+    }
+  })
+
+  function toggle () {
+    show.value = !show.value
+  }
+
+  return {
+    defaultProps,
+    show,
+
+    toggle
+  }
 }
 </script>
