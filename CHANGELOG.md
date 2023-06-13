@@ -12,7 +12,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 
 ## Não publicado
 ### Corrigido
-`QasDate`: alterado a ordem de uso do método `resetEvents`, onde deverá resetar os eventos sempre, evitando problemas de manter antigos eventos quando deveriam serem limpados.
+`QasDate`: alterado a ordem de uso do método `resetEvents`, onde deverá limpar os eventos sempre, evitando problemas de manter antigos eventos quando deveriam serem limpados.
 
 ## [3.10.0-beta.9] - 07-06-2023
 ## BREAKING CHANGES
