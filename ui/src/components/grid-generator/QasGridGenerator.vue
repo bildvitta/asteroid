@@ -27,7 +27,6 @@ import { ref, computed, watch } from 'vue'
 // name
 defineOptions({ name: 'QasGridGenerator' })
 
-// props
 const props = defineProps({
   ...baseProps,
 

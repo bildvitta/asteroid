@@ -2,28 +2,55 @@ import { computed } from 'vue'
 
 /**
  * @typedef {Object} BaseProps
- * @property {string|Object|Array.<Object>} columns - Colunas do formulário.
+ * @property {(string|Object|Array.<Object>)} columns - Colunas do formulário.
  * @property {Object} fields - Campos do formulário.
- * @property {(String|Boolean)} gutter - Espaçamento entre as colunas.
+ * @property {(string|Boolean)} gutter - Espaçamento entre as colunas.
+*/
+
+/**
+ * @typedef {Object} GetFieldClassParams
+ * @property {number} index - Index do campo.
+ * @property {boolean} isGridGenerator - Indica se é um gerador de grid (QasGridGenerator).
+ * @property {Object[string]} normalizedFields - Campos normalizados.
+*/
+
+/**
+* @callback GetFieldClass
+* @param {GetFieldClassParams} options - parâmetros.
+* @returns {(string|Object[]|string[])} A classe de coluna de acordo com o index.
+*/
+
+/**
+* @callback GetDefaultColumnClass
+* @param {boolean} isGridGenerator - Indica se é um gerador de grid (QasGridGenerator).
+* @returns {string} A classe padrão de coluna.
 */
 
 /**
  * @typedef {Object} Generator
  * @property {string} classes - Classes de colunas computadas.
- * @property {function} getDefaultColumnClass - Retorna a classe padrão de coluna.
- * @property {function} getFieldClass - Retorna a classe de coluna de acordo com o index.
+ * @property {GetDefaultColumnClass} getDefaultColumnClass - Retorna a classe padrão de coluna.
+ * @property {GetFieldClass} getFieldClass - Retorna a classe de coluna de acordo com o index.
+*/
+
+/**
+ * @typedef {Object} UseGeneratorParams
+ * @property {BaseProps} props - Propriedades do componente.
  */
 
-// ---------------------------------------------------------------------------------------------
+/**
+ * @callback UseGenerator
+ * @param {UseGeneratorParams} props - Propriedades do componente.
+ * @returns {Generator}
+ */
+
+// -----------------------------------------------------------------------------------------------------
 
 const IRREGULAR_CLASSES = ['col', 'col-auto', 'fit']
 
 /**
  * @constant
- * @name baseProps
- * @kind variable
  * @type {BaseProps}
- * @exports
  */
 export const baseProps = {
   columns: {
@@ -46,16 +73,10 @@ export const baseProps = {
 }
 
 /**
- * @param {Object} params - Propriedades do componente.
- * @param {BaseProps} params.props - Propriedades do componente.
  * @function
- * @name useGenerator
- * @kind function
- * @exports
- * @returns {Generator}
+ * @type {UseGenerator}
  */
-export default function useGenerator ({ props = {} }) {
-  // computed
+export default function ({ props = {} }) {
   const classes = computed(() => {
     const classesList = ['row']
 
@@ -67,21 +88,14 @@ export default function useGenerator ({ props = {} }) {
   })
 
   /**
-   * Retorna a classe padrão de coluna.
-   * @param {boolean} isGridGenerator - Indica se é um gerador de grid (QasGridGenerator).
-   * @returns {string} A classe padrão de coluna.
+   * @type {GetDefaultColumnClass}
    */
   function getDefaultColumnClass (isGridGenerator) {
     return isGridGenerator ? 'col-6 col-xs-12 col-sm-4' : 'col-6'
   }
 
   /**
-   * Retorna a classe de coluna de acordo com o index.
-   * @param {Object} params - parâmetros.
-   * @param {number} params.index - Index do campo.
-   * @param {boolean} params.isGridGenerator - Indica se é um gerador de grid (QasGridGenerator).
-   * @param {Object[string]} params.normalizedFields - Campos normalizados.
-   * @returns {(string|Object[]|string[])} A classe de coluna de acordo com o index.
+   * @type {GetFieldClass}
    */
   function getFieldClass ({ index, isGridGenerator, normalizedFields }) {
     if (typeof props.columns === 'string') {
@@ -93,7 +107,9 @@ export default function useGenerator ({ props = {} }) {
       : _handleColumnsByField({ index, isGridGenerator })
   }
 
-  // private
+  /**
+   * @private
+  */
   function _getBreakpoint (columns) {
     const classes = []
 
@@ -117,6 +133,9 @@ export default function useGenerator ({ props = {} }) {
     return [...classes, renamedClasses]
   }
 
+  /**
+   * @private
+   */
   function _handleColumnsByField ({ index, isGridGenerator }) {
     if (!props.columns[index]) {
       return getDefaultColumnClass(isGridGenerator)
@@ -125,6 +144,9 @@ export default function useGenerator ({ props = {} }) {
     return _getBreakpoint(props.columns[index])
   }
 
+  /**
+   * @private
+   */
   function _handleColumnsByIndex ({ index, isGridGenerator, normalizedFields }) {
     const fields = isGridGenerator ? props.fields : {}
 
