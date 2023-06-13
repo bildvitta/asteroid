@@ -3,8 +3,10 @@
   <qas-single-view v-model:fields="fields" v-model:result="result" :custom-id="customId" :entity="entity">
     <template #default>
       <div>
-        <qas-grid-generator :fields="fields" :result="result" />
+        <qas-grid-generator :fields="fields" :gutter="gutter" :result="result" :use-empty-result="false" />
       </div>
+
+      <q-btn @click="gutter = 'xl'" />
     </template>
   </qas-single-view>
 </template>
@@ -15,6 +17,7 @@ export default {
 
   data () {
     return {
+      gutter: 'sm',
       fields: {},
       errors: {},
       result: [],

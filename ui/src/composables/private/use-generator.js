@@ -1,17 +1,30 @@
 import { computed } from 'vue'
 
-const IRREGULAR_CLASSES = ['col', 'col-auto', 'fit']
-
 /**
  * @typedef {Object} BaseProps
- * @property {(Array|String|Object)} columns - Colunas do formulário.
+ * @property {string|Object|Array.<Object>} columns - Colunas do formulário.
  * @property {Object} fields - Campos do formulário.
  * @property {(String|Boolean)} gutter - Espaçamento entre as colunas.
 */
 
 /**
+ * @typedef {Object} Generator
+ * @property {string} classes - Classes de colunas computadas.
+ * @property {function} getDefaultColumnClass - Retorna a classe padrão de coluna.
+ * @property {function} getFieldClass - Retorna a classe de coluna de acordo com o index.
+ */
+
+// ---------------------------------------------------------------------------------------------
+
+const IRREGULAR_CLASSES = ['col', 'col-auto', 'fit']
+
+/**
+ * @constant
+ * @name baseProps
+ * @kind variable
  * @type {BaseProps}
-*/
+ * @exports
+ */
 export const baseProps = {
   columns: {
     default: () => [],
@@ -33,15 +46,12 @@ export const baseProps = {
 }
 
 /**
- * @typedef {Object} Generator
- * @property {string} classes - Classes de colunas computadas.
- * @property {function} getDefaultColumnClass - Retorna a classe padrão de coluna.
- * @property {function} getFieldClass - Retorna a classe de coluna de acordo com o index.
- */
-
-/**
  * @param {Object} params - Propriedades do componente.
  * @param {BaseProps} params.props - Propriedades do componente.
+ * @function
+ * @name useGenerator
+ * @kind function
+ * @exports
  * @returns {Generator}
  */
 export default function useGenerator ({ props = {} }) {
@@ -83,7 +93,7 @@ export default function useGenerator ({ props = {} }) {
       : _handleColumnsByField({ index, isGridGenerator })
   }
 
-  // privates
+  // private
   function _getBreakpoint (columns) {
     const classes = []
 
