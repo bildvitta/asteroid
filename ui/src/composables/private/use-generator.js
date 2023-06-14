@@ -51,7 +51,7 @@ const IRREGULAR_CLASSES = ['col', 'col-auto', 'fit']
 /**
  * @constant
  * @type {BaseProps}
- */
+*/
 export const baseProps = {
   columns: {
     default: () => [],
@@ -75,7 +75,7 @@ export const baseProps = {
 /**
  * @function
  * @type {UseGenerator}
- */
+*/
 export default function ({ props = {} }) {
   const classes = computed(() => {
     const classesList = ['row']
@@ -89,14 +89,14 @@ export default function ({ props = {} }) {
 
   /**
    * @type {GetDefaultColumnClass}
-   */
+  */
   function getDefaultColumnClass (isGridGenerator) {
     return isGridGenerator ? 'col-6 col-xs-12 col-sm-4' : 'col-6'
   }
 
   /**
    * @type {GetFieldClass}
-   */
+  */
   function getFieldClass ({ index, isGridGenerator, normalizedFields }) {
     if (typeof props.columns === 'string') {
       return IRREGULAR_CLASSES.includes(props.columns) ? props.columns : `col-${props.columns}`
@@ -135,7 +135,7 @@ export default function ({ props = {} }) {
 
   /**
    * @private
-   */
+  */
   function _handleColumnsByField ({ index, isGridGenerator }) {
     if (!props.columns[index]) {
       return getDefaultColumnClass(isGridGenerator)
@@ -146,7 +146,7 @@ export default function ({ props = {} }) {
 
   /**
    * @private
-   */
+  */
   function _handleColumnsByIndex ({ index, isGridGenerator, normalizedFields }) {
     const fields = isGridGenerator ? props.fields : {}
 
