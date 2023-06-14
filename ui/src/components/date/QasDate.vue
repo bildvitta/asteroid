@@ -355,9 +355,9 @@ export default {
     },
 
     setEvents ({ year, month }) {
-      if (!this.events.length || !year || !month) return
-
       this.resetEvents()
+
+      if (!this.events.length || !year || !month) return
 
       const daysElement = this.dateElement.querySelectorAll('.q-date__calendar-days .q-date__calendar-item')
       const daysElementList = Array.from(daysElement)
