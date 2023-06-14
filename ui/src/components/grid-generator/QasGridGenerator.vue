@@ -65,6 +65,10 @@ const hasFields = computed(() => Object.keys(props.fields).length)
 
 const fieldsByResult = ref({})
 
+/**
+ * Retorna os "fields" formatados, caso a propriedade "useEmptyResult" seja "true", retorna todos os "fields", mesmo que não tenha resultado.
+ * Caso a propriedade "useEmptyResult" seja "false", retorna apenas os "fields" que possuem resultado.
+*/
 const formattedFields = computed(() => {
   if (props.useEmptyResult) return props.fields
 

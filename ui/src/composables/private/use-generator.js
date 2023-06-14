@@ -36,13 +36,13 @@ import { computed } from 'vue'
 /**
  * @typedef {Object} UseGeneratorParams
  * @property {BaseProps} props - Propriedades do componente.
- */
+*/
 
 /**
  * @callback UseGenerator
  * @param {UseGeneratorParams} props - Propriedades do componente.
  * @returns {Generator}
- */
+*/
 
 // -----------------------------------------------------------------------------------------------------
 
