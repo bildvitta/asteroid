@@ -25,12 +25,22 @@ export const baseProps = {
   gutter: {
     default: Spacing.Lg,
     type: [String, Boolean],
-    validator: value => {
-      const availableSpacings = Object.values(Spacing)
-
-      return typeof value === 'boolean' || availableSpacings.includes(value)
-    }
+    validator: gutterValidator
   }
+}
+
+// TODO: validar a necessidade da prop ser boolean
+/**
+ * Valida se o gutter passado respeita os valores do enum Spacing ou é um boolean.
+ *
+ * @function
+ * @param {(string|boolean)} value
+ * @returns {boolean}
+ */
+export function gutterValidator (value) {
+  const availableSpacings = Object.values(Spacing)
+
+  return typeof value === 'boolean' || availableSpacings.includes(value)
 }
 
 /**
@@ -41,7 +51,6 @@ export const baseProps = {
  * @param {baseProps} options.props - Propriedades do componente.
  * @returns {{
  *  classes: classes,
- *  getDefaultColumnClass: getDefaultColumnClass,
  *  getFieldClass: getFieldClass
  * }}
  */
@@ -64,29 +73,19 @@ export default function ({ props = {} }) {
   /**
    * @function
    * @memberof useGenerator
-   * @param {string} isGridGenerator - Indica se é um gerador de grid (QasGridGenerator).
-   * @returns {"col-6 col-xs-12 col-sm-4" | "col-6"}
-   */
-  function getDefaultColumnClass (isGridGenerator) {
-    return isGridGenerator ? 'col-6 col-xs-12 col-sm-4' : 'col-6'
-  }
-
-  /**
-   * @function
-   * @memberof useGenerator
    * @param {Object} options
    * @param {number} options.index - Index do campo.
    * @param {boolean} options.isGridGenerator - Indica se é um gerador de grid (QasGridGenerator).
-   * @param {Object[string]} options.normalizedFields - Campos normalizados.
+   * @param {Object[string]} options.fields - Campos normalizados.
    * @returns {(string|string[])}
    */
-  function getFieldClass ({ index, isGridGenerator, normalizedFields }) {
+  function getFieldClass ({ index, isGridGenerator, fields }) {
     if (typeof props.columns === 'string') {
       return IRREGULAR_CLASSES.includes(props.columns) ? props.columns : `col-${props.columns}`
     }
 
     return Array.isArray(props.columns)
-      ? _handleColumnsByIndex({ index, isGridGenerator, normalizedFields })
+      ? _handleColumnsByIndex({ index, isGridGenerator, fields })
       : _handleColumnsByField({ index, isGridGenerator })
   }
 
@@ -119,9 +118,16 @@ export default function ({ props = {} }) {
   /**
    * @private
   */
+  function _getDefaultColumnClass (isGridGenerator) {
+    return isGridGenerator ? 'col-6 col-xs-12 col-sm-4' : 'col-6'
+  }
+
+  /**
+   * @private
+  */
   function _handleColumnsByField ({ index, isGridGenerator }) {
     if (!props.columns[index]) {
-      return getDefaultColumnClass(isGridGenerator)
+      return _getDefaultColumnClass(isGridGenerator)
     }
 
     return _getBreakpoint(props.columns[index])
@@ -130,23 +136,23 @@ export default function ({ props = {} }) {
   /**
    * @private
   */
-  function _handleColumnsByIndex ({ index, isGridGenerator, normalizedFields }) {
-    const fields = isGridGenerator ? props.fields : {}
+  function _handleColumnsByIndex ({ index, isGridGenerator, fields }) {
+    const normalizedFields = isGridGenerator ? props.fields : {}
 
     if (!isGridGenerator) {
-      for (const key in normalizedFields) {
-        Object.assign(fields, normalizedFields[key].fields.visible)
+      for (const key in fields) {
+        Object.assign(normalizedFields, fields[key].fields.visible)
       }
     }
 
-    if (!Array.isArray(fields)) {
-      index = Object.keys(fields).findIndex(field => field === index)
+    if (!Array.isArray(normalizedFields)) {
+      index = Object.keys(normalizedFields).findIndex(field => field === index)
     }
 
     const length = props.columns.length
 
     if (!length) {
-      return getDefaultColumnClass(isGridGenerator)
+      return _getDefaultColumnClass(isGridGenerator)
     }
 
     return _getBreakpoint(props.columns[index])
@@ -155,7 +161,6 @@ export default function ({ props = {} }) {
   return {
     classes,
 
-    getDefaultColumnClass,
     getFieldClass
   }
 }
