@@ -10,6 +10,21 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 ### Sobre os "BREAKING CHANGES"
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
+## [3.10.0-beta.10] - 14-06-2023
+### Corrigido
+`QasDate`: alterado a ordem de uso do método `resetEvents`, onde deverá limpar os eventos sempre, evitando problemas de manter antigos eventos quando deveriam serem limpados.
+
+## [3.10.0-beta.9] - 07-06-2023
+## BREAKING CHANGES
+- `QasDate`: propriedade `events` recebe um novo padrão, deixa de ser um array de string para ser um array de objetos, olhar documentação para mais informações.
+
+### Modificado
+- `QasDate`: modificado estilos e comportamentos.
+
+### Corrigido
+- `QasGridGenerator`: refatorado código do componente para resolver problema de variável não sendo definida caso chamasse o slot `content` do componente.
+- `QasDate`: corrigido problema de reatividade ao trocar eventos e mudar mês/ano.
+
 ## [3.10.0-beta.8] - 06-06-2023
 ## BREAKING CHANGES
 - Como foi atualizado todas as libs do asteroid, é possível que existam breaking changes que não foram detectadas, é importante testar a aplicação que estiver usando o asteroid como um todo.
@@ -1531,3 +1546,5 @@ Adicionado suporte para Pinia/Vuex Seguindo os padrões da biblioteca `@bildvitt
 [3.10.0-beta.6]: https://github.com/bildvitta/asteroid/compare/v3.10.0-beta.5...v3.10.0-beta.6?expand=1
 [3.10.0-beta.7]: https://github.com/bildvitta/asteroid/compare/v3.10.0-beta.6...v3.10.0-beta.7?expand=1
 [3.10.0-beta.8]: https://github.com/bildvitta/asteroid/compare/v3.10.0-beta.7...v3.10.0-beta.8?expand=1
+[3.10.0-beta.9]: https://github.com/bildvitta/asteroid/compare/v3.10.0-beta.8...v3.10.0-beta.9?expand=1
+[3.10.0-beta.10]: https://github.com/bildvitta/asteroid/compare/v3.10.0-beta.9...v3.10.0-beta.10?expand=1
