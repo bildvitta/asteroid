@@ -1,5 +1,5 @@
 import { computed } from 'vue'
-import Spacing from '../../enums/Spacing'
+import { Spacing } from '../../enums/Spacing'
 
 /**
  * @typedef {Object} BaseProps
@@ -65,12 +65,12 @@ export const baseProps = {
   },
 
   gutter: {
-    default: 'lg',
+    default: Spacing.Lg,
     type: [String, Boolean],
     validator: value => {
       const availableSpacings = Object.values(Spacing)
 
-      return typeof value === 'boolean' || availableSpacings.includes(value.toUpperCase())
+      return typeof value === 'boolean' || availableSpacings.includes(value)
     }
   }
 }

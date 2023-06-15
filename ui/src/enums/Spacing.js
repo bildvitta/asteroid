@@ -6,26 +6,52 @@
  * @readonly
  * @enum
  * @type {{
- *  NONE: string,
- *  XS: string;
- *  SM: string,
- *  MD: string,
- *  LG: string,
- *  XL: string,
- *  '2XL': string,
- *  '3XL': string,
+ *  None: 'none',
+ *  Xs: 'xs',
+ *  Sm: 'sm',
+ *  Md: 'md',
+ *  Lg: 'lg',
+ *  Xl: 'xl',
+ *  '2xl': '2xl',
+ *  '3xl': '3xl',
  * }}
- */
-const Spacing = {
-  /** true value */
-  NONE: '0px',
-  XS: '4px',
-  SM: '8px',
-  MD: '16px',
-  LG: '24px',
-  XL: '32px',
-  '2XL': '48px',
-  '3XL': '40'
+*/
+export const Spacing = {
+  None: 'none',
+  Xs: 'xs',
+  Sm: 'sm',
+  Md: 'md',
+  Lg: 'lg',
+  Xl: 'xl',
+  '2xl': '2xl',
+  '3xl': '3xl'
 }
 
-export default Spacing
+/**
+ * Todas variáveis de tamanhos que utilizamos para espaçamentos, com unidade de medida.
+ *
+ * @property
+ * @name SpacingWithUnit
+ * @readonly
+ * @enum
+ * @type {{
+ *  None: '0px',
+ *  Xs: '4px',
+ *  Sm: '8px',
+ *  Md: '16px',
+ *  Lg: '24px',
+ *  Xl: '32px',
+ *  '2xl': '40px',
+ *  '3xl': '48px'
+ * }}
+*/
+export const SpacingWithUnit = {
+  None: '0px',
+  Xs: '4px',
+  Sm: '8px',
+  Md: '16px',
+  Lg: '24px',
+  Xl: '32px',
+  '2xl': '40px',
+  '3xl': '48px'
+}
