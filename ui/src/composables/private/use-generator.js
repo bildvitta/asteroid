@@ -47,6 +47,7 @@ export function gutterValidator (value) {
  * Composition para ser utilizada no QasGridGenerator e QasFormGenerator.
  *
  * @function
+ * @name useGenerator
  * @param {Object} options - Opções do componente.
  * @param {baseProps} options.props - Propriedades do componente.
  * @returns {{
@@ -57,7 +58,6 @@ export function gutterValidator (value) {
 export default function ({ props = {} }) {
   /**
    * @constant
-   * @memberof useGenerator
    * @type {{ value: string[] | string }}
    */
   const classes = computed(() => {
@@ -72,7 +72,6 @@ export default function ({ props = {} }) {
 
   /**
    * @function
-   * @memberof useGenerator
    * @param {Object} options
    * @param {number} options.index - Index do campo.
    * @param {boolean} options.isGridGenerator - Indica se é um gerador de grid (QasGridGenerator).
