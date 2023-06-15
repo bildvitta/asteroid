@@ -3,7 +3,7 @@
   <qas-single-view v-model:fields="fields" v-model:result="result" :custom-id="customId" :entity="entity">
     <template #default>
       <div>
-        <qas-grid-generator :fields="fields" :gutter="gutter" :result="result" :use-empty-result="false" />
+        <qas-grid-generator :fields="fields" :gutter="gutter" :result="result" :use-empty-result="true" />
       </div>
 
       <q-btn @click="gutter = 'xl'" />

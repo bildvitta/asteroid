@@ -1,4 +1,5 @@
 import { computed } from 'vue'
+import Spacing from '../../enums/Spacing'
 
 /**
  * @typedef {Object} BaseProps
@@ -67,7 +68,9 @@ export const baseProps = {
     default: 'lg',
     type: [String, Boolean],
     validator: value => {
-      return typeof value === 'boolean' || ['xs', 'sm', 'md', 'lg', 'xl'].includes(value)
+      const availableSpacings = Object.values(Spacing)
+
+      return typeof value === 'boolean' || availableSpacings.includes(value.toUpperCase())
     }
   }
 }
