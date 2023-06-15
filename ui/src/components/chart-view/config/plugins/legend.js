@@ -1,8 +1,8 @@
 export const legendPluginConfig = {
-  position: 'bottom',
   labels: {
-    boxWidth: 16,
     boxHeight: 4,
+    boxWidth: 16,
     padding: 24
-  }
+  },
+  position: 'bottom'
 }

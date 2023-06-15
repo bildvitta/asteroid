@@ -26,14 +26,14 @@ export const bar = {
       }
     },
     y: {
-      ticks: {
-        stepSize: 1
-      },
       border: {
         display: false
       },
       grid: {
         display: false
+      },
+      ticks: {
+        stepSize: 1
       }
     }
   }

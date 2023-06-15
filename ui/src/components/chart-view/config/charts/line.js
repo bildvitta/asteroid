@@ -38,11 +38,11 @@ export const line = {
       grid: {
         color: '#E0E0E0'
       },
+      offset: true,
       ticks: {
         padding: 24,
         stepSize: 1
-      },
-      offset: true
+      }
     }
   }
 }

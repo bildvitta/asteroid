@@ -1,20 +1,26 @@
 export const zoomPluginConfig = {
   limits: {
-    x: { min: 'original', max: 'original' },
-    y: { min: 'original', max: 'original' }
+    x: {
+      max: 'original',
+      min: 'original'
+    },
+    y: {
+      max: 'original',
+      min: 'original'
+    }
   },
   pan: {
     enabled: true,
     modifierKey: 'ctrl'
   },
   zoom: {
-    wheel: {
-      enabled: true,
-      modifierKey: 'ctrl'
-    },
+    mode: 'xy',
     pinch: {
       enabled: true
     },
-    mode: 'xy'
+    wheel: {
+      enabled: true,
+      modifierKey: 'ctrl'
+    }
   }
 }

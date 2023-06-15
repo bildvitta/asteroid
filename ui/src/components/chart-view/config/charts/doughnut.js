@@ -29,9 +29,9 @@ export const doughnut = {
     legend: {
       align: 'center',
       labels: {
-        usePointStyle: true,
+        padding: 16,
         pointStyle: 'circle',
-        padding: 16
+        usePointStyle: true
       },
       position: 'bottom'
     },
