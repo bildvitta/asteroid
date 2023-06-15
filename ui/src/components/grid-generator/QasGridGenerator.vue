@@ -1,6 +1,6 @@
 <template>
   <div :class="classes">
-    <div v-for="(field, key) in fieldsByResult" :key="key" :class="getFieldClass(key, true)">
+    <div v-for="(field, key) in fieldsByResult" :key="key" :class="getFieldClass({ index: key, isGridGenerator: true })">
       <slot :field="field" :name="`field-${field.name}`">
         <slot :field="field" name="header">
           <header :class="headerClass" :data-cy="`grid-generator-${field.name}-field`">

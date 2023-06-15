@@ -1,57 +1,15 @@
 import { computed } from 'vue'
 import { Spacing } from '../../enums/Spacing'
 
-/**
- * @typedef {Object} BaseProps
- * @property {(string|Object|Array.<Object>)} columns - Colunas do formulário.
- * @property {Object} fields - Campos do formulário.
- * @property {(string|Boolean)} gutter - Espaçamento entre as colunas.
-*/
-
-/**
- * @typedef {Object} GetFieldClassParams
- * @property {number} index - Index do campo.
- * @property {boolean} isGridGenerator - Indica se é um gerador de grid (QasGridGenerator).
- * @property {Object[string]} normalizedFields - Campos normalizados.
-*/
-
-/**
-* @callback GetFieldClass
-* @param {GetFieldClassParams} options - parâmetros.
-* @returns {(string|Object[]|string[])} A classe de coluna de acordo com o index.
-*/
-
-/**
-* @callback GetDefaultColumnClass
-* @param {boolean} isGridGenerator - Indica se é um gerador de grid (QasGridGenerator).
-* @returns {string} A classe padrão de coluna.
-*/
-
-/**
- * @typedef {Object} Generator
- * @property {string} classes - Classes de colunas computadas.
- * @property {GetDefaultColumnClass} getDefaultColumnClass - Retorna a classe padrão de coluna.
- * @property {GetFieldClass} getFieldClass - Retorna a classe de coluna de acordo com o index.
-*/
-
-/**
- * @typedef {Object} UseGeneratorParams
- * @property {BaseProps} props - Propriedades do componente.
-*/
-
-/**
- * @callback UseGenerator
- * @param {UseGeneratorParams} props - Propriedades do componente.
- * @returns {Generator}
-*/
-
-// -----------------------------------------------------------------------------------------------------
-
 const IRREGULAR_CLASSES = ['col', 'col-auto', 'fit']
 
 /**
  * @constant
- * @type {BaseProps}
+ * @type {{
+ *  columns: (string|Object|Array.<Object>),
+ *  fields: Object,
+ *  gutter: (string|Boolean)
+ * }}
 */
 export const baseProps = {
   columns: {
@@ -76,10 +34,23 @@ export const baseProps = {
 }
 
 /**
+ * Composition para ser utilizada no QasGridGenerator e QasFormGenerator.
+ *
  * @function
- * @type {UseGenerator}
-*/
+ * @param {Object} options - Opções do componente.
+ * @param {baseProps} options.props - Propriedades do componente.
+ * @returns {{
+ *  classes: classes,
+ *  getDefaultColumnClass: getDefaultColumnClass,
+ *  getFieldClass: getFieldClass
+ * }}
+ */
 export default function ({ props = {} }) {
+  /**
+   * @constant
+   * @memberof useGenerator
+   * @type {{ value: string[] | string }}
+   */
   const classes = computed(() => {
     const classesList = ['row']
 
@@ -91,15 +62,24 @@ export default function ({ props = {} }) {
   })
 
   /**
-   * @type {GetDefaultColumnClass}
-  */
+   * @function
+   * @memberof useGenerator
+   * @param {string} isGridGenerator - Indica se é um gerador de grid (QasGridGenerator).
+   * @returns {"col-6 col-xs-12 col-sm-4" | "col-6"}
+   */
   function getDefaultColumnClass (isGridGenerator) {
     return isGridGenerator ? 'col-6 col-xs-12 col-sm-4' : 'col-6'
   }
 
   /**
-   * @type {GetFieldClass}
-  */
+   * @function
+   * @memberof useGenerator
+   * @param {Object} options
+   * @param {number} options.index - Index do campo.
+   * @param {boolean} options.isGridGenerator - Indica se é um gerador de grid (QasGridGenerator).
+   * @param {Object[string]} options.normalizedFields - Campos normalizados.
+   * @returns {(string|string[])}
+   */
   function getFieldClass ({ index, isGridGenerator, normalizedFields }) {
     if (typeof props.columns === 'string') {
       return IRREGULAR_CLASSES.includes(props.columns) ? props.columns : `col-${props.columns}`

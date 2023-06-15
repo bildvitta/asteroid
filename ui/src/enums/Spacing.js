@@ -1,5 +1,5 @@
 /**
- * Todas variáveis de tamanhos que utilizamos para espaçamentos.
+ * Todas variáveis utilizadas para espaçamentos.
  *
  * @property
  * @name Spacing
@@ -28,7 +28,7 @@ export const Spacing = {
 }
 
 /**
- * Todas variáveis de tamanhos que utilizamos para espaçamentos, com unidade de medida.
+ * Todas variáveis utilizadas para espaçamentos, com unidade de medida.
  *
  * @property
  * @name SpacingWithUnit
