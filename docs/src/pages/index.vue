@@ -36,6 +36,9 @@
 <script>
 import { version } from 'asteroid'
 import packageInfo from '../../package.json'
+import asteroidConfig from 'asteroidConfig'
+
+console.log(asteroidConfig)
 
 export default ({
   computed: {

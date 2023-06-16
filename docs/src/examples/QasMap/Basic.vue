@@ -7,6 +7,8 @@
 </template>
 
 <script>
+import { QasMap } from 'asteroid'
+
 export default {
   computed: {
     marker () {
@@ -26,6 +28,10 @@ export default {
         }
       ]
     }
+  },
+
+  created () {
+    console.log(QasMap)
   },
 
   methods: {

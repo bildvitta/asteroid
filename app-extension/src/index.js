@@ -49,19 +49,38 @@ function extendQuasar (quasar) {
   quasar.framework.lang = 'pt-BR'
 }
 
-module.exports = function (api) {
+module.exports = async function (api) {
+  const asteroidConfigHandler = require('./helpers/asteroid-config-handler')
+  const { validate, getAsteroidConfigPath } = asteroidConfigHandler(api)
+  const asteroidConfigPath = getAsteroidConfigPath()
+
+  const thirdPartyComponentsHandler = require('./helpers/third-party-components-handler')
+
+  const map = require('./third-party-components/map')
+  const qasMapThirdPartyComponent = await thirdPartyComponentsHandler(api, {
+    componentName: 'QasMap',
+    filePath: asteroidConfigPath,
+
+    ...map
+  })
+
+  qasMapThirdPartyComponent.exec()
+
   api.compatibleWith('quasar', '^2.0.0')
   api.compatibleWith('@quasar/app', '^3.0.0')
 
   api.extendQuasarConf(extendQuasar)
 
-  api.extendWebpack(webpack => {
+  api.extendWebpack(async webpack => {
     // Adiciona um "alias" chamado "asteroid" para a aplicação
     const asteroid = 'node_modules/@bildvitta/quasar-ui-asteroid/src/asteroid.js'
+
+    validate()
 
     webpack.resolve.alias = {
       ...webpack.resolve.alias,
 
+      asteroidConfig: asteroidConfigPath,
       asteroid: api.resolve.app(asteroid)
     }
   })
