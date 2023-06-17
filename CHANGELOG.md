@@ -14,6 +14,10 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 ### Adicionado
 - Adicionado vitest.
 
+## [3.10.0-beta.10] - 14-06-2023
+### Corrigido
+`QasDate`: alterado a ordem de uso do método `resetEvents`, onde deverá limpar os eventos sempre, evitando problemas de manter antigos eventos quando deveriam serem limpados.
+
 ## [3.10.0-beta.9] - 07-06-2023
 ## BREAKING CHANGES
 - `QasDate`: propriedade `events` recebe um novo padrão, deixa de ser um array de string para ser um array de objetos, olhar documentação para mais informações.
@@ -1547,3 +1551,4 @@ Adicionado suporte para Pinia/Vuex Seguindo os padrões da biblioteca `@bildvitt
 [3.10.0-beta.7]: https://github.com/bildvitta/asteroid/compare/v3.10.0-beta.6...v3.10.0-beta.7?expand=1
 [3.10.0-beta.8]: https://github.com/bildvitta/asteroid/compare/v3.10.0-beta.7...v3.10.0-beta.8?expand=1
 [3.10.0-beta.9]: https://github.com/bildvitta/asteroid/compare/v3.10.0-beta.8...v3.10.0-beta.9?expand=1
+[3.10.0-beta.10]: https://github.com/bildvitta/asteroid/compare/v3.10.0-beta.9...v3.10.0-beta.10?expand=1
