@@ -83,6 +83,10 @@ module.exports = configure(function (quasar) {
       // "chain" is a webpack-chain object https://github.com/neutrinojs/webpack-chain
       chainWebpack (chain) {
         const nodePolyfillWebpackPlugin = require('node-polyfill-webpack-plugin')
+
+        chain.resolve.symlinks(false)
+        chain.resolve.alias.set('vue', path.resolve('./node_modules/vue'))
+
         chain.plugin('node-polyfill').use(nodePolyfillWebpackPlugin)
         chain.plugin('eslint-webpack-plugin')
           .use(ESLintPlugin, [{ extensions: ['js', 'vue'] }])
