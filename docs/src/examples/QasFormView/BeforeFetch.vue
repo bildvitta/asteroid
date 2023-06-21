@@ -11,12 +11,6 @@
         </qas-page-header>
       </template>
 
-      <template #filter>
-        <div class="bg-positive q-my-lg q-pa-lg">
-          Template do filter.
-        </div>
-      </template>
-
       <template #default>
         <div>
           <qas-form-generator v-model="values" :errors="errors" :fields="fields" />

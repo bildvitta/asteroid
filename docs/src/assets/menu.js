@@ -93,6 +93,10 @@ module.exports = [
         path: '/components/copy'
       },
       {
+        name: 'Date',
+        path: '/components/date'
+      },
+      {
         name: 'DateTimeInput',
         path: '/components/date-time-input'
       },
@@ -111,6 +115,10 @@ module.exports = [
       {
         name: 'DialogRouter',
         path: '/components/dialog-router'
+      },
+      {
+        name: 'EmptyResultText',
+        path: '/components/empty-result-text'
       },
       {
         name: 'Field',
@@ -207,6 +215,10 @@ module.exports = [
       {
         name: 'SearchBox',
         path: '/components/search-box'
+      },
+      {
+        name: 'SearchInput',
+        path: '/components/search-input'
       },
       {
         name: 'Select',

@@ -9,11 +9,6 @@ props:
     default: 100px
     type: String
 
-  empty-result-text:
-    desc: Define o texto dentro do box quando a lista está vazia.
-    default: Não há resultados disponíveis.
-    type: String
-
   entity:
     desc: Entidade enviada para a action "fetchFieldOptions" (usar somente quando "useLazyLoading" estiver habilitada).
     default: ''
@@ -34,7 +29,7 @@ props:
     examples: ["{ keys: ['label'] }"]
     default:
       ignoreLocation: true
-      threshold: 0.6
+      threshold: 0.4
 
   height:
     desc: Define altura do box quando a lista não está vazia.

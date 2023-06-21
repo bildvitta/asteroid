@@ -2,7 +2,7 @@
 title: QasSelectList
 ---
 
-Componente para pesquisa utilizando Fuse.js.
+Componente de seleção com pesquisa que implementa o QasSearchBox.
 
 <doc-api file="select-list/QasSelectList" name="QasSelectList" />
 

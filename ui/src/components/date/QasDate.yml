@@ -1,0 +1,74 @@
+type: component
+
+meta:
+  desc: Componente wrapper do QDate, com estilização própria e funcionalidades extras.
+
+props:
+  events:
+    desc: Marcador de eventos do calendário.
+    default: []
+    type: [Array, Function]
+
+  event-color:
+    desc: Define a cor dos eventos.
+    default: ''
+    type: [String, Function]
+
+  mask:
+    desc: Máscara do model (repassada para o quasar).
+    default: YYYY-MM-DD
+    type: String
+    examples: [YYYY-MM-DD, YYYY/MM/DD, DD/MM/YYYY, DD/MM/YYYY HH:mm]
+
+  model-value:
+    desc: Model do componente, usado para v-model (repassada para o quasar).
+    default: ''
+    type: [String, Array]
+    model: true
+
+  multiple:
+    desc: Habilita a seleção múltipla de datas, tornando o model em array (repassada para o quasar).
+    default: false
+    type: Boolean
+
+  options:
+    desc: Controla quais datas estão habilitadas (repassada para o quasar).
+    default: []
+    type: [Array, Function]
+
+  use-iso:
+    desc: Transforma o valor das datas do model no padrão ISO 8601.
+    type: Boolean
+
+  use-inactive-dates:
+    desc: Habilita o componente a renderizar datas passadas e futuras com seus respectivos eventos.
+    default: true
+    type: Boolean
+
+  use-unmask-events:
+    desc: A propriedade 'events' do Quasar só funciona com a formatação '/' mesmo que seja passada uma outra máscara. Esta propriedade transforma a formatação da propriedade 'events' de '-' em '/' (mas só funciona caso 'events' seja um Array).
+    default: true
+    type: Boolean
+
+  use-unmask-options:
+    desc: A propriedade 'options' do Quasar só funciona com a formatação '/' mesmo que seja passada uma outra máscara. Esta propriedade transforma a formatação da propriedade 'options' de '-' em '/' (mas só funciona caso 'options' seja um Array).
+    default: true
+    type: Boolean
+
+events:
+  '@update:model-value -> function (value)':
+    desc: Dispara toda vez que o model é atualizado, também utilizado para v-model.
+    params:
+      value:
+        desc: Novo valor do v-model
+        type: [String, Array]
+
+  '@navigation -> function ({ month, year })':
+    desc: Dispara toda vez que muda de mês/ano.
+    params:
+      month:
+        desc: Mês atual
+        type: Number
+      year:
+        desc: Ano atual
+        type: Number

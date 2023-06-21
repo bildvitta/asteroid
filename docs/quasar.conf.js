@@ -11,7 +11,6 @@ const { configure } = require('quasar/wrappers')
 
 /* eslint-env node */
 const ESLintPlugin = require('eslint-webpack-plugin')
-const StylelintPlugin = require('stylelint-webpack-plugin')
 
 const { getVueComponent } = require('./build/markdown.js')
 
@@ -88,9 +87,6 @@ module.exports = configure(function (quasar) {
         chain.plugin('eslint-webpack-plugin')
           .use(ESLintPlugin, [{ extensions: ['js', 'vue'] }])
 
-        chain.plugin('stylelint-webpack-plugin')
-          .use(StylelintPlugin, [{ extensions: ['scss', 'vue'] }])
-
         // Alias
         chain.resolve.alias.merge({
           asteroid: path.resolve(__dirname, '../ui/src/index.esm.js'),
@@ -103,10 +99,7 @@ module.exports = configure(function (quasar) {
         // YAML
         const yamlRule = chain.module.rule('yaml').test(/\.ya?ml$/).pre()
 
-        yamlRule.use('json-loader').loader('json-loader').end()
-        yamlRule.use('yaml-loader').loader('yaml-loader').options({
-          type: 'json'
-        })
+        yamlRule.use('yaml-loader').loader('yaml-loader')
 
         // Markdown It
         const markdownRule = chain.module.rule('md').test(/\.md$/).pre()

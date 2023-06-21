@@ -2,8 +2,6 @@
   "eslint.validate": ["javascript", "vue"],
   "eslint.workingDirectories": ["./app-extension", "/build", "./docs", "/eslint", "./ui"],
 
-  "stylelint.validate": ["scss", "vue"],
-
   "vetur.experimental.templateInterpolationService": true,
   "vetur.format.enable": false,
   "vetur.validation.template": false,
@@ -32,7 +30,8 @@
     "Notify",
     "Mixins",
     "QasActionsMenu",
-    "QasTableGenerator"
+    "QasTableGenerator",
+    "QasDate"
   ],
   "cSpell.words": [
     "Nunito"

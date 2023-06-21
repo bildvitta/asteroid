@@ -14,7 +14,7 @@ import { Dialog } from 'asteroid'
 Dialog('Deu certo!')
 
 // dentro do arquivo vue
-this.$qas.success('Deu certo!')
+this.$qas.dialog('Deu certo!')
 ```
 
 <doc-example file="Dialog/Basic" title="Básico" />

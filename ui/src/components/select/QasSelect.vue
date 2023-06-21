@@ -29,8 +29,10 @@
 </template>
 
 <script>
+import { uid } from 'quasar'
 import { searchFilterMixin } from '../../mixins'
 import Fuse from 'fuse.js'
+import fuseConfig from '../../shared/fuse-config'
 
 export default {
   name: 'QasSelect',
@@ -41,11 +43,6 @@ export default {
     fuseOptions: {
       default: () => ({}),
       type: Object
-    },
-
-    labelKey: {
-      default: '',
-      type: String
     },
 
     modelValue: {
@@ -63,9 +60,9 @@ export default {
       type: Array
     },
 
-    valueKey: {
-      default: '',
-      type: String
+    useFetchOptionsOnCreate: {
+      default: true,
+      type: Boolean
     },
 
     useSearch: {
@@ -74,21 +71,25 @@ export default {
     }
   },
 
-  emits: ['update:modelValue'],
+  emits: ['popup-hide', 'popup-show', 'update:modelValue', 'virtual-scroll'],
 
   data () {
     return {
-      fuse: null
+      fuse: null,
+      isPopupContentOpen: false
     }
   },
 
   computed: {
     attributes () {
       return {
+        class: 'qas-select',
         clearable: this.isSearchable,
         emitValue: true,
         mapOptions: true,
         outlined: true,
+        popupContentClass: this.popupContentClass,
+
         ...this.$attrs,
 
         error: this.hasError,
@@ -96,14 +97,20 @@ export default {
         loading: this.hasLoading,
         options: this.mx_filteredOptions,
         useInput: this.isSearchable,
+
         ...(this.isSearchable && { onFilter: this.onFilter }),
-        ...(this.useLazyLoading && { onVirtualScroll: this.mx_onVirtualScroll })
+
+        ...(this.useLazyLoading && {
+          onPopupHide: this.onPopupHide,
+          onPopupShow: this.onPopupShow,
+          onVirtualScroll: this.mx_onVirtualScroll
+        })
       }
     },
 
     defaultFuseOptions () {
       return {
-        ignoreLocation: true,
+        ...fuseConfig,
         keys: ['label', 'value'],
 
         ...this.fuseOptions
@@ -112,10 +119,6 @@ export default {
 
     isSearchable () {
       return this.hasFuse || this.useLazyLoading
-    },
-
-    defaultOptions () {
-      return this.mx_handleOptions(this.options)
     },
 
     hasError () {
@@ -148,12 +151,16 @@ export default {
       set (value) {
         this.$emit('update:modelValue', value)
       }
+    },
+
+    popupContentClass () {
+      return `qas-select__popup-content-${uid()}`
     }
   },
 
   watch: {
     defaultFuseOptions () {
-      this.setFuse()
+      if (this.hasFuse) this.setFuse()
     },
 
     options: {
@@ -162,7 +169,7 @@ export default {
 
         if (this.fuse || this.hasFuse) this.setFuse()
 
-        this.mx_filteredOptions = this.defaultOptions
+        this.mx_filteredOptions = this.options
       },
 
       immediate: true
@@ -170,15 +177,13 @@ export default {
   },
 
   created () {
-    this.setFuse()
-    this.useLazyLoading && this.mx_setFetchOptions('')
+    this.setSearchMethod()
+    this.setIsFetchingWatcher()
   },
 
   methods: {
     setFuse () {
-      if (this.hasFuse) {
-        this.fuse = new Fuse(this.defaultOptions, this.defaultFuseOptions)
-      }
+      this.fuse = new Fuse(this.options, this.defaultFuseOptions)
     },
 
     async onFilter (value, update) {
@@ -195,14 +200,76 @@ export default {
 
     filterOptionsByFuse (value) {
       if (value === '') {
-        this.mx_filteredOptions = this.defaultOptions
+        this.mx_filteredOptions = this.options
         return
       }
 
       const results = this.fuse.search(value)
 
       this.mx_filteredOptions = this.mx_getNormalizedFuseResults(results)
+    },
+
+    onPopupHide () {
+      this.isPopupContentOpen = false
+      this.$emit('popup-hide')
+    },
+
+    onPopupShow () {
+      this.isPopupContentOpen = true
+      this.$emit('popup-show')
+
+      if (this.mx_isFetching) {
+        this.togglePopupContentClass(true)
+      }
+    },
+
+    setIsFetchingWatcher () {
+      if (this.useLazyLoading) {
+        this.$watch('mx_isFetching', value => {
+          if (!this.isPopupContentOpen) return
+
+          this.togglePopupContentClass(value)
+        })
+      }
+    },
+
+    setLazyLoading () {
+      this.mx_setCachedOptions('options')
+
+      if (this.useFetchOptionsOnCreate) this.mx_setFetchOptions('')
+    },
+
+    setSearchMethod () {
+      if (this.useLazyLoading) return this.setLazyLoading()
+
+      if (this.hasFuse) this.setFuse()
+    },
+
+    async togglePopupContentClass (force) {
+      await this.$nextTick()
+
+      const popupContentElement = document.querySelector(`.${this.popupContentClass}`)
+
+      if (popupContentElement) {
+        popupContentElement.classList.toggle('qas-select__is-fetching', force)
+      }
     }
   }
 }
 </script>
+
+<style lang="scss">
+.qas-select {
+  &__is-fetching {
+    cursor: not-allowed !important;
+
+    .q-virtual-scroll__content {
+      pointer-events: none;
+
+      .q-item {
+        color: $grey-6;
+      }
+    }
+  }
+}
+</style>

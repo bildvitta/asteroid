@@ -6,12 +6,6 @@
       </div>
     </template>
 
-    <template #filter>
-      <div class="bg-positive q-my-lg q-pa-lg">
-        Template do filter.
-      </div>
-    </template>
-
     <template #default>
       <div class="bg-positive q-my-lg q-pa-lg">
         Template default

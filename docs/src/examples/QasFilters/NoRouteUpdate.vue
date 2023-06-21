@@ -1,6 +1,7 @@
 <template>
   <div class="container spaced">
     <qas-filters v-model:currentFilters="currentFilters" :entity="entity" :use-update-route="false" />
+    Valor filtrado: <qas-debugger :inspect="[currentFilters]" />
   </div>
 </template>
 

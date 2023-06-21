@@ -13,12 +13,15 @@ import QasBtnDropdown from './components/btn-dropdown/QasBtnDropdown.vue'
 import QasCard from './components/card/QasCard.vue'
 import QasCheckboxGroup from './components/checkbox-group/QasCheckboxGroup.vue'
 import QasCopy from './components/copy/QasCopy.vue'
+import QasDate from './components/date/QasDate.vue'
 import QasDateTimeInput from './components/date-time-input/QasDateTimeInput.vue'
 import QasDebugger from './components/debugger/QasDebugger.vue'
 import QasDelete from './components/delete/QasDelete.vue'
 import QasDialog from './components/dialog/QasDialog.vue'
 import QasDialogRouter from './components/dialog-router/QasDialogRouter.vue'
+import QasEmptyResultText from './components/empty-result-text/QasEmptyResultText.vue'
 import QasField from './components/field/QasField.vue'
+import QasSearchInput from './components/search-input/QasSearchInput.vue'
 import QasFilters from './components/filters/QasFilters.vue'
 import QasFormGenerator from './components/form-generator/QasFormGenerator.vue'
 import QasFormView from './components/form-view/QasFormView.vue'
@@ -93,12 +96,15 @@ function install (app) {
   app.component('QasCard', QasCard)
   app.component('QasCheckboxGroup', QasCheckboxGroup)
   app.component('QasCopy', QasCopy)
+  app.component('QasDate', QasDate)
   app.component('QasDateTimeInput', QasDateTimeInput)
   app.component('QasDebugger', QasDebugger)
   app.component('QasDelete', QasDelete)
   app.component('QasDialog', QasDialog)
   app.component('QasDialogRouter', QasDialogRouter)
+  app.component('QasEmptyResultText', QasEmptyResultText)
   app.component('QasField', QasField)
+  app.component('QasSearchInput', QasSearchInput)
   app.component('QasFilters', QasFilters)
   app.component('QasFormGenerator', QasFormGenerator)
   app.component('QasFormView', QasFormView)
@@ -174,12 +180,15 @@ export {
   QasCard,
   QasCheckboxGroup,
   QasCopy,
+  QasDate,
   QasDateTimeInput,
   QasDebugger,
   QasDelete,
   QasDialog,
   QasDialogRouter,
+  QasEmptyResultText,
   QasField,
+  QasSearchInput,
   QasFilters,
   QasFormGenerator,
   QasFormView,

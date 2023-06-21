@@ -10,6 +10,209 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 ### Sobre os "BREAKING CHANGES"
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
+## Não publicado
+## BREAKING CHANGES
+- `QasSelect`: removido props `labelKey` e `valueKey`, componente não aceita mais fazer conversão das chaves label/value, o backend deve sempre retornar no padrão correto, em **ultimo** caso, é possível utilizar o helper `getNormalizedOptions` para converter as opções antes de enviar para o componente, porém o componente não fica mais responsável por isto.
+- `QasSelectList`: removido props [`list`, `fuseOptions`] em favor da propriedade `searchBoxProps`.
+- `ui/src/mixins/search-filter.js`: removido computada `mx_isFilterByFuse` que não estava sendo utilizado em nenhum lugar.
+- `QasSearchBox`: removido `QasBox` e adicionado `div` no lugar para se adequar ao layout.
+- `QasFilters`: removido `data-cy="filters-search-input"` e adicionado um fixo no componente `QasSearchInput` chamado `data-cy="search-input"`.
+- `QasSearchBox`: removido prop `emptyResultText` para manter sempre a mesma mensagem quando não encontra itens.
+- `QasFilters`: O componente irá filtrar somente campos com valores que sejam diferente de **null** ou **undefined**, caso contrário ao filtrar o campo irá ser removido da query.
+- Como foi atualizado todas as libs do asteroid, é possível que existam breaking changes que não foram detectadas, é importante testar a aplicação que estiver usando o asteroid como um todo.
+
+### Adicionado
+- `QasDate`: adicionado novo componente wrapper do `QDate` com estilos próprios e recursos extras.
+- `QasSelectList`: adicionado 2 novas props `addLabel` e `deleteLabel` para controlar seus respectivos labels.
+- `QasSearchInput`: adicionado novo componente que sera usado em buscas / filtros, como no `QasSearchBox` e `QasFilters`.
+- `QasSelect`: adicionado nova prop `useFetchOptionsOnCreate` para controlar se o componente vai fazer um fetch das opções assim que o mesmo é criado (caso tenha lazy loading ativado).
+- `QasSelectList`: adicionado nova propriedade `readonly` para habilitar componente em modo de visualização (remove botões de ações).
+- `QasSelectList` adicionado props `addLabel` e `deleteLabel` para controlar labels dos botões.
+- `QasSelectList` adicionado prop `searchBoxProps` para repassar props do `QasSearchBox`.
+- `QasEmptyResultText`: adicionado novo componente para resultados vazio.
+
+### Modificado
+- `QasLabel`: modificado a classe de fonte utilizada no componente, de `text-subtitle2` para `text-subtitle1`.
+- `QasDateTimeInput`: substituído `QDate` pelo `QasDate`.
+- [`QasSelectList`, `QasSearchBox`]: mudanças de estilos para se adequar a novo layout.
+- `QasSearchBox`: removido `QasInput` a adicionado `QasSearchInput`.
+- `QasSelectList`: componente só faz sort da lista caso não seja lazy loading.
+- `ui/src/mixins/search-filter.js`: mudanças para adicionar ordenação de opções selecionadas.
+- `QasFilters`: mudanças para utilização do `QasSearchInput`.
+- `QasLabel`: modificado a classe de fonte utilizada no componente, de `text-subtitle2` para `text-subtitle1`.
+- `QasSearchBox`: alterado default da prop `emptyResultText` para `Não há itens para serem exibidos.`
+- `QasSearchBox`: alterado estilo de quando não não há itens para serem exibidos.
+- [`QasSearchBox`, `QasListView`, `QasSingleView`]: adicionado componente `QasEmptyResultText`.
+- `QasFilters`: tratamento para passar os `fieldsProps` utilizando as chaves dos fields em camelCase para mantermos o padrão.
+- `typography.scss`: modificado line-height que antes seguia o tamanho do font-size agora é 140% o tamanho do font-size.
+- `QasUploader`: adicionado `QasEmptyResultText` para quando o modelValue do componente for vazio (também afeta o QasSignatureUploader).
+- `QasSelect`: modificado comportamento para selects do tipo lazy loading para não ser possível selecionar uma opção quando o componente estiver buscando por novas opções.
+- Atualizado todas libs do asteroid (ui/app-extension/docs/raiz).
+- Mudanças referentes as atualizações de bibliotecas.
+
+### Corrigido
+- `QasFormView`: corrigido a validação das props `useCancelButton` e `useSubmitButton`.
+- `QasSearchBox`: corrigido primeiro fetch quando existe `options` antes de finalizar o primeiro `fetch`.
+- `ui/src/mixins/search-filter.js`: corrigido duplicidade de opções quando acontece mais de requisição em paralelo pelas mudanças causadas no `lazyLoadingProps`.
+- `QasFilters`: Ao selecionar o botão de limpar, irá limpar somente os campos do filtro e da query, mantendo outros filtros externos na query.
+- `QasFilters`: tratamento para não filtrar na query campos que não possuem valores.
+- `QasFilters`: tratamento para filtrar na query somente valores que são diferente de null ou undefined.
+- `search-filter.js`: corrigido problema de quando as opções externas são setadas após o fetch interno de opções, que fazia que as opções externas sobrescreviam as opões interna erroneamente.
+- `QasNestedFields`: corrigido problemas referentes ao espaçamento do label quando é usado com `useSingleLabel`.
+- `QasFilters`: corrigido problema no método `updateValues`. O model interno de `filters` ficava desatualizado quando não tinha query na URL.
+- `QasFilters`: corrigido problema na checagem se há valores nos `fields` retornados da API, caso não viesse `fields` ocorria um erro no console ao recuperar o tamanho do objeto de `fields`.
+- `QasFilters`: corrigido atualização do model `currentFilters` que emitia o evento de atualização antes da query ser atualizada com base no filtro realizado.
+- `QasNestedFields`: corrigido espaçamento das labels.
+- `search-filter`: corrigido duplicidade de opções que acontecia quando o `mx_fetchCount` era `1`, impacta `QasSelect` e `QasSelectList`.
+- `QasDateTimeInput`: corrigido logica para seguir regra do lint.
+- `search-filter`: corrigido problema com filtros relacionados onde as opções cacheadas (opções iniciais) não eram limpas após mudança dos parâmetros da URL de lazy loading.
+- `search-filter`: corrigido problema com filtros relacionados que estavam sendo disparados o evento para buscar novas opções sem necessariamente ter alterado os parâmetros da URL de lazy loading.
+- `QasFilters`: corrigido botão de limpar pesquisa que não funcionada quando utilizado com a prop `:use-search-on-type="false"`.
+- `QasGridGenerator`: refatorado código do componente para resolver problema de variável não sendo definida caso chamasse o slot `content` do componente.
+
+### Removido
+- `QasSelect`: removido props `labelKey` e `valueKey`, componente não aceita mais fazer conversão das chaves label/value, o backend deve sempre retornar no padrão correto, em **ultimo** caso, é possível utilizar o helper `getNormalizedOptions` para converter as opções antes de enviar para o componente, porém o componente não fica mais responsável por isto.
+- `QasSelectList`: removido props [`list`, `fuseOptions`] em favor da propriedade `searchBoxProps`.
+- `ui/src/mixins/search-filter.js`: removido computada `mx_isFilterByFuse` que não estava sendo utilizado em nenhum lugar.
+- `QasSearchBox`: removido `QasBox` e adicionado `div` no lugar para se adequar ao layout.
+- `QasFilters`: removido `data-cy="filters-search-input"` e adicionado um fixo no componente `QasSearchInput` chamado `data-cy="search-input"`.
+feature/changes-qas-select-list.
+- `QasSearchBox`: removido prop `emptyResultText` para manter sempre a mesma mensagem quando não encontra itens.
+- `ui/scr/dev/`: removido folder pois utilizamos o `/docs` para testes.
+- `stylelint`: removido stylelint, já era desativada muitas regras e não estava ajudando no desenvolvimento, então foi removido.
+
+## [3.10.0-beta.10] - 14-06-2023
+### Corrigido
+`QasDate`: alterado a ordem de uso do método `resetEvents`, onde deverá limpar os eventos sempre, evitando problemas de manter antigos eventos quando deveriam serem limpados.
+
+## [3.10.0-beta.9] - 07-06-2023
+## BREAKING CHANGES
+- `QasDate`: propriedade `events` recebe um novo padrão, deixa de ser um array de string para ser um array de objetos, olhar documentação para mais informações.
+
+### Modificado
+- `QasDate`: modificado estilos e comportamentos.
+
+### Corrigido
+- `QasGridGenerator`: refatorado código do componente para resolver problema de variável não sendo definida caso chamasse o slot `content` do componente.
+- `QasDate`: corrigido problema de reatividade ao trocar eventos e mudar mês/ano.
+
+## [3.10.0-beta.8] - 06-06-2023
+## BREAKING CHANGES
+- Como foi atualizado todas as libs do asteroid, é possível que existam breaking changes que não foram detectadas, é importante testar a aplicação que estiver usando o asteroid como um todo.
+
+### Modificado
+- `QasSelect`: modificado comportamento para selects do tipo lazy loading para não ser possível selecionar uma opção quando o componente estiver buscando por novas opções.
+- Atualizado todas libs do asteroid (ui/app-extension/docs/raiz).
+- Mudanças referentes as atualizações de bibliotecas.
+
+### Corrigido
+- `QasDateTimeInput`: corrigido logica para seguir regra do lint.
+- `search-filter`: corrigido problema com filtros relacionados onde as opções cacheadas (opções iniciais) não eram limpas após mudança dos parâmetros da URL de lazy loading.
+- `search-filter`: corrigido problema com filtros relacionados que estavam sendo disparados o evento para buscar novas opções sem necessariamente ter alterado os parâmetros da URL de lazy loading.
+- `QasFilters`: corrigido botão de limpar pesquisa que não funcionada quando utilizado com a prop `:use-search-on-type="false"`.
+
+### Removido
+- `ui/scr/dev/`: removido folder pois utilizamos o `/docs` para testes.
+- `stylelint`: removido stylelint, já era desativada muitas regras e não estava ajudando no desenvolvimento, então foi removido.
+
+## [3.10.0-beta.7] - 05-06-2023
+### Corrigido
+- `search-filter`: corrigido duplicidade de opções que acontecia quando o `mx_fetchCount` era `1`, impacta `QasSelect` e `QasSelectList`.
+
+## [3.10.0-beta.6] - 30-05-2023
+### Corrigido
+- `QasNestedFields`: corrigido espaçamento das labels.
+
+## [3.10.0-beta.5] - 30-05-2023
+### Modificado
+- `QasUploader`: adicionado `QasEmptyResultText` para quando o modelValue do componente for vazio (também afeta o QasSignatureUploader).
+
+### Corrigido
+- `QasNestedFields`: corrigido problemas referentes ao espaçamento do label quando é usado com `useSingleLabel`.
+- `QasFilters`: corrigido problema no método `updateValues`. O model interno de `filters` ficava desatualizado quando não tinha query na URL.
+- `QasFilters`: corrigido problema na checagem se há valores nos `fields` retornados da API, caso não viesse `fields` ocorria um erro no console ao recuperar o tamanho do objeto de `fields`.
+- `QasFilters`: corrigido atualização do model `currentFilters` que emitia o evento de atualização antes da query ser atualizada com base no filtro realizado.
+
+## [3.10.0-beta.4] - 17-05-2023
+### Modificado
+- `QasDate`: adicionado a cor primaria na data de hoje.
+
+### Corrigido
+- `search-filter.js`: corrigido problema de quando as opções externas são setadas após o fetch interno de opções, que fazia que as opções externas sobrescreviam as opões interna erroneamente.
+
+## [3.10.0-beta.3] - 12-05-2023
+## BREAKING CHANGES
+- `QasFilters`: O componente irá filtrar somente campos com valores que sejam diferente de **null** ou **undefined**, caso contrário ao filtrar o campo irá ser removido da query.
+
+### Corrigido
+- `QasFilters`: tratamento para filtrar na query somente valores que são diferente de null ou undefined.
+
+## [3.10.0-beta.2] - 11-05-2023
+### Corrigido
+- `QasFilters`: Ao selecionar o botão de limpar, irá limpar somente os campos do filtro e da query, mantendo outros filtros externos na query.
+- `QasFilters`: tratamento para não filtrar na query campos que não possuem valores.
+
+### Modificado
+- `QasFilters`: tratamento para passar os `fieldsProps` utilizando as chaves dos fields em camelCase para mantermos o padrão.
+- `typography.scss`: modificado line-height que antes seguia o tamanho do font-size agora é 140% o tamanho do font-size.
+
+## [3.10.0-beta.1] - 10-05-2023
+## BREAKING CHANGES
+- `QasSearchBox`: removido prop `emptyResultText` para manter sempre a mesma mensagem quando não encontra itens.
+
+### Adicionado
+- `QasEmptyResultText`: adicionado novo componente para resultados vazio.
+
+### Modificado
+- `QasSearchBox`: alterado default da prop `emptyResultText` para `Não há itens para serem exibidos.`
+- `QasSearchBox`: alterado estilo de quando não não há itens para serem exibidos.
+- [`QasSearchBox`, `QasListView`, `QasSingleView`]: adicionado componente `QasEmptyResultText`.
+
+### Corrigido
+- `QasSearchBox`: corrigido primeiro fetch quando existe `options` antes de finalizar o primeiro `fetch`.
+- `ui/src/mixins/search-filter.js`: corrigido duplicidade de opções quando acontece mais de requisição em paralelo pelas mudanças causadas no `lazyLoadingProps`.
+
+### Removido
+- `QasSearchBox`: removido prop `emptyResultText` para manter sempre a mesma mensagem quando não encontra itens.
+
+## [3.10.0-beta.0] - 04-05-2023
+## BREAKING CHANGES
+- `QasSelect`: removido props `labelKey` e `valueKey`, componente não aceita mais fazer conversão das chaves label/value, o backend deve sempre retornar no padrão correto, em **ultimo** caso, é possível utilizar o helper `getNormalizedOptions` para converter as opções antes de enviar para o componente, porém o componente não fica mais responsável por isto.
+- `QasSelectList`: removido props [`list`, `fuseOptions`] em favor da propriedade `searchBoxProps`.
+- `ui/src/mixins/search-filter.js`: removido computada `mx_isFilterByFuse` que não estava sendo utilizado em nenhum lugar.
+- `QasSearchBox`: removido `QasBox` e adicionado `div` no lugar para se adequar ao layout.
+- `QasFilters`: removido `data-cy="filters-search-input"` e adicionado um fixo no componente `QasSearchInput` chamado `data-cy="search-input"`.
+
+### Adicionado
+- `QasDate`: adicionado novo componente wrapper do `QDate` com estilos próprios e recursos extras.
+- `QasSelectList`: adicionado 2 novas props `addLabel` e `deleteLabel` para controlar seus respectivos labels.
+- `QasSearchInput`: adicionado novo componente que sera usado em buscas / filtros, como no `QasSearchBox` e `QasFilters`.
+- `QasSelect`: adicionado nova prop `useFetchOptionsOnCreate` para controlar se o componente vai fazer um fetch das opções assim que o mesmo é criado (caso tenha lazy loading ativado).
+- `QasSelectList`: adicionado nova propriedade `readonly` para habilitar componente em modo de visualização (remove botões de ações).
+- `QasSelectList` adicionado props `addLabel` e `deleteLabel` para controlar labels dos botões.
+- `QasSelectList` adicionado prop `searchBoxProps` para repassar props do `QasSearchBox`.
+
+### Modificado
+- `QasLabel`: modificado a classe de fonte utilizada no componente, de `text-subtitle2` para `text-subtitle1`.
+- `QasDateTimeInput`: substituído `QDate` pelo `QasDate`.
+- [`QasSelectList`, `QasSearchBox`]: mudanças de estilos para se adequar a novo layout.
+- `QasSearchBox`: removido `QasInput` a adicionado `QasSearchInput`.
+- `QasSelectList`: componente só faz sort da lista caso não seja lazy loading.
+- `ui/src/mixins/search-filter.js`: mudanças para adicionar ordenação de opções selecionadas.
+- `QasFilters`: mudanças para utilização do `QasSearchInput`.
+- `QasLabel`: modificado a classe de fonte utilizada no componente, de `text-subtitle2` para `text-subtitle1`.
+
+### Corrigido
+- `QasFormView`: corrigido a validação das props `useCancelButton` e `useSubmitButton`.
+
+### Removido
+- `QasSelect`: removido props `labelKey` e `valueKey`, componente não aceita mais fazer conversão das chaves label/value, o backend deve sempre retornar no padrão correto, em **ultimo** caso, é possível utilizar o helper `getNormalizedOptions` para converter as opções antes de enviar para o componente, porém o componente não fica mais responsável por isto.
+- `QasSelectList`: removido props [`list`, `fuseOptions`] em favor da propriedade `searchBoxProps`.
+- `ui/src/mixins/search-filter.js`: removido computada `mx_isFilterByFuse` que não estava sendo utilizado em nenhum lugar.
+- `QasSearchBox`: removido `QasBox` e adicionado `div` no lugar para se adequar ao layout.
+- `QasFilters`: removido `data-cy="filters-search-input"` e adicionado um fixo no componente `QasSearchInput` chamado `data-cy="search-input"`.
+feature/changes-qas-select-list
+
 ## [3.9.0] - 02-05-2023
 ## BREAKING CHANGES
 - `QasGallery`: removido slot `destroy` para dar lugar aos slots do `QasGalleryCard`, olhar documentação.
@@ -1405,3 +1608,14 @@ Adicionado suporte para Pinia/Vuex Seguindo os padrões da biblioteca `@bildvitt
 [3.9.0-beta.0]: https://github.com/bildvitta/asteroid/compare/v3.8.0...v3.9.0-beta.0?expand=1
 [3.9.0-beta.1]: https://github.com/bildvitta/asteroid/compare/v3.9.0-beta.0...v3.9.0-beta.1?expand=1
 [3.9.0]: https://github.com/bildvitta/asteroid/compare/v3.8.0...v3.9.0?expand=1
+[3.10.0-beta.0]: https://github.com/bildvitta/asteroid/compare/v3.9.0...v3.10.0-beta.0?expand=1
+[3.10.0-beta.1]: https://github.com/bildvitta/asteroid/compare/v3.10.0-beta.0...v3.10.0-beta.1?expand=1
+[3.10.0-beta.2]: https://github.com/bildvitta/asteroid/compare/v3.10.0-beta.1...v3.10.0-beta.2?expand=1
+[3.10.0-beta.3]: https://github.com/bildvitta/asteroid/compare/v3.10.0-beta.2...v3.10.0-beta.3?expand=1
+[3.10.0-beta.4]: https://github.com/bildvitta/asteroid/compare/v3.10.0-beta.3...v3.10.0-beta.4?expand=1
+[3.10.0-beta.5]: https://github.com/bildvitta/asteroid/compare/v3.11.0-alpha.2...v3.10.0-beta.5?expand=1
+[3.10.0-beta.6]: https://github.com/bildvitta/asteroid/compare/v3.10.0-beta.5...v3.10.0-beta.6?expand=1
+[3.10.0-beta.7]: https://github.com/bildvitta/asteroid/compare/v3.10.0-beta.6...v3.10.0-beta.7?expand=1
+[3.10.0-beta.8]: https://github.com/bildvitta/asteroid/compare/v3.10.0-beta.7...v3.10.0-beta.8?expand=1
+[3.10.0-beta.9]: https://github.com/bildvitta/asteroid/compare/v3.10.0-beta.8...v3.10.0-beta.9?expand=1
+[3.10.0-beta.10]: https://github.com/bildvitta/asteroid/compare/v3.10.0-beta.9...v3.10.0-beta.10?expand=1

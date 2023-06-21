@@ -1,13 +1,9 @@
 <template>
-  <qas-box>
-    <qas-input v-bind="attributes" ref="search" v-model="mx_search">
-      <template #prepend>
-        <q-icon color="grey-8" name="sym_r_search" />
-      </template>
-    </qas-input>
+  <div>
+    <qas-search-input v-bind="attributes" v-model="mx_search" />
 
-    <div ref="scrollContainer" class="overflow-auto q-mt-xs relative-position" :style="containerStyle">
-      <component :is="component.is" v-bind="component.props">
+    <div ref="scrollContainer" class="overflow-auto q-mt-md relative-position" :style="containerStyle">
+      <component :is="component.is" v-bind="component.props" class="q-mr-sm">
         <slot v-if="mx_hasFilteredOptions" />
       </component>
 
@@ -18,23 +14,20 @@
       </slot>
 
       <slot v-if="showEmptyResult" name="empty-result">
-        <div class="absolute-center text-center">
-          <q-icon class="q-mb-sm text-center" color="primary" name="sym_r_search" size="38px" />
-          <div>{{ emptyResultText }}</div>
-        </div>
+        <qas-empty-result-text class="q-mt-md" />
       </slot>
 
       <q-inner-loading :showing="showInnerLoading">
         <q-spinner color="grey" size="3em" />
       </q-inner-loading>
     </div>
-  </qas-box>
+  </div>
 </template>
 
 <script>
 import { QInfiniteScroll } from 'quasar'
 import Fuse from 'fuse.js'
-
+import fuseConfig from '../../shared/fuse-config'
 import QasBox from '../box/QasBox.vue'
 import { searchFilterMixin } from '../../mixins'
 
@@ -51,11 +44,6 @@ export default {
   props: {
     emptyListHeight: {
       default: '100px',
-      type: String
-    },
-
-    emptyResultText: {
-      default: 'Não há resultados disponíveis.',
       type: String
     },
 
@@ -110,12 +98,10 @@ export default {
   computed: {
     attributes () {
       return {
-        clearable: true,
+        ref: 'search',
         disable: this.isDisabled,
-        debounce: this.useLazyLoading ? 1200 : 0,
-        outlined: true,
+        useDebounce: this.useLazyLoading,
         placeholder: this.placeholder,
-        hideBottomSpace: true,
         error: this.mx_hasFetchError,
         loading: this.mx_isFetching
       }
@@ -153,8 +139,7 @@ export default {
 
     defaultFuseOptions () {
       return {
-        ignoreLocation: true,
-
+        ...fuseConfig,
         ...this.fuseOptions
       }
     },
@@ -195,7 +180,7 @@ export default {
           await this.mx_filterOptionsByStore(value)
 
           this.$refs.infiniteScrollRef.resume()
-          this.$refs.search.focus()
+          this.$refs.search.input.focus()
 
           return
         }
@@ -222,12 +207,7 @@ export default {
   },
 
   created () {
-    if (this.useLazyLoading) return
-
-    this.mx_filteredOptions = this.list
-    this.fuse = new Fuse(this.list, this.defaultFuseOptions)
-
-    this.setListWatcher()
+    this.setSearchMethod()
   },
 
   methods: {
@@ -239,7 +219,9 @@ export default {
       // Se tiver erro no primeiro fetch, retorna o "done" na proxima.
       if (((this.mx_hasFetchError && !this.mx_hasFilteredOptions) || this.hasNoOptionsOnFirstFetch)) return done()
 
-      if (!this.mx_hasFilteredOptions && !this.mx_search) {
+      const canMakeFirstFetch = this.mx_fetchCount === 0 && this.mx_hasFilteredOptions
+
+      if ((!this.mx_hasFilteredOptions || canMakeFirstFetch) && !this.mx_search) {
         await this.mx_setFetchOptions()
         return done()
       }
@@ -258,6 +240,23 @@ export default {
 
         this.filterOptionsByFuse(this.mx_search)
       }, { deep: true })
+    },
+
+    setSearchMethod () {
+      this.useLazyLoading ? this.setLazyLoading() : this.setFuse()
+    },
+
+    setFuse () {
+      const list = [...this.list]
+
+      this.mx_filteredOptions = list
+      this.fuse = new Fuse(list, this.defaultFuseOptions)
+
+      this.setListWatcher()
+    },
+
+    setLazyLoading () {
+      this.mx_setCachedOptions('list')
     }
   }
 }

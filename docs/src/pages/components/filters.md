@@ -18,12 +18,17 @@ Hoje Utilizamos 2 bibliotecas com propósitos diferentes que são compatíveis c
 Para fazer esses exemplos na documentação, estamos utilizando o `VuexOffline`, para saber mais, veja o código fonte da documentação.
 :::
 
+:::warning
+O componente irá filtrar somente campos com valores que sejam diferente de **null** ou **undefined**, caso contrário ao filtrar o campo irá ser removido da query.
+:::
+
 :::tip
 Este componente serve para lidar com **filtros dinâmicos**, e normalmente utilizado dentro do `QasListView`.
 :::
 
 ## Uso
 <doc-example file="QasFilters/Basic" title="Básico" />
+<doc-example file="QasFilters/ExNoUseSearchOnType" title="Sem pesquisa automática ao digitar" />
 
 Normalmente este componente é utilizando junto ao `QasListView` para filtrar os dados.
 
@@ -34,6 +39,7 @@ Normalmente este componente é utilizando junto ao `QasListView` para filtrar os
 :::warning
 Ao utilizar a propriedade `:use-update-route="false"`, a leitura dos filtros assim como a escrita na rota não acontecerá.
 :::
+
 <doc-example file="QasFilters/NoRouteUpdate" title="Não realizando a atualização padrão da rota" />
 
 <doc-example file="QasFilters/CustomFilter" title="Usando slot default com funções 'filter' e 'removeFilter'" />
