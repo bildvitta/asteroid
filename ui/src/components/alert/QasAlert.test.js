@@ -10,10 +10,6 @@ import { Quasar } from 'quasar'
 // Descrevemos o grupo de testes para o componente QasAlert
 describe('QasAlert', () => {
   const wrapper = mount(QasAlert, {
-    // props: {
-    //   text: 'Test 222'
-    // },
-
     slots: {
       default: 'Default Text'
     },
@@ -33,17 +29,6 @@ describe('QasAlert', () => {
   })
 
   test('renders correctly', () => {
-    // const { app } = installQuasar({})
-    // const wrapper = mount(QasAlert, {
-    //   global: {
-    //     plugins: [app],
-
-    //     components: {
-    //       'qas-btn': QasBtn,
-    //       'qas-breakline': QasBreakline
-    //     }
-    //   }
-    // })
     expect(wrapper.exists()).toBe(true)
   })
 

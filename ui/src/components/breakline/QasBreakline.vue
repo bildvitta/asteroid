@@ -29,7 +29,6 @@ export default {
 
   computed: {
     lines () {
-      console.log(this.text, 'this.text')
       const text = this.text || getSlotChildrenText(this.$slots.default())
       return text.split(this.split)
     }
