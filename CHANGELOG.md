@@ -13,6 +13,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 ## Não publicado
 ### Adicionado
 - Adicionado vitest.
+- `QasAlert` adicionado `data-test="alert-title"` na tag h5 de title para testes iniciais.
 
 ## [3.10.0] - 21-06-2023
 ## BREAKING CHANGES
