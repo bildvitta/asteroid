@@ -1,11 +1,14 @@
 import { camelizeKeys, decamelizeKeys } from 'humps'
 
+import asteroidConfig from 'asteroid-config'
+
 export default async ({ app }) => {
   const api = app.config.globalProperties.$axios
 
   // Defaults
   api.defaults.baseURL = process.env.SERVER_BASE_URL || '/'
-  api.defaults.timeout = process.env.SERVER_TIMEOUT || 10000
+
+  api.defaults.timeout = asteroidConfig.api.serverTimeout
 
   // Transformers
   api.defaults.transformResponse = [

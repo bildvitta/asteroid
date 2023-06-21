@@ -59,7 +59,6 @@ import QasTreeGenerator from './components/tree-generator/QasTreeGenerator.vue'
 import QasUploader from './components/uploader/QasUploader.vue'
 import QasWelcome from './components/welcome/QasWelcome.vue'
 
-import asteroidConfig from 'asteroidConfig'
 import { Notify, Loading, Quasar, Dialog as QuasarDialog } from 'quasar'
 
 // Plugins
@@ -73,14 +72,18 @@ import {
 } from './plugins'
 
 import packageInfo from '../package.json'
+import thirdPartyComponentsInitializer from './vue-plugin/third-party-components-initializer'
 
 // Directives
 import Test from './directives/Test.js'
 
 const version = packageInfo.version
 
-const hasQasMap = asteroidConfig.thirdPartyComponents.includes('QasMap')
-const QasMap = hasQasMap ? import('./components/map/QasMap.vue') : null
+const thirdPartyComponentsInitializerFn = thirdPartyComponentsInitializer()
+
+const {
+  QasMap
+} = thirdPartyComponentsInitializerFn.getComponents()
 
 async function install (app) {
   app.component('QasActions', QasActions)
@@ -144,17 +147,9 @@ async function install (app) {
   app.component('QasUploader', QasUploader)
   app.component('QasWelcome', QasWelcome)
 
+  thirdPartyComponentsInitializerFn.initializeComponents(app)
+
   app.use(Quasar, { plugins: { Notify, Loading, QuasarDialog, Dialog } })
-
-  if (hasQasMap) {
-    await import('@fawmi/vue-google-maps').then(({ default: VueGoogleMaps }) => {
-      const qasMapConfig = asteroidConfig.components.QasMap
-
-      app.use(VueGoogleMaps, { load: { libraries: 'places', ...qasMapConfig } })
-    })
-
-    await QasMap.then(({ default: QasMap }) => app.component('QasMap', QasMap))
-  }
 
   app.config.globalProperties.$qas = {
     delete: params => Delete.call(app.config.globalProperties, params),

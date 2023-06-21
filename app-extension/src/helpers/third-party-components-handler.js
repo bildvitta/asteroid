@@ -11,6 +11,19 @@ module.exports = async function (api, config = {}) {
 
   const asteroidConfig = require(filePath)
 
+  function getPackage () {
+    const packageJson = require(api.resolve.app('package.json'))
+
+    return packageJson
+  }
+
+  function hasPackage (dependency) {
+    const packageJson = getPackage()
+    const { dependencies, devDependencies } = packageJson
+
+    return dependencies[dependency] || devDependencies[dependency]
+  }
+
   function getCommand ({ isDev = false, dependency, version }) {
     const command = ['install', `${dependency}@${version}`]
 
@@ -55,17 +68,14 @@ module.exports = async function (api, config = {}) {
 
   function exec () {
     const {
-      autoRemoveThirdDependencies,
-      thirdPartyComponents
+      framework: { autoRemoveThirdDependencies, thirdPartyComponents }
     } = asteroidConfig
 
     const hasThirdPartyComponent = thirdPartyComponents.includes(componentName)
 
     if (hasThirdPartyComponent) {
       const onInstall = ({ key, value, isDev }) => {
-        const hasPackage = api.hasPackage(key)
-
-        if (hasPackage) return
+        if (hasPackage(key)) return
 
         install({ dependency: key, version: value, isDev })
       }
@@ -91,9 +101,7 @@ module.exports = async function (api, config = {}) {
         },
 
         callbackFn: ({ key }) => {
-          const hasPackage = api.hasPackage(key)
-
-          if (!hasPackage) return
+          if (!hasPackage(key)) return
 
           uninstall({ dependency: key })
         }

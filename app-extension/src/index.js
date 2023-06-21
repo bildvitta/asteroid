@@ -54,17 +54,21 @@ module.exports = async function (api) {
   const { validate, getAsteroidConfigPath } = asteroidConfigHandler(api)
   const asteroidConfigPath = getAsteroidConfigPath()
 
-  const thirdPartyComponentsHandler = require('./helpers/third-party-components-handler')
+  const setThirdPartyComponents = require('./helpers/set-third-party-components')
 
-  const map = require('./third-party-components/map')
-  const qasMapThirdPartyComponent = await thirdPartyComponentsHandler(api, {
-    componentName: 'QasMap',
-    filePath: asteroidConfigPath,
+  console.log('CHAMADO AQUI, ANTES')
+  await setThirdPartyComponents(api, { filePath: asteroidConfigPath }).exec()
+  console.log('CHAMADO AQUI, DEPOIS')
 
-    ...map
-  })
+  // const map = require('./third-party-components/map')
+  // const qasMapThirdPartyComponent = await thirdPartyComponentsHandler(api, {
+  //   componentName: 'QasMap',
+  //   filePath: asteroidConfigPath,
 
-  qasMapThirdPartyComponent.exec()
+  //   ...map
+  // })
+
+  // qasMapThirdPartyComponent.exec()
 
   api.compatibleWith('quasar', '^2.0.0')
   api.compatibleWith('@quasar/app', '^3.0.0')
@@ -74,13 +78,15 @@ module.exports = async function (api) {
   api.extendWebpack(async webpack => {
     // Adiciona um "alias" chamado "asteroid" para a aplicação
     const asteroid = 'node_modules/@bildvitta/quasar-ui-asteroid/src/asteroid.js'
+    const asteroidConfig = 'node_modules/@bildvitta/quasar-app-extension-asteroid/src/defaults/default-asteroid-config.js'
 
     validate()
 
     webpack.resolve.alias = {
       ...webpack.resolve.alias,
 
-      asteroidConfig: asteroidConfigPath,
+      'asteroid-config': api.resolve.app(asteroidConfig),
+      'asteroid-config-app': asteroidConfigPath,
       asteroid: api.resolve.app(asteroid)
     }
   })
