@@ -7,9 +7,6 @@ module.exports = function (api) {
     ~+    INSTALAÇÃO CONCLUÍDA    +~
   `)
 
-  console.log('Cheguei aqui!')
-
-  // adicionar arquivo de configuração de variareis sass ao projeto.
   // -------------------------- CSS: quasar.variables.scss --------------------------
   api.renderFile(
     './templates/css/quasar.variables.scss', // caminho do arquivo importado
