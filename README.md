@@ -84,11 +84,8 @@ Loggers são ativados quando a variável de ambiente `DEBUGGING` é setada.
 
 ## Roadmap:
 
-- [ ] Substituir os actions do `QasFormView` pelo `QasActions`;
-- [ ] Desenvolver uma nova biblioteca semelhante ao `vuexStoreModule`, porém com suporte ao Vuex e Pinia;
 - [ ] Finalizar `eslint-plugin-asteroid`;
 - [ ] Desenvolver um novo `asteroid-starter-kit` para o Quasar v2 + Asteroid v3, com suporte ao Webpack e Vite;
-- [ ] Lançar a v3 oficial;
 - [ ] Adicionar componentes específicos criados nos projetos e que fazem sentido estar no Asteroid;
 - [ ] Melhoria geral na documentação (adicionar mais exemplos, links etc);
 - [ ] Refatoração de código dos componentes para uma melhorar a performance;
@@ -107,7 +104,7 @@ Loggers são ativados quando a variável de ambiente `DEBUGGING` é setada.
   - [ ] QasAvatar.vue
   - [ ] QasBadge.vue
   - [ ] QasBox.vue
-  - [ ] QasBreakline.vue
+  - [x] QasBreakline.vue
   - [ ] QasButton.vue
   - [ ] QasBtnDropdown.vue
   - [ ] QasCard.vue
@@ -122,7 +119,7 @@ Loggers são ativados quando a variável de ambiente `DEBUGGING` é setada.
   - [ ] QasEmptyResultText.vue
   - [ ] QasField.vue
   - [ ] QasFilters.vue
-  - [ ] QasFormGenerator.vue
+  - [x] QasFormGenerator.vue
   - [ ] QasFormView.vue
   - [ ] QasGallery.vue
   - [ ] QasGalleryCard.vue
@@ -151,10 +148,10 @@ Loggers são ativados quando a variável de ambiente `DEBUGGING` é setada.
   - [ ] QasSignatureUploader.vue
   - [ ] QasSingleView.vue
   - [ ] QasSortable.vue
-  - [ ] QasStatus.vue
+  - [x] QasStatus.vue
   - [ ] QasTableGenerator.vue
   - [ ] QasTabsGenerator.vue
-  - [ ] QasTextTruncate.vue
+  - [x] QasTextTruncate.vue
   - [ ] QasTransfer.vue
   - [ ] QasTreeGenerator.vue
   - [ ] QasUploader.vue
