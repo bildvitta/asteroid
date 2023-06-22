@@ -20,6 +20,8 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - [`useForm`, `useGenerator (privado)`, `useScreen`]: adicionado novos composables.
 - `Spacing.js`: adicionado enums de espaçamento.
 - `asteroid.config.js`: adicionado novo arquivo de configuração do asteroid.
+- Adicionado vitest.
+- `QasAlert` adicionado `data-test="alert-title"` na tag h5 de title para testes iniciais.
 
 ### Modificado
 - [`QasBreakline`, `QasFormGenerator`, `QasStatus`, `QasTextTruncate`, `QasGridGenerator`]: convertidos para composition API.

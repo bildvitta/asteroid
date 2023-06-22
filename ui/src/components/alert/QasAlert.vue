@@ -4,7 +4,7 @@
 
     <div class="q-gutter-md q-mr-lg">
       <slot name="header">
-        <h5 v-if="title" class="text-bold text-h5">{{ title }}</h5>
+        <h5 v-if="title" class="text-bold text-h5" data-test="alert-title">{{ title }}</h5>
       </slot>
 
       <slot>
