@@ -32,13 +32,13 @@ module.exports = async function (api, config = {}) {
     return command
   }
 
-  function install ({ isDev, dependency, version }) {
+  async function install ({ isDev, dependency, version }) {
     const installSpinner = ora(`instalando dependência "${dependency}" na versão "${version}".`).start()
 
     try {
       const command = getCommand({ isDev, dependency, version })
 
-      execaSync('npm', ['install', ...command], { cwd: api.appDir })
+      await execaSync('npm', ['install', ...command], { cwd: api.appDir })
 
       installSpinner.succeed(`Dependência "${dependency}" instalada com sucesso.`).succeed()
     } catch {
