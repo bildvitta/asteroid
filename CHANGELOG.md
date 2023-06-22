@@ -11,12 +11,26 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
 ## Não publicado
+## BREAKING CHANGES
+- com a adição do `asteroid.config.js`, é **necessário** criar o arquivo na raiz da aplicação para que não quebre a mesma.
+- controle do server timeout agora é feito pelo `asteroid.config.js` e não pelo `process.env.SERVER_TIMEOUT`.
+- Caso esteja utilizando o componente `QasMap` verificar documentação para configurar corretamente o mesmo.
+
 ### Adicionado
 - [`useForm`, `useGenerator (privado)`, `useScreen`]: adicionado novos composables.
 - `Spacing.js`: adicionado enums de espaçamento.
+- `asteroid.config.js`: adicionado novo arquivo de configuração do asteroid.
 
 ### Modificado
 - [`QasBreakline`, `QasFormGenerator`, `QasStatus`, `QasTextTruncate`, `QasGridGenerator`]: convertidos para composition API.
+- `QasMap`: removido dependência terceira do "@fawmi/vue-google-maps", em favor da logica de `thirdPartyComponents` (agora a dependência fica na aplicação).
+- `vue-plugin`: adicionado logica para import dinâmico dos thirdPartyComponents (QasMap).
+- `vue-plugin`: import `import { QasMap } from 'asteroid'` agora retorna uma `Promise` quando existe e `null` quando não existe.
+- `app-extension/src/index.js`: adicionado logica para automatizar instalação / desinstalação de bibliotecas terceiras do `thirdPartyComponents`.
+- `process.env.MAPS_API_KEY`: não é mais necessário declarar esta env, somente se for utilizar o componente `QasMap`.
+
+### Removido
+- `process.env.SERVER_TIMEOUT`: agora é controlado pelo arquivo `asteroid.config.js` com a config `api: { serverTimeOut: 10000 }`.
 
 ## [3.10.0] - 21-06-2023
 ## BREAKING CHANGES

@@ -44,7 +44,6 @@
   },
   "dependencies": {
     "@bildvitta/store-adapter": "^1.0.0",
-    "@fawmi/vue-google-maps": "^0.9.79",
     "autonumeric": "^4.9.0",
     "axios": "^1.4.0",
     "date-fns": "^2.30.0",

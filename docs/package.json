@@ -20,6 +20,7 @@
     "@bildvitta/vuex-offline": "^3.2.1",
     "@docsearch/css": "^3.4.0",
     "@docsearch/js": "^3.4.0",
+    "@fawmi/vue-google-maps": "^0.9.79",
     "@quasar/extras": "^1.16.4",
     "axios": "^1.4.0",
     "core-js": "^3.30.2",
