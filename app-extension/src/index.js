@@ -1,7 +1,7 @@
 const sourcePath = '~@bildvitta/quasar-app-extension-asteroid/src/'
 const resolve = (...paths) => paths.map(path => sourcePath + path)
 
-function extendQuasar (quasar) {
+function extendQuasar (quasar, asteroidConfigFile) {
   // Arquivos de boot
   // https://quasar.dev/quasar-cli-vite/boot-files#introduction
   quasar.boot.push(...resolve(
@@ -12,6 +12,12 @@ function extendQuasar (quasar) {
     'boot/loading.js',
     'boot/store-adapter'
   ))
+
+  if (asteroidConfigFile.framework.thirdPartyComponents.includes('QasMap')) {
+    quasar.boot.push(...resolve(
+      'boot/map.js'
+    ))
+  }
 
   // Transpilação de arquivos!
   quasar.build.transpileDependencies.push(/quasar-app-extension-asteroid[\\/]src/)
@@ -53,6 +59,7 @@ module.exports = async function (api) {
   const asteroidConfigHandler = require('./helpers/asteroid-config-handler')
   const { validate, getAsteroidConfigPath } = asteroidConfigHandler(api)
   const asteroidConfigPath = getAsteroidConfigPath()
+  const asteroidConfigFile = require(asteroidConfigPath)
 
   const setThirdPartyComponents = require('./helpers/set-third-party-components')
 
@@ -61,7 +68,7 @@ module.exports = async function (api) {
   api.compatibleWith('quasar', '^2.0.0')
   api.compatibleWith('@quasar/app', '^3.0.0')
 
-  api.extendQuasarConf(extendQuasar)
+  api.extendQuasarConf(quasar => extendQuasar(quasar, asteroidConfigFile))
 
   api.extendWebpack(webpack => {
     // Adiciona um "alias" chamado "asteroid" para a aplicação
