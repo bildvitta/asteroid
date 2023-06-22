@@ -12,7 +12,7 @@ const VALID_EDIT_MODES = ['replace', 'update']
  *  mode: mode
  * }}
 */
-export default function useForm ({ editMode = 'replace' } = {}) {
+export default function ({ editMode = 'replace' } = {}) {
   const route = useRoute()
 
   /**
