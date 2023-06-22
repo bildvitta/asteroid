@@ -17,9 +17,12 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - Caso esteja utilizando o componente `QasMap` verificar documentação para configurar corretamente o mesmo.
 
 ### Adicionado
+- [`useForm`, `useGenerator (privado)`, `useScreen`]: adicionado novos composables.
+- `Spacing.js`: adicionado enums de espaçamento.
 - `asteroid.config.js`: adicionado novo arquivo de configuração do asteroid.
 
 ### Modificado
+- [`QasBreakline`, `QasFormGenerator`, `QasStatus`, `QasTextTruncate`, `QasGridGenerator`]: convertidos para composition API.
 - `QasMap`: removido dependência terceira do "@fawmi/vue-google-maps", em favor da logica de `thirdPartyComponents` (agora a dependência fica na aplicação).
 - `vue-plugin`: adicionado logica para import dinâmico dos thirdPartyComponents (QasMap).
 - `vue-plugin`: import `import { QasMap } from 'asteroid'` agora retorna uma `Promise` quando existe e `null` quando não existe.

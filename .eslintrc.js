@@ -5,6 +5,8 @@ module.exports = {
     browser: true
   },
 
+  parser: 'vue-eslint-parser',
+
   extends: [
     'eslint:recommended',
     'plugin:vue/vue3-recommended',

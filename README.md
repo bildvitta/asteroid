@@ -83,15 +83,8 @@ Loggers são ativados quando a variável de ambiente `DEBUGGING` é setada.
 
 ## Roadmap:
 
-- [x] Revisar nomenclaturas de componentes, props, eventos e slots;
-- [x] Adicionar loggers nos componentes para facilitar o debug;
-- [ ] Substituir os actions do `QasFormView` pelo `QasActions`;
-- [x] Atualizar markdown `pull_request_template`;
-- [ ] Desenvolver uma nova biblioteca semelhante ao `vuexStoreModule`, porém com suporte ao Vuex e Pinia;
 - [ ] Finalizar `eslint-plugin-asteroid`;
 - [ ] Desenvolver um novo `asteroid-starter-kit` para o Quasar v2 + Asteroid v3, com suporte ao Webpack e Vite;
-- [ ] Lançar a v3 oficial;
-- [x] Inserir busca na documentação;
 - [ ] Adicionar componentes específicos criados nos projetos e que fazem sentido estar no Asteroid;
 - [ ] Melhoria geral na documentação (adicionar mais exemplos, links etc);
 - [ ] Refatoração de código dos componentes para uma melhorar a performance;
@@ -100,6 +93,68 @@ Loggers são ativados quando a variável de ambiente `DEBUGGING` é setada.
 - [ ] Desenvolver uma CLI para facilitar o desenvolvimento fora do Asteroid;
 - [ ] Adicionar exemplos de uso com lazy loading no `QasSearchBox` e `QasSelect`;
 - [ ] Adicionar `handleProcess` em todas variáveis de ambiente que não são obrigatórias.
+- [ ] Migrar todos componentes para Composition API:
+  - [ ] QasActions.vue
+  - [ ] QasActionsMenu.vue
+  - [ ] QasAlert.vue
+  - [ ] QasAppBar.vue
+  - [ ] QasAppMenu.vue
+  - [ ] QasAppUser.vue
+  - [ ] QasAvatar.vue
+  - [ ] QasBadge.vue
+  - [ ] QasBox.vue
+  - [x] QasBreakline.vue
+  - [ ] QasButton.vue
+  - [ ] QasBtnDropdown.vue
+  - [ ] QasCard.vue
+  - [ ] QasCheckboxGroup.vue
+  - [ ] QasCopy.vue
+  - [ ] QasDate.vue
+  - [ ] QasDateTimeInput.vue
+  - [ ] QasDebugger.vue
+  - [ ] QasDelete.vue
+  - [ ] QasDialog.vue
+  - [ ] QasDialogRouter.vue
+  - [ ] QasEmptyResultText.vue
+  - [ ] QasField.vue
+  - [ ] QasFilters.vue
+  - [x] QasFormGenerator.vue
+  - [ ] QasFormView.vue
+  - [ ] QasGallery.vue
+  - [ ] QasGalleryCard.vue
+  - [ ] QasGridGenerator.vue
+  - [ ] QasHeaderActions.vue
+  - [ ] QasInput.vue
+  - [ ] QasLabel.vue
+  - [ ] QasLayout.vue
+  - [ ] QasListItems.vue
+  - [ ] QasListView.vue
+  - [ ] QasMap.vue
+  - [ ] QasNestedFields.vue
+  - [ ] QasNumericInput.vue
+  - [ ] QasOptionGroup.vue
+  - [ ] QasPageHeader.vue
+  - [ ] QasPagination.vue
+  - [ ] QasPasswordInput.vue
+  - [ ] QasPasswordStrengthChecker.vue
+  - [ ] QasProfile.vue
+  - [ ] QasResizer.vue
+  - [ ] QasSearchBox.vue
+  - [ ] QasSearchInput.vue
+  - [ ] QasSelect.vue
+  - [ ] QasSelectList.vue
+  - [ ] QasSignaturePad.vue
+  - [ ] QasSignatureUploader.vue
+  - [ ] QasSingleView.vue
+  - [ ] QasSortable.vue
+  - [x] QasStatus.vue
+  - [ ] QasTableGenerator.vue
+  - [ ] QasTabsGenerator.vue
+  - [x] QasTextTruncate.vue
+  - [ ] QasTransfer.vue
+  - [ ] QasTreeGenerator.vue
+  - [ ] QasUploader.vue
+  - [ ] QasWelcome.vue
 
 # Licença
 

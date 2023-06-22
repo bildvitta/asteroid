@@ -457,8 +457,16 @@ module.exports = [
     name: 'Composição',
     children: [
       {
+        name: 'useForm',
+        path: '/composables/use-form'
+      },
+      {
         name: 'useHistory',
         path: '/composables/use-history'
+      },
+      {
+        name: 'useScreen',
+        path: '/composables/use-screen'
       }
     ]
   },
