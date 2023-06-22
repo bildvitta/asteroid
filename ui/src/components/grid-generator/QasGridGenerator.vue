@@ -24,9 +24,10 @@ import { humanize } from '../../helpers/filters'
 import { isObject } from 'lodash-es'
 import { ref, computed, watch } from 'vue'
 
-// name
+// define component name
 defineOptions({ name: 'QasGridGenerator' })
 
+// props
 const props = defineProps({
   ...baseProps,
 
