@@ -37,8 +37,7 @@ Muitas vezes precisamos adicionar rótulos (label) a determinados blocos de camp
 
 <doc-example file="QasFormGenerator/Fieldset" title="Agrupando fields por rótulo (label)" />
 
-<!-- Em alguns casos, queremos acessar todo o conteúdo de um campo especifico para fazer uma logica um pouco mais detalhada, neste caso conseguimos acessar o slot de cada campo individualmente.
+Em alguns casos, queremos acessar todo o conteúdo de um campo especifico para fazer uma logica um pouco mais detalhada, neste caso conseguimos acessar o slot de cada campo individualmente.
 <doc-example file="QasFormGenerator/CustomSlot" title="Acessando slots" />
 
-Em muitos casos, você precisa passar alguma prop/evento para um campo, para não precisar abrir um slot, você pode utilizar a prop `fieldsProps` e repassar todas as props/eventos necessários.
-<doc-example file="QasFormGenerator/CustomProps" title="Acessando slots" /> -->
+<doc-example file="QasFormGenerator/CustomProps" title="Custom props" />
