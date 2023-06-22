@@ -16,7 +16,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - `Spacing.js`: adicionado enums de espaçamento.
 
 ### Modificado
-- [`QasBreakline`, `QasFormGenerator`, `QasStatus`, `QasTextTruncate`]: convertidos para composition API.
+- [`QasBreakline`, `QasFormGenerator`, `QasStatus`, `QasTextTruncate`, `QasGridGenerator`]: convertidos para composition API.
 
 ## [3.10.0] - 21-06-2023
 ## BREAKING CHANGES
