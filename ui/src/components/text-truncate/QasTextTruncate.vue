@@ -17,12 +17,13 @@
 <script setup>
 import {
   computed,
-  inject,
   onMounted,
   onUnmounted,
   ref,
   watch
 } from 'vue'
+
+import useScreen from '../../composables/use-screen'
 
 import QasDialog from '../dialog/QasDialog.vue'
 
@@ -136,7 +137,7 @@ function useMutationObserver ({ truncate, callbackFn = () => {} }) {
 
 function useTruncate ({ parent, props }) {
   // global
-  const $qas = inject('$qas')
+  const screen = useScreen()
 
   // reactive vars
   const maxPossibleWidth = ref('')
@@ -153,7 +154,7 @@ function useTruncate ({ parent, props }) {
   const isTruncated = computed(() => textWidth.value > maxPossibleWidth.value)
 
   const truncateTextClass = computed(() => {
-    return (isTruncated.value || $qas.screen.isSmall) && 'ellipsis q-pr-sm'
+    return (isTruncated.value || screen.isSmall) && 'ellipsis q-pr-sm'
   })
 
   // methods

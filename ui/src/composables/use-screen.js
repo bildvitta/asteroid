@@ -1,5 +1,5 @@
 import { Screen, Platform } from 'quasar'
-import { computed, reactive, toRefs } from 'vue'
+import { computed, reactive } from 'vue'
 
 /**
  * @function
@@ -38,5 +38,5 @@ export default function () {
     isMobile: computed(() => Platform.is.mobile || false)
   })
 
-  return toRefs(screens)
+  return screens
 }

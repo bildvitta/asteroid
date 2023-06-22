@@ -6,6 +6,7 @@ Composable para validação de tamanho de telas e plataforma mobile.
 
 ```js
 import { useScreen } from 'asteroid'
+import { toRefs } from 'vue'
 
 const screen = useScreen()
 
@@ -16,6 +17,8 @@ screen.untilMedium // de 0 até 599px
 screen.untilLarge // de 0 ate 1023px
 screen.isMobile // Plataforma
 
+// ou
+
 const {
   isSmall,
   isMedium,
@@ -23,5 +26,5 @@ const {
   untilMedium,
   untilLarge,
   isMobile
-} = useScreen()
+} = toRefs(useScreen())
 ```
