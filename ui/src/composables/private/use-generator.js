@@ -57,7 +57,6 @@ export function gutterValidator (value) {
  */
 export default function ({ props = {} }) {
   /**
-   * @constant
    * @type {{ value: string[] | string }}
    */
   const classes = computed(() => {
