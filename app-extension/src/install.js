@@ -7,11 +7,15 @@ module.exports = function (api) {
     ~+    INSTALAÇÃO CONCLUÍDA    +~
   `)
 
-  // adicionar arquivo de configuração de variareis sass ao projeto.
+  // -------------------------- CSS: quasar.variables.scss --------------------------
   api.renderFile(
-    // caminho do arquivo importado
-    './templates/css/quasar.variables.scss',
-    // caminho do arquivo que será criado no projeto
-    'src/css/quasar.variables.scss'
+    './templates/css/quasar.variables.scss', // caminho do arquivo importado
+    'src/css/quasar.variables.scss' // caminho do arquivo que será criado no projeto
+  )
+
+  // -------------------------- JS: asteroid.config.js -------------------------------
+  api.renderFile(
+    './templates/js/asteroid.config.js', // caminho do arquivo importado
+    'asteroid.config.js' // caminho do arquivo que será criado no projeto
   )
 }
