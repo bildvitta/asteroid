@@ -17,6 +17,7 @@ export default defineConfig({
 
     alias: {
       asteroid: path.resolve(__dirname, 'ui/src/asteroid.js'),
+      'asteroid-config': path.resolve(__dirname, 'docs/asteroid.config.js'),
       'vue-router': path.resolve(__dirname, 'docs/node_modules/vue-loader'),
       quasar: 'quasar/dist/quasar.esm.prod.js'
     }
