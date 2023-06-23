@@ -11,12 +11,13 @@ A prioridade de exibição do avatar é a imagem, caso não exista, será exibid
 > **image > title > icon**
 :::
 
-:::tip
-As cores disponíveis são `primary` e `secondary-contrast`.
+:::info
+As cores disponíveis são `primary`, `secondary-contrast` e `grey-4`.
 :::
 
 ## Uso
 
+<doc-example file="QasAvatar/Basic" title="Variações de cores" />
 <doc-example file="QasAvatar/Image" title="Com imagem" />
 <doc-example file="QasAvatar/Title" title="Com título" />
 <doc-example file="QasAvatar/Icon" title="Com icone" />
