@@ -1,5 +1,5 @@
-const required = (value = '', message = 'Campo obrigatório') => {
-  return String(value).length || message
+function required (value = '', message = 'Campo obrigatório') {
+  return !!value || message
 }
 
 export {
