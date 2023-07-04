@@ -10,6 +10,13 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 ### Sobre os "BREAKING CHANGES"
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
+## Não publicado
+## BREAKING CHANGES
+- Como agora as mudanças do v-model do componente `QasFormGenerator` é refletida instantaneamente, pode ser que em alguns locais foi utilizado o `$nextTick` para recuperar o valor mais atualizado do model, porém, talvez agora não seja mais necessário.
+
+### Corrigido
+- `QasFormGenerator`: Corrigido problema de atualização do `v-model`, agora as mudanças realizadas nos valores do formulário são refletidas instantaneamente.
+
 ## [3.11.0-beta.3] - 26-06-2023
 ### Modificado
 - `QasLabel`: modificado default da prop `margin` para `md (16px)`.
