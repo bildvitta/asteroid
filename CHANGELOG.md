@@ -15,6 +15,12 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - `QasSelectList`: adicionado nova prop `emitValue` com default `true`, quando valor é "true", transforma o model em um array de string, senão o model será um array de objeto (não foi usado o nome `useEmitValue` pois existe uma prop para mesma finalidade no QSelect do quasar e ela se chama "emitValue").
 - `QasSelectList`: adicionado nova prop `useEmitLabelValueOnly` com default `true`, propriedade para ser usada em conjunto com ':emitValue="false"', caso habilite essa propriedade, o model sempre será um array de objeto com label e value, se estiver desabilitado, o objeto dentro do model será o objeto inteiro, não somente label e value.
 
+### Modificado
+- `QasSearchInput`: modificado estilo do input, removido shadow e adicionado borda.
+
+### Corrigido
+- `QasSearchBox`: corrigido como é feito o primeiro fetch, antes o evento do infinite scroll era sempre chamado, agora ele espera finalizar o fetch inicial, após isto o infinite scroll é ativado.
+
 ## [3.11.0-beta.3] - 26-06-2023
 ### Modificado
 - `QasLabel`: modificado default da prop `margin` para `md (16px)`.
