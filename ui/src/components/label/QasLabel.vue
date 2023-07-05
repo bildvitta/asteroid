@@ -1,11 +1,12 @@
 <template>
-  <div class="text-subtitle1" :class="classes">
+  <div class="text-h4" :class="classes">
     <slot :label-with-suffix="labelWithSuffix">{{ labelWithSuffix }}</slot>
   </div>
 </template>
 
 <script>
 import { addCounterSuffix } from '../../helpers'
+import { Spacing } from '../../enums/Spacing'
 
 export default {
   name: 'QasLabel',
@@ -22,12 +23,12 @@ export default {
     },
 
     margin: {
-      default: 'sm',
+      default: Spacing.Md,
       type: String,
       validator: value => {
-        const marginList = ['none', 'auto', 'xs', 'sm', 'md', 'lg', 'xl', '2xl', '3xl']
+        const availableSpacings = Object.values(Spacing)
 
-        return marginList.includes(value)
+        return availableSpacings.includes(value)
       }
     },
 

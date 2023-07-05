@@ -4,34 +4,36 @@
   </component>
 </template>
 
-<script>
+<script setup>
+import { computed } from 'vue'
 import { getSlotChildrenText } from '../../helpers'
 
-export default {
-  name: 'QasBreakline',
+defineOptions({
+  name: 'QasBreakline'
+})
 
-  props: {
-    split: {
-      default: '\n',
-      type: String
-    },
-
-    tag: {
-      default: 'div',
-      type: String
-    },
-
-    text: {
-      default: '',
-      type: String
-    }
+const props = defineProps({
+  split: {
+    default: '\n',
+    type: String
   },
 
-  computed: {
-    lines () {
-      const text = this.text || getSlotChildrenText(this.$slots.default())
-      return text.split(this.split)
-    }
+  tag: {
+    default: 'div',
+    type: String
+  },
+
+  text: {
+    default: '',
+    type: String
   }
-}
+})
+
+const slots = defineSlots()
+
+const lines = computed(() => {
+  const text = props.text || getSlotChildrenText(slots.default())
+
+  return text.split(props.split)
+})
 </script>

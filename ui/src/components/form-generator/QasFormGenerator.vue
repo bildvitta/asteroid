@@ -6,17 +6,17 @@
       </slot>
 
       <div>
-        <div :class="mx_classes">
-          <div v-for="(field, key) in fieldsetItem.fields.visible" :key="key" :class="mx_getFieldClass(key)">
+        <div :class="classes">
+          <div v-for="(field, key) in fieldsetItem.fields.visible" :key="key" :class="getFieldClass({ index: key, fields: normalizedFields })">
             <slot :field="field" :name="`field-${field.name}`">
-              <qas-field :disable="isDisabled(field)" v-bind="fieldsProps[field.name]" :error="errors[key]" :field="field" :model-value="modelValue[field.name]" @update:model-value="updateModelValue(field.name, $event)" />
+              <qas-field :disable="isFieldDisabled(field)" v-bind="fieldsProps[field.name]" :error="errors[key]" :field="field" :model-value="modelValue[field.name]" @update:model-value="updateModelValue({ key: field.name, value: $event })" />
             </slot>
           </div>
         </div>
 
         <div v-for="(field, key) in fieldsetItem.fields.hidden" :key="key">
           <slot :field="field" :name="`field-${field.name}`">
-            <qas-field :disable="isDisabled(field)" v-bind="fieldsProps[field.name]" :field="field" :model-value="modelValue[field.name]" @update:model-value="updateModelValue(field.name, $event)" />
+            <qas-field :disable="isFieldDisabled(field)" v-bind="fieldsProps[field.name]" :field="field" :model-value="modelValue[field.name]" @update:model-value="updateModelValue({ key: field.name, value: $event })" />
           </slot>
         </div>
       </div>
@@ -24,149 +24,157 @@
   </div>
 </template>
 
-<script>
-import generatorMixin from '../../mixins/generator'
-import QasField from '../field/QasField.vue'
+<script setup>
+import useGenerator, { baseProps, gutterValidator } from '../../composables/private/use-generator'
+import { Spacing } from '../../enums/Spacing'
+import { computed } from 'vue'
 
-export default {
-  name: 'QasFormGenerator',
+defineOptions({ name: 'QasFormGenerator' })
 
-  components: {
-    QasField
+const props = defineProps({
+  ...baseProps,
+
+  disable: {
+    type: Boolean
   },
 
-  mixins: [generatorMixin],
-
-  props: {
-    errors: {
-      default: () => ({}),
-      type: Object
-    },
-
-    fieldsProps: {
-      default: () => ({}),
-      type: Object
-    },
-
-    order: {
-      default: () => [],
-      type: Array
-    },
-
-    modelValue: {
-      default: () => ({}),
-      required: true,
-      type: Object
-    },
-
-    fieldset: {
-      default: () => ({}),
-      type: Object
-    },
-
-    fieldsetGutter: {
-      default: 'lg',
-      type: [String, Boolean],
-      validator: value => {
-        return typeof value === 'boolean' || ['xs', 'sm', 'md', 'lg', 'xl'].includes(value)
-      }
-    },
-
-    disable: {
-      type: Boolean
-    }
+  errors: {
+    default: () => ({}),
+    type: Object
   },
 
-  emits: ['update:modelValue'],
-
-  computed: {
-    groupedFields () {
-      const fields = { hidden: {}, visible: {} }
-
-      if (this.hasFieldset) return fields
-
-      for (const key in this.fields) {
-        const field = this.fields[key]
-        fields[field.type === 'hidden' ? 'hidden' : 'visible'][key] = field
-      }
-
-      if (this.order.length) {
-        const visible = {}
-
-        for (const item of this.order) {
-          if (fields.visible[item]) { visible[item] = fields.visible[item] }
-        }
-
-        fields.visible = visible
-      }
-
-      return fields
-    },
-
-    normalizedFields () {
-      if (!this.hasFieldset) {
-        return {
-          default: {
-            fields: this.groupedFields
-          }
-        }
-      }
-
-      const fields = {}
-
-      for (const fieldsetKey in this.fieldset) {
-        const fieldsetItem = this.fieldset[fieldsetKey]
-
-        fields[fieldsetKey] = {
-          label: fieldsetItem.label,
-          fields: { hidden: {}, visible: {} }
-        }
-
-        for (const fieldName of fieldsetItem.fields) {
-          const field = this.fields[fieldName]
-
-          if (!field) continue
-
-          Object.assign(
-            fields[fieldsetKey].fields[
-              field.type === 'hidden' ? 'hidden' : 'visible'
-            ],
-            {
-              [fieldName]: field
-            }
-          )
-        }
-      }
-
-      return fields
-    },
-
-    hasFieldset () {
-      return !!Object.keys(this.fieldset).length
-    },
-
-    fieldsetClasses () {
-      const classes = ['row']
-
-      if (this.fieldsetGutter) {
-        classes.push(`q-col-gutter-y-${this.fieldsetGutter}`)
-      }
-
-      return classes
-    }
+  fieldset: {
+    default: () => ({}),
+    type: Object
   },
 
-  methods: {
-    updateModelValue (key, value) {
-      const models = { ...this.modelValue }
-      models[key] = value
+  fieldsetGutter: {
+    default: Spacing.Lg,
+    type: [String, Boolean],
+    validator: gutterValidator
+  },
 
-      this.$emit('update:modelValue', models)
-    },
+  fieldsProps: {
+    default: () => ({}),
+    type: Object
+  },
 
-    isDisabled ({ disable }) {
-      return disable || this.disable
+  modelValue: {
+    default: () => ({}),
+    required: true,
+    type: Object
+  },
+
+  order: {
+    default: () => [],
+    type: Array
+  }
+})
+
+const emit = defineEmits(['update:modelValue'])
+
+// composables
+const { classes, getFieldClass } = useGenerator({ props })
+
+const { fieldsetClasses, hasFieldset } = useFieldset({ props })
+
+// computed
+const groupedFields = computed(() => {
+  const fields = { hidden: {}, visible: {} }
+
+  if (hasFieldset.value) return fields
+
+  for (const key in props.fields) {
+    const field = props.fields[key]
+
+    const fieldType = getFieldType(field)
+
+    fields[fieldType][key] = field
+  }
+
+  if (props.order.length) {
+    const visible = {}
+
+    props.order.forEach(orderItem => {
+      if (fields.visible[orderItem]) {
+        visible[orderItem] = fields.visible[orderItem]
+      }
+    })
+
+    fields.visible = visible
+  }
+
+  return fields
+})
+
+const normalizedFields = computed(() => {
+  if (!hasFieldset.value) {
+    return {
+      default: {
+        fields: groupedFields.value
+      }
     }
+  }
+
+  const fields = {}
+
+  for (const fieldsetKey in props.fieldset) {
+    const fieldsetItem = props.fieldset[fieldsetKey]
+
+    fields[fieldsetKey] = {
+      label: fieldsetItem.label,
+      fields: { hidden: {}, visible: {} }
+    }
+
+    fieldsetItem.fields.forEach(fieldName => {
+      const field = props.fields[fieldName]
+
+      if (!field) return
+
+      const fieldType = getFieldType(field)
+
+      Object.assign(fields[fieldsetKey].fields[fieldType], {
+        [fieldName]: field
+      })
+    })
+  }
+
+  return fields
+})
+
+// methods
+function getFieldType ({ type }) {
+  return type === 'hidden' ? 'hidden' : 'visible'
+}
+
+function isFieldDisabled ({ disable }) {
+  return disable || props.disable
+}
+
+function updateModelValue ({ key, value }) {
+  const models = { ...props.modelValue }
+  models[key] = value
+
+  emit('update:modelValue', models)
+}
+
+// composables
+function useFieldset ({ props }) {
+  const fieldsetClasses = computed(() => {
+    const classes = ['row']
+
+    if (props.fieldsetGutter) {
+      classes.push(`q-col-gutter-y-${props.fieldsetGutter}`)
+    }
+
+    return classes
+  })
+
+  const hasFieldset = computed(() => !!Object.keys(props.fieldset).length)
+
+  return {
+    fieldsetClasses,
+    hasFieldset
   }
 }
 </script>

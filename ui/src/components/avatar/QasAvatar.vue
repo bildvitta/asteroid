@@ -7,6 +7,12 @@
 </template>
 
 <script>
+const AvatarColors = {
+  Primary: 'primary',
+  SecondaryContrast: 'secondary-contrast',
+  Grey4: 'grey-4'
+}
+
 export default {
   name: 'QasAvatar',
 
@@ -15,8 +21,12 @@ export default {
   props: {
     color: {
       type: String,
-      default: 'primary',
-      validator: value => ['primary', 'secondary-contrast'].includes(value)
+      default: AvatarColors.Primary,
+      validator: value => {
+        const availableColors = Object.values(AvatarColors)
+
+        return availableColors.includes(value)
+      }
     },
 
     size: {
@@ -69,8 +79,9 @@ export default {
       } = this.$attrs
 
       const colors = {
-        primary: 'white',
-        'secondary-contrast': 'primary'
+        [AvatarColors.Primary]: 'white',
+        [AvatarColors.SecondaryContrast]: 'primary',
+        [AvatarColors.Grey4]: 'grey-8'
       }
 
       return {

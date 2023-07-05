@@ -1,7 +1,7 @@
 {
   "name": "@bildvitta/asteroid-docs",
   "description": "Asteroid",
-  "version": "3.10.0-beta.10",
+  "version": "3.11.0-beta.3",
   "author": "Bild & Vitta <systemteam@bild.com.br>",
   "license": "MIT",
   "productName": "Asteroid Docs",
@@ -20,6 +20,7 @@
     "@bildvitta/vuex-offline": "^3.2.1",
     "@docsearch/css": "^3.4.0",
     "@docsearch/js": "^3.4.0",
+    "@fawmi/vue-google-maps": "^0.9.79",
     "@quasar/extras": "^1.16.4",
     "axios": "^1.4.0",
     "chart.js": "^4.3.0",
