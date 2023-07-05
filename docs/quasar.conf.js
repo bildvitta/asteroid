@@ -84,7 +84,6 @@ module.exports = configure(function (quasar) {
       chainWebpack (chain) {
         const nodePolyfillWebpackPlugin = require('node-polyfill-webpack-plugin')
 
-        chain.resolve.symlinks(false)
         chain.resolve.alias.set('vue', path.resolve('./node_modules/vue'))
 
         chain.plugin('node-polyfill').use(nodePolyfillWebpackPlugin)
