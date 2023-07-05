@@ -1,7 +1,14 @@
 <template>
   <qas-search-box v-model:results="results" v-bind="defaultSearchBoxProps" :list="sortedList">
+    <template #before-filter>
+      <div class="q-mb-md q-mt-xl">
+        <span class="q-pr-sm text-body1 text-grey-8">Seleção:</span>
+        <qas-btn label="Limpar seleção" variant="tertiary" @click="clearSelection" />
+      </div>
+    </template>
+
     <template #default>
-      <q-list separator>
+      <q-list bordered class="bg-white q-px-md rounded-borders" separator>
         <q-item v-for="result in results" :key="result.value" class="q-px-none">
           <slot v-bind="slotData" :item="result" name="item">
             <slot name="item-section" :result="result">
@@ -235,6 +242,11 @@ export default {
       }
 
       return objectValue
+    },
+
+    clearSelection () {
+      this.values = []
+      this.updateModel()
     }
   }
 }

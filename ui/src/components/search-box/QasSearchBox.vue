@@ -2,6 +2,8 @@
   <div>
     <qas-search-input v-bind="attributes" v-model="mx_search" />
 
+    <slot name="before-filter" />
+
     <div ref="scrollContainer" class="overflow-auto q-mt-md relative-position" :style="containerStyle">
       <component :is="component.is" v-bind="component.props" class="q-mr-sm">
         <slot v-if="mx_hasFilteredOptions" />
