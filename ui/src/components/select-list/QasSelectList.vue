@@ -55,6 +55,11 @@ export default {
       type: Boolean
     },
 
+    emitValue: {
+      type: Boolean,
+      default: true
+    },
+
     modelValue: {
       type: Array,
       default: () => []
@@ -71,6 +76,11 @@ export default {
 
     useClickableLabel: {
       type: Boolean
+    },
+
+    useEmitLabelValueOnly: {
+      type: Boolean,
+      default: true
     }
   },
 
@@ -147,14 +157,14 @@ export default {
 
   methods: {
     add (item) {
-      this.values.push(item.value)
+      this.values.push(this.getNormalizedValue(item))
       this.updateModel()
 
       this.$emit('added', item)
     },
 
     getButtonProps ({ value }) {
-      const isSelected = this.values.includes(value)
+      const isSelected = this.hasValueInModel(value)
 
       return {
         label: isSelected ? this.deleteLabel : this.addLabel,
@@ -165,7 +175,7 @@ export default {
     },
 
     handleClick (item) {
-      return this.values.includes(item.value) ? this.remove(item) : this.add(item)
+      return this.hasValueInModel(item.value) ? this.remove(item) : this.add(item)
     },
 
     handleList () {
@@ -186,7 +196,9 @@ export default {
     },
 
     remove (item) {
-      const index = this.values.findIndex(value => value === item.value)
+      const index = this.values.findIndex(itemValue => {
+        return this.emitValue ? itemValue === item.value : itemValue.value === item.value
+      })
 
       this.values.splice(index, 1)
       this.updateModel()
@@ -196,12 +208,33 @@ export default {
 
     sortList () {
       this.sortedList = this.deleteOnly
-        ? this.list.filter(item => this.modelValue.includes(item.value))
-        : sortBy(this.list, item => !this.modelValue.includes(item.value))
+        ? this.list.filter(item => this.hasValueInModel(item.value))
+        : sortBy(this.list, item => !this.hasValueInModel(item.value))
     },
 
     updateModel (model) {
       this.$emit('update:modelValue', model || this.values)
+    },
+
+    hasValueInModel (value) {
+      return this.emitValue
+        ? this.modelValue.includes(value)
+        : !!this.modelValue.find(item => item.value === value)
+    },
+
+    getNormalizedValue (objectValue = {}) {
+      if (this.emitValue) return objectValue.value
+
+      if (this.useEmitLabelValueOnly) {
+        const { label, value } = objectValue
+
+        return {
+          label,
+          value
+        }
+      }
+
+      return objectValue
     }
   }
 }
