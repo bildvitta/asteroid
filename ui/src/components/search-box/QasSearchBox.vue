@@ -91,7 +91,8 @@ export default {
 
   data () {
     return {
-      fuse: null
+      fuse: null,
+      isInfiniteScrollDisabled: true
     }
   },
 
@@ -125,7 +126,8 @@ export default {
       const infiniteScrollProps = {
         offset: 100,
         scrollTarget: this.$refs.scrollContainer,
-        ref: 'infiniteScrollRef'
+        ref: 'infiniteScrollRef',
+        disable: this.isInfiniteScrollDisabled
       }
 
       return {
@@ -216,15 +218,7 @@ export default {
     },
 
     async onInfiniteScroll (_, done) {
-      // Se tiver erro no primeiro fetch, retorna o "done" na proxima.
       if (((this.mx_hasFetchError && !this.mx_hasFilteredOptions) || this.hasNoOptionsOnFirstFetch)) return done()
-
-      const canMakeFirstFetch = this.mx_fetchCount === 0 && this.mx_hasFilteredOptions
-
-      if ((!this.mx_hasFilteredOptions || canMakeFirstFetch) && !this.mx_search) {
-        await this.mx_setFetchOptions()
-        return done()
-      }
 
       if (this.mx_canFetchOptions()) {
         await this.mx_loadMoreOptions()
@@ -255,8 +249,12 @@ export default {
       this.setListWatcher()
     },
 
-    setLazyLoading () {
+    async setLazyLoading () {
       this.mx_setCachedOptions('list')
+
+      await this.mx_setFetchOptions()
+
+      this.isInfiniteScrollDisabled = false
     }
   }
 }
