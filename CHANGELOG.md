@@ -10,6 +10,10 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 ### Sobre os "BREAKING CHANGES"
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
+## Não publicado
+### Corrigido
+- `search-filter.js`: corrigido problema ao limpar diversos campos relacionados a um mesmo campo de filtro.
+
 ## [3.11.0-beta.3] - 26-06-2023
 ### Modificado
 - `QasLabel`: modificado default da prop `margin` para `md (16px)`.
