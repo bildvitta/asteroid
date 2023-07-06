@@ -27,6 +27,11 @@ export default {
           value: 'uuid1'
         },
         {
+          label: 'teste',
+          email: 'email1@example.com',
+          value: 'teste'
+        },
+        {
           label: 'item 2',
           email: 'email2@example.com',
           value: 'uuid2'

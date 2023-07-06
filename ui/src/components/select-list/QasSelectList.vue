@@ -3,26 +3,30 @@
     <template #before-filter>
       <div class="q-mb-md q-mt-xl">
         <span class="q-pr-sm text-body1 text-grey-8">Seleção:</span>
-        <qas-btn label="Limpar seleção" variant="tertiary" @click="clearSelection" />
+        <qas-btn :disable="isClearSelectionDisabled" label="Limpar seleção" variant="tertiary" @click="clearSelection" />
       </div>
     </template>
 
     <template #default>
-      <q-list bordered class="bg-white q-px-md rounded-borders" separator>
+      <q-list class="bg-white rounded-borders" separator>
         <q-item v-for="result in results" :key="result.value" class="q-px-none">
           <slot v-bind="slotData" :item="result" name="item">
             <slot name="item-section" :result="result">
-              <q-item-section>
+              <q-item-section avatar>
+                <q-checkbox dense :disable="readonly" :label="result.label" :model-value="isChecked(result)" @update:model-value="handleClick(result)" />
+              </q-item-section>
+
+              <!-- <q-item-section>
                 <div :class="labelClass" @click="onClickLabel({ item: result, index })">
                   {{ result.label }}
                 </div>
-              </q-item-section>
+              </q-item-section> -->
             </slot>
 
             <q-item-section avatar>
-              <slot :item="result" name="item-action" v-bind="slotData">
+              <!-- <slot :item="result" name="item-action" v-bind="slotData">
                 <qas-btn :disable="readonly" :use-label-on-small-screen="false" v-bind="getButtonProps(result)" @click="handleClick(result)" />
-              </slot>
+              </slot> -->
             </q-item-section>
           </slot>
         </q-item>
@@ -73,7 +77,8 @@ export default {
     },
 
     readonly: {
-      type: Boolean
+      type: Boolean,
+      default: false
     },
 
     searchBoxProps: {
@@ -134,6 +139,10 @@ export default {
         remove: this.remove,
         updateModel: this.updateModel
       }
+    },
+
+    isClearSelectionDisabled () {
+      return !this.modelValue.length || this.readonly || !this.results.length
     }
   },
 
@@ -179,6 +188,10 @@ export default {
         color: isSelected ? 'grey-9' : 'primary',
         icon: isSelected ? 'sym_r_delete' : 'sym_r_add'
       }
+    },
+
+    isChecked ({ value }) {
+      return this.hasValueInModel(value)
     },
 
     handleClick (item) {

@@ -37,6 +37,8 @@ export default {
 
   data () {
     return {
+      mx_lastResultQuantity: 0,
+      mx_currentResultQuantity: 0,
       mx_cachedOptions: [],
       mx_fetchCount: 0,
       mx_filteredOptions: [],
@@ -165,6 +167,8 @@ export default {
         this.$emit('update:fetching', true)
 
         const { url, params, decamelizeFieldName } = this.mx_defaultLazyLoadingProps
+
+        await new Promise(resolve => setTimeout(resolve, 500))
 
         const { data } = await getAction.call(this, {
           entity: this.entity,

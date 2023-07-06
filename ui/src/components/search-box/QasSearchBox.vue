@@ -1,10 +1,10 @@
 <template>
-  <div>
+  <div class="qas-search-box">
     <qas-search-input v-bind="attributes" v-model="mx_search" />
 
     <slot name="before-filter" />
 
-    <div ref="scrollContainer" class="overflow-auto q-mt-md relative-position" :style="containerStyle">
+    <div ref="scrollContainer" class="overflow-auto q-mt-md q-px-md qas-search-box__container relative-position rounded-borders" :style="containerStyle">
       <component :is="component.is" v-bind="component.props" class="q-mr-sm">
         <slot v-if="mx_hasFilteredOptions" />
       </component>
@@ -16,11 +16,15 @@
       </slot>
 
       <slot v-if="showEmptyResult" name="empty-result">
-        <qas-empty-result-text class="q-mt-md" />
+        <q-item class="q-px-none">
+          <q-item-section class="q-px-none">
+            <qas-empty-result-text />
+          </q-item-section>
+        </q-item>
       </slot>
 
       <q-inner-loading :showing="showInnerLoading">
-        <q-spinner color="grey" size="3em" />
+        <q-spinner color="grey" size="2rem" />
       </q-inner-loading>
     </div>
   </div>
@@ -94,7 +98,12 @@ export default {
   data () {
     return {
       fuse: null,
-      isInfiniteScrollDisabled: true
+      scrollContainer: null,
+      isInfiniteScrollDisabled: true,
+      hasMoreOptionsThanLast: false,
+      hasScrollOnContainer: true,
+      newMaxHeight: 0,
+      fromSearch: false
     }
   },
 
@@ -111,7 +120,7 @@ export default {
     },
 
     containerStyle () {
-      return { height: this.containerHeight }
+      return { maxHeight: this.containerHeight }
     },
 
     hasNoOptionsOnFirstFetch () {
@@ -127,7 +136,7 @@ export default {
     component () {
       const infiniteScrollProps = {
         offset: 100,
-        scrollTarget: this.$refs.scrollContainer,
+        scrollTarget: this.scrollContainer,
         ref: 'infiniteScrollRef',
         disable: this.isInfiniteScrollDisabled
       }
@@ -210,6 +219,10 @@ export default {
     }
   },
 
+  mounted () {
+    this.scrollContainer = this.$refs.scrollContainer
+  },
+
   created () {
     this.setSearchMethod()
   },
@@ -261,3 +274,13 @@ export default {
   }
 }
 </script>
+
+<style lang="scss">
+.qas-search-box {
+  &__container {
+    min-height: 48px;
+    background-color: white;
+    border: 1px solid $grey-4;
+  }
+}
+</style>
