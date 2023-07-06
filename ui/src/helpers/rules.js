@@ -1,4 +1,4 @@
-function required (value = '', message = 'Campo obrigatório') {
+function required (value = '', message = 'Campo obrigatório.') {
   return String(value ?? '') || message
 }
 
