@@ -38,7 +38,7 @@ module.exports = async function (api, config = {}) {
     try {
       const command = getCommand({ isDev, dependency, version })
 
-      await execaSync('npm', ['install', ...command], { cwd: api.appDir })
+      await execaSync('npm', [...command], { cwd: api.appDir })
 
       installSpinner.succeed(`Dependência "${dependency}" instalada com sucesso.`).succeed()
     } catch {

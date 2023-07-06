@@ -41,6 +41,15 @@ npm add file:~/Documents/bild/asteroid/ui
 
 Agora o `quasar-app-extension-asteroid` dentro do `node_modules` do seu projeto está redirecionado para o `ui/` do asteroid localmente.
 
+:::warning
+
+Caso esteja utilizando a versão do Asteroid superior à **3.11.0-beta.0**, deverá ser incluído este alias dentro do `chainWebpack` em seu `quasar.conf.js`.
+
+```js
+chain.resolve.alias.set('vue', path.resolve('./node_modules/vue'))
+
+```
+:::
 
 ### Passos para criar um componente no asteroid.
 Vamos imaginar que iremos criar um componente chamado `AutoComplete.vue`.

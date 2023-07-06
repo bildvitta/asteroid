@@ -39,6 +39,9 @@ module.exports = {
      * dentro da aplicação que utiliza o asteroid, a instalação é feita automaticamente pelo asteroid.
      * @type {Array<'QasChartView' | 'QasMap'>}
     */
-    thirdPartyComponents: ['QasMap']
+    thirdPartyComponents: [
+      'QasMap',
+      'QasChartView'
+    ]
   }
 }

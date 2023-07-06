@@ -31,7 +31,8 @@
     "Mixins",
     "QasActionsMenu",
     "QasTableGenerator",
-    "QasDate"
+    "QasDate",
+    "QasChartView"
   ],
   "cSpell.words": [
     "Breakline",
