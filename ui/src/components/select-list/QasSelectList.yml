@@ -43,10 +43,6 @@ props:
     default: {}
     type: Object
 
-  use-clickable-label:
-    desc: Habilita "cursor-pointer" no label e evento "click-label".
-    type: Boolean
-
   use-emit-label-value-only:
     desc: Propriedade para ser usada em conjunto com ':emitValue="false"', caso habilite essa propriedade, o model sempre será um array de objeto com label e value, se estiver desabilitado, o objeto dentro do model será o objeto inteiro, não somente label e value.
     default: true
@@ -64,33 +60,6 @@ slots:
         desc: Função para adicionar um item ao model
         type: Function
 
-      handleClick:
-        desc: Função que controla o model adiciona ou remove do model
-        type: Function
-
-      remove:
-        desc: Função para remover um item do model
-        type: Function
-
-      updateModel:
-        desc: Função para atualizar o v-model
-        type: Function
-
-  item-action:
-    desc: Acesso dentro do "<q-item-section avatar />".
-    scope:
-      item:
-        desc: Item atual da lista
-        type: Object
-
-      add:
-        desc: Função para adicionar um item ao model
-        type: Function
-
-      handleClick:
-        desc: Função que controla o model adiciona ou remove do model
-        type: Function
-
       remove:
         desc: Função para remover um item do model
         type: Function
@@ -106,16 +75,6 @@ events:
       item:
         desc: Item adicionado
         type: String
-
-  '@click-label -> function ({ item, index })':
-    desc: Dispara toda vez que o label do item é clicado **SE** a propriedade "useClickableLabel" for "true".
-    params:
-      item:
-        desc: Item clicado
-        type: Object
-      index:
-        desc: Posição do item
-        type: Number
 
   '@removed -> function (item, index)':
     desc: Dispara toda vez que um item é removido do v-model.

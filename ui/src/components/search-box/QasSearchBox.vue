@@ -2,9 +2,9 @@
   <div class="qas-search-box">
     <qas-search-input v-bind="attributes" v-model="mx_search" />
 
-    <slot name="before-filter" />
+    <slot name="after-search" />
 
-    <div ref="scrollContainer" class="overflow-auto q-mt-md q-px-md qas-search-box__container relative-position rounded-borders" :style="containerStyle">
+    <div ref="scrollContainer" class="overflow-auto q-mt-md relative-position" :class="containerClasses" :style="containerStyle">
       <component :is="component.is" v-bind="component.props" class="q-mr-sm">
         <slot v-if="mx_hasFilteredOptions" />
       </component>
@@ -73,6 +73,11 @@ export default {
       type: String
     },
 
+    outlined: {
+      default: false,
+      type: Boolean
+    },
+
     placeholder: {
       default: 'Pesquisar',
       type: String
@@ -99,11 +104,7 @@ export default {
     return {
       fuse: null,
       scrollContainer: null,
-      isInfiniteScrollDisabled: true,
-      hasMoreOptionsThanLast: false,
-      hasScrollOnContainer: true,
-      newMaxHeight: 0,
-      fromSearch: false
+      isInfiniteScrollDisabled: true
     }
   },
 
@@ -147,6 +148,14 @@ export default {
           ...(this.useLazyLoading && infiniteScrollProps),
           ...(this.useLazyLoading && { onLoad: this.onInfiniteScroll })
         }
+      }
+    },
+
+    containerClasses () {
+      return {
+        'qas-search-box__container': this.outlined,
+        'q-px-md': this.outlined,
+        'rounded-borders': this.outlined
       }
     },
 

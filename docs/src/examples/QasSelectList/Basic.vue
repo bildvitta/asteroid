@@ -14,6 +14,7 @@ export default {
   data () {
     return {
       model: ['uuid5', 'uuid9'],
+      list2: [],
       results: []
     }
   },
@@ -22,17 +23,17 @@ export default {
     list () {
       return [
         {
-          label: 'item 1',
+          label: 'item 1 Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam dolorum fugit optio aperiam modi aspernatur odio in, perspiciatis',
           email: 'email1@example.com',
           value: 'uuid1'
         },
         {
-          label: 'teste',
+          label: 'teste Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam dolorum fugit optio aperiam modi aspernatur odio in, perspiciatis',
           email: 'email1@example.com',
           value: 'teste'
         },
         {
-          label: 'item 2',
+          label: 'item 2 Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam dolorum fugit optio aperiam modi aspernatur odio in, perspiciatis',
           email: 'email2@example.com',
           value: 'uuid2'
         },
@@ -52,7 +53,7 @@ export default {
           value: 'uuid5'
         },
         {
-          label: 'item 6',
+          label: 'item 6 Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam dolorum fugit optio aperiam modi aspernatur odio in, perspiciatis',
           email: 'email6@example.com',
           value: 'uuid6'
         },
@@ -107,9 +108,18 @@ export default {
     props () {
       return {
         searchBoxProps: {
-          list: this.list
+          list: this.list2
         }
       }
+    }
+  },
+
+  created () {
+    for (let index = 0; index < 48; index++) {
+      this.list2.push({
+        label: `item ${index}`,
+        value: `uuid${index}`
+      })
     }
   }
 }

@@ -14,12 +14,23 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 ### Adicionado
 - `QasSelectList`: adicionado nova prop `emitValue` com default `true`, quando valor é "true", transforma o model em um array de string, senão o model será um array de objeto (não foi usado o nome `useEmitValue` pois existe uma prop para mesma finalidade no QSelect do quasar e ela se chama "emitValue").
 - `QasSelectList`: adicionado nova prop `useEmitLabelValueOnly` com default `true`, propriedade para ser usada em conjunto com ':emitValue="false"', caso habilite essa propriedade, o model sempre será um array de objeto com label e value, se estiver desabilitado, o objeto dentro do model será o objeto inteiro, não somente label e value.
+- `QasSearchBox`: adicionado nova propriedade `outlined` que define se a área que contém o resultado da pesquisa terá o estilo de borda arredondada com fundo branco (semelhante a um input).
+- `QasSelectList`: adicionado novo recurso de limpar seleção.
 
 ### Modificado
 - `QasSearchInput`: modificado estilo do input, removido shadow e adicionado borda.
+- `item.scss`: alterado espaçamento global da classe `q-item__section--side` que é aplicado quando usado `QItem` com `QItemSection` com propriedade `avatar`, deixando o `padding-right` menor (sm).
+- `QasSelectList`: modificado comportamento de como é adicionado itens, antes feito por botões de adicionar/remover, agora é feito por um `checkbox`.
 
 ### Corrigido
 - `QasSearchBox`: corrigido como é feito o primeiro fetch, antes o evento do infinite scroll era sempre chamado, agora ele espera finalizar o fetch inicial, após isto o infinite scroll é ativado.
+
+### Removido
+- `QasSelectList`: removido slot `item-action`, como o componente mudou o layout, esse slot mudaria de lugar, porém o uso dele é desnecessário e pode levar a quebra de Design System.
+- `QasSelectList`: removido slot `item-section`, como foi removido o slot `item-action`, não faz mais sentido um slot para o `item-section` pois a estrutura é a mesma, caso necessário, utilizar o slot `item`.
+- `QasSelectList`: removido prop `useClickableLabel`, clicar na label agora faz selecionar o item sempre.
+- `QasSelectList`: removido scope `handleClick` para `onUpdateModel` no slot `item`.
+- `QasSelectList`: removido evento `click-label`.
 
 ## [3.11.0-beta.3] - 26-06-2023
 ### Modificado

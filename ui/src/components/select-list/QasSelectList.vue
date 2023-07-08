@@ -1,32 +1,19 @@
 <template>
   <qas-search-box v-model:results="results" v-bind="defaultSearchBoxProps" :list="sortedList">
-    <template #before-filter>
+    <template #after-search>
       <div class="q-mb-md q-mt-xl">
         <span class="q-pr-sm text-body1 text-grey-8">Seleção:</span>
+
         <qas-btn :disable="isClearSelectionDisabled" label="Limpar seleção" variant="tertiary" @click="clearSelection" />
       </div>
     </template>
 
     <template #default>
       <q-list class="bg-white rounded-borders" separator>
-        <q-item v-for="result in results" :key="result.value" class="q-px-none">
+        <q-item v-for="(result) in results" :key="result.value" class="q-px-none" tag="label">
           <slot v-bind="slotData" :item="result" name="item">
-            <slot name="item-section" :result="result">
-              <q-item-section avatar>
-                <q-checkbox dense :disable="readonly" :label="result.label" :model-value="isChecked(result)" @update:model-value="handleClick(result)" />
-              </q-item-section>
-
-              <!-- <q-item-section>
-                <div :class="labelClass" @click="onClickLabel({ item: result, index })">
-                  {{ result.label }}
-                </div>
-              </q-item-section> -->
-            </slot>
-
-            <q-item-section avatar>
-              <!-- <slot :item="result" name="item-action" v-bind="slotData">
-                <qas-btn :disable="readonly" :use-label-on-small-screen="false" v-bind="getButtonProps(result)" @click="handleClick(result)" />
-              </slot> -->
+            <q-item-section>
+              <pv-select-list-checkbox :readonly="readonly" :result="result" :use-active="hasValueInModel(result.value)" @add="add" @remove="remove" />
             </q-item-section>
           </slot>
         </q-item>
@@ -40,13 +27,17 @@ import { sortBy } from 'lodash-es'
 
 import QasBtn from '../btn/QasBtn.vue'
 import QasSearchBox from '../search-box/QasSearchBox.vue'
+import PvSelectListCheckbox from './private/PvSelectListCheckbox.vue'
 
 export default {
   name: 'QasSelectList',
 
   components: {
     QasBtn,
-    QasSearchBox
+    QasSearchBox,
+
+    // private
+    PvSelectListCheckbox
   },
 
   inheritAttrs: false,
@@ -86,10 +77,6 @@ export default {
       default: () => ({})
     },
 
-    useClickableLabel: {
-      type: Boolean
-    },
-
     useEmitLabelValueOnly: {
       type: Boolean,
       default: true
@@ -98,7 +85,6 @@ export default {
 
   emits: [
     'added',
-    'click-label',
     'removed',
     'update:modelValue'
   ],
@@ -116,16 +102,14 @@ export default {
       return {
         fuseOptions: { keys: ['label'] },
 
-        ...this.searchBoxProps
+        ...this.searchBoxProps,
+
+        outlined: true
       }
     },
 
     hasLazyLoading () {
       return this.defaultSearchBoxProps.useLazyLoading
-    },
-
-    labelClass () {
-      return this.useClickableLabel && 'cursor-pointer'
     },
 
     list () {
@@ -135,7 +119,6 @@ export default {
     slotData () {
       return {
         add: this.add,
-        handleClick: this.handleClick,
         remove: this.remove,
         updateModel: this.updateModel
       }
@@ -179,25 +162,6 @@ export default {
       this.$emit('added', item)
     },
 
-    getButtonProps ({ value }) {
-      const isSelected = this.hasValueInModel(value)
-
-      return {
-        label: isSelected ? this.deleteLabel : this.addLabel,
-        variant: 'tertiary',
-        color: isSelected ? 'grey-9' : 'primary',
-        icon: isSelected ? 'sym_r_delete' : 'sym_r_add'
-      }
-    },
-
-    isChecked ({ value }) {
-      return this.hasValueInModel(value)
-    },
-
-    handleClick (item) {
-      return this.hasValueInModel(item.value) ? this.remove(item) : this.add(item)
-    },
-
     handleList () {
       if (this.modelValue.length) {
         return this.sortList()
@@ -209,10 +173,6 @@ export default {
           unwatch()
         }
       })
-    },
-
-    onClickLabel ({ item, index }) {
-      this.useClickableLabel && this.$emit('click-label', { item, index })
     },
 
     remove (item) {
