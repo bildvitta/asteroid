@@ -10,13 +10,17 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 ### Sobre os "BREAKING CHANGES"
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
-## [Não publicado]
+## Não publicado
 ### Adicionado
-- Componente de grafícos `QasChartView`.
+- Componente de gráficos `QasChartView`.
 - Instalação automática das dependências do `QasChartView` via `thirdPartyComponents`.
 
 ### Corrigido
+### Corrigido
 - Problema de instalar a dependência `install` ao utilizar a opção do asteroid instalar automáticamente as libs de terceiros pelo `thirdPartyComponents`.
+- `required`: corrigida a validação para `null`.
+- `required`: Adicionado ponto final à frase padrão.
+- `search-filter.js`: corrigido problema ao limpar diversos campos relacionados a um mesmo campo de filtro.
 
 ## [3.11.0-beta.3] - 26-06-2023
 ### Modificado
