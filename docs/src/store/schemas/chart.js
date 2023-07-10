@@ -15,11 +15,13 @@ export const fields = {
         type: 'text',
         label: 'Eixo x'
       },
+
       y: {
         name: 'y',
         type: 'number',
         label: 'Eixo y'
       },
+
       tooltip: {
         name: 'tooltip',
         type: 'text',
@@ -38,6 +40,7 @@ export const schema = {
     label: {
       type: 'string'
     },
+
     data: {
       type: 'array',
       items: {
@@ -46,9 +49,11 @@ export const schema = {
           x: {
             type: 'string'
           },
+
           y: {
             type: 'number'
           },
+
           tooltip: {
             type: 'string'
           }
@@ -56,6 +61,7 @@ export const schema = {
       }
     }
   },
+
   required: [
     'label',
     'data'

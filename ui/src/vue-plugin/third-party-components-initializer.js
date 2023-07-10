@@ -1,7 +1,9 @@
+import chartViewComponent from './components/chart-view-component'
 import mapComponent from './components/map-component'
 
 export default function () {
   const components = {
+    QasChartView: chartViewComponent(),
     QasMap: mapComponent()
   }
 

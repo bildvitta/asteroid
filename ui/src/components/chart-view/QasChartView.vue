@@ -11,12 +11,12 @@
     </template>
 
     <template #right>
-      <qas-filters v-bind="chartFilters" v-model:currentFilters="filters" />
+      <qas-filters v-bind="chartFiltersProps" v-model:currentFilters="filters" />
     </template>
   </qas-header-actions>
 
-  <div v-bind="componentProps">
-    <component :is="chartType" v-if="showChart" v-bind="chartProps" />
+  <div v-bind="parentComponentProps">
+    <component :is="chartComponent.is" v-if="showChart" v-bind="chartComponent.props" />
 
     <div v-else-if="!isFetching">
       <slot name="empty-results">
@@ -57,6 +57,12 @@ import chartDataLabels from 'chartjs-plugin-datalabels'
 import { extend } from 'quasar'
 import { filterListByHandle } from '../../helpers'
 import { getAction } from '@bildvitta/store-adapter'
+
+const CharTypes = {
+  Bar: 'bar',
+  Doughnut: 'doughnut',
+  Line: 'line'
+}
 
 export default {
   name: 'QasChartView',
@@ -110,7 +116,7 @@ export default {
     type: {
       default: 'bar',
       type: String,
-      validator: value => ['bar', 'doughnut', 'line'].includes(value)
+      validator: value => Object.values(CharTypes).includes(value)
     },
 
     url: {
@@ -149,9 +155,10 @@ export default {
 
       const [dataset] = this.data
       const labels = this.getXAxisData(dataset.data.map(item => item.x))
+
       const datasets = this.data.map(({ label, data }, index) => {
         const backgroundColor = this.isDoughnut ? colors : colors.at(index)
-        const borderColor = this.isDoughnut ? '#FFFFFF' : colors.at(index)
+        const borderColor = this.isDoughnut ? 'white' : colors.at(index)
 
         return {
           backgroundColor,
@@ -168,7 +175,7 @@ export default {
       }
     },
 
-    chartFilters () {
+    chartFiltersProps () {
       const { entity, useFilterButton, url } = this
 
       return {
@@ -204,14 +211,6 @@ export default {
       ])
     },
 
-    chartProps () {
-      return {
-        data: this.chartData,
-        options: this.chartOptions,
-        plugins: this.chartPlugins
-      }
-    },
-
     chartType () {
       const components = {
         bar: 'BarChart',
@@ -222,7 +221,18 @@ export default {
       return components[this.type]
     },
 
-    componentProps () {
+    chartComponent () {
+      return {
+        is: this.chartType,
+        props: {
+          data: this.chartData,
+          options: this.chartOptions,
+          plugins: this.chartPlugins
+        }
+      }
+    },
+
+    parentComponentProps () {
       return {
         class: 'relative-position',
         style: `min-height: ${this.height}`
@@ -255,10 +265,8 @@ export default {
   },
 
   watch: {
-    filters: {
-      handler () {
-        this.fetchData()
-      }
+    filters () {
+      this.fetchData()
     },
 
     isFetching (value) {
@@ -267,7 +275,7 @@ export default {
   },
 
   created () {
-    this.setInitialConfig()
+    this.initializeChartJS()
     this.fetchData()
   },
 
@@ -321,7 +329,7 @@ export default {
       return data
     },
 
-    setInitialConfig () {
+    initializeChartJS () {
       const defaultChartItems = [
         CategoryScale,
         LinearScale,

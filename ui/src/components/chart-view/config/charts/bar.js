@@ -18,20 +18,25 @@ export const bar = {
       border: {
         display: false
       },
+
       grid: {
         display: false
       },
+
       ticks: {
         padding: 8
       }
     },
+
     y: {
       border: {
         display: false
       },
+
       grid: {
         display: false
       },
+
       ticks: {
         stepSize: 1
       }

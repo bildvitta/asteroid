@@ -47,7 +47,6 @@ Caso esteja utilizando a versão do Asteroid superior à **3.11.0-beta.0**, deve
 
 ```js
 chain.resolve.alias.set('vue', path.resolve('./node_modules/vue'))
-
 ```
 :::
 

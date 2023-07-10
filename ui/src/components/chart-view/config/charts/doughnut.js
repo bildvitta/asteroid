@@ -1,7 +1,7 @@
 import { tooltipPluginConfig } from '../plugins'
 import { percent } from '../../../../helpers'
 
-function percentageFormat (value, context) {
+function getPercentFormat (value, context) {
   const total = context.dataset.data.reduce((accumulator, currentValue, index) => {
     if (context.chart._hiddenIndices?.[index]) return accumulator
 
@@ -18,14 +18,16 @@ export const doughnut = {
   borderSkipped: true,
   borderWidth: 1,
   maintainAspectRatio: false,
+  responsive: true,
   plugins: {
     datalabels: {
       color: 'white',
       font: {
         weight: 600
       },
-      formatter: percentageFormat
+      formatter: getPercentFormat
     },
+
     legend: {
       align: 'center',
       labels: {
@@ -35,7 +37,7 @@ export const doughnut = {
       },
       position: 'bottom'
     },
+
     tooltip: tooltipPluginConfig
-  },
-  responsive: true
+  }
 }

@@ -100,7 +100,6 @@ async function install (app) {
   app.component('QasBtn', QasBtn)
   app.component('QasBtnDropdown', QasBtnDropdown)
   app.component('QasCard', QasCard)
-  app.component('QasChartView', QasChartView)
   app.component('QasCheckboxGroup', QasCheckboxGroup)
   app.component('QasCopy', QasCopy)
   app.component('QasDate', QasDate)

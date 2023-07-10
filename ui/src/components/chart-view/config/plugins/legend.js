@@ -4,5 +4,6 @@ export const legendPluginConfig = {
     boxWidth: 16,
     padding: 24
   },
+
   position: 'bottom'
 }
