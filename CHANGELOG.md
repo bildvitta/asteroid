@@ -10,12 +10,10 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 ### Sobre os "BREAKING CHANGES"
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
-## [Unreleased]
-### adicionado
-- `required`: Adicionado ponto final à frase padrão.
-
+## Não publicado
 ### Corrigido
 - `required`: corrigida a validação para `null`.
+- `required`: Adicionado ponto final à frase padrão.
 
 ## [3.11.0-beta.3] - 26-06-2023
 ### Modificado
