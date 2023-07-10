@@ -108,7 +108,8 @@ export default {
     props () {
       return {
         searchBoxProps: {
-          list: this.list2
+          list: this.list2,
+          height: '100px'
         }
       }
     }

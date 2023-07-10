@@ -1,5 +1,5 @@
 <template>
-  <qas-search-box v-model:results="results" v-bind="defaultSearchBoxProps" :list="sortedList">
+  <qas-search-box ref="searchBox" v-model:results="results" v-bind="defaultSearchBoxProps" :list="sortedList">
     <template #after-search>
       <div class="q-mb-md q-mt-xl">
         <span class="q-pr-sm text-body1 text-grey-8">Seleção:</span>
@@ -218,6 +218,14 @@ export default {
     },
 
     clearSelection () {
+      if (this.$refs.searchBox.mx_search) {
+        this.results.forEach(item => {
+          if (this.hasValueInModel(item.value)) this.remove(item)
+        })
+
+        return
+      }
+
       this.values = []
       this.updateModel()
     }
