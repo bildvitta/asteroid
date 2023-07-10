@@ -12,6 +12,8 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 
 ## Não publicado
 ### Corrigido
+- `required`: corrigida a validação para `null`.
+- `required`: Adicionado ponto final à frase padrão.
 - `search-filter.js`: corrigido problema ao limpar diversos campos relacionados a um mesmo campo de filtro.
 
 ## [3.11.0-beta.3] - 26-06-2023
