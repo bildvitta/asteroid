@@ -102,7 +102,7 @@ function getFieldsByResult () {
   const result = { ...props.result }
   const fieldsByResult = {}
 
-  for (const key in result) {
+  for (const key in formattedFields.value) {
     const field = formattedFields.value[key] || {}
 
     if (!field.type) continue
