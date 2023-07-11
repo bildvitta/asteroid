@@ -5,3 +5,13 @@
     </qas-text-truncate>
   </div>
 </template>
+
+<script>
+export default {
+  data () {
+    return {
+      model: false
+    }
+  }
+}
+</script>
