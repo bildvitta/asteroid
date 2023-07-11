@@ -159,13 +159,24 @@ export default {
       const datasets = this.data.map(({ label, data }, index) => {
         const backgroundColor = this.isDoughnut ? colors : colors.at(index)
         const borderColor = this.isDoughnut ? 'white' : colors.at(index)
+        const yAxisData = []
+        const xAxisData = []
+
+        for (const dataKey in data) {
+          const item = data[dataKey]
+
+          if (item) {
+            yAxisData.push(item.y)
+            xAxisData.push(item.tooltip)
+          }
+        }
 
         return {
           backgroundColor,
           borderColor,
-          data: this.getYAxisData(data.map(item => item.y)),
+          data: this.getYAxisData(yAxisData),
           label,
-          tooltips: this.getXAxisData(data.map(item => item.tooltip))
+          tooltips: this.getXAxisData(xAxisData)
         }
       })
 
@@ -261,6 +272,25 @@ export default {
 
     showChart () {
       return this.isFetched && this.hasDataSets
+    },
+
+    defaultChartItems () {
+      return [
+        CategoryScale,
+        LinearScale,
+        PointElement,
+        Title,
+        Tooltip,
+        Legend
+      ]
+    },
+
+    elementsChartItems () {
+      return {
+        bar: [BarElement],
+        doughnut: [ArcElement],
+        line: [LineElement]
+      }
     }
   },
 
@@ -275,8 +305,12 @@ export default {
   },
 
   created () {
-    this.initializeChartJS()
+    this.registerChartJS()
     this.fetchData()
+  },
+
+  unmounted () {
+    this.unregisterChartJS()
   },
 
   methods: {
@@ -329,28 +363,20 @@ export default {
       return data
     },
 
-    initializeChartJS () {
-      const defaultChartItems = [
-        CategoryScale,
-        LinearScale,
-        PointElement,
-        Title,
-        Tooltip,
-        Legend
-      ]
-
-      const elementsChartItems = {
-        bar: [BarElement],
-        doughnut: [ArcElement],
-        line: [LineElement]
-      }
-
+    registerChartJS () {
       ChartJS.register(
-        ...defaultChartItems,
-        ...elementsChartItems[this.type]
+        ...this.defaultChartItems,
+        ...this.elementsChartItems[this.type]
       )
 
       ChartJS.defaults.font = font
+    },
+
+    unregisterChartJS () {
+      ChartJS.unregister(
+        ...this.defaultChartItems,
+        ...this.elementsChartItems[this.type]
+      )
     }
   }
 }
