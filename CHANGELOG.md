@@ -21,6 +21,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - `QasSearchInput`: modificado estilo do input, removido shadow e adicionado borda.
 - `item.scss`: alterado espaçamento global da classe `q-item__section--side` que é aplicado quando usado `QItem` com `QItemSection` com propriedade `avatar`, deixando o `padding-right` menor (sm).
 - `QasSelectList`: modificado comportamento de como é adicionado itens, antes feito por botões de adicionar/remover, agora é feito por um `checkbox`.
+- `QasSearchBox`: alterado `height` fixo para `max-height` (impacta QasSelectList).
 
 ### Corrigido
 - `QasSearchBox`: corrigido como é feito o primeiro fetch, antes o evento do infinite scroll era sempre chamado, agora ele espera finalizar o fetch inicial, após isto o infinite scroll é ativado.

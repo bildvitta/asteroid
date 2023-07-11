@@ -68,8 +68,7 @@ export default {
     },
 
     readonly: {
-      type: Boolean,
-      default: false
+      type: Boolean
     },
 
     searchBoxProps: {

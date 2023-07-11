@@ -74,7 +74,6 @@ export default {
     },
 
     outlined: {
-      default: false,
       type: Boolean
     },
 
