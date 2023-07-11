@@ -4,7 +4,7 @@
 
 <script setup>
 defineOptions({
-  name: 'QasSelectListCheckbox'
+  name: 'PvSelectListCheckbox'
 })
 
 const props = defineProps({

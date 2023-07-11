@@ -10,7 +10,7 @@
 
     <template #default>
       <q-list class="bg-white rounded-borders" separator>
-        <q-item v-for="(result) in results" :key="result.value" class="q-px-none" tag="label">
+        <q-item v-for="result in results" :key="result.value" class="q-px-none" tag="label">
           <slot v-bind="slotData" :item="result" name="item">
             <q-item-section>
               <pv-select-list-checkbox :readonly="readonly" :result="result" :use-active="hasValueInModel(result.value)" @add="add" @remove="remove" />
@@ -185,7 +185,9 @@ export default {
 
     remove (item) {
       const index = this.values.findIndex(itemValue => {
-        return this.emitValue ? itemValue === item.value : itemValue.value === item.value
+        const normalizedItem = this.emitValue ? itemValue : item.value
+
+        return normalizedItem === item.value
       })
 
       this.values.splice(index, 1)
