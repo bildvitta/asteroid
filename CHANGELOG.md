@@ -10,7 +10,7 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 ### Sobre os "BREAKING CHANGES"
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
-## Não publicado
+## [3.11.0-beta.5] - 11-07-2023
 ### Corrigido
 - Corrigido problemas relacionados aos `third party components`.
 
@@ -1705,3 +1705,4 @@ Adicionado suporte para Pinia/Vuex Seguindo os padrões da biblioteca `@bildvitt
 [3.11.0-beta.2]: https://github.com/bildvitta/asteroid/compare/v3.11.0-beta.1...v3.11.0-beta.2?expand=1
 [3.11.0-beta.3]: https://github.com/bildvitta/asteroid/compare/v3.11.0-beta.2...v3.11.0-beta.3?expand=1
 [3.11.0-beta.4]: https://github.com/bildvitta/asteroid/compare/v3.11.0-beta.3...v3.11.0-beta.4?expand=1
+[3.11.0-beta.5]: https://github.com/bildvitta/asteroid/compare/v3.11.0-beta.4...v3.11.0-beta.5?expand=1
