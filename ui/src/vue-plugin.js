@@ -72,18 +72,11 @@ import {
 } from './plugins'
 
 import packageInfo from '../package.json'
-import thirdPartyComponentsInitializer from './vue-plugin/third-party-components-initializer'
 
 // Directives
 import Test from './directives/Test.js'
 
 const version = packageInfo.version
-
-const thirdPartyComponentsInitializerFn = thirdPartyComponentsInitializer()
-
-const {
-  QasMap
-} = thirdPartyComponentsInitializerFn.getComponents()
 
 async function install (app) {
   app.component('QasActions', QasActions)
@@ -147,8 +140,6 @@ async function install (app) {
   app.component('QasUploader', QasUploader)
   app.component('QasWelcome', QasWelcome)
 
-  thirdPartyComponentsInitializerFn.initializeComponents(app)
-
   app.use(Quasar, { plugins: { Notify, Loading, QuasarDialog, Dialog } })
 
   app.config.globalProperties.$qas = {
@@ -203,7 +194,6 @@ export {
   QasLayout,
   QasListItems,
   QasListView,
-  QasMap,
   QasNestedFields,
   QasNumericInput,
   QasOptionGroup,

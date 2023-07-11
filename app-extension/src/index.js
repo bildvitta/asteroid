@@ -13,10 +13,17 @@ function extendQuasar (quasar, asteroidConfigFile) {
     'boot/store-adapter'
   ))
 
-  if (asteroidConfigFile.framework.thirdPartyComponents.includes('QasMap')) {
-    quasar.boot.push(...resolve(
-      'boot/map.js'
-    ))
+  const thirdPartyComponentsList = {
+    QasMap: 'boot/map.js',
+    QasChartView: 'boot/chart-view.js'
+  }
+
+  for (const key in thirdPartyComponentsList) {
+    if (asteroidConfigFile.framework.thirdPartyComponents.includes(key)) {
+      quasar.boot.push(...resolve(
+        thirdPartyComponentsList[key]
+      ))
+    }
   }
 
   // Transpilação de arquivos!
