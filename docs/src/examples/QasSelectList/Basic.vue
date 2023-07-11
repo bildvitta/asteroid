@@ -23,8 +23,7 @@ export default {
     props () {
       return {
         searchBoxProps: {
-          list: this.list,
-          height: '100px'
+          list: this.list
         }
       }
     }
@@ -32,7 +31,7 @@ export default {
 
   created () {
     for (let index = 0; index < 48; index++) {
-      this.list2.push({
+      this.list.push({
         label: `item ${index}`,
         value: `uuid${index}`
       })

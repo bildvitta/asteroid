@@ -90,6 +90,7 @@ export default {
 
   data () {
     return {
+      searchBox: null,
       sortedList: [],
       values: [],
       results: []
@@ -125,6 +126,10 @@ export default {
 
     isClearSelectionDisabled () {
       return !this.modelValue.length || this.readonly || !this.results.length
+    },
+
+    hasSearch () {
+      return this.searchBox.mx_search
     }
   },
 
@@ -147,6 +152,10 @@ export default {
       deep: true,
       immediate: true
     }
+  },
+
+  mounted () {
+    this.searchBox = this.$refs.searchBox
   },
 
   created () {
@@ -217,14 +226,6 @@ export default {
     },
 
     clearSelection () {
-      if (this.$refs.searchBox.mx_search) {
-        this.results.forEach(item => {
-          if (this.hasValueInModel(item.value)) this.remove(item)
-        })
-
-        return
-      }
-
       this.values = []
       this.updateModel()
     }
