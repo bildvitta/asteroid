@@ -24,6 +24,9 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - `QasSearchBox`: alterado `height` fixo para `max-height` (impacta QasSelectList).
 
 ### Corrigido
+- `required`: corrigida a validação para `null`.
+- `required`: Adicionado ponto final à frase padrão.
+- `search-filter.js`: corrigido problema ao limpar diversos campos relacionados a um mesmo campo de filtro.
 - `QasSearchBox`: corrigido como é feito o primeiro fetch, antes o evento do infinite scroll era sempre chamado, agora ele espera finalizar o fetch inicial, após isto o infinite scroll é ativado.
 
 ### Removido
