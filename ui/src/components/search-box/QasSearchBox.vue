@@ -1,8 +1,10 @@
 <template>
-  <div>
+  <div class="qas-search-box">
     <qas-search-input v-bind="attributes" v-model="mx_search" />
 
-    <div ref="scrollContainer" class="overflow-auto q-mt-md relative-position" :style="containerStyle">
+    <slot name="after-search" />
+
+    <div ref="scrollContainer" class="overflow-auto q-mt-md relative-position" :class="containerClasses" :style="containerStyle">
       <component :is="component.is" v-bind="component.props" class="q-mr-sm">
         <slot v-if="mx_hasFilteredOptions" />
       </component>
@@ -14,11 +16,15 @@
       </slot>
 
       <slot v-if="showEmptyResult" name="empty-result">
-        <qas-empty-result-text class="q-mt-md" />
+        <q-item class="q-px-none">
+          <q-item-section class="q-px-none">
+            <qas-empty-result-text />
+          </q-item-section>
+        </q-item>
       </slot>
 
       <q-inner-loading :showing="showInnerLoading">
-        <q-spinner color="grey" size="3em" />
+        <q-spinner color="grey" size="2rem" />
       </q-inner-loading>
     </div>
   </div>
@@ -67,6 +73,10 @@ export default {
       type: String
     },
 
+    outlined: {
+      type: Boolean
+    },
+
     placeholder: {
       default: 'Pesquisar',
       type: String
@@ -91,7 +101,9 @@ export default {
 
   data () {
     return {
-      fuse: null
+      fuse: null,
+      scrollContainer: null,
+      isInfiniteScrollDisabled: true
     }
   },
 
@@ -108,7 +120,7 @@ export default {
     },
 
     containerStyle () {
-      return { height: this.containerHeight }
+      return { maxHeight: this.containerHeight }
     },
 
     hasNoOptionsOnFirstFetch () {
@@ -124,8 +136,9 @@ export default {
     component () {
       const infiniteScrollProps = {
         offset: 100,
-        scrollTarget: this.$refs.scrollContainer,
-        ref: 'infiniteScrollRef'
+        scrollTarget: this.scrollContainer,
+        ref: 'infiniteScrollRef',
+        disable: this.isInfiniteScrollDisabled
       }
 
       return {
@@ -134,6 +147,14 @@ export default {
           ...(this.useLazyLoading && infiniteScrollProps),
           ...(this.useLazyLoading && { onLoad: this.onInfiniteScroll })
         }
+      }
+    },
+
+    containerClasses () {
+      return {
+        'qas-search-box__container': this.outlined,
+        'q-px-md': this.outlined,
+        'rounded-borders': this.outlined
       }
     },
 
@@ -206,6 +227,10 @@ export default {
     }
   },
 
+  mounted () {
+    this.scrollContainer = this.$refs.scrollContainer
+  },
+
   created () {
     this.setSearchMethod()
   },
@@ -216,15 +241,7 @@ export default {
     },
 
     async onInfiniteScroll (_, done) {
-      // Se tiver erro no primeiro fetch, retorna o "done" na proxima.
       if (((this.mx_hasFetchError && !this.mx_hasFilteredOptions) || this.hasNoOptionsOnFirstFetch)) return done()
-
-      const canMakeFirstFetch = this.mx_fetchCount === 0 && this.mx_hasFilteredOptions
-
-      if ((!this.mx_hasFilteredOptions || canMakeFirstFetch) && !this.mx_search) {
-        await this.mx_setFetchOptions()
-        return done()
-      }
 
       if (this.mx_canFetchOptions()) {
         await this.mx_loadMoreOptions()
@@ -255,9 +272,23 @@ export default {
       this.setListWatcher()
     },
 
-    setLazyLoading () {
+    async setLazyLoading () {
       this.mx_setCachedOptions('list')
+
+      await this.mx_setFetchOptions()
+
+      this.isInfiniteScrollDisabled = false
     }
   }
 }
 </script>
+
+<style lang="scss">
+.qas-search-box {
+  &__container {
+    min-height: 48px;
+    background-color: white;
+    border: 1px solid $grey-4;
+  }
+}
+</style>

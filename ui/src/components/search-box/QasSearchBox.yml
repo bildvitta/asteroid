@@ -62,6 +62,11 @@ props:
     type: String
     examples: [cities]
 
+  outlined:
+    desc: Define se a área que contém o resultado da pesquisa terá o estilo de borda arredondada com fundo branco (semelhante a um input).
+    default: false
+    type: Boolean
+
   placeholder:
     desc: Placeholder do campo de pesquisa.
     default: Pesquisar
@@ -85,6 +90,9 @@ props:
     type: Boolean
 
 slots:
+  after-search:
+    desc: Acesso ao conteúdo após o input de pesquisa e antes do resultados (slot default).
+
   default:
     desc: Acesso ao conteúdo principal, só existe caso a busca retorne algum resultado.
 
