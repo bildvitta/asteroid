@@ -2,7 +2,8 @@ module.exports = function (api, { filePath }) {
   const thirdPartyComponentsHandler = require('./third-party-components-handler')
 
   const components = [
-    require('../third-party-components/map')
+    require('../third-party-components/map'),
+    require('../third-party-components/chart-view')
   ]
 
   async function exec () {

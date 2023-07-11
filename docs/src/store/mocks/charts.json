@@ -1,0 +1,41 @@
+{
+  "name": "charts",
+  "encrypted": false,
+  "passwordHash": null,
+  "schemaHash": "2e018d904e2b5bbca48fd5093b0400c7",
+  "docs": [
+    {
+      "label": "Número de contatos por dia",
+      "data": [
+        {
+          "x": "03/06",
+          "y": 5
+        },
+        {
+          "x": "04/06",
+          "y": 10
+        },
+        {
+          "x": "05/06",
+          "y": 8
+        },
+        {
+          "x": "06/06",
+          "y": 12
+        },
+        {
+          "x": "07/06",
+          "y": 4
+        },
+        {
+          "x": "08/06",
+          "y": 5
+        },
+        {
+          "x": "09/06",
+          "y": 11
+        }
+      ]
+    }
+  ]
+}

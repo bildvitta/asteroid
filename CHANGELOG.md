@@ -23,6 +23,8 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - `QasSelectList`: adicionado nova prop `useEmitLabelValueOnly` com default `true`, propriedade para ser usada em conjunto com ':emitValue="false"', caso habilite essa propriedade, o model sempre será um array de objeto com label e value, se estiver desabilitado, o objeto dentro do model será o objeto inteiro, não somente label e value.
 - `QasSearchBox`: adicionado nova propriedade `outlined` que define se a área que contém o resultado da pesquisa terá o estilo de borda arredondada com fundo branco (semelhante a um input).
 - `QasSelectList`: adicionado novo recurso de limpar seleção.
+- Componente de gráficos `QasChartView`.
+- Instalação automática das dependências do `QasChartView` via `thirdPartyComponents`.
 
 ### Modificado
 - `QasSearchInput`: modificado estilo do input, removido shadow e adicionado borda.
@@ -31,6 +33,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - `QasSearchBox`: alterado `height` fixo para `max-height` (impacta QasSelectList).
 
 ### Corrigido
+- Problema de instalar a dependência `install` ao utilizar a opção do asteroid instalar automáticamente as libs de terceiros pelo `thirdPartyComponents`.
 - `required`: corrigida a validação para `null`.
 - `required`: Adicionado ponto final à frase padrão.
 - `search-filter.js`: corrigido problema ao limpar diversos campos relacionados a um mesmo campo de filtro.

@@ -1,5 +1,5 @@
 <template>
-  <div class="items-center justify-between no-wrap q-col-gutter-x-md q-mb-xl row text-body1 text-grey-8">
+  <div class="justify-between no-wrap q-col-gutter-x-md q-mb-xl row text-body1 text-grey-8" :class="containerClass">
     <div :class="leftClass">
       <slot name="left">
         {{ text }}
@@ -17,6 +17,12 @@
 </template>
 
 <script>
+const AlignTypes = {
+  Start: 'start',
+  Center: 'center',
+  End: 'end'
+}
+
 export default {
   name: 'QasHeaderActions',
 
@@ -24,6 +30,12 @@ export default {
     actionsMenuProps: {
       type: Object,
       default: () => ({})
+    },
+
+    alignColumns: {
+      default: AlignTypes.Center,
+      type: String,
+      validator: value => Object.values(AlignTypes).includes(value)
     },
 
     buttonProps: {
@@ -38,6 +50,10 @@ export default {
   },
 
   computed: {
+    containerClass () {
+      return `items-${this.alignColumns}`
+    },
+
     hasDefaultButton () {
       return !!Object.keys(this.buttonProps).length
     },
