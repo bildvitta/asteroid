@@ -58,7 +58,7 @@ import { extend } from 'quasar'
 import { filterListByHandle } from '../../helpers'
 import { getAction } from '@bildvitta/store-adapter'
 
-const CharTypes = {
+const ChartTypes = {
   Bar: 'bar',
   Doughnut: 'doughnut',
   Line: 'line'
@@ -114,9 +114,9 @@ export default {
     },
 
     type: {
-      default: 'bar',
+      default: ChartTypes.Bar,
       type: String,
-      validator: value => Object.values(CharTypes).includes(value)
+      validator: value => Object.values(ChartTypes).includes(value)
     },
 
     url: {

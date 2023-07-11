@@ -11,7 +11,6 @@ import QasBreakline from './components/breakline/QasBreakline.vue'
 import QasBtn from './components/btn/QasBtn.vue'
 import QasBtnDropdown from './components/btn-dropdown/QasBtnDropdown.vue'
 import QasCard from './components/card/QasCard.vue'
-import QasChartView from './components/chart-view/QasChartView.vue'
 import QasCheckboxGroup from './components/checkbox-group/QasCheckboxGroup.vue'
 import QasCopy from './components/copy/QasCopy.vue'
 import QasDate from './components/date/QasDate.vue'
@@ -181,7 +180,6 @@ export {
   QasBtn,
   QasBtnDropdown,
   QasCard,
-  QasChartView,
   QasCheckboxGroup,
   QasCopy,
   QasDate,

@@ -33,7 +33,7 @@ export default {
     },
 
     alignColumns: {
-      default: 'center',
+      default: AlignTypes.Center,
       type: String,
       validator: value => Object.values(AlignTypes).includes(value)
     },
