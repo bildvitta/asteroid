@@ -11,6 +11,13 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
 ## Não publicado
+## BREAKING CHANGES
+- `QasSelectList`: removido slot `item-action`, como o componente mudou o layout, esse slot mudaria de lugar, porém o uso dele é desnecessário e pode levar a quebra de Design System.
+- `QasSelectList`: removido slot `item-section`, como foi removido o slot `item-action`, não faz mais sentido um slot para o `item-section` pois a estrutura é a mesma, caso necessário, utilizar o slot `item`.
+- `QasSelectList`: removido prop `useClickableLabel`, clicar na label agora faz selecionar o item sempre.
+- `QasSelectList`: removido scope `handleClick` para `onUpdateModel` no slot `item`.
+- `QasSelectList`: removido evento `click-label`.
+
 ### Adicionado
 - `QasSelectList`: adicionado nova prop `emitValue` com default `true`, quando valor é "true", transforma o model em um array de string, senão o model será um array de objeto (não foi usado o nome `useEmitValue` pois existe uma prop para mesma finalidade no QSelect do quasar e ela se chama "emitValue").
 - `QasSelectList`: adicionado nova prop `useEmitLabelValueOnly` com default `true`, propriedade para ser usada em conjunto com ':emitValue="false"', caso habilite essa propriedade, o model sempre será um array de objeto com label e value, se estiver desabilitado, o objeto dentro do model será o objeto inteiro, não somente label e value.
