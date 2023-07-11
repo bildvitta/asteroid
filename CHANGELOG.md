@@ -10,6 +10,10 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 ### Sobre os "BREAKING CHANGES"
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
+## Não publicado
+### Corrigido
+- Corrigido problemas relacionados aos `third party components`.
+
 ## [3.11.0-beta.4] - 11-07-2023
 ## BREAKING CHANGES
 - `QasSelectList`: removido slot `item-action`, como o componente mudou o layout, esse slot mudaria de lugar, porém o uso dele é desnecessário e pode levar a quebra de Design System.
