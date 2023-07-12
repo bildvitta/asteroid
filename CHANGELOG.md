@@ -21,6 +21,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 ### Corrigido
 - `QasGridGenerator`: corrigido ordem de exibição dos `fields`.
 - `docs`: exibição dos componentes na documentação do `QasChartView` e `QasMaps`.
+- `rules.js`: validação da função `required`.
 
 ## [3.11.0-beta.5] - 11-07-2023
 ### Corrigido
