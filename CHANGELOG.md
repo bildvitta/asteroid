@@ -10,7 +10,7 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 ### Sobre os "BREAKING CHANGES"
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
-## Não publicado
+## [3.11.0-beta.6] - 12-07-2023
 ### Adicionado
 - `isEmpty.js`: adicionado novo helper para verificar se um valor é vazio (null, undefined ou '').
 - `mixins/searchFilter`: adicionado nova prop `optionsToExclude`, que é uma lista de valores que não serão exibidos na lista de resultados (options/list) que pode ser uuid/id/slug.
@@ -1719,3 +1719,4 @@ Adicionado suporte para Pinia/Vuex Seguindo os padrões da biblioteca `@bildvitt
 [3.11.0-beta.3]: https://github.com/bildvitta/asteroid/compare/v3.11.0-beta.2...v3.11.0-beta.3?expand=1
 [3.11.0-beta.4]: https://github.com/bildvitta/asteroid/compare/v3.11.0-beta.3...v3.11.0-beta.4?expand=1
 [3.11.0-beta.5]: https://github.com/bildvitta/asteroid/compare/v3.11.0-beta.4...v3.11.0-beta.5?expand=1
+[3.11.0-beta.6]: https://github.com/bildvitta/asteroid/compare/v3.11.0-beta.5...v3.11.0-beta.6?expand=1
