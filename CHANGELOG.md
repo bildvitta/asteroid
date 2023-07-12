@@ -17,7 +17,6 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 
 ### Modificado
 - [`QasGridGenerator`, `QasTableGenerator`]: modificado comportamento de exibição do valor do `empty-result-text`. Agora para o resultado de algum campo ser considerado vazio é necessário que o seu valor seja `null`, `undefined` ou `''`.
-- `QasDialog`: modificado alinhamento do título e descrição para ser no `centro` (text-center).
 
 ### Corrigido
 - `QasGridGenerator`: corrigido ordem de exibição dos `fields`.
