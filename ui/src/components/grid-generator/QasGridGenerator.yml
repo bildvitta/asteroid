@@ -16,7 +16,7 @@ props:
     type: [Array, Object, String]
 
   empty-result-text:
-    desc: Se o resultado de algum campo for vazio, esta prop define qual será o valor padrão.
+    desc: Se o resultado de algum campo for vazio (null, undefined, ''), esta prop define qual será o valor padrão.
     default: '-'
     type: String
 
