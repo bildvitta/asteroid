@@ -25,6 +25,11 @@ export default {
 
     useLazyLoading: {
       type: Boolean
+    },
+
+    optionsToExclude: {
+      default: () => [],
+      type: Array
     }
   },
 
@@ -77,6 +82,10 @@ export default {
 
     mx_hasFilteredOptions () {
       return !!this.mx_filteredOptions.length
+    },
+
+    mx_hasOptionsToExclude () {
+      return !!this.optionsToExclude.length
     }
   },
 
@@ -192,7 +201,9 @@ export default {
 
         this.$emit('fetch-options-success', data)
 
-        return this.mx_getNonDuplicatedOptions(results)
+        const options = this.mx_getOptions(results)
+
+        return this.mx_getNonDuplicatedOptions(options)
       } catch (error) {
         this.mx_hasFetchError = true
         this.$emit('fetch-options-error', error)
@@ -273,6 +284,8 @@ export default {
       this.$watch(model, options => {
         if (!options?.length) return
 
+        options = this.mx_getOptions(options)
+
         /*
           * pode ser que as opções sejam inicializadas após o primeiro fetch de opções
           * fazendo com que as opções sobrescreva as que vieram através do fetch, então é
@@ -297,6 +310,18 @@ export default {
 
         this.mx_cachedOptions = [...options]
       }, { immediate: true })
+    },
+
+    mx_getOptions (options = []) {
+      if (this.mx_hasOptionsToExclude) {
+        this.optionsToExclude.forEach(option => {
+          const index = options.findIndex(({ value }) => value === option)
+
+          if (~index) options.splice(index, 1)
+        })
+      }
+
+      return options
     }
   }
 }

@@ -33,6 +33,13 @@ props:
     examples: [v-model="value"]
     model: true
 
+  options-to-exclude:
+    desc: Lista de valores que não serão exibidos na lista de resultados (options/list) que pode ser uuid/id/slug.
+    default: []
+    type: Array
+    examples:
+      - options-to-exclude="['uuid1', 'uuid2', 'uuid3']"
+
   readonly:
     desc: Habilita modo visualização.
     default: false
