@@ -13,6 +13,7 @@ export { default as getGreatestCommonDivisor } from './get-greatest-common-divis
 export { default as getNormalizedOptions } from './get-normalized-options.js'
 export { default as getSlotChildrenText } from './get-slot-children-text.js'
 export { default as handleProcess } from './handle-process.js'
+export { default as isEmpty } from './is-empty.js'
 export { default as isLocalDevelopment } from './is-local-development.js'
 export { default as promiseHandler } from './promise-handler.js'
 export { default as setScrollOnGrab } from './set-scroll-on-grab.js'

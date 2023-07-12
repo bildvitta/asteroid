@@ -10,7 +10,7 @@ props:
     type: Array
 
   empty-result-text:
-    desc: Quando uma célula da tabela está vazia, esta prop define qual será o valor padrão.
+    desc: Quando uma célula da tabela está vazia (null, undefined, ''), esta prop define qual será o valor padrão.
     default: '-'
     type: String
 

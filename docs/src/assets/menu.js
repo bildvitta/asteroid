@@ -395,6 +395,10 @@ module.exports = [
         path: '/helpers/images'
       },
       {
+        name: 'isEmpty',
+        path: '/helpers/is-empty'
+      },
+      {
         name: 'isLocalDevelopment',
         path: '/helpers/is-local-development'
       },
