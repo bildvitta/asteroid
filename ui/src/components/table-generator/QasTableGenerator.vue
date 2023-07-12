@@ -20,8 +20,7 @@
 
 <script>
 import { extend } from 'quasar'
-import { humanize } from '../../helpers/filters'
-import { setScrollOnGrab } from '../../helpers'
+import { isEmpty, humanize, setScrollOnGrab } from '../../helpers'
 
 export default {
   name: 'QasTableGenerator',
@@ -190,8 +189,11 @@ export default {
 
       const mappedResults = results.map((result, index) => {
         for (const key in result) {
+          const humanizedResult = humanize(this.fields[key], result[key])
+          const formattedResult = isEmpty({ value: humanizedResult }) ? this.emptyResultText : humanizedResult
+
           result.default = this.results[index]
-          result[key] = humanize(this.fields[key], result[key]) || this.emptyResultText
+          result[key] = formattedResult
         }
 
         return result

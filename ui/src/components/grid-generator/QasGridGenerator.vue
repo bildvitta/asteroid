@@ -20,7 +20,7 @@
 
 <script setup>
 import useGenerator, { baseProps } from '../../composables/private/use-generator'
-import { humanize } from '../../helpers/filters'
+import { isEmpty, humanize } from '../../helpers'
 import { isObject } from 'lodash-es'
 import { ref, computed, watch } from 'vue'
 
@@ -107,9 +107,12 @@ function getFieldsByResult () {
 
     if (!field.type) continue
 
+    const humanizedResult = humanize(field, result[key])
+    const formattedResult = isEmpty({ value: humanizedResult }) ? props.emptyResultText : humanizedResult
+
     fieldsByResult[key] = {
       ...field,
-      formattedResult: humanize(field, result[key]) || props.emptyResultText
+      formattedResult
     }
   }
 
