@@ -1,7 +1,7 @@
 <template>
   <q-dialog ref="dialog" class="qas-dialog" :persistent="persistent" v-bind="dialogProps" @update:model-value="updateModelValue">
     <div class="bg-white q-pa-lg" :style="style">
-      <header v-if="hasHeader" class="q-mb-lg">
+      <header v-if="hasHeader" class="q-mb-lg text-center">
         <slot name="header">
           <div class="items-center justify-between row">
             <h5 class="text-grey-9 text-h5">{{ card.title }}</h5>

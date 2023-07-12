@@ -284,7 +284,6 @@ export default {
       this.$watch(model, options => {
         if (!options?.length) return
 
-        console.log('TCL: mx_setCachedOptions -> options', this.optionsToExclude)
         options = this.mx_getOptions(options)
 
         /*
