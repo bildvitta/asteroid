@@ -34,7 +34,7 @@ props:
     model: true
 
   options-to-exclude:
-    desc: Lista de valores que não serão exibidos na lista de resultados (options/list) (por ser uuid/id/slug).
+    desc: Lista de valores que não serão exibidos na lista de resultados (options/list) que pode ser uuid/id/slug.
     default: []
     type: Array
     examples:

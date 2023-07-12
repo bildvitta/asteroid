@@ -1,7 +1,7 @@
 <template>
   <qas-search-box ref="searchBox" v-model:results="results" v-bind="defaultSearchBoxProps" :list="sortedList">
     <template #after-search>
-      <div class="q-mb-md q-mt-xl text-left">
+      <div class="q-mb-md q-mt-xl">
         <span class="q-pr-sm text-body1 text-grey-8">Seleção:</span>
 
         <qas-btn :disable="isClearSelectionDisabled" label="Limpar seleção" variant="tertiary" @click="clearSelection" />

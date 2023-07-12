@@ -13,7 +13,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 ## Não publicado
 ### Adicionado
 - `isEmpty.js`: adicionado novo helper para verificar se um valor é vazio (null, undefined ou '').
-- `mixins/searchFilter`: adicionado nova prop `optionsToExclude`, que é uma lista de valores que não serão exibidos na lista de resultados (options/list) (por ser uuid/id/slug).
+- `mixins/searchFilter`: adicionado nova prop `optionsToExclude`, que é uma lista de valores que não serão exibidos na lista de resultados (options/list) que pode ser uuid/id/slug.
 
 ### Modificado
 - [`QasGridGenerator`, `QasTableGenerator`]: modificado comportamento de exibição do valor do `empty-result-text`. Agora para o resultado de algum campo ser considerado vazio é necessário que o seu valor seja `null`, `undefined` ou `''`.
