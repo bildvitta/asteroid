@@ -319,8 +319,6 @@ export default {
 
           if (~index) options.splice(index, 1)
         })
-
-        return options
       }
 
       return options

@@ -14,7 +14,7 @@
       <section class="text-body1 text-grey-8">
         <component :is="componentTag" ref="form">
           <slot name="description">
-            <div v-if="card.description">{{ card.description }}</div>
+            <div v-if="card.description" class="text-center">{{ card.description }}</div>
           </slot>
         </component>
       </section>
