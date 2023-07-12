@@ -1,5 +1,5 @@
 function required (value = '', message = 'Campo obrigatório.') {
-  return String(value ?? '') || message
+  return String(value ?? '').length || message
 }
 
 export {
