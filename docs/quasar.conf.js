@@ -93,6 +93,7 @@ module.exports = configure(function (quasar) {
         // Alias
         chain.resolve.alias.merge({
           'asteroid-config': path.resolve(__dirname, './asteroid.config.js'),
+          'asteroid-boot': path.resolve(__dirname, '../app-extension/src/boot'),
           asteroid: path.resolve(__dirname, '../ui/src/index.esm.js'),
           'asteroid-components': path.resolve(__dirname, '../ui/src/components'),
           'asteroid-plugins': path.resolve(__dirname, '../ui/src/plugins'),
