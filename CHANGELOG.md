@@ -14,6 +14,9 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 ### Corrigido
 - `QasSelectList`: corrigido problema ao remover item do model quando `:emit-value="false"`.
 
+### Modificado
+- `QasBox`: modificado padding y de `lg` para `md`.
+
 ## [3.11.0-beta.6] - 12-07-2023
 ### Adicionado
 - `isEmpty.js`: adicionado novo helper para verificar se um valor é vazio (null, undefined ou '').
