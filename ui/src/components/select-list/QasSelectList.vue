@@ -185,7 +185,7 @@ export default {
 
     remove (item) {
       const index = this.values.findIndex(itemValue => {
-        const normalizedItem = this.emitValue ? itemValue : item.value
+        const normalizedItem = this.emitValue ? itemValue : itemValue.value
 
         return normalizedItem === item.value
       })
