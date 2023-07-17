@@ -10,6 +10,11 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 ### Sobre os "BREAKING CHANGES"
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
+## Não publicado
+### Adicionado
+- `Delete.js`: adicionado parâmetro `redirectRoute`, onde há a possibilidade de passar uma rota onde será redirecionado após deletar o item.
+- `QasDelete`: adicionado props `redirectRoute` que será repassado para o plugin `Delete`.
+
 ## [3.11.0-beta.7] - 14-07-2023
 ### Corrigido
 - `QasSelectList`: corrigido problema ao remover item do model quando `:emit-value="false"`.

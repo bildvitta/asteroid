@@ -51,6 +51,11 @@ export default {
     useAutoDeleteRoute: {
       default: true,
       type: Boolean
+    },
+
+    redirectRoute: {
+      type: [Object, String],
+      default: ''
     }
   },
 
@@ -89,6 +94,8 @@ export default {
         dialogProps: this.dialogProps,
 
         useAutoDeleteRoute: this.useAutoDeleteRoute,
+
+        redirectRoute: this.redirectRoute,
 
         // callbacks
         onDelete: isDeleting => this.$emit('update:deleting', isDeleting),
