@@ -13,7 +13,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 ## Não publicado
 ### Adicionado
 - `Delete.js`: adicionado parâmetro `redirectRoute`, onde há a possibilidade de passar uma rota onde será redirecionado após deletar o item.
-- `QasDelete`: adicionado props `redirectRoute` que será repassado para o plugin `Delete`.
+- `QasDelete`: adicionado prop `redirectRoute` que será repassado para o plugin `Delete`.
 
 ## [3.11.0-beta.7] - 14-07-2023
 ### Corrigido

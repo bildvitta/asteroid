@@ -40,6 +40,10 @@ props:
     default: true
     type: Boolean
 
+  redirect-route:
+    desc: Espera receber um objeto de rota ou um path na qual vai ser redirecionado após o item ser deletado.
+    type: [String, Object]
+
 slots:
   default:
     desc: 'Slot para acessar dentro do componente.'

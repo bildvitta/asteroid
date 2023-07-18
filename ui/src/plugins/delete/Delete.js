@@ -62,7 +62,7 @@ export default function (config = {}) {
 
       onDeleteSuccess(response)
 
-      redirectRoute && handleRedirectRoute(this)
+      redirectRoute && replaceRoute(this)
     } catch (error) {
       onDeleteError(error)
 
@@ -74,11 +74,12 @@ export default function (config = {}) {
     }
   }
 
-  function handleRedirectRoute (context) {
+  function replaceRoute (context) {
     const { $router } = context
 
-    const formattedRoute = typeof redirectRoute === 'string' ? { name: redirectRoute } : redirectRoute
+    const formattedRoute = typeof redirectRoute === 'string' ? { path: redirectRoute } : redirectRoute
 
+    console.log(formattedRoute, '<-- formattedRoute')
     $router.replace(formattedRoute)
   }
 
