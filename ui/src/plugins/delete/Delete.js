@@ -79,7 +79,6 @@ export default function (config = {}) {
 
     const formattedRoute = typeof redirectRoute === 'string' ? { path: redirectRoute } : redirectRoute
 
-    console.log(formattedRoute, '<-- formattedRoute')
     $router.replace(formattedRoute)
   }
 
