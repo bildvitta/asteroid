@@ -30,3 +30,6 @@ No exemplo abaixo estamos renderizando um `QasBtn` (que é o valor default da pr
 
 ## Uso
 <doc-example file="QasDelete/Basic" title="Básico" />
+
+Após ser deletado, será redirecionado para a home.
+<doc-example file="QasDelete/DeleteWithRedirectRoute" title="Utilizando o redirect-route" />
