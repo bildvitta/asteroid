@@ -77,9 +77,7 @@ export default function (config = {}) {
   function replaceRoute (context) {
     const { $router } = context
 
-    const formattedRoute = typeof redirectRoute === 'string' ? { path: redirectRoute } : redirectRoute
-
-    $router.replace(formattedRoute)
+    $router.replace(redirectRoute)
   }
 
   function getRoutesToBeDeletedById (routes = []) {
