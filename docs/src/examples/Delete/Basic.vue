@@ -31,6 +31,7 @@ export default {
           id: this.customId,
           entity: 'users'
         }
+        // redirectRoute: 'users' <- (Caso a intenção fosse redirecionar para a rota "users" após deletar.)
       }
     }
   },
