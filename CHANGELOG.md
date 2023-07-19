@@ -10,7 +10,7 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 ### Sobre os "BREAKING CHANGES"
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
-## Não publicado
+## [3.11.0-beta.8] - 19-07-2023
 ### Adicionado
 - `Delete.js`: adicionado parâmetro `redirectRoute`, onde há a possibilidade de passar uma rota onde será redirecionado após deletar o item.
 - `QasDelete`: adicionado prop `redirectRoute` que será repassado para o plugin `Delete`.
@@ -1737,3 +1737,4 @@ Adicionado suporte para Pinia/Vuex Seguindo os padrões da biblioteca `@bildvitt
 [3.11.0-beta.5]: https://github.com/bildvitta/asteroid/compare/v3.11.0-beta.4...v3.11.0-beta.5?expand=1
 [3.11.0-beta.6]: https://github.com/bildvitta/asteroid/compare/v3.11.0-beta.5...v3.11.0-beta.6?expand=1
 [3.11.0-beta.7]: https://github.com/bildvitta/asteroid/compare/v3.11.0-beta.6...v3.11.0-beta.7?expand=1
+[3.11.0-beta.8]: https://github.com/bildvitta/asteroid/compare/v3.11.0-beta.7...v3.11.0-beta.8?expand=1
