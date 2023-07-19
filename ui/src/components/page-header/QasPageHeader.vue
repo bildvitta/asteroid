@@ -1,6 +1,6 @@
 <template>
   <div>
-    <q-toolbar class="justify-between q-mb-xl q-px-none qas-page-header">
+    <q-toolbar class="justify-between q-mb-lg q-px-none qas-page-header">
       <div class="ellipsis">
         <q-toolbar-title v-if="title" class="text-grey-9 text-h3">
           {{ title }}

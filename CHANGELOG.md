@@ -15,6 +15,10 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - `Delete.js`: adicionado parâmetro `redirectRoute`, onde há a possibilidade de passar uma rota onde será redirecionado após deletar o item.
 - `QasDelete`: adicionado prop `redirectRoute` que será repassado para o plugin `Delete`.
 
+### Modificado
+`ui/src/css/utils/container.scss`: alterado espaçamento da classe `spaced`.
+`QasPageHeader`: alterado o valor do margin-bottom pra `lg`.
+
 ## [3.11.0-beta.7] - 14-07-2023
 ### Corrigido
 - `QasSelectList`: corrigido problema ao remover item do model quando `:emit-value="false"`.
