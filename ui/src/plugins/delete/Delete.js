@@ -8,6 +8,7 @@ export default function (config = {}) {
     dialogProps = {},
     deleteActionParams = {},
     useAutoDeleteRoute,
+    redirectRoute,
 
     // callbacks
     onDelete = () => {},
@@ -60,6 +61,8 @@ export default function (config = {}) {
       createDeleteSuccessEvent()
 
       onDeleteSuccess(response)
+
+      redirectRoute && replaceRoute(this)
     } catch (error) {
       onDeleteError(error)
 
@@ -69,6 +72,12 @@ export default function (config = {}) {
 
       Loading.hide()
     }
+  }
+
+  function replaceRoute (context) {
+    const { $router } = context
+
+    $router.replace(redirectRoute)
   }
 
   function getRoutesToBeDeletedById (routes = []) {

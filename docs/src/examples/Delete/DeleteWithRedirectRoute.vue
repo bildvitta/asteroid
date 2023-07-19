@@ -1,6 +1,10 @@
 <template>
   <div class="container spaced">
-    <qas-btn label="Deletar usuário" @click="$qas.delete(deleteParams)" />
+    <div>Exemplo com path</div>
+    <qas-btn label="Deletar usuário" @click="$qas.delete({ ...deleteParams, redirectRoute: '/' })" />
+
+    <div class="q-mt-lg">Exemplo com objeto</div>
+    <qas-btn label="Deletar usuário" @click="$qas.delete({...deleteParams, redirectRoute: { path: '/'} })" />
 
     <div class="q-mt-lg">
       user: <qas-debugger :inspect="[user]" />
@@ -31,7 +35,6 @@ export default {
           id: this.customId,
           entity: 'users'
         }
-        // redirectRoute: 'users' <- (Caso a intenção fosse redirecionar para a rota "users" após deletar.)
       }
     }
   },

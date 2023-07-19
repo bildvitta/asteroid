@@ -69,3 +69,7 @@ inject:
                 desc: Objeto deleteActionParams enviado anteriormente como configuração do plugin Delete.
                 default: {}
                 examples: ["{ ..., deleteAction: params => useUsers.destroy(params) }"]
+
+          redirectRoute:
+            desc: Espera receber um objeto de rota ou um path na qual vai ser redirecionado após o item ser deletado.
+            type: [String, Object]
