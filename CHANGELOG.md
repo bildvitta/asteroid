@@ -10,6 +10,11 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 ### Sobre os "BREAKING CHANGES"
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
+## Não publicado
+### Corrigido
+- `QasFilters`: Corrigido problema de merge entre os `fields` iniciais e a propriedade `fieldsProps` na computada `activeFilters`.
+- `QasFilters`: Corrigido exibição vazia da badge de filtros ativos quando o valor não é encontrado na lista de opções de um campo de select.
+
 ## [3.11.0-beta.8] - 19-07-2023
 ### Adicionado
 - `Delete.js`: adicionado parâmetro `redirectRoute`, onde há a possibilidade de passar uma rota onde será redirecionado após deletar o item.
