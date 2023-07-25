@@ -44,6 +44,7 @@ import { camelize, camelizeKeys, decamelize } from 'humps'
 import { humanize, parseValue } from '../../helpers/filters.js'
 import contextMixin from '../../mixins/context.js'
 import { getState, getAction } from '@bildvitta/store-adapter'
+import useCachedFilters from './private/pv-use-cached-filters'
 
 export default {
   name: 'QasFilters',
@@ -95,6 +96,11 @@ export default {
       type: String
     },
 
+    useCachedFilters: {
+      default: true,
+      type: Boolean
+    },
+
     useForceRefetch: {
       type: Boolean
     },
@@ -114,6 +120,7 @@ export default {
 
   data () {
     return {
+      cachedFilters: undefined,
       currentFilters: {},
       filters: {},
       hasFetchError: false,
@@ -210,6 +217,10 @@ export default {
 
     hasChip () {
       return this.useChip && this.hasActiveFilters
+    },
+
+    canUseCachedFilters () {
+      return this.useCachedFilters && this.useUpdateRoute
     }
   },
 
@@ -226,6 +237,7 @@ export default {
     this.fetchFilters()
     this.watchOnceFields()
     this.handleSearchModelOnCreate()
+    this.initCachedFilters()
   },
 
   methods: {
@@ -247,10 +259,12 @@ export default {
           if (hasField) {
             delete query[key]
             delete this.filters[key]
+            this.canUseCachedFilters && this.cachedFilters.clearOne(key)
           }
         }
       } else {
         this.filters = {}
+        this.canUseCachedFilters && this.cachedFilters.clearAll()
       }
 
       this.hideFiltersMenu()
@@ -322,8 +336,27 @@ export default {
       this.hideFiltersMenu()
 
       await this.updateRouteQuery(query)
+      this.canUseCachedFilters && this.cachedFilters.add(query)
 
       this.updateCurrentFilters()
+    },
+
+    initCachedFilters () {
+      if (!this.canUseCachedFilters) return
+
+      this.cachedFilters = useCachedFilters(this.entity)
+
+      const cachedFilters = this.cachedFilters.findAll()
+
+      if (Object.keys(cachedFilters || {})?.length) {
+        this.$router.replace({ query: { ...cachedFilters } })
+        this.updateValues()
+
+        return
+      }
+
+      this.cachedFilters.add(this.$route.query)
+      this.updateValues()
     },
 
     getChipValue (value) {
@@ -339,6 +372,7 @@ export default {
 
       delete query[name]
       delete this.filters[name]
+      this.canUseCachedFilters && this.cachedFilters.clearOne(name)
 
       await this.updateRouteQuery(query)
 
