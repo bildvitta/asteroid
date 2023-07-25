@@ -137,9 +137,11 @@ export default {
         const hasField = fields.includes(key)
 
         if (hasField) {
-          const field = { ...this.fields[key], ...this.formattedFieldsProps?.[key] }
-
+          const field = { ...this.fields[key], ...this.formattedFieldsProps?.[decamelize(key)] }
           const value = humanize(field, this.normalizeValues(filters[key], field?.multiple))
+
+          if (!value) continue
+
           const { label, name } = field
 
           activeFilters[key] = { label, name, value }
