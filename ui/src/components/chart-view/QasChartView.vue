@@ -193,6 +193,7 @@ export default {
         class: 'q-mb-xs',
         entity,
         url,
+        useCachedFilters: false,
         useChip: false,
         useFilterButton,
         useSearch: false,
