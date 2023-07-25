@@ -31,6 +31,11 @@ props:
     desc: Envia como parâmetro para a action "fetchFilters" do modulo correspondente a "entity".
     type: String
 
+  use-cached-filters:
+    desc: Habilita ou não a persistência dos filtros.
+    default: true
+    type: Boolean
+
   use-chip:
     desc: Habilita ou não os "chips" mostrando os filtros ativos.
     default: true

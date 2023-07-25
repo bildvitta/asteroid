@@ -22,6 +22,12 @@ Para fazer esses exemplos na documentação, estamos utilizando o `VuexOffline`,
 O componente irá filtrar somente campos com valores que sejam diferente de **null** ou **undefined**, caso contrário ao filtrar o campo irá ser removido da query.
 :::
 
+:::warning
+- O componente irá persistir os filtros somente se `use-cached-filters` e `use-update-route` forem **true**.
+
+- É utilizado `seassionStorage` para não perders os dados em memória mesmo que a página seja atualizada. Ao abrir uma nova aba/página é gerada uma nova sessão não compartilhando os filtros entre páginas.
+:::
+
 :::tip
 Este componente serve para lidar com **filtros dinâmicos**, e normalmente utilizado dentro do `QasListView`.
 :::
