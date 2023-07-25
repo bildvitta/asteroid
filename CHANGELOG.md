@@ -11,6 +11,13 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
 ## Não publicado
+## BREAKING CHANGES
+- `QasFilters`: a persistência de filtro se tornou comportamento padrão do design system, valide se é necessário persistir os filtros em todas as telas.
+
+### Adicionado
+- `pv-use-cached-filters`: adicionado `composable` para gerenciar a persistência dos filtros com base na `entity`.
+- `QasFilters`: adicionada nova prop para habilitar a persitência dos filtros.
+
 ### Corrigido
 - `QasFilters`: Corrigido problema de merge entre os `fields` iniciais e a propriedade `fieldsProps` na computada `activeFilters`.
 - `QasFilters`: Corrigido exibição vazia da badge de filtros ativos quando o valor não é encontrado na lista de opções de um campo de select.
