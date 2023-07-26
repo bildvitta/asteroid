@@ -61,6 +61,11 @@ export default {
       type: Boolean
     },
 
+    cacheKey: {
+      default: '',
+      type: String
+    },
+
     entity: {
       required: true,
       type: String
@@ -346,7 +351,7 @@ export default {
     initCachedFilters () {
       if (!this.canUseCachedFilters) return
 
-      this.cachedFilters = useCachedFilters(this.entity)
+      this.cachedFilters = useCachedFilters(this.cacheKey || this.entity)
 
       const cachedFilters = this.cachedFilters.findAll()
 
