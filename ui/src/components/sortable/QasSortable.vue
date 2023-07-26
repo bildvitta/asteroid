@@ -17,7 +17,6 @@ export default {
   props: {
     entity: {
       default: '',
-      required: true,
       type: String
     },
 
@@ -44,6 +43,11 @@ export default {
     sorted: {
       default: () => [],
       type: Array
+    },
+
+    useSaveOnSort: {
+      type: Boolean,
+      default: true
     }
   },
 
@@ -132,7 +136,7 @@ export default {
       const deleted = this.sortedList.splice(oldIndex, 1)
       this.sortedList.splice(newIndex, 0, deleted[0])
 
-      this.replace()
+      this.useSaveOnSort && this.replace()
     },
 
     setSortedValue (value) {

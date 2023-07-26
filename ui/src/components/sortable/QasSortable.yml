@@ -35,6 +35,11 @@ props:
     desc: Parâmetro enviado para a action "replace".
     type: String
 
+  use-save-on-sort:
+    desc: Controla se deve bater a API para salvar após fazer uma ordenação.
+    type: Boolean
+    default: true
+
 slots:
   default:
     desc: Slot para adicionar os items que serão reordenados.

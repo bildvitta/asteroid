@@ -1,5 +1,5 @@
 <template>
-  <component v-bind="attributes" :is="tag" @click.stop="onDelete">
+  <component v-bind="attributes" :is="tag" @click.stop.prevent="onDelete">
     <template v-for="(_, name) in $slots" #[name]="context">
       <slot :name="name" v-bind="context || {}" />
     </template>
