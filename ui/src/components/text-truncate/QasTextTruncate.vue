@@ -5,7 +5,7 @@
         <slot>{{ text }}</slot>
       </div>
 
-      <div v-if="isTruncated" class="cursor-pointer text-primary" @click.stop="toggle">
+      <div v-if="isTruncated" class="cursor-pointer text-primary" @click.stop.prevent="toggle">
         {{ seeMoreLabel }}
       </div>
     </div>
