@@ -16,7 +16,8 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 
 ### Adicionado
 - `pv-use-cached-filters`: adicionado `composable` para gerenciar a persistência dos filtros com base na `entity`.
-- `QasFilters`: adicionada nova prop para habilitar a persitência dos filtros.
+- `QasFilters`: adicionada prop `use-cached-filters` para habilitar a persitência dos filtros.
+- `QasFilters`: adicionada prop `cache-key` que será usada para gerenciar o cache do filtro na `sessionStorage`. Será utilizada a `entity` caso a chave não seja informada.
 
 ### Corrigido
 - `QasFilters`: Corrigido problema de merge entre os `fields` iniciais e a propriedade `fieldsProps` na computada `activeFilters`.
