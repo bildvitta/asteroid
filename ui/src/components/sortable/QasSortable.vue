@@ -76,9 +76,12 @@ export default {
       this.sortable.options = { ...this.sortable.options, ...value }
     },
 
-    list (value) {
-      this.setSortedValue(value)
-      this.sortable.sort(this.sortable.toArray())
+    list: {
+      handler (value) {
+        this.setSortedValue(value)
+      },
+
+      deep: true
     }
   },
 

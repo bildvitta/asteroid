@@ -15,6 +15,8 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - `QasSelectList`: nome de eventos alterados de `@added` para `@add` e `@removed` para `@remove`. 
 ### Corrigido
 - [`QasCopy`, `QasDelete`, `QasTreeGenerator`, `QasTruncate`]: alterado o `@click.stop` para `@click.stop.prevent` solucionando o problema de utilizar esses componentes em conjunto com o `QasTableGenerator`.
+- `QasSortable`: alterado watch da prop `list` para o deep, passando a ouvir quando dermos um `.push` ou `splice` no list.
+- `QasSortable`: removido método `sort` dentro do watch `list` na qual estava ordenando a lista quando não deveria ser ordenando.
 
 ### Adicionado
 - `QasSortable`: adicionado prop `useSaveOnSort` para não bater a API para salvar após fazer uma ordenação.
