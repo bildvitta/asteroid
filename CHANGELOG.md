@@ -11,11 +11,14 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
 ## Não publicado
+## BREAKING CHANGES
+- `QasSelectList`: nome de eventos alterados de `@added` para `@add` e `@removed` para `@remove`. 
 ### Corrigido
 - [`QasCopy`, `QasDelete`, `QasTreeGenerator`, `QasTruncate`]: alterado o `@click.stop` para `@click.stop.prevent` solucionando o problema de utilizar esses componentes em conjunto com o `QasTableGenerator`.
 
 ### Adicionado
 - `QasSortable`: adicionado prop `useSaveOnSort` para não bater a API para salvar após fazer uma ordenação.
+- `QasSelectList`: adicionado evento que será disparado toda vez que o v-model é limpo através do botão de "Limpar seleção".
 
 ### Removido
 - `QasSortable`: removido `required` da prop `entity`.
