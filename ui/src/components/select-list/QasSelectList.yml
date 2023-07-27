@@ -76,14 +76,14 @@ slots:
         type: Function
 
 events:
-  '@added -> function(item)':
+  '@add -> function(item)':
     desc: Dispara toda vez que um item é adicionado no v-model.
     params:
       item:
         desc: Item adicionado
         type: String
 
-  '@removed -> function (item, index)':
+  '@remove -> function (item, index)':
     desc: Dispara toda vez que um item é removido do v-model.
     params:
       item:
@@ -92,6 +92,13 @@ events:
       index:
         desc: Index do item removido.
         type: Number
+
+  '@clear -> function(oldValue)':
+    desc: Dispara toda vez que o v-model é limpo através do botão de "Limpar seleção".
+    params:
+      oldValue:
+        desc: O valor do v-model anterior antes de limpá-lo.
+        type: Array
 
   '@update:model-value -> function (value)':
     desc: Dispara toda vez que o campo de busca é alterado, também utilizado para v-model.
