@@ -12,18 +12,19 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 
 ## Não publicado
 ## BREAKING CHANGES
-- `QasSelectList`: nome de eventos alterados de `@added` para `@add` e `@removed` para `@remove`. 
+- `QasSelectList`: nome de eventos alterados de `@added` para `@add` e `@removed` para `@remove`.
+
+### Adicionado
+- `QasSortable`: adicionado prop `useSaveOnSort` com default `true` para não bater a API para salvar após fazer uma ordenação.
+- `QasSelectList`: adicionado evento `clear` que será disparado toda vez que o v-model é limpo através do botão de "Limpar seleção".
+
+### Modificado
+- `QasSortable`: removido `required` da prop `entity` para deixar opcional.
+
 ### Corrigido
 - [`QasCopy`, `QasDelete`, `QasTreeGenerator`, `QasTruncate`]: alterado o `@click.stop` para `@click.stop.prevent` solucionando o problema de utilizar esses componentes em conjunto com o `QasTableGenerator`.
 - `QasSortable`: alterado watch da prop `list` para o deep, passando a ouvir quando dermos um `.push` ou `splice` no list.
 - `QasSortable`: removido método `sort` dentro do watch `list` na qual estava ordenando a lista quando não deveria ser ordenando.
-
-### Adicionado
-- `QasSortable`: adicionado prop `useSaveOnSort` para não bater a API para salvar após fazer uma ordenação.
-- `QasSelectList`: adicionado evento que será disparado toda vez que o v-model é limpo através do botão de "Limpar seleção".
-
-### Removido
-- `QasSortable`: removido `required` da prop `entity`.
 
 ## [3.11.0-beta.9] - 25-07-2023
 ### Corrigido
