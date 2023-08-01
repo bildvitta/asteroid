@@ -137,16 +137,16 @@ export default {
       const deleted = this.sortedList.splice(oldIndex, 1)
       this.sortedList.splice(newIndex, 0, deleted[0])
 
-      this.updateSortedModel()
+      this.updateModel()
 
       this.useSaveOnSort && this.replace()
     },
 
-    setSortedValue (value) {
-      this.sortedList = extend(true, [], value || this.modelValue)
+    setSortedValue () {
+      this.sortedList = extend(true, [], this.modelValue)
     },
 
-    updateSortedModel () {
+    updateModel () {
       this.$emit('update:modelValue', this.sortedList)
     }
   }

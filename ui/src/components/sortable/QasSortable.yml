@@ -17,7 +17,7 @@ props:
   model-value:
     desc: Model do componente onde será fornecido a lista, e ele será responsável pela ordenação.
     default: []
-    type: [Array]
+    type: Array
     examples: [v-model="fields"]
     model: true
 
@@ -62,4 +62,4 @@ events:
     params:
       values:
         desc: Novo valor do model.
-        type: [Array]
+        type: Array
