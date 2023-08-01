@@ -1,8 +1,5 @@
 <template>
-  <component
-    :is="tag"
-    ref="sortableItems"
-  >
+  <component :is="tag" ref="sortableItems">
     <slot />
   </component>
 </template>
