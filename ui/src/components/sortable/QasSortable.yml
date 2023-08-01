@@ -9,21 +9,16 @@ props:
     required: true
     type: String
 
-  list:
-    desc: Lista que vai ser reordenada.
-    default: []
-    type: Array
-
   sortable-options:
     desc: Opções do "sortablejs" (https://github.com/SortableJS/Sortable#options).
     default: { animation: 500 }
     type: Object
 
-  sorted:
-    desc: Model da lista reordenada
+  model-value:
+    desc: Model do componente onde será fornecido a lista, e ele será responsável pela ordenação.
     default: []
     type: Array
-    examples: [v-model:sorted="fields"]
+    examples: [v-model="fields"]
     model: true
 
   tag:
@@ -62,9 +57,9 @@ events:
         desc: fields.
         type: Object
 
-  '@update:sorted -> function(value)':
-    desc: Dispara no created e toda vez que a prop "list" muda, usado para o v-model:sorted.
+  '@update:model-value -> function(values)':
+    desc: Dispara quando o model-value altera, após acontecer uma ordenação.
     params:
-      value:
-        desc: Lista contendo nova ordenação.
+      values:
+        desc: Novo valor do model.
         type: Array

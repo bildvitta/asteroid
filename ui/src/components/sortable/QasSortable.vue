@@ -25,11 +25,6 @@ export default {
       type: Object
     },
 
-    list: {
-      default: () => [],
-      type: Array
-    },
-
     tag: {
       default: 'div',
       type: String
@@ -40,7 +35,7 @@ export default {
       type: String
     },
 
-    sorted: {
+    modelValue: {
       default: () => [],
       type: Array
     },
@@ -52,7 +47,7 @@ export default {
   },
 
   emits: [
-    'update:sorted',
+    'update:modelValue',
     'sort',
     'success',
     'error'
@@ -76,9 +71,9 @@ export default {
       this.sortable.options = { ...this.sortable.options, ...value }
     },
 
-    list: {
-      handler (value) {
-        this.setSortedValue(value)
+    modelValue: {
+      handler (newValues) {
+        this.sortedList = newValues
       },
 
       deep: true
@@ -139,16 +134,17 @@ export default {
       const deleted = this.sortedList.splice(oldIndex, 1)
       this.sortedList.splice(newIndex, 0, deleted[0])
 
+      this.updateModel()
+
       this.useSaveOnSort && this.replace()
     },
 
-    setSortedValue (value) {
-      this.sortedList = extend(true, [], value || this.list)
-      this.updateSortedModel()
+    setSortedValue () {
+      this.sortedList = extend(true, [], this.modelValue)
     },
 
-    updateSortedModel () {
-      return this.$emit('update:sorted', this.sortedList)
+    updateModel () {
+      this.$emit('update:modelValue', this.sortedList)
     }
   }
 }
