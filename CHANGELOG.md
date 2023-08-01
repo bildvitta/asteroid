@@ -11,6 +11,15 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
 ## Não publicado
+## BREAKING CHANGES
+- `QasSortable`: removido as props `sorted` e `list`, onde o a ordenação e as options será o próprio v-model.
+
+### Adicionado
+- `QasSortable`: adicionado v-model para o controle da ordenação.
+
+### Removido
+- `QasSortable`: removido as props `sorted` e `list`.
+
 ### Corrigido
 - `search-filter`: adicionado validação da prop `useLazyLoading` no watch do `lazyLoadingProps.params` para não fazer request quando ela for false.
 
