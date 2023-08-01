@@ -92,7 +92,7 @@ export default {
   watch: {
     'lazyLoadingProps.params': {
       handler (newParams, oldParams) {
-        if (isEqual(newParams, oldParams)) return
+        if (!this.useLazyLoading || isEqual(newParams, oldParams)) return
 
         this.mx_cachedOptions = []
 
