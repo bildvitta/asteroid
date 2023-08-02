@@ -5,7 +5,6 @@
 </template>
 
 <script>
-import { Dialog } from 'asteroid'
 import DescriptionComponent from './DescriptionComponent'
 
 export default {
@@ -17,10 +16,6 @@ export default {
         }
       }
     }
-  },
-
-  methods: {
-    Dialog
   }
 }
 </script>
