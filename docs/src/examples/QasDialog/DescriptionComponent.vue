@@ -6,6 +6,6 @@
 
 <script>
 export default {
-  name: 'DescriptionComponentTest'
+  name: 'DescriptionComponent'
 }
 </script>
