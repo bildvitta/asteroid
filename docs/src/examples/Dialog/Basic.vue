@@ -1,5 +1,5 @@
 <template>
-  <div class="container spaced text-center">
+  <div class="column container spaced text-center">
     <qas-btn @click="$qas.dialog(dialogConfig)">Usando plugin com injeção</qas-btn>
     <qas-btn @click="Dialog(dialogConfig)">Usando plugin com import</qas-btn>
   </div>

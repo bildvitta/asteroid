@@ -18,3 +18,10 @@ this.$qas.dialog('Deu certo!')
 ```
 
 <doc-example file="Dialog/Basic" title="Básico" />
+
+É possível passar um componente para a descrição, caso precise que a descrição seja diferente do padrão.
+
+:::warning
+Isso foi desenvolvido para utilizar em casos muitos específicos, não é recomendado o uso dessa funcionalidade com frequência.
+:::
+<doc-example file="Dialog/DialogWithDescriptionComponent" title="Descrição sendo um componente" />

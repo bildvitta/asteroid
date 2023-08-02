@@ -14,7 +14,7 @@
       <section class="text-body1 text-grey-8">
         <component :is="componentTag" ref="form">
           <slot name="description">
-            <div v-if="card.description">{{ card.description }}</div>
+            <component :is="descriptionComponent">{{ card.description }}</component>
           </slot>
         </component>
       </section>
@@ -186,6 +186,14 @@ export default {
         useEqualWidth: this.hasAllActions,
         ...this.actionsProps
       }
+    },
+
+    descriptionIsComponent () {
+      return typeof this.card.description?.render === 'function'
+    },
+
+    descriptionComponent () {
+      return this.descriptionIsComponent ? this.card.description : 'div'
     }
   },
 
