@@ -17,6 +17,9 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 ### Corrigido
 - `Delete.js`: merge do `dialogProps` vindo por parâmetro na função, com os valores defaults.
 
+### Modificado
+- `ui/src/css/components/button.scss`: modificado cor disabled de `grey-8` para `grey-6` nas variantes `secondary` e `tertiary` para seguir design system.
+
 ## [3.11.0-beta.11] - 01-08-2023
 ## BREAKING CHANGES
 - `QasSortable`: removido as props `sorted` e `list`, onde o a ordenação e as options será o próprio v-model.
