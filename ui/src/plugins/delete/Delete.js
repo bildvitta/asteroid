@@ -37,8 +37,6 @@ export default function (config = {}) {
     ...dialogPropsRest
   }
 
-  console.log(defaultDialogProps, '<-- defaultDialogProps')
-
   const defaultNotifyMessages = {
     error: 'Não conseguimos excluir as informações. Por favor, tente novamente em alguns minutos.',
     success: 'Informações excluídas com sucesso.'
