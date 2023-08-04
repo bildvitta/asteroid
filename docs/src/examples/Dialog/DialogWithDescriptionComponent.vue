@@ -8,9 +8,9 @@
 import DescriptionComponent from './DescriptionComponent'
 
 export default {
-  computed: {
-    dialogConfig () {
-      return {
+  data () {
+    return {
+      dialogConfig: {
         card: {
           description: DescriptionComponent
         }

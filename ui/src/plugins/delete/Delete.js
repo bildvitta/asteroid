@@ -18,23 +18,22 @@ export default function (config = {}) {
   } = config
 
   const { entity, id, url } = deleteActionParams
-  const { ok, card, ...dialogPropsRest } = dialogProps
 
   const defaultDialogProps = {
+    ...dialogProps,
+
     card: {
       description: 'Tem certeza que deseja excluir este item?',
 
-      ...card
+      ...dialogProps.card
     },
 
     ok: {
       label: 'Excluir',
       onClick: () => destroy.call(this),
 
-      ...ok
-    },
-
-    ...dialogPropsRest
+      ...dialogProps.ok
+    }
   }
 
   const defaultNotifyMessages = {

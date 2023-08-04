@@ -9,18 +9,16 @@
 import { Dialog } from 'asteroid'
 
 export default {
-  computed: {
-    dialogConfig () {
-      return {
-        card: {
-          title: 'Título do dialog',
-          description: 'Descrição do dialog.'
-        },
+  data () {
+    return {
+      card: {
+        title: 'Título do dialog',
+        description: 'Descrição do dialog.'
+      },
 
-        cancel: {
-          onClick () {
-            alert('Botão cancelar clicado!')
-          }
+      cancel: {
+        onClick () {
+          alert('Botão cancelar clicado!')
         }
       }
     }

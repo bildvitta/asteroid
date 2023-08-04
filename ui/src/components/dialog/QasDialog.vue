@@ -14,7 +14,7 @@
       <section class="text-body1 text-grey-8">
         <component :is="componentTag" ref="form">
           <slot name="description">
-            <component :is="descriptionComponent">{{ card.description }}</component>
+            <component :is="descriptionComponentTag">{{ card.description }}</component>
           </slot>
         </component>
       </section>
@@ -188,12 +188,12 @@ export default {
       }
     },
 
-    descriptionIsComponent () {
+    hasRenderFunction () {
       return typeof this.card.description?.render === 'function'
     },
 
-    descriptionComponent () {
-      return this.descriptionIsComponent ? this.card.description : 'div'
+    descriptionComponentTag () {
+      return this.hasRenderFunction ? this.card.description : 'div'
     }
   },
 

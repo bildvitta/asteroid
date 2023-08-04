@@ -23,5 +23,8 @@ this.$qas.dialog('Deu certo!')
 
 :::warning
 Isso foi desenvolvido para utilizar em casos muitos específicos, não é recomendado o uso dessa funcionalidade com frequência.
+Um caso onde a exclusão desse item é de alto impacto, onde devemos ter informações a mais do que somente a descrição padrão.
+
+Exemplo: Tenho um item onde está vinculado a vários empreendimentos, e deverá ser exibido quais empreendimentos estão vinculados mostrando o impacto da exclusão do mesmo.
 :::
 <doc-example file="Dialog/DialogWithDescriptionComponent" title="Descrição sendo um componente" />

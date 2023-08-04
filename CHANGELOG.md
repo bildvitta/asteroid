@@ -12,10 +12,10 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 
 ## Não publicado
 ### Adicionado
-- `QasDialog`: possibilidade de passar a descrição como componente.
+- `QasDialog`: possibilidade de passar a descrição como componente através da prop `description` de dentro do `card`.
 
 ### Corrigido
-- `Delete.js`: merge do `dialogProps` vindo por parâmetro na função, com os valores defaults.
+- `Delete.js`: merge do `dialogProps` vindo por parâmetro na função com os valores defaults.
 
 ### Modificado
 - `ui/src/css/components/button.scss`: modificado cor disabled de `grey-8` para `grey-6` nas variantes `secondary` e `tertiary` para seguir design system.
