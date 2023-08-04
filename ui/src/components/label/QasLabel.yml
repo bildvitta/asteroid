@@ -19,6 +19,11 @@ props:
     type: String
     examples: [xs, sm, md, lg, xl]
 
+  color: 
+    desc: Cor da label.
+    default: grey-9
+    type: String
+
 slots:
   default:
     desc: Slot para acessar elemento do texto.
