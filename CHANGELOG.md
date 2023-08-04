@@ -10,6 +10,13 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 ### Sobre os "BREAKING CHANGES"
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
+## Não publicado
+### Adicionado
+- `QasDialog`: possibilidade de passar a descrição como componente através da prop `description` de dentro do `card`.
+
+### Corrigido
+- `Delete.js`: merge do `dialogProps` vindo por parâmetro na função com os valores defaults.
+
 ## [3.11.0-beta.12] - 04-08-2023
 ## BREAKING CHANGES
 - `QasNumericInput`: modificado o nome da propriedade `decimalPlaces` para `places`, mantendo assim o padrão de API e do Asteroid.
