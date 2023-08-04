@@ -17,8 +17,17 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 ### Corrigido
 - `Delete.js`: merge do `dialogProps` vindo por parâmetro na função com os valores defaults.
 
+## [3.11.0-beta.12] - 04-08-2023
+## BREAKING CHANGES
+- `QasNumericInput`: modificado o nome da propriedade `decimalPlaces` para `places`, mantendo assim o padrão de API e do Asteroid.
+
+### Adicionado
+- `QasField`: adicionado suporte ao parâmetro `places` que será repassado para o componente `QasNumericInput` para definir a quantidade de casas decimais.
+- `QasFormView`: adicionado nova prop `formProps` para repassar todas as props/eventos para o `QForm`.
+
 ### Modificado
 - `ui/src/css/components/button.scss`: modificado cor disabled de `grey-8` para `grey-6` nas variantes `secondary` e `tertiary` para seguir design system.
+- `QasNumericInput`: modificado o nome da propriedade `decimalPlaces` para `places`, mantendo assim o padrão de API e do Asteroid.
 
 ## [3.11.0-beta.11] - 01-08-2023
 ## BREAKING CHANGES
@@ -1785,3 +1794,4 @@ Adicionado suporte para Pinia/Vuex Seguindo os padrões da biblioteca `@bildvitt
 [3.11.0-beta.9]: https://github.com/bildvitta/asteroid/compare/v3.11.0-beta.8...v3.11.0-beta.9?expand=1
 [3.11.0-beta.10]: https://github.com/bildvitta/asteroid/compare/v3.11.0-beta.9...v3.11.0-beta.10?expand=1
 [3.11.0-beta.11]: https://github.com/bildvitta/asteroid/compare/v3.11.0-beta.10...v3.11.0-beta.11?expand=1
+[3.11.0-beta.12]: https://github.com/bildvitta/asteroid/compare/v3.11.0-beta.11...v3.11.0-beta.12?expand=1

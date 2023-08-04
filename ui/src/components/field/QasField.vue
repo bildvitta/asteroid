@@ -74,6 +74,7 @@ export default {
         filled = readonly,
         suffix,
         prefix,
+        places,
         type,
         mask,
         maxFiles,
@@ -104,7 +105,7 @@ export default {
         useIso
       }
 
-      const numericInput = { is: 'qas-numeric-input', ...input }
+      const numericInput = { is: 'qas-numeric-input', places, ...input }
       const datetimeInput = { is: 'qas-date-time-input', useIso, ...input }
 
       // It'll generate a list of acceptable files extensions.
