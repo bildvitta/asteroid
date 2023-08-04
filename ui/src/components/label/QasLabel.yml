@@ -19,7 +19,7 @@ props:
     type: String
     examples: [xs, sm, md, lg, xl]
 
-  color: 
+  color:
     desc: Cor da label.
     default: grey-9
     type: String
