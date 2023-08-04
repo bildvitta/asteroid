@@ -66,6 +66,13 @@ props:
     examples: [v-model:fields="fields"]
     model: true
 
+  form-props:
+    desc: Repassa todas as props/eventos para o `QForm`.
+    default: {}
+    type: Object
+    examples: ['{ onValidationError: ref => validationErrorHandler(ref) }']
+    model: true
+
   ignore-keys-in-unsaved-changes:
     desc: Vamos imaginar um cenário onde você precisa alterar valores do v-model por qualquer motivo que seja, mas quando o usuário sair da tela, não pode aparecer o modal perguntando se ele quer sair ou continuar editando, por que o usuário de fato não fez nenhuma alteração nos dados, esta prop serve para você dizer quais keys dentro do v-model você quer ignorar.
     default: []

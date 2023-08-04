@@ -4,7 +4,7 @@
       <slot name="header" />
     </header>
 
-    <q-form ref="form" @submit="submitHandler">
+    <q-form ref="form" v-bind="defaultFormProps">
       <slot />
 
       <slot v-if="useActions" name="actions">
@@ -74,6 +74,11 @@ export default {
 
     disable: {
       type: Boolean
+    },
+
+    formProps: {
+      type: Object,
+      default: () => ({})
     },
 
     mode: {
@@ -190,6 +195,17 @@ export default {
         validationError: 'Não conseguimos salvar as informações. Por favor, revise os campos e tente novamente.',
         error: 'Não conseguimos salvar as informações. Por favor, tente novamente em alguns minutos.',
         success: 'Informações salvas com sucesso.'
+      }
+    },
+
+    defaultFormProps () {
+      return {
+        ...this.formProps,
+
+        onSubmit: event => {
+          this.submitHandler(event)
+          this.formProps?.onSubmit?.(event)
+        }
       }
     }
   },
