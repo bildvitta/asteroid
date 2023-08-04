@@ -25,7 +25,7 @@ export default {
       type: Object
     },
 
-    decimalPlaces: {
+    places: {
       default: 2,
       type: Number
     },
@@ -113,7 +113,7 @@ export default {
     }
 
     if (this.mode !== 'integer') {
-      options.decimalPlaces = this.decimalPlaces
+      options.decimalPlaces = this.places
     }
 
     if (this.mode === 'money') {

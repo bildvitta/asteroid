@@ -11,11 +11,15 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
 ## Não publicado
+## BREAKING CHANGES
+- `QasNumericInput`: modificado o nome da propriedade `decimalPlaces` para `places`, mantendo assim o padrão de API e do Asteroid.
+
 ### Adicionado
 - `QasField`: adicionado suporte ao parâmetro `places` que será repassado para o componente `QasNumericInput` para definir a quantidade de casas decimais.
 
 ### Modificado
 - `ui/src/css/components/button.scss`: modificado cor disabled de `grey-8` para `grey-6` nas variantes `secondary` e `tertiary` para seguir design system.
+- `QasNumericInput`: modificado o nome da propriedade `decimalPlaces` para `places`, mantendo assim o padrão de API e do Asteroid.
 
 ## [3.11.0-beta.11] - 01-08-2023
 ## BREAKING CHANGES
