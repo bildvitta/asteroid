@@ -1,6 +1,6 @@
 <template>
   <div class="qas-filter-input">
-    <qas-input ref="input" v-model="model" v-bind="$attrs" class="bg-white rounded-borders-sm" data-cy="search-input" :debounce="debounce" dense hide-bottom-space input-class="ellipsis text-grey-8" type="search">
+    <qas-input ref="input" v-model="model" v-bind="$attrs" class="bg-white rounded-borders-sm" data-cy="search-input" :debounce="debounce" dense hide-bottom-space input-class="ellipsis text-grey-8" outlined type="search">
       <template #prepend>
         <q-icon v-if="useSearchOnType" color="grey-8" name="sym_r_search" />
         <qas-btn v-else color="grey-9" icon="sym_r_search" variant="tertiary" @click="$emit('filter')" />

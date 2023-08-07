@@ -85,9 +85,9 @@ export default {
       return {
         class: 'qas-select',
         clearable: this.isSearchable,
+        dense: true,
         emitValue: true,
         mapOptions: true,
-        outlined: true,
         popupContentClass: this.popupContentClass,
 
         ...this.$attrs,

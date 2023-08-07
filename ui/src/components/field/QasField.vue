@@ -93,7 +93,7 @@ export default {
       const input = {
         label,
         hideBottomSpace: !error.error,
-        outlined: true,
+        dense: true,
         ...error,
         readonly,
         disable,

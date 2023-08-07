@@ -15,6 +15,11 @@ props:
     desc: Controla cor da borda do input.
     type: Boolean
 
+  dense:
+    desc: Ocupa menos espaço.
+    default: true
+    type: Boolean
+
   model-value:
     desc: Model do componente.
     type: [String, Input]
@@ -23,7 +28,7 @@ props:
 
   outlined:
     desc: Controla borda do input.
-    default: true
+    default: false
     type: Boolean
 
   use-remove-error-on-type:

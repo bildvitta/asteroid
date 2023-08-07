@@ -1,5 +1,5 @@
 <template>
-  <q-input ref="input" v-model="model" bottom-slots :error="errorData" v-bind="$attrs" :error-message="errorMessage" :mask="mask" :outlined="outlined" :unmasked-value="unmaskedValue" @paste="onPaste">
+  <q-input ref="input" v-model="model" bottom-slots v-bind="$attrs" :dense="dense" :error="errorData" :error-message="errorMessage" :mask="mask" :outlined="outlined" :unmasked-value="unmaskedValue" @paste="onPaste">
     <template v-for="(_, name) in $slots" #[name]="context">
       <slot :name="name" v-bind="context || {}" />
     </template>
@@ -22,13 +22,17 @@ export default {
       default: ''
     },
 
+    dense: {
+      default: true,
+      type: Boolean
+    },
+
     modelValue: {
       default: '',
       type: [String, Number]
     },
 
     outlined: {
-      default: true,
       type: Boolean
     },
 

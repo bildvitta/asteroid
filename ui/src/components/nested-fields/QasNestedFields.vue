@@ -42,7 +42,7 @@
 
           <div v-else-if="useInlineActions" class="cursor-pointer items-center q-col-gutter-x-md q-mt-md row" @click="add()">
             <div class="col">
-              <qas-input class="disabled no-pointer-events" hide-bottom-space :label="addInputLabel" outlined @focus="add()" />
+              <qas-input class="disabled no-pointer-events" hide-bottom-space :label="addInputLabel" @focus="add()" />
             </div>
 
             <div class="col-auto">
