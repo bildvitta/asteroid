@@ -108,7 +108,7 @@ export default {
     },
 
     getCheckboxClass (option) {
-      return this.hasChildren(option) && 'text-weight-bold'
+      return this.hasChildren(option) && 'text-weight-bold q-mb-sm'
     },
 
     getModelValue (index) {

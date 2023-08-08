@@ -93,7 +93,7 @@ export default {
       const input = {
         label,
         hideBottomSpace: !error.error,
-        dense: true,
+        placeholder: 'Placeholder', // TODO: Remover
         ...error,
         readonly,
         disable,
@@ -124,7 +124,7 @@ export default {
       // Profiles
       const profiles = {
         default: { is: 'qas-input', ...input, mask },
-        textarea: { is: 'qas-input', type, ...input },
+        textarea: { is: 'qas-input', autogrow: true, type, ...input },
         number: { is: 'qas-input', type: 'number', ...input },
         hidden: { is: 'input', name, type },
         email: { is: 'qas-input', type, ...input },
