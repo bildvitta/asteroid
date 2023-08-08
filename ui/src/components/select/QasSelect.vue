@@ -86,6 +86,7 @@ export default {
         class: 'qas-select',
         clearable: this.isSearchable,
         dense: true,
+        dropdownIcon: 'expand_more',
         emitValue: true,
         mapOptions: true,
         popupContentClass: this.popupContentClass,

@@ -4,9 +4,11 @@
     @include set-typography($label);
   }
 
-  &__prepend {
+  &__prepend,
+  &__append {
     .q-icon {
       color: $grey-8;
+      font-size: 1.50rem !important;
     }
   }
 
@@ -14,11 +16,8 @@
     font-size: 0.75rem;
   }
 
-  &--outlined {
-    .q-field__control {
-      background-color: white;
-      border-radius: $generic-border-radius;
-    }
+  textarea {
+    max-height: 200px;
   }
 
   &--dense {
@@ -30,12 +29,58 @@
 
   &--float {
     .q-field__label {
-      transform: translateY(-40%) scale(0.60) !important;
       color: $grey-8;
+      transform: translateY(-30%) scale(0.60) !important;
     }
   }
 
-  textarea {
-    max-height: 200px;
+  &--standard {
+    &.q-field--float {
+      .q-field__label {
+        transform: translateY(-40%) scale(0.60) !important;
+      }
+    }
+
+    // TODO: Validar com time de design (espaçamento)
+    &.q-field--labeled {
+      .q-field__label {
+        top: 1.7rem;
+      }
+
+      .q-field__prepend,
+      .q-field__append {
+        padding-top: 1rem;
+      }
+
+      &.q-field--float {
+        .q-field__label {
+          top: 1rem;
+        }
+      }
+
+      &.q-field--dense {
+        .q-field__label {
+          top: 1rem;
+        }
+
+        .q-field__prepend,
+        .q-field__append {
+          padding-top: 0.7rem;
+        }
+
+        &.q-field--float {
+          .q-field__label {
+            top: 0.625rem;
+          }
+        }
+      }
+    }
+  }
+
+  &--outlined {
+    .q-field__control {
+      background-color: white;
+      border-radius: $generic-border-radius;
+    }
   }
 }
