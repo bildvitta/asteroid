@@ -51,7 +51,12 @@ export default {
     },
 
     classes () {
-      return this.inline && 'flex q-gutter-x-md'
+      return [
+        'q-gutter-x-md',
+        {
+          'flex q-gutter-y-sm': this.inline
+        }
+      ]
     }
   },
 

@@ -35,10 +35,18 @@ export default {
   computed: {
     attributes () {
       const inline = !this.$qas.screen.isSmall
+      const { class: classes, ...attrs } = this.$attrs
+
       return {
-        ...this.$attrs,
+        ...attrs,
         inline,
-        class: inline && 'flex q-gutter-x-md'
+        class: [
+          classes,
+          'q-gutter-y-sm',
+          {
+            'flex q-gutter-x-md': inline
+          }
+        ]
       }
     },
 

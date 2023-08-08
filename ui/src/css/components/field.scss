@@ -1,4 +1,19 @@
 .q-field {
+  &__label,
+  &__native {
+    @include set-typography($label);
+  }
+
+  &__prepend {
+    .q-icon {
+      color: $grey-8;
+    }
+  }
+
+  &__bottom {
+    font-size: 0.75rem;
+  }
+
   &--outlined {
     .q-field__control {
       background-color: white;
@@ -11,16 +26,12 @@
     .q-field__native {
       @include set-typography($label);
     }
+  }
 
-    &.q-field--float {
-      .q-field__label {
-        transform: translateY(-40%) scale(0.60);
-        color: $grey-8;
-      }
-    }
-
-    .q-field__bottom {
-      font-size: 0.75rem;
+  &--float {
+    .q-field__label {
+      transform: translateY(-40%) scale(0.60) !important;
+      color: $grey-8;
     }
   }
 }
