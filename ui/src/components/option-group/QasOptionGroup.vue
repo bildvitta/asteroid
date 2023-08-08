@@ -44,7 +44,7 @@ export default {
           classes,
           'q-gutter-y-sm',
           {
-            'flex q-gutter-x-md': inline
+            'q-gutter-x-md': inline
           }
         ]
       }

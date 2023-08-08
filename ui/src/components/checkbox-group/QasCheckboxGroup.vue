@@ -52,9 +52,9 @@ export default {
 
     classes () {
       return [
-        'q-gutter-x-md',
+        'q-gutter-y-sm',
         {
-          'flex q-gutter-y-sm': this.inline
+          'flex q-gutter-x-md': this.inline
         }
       ]
     }
