@@ -1,0 +1,5 @@
+.q-toggle {
+  &__label {
+    @include set-typography($label);
+  }
+}

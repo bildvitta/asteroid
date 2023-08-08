@@ -1,5 +1,5 @@
 <template>
-  <q-option-group v-model="model" :options="options" v-bind="attributes">
+  <q-option-group v-model="model" dense :options="options" v-bind="attributes">
     <template v-for="(_, name) in $slots" #[name]="context">
       <slot :name="name" v-bind="context || {}" />
     </template>
@@ -34,9 +34,11 @@ export default {
 
   computed: {
     attributes () {
+      const inline = !this.$qas.screen.isSmall
       return {
         ...this.$attrs,
-        inline: !this.$qas.screen.isSmall
+        inline,
+        class: inline && 'flex q-gutter-x-md'
       }
     },
 

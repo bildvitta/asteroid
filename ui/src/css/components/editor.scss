@@ -1,0 +1,5 @@
+.q-editor {
+  &__content {
+    @include set-typography($label);
+  }
+}

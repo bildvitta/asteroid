@@ -1,4 +1,26 @@
-.q-field--outlined .q-field__control {
-  background-color: white;
-  border-radius: $generic-border-radius;
+.q-field {
+  &--outlined {
+    .q-field__control {
+      background-color: white;
+      border-radius: $generic-border-radius;
+    }
+  }
+
+  &--dense {
+    .q-field__label,
+    .q-field__native {
+      @include set-typography($label);
+    }
+
+    &.q-field--float {
+      .q-field__label {
+        transform: translateY(-40%) scale(0.60);
+        color: $grey-8;
+      }
+    }
+
+    .q-field__bottom {
+      font-size: 0.75rem;
+    }
+  }
 }

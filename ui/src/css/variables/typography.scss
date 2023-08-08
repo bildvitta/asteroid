@@ -102,6 +102,12 @@ $caption: (
   weight: 400
 );
 
+// label
+$label: (
+  size: 1rem,
+  color: $grey-9
+);
+
 $headings: (
   'h1': $h1,
   'h2': $h2,
@@ -114,7 +120,8 @@ $headings: (
   'body1': $body1,
   'body2': $body2,
   'overline': $overline,
-  'caption': $caption
+  'caption': $caption,
+  'label': $label
 );
 
 // adiciona tags com mesmo estilo do css

@@ -1,3 +1,9 @@
-.q-radio__inner::before {
-  color: $primary;
+.q-radio {
+  &__inner::before {
+    color: $primary;
+  }
+
+  &__label {
+    @include set-typography($label);
+  }
 }

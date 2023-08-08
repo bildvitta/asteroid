@@ -1,0 +1,5 @@
+.q-checkbox {
+  &__label {
+    @include set-typography($label);
+  }
+}
