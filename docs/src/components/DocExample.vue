@@ -174,6 +174,10 @@ export default {
 
   &__component {
     position: relative;
+
+    pre {
+      white-space: normal;
+    }
   }
 }
 </style>

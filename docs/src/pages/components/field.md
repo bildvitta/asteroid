@@ -32,7 +32,8 @@ Para saber mais sobre o **API Design Pattern** clice [aqui](https://www.notion.s
 ## Uso
 <doc-example file="QasField/Basic" title="Text" />
 <doc-example file="QasField/Select" title="Select" />
-<doc-example file="QasField/TextArea" title="Text Area" />
+<doc-example file="QasField/TextArea" title="Textarea" />
+<doc-example file="QasField/MaxLength" title="Maxlength" />
 <doc-example file="QasField/Number" title="Número" />
 
 Este campo fica escondido pois é um `type="hidden"`

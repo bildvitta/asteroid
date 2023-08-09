@@ -1,5 +1,5 @@
 <template>
-  <q-input ref="input" v-model="model" bottom-slots v-bind="$attrs" :dense="dense" :error="errorData" :error-message="errorMessage" :mask="mask" :outlined="outlined" :unmasked-value="unmaskedValue" @paste="onPaste">
+  <q-input ref="input" v-model="model" v-bind="$attrs" bottom-slots :counter="showCounter" :dense="dense" :error="errorData" :error-message="errorMessage" :mask="mask" :outlined="outlined" :unmasked-value="unmaskedValue" @paste="onPaste">
     <template v-for="(_, name) in $slots" #[name]="context">
       <slot :name="name" v-bind="context || {}" />
     </template>
@@ -84,6 +84,10 @@ export default {
 
         return this.$emit('update:modelValue', value)
       }
+    },
+
+    showCounter () {
+      return !!this.$attrs.maxlength
     }
   },
 

@@ -13,9 +13,15 @@
     }
   }
 
-  // Slot bottom styles (ex: helper text, error message)
+  // Bottom styles (ex: helper text, error message)
   &__bottom {
     font-size: 0.75rem;
+  }
+
+  // Counter styles (ex: character counter)
+  &__counter {
+    font-size: 0.75rem;
+    color: $grey-6;
   }
 
   // Textarea styles
