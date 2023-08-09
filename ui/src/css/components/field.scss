@@ -1,11 +1,17 @@
 .q-field {
   // Input label and input text
   &__label,
-  &__native {
+  &--dense &__label {
     @include set-typography($label);
   }
 
-  &__native {
+  &__native,
+  &__input,
+  &--dense &__native,
+  &--dense &__input {
+    @include set-typography($body1);
+    color: $grey-9;
+
     &::placeholder {
       color: $grey-6;
     }
@@ -33,14 +39,6 @@
   // Textarea styles
   textarea {
     max-height: 200px;
-  }
-
-  // Dense label and input styles
-  &--dense {
-    .q-field__label,
-    .q-field__native {
-      @include set-typography($label);
-    }
   }
 
   // Float label styles
@@ -143,8 +141,11 @@
   &--disabled,
   &--readonly {
     .q-field__label,
-    .q-field__native {
-      color: $grey-6;
+    .q-field__native,
+    .q-field__input,
+    .q-field__prepend .q-icon,
+    .q-field__append .q-icon {
+      color: $grey-6 !important;
     }
 
     .q-field__control {
@@ -155,6 +156,17 @@
       &:before {
         border-color: $grey-4 !important;
       }
+    }
+  }
+
+  // Error input styles
+  &--error {
+    .q-field__native,
+    .q-field__input,
+    .q-field__bottom,
+    .q-field__prepend .q-icon,
+    .q-field__append .q-icon {
+      color: $negative !important;
     }
   }
 }

@@ -2,4 +2,11 @@
   &__label {
     @include set-typography($label);
   }
+
+  &.disabled {
+    .q-checkbox__label,
+    .q-checkbox__inner {
+      color: $grey-6;
+    }
+  }
 }
