@@ -1,25 +1,29 @@
 .q-field {
+  // Input label and input text
   &__label,
   &__native {
     @include set-typography($label);
   }
 
+  // Default icon styles in prepend and append slots
   &__prepend,
   &__append {
     .q-icon {
-      color: $grey-8;
-      font-size: 1.50rem !important;
+      font-size: 1.40rem !important;
     }
   }
 
+  // Slot bottom styles (ex: helper text, error message)
   &__bottom {
     font-size: 0.75rem;
   }
 
+  // Textarea styles
   textarea {
     max-height: 200px;
   }
 
+  // Dense label and input styles
   &--dense {
     .q-field__label,
     .q-field__native {
@@ -27,6 +31,7 @@
     }
   }
 
+  // Float label styles
   &--float {
     .q-field__label {
       color: $grey-8;
@@ -34,53 +39,73 @@
     }
   }
 
+  // Default input styles
   &--standard {
+    // Float label styles
     &.q-field--float {
       .q-field__label {
         transform: translateY(-40%) scale(0.60) !important;
       }
     }
 
-    // TODO: Validar com time de design (espaçamento)
+    // Some alignment fixes for label and prepend/append slots
     &.q-field--labeled {
       .q-field__label {
-        top: 1.7rem;
+        top: 26px;
       }
 
       .q-field__prepend,
       .q-field__append {
-        padding-top: 1rem;
+        padding-top: 16px;
       }
 
       &.q-field--float {
         .q-field__label {
-          top: 1rem;
+          top: 16px;
         }
       }
 
       &.q-field--dense {
         .q-field__label {
-          top: 1rem;
+          top: 16px;
         }
 
         .q-field__prepend,
         .q-field__append {
-          padding-top: 0.7rem;
+          padding-top: 12px;
         }
 
         &.q-field--float {
           .q-field__label {
-            top: 0.625rem;
+            top: 10px;
           }
         }
       }
     }
   }
 
+  // Outlined input styles
   &--outlined {
     .q-field__control {
       background-color: white;
       border-radius: $generic-border-radius;
+    }
+  }
+
+  // Default and Outlined shared styles
+  &--standard,
+  &--outlined {
+    // Border color styles
+    .q-field__control {
+      &:before {
+        border-color: $grey-4;
+      }
+
+      &:hover {
+        &:before {
+          border-color: $grey-6;
+        }
+      }
     }
   }
 }
