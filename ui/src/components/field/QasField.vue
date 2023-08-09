@@ -71,7 +71,7 @@ export default {
         options,
         readonly,
         disable,
-        filled = readonly,
+        filled,
         suffix,
         prefix,
         places,

@@ -272,5 +272,12 @@ export default {
       }
     }
   }
+
+  .q-field__prepend,
+  .q-field__append {
+    .q-icon {
+      color: $grey-8;
+    }
+  }
 }
 </style>
