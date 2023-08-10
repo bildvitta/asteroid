@@ -12,7 +12,7 @@ props:
     default: {}
     type: Object
 
-  decimal-places:
+  places:
     desc: Quantidade de casas decimais.
     default: 2
     type: Number

@@ -33,7 +33,9 @@
     "QasTableGenerator",
     "QasDate",
     "QasChartView",
-    "QasDelete"
+    "QasDelete",
+    "QasSelectList",
+    "QasSortable"
   ],
   "cSpell.words": [
     "Breakline",

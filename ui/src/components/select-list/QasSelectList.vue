@@ -83,8 +83,9 @@ export default {
   },
 
   emits: [
-    'added',
-    'removed',
+    'add',
+    'remove',
+    'clear',
     'update:modelValue'
   ],
 
@@ -167,7 +168,7 @@ export default {
       this.values.push(this.getNormalizedValue(item))
       this.updateModel()
 
-      this.$emit('added', item)
+      this.$emit('add', item)
     },
 
     handleList () {
@@ -193,7 +194,7 @@ export default {
       this.values.splice(index, 1)
       this.updateModel()
 
-      this.$emit('removed', item, index)
+      this.$emit('remove', item, index)
     },
 
     sortList () {
@@ -228,6 +229,7 @@ export default {
     },
 
     clearSelection () {
+      this.$emit('clear', this.values)
       this.values = []
       this.updateModel()
     }
