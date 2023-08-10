@@ -20,7 +20,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - `use-context`: adicionado `composable` com as mesmas funções do mixin `mx_context`.
 
 ## Modificado
-- `QasListView`: `QasFilters` recebe pela computada `defaultFiltersProps` o merge das props `filtersProps` e `useCachedFilter`, com `filtersProps` sobrescrevendo `useCachedFilter`.
+- `QasListView`: `QasFilters` recebe pela computada `defaultFiltersProps` o merge das props `filtersProps` e `useCachedFilters`, com `filtersProps` sobrescrevendo `useCachedFilters`.
 
 ## [3.11.0-beta.13] - 04-08-2023
 ### Adicionado
