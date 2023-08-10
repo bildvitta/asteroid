@@ -18,7 +18,7 @@
 
 <script>
 import { date } from 'quasar'
-import { date as dateFn } from '../../helpers/filters'
+import { date as dateFn, handlePlaceholder } from '../../helpers'
 
 export default {
   name: 'QasDateTimeInput',
@@ -78,13 +78,14 @@ export default {
 
   computed: {
     attributes () {
-      const { modelValue, ...attributes } = this.$attrs
+      const { modelValue, type, placeholder, ...attributes } = this.$attrs
 
       return {
         error: this.error,
         errorMessage: this.errorMessage,
         ...attributes,
-        mask: this.mask
+        mask: this.mask,
+        placeholder: placeholder || handlePlaceholder(type)
       }
     },
 

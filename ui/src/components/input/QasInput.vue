@@ -1,5 +1,5 @@
 <template>
-  <q-input ref="input" v-model="model" v-bind="$attrs" bottom-slots :counter="showCounter" :dense="dense" :error="errorData" :error-message="errorMessage" :mask="mask" :outlined="outlined" :unmasked-value="unmaskedValue" @paste="onPaste">
+  <q-input ref="input" v-model="model" v-bind="$attrs" bottom-slots :counter="showCounter" :dense="dense" :error="errorData" :error-message="errorMessage" :mask="mask" :outlined="outlined" :placeholder="placeholder" :unmasked-value="unmaskedValue" @paste="onPaste">
     <template v-for="(_, name) in $slots" #[name]="context">
       <slot :name="name" v-bind="context || {}" />
     </template>
@@ -7,6 +7,8 @@
 </template>
 
 <script>
+import { handlePlaceholder } from '../../helpers'
+
 export default {
   name: 'QasInput',
 
@@ -84,6 +86,12 @@ export default {
 
         return this.$emit('update:modelValue', value)
       }
+    },
+
+    placeholder () {
+      const { placeholder, mask, type } = this.$attrs
+
+      return placeholder || handlePlaceholder(mask || type)
     },
 
     showCounter () {
