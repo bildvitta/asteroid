@@ -10,15 +10,63 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 ### Sobre os "BREAKING CHANGES"
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
-## Não publicado
+## [Unreleased]
 ## BREAKING CHANGES
 - `QasFilters`: a persistência de filtro se tornou comportamento padrão do design system, valide se é necessário persistir os filtros em todas as telas.
 
 ### Adicionado
 - `pv-use-cached-filters`: adicionado `composable` para gerenciar a persistência dos filtros com base na `entity`.
 - `QasFilters`: adicionada prop `use-cached-filters` para habilitar a persitência dos filtros.
-- `QasFilters`: adicionada prop `cache-key` que será usada para gerenciar o cache do filtro na `sessionStorage`. Será utilizada a `entity` caso a chave não seja informada.
 
+## [3.11.0-beta.13] - 04-08-2023
+### Adicionado
+- `QasDialog`: possibilidade de passar a descrição como componente através da prop `description` de dentro do `card`.
+
+### Corrigido
+- `Delete.js`: merge do `dialogProps` vindo por parâmetro na função com os valores defaults.
+
+## [3.11.0-beta.12] - 04-08-2023
+## BREAKING CHANGES
+- `QasNumericInput`: modificado o nome da propriedade `decimalPlaces` para `places`, mantendo assim o padrão de API e do Asteroid.
+
+### Adicionado
+- `QasField`: adicionado suporte ao parâmetro `places` que será repassado para o componente `QasNumericInput` para definir a quantidade de casas decimais.
+- `QasFormView`: adicionado nova prop `formProps` para repassar todas as props/eventos para o `QForm`.
+
+### Modificado
+- `ui/src/css/components/button.scss`: modificado cor disabled de `grey-8` para `grey-6` nas variantes `secondary` e `tertiary` para seguir design system.
+- `QasNumericInput`: modificado o nome da propriedade `decimalPlaces` para `places`, mantendo assim o padrão de API e do Asteroid.
+
+## [3.11.0-beta.11] - 01-08-2023
+## BREAKING CHANGES
+- `QasSortable`: removido as props `sorted` e `list`, onde o a ordenação e as options será o próprio v-model.
+
+### Adicionado
+- `QasSortable`: adicionado v-model para o controle da ordenação.
+
+### Removido
+- `QasSortable`: removido as props `sorted` e `list`.
+
+### Corrigido
+- `search-filter`: adicionado validação da prop `useLazyLoading` no watch do `lazyLoadingProps.params` para não fazer request quando ela for false.
+
+## [3.11.0-beta.10] - 28-07-2023
+## BREAKING CHANGES
+- `QasSelectList`: nome de eventos alterados de `@added` para `@add` e `@removed` para `@remove`.
+
+### Adicionado
+- `QasSortable`: adicionado prop `useSaveOnSort` com default `true` para não bater a API para salvar após fazer uma ordenação.
+- `QasSelectList`: adicionado evento `clear` que será disparado toda vez que o v-model é limpo através do botão de "Limpar seleção".
+
+### Modificado
+- `QasSortable`: removido `required` da prop `entity` para deixar opcional.
+
+### Corrigido
+- [`QasCopy`, `QasDelete`, `QasTreeGenerator`, `QasTruncate`]: alterado o `@click.stop` para `@click.stop.prevent` solucionando o problema de utilizar esses componentes em conjunto com o `QasTableGenerator`.
+- `QasSortable`: alterado watch da prop `list` para o deep, passando a ouvir quando dermos um `.push` ou `splice` no list.
+- `QasSortable`: removido método `sort` dentro do watch `list` na qual estava ordenando a lista quando não deveria ser ordenando.
+
+## [3.11.0-beta.9] - 25-07-2023
 ### Corrigido
 - `QasFilters`: Corrigido problema de merge entre os `fields` iniciais e a propriedade `fieldsProps` na computada `activeFilters`.
 - `QasFilters`: Corrigido exibição vazia da badge de filtros ativos quando o valor não é encontrado na lista de opções de um campo de select.
@@ -1751,3 +1799,8 @@ Adicionado suporte para Pinia/Vuex Seguindo os padrões da biblioteca `@bildvitt
 [3.11.0-beta.6]: https://github.com/bildvitta/asteroid/compare/v3.11.0-beta.5...v3.11.0-beta.6?expand=1
 [3.11.0-beta.7]: https://github.com/bildvitta/asteroid/compare/v3.11.0-beta.6...v3.11.0-beta.7?expand=1
 [3.11.0-beta.8]: https://github.com/bildvitta/asteroid/compare/v3.11.0-beta.7...v3.11.0-beta.8?expand=1
+[3.11.0-beta.9]: https://github.com/bildvitta/asteroid/compare/v3.11.0-beta.8...v3.11.0-beta.9?expand=1
+[3.11.0-beta.10]: https://github.com/bildvitta/asteroid/compare/v3.11.0-beta.9...v3.11.0-beta.10?expand=1
+[3.11.0-beta.11]: https://github.com/bildvitta/asteroid/compare/v3.11.0-beta.10...v3.11.0-beta.11?expand=1
+[3.11.0-beta.12]: https://github.com/bildvitta/asteroid/compare/v3.11.0-beta.11...v3.11.0-beta.12?expand=1
+[3.11.0-beta.13]: https://github.com/bildvitta/asteroid/compare/v3.11.0-beta.12...v3.11.0-beta.13?expand=1
