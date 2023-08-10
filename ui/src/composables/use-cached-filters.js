@@ -1,6 +1,6 @@
+import useContext from './use-context'
 import { SessionStorage } from 'quasar'
 import { reactive } from 'vue'
-import { useContext } from './use-context'
 import { useRouter, useRoute } from 'vue-router'
 
 const cachedFilters = reactive({})
