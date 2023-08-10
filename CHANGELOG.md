@@ -12,11 +12,15 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 
 ## [Unreleased]
 ## BREAKING CHANGES
-- `QasFilters`: a persistência de filtro se tornou comportamento padrão do design system, valide se é necessário persistir os filtros em todas as telas.
+- `QasFilters`, `QasListView`: a persistência de filtro se tornou comportamento padrão do design system. Valide se é necessário persistir os filtros em todas as telas.
 
 ### Adicionado
-- `pv-use-cached-filters`: adicionado `composable` para gerenciar a persistência dos filtros com base na `entity`.
-- `QasFilters`: adicionada prop `use-cached-filters` para habilitar a persitência dos filtros.
+- `use-cached-filters`: adicionado `composable` para gerenciar a persistência dos filtros com base na `entity`.
+- `QasFilters`, `QasListView`: adicionada prop `use-cached-filters` para habilitar a persitência dos filtros.
+- `use-context`: adicionado `composable` com as mesmas funções do mixin `mx_context`.
+
+## Modificado
+- `QasListView`: `QasFilters` recebe pela computada `defaultFiltersProps` o merge das props `filtersProps` e `useCachedFilter`, com `filtersProps` sobrescrevendo `useCachedFilter`.
 
 ## [3.11.0-beta.13] - 04-08-2023
 ### Adicionado
