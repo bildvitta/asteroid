@@ -465,6 +465,14 @@ module.exports = [
     name: 'Composição',
     children: [
       {
+        name: 'useCachedFilters',
+        path: '/composables/use-cached-filters'
+      },
+      {
+        name: 'useContext',
+        path: '/composables/use-context'
+      },
+      {
         name: 'useForm',
         path: '/composables/use-form'
       },

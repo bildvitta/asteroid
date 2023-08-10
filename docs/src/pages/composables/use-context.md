@@ -8,5 +8,4 @@ Composable para pegar os dados da query.
 import { useContext } from 'asteroid'
 
 const { search, page, filters } = useContext().context.value
-
 ```

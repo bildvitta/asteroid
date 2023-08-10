@@ -19,7 +19,5 @@ cachedFilters.clearOne('isActive') // remove um filtro da entidade com base na c
 cachedFilters.clearAll({ exclude: ['search'] }) // remove todos os filtros da entidade, menos os passados para a chave exclude, que é opcional.
 
 const cachedFilters = useCachedFilters('users')
-cachedFilters.init() // faz a inicialização do cache, adicionando os à variável reativa interna e populando a query
-                     // utilizado nas páginas de listView.
-
+cachedFilters.init() // faz a inicialização do cache, adicionando os à variável reativa interna e populando a query. Utilizado nas páginas de listView.
 ```
