@@ -6,7 +6,7 @@
       </header>
 
       <slot v-if="useFilter" name="filter">
-        <qas-filters v-bind="filtersProps" :entity="entity" />
+        <qas-filters v-bind="defaultFiltersProps" :entity="entity" />
       </slot>
 
       <main class="relative-position">
@@ -40,6 +40,7 @@
 
 <script>
 import { viewMixin, contextMixin } from '../../mixins'
+import { useCachedFilters } from '../../composables'
 import QasFilters from '../filters/QasFilters.vue'
 import QasPagination from '../pagination/QasPagination.vue'
 import { extend } from 'quasar'
@@ -72,6 +73,11 @@ export default {
       type: Boolean
     },
 
+    useCachedFilters: {
+      default: true,
+      type: Boolean
+    },
+
     useFilter: {
       default: true,
       type: Boolean
@@ -101,12 +107,21 @@ export default {
 
   data () {
     return {
+      cachedFilters: undefined,
       page: 1,
-      resultsQuantity: 0
+      resultsQuantity: 0,
+      unWatchRoute: undefined
     }
   },
 
   computed: {
+    defaultFiltersProps () {
+      return {
+        useCachedFilters: this.useCachedFilters,
+        ...this.filtersProps
+      }
+    },
+
     hasDeleteEventListener () {
       return this.useAutoHandleOnDelete || this.useAutoRefetchOnDelete
     },
@@ -141,13 +156,6 @@ export default {
   },
 
   watch: {
-    $route (to, from) {
-      if (to.name === from.name) {
-        this.mx_fetchHandler({ ...this.mx_context, url: this.url }, this.fetchList)
-        this.setCurrentPage()
-      }
-    },
-
     resultsModel: {
       handler (value) {
         this.$emit('update:results', extend([], true, value))
@@ -157,10 +165,21 @@ export default {
     }
   },
 
-  created () {
-    this.mx_fetchHandler({ ...this.mx_context, url: this.url }, this.fetchList)
+  async created () {
+    if (this.useCachedFilters) {
+      this.cachedFilters = useCachedFilters(this.entity)
+      await this.cachedFilters.init()
+    }
 
+    this.mx_fetchHandler({ ...this.mx_context, url: this.url }, this.fetchList)
     this.setCurrentPage()
+
+    this.unWatchRoute = this.$watch('$route', (to, from) => {
+      if (to.name === from.name) {
+        this.mx_fetchHandler({ ...this.mx_context, url: this.url }, this.fetchList)
+        this.setCurrentPage()
+      }
+    })
   },
 
   mounted () {
@@ -170,6 +189,8 @@ export default {
   },
 
   unmounted () {
+    this.unWatchRoute?.()
+
     if (!this.hasDeleteEventListener) return
 
     window.removeEventListener('delete-success', this.onDeleteResult)
