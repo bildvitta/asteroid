@@ -106,8 +106,6 @@ function handlePlaceholder (type, defaultPlaceholder = 'Digite aqui...') {
       return 'dd/mm/aaaa hh:mm'
     case 'decimal':
       return '0,00'
-    case 'document':
-      return '000.000.000-00'
     case 'email':
       return 'seuemail@exemplo.com'
     case 'integer':

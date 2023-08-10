@@ -95,7 +95,9 @@ export default {
     },
 
     showCounter () {
-      return !!this.$attrs.maxlength
+      const { counter, maxlength, type } = this.$attrs
+
+      return counter ?? (maxlength && type === 'textarea')
     }
   },
 
