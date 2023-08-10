@@ -71,6 +71,11 @@ props:
     default: true
     type: Boolean
 
+  use-cached-filters:
+    desc: Controla se o componente vai usar ou não a persistência dos filtros.
+    default: true
+    type: Boolean
+
   use-filter:
     desc: Controla se o componente vai usar ou não o componente "QasFilters".
     default: true
