@@ -39,6 +39,7 @@ const nested = {
     cities: {
       name: 'cities',
       type: 'select',
+      label: 'Cidade',
       options: [
         {
           label: 'Cidade 1',

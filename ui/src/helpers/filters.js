@@ -110,6 +110,8 @@ function handlePlaceholder (type, defaultPlaceholder = 'Digite aqui...') {
       return '000.000.000-00'
     case 'email':
       return 'seuemail@exemplo.com'
+    case 'integer':
+      return '0'
     case 'money':
       return 'R$ 0,00'
     case 'percent':

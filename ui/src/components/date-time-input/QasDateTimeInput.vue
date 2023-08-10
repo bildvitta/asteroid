@@ -78,14 +78,14 @@ export default {
 
   computed: {
     attributes () {
-      const { modelValue, type, placeholder, ...attributes } = this.$attrs
+      const { modelValue, placeholder, ...attributes } = this.$attrs
 
       return {
         error: this.error,
         errorMessage: this.errorMessage,
         ...attributes,
         mask: this.mask,
-        placeholder: placeholder || handlePlaceholder(type)
+        placeholder: placeholder || handlePlaceholder(this.maskType)
       }
     },
 
@@ -125,6 +125,13 @@ export default {
       if (!this.useDateOnly) { mask.push(this.timeMask) }
 
       return mask.join(' ')
+    },
+
+    maskType () {
+      if (this.useDateOnly) return 'date'
+      if (this.useTimeOnly) return 'time'
+
+      return 'datetime'
     }
   },
 

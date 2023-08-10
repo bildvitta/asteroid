@@ -107,7 +107,7 @@ export default {
       }
 
       const numericInput = { is: 'qas-numeric-input', places, ...input }
-      const datetimeInput = { is: 'qas-date-time-input', useIso, type, ...input }
+      const datetimeInput = { is: 'qas-date-time-input', useIso, ...input }
 
       // It'll generate a list of acceptable files extensions.
       const accept = extensions && extensions.length ? extensions.map(extension => `.${extension}`).join(',') : ''
