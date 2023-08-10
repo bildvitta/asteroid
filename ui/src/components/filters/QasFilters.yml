@@ -4,11 +4,6 @@ meta:
   desc: Componente para criação de filtros dinâmicos.
 
 props:
-  cache-key:
-    desc: Nome da chave utilizada para gerenciar o cache no seassionStorage, caso não seja passado nenhum valor, será usado o nome da entitade da store.
-    default: ''
-    type: String
-
   current-filters:
     model: true
     desc: Utilizado para recuperar os filtros realizados internamente.
