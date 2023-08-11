@@ -88,7 +88,8 @@ export default {
         class: 'qas-select',
         clearable: this.isSearchable,
         dense: true,
-        dropdownIcon: 'expand_more',
+        dropdownIcon: 'sym_r_expand_more',
+        clearIcon: 'sym_r_close',
         emitValue: true,
         mapOptions: true,
         popupContentClass: this.popupContentClass,
@@ -306,6 +307,10 @@ export default {
     .q-icon {
       color: $grey-8;
     }
+  }
+
+  .q-field__focusable-action {
+    opacity: 1;
   }
 }
 </style>
