@@ -39,6 +39,8 @@ export default {
 
   mixins: [searchFilterMixin],
 
+  inheritAttrs: false,
+
   props: {
     fuseOptions: {
       default: () => ({}),
@@ -94,18 +96,20 @@ export default {
         ...this.$attrs,
 
         error: this.hasError,
-        inputDebounce: this.useLazyLoading ? 1200 : 0,
         loading: this.hasLoading,
         options: this.mx_filteredOptions,
+        inputClass: this.inputClass,
+        inputDebounce: this.useLazyLoading ? 1200 : 0,
+        inputStyle: this.inputStyle,
         useInput: this.isSearchable,
+        useChips: false,
+
+        onPopupHide: this.onPopupHide,
+        onPopupShow: this.onPopupShow,
 
         ...(this.isSearchable && { onFilter: this.onFilter }),
 
-        ...(this.useLazyLoading && {
-          onPopupHide: this.onPopupHide,
-          onPopupShow: this.onPopupShow,
-          onVirtualScroll: this.mx_onVirtualScroll
-        })
+        ...(this.useLazyLoading && { onVirtualScroll: this.mx_onVirtualScroll })
       }
     },
 
@@ -116,6 +120,24 @@ export default {
 
         ...this.fuseOptions
       }
+    },
+
+    inputClass () {
+      return [
+        this.$attrs['input-class'] || this.$attrs.inputClass,
+        {
+          absolute: !this.isPopupContentOpen && !this.mx_isFetching
+        }
+      ]
+    },
+
+    inputStyle () {
+      return [
+        this.$attrs['input-style'] || this.$attrs.inputStyle,
+        {
+          'caret-color': !this.isPopupContentOpen ? 'transparent' : 'initial'
+        }
+      ]
     },
 
     isSearchable () {
@@ -271,6 +293,12 @@ export default {
         color: $grey-6;
       }
     }
+  }
+
+  .q-field__native span {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .q-field__prepend,

@@ -1,25 +1,27 @@
 <template>
   <div :class="fieldsetClasses">
     <div v-for="(fieldsetItem, fieldsetItemKey) in normalizedFields" :key="fieldsetItemKey" class="full-width">
-      <slot v-if="fieldsetItem.label" :name="`legend-${fieldsetItemKey}`">
-        <qas-label :label="fieldsetItem.label" />
-      </slot>
+      <qas-box class="q-px-lg q-py-md">
+        <slot v-if="fieldsetItem.label" :name="`legend-${fieldsetItemKey}`">
+          <qas-label :label="fieldsetItem.label" />
+        </slot>
 
-      <div>
-        <div :class="classes">
-          <div v-for="(field, key) in fieldsetItem.fields.visible" :key="key" :class="getFieldClass({ index: key, fields: normalizedFields })">
+        <div class="q-pb-sm">
+          <div :class="classes">
+            <div v-for="(field, key) in fieldsetItem.fields.visible" :key="key" :class="getFieldClass({ index: key, fields: normalizedFields })">
+              <slot :field="field" :name="`field-${field.name}`">
+                <qas-field :disable="isFieldDisabled(field)" v-bind="fieldsProps[field.name]" :error="errors[key]" :field="field" :model-value="modelValue[field.name]" @update:model-value="updateModelValue({ key: field.name, value: $event })" />
+              </slot>
+            </div>
+          </div>
+
+          <div v-for="(field, key) in fieldsetItem.fields.hidden" :key="key">
             <slot :field="field" :name="`field-${field.name}`">
-              <qas-field :disable="isFieldDisabled(field)" v-bind="fieldsProps[field.name]" :error="errors[key]" :field="field" :model-value="modelValue[field.name]" @update:model-value="updateModelValue({ key: field.name, value: $event })" />
+              <qas-field :disable="isFieldDisabled(field)" v-bind="fieldsProps[field.name]" :field="field" :model-value="modelValue[field.name]" @update:model-value="updateModelValue({ key: field.name, value: $event })" />
             </slot>
           </div>
         </div>
-
-        <div v-for="(field, key) in fieldsetItem.fields.hidden" :key="key">
-          <slot :field="field" :name="`field-${field.name}`">
-            <qas-field :disable="isFieldDisabled(field)" v-bind="fieldsProps[field.name]" :field="field" :model-value="modelValue[field.name]" @update:model-value="updateModelValue({ key: field.name, value: $event })" />
-          </slot>
-        </div>
-      </div>
+      </qas-box>
     </div>
   </div>
 </template>
