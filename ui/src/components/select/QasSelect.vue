@@ -85,7 +85,7 @@ export default {
   computed: {
     attributes () {
       return {
-        class: 'qas-select',
+        class: this.componentClass,
         clearable: this.isSearchable,
         dense: true,
         dropdownIcon: 'sym_r_expand_more',
@@ -104,6 +104,7 @@ export default {
         inputStyle: this.inputStyle,
         useInput: this.isSearchable,
         useChips: false,
+        // useChips: this.$attrs.multiple && this.isPopupContentOpen, // TODO: Validar com o time de design
 
         onPopupHide: this.onPopupHide,
         onPopupShow: this.onPopupShow,
@@ -112,6 +113,10 @@ export default {
 
         ...(this.useLazyLoading && { onVirtualScroll: this.mx_onVirtualScroll })
       }
+    },
+
+    componentClass () {
+      return ['qas-select', { 'qas-select--closed': !this.isPopupContentOpen }]
     },
 
     defaultFuseOptions () {
@@ -124,21 +129,15 @@ export default {
     },
 
     inputClass () {
-      return [
-        this.$attrs['input-class'] || this.$attrs.inputClass,
-        {
-          absolute: !this.isPopupContentOpen && !this.mx_isFetching
-        }
-      ]
+      const classes = this.$attrs['input-class'] || this.$attrs.inputClass
+
+      return [classes, { absolute: !this.isPopupContentOpen && !this.mx_isFetching }]
     },
 
     inputStyle () {
-      return [
-        this.$attrs['input-style'] || this.$attrs.inputStyle,
-        {
-          'caret-color': !this.isPopupContentOpen ? 'transparent' : 'initial'
-        }
-      ]
+      const styles = this.$attrs['input-style'] || this.$attrs.inputStyle
+
+      return [styles, { 'caret-color': !this.isPopupContentOpen ? 'transparent' : 'initial' }]
     },
 
     isSearchable () {
@@ -296,10 +295,12 @@ export default {
     }
   }
 
-  .q-field__native span {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+  &--closed {
+    .q-field__native span {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
   }
 
   .q-field__prepend,
