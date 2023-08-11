@@ -5,7 +5,7 @@
 <template>
   <qas-form-view ref="formView" v-model="values" v-model:errors="errors" v-model:fields="fields" :use-actions="false" :use-boundary="false" v-bind="formViewProps">
     <template #default>
-      <qas-form-generator v-model="values" :errors="errors" :fields="fields" v-bind="formGeneratorProps" />
+      <qas-form-generator v-model="values" :errors="errors" :fields="fields" :use-box="false" v-bind="formGeneratorProps" />
     </template>
   </qas-form-view>
 </template>

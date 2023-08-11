@@ -1,12 +1,12 @@
 <template>
   <div :class="fieldsetClasses">
     <div v-for="(fieldsetItem, fieldsetItemKey) in normalizedFields" :key="fieldsetItemKey" class="full-width">
-      <qas-box class="q-px-lg q-py-md">
+      <component :is="formContainerComponent" v-bind="formContainerProps">
         <slot v-if="fieldsetItem.label" :name="`legend-${fieldsetItemKey}`">
           <qas-label :label="fieldsetItem.label" />
         </slot>
 
-        <div class="q-pb-sm">
+        <div>
           <div :class="classes">
             <div v-for="(field, key) in fieldsetItem.fields.visible" :key="key" :class="getFieldClass({ index: key, fields: normalizedFields })">
               <slot :field="field" :name="`field-${field.name}`">
@@ -21,7 +21,7 @@
             </slot>
           </div>
         </div>
-      </qas-box>
+      </component>
     </div>
   </div>
 </template>
@@ -70,6 +70,11 @@ const props = defineProps({
   order: {
     default: () => [],
     type: Array
+  },
+
+  useBox: {
+    default: true,
+    type: Boolean
   }
 })
 
@@ -143,6 +148,9 @@ const normalizedFields = computed(() => {
 
   return fields
 })
+
+const formContainerComponent = computed(() => props.useBox ? 'qas-box' : 'div')
+const formContainerProps = computed(() => props.useBox ? { class: 'q-px-lg q-pt-md q-pb-lg' } : {})
 
 // methods
 function getFieldType ({ type }) {
