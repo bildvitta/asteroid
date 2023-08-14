@@ -37,7 +37,7 @@ export default function (entity) {
     })
 
     if (Object.keys(cachedFilters[entity]).length) {
-      await router.push({ query: { ...route.query, ...cachedFilters[entity] } })
+      await router.replace({ query: { ...route.query, ...cachedFilters[entity] } })
     }
   }
 
