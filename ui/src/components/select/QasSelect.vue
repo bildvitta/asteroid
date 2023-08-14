@@ -22,6 +22,22 @@
       </slot>
     </template>
 
+    <template v-if="attributes.useChips" #selected-item="scope">
+      <q-chip
+        class="q-px-sm q-py-xs"
+        color="light-blue-2"
+        dense
+        :disable="attributes.disable"
+        icon-remove="sym_r_close"
+        :label="scope.opt.label"
+        removable
+        square
+        :tabindex="scope.tabindex"
+        text-color="grey-9"
+        @remove="scope.removeAtIndex(scope.index)"
+      />
+    </template>
+
     <template v-for="(_, name) in $slots" #[name]="context">
       <slot :name="name" v-bind="context || {}" />
     </template>
@@ -103,8 +119,7 @@ export default {
         inputDebounce: this.useLazyLoading ? 1200 : 0,
         inputStyle: this.inputStyle,
         useInput: this.isSearchable,
-        useChips: false,
-        // useChips: this.$attrs.multiple && this.isPopupContentOpen, // TODO: Validar com o time de design
+        useChips: this.$attrs.multiple && this.isPopupContentOpen,
 
         onPopupHide: this.onPopupHide,
         onPopupShow: this.onPopupShow,
@@ -311,6 +326,11 @@ export default {
   }
 
   .q-field__focusable-action {
+    opacity: 1;
+  }
+
+  .q-chip__icon--remove {
+    color: $grey-9;
     opacity: 1;
   }
 }
