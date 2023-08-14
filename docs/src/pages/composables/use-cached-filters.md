@@ -2,7 +2,7 @@
 title: useCachedFilters
 ---
 
-Composable para gerenciar a persistência de filtros através da `seassonStorage`.
+Composable para gerenciar a persistência de filtros através da `SeassonStorage`.
 
 ```js
 import { useCachedFilters } from 'asteroid'
@@ -18,6 +18,5 @@ cachedFilters.findAll() // busca todos os filtros da entidade.
 cachedFilters.clearOne('isActive') // remove um filtro da entidade com base na chave.
 cachedFilters.clearAll({ exclude: ['search'] }) // remove todos os filtros da entidade, menos os passados para a chave exclude, que é opcional.
 
-const cachedFilters = useCachedFilters('users')
-cachedFilters.init() // faz a inicialização do cache, adicionando os à variável reativa interna e populando a query. Utilizado nas páginas de listView.
+await cachedFilters.initCache() // promise que inicializa o cache adicionando-os à variável interna e populando a query. Utilizado nas páginas de listView.
 ```

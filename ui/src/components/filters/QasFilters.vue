@@ -239,7 +239,10 @@ export default {
     this.fetchFilters()
     this.watchOnceFields()
     this.handleSearchModelOnCreate()
-    if (this.canUseCachedFilters) this.cachedFilters = useCachedFilters(this.entity)
+
+    if (this.canUseCachedFilters) {
+      this.cachedFilters = useCachedFilters(this.entity)
+    }
   },
 
   methods: {
@@ -261,6 +264,7 @@ export default {
           if (hasField) {
             delete query[key]
             delete this.filters[key]
+
             this.handleCachedFilters('clearOne', key)
           }
         }
@@ -339,6 +343,7 @@ export default {
       this.hideFiltersMenu()
 
       await this.updateRouteQuery(query)
+
       this.handleCachedFilters('addMany', query)
       this.updateCurrentFilters()
     },
@@ -356,6 +361,7 @@ export default {
 
       delete query[name]
       delete this.filters[name]
+
       this.handleCachedFilters('clearOne', name)
 
       await this.updateRouteQuery(query)

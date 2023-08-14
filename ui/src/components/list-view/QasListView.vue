@@ -166,20 +166,9 @@ export default {
   },
 
   async created () {
-    if (this.useCachedFilters) {
-      this.cachedFilters = useCachedFilters(this.entity)
-      await this.cachedFilters.init()
-    }
-
-    this.mx_fetchHandler({ ...this.mx_context, url: this.url }, this.fetchList)
-    this.setCurrentPage()
-
-    this.unWatchRoute = this.$watch('$route', (to, from) => {
-      if (to.name === from.name) {
-        this.mx_fetchHandler({ ...this.mx_context, url: this.url }, this.fetchList)
-        this.setCurrentPage()
-      }
-    })
+    this.useCachedFilters && await this.initCacheFilters()
+    this.fetch()
+    this.initRouteWatcher()
   },
 
   mounted () {
@@ -189,8 +178,6 @@ export default {
   },
 
   unmounted () {
-    this.unWatchRoute?.()
-
     if (!this.hasDeleteEventListener) return
 
     window.removeEventListener('delete-success', this.onDeleteResult)
@@ -200,6 +187,24 @@ export default {
     changePage () {
       const query = { ...this.$route.query, page: this.page }
       this.$router.push({ query })
+    },
+
+    initCacheFilters () {
+      this.cachedFilters = useCachedFilters(this.entity)
+      return this.cachedFilters.initCache()
+    },
+
+    initRouteWatcher () {
+      this.$watch('$route', (to, from) => {
+        if (to.name === from.name) {
+          this.fetch()
+        }
+      })
+    },
+
+    fetch () {
+      this.mx_fetchHandler({ ...this.mx_context, url: this.url }, this.fetchList)
+      this.setCurrentPage()
     },
 
     async fetchList (externalPayload = {}) {

@@ -12,15 +12,16 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 
 ## Não publicado
 ## BREAKING CHANGES
-- `QasFilters`, `QasListView`: a persistência de filtro se tornou comportamento padrão do design system. Valide se é necessário persistir os filtros em todas as telas.
+- [`QasFilters`, `QasListView`]: a persistência de filtro se tornou o comportamento padrão do design system. Validar se há locais que utilizam o `QasListView` e os filtros não deveriam ser persistidos.
+
 
 ### Adicionado
-- `use-cached-filters`: adicionado `composable` para gerenciar a persistência dos filtros com base na `entity`.
-- `QasFilters`, `QasListView`: adicionada prop `use-cached-filters` para habilitar a persitência dos filtros.
+- `use-cached-filters`: adicionado `composable` para gerenciar a persistência dos filtros na `seassonStorage` com base na `entity`.
+- [`QasFilters`, `QasListView`]: adicionada prop `use-cached-filters` para habilitar a persitência e uso dos filtros realizados.
 - `use-context`: adicionado `composable` com as mesmas funções do mixin `mx_context`.
 
-## Modificado
-- `QasListView`: `QasFilters` recebe pela computada `defaultFiltersProps` o merge das props `filtersProps` e `useCachedFilters`, com `filtersProps` sobrescrevendo `useCachedFilters`.
+### Modificado
+- `QasListView`: utilizando a computada `defaultFiltersProps` para repassar a propriedade `filtersProps` para `QasFilters`, combinando com a propriedade `useCachedFilters` do `QasListView` que pode ser sobrescrito pelo `filtersProps`.
 
 ## [3.11.0-beta.13] - 04-08-2023
 ### Adicionado

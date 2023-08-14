@@ -1,16 +1,15 @@
 import useContext from './use-context'
 import { SessionStorage } from 'quasar'
-import { reactive } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 
-const cachedFilters = reactive({})
+const cachedFilters = {}
 
 export default function (entity) {
   function updateSessionStorage () {
     SessionStorage.set('cachedFilters', cachedFilters)
   }
 
-  async function init () {
+  async function initCache () {
     const router = useRouter()
     const route = useRoute()
 
@@ -26,9 +25,9 @@ export default function (entity) {
     } else {
       const storedFilters = SessionStorage.getItem('cachedFilters') || {}
       Object.keys(storedFilters).forEach(filter => (cachedFilters[filter] = storedFilters[filter]))
-    }
 
-    await router.push({ query: { ...route.query, ...cachedFilters[entity] } })
+      await router.push({ query: { ...route.query, ...cachedFilters[entity] } })
+    }
   }
 
   function addOne ({ label, value }) {
@@ -55,15 +54,17 @@ export default function (entity) {
   }
 
   function clearAll ({ exclude = [] }) {
-    exclude?.length
-      ? Object.keys(cachedFilters[entity]).forEach(filter => !exclude.includes(filter) && clearOne(filter))
-      : delete cachedFilters[entity]
+    if (exclude?.length) {
+      cachedFilters[entity] = Object.keys(cachedFilters[entity]).filter(filter => exclude.includes(filter))
+    } else {
+      delete cachedFilters[entity]
+    }
 
     updateSessionStorage()
   }
 
   return {
-    init,
+    initCache,
     addOne,
     addMany,
     findOne,
