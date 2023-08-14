@@ -120,7 +120,7 @@ export default {
 
   data () {
     return {
-      cachedFilters: undefined,
+      cachedFilters: {},
       currentFilters: {},
       filters: {},
       hasFetchError: false,
@@ -221,7 +221,7 @@ export default {
       return this.useChip && this.hasActiveFilters
     },
 
-    canUseCachedFilters () {
+    hasCachedFilters () {
       return this.useCachedFilters && this.useUpdateRoute
     }
   },
@@ -239,10 +239,7 @@ export default {
     this.fetchFilters()
     this.watchOnceFields()
     this.handleSearchModelOnCreate()
-
-    if (this.canUseCachedFilters) {
-      this.cachedFilters = useCachedFilters(this.entity)
-    }
+    this.hasCachedFilters && this.setCachedFilters()
   },
 
   methods: {
@@ -265,12 +262,12 @@ export default {
             delete query[key]
             delete this.filters[key]
 
-            this.handleCachedFilters('clearOne', key)
+            this.hasCachedFilters && this.cachedFilters.clearOne(key)
           }
         }
       } else {
         this.filters = {}
-        this.handleCachedFilters('clearAll', { exclude: ['search'] })
+        this.hasCachedFilters && this.cachedFilters.clearAll({ exclude: ['search'] })
       }
 
       this.hideFiltersMenu()
@@ -282,7 +279,7 @@ export default {
 
     clearSearch () {
       this.search = ''
-      this.handleCachedFilters('clearOne', 'search')
+      this.hasCachedFilters && this.cachedFilters.clearOne('search')
       this.filter()
     },
 
@@ -344,7 +341,7 @@ export default {
 
       await this.updateRouteQuery(query)
 
-      this.handleCachedFilters('addMany', query)
+      this.hasCachedFilters && this.cachedFilters.addMany(query)
       this.updateCurrentFilters()
     },
 
@@ -362,7 +359,7 @@ export default {
       delete query[name]
       delete this.filters[name]
 
-      this.handleCachedFilters('clearOne', name)
+      this.hasCachedFilters && this.cachedFilters.clearOne(name)
 
       await this.updateRouteQuery(query)
 
@@ -432,10 +429,8 @@ export default {
       }
     },
 
-    handleCachedFilters (method, ...params) {
-      if (!this.canUseCachedFilters) return
-
-      this.cachedFilters[method](...params)
+    setCachedFilters () {
+      this.cachedFilters = useCachedFilters(this.entity)
     }
   }
 }

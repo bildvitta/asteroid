@@ -1,4 +1,5 @@
 import useContext from './use-context'
+import { filterObject } from '../helpers'
 import { SessionStorage } from 'quasar'
 import { useRouter, useRoute } from 'vue-router'
 
@@ -15,19 +16,27 @@ export default function (entity) {
 
     cachedFilters[entity] = {}
 
-    const { search, filters } = useContext().context.value
+    const { context } = useContext()
+    const { search, filters } = context.value
+    const filtersList = Object.keys(filters)
 
     const hasQueryParams = search || Object.keys(filters).length
 
     if (hasQueryParams) {
       search && addOne({ label: 'search', value: search })
-      Object.keys(filters).forEach(filter => addOne({ label: filter, value: filters[filter] }))
-    } else {
-      const storedFilters = SessionStorage.getItem('cachedFilters') || {}
-      Object.keys(storedFilters).forEach(filter => (cachedFilters[filter] = storedFilters[filter]))
+      filtersList.forEach(filter => addOne({ label: filter, value: filters[filter] }))
 
-      await router.push({ query: { ...route.query, ...cachedFilters[entity] } })
+      return
     }
+
+    const storedFilters = SessionStorage.getItem('cachedFilters') || {}
+    const storageFiltersList = Object.keys(storedFilters[entity])
+
+    storageFiltersList.forEach(filter => {
+      cachedFilters[filter] = storedFilters[filter]
+    })
+
+    await router.push({ query: { ...route.query, ...cachedFilters[entity] } })
   }
 
   function addOne ({ label, value }) {
@@ -54,8 +63,8 @@ export default function (entity) {
   }
 
   function clearAll ({ exclude = [] }) {
-    if (exclude?.length) {
-      cachedFilters[entity] = Object.keys(cachedFilters[entity]).filter(filter => exclude.includes(filter))
+    if (exclude.length) {
+      cachedFilters[entity] = filterObject(cachedFilters[entity], exclude)
     } else {
       delete cachedFilters[entity]
     }

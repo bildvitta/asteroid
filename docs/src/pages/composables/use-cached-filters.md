@@ -2,7 +2,7 @@
 title: useCachedFilters
 ---
 
-Composable para gerenciar a persistência de filtros através da `SeassonStorage`.
+Composable para gerenciar a persistência de filtros através da `SessionStorage`.
 
 ```js
 import { useCachedFilters } from 'asteroid'

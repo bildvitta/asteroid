@@ -25,7 +25,7 @@ O componente irá filtrar somente campos com valores que sejam diferente de **nu
 :::warning
 - O componente irá persistir os filtros somente se `use-cached-filters` e `use-update-route` forem **true**.
 
-- É utilizado `seassionStorage` para não perder os dados em memória mesmo que a página seja atualizada. Ao abrir uma nova aba/página é gerada uma nova sessão não compartilhando os filtros entre páginas.
+- É utilizado `sessionStorage` para não perder os dados em memória mesmo que a página seja atualizada. Ao abrir uma nova aba/página é gerada uma nova sessão não compartilhando os filtros entre páginas.
 
 - O componente controla apenas a adição e remoção dos filtros através do composable, não fazendo nenhum tipo de requisição.
 :::

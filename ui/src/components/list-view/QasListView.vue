@@ -107,10 +107,8 @@ export default {
 
   data () {
     return {
-      cachedFilters: undefined,
       page: 1,
-      resultsQuantity: 0,
-      unWatchRoute: undefined
+      resultsQuantity: 0
     }
   },
 
@@ -166,9 +164,11 @@ export default {
   },
 
   async created () {
-    this.useCachedFilters && await this.initCacheFilters()
-    this.fetch()
-    this.initRouteWatcher()
+    this.useCachedFilters && await useCachedFilters(this.entity).initCache()
+
+    this.mx_fetchHandler({ ...this.mx_context, url: this.url }, this.fetchList)
+    this.setCurrentPage()
+    this.setRouteWatcher()
   },
 
   mounted () {
@@ -189,22 +189,13 @@ export default {
       this.$router.push({ query })
     },
 
-    initCacheFilters () {
-      this.cachedFilters = useCachedFilters(this.entity)
-      return this.cachedFilters.initCache()
-    },
-
-    initRouteWatcher () {
+    setRouteWatcher () {
       this.$watch('$route', (to, from) => {
         if (to.name === from.name) {
-          this.fetch()
+          this.mx_fetchHandler({ ...this.mx_context, url: this.url }, this.fetchList)
+          this.setCurrentPage()
         }
       })
-    },
-
-    fetch () {
-      this.mx_fetchHandler({ ...this.mx_context, url: this.url }, this.fetchList)
-      this.setCurrentPage()
     },
 
     async fetchList (externalPayload = {}) {

@@ -14,9 +14,8 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 ## BREAKING CHANGES
 - [`QasFilters`, `QasListView`]: a persistência de filtro se tornou o comportamento padrão do design system. Validar se há locais que utilizam o `QasListView` e os filtros não deveriam ser persistidos.
 
-
 ### Adicionado
-- `use-cached-filters`: adicionado `composable` para gerenciar a persistência dos filtros na `seassonStorage` com base na `entity`.
+- `use-cached-filters`: adicionado `composable` para gerenciar a persistência dos filtros na `sessionStorage` com base na `entity`.
 - [`QasFilters`, `QasListView`]: adicionada prop `use-cached-filters` para habilitar a persitência e uso dos filtros realizados.
 - `use-context`: adicionado `composable` com as mesmas funções do mixin `mx_context`.
 
