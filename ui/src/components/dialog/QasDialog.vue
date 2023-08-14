@@ -189,7 +189,9 @@ export default {
     },
 
     hasRenderFunction () {
-      return typeof this.card.description === 'object'
+      const description = this.card.description
+
+      return typeof description === 'object' && description !== null && !Array.isArray(description)
     },
 
     descriptionComponentTag () {
