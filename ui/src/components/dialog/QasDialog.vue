@@ -189,7 +189,7 @@ export default {
     },
 
     hasRenderFunction () {
-      return typeof this.card.description?.render === 'function'
+      return typeof this.card.description === 'object'
     },
 
     descriptionComponentTag () {

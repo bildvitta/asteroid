@@ -14,6 +14,9 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 ### Adicionado
 - `QasActionsMenu`: adicionado `@click.stop.prevent` solucionando o problema de utilizar o componente em conjunto com o `QasTableGenerator`.
 
+### Corrigido
+- `QasDialog`: validação para quando deverá renderizar a descrição como componente e não texto.
+
 ## [3.11.0-beta.13] - 04-08-2023
 ### Adicionado
 - `QasDialog`: possibilidade de passar a descrição como componente através da prop `description` de dentro do `card`.
