@@ -163,12 +163,14 @@ export default {
     }
   },
 
-  async created () {
-    this.useCachedFilters && await useCachedFilters(this.entity).initCache()
+  created () {
+    const { onReady } = useCachedFilters(this.entity)
 
-    this.mx_fetchHandler({ ...this.mx_context, url: this.url }, this.fetchList)
-    this.setCurrentPage()
-    this.setRouteWatcher()
+    onReady(() => {
+      this.mx_fetchHandler({ ...this.mx_context, url: this.url }, this.fetchList)
+      this.setCurrentPage()
+      this.setRouteWatcher()
+    })
   },
 
   mounted () {

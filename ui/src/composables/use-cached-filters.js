@@ -2,8 +2,10 @@ import useContext from './use-context'
 import { filterObject } from '../helpers'
 import { SessionStorage } from 'quasar'
 import { useRouter, useRoute } from 'vue-router'
+import useHistory from './use-history'
 
 const cachedFilters = {}
+const onReadyCallbacks = {}
 
 export default function (entity) {
   function updateSessionStorage () {
@@ -13,6 +15,7 @@ export default function (entity) {
   async function initCache () {
     const router = useRouter()
     const route = useRoute()
+    const { history: { list } } = useHistory()
 
     cachedFilters[entity] = {}
 
@@ -26,19 +29,37 @@ export default function (entity) {
       search && addOne({ label: 'search', value: search })
       filtersList.forEach(filter => addOne({ label: filter, value: filters[filter] }))
 
+      executeOnReadyCallbacks()
+
       return
     }
 
-    const storedFilters = SessionStorage.getItem('cachedFilters') || {}
-    const storageFiltersList = Object.keys(storedFilters[entity] || {})
+    if (list.length > 1) { // TODO: Revisar essa lógica do history
+      const storedFilters = SessionStorage.getItem('cachedFilters') || {}
+      const storageFiltersList = Object.keys(storedFilters[entity] || {})
 
-    storageFiltersList.forEach(filter => {
-      cachedFilters[entity][filter] = storedFilters[entity][filter]
-    })
+      storageFiltersList.forEach(filter => {
+        cachedFilters[entity][filter] = storedFilters[entity][filter]
+      })
 
-    if (Object.keys(cachedFilters[entity]).length) {
-      await router.replace({ query: { ...route.query, ...cachedFilters[entity] } })
+      if (Object.keys(cachedFilters[entity]).length) {
+        await router.replace({ query: { ...route.query, ...cachedFilters[entity] } })
+      }
     }
+
+    executeOnReadyCallbacks()
+  }
+
+  function executeOnReadyCallbacks () {
+    onReadyCallbacks[entity].forEach(callback => callback())
+  }
+
+  function onReady (callback) {
+    if (!onReadyCallbacks[entity]?.length) {
+      onReadyCallbacks[entity] = []
+    }
+
+    onReadyCallbacks[entity].push(callback)
   }
 
   function addOne ({ label, value }) {
@@ -81,6 +102,7 @@ export default function (entity) {
     findOne,
     findAll,
     clearOne,
-    clearAll
+    clearAll,
+    onReady
   }
 }

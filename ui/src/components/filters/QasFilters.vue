@@ -431,6 +431,7 @@ export default {
 
     setCachedFilters () {
       this.cachedFilters = useCachedFilters(this.entity)
+      this.cachedFilters.initCache()
     }
   }
 }
