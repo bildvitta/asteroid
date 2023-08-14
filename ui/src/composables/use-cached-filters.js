@@ -30,13 +30,15 @@ export default function (entity) {
     }
 
     const storedFilters = SessionStorage.getItem('cachedFilters') || {}
-    const storageFiltersList = Object.keys(storedFilters[entity])
+    const storageFiltersList = Object.keys(storedFilters[entity] || {})
 
     storageFiltersList.forEach(filter => {
-      cachedFilters[filter] = storedFilters[filter]
+      cachedFilters[entity][filter] = storedFilters[entity][filter]
     })
 
-    await router.push({ query: { ...route.query, ...cachedFilters[entity] } })
+    if (Object.keys(cachedFilters[entity]).length) {
+      await router.push({ query: { ...route.query, ...cachedFilters[entity] } })
+    }
   }
 
   function addOne ({ label, value }) {
