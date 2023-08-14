@@ -115,9 +115,7 @@ export default {
         error: this.hasError,
         loading: this.hasLoading,
         options: this.mx_filteredOptions,
-        inputClass: this.inputClass,
         inputDebounce: this.useLazyLoading ? 1200 : 0,
-        inputStyle: this.inputStyle,
         useInput: this.isSearchable,
         useChips: this.$attrs.multiple && this.isPopupContentOpen,
 
@@ -131,7 +129,10 @@ export default {
     },
 
     componentClass () {
-      return ['qas-select', { 'qas-select--closed': !this.isPopupContentOpen }]
+      return ['qas-select', {
+        'qas-select--closed': !this.isPopupContentOpen,
+        'qas-select--loading': this.hasLoading
+      }]
     },
 
     defaultFuseOptions () {
@@ -141,18 +142,6 @@ export default {
 
         ...this.fuseOptions
       }
-    },
-
-    inputClass () {
-      const classes = this.$attrs['input-class'] || this.$attrs.inputClass
-
-      return [classes, { absolute: !this.isPopupContentOpen && !this.mx_isFetching }]
-    },
-
-    inputStyle () {
-      const styles = this.$attrs['input-style'] || this.$attrs.inputStyle
-
-      return [styles, { 'caret-color': !this.isPopupContentOpen ? 'transparent' : 'initial' }]
     },
 
     isSearchable () {
@@ -315,6 +304,13 @@ export default {
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
+    }
+
+    &:not(.qas-select--loading) {
+      .q-field__native .q-field__input {
+        position: absolute;
+        caret-color: transparent;
+      }
     }
   }
 
