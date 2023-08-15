@@ -34,7 +34,7 @@ export default function (entity) {
       return
     }
 
-    if (list.length > 1) { // TODO: Revisar essa lógica do history
+    if (list.length > 1) {
       const storedFilters = SessionStorage.getItem('cachedFilters') || {}
       const storageFiltersList = Object.keys(storedFilters[entity] || {})
 

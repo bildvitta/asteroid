@@ -236,10 +236,9 @@ export default {
   },
 
   created () {
-    this.fetchFilters()
-    this.watchOnceFields()
-    this.handleSearchModelOnCreate()
     this.hasCachedFilters && this.setCachedFilters()
+    this.setFields()
+    this.handleSearchModelOnCreate()
   },
 
   methods: {
@@ -390,16 +389,13 @@ export default {
       return isMultiple ? [value] : value
     },
 
-    watchOnceFields () {
-      if (!this.useUpdateRoute) return
+    async setFields () {
+      await this.fetchFilters()
 
-      const watchOnce = this.$watch('fields', values => {
-        if (Object.keys(values || {}).length) {
-          this.updateValues()
-          this.updateCurrentFilters()
-          watchOnce()
-        }
-      })
+      if (this.useUpdateRoute) {
+        this.updateValues()
+        this.updateCurrentFilters()
+      }
     },
 
     handleSearchModelOnCreate () {
