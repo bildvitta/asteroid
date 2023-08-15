@@ -379,6 +379,10 @@ module.exports = [
         path: '/helpers/get-normalized-options'
       },
       {
+        name: 'getPlaceholder',
+        path: '/helpers/get-placeholder'
+      },
+      {
         name: 'handleProcess',
         path: '/helpers/handle-process'
       },

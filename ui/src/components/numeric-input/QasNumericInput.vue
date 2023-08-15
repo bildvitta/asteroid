@@ -8,7 +8,7 @@
 
 <script>
 import AutoNumeric from 'autonumeric'
-import { handlePlaceholder } from '../../helpers'
+import { getPlaceholder } from '../../helpers'
 
 const defaultModes = {
   decimal: 'commaDecimalCharDotSeparator',
@@ -84,7 +84,7 @@ export default {
     placeholder () {
       const { placeholder } = this.$attrs
 
-      return placeholder || handlePlaceholder(this.mode)
+      return placeholder || getPlaceholder(this.mode)
     }
   },
 

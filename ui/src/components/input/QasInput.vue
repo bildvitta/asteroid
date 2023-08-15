@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import { handlePlaceholder } from '../../helpers'
+import { getPlaceholder } from '../../helpers'
 
 export default {
   name: 'QasInput',
@@ -91,7 +91,7 @@ export default {
     placeholder () {
       const { placeholder, mask, type } = this.$attrs
 
-      return placeholder || handlePlaceholder(mask || type)
+      return placeholder || getPlaceholder(mask || type)
     },
 
     showCounter () {
