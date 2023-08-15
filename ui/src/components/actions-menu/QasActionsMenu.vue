@@ -1,6 +1,6 @@
 <template>
   <div v-if="hasActions" class="qas-actions-menu">
-    <component :is="component.is" v-bind="component.props" variant="tertiary">
+    <component :is="component.is" v-bind="component.props" variant="tertiary" @click.stop.prevent>
       <q-list v-if="isBtnDropdown">
         <slot v-for="(item, key) in actions" :item="item" :name="key">
           <q-item v-bind="item.props" :key="key" clickable @click="onClick(item)">
