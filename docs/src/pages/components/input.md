@@ -10,7 +10,8 @@ Componente para input que implementa o "QInput" repassando propriedades, slots e
 Neste componente é um "wrapper" do [QInput](https://quasar.dev/vue-components/input#introduction) o que significa que ele repassa todos os slots, eventos e propriedades.
 :::
 
-:::tip
+:::info
+##### mask
 Propriedade `mask` vem do `QInput` e serve para definir um máscara para o input, porem nosso componente implementa algumas mascaras pré-definidas, como:
 
 ```bash
@@ -22,6 +23,19 @@ Propriedade `mask` vem do `QInput` e serve para definir um máscara para o input
 ```
 
 Caso seja passado uma mask que não seja essas acima, será usado a que foi passada.
+
+##### inputmode
+
+É possível repassar propriedades nativas para o input, como inputmode, por padrão os inputs que possuem mascara default já possuem um inputmode default, assim como o input type `email`, porém é possível sobrescrever esse inputmode.
+
+```bash
+- company-document (CNPJ) -> numeric
+- document (CPF/CNPJ) -> numeric
+- personal-document (RG) -> numeric
+- phone (Telefone) -> tel
+- postal-code (CEP) -> numeric
+- email (TYPE E-MAIL) -> email
+```
 :::
 
 ## Uso
