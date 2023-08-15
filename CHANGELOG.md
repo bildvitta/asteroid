@@ -14,6 +14,8 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 ### Adicionado
 - `QasActionsMenu`: adicionado `@click.stop.prevent` solucionando o problema de utilizar o componente em conjunto com o `QasTableGenerator`.
 - `QasInput`: adicionado `inputmode` default de acordo com máscaras e type email.
+- [`QasDateTimeInput`, `QasNumericInput`]: adicionado `inputmode="numeric"`.
+- `QasSearchInput`: adicionado `inputmode="search"`.
 
 ### Corrigido
 - `QasDialog`: validação para quando deverá renderizar a descrição como componente e não texto.
