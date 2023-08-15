@@ -1,5 +1,5 @@
 <template>
-  <q-input ref="input" v-model="model" v-bind="$attrs" bottom-slots :counter="showCounter" :dense="dense" :error="errorData" :error-message="errorMessage" :mask="mask" :outlined="outlined" :placeholder="placeholder" :unmasked-value="unmaskedValue" @paste="onPaste">
+  <q-input ref="input" v-model="model" v-bind="$attrs" bottom-slots :counter="showCounter" :dense="dense" :error="errorData" :error-message="errorMessage" :inputmode="defaultInputmode" :mask="mask" :outlined="outlined" :placeholder="placeholder" :unmasked-value="unmaskedValue" @paste="onPaste">
     <template v-for="(_, name) in $slots" #[name]="context">
       <slot :name="name" v-bind="context || {}" />
     </template>
@@ -8,6 +8,14 @@
 
 <script>
 import { getPlaceholder } from '../../helpers'
+
+const Masks = {
+  CompanyDocument: 'company-document',
+  Document: 'document',
+  PersonalDocument: 'personal-document',
+  Phone: 'phone',
+  PostalCode: 'postal-code'
+}
 
 export default {
   name: 'QasInput',
@@ -27,6 +35,11 @@ export default {
     dense: {
       default: true,
       type: Boolean
+    },
+
+    mask: {
+      type: String,
+      default: ''
     },
 
     modelValue: {
@@ -53,7 +66,7 @@ export default {
   data () {
     return {
       errorData: false,
-      mask: ''
+      currentMask: ''
     }
   },
 
@@ -68,12 +81,29 @@ export default {
 
     masks () {
       return {
-        'company-document': () => '##.###.###/####-##',
-        document: () => this.toggleMask('###.###.###-###', '##.###.###/####-##'),
-        'personal-document': () => '###.###.###-##',
-        phone: () => this.toggleMask('(##) ####-#####', '(##) #####-####'),
-        'postal-code': () => '#####-###'
+        [Masks.CompanyDocument]: () => '##.###.###/####-##',
+        [Masks.Document]: () => this.toggleMask('###.###.###-###', '##.###.###/####-##'),
+        [Masks.PersonalDocument]: () => '###.###.###-##',
+        [Masks.Phone]: () => this.toggleMask('(##) ####-#####', '(##) #####-####'),
+        [Masks.PostalCode]: () => '#####-###'
       }
+    },
+
+    defaultInputmode () {
+      const { inputmode, type } = this.$attrs
+
+      const defaults = {
+        [Masks.CompanyDocument]: 'numeric',
+        [Masks.Document]: 'numeric',
+        [Masks.PersonalDocument]: 'numeric',
+        [Masks.Phone]: 'tel',
+        [Masks.PostalCode]: 'numeric',
+
+        // types
+        email: 'email'
+      }
+
+      return inputmode || defaults[this.mask || type]
     },
 
     model: {
@@ -89,9 +119,9 @@ export default {
     },
 
     placeholder () {
-      const { placeholder, mask, type } = this.$attrs
+      const { placeholder, type } = this.$attrs
 
-      return placeholder || getPlaceholder(mask || type)
+      return placeholder || getPlaceholder(this.mask || type)
     },
 
     showCounter () {
@@ -147,7 +177,7 @@ export default {
     },
 
     onPaste (event) {
-      if (!this.mask) return
+      if (!this.currentMask) return
 
       const value = event.clipboardData.getData('text')
       const input = this.getInput()
@@ -171,11 +201,10 @@ export default {
     handleMask () {
       if (!this.modelValue?.length) return
 
-      const { mask } = this.$attrs
-      const hasDefaultMask = Object.prototype.hasOwnProperty.call(this.masks, mask)
+      const hasDefaultMask = Object.prototype.hasOwnProperty.call(this.masks, this.mask)
 
       this.$nextTick(() => {
-        this.mask = hasDefaultMask ? this.masks[mask]() : mask
+        this.currentMask = hasDefaultMask ? this.masks[this.mask]() : this.mask
       })
     }
   }

@@ -1,5 +1,5 @@
 <template>
-  <qas-input ref="input" v-bind="attributes" v-model="currentValue" :unmasked-value="false" @blur="validateDateTimeOnBlur" @focus="resetError" @update:model-value="updateModelValue">
+  <qas-input ref="input" v-bind="attributes" v-model="currentValue" inputmode="numeric" :unmasked-value="false" @blur="validateDateTimeOnBlur" @focus="resetError" @update:model-value="updateModelValue">
     <template #append>
       <qas-btn v-if="!useTimeOnly" color="grey-9" :disable="$attrs.readonly" icon="sym_r_event" variant="tertiary">
         <q-popup-proxy ref="dateProxy" transition-hide="scale" transition-show="scale">

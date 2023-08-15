@@ -1,7 +1,7 @@
 <template>
   <q-field dense :model-value="modelValue">
     <template #control="{ floatingLabel, id }">
-      <input v-show="floatingLabel" :id="id" ref="input" class="q-field__input" :placeholder="placeholder" @blur="emitValue" @click="setSelect" @input="emitUpdateModel($event.target.value)">
+      <input v-show="floatingLabel" :id="id" ref="input" class="q-field__input" inputmode="numeric" :placeholder="placeholder" @blur="emitValue" @click="setSelect" @input="emitUpdateModel($event.target.value)">
     </template>
   </q-field>
 </template>

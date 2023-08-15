@@ -10,6 +10,16 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 ### Sobre os "BREAKING CHANGES"
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
+## Não publicado
+### Adicionado
+- `QasActionsMenu`: adicionado `@click.stop.prevent` solucionando o problema de utilizar o componente em conjunto com o `QasTableGenerator`.
+- `QasInput`: adicionado `inputmode` default de acordo com máscaras e type email.
+- [`QasDateTimeInput`, `QasNumericInput`]: adicionado `inputmode="numeric"`.
+- `QasSearchInput`: adicionado `inputmode="search"`.
+
+### Corrigido
+- `QasDialog`: validação para quando deverá renderizar a descrição como componente e não texto.
+
 ## [3.11.0-beta.13] - 04-08-2023
 ### Adicionado
 - `QasDialog`: possibilidade de passar a descrição como componente através da prop `description` de dentro do `card`.
