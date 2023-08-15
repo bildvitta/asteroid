@@ -164,13 +164,15 @@ export default {
   },
 
   created () {
-    const { onReady } = useCachedFilters(this.entity)
+    if (this.useCachedFilters) {
+      const { onReady } = useCachedFilters(this.entity)
 
-    onReady(() => {
-      this.mx_fetchHandler({ ...this.mx_context, url: this.url }, this.fetchList)
-      this.setCurrentPage()
-      this.setRouteWatcher()
-    })
+      onReady(this.init)
+
+      return
+    }
+
+    this.init()
   },
 
   mounted () {
@@ -186,6 +188,12 @@ export default {
   },
 
   methods: {
+    init () {
+      this.mx_fetchHandler({ ...this.mx_context, url: this.url }, this.fetchList)
+      this.setCurrentPage()
+      this.setRouteWatcher()
+    },
+
     changePage () {
       const query = { ...this.$route.query, page: this.page }
       this.$router.push({ query })
