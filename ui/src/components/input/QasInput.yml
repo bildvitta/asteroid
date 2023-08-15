@@ -15,6 +15,12 @@ props:
     desc: Controla cor da borda do input.
     type: Boolean
 
+  mask:
+    desc: Máscara do input, é possível passar um slug de mascara ou um pattern personalizado.
+    type: String
+    default: ''
+    examples: [document, personal-document, company-document, phone, postal-code, '##/##/####']
+
   model-value:
     desc: Model do componente.
     type: [String, Input]
