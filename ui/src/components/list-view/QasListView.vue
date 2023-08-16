@@ -164,15 +164,13 @@ export default {
   },
 
   created () {
-    if (this.useCachedFilters) {
-      const { onReady } = useCachedFilters(this.entity)
-
-      onReady(this.init)
-
+    if (!this.useCachedFilters) {
+      this.init()
       return
     }
 
-    this.init()
+    const { onReady } = useCachedFilters(this.entity)
+    onReady(this.init)
   },
 
   mounted () {
