@@ -1,40 +1,67 @@
-import useContext from './use-context'
-import { filterObject } from '../helpers'
-import { SessionStorage } from 'quasar'
+import { watch } from 'vue'
 import { useRouter } from 'vue-router'
+import { SessionStorage } from 'quasar'
+import { filterObject } from '../helpers'
+
+import useContext from './use-context'
 import useHistory from './use-history'
 
 const cachedFilters = SessionStorage.getItem('cachedFilters') || {}
 const onReadyCallbacks = {}
+const enabledCachedList = {}
 
-export default function (entity) {
+export default function (entity, options) {
+  enabledCachedList[entity] = false
+
   function updateSessionStorage () {
     SessionStorage.set('cachedFilters', cachedFilters)
   }
 
+  const defaultOptions = {
+    watchRoute: true,
+    exclude: [],
+    ...options
+  }
+
   async function initCache () {
+    enabledCachedList[entity] = true
+
     const router = useRouter()
     const { history: { list } } = useHistory()
 
-    const { context } = useContext()
-    const { search, filters } = context.value
-    const filtersList = Object.keys(filters)
+    if (defaultOptions.watchRoute) {
+      const { context } = useContext()
+      const { search, filters } = context.value
+      const filtersList = Object.keys(filters)
 
-    const hasQueryParams = search || Object.keys(filters).length
+      const hasQueryParams = search || filtersList.length
 
-    if (hasQueryParams) {
-      cachedFilters[entity] = {}
+      if (hasQueryParams) {
+        cachedFilters[entity] = {}
 
-      search && addOne({ label: 'search', value: search })
-      filtersList.forEach(filter => addOne({ label: filter, value: filters[filter] }))
+        search && addOne({ label: 'search', value: search })
+        filtersList.forEach(filter => addOne({ label: filter, value: filters[filter] }))
+      } else if (list.length > 1 && Object.keys(cachedFilters[entity] || {}).length) {
+        await router.replace({ query: findAll() })
+      }
 
-      executeOnReadyCallbacks()
+      watch(context, value => {
+        const { search, filters } = value
+        const query = {
+          ...filters,
+          ...(search && { search })
+        }
 
-      return
-    }
+        const filteredQuery = {}
 
-    if (list.length > 1 && Object.keys(cachedFilters[entity] || {}).length) {
-      await router.replace({ query: findAll() })
+        for (const filter in query) {
+          if (!defaultOptions.exclude.includes(filter)) {
+            filteredQuery[filter] = query[filter]
+          }
+        }
+
+        addMany(filteredQuery)
+      }, { flush: 'post' })
     }
 
     executeOnReadyCallbacks()
@@ -43,7 +70,7 @@ export default function (entity) {
   function executeOnReadyCallbacks () {
     if (!onReadyCallbacks[entity]?.length) return
 
-    onReadyCallbacks[entity].forEach(callback => callback())
+    onReadyCallbacks[entity].forEach(callbackFn => callbackFn({ filters: findAll() }))
     delete onReadyCallbacks[entity]
   }
 
@@ -96,6 +123,7 @@ export default function (entity) {
     findAll,
     clearOne,
     clearAll,
-    onReady
+    onReady,
+    isEnabled: enabledCachedList[entity]
   }
 }

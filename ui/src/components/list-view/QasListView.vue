@@ -6,7 +6,7 @@
       </header>
 
       <slot v-if="useFilter" name="filter">
-        <qas-filters v-bind="defaultFiltersProps" :entity="entity" />
+        <qas-filters v-bind="filtersProps" :entity="entity" />
       </slot>
 
       <main class="relative-position">
@@ -55,6 +55,11 @@ export default {
   mixins: [contextMixin, viewMixin],
 
   props: {
+    cacheFiltersProps: {
+      default: () => ({}),
+      type: Object
+    },
+
     filtersProps: {
       default: () => ({}),
       type: Object
@@ -113,13 +118,6 @@ export default {
   },
 
   computed: {
-    defaultFiltersProps () {
-      return {
-        useCachedFilters: this.useCachedFilters,
-        ...this.filtersProps
-      }
-    },
-
     hasDeleteEventListener () {
       return this.useAutoHandleOnDelete || this.useAutoRefetchOnDelete
     },
@@ -163,14 +161,13 @@ export default {
     }
   },
 
-  created () {
-    if (!this.useCachedFilters) {
-      this.init()
-      return
+  async created () {
+    if (this.useCachedFilters) {
+      const { initCache } = useCachedFilters(this.entity, this.cacheFiltersProps)
+      await initCache()
     }
 
-    const { onReady } = useCachedFilters(this.entity)
-    onReady(this.init)
+    this.init()
   },
 
   mounted () {

@@ -96,11 +96,6 @@ export default {
       type: String
     },
 
-    useCachedFilters: {
-      default: true,
-      type: Boolean
-    },
-
     useForceRefetch: {
       type: Boolean
     },
@@ -120,7 +115,7 @@ export default {
 
   data () {
     return {
-      cachedFilters: {},
+      Filters: {},
       currentFilters: {},
       filters: {},
       hasFetchError: false,
@@ -219,10 +214,6 @@ export default {
 
     hasChip () {
       return this.useChip && this.hasActiveFilters
-    },
-
-    hasCachedFilters () {
-      return this.useCachedFilters && this.useUpdateRoute
     }
   },
 
@@ -236,12 +227,22 @@ export default {
   },
 
   async created () {
-    this.hasCachedFilters && await this.setCachedFilters()
-    this.setFields()
-    this.handleSearchModelOnCreate()
+    const { isEnabled, onReady } = useCachedFilters(this.entity)
+
+    if (isEnabled) {
+      onReady(this.init)
+      return
+    }
+
+    this.init()
   },
 
   methods: {
+    init () {
+      this.setFields()
+      this.handleSearchModelOnCreate()
+    },
+
     async clearFilters () {
       const { filters } = this.mx_context
       const query = { ...this.$route.query }
@@ -260,13 +261,10 @@ export default {
           if (hasField) {
             delete query[key]
             delete this.filters[key]
-
-            this.hasCachedFilters && this.cachedFilters.clearOne(key)
           }
         }
       } else {
         this.filters = {}
-        this.hasCachedFilters && this.cachedFilters.clearAll({ exclude: ['search'] })
       }
 
       this.hideFiltersMenu()
@@ -278,7 +276,6 @@ export default {
 
     clearSearch () {
       this.search = ''
-      this.hasCachedFilters && this.cachedFilters.clearOne('search')
       this.filter()
     },
 
@@ -340,7 +337,6 @@ export default {
 
       await this.updateRouteQuery(query)
 
-      this.hasCachedFilters && this.cachedFilters.addMany(query)
       this.updateCurrentFilters()
     },
 
@@ -357,8 +353,6 @@ export default {
 
       delete query[name]
       delete this.filters[name]
-
-      this.hasCachedFilters && this.cachedFilters.clearOne(name)
 
       await this.updateRouteQuery(query)
 
@@ -423,11 +417,6 @@ export default {
       for (const key in filters) {
         this.filters[key] = parseValue(this.normalizeValues(filters[key], this.fields[key]?.multiple))
       }
-    },
-
-    setCachedFilters () {
-      this.cachedFilters = useCachedFilters(this.entity)
-      return this.cachedFilters.initCache()
     }
   }
 }
