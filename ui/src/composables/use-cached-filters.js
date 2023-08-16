@@ -1,10 +1,10 @@
 import useContext from './use-context'
 import { filterObject } from '../helpers'
 import { SessionStorage } from 'quasar'
-import { useRouter, useRoute } from 'vue-router'
+import { useRouter } from 'vue-router'
 import useHistory from './use-history'
 
-const cachedFilters = {}
+const cachedFilters = SessionStorage.getItem('cachedFilters') || {}
 const onReadyCallbacks = {}
 
 export default function (entity) {
@@ -14,10 +14,7 @@ export default function (entity) {
 
   async function initCache () {
     const router = useRouter()
-    const route = useRoute()
     const { history: { list } } = useHistory()
-
-    cachedFilters[entity] = {}
 
     const { context } = useContext()
     const { search, filters } = context.value
@@ -26,6 +23,8 @@ export default function (entity) {
     const hasQueryParams = search || Object.keys(filters).length
 
     if (hasQueryParams) {
+      cachedFilters[entity] = {}
+
       search && addOne({ label: 'search', value: search })
       filtersList.forEach(filter => addOne({ label: filter, value: filters[filter] }))
 
@@ -34,23 +33,16 @@ export default function (entity) {
       return
     }
 
-    if (list.length > 1) {
-      const storedFilters = SessionStorage.getItem('cachedFilters') || {}
-      const storageFiltersList = Object.keys(storedFilters[entity] || {})
-
-      storageFiltersList.forEach(filter => {
-        cachedFilters[entity][filter] = storedFilters[entity][filter]
-      })
-
-      if (Object.keys(cachedFilters[entity]).length) {
-        await router.replace({ query: { ...route.query, ...cachedFilters[entity] } })
-      }
+    if (list.length > 1 && Object.keys(cachedFilters[entity] || {}).length) {
+      await router.replace({ query: findAll() })
     }
 
     executeOnReadyCallbacks()
   }
 
   function executeOnReadyCallbacks () {
+    if (!onReadyCallbacks[entity]?.length) return
+
     onReadyCallbacks[entity].forEach(callback => callback())
     delete onReadyCallbacks[entity]
   }
