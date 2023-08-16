@@ -235,8 +235,8 @@ export default {
     }
   },
 
-  created () {
-    this.hasCachedFilters && this.setCachedFilters()
+  async created () {
+    this.hasCachedFilters && await this.setCachedFilters()
     this.setFields()
     this.handleSearchModelOnCreate()
   },
@@ -427,7 +427,7 @@ export default {
 
     setCachedFilters () {
       this.cachedFilters = useCachedFilters(this.entity)
-      this.cachedFilters.initCache()
+      return this.cachedFilters.initCache()
     }
   }
 }
