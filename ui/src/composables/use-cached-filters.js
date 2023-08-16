@@ -52,6 +52,7 @@ export default function (entity) {
 
   function executeOnReadyCallbacks () {
     onReadyCallbacks[entity].forEach(callback => callback())
+    delete onReadyCallbacks[entity]
   }
 
   function onReady (callback) {
