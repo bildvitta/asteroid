@@ -65,14 +65,6 @@ export default {
   },
 
   computed: {
-    hasError () {
-      return this.inputReference.hasError
-    },
-
-    inputReference () {
-      return this.$refs.input
-    },
-
     masks () {
       return {
         [Masks.CompanyDocument]: () => '##.###.###/####-##',
@@ -114,7 +106,7 @@ export default {
   },
 
   watch: {
-    mask (value) {
+    currentMask (value) {
       if (!value) return
 
       const input = this.getInput()
@@ -142,11 +134,11 @@ export default {
 
   methods: {
     focus () {
-      return this.inputReference.focus()
+      return this.$refs.input.focus()
     },
 
     resetValidation () {
-      return this.inputReference.resetValidation()
+      return this.$refs.input.resetValidation()
     },
 
     toggleMask (first, second) {
@@ -155,7 +147,7 @@ export default {
     },
 
     validate (value) {
-      return this.inputReference.validate(value)
+      return this.$refs.input.validate(value)
     },
 
     onPaste (event) {
@@ -171,7 +163,7 @@ export default {
     },
 
     getInput () {
-      return this.inputReference?.$el?.querySelector('input')
+      return this.$refs.input?.$el?.querySelector('input')
     },
 
     handleErrors () {

@@ -15,6 +15,13 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - `QasDateTimeInput`: adicionado prop `datePopupProxyProps` para repassar props para o componente `QPopupProxy` do `QDate`.
 - `QasDateTimeInput`: adicionado prop `timePopupProxyProps` para repassar props para o componente `QPopupProxy` do `QTime`.
 
+### Corrigido
+- `QasInput`: corrigido problema causado na versão `3.11.0-beta.14` onde o watch `mask` não foi alterado para `currentMask`.
+
+### Removido
+- `QasInput`: removido computada `inputReference` que retornava o ref do `input`, pois seguindo a recomendação do Vue não é uma boa prática utilizar refs dentro de computadas, então foi movido a recuperação da ref para os métodos que à utilizam.
+- `QasInput`: removido computada `hasError` pois não estava sendo utilizada em nenhum local no componente.
+
 ## [3.11.0-beta.14] - 15-08-2023
 ### Adicionado
 - `QasActionsMenu`: adicionado `@click.stop.prevent` solucionando o problema de utilizar o componente em conjunto com o `QasTableGenerator`.
