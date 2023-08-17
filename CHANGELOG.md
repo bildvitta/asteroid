@@ -18,8 +18,8 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 ### Corrigido
 - `QasInput`: corrigido problema causado na versão `3.11.0-beta.14` onde o watch `mask` não foi alterado para `currentMask`.
 
-### Removido
-- `QasInput`: removido computada `inputReference` que retornava o ref do `input`, pois seguindo a recomendação do Vue não é uma boa prática utilizar refs dentro de computadas, então foi movido a recuperação da ref para os métodos que à utilizam.
+### Modificado
+- `QasInput`: modificado computada `inputReference` que retornava o ref do `input` para ser um data. Pois seguindo a recomendação do Vue não é uma boa prática utilizar refs dentro de computadas.
 
 ## [3.11.0-beta.14] - 15-08-2023
 ### Adicionado

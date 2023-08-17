@@ -60,13 +60,14 @@ export default {
   data () {
     return {
       errorData: false,
-      currentMask: ''
+      currentMask: '',
+      inputReference: null
     }
   },
 
   computed: {
     hasError () {
-      return this.$refs.input.hasError
+      return this.inputReference.hasError
     },
 
     masks () {
@@ -136,13 +137,17 @@ export default {
     }
   },
 
+  mounted () {
+    this.inputReference = this.$refs.input
+  },
+
   methods: {
     focus () {
-      return this.$refs.input.focus()
+      return this.inputReference.focus()
     },
 
     resetValidation () {
-      return this.$refs.input.resetValidation()
+      return this.inputReference.resetValidation()
     },
 
     toggleMask (first, second) {
@@ -151,7 +156,7 @@ export default {
     },
 
     validate (value) {
-      return this.$refs.input.validate(value)
+      return this.inputReference.validate(value)
     },
 
     onPaste (event) {
@@ -167,7 +172,7 @@ export default {
     },
 
     getInput () {
-      return this.$refs.input?.$el?.querySelector('input')
+      return this.inputReference?.$el?.querySelector('input')
     },
 
     handleErrors () {
