@@ -60,17 +60,14 @@ export default {
   data () {
     return {
       errorData: false,
-      currentMask: ''
+      currentMask: '',
+      inputReference: null
     }
   },
 
   computed: {
     hasError () {
       return this.inputReference.hasError
-    },
-
-    inputReference () {
-      return this.$refs.input
     },
 
     masks () {
@@ -114,7 +111,7 @@ export default {
   },
 
   watch: {
-    mask (value) {
+    currentMask (value) {
       if (!value) return
 
       const input = this.getInput()
@@ -138,6 +135,10 @@ export default {
 
       immediate: true
     }
+  },
+
+  mounted () {
+    this.inputReference = this.$refs.input
   },
 
   methods: {
