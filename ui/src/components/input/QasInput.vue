@@ -65,6 +65,10 @@ export default {
   },
 
   computed: {
+    hasError () {
+      return this.$refs.input.hasError
+    },
+
     masks () {
       return {
         [Masks.CompanyDocument]: () => '##.###.###/####-##',
