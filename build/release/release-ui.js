@@ -6,8 +6,7 @@ function releaseUi ({ execaSync, ora, publishCommands, packages }) {
     publishSpinner.succeed('"ui" publicada')
 
     return { success: true, error: false }
-  } catch (error) {
-    console.log(error)
+  } catch {
     publishSpinner.fail('Falha ao publicar "ui"')
     return { success: false, error: true }
   }
