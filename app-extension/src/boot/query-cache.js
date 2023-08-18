@@ -1,5 +1,7 @@
-import { addMany, findAll } from '@bildvitta/quasar-ui-asteroid/src/composables/use-cached-filters'
+import useQueryCache from '@bildvitta/quasar-ui-asteroid/src/composables/use-query-cache'
 import useHistory from '@bildvitta/quasar-ui-asteroid/src/composables/use-history'
+
+const { addMany, findAll } = useQueryCache()
 
 let isReplacingQuery = false
 
@@ -12,15 +14,19 @@ function getQueriesToExclude (route) {
 function setRouteCache (route) {
   if (!route.meta.useCache) return
 
-  const filteredQuery = {}
+  let filteredQuery = {}
   const { query } = route || {}
 
   const queriesToExclude = getQueriesToExclude(route)
 
-  for (const filter in query) {
-    if (!queriesToExclude.includes(filter)) {
-      filteredQuery[filter] = query[filter]
+  if (queriesToExclude.length) {
+    for (const filter in query) {
+      if (!queriesToExclude.includes(filter)) {
+        filteredQuery[filter] = query[filter]
+      }
     }
+  } else {
+    filteredQuery = query
   }
 
   const hasQueryParams = !!Object.keys(filteredQuery).length
@@ -32,7 +38,7 @@ function setRouteCache (route) {
 
 export default ({ router }) => {
   router.beforeEach((to, from, next) => {
-    if (useHistory().history.list.length <= 1) { return next() }
+    if (!useHistory().hasPreviousRoute.value) { return next() }
 
     setRouteCache(from)
 
@@ -41,18 +47,10 @@ export default ({ router }) => {
 
     if (!hasQueries && useCache && !isReplacingQuery) {
       const cachedQuery = findAll(to.name) || {}
-      const queriesToExclude = getQueriesToExclude(to)
-      const filteredQuery = {}
-
-      for (const query in cachedQuery) {
-        if (!queriesToExclude.includes(query)) {
-          filteredQuery[query] = cachedQuery[query]
-        }
-      }
 
       isReplacingQuery = true
 
-      return next({ ...to, query: filteredQuery })
+      return next({ ...to, query: cachedQuery })
     }
 
     isReplacingQuery = false
