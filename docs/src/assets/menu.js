@@ -477,6 +477,10 @@ module.exports = [
         path: '/composables/use-history'
       },
       {
+        name: 'useQueryCache',
+        path: '/composables/use-query-cache'
+      },
+      {
         name: 'useScreen',
         path: '/composables/use-screen'
       }
