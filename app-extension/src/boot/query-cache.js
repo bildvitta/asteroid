@@ -6,9 +6,9 @@ const { addMany, findAll } = useQueryCache()
 let isReplacingQuery = false
 
 function getQueriesToExclude (route) {
-  const { exclude = [], include = [] } = route.meta || {}
+  const { excludes = [], includes = [] } = route.meta || {}
 
-  return exclude.filter(value => !include.includes(value))
+  return excludes.filter(value => !includes.includes(value))
 }
 
 function setRouteCache (route) {
