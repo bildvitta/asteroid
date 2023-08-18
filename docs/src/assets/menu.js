@@ -465,6 +465,10 @@ module.exports = [
     name: 'Composição',
     children: [
       {
+        name: 'useContext',
+        path: '/composables/use-context'
+      },
+      {
         name: 'useForm',
         path: '/composables/use-form'
       },
