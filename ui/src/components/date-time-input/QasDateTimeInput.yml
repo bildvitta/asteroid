@@ -17,6 +17,11 @@ props:
     default: {}
     type: Object
 
+  date-popup-proxy-props:
+    desc: Propriedades do QPopupProxy para o popup do QDate (https://quasar.dev/vue-components/popup-proxy#qpopupproxy-api).
+    default: {}
+    type: Object
+
   model-value:
     desc: Model do componente, usado para v-model.
     default: ''
@@ -30,6 +35,11 @@ props:
 
   time-props:
     desc: Propriedades do QTime (https://quasar.dev/vue-components/time#introduction).
+    default: {}
+    type: Object
+
+  time-popup-proxy-props:
+    desc: Propriedades do QPopupProxy para o popup do QTime (https://quasar.dev/vue-components/popup-proxy#qpopupproxy-api).
     default: {}
     type: Object
 

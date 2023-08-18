@@ -10,6 +10,17 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 ### Sobre os "BREAKING CHANGES"
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
+## [3.11.0-beta.15] - 17-08-2023
+### Adicionado
+- `QasDateTimeInput`: adicionado prop `datePopupProxyProps` para repassar props para o componente `QPopupProxy` do `QDate`.
+- `QasDateTimeInput`: adicionado prop `timePopupProxyProps` para repassar props para o componente `QPopupProxy` do `QTime`.
+
+### Corrigido
+- `QasInput`: corrigido problema causado na versão `3.11.0-beta.14` onde o watch `mask` não foi alterado para `currentMask`.
+
+### Modificado
+- `QasInput`: modificado computada `inputReference` que retornava o ref do `input` para ser um data. Pois seguindo a recomendação do Vue não é uma boa prática utilizar refs dentro de computadas.
+
 ## [3.11.0-beta.14] - 15-08-2023
 ### Adicionado
 - `QasActionsMenu`: adicionado `@click.stop.prevent` solucionando o problema de utilizar o componente em conjunto com o `QasTableGenerator`.
@@ -1807,3 +1818,4 @@ Adicionado suporte para Pinia/Vuex Seguindo os padrões da biblioteca `@bildvitt
 [3.11.0-beta.12]: https://github.com/bildvitta/asteroid/compare/v3.11.0-beta.11...v3.11.0-beta.12?expand=1
 [3.11.0-beta.13]: https://github.com/bildvitta/asteroid/compare/v3.11.0-beta.12...v3.11.0-beta.13?expand=1
 [3.11.0-beta.14]: https://github.com/bildvitta/asteroid/compare/v3.11.0-beta.13...v3.11.0-beta.14?expand=1
+[3.11.0-beta.15]: https://github.com/bildvitta/asteroid/compare/v3.11.0-beta.14...v3.11.0-beta.15?expand=1
