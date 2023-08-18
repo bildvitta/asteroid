@@ -1,4 +1,4 @@
-import { addMany, findAll } from '../../../ui/src/composables/use-cached-filters'
+import { addMany, findAll } from '@bildvitta/quasar-ui-asteroid/src/composables/use-cached-filters'
 import useHistory from '@bildvitta/quasar-ui-asteroid/src/composables/use-history'
 
 let isReplacingQuery = false
