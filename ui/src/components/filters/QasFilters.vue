@@ -224,9 +224,13 @@ export default {
     }
   },
 
-  created () {
-    this.fetchFilters()
-    this.watchOnceFields()
+  async created () {
+    await this.fetchFilters()
+
+    if (this.useUpdateRoute) {
+      this.updateValues()
+      this.updateCurrentFilters()
+    }
     this.handleSearchModelOnCreate()
   },
 
@@ -369,18 +373,6 @@ export default {
       if (Array.isArray(value)) return value
 
       return isMultiple ? [value] : value
-    },
-
-    watchOnceFields () {
-      if (!this.useUpdateRoute) return
-
-      const watchOnce = this.$watch('fields', values => {
-        if (Object.keys(values || {}).length) {
-          this.updateValues()
-          this.updateCurrentFilters()
-          watchOnce()
-        }
-      })
     },
 
     handleSearchModelOnCreate () {
