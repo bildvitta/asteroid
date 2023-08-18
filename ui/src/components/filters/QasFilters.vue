@@ -231,6 +231,7 @@ export default {
       this.updateValues()
       this.updateCurrentFilters()
     }
+
     this.handleSearchModelOnCreate()
   },
 
