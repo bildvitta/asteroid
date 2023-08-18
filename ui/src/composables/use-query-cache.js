@@ -31,7 +31,7 @@ export default function () {
     updateSessionStorage()
   }
 
-  function clearAll (key, { exclude = [] }) {
+  function clearAll (key, { exclude = [] } = {}) {
     if (exclude.length) {
       cachedFilters[key] = filterObject(cachedFilters[key], exclude)
     } else {

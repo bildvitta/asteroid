@@ -1,7 +1,7 @@
 import useQueryCache from '@bildvitta/quasar-ui-asteroid/src/composables/use-query-cache'
 import useHistory from '@bildvitta/quasar-ui-asteroid/src/composables/use-history'
 
-const { addMany, findAll } = useQueryCache()
+const { addMany, findAll, clearAll } = useQueryCache()
 
 let isReplacingQuery = false
 
@@ -38,7 +38,11 @@ function setRouteCache (route) {
 
 export default ({ router }) => {
   router.beforeEach((to, from, next) => {
-    if (!useHistory().hasPreviousRoute.value) { return next() }
+    if (!useHistory().hasPreviousRoute.value) {
+      clearAll(to.name)
+
+      return next()
+    }
 
     setRouteCache(from)
 
