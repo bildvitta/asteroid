@@ -1,7 +1,8 @@
+import { ref } from 'vue'
 import { SessionStorage } from 'quasar'
 import { filterObject } from '../helpers'
 
-const cachedFilters = SessionStorage.getItem('cachedFilters') || {}
+const cachedFilters = ref(SessionStorage.getItem('cachedFilters') || {})
 
 function updateSessionStorage () {
   SessionStorage.set('cachedFilters', cachedFilters)
@@ -46,5 +47,6 @@ export {
   findOne,
   findAll,
   clearOne,
-  clearAll
+  clearAll,
+  cachedFilters
 }
