@@ -13,7 +13,7 @@
     </div>
 
     <div v-if="hasShortcuts">
-      <div class="q-mb-md q-mt-md text-grey-9 text-subtitle2">Atalhos</div>
+      <qas-label class="q-mt-lg" label="Atalhos" />
 
       <div class="qas-welcome__container">
         <div ref="scrollArea" class="row" :class="contentClasses">
@@ -77,6 +77,10 @@ export default {
       if (!this.name) return ''
 
       return this.name.split(' ')?.[0]
+    },
+
+    hasActionsMenuProps () {
+      return !!Object.keys(this.actionsMenuProps).length
     },
 
     hasShortcuts () {
