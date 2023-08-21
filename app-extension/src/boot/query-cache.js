@@ -48,8 +48,10 @@ export default ({ router }) => {
 
     const { query, meta: { useCache } } = to
     const hasQueries = !!Object.keys(query).length
+    const isSameRoute = to.name === from.name
+    const useCachedQuery = !isSameRoute && !hasQueries && useCache
 
-    if (!hasQueries && useCache && !isReplacingQuery) {
+    if (useCachedQuery && !isReplacingQuery) {
       const cachedQuery = findAll(to.name) || {}
 
       isReplacingQuery = true
