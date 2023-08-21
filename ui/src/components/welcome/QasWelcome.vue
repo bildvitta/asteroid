@@ -1,10 +1,16 @@
 <template>
   <div class="q-mb-xl qas-welcome text-left">
-    <h3 class="text-grey-9 text-h3">
-      {{ welcomeMessage }}<span v-if="firstName">, {{ firstName }}</span>
-    </h3>
+    <div class="items-center justify-between row">
+      <div>
+        <h3 class="text-grey-9 text-h3">
+          {{ welcomeMessage }}<span v-if="firstName">, {{ firstName }}</span>
+        </h3>
 
-    <div class="text-caption text-grey-8">{{ currentDay }}</div>
+        <div class="text-caption text-grey-8">{{ currentDay }}</div>
+      </div>
+
+      <qas-actions-menu v-if="hasActionsMenuProps" v-bind="actionsMenuProps" />
+    </div>
 
     <div v-if="hasShortcuts">
       <div class="q-mb-md q-mt-md text-grey-9 text-subtitle2">Atalhos</div>
@@ -34,6 +40,11 @@ export default {
   },
 
   props: {
+    actionsMenuProps: {
+      default: () => ({}),
+      type: Object
+    },
+
     name: {
       default: '',
       type: String
