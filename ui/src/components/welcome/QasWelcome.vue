@@ -9,7 +9,9 @@
         <div class="text-caption text-grey-8">{{ currentDay }}</div>
       </div>
 
-      <qas-actions-menu v-if="hasActionsMenuProps" v-bind="actionsMenuProps" />
+      <slot name="actions">
+        <qas-actions-menu v-if="hasActionsMenuProps" v-bind="actionsMenuProps" />
+      </slot>
     </div>
 
     <div v-if="hasShortcuts">
