@@ -32,6 +32,11 @@ props:
     default: true
     type: Boolean
 
+  required:
+    desc: Controla label do campo, se for "true" adiciona sufixo "*".
+    default: false
+    type: Boolean
+
   use-remove-error-on-type:
     desc: Limpa os erros do campo caso os mesmos existam toda vez que o model atualiza.
     type: Boolean

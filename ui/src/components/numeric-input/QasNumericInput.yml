@@ -17,6 +17,11 @@ props:
     default: 2
     type: Number
 
+  label:
+    desc: Label do componente.
+    type: String
+    default: ''
+
   mode:
     desc: Modo do componente.
     default: integer
@@ -32,6 +37,11 @@ props:
   preset:
     desc: Propriedade preset serve para usar configuração de predefinição/nacionalidade da moeda pré setada pelo autonumeric (Brasil é o padrão).
     type: [Boolean, String]
+
+  required:
+    desc: Controla label do campo, se for "true" adiciona sufixo "*".
+    default: false
+    type: Boolean
 
   use-negative:
     desc: Controla se pode ou não números negativos.

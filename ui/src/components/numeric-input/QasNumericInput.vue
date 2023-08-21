@@ -1,5 +1,5 @@
 <template>
-  <q-field :model-value="modelValue" outlined>
+  <q-field :label="requiredLabel" :model-value="modelValue" outlined>
     <template #control="{ floatingLabel, id }">
       <input v-show="floatingLabel" :id="id" ref="input" class="q-field__input" inputmode="numeric" @blur="emitValue" @click="setSelect" @input="emitUpdateModel($event.target.value)">
     </template>
@@ -8,6 +8,7 @@
 
 <script>
 import AutoNumeric from 'autonumeric'
+import { getRequiredLabel } from '../../helpers'
 
 const defaultModes = {
   decimal: 'commaDecimalCharDotSeparator',
@@ -28,6 +29,11 @@ export default {
     places: {
       default: 2,
       type: Number
+    },
+
+    label: {
+      type: String,
+      default: ''
     },
 
     mode: {
@@ -54,6 +60,10 @@ export default {
       type: [Boolean, String]
     },
 
+    required: {
+      type: Boolean
+    },
+
     useNegative: {
       type: Boolean
     },
@@ -78,6 +88,10 @@ export default {
   computed: {
     defaultMode () {
       return defaultModes[this.mode]
+    },
+
+    requiredLabel () {
+      return getRequiredLabel({ label: this.label, required: this.required })
     }
   },
 

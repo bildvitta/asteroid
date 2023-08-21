@@ -1,5 +1,5 @@
 <template>
-  <q-input ref="input" v-model="model" bottom-slots :error="errorData" v-bind="$attrs" :error-message="errorMessage" :inputmode="defaultInputmode" :mask="currentMask" :outlined="outlined" :unmasked-value="unmaskedValue" @paste="onPaste">
+  <q-input ref="input" v-model="model" bottom-slots :error="errorData" v-bind="$attrs" :error-message="errorMessage" :inputmode="defaultInputmode" :label="requiredLabel" :mask="currentMask" :outlined="outlined" :unmasked-value="unmaskedValue" @paste="onPaste">
     <template v-for="(_, name) in $slots" #[name]="context">
       <slot :name="name" v-bind="context || {}" />
     </template>
@@ -7,6 +7,8 @@
 </template>
 
 <script>
+import { getRequiredLabel } from '../../helpers'
+
 const Masks = {
   CompanyDocument: 'company-document',
   Document: 'document',
@@ -42,6 +44,10 @@ export default {
 
     outlined: {
       default: true,
+      type: Boolean
+    },
+
+    required: {
       type: Boolean
     },
 
@@ -107,6 +113,12 @@ export default {
 
         return this.$emit('update:modelValue', value)
       }
+    },
+
+    requiredLabel () {
+      const { label } = this.$attrs
+
+      return getRequiredLabel({ label, required: this.required })
     }
   },
 
