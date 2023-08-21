@@ -17,3 +17,7 @@ props:
     desc: Lista de cards de atalhos.
     default: []
     type: Array
+
+slots:
+  actions:
+    desc: Slot para substituir o QasActionsMenu.
