@@ -102,7 +102,7 @@ export default {
 
         ...this.$attrs,
 
-        label: this.requiredLabel,
+        label: this.formattedLabel,
         error: this.hasError,
         inputDebounce: this.useLazyLoading ? 1200 : 0,
         loading: this.hasLoading,
@@ -168,7 +168,7 @@ export default {
       return `qas-select__popup-content-${uid()}`
     },
 
-    requiredLabel () {
+    formattedLabel () {
       return getRequiredLabel({ label: this.label, required: this.required })
     }
   },

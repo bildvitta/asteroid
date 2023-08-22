@@ -17,7 +17,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 
 ### Modificado
 - [`QasNumericInput`, `QasSelect`]: adicionado propriedade `label` fixo no componente e não mais pelo `$attrs` para funcionar logica do required.
-- `QasField`: agora logica de label obrigatória é controlada em cada componente e não mais pelo QasLabel.
+- `QasField`: agora logica de label obrigatória é controlada em cada componente e não mais pelo QasField.
 
 ## [3.11.0-beta.15] - 17-08-2023
 ### Adicionado

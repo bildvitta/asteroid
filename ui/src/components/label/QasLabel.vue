@@ -1,6 +1,6 @@
 <template>
   <div class="text-h4" :class="classes">
-    <slot :label-with-suffix="normalizedLabel">{{ normalizedLabel }}</slot>
+    <slot :label-with-suffix="formattedLabel">{{ formattedLabel }}</slot>
   </div>
 </template>
 
@@ -47,7 +47,7 @@ export default {
       return addCounterSuffix(this.label, parseFloat(this.count))
     },
 
-    normalizedLabel () {
+    formattedLabel () {
       return getRequiredLabel({ label: this.labelWithSuffix, required: this.required })
     },
 

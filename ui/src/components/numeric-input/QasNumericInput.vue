@@ -1,5 +1,5 @@
 <template>
-  <q-field :label="requiredLabel" :model-value="modelValue" outlined>
+  <q-field :label="formattedLabel" :model-value="modelValue" outlined>
     <template #control="{ floatingLabel, id }">
       <input v-show="floatingLabel" :id="id" ref="input" class="q-field__input" inputmode="numeric" @blur="emitValue" @click="setSelect" @input="emitUpdateModel($event.target.value)">
     </template>
@@ -90,7 +90,7 @@ export default {
       return defaultModes[this.mode]
     },
 
-    requiredLabel () {
+    formattedLabel () {
       return getRequiredLabel({ label: this.label, required: this.required })
     }
   },
