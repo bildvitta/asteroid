@@ -27,7 +27,6 @@ export default boot(async () => {
     }
   }
 
-  console.log('TCL: asteroidConfig.framework?.fonts?.observer?.waitForUserAuthenticate', asteroidConfig.framework?.fonts?.observer?.waitForUserAuthenticate)
   if (asteroidConfig.framework?.fonts?.observer?.waitForUserAuthenticate) {
     window.addEventListener('message', fontFaceEventHandler)
 
