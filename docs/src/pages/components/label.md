@@ -14,3 +14,4 @@ Componente muito utilizado para separar blocos de inputs dentro de formulário.
 ## Uso
 
 <doc-example file="QasLabel/Basic" title="Básico" />
+<doc-example file="QasLabel/Required" title="Obrigatório" />
