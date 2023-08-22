@@ -21,6 +21,7 @@ Hoje Utilizamos 1 biblioteca compatível:
 ## Uso
 
 <doc-example file="QasSelect/Basic" title="Básico" />
+<doc-example file="QasSelect/Required" title="Obrigatório" />
 <doc-example file="QasSelect/Searchable" title="Com pesquisa" />
 
 #### Lazy loading

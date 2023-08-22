@@ -15,6 +15,15 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - `QasWelcome`: adicionado componente `QasActionsMenu`.
 - `QasWelcome`: adicionado prop `actionsMenuProps` para repassar as props para o componente `QasActionsMenu`.
 
+## [3.11.0-beta.16] - 22-08-2023
+### Adicionado
+- [`QasLabel`, `QasSelect`, `QasInput`, `QasNumericInput`]: adicionado propriedade `required` para controle de label obrigatória.
+- Adicionado novo helper `getRequiredLabel` para retornar label obrigatória normalizada.
+
+### Modificado
+- [`QasNumericInput`, `QasSelect`]: adicionado propriedade `label` fixo no componente e não mais pelo `$attrs` para funcionar logica do required.
+- `QasField`: agora logica de label obrigatória é controlada em cada componente e não mais pelo QasField.
+
 ## [3.11.0-beta.15] - 17-08-2023
 ### Adicionado
 - `QasDateTimeInput`: adicionado prop `datePopupProxyProps` para repassar props para o componente `QPopupProxy` do `QDate`.
