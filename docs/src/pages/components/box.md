@@ -16,3 +16,4 @@ Um simples componente com fundo branco e bordas arredondadas para encapsular o s
 
 <doc-example file="QasBox/Unelevated" title="Sem sombra" />
 
+<doc-example file="QasBox/BoxInsideBox" title="Box dentro de box" />

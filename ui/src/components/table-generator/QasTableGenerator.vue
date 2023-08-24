@@ -1,6 +1,6 @@
 <template>
-  <qas-box class="q-px-lg q-py-md">
-    <q-table ref="table" class="bg-white qas-table-generator text-grey-8" v-bind="attributes">
+  <qas-box class="qas-table-generator">
+    <q-table ref="table" class="bg-white text-grey-8" v-bind="attributes">
       <template v-for="(_, name) in slots" #[name]="context">
         <slot :name="name" v-bind="context" />
       </template>
@@ -325,6 +325,8 @@ export default {
 
 <style lang="scss">
 .qas-table-generator {
+  padding-top: var(--qas-spacing-md);
+
   .q-table {
     th {
       @include set-typography($subtitle1);
