@@ -45,6 +45,7 @@
 </template>
 
 <script>
+import { getRequiredLabel } from '../../helpers'
 import { uid } from 'quasar'
 import { searchFilterMixin } from '../../mixins'
 import Fuse from 'fuse.js'
@@ -63,6 +64,11 @@ export default {
       type: Object
     },
 
+    label: {
+      type: String,
+      default: ''
+    },
+
     modelValue: {
       default: () => [],
       type: [Array, Object, String, Number, Boolean]
@@ -76,6 +82,10 @@ export default {
     options: {
       default: () => [],
       type: Array
+    },
+
+    required: {
+      type: Boolean
     },
 
     useFetchOptionsOnCreate: {
@@ -112,6 +122,7 @@ export default {
 
         ...this.$attrs,
 
+        label: this.formattedLabel,
         error: this.hasError,
         loading: this.hasLoading,
         options: this.mx_filteredOptions,
@@ -182,6 +193,10 @@ export default {
 
     popupContentClass () {
       return `qas-select__popup-content-${uid()}`
+    },
+
+    formattedLabel () {
+      return getRequiredLabel({ label: this.label, required: this.required })
     }
   },
 

@@ -70,6 +70,7 @@ export default {
         name,
         options,
         readonly,
+        required,
         disable,
         filled,
         suffix,
@@ -96,6 +97,7 @@ export default {
         hideBottomSpace: !error.error,
         ...error,
         readonly,
+        required,
         disable,
         filled,
         maxlength,
@@ -153,26 +155,12 @@ export default {
 
       return {
         ...(profiles[type] || profiles.default),
-        ...this.$attrs,
-        label: this.formattedLabel
+        ...this.$attrs
       }
     },
 
     errorMessage () {
       return Array.isArray(this.error) ? this.error.join(' ') : this.error
-    },
-
-    formattedLabel () {
-      const nonRequiredFieldsLabel = ['boolean', 'checkbox', 'radio']
-
-      const label = this.$attrs.label || this.formattedField.label
-      const { required, type } = this.formattedField
-
-      if (required && label && !nonRequiredFieldsLabel.includes(type)) {
-        return `${label}*`
-      }
-
-      return label
     },
 
     // This computed will change the key name when the server sends different key.

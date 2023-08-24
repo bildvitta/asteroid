@@ -383,6 +383,10 @@ module.exports = [
         path: '/helpers/get-placeholder'
       },
       {
+        name: 'getRequiredLabel',
+        path: '/helpers/get-required-label'
+      },
+      {
         name: 'handleProcess',
         path: '/helpers/handle-process'
       },
