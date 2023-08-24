@@ -27,7 +27,7 @@ props:
     examples: ["{ name: { dense: true, onClick: () => alert('Estou sendo clicado') } }"]
 
   fields:
- '   desc': 'Lista' de field contendo informações necessárias para a criação do campo correspondente.
+    desc: Lista de field contendo informações necessárias para a criação do campo correspondente.
     default: {}
     type: Object
     examples: ["{ email: { name: 'email', type: 'email', label: 'E-mail' } }"]
