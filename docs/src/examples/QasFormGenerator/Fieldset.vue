@@ -41,6 +41,7 @@ export default {
       return {
         personalInformation: {
           label: 'Informações pessoais',
+          description: 'Informe o nome e email do usuário.',
           fields: ['isActive', 'name', 'email']
         },
 
