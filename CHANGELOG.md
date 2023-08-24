@@ -12,6 +12,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 
 ## Não publicado
 ### Adicionado
+- `QasPageHeader`: adicionado `ellipsis` em cada item do `breadcrumbs` setando os mesmo com no máximo `180px`, a partir desse tamanho sera adicionado o ellipsis.
 - `QasWelcome`: adicionado componente `QasActionsMenu`.
 - `QasWelcome`: adicionado prop `actionsMenuProps` para repassar as props para o componente `QasActionsMenu`.
 

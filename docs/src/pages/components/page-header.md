@@ -13,6 +13,7 @@ Componente implementa [QToolbar](https://quasar.dev/vue-components/toolbar#intro
 ## Uso
 
 <doc-example file="QasPageHeader/Basic" title="Básico" />
+<doc-example file="QasPageHeader/BreadcrumbsEllipsis" title="Ellipsis" />
 <doc-example file="QasPageHeader/WithMoreLevels" title="Breadcrumbs com muitos níveis" />
 <doc-example file="QasPageHeader/HeaderActionsWithButton" title="Com QasHeaderActions e QasBtn" />
 <doc-example file="QasPageHeader/HeaderActionsWithActionsMenu" title="Com QasHeaderActions e QasActionsMenu" />
