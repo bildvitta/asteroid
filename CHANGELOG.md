@@ -12,7 +12,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 
 ## Não publicado
 ### Adicionado
-- Adicionado novo boot `font-face` que adiciona um loading nos ícones enquanto eles ainda não estão carregando.
+- Adicionado novo boot font-face que adiciona um loading nos ícones enquanto eles ainda estão carregando.
 
 ## [3.11.0-beta.16] - 22-08-2023
 ### Adicionado
