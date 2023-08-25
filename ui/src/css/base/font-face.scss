@@ -1,0 +1,28 @@
+@keyframes rotation {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(359deg);
+  }
+}
+
+.icons-is-loading {
+  .material-symbols-rounded {
+    position: relative;
+    color: transparent;
+
+    &::before {
+      content: '';
+      background-image: url('~@bildvitta/quasar-ui-asteroid/src/assets/icon-loading.svg');
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center center;
+      animation: rotation 1s infinite linear;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+  }
+}

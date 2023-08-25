@@ -1,13 +1,21 @@
 <template>
   <div class="q-mb-xl qas-welcome text-left">
-    <h3 class="text-grey-9 text-h3">
-      {{ welcomeMessage }}<span v-if="firstName">, {{ firstName }}</span>
-    </h3>
+    <div class="items-center justify-between row">
+      <div>
+        <h3 class="text-grey-9 text-h3">
+          {{ welcomeMessage }}<span v-if="firstName">, {{ firstName }}</span>
+        </h3>
 
-    <div class="text-caption text-grey-8">{{ currentDay }}</div>
+        <div class="text-caption text-grey-8">{{ currentDay }}</div>
+      </div>
+
+      <slot name="actions">
+        <qas-actions-menu v-if="hasActionsMenuProps" v-bind="actionsMenuProps" />
+      </slot>
+    </div>
 
     <div v-if="hasShortcuts">
-      <div class="q-mb-md q-mt-md text-grey-9 text-subtitle2">Atalhos</div>
+      <qas-label class="q-mt-lg" label="Atalhos" />
 
       <div class="qas-welcome__container">
         <div ref="scrollArea" class="row" :class="contentClasses">
@@ -34,6 +42,11 @@ export default {
   },
 
   props: {
+    actionsMenuProps: {
+      default: () => ({}),
+      type: Object
+    },
+
     name: {
       default: '',
       type: String
@@ -66,6 +79,10 @@ export default {
       if (!this.name) return ''
 
       return this.name.split(' ')?.[0]
+    },
+
+    hasActionsMenuProps () {
+      return !!Object.keys(this.actionsMenuProps).length
     },
 
     hasShortcuts () {

@@ -7,6 +7,7 @@ function extendQuasar (quasar, asteroidConfigFile) {
   quasar.boot.push(...resolve(
     'boot/api.js',
     'boot/error-pages.js',
+    'boot/font-face.js',
     'boot/register.js',
     'boot/history.js',
     'boot/loading.js',
