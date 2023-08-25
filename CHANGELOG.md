@@ -12,6 +12,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 
 ## Não publicado
 ### Adicionado
+- `QasFormGenerator`: adicionado possibilidade de passar uma descrição para o `fieldset`.
 - Adicionado novo boot font-face que adiciona um loading nos ícones enquanto eles ainda estão carregando.
 
 ## [3.11.0-beta.17] - 24-08-2023
