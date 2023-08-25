@@ -14,9 +14,6 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 ### Adicionado
 - `QasFormGenerator`: adicionado possibilidade de passar uma descrição para o `fieldset`.
 
-### Modificado
-- `QasFormGenerator`: alterado margin de `16px` para `8px` entre o `fieldset` e os campos do form.
-
 ## [3.11.0-beta.16] - 22-08-2023
 ### Adicionado
 - [`QasLabel`, `QasSelect`, `QasInput`, `QasNumericInput`]: adicionado propriedade `required` para controle de label obrigatória.
