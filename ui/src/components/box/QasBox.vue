@@ -4,37 +4,29 @@
   </div>
 </template>
 
-<script>
-export default {
-  name: 'QasBox',
+<script setup>
+import { computed, inject, provide } from 'vue'
 
-  provide: {
-    hasParent: true
+defineOptions({
+  name: 'QasBox'
+})
+
+const props = defineProps({
+  outlined: {
+    type: Boolean
   },
 
-  inject: {
-    hasParent: {
-      default: false
-    }
-  },
-
-  props: {
-    outlined: {
-      type: Boolean
-    },
-
-    unelevated: {
-      type: Boolean
-    }
-  },
-
-  computed: {
-    boxClass () {
-      return {
-        'border-grey rounded-borders-lg': this.outlined || this.hasParent,
-        'shadow-2 rounded-borders-xl': !this.unelevated && !this.hasParent
-      }
-    }
+  unelevated: {
+    type: Boolean
   }
-}
+})
+
+provide('hasParent', true)
+
+const hasParent = inject('hasParent', false)
+
+const boxClass = computed(() => ({
+  'border-grey rounded-borders-lg': props.outlined || hasParent,
+  'shadow-2 rounded-borders-xl': !props.unelevated && !hasParent
+}))
 </script>
