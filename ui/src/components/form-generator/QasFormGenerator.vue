@@ -2,8 +2,10 @@
   <div :class="fieldsetClasses">
     <div v-for="(fieldsetItem, fieldsetItemKey) in normalizedFields" :key="fieldsetItemKey" class="full-width">
       <slot v-if="fieldsetItem.label" :name="`legend-${fieldsetItemKey}`">
-        <qas-label :label="fieldsetItem.label" />
-        <div v-if="fieldsetItem.description" class="q-mb-md text-body1 text-grey-8">{{ fieldsetItem.description }}</div>
+        <div class="q-mb-md">
+          <qas-label :label="fieldsetItem.label" margin="none" />
+          <div v-if="fieldsetItem.description" class="q-mt-sm text-body1 text-grey-8">{{ fieldsetItem.description }}</div>
+        </div>
       </slot>
 
       <div>
