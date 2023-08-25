@@ -4,6 +4,11 @@ meta:
   desc: Componente de boas-vindas para ser usado na Home dos sistemas.
 
 props:
+  actions-menu-props:
+    desc: Propriedades repassadas para o QasActionsMenu.
+    default: {}
+    type: Object
+
   name:
     desc: Nome do usuário a ser mostrado na tela.
     type: String
@@ -12,3 +17,7 @@ props:
     desc: Lista de cards de atalhos.
     default: []
     type: Array
+
+slots:
+  actions:
+    desc: Slot para substituir o QasActionsMenu.

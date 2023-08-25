@@ -10,6 +10,16 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 ### Sobre os "BREAKING CHANGES"
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
+## Não publicado
+### Adicionado
+- Adicionado novo boot font-face que adiciona um loading nos ícones enquanto eles ainda estão carregando.
+
+## [3.11.0-beta.17] - 24-08-2023
+### Adicionado
+- `QasPageHeader`: adicionado `ellipsis` em cada item do `breadcrumbs` setando os mesmo com no máximo `180px`, a partir desse tamanho sera adicionado o ellipsis.
+- `QasWelcome`: adicionado componente `QasActionsMenu`.
+- `QasWelcome`: adicionado prop `actionsMenuProps` para repassar as props para o componente `QasActionsMenu`.
+
 ## [3.11.0-beta.16] - 22-08-2023
 ### Adicionado
 - [`QasLabel`, `QasSelect`, `QasInput`, `QasNumericInput`]: adicionado propriedade `required` para controle de label obrigatória.
@@ -1828,4 +1838,4 @@ Adicionado suporte para Pinia/Vuex Seguindo os padrões da biblioteca `@bildvitt
 [3.11.0-beta.13]: https://github.com/bildvitta/asteroid/compare/v3.11.0-beta.12...v3.11.0-beta.13?expand=1
 [3.11.0-beta.14]: https://github.com/bildvitta/asteroid/compare/v3.11.0-beta.13...v3.11.0-beta.14?expand=1
 [3.11.0-beta.15]: https://github.com/bildvitta/asteroid/compare/v3.11.0-beta.14...v3.11.0-beta.15?expand=1
-[3.11.0-beta.16]: https://github.com/bildvitta/asteroid/compare/v3.11.0-beta.15...v3.11.0-beta.16?expand=1
+[3.11.0-beta.17]: https://github.com/bildvitta/asteroid/compare/v3.11.0-beta.16...v3.11.0-beta.17?expand=1

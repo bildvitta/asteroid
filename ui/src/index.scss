@@ -19,6 +19,9 @@ $background-color: var(--qas-background-color);
 $generic-border-radius: var(--qas-generic-border-radius);
 $border-grey: var(--qas-border-grey);
 
+// base
+@import './css/base/index';
+
 // variables
 @import './css/variables/index';
 
