@@ -36,7 +36,7 @@ props:
     desc: Lista para agrupar elementos por rótulo (label).
     default: {}
     type: Object
-    examples: ["{ personalInformation: { label: 'Informações pessoais', fields: [name, email] } }"]
+    examples: ["{ personalInformation: { label: 'Informações pessoais', description: 'Descrição dos campos', fields: ['name', 'email'] } }"]
 
   fieldset-gutter:
     desc: Espaçamento entre rótulos (label).

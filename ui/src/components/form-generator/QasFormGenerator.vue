@@ -4,6 +4,7 @@
       <component :is="formContainerComponent">
         <slot v-if="fieldsetItem.label" :name="`legend-${fieldsetItemKey}`">
           <qas-label :label="fieldsetItem.label" />
+          <div v-if="fieldsetItem.description" class="q-mb-md text-body1 text-grey-8">{{ fieldsetItem.description }}</div>
         </slot>
 
         <div>
@@ -130,6 +131,7 @@ const normalizedFields = computed(() => {
 
     fields[fieldsetKey] = {
       label: fieldsetItem.label,
+      description: fieldsetItem.description,
       fields: { hidden: {}, visible: {} }
     }
 
