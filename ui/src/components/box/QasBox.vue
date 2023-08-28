@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-white q-pa-lg" :class="boxClass">
+  <div class="bg-white q-pa-lg rounded-borders-lg" :class="boxClass">
     <slot />
   </div>
 </template>
@@ -26,7 +26,7 @@ provide('hasParent', true)
 const hasParent = inject('hasParent', false)
 
 const boxClass = computed(() => ({
-  'border-grey rounded-borders-lg': props.outlined || hasParent,
-  'shadow-2 rounded-borders-xl': !props.unelevated && !hasParent
+  'border-grey': props.outlined || hasParent,
+  'shadow-2': !props.unelevated && !hasParent
 }))
 </script>

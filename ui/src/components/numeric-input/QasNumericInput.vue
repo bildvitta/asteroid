@@ -1,5 +1,5 @@
 <template>
-  <q-field :label="formattedLabel" :model-value="modelValue">
+  <q-field dense :label="formattedLabel" :model-value="modelValue">
     <template #control="{ floatingLabel, id }">
       <input v-show="floatingLabel" :id="id" ref="input" class="q-field__input" inputmode="numeric" :placeholder="placeholder" @blur="emitValue" @click="setSelect" @input="emitUpdateModel($event.target.value)">
     </template>

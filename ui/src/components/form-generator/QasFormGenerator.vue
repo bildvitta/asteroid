@@ -29,7 +29,7 @@
 <script setup>
 import useGenerator, { baseProps, gutterValidator } from '../../composables/private/use-generator'
 import { Spacing } from '../../enums/Spacing'
-import { computed } from 'vue'
+import { computed, inject } from 'vue'
 
 defineOptions({ name: 'QasFormGenerator' })
 
@@ -149,7 +149,14 @@ const normalizedFields = computed(() => {
   return fields
 })
 
-const formContainerComponent = computed(() => props.useBox ? 'qas-box' : 'div')
+const formContainerComponent = computed(() => {
+  const isInsideNestedField = inject('isNestedFields', false)
+  const isInsideDialog = inject('isDialog', false)
+
+  const useDiv = !props.useBox || isInsideNestedField || isInsideDialog
+
+  return useDiv ? 'div' : 'qas-box'
+})
 
 // methods
 function getFieldType ({ type }) {
