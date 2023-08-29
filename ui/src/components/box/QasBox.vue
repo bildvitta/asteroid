@@ -45,7 +45,7 @@ const hasParent = inject('hasParent', false)
 
 const boxClass = computed(() => {
   return [
-    'bg-white rounded-borders full-width',
+    'bg-white rounded-borders',
     {
       [`q-px-${props.paddingHorizontal}`]: props.usePadding,
       [`q-py-${props.paddingVertical}`]: props.usePadding,
