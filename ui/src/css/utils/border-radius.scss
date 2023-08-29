@@ -7,10 +7,6 @@
   border-radius: calc(#{$generic-border-radius} * 2) !important;
 }
 
-.rounded-borders-xl {
-  border-radius: calc(#{$generic-border-radius} * 4) !important;
-}
-
 // Compositions
 .rounded-borders-top {
   border-bottom-left-radius: 0 !important;

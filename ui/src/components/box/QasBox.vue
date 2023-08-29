@@ -31,6 +31,11 @@ const props = defineProps({
 
   unelevated: {
     type: Boolean
+  },
+
+  usePadding: {
+    default: true,
+    type: Boolean
   }
 })
 
@@ -40,10 +45,10 @@ const hasParent = inject('hasParent', false)
 
 const boxClass = computed(() => {
   return [
-    'bg-white rounded-borders-lg full-width',
-    'q-px-' + props.paddingHorizontal,
-    'q-py-' + props.paddingVertical,
+    'bg-white rounded-borders full-width',
     {
+      [`q-px-${props.paddingHorizontal}`]: props.usePadding,
+      [`q-py-${props.paddingVertical}`]: props.usePadding,
       'border-grey': props.outlined || hasParent,
       'shadow-2': !props.unelevated && !hasParent
     }
