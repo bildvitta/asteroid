@@ -265,6 +265,10 @@ module.exports = [
         path: '/components/text-truncate'
       },
       {
+        name: 'Timeline',
+        path: '/components/timeline'
+      },
+      {
         name: 'Transfer',
         path: '/components/transfer'
       },
