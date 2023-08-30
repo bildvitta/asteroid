@@ -24,3 +24,13 @@ props:
     desc: Chave do campo que será exibido na descrição.
     default: 'description'
     type: String
+
+slots:
+  default:
+    desc: slot para substituir o conteúdo todo da timeline.
+
+  hour:
+    desc: slot para substituir o conteúdo acima da descrição.
+
+  description:
+    desc: slot para substituir o conteúdo da descrição.

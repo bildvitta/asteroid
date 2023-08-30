@@ -13,7 +13,7 @@
         :subtitle="getSubtitle(item)"
       >
         <slot :item="item">
-          <div class="column justify-center q-gutter-sm q-py-md">
+          <div class="column justify-center q-gutter-sm q-py-md qas-timeline__content">
             <slot :item="item" name="hour">
               <div class="text-body2 text-grey-8">
                 Adicionado às {{ getFormattedTime(item) }}
@@ -33,7 +33,7 @@
 </template>
 
 <script setup>
-import { defineProps } from 'vue'
+import { date as dateFn } from '../../helpers/filters'
 
 defineOptions({ name: 'QasTimeline' })
 
@@ -59,21 +59,36 @@ const props = defineProps({
   }
 })
 
+function isInvalidDate (date) {
+  const day = new Date(date).getDay()
+
+  return Number.isNaN(day)
+}
+
 function getSubtitle (item) {
-  console.log(new Date(item[props.dateKey]) === 'Invalid Date', '<---- date valid')
-  // return dateFn(item[props.dateKey], 'dd MMM yyyy')
-  return item[props.dateKey]
+  const date = item[props.dateKey]
+
+  if (isInvalidDate(date)) return date
+
+  return dateFn(date, 'dd MMM yyyy')
 }
 
 function getFormattedTime (item) {
-  // return dateFn(item[props.hourKey], 'HH:mm')
-  return item[props.dateKey]
+  const date = item[props.hourKey]
+
+  if (isInvalidDate(date)) return date
+
+  return dateFn(date, 'HH:mm')
 }
 </script>
 
 <style lang="scss">
 .qas-timeline {
   margin: 0;
+
+  &__content {
+    min-height: 100px;
+  }
 
   .q-timeline__subtitle {
     width: 80px;
