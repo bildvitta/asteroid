@@ -186,6 +186,7 @@ export default {
 
     pre {
       white-space: normal;
+      word-wrap: break-word;
     }
   }
 }

@@ -127,7 +127,7 @@ export default {
       // Profiles
       const profiles = {
         default: { is: 'qas-input', ...input, mask },
-        textarea: { is: 'qas-input', autogrow: true, type, ...input },
+        textarea: { is: 'qas-input', type, ...input },
         number: { is: 'qas-input', type: 'number', ...input },
         hidden: { is: 'input', name, type },
         email: { is: 'qas-input', type, ...input },

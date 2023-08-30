@@ -1,5 +1,5 @@
 <template>
-  <q-input ref="input" v-model="model" bottom-slots :counter="showCounter" :dense="dense" :error="errorData" v-bind="$attrs" :error-message="errorMessage" :inputmode="defaultInputmode" :label="formattedLabel" :mask="currentMask" :outlined="outlined" :placeholder="placeholder" :unmasked-value="unmaskedValue" @paste="onPaste">
+  <q-input ref="input" v-model="model" :autogrow="autogrow" bottom-slots :counter="showCounter" :dense="dense" :error="errorData" v-bind="$attrs" :error-message="errorMessage" :inputmode="defaultInputmode" :label="formattedLabel" :mask="currentMask" :outlined="outlined" :placeholder="placeholder" :unmasked-value="unmaskedValue" @paste="onPaste">
     <template v-for="(_, name) in $slots" #[name]="context">
       <slot :name="name" v-bind="context || {}" />
     </template>
@@ -76,6 +76,10 @@ export default {
   },
 
   computed: {
+    autogrow () {
+      return this.$attrs.type === 'textarea'
+    },
+
     hasError () {
       return this.inputReference.hasError
     },

@@ -10,6 +10,23 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 ### Sobre os "BREAKING CHANGES"
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
+## Não publicado
+### Adicionado
+- `QasBox`: adicionado propriedades `paddingHorizontal`, `paddingVertical` e `usePadding` para controlar o espaçamento interno do componente.
+- `QasBox`: adicionado provider `isBox` com o valor `true` para ser utilizado por componentes filhos para saber se estão dentro de um `QasBox`.
+- `QasInput`: adicionado propriedade `dense` com o valor default `true`.
+- `QasInput`: adicionado suporte ao atributo `counter` do `QInput`. Por padrão, campos do tipo `textarea` e com `maxlength` maior que `0` irão exibir o contador de caracteres.
+- `QasInput`: adicionado atributo `autogrow` do `QInput` para campos do tipo `textarea`.
+- [`QasField`, `QasInput`, `QasNumericInput`, `QasDateTimeInput`]: adicionado atributo `placeholder` com o valor default definido pelo tipo do campo.
+- `QasFormGenerator`: adicionado propriedade `useBox` para controlar se os fieldsets do formulário serão renderizados dentro de um `QasBox`.
+
+### Modificado
+- `QasBox`: modificado para composition API.
+- `QasBox`: modificado estilo de um `QasBox` dentro de outro `QasBox`, o box interno se comportará como um `QasBox` do tipo `outlined`.
+- `QasInput`: modificado valor da propriedade `outlined` para `false` por padrão.
+- `QasCheckboxGroup`: modificado espaçamento entre os checkboxes.
+- `QasListItems`: modificado espaçamento entre os itens e do box.
+
 ## [3.11.0-beta.18] - 25-08-2023
 ### Adicionado
 - `QasFormGenerator`: adicionado possibilidade de passar uma descrição para o `fieldset`.

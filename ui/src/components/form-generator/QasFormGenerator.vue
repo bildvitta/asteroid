@@ -154,7 +154,6 @@ const normalizedFields = computed(() => {
 const formContainerComponent = computed(() => {
   const isInsideNestedField = inject('isNestedFields', false)
   const isInsideDialog = inject('isDialog', false)
-
   const useDiv = !props.useBox || isInsideNestedField || isInsideDialog
 
   return useDiv ? 'div' : 'qas-box'
