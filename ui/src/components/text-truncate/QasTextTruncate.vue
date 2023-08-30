@@ -2,15 +2,29 @@
   <div ref="parent" class="full-width">
     <div class="justify-between no-wrap row text-no-wrap">
       <div ref="truncate" :class="truncateTextClass">
-        <slot>{{ text }}</slot>
+        <slot>{{ displayText }}</slot>
       </div>
 
-      <div v-if="isTruncated" class="cursor-pointer text-primary" @click.stop.prevent="toggle">
+      <!-- <div v-if="isTruncated" class="cursor-pointer text-primary" @click.stop.prevent="toggle">
         {{ seeMoreLabel }}
-      </div>
+      </div> -->
+
+      <qas-btn v-if="hasButton" :label="buttonLabel" @click.stop.prevent="toggle" />
     </div>
 
-    <qas-dialog v-model="show" v-bind="defaultProps" aria-label="Diálogo de texto completo" role="dialog" />
+    <qas-dialog v-model="show" v-bind="defaultProps" aria-label="Diálogo de texto completo" role="dialog">
+      <template v-if="props.useCounterMode" #description>
+        <div class="q-col-gutter-y-md row">
+          <div
+            v-for="(item, index) in normalizedList"
+            :key="index"
+            class="col-12"
+          >
+            {{ item }}
+          </div>
+        </div>
+      </template>
+    </qas-dialog>
   </div>
 </template>
 
@@ -47,6 +61,11 @@ const props = defineProps({
     default: 0
   },
 
+  maxTextSize: {
+    type: Number,
+    default: 1
+  },
+
   seeMoreLabel: {
     type: String,
     default: 'Ver mais'
@@ -55,6 +74,20 @@ const props = defineProps({
   text: {
     type: String,
     default: ''
+  },
+
+  list: {
+    type: Array,
+    default: () => []
+  },
+
+  useObjectList: {
+    type: Boolean,
+    default: false
+  },
+
+  useCounterMode: {
+    type: Boolean
   }
 })
 
@@ -76,6 +109,13 @@ const {
   show,
   toggle
 } = useDialog({ props, textContent })
+
+const {
+  buttonLabel,
+  displayText,
+  hasButton,
+  normalizedList
+} = useTemplate({ isTruncated })
 
 useMutationObserver({ truncate, callbackFn: truncateText })
 
@@ -177,6 +217,56 @@ function useTruncate ({ parent, props }) {
     truncateTextClass,
 
     truncateText
+  }
+}
+
+function useTemplate ({ isTruncated }) {
+  const {
+    counterLabel,
+    normalizedList,
+    normalizedCounterText
+  } = useCounter()
+
+  const hasButton = computed(() => {
+    return props.useCounterMode ? normalizedList.value.length > props.maxTextSize : isTruncated.value
+  })
+
+  const displayText = computed(() => {
+    return props.useCounterMode ? normalizedCounterText.value : props.text
+  })
+
+  const buttonLabel = computed(() => {
+    return props.useCounterMode ? counterLabel.value : props.seeMoreLabel
+  })
+
+  return {
+    displayText,
+    hasButton,
+    buttonLabel,
+    normalizedList
+  }
+}
+
+function useCounter () {
+  const normalizedList = computed(() => {
+    return props.useObjectList ? props.list.map(({ label }) => label) : props.list
+  })
+
+  const counterText = computed(() => {
+    return props.maxTextSize > 1
+      ? normalizedList.value.slice(0, props.maxTextSize).join(', ')
+      : normalizedList.value[0]
+  })
+
+  const normalizedCounterText = computed(() => counterText.value || '-')
+
+  const counter = computed(() => (normalizedList.value.length || 1) - props.maxTextSize)
+  const counterLabel = computed(() => `+${counter.value}`)
+
+  return {
+    normalizedList,
+    normalizedCounterText,
+    counterLabel
   }
 }
 </script>
