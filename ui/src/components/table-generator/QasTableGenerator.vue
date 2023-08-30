@@ -325,7 +325,7 @@ export default {
 
 <style lang="scss">
 .qas-table-generator {
-  padding-top: var(--qas-spacing-md);
+  padding-top: var(--qas-spacing-sm);
 
   .q-table {
     th {

@@ -18,13 +18,13 @@ const props = defineProps({
   },
 
   paddingHorizontal: {
-    default: Spacing.Lg,
+    default: Spacing.Md,
     type: String,
     validator: value => Object.values(Spacing).includes(value)
   },
 
   paddingVertical: {
-    default: Spacing.Lg,
+    default: Spacing.Md,
     type: String,
     validator: value => Object.values(Spacing).includes(value)
   },
@@ -39,18 +39,18 @@ const props = defineProps({
   }
 })
 
-provide('hasParent', true)
-
-const hasParent = inject('hasParent', false)
+provide('isBox', true)
 
 const boxClass = computed(() => {
+  const isInsideBox = inject('isBox', false)
+
   return [
     'bg-white rounded-borders',
     {
       [`q-px-${props.paddingHorizontal}`]: props.usePadding,
       [`q-py-${props.paddingVertical}`]: props.usePadding,
-      'border-grey': props.outlined || hasParent,
-      'shadow-2': !props.unelevated && !hasParent
+      'border-grey': props.outlined || isInsideBox,
+      'shadow-2': !props.unelevated && !isInsideBox
     }
   ]
 })
