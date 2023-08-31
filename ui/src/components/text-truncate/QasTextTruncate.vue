@@ -1,15 +1,11 @@
 <template>
-  <div ref="parent" class="full-width">
-    <div class="justify-between no-wrap row text-no-wrap">
-      <div ref="truncate" :class="truncateTextClass">
+  <div ref="parent" :class="classes">
+    <div class="no-wrap row text-no-wrap">
+      <div ref="truncate" class="ellipsis">
         <slot>{{ displayText }}</slot>
       </div>
 
-      <!-- <div v-if="isTruncated" class="cursor-pointer text-primary" @click.stop.prevent="toggle">
-        {{ seeMoreLabel }}
-      </div> -->
-
-      <qas-btn v-if="hasButton" :label="buttonLabel" @click.stop.prevent="toggle" />
+      <qas-btn v-if="hasButton" class="q-ml-sm" :label="buttonLabel" @click.stop.prevent="toggle" />
     </div>
 
     <qas-dialog v-model="show" v-bind="defaultProps" aria-label="Diálogo de texto completo" role="dialog">
@@ -37,8 +33,6 @@ import {
   watch
 } from 'vue'
 
-import useScreen from '../../composables/use-screen'
-
 import QasDialog from '../dialog/QasDialog.vue'
 
 // define component name
@@ -46,6 +40,11 @@ defineOptions({ name: 'QasTextTruncate' })
 
 // props
 const props = defineProps({
+  color: {
+    type: String,
+    default: 'grey-8'
+  },
+
   dialogProps: {
     type: Object,
     default: () => ({ persistent: false })
@@ -61,7 +60,7 @@ const props = defineProps({
     default: 0
   },
 
-  maxTextSize: {
+  maxVisibleItem: {
     type: Number,
     default: 1
   },
@@ -76,14 +75,18 @@ const props = defineProps({
     default: ''
   },
 
+  typography: {
+    type: String,
+    default: 'body1'
+  },
+
   list: {
     type: Array,
     default: () => []
   },
 
   useObjectList: {
-    type: Boolean,
-    default: false
+    type: Boolean
   },
 
   useCounterMode: {
@@ -99,8 +102,6 @@ const parent = ref(null)
 const {
   textContent,
   isTruncated,
-  truncateTextClass,
-
   truncateText
 } = useTruncate({ parent, props })
 
@@ -115,9 +116,11 @@ const {
   displayText,
   hasButton,
   normalizedList
-} = useTemplate({ isTruncated })
+} = useTemplate()
 
 useMutationObserver({ truncate, callbackFn: truncateText })
+
+const classes = computed(() => [`text-${props.color}`, `text-${props.typography}`])
 
 // composable functions
 function useDialog ({ props, textContent }) {
@@ -176,9 +179,6 @@ function useMutationObserver ({ truncate, callbackFn = () => {} }) {
 }
 
 function useTruncate ({ parent, props }) {
-  // global
-  const screen = useScreen()
-
   // reactive vars
   const maxPossibleWidth = ref('')
   const textContent = ref('')
@@ -192,10 +192,6 @@ function useTruncate ({ parent, props }) {
 
   // computed
   const isTruncated = computed(() => textWidth.value > maxPossibleWidth.value)
-
-  const truncateTextClass = computed(() => {
-    return (isTruncated.value || screen.isSmall) && 'ellipsis q-pr-sm'
-  })
 
   // methods
   function truncateText () {
@@ -214,13 +210,12 @@ function useTruncate ({ parent, props }) {
     textWidth,
 
     isTruncated,
-    truncateTextClass,
 
     truncateText
   }
 }
 
-function useTemplate ({ isTruncated }) {
+function useTemplate () {
   const {
     counterLabel,
     normalizedList,
@@ -228,7 +223,7 @@ function useTemplate ({ isTruncated }) {
   } = useCounter()
 
   const hasButton = computed(() => {
-    return props.useCounterMode ? normalizedList.value.length > props.maxTextSize : isTruncated.value
+    return props.useCounterMode ? normalizedList.value.length > props.maxVisibleItem : isTruncated.value
   })
 
   const displayText = computed(() => {
@@ -253,14 +248,14 @@ function useCounter () {
   })
 
   const counterText = computed(() => {
-    return props.maxTextSize > 1
-      ? normalizedList.value.slice(0, props.maxTextSize).join(', ')
+    return props.maxVisibleItem > 1
+      ? normalizedList.value.slice(0, props.maxVisibleItem).join(', ')
       : normalizedList.value[0]
   })
 
   const normalizedCounterText = computed(() => counterText.value || '-')
 
-  const counter = computed(() => (normalizedList.value.length || 1) - props.maxTextSize)
+  const counter = computed(() => (normalizedList.value.length || 1) - props.maxVisibleItem)
   const counterLabel = computed(() => `+${counter.value}`)
 
   return {

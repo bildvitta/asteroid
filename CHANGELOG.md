@@ -10,6 +10,17 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 ### Sobre os "BREAKING CHANGES"
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
+## Não publicado
+## BREAKING CHANGES
+- `QasTextTruncate`: quebra visual por conta das alterações de estilos na fonte do texto, olhar todos lugares que utilizam o componente e caso necessário adaptar com as propriedades color e typography.
+
+### Adicionado
+- `QasTextTruncate`: adicionado propriedades `color` e `typography` para controlar estilo da fonte.
+- `QasTextTruncate` adicionado propriedades `useCounterMode`, `maxVisibleItem`, `list` e `useObjectList` para recurso de contador.
+
+### Modificado
+- `QasTextTruncate`: modificado cor e tipografia do texto.
+
 ## [3.11.0-beta.18] - 25-08-2023
 ### Adicionado
 - `QasFormGenerator`: adicionado possibilidade de passar uma descrição para o `fieldset`.

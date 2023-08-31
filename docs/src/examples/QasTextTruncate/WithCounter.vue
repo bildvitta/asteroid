@@ -1,6 +1,6 @@
 <template>
   <div class="container q-py-lg">
-    <qas-text-truncate dialog-title="Aqui está meu título!" :list="list" use-counter-mode />
+    <qas-text-truncate class="text-negative" dialog-title="Aqui está meu título!" :list="list" :max-visible-item="3" use-counter-mode />
   </div>
 </template>
 
@@ -10,7 +10,7 @@ export default {
   computed: {
     list () {
       return [
-        'Primeiro item com um texto bem grande que vai ser cortado e vai aparecer um botão para ver mais',
+        'Primeiro item com um texto bem grande',
         'Segundo item',
         'Terceiro item',
         'Quarto item',
