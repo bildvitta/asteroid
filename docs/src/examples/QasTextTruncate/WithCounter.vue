@@ -10,7 +10,7 @@ export default {
   computed: {
     list () {
       return [
-        'Primeiro item com um texto bem grande',
+        'Primeiro item',
         'Segundo item',
         'Terceiro item',
         'Quarto item',
