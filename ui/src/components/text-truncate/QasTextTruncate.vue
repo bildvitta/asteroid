@@ -9,7 +9,7 @@
     </div>
 
     <qas-dialog v-model="show" v-bind="defaultProps" aria-label="Diálogo de texto completo" role="dialog">
-      <template v-if="props.useCounterMode" #description>
+      <template v-if="isCounterMode" #description>
         <div class="q-col-gutter-y-md row">
           <div
             v-for="(item, index) in normalizedList"
@@ -115,6 +115,7 @@ const {
   buttonLabel,
   displayText,
   hasButton,
+  isCounterMode,
   normalizedList
 } = useTemplate()
 
@@ -222,22 +223,25 @@ function useTemplate () {
     normalizedCounterText
   } = useCounter()
 
+  const isCounterMode = computed(() => !!props.list.length)
+
   const hasButton = computed(() => {
-    return props.useCounterMode ? normalizedList.value.length > props.maxVisibleItem : isTruncated.value
+    return isCounterMode.value ? normalizedList.value.length > props.maxVisibleItem : isTruncated.value
   })
 
   const displayText = computed(() => {
-    return props.useCounterMode ? normalizedCounterText.value : props.text
+    return isCounterMode.value ? normalizedCounterText.value : props.text
   })
 
   const buttonLabel = computed(() => {
-    return props.useCounterMode ? counterLabel.value : props.seeMoreLabel
+    return isCounterMode.value ? counterLabel.value : props.seeMoreLabel
   })
 
   return {
+    buttonLabel,
     displayText,
     hasButton,
-    buttonLabel,
+    isCounterMode,
     normalizedList
   }
 }

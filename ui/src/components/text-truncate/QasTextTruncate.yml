@@ -24,7 +24,7 @@ props:
     default: 0
 
   max-visible-item:
-    desc: Quantidade de itens a serem exibidos fora do dialog (uso junto ao useCounterMode).
+    desc: Quantidade de itens a serem exibidos fora do dialog (uso junto a prop list).
     type: Number
     default: 0
 
@@ -43,16 +43,12 @@ props:
     type: String
 
   list:
-    desc: Lista de itens a serem exibidos (uso junto ao useCounterMode).
+    desc: Lista de itens a serem exibidos (uso junto a prop list).
     default: []
     type: Array
 
-  use-counter-mode:
-    desc: Habilita o modo de contador.
-    type: Boolean
-
   use-object-list:
-    desc: Utiliza a propriedade "list" como array de objeto contendo label (uso junto ao useCounterMode).
+    desc: Utiliza a propriedade "list" como array de objeto contendo label (uso junto a prop list).
     type: Boolean
 
 slots:

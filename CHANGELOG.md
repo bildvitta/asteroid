@@ -16,7 +16,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 
 ### Adicionado
 - `QasTextTruncate`: adicionado propriedades `color` e `typography` para controlar estilo da fonte.
-- `QasTextTruncate` adicionado propriedades `useCounterMode`, `maxVisibleItem`, `list` e `useObjectList` para recurso de contador.
+- `QasTextTruncate` adicionado propriedades, `maxVisibleItem`, `list` e `useObjectList` para recurso de contador.
 
 ### Modificado
 - `QasTextTruncate`: modificado cor e tipografia do texto.
