@@ -18,17 +18,19 @@ Para saber mais sobre o **API Design Pattern** clice [aqui](https://www.notion.s
 <doc-example file="QasFormGenerator/Basic" title="Básico" />
 
 :::tip
-Muitas vezes precisamos adicionar rótulos (label) a determinados blocos de campos para dar mais contexto, com esta propriedade conseguimos fazer isto de uma forma simples, sem a necessidade de abrir um slot para isto.
+Muitas vezes precisamos adicionar rótulos (label) e descrições (description) a determinados blocos de campos para dar mais contexto, com esta propriedade conseguimos fazer isto de uma forma simples, sem a necessidade de abrir um slot para isto.
 
 ```js
 {
   personalInformation: {
     label: 'Informações pessoais',
+    description: 'Informe o nome e email do usuário.'
     fields: ['name', 'email']
   },
 
   another: {
     label: 'Outras informações',
+    description: 'Informe o telefone e empresa do usuário.'
     fields: ['phone', 'company']
   }
 }
