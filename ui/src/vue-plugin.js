@@ -46,6 +46,7 @@ import QasResizer from './components/resizer/QasResizer.vue'
 import QasSearchBox from './components/search-box/QasSearchBox.vue'
 import QasSelect from './components/select/QasSelect.vue'
 import QasSelectList from './components/select-list/QasSelectList.vue'
+import QasSelectListDialog from './components/select-list-dialog/QasSelectListDialog.vue'
 import QasSignaturePad from './components/signature-pad/QasSignaturePad.vue'
 import QasSignatureUploader from './components/signature-uploader/QasSignatureUploader.vue'
 import QasSingleView from './components/single-view/QasSingleView.vue'
@@ -127,6 +128,7 @@ async function install (app) {
   app.component('QasSearchBox', QasSearchBox)
   app.component('QasSelect', QasSelect)
   app.component('QasSelectList', QasSelectList)
+  app.component('QasSelectListDialog', QasSelectListDialog)
   app.component('QasSignaturePad', QasSignaturePad)
   app.component('QasSignatureUploader', QasSignatureUploader)
   app.component('QasSingleView', QasSingleView)
@@ -206,6 +208,7 @@ export {
   QasSearchBox,
   QasSelect,
   QasSelectList,
+  QasSelectListDialog,
   QasSignaturePad,
   QasSignatureUploader,
   QasSingleView,
