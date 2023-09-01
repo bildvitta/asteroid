@@ -10,18 +10,18 @@
     >
       <q-timeline-entry
         side="left"
-        :subtitle="getSubtitle(item)"
+        :subtitle="getFormattedValue(item, Masks.Date)"
       >
         <slot :item="item">
           <div class="column justify-center q-gutter-sm q-py-md qas-timeline__content">
             <slot :item="item" name="hour">
               <div class="text-body2 text-grey-8">
-                Adicionado às {{ getFormattedTime(item) }}
+                Adicionado às {{ getFormattedValue(item, Masks.Hour) }}
               </div>
             </slot>
 
             <slot :item="item" name="description">
-              <div class="row text-body1 text-grey-9">
+              <div class="text-body1 text-grey-9">
                 {{ item[descriptionKey] }}
               </div>
             </slot>
@@ -36,6 +36,11 @@
 import { date as dateFn } from '../../helpers/filters'
 
 defineOptions({ name: 'QasTimeline' })
+
+const Masks = {
+  Hour: 'HH:mm',
+  Date: 'dd MMM yyyy'
+}
 
 const props = defineProps({
   list: {
@@ -62,23 +67,15 @@ const props = defineProps({
 function isInvalidDate (date) {
   const day = new Date(date).getDay()
 
-  return Number.isNaN(day)
+  return isNaN(day)
 }
 
-function getSubtitle (item) {
-  const date = item[props.dateKey]
+function getFormattedValue (item, type) {
+  const itemKey = type === Masks.Hour ? props.hourKey : props.dateKey
 
-  if (isInvalidDate(date)) return date
+  const date = item[itemKey]
 
-  return dateFn(date, 'dd MMM yyyy')
-}
-
-function getFormattedTime (item) {
-  const date = item[props.hourKey]
-
-  if (isInvalidDate(date)) return date
-
-  return dateFn(date, 'HH:mm')
+  return isInvalidDate(date) ? date : dateFn(date, 'dd MMM yyyy')
 }
 </script>
 
@@ -91,34 +88,34 @@ function getFormattedTime (item) {
   }
 
   .q-timeline__subtitle {
-    width: 80px;
     color: $dark;
     opacity: initial;
     padding-right: 0;
     position: relative;
     text-align: center;
     vertical-align: middle;
+    width: 80px;
 
     &::before {
-      width: 3px;
-      opacity: 0.4;
-      top: 0px;
+      background-color: currentColor;
       bottom: 0;
-      right: -30px;
-
       content: "";
-      background: currentColor;
-      transition: all 300ms ease;
       display: block;
+      opacity: 0.4;
       position: absolute;
+      right: -30px;
+      top: 0px;
+      transition: opacity var(--qas-generic-transition) ease;
+      width: 3px;
     }
   }
 
   .q-timeline__entry {
-    &:hover, .active {
+    &:hover,
+    .active {
       .q-timeline__subtitle {
         &::before {
-          background: $primary;
+          background-color: $primary;
           opacity: 1;
         }
       }
@@ -126,15 +123,16 @@ function getFormattedTime (item) {
   }
 
   .q-timeline__content {
-    vertical-align: middle;
     padding-bottom: 0;
+    vertical-align: middle;
   }
 
   .q-timeline__title {
     margin-bottom: 0;
   }
 
-  .q-timeline__dot:before, .q-timeline__dot:after {
+  .q-timeline__dot::before,
+  .q-timeline__dot::after {
     display: none;
   }
 }

@@ -11,17 +11,23 @@
   </div>
 </template>
 
-<script setup>
-defineOptions({ name: 'DefaultSlot' })
+<script>
+export default {
+  name: 'DefaultSlot',
 
-const list = [
-  {
-    date: '2023-01-11T14:58:40.000000Z',
-    description: 'Cliente enviado para análise cadastral'
-  },
-  {
-    date: '2023-01-12T14:58:40.000000Z',
-    description: 'Cliente enviado para análise cadastral'
+  computed: {
+    list () {
+      return [
+        {
+          date: '2023-01-11T14:58:40.000000Z',
+          description: 'Cliente enviado para análise cadastral'
+        },
+        {
+          date: '2023-01-12T14:58:40.000000Z',
+          description: 'Cliente enviado para análise cadastral'
+        }
+      ]
+    }
   }
-]
+}
 </script>
