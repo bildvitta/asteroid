@@ -87,10 +87,6 @@ const props = defineProps({
 
   useObjectList: {
     type: Boolean
-  },
-
-  useCounterMode: {
-    type: Boolean
   }
 })
 
