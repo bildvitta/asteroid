@@ -508,5 +508,16 @@ module.exports = [
         path: '/paginas/server-error'
       }
     ]
+  },
+
+  {
+    icon: 'sym_r_play_circle',
+    name: 'Boot',
+    children: [
+      {
+        name: 'queryCache',
+        path: '/boot/query-cache'
+      }
+    ]
   }
 ]
