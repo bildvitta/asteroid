@@ -6,7 +6,7 @@
   >
     <template
       v-for="(item, index) in list"
-      :key="`timeline-${index}-${item.id}`"
+      :key="`timeline-${index}-${uid()}`"
     >
       <q-timeline-entry
         side="left"
@@ -34,6 +34,7 @@
 
 <script setup>
 import { date as dateFn } from '../../helpers/filters'
+import { uid } from 'quasar'
 
 defineOptions({ name: 'QasTimeline' })
 
@@ -70,12 +71,12 @@ function isInvalidDate (date) {
   return isNaN(day)
 }
 
-function getFormattedValue (item, type) {
-  const itemKey = type === Masks.Hour ? props.hourKey : props.dateKey
+function getFormattedValue (item, mask) {
+  const itemKey = mask === Masks.Hour ? props.hourKey : props.dateKey
 
   const date = item[itemKey]
 
-  return isInvalidDate(date) ? date : dateFn(date, 'dd MMM yyyy')
+  return isInvalidDate(date) ? date : dateFn(date, mask)
 }
 </script>
 
