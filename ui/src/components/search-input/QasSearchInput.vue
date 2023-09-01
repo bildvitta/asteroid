@@ -1,6 +1,6 @@
 <template>
   <div class="qas-filter-input">
-    <qas-input ref="input" v-model="model" class="bg-white q-px-sm rounded-borders-sm shadow-2" v-bind="$attrs" data-cy="search-input" :debounce="debounce" dense hide-bottom-space input-class="ellipsis text-grey-8" :outlined="false" type="search">
+    <qas-input ref="input" v-model="model" v-bind="$attrs" class="bg-white rounded-borders-sm" data-cy="search-input" :debounce="debounce" dense hide-bottom-space input-class="ellipsis text-grey-8" inputmode="search" type="search">
       <template #prepend>
         <q-icon v-if="useSearchOnType" color="grey-8" name="sym_r_search" />
         <qas-btn v-else color="grey-9" icon="sym_r_search" variant="tertiary" @click="$emit('filter')" />
@@ -82,35 +82,12 @@ export default {
   position: relative;
 
   .q-field {
-    &::before {
-      border: 2px solid transparent;
-      border-radius: var(--qas-generic-border-radius);
-      bottom: 0;
-      content: '';
-      left: 0;
-      pointer-events: none;
-      position: absolute;
-      right: 0;
-      top: 0;
-      transition: border-color var(--qas-generic-transition);
-    }
-
     &--dense .q-field__prepend {
       padding-right: var(--qas-spacing-xs);
     }
 
     &--dense .q-field__append {
       padding-left: var(--qas-spacing-sm);
-    }
-
-    &--focused::before {
-      border-color: var(--q-primary);
-      color: var(--q-primary);
-    }
-
-    &__control::after,
-    &__control::before {
-      display: none !important;
     }
 
     &__native {

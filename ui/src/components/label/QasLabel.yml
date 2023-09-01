@@ -19,6 +19,16 @@ props:
     type: String
     examples: [xs, sm, md, lg, xl]
 
+  required:
+    desc: Controla label do campo, se for "true" adiciona sufixo "*".
+    default: false
+    type: Boolean
+
+  color:
+    desc: Cor da label.
+    default: grey-9
+    type: String
+
 slots:
   default:
     desc: Slot para acessar elemento do texto.

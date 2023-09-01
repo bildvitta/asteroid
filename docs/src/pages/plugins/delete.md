@@ -69,3 +69,6 @@ this.$qas.delete({
 ```
 
 <doc-example file="Delete/Basic" title="Básico" />
+
+Após ser deletado, será redirecionado para a home.
+<doc-example file="Delete/DeleteWithRedirectRoute" title="Utilizando o redirect-route" />

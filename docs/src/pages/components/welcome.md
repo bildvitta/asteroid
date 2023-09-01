@@ -52,3 +52,5 @@ Ex:
 ## Uso
 
 <doc-example file="QasWelcome/Basic" title="Básico" />
+
+<doc-example file="QasWelcome/ActionsMenu" title="Com QasActionsMenu" />

@@ -41,6 +41,7 @@ A propriedade `events` **não** é a mesma do quasar, precisa seguir um padrão,
     color: 'negative' // não é obrigatório.
   }
 ]
+```
 :::
 
 

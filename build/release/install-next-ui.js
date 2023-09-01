@@ -23,7 +23,7 @@ function installNextUi ({ execaSync, ora, nextVersion, packages, retry = false }
     installSpinner.succeed('Instalado "ui" no "app-extension"')
 
     return { success: true, error: false }
-  } catch {
+  } catch (error) {
     if (retry) {
       installSpinner.fail('Falha ao instalar "ui" no "app-extension')
       return { success: false, error: true }

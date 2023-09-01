@@ -1,14 +1,14 @@
 <template>
-  <qas-input ref="input" v-bind="attributes" v-model="currentValue" :unmasked-value="false" @blur="validateDateTimeOnBlur" @focus="resetError" @update:model-value="updateModelValue">
+  <qas-input ref="input" v-bind="attributes" v-model="currentValue" inputmode="numeric" :unmasked-value="false" @blur="validateDateTimeOnBlur" @focus="resetError" @update:model-value="updateModelValue">
     <template #append>
       <qas-btn v-if="!useTimeOnly" color="grey-9" :disable="$attrs.readonly" icon="sym_r_event" variant="tertiary">
-        <q-popup-proxy ref="dateProxy" transition-hide="scale" transition-show="scale">
+        <q-popup-proxy ref="dateProxy" transition-hide="scale" transition-show="scale" v-bind="datePopupProxyProps">
           <qas-date v-model="currentValue" v-bind="defaultDateProps" :mask="maskDate" width="290px" @update:model-value="updateModelValue" />
         </q-popup-proxy>
       </qas-btn>
 
       <qas-btn v-if="!useDateOnly" class="q-ml-sm" color="grey-9" :disable="$attrs.readonly" icon="sym_r_access_time">
-        <q-popup-proxy ref="timeProxy" transition-hide="scale" transition-show="scale">
+        <q-popup-proxy ref="timeProxy" transition-hide="scale" transition-show="scale" v-bind="timePopupProxyProps">
           <q-time v-model="currentValue" v-bind="defaultTimeProps" format24h :mask="maskDate" @update:model-value="updateModelValue" />
         </q-popup-proxy>
       </qas-btn>
@@ -36,12 +36,22 @@ export default {
       type: Object
     },
 
+    datePopupProxyProps: {
+      default: () => ({}),
+      type: Object
+    },
+
     timeMask: {
       default: 'HH:mm',
       type: String
     },
 
     timeProps: {
+      default: () => ({}),
+      type: Object
+    },
+
+    timePopupProxyProps: {
       default: () => ({}),
       type: Object
     },

@@ -85,6 +85,10 @@ module.exports = [
         path: '/components/card'
       },
       {
+        name: 'ChartView',
+        path: '/components/chart-view'
+      },
+      {
         name: 'CheckboxGroup',
         path: '/components/checkbox-group'
       },
@@ -375,6 +379,10 @@ module.exports = [
         path: '/helpers/get-normalized-options'
       },
       {
+        name: 'getRequiredLabel',
+        path: '/helpers/get-required-label'
+      },
+      {
         name: 'handleProcess',
         path: '/helpers/handle-process'
       },
@@ -389,6 +397,10 @@ module.exports = [
       {
         name: 'images',
         path: '/helpers/images'
+      },
+      {
+        name: 'isEmpty',
+        path: '/helpers/is-empty'
       },
       {
         name: 'isLocalDevelopment',
@@ -457,8 +469,16 @@ module.exports = [
     name: 'Composição',
     children: [
       {
+        name: 'useForm',
+        path: '/composables/use-form'
+      },
+      {
         name: 'useHistory',
         path: '/composables/use-history'
+      },
+      {
+        name: 'useScreen',
+        path: '/composables/use-screen'
       }
     ]
   },

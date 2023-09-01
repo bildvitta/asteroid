@@ -10,6 +10,311 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 ### Sobre os "BREAKING CHANGES"
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
+## Não publicado
+## BREAKING CHANGES
+- com a adição do `asteroid.config.js`, é **necessário** criar o arquivo na raiz da aplicação para que não quebre a mesma.
+- controle do server timeout agora é feito pelo `asteroid.config.js` e não pelo `process.env.SERVER_TIMEOUT`.
+- Caso esteja utilizando o componente `QasMap` verificar documentação para configurar corretamente o mesmo.
+- `QasSelectList`: removido slot `item-action`, como o componente mudou o layout, esse slot mudaria de lugar, porém o uso dele é desnecessário e pode levar a quebra de Design System.
+- `QasSelectList`: removido slot `item-section`, como foi removido o slot `item-action`, não faz mais sentido um slot para o `item-section` pois a estrutura é a mesma, caso necessário, utilizar o slot `item`.
+- `QasSelectList`: removido prop `useClickableLabel`, clicar na label agora faz selecionar o item sempre.
+- `QasSelectList`: removido scope `handleClick` para `onUpdateModel` no slot `item`.
+- `QasSelectList`: removido evento `click-label`.
+- `QasSelectList`: nome de eventos alterados de `@added` para `@add` e `@removed` para `@remove`.
+- `QasSortable`: removido as props `sorted` e `list`, onde o a ordenação e as options será o próprio v-model.
+- `QasNumericInput`: modificado o nome da propriedade `decimalPlaces` para `places`, mantendo assim o padrão de API e do Asteroid.
+
+### Adicionado
+- `Delete.js`: adicionado parâmetro `redirectRoute`, onde há a possibilidade de passar uma rota onde será redirecionado após deletar o item.
+- `QasDelete`: adicionado prop `redirectRoute` que será repassado para o plugin `Delete`.
+- [`useForm`, `useGenerator (privado)`, `useScreen`]: adicionado novos composables.
+- `Spacing.js`: adicionado enums de espaçamento.
+- `asteroid.config.js`: adicionado novo arquivo de configuração do asteroid.
+- Adicionado vitest.
+- `QasAlert` adicionado `data-test="alert-title"` na tag h5 de title para testes iniciais.
+- `QasSelectList`: adicionado nova prop `emitValue` com default `true`, quando valor é "true", transforma o model em um array de string, senão o model será um array de objeto (não foi usado o nome `useEmitValue` pois existe uma prop para mesma finalidade no QSelect do quasar e ela se chama "emitValue").
+- `QasSelectList`: adicionado nova prop `useEmitLabelValueOnly` com default `true`, propriedade para ser usada em conjunto com ':emitValue="false"', caso habilite essa propriedade, o model sempre será um array de objeto com label e value, se estiver desabilitado, o objeto dentro do model será o objeto inteiro, não somente label e value.
+- `QasSearchBox`: adicionado nova propriedade `outlined` que define se a área que contém o resultado da pesquisa terá o estilo de borda arredondada com fundo branco (semelhante a um input).
+- `QasSelectList`: adicionado novo recurso de limpar seleção.
+- Componente de gráficos `QasChartView`.
+- Instalação automática das dependências do `QasChartView` via `thirdPartyComponents`.
+- `QasSortable`: adicionado v-model para o controle da ordenação.
+- `QasField`: adicionado suporte ao parâmetro `places` que será repassado para o componente `QasNumericInput` para definir a quantidade de casas decimais.
+- `QasFormView`: adicionado nova prop `formProps` para repassar todas as props/eventos para o `QForm`.
+- `QasDialog`: possibilidade de passar a descrição como componente através da prop `description` de dentro do `card`.
+- `QasActionsMenu`: adicionado `@click.stop.prevent` solucionando o problema de utilizar o componente em conjunto com o `QasTableGenerator`.
+- `QasInput`: adicionado `inputmode` default de acordo com máscaras e type email.
+- [`QasDateTimeInput`, `QasNumericInput`]: adicionado `inputmode="numeric"`.
+- `QasSearchInput`: adicionado `inputmode="search"`.
+- `QasDateTimeInput`: adicionado prop `datePopupProxyProps` para repassar props para o componente `QPopupProxy` do `QDate`.
+- `QasDateTimeInput`: adicionado prop `timePopupProxyProps` para repassar props para o componente `QPopupProxy` do `QTime`.
+- [`QasLabel`, `QasSelect`, `QasInput`, `QasNumericInput`]: adicionado propriedade `required` para controle de label obrigatória.
+- Adicionado novo helper `getRequiredLabel` para retornar label obrigatória normalizada.
+- `QasPageHeader`: adicionado `ellipsis` em cada item do `breadcrumbs` setando os mesmo com no máximo `180px`, a partir desse tamanho sera adicionado o ellipsis.
+- `QasWelcome`: adicionado componente `QasActionsMenu`.
+- `QasWelcome`: adicionado prop `actionsMenuProps` para repassar as props para o componente `QasActionsMenu`.
+- `QasFormGenerator`: adicionado possibilidade de passar uma descrição para o `fieldset`.
+- Adicionado novo boot font-face que adiciona um loading nos ícones enquanto eles ainda estão carregando.
+
+### Corrigido
+- `ui/src/css/components/field.scss`: corrigido seletor de classe que estava deixando com cor no lugar errado.
+- `required`: corrigida a validação para `null`.
+- `required`: Adicionado ponto final à frase padrão.
+- `search-filter.js`: corrigido problema ao limpar diversos campos relacionados a um mesmo campo de filtro.
+- `QasSearchBox`: corrigido como é feito o primeiro fetch, antes o evento do infinite scroll era sempre chamado, agora ele espera finalizar o fetch inicial, após isto o infinite scroll é ativado.
+- `QasGridGenerator`: corrigido ordem de exibição dos `fields`.
+- `rules.js`: validação da função `required`.
+- `isEmpty.js`: adicionado novo helper para verificar se um valor é vazio (null, undefined ou '').
+- `mixins/searchFilter`: adicionado nova prop `optionsToExclude`, que é uma lista de valores que não serão exibidos na lista de resultados (options/list) que pode ser uuid/id/slug.
+- `QasSelectList`: corrigido problema ao remover item do model quando `:emit-value="false"`.
+- `QasFilters`: Corrigido problema de merge entre os `fields` iniciais e a propriedade `fieldsProps` na computada `activeFilters`.
+- `QasFilters`: Corrigido exibição vazia da badge de filtros ativos quando o valor não é encontrado na lista de opções de um campo de select.
+- [`QasCopy`, `QasDelete`, `QasTreeGenerator`, `QasTruncate`]: alterado o `@click.stop` para `@click.stop.prevent` solucionando o problema de utilizar esses componentes em conjunto com o `QasTableGenerator`.
+- `QasSortable`: alterado watch da prop `list` para o deep, passando a ouvir quando dermos um `.push` ou `splice` no list.
+- `QasSortable`: removido método `sort` dentro do watch `list` na qual estava ordenando a lista quando não deveria ser ordenando.
+- `QasSortable`: adicionado prop `useSaveOnSort` com default `true` para não bater a API para salvar após fazer uma ordenação.
+- `QasSelectList`: adicionado evento `clear` que será disparado toda vez que o v-model é limpo através do botão de "Limpar seleção".
+- `search-filter`: adicionado validação da prop `useLazyLoading` no watch do `lazyLoadingProps.params` para não fazer request quando ela for false.
+- `Delete.js`: merge do `dialogProps` vindo por parâmetro na função com os valores defaults.
+- `QasDialog`: validação para quando deverá renderizar a descrição como componente e não texto.
+
+### Modificado
+- [`QasBreakline`, `QasFormGenerator`, `QasStatus`, `QasTextTruncate`, `QasGridGenerator`]: convertidos para composition API.
+- `QasMap`: removido dependência terceira do "@fawmi/vue-google-maps", em favor da logica de `thirdPartyComponents` (agora a dependência fica na aplicação).
+- `vue-plugin`: adicionado logica para import dinâmico dos thirdPartyComponents (QasMap).
+- `vue-plugin`: import `import { QasMap } from 'asteroid'` agora retorna uma `Promise` quando existe e `null` quando não existe.
+- `app-extension/src/index.js`: adicionado logica para automatizar instalação / desinstalação de bibliotecas terceiras do `thirdPartyComponents`.
+- `process.env.MAPS_API_KEY`: não é mais necessário declarar esta env, somente se for utilizar o componente `QasMap`.
+- `QasAvatar`: adicionado nova cor `grey-4` na propriedade `color`.
+- `QasLabel`: modificado default da prop `margin` para `md (16px)`.
+- `QasLabel`: modificado tipografia para `text-h4`.
+- `QasSearchInput`: modificado estilo do input, removido shadow e adicionado borda.
+- `item.scss`: alterado espaçamento global da classe `q-item__section--side` que é aplicado quando usado `QItem` com `QItemSection` com propriedade `avatar`, deixando o `padding-right` menor (sm).
+- `QasSelectList`: modificado comportamento de como é adicionado itens, antes feito por botões de adicionar/remover, agora é feito por um `checkbox`.
+- `QasSearchBox`: alterado `height` fixo para `max-height` (impacta QasSelectList).
+- [`QasGridGenerator`, `QasTableGenerator`]: modificado comportamento de exibição do valor do `empty-result-text`. Agora para o resultado de algum campo ser considerado vazio é necessário que o seu valor seja `null`, `undefined` ou `''`.
+- `QasBox`: modificado padding y de `lg` para `md`.
+`ui/src/css/utils/container.scss`: alterado espaçamento da classe `spaced`.
+`QasPageHeader`: alterado o valor do margin-bottom pra `lg`.
+- `QasSortable`: removido `required` da prop `entity` para deixar opcional.
+- `ui/src/css/components/button.scss`: modificado cor disabled de `grey-8` para `grey-6` nas variantes `secondary` e `tertiary` para seguir design system.
+- `QasNumericInput`: modificado o nome da propriedade `decimalPlaces` para `places`, mantendo assim o padrão de API e do Asteroid.
+- `QasInput`: modificado computada `inputReference` que retornava o ref do `input` para ser um data. Pois seguindo a recomendação do Vue não é uma boa prática utilizar refs dentro de computadas.
+- [`QasNumericInput`, `QasSelect`]: adicionado propriedade `label` fixo no componente e não mais pelo `$attrs` para funcionar logica do required.
+- `QasField`: agora logica de label obrigatória é controlada em cada componente e não mais pelo QasField.
+
+### Removido
+- `process.env.SERVER_TIMEOUT`: agora é controlado pelo arquivo `asteroid.config.js` com a config `api: { serverTimeOut: 10000 }`.
+- `QasSelectList`: removido slot `item-action`, como o componente mudou o layout, esse slot mudaria de lugar, porém o uso dele é desnecessário e pode levar a quebra de Design System.
+- `QasSelectList`: removido slot `item-section`, como foi removido o slot `item-action`, não faz mais sentido um slot para o `item-section` pois a estrutura é a mesma, caso necessário, utilizar o slot `item`.
+- `QasSelectList`: removido prop `useClickableLabel`, clicar na label agora faz selecionar o item sempre.
+- `QasSelectList`: removido scope `handleClick` para `onUpdateModel` no slot `item`.
+- `QasSelectList`: removido evento `click-label`.
+- `QasSortable`: removido as props `sorted` e `list`.
+
+## [3.11.0-beta.18] - 25-08-2023
+### Adicionado
+- `QasFormGenerator`: adicionado possibilidade de passar uma descrição para o `fieldset`.
+- Adicionado novo boot font-face que adiciona um loading nos ícones enquanto eles ainda estão carregando.
+
+## [3.11.0-beta.17] - 24-08-2023
+### Adicionado
+- `QasPageHeader`: adicionado `ellipsis` em cada item do `breadcrumbs` setando os mesmo com no máximo `180px`, a partir desse tamanho sera adicionado o ellipsis.
+- `QasWelcome`: adicionado componente `QasActionsMenu`.
+- `QasWelcome`: adicionado prop `actionsMenuProps` para repassar as props para o componente `QasActionsMenu`.
+
+## [3.11.0-beta.16] - 22-08-2023
+### Adicionado
+- [`QasLabel`, `QasSelect`, `QasInput`, `QasNumericInput`]: adicionado propriedade `required` para controle de label obrigatória.
+- Adicionado novo helper `getRequiredLabel` para retornar label obrigatória normalizada.
+
+### Modificado
+- [`QasNumericInput`, `QasSelect`]: adicionado propriedade `label` fixo no componente e não mais pelo `$attrs` para funcionar logica do required.
+- `QasField`: agora logica de label obrigatória é controlada em cada componente e não mais pelo QasField.
+
+## [3.11.0-beta.15] - 17-08-2023
+### Adicionado
+- `QasDateTimeInput`: adicionado prop `datePopupProxyProps` para repassar props para o componente `QPopupProxy` do `QDate`.
+- `QasDateTimeInput`: adicionado prop `timePopupProxyProps` para repassar props para o componente `QPopupProxy` do `QTime`.
+
+### Corrigido
+- `QasInput`: corrigido problema causado na versão `3.11.0-beta.14` onde o watch `mask` não foi alterado para `currentMask`.
+
+### Modificado
+- `QasInput`: modificado computada `inputReference` que retornava o ref do `input` para ser um data. Pois seguindo a recomendação do Vue não é uma boa prática utilizar refs dentro de computadas.
+
+## [3.11.0-beta.14] - 15-08-2023
+### Adicionado
+- `QasActionsMenu`: adicionado `@click.stop.prevent` solucionando o problema de utilizar o componente em conjunto com o `QasTableGenerator`.
+- `QasInput`: adicionado `inputmode` default de acordo com máscaras e type email.
+- [`QasDateTimeInput`, `QasNumericInput`]: adicionado `inputmode="numeric"`.
+- `QasSearchInput`: adicionado `inputmode="search"`.
+
+### Corrigido
+- `QasDialog`: validação para quando deverá renderizar a descrição como componente e não texto.
+
+## [3.11.0-beta.13] - 04-08-2023
+### Adicionado
+- `QasDialog`: possibilidade de passar a descrição como componente através da prop `description` de dentro do `card`.
+
+### Corrigido
+- `Delete.js`: merge do `dialogProps` vindo por parâmetro na função com os valores defaults.
+
+## [3.11.0-beta.12] - 04-08-2023
+## BREAKING CHANGES
+- `QasNumericInput`: modificado o nome da propriedade `decimalPlaces` para `places`, mantendo assim o padrão de API e do Asteroid.
+
+### Adicionado
+- `QasField`: adicionado suporte ao parâmetro `places` que será repassado para o componente `QasNumericInput` para definir a quantidade de casas decimais.
+- `QasFormView`: adicionado nova prop `formProps` para repassar todas as props/eventos para o `QForm`.
+
+### Modificado
+- `ui/src/css/components/button.scss`: modificado cor disabled de `grey-8` para `grey-6` nas variantes `secondary` e `tertiary` para seguir design system.
+- `QasNumericInput`: modificado o nome da propriedade `decimalPlaces` para `places`, mantendo assim o padrão de API e do Asteroid.
+
+## [3.11.0-beta.11] - 01-08-2023
+## BREAKING CHANGES
+- `QasSortable`: removido as props `sorted` e `list`, onde o a ordenação e as options será o próprio v-model.
+
+### Adicionado
+- `QasSortable`: adicionado v-model para o controle da ordenação.
+
+### Removido
+- `QasSortable`: removido as props `sorted` e `list`.
+
+### Corrigido
+- `search-filter`: adicionado validação da prop `useLazyLoading` no watch do `lazyLoadingProps.params` para não fazer request quando ela for false.
+
+## [3.11.0-beta.10] - 28-07-2023
+## BREAKING CHANGES
+- `QasSelectList`: nome de eventos alterados de `@added` para `@add` e `@removed` para `@remove`.
+
+### Adicionado
+- `QasSortable`: adicionado prop `useSaveOnSort` com default `true` para não bater a API para salvar após fazer uma ordenação.
+- `QasSelectList`: adicionado evento `clear` que será disparado toda vez que o v-model é limpo através do botão de "Limpar seleção".
+
+### Modificado
+- `QasSortable`: removido `required` da prop `entity` para deixar opcional.
+
+### Corrigido
+- [`QasCopy`, `QasDelete`, `QasTreeGenerator`, `QasTruncate`]: alterado o `@click.stop` para `@click.stop.prevent` solucionando o problema de utilizar esses componentes em conjunto com o `QasTableGenerator`.
+- `QasSortable`: alterado watch da prop `list` para o deep, passando a ouvir quando dermos um `.push` ou `splice` no list.
+- `QasSortable`: removido método `sort` dentro do watch `list` na qual estava ordenando a lista quando não deveria ser ordenando.
+
+## [3.11.0-beta.9] - 25-07-2023
+### Corrigido
+- `QasFilters`: Corrigido problema de merge entre os `fields` iniciais e a propriedade `fieldsProps` na computada `activeFilters`.
+- `QasFilters`: Corrigido exibição vazia da badge de filtros ativos quando o valor não é encontrado na lista de opções de um campo de select.
+
+## [3.11.0-beta.8] - 19-07-2023
+### Adicionado
+- `Delete.js`: adicionado parâmetro `redirectRoute`, onde há a possibilidade de passar uma rota onde será redirecionado após deletar o item.
+- `QasDelete`: adicionado prop `redirectRoute` que será repassado para o plugin `Delete`.
+
+### Modificado
+`ui/src/css/utils/container.scss`: alterado espaçamento da classe `spaced`.
+`QasPageHeader`: alterado o valor do margin-bottom pra `lg`.
+
+## [3.11.0-beta.7] - 14-07-2023
+### Corrigido
+- `QasSelectList`: corrigido problema ao remover item do model quando `:emit-value="false"`.
+
+### Modificado
+- `QasBox`: modificado padding y de `lg` para `md`.
+
+## [3.11.0-beta.6] - 12-07-2023
+### Adicionado
+- `isEmpty.js`: adicionado novo helper para verificar se um valor é vazio (null, undefined ou '').
+- `mixins/searchFilter`: adicionado nova prop `optionsToExclude`, que é uma lista de valores que não serão exibidos na lista de resultados (options/list) que pode ser uuid/id/slug.
+
+### Modificado
+- [`QasGridGenerator`, `QasTableGenerator`]: modificado comportamento de exibição do valor do `empty-result-text`. Agora para o resultado de algum campo ser considerado vazio é necessário que o seu valor seja `null`, `undefined` ou `''`.
+
+### Corrigido
+- `QasGridGenerator`: corrigido ordem de exibição dos `fields`.
+- `docs`: exibição dos componentes na documentação do `QasChartView` e `QasMaps`.
+- `rules.js`: validação da função `required`.
+
+## [3.11.0-beta.5] - 11-07-2023
+### Corrigido
+- Corrigido problemas relacionados aos `third party components`.
+
+## [3.11.0-beta.4] - 11-07-2023
+## BREAKING CHANGES
+- `QasSelectList`: removido slot `item-action`, como o componente mudou o layout, esse slot mudaria de lugar, porém o uso dele é desnecessário e pode levar a quebra de Design System.
+- `QasSelectList`: removido slot `item-section`, como foi removido o slot `item-action`, não faz mais sentido um slot para o `item-section` pois a estrutura é a mesma, caso necessário, utilizar o slot `item`.
+- `QasSelectList`: removido prop `useClickableLabel`, clicar na label agora faz selecionar o item sempre.
+- `QasSelectList`: removido scope `handleClick` para `onUpdateModel` no slot `item`.
+- `QasSelectList`: removido evento `click-label`.
+
+### Adicionado
+- `QasSelectList`: adicionado nova prop `emitValue` com default `true`, quando valor é "true", transforma o model em um array de string, senão o model será um array de objeto (não foi usado o nome `useEmitValue` pois existe uma prop para mesma finalidade no QSelect do quasar e ela se chama "emitValue").
+- `QasSelectList`: adicionado nova prop `useEmitLabelValueOnly` com default `true`, propriedade para ser usada em conjunto com ':emitValue="false"', caso habilite essa propriedade, o model sempre será um array de objeto com label e value, se estiver desabilitado, o objeto dentro do model será o objeto inteiro, não somente label e value.
+- `QasSearchBox`: adicionado nova propriedade `outlined` que define se a área que contém o resultado da pesquisa terá o estilo de borda arredondada com fundo branco (semelhante a um input).
+- `QasSelectList`: adicionado novo recurso de limpar seleção.
+- Componente de gráficos `QasChartView`.
+- Instalação automática das dependências do `QasChartView` via `thirdPartyComponents`.
+
+### Modificado
+- `QasSearchInput`: modificado estilo do input, removido shadow e adicionado borda.
+- `item.scss`: alterado espaçamento global da classe `q-item__section--side` que é aplicado quando usado `QItem` com `QItemSection` com propriedade `avatar`, deixando o `padding-right` menor (sm).
+- `QasSelectList`: modificado comportamento de como é adicionado itens, antes feito por botões de adicionar/remover, agora é feito por um `checkbox`.
+- `QasSearchBox`: alterado `height` fixo para `max-height` (impacta QasSelectList).
+
+### Corrigido
+- Problema de instalar a dependência `install` ao utilizar a opção do asteroid instalar automáticamente as libs de terceiros pelo `thirdPartyComponents`.
+- `required`: corrigida a validação para `null`.
+- `required`: Adicionado ponto final à frase padrão.
+- `search-filter.js`: corrigido problema ao limpar diversos campos relacionados a um mesmo campo de filtro.
+- `QasSearchBox`: corrigido como é feito o primeiro fetch, antes o evento do infinite scroll era sempre chamado, agora ele espera finalizar o fetch inicial, após isto o infinite scroll é ativado.
+
+### Removido
+- `QasSelectList`: removido slot `item-action`, como o componente mudou o layout, esse slot mudaria de lugar, porém o uso dele é desnecessário e pode levar a quebra de Design System.
+- `QasSelectList`: removido slot `item-section`, como foi removido o slot `item-action`, não faz mais sentido um slot para o `item-section` pois a estrutura é a mesma, caso necessário, utilizar o slot `item`.
+- `QasSelectList`: removido prop `useClickableLabel`, clicar na label agora faz selecionar o item sempre.
+- `QasSelectList`: removido scope `handleClick` para `onUpdateModel` no slot `item`.
+- `QasSelectList`: removido evento `click-label`.
+
+## [3.11.0-beta.3] - 26-06-2023
+### Modificado
+- `QasLabel`: modificado default da prop `margin` para `md (16px)`.
+- `QasLabel`: modificado tipografia para `text-h4`.
+
+### Corrigido
+- `ui/src/css/components/field.scss`: corrigido seletor de classe que estava deixando com cor no lugar errado.
+
+## [3.11.0-beta.2] - 23-06-2023
+### Modificado
+- `QasAvatar`: adicionado nova cor `grey-4` na propriedade `color`.
+
+## [3.11.0-beta.1] - 22-06-2023
+### Corrigido
+- `asteroid.config.js`: correções referentes as configurações do asteroid config.
+
+## [3.11.0-beta.0] - 22-06-2023
+## BREAKING CHANGES
+- com a adição do `asteroid.config.js`, é **necessário** criar o arquivo na raiz da aplicação para que não quebre a mesma.
+- controle do server timeout agora é feito pelo `asteroid.config.js` e não pelo `process.env.SERVER_TIMEOUT`.
+- Caso esteja utilizando o componente `QasMap` verificar documentação para configurar corretamente o mesmo.
+
+### Adicionado
+- [`useForm`, `useGenerator (privado)`, `useScreen`]: adicionado novos composables.
+- `Spacing.js`: adicionado enums de espaçamento.
+- `asteroid.config.js`: adicionado novo arquivo de configuração do asteroid.
+- Adicionado vitest.
+- `QasAlert` adicionado `data-test="alert-title"` na tag h5 de title para testes iniciais.
+
+### Modificado
+- [`QasBreakline`, `QasFormGenerator`, `QasStatus`, `QasTextTruncate`, `QasGridGenerator`]: convertidos para composition API.
+- `QasMap`: removido dependência terceira do "@fawmi/vue-google-maps", em favor da logica de `thirdPartyComponents` (agora a dependência fica na aplicação).
+- `vue-plugin`: adicionado logica para import dinâmico dos thirdPartyComponents (QasMap).
+- `vue-plugin`: import `import { QasMap } from 'asteroid'` agora retorna uma `Promise` quando existe e `null` quando não existe.
+- `app-extension/src/index.js`: adicionado logica para automatizar instalação / desinstalação de bibliotecas terceiras do `thirdPartyComponents`.
+- `process.env.MAPS_API_KEY`: não é mais necessário declarar esta env, somente se for utilizar o componente `QasMap`.
+
+### Removido
+- `process.env.SERVER_TIMEOUT`: agora é controlado pelo arquivo `asteroid.config.js` com a config `api: { serverTimeOut: 10000 }`.
+
 ## [3.10.0] - 21-06-2023
 ## BREAKING CHANGES
 - `QasSelect`: removido props `labelKey` e `valueKey`, componente não aceita mais fazer conversão das chaves label/value, o backend deve sempre retornar no padrão correto, em **ultimo** caso, é possível utilizar o helper `getNormalizedOptions` para converter as opções antes de enviar para o componente, porém o componente não fica mais responsável por isto.
@@ -1620,3 +1925,21 @@ Adicionado suporte para Pinia/Vuex Seguindo os padrões da biblioteca `@bildvitt
 [3.10.0-beta.9]: https://github.com/bildvitta/asteroid/compare/v3.10.0-beta.8...v3.10.0-beta.9?expand=1
 [3.10.0-beta.10]: https://github.com/bildvitta/asteroid/compare/v3.10.0-beta.9...v3.10.0-beta.10?expand=1
 [3.10.0]: https://github.com/bildvitta/asteroid/compare/v3.11.0-alpha.2...v3.10.0?expand=1
+[3.11.0-beta.0]: https://github.com/bildvitta/asteroid/compare/v3.10.0...v3.11.0-beta.0?expand=1
+[3.11.0-beta.1]: https://github.com/bildvitta/asteroid/compare/v3.11.0-beta.0...v3.11.0-beta.1?expand=1
+[3.11.0-beta.2]: https://github.com/bildvitta/asteroid/compare/v3.11.0-beta.1...v3.11.0-beta.2?expand=1
+[3.11.0-beta.3]: https://github.com/bildvitta/asteroid/compare/v3.11.0-beta.2...v3.11.0-beta.3?expand=1
+[3.11.0-beta.4]: https://github.com/bildvitta/asteroid/compare/v3.11.0-beta.3...v3.11.0-beta.4?expand=1
+[3.11.0-beta.5]: https://github.com/bildvitta/asteroid/compare/v3.11.0-beta.4...v3.11.0-beta.5?expand=1
+[3.11.0-beta.6]: https://github.com/bildvitta/asteroid/compare/v3.11.0-beta.5...v3.11.0-beta.6?expand=1
+[3.11.0-beta.7]: https://github.com/bildvitta/asteroid/compare/v3.11.0-beta.6...v3.11.0-beta.7?expand=1
+[3.11.0-beta.8]: https://github.com/bildvitta/asteroid/compare/v3.11.0-beta.7...v3.11.0-beta.8?expand=1
+[3.11.0-beta.9]: https://github.com/bildvitta/asteroid/compare/v3.11.0-beta.8...v3.11.0-beta.9?expand=1
+[3.11.0-beta.10]: https://github.com/bildvitta/asteroid/compare/v3.11.0-beta.9...v3.11.0-beta.10?expand=1
+[3.11.0-beta.11]: https://github.com/bildvitta/asteroid/compare/v3.11.0-beta.10...v3.11.0-beta.11?expand=1
+[3.11.0-beta.12]: https://github.com/bildvitta/asteroid/compare/v3.11.0-beta.11...v3.11.0-beta.12?expand=1
+[3.11.0-beta.13]: https://github.com/bildvitta/asteroid/compare/v3.11.0-beta.12...v3.11.0-beta.13?expand=1
+[3.11.0-beta.14]: https://github.com/bildvitta/asteroid/compare/v3.11.0-beta.13...v3.11.0-beta.14?expand=1
+[3.11.0-beta.15]: https://github.com/bildvitta/asteroid/compare/v3.11.0-beta.14...v3.11.0-beta.15?expand=1
+[3.11.0-beta.17]: https://github.com/bildvitta/asteroid/compare/v3.11.0-beta.16...v3.11.0-beta.17?expand=1
+[3.11.0-beta.18]: https://github.com/bildvitta/asteroid/compare/v3.11.0-beta.17...v3.11.0-beta.18?expand=1

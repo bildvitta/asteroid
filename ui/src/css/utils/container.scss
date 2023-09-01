@@ -10,8 +10,8 @@
   width: calc(100% - 80px);
 
   &.spaced {
-    padding-bottom: 20px;
-    padding-top: 20px;
+    padding-bottom: var(--qas-spacing-md);
+    padding-top: var(--qas-spacing-md);
   }
 
   @media (max-width: $breakpoint-xs) {

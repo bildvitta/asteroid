@@ -1,16 +1,22 @@
 <template>
-  <div class="text-subtitle1" :class="classes">
-    <slot :label-with-suffix="labelWithSuffix">{{ labelWithSuffix }}</slot>
+  <div class="text-h4" :class="classes">
+    <slot :label-with-suffix="formattedLabel">{{ formattedLabel }}</slot>
   </div>
 </template>
 
 <script>
-import { addCounterSuffix } from '../../helpers'
+import { addCounterSuffix, getRequiredLabel } from '../../helpers'
+import { Spacing } from '../../enums/Spacing'
 
 export default {
   name: 'QasLabel',
 
   props: {
+    color: {
+      type: String,
+      default: 'grey-9'
+    },
+
     count: {
       default: 0,
       type: [Number, String]
@@ -22,24 +28,27 @@ export default {
     },
 
     margin: {
-      default: 'sm',
+      default: Spacing.Md,
       type: String,
       validator: value => {
-        const marginList = ['none', 'auto', 'xs', 'sm', 'md', 'lg', 'xl', '2xl', '3xl']
+        const availableSpacings = Object.values(Spacing)
 
-        return marginList.includes(value)
+        return availableSpacings.includes(value)
       }
     },
 
-    color: {
-      type: String,
-      default: 'grey-9'
+    required: {
+      type: Boolean
     }
   },
 
   computed: {
     labelWithSuffix () {
       return addCounterSuffix(this.label, parseFloat(this.count))
+    },
+
+    formattedLabel () {
+      return getRequiredLabel({ label: this.labelWithSuffix, required: this.required })
     },
 
     classes () {

@@ -41,4 +41,8 @@
   & .q-focus-helper {
     display: none;
   }
+
+  &__section--side {
+    padding-right: var(--qas-spacing-sm);
+  }
 }

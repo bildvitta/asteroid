@@ -1,6 +1,6 @@
 <template>
   <div class="container spaced">
-    <qas-btn label="Deletar usuário" @click="$qas.delete({ deleteActionParams: { id: customId, entity: 'users' } })" />
+    <qas-btn label="Deletar usuário" @click="$qas.delete(deleteParams)" />
 
     <div class="q-mt-lg">
       user: <qas-debugger :inspect="[user]" />
@@ -23,6 +23,16 @@ export default {
 
     user () {
       return this.userById(this.customId)
+    },
+
+    deleteParams () {
+      return {
+        deleteActionParams: {
+          id: this.customId,
+          entity: 'users'
+        }
+        // redirectRoute: 'users' <- (Caso a intenção fosse redirecionar para a rota "users" após deletar.)
+      }
     }
   },
 

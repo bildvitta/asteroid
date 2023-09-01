@@ -34,7 +34,6 @@ import QasLabel from './components/label/QasLabel.vue'
 import QasLayout from './components/layout/QasLayout.vue'
 import QasListItems from './components/list-items/QasListItems.vue'
 import QasListView from './components/list-view/QasListView.vue'
-import QasMap from './components/map/QasMap.vue'
 import QasNestedFields from './components/nested-fields/QasNestedFields.vue'
 import QasNumericInput from './components/numeric-input/QasNumericInput.vue'
 import QasOptionGroup from './components/option-group/QasOptionGroup.vue'
@@ -60,7 +59,6 @@ import QasTreeGenerator from './components/tree-generator/QasTreeGenerator.vue'
 import QasUploader from './components/uploader/QasUploader.vue'
 import QasWelcome from './components/welcome/QasWelcome.vue'
 
-import VueGoogleMaps from '@fawmi/vue-google-maps'
 import { Notify, Loading, Quasar, Dialog as QuasarDialog } from 'quasar'
 
 // Plugins
@@ -80,7 +78,7 @@ import Test from './directives/Test.js'
 
 const version = packageInfo.version
 
-function install (app) {
+async function install (app) {
   app.component('QasActions', QasActions)
   app.component('QasActionsMenu', QasActionsMenu)
   app.component('QasAlert', QasAlert)
@@ -117,7 +115,6 @@ function install (app) {
   app.component('QasLayout', QasLayout)
   app.component('QasListItems', QasListItems)
   app.component('QasListView', QasListView)
-  app.component('QasMap', QasMap)
   app.component('QasNestedFields', QasNestedFields)
   app.component('QasNumericInput', QasNumericInput)
   app.component('QasOptionGroup', QasOptionGroup)
@@ -144,10 +141,6 @@ function install (app) {
   app.component('QasWelcome', QasWelcome)
 
   app.use(Quasar, { plugins: { Notify, Loading, QuasarDialog, Dialog } })
-
-  if (process.env.MAPS_API_KEY) {
-    app.use(VueGoogleMaps, { load: { key: process.env.MAPS_API_KEY, libraries: 'places' } })
-  }
 
   app.config.globalProperties.$qas = {
     delete: params => Delete.call(app.config.globalProperties, params),
@@ -201,7 +194,6 @@ export {
   QasLayout,
   QasListItems,
   QasListView,
-  QasMap,
   QasNestedFields,
   QasNumericInput,
   QasOptionGroup,

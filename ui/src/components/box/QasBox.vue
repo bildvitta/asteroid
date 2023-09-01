@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-white q-px-md q-py-lg rounded-borders" :class="boxClass">
+  <div class="bg-white q-pa-md rounded-borders" :class="boxClass">
     <slot />
   </div>
 </template>

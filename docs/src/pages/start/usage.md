@@ -8,15 +8,13 @@ Para a instalação do Asteroid é bem simples, em sua aplicação `Quasar` abra
 quasar ext add @bildvitta/asteroid
 ```
 
-Este comando além de instalar o Asteroid, também vai criar um arquivo `quasar.variables.scss`, normalmente este arquivo já existe no projeto, então vai perguntar se deseja sobrescrever o arquivo, você **deve** sobrescrever o arquivo.
+Este comando além de instalar o Asteroid, também vai criar os arquivos `quasar.variables.scss` e `asteroid.config.js`, caso já tenha instalado o asteroid no projeto, pode criar manualmente estes arquivos na raiz do projeto.
 
-O arquivo gerado deve conter as seguintes informações:
-
-```css
+**quasar.variables.scss:**
+```scss
 // Quasar SCSS (& Sass) Variables - Asteroid
 // --------------------------------------------------
 // NÃO MODIFIQUE ESTE ARQUIVO COM AS CONFIGURAÇÕES DO ASTEROID PRÉ DEFINIDAS!
-
 @import '~@bildvitta/quasar-ui-asteroid/src/index';
 
 $primary   : #004198;
@@ -24,17 +22,66 @@ $secondary : #1565C0;
 $tertiary  : #c7ceff;
 $accent    : rgba(33, 33, 33, 10%);
 $dark      : #424242;
-$positive  : #212121;
-$negative  : #D40000;
+$positive  : #21ba45;
+$negative  : #d40000;
 $info      : #31ccec;
 $warning   : #f2c037;
 
 // Asteroid
-$primary-contrast: #002E6C;
-$secondary-contrast: #90CAF9;
+$primary-contrast: #002e6c;
+$secondary-contrast: #90caf9;
 
 @include set-brand(primary-contrast, $primary-contrast);
 @include set-brand(secondary-contrast, $secondary-contrast);
+
+```
+
+**asteroid.config.js**
+```js
+module.exports = {
+  /**
+   * Configurações de API
+   * @type {{ serverTimeout: number=10000 }}
+  */
+  api: {
+    serverTimeout: 10000
+  },
+
+  framework: {
+    /**
+     * O asteroid ao identificar que a aplicação tenha dependências terceiras e
+     * não estão declarados na opção "thirdPartyComponents" ele remove as dependências da aplicação (package.json), caso precise dessas dependências mesmo que sem os thirdPartyComponents, desative esta opção setando como "false".
+     * @type {boolean=true}
+    */
+    autoRemoveThirdDependencies: true,
+
+    fonts: {
+      observer: {
+        /**
+         * O asteroid adiciona um observer nas fontes, enquanto ela não carrega adiciona um loading para
+         * não quebrar o layout, a configuração "waitForUserAuthenticate: true" define que o observer deve esperar
+         * o usuário estar autenticado para começar a observar as fontes, para isto a aplicação deve poder receber um
+         * "postMessage" com um evento type "requestUser" e responder com um evento type "responseUser".
+         *
+         * @type {boolean=true}
+         * @example
+         * // solicita o usuário
+         * window.postMessage({ type: 'requestUser' })
+         *
+         * window.addEventListener('message', ({ data }) => data.type // responseUser })
+       */
+        waitForUserAuthenticate: true
+      }
+    },
+
+    /**
+     * Componentes que necessitam de instalação de bibliotecas de terceiros
+     * dentro da aplicação que utiliza o asteroid, a instalação é feita automaticamente pelo asteroid.
+     * @type {Array<'QasChartView' | 'QasMap'>}
+    */
+    thirdPartyComponents: []
+  }
+}
 ```
 
 ## Variáveis de ambiente
@@ -45,5 +92,4 @@ Abaixo temos uma lista de variáveis de ambiente, as que estão marcadas como `o
 | `BUCKET_URL` * | Endereço de hospedagem dos arquivos **(OBRIGATÓRIO)** |
 | `SERVER_BASE_URL` * | Endereço base de acesso do servidor **(OBRIGATÓRIO)** |
 | `DEBUGGING` * | Habilita os loggers dos componentes **(OBRIGATÓRIO)** |
-| `MAPS_API_KEY` * | Key do google maps **(OBRIGATÓRIO)** |
-| `SERVER_TIMEOUT` * | Tempo que a API vai tentar finalizar até dar timeout **(OBRIGATÓRIO)** |
+| `MAPS_API_KEY` | Key do google maps **(OBRIGATÓRIO SE ESPECIFICADO NO "thirdPartyComponents")** |

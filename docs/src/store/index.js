@@ -1,7 +1,12 @@
 import { createStore } from 'vuex'
-import users from './modules/users'
+
 import VuexOffline from '@bildvitta/vuex-offline'
-import mock from './mock.json'
+
+import { charts, chartsMultipleResults, users } from './modules'
+
+import chartsMock from './mocks/charts.json'
+import chartsMultipleResultsMock from './mocks/charts-multiple-results.json'
+import usersMock from './mocks/users.json'
 
 const vuexOffline = new VuexOffline({
   idKey: 'uuid',
@@ -15,6 +20,8 @@ const vuexOffline = new VuexOffline({
   },
 
   modules: [
+    charts,
+    chartsMultipleResults,
     users
   ]
 })
@@ -23,9 +30,16 @@ export default async function (/* { ssrContext } */) {
   await vuexOffline.createDatabase()
   await vuexOffline.setupCollections()
 
-  const { users } = vuexOffline.collections
+  const {
+    charts,
+    charts_multiple_results: chartsMultipleResults,
+    users
+  } = vuexOffline.collections
 
-  await users.importJSON(mock)
+  await charts.importJSON(chartsMock)
+  await chartsMultipleResults.importJSON(chartsMultipleResultsMock)
+  await users.importJSON(usersMock)
+
   window.vuexOffline = vuexOffline
 
   const Store = createStore({

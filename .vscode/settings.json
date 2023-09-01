@@ -31,9 +31,18 @@
     "Mixins",
     "QasActionsMenu",
     "QasTableGenerator",
-    "QasDate"
+    "QasDate",
+    "QasChartView",
+    "QasDelete",
+    "QasSelectList",
+    "QasSortable"
   ],
   "cSpell.words": [
-    "Nunito"
+    "Breakline",
+    "fawmi",
+    "fontfaceobserver",
+    "grey",
+    "Nunito",
+    "Resizer"
   ]
 }

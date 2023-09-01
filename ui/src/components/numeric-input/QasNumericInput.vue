@@ -1,13 +1,14 @@
 <template>
-  <q-field :model-value="modelValue" outlined>
+  <q-field :label="formattedLabel" :model-value="modelValue" outlined>
     <template #control="{ floatingLabel, id }">
-      <input v-show="floatingLabel" :id="id" ref="input" class="q-field__input" @blur="emitValue" @click="setSelect" @input="emitUpdateModel($event.target.value)">
+      <input v-show="floatingLabel" :id="id" ref="input" class="q-field__input" inputmode="numeric" @blur="emitValue" @click="setSelect" @input="emitUpdateModel($event.target.value)">
     </template>
   </q-field>
 </template>
 
 <script>
 import AutoNumeric from 'autonumeric'
+import { getRequiredLabel } from '../../helpers'
 
 const defaultModes = {
   decimal: 'commaDecimalCharDotSeparator',
@@ -25,9 +26,14 @@ export default {
       type: Object
     },
 
-    decimalPlaces: {
+    places: {
       default: 2,
       type: Number
+    },
+
+    label: {
+      type: String,
+      default: ''
     },
 
     mode: {
@@ -54,6 +60,10 @@ export default {
       type: [Boolean, String]
     },
 
+    required: {
+      type: Boolean
+    },
+
     useNegative: {
       type: Boolean
     },
@@ -78,6 +88,10 @@ export default {
   computed: {
     defaultMode () {
       return defaultModes[this.mode]
+    },
+
+    formattedLabel () {
+      return getRequiredLabel({ label: this.label, required: this.required })
     }
   },
 
@@ -113,7 +127,7 @@ export default {
     }
 
     if (this.mode !== 'integer') {
-      options.decimalPlaces = this.decimalPlaces
+      options.decimalPlaces = this.places
     }
 
     if (this.mode === 'money') {

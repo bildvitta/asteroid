@@ -9,7 +9,7 @@
 
           <span v-if="hasMenuButton(node)" class="q-ml-sm">
             <!-- TODO: rever para o uso QasActionsMenu -->
-            <qas-btn color="grey-9" icon="sym_r_more_vert" variant="tertiary" @click.stop>
+            <qas-btn color="grey-9" icon="sym_r_more_vert" variant="tertiary" @click.stop.prevent>
               <q-menu auto-close>
                 <q-list separator>
                   <q-item v-if="useAddButton" v-ripple class="qas-tree-generator__item" clickable @click="handleTreeFormDialog(node, true, tree)">

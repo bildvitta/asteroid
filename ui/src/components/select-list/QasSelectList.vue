@@ -1,21 +1,19 @@
 <template>
-  <qas-search-box v-model:results="results" v-bind="defaultSearchBoxProps" :list="sortedList">
-    <template #default>
-      <q-list separator>
-        <q-item v-for="result in results" :key="result.value" class="q-px-none">
-          <slot v-bind="slotData" :item="result" name="item">
-            <slot name="item-section" :result="result">
-              <q-item-section>
-                <div :class="labelClass" @click="onClickLabel({ item: result, index })">
-                  {{ result.label }}
-                </div>
-              </q-item-section>
-            </slot>
+  <qas-search-box ref="searchBox" v-model:results="results" v-bind="defaultSearchBoxProps" :list="sortedList">
+    <template #after-search>
+      <div class="q-mb-md q-mt-xl">
+        <span class="q-pr-sm text-body1 text-grey-8">Seleção:</span>
 
-            <q-item-section avatar>
-              <slot :item="result" name="item-action" v-bind="slotData">
-                <qas-btn :disable="readonly" :use-label-on-small-screen="false" v-bind="getButtonProps(result)" @click="handleClick(result)" />
-              </slot>
+        <qas-btn :disable="isClearSelectionDisabled" label="Limpar seleção" variant="tertiary" @click="clearSelection" />
+      </div>
+    </template>
+
+    <template #default>
+      <q-list class="bg-white rounded-borders" separator>
+        <q-item v-for="result in results" :key="result.value" class="q-px-none" tag="label">
+          <slot v-bind="slotData" :item="result" name="item">
+            <q-item-section>
+              <pv-select-list-checkbox :readonly="readonly" :result="result" :use-active="hasValueInModel(result.value)" @add="add" @remove="remove" />
             </q-item-section>
           </slot>
         </q-item>
@@ -29,13 +27,17 @@ import { sortBy } from 'lodash-es'
 
 import QasBtn from '../btn/QasBtn.vue'
 import QasSearchBox from '../search-box/QasSearchBox.vue'
+import PvSelectListCheckbox from './private/PvSelectListCheckbox.vue'
 
 export default {
   name: 'QasSelectList',
 
   components: {
     QasBtn,
-    QasSearchBox
+    QasSearchBox,
+
+    // private
+    PvSelectListCheckbox
   },
 
   inheritAttrs: false,
@@ -55,6 +57,11 @@ export default {
       type: Boolean
     },
 
+    emitValue: {
+      type: Boolean,
+      default: true
+    },
+
     modelValue: {
       type: Array,
       default: () => []
@@ -69,20 +76,22 @@ export default {
       default: () => ({})
     },
 
-    useClickableLabel: {
-      type: Boolean
+    useEmitLabelValueOnly: {
+      type: Boolean,
+      default: true
     }
   },
 
   emits: [
-    'added',
-    'click-label',
-    'removed',
+    'add',
+    'remove',
+    'clear',
     'update:modelValue'
   ],
 
   data () {
     return {
+      searchBox: null,
       sortedList: [],
       values: [],
       results: []
@@ -94,16 +103,14 @@ export default {
       return {
         fuseOptions: { keys: ['label'] },
 
-        ...this.searchBoxProps
+        ...this.searchBoxProps,
+
+        outlined: true
       }
     },
 
     hasLazyLoading () {
       return this.defaultSearchBoxProps.useLazyLoading
-    },
-
-    labelClass () {
-      return this.useClickableLabel && 'cursor-pointer'
     },
 
     list () {
@@ -113,10 +120,17 @@ export default {
     slotData () {
       return {
         add: this.add,
-        handleClick: this.handleClick,
         remove: this.remove,
         updateModel: this.updateModel
       }
+    },
+
+    isClearSelectionDisabled () {
+      return !this.modelValue.length || this.readonly || !this.results.length
+    },
+
+    hasSearch () {
+      return this.searchBox.mx_search
     }
   },
 
@@ -141,31 +155,20 @@ export default {
     }
   },
 
+  mounted () {
+    this.searchBox = this.$refs.searchBox
+  },
+
   created () {
     if (!this.hasLazyLoading) this.handleList()
   },
 
   methods: {
     add (item) {
-      this.values.push(item.value)
+      this.values.push(this.getNormalizedValue(item))
       this.updateModel()
 
-      this.$emit('added', item)
-    },
-
-    getButtonProps ({ value }) {
-      const isSelected = this.values.includes(value)
-
-      return {
-        label: isSelected ? this.deleteLabel : this.addLabel,
-        variant: 'tertiary',
-        color: isSelected ? 'grey-9' : 'primary',
-        icon: isSelected ? 'sym_r_delete' : 'sym_r_add'
-      }
-    },
-
-    handleClick (item) {
-      return this.values.includes(item.value) ? this.remove(item) : this.add(item)
+      this.$emit('add', item)
     },
 
     handleList () {
@@ -181,27 +184,54 @@ export default {
       })
     },
 
-    onClickLabel ({ item, index }) {
-      this.useClickableLabel && this.$emit('click-label', { item, index })
-    },
-
     remove (item) {
-      const index = this.values.findIndex(value => value === item.value)
+      const index = this.values.findIndex(itemValue => {
+        const normalizedItem = this.emitValue ? itemValue : itemValue.value
+
+        return normalizedItem === item.value
+      })
 
       this.values.splice(index, 1)
       this.updateModel()
 
-      this.$emit('removed', item, index)
+      this.$emit('remove', item, index)
     },
 
     sortList () {
       this.sortedList = this.deleteOnly
-        ? this.list.filter(item => this.modelValue.includes(item.value))
-        : sortBy(this.list, item => !this.modelValue.includes(item.value))
+        ? this.list.filter(item => this.hasValueInModel(item.value))
+        : sortBy(this.list, item => !this.hasValueInModel(item.value))
     },
 
     updateModel (model) {
       this.$emit('update:modelValue', model || this.values)
+    },
+
+    hasValueInModel (value) {
+      return this.emitValue
+        ? this.modelValue.includes(value)
+        : !!this.modelValue.find(item => item.value === value)
+    },
+
+    getNormalizedValue (objectValue = {}) {
+      if (this.emitValue) return objectValue.value
+
+      if (this.useEmitLabelValueOnly) {
+        const { label, value } = objectValue
+
+        return {
+          label,
+          value
+        }
+      }
+
+      return objectValue
+    },
+
+    clearSelection () {
+      this.$emit('clear', this.values)
+      this.values = []
+      this.updateModel()
     }
   }
 }

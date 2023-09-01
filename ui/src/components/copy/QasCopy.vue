@@ -2,7 +2,7 @@
   <span>
     <slot>{{ text }}</slot>
 
-    <qas-btn class="q-ml-xs" color="primary" :icon="icon" :loading="isLoading" variant="tertiary" @click.stop="copy">
+    <qas-btn class="q-ml-xs" color="primary" :icon="icon" :loading="isLoading" variant="tertiary" @click.stop.prevent="copy">
       <q-tooltip>Copiar</q-tooltip>
     </qas-btn>
   </span>

@@ -8,6 +8,7 @@ export default function (config = {}) {
     dialogProps = {},
     deleteActionParams = {},
     useAutoDeleteRoute,
+    redirectRoute,
 
     // callbacks
     onDelete = () => {},
@@ -19,11 +20,20 @@ export default function (config = {}) {
   const { entity, id, url } = deleteActionParams
 
   const defaultDialogProps = {
-    card: { description: 'Tem certeza que deseja excluir este item?' },
+    ...dialogProps,
 
-    ok: { label: 'Excluir', onClick: () => destroy.call(this) },
+    card: {
+      description: 'Tem certeza que deseja excluir este item?',
 
-    ...dialogProps
+      ...dialogProps.card
+    },
+
+    ok: {
+      label: 'Excluir',
+      onClick: () => destroy.call(this),
+
+      ...dialogProps.ok
+    }
   }
 
   const defaultNotifyMessages = {
@@ -60,6 +70,8 @@ export default function (config = {}) {
       createDeleteSuccessEvent()
 
       onDeleteSuccess(response)
+
+      redirectRoute && replaceRoute(this)
     } catch (error) {
       onDeleteError(error)
 
@@ -69,6 +81,12 @@ export default function (config = {}) {
 
       Loading.hide()
     }
+  }
+
+  function replaceRoute (context) {
+    const { $router } = context
+
+    $router.replace(redirectRoute)
   }
 
   function getRoutesToBeDeletedById (routes = []) {
