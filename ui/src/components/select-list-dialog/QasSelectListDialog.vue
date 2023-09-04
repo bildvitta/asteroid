@@ -33,29 +33,10 @@
           </q-item-section>
 
           <q-item-section avatar>
-            <qas-btn v-bind="getDestroyButtonProps({ index, option: item })" />
+            <qas-btn v-bind="getRemoveButtonProps({ index, option: item })" />
           </q-item-section>
         </q-item>
       </q-virtual-scroll>
-
-      <!-- <q-list
-        class="app-select-list-dialog__list q-mt-md"
-        separator
-      >
-        <q-item
-          v-for="(option, index) in selectedOptions"
-          :key="option.value"
-          class="q-px-none text-body1 text-grey-8"
-        >
-          <q-item-section>
-            {{ option.label }}
-          </q-item-section>
-
-          <q-item-section avatar>
-            <qas-btn v-bind="getDestroyButtonProps({ index, option })" />
-          </q-item-section>
-        </q-item>
-      </q-list> -->
 
       <q-inner-loading :showing="props.loading">
         <q-spinner
@@ -77,10 +58,14 @@
     v-bind="defaultDialogProps"
     v-model="showDialog"
   >
+    <template v-for="(_, name) in $slots" #[name]="context">
+      <slot :name="`dialog-${name}`" v-bind="context || {}" />
+    </template>
+
     <template #description>
       <slot name="dialog-description">
-        <div class="q-mb-xl text-center">
-          {{ props.dialogDescription }}
+        <div v-if="dialogDescription" class="q-mb-xl text-center">
+          {{ dialogDescription }}
         </div>
 
         <qas-select-list
@@ -122,11 +107,6 @@ const props = defineProps({
     default: () => ({})
   },
 
-  dialogDescription: {
-    type: String,
-    default: ''
-  },
-
   options: {
     type: Array,
     default: () => []
@@ -157,7 +137,7 @@ const props = defineProps({
   }
 })
 
-const emit = defineEmits(['update:modelValue', 'add'])
+const emit = defineEmits(['add', 'remove', 'update:modelValue'])
 
 const hasError = computed(() => Array.isArray(props.error) ? !!props.error.length : !!props.error)
 const errorMessage = computed(() => Array.isArray(props.error) ? props.error.join(' ') : props.error)
@@ -168,6 +148,7 @@ const {
 
   defaultDialogProps,
   defaultSelectListProps,
+  dialogDescription,
 
   toggleDialog
 } = useSelectDialog()
@@ -178,12 +159,12 @@ const {
   hasBox,
 
   add,
-  destroyAll,
-  destroy,
-  getDestroyButtonProps
+  removeAll,
+  remove,
+  getRemoveButtonProps
 } = useList()
 
-defineExpose({ add, destroyAll, destroy })
+defineExpose({ add, removeAll, remove })
 
 const model = ref([...props.modelValue])
 
@@ -247,37 +228,41 @@ function useList () {
      * Validação necessária pois se não estiver com lazyloading e adicionar mais opções, as options vai vir duplicadas
      * com as opções que já foram adicionadas
     */
-    console.log('TCL: add -> hasLazyLoading.value', hasLazyLoading.value)
     if (hasLazyLoading.value) {
       filteredOptions.value.push(...normalizedItems)
     }
 
-    model.value.push(...(value || normalizedItems.map(item => item.value)))
+    const newModel = value || normalizedItems.map(item => item.value)
+
+    model.value.push(...newModel)
+
+    emit('add', newModel)
 
     updateModel()
   }
 
-  function destroyAll () {
+  function removeAll () {
     model.value = []
 
     updateModel()
   }
 
-  function destroy ({ uuid }) {
-    const index = model.value.findIndex(item => item === uuid)
+  function remove (value) {
+    const index = model.value.findIndex(item => item === value)
 
     if (~index) model.value.splice(index, 1)
 
+    emit('remove', value)
     updateModel()
   }
 
-  function getDestroyButtonProps ({ index, option }) {
+  function getRemoveButtonProps ({ index, option }) {
     return {
       color: 'grey-9',
       icon: 'sym_r_delete',
       variant: 'tertiary',
       disable: props.disable || !!option.disable,
-      onClick: () => destroy({ index, uuid: option.value })
+      onClick: () => remove(option.value)
     }
   }
 
@@ -289,9 +274,9 @@ function useList () {
     hasFilteredOptions,
 
     add,
-    destroyAll,
-    destroy,
-    getDestroyButtonProps
+    removeAll,
+    remove,
+    getRemoveButtonProps
   }
 }
 
@@ -318,7 +303,10 @@ function useSelectDialog () {
 
         ...props.dialogProps.ok,
 
-        onClick: onAdd
+        onClick: () => {
+          props.dialogProps.ok?.onClick?.()
+          onAdd()
+        }
       }
     }
   })
@@ -332,13 +320,15 @@ function useSelectDialog () {
       searchBoxProps: {
         list: props.options,
         height: '160px',
+        optionsToExclude: model.value,
 
-        ...props.selectListProps.searchBoxProps,
-
-        optionsToExclude: model.value
+        ...props.selectListProps.searchBoxProps
       }
     }
   })
+
+  const dialogDescription = computed(() => props.dialogProps.card?.description)
+  console.log('TCL: useSelectDialog -> dialogDescription', dialogDescription)
 
   function toggleDialog () {
     showDialog.value = !showDialog.value
@@ -358,6 +348,7 @@ function useSelectDialog () {
 
     defaultDialogProps,
     defaultSelectListProps,
+    dialogDescription,
 
     toggleDialog
   }

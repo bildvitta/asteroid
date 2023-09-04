@@ -9,5 +9,4 @@ Componente de seleção com pesquisa que implementa o QasSearchBox.
 ## Uso
 
 <doc-example file="QasSelectListDialog/Basic" title="Básico" />
-<!-- <doc-example file="QasSelectListDialog/ExSelectListObjetModel" title="Model sendo array de objeto" />
-<doc-example file="QasSelectListDialog/SlotItem" title="Slot item" /> -->
+<doc-example file="QasSelectListDialog/ExCustomDialog" title="Customizado" />

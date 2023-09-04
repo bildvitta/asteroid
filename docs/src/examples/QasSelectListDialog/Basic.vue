@@ -28,7 +28,12 @@ export default {
         listLabel: 'Itens selecionados',
         description: 'Selecione os itens que deseja adicionar',
         label: 'Itens',
-        options: this.options
+        options: this.options,
+        dialogProps: {
+          card: {
+            description: 'Selecione os itens que deseja adicionar'
+          }
+        }
       }
     }
   },
