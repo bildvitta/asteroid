@@ -233,6 +233,10 @@ module.exports = [
         path: '/components/select-list'
       },
       {
+        name: 'SelectListDialog',
+        path: '/components/select-list-dialog'
+      },
+      {
         name: 'SignaturePad',
         path: '/components/signature-pad'
       },

@@ -24,7 +24,21 @@
         {{ props.listLabel }}
       </span>
 
-      <q-list
+      <q-virtual-scroll #default="{ item, index }" class="app-select-list-dialog__list q-mt-md" :items="selectedOptions" separator>
+        <q-item
+          class="q-px-none text-body1 text-grey-8"
+        >
+          <q-item-section>
+            {{ item.label }}
+          </q-item-section>
+
+          <q-item-section avatar>
+            <qas-btn v-bind="getDestroyButtonProps({ index, option: item })" />
+          </q-item-section>
+        </q-item>
+      </q-virtual-scroll>
+
+      <!-- <q-list
         class="app-select-list-dialog__list q-mt-md"
         separator
       >
@@ -41,7 +55,7 @@
             <qas-btn v-bind="getDestroyButtonProps({ index, option })" />
           </q-item-section>
         </q-item>
-      </q-list>
+      </q-list> -->
 
       <q-inner-loading :showing="props.loading">
         <q-spinner
@@ -103,11 +117,6 @@ const props = defineProps({
     default: ''
   },
 
-  list: {
-    type: Array,
-    default: () => []
-  },
-
   dialogProps: {
     type: Object,
     default: () => ({})
@@ -148,7 +157,7 @@ const props = defineProps({
   }
 })
 
-const emit = defineEmits(['update:modelValue', 'update:list', 'add'])
+const emit = defineEmits(['update:modelValue', 'add'])
 
 const hasError = computed(() => Array.isArray(props.error) ? !!props.error.length : !!props.error)
 const errorMessage = computed(() => Array.isArray(props.error) ? props.error.join(' ') : props.error)
@@ -176,6 +185,8 @@ const {
 
 defineExpose({ add, destroyAll, destroy })
 
+const model = ref([...props.modelValue])
+
 const defaultAddButtonProps = computed(() => {
   return {
     icon: 'sym_r_add',
@@ -194,14 +205,14 @@ const labelProps = computed(() => {
   }
 })
 
-const value = ref([...props.modelValue])
+const hasLazyLoading = computed(() => !!props.selectListProps?.searchBoxProps?.useLazyLoading)
 
 watch(() => props.modelValue, newValue => {
-  value.value = [...newValue]
+  model.value = [...newValue]
 })
 
 function updateModel () {
-  emit('update:modelValue', value.value)
+  emit('update:modelValue', model.value)
 }
 
 // ------------------------- composable functions ------------------------------
@@ -211,7 +222,7 @@ function useList () {
   const selectedOptions = computed(() => {
     const options = []
 
-    value.value.forEach(value => {
+    model.value.forEach(value => {
       const option = filteredOptions.value.find(option => option.value === value)
 
       if (option) return options.push(option)
@@ -227,28 +238,35 @@ function useList () {
   })
 
   const hasBox = computed(() => hasFilteredOptions.value || props.loading)
-  const hasFilteredOptions = computed(() => value.value.length)
+  const hasFilteredOptions = computed(() => model.value.length)
 
-  function add ({ options = [], model }) {
+  function add ({ options = [], value }) {
     const normalizedItems = Array.isArray(options) ? options : [options]
 
-    filteredOptions.value.push(...normalizedItems)
+    /*
+     * Validação necessária pois se não estiver com lazyloading e adicionar mais opções, as options vai vir duplicadas
+     * com as opções que já foram adicionadas
+    */
+    console.log('TCL: add -> hasLazyLoading.value', hasLazyLoading.value)
+    if (hasLazyLoading.value) {
+      filteredOptions.value.push(...normalizedItems)
+    }
 
-    value.value.push(...(model || normalizedItems.map(item => item.value)))
+    model.value.push(...(value || normalizedItems.map(item => item.value)))
 
     updateModel()
   }
 
   function destroyAll () {
-    value.value = []
+    model.value = []
 
     updateModel()
   }
 
   function destroy ({ uuid }) {
-    const index = value.value.findIndex(item => item === uuid)
+    const index = model.value.findIndex(item => item === uuid)
 
-    if (~index) value.value.splice(index, 1)
+    if (~index) model.value.splice(index, 1)
 
     updateModel()
   }
@@ -308,14 +326,16 @@ function useSelectDialog () {
   const defaultSelectListProps = computed(() => {
     return {
       emitValue: false,
+
       ...props.selectListProps,
 
       searchBoxProps: {
+        list: props.options,
         height: '160px',
-        useLazyLoading: true,
+
         ...props.selectListProps.searchBoxProps,
 
-        optionsToExclude: value.value
+        optionsToExclude: model.value
       }
     }
   })
@@ -326,7 +346,6 @@ function useSelectDialog () {
 
   function resetListModel () {
     listModel.value = []
-    emit('update:list', [])
   }
 
   function onAdd () {
@@ -347,7 +366,6 @@ function useSelectDialog () {
 
 <style lang="scss">
 .app-select-list-dialog {
-
   .q-item {
     @include set-typography($body1)
   }

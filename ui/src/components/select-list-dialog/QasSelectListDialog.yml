@@ -1,0 +1,94 @@
+type: component
+
+meta:
+  desc: Componente para assinatura que gera uma imagem.
+
+props:
+  add-button-props:
+    desc: Props repassadas para o botão de adicionar (QasBtn)
+    default: {}
+    type: Object
+
+  description:
+    desc: Descrição acima da lista de itens selecionados.
+    default: ''
+    type: String
+
+  disable:
+    desc: Desabilita o componente (remoção e adição).
+    default: false
+    type: Boolean
+
+  dialog-props:
+    desc: Propriedades repassadas para o dialog (QasDialog).
+    default: {}
+    type: Object
+
+  dialog-description:
+    desc: Descrição do dialog.
+    default: ''
+    type: String
+
+  error:
+    desc: Mensagem de erro.
+    default: ''
+    type: String
+
+  options:
+    desc: Opções de itens disponíveis para seleção.
+    default: []
+    type: Array
+
+  label:
+    desc: Label do componente.
+    default: ''
+    type: String
+
+  list-label:
+    desc: Label da acima dos itens selecionados.
+    default: ''
+    type: String
+
+  loading:
+    desc: Estado de carregamento do componente.
+    default: false
+    type: Boolean
+
+  model-value:
+    desc: Model do componente.
+    default: []
+    type: Array
+    model: true
+
+  select-list-props:
+    desc: Propriedades repassadas para o componente QasSelectList.
+    default: []
+    type: Array
+    model: true
+
+slots:
+  default:
+    desc: Usado para conseguir recuperar as função internas do componente.
+    scope:
+      'clearSignature () => undefined':
+        desc: Limpa a assinatura.
+        type: Function
+
+      'getSignatureData () => String':
+        desc: 'Obtém a assinatura em formato de imagem com "tipo" de acordo com o que foi passado para o componente (ex: "image/png"). Utiliza o HTMLCanvasElement.toDataURL()'
+        type: Function
+
+events:
+  '@update:empty -> function(value)':
+    desc: Dispara toda vez que para de desenhar na tela, usado para v-model:empty.
+    params:
+      value:
+        desc: Novo valor do model.
+        type: Boolean
+
+methods:
+  'clearSignature () => undefined':
+    desc: Limpa a assinatura.
+
+  'getSignatureData () => String':
+    desc: 'Obtém a assinatura em formato de imagem com "tipo" de acordo com o que foi passado para o componente (ex: "image/png"). Utiliza o HTMLCanvasElement.toDataURL()'

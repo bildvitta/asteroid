@@ -315,7 +315,12 @@ export default {
     mx_getOptions (options = []) {
       if (this.mx_hasOptionsToExclude) {
         this.optionsToExclude.forEach(option => {
-          const index = options.findIndex(({ value }) => value === option)
+          const index = options.findIndex(({ value }) => {
+            console.log(value)
+            console.log('TCL: mx_getOptions -> option', value === option)
+            return value === option
+          })
+          console.log('TCL: mx_getOptions -> this.mx_hasOptionsToExclude', ~index)
 
           if (~index) options.splice(index, 1)
         })
