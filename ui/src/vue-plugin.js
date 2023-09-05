@@ -21,7 +21,6 @@ import QasDialog from './components/dialog/QasDialog.vue'
 import QasDialogRouter from './components/dialog-router/QasDialogRouter.vue'
 import QasEmptyResultText from './components/empty-result-text/QasEmptyResultText.vue'
 import QasField from './components/field/QasField.vue'
-import QasSearchInput from './components/search-input/QasSearchInput.vue'
 import QasFilters from './components/filters/QasFilters.vue'
 import QasFormGenerator from './components/form-generator/QasFormGenerator.vue'
 import QasFormView from './components/form-view/QasFormView.vue'
@@ -44,6 +43,7 @@ import QasPasswordStrengthChecker from './components/password-strength-checker/Q
 import QasProfile from './components/profile/QasProfile.vue'
 import QasResizer from './components/resizer/QasResizer.vue'
 import QasSearchBox from './components/search-box/QasSearchBox.vue'
+import QasSearchInput from './components/search-input/QasSearchInput.vue'
 import QasSelect from './components/select/QasSelect.vue'
 import QasSelectList from './components/select-list/QasSelectList.vue'
 import QasSelectListDialog from './components/select-list-dialog/QasSelectListDialog.vue'
@@ -55,6 +55,7 @@ import QasStatus from './components/status/QasStatus.vue'
 import QasTableGenerator from './components/table-generator/QasTableGenerator.vue'
 import QasTabsGenerator from './components/tabs-generator/QasTabsGenerator.vue'
 import QasTextTruncate from './components/text-truncate/QasTextTruncate.vue'
+import QasTimeline from './components/timeline/QasTimeline.vue'
 import QasTransfer from './components/transfer/QasTransfer.vue'
 import QasTreeGenerator from './components/tree-generator/QasTreeGenerator.vue'
 import QasUploader from './components/uploader/QasUploader.vue'
@@ -103,7 +104,6 @@ async function install (app) {
   app.component('QasDialogRouter', QasDialogRouter)
   app.component('QasEmptyResultText', QasEmptyResultText)
   app.component('QasField', QasField)
-  app.component('QasSearchInput', QasSearchInput)
   app.component('QasFilters', QasFilters)
   app.component('QasFormGenerator', QasFormGenerator)
   app.component('QasFormView', QasFormView)
@@ -126,6 +126,7 @@ async function install (app) {
   app.component('QasProfile', QasProfile)
   app.component('QasResizer', QasResizer)
   app.component('QasSearchBox', QasSearchBox)
+  app.component('QasSearchInput', QasSearchInput)
   app.component('QasSelect', QasSelect)
   app.component('QasSelectList', QasSelectList)
   app.component('QasSelectListDialog', QasSelectListDialog)
@@ -137,6 +138,7 @@ async function install (app) {
   app.component('QasTableGenerator', QasTableGenerator)
   app.component('QasTabsGenerator', QasTabsGenerator)
   app.component('QasTextTruncate', QasTextTruncate)
+  app.component('QasTimeline', QasTimeline)
   app.component('QasTransfer', QasTransfer)
   app.component('QasTreeGenerator', QasTreeGenerator)
   app.component('QasUploader', QasUploader)
@@ -183,7 +185,6 @@ export {
   QasDialogRouter,
   QasEmptyResultText,
   QasField,
-  QasSearchInput,
   QasFilters,
   QasFormGenerator,
   QasFormView,
@@ -206,6 +207,7 @@ export {
   QasProfile,
   QasResizer,
   QasSearchBox,
+  QasSearchInput,
   QasSelect,
   QasSelectList,
   QasSelectListDialog,
@@ -217,6 +219,7 @@ export {
   QasTableGenerator,
   QasTabsGenerator,
   QasTextTruncate,
+  QasTimeline,
   QasTransfer,
   QasTreeGenerator,
   QasUploader,

@@ -12,6 +12,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 
 ## Não publicado
 ### Adicionado
+- `QasTimeline`: novo componente de timeline.
 - `QasSelectListDialog`: adicionado novo componente de seleção de lista através de um dialog.
 - `queryCache`: boot para gerenciar a persistência de filtros.
 - `useQueryCache`: composable para manipular as queries salvas no sessionStorage.

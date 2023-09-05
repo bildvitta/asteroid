@@ -1,0 +1,36 @@
+type: component
+
+meta:
+  desc: Componente para timeline que implementa o "QTimeline".
+
+props:
+  list:
+    desc: Lista de itens com datas e descrições que serão exibidios na timeline.
+    default: []
+    type: Array
+    examples: ["[{ date: '2023-01-11T14:58:40.000000Z', description: 'Descrição' }"]
+
+  dateKey:
+    desc: Chave do campo que será exibido à esquerda da timeline.
+    default: date
+    type: String
+
+  hourKey:
+    desc: Chave do campo que será exibido acima da descrição.
+    default: date
+    type: String
+
+  descriptionKey:
+    desc: Chave do campo que será exibido na descrição.
+    default: description
+    type: String
+
+slots:
+  default:
+    desc: slot para substituir o conteúdo todo da timeline.
+
+  hour:
+    desc: slot para substituir o conteúdo acima da descrição.
+
+  description:
+    desc: slot para substituir o conteúdo da descrição.
