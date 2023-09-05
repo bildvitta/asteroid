@@ -10,6 +10,12 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 ### Sobre os "BREAKING CHANGES"
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
+## Não publicado
+### Adicionado
+- `queryCache`: boot para gerenciar a persistência de filtros.
+- `useQueryCache`: composable para manipular as queries salvas no sessionStorage.
+- `useContext`: composable para pegar os dados da query no formato padrão do asteroid.
+
 ## [3.12.0-beta.0] - 04-09-2023
 ## BREAKING CHANGES
 - `QasTextTruncate`: quebra visual por conta das alterações de estilos na fonte do texto, olhar todos lugares que utilizam o componente e caso necessário adaptar com as propriedades color e typography.
