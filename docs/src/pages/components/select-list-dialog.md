@@ -2,7 +2,7 @@
 title: QasSelectListDialog
 ---
 
-Componente de seleção com pesquisa que implementa o QasSearchBox.
+Componente de seleção de itens dentro do QasDialog.
 
 <doc-api file="select-list-dialog/QasSelectListDialog" name="QasSelectListDialog" />
 

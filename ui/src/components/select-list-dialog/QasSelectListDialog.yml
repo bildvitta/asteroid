@@ -1,7 +1,7 @@
 type: component
 
 meta:
-  desc: Componente para assinatura que gera uma imagem.
+  desc: Componente de seleção de itens dentro do QasDialog.
 
 props:
   add-button-props:
