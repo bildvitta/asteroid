@@ -16,6 +16,18 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - `useQueryCache`: composable para manipular as queries salvas no sessionStorage.
 - `useContext`: composable para pegar os dados da query no formato padrão do asteroid.
 
+## [3.12.0-beta.0] - 04-09-2023
+## BREAKING CHANGES
+- `QasTextTruncate`: quebra visual por conta das alterações de estilos na fonte do texto, olhar todos lugares que utilizam o componente e caso necessário adaptar com as propriedades color e typography.
+
+### Adicionado
+- `QasTextTruncate`: adicionado propriedades `color` e `typography` para controlar estilo da fonte.
+- `QasTextTruncate` adicionado propriedades, `maxVisibleItem`, `list` e `useObjectList` para recurso de contador.
+
+### Modificado
+- `QasAppUser`: modificado validação, agora se tiver pelo menos 1 opção, o select de vinculo é exibido.
+- `QasTextTruncate`: modificado cor e tipografia do texto.
+
 ## [3.11.0] - 01-09-2023
 ## BREAKING CHANGES
 - com a adição do `asteroid.config.js`, é **necessário** criar o arquivo na raiz da aplicação para que não quebre a mesma.
@@ -1950,3 +1962,4 @@ Adicionado suporte para Pinia/Vuex Seguindo os padrões da biblioteca `@bildvitt
 [3.11.0-beta.17]: https://github.com/bildvitta/asteroid/compare/v3.11.0-beta.16...v3.11.0-beta.17?expand=1
 [3.11.0-beta.18]: https://github.com/bildvitta/asteroid/compare/v3.11.0-beta.17...v3.11.0-beta.18?expand=1
 [3.11.0]: https://github.com/bildvitta/asteroid/compare/v3.10.0...v3.11.0?expand=1
+[3.12.0-beta.0]: https://github.com/bildvitta/asteroid/compare/v3.11.0...v3.12.0-beta.0?expand=1
