@@ -332,7 +332,6 @@ function useSelectDialog () {
   })
 
   const dialogDescription = computed(() => props.dialogProps.card?.description)
-  console.log('TCL: useSelectDialog -> dialogDescription', dialogDescription)
 
   function toggleDialog () {
     showDialog.value = !showDialog.value
