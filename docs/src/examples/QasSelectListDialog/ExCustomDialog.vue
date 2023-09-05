@@ -48,14 +48,6 @@ export default {
           onBeforeShow: () => {
             this.selectListModel = []
           }
-        },
-
-        onAdd (value) {
-          console.log('fui adc', value)
-        },
-
-        onRemove (value) {
-          console.log('fui remov', value)
         }
       }
     },

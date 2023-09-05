@@ -25,9 +25,7 @@
       </span>
 
       <q-virtual-scroll #default="{ item, index }" class="app-select-list-dialog__list q-mt-md" :items="selectedOptions" separator>
-        <q-item
-          class="q-px-none text-body1 text-grey-8"
-        >
+        <q-item class="q-px-none text-body1 text-grey-8">
           <q-item-section>
             {{ item.label }}
           </q-item-section>
@@ -52,29 +50,29 @@
     >
       {{ errorMessage }}
     </span>
+
+    <qas-dialog
+      v-bind="defaultDialogProps"
+      v-model="showDialog"
+    >
+      <template v-for="(_, name) in $slots" #[name]="context">
+        <slot :name="`dialog-${name}`" v-bind="context || {}" />
+      </template>
+
+      <template #description>
+        <slot name="dialog-description">
+          <div v-if="dialogDescription" class="q-mb-xl text-center">
+            {{ dialogDescription }}
+          </div>
+
+          <qas-select-list
+            v-model="listModel"
+            v-bind="defaultSelectListProps"
+          />
+        </slot>
+      </template>
+    </qas-dialog>
   </div>
-
-  <qas-dialog
-    v-bind="defaultDialogProps"
-    v-model="showDialog"
-  >
-    <template v-for="(_, name) in $slots" #[name]="context">
-      <slot :name="`dialog-${name}`" v-bind="context || {}" />
-    </template>
-
-    <template #description>
-      <slot name="dialog-description">
-        <div v-if="dialogDescription" class="q-mb-xl text-center">
-          {{ dialogDescription }}
-        </div>
-
-        <qas-select-list
-          v-model="listModel"
-          v-bind="defaultSelectListProps"
-        />
-      </slot>
-    </template>
-  </qas-dialog>
 </template>
 
 <script setup>
@@ -215,12 +213,15 @@ function useList () {
   })
 
   watch(() => props.options, options => {
-    filteredOptions.value = options
+    filteredOptions.value = [...options]
   })
 
   const hasBox = computed(() => hasFilteredOptions.value || props.loading)
   const hasFilteredOptions = computed(() => model.value.length)
 
+  /*
+   * caso não passe o value, o valor sera automaticamente o value da option
+  */
   function add ({ options = [], value }) {
     const normalizedItems = Array.isArray(options) ? options : [options]
 
@@ -243,20 +244,23 @@ function useList () {
 
   function removeAll () {
     model.value = []
+    filteredOptions.value = []
 
     updateModel()
   }
 
   function remove (value) {
     const index = model.value.findIndex(item => item === value)
+    const optionIndex = filteredOptions.value.findIndex(option => option.value === value)
 
     if (~index) model.value.splice(index, 1)
+    if (~optionIndex) filteredOptions.value.splice(optionIndex, 1)
 
     emit('remove', value)
     updateModel()
   }
 
-  function getRemoveButtonProps ({ index, option }) {
+  function getRemoveButtonProps ({ option }) {
     return {
       color: 'grey-9',
       icon: 'sym_r_delete',
