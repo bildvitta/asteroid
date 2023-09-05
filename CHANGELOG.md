@@ -13,6 +13,9 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 ## Não publicado
 ### Adicionado
 - `QasTimeline`: novo componente de timeline.
+- `queryCache`: boot para gerenciar a persistência de filtros.
+- `useQueryCache`: composable para manipular as queries salvas no sessionStorage.
+- `useContext`: composable para pegar os dados da query no formato padrão do asteroid.
 
 ## [3.12.0-beta.0] - 04-09-2023
 ## BREAKING CHANGES
