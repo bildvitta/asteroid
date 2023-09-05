@@ -5,24 +5,46 @@ const { addMany, findAll, clearAll } = useQueryCache()
 
 let isReplacingQuery = false
 
-function getQueriesToExclude (route) {
-  const { excludes = [], includes = [] } = route.meta || {}
+function getDefaultUseCacheValue (route) {
+  return route.meta.useCache ?? true
+}
 
-  return excludes.filter(value => !includes.includes(value))
+function getQueriesFromMatchedRoutes (matched, key) {
+  const items = matched.reduce((acc, route) => {
+    const queries = route.meta[key] || []
+
+    if (queries) {
+      acc.push(...queries)
+    }
+
+    return acc
+  }, [])
+
+  return new Set(items)
+}
+
+function getQueriesToExclude (route) {
+  const routes = route.matched || []
+  const excludes = getQueriesFromMatchedRoutes(routes, 'excludes')
+  const includes = getQueriesFromMatchedRoutes(routes, 'includes')
+
+  includes.forEach(value => excludes.delete(value))
+
+  return excludes
 }
 
 function setRouteCache (route) {
-  if (!route.meta.useCache) return
+  if (!getDefaultUseCacheValue(route)) return
 
   let filteredQuery = {}
-  const { query } = route || {}
 
+  const { query } = route || {}
   const queriesToExclude = getQueriesToExclude(route)
 
   if (queriesToExclude.length) {
-    for (const filter in query) {
-      if (!queriesToExclude.includes(filter)) {
-        filteredQuery[filter] = query[filter]
+    for (const item in query) {
+      if (!queriesToExclude.has(item)) {
+        filteredQuery[item] = query[item]
       }
     }
   } else {
@@ -46,7 +68,8 @@ export default ({ router }) => {
 
     setRouteCache(from)
 
-    const { query, meta: { useCache } } = to
+    const { query } = to
+    const useCache = getDefaultUseCacheValue(to)
     const hasQueries = !!Object.keys(query).length
     const isSameRoute = to.name === from.name
     const useCachedQuery = !isSameRoute && !hasQueries && useCache
