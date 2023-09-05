@@ -42,7 +42,9 @@
     "fawmi",
     "fontfaceobserver",
     "grey",
+    "lazyloading",
     "Nunito",
-    "Resizer"
+    "Resizer",
+    "uuid"
   ]
 }

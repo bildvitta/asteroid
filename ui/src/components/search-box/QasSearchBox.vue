@@ -264,7 +264,7 @@ export default {
     },
 
     setFuse () {
-      const list = [...this.list]
+      const list = this.mx_getOptions(this.list)
 
       this.mx_filteredOptions = list
       this.fuse = new Fuse(list, this.defaultFuseOptions)
