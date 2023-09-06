@@ -61,7 +61,7 @@ props:
     type: Array
 
   use-lazy-loading:
-    desc: O componente precisa saber se o lazyloading esta habilitado para este componente, e caso esteja usando customizado pelos slots do dialog, é necessário informar por esta prop.
+    desc: O componente precisa saber se o lazyloading esta habilitado para este componente, e caso esteja usando customização pelos slots do "dialog-description", é necessário informar por esta prop.
     default: false
     type: Boolean
 

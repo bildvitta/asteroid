@@ -15,7 +15,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - `boot/queryCache`: adicionado query `page` como excludes padrão.
 
 ### Corrigido
-- `QasSelectListDialog`: adicionado propriedade `useLazyLoading` para resolver problema quando usado com slots do dialog.
+- `QasSelectListDialog`: adicionado propriedade `useLazyLoading` para resolver problema quando usado com slot do `dialog-description`.
 
 ## [3.12.0-beta.1] - 05-09-2023
 ### Adicionado
