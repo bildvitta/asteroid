@@ -12,16 +12,16 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 
 ## Não publicado
 ### Adicionado
-- `queryCache`: adicionado query page como excludes padrão.
+- `boot/queryCache`: adicionado query `page` como excludes padrão.
 
-### Removido
-- `docs/develop`: removido a documentação para rodar o asteroid com `ui/dev`.
+### Corrigido
+- `QasSelectListDialog`: adicionado propriedade `useLazyLoading` para resolver problema quando usado com slot do `dialog-description`.
 
 ## [3.12.0-beta.1] - 05-09-2023
 ### Adicionado
 - `QasTimeline`: novo componente de timeline.
 - `QasSelectListDialog`: adicionado novo componente de seleção de lista através de um dialog.
-- `queryCache`: boot para gerenciar a persistência de filtros.
+- `boot/queryCache`: boot para gerenciar a persistência de filtros.
 - `useQueryCache`: composable para manipular as queries salvas no sessionStorage.
 - `useContext`: composable para pegar os dados da query no formato padrão do asteroid.
 

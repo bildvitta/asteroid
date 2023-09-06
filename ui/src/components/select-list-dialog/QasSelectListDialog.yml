@@ -60,6 +60,11 @@ props:
     default: []
     type: Array
 
+  use-lazy-loading:
+    desc: O componente precisa saber se o lazy-loading esta habilitado para este componente, e caso esteja usando customização pelos slots do "dialog-description", é necessário informar por esta prop.
+    default: false
+    type: Boolean
+
 slots:
   dialog-actions:
     desc: Slot para substituir ações do dialog.
