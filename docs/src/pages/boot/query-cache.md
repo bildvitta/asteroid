@@ -13,7 +13,7 @@ O controle é feito pelo meta, sendo configurado nas rotas e podendo ter diferen
 
 Os atributos que podem ser repassados para o meta, são:
 - `useCache: true | false`: responsável por habilitar a persistência de queries.
-- `excludes: string[]`: array de parâmetros que não devem ser persistidos.
+- `excludes: string[]`: array de parâmetros que não devem ser persistidos. `page` é excluido por padrão.
 - `includes: string[]`: array de parâmetros para ignorar parâmetros passados ao `excludes`.
 :::
 
@@ -34,7 +34,7 @@ const routes = [
   {
     path: '/',
     component: () => import('layouts/MainLayout.vue'),
-    meta: { requiresAuth: true, excludes: ['page', 'isActive'] },
+    meta: { requiresAuth: true, excludes: ['isActive'] },
     children: [
       {
         path: '',
@@ -46,7 +46,7 @@ const routes = [
         path: 'customers',
         name: 'CustomersList',
         component: () => import('pages/customers/CustomersList.vue'),
-        meta: { excludes: ['ordering', 'isActive'], includes: ['page'] } // a rota filho tem precedência sobre a rota pai, então "page" será persistido e é necessário repassar os parâmetros que não deseja persistir.
+        meta: { includes: ['isActive'] } // a rota filho tem precedência sobre a rota pai, então "isActive" será persistido.
       },
       {
         path: 'customers/new',

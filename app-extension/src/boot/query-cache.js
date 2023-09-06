@@ -25,7 +25,7 @@ function getQueriesFromMatchedRoutes (matched, key) {
 
 function getQueriesToExclude (route) {
   const routes = route.matched || []
-  const excludes = getQueriesFromMatchedRoutes(routes, 'excludes')
+  const excludes = getQueriesFromMatchedRoutes(routes, 'excludes').add('page')
   const includes = getQueriesFromMatchedRoutes(routes, 'includes')
 
   includes.forEach(value => excludes.delete(value))
