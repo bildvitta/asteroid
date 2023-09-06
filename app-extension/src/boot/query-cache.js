@@ -41,7 +41,7 @@ function setRouteCache (route) {
   const { query } = route || {}
   const queriesToExclude = getQueriesToExclude(route)
 
-  if (queriesToExclude.length) {
+  if (queriesToExclude.size) {
     for (const item in query) {
       if (!queriesToExclude.has(item)) {
         filteredQuery[item] = query[item]
