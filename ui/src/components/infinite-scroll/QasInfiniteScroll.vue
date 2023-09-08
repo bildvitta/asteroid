@@ -24,7 +24,7 @@
 
 <script setup>
 import { ref, computed, defineProps } from 'vue'
-// import axios from 'axios'
+import axios from 'axios'
 import { NotifyError } from '../../plugins'
 
 defineOptions({ name: 'QasInfiniteScroll' })
@@ -118,16 +118,9 @@ async function fetchList () {
   try {
     isFetching.value = true
 
-    await new Promise(resolve => setTimeout(resolve, 2000))
-
-    // const { data } = await axios.get(props.url, {
-    //   params: { offset: props.offset, limit: props.limit, ...props.params }
-    // })
-
-    console.log('caiu no fetch')
-    const { data } = fetchAPI()
-
-    console.log(data, '<--- data')
+    const { data } = await axios.get(props.url, {
+      params: { offset: props.offset, limit: props.limit, ...props.params }
+    })
 
     const newList = [...props.list, ...(data.results || [])]
 
@@ -139,28 +132,12 @@ async function fetchList () {
 
     // Sinalizar que houve já uma busca, para evitar que onLoad entre em looping, após buscar uma vez e retornar uma lista vazia.
     hasMadeFirstFetch.value = true
-  } catch (error) {
-    console.log(error, '<--- error')
+  } catch {
     NotifyError('Ops… Não conseguimos acessar as informações. Por favor, tente novamente em alguns minutos.')
 
     hasFetchingError.value = true
   } finally {
     isFetching.value = false
   }
-}
-
-function fetchAPI () {
-  const response = { count: (props.count + 1000), results: [] }
-
-  for (let i = 0; i < (props.list.length + 12); i++) {
-    response.results.push(
-      {
-        date: '2023-01-11T14:58:40.000000Z',
-        description: 'Cliente enviado para análise cadastral'
-      }
-    )
-  }
-
-  return { data: response }
 }
 </script>
