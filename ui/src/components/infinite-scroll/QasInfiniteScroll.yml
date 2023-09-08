@@ -1,7 +1,7 @@
 type: component
 
 meta:
-  desc: Componente de infinte scroll que implementa o "QInfiniteScroll".
+  desc: Componente de infinite scroll que implementa o "QInfiniteScroll".
 
 props:
   list:

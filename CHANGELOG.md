@@ -14,11 +14,22 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 ### Adicionado
 - `QasInfiniteScroll`: novo componente de infinite scroll.
 
+## [3.12.0-beta.3] - 08-09-2023
+### Corrigido
+- `boot/queryCache`: alterada a validação ao definir cache da query para corrigir erro, que, ao limpar os filtros e alterar de página não limpava o cache.
+
+## [3.12.0-beta.2] - 06-09-2023
+### Adicionado
+- `boot/queryCache`: adicionado query `page` como excludes padrão.
+
+### Corrigido
+- `QasSelectListDialog`: adicionado propriedade `useLazyLoading` para resolver problema quando usado com slot do `dialog-description`.
+
 ## [3.12.0-beta.1] - 05-09-2023
 ### Adicionado
 - `QasTimeline`: novo componente de timeline.
 - `QasSelectListDialog`: adicionado novo componente de seleção de lista através de um dialog.
-- `queryCache`: boot para gerenciar a persistência de filtros.
+- `boot/queryCache`: boot para gerenciar a persistência de filtros.
 - `useQueryCache`: composable para manipular as queries salvas no sessionStorage.
 - `useContext`: composable para pegar os dados da query no formato padrão do asteroid.
 
@@ -1970,3 +1981,5 @@ Adicionado suporte para Pinia/Vuex Seguindo os padrões da biblioteca `@bildvitt
 [3.11.0]: https://github.com/bildvitta/asteroid/compare/v3.10.0...v3.11.0?expand=1
 [3.12.0-beta.0]: https://github.com/bildvitta/asteroid/compare/v3.11.0...v3.12.0-beta.0?expand=1
 [3.12.0-beta.1]: https://github.com/bildvitta/asteroid/compare/v3.12.0-beta.0...v3.12.0-beta.1?expand=1
+[3.12.0-beta.2]: https://github.com/bildvitta/asteroid/compare/v3.12.0-beta.1...v3.12.0-beta.2?expand=1
+[3.12.0-beta.3]: https://github.com/bildvitta/asteroid/compare/v3.12.0-beta.2...v3.12.0-beta.3?expand=1

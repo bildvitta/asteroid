@@ -5,7 +5,7 @@
       v-model:list="historyList"
       v-model:offset="offset"
       max-height="450px"
-      url="cleyton"
+      url="url-example"
     >
       <qas-timeline :list="historyList" />
     </qas-infinite-scroll>
@@ -18,57 +18,57 @@ export default {
 
   data () {
     return {
-      count: 24,
+      count: 0,
       offset: 0,
       historyList: [
-        {
-          date: '2023-01-11T14:58:40.000000Z',
-          description: 'Cliente enviado para análise cadastral'
-        },
-        {
-          date: '2023-01-12T14:58:40.000000Z',
-          description: 'Cliente enviado para análise cadastral'
-        },
-        {
-          date: '2023-01-13T14:58:40.000000Z',
-          description: 'Cliente enviado para análise cadastral'
-        },
-        {
-          date: '2023-01-14T14:58:40.000000Z',
-          description: 'Cliente enviado para análise cadastral'
-        },
-        {
-          date: '2023-01-11T14:58:40.000000Z',
-          description: 'Cliente enviado para análise cadastral'
-        },
-        {
-          date: '2023-01-12T14:58:40.000000Z',
-          description: 'Cliente enviado para análise cadastral'
-        },
-        {
-          date: '2023-01-13T14:58:40.000000Z',
-          description: 'Cliente enviado para análise cadastral'
-        },
-        {
-          date: '2023-01-14T14:58:40.000000Z',
-          description: 'Cliente enviado para análise cadastral'
-        },
-        {
-          date: '2023-01-11T14:58:40.000000Z',
-          description: 'Cliente enviado para análise cadastral'
-        },
-        {
-          date: '2023-01-12T14:58:40.000000Z',
-          description: 'Cliente enviado para análise cadastral'
-        },
-        {
-          date: '2023-01-13T14:58:40.000000Z',
-          description: 'Cliente enviado para análise cadastral'
-        },
-        {
-          date: '2023-01-14T14:58:40.000000Z',
-          description: 'Cliente enviado para análise cadastral'
-        }
+        // {
+        //   date: '2023-01-11T14:58:40.000000Z',
+        //   description: 'Cliente enviado para análise cadastral'
+        // },
+        // {
+        //   date: '2023-01-12T14:58:40.000000Z',
+        //   description: 'Cliente enviado para análise cadastral'
+        // },
+        // {
+        //   date: '2023-01-13T14:58:40.000000Z',
+        //   description: 'Cliente enviado para análise cadastral'
+        // },
+        // {
+        //   date: '2023-01-14T14:58:40.000000Z',
+        //   description: 'Cliente enviado para análise cadastral'
+        // },
+        // {
+        //   date: '2023-01-11T14:58:40.000000Z',
+        //   description: 'Cliente enviado para análise cadastral'
+        // },
+        // {
+        //   date: '2023-01-12T14:58:40.000000Z',
+        //   description: 'Cliente enviado para análise cadastral'
+        // },
+        // {
+        //   date: '2023-01-13T14:58:40.000000Z',
+        //   description: 'Cliente enviado para análise cadastral'
+        // },
+        // {
+        //   date: '2023-01-14T14:58:40.000000Z',
+        //   description: 'Cliente enviado para análise cadastral'
+        // },
+        // {
+        //   date: '2023-01-11T14:58:40.000000Z',
+        //   description: 'Cliente enviado para análise cadastral'
+        // },
+        // {
+        //   date: '2023-01-12T14:58:40.000000Z',
+        //   description: 'Cliente enviado para análise cadastral'
+        // },
+        // {
+        //   date: '2023-01-13T14:58:40.000000Z',
+        //   description: 'Cliente enviado para análise cadastral'
+        // },
+        // {
+        //   date: '2023-01-14T14:58:40.000000Z',
+        //   description: 'Cliente enviado para análise cadastral'
+        // }
       ]
     }
   }

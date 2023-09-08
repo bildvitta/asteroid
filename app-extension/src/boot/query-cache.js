@@ -25,7 +25,7 @@ function getQueriesFromMatchedRoutes (matched, key) {
 
 function getQueriesToExclude (route) {
   const routes = route.matched || []
-  const excludes = getQueriesFromMatchedRoutes(routes, 'excludes')
+  const excludes = getQueriesFromMatchedRoutes(routes, 'excludes').add('page')
   const includes = getQueriesFromMatchedRoutes(routes, 'includes')
 
   includes.forEach(value => excludes.delete(value))
@@ -41,7 +41,7 @@ function setRouteCache (route) {
   const { query } = route || {}
   const queriesToExclude = getQueriesToExclude(route)
 
-  if (queriesToExclude.length) {
+  if (queriesToExclude.size) {
     for (const item in query) {
       if (!queriesToExclude.has(item)) {
         filteredQuery[item] = query[item]
@@ -53,9 +53,12 @@ function setRouteCache (route) {
 
   const hasQueryParams = !!Object.keys(filteredQuery).length
 
-  if (hasQueryParams) {
-    addMany(route.name, filteredQuery)
+  if (!hasQueryParams) {
+    clearAll(route.name)
+    return
   }
+
+  addMany(route.name, filteredQuery)
 }
 
 export default ({ router }) => {

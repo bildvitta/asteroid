@@ -2,7 +2,7 @@
 title: QasInfiniteScroll
 ---
 
-Componente de virtual scroll.
+Componente de infinite scroll baseado no QInfiniteScroll.
 
 <doc-api file="infinite-scroll/QasInfiniteScroll" name="QasInfiniteScroll" />
 

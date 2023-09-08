@@ -132,6 +132,10 @@ const props = defineProps({
   selectListProps: {
     type: Object,
     default: () => ({})
+  },
+
+  useLazyLoading: {
+    type: Boolean
   }
 })
 
@@ -184,7 +188,9 @@ const labelProps = computed(() => {
   }
 })
 
-const hasLazyLoading = computed(() => !!props.selectListProps?.searchBoxProps?.useLazyLoading)
+const hasLazyLoading = computed(() => {
+  return props.useLazyLoading || !!props.selectListProps?.searchBoxProps?.useLazyLoading
+})
 
 watch(() => props.modelValue, newValue => {
   model.value = [...newValue]
@@ -322,6 +328,7 @@ function useSelectDialog () {
       ...props.selectListProps,
 
       searchBoxProps: {
+        useLazyLoading: props.useLazyLoading,
         list: props.options,
         height: '160px',
         optionsToExclude: model.value,
