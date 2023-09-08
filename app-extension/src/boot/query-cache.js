@@ -53,9 +53,12 @@ function setRouteCache (route) {
 
   const hasQueryParams = !!Object.keys(filteredQuery).length
 
-  if (hasQueryParams) {
-    addMany(route.name, filteredQuery)
+  if (!hasQueryParams) {
+    clearAll(route.name)
+    return
   }
+
+  addMany(route.name, filteredQuery)
 }
 
 export default ({ router }) => {
