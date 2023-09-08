@@ -40,13 +40,13 @@ props:
     desc: Parâmetros passados na requisição de busca dos itens.
     default: {}
     type: Object
-    examples: [{ status: 'is_active' }]
+    examples: ["{ status: 'is_active' }"]
 
   infinite-scroll-props:
     desc: Propriedades repassadas para o QInfiniteScroll
     default: {}
     type: Object
-    examples: [{ offset: 500 }]
+    examples: ["{ offset: 500 }"]
 
   max-height:
     desc: Seta a altura do container do infinite scroll, caso queira que o infinite scroll fique em um box por exemplo.
