@@ -5,14 +5,15 @@
   >
     <div class="qas-alert__border-left" :class="borderClass" />
 
-    <div class="qs-lh-lg text-body1 text-white">
+    <div class="text-body1 text-white">
       <slot>
         {{ text }}
       </slot>
     </div>
 
-    <div class="qas-alert__close">
+    <div>
       <qas-btn
+        class="q-ml-xs qas-alert__close"
         color="white"
         icon="sym_r_close"
         :use-hover-on-white-color="false"
@@ -106,11 +107,6 @@ function close () {
 
   &__close {
     top: calc(var(--qas-spacing-sm) * -1);
-
-    // TODO: rever com yan
-    .qas-btn .q-icon {
-      font-size: 1rem !important;
-    }
   }
 }
 </style>
