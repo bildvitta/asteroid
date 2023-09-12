@@ -130,7 +130,7 @@ export default {
     },
 
     disabledRows: {
-      type: [Array, Boolean],
+      type: [Array, Boolean, Function],
       default: false
     },
 
@@ -448,6 +448,8 @@ export default {
 
     isDisabledRow (row) {
       if (!this.disabledRows) return false
+
+      if (typeof this.disabledRows === 'function') return this.disabledRows(row)
 
       if (typeof this.disabledRows === 'boolean') return true
 
