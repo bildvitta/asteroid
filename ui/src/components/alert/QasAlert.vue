@@ -69,6 +69,7 @@ const colorByStatus = computed(() => {
   const status = Object.keys(Status).find(key => Status[key] === props.status)
   return StatusColor[status]
 })
+
 const borderClass = computed(() => `bg-${colorByStatus.value}`)
 
 const storageClosedKey = computed(() => `alert-${props.storageKey}-closed`)
