@@ -1,23 +1,22 @@
 <template>
-  <div
-    v-if="show"
-    class="bg-dark flex justify-between no-wrap q-pa-md qas-alert relative-position"
-  >
-    <div class="qas-alert__border-left" :class="borderClass" />
+  <div v-if="show" class="inline-block">
+    <div class="bg-dark flex justify-between no-wrap q-pa-md qas-alert relative-position">
+      <div class="qas-alert__border-left" :class="borderClass" />
 
-    <div class="text-body1 text-white">
-      <slot>
-        {{ text }}
-      </slot>
+      <div class="text-body1 text-white">
+        <slot>
+          {{ text }}
+        </slot>
+      </div>
+
+      <qas-btn
+        class="q-ml-xs qas-alert__close"
+        color="white"
+        icon="sym_r_close"
+        :use-hover-on-white-color="false"
+        @click="close"
+      />
     </div>
-
-    <qas-btn
-      class="q-ml-xs qas-alert__close"
-      color="white"
-      icon="sym_r_close"
-      :use-hover-on-white-color="false"
-      @click="close"
-    />
   </div>
 </template>
 
