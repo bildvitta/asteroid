@@ -1,87 +1,113 @@
 <template>
-  <div v-if="model" class="bg-white q-pa-lg qas-alert relative-position rounded-borders" :class="classes">
-    <qas-btn class="absolute-top-right q-mr-md q-mt-sm" color="grey-9" icon="sym_r_close" variant="tertiary" @click="close" />
+  <div
+    v-if="show"
+    class="bg-dark flex justify-between no-wrap q-pa-md qas-alert relative-position"
+  >
+    <div class="qas-alert__border-left" :class="borderClass" />
 
-    <div class="q-gutter-md q-mr-lg">
-      <slot name="header">
-        <h5 v-if="title" class="text-bold text-h5" data-test="alert-title">{{ title }}</h5>
-      </slot>
-
+    <div class="text-body1 text-white">
       <slot>
-        <qas-breakline tag="p" :text="text" />
+        {{ text }}
       </slot>
+    </div>
+
+    <div>
+      <qas-btn
+        class="q-ml-xs qas-alert__close"
+        color="white"
+        icon="sym_r_close"
+        :use-hover-on-white-color="false"
+        @click="close"
+      />
     </div>
   </div>
 </template>
 
-<script>
-import QasBreakline from '../breakline/QasBreakline.vue'
-import QasBtn from '../btn/QasBtn.vue'
+<script setup>
+import { LocalStorage } from 'quasar'
+import { Status, StatusColor } from '../../enums/Status'
+import { computed, watch, ref } from 'vue'
 
-export default {
-  name: 'QasAlert',
+defineOptions({ name: 'QasAlert' })
 
-  components: {
-    QasBreakline,
-    QasBtn
+const props = defineProps({
+  modelValue: {
+    type: Boolean,
+    default: true
   },
 
-  props: {
-    modelValue: {
-      default: true,
-      type: Boolean
-    },
-
-    text: {
-      default: '',
-      type: String
-    },
-
-    color: {
-      type: String,
-      default: 'primary'
-    },
-
-    title: {
-      default: '',
-      type: String
-    }
+  text: {
+    type: String,
+    default: ''
   },
 
-  emits: ['update:modelValue'],
-
-  data () {
-    return {
-      model: true
-    }
+  storageKey: {
+    type: String,
+    default: ''
   },
 
-  computed: {
-    classes () {
-      return `text-${this.color}`
-    }
+  status: {
+    type: String,
+    default: Status.Info,
+    validator: value => Object.values(Status).includes(value)
   },
 
-  watch: {
-    modelValue: {
-      handler (value) {
-        this.model = value
-      },
-      immediate: true
-    }
-  },
-
-  methods: {
-    close () {
-      this.$emit('update:modelValue', false)
-    }
+  usePersistentModelOnClose: {
+    type: Boolean
   }
+})
+
+const emit = defineEmits(['update:modelValue'])
+
+const model = ref(props.modelValue)
+
+watch(() => props.modelValue, value => {
+  model.value = value
+})
+
+const colorByStatus = computed(() => {
+  const status = Object.keys(Status).find(key => Status[key] === props.status)
+  return StatusColor[status]
+})
+
+const borderClass = computed(() => `bg-${colorByStatus.value}`)
+
+const storageClosedKey = computed(() => `alert-${props.storageKey}-closed`)
+
+const isClosed = computed(() => {
+  return props.usePersistentModelOnClose && LocalStorage.getItem(storageClosedKey.value)
+})
+
+const show = computed(() => !isClosed.value && model.value)
+
+function close () {
+  if (props.usePersistentModelOnClose) {
+    LocalStorage.set(storageClosedKey.value, true)
+  }
+
+  model.value = false
+
+  emit('update:modelValue', model.value)
 }
+
 </script>
 
 <style lang="scss">
 .qas-alert {
-  border-style: solid;
-  border-width: 0 10px;
+  border-radius: var(--qas-generic-border-radius);
+
+  &__border-left {
+    border-radius: var(--qas-generic-border-radius) 0 0 var(--qas-generic-border-radius);
+    bottom: 0;
+    content: '';
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 4px;
+  }
+
+  &__close {
+    top: calc(var(--qas-spacing-sm) * -1);
+  }
 }
 </style>

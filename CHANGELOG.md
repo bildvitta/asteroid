@@ -11,8 +11,24 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
 ## Não publicado
+## BREAKING CHANGES
+### Removido
+- `QasAlert`: removido propriedades [`color`, `title`].
+- `QasAlert`: removido slot header.
+
 ### Adicionado
 - `QasNestedFields`: Adicionado suporte para função de callback na propriedade `disabled-rows`.
+- `QasAlert`: adicionado novas propriedades [`status`, `storageKey`, `usePersistentModelOnClose`].
+- `enums/Status`: adicionado novos enums para status.
+
+### Modificado
+- `QasAlert`: mudanças de layout e comportamento com componente.
+- `QasAlert`: modificado componente para composition API.
+- `QasAlert`: agora só é preciso passar um v-model caso realmente seja necessário.
+
+### Removido
+- `QasAlert`: removido propriedades [`color`, `title`].
+- `QasAlert`: removido slot header.
 
 ## [3.12.0-beta.4] - 11-09-2023
 ### Corrigido
