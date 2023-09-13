@@ -5,8 +5,10 @@ const { addMany, findAll, clearAll } = useQueryCache()
 
 let isReplacingQuery = false
 
-function getDefaultUseCacheValue (route) {
-  return route.meta.useCache ?? true
+function getDefaultUseCacheValue (route = {}) {
+  const { name, meta } = route
+
+  return meta.useCache ?? name.toLowerCase?.().endsWith?.('list')
 }
 
 function getQueriesFromMatchedRoutes (matched, key) {
