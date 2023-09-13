@@ -1,8 +1,6 @@
 <template>
   <div v-if="show" class="inline-block">
-    <div
-      class="bg-dark flex justify-between no-wrap q-pa-md qas-alert relative-position"
-    >
+    <div class="bg-dark flex justify-between no-wrap q-pa-md qas-alert relative-position">
       <div class="qas-alert__border-left" :class="borderClass" />
 
       <div class="text-body1 text-white">
