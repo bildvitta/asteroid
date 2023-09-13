@@ -11,15 +11,13 @@
       </slot>
     </div>
 
-    <div>
-      <qas-btn
-        class="q-ml-xs qas-alert__close"
-        color="white"
-        icon="sym_r_close"
-        :use-hover-on-white-color="false"
-        @click="close"
-      />
-    </div>
+    <qas-btn
+      class="q-ml-xs qas-alert__close"
+      color="white"
+      icon="sym_r_close"
+      :use-hover-on-white-color="false"
+      @click="close"
+    />
   </div>
 </template>
 
