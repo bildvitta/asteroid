@@ -10,6 +10,10 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 ### Sobre os "BREAKING CHANGES"
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
+## Não publicado
+### Corrigido
+- `boot/query-cache.js`: added optional chaining to route name.
+
 ## [3.12.0-beta.7] - 13-09-2023
 ## BREAKING CHANGE
 - `boot/query-cache.js`: modificado o valor padrão do `useCache`, antes todas rotas por default era `true`, agora, apenas rotas que contém a chave `name` e o name termine com a string `list` ou `List` terão `true` como padrão.
