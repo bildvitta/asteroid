@@ -12,7 +12,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 
 ## Não publicado
 ### Corrigido
-- `boot/query-cache.js`: adicionado optional chaining to route name.
+- `boot/query-cache.js`: added optional chaining to route name.
 
 ## [3.12.0-beta.7] - 13-09-2023
 ## BREAKING CHANGE
