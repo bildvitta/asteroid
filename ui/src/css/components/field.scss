@@ -11,6 +11,7 @@
   &--dense &__native,
   &--dense &__input {
     @include set-typography($body1);
+
     color: $grey-9;
 
     &::placeholder {
@@ -28,12 +29,13 @@
 
   // Bottom styles (ex: helper text, error message)
   &__bottom {
-    font-size: 0.75rem;
+    @include set-typography($caption);
   }
 
   // Counter styles (ex: character counter)
   &__counter {
-    font-size: 0.75rem;
+    @include set-typography($caption);
+
     color: $grey-6;
   }
 

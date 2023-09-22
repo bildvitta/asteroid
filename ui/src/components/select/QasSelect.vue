@@ -1,5 +1,5 @@
 <template>
-  <q-select v-model="model" v-bind="attributes">
+  <q-select v-model="model" class="qas-select" v-bind="attributes">
     <template v-if="isSearchable" #prepend>
       <q-icon name="sym_r_search" />
     </template>
@@ -22,19 +22,19 @@
       </slot>
     </template>
 
-    <template v-if="attributes.useChips" #selected-item="scope">
+    <template v-if="attributes.useChips" #selected-item="{ opt, tabindex, index, removeAtIndex }">
       <q-chip
         class="q-px-sm q-py-xs"
         color="light-blue-2"
         dense
         :disable="attributes.disable"
         icon-remove="sym_r_close"
-        :label="scope.opt.label"
+        :label="opt.label"
         removable
         square
-        :tabindex="scope.tabindex"
+        :tabindex="tabindex"
         text-color="grey-9"
-        @remove="scope.removeAtIndex(scope.index)"
+        @remove="removeAtIndex(index)"
       />
     </template>
 
@@ -140,10 +140,10 @@ export default {
     },
 
     componentClass () {
-      return ['qas-select', {
+      return {
         'qas-select--closed': !this.isPopupContentOpen,
         'qas-select--loading': this.hasLoading
-      }]
+      }
     },
 
     defaultFuseOptions () {

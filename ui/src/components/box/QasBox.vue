@@ -1,5 +1,5 @@
 <template>
-  <div :class="boxClass">
+  <div class="bg-white rounded-borders" :class="classes">
     <slot />
   </div>
 </template>
@@ -8,9 +8,7 @@
 import { computed, inject, provide } from 'vue'
 import { Spacing } from '../../enums/Spacing'
 
-defineOptions({
-  name: 'QasBox'
-})
+defineOptions({ name: 'QasBox' })
 
 const props = defineProps({
   outlined: {
@@ -41,17 +39,14 @@ const props = defineProps({
 
 provide('isBox', true)
 
-const boxClass = computed(() => {
+const classes = computed(() => {
   const isInsideBox = inject('isBox', false)
 
-  return [
-    'bg-white rounded-borders',
-    {
-      [`q-px-${props.paddingHorizontal}`]: props.usePadding,
-      [`q-py-${props.paddingVertical}`]: props.usePadding,
-      'border-grey': props.outlined || isInsideBox,
-      'shadow-2': !props.unelevated && !isInsideBox
-    }
-  ]
+  return {
+    [`q-px-${props.paddingHorizontal}`]: props.usePadding,
+    [`q-py-${props.paddingVertical}`]: props.usePadding,
+    'border-grey': props.outlined || isInsideBox,
+    'shadow-2': !props.unelevated && !isInsideBox
+  }
 })
 </script>

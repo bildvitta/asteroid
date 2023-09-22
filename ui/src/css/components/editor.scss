@@ -3,6 +3,7 @@
 
   &__content {
     @include set-typography($body1);
+
     color: $grey-9;
   }
 
