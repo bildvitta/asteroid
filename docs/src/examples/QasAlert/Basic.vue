@@ -1,21 +1,5 @@
 <template>
   <div class="container q-py-lg">
-    <qas-alert v-model="model" color="negative" text="Aqui vai um pequeno texto para teste" title="Titulo de exemplo" />
-
-    <div>
-      model: {{ model }}
-    </div>
-
-    <qas-btn @click="model = !model">Mudar o model</qas-btn>
+    <qas-alert text="Estamos passando por manutenção entre os dias 02/04 e 03/04. A estabilização do sistema está prevista para 03/04 às 15:00." />
   </div>
 </template>
-
-<script>
-export default {
-  data () {
-    return {
-      model: true
-    }
-  }
-}
-</script>

@@ -115,7 +115,7 @@ export default {
     },
 
     hasCompaniesSelect () {
-      return this.companiesOptions.length > 1
+      return !!this.companiesOptions.length
     }
   },
 

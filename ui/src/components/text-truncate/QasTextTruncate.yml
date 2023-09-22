@@ -4,6 +4,11 @@ meta:
   desc: Trunca um texto baseado no tamanho do elemento pai e adiciona um rotulo "ver mais" que quando clicado mostra um dialog com o texto original completo (sem ser truncado).
 
 props:
+  color:
+    desc: Cor do texto.
+    type: String
+    default: grey-8
+
   dialog-props:
     desc: Repassa todas props e eventos para o componente `QasDialog`.
     type: Object
@@ -18,6 +23,11 @@ props:
     type: Number
     default: 0
 
+  max-visible-item:
+    desc: Quantidade de itens a serem exibidos fora do dialog (uso junto a prop list).
+    type: Number
+    default: 0
+
   see-more-label:
     desc: Texto que vai aparecer para ser clicado quando o texto original for truncado.
     type: String
@@ -26,6 +36,20 @@ props:
   text:
     desc: Texto a ser truncado.
     type: String
+
+  typography:
+    desc: Tipografia.
+    default: body1
+    type: String
+
+  list:
+    desc: Lista de itens a serem exibidos (uso junto a prop list).
+    default: []
+    type: Array
+
+  use-object-list:
+    desc: Utiliza a propriedade "list" como array de objeto contendo label (uso junto a prop list).
+    type: Boolean
 
 slots:
   default:

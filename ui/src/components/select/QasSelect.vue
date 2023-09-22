@@ -205,6 +205,12 @@ export default {
       if (this.hasFuse) this.setFuse()
     },
 
+    mx_isFetching (value) {
+      if (!this.isPopupContentOpen || !this.useLazyLoading) return
+
+      this.togglePopupContentClass(value)
+    },
+
     options: {
       handler () {
         if (this.useLazyLoading && this.mx_hasFilteredOptions) return
@@ -220,7 +226,6 @@ export default {
 
   created () {
     this.setSearchMethod()
-    this.setIsFetchingWatcher()
   },
 
   methods: {
@@ -262,16 +267,6 @@ export default {
 
       if (this.mx_isFetching) {
         this.togglePopupContentClass(true)
-      }
-    },
-
-    setIsFetchingWatcher () {
-      if (this.useLazyLoading) {
-        this.$watch('mx_isFetching', value => {
-          if (!this.isPopupContentOpen) return
-
-          this.togglePopupContentClass(value)
-        })
       }
     },
 

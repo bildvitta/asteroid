@@ -1,0 +1,108 @@
+type: component
+
+meta:
+  desc: Componente de seleção de itens dentro do QasDialog.
+
+props:
+  add-button-props:
+    desc: Props repassadas para o botão de adicionar (QasBtn)
+    default: {}
+    type: Object
+
+  description:
+    desc: Descrição acima da lista de itens selecionados.
+    default: ''
+    type: String
+
+  disable:
+    desc: Desabilita o componente (remoção e adição).
+    default: false
+    type: Boolean
+
+  dialog-props:
+    desc: Propriedades repassadas para o dialog (QasDialog).
+    default: {}
+    type: Object
+
+  error:
+    desc: Mensagem de erro.
+    default: ''
+    type: String
+
+  options:
+    desc: Opções de itens disponíveis para seleção.
+    default: []
+    type: Array
+
+  label:
+    desc: Label do componente.
+    default: ''
+    type: String
+
+  list-label:
+    desc: Label da acima dos itens selecionados.
+    default: ''
+    type: String
+
+  loading:
+    desc: Estado de carregamento do componente.
+    default: false
+    type: Boolean
+
+  model-value:
+    desc: Model do componente.
+    default: []
+    type: Array
+    model: true
+
+  select-list-props:
+    desc: Propriedades repassadas para o componente QasSelectList.
+    default: []
+    type: Array
+
+  use-lazy-loading:
+    desc: O componente precisa saber se o lazy-loading esta habilitado para este componente, e caso esteja usando customização pelos slots do "dialog-description", é necessário informar por esta prop.
+    default: false
+    type: Boolean
+
+slots:
+  dialog-actions:
+    desc: Slot para substituir ações do dialog.
+
+  dialog-description:
+    desc: Slot para substituir a descrição do dialog.
+
+  dialog-header:
+    desc: Slot para substituir cabeçalho do dialog.
+
+events:
+  'add -> function(list)':
+    desc: Dispara toda vez que é adicionado novos itens.
+    params:
+      list:
+        desc: Lista de itens adicionados.
+        type: Array
+
+  'remove -> function(value)':
+    desc: Dispara toda vez que é removido um item.
+    params:
+      value:
+        desc: Valor do item (uuid/id/slug).
+        type: String
+
+  'update:model-value -> function(list)':
+    desc: Dispara toda vez que o model é atualizado.
+    params:
+      list:
+        desc: Lista de itens selecionados.
+        type: Array
+
+methods:
+  'add ({ options = [], value }) => undefined':
+    desc: Adiciona itens a lista de selecionados, é preciso adicionar quais opções são referentes ao model.
+
+  'remove (value) => undefined':
+    desc: remove um item da lista de selecionados passando o valor referente a ele na lista.
+
+  'removeAll () => undefined':
+    desc: remove todos os itens da lista de selecionados.

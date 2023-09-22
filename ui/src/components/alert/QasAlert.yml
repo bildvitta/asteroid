@@ -9,20 +9,26 @@ props:
     default: true
     type: Boolean
 
-  title:
-    desc: Título do componente.
-    type: String
-
   text:
     desc: Texto do componente.
     type: String
 
+  status:
+    desc: Status do alerta.
+    type: String
+    examples: ['error', 'info']
+
+  storage-key:
+    desc: Chave a ser salva no localStorage, necessário caso esteja usando mais de um QasAlert na aplicação e ambos estejam com a prop "use-persist-model-on-close" ativada.
+    type: String
+
+  use-persistent-model-on-close:
+    desc: Habilita salvar o model em localStorage ao fechar o alerta para não aparecer novamente.
+    type: Boolean
+
 slots:
   default:
     desc: 'Slot para acessar o conteúdo gerado pela prop "text"'
-
-  header:
-    desc: 'Slot para acessar o conteúdo gerado pela prop "title"'
 
 events:
   '@update:model-value -> function(value)':
