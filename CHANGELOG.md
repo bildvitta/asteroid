@@ -27,7 +27,6 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - `QasDialog`: adicionado provider `isDialog` com o valor `true` para ser utilizado por componentes filhos para saber se estão dentro de um `QasDialog`.
 - `QasNestedFields`: adicionado provider `isNestedFields` com o valor `true` para ser utilizado por componentes filhos para saber se estão dentro de um `QasNestedFields`.
 - [`checkbox.scss`, `editor.scss`, `field.scss`, `radio.scss`, `toggle.scss`]: adicionado novos estilos de acordo com o Design System.
-- `typography.scss`: adicionado nova tipografia `$label` para ser utilizada nas labels de componentes de input.
 - `QasTreeForm`: adicionado propriedade `use-box` com o valor `false` para não renderizar o formulário dentro de um `QasBox`.
 
 ### Modificado
@@ -40,7 +39,6 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - `QasSelect`: modificado estilos do componente de acordo com o Design System.
 - `QasTableGenerator`: modificado espaçamentos do componente `QasBox`.
 - `QasNestedFields`: modificado espaçamentos do componente.
-- `set-typography.scss`: modificado mixin para permitir o atributo `color`.
 
 ## [3.12.0-beta.8] - 13-09-2023
 ### Corrigido

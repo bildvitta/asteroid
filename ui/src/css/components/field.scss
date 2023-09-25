@@ -2,7 +2,9 @@
   // Input label styles
   &__label,
   &--dense &__label {
-    @include set-typography($label);
+    @include set-typography($body1);
+
+    color: $grey-8;
   }
 
   // Input value styles
@@ -36,7 +38,7 @@
   &__counter {
     @include set-typography($caption);
 
-    color: $grey-6;
+    color: $grey-8;
   }
 
   // Textarea styles

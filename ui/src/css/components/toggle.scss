@@ -1,6 +1,8 @@
 .q-toggle {
   &__label {
-    @include set-typography($label);
+    @include set-typography($body1);
+
+    color: $grey-8;
   }
 
   &.disabled {

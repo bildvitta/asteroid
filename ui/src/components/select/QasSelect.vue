@@ -27,7 +27,7 @@
         class="q-px-sm q-py-xs"
         color="light-blue-2"
         dense
-        :disable="attributes.disable"
+        :disable="isDisabled"
         icon-remove="sym_r_close"
         :label="opt.label"
         removable
@@ -118,7 +118,7 @@ export default {
         clearIcon: 'sym_r_close',
         emitValue: true,
         mapOptions: true,
-        popupContentClass: this.popupContentClass,
+        popupContentClass: `qas-select__menu ${this.popupContentClass}`,
 
         ...this.$attrs,
 
@@ -128,7 +128,7 @@ export default {
         options: this.mx_filteredOptions,
         inputDebounce: this.useLazyLoading ? 1200 : 0,
         useInput: this.isSearchable,
-        useChips: this.$attrs.multiple && this.isPopupContentOpen,
+        useChips: this.isMultiple && this.isPopupContentOpen,
 
         onPopupHide: this.onPopupHide,
         onPopupShow: this.onPopupShow,
@@ -153,6 +153,14 @@ export default {
 
         ...this.fuseOptions
       }
+    },
+
+    isDisabled () {
+      return this.$attrs.disable || this.$attrs.disable === ''
+    },
+
+    isMultiple () {
+      return this.$attrs.multiple || this.$attrs.multiple === ''
     },
 
     isSearchable () {
@@ -306,6 +314,12 @@ export default {
       .q-item {
         color: $grey-6;
       }
+    }
+  }
+
+  &__menu {
+    .q-item {
+      font-weight: 400 !important;
     }
   }
 

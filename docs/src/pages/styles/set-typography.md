@@ -40,7 +40,6 @@ Use este mixin somente quando aplicar as classes de tipografia não funcionarem.
 @use 'sass:map';
 
 @mixin set-typography($name, $important: false) {
-  color: if($important, map.get($name, 'color') !important, map.get($name, 'color'));
   font-size: if($important, map.get($name, 'size') !important, map.get($name, 'size'));
   font-weight: if($important, map.get($name, 'weight') !important, map.get($name, 'weight'));
   letter-spacing: if($important, map.get($name, 'letter-spacing') !important, map.get($name, 'letter-spacing'));
