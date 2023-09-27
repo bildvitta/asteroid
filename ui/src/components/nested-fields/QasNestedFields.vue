@@ -10,7 +10,7 @@
           <div v-if="!row[destroyKey]" :id="`row-${index}`" class="full-width q-mt-md qas-nested-fields__field-item">
             <header v-if="hasHeader" class="flex items-center q-pb-md" :class="headerClasses">
               <qas-label v-if="!useSingleLabel" :label="getRowLabel(index)" margin="none" />
-              <qas-actions-menu v-if="hasBlockActions(row)" v-bind="actionsMenuProps" :list="getActionsList(index, row)" />
+              <qas-actions-menu v-if="hasBlockActions(row)" v-bind="getActionsMenuProps(index, row)" />
             </header>
 
             <div ref="formGenerator" class="col-12 justify-between q-col-gutter-x-md row">
@@ -23,7 +23,7 @@
               </slot>
 
               <div v-if="hasInlineActions(row)" class="flex items-center qas-nested-fields__actions">
-                <qas-actions-menu v-bind="actionsMenuProps" :list="getActionsList(index, row)" />
+                <qas-actions-menu v-bind="getActionsMenuProps(index, row)" />
               </div>
             </div>
 
@@ -86,7 +86,7 @@ export default {
 
   props: {
     actionsMenuProps: {
-      type: Object,
+      type: [Object, Function],
       default: () => ({})
     },
 
@@ -327,7 +327,22 @@ export default {
   },
 
   methods: {
-    getActionsList (index, row) {
+    getActionsMenuProps (index, row) {
+      if (typeof this.actionsMenuProps === 'function') {
+        return this.actionsMenuProps({
+          index,
+          row,
+          list: this.getDefaultActionsMenuList(index, row)
+        })
+      }
+
+      return {
+        ...this.actionsMenuProps,
+        list: this.getActionsMenuList(index, row)
+      }
+    },
+
+    getDefaultActionsMenuList (index, row) {
       const list = {}
 
       if (this.useDuplicate) {
@@ -343,6 +358,12 @@ export default {
           handler: () => this.destroy(index, row)
         }
       }
+
+      return list
+    },
+
+    getActionsMenuList (index, row) {
+      const list = this.getDefaultActionsMenuList(index, row)
 
       for (const key in this.actionsMenuProps.list) {
         const { handler, ...content } = this.actionsMenuProps.list[key] || {}
