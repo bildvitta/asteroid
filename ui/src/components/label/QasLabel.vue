@@ -1,5 +1,5 @@
 <template>
-  <div class="text-h4" :class="classes">
+  <div :class="classes">
     <slot :label-with-suffix="formattedLabel">{{ formattedLabel }}</slot>
   </div>
 </template>
@@ -20,6 +20,16 @@ export default {
     count: {
       default: 0,
       type: [Number, String]
+    },
+
+    heading: {
+      default: 'h4',
+      type: String,
+      validator: value => {
+        const availableHeadings = ['h4', 'h5']
+
+        return availableHeadings.includes(value)
+      }
     },
 
     label: {
@@ -54,7 +64,8 @@ export default {
     classes () {
       return [
         `q-mb-${this.margin}`,
-        `text-${this.color}`
+        `text-${this.color}`,
+        `text-${this.heading}`
       ]
     }
   }

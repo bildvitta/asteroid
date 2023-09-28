@@ -1,7 +1,7 @@
 <template>
   <div :id="fieldName" class="qas-nested-fields">
     <div v-if="useSingleLabel" class="text-left">
-      <qas-label :label="fieldLabel" />
+      <qas-label heading="h5" :label="fieldLabel" />
     </div>
 
     <div ref="inputContent">
@@ -9,7 +9,7 @@
         <template v-for="(row, index) in nested" :key="`row-${index}`">
           <div v-if="!row[destroyKey]" :id="`row-${index}`" class="full-width qas-nested-fields__field-item">
             <header v-if="hasHeader" class="flex items-center q-pb-md" :class="headerClasses">
-              <qas-label v-if="!useSingleLabel" :label="getRowLabel(index)" margin="none" />
+              <qas-label v-if="!useSingleLabel" heading="h5" :label="getRowLabel(index)" margin="none" />
               <qas-actions-menu v-if="hasBlockActions(row)" v-bind="getActionsMenuProps(index, row)" />
             </header>
 

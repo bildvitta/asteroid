@@ -4,10 +4,21 @@ meta:
   desc: Componente para controlar textos que separam conteúdos, formatando com um sufixo quando existe um contador.
 
 props:
+  color:
+    desc: Cor do texto.
+    default: grey-9
+    type: String
+
   count:
     desc: Contador que vai ficar ao lado do texto.
     default: 0
     type: Number
+
+  heading:
+    desc: Controla qual a tipografia do texto.
+    default: h4
+    type: String
+    examples: [h4, h5]
 
   label:
     desc: Texto a ser exibido.
@@ -20,14 +31,9 @@ props:
     examples: [xs, sm, md, lg, xl]
 
   required:
-    desc: Controla label do campo, se for "true" adiciona sufixo "*".
+    desc: Controla se exibirá o sufixo "*" ao lado do texto.
     default: false
     type: Boolean
-
-  color:
-    desc: Cor da label.
-    default: grey-9
-    type: String
 
 slots:
   default:
