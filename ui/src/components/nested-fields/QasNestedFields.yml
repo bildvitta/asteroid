@@ -5,9 +5,9 @@ meta:
 
 props:
   actions-menu-props:
-    desc: Repassa as propriedades para o componente QasActionsMenu.
+    desc: Repassa as propriedades para o componente QasActionsMenu. É possível passar um objeto com as propriedades ou uma função que recebe o 'index', 'row' e 'list' como parâmetro e retorna um objeto com as propriedades.
     default: {}
-    type: Object
+    type: [Object, Function]
 
   add-first-input-label:
     desc: Rótulo do input para adicionar o primeiro campo.
