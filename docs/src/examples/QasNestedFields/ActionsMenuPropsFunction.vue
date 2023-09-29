@@ -20,6 +20,11 @@ const nested = {
   type: 'nested',
   label: 'Meu nested',
   children: {
+    status: {
+      name: 'status',
+      type: 'boolean',
+      label: 'Status'
+    },
     name: {
       name: 'name',
       type: 'text',
@@ -62,6 +67,7 @@ export default {
   computed: {
     rowObject () {
       return {
+        status: false,
         name: '',
         email: '',
         cities: []
@@ -70,6 +76,7 @@ export default {
 
     formColumns () {
       return {
+        status: { col: 2 },
         name: { col: 12 },
         email: { col: 12 },
         cities: { col: 12 }
@@ -80,13 +87,18 @@ export default {
   methods: {
     getActionsMenuProps ({ index, row, list }) {
       return {
+        splitName: row.status ? 'visibility' : '',
+
         list: {
-          ...list,
-          visibility: {
-            icon: 'sym_r_visibility',
-            label: 'Visualizar',
-            handler: () => alert('Clicou em visualizar!')
-          }
+          ...(row.status && {
+            visibility: {
+              icon: 'sym_r_visibility',
+              label: 'Visualizar',
+              handler: () => alert('Clicou em visualizar!')
+            }
+          }),
+
+          ...list
         }
       }
     }
