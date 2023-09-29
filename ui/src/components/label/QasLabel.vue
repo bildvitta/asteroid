@@ -22,16 +22,6 @@ export default {
       type: [Number, String]
     },
 
-    heading: {
-      default: 'h4',
-      type: String,
-      validator: value => {
-        const availableHeadings = ['h4', 'h5']
-
-        return availableHeadings.includes(value)
-      }
-    },
-
     label: {
       default: '',
       type: String
@@ -49,6 +39,16 @@ export default {
 
     required: {
       type: Boolean
+    },
+
+    typography: {
+      default: 'h4',
+      type: String,
+      validator: value => {
+        const availableTypography = ['h4', 'h5']
+
+        return availableTypography.includes(value)
+      }
     }
   },
 
@@ -65,7 +65,7 @@ export default {
       return [
         `q-mb-${this.margin}`,
         `text-${this.color}`,
-        `text-${this.heading}`
+        `text-${this.typography}`
       ]
     }
   }

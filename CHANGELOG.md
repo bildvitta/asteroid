@@ -13,7 +13,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 ## Não publicado
 ### Adicionado
 - `QasNestedFields`: adicionado suporte para função de callback na propriedade `actions-menu-props`.
-- `QasLabel`: adicionado nova propriedade `heading` para controlar a tipografia do texto.
+- `QasLabel`: adicionado nova propriedade `typography` para controlar a tipografia do texto.
 
 ### Modificado
 - `QasNestedFields`: modificado espaçamentos do componente.
