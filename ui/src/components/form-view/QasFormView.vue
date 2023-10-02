@@ -439,7 +439,7 @@ export default {
 
         this.$emit('update:errors', this.mx_errors)
         this.$emit('update:modelValue', modelValue)
-        this.$emit('submit-success', response, modelValue)
+        this.$emit('submit-success', response, this.modelValue)
 
         this.createSubmitSuccessEvent({ ...payload, entity: this.entity })
 
