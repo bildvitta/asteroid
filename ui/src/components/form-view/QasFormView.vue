@@ -374,10 +374,9 @@ export default {
       if (!this.ignoreKeysInUnsavedChanges.length) return
 
       this.ignoreKeysInUnsavedChanges.forEach(key => {
-        if (!firstValue) return
+        if (firstValue) delete firstValue[key]
 
-        delete firstValue[key]
-        delete secondValue[key]
+        if (secondValue) delete secondValue[key]
       })
     },
 
@@ -426,10 +425,7 @@ export default {
           payload
         })
 
-        const modelValue = {
-          ...this.modelValue,
-          ...response.data.result
-        }
+        const modelValue = { ...this.modelValue, ...response.data.result }
 
         if (this.useDialogOnUnsavedChanges) {
           this.cachedResult = extend(true, {}, modelValue)
