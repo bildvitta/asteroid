@@ -213,6 +213,10 @@ export default {
   watch: {
     isSubmitting (value) {
       this.$emit('update:submitting', value)
+    },
+
+    '$route.path' () {
+      this.ignoreRouterGuard = false
     }
   },
 
