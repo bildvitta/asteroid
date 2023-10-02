@@ -426,21 +426,28 @@ export default {
           payload
         })
 
+        const modelValue = {
+          ...this.modelValue,
+          ...response.data.result
+        }
+
         if (this.useDialogOnUnsavedChanges) {
-          this.cachedResult = extend(true, {}, this.modelValue)
+          this.cachedResult = extend(true, {}, modelValue)
         }
 
         this.mx_setErrors()
-        this.$emit('update:errors', this.mx_errors)
 
-        NotifySuccess(response.data.status.text || this.defaultNotifyMessages.success)
-        this.$emit('submit-success', response, this.modelValue)
+        this.$emit('update:errors', this.mx_errors)
+        this.$emit('update:modelValue', modelValue)
+        this.$emit('submit-success', response, modelValue)
 
         this.createSubmitSuccessEvent({ ...payload, entity: this.entity })
 
         this.$qas.logger.group(
           `QasFormView - submit -> resposta da action ${this.entity}/${this.mode}`, [response]
         )
+
+        NotifySuccess(response.data.status.text || this.defaultNotifyMessages.success)
       } catch (error) {
         const errors = error?.response?.data?.errors
         const message = error?.response?.data?.status?.text
