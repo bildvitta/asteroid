@@ -14,6 +14,9 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 ## BREAKING CHANGES
 - Anteriormente, o componente `QasFormView` não atualizava automaticamente o v-model após um evento de "submit" com sucesso, o que levava a alguns  problemas relacionados a não atualização de certos campos retornados da API. Para resolver isso, implementamos uma mudança para garantir que o `v-model` agora seja sempre atualizado com o resultado retornado pela API após um submit. Isso pode exigir testes adicionais para confirmar que o comportamento dos formulários estão alinhados com o esperado.
 
+### Adicionado
+- `QasTabsGenerator`: adicionado nova propriedade `use-route-tab` com o valor `false` por padrão. Essa propriedade serve para controlar se o componente deve utilizar o `q-route-tab` ou `q-tab` do Quasar.
+
 ### Corrigido
 - `QasFormView`: corrigido alguns problemas ao utilizar a propriedade `use-dialog-on-unsaved-changes` com o valor `true`.
 - `QasFormView`: corrigido problema ao alterar valores do formulário, salvar e o `v-model` do formulário ficar desatualizado em relação ao resultado retornado da API. Agora o `v-model` é sempre atualizado com o resultado retornado pela API após um submit.
