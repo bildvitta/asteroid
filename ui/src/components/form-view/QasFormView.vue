@@ -436,8 +436,8 @@ export default {
         }
 
         this.mx_setErrors()
-
         this.$emit('update:errors', this.mx_errors)
+
         this.$emit('update:modelValue', modelValue)
         this.$emit('submit-success', response, this.modelValue)
 
