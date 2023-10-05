@@ -15,7 +15,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - `QasSelectListDialog`: os parâmetros retornados no evento add, retornava o próprio model (array de uuid), agora retorna um array de objeto com label e value somente dos itens que foram adicionados.
 
 ### Modificado
-- `QasSelectListDialog`: modificado os parâmetros retornados no evento `@add`, onde agora retorna um array de objeto com label e value dos itens que foram adicioandos.
+- `QasSelectListDialog`: modificado os parâmetros retornados no evento `@add`, onde agora retorna um array de objeto com label e value dos itens que foram adicionados.
 
 ## [3.12.0-beta.9] - 29-09-2023
 ### Adicionado
