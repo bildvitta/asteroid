@@ -243,7 +243,7 @@ function useList () {
 
     model.value.push(...newModel)
 
-    emit('add', newModel)
+    emit('add', normalizedItems)
 
     updateModel()
   }

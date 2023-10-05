@@ -11,9 +11,15 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
 ## Não publicado
+## BREAKING CHANGES
+- `QasSelectListDialog`: os parâmetros retornados no evento add, retornava o próprio model (array de uuid), agora retorna um array de objeto com label e value somente dos itens que foram adicionados.
+
 ### Adicionado
 - `QasUploader`: adicionado propriedade `useUrlPath` para dar possibilidade de salvar base64 no model ao invés de uma url externa (uso offline).
 - `QasUploader`: adicionado propriedade `uploadCredentialsParams` para repassar parâmetros para o endpoint `upload-credentials`.
+
+### Modificado
+- `QasSelectListDialog`: modificado os parâmetros retornados no evento `@add`, onde agora retorna um array de objeto com label e value dos itens que foram adicionados.
 
 ## [3.12.0-beta.9] - 29-09-2023
 ### Adicionado
@@ -29,7 +35,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - `boot/query-cache.js`: added optional chaining to route name.
 
 ## [3.12.0-beta.7] - 13-09-2023
-## BREAKING CHANGE
+## BREAKING CHANGES
 - `boot/query-cache.js`: modificado o valor padrão do `useCache`, antes todas rotas por default era `true`, agora, apenas rotas que contém a chave `name` e o name termine com a string `list` ou `List` terão `true` como padrão.
 
 ### Modificado
