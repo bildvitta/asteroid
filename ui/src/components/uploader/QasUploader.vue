@@ -154,6 +154,11 @@ export default {
       type: Number
     },
 
+    uploadCredentialsParams: {
+      type: Object,
+      default: () => ({})
+    },
+
     uploading: {
       type: Boolean
     },
@@ -170,6 +175,11 @@ export default {
     useResize: {
       default: true,
       type: Boolean
+    },
+
+    useUrlPath: {
+      type: Boolean,
+      default: true
     }
   },
 
@@ -366,7 +376,8 @@ export default {
       try {
         const { data } = await this.$axios.post('/upload-credentials/', {
           entity: this.entity,
-          filename
+          filename,
+          ...this.uploadCredentialsParams
         })
 
         return data
@@ -377,7 +388,7 @@ export default {
       uploadedFiles = uploadedFiles.map((file, indexToDelete) => {
         return {
           isUploaded: true,
-          url: file.xhr ? file.xhr.responseURL.split('?').shift() : '',
+          url: file.xhr ? this.getURLValue(file.xhr) : '',
           name: file.name,
           indexToDelete,
           isFailed: this.isFailed(file)
@@ -419,6 +430,16 @@ export default {
 
     getFileName (value) {
       return value.split('/').pop()
+    },
+
+    /**
+     * Caso useUrlPath seja true, retorna de responseURL, senão tenta retornar o response
+     * que pode ser um base64, caso não tenha o response, retorna a responseURL.
+    */
+    getURLValue (xhr) {
+      const responseURL = xhr.responseURL.split('?').shift()
+
+      return this.useUrlPath ? responseURL : (xhr.response || responseURL)
     },
 
     getModelValue (index) {
@@ -571,7 +592,7 @@ export default {
     uploaded (response) {
       this.hasError = false
 
-      const fullPath = response.xhr.responseURL.split('?').shift()
+      const fullPath = this.getURLValue(response.xhr)
 
       const objectValue = {
         format: response.files[0].type,

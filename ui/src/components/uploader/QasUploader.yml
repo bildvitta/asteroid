@@ -33,7 +33,7 @@ props:
       'image/webp',
       'image/jpg'
     ]
-  
+
   columns:
     desc: Seta as colunas (grid cols), valor default depende se o componente é múltiplo ou não.
     default:
@@ -118,6 +118,11 @@ props:
     default: 1280
     type: Number
 
+  upload-credentials-params:
+    desc: Parâmetros enviados para a API do `/upload-credentials/`.
+    default: {}
+    type: Object
+
   uploading:
     desc: Model que retorna se o componente está fazendo algum upload.
     type: Boolean
@@ -136,6 +141,11 @@ props:
 
   use-resize:
     desc: Controla se o componente vai fazer o redimensionamento antes de upar as imagens.
+    default: true
+    type: Boolean
+
+  use-url-path:
+    desc: Controla se o componente vai salvar o path url no model ou por exemplo um base64.
     default: true
     type: Boolean
 
