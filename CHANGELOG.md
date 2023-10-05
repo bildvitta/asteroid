@@ -14,6 +14,10 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 ## BREAKING CHANGES
 - `QasSelectListDialog`: os parâmetros retornados no evento add, retornava o próprio model (array de uuid), agora retorna um array de objeto com label e value somente dos itens que foram adicionados.
 
+### Adicionado
+- `QasUploader`: adicionado propriedade `useUrlPath` para dar possibilidade de salvar base64 no model ao invés de uma url externa (uso offline).
+- `QasUploader`: adicionado propriedade `uploadCredentialsParams` para repassar parâmetros para o endpoint `upload-credentials`.
+
 ### Modificado
 - `QasSelectListDialog`: modificado os parâmetros retornados no evento `@add`, onde agora retorna um array de objeto com label e value dos itens que foram adicionados.
 
