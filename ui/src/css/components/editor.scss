@@ -1,0 +1,13 @@
+.q-editor {
+  border-color: $grey-4;
+
+  &__content {
+    @include set-typography($body1);
+
+    color: $grey-9;
+  }
+
+  &.disabled {
+    border-style: solid;
+  }
+}

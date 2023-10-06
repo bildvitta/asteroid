@@ -25,6 +25,9 @@ $border-grey: var(--qas-border-grey);
 // variables
 @import './css/variables/index';
 
+// mixins
+@import './css/mixins/index';
+
 // components
 @import './css/components/index';
 
@@ -33,6 +36,3 @@ $border-grey: var(--qas-border-grey);
 
 // utils
 @import './css/utils/index';
-
-// mixins
-@import './css/mixins/index';

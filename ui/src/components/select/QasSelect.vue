@@ -1,5 +1,5 @@
 <template>
-  <q-select v-model="model" v-bind="attributes">
+  <q-select v-model="model" class="qas-select" v-bind="attributes">
     <template v-if="isSearchable" #prepend>
       <q-icon name="sym_r_search" />
     </template>
@@ -22,6 +22,22 @@
       </slot>
     </template>
 
+    <template v-if="attributes.useChips" #selected-item="{ opt, tabindex, index, removeAtIndex }">
+      <q-chip
+        class="q-px-sm q-py-xs"
+        color="light-blue-2"
+        dense
+        :disable="isDisabled"
+        icon-remove="sym_r_close"
+        :label="opt.label"
+        removable
+        square
+        :tabindex="tabindex"
+        text-color="grey-9"
+        @remove="removeAtIndex(index)"
+      />
+    </template>
+
     <template v-for="(_, name) in $slots" #[name]="context">
       <slot :name="name" v-bind="context || {}" />
     </template>
@@ -39,6 +55,8 @@ export default {
   name: 'QasSelect',
 
   mixins: [searchFilterMixin],
+
+  inheritAttrs: false,
 
   props: {
     fuseOptions: {
@@ -93,29 +111,38 @@ export default {
   computed: {
     attributes () {
       return {
-        class: 'qas-select',
+        class: this.componentClass,
         clearable: this.isSearchable,
+        dense: true,
+        dropdownIcon: 'sym_r_expand_more',
+        clearIcon: 'sym_r_close',
         emitValue: true,
         mapOptions: true,
-        outlined: true,
-        popupContentClass: this.popupContentClass,
+        popupContentClass: `qas-select__menu ${this.popupContentClass}`,
 
         ...this.$attrs,
 
         label: this.formattedLabel,
         error: this.hasError,
-        inputDebounce: this.useLazyLoading ? 1200 : 0,
         loading: this.hasLoading,
         options: this.mx_filteredOptions,
+        inputDebounce: this.useLazyLoading ? 1200 : 0,
         useInput: this.isSearchable,
+        useChips: this.isMultiple && this.isPopupContentOpen,
+
+        onPopupHide: this.onPopupHide,
+        onPopupShow: this.onPopupShow,
 
         ...(this.isSearchable && { onFilter: this.onFilter }),
 
-        ...(this.useLazyLoading && {
-          onPopupHide: this.onPopupHide,
-          onPopupShow: this.onPopupShow,
-          onVirtualScroll: this.mx_onVirtualScroll
-        })
+        ...(this.useLazyLoading && { onVirtualScroll: this.mx_onVirtualScroll })
+      }
+    },
+
+    componentClass () {
+      return {
+        'qas-select--closed': !this.isPopupContentOpen,
+        'qas-select--loading': this.hasLoading
       }
     },
 
@@ -126,6 +153,14 @@ export default {
 
         ...this.fuseOptions
       }
+    },
+
+    isDisabled () {
+      return this.$attrs.disable || this.$attrs.disable === ''
+    },
+
+    isMultiple () {
+      return this.$attrs.multiple || this.$attrs.multiple === ''
     },
 
     isSearchable () {
@@ -280,6 +315,43 @@ export default {
         color: $grey-6;
       }
     }
+  }
+
+  &__menu {
+    .q-item {
+      font-weight: 400 !important;
+    }
+  }
+
+  &--closed {
+    .q-field__native span {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    &:not(.qas-select--loading) {
+      .q-field__native .q-field__input {
+        position: absolute;
+        caret-color: transparent;
+      }
+    }
+  }
+
+  .q-field__prepend,
+  .q-field__append {
+    .q-icon {
+      color: $grey-8;
+    }
+  }
+
+  .q-field__focusable-action {
+    opacity: 1;
+  }
+
+  .q-chip__icon--remove {
+    color: $grey-9;
+    opacity: 1;
   }
 }
 </style>

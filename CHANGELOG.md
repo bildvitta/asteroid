@@ -10,6 +10,36 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 ### Sobre os "BREAKING CHANGES"
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
+## Não publicado
+## BREAKING CHANGES
+- Tecnicamente nenhuma alteração realizada nos campos de formulário é uma breaking change, porém, devido as mudanças de Design System realizadas com a nova estilização dos campos e com a adição do `QasBox` no `QasFormGenerator` poderá haver quebras visuais. É importante após a atualização dessa versão verificar todos os formulários da aplicação e caso haja alguma quebra, verificar com o time de design como proceder.
+
+### Adicionado
+- `QasBox`: adicionado propriedades `paddingHorizontal`, `paddingVertical` e `usePadding` para controlar o espaçamento interno do componente.
+- `QasBox`: adicionado provider `isBox` com o valor `true` para ser utilizado por componentes filhos para saber se estão dentro de um `QasBox`.
+- `QasInput`: adicionado propriedade `dense` com o valor default `true`.
+- `QasInput`: adicionado suporte ao atributo `counter` do `QInput`. Por padrão, campos do tipo `textarea` e com `maxlength` maior que `0` irão exibir o contador de caracteres.
+- `QasInput`: adicionado atributo `autogrow` do `QInput` para campos do tipo `textarea`.
+- [`QasField`, `QasInput`, `QasNumericInput`, `QasDateTimeInput`]: adicionado atributo `placeholder` com o valor default definido pelo tipo do campo.
+- `QasFormGenerator`: adicionado propriedade `useBox` para controlar se os fieldsets do formulário serão renderizados dentro de um `QasBox`.
+- `QasSelect`: adicionado por padrão o atributo `useChips` com o valor `true` para select múltiplos.
+- `QasSelect`: adicionado por padrão o atributo `dense` com o valor `true`.
+- `QasDialog`: adicionado provider `isDialog` com o valor `true` para ser utilizado por componentes filhos para saber se estão dentro de um `QasDialog`.
+- `QasNestedFields`: adicionado provider `isNestedFields` com o valor `true` para ser utilizado por componentes filhos para saber se estão dentro de um `QasNestedFields`.
+- [`checkbox.scss`, `editor.scss`, `field.scss`, `radio.scss`, `toggle.scss`]: adicionado novos estilos de acordo com o Design System.
+- `QasTreeForm`: adicionado propriedade `use-box` com o valor `false` para não renderizar o formulário dentro de um `QasBox`.
+
+### Modificado
+- `QasBox`: modificado para composition API.
+- `QasBox`: modificado estilo de um `QasBox` dentro de outro `QasBox`, o box interno se comportará como um `QasBox` do tipo `outlined`.
+- `QasInput`: modificado valor da propriedade `outlined` para `false` por padrão.
+- [`QasCheckboxGroup`, `QasOptionGroup`]: modificado espaçamentos entre opções.
+- `QasListItems`: modificado espaçamentos entre os itens e do box.
+- `QasSelect`: modificado `dropdownIcon` e `clearIcon` para utilizar ícones do Material Symbols Rounded.
+- `QasSelect`: modificado estilos do componente de acordo com o Design System.
+- `QasTableGenerator`: modificado espaçamentos do componente `QasBox`.
+- `QasNestedFields`: modificado espaçamentos do componente.
+
 ## [3.12.0-beta.10] - 05-10-2023
 ## BREAKING CHANGES
 - `QasSelectListDialog`: os parâmetros retornados no evento add, retornava o próprio model (array de uuid), agora retorna um array de objeto com label e value somente dos itens que foram adicionados.

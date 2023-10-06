@@ -1,11 +1,11 @@
 <template>
   <div :class="classes">
     <div v-for="(option, index) in options" :key="index">
-      <q-checkbox v-if="hasChildren(option)" :class="getCheckboxClass(option)" :label="option.label" :model-value="getModelValue(index)" @update:model-value="updateCheckbox($event, option, index)" />
+      <q-checkbox v-if="hasChildren(option)" :class="getCheckboxClass(option)" dense :label="option.label" :model-value="getModelValue(index)" @update:model-value="updateCheckbox($event, option, index)" />
 
-      <q-option-group v-if="hasChildren(option)" class="q-ml-sm" :inline="inline" :model-value="modelValue" :options="option.children" type="checkbox" @update:model-value="updateChildren($event, option, index)" />
+      <q-option-group v-if="hasChildren(option)" class="q-ml-sm" :class="classes" dense :inline="inline" :model-value="modelValue" :options="option.children" type="checkbox" @update:model-value="updateChildren($event, option, index)" />
 
-      <q-option-group v-else v-model="model" v-bind="$attrs" :options="[option]" type="checkbox" />
+      <q-option-group v-else v-model="model" dense v-bind="$attrs" :options="[option]" type="checkbox" />
     </div>
   </div>
 </template>
@@ -51,7 +51,12 @@ export default {
     },
 
     classes () {
-      return this.inline && 'flex q-gutter-x-sm'
+      return [
+        'q-gutter-y-sm',
+        {
+          'flex q-gutter-x-md': this.inline
+        }
+      ]
     }
   },
 
@@ -103,7 +108,7 @@ export default {
     },
 
     getCheckboxClass (option) {
-      return this.hasChildren(option) && 'text-weight-bold'
+      return this.hasChildren(option) && 'text-weight-bold q-mb-sm'
     },
 
     getModelValue (index) {

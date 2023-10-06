@@ -48,6 +48,10 @@ export default {
     QasActions
   },
 
+  provide: {
+    isDialog: true
+  },
+
   props: {
     actionsProps: {
       default: () => ({}),

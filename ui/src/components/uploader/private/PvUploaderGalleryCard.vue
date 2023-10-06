@@ -128,6 +128,7 @@ export default {
         modelValue: this.currentModelValue,
         disable: this.hasError,
         columns: this.getDefaultColumns(this.formFields),
+        useBox: false,
 
         'onUpdate:modelValue': this.updateModel,
 

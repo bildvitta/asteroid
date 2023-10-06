@@ -71,8 +71,10 @@ export default {
 
 <style lang="scss">
 .qas-list-items {
+  padding: var(--qas-spacing-xs) var(--qas-spacing-md);
+
   .q-list > .q-item {
-    padding: 24px 16px;
+    padding: 0;
   }
 }
 </style>

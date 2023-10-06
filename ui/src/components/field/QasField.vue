@@ -72,9 +72,10 @@ export default {
         readonly,
         required,
         disable,
-        filled = readonly,
+        filled,
         suffix,
         prefix,
+        placeholder,
         places,
         type,
         mask,
@@ -94,7 +95,6 @@ export default {
       const input = {
         label,
         hideBottomSpace: !error.error,
-        outlined: true,
         ...error,
         readonly,
         required,
@@ -104,6 +104,7 @@ export default {
         minlength,
         suffix,
         prefix,
+        placeholder,
         useIso
       }
 

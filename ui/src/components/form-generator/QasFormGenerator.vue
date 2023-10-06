@@ -1,26 +1,28 @@
 <template>
   <div :class="fieldsetClasses">
     <div v-for="(fieldsetItem, fieldsetItemKey) in normalizedFields" :key="fieldsetItemKey" class="full-width">
-      <slot v-if="fieldsetItem.label" :name="`legend-${fieldsetItemKey}`">
-        <qas-label :label="fieldsetItem.label" />
-        <div v-if="fieldsetItem.description" class="q-mb-md text-body1 text-grey-8">{{ fieldsetItem.description }}</div>
-      </slot>
+      <component :is="formContainerComponent">
+        <slot v-if="fieldsetItem.label" :name="`legend-${fieldsetItemKey}`">
+          <qas-label :label="fieldsetItem.label" />
+          <div v-if="fieldsetItem.description" class="q-mb-md text-body1 text-grey-8">{{ fieldsetItem.description }}</div>
+        </slot>
 
-      <div>
-        <div :class="classes">
-          <div v-for="(field, key) in fieldsetItem.fields.visible" :key="key" :class="getFieldClass({ index: key, fields: normalizedFields })">
+        <div>
+          <div :class="classes">
+            <div v-for="(field, key) in fieldsetItem.fields.visible" :key="key" :class="getFieldClass({ index: key, fields: normalizedFields })">
+              <slot :field="field" :name="`field-${field.name}`">
+                <qas-field :disable="isFieldDisabled(field)" v-bind="fieldsProps[field.name]" :error="errors[key]" :field="field" :model-value="modelValue[field.name]" @update:model-value="updateModelValue({ key: field.name, value: $event })" />
+              </slot>
+            </div>
+          </div>
+
+          <div v-for="(field, key) in fieldsetItem.fields.hidden" :key="key">
             <slot :field="field" :name="`field-${field.name}`">
-              <qas-field :disable="isFieldDisabled(field)" v-bind="fieldsProps[field.name]" :error="errors[key]" :field="field" :model-value="modelValue[field.name]" @update:model-value="updateModelValue({ key: field.name, value: $event })" />
+              <qas-field :disable="isFieldDisabled(field)" v-bind="fieldsProps[field.name]" :field="field" :model-value="modelValue[field.name]" @update:model-value="updateModelValue({ key: field.name, value: $event })" />
             </slot>
           </div>
         </div>
-
-        <div v-for="(field, key) in fieldsetItem.fields.hidden" :key="key">
-          <slot :field="field" :name="`field-${field.name}`">
-            <qas-field :disable="isFieldDisabled(field)" v-bind="fieldsProps[field.name]" :field="field" :model-value="modelValue[field.name]" @update:model-value="updateModelValue({ key: field.name, value: $event })" />
-          </slot>
-        </div>
-      </div>
+      </component>
     </div>
   </div>
 </template>
@@ -28,7 +30,7 @@
 <script setup>
 import useGenerator, { baseProps, gutterValidator } from '../../composables/private/use-generator'
 import { Spacing } from '../../enums/Spacing'
-import { computed } from 'vue'
+import { computed, inject } from 'vue'
 
 defineOptions({ name: 'QasFormGenerator' })
 
@@ -69,6 +71,11 @@ const props = defineProps({
   order: {
     default: () => [],
     type: Array
+  },
+
+  useBox: {
+    default: true,
+    type: Boolean
   }
 })
 
@@ -142,6 +149,14 @@ const normalizedFields = computed(() => {
   }
 
   return fields
+})
+
+const formContainerComponent = computed(() => {
+  const isInsideNestedField = inject('isNestedFields', false)
+  const isInsideDialog = inject('isDialog', false)
+  const useDiv = !props.useBox || isInsideNestedField || isInsideDialog
+
+  return useDiv ? 'div' : 'qas-box'
 })
 
 // methods

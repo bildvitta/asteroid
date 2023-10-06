@@ -63,6 +63,11 @@ props:
     default: []
     type: Array
 
+  use-box:
+    desc: Adiciona o componente `QasBox` em volta dos fieldsets. (Não aplicado em formulários contidos nos componentes `QasDialog` e `QasNestedFields`)
+    default: true
+    type: Boolean
+
 slots:
   'field-[nome-da-chave]':
     desc: Acessa o slot de um campo especifico.

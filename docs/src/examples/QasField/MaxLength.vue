@@ -19,9 +19,10 @@ export default {
   computed: {
     field () {
       return {
-        name: 'textarea',
+        name: 'maxlength',
         type: 'textarea',
-        label: 'Campo de textarea'
+        label: 'Maxlength',
+        maxlength: 256
       }
     }
   }

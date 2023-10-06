@@ -387,6 +387,10 @@ module.exports = [
         path: '/helpers/get-normalized-options'
       },
       {
+        name: 'getPlaceholder',
+        path: '/helpers/get-placeholder'
+      },
+      {
         name: 'getRequiredLabel',
         path: '/helpers/get-required-label'
       },

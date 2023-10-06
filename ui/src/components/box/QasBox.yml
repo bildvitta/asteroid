@@ -11,3 +11,20 @@ props:
   unelevated:
     desc: Remove a sombra do componente.
     type: Boolean
+
+  padding-horizontal:
+    desc: Define o espaçamento interno horizontal do componente.
+    default: md
+    type: String
+    examples: [none, xs, sm, md, lg, xl, 2xl, 3xl]
+
+  padding-vertical:
+    desc: Define o espaçamento interno vertical do componente.
+    default: md
+    type: String
+    examples: [none, xs, sm, md, lg, xl, 2xl, 3xl]
+
+  use-padding:
+    desc: Define se o componente deve usar espaçamento interno.
+    default: true
+    type: Boolean

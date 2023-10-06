@@ -174,6 +174,11 @@ export default {
 
   &__component {
     position: relative;
+
+    pre {
+      white-space: normal;
+      word-wrap: break-word;
+    }
   }
 }
 </style>

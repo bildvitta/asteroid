@@ -1,14 +1,14 @@
 <template>
-  <q-field :label="formattedLabel" :model-value="modelValue" outlined>
+  <q-field dense :label="formattedLabel" :model-value="modelValue">
     <template #control="{ floatingLabel, id }">
-      <input v-show="floatingLabel" :id="id" ref="input" class="q-field__input" inputmode="numeric" @blur="emitValue" @click="setSelect" @input="emitUpdateModel($event.target.value)">
+      <input v-show="floatingLabel" :id="id" ref="input" class="q-field__input" inputmode="numeric" :placeholder="placeholder" @blur="emitValue" @click="setSelect" @input="emitUpdateModel($event.target.value)">
     </template>
   </q-field>
 </template>
 
 <script>
 import AutoNumeric from 'autonumeric'
-import { getRequiredLabel } from '../../helpers'
+import { getPlaceholder, getRequiredLabel } from '../../helpers'
 
 const defaultModes = {
   decimal: 'commaDecimalCharDotSeparator',
@@ -92,6 +92,12 @@ export default {
 
     formattedLabel () {
       return getRequiredLabel({ label: this.label, required: this.required })
+    },
+
+    placeholder () {
+      const { placeholder } = this.$attrs
+
+      return placeholder || getPlaceholder(this.mode)
     }
   },
 

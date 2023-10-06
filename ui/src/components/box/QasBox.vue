@@ -1,30 +1,52 @@
 <template>
-  <div class="bg-white q-pa-md rounded-borders" :class="boxClass">
+  <div class="bg-white rounded-borders" :class="classes">
     <slot />
   </div>
 </template>
 
-<script>
-export default {
-  name: 'QasBox',
+<script setup>
+import { computed, inject, provide } from 'vue'
+import { Spacing } from '../../enums/Spacing'
 
-  props: {
-    outlined: {
-      type: Boolean
-    },
+defineOptions({ name: 'QasBox' })
 
-    unelevated: {
-      type: Boolean
-    }
+const props = defineProps({
+  outlined: {
+    type: Boolean
   },
 
-  computed: {
-    boxClass () {
-      return {
-        'border-grey': this.outlined,
-        'shadow-2': !this.unelevated
-      }
-    }
+  paddingHorizontal: {
+    default: Spacing.Md,
+    type: String,
+    validator: value => Object.values(Spacing).includes(value)
+  },
+
+  paddingVertical: {
+    default: Spacing.Md,
+    type: String,
+    validator: value => Object.values(Spacing).includes(value)
+  },
+
+  unelevated: {
+    type: Boolean
+  },
+
+  usePadding: {
+    default: true,
+    type: Boolean
   }
-}
+})
+
+provide('isBox', true)
+
+const classes = computed(() => {
+  const isInsideBox = inject('isBox', false)
+
+  return {
+    [`q-px-${props.paddingHorizontal}`]: props.usePadding,
+    [`q-py-${props.paddingVertical}`]: props.usePadding,
+    'border-grey': props.outlined || isInsideBox,
+    'shadow-2': !props.unelevated && !isInsideBox
+  }
+})
 </script>
