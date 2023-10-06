@@ -1,5 +1,5 @@
 <template>
-  <div class="text-h4" :class="classes">
+  <div :class="classes">
     <slot :label-with-suffix="formattedLabel">{{ formattedLabel }}</slot>
   </div>
 </template>
@@ -39,6 +39,16 @@ export default {
 
     required: {
       type: Boolean
+    },
+
+    typography: {
+      default: 'h4',
+      type: String,
+      validator: value => {
+        const availableTypography = ['h4', 'h5']
+
+        return availableTypography.includes(value)
+      }
     }
   },
 
@@ -54,7 +64,8 @@ export default {
     classes () {
       return [
         `q-mb-${this.margin}`,
-        `text-${this.color}`
+        `text-${this.color}`,
+        `text-${this.typography}`
       ]
     }
   }

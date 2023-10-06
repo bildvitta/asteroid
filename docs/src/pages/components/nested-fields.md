@@ -71,6 +71,8 @@ A propriedade `useDestroyAlways` caso não seja repassada ao componente, assume 
 <doc-example file="QasNestedFields/StartsEmptyFalse" title="Começando com formulário" />
 <doc-example file="QasNestedFields/DisabledRowsArray" title="Linhas desabilitadas com um array de uuids" />
 <doc-example file="QasNestedFields/DisabledRowsFunction" title="Linhas desabilitadas com uma função de callback" />
+<doc-example file="QasNestedFields/ActionsMenuPropsObject" title="Propriedades do QasActionsMenu com objeto" />
+<doc-example file="QasNestedFields/ActionsMenuPropsFunction" title="Propriedades do QasActionsMenu com função de callback" />
 <doc-example file="QasNestedFields/InlineActions" title="Propriedade useInlineActions" />
 <doc-example file="QasNestedFields/SlotDynamic" title="Slot field-[nome-da-chave]" />
 <doc-example file="QasNestedFields/SlotFields" title="Slot fields" />
