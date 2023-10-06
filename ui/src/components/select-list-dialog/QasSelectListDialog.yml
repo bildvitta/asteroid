@@ -76,21 +76,21 @@ slots:
     desc: Slot para substituir cabeçalho do dialog.
 
 events:
-  'add -> function(list)':
+  '@add -> function(items)':
     desc: Dispara toda vez que é adicionado novos itens.
     params:
-      list:
+      items:
         desc: Lista de itens adicionados.
         type: Array
 
-  'remove -> function(value)':
+  '@remove -> function(value)':
     desc: Dispara toda vez que é removido um item.
     params:
       value:
         desc: Valor do item (uuid/id/slug).
         type: String
 
-  'update:model-value -> function(list)':
+  '@update:model-value -> function(list)':
     desc: Dispara toda vez que o model é atualizado.
     params:
       list:

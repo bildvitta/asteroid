@@ -21,6 +21,17 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - `QasFormView`: corrigido alguns problemas ao utilizar a propriedade `use-dialog-on-unsaved-changes` com o valor `true`.
 - `QasFormView`: corrigido problema ao alterar valores do formulário, salvar e o `v-model` do formulário ficar desatualizado em relação ao resultado retornado da API. Agora o `v-model` é sempre atualizado com o resultado retornado pela API após um submit.
 
+## [3.12.0-beta.10] - 05-10-2023
+## BREAKING CHANGES
+- `QasSelectListDialog`: os parâmetros retornados no evento add, retornava o próprio model (array de uuid), agora retorna um array de objeto com label e value somente dos itens que foram adicionados.
+
+### Adicionado
+- `QasUploader`: adicionado propriedade `useUrlPath` para dar possibilidade de salvar base64 no model ao invés de uma url externa (uso offline).
+- `QasUploader`: adicionado propriedade `uploadCredentialsParams` para repassar parâmetros para o endpoint `upload-credentials`.
+
+### Modificado
+- `QasSelectListDialog`: modificado os parâmetros retornados no evento `@add`, onde agora retorna um array de objeto com label e value dos itens que foram adicionados.
+
 ## [3.12.0-beta.9] - 29-09-2023
 ### Adicionado
 - `QasNestedFields`: adicionado suporte para função de callback na propriedade `actions-menu-props`.
@@ -35,7 +46,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - `boot/query-cache.js`: added optional chaining to route name.
 
 ## [3.12.0-beta.7] - 13-09-2023
-## BREAKING CHANGE
+## BREAKING CHANGES
 - `boot/query-cache.js`: modificado o valor padrão do `useCache`, antes todas rotas por default era `true`, agora, apenas rotas que contém a chave `name` e o name termine com a string `list` ou `List` terão `true` como padrão.
 
 ### Modificado
@@ -2044,3 +2055,4 @@ Adicionado suporte para Pinia/Vuex Seguindo os padrões da biblioteca `@bildvitt
 [3.12.0-beta.7]: https://github.com/bildvitta/asteroid/compare/v3.12.0-beta.6...v3.12.0-beta.7?expand=1
 [3.12.0-beta.8]: https://github.com/bildvitta/asteroid/compare/v3.12.0-beta.7...v3.12.0-beta.8?expand=1
 [3.12.0-beta.9]: https://github.com/bildvitta/asteroid/compare/v3.12.0-beta.8...v3.12.0-beta.9?expand=1
+[3.12.0-beta.10]: https://github.com/bildvitta/asteroid/compare/v3.12.0-beta.9...v3.12.0-beta.10?expand=1
