@@ -35,9 +35,11 @@
     "QasChartView",
     "QasDelete",
     "QasSelectList",
-    "QasSortable"
+    "QasSortable",
+    "QasSelectListDialog"
   ],
   "cSpell.words": [
+    "breakline",
     "Breakline",
     "fawmi",
     "fontfaceobserver",

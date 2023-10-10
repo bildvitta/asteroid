@@ -1,16 +1,16 @@
 <template>
   <div :id="fieldName" class="qas-nested-fields">
     <div v-if="useSingleLabel" class="text-left">
-      <qas-label :label="fieldLabel" margin="lg" />
+      <qas-label :label="fieldLabel" typography="h5" />
     </div>
 
     <div ref="inputContent">
       <component :is="componentTag" v-bind="componentProps">
         <template v-for="(row, index) in nested" :key="`row-${index}`">
-          <div v-if="!row[destroyKey]" :id="`row-${index}`" class="full-width q-mt-md qas-nested-fields__field-item">
+          <div v-if="!row[destroyKey]" :id="`row-${index}`" class="full-width qas-nested-fields__field-item">
             <header v-if="hasHeader" class="flex items-center q-pb-md" :class="headerClasses">
-              <qas-label v-if="!useSingleLabel" :label="getRowLabel(index)" margin="none" />
-              <qas-actions-menu v-if="hasBlockActions(row)" v-bind="actionsMenuProps" :list="getActionsList(index, row)" />
+              <qas-label v-if="!useSingleLabel" :label="getRowLabel(index)" margin="none" typography="h5" />
+              <qas-actions-menu v-if="hasBlockActions(row)" v-bind="getActionsMenuProps(index, row)" />
             </header>
 
             <div ref="formGenerator" class="col-12 justify-between q-col-gutter-x-md row">
@@ -23,7 +23,7 @@
               </slot>
 
               <div v-if="hasInlineActions(row)" class="flex items-center qas-nested-fields__actions">
-                <qas-actions-menu v-bind="actionsMenuProps" :list="getActionsList(index, row)" />
+                <qas-actions-menu v-bind="getActionsMenuProps(index, row)" />
               </div>
             </div>
 
@@ -34,7 +34,7 @@
         </template>
       </component>
 
-      <div v-if="useAdd" class="q-mt-md">
+      <div v-if="useAdd">
         <slot :add="add" name="add-input">
           <div v-if="showAddFirstInputButton" class="text-left">
             <qas-btn class="q-px-sm" color="primary" variant="tertiary" @click="add()">{{ addFirstInputLabel }}</qas-btn>
@@ -86,7 +86,7 @@ export default {
 
   props: {
     actionsMenuProps: {
-      type: Object,
+      type: [Object, Function],
       default: () => ({})
     },
 
@@ -130,7 +130,7 @@ export default {
     },
 
     disabledRows: {
-      type: [Array, Boolean],
+      type: [Array, Boolean, Function],
       default: false
     },
 
@@ -327,7 +327,22 @@ export default {
   },
 
   methods: {
-    getActionsList (index, row) {
+    getActionsMenuProps (index, row) {
+      if (typeof this.actionsMenuProps === 'function') {
+        return this.actionsMenuProps({
+          index,
+          row,
+          list: this.getDefaultActionsMenuList(index, row)
+        })
+      }
+
+      return {
+        ...this.actionsMenuProps,
+        list: this.getActionsMenuList(index, row)
+      }
+    },
+
+    getDefaultActionsMenuList (index, row) {
       const list = {}
 
       if (this.useDuplicate) {
@@ -343,6 +358,12 @@ export default {
           handler: () => this.destroy(index, row)
         }
       }
+
+      return list
+    },
+
+    getActionsMenuList (index, row) {
+      const list = this.getDefaultActionsMenuList(index, row)
 
       for (const key in this.actionsMenuProps.list) {
         const { handler, ...content } = this.actionsMenuProps.list[key] || {}
@@ -449,6 +470,8 @@ export default {
     isDisabledRow (row) {
       if (!this.disabledRows) return false
 
+      if (typeof this.disabledRows === 'function') return this.disabledRows(row)
+
       if (typeof this.disabledRows === 'boolean') return true
 
       return this.disabledRows.includes(row[this.identifierItemKey])
@@ -469,6 +492,10 @@ export default {
 .qas-nested-fields {
   &__actions {
     height: 56px;
+  }
+
+  &__field-item {
+    margin-bottom: var(--qas-spacing-md);
   }
 
   &__field-item + &__field-item {
