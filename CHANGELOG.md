@@ -10,6 +10,141 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 ### Sobre os "BREAKING CHANGES"
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
+## Não publicado
+## BREAKING CHANGES
+- `QasTextTruncate`: quebra visual por conta das alterações de estilos na fonte do texto, olhar todos lugares que utilizam o componente e caso necessário adaptar com as propriedades color e typography.
+- `QasAlert`: removido propriedades [`color`, `title`].
+- `QasAlert`: removido slot header.
+- `boot/query-cache.js`: modificado o valor padrão do `useCache`, antes todas rotas por default era `true`, agora, apenas rotas que contém a chave `name` e o name termine com a string `list` ou `List` terão `true` como padrão.
+- `QasSelectListDialog`: os parâmetros retornados no evento add, retornava o próprio model (array de uuid), agora retorna um array de objeto com label e value somente dos itens que foram adicionados.
+
+### Adicionado
+- `QasTextTruncate`: adicionado propriedades `color` e `typography` para controlar estilo da fonte.
+- `QasTextTruncate` adicionado propriedades, `maxVisibleItem`, `list` e `useObjectList` para recurso de contador.
+- `QasTimeline`: novo componente de timeline.
+- `QasSelectListDialog`: adicionado novo componente de seleção de lista através de um dialog.
+- `boot/queryCache`: boot para gerenciar a persistência de filtros.
+- `useQueryCache`: composable para manipular as queries salvas no sessionStorage.
+- `useContext`: composable para pegar os dados da query no formato padrão do asteroid.
+- `boot/queryCache`: adicionado query `page` como excludes padrão.
+- `QasNestedFields`: Adicionado suporte para função de callback na propriedade `disabled-rows`.
+- `QasAlert`: adicionado novas propriedades [`status`, `storageKey`, `usePersistentModelOnClose`].
+- `enums/Status`: adicionado novos enums para status.
+- `QasNestedFields`: adicionado suporte para função de callback na propriedade `actions-menu-props`.
+- `QasLabel`: adicionado nova propriedade `typography` para controlar a tipografia do texto.
+- `QasUploader`: adicionado propriedade `useUrlPath` para dar possibilidade de salvar base64 no model ao invés de uma url externa (uso offline).
+- `QasUploader`: adicionado propriedade `uploadCredentialsParams` para repassar parâmetros para o endpoint `upload-credentials`.
+
+### Corrigido
+- `QasSelectListDialog`: adicionado propriedade `useLazyLoading` para resolver problema quando usado com slot do `dialog-description`.
+- `QasSelect`: corrigido watcher que não removia classe e mantinham opções desabilitadas quando deveriam estar habilitadas.
+
+### Modificado
+- `QasAppUser`: modificado validação, agora se tiver pelo menos 1 opção, o select de vinculo é exibido.
+- `QasTextTruncate`: modificado cor e tipografia do texto.
+- `QasAlert`: mudanças de layout e comportamento com componente.
+- `QasAlert`: modificado componente para composition API.
+- `QasAlert`: agora só é preciso passar um v-model caso realmente seja necessário.
+- `QasAlert`: adicionado classe `inline-block` para o elemento pegar somente o tamanho necessário e não 100% sempre.
+- `boot/query-cache.js`: modificado o valor padrão do `useCache`, antes todas rotas por default era `true`, agora, apenas rotas que contém a chave `name` e o name termine com a string `list` ou `List` terão `true` como padrão.
+- `QasNestedFields`: modificado espaçamentos do componente.
+- `QasNestedFields`: modificado tamanho da fonte do label.
+- `QasSelectListDialog`: modificado os parâmetros retornados no evento `@add`, onde agora retorna um array de objeto com label e value dos itens que foram adicionados.
+
+### Removido
+- `QasAlert`: removido propriedades [`color`, `title`].
+- `QasAlert`: removido slot header.
+
+## [3.12.0-beta.10] - 05-10-2023
+## BREAKING CHANGES
+- `QasSelectListDialog`: os parâmetros retornados no evento add, retornava o próprio model (array de uuid), agora retorna um array de objeto com label e value somente dos itens que foram adicionados.
+
+### Adicionado
+- `QasUploader`: adicionado propriedade `useUrlPath` para dar possibilidade de salvar base64 no model ao invés de uma url externa (uso offline).
+- `QasUploader`: adicionado propriedade `uploadCredentialsParams` para repassar parâmetros para o endpoint `upload-credentials`.
+
+### Modificado
+- `QasSelectListDialog`: modificado os parâmetros retornados no evento `@add`, onde agora retorna um array de objeto com label e value dos itens que foram adicionados.
+
+## [3.12.0-beta.9] - 29-09-2023
+### Adicionado
+- `QasNestedFields`: adicionado suporte para função de callback na propriedade `actions-menu-props`.
+- `QasLabel`: adicionado nova propriedade `typography` para controlar a tipografia do texto.
+
+### Modificado
+- `QasNestedFields`: modificado espaçamentos do componente.
+- `QasNestedFields`: modificado tamanho da fonte do label.
+
+## [3.12.0-beta.8] - 13-09-2023
+### Corrigido
+- `boot/query-cache.js`: added optional chaining to route name.
+
+## [3.12.0-beta.7] - 13-09-2023
+## BREAKING CHANGES
+- `boot/query-cache.js`: modificado o valor padrão do `useCache`, antes todas rotas por default era `true`, agora, apenas rotas que contém a chave `name` e o name termine com a string `list` ou `List` terão `true` como padrão.
+
+### Modificado
+- `boot/query-cache.js`: modificado o valor padrão do `useCache`, antes todas rotas por default era `true`, agora, apenas rotas que contém a chave `name` e o name termine com a string `list` ou `List` terão `true` como padrão.
+
+## [3.12.0-beta.6] - 13-09-2023
+### Modificado
+- `QasAlert`: adicionado classe `inline-block` para o elemento pegar somente o tamanho necessário e não 100% sempre.
+
+## [3.12.0-beta.5] - 13-09-2023
+## BREAKING CHANGES
+### Removido
+- `QasAlert`: removido propriedades [`color`, `title`].
+- `QasAlert`: removido slot header.
+
+### Adicionado
+- `QasNestedFields`: Adicionado suporte para função de callback na propriedade `disabled-rows`.
+- `QasAlert`: adicionado novas propriedades [`status`, `storageKey`, `usePersistentModelOnClose`].
+- `enums/Status`: adicionado novos enums para status.
+
+### Modificado
+- `QasAlert`: mudanças de layout e comportamento com componente.
+- `QasAlert`: modificado componente para composition API.
+- `QasAlert`: agora só é preciso passar um v-model caso realmente seja necessário.
+
+### Removido
+- `QasAlert`: removido propriedades [`color`, `title`].
+- `QasAlert`: removido slot header.
+
+## [3.12.0-beta.4] - 11-09-2023
+### Corrigido
+- `QasSelect`: corrigido watcher que não removia classe e mantinham opções desabilitadas quando deveriam estar habilitadas.
+
+## [3.12.0-beta.3] - 08-09-2023
+### Corrigido
+- `boot/queryCache`: alterada a validação ao definir cache da query para corrigir erro, que, ao limpar os filtros e alterar de página não limpava o cache.
+
+## [3.12.0-beta.2] - 06-09-2023
+### Adicionado
+- `boot/queryCache`: adicionado query `page` como excludes padrão.
+
+### Corrigido
+- `QasSelectListDialog`: adicionado propriedade `useLazyLoading` para resolver problema quando usado com slot do `dialog-description`.
+
+## [3.12.0-beta.1] - 05-09-2023
+### Adicionado
+- `QasTimeline`: novo componente de timeline.
+- `QasSelectListDialog`: adicionado novo componente de seleção de lista através de um dialog.
+- `boot/queryCache`: boot para gerenciar a persistência de filtros.
+- `useQueryCache`: composable para manipular as queries salvas no sessionStorage.
+- `useContext`: composable para pegar os dados da query no formato padrão do asteroid.
+
+## [3.12.0-beta.0] - 04-09-2023
+## BREAKING CHANGES
+- `QasTextTruncate`: quebra visual por conta das alterações de estilos na fonte do texto, olhar todos lugares que utilizam o componente e caso necessário adaptar com as propriedades color e typography.
+
+### Adicionado
+- `QasTextTruncate`: adicionado propriedades `color` e `typography` para controlar estilo da fonte.
+- `QasTextTruncate` adicionado propriedades, `maxVisibleItem`, `list` e `useObjectList` para recurso de contador.
+
+### Modificado
+- `QasAppUser`: modificado validação, agora se tiver pelo menos 1 opção, o select de vinculo é exibido.
+- `QasTextTruncate`: modificado cor e tipografia do texto.
+
 ## [3.11.0] - 01-09-2023
 ## BREAKING CHANGES
 - com a adição do `asteroid.config.js`, é **necessário** criar o arquivo na raiz da aplicação para que não quebre a mesma.
@@ -1944,3 +2079,14 @@ Adicionado suporte para Pinia/Vuex Seguindo os padrões da biblioteca `@bildvitt
 [3.11.0-beta.17]: https://github.com/bildvitta/asteroid/compare/v3.11.0-beta.16...v3.11.0-beta.17?expand=1
 [3.11.0-beta.18]: https://github.com/bildvitta/asteroid/compare/v3.11.0-beta.17...v3.11.0-beta.18?expand=1
 [3.11.0]: https://github.com/bildvitta/asteroid/compare/v3.10.0...v3.11.0?expand=1
+[3.12.0-beta.0]: https://github.com/bildvitta/asteroid/compare/v3.11.0...v3.12.0-beta.0?expand=1
+[3.12.0-beta.1]: https://github.com/bildvitta/asteroid/compare/v3.12.0-beta.0...v3.12.0-beta.1?expand=1
+[3.12.0-beta.2]: https://github.com/bildvitta/asteroid/compare/v3.12.0-beta.1...v3.12.0-beta.2?expand=1
+[3.12.0-beta.3]: https://github.com/bildvitta/asteroid/compare/v3.12.0-beta.2...v3.12.0-beta.3?expand=1
+[3.12.0-beta.4]: https://github.com/bildvitta/asteroid/compare/v3.12.0-beta.3...v3.12.0-beta.4?expand=1
+[3.12.0-beta.5]: https://github.com/bildvitta/asteroid/compare/v3.12.0-beta.4...v3.12.0-beta.5?expand=1
+[3.12.0-beta.6]: https://github.com/bildvitta/asteroid/compare/v3.12.0-beta.5...v3.12.0-beta.6?expand=1
+[3.12.0-beta.7]: https://github.com/bildvitta/asteroid/compare/v3.12.0-beta.6...v3.12.0-beta.7?expand=1
+[3.12.0-beta.8]: https://github.com/bildvitta/asteroid/compare/v3.12.0-beta.7...v3.12.0-beta.8?expand=1
+[3.12.0-beta.9]: https://github.com/bildvitta/asteroid/compare/v3.12.0-beta.8...v3.12.0-beta.9?expand=1
+[3.12.0-beta.10]: https://github.com/bildvitta/asteroid/compare/v3.12.0-beta.9...v3.12.0-beta.10?expand=1

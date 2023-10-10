@@ -35,14 +35,18 @@
     "QasChartView",
     "QasDelete",
     "QasSelectList",
-    "QasSortable"
+    "QasSortable",
+    "QasSelectListDialog"
   ],
   "cSpell.words": [
+    "breakline",
     "Breakline",
     "fawmi",
     "fontfaceobserver",
     "grey",
+    "lazyloading",
     "Nunito",
-    "Resizer"
+    "Resizer",
+    "uuid"
   ]
 }

@@ -5,9 +5,9 @@ meta:
 
 props:
   actions-menu-props:
-    desc: Repassa as propriedades para o componente QasActionsMenu.
+    desc: Repassa as propriedades para o componente QasActionsMenu. É possível passar um objeto com as propriedades ou uma função que recebe o 'index', 'row' e 'list' como parâmetro e retorna um objeto com as propriedades.
     default: {}
-    type: Object
+    type: [Object, Function]
 
   add-first-input-label:
     desc: Rótulo do input para adicionar o primeiro campo.
@@ -37,10 +37,10 @@ props:
     type: String
 
   disabled-rows:
-    desc: Com esta propriedade é possível desabilitar rows (linhas) especificas passando um array com chaves identificadoras, ou caso queira desativar todas passando um boolean "true" (isto vai remover todos os botões da linha, duplicar e excluir).
+    desc: Com esta propriedade é possível desabilitar rows (linhas) especificas passando um array com chaves identificadoras, caso queira desativar todas passe um valor boolean "true", ou também é possível utilizar uma função de callback, que receberá a "row" como parâmetro. (Isto vai remover todos os botões da linha, como por exemplo, o duplicar e excluir).
     default: "false"
-    type: [Array, Boolean]
-    examples: ["['my-uuid-from-row-1']", true]
+    type: [Array, Boolean, Function]
+    examples: ["['my-uuid-from-row-1']", true, "row => row.disable"]
 
   errors:
     desc: Propriedade de erros para mostrar nos campos gerados.

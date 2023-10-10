@@ -11,6 +11,7 @@ function extendQuasar (quasar, asteroidConfigFile) {
     'boot/register.js',
     'boot/history.js',
     'boot/loading.js',
+    'boot/query-cache.js',
     'boot/store-adapter'
   ))
 

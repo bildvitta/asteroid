@@ -12,6 +12,8 @@ A funcionalidade de troca de vínculo de empresa é ativada quando existe mais d
 `PATCH -> users/me`
 
 Enviando para o body da requisição o novo `companies`.
+
+Quando existe apenas uma opção, é exibido o select como forma de informação de vinculo atual.
 :::
 
 ## Uso

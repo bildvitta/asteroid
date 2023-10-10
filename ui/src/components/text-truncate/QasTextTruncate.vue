@@ -1,16 +1,26 @@
 <template>
-  <div ref="parent" class="full-width">
-    <div class="justify-between no-wrap row text-no-wrap">
-      <div ref="truncate" :class="truncateTextClass">
-        <slot>{{ text }}</slot>
+  <div ref="parent" :class="classes">
+    <div class="no-wrap row text-no-wrap">
+      <div ref="truncate" class="ellipsis">
+        <slot>{{ displayText }}</slot>
       </div>
 
-      <div v-if="isTruncated" class="cursor-pointer text-primary" @click.stop.prevent="toggle">
-        {{ seeMoreLabel }}
-      </div>
+      <qas-btn v-if="hasButton" class="q-ml-sm" :label="buttonLabel" @click.stop.prevent="toggle" />
     </div>
 
-    <qas-dialog v-model="show" v-bind="defaultProps" aria-label="Diálogo de texto completo" role="dialog" />
+    <qas-dialog v-model="show" v-bind="defaultProps" aria-label="Diálogo de texto completo" role="dialog">
+      <template v-if="isCounterMode" #description>
+        <div class="q-col-gutter-y-md row">
+          <div
+            v-for="(item, index) in normalizedList"
+            :key="index"
+            class="col-12"
+          >
+            {{ item }}
+          </div>
+        </div>
+      </template>
+    </qas-dialog>
   </div>
 </template>
 
@@ -23,8 +33,6 @@ import {
   watch
 } from 'vue'
 
-import useScreen from '../../composables/use-screen'
-
 import QasDialog from '../dialog/QasDialog.vue'
 
 // define component name
@@ -32,6 +40,11 @@ defineOptions({ name: 'QasTextTruncate' })
 
 // props
 const props = defineProps({
+  color: {
+    type: String,
+    default: 'grey-8'
+  },
+
   dialogProps: {
     type: Object,
     default: () => ({ persistent: false })
@@ -47,6 +60,11 @@ const props = defineProps({
     default: 0
   },
 
+  maxVisibleItem: {
+    type: Number,
+    default: 1
+  },
+
   seeMoreLabel: {
     type: String,
     default: 'Ver mais'
@@ -55,6 +73,20 @@ const props = defineProps({
   text: {
     type: String,
     default: ''
+  },
+
+  typography: {
+    type: String,
+    default: 'body1'
+  },
+
+  list: {
+    type: Array,
+    default: () => []
+  },
+
+  useObjectList: {
+    type: Boolean
   }
 })
 
@@ -66,8 +98,6 @@ const parent = ref(null)
 const {
   textContent,
   isTruncated,
-  truncateTextClass,
-
   truncateText
 } = useTruncate({ parent, props })
 
@@ -77,7 +107,17 @@ const {
   toggle
 } = useDialog({ props, textContent })
 
+const {
+  buttonLabel,
+  displayText,
+  hasButton,
+  isCounterMode,
+  normalizedList
+} = useTemplate()
+
 useMutationObserver({ truncate, callbackFn: truncateText })
+
+const classes = computed(() => [`text-${props.color}`, `text-${props.typography}`])
 
 // composable functions
 function useDialog ({ props, textContent }) {
@@ -136,9 +176,6 @@ function useMutationObserver ({ truncate, callbackFn = () => {} }) {
 }
 
 function useTruncate ({ parent, props }) {
-  // global
-  const screen = useScreen()
-
   // reactive vars
   const maxPossibleWidth = ref('')
   const textContent = ref('')
@@ -152,10 +189,6 @@ function useTruncate ({ parent, props }) {
 
   // computed
   const isTruncated = computed(() => textWidth.value > maxPossibleWidth.value)
-
-  const truncateTextClass = computed(() => {
-    return (isTruncated.value || screen.isSmall) && 'ellipsis q-pr-sm'
-  })
 
   // methods
   function truncateText () {
@@ -174,9 +207,61 @@ function useTruncate ({ parent, props }) {
     textWidth,
 
     isTruncated,
-    truncateTextClass,
 
     truncateText
+  }
+}
+
+function useTemplate () {
+  const {
+    counterLabel,
+    normalizedList,
+    normalizedCounterText
+  } = useCounter()
+
+  const isCounterMode = computed(() => !!props.list.length)
+
+  const hasButton = computed(() => {
+    return isCounterMode.value ? normalizedList.value.length > props.maxVisibleItem : isTruncated.value
+  })
+
+  const displayText = computed(() => {
+    return isCounterMode.value ? normalizedCounterText.value : props.text
+  })
+
+  const buttonLabel = computed(() => {
+    return isCounterMode.value ? counterLabel.value : props.seeMoreLabel
+  })
+
+  return {
+    buttonLabel,
+    displayText,
+    hasButton,
+    isCounterMode,
+    normalizedList
+  }
+}
+
+function useCounter () {
+  const normalizedList = computed(() => {
+    return props.useObjectList ? props.list.map(({ label }) => label) : props.list
+  })
+
+  const counterText = computed(() => {
+    return props.maxVisibleItem > 1
+      ? normalizedList.value.slice(0, props.maxVisibleItem).join(', ')
+      : normalizedList.value[0]
+  })
+
+  const normalizedCounterText = computed(() => counterText.value || '-')
+
+  const counter = computed(() => (normalizedList.value.length || 1) - props.maxVisibleItem)
+  const counterLabel = computed(() => `+${counter.value}`)
+
+  return {
+    normalizedList,
+    normalizedCounterText,
+    counterLabel
   }
 }
 </script>

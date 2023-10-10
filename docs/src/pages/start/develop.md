@@ -21,13 +21,6 @@ Você pode utilizar a documentação para fazer os testes necessários dentro do
 quasar dev
 ```
 
-#### 2. Usando aplicação dentro de /ui/src/dev **(não recomendado)**.
-Em `/ui` rode o comando:
-
-```js
-npm run dev
-```
-
 #### 3. Usando o asteroid local e alterações refletindo no projeto.
 Este passo **não** é um `npm link` e funciona apenas para alterações feitas dentro da pasta `/ui`.
 

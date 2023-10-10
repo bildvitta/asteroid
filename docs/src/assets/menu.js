@@ -233,6 +233,10 @@ module.exports = [
         path: '/components/select-list'
       },
       {
+        name: 'SelectListDialog',
+        path: '/components/select-list-dialog'
+      },
+      {
         name: 'SignaturePad',
         path: '/components/signature-pad'
       },
@@ -263,6 +267,10 @@ module.exports = [
       {
         name: 'TextTruncate',
         path: '/components/text-truncate'
+      },
+      {
+        name: 'Timeline',
+        path: '/components/timeline'
       },
       {
         name: 'Transfer',
@@ -469,12 +477,20 @@ module.exports = [
     name: 'Composição',
     children: [
       {
+        name: 'useContext',
+        path: '/composables/use-context'
+      },
+      {
         name: 'useForm',
         path: '/composables/use-form'
       },
       {
         name: 'useHistory',
         path: '/composables/use-history'
+      },
+      {
+        name: 'useQueryCache',
+        path: '/composables/use-query-cache'
       },
       {
         name: 'useScreen',
@@ -498,6 +514,17 @@ module.exports = [
       {
         name: 'ServerError - 500',
         path: '/paginas/server-error'
+      }
+    ]
+  },
+
+  {
+    icon: 'sym_r_play_circle',
+    name: 'Boot',
+    children: [
+      {
+        name: 'queryCache',
+        path: '/boot/query-cache'
       }
     ]
   }
