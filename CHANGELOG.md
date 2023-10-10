@@ -10,6 +10,51 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 ### Sobre os "BREAKING CHANGES"
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
+## Não publicado
+## BREAKING CHANGES
+- `QasTextTruncate`: quebra visual por conta das alterações de estilos na fonte do texto, olhar todos lugares que utilizam o componente e caso necessário adaptar com as propriedades color e typography.
+- `QasAlert`: removido propriedades [`color`, `title`].
+- `QasAlert`: removido slot header.
+- `boot/query-cache.js`: modificado o valor padrão do `useCache`, antes todas rotas por default era `true`, agora, apenas rotas que contém a chave `name` e o name termine com a string `list` ou `List` terão `true` como padrão.
+- `QasSelectListDialog`: os parâmetros retornados no evento add, retornava o próprio model (array de uuid), agora retorna um array de objeto com label e value somente dos itens que foram adicionados.
+
+### Adicionado
+- `QasTextTruncate`: adicionado propriedades `color` e `typography` para controlar estilo da fonte.
+- `QasTextTruncate` adicionado propriedades, `maxVisibleItem`, `list` e `useObjectList` para recurso de contador.
+- `QasTimeline`: novo componente de timeline.
+- `QasSelectListDialog`: adicionado novo componente de seleção de lista através de um dialog.
+- `boot/queryCache`: boot para gerenciar a persistência de filtros.
+- `useQueryCache`: composable para manipular as queries salvas no sessionStorage.
+- `useContext`: composable para pegar os dados da query no formato padrão do asteroid.
+- `boot/queryCache`: adicionado query `page` como excludes padrão.
+- `QasNestedFields`: Adicionado suporte para função de callback na propriedade `disabled-rows`.
+- `QasAlert`: adicionado novas propriedades [`status`, `storageKey`, `usePersistentModelOnClose`].
+- `enums/Status`: adicionado novos enums para status.
+- `QasNestedFields`: adicionado suporte para função de callback na propriedade `actions-menu-props`.
+- `QasLabel`: adicionado nova propriedade `typography` para controlar a tipografia do texto.
+- `QasUploader`: adicionado propriedade `useUrlPath` para dar possibilidade de salvar base64 no model ao invés de uma url externa (uso offline).
+- `QasUploader`: adicionado propriedade `uploadCredentialsParams` para repassar parâmetros para o endpoint `upload-credentials`.
+
+### Corrigido
+- `QasSelectListDialog`: adicionado propriedade `useLazyLoading` para resolver problema quando usado com slot do `dialog-description`.
+- `QasSelect`: corrigido watcher que não removia classe e mantinham opções desabilitadas quando deveriam estar habilitadas.
+
+### Modificado
+- `QasAppUser`: modificado validação, agora se tiver pelo menos 1 opção, o select de vinculo é exibido.
+- `QasTextTruncate`: modificado cor e tipografia do texto.
+- `QasAlert`: mudanças de layout e comportamento com componente.
+- `QasAlert`: modificado componente para composition API.
+- `QasAlert`: agora só é preciso passar um v-model caso realmente seja necessário.
+- `QasAlert`: adicionado classe `inline-block` para o elemento pegar somente o tamanho necessário e não 100% sempre.
+- `boot/query-cache.js`: modificado o valor padrão do `useCache`, antes todas rotas por default era `true`, agora, apenas rotas que contém a chave `name` e o name termine com a string `list` ou `List` terão `true` como padrão.
+- `QasNestedFields`: modificado espaçamentos do componente.
+- `QasNestedFields`: modificado tamanho da fonte do label.
+- `QasSelectListDialog`: modificado os parâmetros retornados no evento `@add`, onde agora retorna um array de objeto com label e value dos itens que foram adicionados.
+
+### Removido
+- `QasAlert`: removido propriedades [`color`, `title`].
+- `QasAlert`: removido slot header.
+
 ## [3.12.0-beta.10] - 05-10-2023
 ## BREAKING CHANGES
 - `QasSelectListDialog`: os parâmetros retornados no evento add, retornava o próprio model (array de uuid), agora retorna um array de objeto com label e value somente dos itens que foram adicionados.
