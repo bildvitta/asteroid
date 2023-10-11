@@ -12,7 +12,7 @@ props:
     model: true
 
   limitPerPage:
-    desc: Model é passado na query da requição sendo responsavel pela quantidade de itens por busca.
+    desc: é repassado na query da requição sendo responsavel pela quantidade de itens por busca.
     default: 12
     type: Number
 
@@ -42,7 +42,7 @@ events:
     params:
       newList:
         desc: Novo valor do list
-        type: [Array]
+        type: Array
 
 slots:
   default:

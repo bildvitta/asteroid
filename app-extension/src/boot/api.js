@@ -33,6 +33,10 @@ export default async ({ app }) => {
     ...api.defaults.transformRequest
   ]
 
-  /* Adicionado por conta de composition components não terem acesso ao "globalProperties" */
+  /**
+   * Adicionado para que componentes que utilize o Composition API possam ter acesso a instancia do
+   * axios que contém as configurações necessárias da aplicação, uma vez que a utilização de provide
+   * é a forma recomendada para trabalhar com variavéis globais.
+  */
   app.provide('axios', api)
 }

@@ -22,7 +22,7 @@
 </template>
 
 <script setup>
-import { ref, computed, defineExpose, inject } from 'vue'
+import { ref, computed, inject, nextTick } from 'vue'
 import { NotifyError } from '../../plugins'
 
 defineOptions({ name: 'QasInfiniteScroll' })
@@ -60,16 +60,17 @@ const props = defineProps({
   }
 })
 
-defineExpose({ refreshList, removeItemByIndex })
+defineExpose({ refresh, remove })
 
 const emits = defineEmits(['update:list'])
 
 const axios = inject('axios')
 
+const infiniteScroll = ref(null)
+
 const hasFetchingError = ref(false)
 const isFetching = ref(false)
 const hasMadeFirstFetch = ref(false)
-const infiniteScroll = ref(null)
 const count = ref(0)
 const offset = ref(0)
 
@@ -129,7 +130,10 @@ async function fetchList () {
     offset.value = newList.length
     count.value = data.count
 
-    // Sinalizar que houve já uma busca, para evitar que onLoad entre em looping, após buscar uma vez e retornar uma lista vazia.
+    /**
+     * Sinalizar que houve já uma busca, para evitar que onLoad entre em looping,
+     * após buscar uma vez e retornar uma lista vazia.
+    */
     hasMadeFirstFetch.value = true
   } catch {
     NotifyError('Ops… Não conseguimos acessar as informações. Por favor, tente novamente em alguns minutos.')
@@ -140,22 +144,22 @@ async function fetchList () {
   }
 }
 
-function refreshList () {
+function refresh () {
   count.value = 0
   offset.value = 0
   model.value = []
 
   hasMadeFirstFetch.value = false
 
-  this.$nextTick(() => {
+  nextTick(() => {
     infiniteScroll.value.reset()
     infiniteScroll.value.resume()
   })
 }
 
-function removeItemByIndex (index) {
+function remove (index) {
   model.value.splice(index, 1)
-  count.value = count.value - 1
-  offset.value = offset.value - 1
+  count.value -= 1
+  offset.value -= 1
 }
 </script>
