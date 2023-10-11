@@ -1,0 +1,49 @@
+type: component
+
+meta:
+  desc: Componente de infinite scroll que implementa o "QInfiniteScroll".
+
+props:
+  list:
+    desc: Model da lista de itens.
+    default: []
+    type: Array
+    examples: [v-model:list="list"]
+    model: true
+
+  limitPerPage:
+    desc: é repassado na query da requição sendo responsavel pela quantidade de itens por busca.
+    default: 12
+    type: Number
+
+  url:
+    desc: URL utilizado para fazer a busca dos itens.
+    type: String
+
+  params:
+    desc: Parâmetros passados na requisição de busca dos itens.
+    default: {}
+    type: Object
+    examples: ["{ status: 'is_active' }"]
+
+  infinite-scroll-props:
+    desc: Propriedades repassadas para o QInfiniteScroll
+    default: {}
+    type: Object
+    examples: ["{ offset: 500 }"]
+
+  max-height:
+    desc: Seta a altura do container do infinite scroll, caso queira que o infinite scroll fique em um box por exemplo.
+    type: String
+
+events:
+  '@update:list -> function (newList)':
+    desc: Dispara toda vez que é feito uma nova busca e a lista é atualizada.
+    params:
+      newList:
+        desc: Novo valor do list
+        type: Array
+
+slots:
+  default:
+    desc: slot para exibir a lista na qual o componente fez a busca.

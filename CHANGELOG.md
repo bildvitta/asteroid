@@ -16,6 +16,8 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 
 ### Adicionado
 - `QasTabsGenerator`: adicionado nova propriedade `use-route-tab` com o valor `false` por padrão. Essa propriedade serve para controlar se o componente deve utilizar o `q-route-tab` ou `q-tab` do Quasar.
+- `QasInfiniteScroll`: novo componente de infinite scroll.
+- `api.js`: adicionado `provide` do axios por conta de composition components não terem acesso ao `globalProperties`.
 
 ### Corrigido
 - `QasFormView`: corrigido alguns problemas ao utilizar a propriedade `use-dialog-on-unsaved-changes` com o valor `true`.

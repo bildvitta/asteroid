@@ -157,6 +157,10 @@ module.exports = [
         path: '/components/header-actions'
       },
       {
+        name: 'InfiniteScroll',
+        path: '/components/infinite-scroll'
+      },
+      {
         name: 'Input',
         path: '/components/input'
       },
