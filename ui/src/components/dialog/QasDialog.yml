@@ -83,3 +83,10 @@ events:
       value:
         desc: Retorna se os campos passou ou não na validação
         type: Boolean
+
+  '@cancel: -> function ()':
+    desc: Dispara toda vez que é clicado no botão "cancel".
+
+  '@ok: -> function ()':
+    desc: Dispara toda vez que é clicado no botão "ok" ou quando useForm for true e o for clicado "enter" estando com foco em algum input (evento de submit).
+
