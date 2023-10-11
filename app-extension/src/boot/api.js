@@ -32,4 +32,7 @@ export default async ({ app }) => {
 
     ...api.defaults.transformRequest
   ]
+
+  /* Adicionado por conta de composition components não terem acesso ao "globalProperties" */
+  app.provide('axios', api)
 }

@@ -11,26 +11,10 @@ props:
     examples: [v-model:list="list"]
     model: true
 
-  limit:
+  limitPerPage:
     desc: Model é passado na query da requição sendo responsavel pela quantidade de itens por busca.
     default: 12
     type: Number
-    examples: [v-model:limit="limit"]
-    model: true
-
-  offset:
-    desc: Model usado para o controle da quantidade de itens já buscados.
-    default: 0
-    type: Number
-    examples: [v-model:offset="offset"]
-    model: true
-
-  count:
-    desc: Quantidade total de itens da lista.
-    default: 0
-    type: Number
-    examples: [v-model:count="count"]
-    model: true
 
   url:
     desc: URL utilizado para fazer a busca dos itens.
@@ -58,20 +42,6 @@ events:
     params:
       newList:
         desc: Novo valor do list
-        type: [Array]
-
-  '@update:offset -> function (offset)':
-    desc: Dispara toda vez que é feito uma nova busca e o offset é atualizado.
-    params:
-      offset:
-        desc: Novo valor do offset
-        type: [Array]
-
-  '@update:count -> function (count)':
-    desc: Dispara toda vez que é feito uma nova busca e o count é atualizado.
-    params:
-      count:
-        desc: Novo valor do count
         type: [Array]
 
 slots:

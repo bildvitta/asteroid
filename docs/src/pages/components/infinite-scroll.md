@@ -18,6 +18,8 @@ O retorno da API deverá conter a seguinte estrutura:
   "results": [...]
 }
 ```
+
+A API também deve aceitar os parâmetros "offset" e "limit".
 :::
 ## Uso
 

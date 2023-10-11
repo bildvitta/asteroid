@@ -13,6 +13,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 ## Não publicado
 ### Adicionado
 - `QasInfiniteScroll`: novo componente de infinite scroll.
+- `api.js`: adicionado `provide` do axios por conta de composition components não terem acesso ao `globalProperties`.
 
 ## [3.12.0-beta.10] - 05-10-2023
 ## BREAKING CHANGES

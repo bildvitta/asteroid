@@ -3,7 +3,6 @@
     <q-infinite-scroll
       ref="infiniteScroll"
       v-bind="attributes"
-      scroll-target=".qas-infinite-scroll"
       @load="onLoad"
     >
       <slot />
@@ -18,13 +17,12 @@
       </template>
     </q-infinite-scroll>
 
-    <qas-empty-result-text v-if="notHasResults" />
+    <qas-empty-result-text v-if="hasNoResults" />
   </div>
 </template>
 
 <script setup>
-import { ref, computed, defineProps } from 'vue'
-import axios from 'axios'
+import { ref, computed, defineExpose, inject } from 'vue'
 import { NotifyError } from '../../plugins'
 
 defineOptions({ name: 'QasInfiniteScroll' })
@@ -35,19 +33,9 @@ const props = defineProps({
     default: () => []
   },
 
-  limit: {
+  limitPerPage: {
     type: Number,
     default: 12
-  },
-
-  offset: {
-    type: Number,
-    default: 0
-  },
-
-  count: {
-    type: Number,
-    default: 0
   },
 
   url: {
@@ -72,36 +60,49 @@ const props = defineProps({
   }
 })
 
-const emits = defineEmits([
-  'update:list',
-  'update:offset',
-  'update:count'
-])
+defineExpose({ refreshList, removeItemByIndex })
+
+const emits = defineEmits(['update:list'])
+
+const axios = inject('axios')
 
 const hasFetchingError = ref(false)
 const isFetching = ref(false)
 const hasMadeFirstFetch = ref(false)
 const infiniteScroll = ref(null)
+const count = ref(0)
+const offset = ref(0)
 
-const listLength = computed(() => props.list.length)
+const listLength = computed(() => model.value.length)
 
 const attributes = computed(() => ({
   offset: 100,
   debounce: 0,
+  ...(props.maxHeight && { scrollTarget: '.qas-infinite-scroll' }),
   ...props.infiniteScrollProps
 }))
 
 const isEmptyList = computed(() => !listLength.value && !isFetching.value)
 
-const notHasResults = computed(() => isEmptyList.value && hasMadeFirstFetch.value)
+const hasNoResults = computed(() => isEmptyList.value && hasMadeFirstFetch.value)
 
 const containerStyle = computed(() => ({
   ...(props.maxHeight && { maxHeight: props.maxHeight, overflow: 'auto' })
 }))
 
+const model = computed({
+  get () {
+    return props.list
+  },
+
+  set (newList) {
+    emits('update:list', newList)
+  }
+})
+
 async function onLoad (_, done) {
   const hasMadeFirstFetchAndHasNoData = hasMadeFirstFetch.value && !listLength.value
-  const hasFetchAllData = listLength.value && listLength.value >= props.count
+  const hasFetchAllData = listLength.value && listLength.value >= count.value
   const stop = hasFetchingError.value || isFetching.value || hasMadeFirstFetchAndHasNoData || hasFetchAllData
 
   if (stop) {
@@ -119,16 +120,14 @@ async function fetchList () {
     isFetching.value = true
 
     const { data } = await axios.get(props.url, {
-      params: { offset: props.offset, limit: props.limit, ...props.params }
+      params: { offset: offset.value, limit: props.limitPerPage, ...props.params }
     })
 
-    const newList = [...props.list, ...(data.results || [])]
+    const newList = [...model.value, ...(data.results || [])]
 
-    console.log(newList, '<-- newList')
-
-    emits('update:list', newList)
-    emits('update:offset', newList.length)
-    emits('update:count', data.count)
+    model.value = newList
+    offset.value = newList.length
+    count.value = data.count
 
     // Sinalizar que houve já uma busca, para evitar que onLoad entre em looping, após buscar uma vez e retornar uma lista vazia.
     hasMadeFirstFetch.value = true
@@ -139,5 +138,24 @@ async function fetchList () {
   } finally {
     isFetching.value = false
   }
+}
+
+function refreshList () {
+  count.value = 0
+  offset.value = 0
+  model.value = []
+
+  hasMadeFirstFetch.value = false
+
+  this.$nextTick(() => {
+    infiniteScroll.value.reset()
+    infiniteScroll.value.resume()
+  })
+}
+
+function removeItemByIndex (index) {
+  model.value.splice(index, 1)
+  count.value = count.value - 1
+  offset.value = offset.value - 1
 }
 </script>

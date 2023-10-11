@@ -1,9 +1,7 @@
 <template>
   <div class="container q-py-lg">
     <qas-infinite-scroll
-      v-model:count="count"
       v-model:list="historyList"
-      v-model:offset="offset"
       max-height="450px"
       url="url-example"
     >
@@ -18,8 +16,6 @@ export default {
 
   data () {
     return {
-      count: 24,
-      offset: 0,
       historyList: [
         {
           date: '2023-01-11T14:58:40.000000Z',
