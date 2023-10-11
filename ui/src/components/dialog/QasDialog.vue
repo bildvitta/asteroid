@@ -12,26 +12,26 @@
       </header>
 
       <section class="text-body1 text-grey-8">
-        <component :is="componentTag" ref="form">
+        <component :is="componentTag" ref="form" v-bind="componentProps">
           <slot name="description">
             <component :is="descriptionComponentTag">{{ card.description }}</component>
           </slot>
+
+          <div v-if="!isInfoDialog">
+            <slot name="actions">
+              <qas-actions v-bind="formattedActionsProps">
+                <template v-if="hasOk" #primary>
+                  <qas-btn v-close-popup="!useForm" class="full-width" variant="primary" v-bind="defaultOk" />
+                </template>
+
+                <template v-if="hasCancel" #secondary>
+                  <qas-btn v-close-popup class="full-width" v-bind="defaultCancel" variant="secondary" />
+                </template>
+              </qas-actions>
+            </slot>
+          </div>
         </component>
       </section>
-
-      <footer v-if="!isInfoDialog">
-        <slot name="actions">
-          <qas-actions v-bind="formattedActionsProps">
-            <template v-if="hasOk" #primary>
-              <qas-btn v-close-popup="!useForm" class="full-width" variant="primary" v-bind="defaultOk" @click="submitHandler" />
-            </template>
-
-            <template v-if="hasCancel" #secondary>
-              <qas-btn v-close-popup class="full-width" v-bind="defaultCancel" variant="secondary" />
-            </template>
-          </qas-actions>
-        </slot>
-      </footer>
     </div>
   </q-dialog>
 </template>
@@ -106,8 +106,13 @@ export default {
   },
 
   emits: [
+    // model
     'update:modelValue',
-    'validate'
+
+    // actions
+    'validate',
+    'ok',
+    'cancel'
   ],
 
   computed: {
@@ -115,7 +120,10 @@ export default {
       return {
         label: 'Cancelar',
         outline: true,
-        ...this.cancel
+
+        ...this.cancel,
+
+        onClick: this.onCancel
       }
     },
 
@@ -123,7 +131,11 @@ export default {
       return {
         label: 'Ok',
         type: this.ok?.type || this.useForm ? 'submit' : 'button',
-        ...this.ok
+
+        ...this.ok,
+
+        // adiciona somente se não estiver usando useForm pois o controle ficará no submit.
+        ...(!this.useForm && { onClick: this.onOk })
       }
     },
 
@@ -137,6 +149,16 @@ export default {
 
     componentTag () {
       return this.useForm ? 'q-form' : 'div'
+    },
+
+    componentProps () {
+      /**
+       * adiciona evento de submit caso useForm seja true,
+       * uma vez que somente o q-form possui este evento.
+      */
+      return {
+        ...(this.useForm && { onSubmit: this.onSubmit })
+      }
     },
 
     dialogProps () {
@@ -235,6 +257,29 @@ export default {
 
     updateModelValue (value) {
       this.$emit('update:modelValue', value)
+    },
+
+    onOk () {
+      this.ok?.onClick?.()
+      this.$emit('ok')
+    },
+
+    onCancel () {
+      this.cancel?.onClick?.()
+      this.$emit('cancel')
+    },
+
+    /**
+     * Sem este método, ao clicar enter com a prop useForm ativada a tela era recarregada,
+     * e a ação de click do botão não era chamada pois ele não esta dentro do form.
+    */
+    onSubmit (event) {
+      event.preventDefault()
+
+      if (this.hasOk) {
+        this.onOk()
+        this.submitHandler()
+      }
     }
   }
 }
