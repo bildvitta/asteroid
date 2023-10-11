@@ -134,7 +134,7 @@ export default {
 
         ...this.ok,
 
-        // adiciona somente se não estiver usando useForm pois ai o controle ficará no submit
+        // adiciona somente se não estiver usando useForm pois o controle ficará no submit.
         ...(!this.useForm && { onClick: this.onOk })
       }
     },
@@ -154,7 +154,7 @@ export default {
     componentProps () {
       /**
        * adiciona evento de submit caso useForm seja true,
-       * uma vez que somente o q-form possui este evento
+       * uma vez que somente o q-form possui este evento.
       */
       return {
         ...(this.useForm && { onSubmit: this.onSubmit })

@@ -22,6 +22,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 ### Corrigido
 - `QasFormView`: corrigido alguns problemas ao utilizar a propriedade `use-dialog-on-unsaved-changes` com o valor `true`.
 - `QasFormView`: corrigido problema ao alterar valores do formulário, salvar e o `v-model` do formulário ficar desatualizado em relação ao resultado retornado da API. Agora o `v-model` é sempre atualizado com o resultado retornado pela API após um submit.
+- `QasDialog`: corrigido bug que fazia que pagina recarregasse ao dar enter quando a prop useForm tinha o valor "true".
 
 ### Modificado
 - `QasDialog`: agora a seção de `actions` foi movida para dentro do QForm, isto faz com que ao clicar enter, o botão deja disparado mesmo que não tenha sido clicado (quando useForm for true).
