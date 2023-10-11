@@ -21,7 +21,7 @@
             <slot name="actions">
               <qas-actions v-bind="formattedActionsProps">
                 <template v-if="hasOk" #primary>
-                  <qas-btn ref="ok" v-close-popup="!useForm" class="full-width" variant="primary" v-bind="defaultOk" />
+                  <qas-btn v-close-popup="!useForm" class="full-width" variant="primary" v-bind="defaultOk" />
                 </template>
 
                 <template v-if="hasCancel" #secondary>
@@ -276,10 +276,8 @@ export default {
     onSubmit (event) {
       event.preventDefault()
 
-      this.$emit('ok')
-
       if (this.hasOk) {
-        this.$refs.ok?.$el?.click?.()
+        this.onOk()
         this.submitHandler()
       }
     }
