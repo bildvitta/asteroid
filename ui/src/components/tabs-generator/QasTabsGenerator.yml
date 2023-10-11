@@ -24,6 +24,11 @@ props:
     type: [Object, Array]
     examples: ["{ tab1: 'tab1', tab2: 'tab2' }"]
 
+  useRouteTab:
+    desc: Quando "true" será utilizado o componente "QRouteTab" do Quasar (https://quasar.dev/vue-components/tabs#qroutetab-api).
+    default: false
+    type: Boolean
+
 slots:
   'tab-[nome-da-chave]':
     desc: Slot dinâmico gerado a partir das chave passada na prop "tabs", substitui todo o "q-tab".
