@@ -20,6 +20,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - `api.js`: adicionado `provide` do axios por conta de composition components não terem acesso ao `globalProperties`.
 - `QasDialog`: adicionado novos eventos `@ok` que dispara toda vez que é clicado no botão "ok" ou quando useForm for true e o for clicado "enter" estando com foco em algum input (evento de submit).
 - `QasDialog`: adicionado novos eventos `@cancel` que dispara toda vez que é clicado no botão "cancel".
+- `QasAppUser`: adicionado 2 novos `data-cy`, `data-cy="app-user"` e `data-cy="app-user-companies-select"`.
 
 ### Corrigido
 - `QasFormView`: corrigido alguns problemas ao utilizar a propriedade `use-dialog-on-unsaved-changes` com o valor `true`.

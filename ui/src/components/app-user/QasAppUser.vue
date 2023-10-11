@@ -1,5 +1,5 @@
 <template>
-  <div class="cursor-pointer items-center no-wrap q-gutter-sm qas-app-user row">
+  <div class="cursor-pointer items-center no-wrap q-gutter-sm qas-app-user row" data-cy="app-user">
     <div class="relative-position">
       <qas-avatar :image="user.photo" :size="avatarSize" :title="userName" />
       <q-badge v-if="hasNotifications" color="red" floating>{{ notifications.count }}</q-badge>
@@ -17,7 +17,7 @@
         <div class="ellipsis qas-app-user__menu-name">{{ userName }}</div>
         <div class="ellipsis">{{ user.email }}</div>
 
-        <qas-select v-if="hasCompaniesSelect" v-model="companiesModel" class="q-my-md" label="Vínculo" :loading="loading" :options="companiesOptions" @update:model-value="setCompanies" />
+        <qas-select v-if="hasCompaniesSelect" v-model="companiesModel" class="q-my-md" data-cy="app-user-companies-select" label="Vínculo" :loading="loading" :options="companiesOptions" @update:model-value="setCompanies" />
 
         <q-list class="q-mt-md">
           <q-item v-close-popup :active="false" class="qas-app-user__menu-item" clickable :to="user.to">
