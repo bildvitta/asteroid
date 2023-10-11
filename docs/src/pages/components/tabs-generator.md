@@ -68,5 +68,19 @@ O uso recomendado da propriedade `tabs` é como array.
 <doc-example file="QasTabsGenerator/ExWithIcon" title="Tabs com ícone" />
 <doc-example file="QasTabsGenerator/ExWithStatus" title="Tabs com status" />
 <doc-example file="QasTabsGenerator/ExWithCounter" title="Tabs com contador na propriedade tabs" />
+
+:::tip
+Saiba mais sobre o funcionamento do `QRouteTab` na [documentação do Quasar](https://quasar.dev/vue-components/tabs#qroutetab-api)
+:::
+
+:::warning
+O exemplo abaixo não funcionará corretamente na documentação, devido a rota passada no `to` não existir.
+:::
+
+:::warning
+Ao usar o `QRouteTab` não é recomendado usar também um `v-model` (embora você ainda possa), porque a fonte da verdade para a tab ativa atual é determinada pela rota atual em vez do `v-model`. Cada `QRouteTab` torna-se “ativo” dependendo da rota do seu app e não devido ao `v-model`. Portanto, o valor inicial do `v-model` ou a alteração direta do `v-model` também não alterará a rota do seu app.
+:::
+<doc-example file="QasTabsGenerator/RouteTab" title="Tabs com QRouteTab" />
+
 <doc-example file="QasTabsGenerator/CustomSlotTab" title="Slot: tab-[nome-da-chave]" />
 <doc-example file="QasTabsGenerator/CustomSlotAfter" title="Slot: tab-after-[nome-da-chave]" />

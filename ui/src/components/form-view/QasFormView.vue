@@ -213,6 +213,10 @@ export default {
   watch: {
     isSubmitting (value) {
       this.$emit('update:submitting', value)
+    },
+
+    '$route.path' () {
+      this.ignoreRouterGuard = false
     }
   },
 
@@ -374,10 +378,9 @@ export default {
       if (!this.ignoreKeysInUnsavedChanges.length) return
 
       this.ignoreKeysInUnsavedChanges.forEach(key => {
-        if (!firstValue) return
+        if (firstValue) delete firstValue[key]
 
-        delete firstValue[key]
-        delete secondValue[key]
+        if (secondValue) delete secondValue[key]
       })
     },
 
@@ -426,14 +429,16 @@ export default {
           payload
         })
 
+        const modelValue = { ...this.modelValue, ...response.data.result }
+
         if (this.useDialogOnUnsavedChanges) {
-          this.cachedResult = extend(true, {}, this.modelValue)
+          this.cachedResult = extend(true, {}, modelValue)
         }
 
         this.mx_setErrors()
         this.$emit('update:errors', this.mx_errors)
 
-        NotifySuccess(response.data.status.text || this.defaultNotifyMessages.success)
+        this.$emit('update:modelValue', modelValue)
         this.$emit('submit-success', response, this.modelValue)
 
         this.createSubmitSuccessEvent({ ...payload, entity: this.entity })
@@ -441,6 +446,8 @@ export default {
         this.$qas.logger.group(
           `QasFormView - submit -> resposta da action ${this.entity}/${this.mode}`, [response]
         )
+
+        NotifySuccess(response.data.status.text || this.defaultNotifyMessages.success)
       } catch (error) {
         const errors = error?.response?.data?.errors
         const message = error?.response?.data?.status?.text
