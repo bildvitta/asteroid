@@ -13,6 +13,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 ## Não publicado
 ### Corrigido
 - `QasInfiniteScroll`: corrigido problema do componente não resetar ao utilizar o método `refresh` em alguns cenários.
+- `QasDialog`: corrigido evento de `onClick` no botão de "ok" quando o `useForm` é `true`.
 
 ## [3.13.0-beta.0] - 11-10-2023
 ## BREAKING CHANGES
