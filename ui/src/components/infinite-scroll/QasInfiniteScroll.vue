@@ -22,7 +22,7 @@
 </template>
 
 <script setup>
-import { ref, computed, inject } from 'vue'
+import { ref, computed, inject, nextTick } from 'vue'
 import { NotifyError } from '../../plugins'
 
 defineOptions({ name: 'QasInfiniteScroll' })
@@ -151,8 +151,10 @@ function refresh () {
 
   hasMadeFirstFetch.value = false
 
-  infiniteScroll.value.reset()
-  infiniteScroll.value.resume()
+  nextTick(() => {
+    infiniteScroll.value.reset()
+    infiniteScroll.value.resume()
+  })
 }
 
 function remove (index) {

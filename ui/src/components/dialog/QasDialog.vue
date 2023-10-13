@@ -128,11 +128,13 @@ export default {
     },
 
     defaultOk () {
+      const { onClick, ...attrs } = this.ok
+
       return {
         label: 'Ok',
         type: this.ok?.type || this.useForm ? 'submit' : 'button',
 
-        ...this.ok,
+        ...attrs,
 
         // adiciona somente se não estiver usando useForm pois o controle ficará no submit.
         ...(!this.useForm && { onClick: this.onOk })
