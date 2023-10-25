@@ -10,7 +10,7 @@ props:
     type: String
 
   company-props:
-    desc: Repassa props pro QSelect de vínculo de empresas (não é possível alterar o label).
+    desc: Repassa props pro QasSelect de vínculo de empresas (não é possível alterar o label).
     default: {}
     type: Object
 
