@@ -9,15 +9,10 @@ props:
     default: 36px
     type: String
 
-  companies-options:
-    desc: Opções para o select de vínculo de empresas.
-    default: []
-    type: Array
-
-  current-company:
-    desc: Empresa atual vinculada
-    default: ''
-    type: String
+  company-props:
+    desc: Repassa props pro QSelect de vínculo de empresas (não é possível alterar o label).
+    default: {}
+    type: Object
 
   menu-props:
     desc: Repassa props pro QMenu.

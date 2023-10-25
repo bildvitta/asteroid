@@ -17,7 +17,7 @@
         <div class="ellipsis qas-app-user__menu-name">{{ userName }}</div>
         <div class="ellipsis">{{ user.email }}</div>
 
-        <qas-select v-if="hasCompaniesSelect" v-model="companiesModel" class="q-my-md" data-cy="app-user-companies-select" label="Vínculo" :loading="loading" :options="companiesOptions" @update:model-value="setCompanies" />
+        <qas-select v-if="hasCompaniesSelect" v-model="companiesModel" class="q-my-md" data-cy="app-user-companies-select" :loading="loading" v-bind="defaultCompanyProps" @update:model-value="setCompanies" />
 
         <q-list class="q-mt-md">
           <q-item v-close-popup :active="false" class="qas-app-user__menu-item" clickable :to="user.to">
@@ -69,14 +69,9 @@ export default {
       type: String
     },
 
-    companiesOptions: {
-      type: Array,
-      default: () => []
-    },
-
-    currentCompany: {
-      type: String,
-      default: ''
+    companyProps: {
+      default: () => ({}),
+      type: Object
     },
 
     menuProps: {
@@ -106,6 +101,15 @@ export default {
   },
 
   computed: {
+    defaultCompanyProps () {
+      return {
+        ...this.companyProps,
+
+        // não é possível alterar o label.
+        label: 'Vínculo'
+      }
+    },
+
     hasNotifications () {
       return !!Object.keys(this.notifications).length
     },
@@ -115,12 +119,12 @@ export default {
     },
 
     hasCompaniesSelect () {
-      return !!this.companiesOptions.length
+      return !!this.companyProps.options?.length
     }
   },
 
   watch: {
-    currentCompany: {
+    'companyProps.modelValue': {
       handler (value) {
         this.companiesModel = value
       },
@@ -144,7 +148,8 @@ export default {
 
         setTimeout(() => location.reload(), 1500)
       } catch {
-        this.companiesModel = this.currentCompany
+        this.companiesModel = this.companyProps.modelValue
+
         this.$qas.error('Falha ao alterar vínculo.')
       } finally {
         this.loading = false
