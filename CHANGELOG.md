@@ -10,6 +10,16 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 ### Sobre os "BREAKING CHANGES"
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
+## Não publicado
+## BREAKING CHANGES
+- `QasAppUser`: removido propriedades `companiesOptions` e `currentCompany` em favor de utilizar a nova propriedade `companyProps`.
+
+### Adicionado
+- `QasAppUser`: adicionado nova propriedade `companyProps` que repassa todas as props para o select de vínculos.
+
+### Removido
+- `QasAppUser`: removido propriedades `companiesOptions` e `currentCompany` em favor de utilizar a nova propriedade `companyProps`.
+
 ## [3.13.0-beta.2] - 19-10-2023
 ### Adicionado
 - `helpers/promiseHandler`: adicionado nova opção `loadingConfig` para personalizar o loading.
