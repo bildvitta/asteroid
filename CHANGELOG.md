@@ -10,6 +10,10 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 ### Sobre os "BREAKING CHANGES"
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
+## Não publicado
+### Corrigido
+- `helpers/promiseHandler`: corrigido `Loading.hide()` mesmo quando a flag `useLoading` era false, isto fazia que cancelasse qualquer loading da aplicação.
+
 ## [3.13.0-beta.3] - 25-10-2023
 ## BREAKING CHANGES
 - `QasAppUser`: removido propriedades `companiesOptions` e `currentCompany` em favor de utilizar a nova propriedade `companyProps`.
