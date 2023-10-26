@@ -12,7 +12,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 
 ## Não publicado
 ### Corrigido
-- `helpers/promiseHandler`: corrigido `Loading.hide()` mesmo quando a flag `useLoading` era false, isto fazia que cancelasse qualquer loading da aplicação.
+- `helpers/promiseHandler`: corrigido `Loading.hide()` que era executado mesmo quando a flag `useLoading` era false, isto fazia que cancelasse qualquer loading da aplicação.
 
 ## [3.13.0-beta.3] - 25-10-2023
 ## BREAKING CHANGES
