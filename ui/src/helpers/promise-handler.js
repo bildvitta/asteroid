@@ -35,6 +35,6 @@ export default async function (promise, config = {}) {
     return { data: null, error }
   } finally {
     onLoading && onLoading(false)
-    Loading.hide()
+    useLoading && Loading.hide()
   }
 }
