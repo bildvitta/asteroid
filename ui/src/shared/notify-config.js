@@ -3,6 +3,5 @@ export default {
   progress: true,
   closeBtn: 'x',
   position: 'top',
-  timeout: 0
-  // timeout: 4000
+  timeout: 4000
 }
