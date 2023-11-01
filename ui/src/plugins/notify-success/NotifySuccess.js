@@ -6,7 +6,7 @@ Notify.registerType('success', notifyConfig)
 export default (message, caption) => {
   Notify.create({
     caption,
-    classes: 'qas-notification--success',
+    classes: 'qas-notification qas-notification--success',
     message,
     type: 'success'
   })
