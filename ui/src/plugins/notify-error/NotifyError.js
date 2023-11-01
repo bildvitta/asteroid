@@ -6,7 +6,7 @@ Notify.registerType('error', notifyConfig)
 export default (message, caption) => {
   Notify.create({
     caption,
-    classes: 'qas-notification--error',
+    classes: 'qas-notification qas-notification--error',
     message,
     type: 'error'
   })
