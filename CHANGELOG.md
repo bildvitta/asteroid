@@ -12,8 +12,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 
 ## Não publicado
 ### Corrigido
-- `Notify`: alterado notify para aplicar estilos nos actions somente em NotifySuccess e NotifyError,
- uma vez que da forma anterior esta afetando todos os casos.
+- `Notify`: alterado notify para aplicar estilos nos actions somente em NotifySuccess e NotifyError, uma vez que da forma anterior esta afetando todos os casos.
 
 ## [3.13.0-beta.4] - 26-10-2023
 ### Corrigido
