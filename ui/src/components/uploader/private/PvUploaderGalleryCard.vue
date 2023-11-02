@@ -139,7 +139,7 @@ export default {
       } = this.normalizedCardGalleryProps
 
       /**
-       * Quando hasError for "true", significa que é falha ao enviar a imagem ao servidor (upload), e nestes casos:
+       * Quando hasError for "true", significa que é falha ao enviar o arquivo ao servidor (upload), e nestes casos:
        *
        * buttonProps: deve sempre ser possível excluir a imagem, por isso o disable do botão é "false".
        * errorMessage: o label do erro deve ser "Falha ao carregar arquivo."
