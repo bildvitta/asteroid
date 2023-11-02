@@ -116,7 +116,7 @@ export default {
     },
 
     galleryCardProps: {
-      type: Object,
+      type: [Object, Function],
       default: () => ({})
     },
 
