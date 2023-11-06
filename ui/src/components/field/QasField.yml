@@ -29,3 +29,8 @@ events:
       value:
         desc: Novo valor do model.
         type: [Object, Array, String, Number, Boolean]
+
+selectors:
+  '[fieldName]':
+    desc: Seletor criado a partir do atributo "name" do campo.
+    examples: ['data-cy="email"', 'data-cy="phone"', 'data-cy="password"']

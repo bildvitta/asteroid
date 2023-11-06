@@ -169,3 +169,20 @@ events:
         desc: Index da imagem que seria deletada.
         default: []
         type: Array
+
+selectors:
+  gallery-btn-show-more:
+    desc: Seletor do botão "mostrar mais".
+    examples: ['data-cy="gallery-btn-show-more"']
+
+  gallery-carousel:
+    desc: Seletor do carousel.
+    examples: ['data-cy="gallery-carousel"']
+
+  'gallery-carousel-slide-[index]':
+    desc: Seletor pelo index do slide do carousel.
+    examples: ['data-cy="gallery-carousel-slide-0"', 'data-cy="gallery-carousel-slide-1"']
+
+  'gallery-image-[index]':
+    desc: Seletor pelo index da imagem da galeria.
+    examples: ['data-cy="gallery-image-0"', 'data-cy="gallery-image-1"']
