@@ -1,12 +1,12 @@
 <template>
-  <q-dialog ref="dialog" class="qas-dialog" :persistent="persistent" v-bind="dialogProps" @update:model-value="updateModelValue">
+  <q-dialog ref="dialog" class="qas-dialog" data-cy="dialog" :persistent="persistent" v-bind="dialogProps" @update:model-value="updateModelValue">
     <div class="bg-white q-pa-lg" :style="style">
       <header v-if="hasHeader" class="q-mb-lg">
         <slot name="header">
           <div class="items-center justify-between row">
-            <h5 class="text-grey-9 text-h5">{{ card.title }}</h5>
+            <h5 class="text-grey-9 text-h5" data-cy="dialog-title">{{ card.title }}</h5>
 
-            <qas-btn v-if="isInfoDialog" v-close-popup color="grey-9" icon="sym_r_close" variant="tertiary" />
+            <qas-btn v-if="isInfoDialog" v-close-popup color="grey-9" data-cy="dialog-close-btn" icon="sym_r_close" variant="tertiary" />
           </div>
         </slot>
       </header>
@@ -14,18 +14,18 @@
       <section class="text-body1 text-grey-8">
         <component :is="componentTag" ref="form" v-bind="componentProps">
           <slot name="description">
-            <component :is="descriptionComponentTag">{{ card.description }}</component>
+            <component :is="descriptionComponentTag" data-cy="dialog-description">{{ card.description }}</component>
           </slot>
 
           <div v-if="!isInfoDialog">
             <slot name="actions">
               <qas-actions v-bind="formattedActionsProps">
                 <template v-if="hasOk" #primary>
-                  <qas-btn v-close-popup="!useForm" class="full-width" variant="primary" v-bind="defaultOk" />
+                  <qas-btn v-close-popup="!useForm" class="full-width" data-cy="dialog-ok-btn" variant="primary" v-bind="defaultOk" />
                 </template>
 
                 <template v-if="hasCancel" #secondary>
-                  <qas-btn v-close-popup class="full-width" v-bind="defaultCancel" variant="secondary" />
+                  <qas-btn v-close-popup class="full-width" data-cy="dialog-cancel-btn" v-bind="defaultCancel" variant="secondary" />
                 </template>
               </qas-actions>
             </slot>
