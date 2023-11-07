@@ -6,6 +6,11 @@ Componente para C.R.U.D. responsável pela pela criação (Create) e edição (U
 
 <doc-api file="form-view/QasFormView" name="QasFormView" />
 
+:::danger
+###### Propriedade "useNotifySuccess"
+Desative as notificações de sucesso apenas em situações particulares, como, por exemplo, em um 'stepper' no qual não é apropriado mostrar uma notificação de sucesso enquanto o processo ainda não atingiu a etapa final.
+:::
+
 :::warning
 Este componente depende do `Vuex`, utiliza módulos com actions, state e getters para manipular/recuperar os dados. Por exemplo, para você utilizar em uma entidade de show de usuários, você **deve** ter um modulo de `users` e dentro de dele ter os seguinte requisitos:
 - state: list.

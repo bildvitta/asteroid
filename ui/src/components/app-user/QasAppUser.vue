@@ -17,7 +17,7 @@
         <div class="ellipsis qas-app-user__menu-name">{{ userName }}</div>
         <div class="ellipsis">{{ user.email }}</div>
 
-        <qas-select v-if="hasCompaniesSelect" v-model="companiesModel" class="q-my-md" v-bind="defaultCompanyProps" @update:model-value="setCompanies" />
+        <qas-select v-if="hasCompaniesSelect" v-model="companiesModel" class="q-my-md" v-bind="defaultCompanyProps" data-cy="app-user-companies-select" @update:model-value="setCompanies" />
 
         <q-list class="q-mt-md">
           <q-item v-close-popup :active="false" class="qas-app-user__menu-item" clickable :to="user.to">
@@ -103,7 +103,6 @@ export default {
   computed: {
     defaultCompanyProps () {
       return {
-        dataCy: 'app-user-companies-select',
         loading: this.loading,
 
         ...this.companyProps,

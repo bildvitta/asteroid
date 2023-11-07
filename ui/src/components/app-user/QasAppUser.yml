@@ -47,3 +47,7 @@ selectors:
   app-user:
     desc: Seletor do componente.
     examples: ['data-cy="app-user"']
+
+  app-user-companies-select:
+    desc: Seletor do select de vínculos de empresas.
+    examples: ['data-cy="app-user-companies-select"']

@@ -138,6 +138,11 @@ props:
     default: true
     type: Boolean
 
+  use-notify-success:
+    desc: Controla se vai ter ou não notificação de sucesso ao finalizar o submit.
+    default: true
+    type: Boolean
+
   use-submit-button:
     desc: Controla se vai ter ou não botão de submit.
     default: true
