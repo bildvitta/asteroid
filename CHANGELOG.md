@@ -13,7 +13,6 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 ## Não publicado
 ## BREAKING CHANGES
 - `QasFormView`: modificação do `data-cy` dos botões de "Salvar" e "Voltar" do formulário. Veja mais detalhes na seção "Modificado" abaixo.
-- `QasAppUser`: alterado `dataCy` para `data-cy`.
 
 ### Adicionado
 - `QasDialog`: adicionado `data-cy` em algumas seções do componente. Como, por exemplo: título, descrição, botões, etc.
