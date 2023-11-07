@@ -13,9 +13,14 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 ## Não publicado
 ## BREAKING CHANGES
 - `QasFormView`: modificação do `data-cy` dos botões de "Salvar" e "Voltar" do formulário. Veja mais detalhes na seção "Modificado" abaixo.
+- `QasAppUser`: alterado `dataCy` para `data-cy`.
 
 ### Adicionado
 - `QasDialog`: adicionado `data-cy` em algumas seções do componente. Como, por exemplo: título, descrição, botões, etc.
+- `QasFormView`: adicionado nova propriedade `useNotifySuccess` para controlar quando mostrar a notificação de sucesso (utilizar somente em casos muito específicos, olhar documentação).
+
+### Corrigido
+- `QasAppUser`: alterado `dataCy` para `data-cy`.
 
 ### Modificado
 - `QasFormView`: modificado `data-cy` do botão de "Salvar" para `data-cy="form-view-submit-btn-[entity]"`.

@@ -57,6 +57,11 @@ export default {
   mixins: [viewMixin],
 
   props: {
+    beforeSubmit: {
+      default: null,
+      type: Function
+    },
+
     cancelButtonLabel: {
       default: 'Voltar',
       type: String
@@ -125,14 +130,14 @@ export default {
       type: Boolean
     },
 
+    useNotifySuccess: {
+      type: Boolean,
+      default: true
+    },
+
     useSubmitButton: {
       default: true,
       type: Boolean
-    },
-
-    beforeSubmit: {
-      default: null,
-      type: Function
     }
   },
 
@@ -447,7 +452,9 @@ export default {
           `QasFormView - submit -> resposta da action ${this.entity}/${this.mode}`, [response]
         )
 
-        NotifySuccess(response.data.status.text || this.defaultNotifyMessages.success)
+        if (this.useNotifySuccess) {
+          NotifySuccess(response.data.status.text || this.defaultNotifyMessages.success)
+        }
       } catch (error) {
         const errors = error?.response?.data?.errors
         const message = error?.response?.data?.status?.text
