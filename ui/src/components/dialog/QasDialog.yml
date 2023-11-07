@@ -90,3 +90,28 @@ events:
   '@ok: -> function ()':
     desc: Dispara toda vez que é clicado no botão "ok" ou quando useForm for true e o for clicado "enter" estando com foco em algum input (evento de submit).
 
+selectors:
+  dialog:
+    desc: Seletor do componente.
+    examples: ['data-cy="dialog"']
+
+  dialog-cancel-btn:
+    desc: Seletor do botão de cancelar do componente.
+    examples: ['data-cy="dialog-cancel-btn"']
+
+  dialog-close-btn:
+    desc: Seletor do botão de fechar do componente.
+    examples: ['data-cy="dialog-close-btn"']
+
+  dialog-description:
+    desc: Seletor da descrição do componente.
+    examples: ['data-cy="dialog-description"']
+
+  dialog-ok-btn:
+    desc: Seletor do botão de confirmar do componente.
+    examples: ['data-cy="dialog-ok-btn"']
+
+  dialog-title:
+    desc: Seletor do título do componente.
+    examples: ['data-cy="dialog-title"']
+

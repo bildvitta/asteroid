@@ -41,3 +41,8 @@ events:
       value:
         desc: Novo valor do model.
         type: String
+
+selectors:
+  search-input:
+    desc: Seletor do campo de pesquisa.
+    examples: ['data-cy="search-input"']

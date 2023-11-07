@@ -10,11 +10,11 @@
       <slot v-if="useActions" name="actions">
         <qas-actions>
           <template v-if="useSubmitButton" #primary>
-            <qas-btn class="qas-form-view__btn" :data-cy="`btnSave-${entity}`" :disable="disable" :label="submitButtonLabel" :loading="isSubmitting" type="submit" variant="primary" />
+            <qas-btn class="qas-form-view__btn" :data-cy="`form-view-submit-btn-${entity}`" :disable="disable" :label="submitButtonLabel" :loading="isSubmitting" type="submit" variant="primary" />
           </template>
 
           <template v-if="hasCancelButton" #secondary>
-            <qas-btn v-close-popup class="qas-form-view__btn" :data-cy="`btnCancel-${entity}`" :disable="isSubmitting" :label="cancelButtonLabel" type="button" variant="secondary" @click="cancel" />
+            <qas-btn v-close-popup class="qas-form-view__btn" :data-cy="`form-view-cancel-btn-${entity}`" :disable="isSubmitting" :label="cancelButtonLabel" type="button" variant="secondary" @click="cancel" />
           </template>
         </qas-actions>
       </slot>

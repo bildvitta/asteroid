@@ -235,4 +235,11 @@ events:
         desc: Retorna todos os dados "cru" respondido na exceção do submit.
         type: Object
 
+selectors:
+  'form-view-cancel-btn-[entity]':
+    desc: Seletor do botão de cancelar.
+    examples: ['data-cy="form-view-cancel-btn-users"']
 
+  'form-view-submit-btn-[entity]':
+    desc: Seletor do botão de salvar.
+    examples: ['data-cy="form-view-submit-btn-users"']
