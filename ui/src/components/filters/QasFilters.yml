@@ -156,7 +156,7 @@ selectors:
     examples: ['data-cy="filters-Ativo-chip"']
 
   'filters-[fieldName]-field':
-    desc: Seletor criado a partir do atributo "name" do campo.
+    desc: Seletor criado a partir da propriedade "name" do campo.
     examples: ['data-cy="filters-email-field"', 'data-cy="filters-phone-field"', 'data-cy="filters-password-field"']
 
   filters-submit-btn:

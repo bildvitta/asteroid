@@ -11,8 +11,15 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
 ## Não publicado
+## BREAKING CHANGES
+- `QasFormView`: modificação do `data-cy` dos botões de "Salvar" e "Voltar" do formulário. Veja mais detalhes na seção "Modificado" abaixo.
+
 ### Adicionado
 - `QasDialog`: adicionado `data-cy` em algumas seções do componente. Como, por exemplo: título, descrição, botões, etc.
+
+### Modificado
+- `QasFormView`: modificado `data-cy` do botão de "Salvar" para `data-cy="form-view-submit-btn-[entity]"`.
+- `QasFormView`: modificado `data-cy` do botão de "Voltar" para `data-cy="form-view-cancel-btn-[entity]"`.
 
 ## [3.13.0-beta.6] - 03-11-2023
 ### Adicionado
