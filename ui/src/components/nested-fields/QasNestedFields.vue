@@ -383,11 +383,13 @@ export default {
     },
 
     getFields (index, row) {
+      const fields = this.children
+
       if (typeof this.fieldsHandler === 'function') {
-        return this.fieldsHandler({ index, row })
+        return this.fieldsHandler({ fields, index, row })
       }
 
-      return this.children
+      return fields
     },
 
     getFieldsProps (index, row) {

@@ -88,15 +88,13 @@ export default {
   },
 
   methods: {
-    getFields ({ index, row }) {
-      const fields = [
+    getFields ({ fields, index, row }) {
+      return filterObject(fields, [
         'status',
         'name',
         row.status && 'email',
         'cities'
-      ]
-
-      return filterObject(this.nested.children, fields)
+      ])
     },
 
     getFieldsProps ({ index, row }) {

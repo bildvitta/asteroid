@@ -54,11 +54,19 @@ props:
     type: Object
     examples: ["{ name: 'meuNested', type: 'nested', label: 'Campo nested', children: [...] }"]
 
+  fields-handler:
+    desc: Função para manipular os campos do formulário para cada linha do nested.
+    type: Function
+    examples: ["({ fields, index, row }) => fields"]
+
   fields-props:
-    desc: Propriedade para repassar propriedades para cada campo individualmente.
+    desc: Propriedade para repassar propriedades para cada campo individualmente. Ao utilizar uma função de callback, você recebe como parâmetro o "index" e "row" de cada linha do nested.
     default: {}
-    type: Object
-    examples: ["{ name: { dense: true, onClick: () => alert('Estou sendo clicado') } }"]
+    type: [Object, Function]
+    examples: [
+      "{ name: { dense: true, onClick: () => alert('Estou sendo clicado') } }",
+      "({ index, row }) => ({ name: { disable: !row.status })"
+    ]
 
   form-columns:
     desc: Colunas do grid de cada campo.
