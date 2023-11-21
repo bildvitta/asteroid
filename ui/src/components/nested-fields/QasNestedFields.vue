@@ -453,7 +453,6 @@ export default {
 
     setScroll () {
       const elements = this.$refs.inputContent.children
-      console.log(elements)
       const element = elements[elements.length - 1]
       const { top } = element.getBoundingClientRect()
       const pageOffset = window.pageYOffset
