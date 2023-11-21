@@ -14,7 +14,7 @@
             </header>
 
             <div ref="formGenerator" class="col-12 justify-between q-col-gutter-x-md row">
-              <slot :errors="transformedErrors" :fields="getFields(index, row)" :index="index" name="fields" :update-value="updateValuesFromInput">
+              <slot :errors="transformedErrors" :fields="children" :index="index" name="fields" :update-value="updateValuesFromInput">
                 <qas-form-generator v-model="nested[index]" :class="formClasses" :columns="formColumns" :disable="isDisabledRow(row)" :errors="transformedErrors[index]" :fields="getFields(index, row)" :fields-props="getFieldsProps(index, row)" @update:model-value="updateValuesFromInput($event, index)">
                   <template v-for="(slot, key) in $slots" #[key]="scope">
                     <slot v-bind="scope" :disabled="isDisabledRow(row)" :errors="transformedErrors" :index="index" :name="key" />
@@ -28,7 +28,7 @@
             </div>
 
             <div class="col-12">
-              <slot :fields="getFields(index, row)" :index="index" :model="nested[index]" name="custom-fields" :update-value="updateValuesFromInput" />
+              <slot :fields="children" :index="index" :model="nested[index]" name="custom-fields" :update-value="updateValuesFromInput" />
             </div>
           </div>
         </template>
@@ -140,8 +140,13 @@ export default {
     },
 
     field: {
-      type: [Object, Function],
+      type: Object,
       default: () => ({})
+    },
+
+    fieldsHandler: {
+      type: Function,
+      default: undefined
     },
 
     fieldsProps: {
@@ -246,6 +251,10 @@ export default {
   },
 
   computed: {
+    children () {
+      return this.field?.children
+    },
+
     componentTag () {
       return this.useAnimation ? 'transition-group' : 'div'
     },
@@ -374,11 +383,11 @@ export default {
     },
 
     getFields (index, row) {
-      if (typeof this.field === 'function') {
-        return this.field({ index, row })
+      if (typeof this.fieldsHandler === 'function') {
+        return this.fieldsHandler({ index, row })
       }
 
-      return this.field?.children
+      return this.children
     },
 
     getFieldsProps (index, row) {
@@ -444,6 +453,7 @@ export default {
 
     setScroll () {
       const elements = this.$refs.inputContent.children
+      console.log(elements)
       const element = elements[elements.length - 1]
       const { top } = element.getBoundingClientRect()
       const pageOffset = window.pageYOffset
