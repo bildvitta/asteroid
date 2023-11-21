@@ -47,6 +47,7 @@
     "autonumeric": "^4.9.0",
     "axios": "^1.4.0",
     "date-fns": "^2.30.0",
+    "debug": "^4.3.4",
     "fuse.js": "^6.6.2",
     "humps": "^2.0.1",
     "lodash-es": "^4.17.21",

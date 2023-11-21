@@ -65,10 +65,14 @@ import QasBtn from '../btn/QasBtn.vue'
 import QasFormGenerator from '../form-generator/QasFormGenerator.vue'
 import QasInput from '../input/QasInput.vue'
 import QasLabel from '../label/QasLabel.vue'
-import { TransitionGroup } from 'vue'
-import { extend } from 'quasar'
 
 import { constructObject } from '../../helpers'
+
+import { TransitionGroup } from 'vue'
+import debug from 'debug'
+import { extend } from 'quasar'
+
+const log = debug('asteroid-ui:qas-nested-fields')
 
 export default {
   name: 'QasNestedFields',
@@ -392,7 +396,7 @@ export default {
         this.setFocus()
       })
 
-      this.$qas.logger.group('QasNestedFields - add', [payload])
+      log('add', payload)
 
       this.updateModelValue()
     },
@@ -410,7 +414,7 @@ export default {
         ? this.nested.splice(index, 1)
         : this.nested.splice(index, 1, { [this.destroyKey]: true, ...row })
 
-      this.$qas.logger.group('QasNestedFields - destroy', [{ index, row }])
+      log('destroy', { index, row })
 
       this.updateModelValue()
     },
