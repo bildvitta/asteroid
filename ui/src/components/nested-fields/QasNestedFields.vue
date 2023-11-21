@@ -14,8 +14,8 @@
             </header>
 
             <div ref="formGenerator" class="col-12 justify-between q-col-gutter-x-md row">
-              <slot :errors="transformedErrors" :fields="children" :index="index" name="fields" :update-value="updateValuesFromInput">
-                <qas-form-generator v-model="nested[index]" :class="formClasses" :columns="formColumns" :disable="isDisabledRow(row)" :errors="transformedErrors[index]" :fields="children" :fields-props="fieldsProps" @update:model-value="updateValuesFromInput($event, index)">
+              <slot :errors="transformedErrors" :fields="getFields(index, row)" :index="index" name="fields" :update-value="updateValuesFromInput">
+                <qas-form-generator v-model="nested[index]" :class="formClasses" :columns="formColumns" :disable="isDisabledRow(row)" :errors="transformedErrors[index]" :fields="getFields(index, row)" :fields-props="getFieldsProps(index, row)" @update:model-value="updateValuesFromInput($event, index)">
                   <template v-for="(slot, key) in $slots" #[key]="scope">
                     <slot v-bind="scope" :disabled="isDisabledRow(row)" :errors="transformedErrors" :index="index" :name="key" />
                   </template>
@@ -28,7 +28,7 @@
             </div>
 
             <div class="col-12">
-              <slot :fields="children" :index="index" :model="nested[index]" name="custom-fields" :update-value="updateValuesFromInput" />
+              <slot :fields="getFields(index, row)" :index="index" :model="nested[index]" name="custom-fields" :update-value="updateValuesFromInput" />
             </div>
           </div>
         </template>
@@ -140,12 +140,12 @@ export default {
     },
 
     field: {
-      type: Object,
+      type: [Object, Function],
       default: () => ({})
     },
 
     fieldsProps: {
-      type: Object,
+      type: [Object, Function],
       default: () => ({})
     },
 
@@ -246,10 +246,6 @@ export default {
   },
 
   computed: {
-    children () {
-      return this.field?.children
-    },
-
     componentTag () {
       return this.useAnimation ? 'transition-group' : 'div'
     },
@@ -375,6 +371,22 @@ export default {
       }
 
       return list
+    },
+
+    getFields (index, row) {
+      if (typeof this.field === 'function') {
+        return this.field({ index, row })
+      }
+
+      return this.field?.children
+    },
+
+    getFieldsProps (index, row) {
+      if (typeof this.fieldsProps === 'function') {
+        return this.fieldsProps({ index, row })
+      }
+
+      return this.fieldsProps
     },
 
     add (row = {}) {
