@@ -153,7 +153,6 @@ export default {
     },
 
     getToggleTooltipLabel (isCamelized) {
-      console.log('TCL: getToggleTooltipLabel -> isCamelized', isCamelized)
       return isCamelized ? 'Alternar para kebab-case' : 'Alternar para camelCase'
     }
   }
