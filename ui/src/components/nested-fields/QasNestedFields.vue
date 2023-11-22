@@ -148,7 +148,7 @@ export default {
       default: () => ({})
     },
 
-    fieldsHandler: {
+    fieldsHandlerFn: {
       type: Function,
       default: undefined
     },
@@ -389,8 +389,8 @@ export default {
     getFields (index, row) {
       const fields = this.children
 
-      if (typeof this.fieldsHandler === 'function') {
-        return this.fieldsHandler({ fields, index, row })
+      if (typeof this.fieldsHandlerFn === 'function') {
+        return this.fieldsHandlerFn({ fields, index, row })
       }
 
       return fields

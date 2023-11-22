@@ -54,7 +54,7 @@ props:
     type: Object
     examples: ["{ name: 'meuNested', type: 'nested', label: 'Campo nested', children: [...] }"]
 
-  fields-handler:
+  fields-handler-fn:
     desc: Função para manipular os campos do formulário para cada linha do nested.
     type: Function
     examples: ["({ fields, index, row }) => fields"]
