@@ -10,58 +10,65 @@
   </div>
 </template>
 
-<script>
-export default {
-  name: 'QasActions',
+<script setup>
+import useScreen from '../../composables/use-screen'
+import { FlexAlign } from '../../enums/Align'
+import { Spacing } from '../../enums/Spacing'
 
-  props: {
-    align: {
-      default: 'end',
-      type: String,
-      validator: value => ['start', 'around', 'between', 'center', 'end'].includes(value)
-    },
+import { computed, useSlots } from 'vue'
 
-    gutter: {
-      default: '',
-      type: String,
-      validator: value => !value || ['xs', 'sm', 'md', 'lg', 'xl'].includes(value)
-    },
+defineOptions({ name: 'QasActions' })
 
-    useFullWidth: {
-      type: Boolean
-    },
-
-    useEqualWidth: {
-      type: Boolean
-    }
+const props = defineProps({
+  align: {
+    default: FlexAlign.End,
+    type: String,
+    validator: value => Object.values(FlexAlign).includes(value)
   },
 
-  computed: {
-    classes () {
-      return [
-        `justify-${this.align}`,
-        `q-col-gutter-${this.defaultGutter}`,
-        (this.$qas.screen.isSmall || this.useFullWidth) ? 'column reverse' : 'row'
-      ]
-    },
+  gutter: {
+    default: '',
+    type: String,
+    validator: value => !value || Object.values(Spacing).includes(value)
+  },
 
-    defaultGutter () {
-      return this.gutter || this.$qas.screen.isSmall ? 'md' : 'lg'
-    },
+  useFullWidth: {
+    type: Boolean
+  },
 
-    columnClasses () {
-      if (this.useEqualWidth) return 'col-12 col-sm-6'
-
-      return this.useFullWidth ? 'col-12' : 'col-12 col-sm-auto'
-    },
-
-    hasPrimarySlot () {
-      return !!this.$slots.primary
-    },
-
-    hasSecondarySlot () {
-      return !!this.$slots.secondary
-    }
+  useEqualWidth: {
+    type: Boolean
   }
-}
+})
+
+const slots = useSlots()
+const screen = useScreen()
+
+const defaultGutter = computed(() => {
+  return props.gutter || (screen.isSmall ? 'md' : 'lg')
+})
+
+const classes = computed(() => {
+  const isSmallOrFullWidth = screen.isSmall || props.useFullWidth
+
+  return [
+    // alinhamento
+    `justify-${props.align}`,
+
+    // espaçamento
+    `q-col-gutter-${defaultGutter.value}`,
+
+    // disposição
+    isSmallOrFullWidth ? 'column reverse' : 'row'
+  ]
+})
+
+const columnClasses = computed(() => {
+  if (props.useEqualWidth) return 'col-12 col-sm-6'
+
+  return props.useFullWidth ? 'col-12' : 'col-12 col-sm-auto'
+})
+
+const hasPrimarySlot = computed(() => !!slots.primary)
+const hasSecondarySlot = computed(() => !!slots.secondary)
 </script>
