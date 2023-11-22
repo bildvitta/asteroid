@@ -70,8 +70,7 @@ import {
   Dialog,
   NotifyError,
   NotifySuccess,
-  Screen,
-  Logger
+  Screen
 } from './plugins'
 
 import packageInfo from '../package.json'
@@ -152,7 +151,6 @@ async function install (app) {
     delete: params => Delete.call(app.config.globalProperties, params),
     dialog: Dialog,
     error: NotifyError,
-    logger: Logger(),
     screen: Screen(),
     success: NotifySuccess
   }
@@ -230,7 +228,6 @@ export {
 
   // plugins
   Dialog,
-  Logger,
   NotifyError,
   NotifySuccess,
   Screen,

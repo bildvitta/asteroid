@@ -39,11 +39,14 @@
 </template>
 
 <script>
-import { viewMixin, contextMixin } from '../../mixins'
 import QasFilters from '../filters/QasFilters.vue'
 import QasPagination from '../pagination/QasPagination.vue'
+import debug from 'debug'
 import { extend } from 'quasar'
 import { getState, getAction } from '@bildvitta/store-adapter'
+import { viewMixin, contextMixin } from '../../mixins'
+
+const log = debug('asteroid-ui:qas-list-view')
 
 export default {
   components: {
@@ -191,10 +194,6 @@ export default {
           ...externalPayload
         }
 
-        this.$qas.logger.group(
-          `QasListView - fetchList -> Payload do parâmetro do ${this.entity}/fetchList`, [payload]
-        )
-
         const response = await getAction.call(this, {
           entity: this.entity,
           key: 'fetchList',
@@ -216,19 +215,13 @@ export default {
 
         this.$emit('fetch-success', response)
 
-        this.$qas.logger.group(
-          `QasListView - fetchList -> resposta da action ${this.entity}/fetchList`, [response]
-        )
+        log(`[${this.entity}]:fetchList:success`, response)
       } catch (error) {
         this.mx_fetchError(error)
         this.$emit('update:errors', error)
         this.$emit('fetch-error', error)
 
-        this.$qas.logger.group(
-          `QasListView - fetchSingle -> exceção da action ${this.entity}/fetchList`,
-          [error],
-          { error: true }
-        )
+        log(`[${this.entity}]:fetchList:error`, error)
       } finally {
         this.mx_isFetching = false
       }

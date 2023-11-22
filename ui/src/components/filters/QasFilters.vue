@@ -39,11 +39,14 @@
 
 <script>
 import PvFiltersButton from './private/PvFiltersButton.vue'
+import debug from 'debug'
 
 import { camelize, camelizeKeys, decamelize } from 'humps'
 import { humanize, parseValue } from '../../helpers/filters.js'
 import contextMixin from '../../mixins/context.js'
 import { getState, getAction } from '@bildvitta/store-adapter'
+
+const log = debug('asteroid-ui:qas-filters')
 
 export default {
   name: 'QasFilters',
@@ -281,11 +284,6 @@ export default {
       this.isFetching = true
 
       try {
-        this.$qas.logger.group(
-          `QasFilters - fetchFilters -> Payload do parâmetro do ${this.entity}/fetchFilters`,
-          [{ url: this.url }]
-        )
-
         const response = await getAction.call(this, {
           entity: this.entity,
           key: 'fetchFilters',
@@ -294,18 +292,12 @@ export default {
 
         this.$emit('fetch-success', response)
 
-        this.$qas.logger.group(
-          `QasFilters - fetchFilters -> resposta da action ${this.entity}/fetchFilters`, [response]
-        )
+        log(`[${this.entity}]:fetchFilters:success`, response)
       } catch (error) {
         this.hasFetchError = true
         this.$emit('fetch-error', error)
 
-        this.$qas.logger.group(
-          `QasFilters - fetchFilters -> exceção da action ${this.entity}/fetchFilters`,
-          [error],
-          { error: true }
-        )
+        log(`[${this.entity}]:fetchFilters:error`, error)
       } finally {
         this.isFetching = false
       }

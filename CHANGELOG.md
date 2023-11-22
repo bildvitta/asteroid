@@ -10,6 +10,17 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 ### Sobre os "BREAKING CHANGES"
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
+## [3.13.0-beta.8] - 22-11-2023
+## BREAKING CHANGE
+- `plugins/Logger`: removido plugin de log, uma vez que o mesmo estava poluindo muito o console, alterado para a lib `debug`.
+
+### Modificado
+- [`QasListView`, `QasFormView`, `QasSingleView`, `QasFilters`, `QasNestedField`]: alterado plugin `Logger` para lib `debug` e simplificado os logs.
+
+### Removido
+- `plugins/Logger`: removido plugin de log, uma vez que o mesmo estava poluindo muito o console, alterado para a lib `debug`.
+- `QasTableGenerator`: removido logger desnecessário.
+
 ## [3.13.0-beta.7] - 07-11-2023
 ## BREAKING CHANGES
 - `QasFormView`: modificação do `data-cy` dos botões de "Salvar" e "Voltar" do formulário. Veja mais detalhes na seção "Modificado" abaixo.
@@ -2170,3 +2181,4 @@ Adicionado suporte para Pinia/Vuex Seguindo os padrões da biblioteca `@bildvitt
 [3.13.0-beta.5]: https://github.com/bildvitta/asteroid/compare/v3.13.0-beta.4...v3.13.0-beta.5?expand=1
 [3.13.0-beta.6]: https://github.com/bildvitta/asteroid/compare/v3.13.0-beta.5...v3.13.0-beta.6?expand=1
 [3.13.0-beta.7]: https://github.com/bildvitta/asteroid/compare/v3.13.0-beta.6...v3.13.0-beta.7?expand=1
+[3.13.0-beta.8]: https://github.com/bildvitta/asteroid/compare/v3.13.0-beta.7...v3.13.0-beta.8?expand=1
