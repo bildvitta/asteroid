@@ -1,9 +1,0 @@
-type: component
-
-meta:
-  desc: Plugin para adicionar loggers.
-
-inject:
-  'this.$qas.logger':
-    default: {}
-    type: Object

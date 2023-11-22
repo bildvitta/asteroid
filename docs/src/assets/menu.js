@@ -308,10 +308,6 @@ module.exports = [
         path: '/plugins/dialog'
       },
       {
-        name: 'Logger',
-        path: '/plugins/logger'
-      },
-      {
         name: 'NotifyError',
         path: '/plugins/notify-error'
       },
@@ -526,6 +522,10 @@ module.exports = [
     icon: 'sym_r_play_circle',
     name: 'Boot',
     children: [
+      {
+        name: 'debug',
+        path: '/boot/debug'
+      },
       {
         name: 'queryCache',
         path: '/boot/query-cache'

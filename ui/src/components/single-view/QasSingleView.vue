@@ -22,8 +22,12 @@
 
 <script>
 import viewMixin from '../../mixins/view'
+
 import { markRaw } from 'vue'
 import { getGetter, getAction } from '@bildvitta/store-adapter'
+import debug from 'debug'
+
+const log = debug('asteroid-ui:qas-single-view')
 
 export default {
   name: 'QasSingleView',
@@ -85,11 +89,6 @@ export default {
       try {
         const payload = { id: this.id, url: this.url, ...externalPayload }
 
-        this.$qas.logger.group(
-          `QasSingleView - fetchSingle -> payload do parâmetro do ${this.entity}/fetchSingle`,
-          [payload]
-        )
-
         const response = await getAction.call(this, {
           entity: this.entity,
           key: 'fetchSingle',
@@ -108,20 +107,14 @@ export default {
           metadata: this.mx_metadata
         })
 
-        this.$qas.logger.group(
-          `QasSingleView - fetchSingle -> resposta da action ${this.entity}/fetchSingle`, [response]
-        )
-
         this.$emit('fetch-success', response)
+
+        log(`[${this.entity}]:fetchSingle:success`, response)
       } catch (error) {
         this.mx_fetchError(error)
         this.$emit('fetch-error', error)
 
-        this.$qas.logger.group(
-          `QasSingleView - fetchSingle -> exceção da action ${this.entity}/fetchSingle`,
-          [error],
-          { error: true }
-        )
+        log(`[${this.entity}]:fetchSingle:error`, error)
       } finally {
         this.mx_isFetching = false
       }

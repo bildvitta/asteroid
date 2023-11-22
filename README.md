@@ -68,19 +68,6 @@ Observação: Alguns componentes do Quasar precisam ser importados manualmente d
 | `DEBUGGING` | Habilita os loggers dos componentes |
 | `MAPS_API_KEY` | Key do google maps |
 
-## Componentes com logger
-Loggers são ativados quando a variável de ambiente `DEBUGGING` é setada.
-
-- QasDelete
-- QasFilters
-- QasFormView
-- QasGridGenerator
-- QasListView
-- QasNestedFields
-- QasSingleView
-- QasTableGenerator
-- QasUploader
-
 ## Roadmap:
 
 - [ ] Finalizar `eslint-plugin-asteroid`;

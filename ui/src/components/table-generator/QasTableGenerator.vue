@@ -159,8 +159,6 @@ export default {
           columnByField(this.fields[index])
         }
 
-        this.$qas.logger.group('QasTableGenerator - Automatic columns', [columns])
-
         return columns
       }
 
@@ -172,8 +170,6 @@ export default {
           columnByField(this.fields[column])
         }
       })
-
-      this.$qas.logger.group('QasTableGenerator - columns', [columns])
 
       return columns
     },
@@ -198,8 +194,6 @@ export default {
 
         return result
       })
-
-      this.$qas.logger.group('QasTableGenerator - resultsByFields', [mappedResults])
 
       return mappedResults
     },
