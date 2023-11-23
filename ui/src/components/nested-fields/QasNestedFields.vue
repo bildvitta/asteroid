@@ -13,6 +13,8 @@
               <qas-actions-menu v-if="hasBlockActions(row)" v-bind="getActionsMenuProps(index, row)" />
             </header>
 
+            <slot :index="index" name="before-form" :row="row" />
+
             <div ref="formGenerator" class="col-12 justify-between q-col-gutter-x-md row">
               <slot :errors="transformedErrors" :fields="getFields(index, row)" :index="index" name="fields" :update-value="updateValuesFromInput">
                 <qas-form-generator v-model="nested[index]" :class="formClasses" :columns="formColumns" :disable="isDisabledRow(row)" :errors="transformedErrors[index]" :fields="getFields(index, row)" :fields-props="getFieldsProps(index, row)" @update:model-value="updateValuesFromInput($event, index)">

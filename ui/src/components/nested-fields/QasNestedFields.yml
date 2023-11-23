@@ -158,6 +158,17 @@ slots:
         type: Function
         examples: ["add({ name: 'novo valor' })"]
 
+  before-form:
+    desc: Slot para adicionar conteúdo antes do formulário.
+    scope:
+      index:
+        desc: Index atual dos campos.
+        type: Number
+
+      row:
+        desc: Objeto contendo valores de cada linha.
+        type: Object
+
   custom-fields:
     desc: Slot para adicionar um campo customizado.
     scope:
