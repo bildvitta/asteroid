@@ -4,7 +4,7 @@
       <div class="q-mt-lg text-center">
         <div>
           <qas-nested-fields v-model="model" class="full-width" :field="nested" :form-columns="formColumns" :row-object="rowObject" :use-starts-empty="false">
-            <template #before-form>
+            <template #before-fields>
               <div>Estou antes do formulário.</div>
             </template>
           </qas-nested-fields>

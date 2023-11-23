@@ -55,7 +55,7 @@ props:
     examples: ["{ name: 'meuNested', type: 'nested', label: 'Campo nested', children: [...] }"]
 
   fields-handler-fn:
-    desc: Função para manipular os campos do formulário para cada linha do nested.
+    desc: Função para controlar a visibilidade dos campos do formulário para cada linha do nested.
     type: Function
     examples: ["({ fields, index, row }) => fields"]
 
@@ -158,32 +158,50 @@ slots:
         type: Function
         examples: ["add({ name: 'novo valor' })"]
 
-  before-form:
-    desc: Slot para adicionar conteúdo antes do formulário.
+  before-fields:
+    desc: Slot para adicionar conteúdo antes dos campos do formulário.
     scope:
-      index:
-        desc: Index atual dos campos.
+      errors:
+        desc: Erros dos campos.
         type: Number
 
-      row:
-        desc: Objeto contendo valores de cada linha.
-        type: Object
-
-  custom-fields:
-    desc: Slot para adicionar um campo customizado.
-    scope:
       fields:
         desc: Campos atuais.
         default: {}
         type: Object
 
       index:
-        desc: Index atual dos campos
+        desc: Index atual dos campos.
         type: Number
 
+      model:
+        desc: Model da linha atual.
+        type: Object
+
+      'updateValue -> function(value, index)':
+        desc: Função para atualizar o model, passando o novo valor e o index.
+        type: Function
+        examples: ["updateValue({ name: 'novo valor' }, 2)"]
+
+  custom-fields:
+    desc: Slot para adicionar um campo customizado.
+    scope:
       errors:
-        desc: Index atual dos campos
+        desc: Erros dos campos.
         type: Number
+
+      fields:
+        desc: Campos atuais.
+        default: {}
+        type: Object
+
+      index:
+        desc: Index atual dos campos.
+        type: Number
+
+      model:
+        desc: Model da linha atual.
+        type: Object
 
       'updateValue -> function(value, index)':
         desc: Função para atualizar o model, passando o novo valor e o index.
@@ -199,11 +217,11 @@ slots:
         type: Object
 
       index:
-        desc: Index atual dos campos
+        desc: Index atual dos campos.
         type: Number
 
       errors:
-        desc: Index atual dos campos
+        desc: Erros dos campos.
         type: Number
 
       'updateValue -> function(value, index)':

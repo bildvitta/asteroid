@@ -13,8 +13,8 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 ## Não publicado
 ### Adicionado
 - `enums/Align`: adicionado novo enum `FlexAlign` para alinhamentos.
-- `QasNestedFields`: adicionado nova prop `fieldsHandlerFn` para manipular os fields do formulário.
-- `QasNestedFields`: adicionado novo slot `before-form` para renderizar conteúdo antes do formulário.
+- `QasNestedFields`: adicionado nova prop `fieldsHandlerFn` para para controlar a visibilidade dos campos do formulário.
+- `QasNestedFields`: adicionado novo slot `before-fields` para renderizar conteúdo antes dos campos do formulário.
 
 ### Corrigido
 - `QasActions`: corrigido computada `defaultGutter` que sempre retornava `md` ou `lg`, ignorando a prop `gutter`.

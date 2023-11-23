@@ -13,7 +13,7 @@
               <qas-actions-menu v-if="hasBlockActions(row)" v-bind="getActionsMenuProps(index, row)" />
             </header>
 
-            <slot :index="index" name="before-form" :row="row" />
+            <slot :errors="transformedErrors" :fields="getFields(index, row)" :index="index" :model="nested[index]" name="before-fields" :update-value="updateValuesFromInput" />
 
             <div ref="formGenerator" class="col-12 justify-between q-col-gutter-x-md row">
               <slot :errors="transformedErrors" :fields="getFields(index, row)" :index="index" name="fields" :update-value="updateValuesFromInput">
@@ -30,7 +30,7 @@
             </div>
 
             <div class="col-12">
-              <slot :fields="getFields(index, row)" :index="index" :model="nested[index]" name="custom-fields" :update-value="updateValuesFromInput" />
+              <slot :errors="transformedErrors" :fields="getFields(index, row)" :index="index" :model="nested[index]" name="custom-fields" :update-value="updateValuesFromInput" />
             </div>
           </div>
         </template>
@@ -391,7 +391,7 @@ export default {
     getFields (index, row) {
       const fields = this.children
 
-      if (typeof this.fieldsHandlerFn === 'function') {
+      if (this.fieldsHandlerFn) {
         return this.fieldsHandlerFn({ fields, index, row })
       }
 
