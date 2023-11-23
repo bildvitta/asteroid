@@ -6,7 +6,9 @@
       <q-toolbar-title>
         <router-link class="flex items-center no-wrap text-no-decoration" :class="routerLinkClass" :to="rootRoute">
           <img v-if="brand" :alt="title" class="qas-app-bar__brand" :src="brand">
+
           <span v-else class="ellipsis text-bold text-primary">{{ title }}</span>
+
           <q-badge v-if="hasDevelopmentBadge" class="q-ml-sm" color="red" :label="developmentBadgeLabel" />
         </router-link>
       </q-toolbar-title>
@@ -18,114 +20,84 @@
   </q-header>
 </template>
 
-<script>
+<script setup>
 import QasAppUser from '../app-user/QasAppUser.vue'
 import QasBtn from '../btn/QasBtn.vue'
 
-export default {
-  name: 'QasAppBar',
+import { useScreen } from '../../composables'
 
-  components: {
-    QasAppUser,
-    QasBtn
+import { computed } from 'vue'
+import { useRouter } from 'vue-router'
+
+defineOptions({ name: 'QasAppBar' })
+
+const props = defineProps({
+  appUserProps: {
+    type: Object,
+    required: true,
+    default: () => ({})
   },
 
-  props: {
-    appUserProps: {
-      type: Object,
-      required: true,
-      default: () => ({})
-    },
-
-    brand: {
-      default: '',
-      type: String
-    },
-
-    notifications: {
-      default: () => ({}),
-      type: Object
-    },
-
-    title: {
-      required: true,
-      type: String
-    }
+  brand: {
+    default: '',
+    type: String
   },
 
-  emits: ['sign-out', 'toggle-menu'],
-
-  data () {
-    return {
-      menuDrawer: true
-    }
+  notifications: {
+    default: () => ({}),
+    type: Object
   },
 
-  computed: {
-    appUserMenuProps () {
-      return {
-        anchor: 'bottom end',
-        offset: [0, 5],
-        self: 'top end'
-      }
-    },
-
-    defaultAppUserProps () {
-      return {
-        menuProps: {
-          anchor: 'bottom end',
-          offset: [0, 5],
-          self: 'top end'
-        },
-
-        onSignOut: this.signOut,
-        ...this.appUserProps
-      }
-    },
-
-    developmentBadgeLabel () {
-      const hosts = {
-        localhost: 'Local',
-        '.dev.': 'Develop'
-      }
-
-      if (process.env.DEV) {
-        return hosts.localhost
-      }
-
-      const current = Object.keys(hosts).find(
-        host => location.hostname.includes(host)
-      )
-
-      return current ? hosts[current] : ''
-    },
-
-    hasDevelopmentBadge () {
-      return !!this.developmentBadgeLabel
-    },
-
-    hasUser () {
-      return !!Object.keys(this.defaultAppUserProps.user || {}).length
-    },
-
-    rootRoute () {
-      return this.$router.hasRoute('Root') ? { name: 'Root' } : { path: '/' }
-    },
-
-    routerLinkClass () {
-      return this.$qas.screen.isSmall && 'justify-center'
-    }
-  },
-
-  methods: {
-    signOut () {
-      this.$emit('sign-out')
-    },
-
-    toggleMenuDrawer () {
-      this.$emit('toggle-menu')
-    }
+  title: {
+    required: true,
+    type: String
   }
+})
+
+const emits = defineEmits(['sign-out', 'toggle-menu'])
+
+const router = useRouter()
+const screen = useScreen()
+
+const defaultAppUserProps = computed(() => {
+  return {
+    menuProps: {
+      anchor: 'bottom end',
+      offset: [0, 5],
+      self: 'top end'
+    },
+
+    onSignOut: signOut,
+    ...props.appUserProps
+  }
+})
+
+const rootRoute = router.hasRoute('Root') ? { name: 'Root' } : { path: '/' }
+
+const developmentBadgeLabel = computed(() => {
+  const hosts = {
+    localhost: 'Local',
+    '.dev.': 'Develop'
+  }
+
+  if (process.env.DEV) return hosts.localhost
+
+  const current = Object.keys(hosts).find(host => location.hostname.includes(host))
+
+  return current ? hosts[current] : ''
+})
+
+const hasDevelopmentBadge = computed(() => !!developmentBadgeLabel.value)
+const hasUser = computed(() => !!Object.keys(defaultAppUserProps.value.user || {}).length)
+
+const routerLinkClass = computed(() => screen.isSmall && 'justify-center')
+
+function signOut () {
+  emits('sign-out')
+}
+
+function toggleMenuDrawer () {
+  emits('toggle-menu')
 }
 </script>
 
