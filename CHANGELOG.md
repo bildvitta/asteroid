@@ -13,12 +13,15 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 ## Não publicado
 ### Adicionado
 - `enums/Align`: adicionado novo enum `FlexAlign` para alinhamentos.
+- `QasNestedFields`: adicionado nova prop `fieldsHandlerFn` para manipular os fields do formulário.
+- `QasNestedFields`: adicionado novo slot `before-form` para renderizar conteúdo antes do formulário.
 
 ### Corrigido
 - `QasActions`: corrigido computada `defaultGutter` que sempre retornava `md` ou `lg`, ignorando a prop `gutter`.
 
 ### Modificado
 - `QasActions`: alterado componente para Composition API.
+- `QasNestedFields`: alterado prop `fieldsProps` para aceitar uma função de callback.
 
 ## [3.13.0-beta.8] - 22-11-2023
 ## BREAKING CHANGE
