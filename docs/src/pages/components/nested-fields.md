@@ -66,7 +66,7 @@ A propriedade `useDestroyAlways` caso não seja repassada ao componente, assume 
 ## Uso
 
 <doc-example file="QasNestedFields/Basic" title="Básico" />
-<doc-example file="QasNestedFields/CallbackFields" title="Propriedades fieldsHandler e fieldsProps com função de callback" />
+<doc-example file="QasNestedFields/CallbackFields" title="Propriedades fieldsHandlerFn e fieldsProps com função de callback" />
 <doc-example file="QasNestedFields/ExSingleLabel" title="Label única" />
 <doc-example file="QasNestedFields/StartsEmptyFalse" title="Começando com formulário" />
 <doc-example file="QasNestedFields/DisabledRowsArray" title="Linhas desabilitadas com um array de uuids" />
