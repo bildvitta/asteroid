@@ -1,9 +1,10 @@
-import { computed } from 'vue'
 import { useScreen } from '../../../composables'
+
+import { computed } from 'vue'
 
 /**
  * @param {{
- *  props: { appUserProps }
+ *  props: { appUserProps: {} }
  *  onSignOut: () => void
  *  onMenuUpdate: () => void
  * }} config

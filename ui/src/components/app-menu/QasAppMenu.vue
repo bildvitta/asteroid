@@ -88,10 +88,10 @@
 import PvAppMenuDropdown from './private/PvAppMenuDropdown.vue'
 import QasAppUser from '../app-user/QasAppUser.vue'
 
-import { useScreen } from '../../composables'
+import useAppMenuDropdown from './composables/use-app-menu-dropdown'
 import useAppUser from './composables/use-app-user'
 import useDevelopmentBadge from './composables/use-development-badge'
-import useAppMenuDropdown from './composables/use-app-menu-dropdown'
+import { useScreen } from '../../composables'
 
 import { ref, computed } from 'vue'
 import { useRouter } from 'vue-router'
@@ -159,7 +159,7 @@ const isMini = ref(screen.isLarge)
 const composableParams = {
   props,
   onMenuUpdate: setHasOpenedMenu,
-  onSignOut: emits('sign-out')
+  onSignOut: () => emits('sign-out')
 }
 
 const { defaultAppUserProps, showAppUser } = useAppUser(composableParams)
