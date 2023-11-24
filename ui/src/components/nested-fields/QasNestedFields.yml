@@ -163,11 +163,10 @@ slots:
     scope:
       errors:
         desc: Erros dos campos.
-        type: Number
+        type: Object
 
       fields:
         desc: Campos atuais.
-        default: {}
         type: Object
 
       index:
@@ -183,16 +182,15 @@ slots:
         type: Function
         examples: ["updateValue({ name: 'novo valor' }, 2)"]
 
-  custom-fields:
-    desc: Slot para adicionar um campo customizado.
+  after-fields:
+    desc: Slot para adicionar conteúdo após os campos do formulário.
     scope:
       errors:
         desc: Erros dos campos.
-        type: Number
+        type: Object
 
       fields:
         desc: Campos atuais.
-        default: {}
         type: Object
 
       index:
@@ -213,7 +211,6 @@ slots:
     scope:
       fields:
         desc: Campos atuais.
-        default: {}
         type: Object
 
       index:
@@ -222,7 +219,7 @@ slots:
 
       errors:
         desc: Erros dos campos.
-        type: Number
+        type: Object
 
       'updateValue -> function(value, index)':
         desc: Função para atualizar o model, passando o novo valor e o index.
@@ -242,7 +239,7 @@ slots:
 
       errors:
         desc: Erros dos campos
-        type: Number
+        type: Object
 
       'updateValue -> function(value, index)':
         desc: Função para atualizar o model, passando o novo valor e o index.

@@ -29,9 +29,7 @@
               </div>
             </div>
 
-            <div class="col-12">
-              <slot :errors="transformedErrors" :fields="getFields(index, row)" :index="index" :model="nested[index]" name="custom-fields" :update-value="updateValuesFromInput" />
-            </div>
+            <slot :errors="transformedErrors" :fields="getFields(index, row)" :index="index" :model="nested[index]" name="after-fields" :update-value="updateValuesFromInput" />
           </div>
         </template>
       </component>

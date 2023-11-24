@@ -3,8 +3,8 @@
     <div class="full-width">
       <div class="q-mt-lg text-center">
         <qas-nested-fields v-model="model" class="full-width" :field="nested" :form-columns="formColumns" :row-object="rowObject" :use-starts-empty="false">
-          <template #before-fields>
-            <div>Estou antes do formulário.</div>
+          <template #after-fields>
+            <div>Estou após o formulário.</div>
           </template>
         </qas-nested-fields>
 
