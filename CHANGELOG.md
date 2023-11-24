@@ -26,6 +26,8 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - `QasActions`: alterado componente para Composition API.
 - `QasNestedFields`: alterado prop `fieldsProps` para aceitar uma função de callback.
 - `QasNestedFields`: alterado slot `custom-fields` para se chamar `after-fields`. O slot `after-fields` é renderizado após os campos do formulário.
+- `QasActionsMenu`: alterado componente para Composition API.
+- `QasAppBar`: alterado componente para Composition API.
 
 ## [3.13.0-beta.8] - 22-11-2023
 ## BREAKING CHANGE
