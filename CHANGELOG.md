@@ -21,6 +21,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - `QasActions`: alterado componente para Composition API.
 - `QasActionsMenu`: alterado componente para Composition API.
 - `QasAppBar`: alterado componente para Composition API.
+- `QasBadge`: alterado componente para Composition API.
 
 ## [3.13.0-beta.8] - 22-11-2023
 ## BREAKING CHANGE

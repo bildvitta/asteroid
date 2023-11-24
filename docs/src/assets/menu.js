@@ -29,6 +29,17 @@ module.exports = [
   },
 
   {
+    icon: 'sym_r_style',
+    name: 'Style guide',
+    children: [
+      {
+        name: 'Composition API',
+        path: '/style-guide/composition-api'
+      }
+    ]
+  },
+
+  {
     icon: 'sym_r_widgets',
     name: 'Componentes',
     children: [
