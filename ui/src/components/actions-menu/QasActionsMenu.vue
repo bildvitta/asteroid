@@ -40,13 +40,13 @@ const props = defineProps({
   },
 
   deleteLabel: {
-    type: String,
-    default: 'Excluir'
+    default: 'Excluir',
+    type: String
   },
 
   deleteIcon: {
-    type: String,
-    default: 'sym_r_delete'
+    default: 'sym_r_delete',
+    type: String
   },
 
   deleteProps: {
@@ -65,8 +65,8 @@ const props = defineProps({
   },
 
   splitName: {
-    type: String,
-    default: ''
+    default: '',
+    type: String
   },
 
   useLabel: {
@@ -84,7 +84,8 @@ const { deleteBtnProps, hasDelete } = useDelete()
 
 const fullList = computed(() => {
   return {
-    ...props.list, ...deleteBtnProps
+    ...props.list,
+    ...deleteBtnProps
   }
 })
 
