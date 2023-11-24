@@ -18,7 +18,9 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - `QasActions`: corrigido computada `defaultGutter` que sempre retornava `md` ou `lg`, ignorando a prop `gutter`.
 
 ### Modificado
+- `QasActionsMenu`: alterado componente para Composition API.
 - `QasActions`: alterado componente para Composition API.
+- `QasAppBar`: alterado componente para Composition API.
 - `QasAppMenu`: alterado componente para Composition API.
 
 ## [3.13.0-beta.8] - 22-11-2023
