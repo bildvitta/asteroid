@@ -12,11 +12,11 @@ Recomendamos a utilização do evento `@ok|onOk` e `@cancel|onCancel` ao invés 
 
 ## Uso
 
-<!-- <doc-example file="QasDialog/Basic" title="Básico" />
-<doc-example file="QasDialog/ExDialogCancelAndOk" title="Eventos Ok e Cancel" /> -->
-<doc-example file="QasDialog/ExDialogForm" title="Eventos Ok e Cancel" />
-<!-- <doc-example file="QasDialog/ExWithActions" title="Com ações" />
-<doc-example file="QasDialog/ExWithSingleAction" title="Com uma única ação" /> -->
+<doc-example file="QasDialog/Basic" title="Básico" />
+<doc-example file="QasDialog/ExDialogCancelAndOk" title="Eventos Ok e Cancel" />
+<doc-example file="QasDialog/ExDialogForm" title="Com formulário" />
+<doc-example file="QasDialog/ExWithActions" title="Com ações" />
+<doc-example file="QasDialog/ExWithSingleAction" title="Com uma única ação" />
 
 É possível passar um componente para a descrição, caso precise que a descrição seja diferente do padrão.
 
@@ -26,4 +26,4 @@ Um caso onde a exclusão desse item é de alto impacto, onde devemos ter informa
 
 Exemplo: Tenho um item onde está vinculado a vários empreendimentos, e deverá ser exibido quais empreendimentos estão vinculados mostrando o impacto da exclusão do mesmo.
 :::
-<!-- <doc-example file="QasDialog/DialogWithDescriptionComponent" title="Descrição sendo um componente" /> -->
+<doc-example file="QasDialog/DialogWithDescriptionComponent" title="Descrição sendo um componente" />

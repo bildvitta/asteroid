@@ -30,7 +30,11 @@ export default {
           title: 'Título do dialog',
           description: 'Cerca elétrica perto do corrimão risco iminente de choque. Código da ordem de serviço: 159488 CRM ID: 1179512'
         },
-        useForm: true
+        useForm: true,
+
+        onValidate (isValid) {
+          console.log('valido?', isValid)
+        }
       }
     }
   },

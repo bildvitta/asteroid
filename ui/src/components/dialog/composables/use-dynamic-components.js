@@ -6,7 +6,8 @@ import { QForm } from 'quasar'
  *  props: { card: object, useForm: boolean, useValidationAllAtOnce: boolean },
  *  form: import('vue').Ref<HTMLInputElement | null>,
  *  hasOk: import('vue').ComputedRef<boolean>,
- *  onOk: Function,
+ *  emits: (event: 'validate', payload: Promise<boolean> | boolean) => void,
+ *  onOk: Function
  * }} config
  */
 export default function useDynamicComponents (config = {}) {
@@ -18,12 +19,6 @@ export default function useDynamicComponents (config = {}) {
     onOk = () => {},
     emits
   } = config
-
-  const hasRenderFunction = computed(() => {
-    const description = props.card.description
-
-    return typeof description === 'object' && description !== null && !Array.isArray(description)
-  })
 
   const mainComponent = computed(() => {
     return {
@@ -39,8 +34,15 @@ export default function useDynamicComponents (config = {}) {
     }
   })
 
+  const hasRenderFunction = computed(() => {
+    const description = props.card.description
+
+    return typeof description === 'object' && description !== null && !Array.isArray(description)
+  })
+
   const descriptionComponent = computed(() => hasRenderFunction.value ? props.card.description : 'div')
 
+  // métodos
   function submitHandler () {
     if (!props.useForm) return
 

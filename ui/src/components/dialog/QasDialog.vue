@@ -1,5 +1,5 @@
 <template>
-  <q-dialog ref="dialogRef" class="qas-dialog" data-cy="dialog" :persistent="persistent" v-bind="dialogProps" @hide="onDialogHide" @update:model-value="updateModelValue">
+  <q-dialog ref="dialogRef" class="qas-dialog" data-cy="dialog" :persistent="persistent" v-bind="dialogProps" @update:model-value="updateModelValue">
     <div class="bg-white q-pa-lg" :style="style">
       <header v-if="hasHeader" class="q-mb-lg">
         <slot name="header">
@@ -19,7 +19,7 @@
 
           <div v-if="!isInfoDialog">
             <slot name="actions">
-              <qas-actions v-bind="formattedActionsProps">
+              <qas-actions v-bind="defaultActionsProps">
                 <template v-if="hasOk" #primary>
                   <qas-btn v-close-popup="!useForm" class="full-width" data-cy="dialog-ok-btn" variant="primary" v-bind="defaultOk" />
                 </template>
@@ -37,10 +37,12 @@
 </template>
 
 <script setup>
-import QasBtn from '../btn/QasBtn.vue'
 import QasActions from '../actions/QasActions.vue'
+import QasBtn from '../btn/QasBtn.vue'
 
+import useCancel from './composables/use-cancel'
 import useDynamicComponents from './composables/use-dynamic-components'
+import useOk from './composables/use-ok'
 import { useScreen } from '../../composables'
 
 import { computed, ref, useAttrs, useSlots } from 'vue'
@@ -110,26 +112,29 @@ const emits = defineEmits([
   'update:modelValue',
 
   // actions
-  'validate',
-  'ok',
   'cancel',
+  'ok',
+  'validate',
 
   // eventos do plugin
   ...useDialogPluginComponent.emits
 ])
 
-const screen = useScreen()
 const attrs = useAttrs()
+const screen = useScreen()
 const slots = useSlots()
 
-const { dialogRef, onDialogHide } = useDialogPluginComponent()
+// usado para o plugin
+const { dialogRef } = useDialogPluginComponent()
 
+// QForm template
 const form = ref(null)
 
-const { defaultOk, hasOk, onOk } = useOk()
-const { defaultCancel, hasCancel } = useCancel()
-const { formattedActionsProps } = useActions({ hasOk, hasCancel })
-const { descriptionComponent, mainComponent } = useDynamicComponents({ form, props, hasOk, onOk, emits })
+const composablesParams = { emits, form, props, screen, slots }
+
+const { defaultCancel, hasCancel } = useCancel(composablesParams)
+const { defaultOk, hasOk, onOk } = useOk(composablesParams)
+const { descriptionComponent, mainComponent } = useDynamicComponents({ ...composablesParams, onOk, hasOk })
 
 const dialogProps = computed(() => {
   return {
@@ -141,102 +146,33 @@ const dialogProps = computed(() => {
 const style = computed(() => {
   return {
     ...(props.useFullMaxWidth && { width: '100%' }),
+
     maxWidth: props.maxWidth || '470px',
     minWidth: props.minWidth || (screen.isSmall ? '' : '366px')
   }
 })
 
-const hasHeaderSlot = computed(() => !!slots.header)
-const hasHeader = computed(() => hasHeaderSlot.value || props.card.title)
-
+const hasHeader = computed(() => !!slots.header || props.card.title)
 const isInfoDialog = computed(() => !hasOk.value && !hasCancel.value)
+
+const defaultActionsProps = computed(() => {
+  const { useFullWidth, useEqualWidth } = props.actionsProps
+
+  if (useFullWidth || useEqualWidth) return props.actionsProps
+
+  const hasAllActions = hasOk.value && hasCancel.value
+  const hasSingleAction = (hasOk.value && !hasCancel.value) || (!hasOk.value && hasCancel.value)
+
+  return {
+    useFullWidth: hasSingleAction,
+    useEqualWidth: hasAllActions,
+
+    ...props.actionsProps
+  }
+})
 
 function updateModelValue (value) {
   emits('update:modelValue', value)
-}
-
-// composables
-function useCancel () {
-  const defaultCancel = computed(() => {
-    return {
-      label: 'Cancelar',
-      outline: true,
-
-      ...props.cancel,
-
-      onClick: onCancel
-    }
-  })
-
-  const hasCancel = computed(() => {
-    return typeof props.cancel === 'boolean' ? props.cancel : !!Object.keys(props.cancel)
-  })
-
-  function onCancel () {
-    props.cancel.onClick?.()
-    emits('cancel')
-  }
-
-  return {
-    defaultCancel,
-    hasCancel
-  }
-}
-
-function useOk () {
-  const defaultOk = computed(() => {
-    const { onClick, ...attrs } = props.ok
-
-    return {
-      label: 'Ok',
-      type: (props.ok?.type || props.useForm) ? 'submit' : 'button',
-
-      ...attrs,
-
-      // adiciona somente se não estiver usando useForm pois o controle ficará no submit.
-      ...(!props.useForm && { onClick: onOk })
-    }
-  })
-
-  const hasOk = computed(() => typeof props.ok === 'boolean' ? props.ok : !!Object.keys(props.ok))
-
-  function onOk () {
-    props.ok.onClick?.()
-    emits('ok')
-  }
-
-  return {
-    defaultOk,
-    hasOk,
-
-    onOk
-  }
-}
-
-function useActions ({ hasOk, hasCancel }) {
-  const hasAllActions = computed(() => hasOk.value && hasCancel.value)
-
-  const hasSingleAction = computed(() => {
-    return (hasOk.value && !hasCancel.value) || (!hasOk.value && hasCancel.value)
-  })
-
-  const formattedActionsProps = computed(() => {
-    const { useFullWidth, useEqualWidth } = props.actionsProps
-
-    if (useFullWidth || useEqualWidth) {
-      return props.actionsProps
-    }
-
-    return {
-      useFullWidth: hasSingleAction.value,
-      useEqualWidth: hasAllActions.value,
-      ...props.actionsProps
-    }
-  })
-
-  return {
-    formattedActionsProps
-  }
 }
 </script>
 
