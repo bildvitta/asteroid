@@ -1,5 +1,5 @@
 <template>
-  <q-dialog ref="dialog" class="qas-dialog" data-cy="dialog" :persistent="persistent" v-bind="dialogProps" @update:model-value="updateModelValue">
+  <q-dialog ref="dialogRef" class="qas-dialog" data-cy="dialog" :persistent="persistent" v-bind="dialogProps" @hide="onDialogHide" @update:model-value="updateModelValue">
     <div class="bg-white q-pa-lg" :style="style">
       <header v-if="hasHeader" class="q-mb-lg">
         <slot name="header">
@@ -12,9 +12,9 @@
       </header>
 
       <section class="text-body1 text-grey-8">
-        <component :is="componentTag" ref="form" v-bind="componentProps">
+        <component :is="mainComponent.is" ref="form" v-bind="mainComponent.props">
           <slot name="description">
-            <component :is="descriptionComponentTag" data-cy="dialog-description">{{ card.description }}</component>
+            <component :is="descriptionComponent" data-cy="dialog-description">{{ card.description }}</component>
           </slot>
 
           <div v-if="!isInfoDialog">
@@ -36,253 +36,206 @@
   </q-dialog>
 </template>
 
-<script>
+<script setup>
 import QasBtn from '../btn/QasBtn.vue'
 import QasActions from '../actions/QasActions.vue'
 
-export default {
-  name: 'QasDialog',
+import useDynamicComponents from './composables/use-dynamic-components'
+import { useScreen } from '../../composables'
 
-  components: {
-    QasBtn,
-    QasActions
+import { computed, ref, useAttrs, useSlots } from 'vue'
+import { useDialogPluginComponent } from 'quasar'
+
+defineOptions({ name: 'QasDialog' })
+
+const props = defineProps({
+  actionsProps: {
+    default: () => ({}),
+    type: Object
   },
 
-  props: {
-    actionsProps: {
-      default: () => ({}),
-      type: Object
-    },
-
-    cancel: {
-      default: () => ({}),
-      type: [Object, Boolean]
-    },
-
-    card: {
-      default: () => ({}),
-      type: Object
-    },
-
-    maxWidth: {
-      default: '',
-      type: String
-    },
-
-    minWidth: {
-      default: '',
-      type: String
-    },
-
-    ok: {
-      default: () => ({}),
-      type: [Object, Boolean]
-    },
-
-    persistent: {
-      default: true,
-      type: Boolean
-    },
-
-    useForm: {
-      type: Boolean
-    },
-
-    modelValue: {
-      type: Boolean
-    },
-
-    usePlugin: {
-      type: Boolean
-    },
-
-    useFullMaxWidth: {
-      type: Boolean
-    },
-
-    useValidationAllAtOnce: {
-      type: Boolean
-    }
+  cancel: {
+    default: () => ({}),
+    type: [Object, Boolean]
   },
 
-  emits: [
-    // model
-    'update:modelValue',
-
-    // actions
-    'validate',
-    'ok',
-    'cancel'
-  ],
-
-  computed: {
-    defaultCancel () {
-      return {
-        label: 'Cancelar',
-        outline: true,
-
-        ...this.cancel,
-
-        onClick: this.onCancel
-      }
-    },
-
-    defaultOk () {
-      const { onClick, ...attrs } = this.ok
-
-      return {
-        label: 'Ok',
-        type: this.ok?.type || this.useForm ? 'submit' : 'button',
-
-        ...attrs,
-
-        // adiciona somente se não estiver usando useForm pois o controle ficará no submit.
-        ...(!this.useForm && { onClick: this.onOk })
-      }
-    },
-
-    style () {
-      return {
-        ...(this.useFullMaxWidth && { width: '100%' }),
-        maxWidth: this.maxWidth || '470px',
-        minWidth: this.minWidth || (this.$qas.screen.isSmall ? '' : '366px')
-      }
-    },
-
-    componentTag () {
-      return this.useForm ? 'q-form' : 'div'
-    },
-
-    componentProps () {
-      /**
-       * adiciona evento de submit caso useForm seja true,
-       * uma vez que somente o q-form possui este evento.
-      */
-      return {
-        ...(this.useForm && { onSubmit: this.onSubmit })
-      }
-    },
-
-    dialogProps () {
-      return {
-        ...(!this.usePlugin && { modelValue: this.modelValue }),
-        ...this.$attrs
-      }
-    },
-
-    hasOk () {
-      return typeof this.ok === 'boolean' ? this.ok : !!Object.keys(this.ok)
-    },
-
-    hasCancel () {
-      return typeof this.cancel === 'boolean' ? this.cancel : !!Object.keys(this.cancel)
-    },
-
-    hasAllActions () {
-      return this.hasOk && this.hasCancel
-    },
-
-    hasSingleAction () {
-      return (this.hasOk && !this.hasCancel) || (!this.hasOk && this.hasCancel)
-    },
-
-    hasHeaderSlot () {
-      return !!this.$slots.header
-    },
-
-    hasHeader () {
-      return this.hasHeaderSlot || this.card.title
-    },
-
-    isInfoDialog () {
-      return !this.hasOk && !this.hasCancel
-    },
-
-    formattedActionsProps () {
-      const { useFullWidth, useEqualWidth } = this.actionsProps
-
-      if (useFullWidth || useEqualWidth) {
-        return this.actionsProps
-      }
-
-      return {
-        useFullWidth: this.hasSingleAction,
-        useEqualWidth: this.hasAllActions,
-        ...this.actionsProps
-      }
-    },
-
-    hasRenderFunction () {
-      const description = this.card.description
-
-      return typeof description === 'object' && description !== null && !Array.isArray(description)
-    },
-
-    descriptionComponentTag () {
-      return this.hasRenderFunction ? this.card.description : 'div'
-    }
+  card: {
+    default: () => ({}),
+    type: Object
   },
 
-  methods: {
-    async submitHandler () {
-      if (!this.useForm) return
+  maxWidth: {
+    default: '',
+    type: String
+  },
 
-      if (this.useValidationAllAtOnce) {
-        let isAllComponentValid = true
-        const components = this.$refs.form.getValidationComponents() || []
+  minWidth: {
+    default: '',
+    type: String
+  },
 
-        for (const component of components) {
-          const isValid = component?.validate?.()
+  ok: {
+    default: () => ({}),
+    type: [Object, Boolean]
+  },
 
-          if (!isValid) {
-            isAllComponentValid = false
-          }
-        }
+  persistent: {
+    default: true,
+    type: Boolean
+  },
 
-        this.$emit('validate', isAllComponentValid)
+  useForm: {
+    type: Boolean
+  },
 
-        return
-      }
+  modelValue: {
+    type: Boolean
+  },
 
-      this.$emit('validate', await this.$refs.form.validate())
-    },
+  usePlugin: {
+    type: Boolean
+  },
 
-    // método para funcionar como plugin
-    show () {
-      this.$refs.dialog.show()
-    },
+  useFullMaxWidth: {
+    type: Boolean
+  },
 
-    // método para funcionar como plugin
-    hide () {
-      this.$refs.dialog.hide()
-    },
+  useValidationAllAtOnce: {
+    type: Boolean
+  }
+})
 
-    updateModelValue (value) {
-      this.$emit('update:modelValue', value)
-    },
+const emits = defineEmits([
+  // model
+  'update:modelValue',
 
-    onOk () {
-      this.ok?.onClick?.()
-      this.$emit('ok')
-    },
+  // actions
+  'validate',
+  'ok',
+  'cancel',
 
-    onCancel () {
-      this.cancel?.onClick?.()
-      this.$emit('cancel')
-    },
+  // eventos do plugin
+  ...useDialogPluginComponent.emits
+])
 
-    /**
-     * Sem este método, ao clicar enter com a prop useForm ativada a tela era recarregada,
-     * e a ação de click do botão não era chamada pois ele não esta dentro do form.
-    */
-    onSubmit (event) {
-      event.preventDefault()
+const screen = useScreen()
+const attrs = useAttrs()
+const slots = useSlots()
 
-      if (this.hasOk) {
-        this.onOk()
-        this.submitHandler()
-      }
+const { dialogRef, onDialogHide } = useDialogPluginComponent()
+
+const form = ref(null)
+
+const { defaultOk, hasOk, onOk } = useOk()
+const { defaultCancel, hasCancel } = useCancel()
+const { formattedActionsProps } = useActions({ hasOk, hasCancel })
+const { descriptionComponent, mainComponent } = useDynamicComponents({ form, props, hasOk, onOk, emits })
+
+const dialogProps = computed(() => {
+  return {
+    ...(!props.usePlugin && { modelValue: props.modelValue }),
+    ...attrs
+  }
+})
+
+const style = computed(() => {
+  return {
+    ...(props.useFullMaxWidth && { width: '100%' }),
+    maxWidth: props.maxWidth || '470px',
+    minWidth: props.minWidth || (screen.isSmall ? '' : '366px')
+  }
+})
+
+const hasHeaderSlot = computed(() => !!slots.header)
+const hasHeader = computed(() => hasHeaderSlot.value || props.card.title)
+
+const isInfoDialog = computed(() => !hasOk.value && !hasCancel.value)
+
+function updateModelValue (value) {
+  emits('update:modelValue', value)
+}
+
+// composables
+function useCancel () {
+  const defaultCancel = computed(() => {
+    return {
+      label: 'Cancelar',
+      outline: true,
+
+      ...props.cancel,
+
+      onClick: onCancel
     }
+  })
+
+  const hasCancel = computed(() => {
+    return typeof props.cancel === 'boolean' ? props.cancel : !!Object.keys(props.cancel)
+  })
+
+  function onCancel () {
+    props.cancel.onClick?.()
+    emits('cancel')
+  }
+
+  return {
+    defaultCancel,
+    hasCancel
+  }
+}
+
+function useOk () {
+  const defaultOk = computed(() => {
+    const { onClick, ...attrs } = props.ok
+
+    return {
+      label: 'Ok',
+      type: (props.ok?.type || props.useForm) ? 'submit' : 'button',
+
+      ...attrs,
+
+      // adiciona somente se não estiver usando useForm pois o controle ficará no submit.
+      ...(!props.useForm && { onClick: onOk })
+    }
+  })
+
+  const hasOk = computed(() => typeof props.ok === 'boolean' ? props.ok : !!Object.keys(props.ok))
+
+  function onOk () {
+    props.ok.onClick?.()
+    emits('ok')
+  }
+
+  return {
+    defaultOk,
+    hasOk,
+
+    onOk
+  }
+}
+
+function useActions ({ hasOk, hasCancel }) {
+  const hasAllActions = computed(() => hasOk.value && hasCancel.value)
+
+  const hasSingleAction = computed(() => {
+    return (hasOk.value && !hasCancel.value) || (!hasOk.value && hasCancel.value)
+  })
+
+  const formattedActionsProps = computed(() => {
+    const { useFullWidth, useEqualWidth } = props.actionsProps
+
+    if (useFullWidth || useEqualWidth) {
+      return props.actionsProps
+    }
+
+    return {
+      useFullWidth: hasSingleAction.value,
+      useEqualWidth: hasAllActions.value,
+      ...props.actionsProps
+    }
+  })
+
+  return {
+    formattedActionsProps
   }
 }
 </script>
