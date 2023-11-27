@@ -70,9 +70,9 @@ props:
 
   form-columns:
     desc: Colunas do grid de cada campo.
-    default: {}
-    type: Object
-    examples: ["{ name: { sm: 6, md: 12 } }", "[{ sm: 6, md: 12 }]"]
+    default: col-6
+    type: [Array, String, Object]
+    examples: ["[{ sm: 6, md: 12 }]", "{ name: { sm: 6, md: 12 } }", "12"]
 
   form-gutter:
     desc: Espaçamento entre cada campo.

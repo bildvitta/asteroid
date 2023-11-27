@@ -1,8 +1,8 @@
 <template>
   <div class="container spaced">
     <div class="full-width">
-      <div class="q-mt-lg text-center">
-        <qas-nested-fields v-model="model" class="full-width" :field="nested" :form-columns="formColumns" :row-object="rowObject" :use-starts-empty="false">
+      <div class="q-mt-lg">
+        <qas-nested-fields v-model="model" class="full-width" :field="nested" form-columns="12" :row-object="rowObject" :use-starts-empty="false">
           <template #before-fields>
             <div>Estou antes do formulário.</div>
           </template>
@@ -68,14 +68,6 @@ export default {
         name: '',
         email: '',
         cities: []
-      }
-    },
-
-    formColumns () {
-      return {
-        name: { col: 12 },
-        email: { col: 12 },
-        cities: { col: 12 }
       }
     }
   }

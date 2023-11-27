@@ -159,8 +159,8 @@ export default {
     },
 
     formColumns: {
-      type: Object,
-      default: () => ({})
+      type: [Array, String, Object],
+      default: () => []
     },
 
     formGutter: {
