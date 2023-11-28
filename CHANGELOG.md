@@ -11,6 +11,9 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
 ## Não publicado
+## BREAKING CHANGE
+- `QasDialog`: ref `dialog` interno do componente alterado para `dialogRef`.
+
 ### Adicionado
 - `enums/Align`: adicionado novo enum `FlexAlign` para alinhamentos.
 

@@ -32,6 +32,7 @@ export default function useOk (config = {}) {
 
   function onOk () {
     props.ok.onClick?.()
+
     emits('ok')
   }
 

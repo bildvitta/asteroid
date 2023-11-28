@@ -29,6 +29,7 @@ export default function useCancel (config = {}) {
 
   function onCancel () {
     props.cancel.onClick?.()
+
     emits('cancel')
   }
 
