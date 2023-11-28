@@ -12,6 +12,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 
 ## Não publicado
 ## BREAKING CHANGE
+- `QasDialog`: ref `dialog` interno do componente alterado para `dialogRef`.
 - `QasNestedFields`: alterado slot `custom-fields` para se chamar `after-fields`.
 
 ### Adicionado
@@ -29,6 +30,8 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - `QasNestedFields`: alterado tipo da propriedade `formColumns` para aceitar `array`, `string` ou `object`.
 - `QasActionsMenu`: alterado componente para Composition API.
 - `QasAppBar`: alterado componente para Composition API.
+- `QasBtn`: alterado componente para Composition API.
+- `QasDialog`: alterado componente para Composition API.
 
 ## [3.13.0-beta.8] - 22-11-2023
 ## BREAKING CHANGE
