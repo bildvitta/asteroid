@@ -24,12 +24,13 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - `QasActions`: corrigido computada `defaultGutter` que sempre retornava `md` ou `lg`, ignorando a prop `gutter`.
 
 ### Modificado
-- `QasActions`: alterado componente para Composition API.
 - `QasNestedFields`: alterado prop `fieldsProps` para aceitar uma função de callback.
 - `QasNestedFields`: alterado slot `custom-fields` para se chamar `after-fields`. O slot `after-fields` é renderizado após os campos do formulário.
 - `QasNestedFields`: alterado tipo da propriedade `formColumns` para aceitar `array`, `string` ou `object`.
+- `QasActions`: alterado componente para Composition API.
 - `QasActionsMenu`: alterado componente para Composition API.
 - `QasAppBar`: alterado componente para Composition API.
+- `QasAppMenu`: alterado componente para Composition API.
 - `QasAppUser`: alterado componente para Composition API.
 - `QasAvatar`: alterado componente para Composition API.
 - `QasBadge`: alterado componente para Composition API.
