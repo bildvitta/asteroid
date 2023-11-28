@@ -26,13 +26,13 @@ const props = defineProps({
   },
 
   icon: {
-    type: String,
-    default: undefined
+    default: undefined,
+    type: String
   },
 
   iconRight: {
-    type: String,
-    default: undefined
+    default: undefined,
+    type: String
   },
 
   useLabelOnSmallScreen: {
@@ -46,8 +46,8 @@ const props = defineProps({
   },
 
   variant: {
-    type: String,
     default: 'tertiary',
+    type: String,
     validator: value => {
       const variants = ['primary', 'secondary', 'tertiary']
 
