@@ -22,9 +22,7 @@ export default {
     dialogConfig () {
       return {
         card: this.card,
-        cancel: this.cancel,
-
-        onHide: () => console.log('HIDE!')
+        cancel: this.cancel
       }
     }
   },
