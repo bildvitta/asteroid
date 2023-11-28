@@ -30,6 +30,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - `QasNestedFields`: alterado tipo da propriedade `formColumns` para aceitar `array`, `string` ou `object`.
 - `QasActionsMenu`: alterado componente para Composition API.
 - `QasAppBar`: alterado componente para Composition API.
+- `QasBox`: alterado componente para Composition API.
 - `QasBtn`: alterado componente para Composition API.
 - `QasDialog`: alterado componente para Composition API.
 
