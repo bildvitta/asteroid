@@ -54,17 +54,25 @@ props:
     type: Object
     examples: ["{ name: 'meuNested', type: 'nested', label: 'Campo nested', children: [...] }"]
 
+  fields-handler-fn:
+    desc: Função para controlar a visibilidade dos campos do formulário para cada linha do nested.
+    type: Function
+    examples: ["({ fields, index, row }) => fields"]
+
   fields-props:
-    desc: Propriedade para repassar propriedades para cada campo individualmente.
+    desc: Propriedade para repassar propriedades para cada campo individualmente. Ao utilizar uma função de callback, você recebe como parâmetro o "index" e "row" de cada linha do nested.
     default: {}
-    type: Object
-    examples: ["{ name: { dense: true, onClick: () => alert('Estou sendo clicado') } }"]
+    type: [Object, Function]
+    examples: [
+      "{ name: { dense: true, onClick: () => alert('Estou sendo clicado') } }",
+      "({ index, row }) => ({ name: { disable: !row.status })"
+    ]
 
   form-columns:
     desc: Colunas do grid de cada campo.
-    default: {}
-    type: Object
-    examples: ["{ name: { sm: 6, md: 12 } }", "[{ sm: 6, md: 12 }]"]
+    default: col-6
+    type: [Array, String, Object]
+    examples: ["[{ sm: 6, md: 12 }]", "{ name: { sm: 6, md: 12 } }", "12"]
 
   form-gutter:
     desc: Espaçamento entre cada campo.
@@ -150,21 +158,48 @@ slots:
         type: Function
         examples: ["add({ name: 'novo valor' })"]
 
-  custom-fields:
-    desc: Slot para adicionar um campo customizado.
+  before-fields:
+    desc: Slot para adicionar conteúdo antes dos campos do formulário.
     scope:
+      errors:
+        desc: Erros dos campos.
+        type: Object
+
       fields:
         desc: Campos atuais.
-        default: {}
         type: Object
 
       index:
-        desc: Index atual dos campos
+        desc: Index atual dos campos.
         type: Number
 
+      model:
+        desc: Model da linha atual.
+        type: Object
+
+      'updateValue -> function(value, index)':
+        desc: Função para atualizar o model, passando o novo valor e o index.
+        type: Function
+        examples: ["updateValue({ name: 'novo valor' }, 2)"]
+
+  after-fields:
+    desc: Slot para adicionar conteúdo após os campos do formulário.
+    scope:
       errors:
-        desc: Index atual dos campos
+        desc: Erros dos campos.
+        type: Object
+
+      fields:
+        desc: Campos atuais.
+        type: Object
+
+      index:
+        desc: Index atual dos campos.
         type: Number
+
+      model:
+        desc: Model da linha atual.
+        type: Object
 
       'updateValue -> function(value, index)':
         desc: Função para atualizar o model, passando o novo valor e o index.
@@ -176,16 +211,15 @@ slots:
     scope:
       fields:
         desc: Campos atuais.
-        default: {}
         type: Object
 
       index:
-        desc: Index atual dos campos
+        desc: Index atual dos campos.
         type: Number
 
       errors:
-        desc: Index atual dos campos
-        type: Number
+        desc: Erros dos campos.
+        type: Object
 
       'updateValue -> function(value, index)':
         desc: Função para atualizar o model, passando o novo valor e o index.
@@ -205,7 +239,7 @@ slots:
 
       errors:
         desc: Erros dos campos
-        type: Number
+        type: Object
 
       'updateValue -> function(value, index)':
         desc: Função para atualizar o model, passando o novo valor e o index.
