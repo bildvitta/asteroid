@@ -2,20 +2,33 @@
   <div class="cursor-pointer items-center no-wrap q-gutter-sm qas-app-user row" data-cy="app-user">
     <div class="relative-position">
       <qas-avatar :image="user.photo" :size="avatarSize" :title="userName" />
-      <q-badge v-if="hasNotifications" color="red" floating>{{ notifications.count }}</q-badge>
+
+      <q-badge v-if="hasNotifications" color="red" floating>
+        {{ notifications.count }}
+      </q-badge>
     </div>
 
     <div class="ellipsis qas-app-user__data">
-      <div class="ellipsis qas-app-user__name text-grey-9">{{ userName }}</div>
-      <div class="ellipsis qas-app-user__email text-grey-8">{{ user.email }}</div>
+      <div class="ellipsis qas-app-user__name text-grey-9">
+        {{ userName }}
+      </div>
+
+      <div class="ellipsis qas-app-user__email text-grey-8">
+        {{ user.email }}
+      </div>
     </div>
 
     <q-menu class="shadow-2 text-grey-9" max-height="400px" v-bind="menuProps">
       <div class="q-pb-sm q-pt-md q-px-md qas-app-user__menu">
         <qas-avatar class="q-mb-md" :image="user.photo" size="96px" :title="userName" />
 
-        <div class="ellipsis qas-app-user__menu-name">{{ userName }}</div>
-        <div class="ellipsis">{{ user.email }}</div>
+        <div class="ellipsis qas-app-user__menu-name">
+          {{ userName }}
+        </div>
+
+        <div class="ellipsis">
+          {{ user.email }}
+        </div>
 
         <qas-select v-if="hasCompaniesSelect" v-model="companiesModel" class="q-my-md" v-bind="defaultCompanyProps" data-cy="app-user-companies-select" @update:model-value="setCompanies" />
 
@@ -25,7 +38,9 @@
               <q-icon name="sym_r_person" />
             </q-item-section>
 
-            <q-item-section>Editar</q-item-section>
+            <q-item-section>
+              Editar
+            </q-item-section>
           </q-item>
 
           <q-item v-if="hasNotifications" v-close-popup class="qas-app-user__menu-item" clickable>
@@ -33,10 +48,14 @@
               <q-icon name="sym_r_notifications" />
             </q-item-section>
 
-            <q-item-section>Notificações</q-item-section>
+            <q-item-section>
+              Notificações
+            </q-item-section>
 
             <q-item-section side>
-              <q-badge color="red">{{ notifications.count }}</q-badge>
+              <q-badge color="red">
+                {{ notifications.count }}
+              </q-badge>
             </q-item-section>
           </q-item>
 
@@ -45,7 +64,9 @@
               <q-icon name="sym_r_logout" />
             </q-item-section>
 
-            <q-item-section>Sair</q-item-section>
+            <q-item-section>
+              Sair
+            </q-item-section>
           </q-item>
         </q-list>
       </div>
@@ -53,110 +74,91 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import QasAvatar from '../avatar/QasAvatar.vue'
 
-export default {
-  name: 'QasAppUser',
+import { NotifySuccess, NotifyError } from '../../plugins'
 
-  components: {
-    QasAvatar
+import { ref, computed, watch, inject } from 'vue'
+
+defineOptions({ name: 'QasAppUser' })
+
+const props = defineProps({
+  avatarSize: {
+    default: '36px',
+    type: String
   },
 
-  props: {
-    avatarSize: {
-      default: '36px',
-      type: String
-    },
-
-    companyProps: {
-      default: () => ({}),
-      type: Object
-    },
-
-    menuProps: {
-      default: () => ({}),
-      type: Object
-    },
-
-    notifications: {
-      default: () => ({}),
-      type: Object
-    },
-
-    user: {
-      default: () => ({}),
-      required: true,
-      type: Object
-    }
+  companyProps: {
+    default: () => ({}),
+    type: Object
   },
 
-  emits: ['sign-out'],
-
-  data () {
-    return {
-      companiesModel: '',
-      loading: false
-    }
+  menuProps: {
+    default: () => ({}),
+    type: Object
   },
 
-  computed: {
-    defaultCompanyProps () {
-      return {
-        loading: this.loading,
-
-        ...this.companyProps,
-
-        // não é possível alterar o label.
-        label: 'Vínculo'
-      }
-    },
-
-    hasNotifications () {
-      return !!Object.keys(this.notifications).length
-    },
-
-    userName () {
-      return this.user.name || this.user.givenName
-    },
-
-    hasCompaniesSelect () {
-      return !!this.companyProps.options?.length
-    }
+  notifications: {
+    default: () => ({}),
+    type: Object
   },
 
-  watch: {
-    'companyProps.modelValue': {
-      handler (value) {
-        this.companiesModel = value
-      },
+  user: {
+    default: () => ({}),
+    required: true,
+    type: Object
+  }
+})
 
-      immediate: true
-    }
-  },
+const emits = defineEmits(['sign-out'])
 
-  methods: {
-    signOut () {
-      this.$emit('sign-out')
-    },
+// vindo direto do boot api.js
+const axios = inject('axios')
 
-    async setCompanies (value) {
-      this.loading = true
+const companiesModel = ref('')
+const loading = ref(false)
 
-      try {
-        await this.$axios.patch('users/me', { companies: value })
+const defaultCompanyProps = computed(() => {
+  return {
+    loading: loading.value,
 
-        this.$qas.success('Vínculo alterado com sucesso.')
+    ...props.companyProps,
 
-        setTimeout(() => location.reload(), 1500)
-      } catch {
-        this.companiesModel = this.companyProps.modelValue
+    // não é possível alterar o label.
+    label: 'Vínculo'
+  }
+})
 
-        this.$qas.error('Falha ao alterar vínculo.')
-      } finally {
-        this.loading = false
-      }
-    }
+const hasCompaniesSelect = computed(() => !!props.companyProps.options?.length)
+const hasNotifications = computed(() => !!Object.keys(props.notifications).length)
+
+const userName = computed(() => props.user.name || props.user.givenName)
+
+// watch
+watch(() => props.companyProps.modelValue, value => {
+  companiesModel.value = value
+}, { immediate: true })
+
+// métodos
+function signOut () {
+  emits('sign-out')
+}
+
+async function setCompanies (value) {
+  loading.value = true
+
+  try {
+    await axios.patch('users/me', { companies: value })
+    setTimeout(() => location.reload(), 1500)
+
+    NotifySuccess('Vínculo alterado com sucesso.')
+  } catch {
+    companiesModel.value = props.companyProps.modelValue
+
+    NotifyError('Falha ao alterar vínculo.')
+  } finally {
+    loading.value = false
   }
 }
 </script>
