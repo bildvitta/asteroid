@@ -14,12 +14,15 @@ export default {
       card: {
         title: 'Título do dialog',
         description: 'Descrição do dialog.'
-      },
+      }
+    }
+  },
 
-      cancel: {
-        onClick () {
-          alert('Botão cancelar clicado!')
-        }
+  computed: {
+    dialogConfig () {
+      return {
+        card: this.card,
+        cancel: this.cancel
       }
     }
   },
