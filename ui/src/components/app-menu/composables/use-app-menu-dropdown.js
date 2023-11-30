@@ -4,7 +4,7 @@ import { computed, watch, ref } from 'vue'
 
 /**
  * @param {{
- *  props: { modules: [] },
+ *  props: { modules: [], title: string },
  *  onMenuUpdate: () => void
  * }} config
  */
@@ -19,7 +19,7 @@ export default function useAppMenuDropdown (config = {}) {
   const module = ref('')
 
   const defaultModules = computed(() => {
-    if (!isLocalDevelopment()) return this.modules
+    if (!isLocalDevelopment()) return props.modules
 
     const normalizedModules = [...props.modules]
 
@@ -31,7 +31,7 @@ export default function useAppMenuDropdown (config = {}) {
      * executado em desenvolvimento local.
      */
     normalizedModules.unshift({
-      label: `Localhost ${this.title ? `(${this.title})` : ''}`,
+      label: `Localhost ${props.title ? `(${props.title})` : ''}`,
       icon: 'sym_r_home',
       value
     })
@@ -40,7 +40,7 @@ export default function useAppMenuDropdown (config = {}) {
   })
 
   const currentModelOption = computed(() => {
-    return defaultModules.value.find(module => module?.value === module.value)
+    return defaultModules.value.find(moduleOption => moduleOption?.value === module.value)
   })
 
   const appMenuDropdownProps = computed(() => {
@@ -55,7 +55,7 @@ export default function useAppMenuDropdown (config = {}) {
   })
 
   const currentModule = computed(() => {
-    return props.modules.find(module => module?.value.includes(hostname))?.value
+    return defaultModules.value.find(module => module?.value.includes(hostname))?.value
   })
 
   const showAppMenuDropdown = computed(() => !!currentModule.value)

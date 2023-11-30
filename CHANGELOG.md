@@ -10,6 +10,18 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 ### Sobre os "BREAKING CHANGES"
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
+## [3.13.0-beta.12] - 30-11-2023
+### Corrigido
+- `QasAppMenu`: corrigido computada `currentModelOption`.
+
+## [3.13.0-beta.11] - 30-11-2023
+### Corrigido
+- `QasAppMenu`: corrigido modules que não estava usando `defaultModules`.
+
+## [3.13.0-beta.10] - 30-11-2023
+### Corrigido
+- `QasAppMenu`: corrigido props que estavam sendo usado como se estivesse em `Options API`.
+
 ## [3.13.0-beta.9] - 28-11-2023
 ## BREAKING CHANGE
 - `QasDialog`: ref `dialog` interno do componente alterado para `dialogRef`.
@@ -2211,3 +2223,6 @@ Adicionado suporte para Pinia/Vuex Seguindo os padrões da biblioteca `@bildvitt
 [3.13.0-beta.7]: https://github.com/bildvitta/asteroid/compare/v3.13.0-beta.6...v3.13.0-beta.7?expand=1
 [3.13.0-beta.8]: https://github.com/bildvitta/asteroid/compare/v3.13.0-beta.7...v3.13.0-beta.8?expand=1
 [3.13.0-beta.9]: https://github.com/bildvitta/asteroid/compare/v3.13.0-beta.8...v3.13.0-beta.9?expand=1
+[3.13.0-beta.10]: https://github.com/bildvitta/asteroid/compare/v3.13.0-beta.9...v3.13.0-beta.10?expand=1
+[3.13.0-beta.11]: https://github.com/bildvitta/asteroid/compare/v3.13.0-beta.10...v3.13.0-beta.11?expand=1
+[3.13.0-beta.12]: https://github.com/bildvitta/asteroid/compare/v3.13.0-beta.11...v3.13.0-beta.12?expand=1
