@@ -10,6 +10,10 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 ### Sobre os "BREAKING CHANGES"
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
+## Não publicado
+### Corrigido
+- `QasAppMenu`: corrigido props que estavam sendo usado como se estivesse em `Options API`.
+
 ## [3.13.0-beta.9] - 28-11-2023
 ## BREAKING CHANGE
 - `QasDialog`: ref `dialog` interno do componente alterado para `dialogRef`.
