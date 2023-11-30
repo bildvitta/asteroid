@@ -4,7 +4,7 @@ import { computed, watch, ref } from 'vue'
 
 /**
  * @param {{
- *  props: { modules: [] },
+ *  props: { modules: [], title: string },
  *  onMenuUpdate: () => void
  * }} config
  */
@@ -19,7 +19,7 @@ export default function useAppMenuDropdown (config = {}) {
   const module = ref('')
 
   const defaultModules = computed(() => {
-    if (!isLocalDevelopment()) return this.modules
+    if (!isLocalDevelopment()) return props.modules
 
     const normalizedModules = [...props.modules]
 
@@ -31,7 +31,7 @@ export default function useAppMenuDropdown (config = {}) {
      * executado em desenvolvimento local.
      */
     normalizedModules.unshift({
-      label: `Localhost ${this.title ? `(${this.title})` : ''}`,
+      label: `Localhost ${props.title ? `(${props.title})` : ''}`,
       icon: 'sym_r_home',
       value
     })
