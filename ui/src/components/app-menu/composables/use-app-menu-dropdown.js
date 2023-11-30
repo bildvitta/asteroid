@@ -55,10 +55,11 @@ export default function useAppMenuDropdown (config = {}) {
   })
 
   const currentModule = computed(() => {
-    return props.modules.find(module => module?.value.includes(hostname))?.value
+    return defaultModules.value.find(module => module?.value.includes(hostname))?.value
   })
 
   const showAppMenuDropdown = computed(() => !!currentModule.value)
+  console.log('TCL: showAppMenuDropdown', showAppMenuDropdown)
 
   watch(() => currentModule.value, value => {
     module.value = value
