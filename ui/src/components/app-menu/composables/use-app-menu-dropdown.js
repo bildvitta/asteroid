@@ -40,7 +40,7 @@ export default function useAppMenuDropdown (config = {}) {
   })
 
   const currentModelOption = computed(() => {
-    return defaultModules.value.find(module => module?.value === module.value)
+    return defaultModules.value.find(moduleOption => moduleOption?.value === module.value)
   })
 
   const appMenuDropdownProps = computed(() => {
@@ -59,7 +59,6 @@ export default function useAppMenuDropdown (config = {}) {
   })
 
   const showAppMenuDropdown = computed(() => !!currentModule.value)
-  console.log('TCL: showAppMenuDropdown', showAppMenuDropdown)
 
   watch(() => currentModule.value, value => {
     module.value = value
