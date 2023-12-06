@@ -199,7 +199,7 @@ function useDelete () {
         color: 'grey-9',
         icon: props.deleteIcon,
         label: props.deleteLabel,
-        handler: () => qas.delete({ deleteActionParams: props.deleteProps })
+        handler: () => qas.delete(props.deleteProps)
       }
     })
   }
