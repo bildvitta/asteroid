@@ -26,12 +26,13 @@
 import QasBtn from '../btn/QasBtn.vue'
 import QasBtnDropdown from '../btn-dropdown/QasBtnDropdown.vue'
 
-import Delete from '../../plugins/delete/Delete'
 import useScreen from '../../composables/use-screen'
 
-import { computed } from 'vue'
+import { computed, inject } from 'vue'
 
 defineOptions({ name: 'QasActionsMenu' })
+
+const qas = inject('qas')
 
 const props = defineProps({
   buttonProps: {
@@ -198,7 +199,7 @@ function useDelete () {
         color: 'grey-9',
         icon: props.deleteIcon,
         label: props.deleteLabel,
-        handler: () => Delete(props.deleteProps)
+        handler: () => qas.delete({ deleteActionParams: props.deleteProps })
       }
     })
   }
