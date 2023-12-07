@@ -55,12 +55,26 @@ Delete({
     entity: 'users'
   },
 
-  // neste exemplo useUsers é uma store do pinia que tem uma action chamada "destroy".
+  // neste exemplo useUsers é uma store do pinia que tem uma action chamada "destroy"
+  // ao chamar o plugin de delete fora de um arquivo vue, é necessário enviar a propriedade deleteAction
+  // caso contrário, será necessário invocar o plugin Delete passando a instância do vue, ex: Delete.call(instanciaVue, { ...params })
   deleteAction: params => useUsers.destroy(params)
 })
 
-// dentro do arquivo vue
+// dentro do arquivo vue (Options API)
 this.$qas.delete({
+  deleteActionParams: {
+    id: 'uuid-do-user-a-ser-excluido',
+    entity: 'users'
+  }
+})
+
+// dentro do arquivo vue (Composition API)
+import { inject } from 'vue'
+
+const qas = inject('qas')
+
+qas.delete({
   deleteActionParams: {
     id: 'uuid-do-user-a-ser-excluido',
     entity: 'users'
