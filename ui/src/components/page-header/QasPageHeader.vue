@@ -31,7 +31,7 @@ import { castArray } from 'lodash-es'
 import { useHistory } from '../../composables'
 import { createMetaMixin } from 'quasar'
 
-const { history } = useHistory()
+const { history, hasPreviousRoute } = useHistory()
 
 export default {
   name: 'QasPageHeader',
@@ -94,10 +94,9 @@ export default {
           item.route = { name: item.routeName }
         }
 
-        const historyList = history.list
+        if (hasPreviousRoute.value && item?.route?.name) {
+          const previous = history.list.findLast(({ name }) => name === item.route.name)
 
-        if (historyList.length && item?.route?.name) {
-          const previous = historyList.find(history => history.name === item.route.name)
           item.route.query = previous ? previous.query : null
         }
 
