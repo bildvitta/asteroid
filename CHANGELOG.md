@@ -11,9 +11,11 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
 ## Não publicado
-### Corrigido
-- `QasPageHeader`: corrigido o problema de pegar a rota errada do histórico.
-- `use-history`: corrigido o método `addRoute` que adicionava a rota apenas se última rota tivesse nome diferente, não diferenciando as queries. Agora valida com base no `fullPath`, considerando as queries da rota.
+## BREAKING CHANGE
+- `QasPageHeader`: removido a query dos breadcrumb. Utilize `use-query-cache` se precisar manter a query.
+
+### Removido
+- `QasPageHeader`: removido a `query` dos breadcrumb.
 
 ### Modificado
 - `use-history`: alterado a forma de pegar o último index. Agora utiliza o método `at(-1)`;
