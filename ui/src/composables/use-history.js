@@ -17,7 +17,7 @@ export default function () {
 
   function addRoute (route) {
     const lastRoute = history.list?.at(-1)
-    const routeExistsInList = lastRoute?.fullPath === route.fullPath
+    const routeExistsInList = lastRoute?.name === route.name
 
     if (routeExistsInList) return
 
