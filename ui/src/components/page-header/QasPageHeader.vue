@@ -28,10 +28,7 @@
 import QasHeaderActions from '../header-actions/QasHeaderActions.vue'
 
 import { castArray } from 'lodash-es'
-import { useHistory } from '../../composables'
 import { createMetaMixin } from 'quasar'
-
-const { history } = useHistory()
 
 export default {
   name: 'QasPageHeader',
@@ -92,13 +89,6 @@ export default {
 
         if (!item.route && item.routeName) {
           item.route = { name: item.routeName }
-        }
-
-        const historyList = history.list
-
-        if (historyList.length && item?.route?.name) {
-          const previous = historyList.find(history => history.name === item.route.name)
-          item.route.query = previous ? previous.query : null
         }
 
         return item
