@@ -12,13 +12,10 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 
 ## Não publicado
 ## BREAKING CHANGE
-- `QasPageHeader`: removido a query dos breadcrumb. Utilize `use-query-cache` se precisar manter a query.
+- `QasPageHeader`: removido a query dos breadcrumb. Utilize `useCache: true` no meta das rotas onde precisar persistir a query.
 
 ### Removido
-- `QasPageHeader`: removido a `query` dos breadcrumb.
-
-### Modificado
-- `use-history`: alterado a forma de pegar o último index. Agora utiliza o método `at(-1)`;
+- `QasPageHeader`: removido a query dos links do breadcrumb.
 
 ## [3.13.0-beta.14] - 07-12-2023
 ### Corrigido
