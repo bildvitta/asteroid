@@ -4,10 +4,10 @@
       <div v-if="showSearch" class="col-12 col-md-6">
         <slot :filter="filter" name="search">
           <q-form v-if="useSearch" @submit.prevent="filter()">
-            <qas-search-input v-model="search" :placeholder="searchPlaceholder" :use-search-on-type="useSearchOnType" @clear="clearSearch" @filter="filter()" @update:model-value="onSearch">
+            <qas-search-input v-model="internalSearch" :placeholder="searchPlaceholder" :use-search-on-type="useSearchOnType" @clear="clearSearch" @filter="filter()" @update:model-value="onSearch">
               <template v-if="showFilterButton" #after-clear>
                 <slot :context="mx_context" :filter="filter" :filters="activeFilters" name="filter-button" :remove-filter="removeFilter">
-                  <pv-filters-button v-if="useFilterButton" ref="filtersButton" v-model="filters" v-bind="filterButtonProps" />
+                  <pv-filters-button v-if="useFilterButton" ref="filtersButton" v-model="internalFilters" v-bind="filterButtonProps" />
                 </slot>
               </template>
             </qas-search-input>
@@ -17,7 +17,7 @@
 
       <div v-else-if="showFilterButton" class="col-12 col-md-6">
         <slot :context="mx_context" :filter="filter" :filters="activeFilters" name="filter-button" :remove-filter="removeFilter">
-          <pv-filters-button v-if="useFilterButton" ref="filtersButton" v-model="filters" v-bind="filterButtonProps" />
+          <pv-filters-button v-if="useFilterButton" ref="filtersButton" v-model="internalFilters" v-bind="filterButtonProps" />
         </slot>
       </div>
 
@@ -73,6 +73,11 @@ export default {
       type: Object
     },
 
+    filters: {
+      default: () => ({}),
+      type: Object
+    },
+
     useFilterButton: {
       default: true,
       type: Boolean
@@ -86,6 +91,11 @@ export default {
     useSearchOnType: {
       default: true,
       type: Boolean
+    },
+
+    search: {
+      default: '',
+      type: String
     },
 
     searchPlaceholder: {
@@ -113,15 +123,15 @@ export default {
     }
   },
 
-  emits: ['fetch-success', 'fetch-error', 'update:currentFilters'],
+  emits: ['fetch-success', 'fetch-error', 'update:currentFilters', 'update:search', 'update:filters'],
 
   data () {
     return {
+      internalFilters: this.filters || {},
+      internalSearch: this.search || '',
       currentFilters: {},
-      filters: {},
       hasFetchError: false,
-      isFetching: false,
-      search: ''
+      isFetching: false
     }
   },
 
@@ -224,6 +234,32 @@ export default {
         this.fetchFilters()
         this.useUpdateRoute && this.updateValues()
       }
+    },
+
+    internalFilters: {
+      handler (value) {
+        console.log('------> entrei no WATCH do internalFilters: ', value)
+        this.$emit('update:filters', value)
+      },
+      deep: true
+    },
+
+    internalSearch: {
+      handler (value) {
+        console.log('------> entrei no WATCH do internalSearch: ', value)
+        this.$emit('update:search', value)
+      },
+      deep: true
+    },
+
+    filters (value) {
+      console.log('entrei no WATCH do FILTERS: <---------', value)
+      this.internalFilters = value
+    },
+
+    search (value) {
+      console.log('entrei no WATCH do SEARCH: <---------', value)
+      this.internalSearch = value
     }
   },
 
@@ -234,8 +270,6 @@ export default {
       this.updateValues()
       this.updateCurrentFilters()
     }
-
-    this.handleSearchModelOnCreate()
   },
 
   methods: {
@@ -244,7 +278,7 @@ export default {
       const query = { ...this.$route.query }
       const activeFilters = {
         ...filters,
-        ...this.filters
+        ...this.internalFilters
       }
 
       if (this.hasFields) {
@@ -256,11 +290,11 @@ export default {
 
           if (hasField) {
             delete query[key]
-            delete this.filters[key]
+            delete this.internalFilters[key]
           }
         }
       } else {
-        this.filters = {}
+        this.internalFilters = {}
       }
 
       this.hideFiltersMenu()
@@ -271,7 +305,7 @@ export default {
     },
 
     clearSearch () {
-      this.search = ''
+      this.internalSearch = ''
       this.filter()
     },
 
@@ -283,11 +317,13 @@ export default {
       this.hasFetchError = false
       this.isFetching = true
 
+      const { filters } = this.mx_context
+
       try {
         const response = await getAction.call(this, {
           entity: this.entity,
           key: 'fetchFilters',
-          payload: { url: this.url }
+          payload: { url: this.url, params: filters }
         })
 
         this.$emit('fetch-success', response)
@@ -308,10 +344,10 @@ export default {
 
       const query = {
         ...filters,
-        ...this.filters,
+        ...this.internalFilters,
         ...external,
         ...context,
-        search: this.search || undefined
+        search: this.internalSearch || undefined
       }
 
       for (const key in query) {
@@ -337,7 +373,7 @@ export default {
       const query = { ...this.$route.query }
 
       delete query[name]
-      delete this.filters[name]
+      delete this.internalFilters[name]
 
       await this.updateRouteQuery(query)
 
@@ -346,8 +382,8 @@ export default {
 
     updateCurrentFilters () {
       this.currentFilters = {
-        ...this.filters,
-        ...(this.search && { search: this.search })
+        ...this.internalFilters,
+        ...(this.internalSearch && { search: this.internalSearch })
       }
 
       this.$emit('update:currentFilters', this.currentFilters)
@@ -368,12 +404,6 @@ export default {
       return isMultiple ? [value] : value
     },
 
-    handleSearchModelOnCreate () {
-      if (this.useUpdateRoute && !this.useFilterButton) {
-        this.setSearch()
-      }
-    },
-
     onSearch () {
       if (this.useSearchOnType) {
         this.filter()
@@ -382,16 +412,15 @@ export default {
 
     setSearch () {
       const { search } = this.mx_context
-      this.search = search || ''
+
+      this.internalSearch = search || this.search
     },
 
     setFilters () {
-      this.filters = {}
-
       const { filters } = this.mx_context
 
       for (const key in filters) {
-        this.filters[key] = parseValue(this.normalizeValues(filters[key], this.fields[key]?.multiple))
+        this.internalFilters[key] = parseValue(this.normalizeValues(filters[key], this.fields[key]?.multiple))
       }
     }
   }
