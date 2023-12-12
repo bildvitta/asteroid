@@ -123,14 +123,14 @@ export default {
     }
   },
 
-  emits: ['fetch-success', 'fetch-error', 'update:currentFilters', 'update:search', 'update:filters'],
+  emits: ['fetch-success', 'fetch-error', 'update:currentFilters', 'update:filters', 'update:search'],
 
   data () {
     return {
-      internalFilters: this.filters || {},
-      internalSearch: this.search || '',
       currentFilters: {},
       hasFetchError: false,
+      internalFilters: this.filters || {},
+      internalSearch: this.search || '',
       isFetching: false
     }
   },
