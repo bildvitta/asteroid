@@ -127,13 +127,13 @@ export default {
 
   data () {
     return {
-      fields: {},
-      fieldsLazyLoadingSelectedOptions: {},
       currentFilters: {},
+      fields: {},
       hasFetchError: false,
       internalFilters: this.filters,
       internalSearch: this.search,
-      isFetching: false
+      isFetching: false,
+      lazyLoadingSelectedOptions: {}
     }
   },
 
@@ -177,8 +177,9 @@ export default {
         formattedFieldsProps[decamelizedFieldKey] = {
           ...fieldsProps,
           ...(useLazyLoading && {
+            useFetchOptionsOnFocus: true,
             'onUpdate:selectedOptions': options => {
-              this.fieldsLazyLoadingSelectedOptions[key] = options
+              this.lazyLoadingSelectedOptions[key] = options
             }
           })
         }
@@ -204,6 +205,9 @@ export default {
         fields: this.fields,
         fieldsProps: this.formattedFieldsProps,
         loading: this.isFetching,
+        menuProps: {
+          onHide: this.handleLazyLoadingSelectedOptions
+        },
 
         onClear: this.clearFilters,
         onFilter: () => this.filter()
@@ -272,7 +276,6 @@ export default {
     if (this.useUpdateRoute) {
       this.updateValues()
       this.updateCurrentFilters()
-      this.updateFieldsLazyLoadingOptions()
     }
   },
 
@@ -306,7 +309,6 @@ export default {
       await this.updateRouteQuery(query)
 
       this.updateCurrentFilters()
-      this.updateFieldsLazyLoadingOptions()
     },
 
     clearSearch () {
@@ -314,7 +316,7 @@ export default {
       this.filter()
     },
 
-    setFields (fields) {
+    handleFields (fields) {
       const removeOptionsFrom = ['manager', 'supervisor', 'realEstateBroker']
 
       Object.keys(fields || {}).forEach(key => {
@@ -337,6 +339,15 @@ export default {
         //   fields[key].options = [{
         //     value: '7c468932-2d94-4d0d-8ea1-c5cd75f4212c',
         //     label: 'Leandro Assis Matos'
+        //   }]
+
+        //   return
+        // }
+
+        // if (key === 'realEstateBroker') {
+        //   fields[key].options = [{
+        //     value: '1a8af297-0b87-40aa-9e8d-5007b69ff41d',
+        //     label: 'Bruna da Silva Justo Ferreira'
         //   }]
 
         //   return
@@ -368,7 +379,9 @@ export default {
         })
 
         const { fields } = response.data
-        this.setFields(fields)
+        // this.fields = fields
+        // TODO: Remover essa linha quando o back estiver retornando os campos corretamente
+        this.handleFields(fields)
 
         this.$emit('fetch-success', response)
 
@@ -403,7 +416,6 @@ export default {
       await this.updateRouteQuery(query)
 
       this.updateCurrentFilters()
-      this.updateFieldsLazyLoadingOptions()
     },
 
     getChipValue (value) {
@@ -423,12 +435,12 @@ export default {
       await this.updateRouteQuery(query)
 
       this.updateCurrentFilters()
-      this.updateFieldsLazyLoadingOptions()
     },
 
-    updateFieldsLazyLoadingOptions () {
-      for (const key in this.fieldsLazyLoadingSelectedOptions) {
-        this.fields[key].options = this.fieldsLazyLoadingSelectedOptions[key]
+    handleLazyLoadingSelectedOptions () {
+      for (const key in this.lazyLoadingSelectedOptions) {
+        console.log('Setando as opções selecionadas: ', key, this.lazyLoadingSelectedOptions[key])
+        this.fields[key].options = this.lazyLoadingSelectedOptions[key]
       }
     },
 
