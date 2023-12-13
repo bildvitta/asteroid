@@ -36,6 +36,7 @@ export default {
   emits: [
     'update:modelValue',
     'update:fetching',
+    'update:selectedOptions',
     'fetch-options-success',
     'fetch-options-error'
   ],
@@ -100,6 +101,22 @@ export default {
 
         setTimeout(() => this.$emit('update:modelValue', undefined))
       }
+    },
+
+    modelValue (values) {
+      if (!values) return this.$emit('update:selectedOptions', [])
+
+      const findOption = value => this.mx_filteredOptions.find(option => option.value === value)
+
+      if (Array.isArray(values)) {
+        const selectedOptions = values.map(value => findOption(value))
+
+        return this.$emit('update:selectedOptions', selectedOptions)
+      }
+
+      const selectedOption = findOption(values)
+
+      this.$emit('update:selectedOptions', [selectedOption])
     }
   },
 
@@ -153,12 +170,19 @@ export default {
       this.mx_isScrolling = true
 
       const options = await this.mx_fetchOptions()
+
       this.mx_filteredOptions.push(...options)
 
       // this is to prevent the virtual-scroll event to be fired again
       this.$nextTick(() => {
         this.mx_isScrolling = false
       })
+    },
+
+    handleDecamelizeFieldName (fieldName) {
+      if (fieldName.includes('_')) return fieldName.replaceAll('_', '-')
+
+      return decamelize(fieldName, { separator: '-' })
     },
 
     async mx_fetchOptions () {
@@ -180,7 +204,7 @@ export default {
           key: 'fetchFieldOptions',
           payload: {
             url,
-            field: decamelizeFieldName ? decamelize(this.name, { separator: '-' }) : this.name,
+            field: decamelizeFieldName ? this.handleDecamelizeFieldName(this.name) : this.name,
             params: {
               ...params,
               search: this.mx_search,

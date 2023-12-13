@@ -44,7 +44,7 @@ import debug from 'debug'
 import { camelize, camelizeKeys, decamelize } from 'humps'
 import { humanize, parseValue } from '../../helpers/filters.js'
 import contextMixin from '../../mixins/context.js'
-import { getState, getAction } from '@bildvitta/store-adapter'
+import { getAction } from '@bildvitta/store-adapter'
 
 const log = debug('asteroid-ui:qas-filters')
 
@@ -127,10 +127,12 @@ export default {
 
   data () {
     return {
+      fields: {},
+      fieldsLazyLoadingSelectedOptions: {},
       currentFilters: {},
       hasFetchError: false,
-      internalFilters: this.filters || {},
-      internalSearch: this.search || '',
+      internalFilters: this.filters,
+      internalSearch: this.search,
       isFetching: false
     }
   },
@@ -165,19 +167,24 @@ export default {
     },
 
     formattedFieldsProps () {
-      const fieldsProps = {}
+      const formattedFieldsProps = {}
 
-      for (const key in this.fieldsProps) {
+      for (const key in this.fields) {
         const decamelizedFieldKey = decamelize(key)
+        const fieldsProps = this.fieldsProps[key] || {}
+        const useLazyLoading = this.fields[key].useLazyLoading || fieldsProps.useLazyLoading
 
-        fieldsProps[decamelizedFieldKey] = { ...this.fieldsProps[key] }
+        formattedFieldsProps[decamelizedFieldKey] = {
+          ...fieldsProps,
+          ...(useLazyLoading && {
+            'onUpdate:selectedOptions': options => {
+              this.fieldsLazyLoadingSelectedOptions[key] = options
+            }
+          })
+        }
       }
 
-      return fieldsProps
-    },
-
-    fields () {
-      return getState.call(this, { entity: this.entity, key: 'filters' })
+      return formattedFieldsProps
     },
 
     filtersClass () {
@@ -238,7 +245,6 @@ export default {
 
     internalFilters: {
       handler (value) {
-        console.log('------> entrei no WATCH do internalFilters: ', value)
         this.$emit('update:filters', value)
       },
       deep: true
@@ -246,19 +252,16 @@ export default {
 
     internalSearch: {
       handler (value) {
-        console.log('------> entrei no WATCH do internalSearch: ', value)
         this.$emit('update:search', value)
       },
       deep: true
     },
 
     filters (value) {
-      console.log('entrei no WATCH do FILTERS: <---------', value)
       this.internalFilters = value
     },
 
     search (value) {
-      console.log('entrei no WATCH do SEARCH: <---------', value)
       this.internalSearch = value
     }
   },
@@ -269,6 +272,7 @@ export default {
     if (this.useUpdateRoute) {
       this.updateValues()
       this.updateCurrentFilters()
+      this.updateFieldsLazyLoadingOptions()
     }
   },
 
@@ -302,11 +306,48 @@ export default {
       await this.updateRouteQuery(query)
 
       this.updateCurrentFilters()
+      this.updateFieldsLazyLoadingOptions()
     },
 
     clearSearch () {
       this.internalSearch = ''
       this.filter()
+    },
+
+    setFields (fields) {
+      const removeOptionsFrom = ['manager', 'supervisor', 'realEstateBroker']
+
+      Object.keys(fields || {}).forEach(key => {
+        if (!removeOptionsFrom.includes(key)) {
+          delete fields[key]
+
+          return
+        }
+
+        // if (key === 'manager') {
+        //   fields[key].options = [{
+        //     value: '5baf3d1c-adb8-4621-b45c-4d156e3a139a',
+        //     label: 'DOE GERENTE (nível 2)'
+        //   }]
+
+        //   return
+        // }
+
+        // if (key === 'supervisor') {
+        //   fields[key].options = [{
+        //     value: '7c468932-2d94-4d0d-8ea1-c5cd75f4212c',
+        //     label: 'Leandro Assis Matos'
+        //   }]
+
+        //   return
+        // }
+
+        fields[key].options = []
+      })
+
+      // console.log('Passei pelos fields: ', fields)
+
+      this.fields = fields
     },
 
     async fetchFilters () {
@@ -325,6 +366,9 @@ export default {
           key: 'fetchFilters',
           payload: { url: this.url, params: filters }
         })
+
+        const { fields } = response.data
+        this.setFields(fields)
 
         this.$emit('fetch-success', response)
 
@@ -359,6 +403,7 @@ export default {
       await this.updateRouteQuery(query)
 
       this.updateCurrentFilters()
+      this.updateFieldsLazyLoadingOptions()
     },
 
     getChipValue (value) {
@@ -378,6 +423,13 @@ export default {
       await this.updateRouteQuery(query)
 
       this.updateCurrentFilters()
+      this.updateFieldsLazyLoadingOptions()
+    },
+
+    updateFieldsLazyLoadingOptions () {
+      for (const key in this.fieldsLazyLoadingSelectedOptions) {
+        this.fields[key].options = this.fieldsLazyLoadingSelectedOptions[key]
+      }
     },
 
     updateCurrentFilters () {
