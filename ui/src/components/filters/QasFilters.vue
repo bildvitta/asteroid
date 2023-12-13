@@ -45,6 +45,7 @@ import { camelize, camelizeKeys, decamelize } from 'humps'
 import { humanize, parseValue } from '../../helpers/filters.js'
 import contextMixin from '../../mixins/context.js'
 import { getAction } from '@bildvitta/store-adapter'
+import { isEqual } from 'lodash'
 
 const log = debug('asteroid-ui:qas-filters')
 
@@ -206,7 +207,7 @@ export default {
         fieldsProps: this.formattedFieldsProps,
         loading: this.isFetching,
         menuProps: {
-          onHide: this.handleLazyLoadingSelectedOptions
+          onHide: this.clearUnfilteredFields
         },
 
         onClear: this.clearFilters,
@@ -275,7 +276,7 @@ export default {
 
     if (this.useUpdateRoute) {
       this.updateValues()
-      this.updateCurrentFilters()
+      this.onUpdateFilters()
     }
   },
 
@@ -308,7 +309,7 @@ export default {
 
       await this.updateRouteQuery(query)
 
-      this.updateCurrentFilters()
+      this.onUpdateFilters()
     },
 
     clearSearch () {
@@ -355,8 +356,6 @@ export default {
 
         fields[key].options = []
       })
-
-      // console.log('Passei pelos fields: ', fields)
 
       this.fields = fields
     },
@@ -415,7 +414,7 @@ export default {
 
       await this.updateRouteQuery(query)
 
-      this.updateCurrentFilters()
+      this.onUpdateFilters()
     },
 
     getChipValue (value) {
@@ -426,6 +425,14 @@ export default {
       this.$refs.filtersButton?.hideMenu()
     },
 
+    clearUnfilteredFields () {
+      for (const key in this.internalFilters) {
+        if (!isEqual(this.currentFilters[key], this.internalFilters[key])) {
+          delete this.internalFilters[key]
+        }
+      }
+    },
+
     async removeFilter ({ name }) {
       const query = { ...this.$route.query }
 
@@ -434,23 +441,24 @@ export default {
 
       await this.updateRouteQuery(query)
 
-      this.updateCurrentFilters()
+      this.onUpdateFilters()
     },
 
     handleLazyLoadingSelectedOptions () {
       for (const key in this.lazyLoadingSelectedOptions) {
-        console.log('Setando as opções selecionadas: ', key, this.lazyLoadingSelectedOptions[key])
         this.fields[key].options = this.lazyLoadingSelectedOptions[key]
       }
     },
 
-    updateCurrentFilters () {
+    onUpdateFilters () {
       this.currentFilters = {
         ...this.internalFilters,
         ...(this.internalSearch && { search: this.internalSearch })
       }
 
       this.$emit('update:currentFilters', this.currentFilters)
+
+      this.handleLazyLoadingSelectedOptions()
     },
 
     async updateRouteQuery (query) {
