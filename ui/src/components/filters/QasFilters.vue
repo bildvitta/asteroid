@@ -45,7 +45,6 @@ import { camelize, camelizeKeys, decamelize } from 'humps'
 import { humanize, parseValue } from '../../helpers/filters.js'
 import contextMixin from '../../mixins/context.js'
 import { getAction } from '@bildvitta/store-adapter'
-import { isEqual } from 'lodash'
 
 const log = debug('asteroid-ui:qas-filters')
 
@@ -207,7 +206,7 @@ export default {
         fieldsProps: this.formattedFieldsProps,
         loading: this.isFetching,
         menuProps: {
-          onHide: this.clearUnfilteredFields
+          onHide: this.normalizeInternalFilters
         },
 
         onClear: this.clearFilters,
@@ -327,32 +326,32 @@ export default {
           return
         }
 
-        // if (key === 'manager') {
-        //   fields[key].options = [{
-        //     value: '5baf3d1c-adb8-4621-b45c-4d156e3a139a',
-        //     label: 'DOE GERENTE (nível 2)'
-        //   }]
+        if (key === 'manager') {
+          fields[key].options = [{
+            value: '5baf3d1c-adb8-4621-b45c-4d156e3a139a',
+            label: 'DOE GERENTE (nível 2)'
+          }]
 
-        //   return
-        // }
+          return
+        }
 
-        // if (key === 'supervisor') {
-        //   fields[key].options = [{
-        //     value: '7c468932-2d94-4d0d-8ea1-c5cd75f4212c',
-        //     label: 'Leandro Assis Matos'
-        //   }]
+        if (key === 'supervisor') {
+          fields[key].options = [{
+            value: '7c468932-2d94-4d0d-8ea1-c5cd75f4212c',
+            label: 'Leandro Assis Matos'
+          }]
 
-        //   return
-        // }
+          return
+        }
 
-        // if (key === 'realEstateBroker') {
-        //   fields[key].options = [{
-        //     value: '1a8af297-0b87-40aa-9e8d-5007b69ff41d',
-        //     label: 'Bruna da Silva Justo Ferreira'
-        //   }]
+        if (key === 'realEstateBroker') {
+          fields[key].options = [{
+            value: '1a8af297-0b87-40aa-9e8d-5007b69ff41d',
+            label: 'Bruna da Silva Justo Ferreira'
+          }]
 
-        //   return
-        // }
+          return
+        }
 
         fields[key].options = []
       })
@@ -425,11 +424,13 @@ export default {
       this.$refs.filtersButton?.hideMenu()
     },
 
-    clearUnfilteredFields () {
-      for (const key in this.internalFilters) {
-        if (!isEqual(this.currentFilters[key], this.internalFilters[key])) {
-          delete this.internalFilters[key]
-        }
+    normalizeInternalFilters () {
+      this.internalFilters = { ...this.currentFilters }
+    },
+
+    normalizeSelectFieldOptions () {
+      for (const key in this.lazyLoadingSelectedOptions) {
+        this.fields[key].options = this.lazyLoadingSelectedOptions[key]
       }
     },
 
@@ -444,12 +445,6 @@ export default {
       this.onUpdateFilters()
     },
 
-    handleLazyLoadingSelectedOptions () {
-      for (const key in this.lazyLoadingSelectedOptions) {
-        this.fields[key].options = this.lazyLoadingSelectedOptions[key]
-      }
-    },
-
     onUpdateFilters () {
       this.currentFilters = {
         ...this.internalFilters,
@@ -458,7 +453,7 @@ export default {
 
       this.$emit('update:currentFilters', this.currentFilters)
 
-      this.handleLazyLoadingSelectedOptions()
+      this.normalizeSelectFieldOptions()
     },
 
     async updateRouteQuery (query) {

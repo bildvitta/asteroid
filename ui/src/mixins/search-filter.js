@@ -91,9 +91,7 @@ export default {
   },
 
   watch: {
-    'lazyLoadingProps.clearOnChange' (newParams, oldParams) {
-      if (!this.useLazyLoading || isEqual(newParams, oldParams)) return
-
+    'lazyLoadingProps.clearOnChange' () {
       setTimeout(() => this.$emit('update:modelValue', undefined))
     },
 
