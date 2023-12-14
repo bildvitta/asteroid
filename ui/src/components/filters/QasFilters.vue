@@ -446,14 +446,17 @@ export default {
     },
 
     onUpdateFilters () {
+      this.setCurrentFilters()
+      this.normalizeSelectFieldOptions()
+    },
+
+    setCurrentFilters () {
       this.currentFilters = {
         ...this.internalFilters,
         ...(this.internalSearch && { search: this.internalSearch })
       }
 
       this.$emit('update:currentFilters', this.currentFilters)
-
-      this.normalizeSelectFieldOptions()
     },
 
     async updateRouteQuery (query) {

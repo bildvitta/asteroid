@@ -181,7 +181,7 @@ export default {
       })
     },
 
-    handleDecamelizeFieldName (fieldName) {
+    mx_decamelizeFieldName (fieldName) {
       if (fieldName.includes('_')) return fieldName.replaceAll('_', '-')
 
       return decamelize(fieldName, { separator: '-' })
@@ -206,7 +206,7 @@ export default {
           key: 'fetchFieldOptions',
           payload: {
             url,
-            field: decamelizeFieldName ? this.handleDecamelizeFieldName(this.name) : this.name,
+            field: decamelizeFieldName ? this.mx_decamelizeFieldName(this.name) : this.name,
             params: {
               ...params,
               search: this.mx_search,
