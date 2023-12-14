@@ -31,19 +31,19 @@ props:
     default: name
     type: String
 
-  use-scroll-on-grab:
-    desc: Adiciona scroll pelo mouse ao arrastar tabela em todas as telas (Celular, Desktop).
-    default: true
-    type: Boolean
-
   row-route-fn:
     desc: Usado quando há a necessidade de alteração de rota ao clicar em um item da tabela(a linha passa ser um <a> habilitando a opção de abrir em uma nova aba).
     type: Function
-    examples: ["() => ({ name: 'UsersList' })"]
+    examples: ["(row) => ({ path: 'table-generator', params: { id: row.uuid } })"]
 
   use-external-link:
     desc: Usado em conjunto com a prop "row-route-fn" quando há a necessidade da rota ser um link externo.
     default: false
+    type: Boolean
+
+  use-scroll-on-grab:
+    desc: Adiciona scroll pelo mouse ao arrastar tabela em todas as telas (Celular, Desktop).
+    default: true
     type: Boolean
 
   use-sticky-header:
