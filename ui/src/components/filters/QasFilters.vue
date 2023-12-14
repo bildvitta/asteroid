@@ -44,7 +44,7 @@ import debug from 'debug'
 import { camelize, camelizeKeys, decamelize } from 'humps'
 import { humanize, parseValue } from '../../helpers/filters.js'
 import contextMixin from '../../mixins/context.js'
-import { getAction } from '@bildvitta/store-adapter'
+import { getState, getAction } from '@bildvitta/store-adapter'
 
 const log = debug('asteroid-ui:qas-filters')
 
@@ -128,7 +128,6 @@ export default {
   data () {
     return {
       currentFilters: {},
-      fields: {},
       hasFetchError: false,
       internalFilters: this.filters,
       internalSearch: this.search,
@@ -186,6 +185,50 @@ export default {
       }
 
       return formattedFieldsProps
+    },
+
+    fields () {
+      const fields = getState.call(this, { entity: this.entity, key: 'filters' })
+
+      // TODO: Remover
+      const removeOptionsFrom = ['manager', 'supervisor', 'realEstateBroker', 'channel', 'subchannel']
+
+      Object.keys(fields || {}).forEach(key => {
+        if (!removeOptionsFrom.includes(key)) {
+          return
+        }
+
+        // if (key === 'manager') {
+        //   fields[key].options = [{
+        //     value: '5baf3d1c-adb8-4621-b45c-4d156e3a139a',
+        //     label: 'DOE GERENTE (nível 2)'
+        //   }]
+
+        //   return
+        // }
+
+        // if (key === 'supervisor') {
+        //   fields[key].options = [{
+        //     value: '7c468932-2d94-4d0d-8ea1-c5cd75f4212c',
+        //     label: 'Leandro Assis Matos'
+        //   }]
+
+        //   return
+        // }
+
+        // if (key === 'realEstateBroker') {
+        //   fields[key].options = [{
+        //     value: '1a8af297-0b87-40aa-9e8d-5007b69ff41d',
+        //     label: 'Bruna da Silva Justo Ferreira'
+        //   }]
+
+        //   return
+        // }
+
+        fields[key].options = []
+      })
+
+      return fields
     },
 
     filtersClass () {
@@ -316,49 +359,6 @@ export default {
       this.filter()
     },
 
-    handleFields (fields) {
-      const removeOptionsFrom = ['manager', 'supervisor', 'realEstateBroker']
-
-      Object.keys(fields || {}).forEach(key => {
-        if (!removeOptionsFrom.includes(key)) {
-          delete fields[key]
-
-          return
-        }
-
-        if (key === 'manager') {
-          fields[key].options = [{
-            value: '5baf3d1c-adb8-4621-b45c-4d156e3a139a',
-            label: 'DOE GERENTE (nível 2)'
-          }]
-
-          return
-        }
-
-        if (key === 'supervisor') {
-          fields[key].options = [{
-            value: '7c468932-2d94-4d0d-8ea1-c5cd75f4212c',
-            label: 'Leandro Assis Matos'
-          }]
-
-          return
-        }
-
-        if (key === 'realEstateBroker') {
-          fields[key].options = [{
-            value: '1a8af297-0b87-40aa-9e8d-5007b69ff41d',
-            label: 'Bruna da Silva Justo Ferreira'
-          }]
-
-          return
-        }
-
-        fields[key].options = []
-      })
-
-      this.fields = fields
-    },
-
     async fetchFilters () {
       if (!this.useForceRefetch && (this.hasFields || !this.useFilterButton)) {
         return null
@@ -375,11 +375,6 @@ export default {
           key: 'fetchFilters',
           payload: { url: this.url, params: filters }
         })
-
-        const { fields } = response.data
-        // this.fields = fields
-        // TODO: Remover essa linha quando o back estiver retornando os campos corretamente
-        this.handleFields(fields)
 
         this.$emit('fetch-success', response)
 

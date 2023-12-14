@@ -109,16 +109,11 @@ export default {
       if (!values) return this.$emit('update:selectedOptions', [])
 
       const findOption = value => this.mx_filteredOptions.find(option => option.value === value)
+      const isArray = Array.isArray(values)
 
-      if (Array.isArray(values)) {
-        const selectedOptions = values.map(value => findOption(value))
+      const selectedOptions = isArray ? values.map(findOption) : [findOption(values)]
 
-        return this.$emit('update:selectedOptions', selectedOptions)
-      }
-
-      const selectedOption = findOption(values)
-
-      this.$emit('update:selectedOptions', [selectedOption])
+      this.$emit('update:selectedOptions', selectedOptions)
     }
   },
 
