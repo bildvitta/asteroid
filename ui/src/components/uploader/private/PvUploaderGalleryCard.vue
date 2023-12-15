@@ -208,7 +208,7 @@ export default {
 
             destroy: {
               label: 'Excluir',
-              color: 'grey-9',
+              color: 'grey-10',
               icon: 'sym_r_delete',
 
               // callback

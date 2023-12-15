@@ -186,7 +186,7 @@ export default {
     }
 
     &__arrow:not(&--faded) {
-      color: $grey-9;
+      color: $grey-10;
       transition: color var(--qas-generic-transition);
 
       &:hover {

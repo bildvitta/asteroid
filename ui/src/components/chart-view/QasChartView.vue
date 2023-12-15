@@ -1,7 +1,7 @@
 <template>
   <qas-header-actions v-if="hasHeaderActions" align-columns="end">
     <template #left>
-      <div v-if="title" class="text-grey-9 text-h3">
+      <div v-if="title" class="text-grey-10 text-h3">
         {{ title }}
       </div>
 

@@ -1,7 +1,7 @@
 <template>
   <div class="container error-component flex">
     <div class="column full-width items-center justify-center row">
-      <h2 :aria-label="ariaLabelCode" class="q-mb-sm text-grey-9 text-h2" role="heading">
+      <h2 :aria-label="ariaLabelCode" class="q-mb-sm text-grey-10 text-h2" role="heading">
         {{ code }}
       </h2>
 

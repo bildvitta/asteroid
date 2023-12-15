@@ -19,7 +19,7 @@
           </div>
 
           <div v-if="screen.untilLarge" class="q-pr-xl q-pt-md text-right">
-            <qas-btn color="grey-9" icon="sym_r_close" variant="tertiary" @click="closeDrawer" />
+            <qas-btn color="grey-10" icon="sym_r_close" variant="tertiary" @click="closeDrawer" />
           </div>
 
           <!-- Module -->
@@ -30,11 +30,11 @@
           </div>
 
           <!-- List -->
-          <q-list v-if="items.length" class="q-mt-xl qas-app-menu__menu text-grey-9">
+          <q-list v-if="items.length" class="q-mt-xl qas-app-menu__menu text-grey-10">
             <template v-for="(menuItem, index) in items">
               <div v-if="hasChildren(menuItem)" :key="`children-${index}`" class="qas-app-menu__content" :class="classes.content">
                 <q-item class="ellipsis items-center q-py-none qas-app-menu__item qas-app-menu__item--label-mini text-weight-bold">
-                  <div class="ellipsis qas-app-menu__label text-grey-9 text-subtitle2" :class="classes.spacedItem">
+                  <div class="ellipsis qas-app-menu__label text-grey-10 text-subtitle2" :class="classes.spacedItem">
                     {{ menuItem.label }}
                   </div>
                 </q-item>

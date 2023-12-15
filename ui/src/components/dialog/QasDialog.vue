@@ -4,9 +4,9 @@
       <header v-if="hasHeader" class="q-mb-lg">
         <slot name="header">
           <div class="items-center justify-between row">
-            <h5 class="text-grey-9 text-h5" data-cy="dialog-title">{{ card.title }}</h5>
+            <h5 class="text-grey-10 text-h5" data-cy="dialog-title">{{ card.title }}</h5>
 
-            <qas-btn v-if="isInfoDialog" v-close-popup color="grey-9" data-cy="dialog-close-btn" icon="sym_r_close" variant="tertiary" />
+            <qas-btn v-if="isInfoDialog" v-close-popup color="grey-10" data-cy="dialog-close-btn" icon="sym_r_close" variant="tertiary" />
           </div>
         </slot>
       </header>

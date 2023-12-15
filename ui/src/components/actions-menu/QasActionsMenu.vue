@@ -196,7 +196,7 @@ function useDelete () {
   if (hasDelete.value) {
     Object.assign(deleteBtnProps, {
       delete: {
-        color: 'grey-9',
+        color: 'grey-10',
         icon: props.deleteIcon,
         label: props.deleteLabel,
         handler: () => qas.delete(props.deleteProps)

@@ -2,7 +2,7 @@
   <div class="q-mb-xl qas-welcome text-left">
     <div class="items-center justify-between row">
       <div>
-        <h3 class="text-grey-9 text-h3">
+        <h3 class="text-grey-10 text-h3">
           {{ welcomeMessage }}<span v-if="firstName">, {{ firstName }}</span>
         </h3>
 
