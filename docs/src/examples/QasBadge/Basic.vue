@@ -11,7 +11,7 @@ export default {
   computed: {
     badges () {
       return {
-        'light-blue-2': 'grey-9',
+        'light-blue-2': 'black',
         'green-14': 'white',
         'blue-8': 'white',
         'grey-10': 'white',
@@ -20,8 +20,8 @@ export default {
         'yellow-14': 'white',
         'grey-7': 'white',
         'purple-7': 'white',
-        'amber-2': 'grey-9',
-        'green-11': 'grey-9'
+        'amber-2': 'black',
+        'green-11': 'black'
       }
     }
   }
