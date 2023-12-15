@@ -10,6 +10,21 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 ### Sobre os "BREAKING CHANGES"
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
+## Não publicado
+## BREAKING CHANGE
+Devido as mudanças de rebranding poderá haver quebras visuais, todos os locais em que é utilizado a cor `grey-9` deverá ser modificado para utilizar a cor `grey-10`, em especial, no componente `QasBtn` que há um validador na propriedade `color` que não deixará `grey-9` ser utilizado, causando um warning no console. Algumas mudanças também foram realizadas no arquivo `quasar.variables.scss` para alterar as variáveis `primary`, `primary-contrast` e `dark`, portanto será necessário atualizar essas variáveis com os valores encontrados na documentação na seção "Começando - Usando".
+
+### Adicionado
+- `components/base.scss`: adicionado `color: $grey-8` como cor de texto padrão do `body`.
+- [`checkbox.scss`, `editor.scss`, `field.scss`, `radio.scss`, `toggle.scss`]: adicionado tipografia padrão.
+
+### Modificado
+- `quasar.variables.scss`: alterado variáveis de cores `primary`, `primary-contrast` e `dark`.
+- `QasBadge`: alterado `default` da propriedade `text-color` para `black`.
+- `QasBtn`: alterado `validator` da propriedade `color` para permitir `grey-10` no lugar de `grey-9`.
+- `QasLabel`: alterado `default` da propriedade `color` para `grey-10`.
+- `typography.scss`: alterado `size` do heading `h4` para `1.25rem` (20px).
+
 ## [3.13.0-beta.15] - 11-12-2023
 ## BREAKING CHANGE
 - `QasPageHeader`: removido a query dos breadcrumb. Utilize `useCache: true` no meta das rotas onde precisar persistir a query.

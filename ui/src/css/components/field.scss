@@ -1,11 +1,9 @@
 .q-field {
-  // Input label styles
   &__label,
   &--dense &__label {
     @include set-typography($body1);
   }
 
-  // Input value styles
   &__native,
   &__input,
   &--dense &__native,
