@@ -1,15 +1,10 @@
-.q-radio {
+.q-toggle {
   &__label {
     @include set-typography($body1);
   }
 
-  &__inner::before {
-    color: $primary;
-  }
-
   &.disabled {
-    .q-radio__label,
-    .q-radio__inner {
+    .q-toggle__label {
       color: $grey-6;
     }
   }
