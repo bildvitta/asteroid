@@ -12,10 +12,14 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 
 ## Não publicado
 ## BREAKING CHANGE
-Devido as mudanças de rebranding poderá haver quebras visuais, todos os locais em que é utilizado a cor `grey-9` deverá ser modificado para utilizar a cor `grey-10`, em especial, no componente `QasBtn` que há um validador na propriedade `color` que não deixará `grey-9` ser utilizado, causando um warning no console. Algumas mudanças também foram realizadas no arquivo `quasar.variables.scss` para alterar as variáveis `primary`, `primary-contrast` e `dark`, portanto será necessário atualizar essas variáveis com os valores encontrados na documentação na seção "Começando - Usando".
+Devido as mudanças de rebranding poderá haver quebras visuais, algumas revisões que deverão ser feitas: 
+- Todos os locais em que é utilizado a cor `grey-9` deverá ser modificado para utilizar a cor `grey-10`, em especial, no componente `QasBtn` que há um validador na propriedade `color` que não deixará `grey-9` ser utilizado, causando um warning no console.  
+- Mudanças realizadas no valor das variáveis `primary`, `primary-contrast` e `dark` do arquivo `quasar.variables.scss`, portanto será necessário atualizar essas variáveis com os valores encontrados na seção "Começando - Usando" da documentação.
+- Cor dos headings (h1 ao h6) foi adicionado por padrão no Asteroid, portanto, se tornando desnecessário passar classe de cor para os mesmos.
 
 ### Adicionado
 - `components/base.scss`: adicionado `color: $grey-8` como cor de texto padrão do `body`.
+- `typography.scss`: adicionado propriedade `color: $grey-10` como cor de texto padrão do headings (h1 ao h6).
 - [`checkbox.scss`, `editor.scss`, `field.scss`, `radio.scss`, `toggle.scss`]: adicionado tipografia padrão.
 
 ### Modificado
