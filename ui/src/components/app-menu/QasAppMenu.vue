@@ -5,12 +5,12 @@
         <div class="full-width">
           <!-- Brand -->
           <div v-if="!screen.untilLarge" class="q-mb-xl q-pt-xl qas-app-menu__label" :class="classes.spacedItem">
-            <router-link class="flex relative-position text-no-decoration" :class="classes.brandPosition" :to="rootRoute">
-              <q-img v-if="normalizedBrand" :alt="title" class="qas-app-menu__brand qas-app-menu__label" :class="classes.brand" height="40px" no-spinner :src="normalizedBrand" />
+            <router-link class="flex justify-center relative-position text-no-decoration" :to="rootRoute">
+              <q-img v-if="normalizedBrand" :alt="title" class="qas-app-menu__brand qas-app-menu__label" :class="classes.brand" fit="contain" height="27px" no-spinner :src="normalizedBrand" />
 
               <span v-else-if="!isMiniMode" class="ellipsis text-bold text-primary text-subtitle2">{{ title }}</span>
 
-              <q-badge v-if="hasDevelopmentBadge" color="red" floating :label="developmentBadgeLabel" />
+              <q-badge v-if="hasDevelopmentBadge" class="q-mt-sm" color="red" :label="developmentBadgeLabel" />
             </router-link>
           </div>
 
@@ -193,10 +193,6 @@ const classes = computed(() => {
 
     spacedItem: {
       'qas-app-menu__label--spaced': !isMiniMode.value
-    },
-
-    brandPosition: {
-      'justify-center': isMiniMode.value
     }
   }
 })

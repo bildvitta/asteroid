@@ -23,11 +23,12 @@ Devido as mudanças de rebranding poderá haver quebras visuais, algumas revisõ
 - [`checkbox.scss`, `editor.scss`, `field.scss`, `radio.scss`, `toggle.scss`]: adicionado tipografia padrão.
 
 ### Modificado
-- `quasar.variables.scss`: alterado variáveis de cores `primary`, `primary-contrast` e `dark`.
+- `QasAppUser`: alterado `default` da propriedade `avatarSize` para `40px`.
 - `QasBadge`: alterado `default` da propriedade `text-color` para `black`.
 - `QasBtn`: alterado `validator` da propriedade `color` para permitir `grey-10` no lugar de `grey-9`.
 - `QasLabel`: alterado `default` da propriedade `color` para `grey-10`.
 - `typography.scss`: alterado `size` do heading `h4` para `1.25rem` (20px).
+- `quasar.variables.scss`: alterado variáveis de cores `primary`, `primary-contrast` e `dark`.
 
 ## [3.13.0-beta.15] - 11-12-2023
 ## BREAKING CHANGE
