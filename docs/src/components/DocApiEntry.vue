@@ -17,7 +17,7 @@
                 <q-tooltip self="center middle">{{ getToggleTooltipLabel(normalizedAPI[name].isCamelized) }}</q-tooltip>
               </qas-btn>
             </div>
-            <q-badge v-for="item in parseTypes(data.type)" :key="item" class="doc-api-entry__item-type q-ml-xs" color="grey-4" :label="item" text-color="grey-9" />
+            <q-badge v-for="item in parseTypes(data.type)" :key="item" class="doc-api-entry__item-type q-ml-xs" color="grey-4" :label="item" text-color="black" />
             <span v-if="data.required" class="doc-api-entry__item-required q-ml-xs">Obrigatório</span>
             <span v-if="data.model" class="doc-api-entry__item-model q-ml-xs">Model</span>
           </q-item-label>

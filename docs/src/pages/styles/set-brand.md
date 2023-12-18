@@ -35,7 +35,7 @@ Isto é um problema do quasar que só consegue identificar quando existe alguma 
   }
 }
 
-$primary-contrast: #002E6C;
+$primary-contrast: #1976D2;
 $secondary-contrast: #90CAF9;
 
 @include set-brand(primary-contrast, $primary-contrast);

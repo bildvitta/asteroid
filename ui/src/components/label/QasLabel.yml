@@ -6,7 +6,7 @@ meta:
 props:
   color:
     desc: Cor do texto.
-    default: grey-9
+    default: grey-10
     type: String
 
   count:

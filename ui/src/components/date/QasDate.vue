@@ -559,7 +559,7 @@ export default {
       justify-content: space-between;
 
       .q-btn {
-        @include set-button(tertiary, false, false, grey-9);
+        @include set-button(tertiary, false, false, grey-10);
         @include set-typography($subtitle2);
 
         .q-icon {
@@ -592,7 +592,7 @@ export default {
           color: $primary !important;
         }
 
-        @include set-button(tertiary, false, false, grey-9);
+        @include set-button(tertiary, false, false, grey-10);
       }
     }
 
@@ -601,7 +601,7 @@ export default {
     }
 
     &__calendar-days-container {
-      color: $grey-9;
+      color: $grey-10;
       min-height: auto;
 
       .q-btn {

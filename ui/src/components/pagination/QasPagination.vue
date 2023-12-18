@@ -38,7 +38,7 @@ export default {
       tertiary,
       false,
       false,
-      grey-9
+      grey-10
     );
 
     min-width: 24px !important;

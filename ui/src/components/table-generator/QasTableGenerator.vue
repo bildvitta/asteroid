@@ -149,7 +149,7 @@ export default {
           field: name,
           label,
           name,
-          headerClasses: 'text-grey-9'
+          headerClasses: 'text-grey-10'
         })
       }
 

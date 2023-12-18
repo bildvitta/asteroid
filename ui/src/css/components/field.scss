@@ -1,4 +1,24 @@
-.q-field--outlined .q-field__control {
-  background-color: white;
-  border-radius: $generic-border-radius;
+.q-field {
+  &__label,
+  &--dense &__label {
+    @include set-typography($body1);
+  }
+
+  &__native,
+  &__input,
+  &--dense &__native,
+  &--dense &__input {
+    @include set-typography($body1);
+
+    color: $grey-10;
+
+    &::placeholder {
+      color: $grey-6;
+    }
+  }
+
+  &--outlined .q-field__control {
+    background-color: white;
+    border-radius: $generic-border-radius;
+  }
 }

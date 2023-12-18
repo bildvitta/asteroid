@@ -3,11 +3,11 @@
     <qas-input ref="input" v-model="model" v-bind="$attrs" class="bg-white rounded-borders-sm" data-cy="search-input" :debounce="debounce" dense hide-bottom-space input-class="ellipsis text-grey-8" inputmode="search" type="search">
       <template #prepend>
         <q-icon v-if="useSearchOnType" color="grey-8" name="sym_r_search" />
-        <qas-btn v-else color="grey-9" icon="sym_r_search" variant="tertiary" @click="$emit('filter')" />
+        <qas-btn v-else color="grey-10" icon="sym_r_search" variant="tertiary" @click="$emit('filter')" />
       </template>
 
       <template #append>
-        <qas-btn v-if="hasSearch" color="grey-9" icon="sym_r_clear" variant="tertiary" @click="clear" />
+        <qas-btn v-if="hasSearch" color="grey-10" icon="sym_r_clear" variant="tertiary" @click="clear" />
 
         <slot name="after-clear" />
       </template>

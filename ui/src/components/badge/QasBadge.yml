@@ -20,7 +20,7 @@ props:
 
   text-color:
     desc: Cor do texto.
-    default: grey-9
+    default: black
     type: String
 
 slots:
