@@ -14,6 +14,25 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 ### Adicionado
 - [`QasNestedFields`, `QasActionsMenu`]: adicionado novos seletores `data-cy` no componente.
 
+## [3.13.0-beta.15] - 11-12-2023
+## BREAKING CHANGE
+- `QasPageHeader`: removido a query dos breadcrumb. Utilize `useCache: true` no meta das rotas onde precisar persistir a query.
+
+### Removido
+- `QasPageHeader`: removido a query dos links do breadcrumb.
+
+## [3.13.0-beta.14] - 07-12-2023
+### Corrigido
+- `QasDialog`: corrigido problema de não emitir o evento `@hide`.
+- `plugins/Dialog.js`: corrigido problema de não retornar a instância do dialog.
+
+## [3.13.0-beta.13] - 07-12-2023
+### Adicionado
+- `vue-plugin.js`: Adicionado provider `qas`.
+
+### Corrigido
+- `QasActionsMenu`: corrigido problema de a ação de deletar não funcionar após alteração do componente para Composition API.
+
 ## [3.13.0-beta.12] - 30-11-2023
 ### Corrigido
 - `QasAppMenu`: corrigido computada `currentModelOption`.
@@ -2230,3 +2249,6 @@ Adicionado suporte para Pinia/Vuex Seguindo os padrões da biblioteca `@bildvitt
 [3.13.0-beta.10]: https://github.com/bildvitta/asteroid/compare/v3.13.0-beta.9...v3.13.0-beta.10?expand=1
 [3.13.0-beta.11]: https://github.com/bildvitta/asteroid/compare/v3.13.0-beta.10...v3.13.0-beta.11?expand=1
 [3.13.0-beta.12]: https://github.com/bildvitta/asteroid/compare/v3.13.0-beta.11...v3.13.0-beta.12?expand=1
+[3.13.0-beta.13]: https://github.com/bildvitta/asteroid/compare/v3.13.0-beta.12...v3.13.0-beta.13?expand=1
+[3.13.0-beta.14]: https://github.com/bildvitta/asteroid/compare/v3.13.0-beta.13...v3.13.0-beta.14?expand=1
+[3.13.0-beta.15]: https://github.com/bildvitta/asteroid/compare/v3.13.0-beta.14...v3.13.0-beta.15?expand=1

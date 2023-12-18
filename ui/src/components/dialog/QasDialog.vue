@@ -125,7 +125,7 @@ const screen = useScreen()
 const slots = useSlots()
 
 // usado para o plugin
-const { dialogRef } = useDialogPluginComponent()
+const { dialogRef, onDialogHide } = useDialogPluginComponent()
 
 // QForm template
 const form = ref(null)
@@ -139,7 +139,9 @@ const { descriptionComponent, mainComponent } = useDynamicComponents({ ...compos
 const dialogProps = computed(() => {
   return {
     ...(!props.usePlugin && { modelValue: props.modelValue }),
-    ...attrs
+    ...attrs,
+
+    onHide: onDialogHide
   }
 })
 

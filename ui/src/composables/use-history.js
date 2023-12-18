@@ -1,5 +1,4 @@
 import { reactive, computed } from 'vue'
-import { findLastIndex } from 'lodash-es'
 
 const history = reactive({ list: [] })
 
@@ -7,17 +6,18 @@ export default function () {
   const hasPreviousRoute = computed(() => history.list.length > 1)
 
   function getPreviousRoute (currentRoute) {
-    const index = findLastIndex(history.list, item => item.name === currentRoute.name)
+    const index = history.list.findLastIndex(item => item.name === currentRoute.name)
 
     if (~index) {
       history.list.splice(index, 1)
     }
 
-    return history.list[history.list.length - 1]
+    return history.list.at(-1)
   }
 
   function addRoute (route) {
-    const routeExistsInList = history.list?.[history.list?.length - 1]?.name === route.name
+    const lastRoute = history.list?.at(-1)
+    const routeExistsInList = lastRoute?.name === route.name
 
     if (routeExistsInList) return
 

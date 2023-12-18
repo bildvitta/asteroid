@@ -155,6 +155,10 @@ async function install (app) {
     success: NotifySuccess
   }
 
+  app.provide('qas', {
+    delete: params => Delete.call(app.config.globalProperties, params)
+  })
+
   app.directive(Test.name, Test)
 }
 
