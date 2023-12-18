@@ -61,7 +61,7 @@ export default {
 
   &__inner,
   &__code {
-    color: $grey-9;
+    color: $grey-10;
     font-size: 12px;
     margin: 0;
   }

@@ -1,15 +1,11 @@
-.q-radio {
+.q-checkbox {
   &__label {
     @include set-typography($body1);
   }
 
-  &__inner::before {
-    color: $primary;
-  }
-
   &.disabled {
-    .q-radio__label,
-    .q-radio__inner {
+    .q-checkbox__label,
+    .q-checkbox__inner {
       color: $grey-6;
     }
   }

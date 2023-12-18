@@ -108,7 +108,7 @@ export default {
       type: Object,
       default: () => {
         return {
-          color: 'grey-9',
+          color: 'grey-10',
           icon: 'sym_r_delete',
           label: 'Excluir',
           variant: 'tertiary'

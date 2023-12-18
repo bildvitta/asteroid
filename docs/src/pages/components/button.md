@@ -38,7 +38,7 @@ Algumas propriedades do quasar não são repassadas, como:
 A prop `color` só é configurável caso a variante seja `tertiary`, não é possível alterar as cores das variantes `primary` e `secondary`, as possíveis opções de cores para tertiary são:
 
 - primary
-- grey-9
+- grey-10
 - white
 :::
 
@@ -63,10 +63,10 @@ Os botões terciários são utilizados para ações complementares ou secundári
 
 ##### Cores
 ###### primary
-A cor "primary" é usada para ações diretas, como botão para adicionar novos itens, baixar planilha, etc. Porém quando a ação é negativa como remover, não se usa a cor primary mas sim a grey-9.
+A cor "primary" é usada para ações diretas, como botão para adicionar novos itens, baixar planilha, etc. Porém quando a ação é negativa como remover, não se usa a cor primary mas sim a grey-10.
 
-###### grey-9
-A cor "grey-9" é usado para quando não é uma ação direta ou ação negativa, por exemplo no botão de opções que quando clicado abre um menu para outras opções, ou um botão de remover.
+###### grey-10
+A cor "grey-10" é usado para quando não é uma ação direta ou ação negativa, por exemplo no botão de opções que quando clicado abre um menu para outras opções, ou um botão de remover.
 
 ###### white
 A cor "white" é usada quando necessita de um contraste, sendo possível ter ou não uma cor de hover, sendo possível modificar através da prop `useHoverOnWhiteColor`.

@@ -20,7 +20,7 @@
       v-if="hasBox"
       class="q-mt-md relative-position"
     >
-      <span class="text-grey-9 text-subtitle1">
+      <span class="text-grey-10 text-subtitle1">
         {{ props.listLabel }}
       </span>
 
@@ -184,7 +184,7 @@ const labelProps = computed(() => {
   return {
     label: props.label,
     margin: 'none',
-    color: hasError.value ? 'negative' : 'grey-9'
+    color: hasError.value ? 'negative' : 'grey-10'
   }
 })
 
@@ -268,7 +268,7 @@ function useList () {
 
   function getRemoveButtonProps ({ option }) {
     return {
-      color: 'grey-9',
+      color: 'grey-10',
       icon: 'sym_r_delete',
       variant: 'tertiary',
       disable: props.disable || !!option.disable,

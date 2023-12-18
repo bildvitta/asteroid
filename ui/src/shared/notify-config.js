@@ -1,5 +1,5 @@
 export default {
-  color: 'grey-9',
+  color: 'grey-10',
   progress: true,
   closeBtn: 'x',
   position: 'top',

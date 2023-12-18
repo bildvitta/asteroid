@@ -14,7 +14,7 @@ export default {
   props: {
     color: {
       type: String,
-      default: 'grey-9'
+      default: 'grey-10'
     },
 
     count: {

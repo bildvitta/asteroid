@@ -33,7 +33,7 @@ $h3: (
 );
 
 $h4: (
-  size: 1.125rem,
+  size: 1.25rem,
   line-height: 140%,
   letter-spacing: 0,
   weight: 600,
@@ -136,4 +136,14 @@ $h-tags: (
     line-height: map.get($value, 'line-height');
     margin: map.get($value, 'margin');
   }
+}
+
+// Defini as cores para os headings
+h1, .text-h1,
+h2, .text-h2,
+h3, .text-h3,
+h4, .text-h4,
+h5, .text-h5,
+h6, .text-h6 {
+  color: $grey-10;
 }

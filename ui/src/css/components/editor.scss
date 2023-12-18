@@ -1,0 +1,7 @@
+.q-editor {
+  &__content {
+    @include set-typography($body1);
+
+    color: $grey-10;
+  }
+}

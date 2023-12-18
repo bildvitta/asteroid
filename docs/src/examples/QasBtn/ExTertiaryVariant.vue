@@ -10,10 +10,10 @@
       </div>
 
       <div class="q-gutter-sm q-mb-lg">
-        <qas-btn color="grey-9" label="tertiary" variant="tertiary" />
-        <qas-btn color="grey-9" icon="sym_r_search" label="tertiary" variant="tertiary" />
-        <qas-btn color="grey-9" icon-right="sym_r_more_vert" label="tertiary" variant="tertiary" />
-        <qas-btn color="grey-9" icon="sym_r_search" variant="tertiary" />
+        <qas-btn color="grey-10" label="tertiary" variant="tertiary" />
+        <qas-btn color="grey-10" icon="sym_r_search" label="tertiary" variant="tertiary" />
+        <qas-btn color="grey-10" icon-right="sym_r_more_vert" label="tertiary" variant="tertiary" />
+        <qas-btn color="grey-10" icon="sym_r_search" variant="tertiary" />
       </div>
 
       <div class="bg-secondary-contrast q-gutter-x-sm q-mb-lg q-py-lg">

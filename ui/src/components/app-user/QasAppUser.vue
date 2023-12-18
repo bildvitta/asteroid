@@ -9,7 +9,7 @@
     </div>
 
     <div class="ellipsis qas-app-user__data">
-      <div class="ellipsis qas-app-user__name text-grey-9">
+      <div class="ellipsis qas-app-user__name text-grey-10">
         {{ userName }}
       </div>
 
@@ -18,9 +18,9 @@
       </div>
     </div>
 
-    <q-menu class="shadow-2 text-grey-9" max-height="400px" v-bind="menuProps">
+    <q-menu class="shadow-2 text-grey-10" max-height="400px" v-bind="menuProps">
       <div class="q-pb-sm q-pt-md q-px-md qas-app-user__menu">
-        <qas-avatar class="q-mb-md" :image="user.photo" size="96px" :title="userName" />
+        <qas-avatar class="q-mb-md" :image="user.photo" size="64px" :title="userName" />
 
         <div class="ellipsis qas-app-user__menu-name">
           {{ userName }}
@@ -85,7 +85,7 @@ defineOptions({ name: 'QasAppUser' })
 
 const props = defineProps({
   avatarSize: {
-    default: '36px',
+    default: '40px',
     type: String
   },
 
