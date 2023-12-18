@@ -21,6 +21,7 @@ Devido as mudanças de rebranding poderá haver quebras visuais, algumas revisõ
 - `components/base.scss`: adicionado `color: $grey-8` como cor de texto padrão do `body`.
 - `typography.scss`: adicionado propriedade `color: $grey-10` como cor de texto padrão do headings (h1 ao h6).
 - [`checkbox.scss`, `editor.scss`, `field.scss`, `radio.scss`, `toggle.scss`]: adicionado tipografia padrão.
+- [`QasNestedFields`, `QasActionsMenu`]: adicionado novos seletores `data-cy` no componente.
 
 ### Modificado
 - `QasAppUser`: alterado `default` da propriedade `avatarSize` para `40px`.
