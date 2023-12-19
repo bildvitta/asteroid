@@ -15,7 +15,7 @@
     <q-separator v-if="hasSeparator" class="q-mr-sm qas-btn-dropdown__separator self-center" dark vertical />
 
     <div v-if="useSplit">
-      <qas-btn color="grey-9" :icon="dropdownIcon" variant="tertiary">
+      <qas-btn color="grey-10" :icon="dropdownIcon" variant="tertiary">
         <q-menu v-if="hasDefaultSlot" anchor="bottom right" auto-close self="top right">
           <div :class="menuContentClasses">
             <slot />
@@ -106,7 +106,7 @@ export default {
 
         ...defaultProps,
 
-        color: color || (!this.useSplit ? 'grey-9' : 'primary'),
+        color: color || (!this.useSplit ? 'grey-10' : 'primary'),
         ...(!this.useSplit && { iconRight: defaultIconRight }),
         ...(this.useSplit && { icon })
       }

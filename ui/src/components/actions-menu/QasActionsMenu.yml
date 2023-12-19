@@ -70,3 +70,16 @@ slots:
             }
           "
         ]
+
+selectors:
+  'actions-menu':
+    desc: Seletor do componente.
+    examples: ['data-cy="actions-menu"']
+
+  'actions-menu-list':
+    desc: Seletor da lista de ações.
+    examples: ['data-cy="actions-menu-list"']
+
+  'actions-menu-list-item':
+    desc: Seletor para cada item da lista de ações.
+    examples: ['data-cy="actions-menu-list-item"']

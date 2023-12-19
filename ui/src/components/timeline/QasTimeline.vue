@@ -21,7 +21,7 @@
             </slot>
 
             <slot :item="item" name="description">
-              <div class="text-body1 text-grey-9">
+              <div class="text-body1 text-grey-10">
                 {{ item[descriptionKey] }}
               </div>
             </slot>
@@ -89,7 +89,7 @@ function getFormattedValue (item, mask) {
   }
 
   .q-timeline__subtitle {
-    color: $dark;
+    color: $grey-10;
     opacity: initial;
     padding-right: 0;
     position: relative;

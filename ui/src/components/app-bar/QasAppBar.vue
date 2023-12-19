@@ -1,7 +1,7 @@
 <template>
   <q-header class="qas-app-bar shadow-2" height-hint="56">
-    <q-toolbar class="bg-white qas-app-bar__toolbar text-grey-9">
-      <qas-btn color="grey-9" icon="sym_r_menu" variant="tertiary" @click="toggleMenuDrawer" />
+    <q-toolbar class="bg-white qas-app-bar__toolbar text-grey-10">
+      <qas-btn color="grey-10" icon="sym_r_menu" variant="tertiary" @click="toggleMenuDrawer" />
 
       <q-toolbar-title>
         <router-link class="flex items-center no-wrap text-no-decoration" :class="routerLinkClass" :to="rootRoute">
@@ -108,7 +108,7 @@ function toggleMenuDrawer () {
   }
 
   &__brand {
-    max-width: 164px;
+    max-width: 115px;
   }
 }
 </style>

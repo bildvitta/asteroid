@@ -44,8 +44,8 @@ export default {
   props: {
     color: {
       type: String,
-      default: 'grey-9',
-      validator: value => ['grey-9', 'primary', 'white'].includes(value)
+      default: 'grey-10',
+      validator: value => ['grey-10', 'primary', 'white'].includes(value)
     },
 
     error: {

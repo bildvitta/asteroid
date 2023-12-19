@@ -19,7 +19,7 @@ export default {
 .doc-card-title {
   background: $grey-4;
   border-radius: 3px 5px 5px 0;
-  color: $grey-9;
+  color: $grey-10;
   margin-left: -24px;
   padding: 2px 10px 2px 24px;
   position: relative;

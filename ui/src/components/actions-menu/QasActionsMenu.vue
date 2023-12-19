@@ -1,9 +1,9 @@
 <template>
-  <div v-if="hasActions" class="qas-actions-menu">
+  <div v-if="hasActions" class="qas-actions-menu" data-cy="actions-menu">
     <component :is="component.is" v-bind="component.props" variant="tertiary" @click.stop.prevent>
-      <q-list v-if="isBtnDropdown">
+      <q-list v-if="isBtnDropdown" data-cy="actions-menu-list">
         <slot v-for="(item, key) in actions" :item="item" :name="key">
-          <q-item v-bind="item.props" :key="key" clickable @click="onClick(item)">
+          <q-item v-bind="item.props" :key="key" clickable data-cy="actions-menu-list-item" @click="onClick(item)">
             <q-item-section avatar>
               <q-icon :name="item.icon" />
             </q-item-section>
@@ -196,7 +196,7 @@ function useDelete () {
   if (hasDelete.value) {
     Object.assign(deleteBtnProps, {
       delete: {
-        color: 'grey-9',
+        color: 'grey-10',
         icon: props.deleteIcon,
         label: props.deleteLabel,
         handler: () => qas.delete(props.deleteProps)

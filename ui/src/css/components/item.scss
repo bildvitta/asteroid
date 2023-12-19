@@ -26,7 +26,7 @@
   }
 
   &--clickable:not(&--active) {
-    color: $grey-9;
+    color: $grey-10;
     transition: color 300ms;
 
     &:not(&.q-router-link--active):hover {

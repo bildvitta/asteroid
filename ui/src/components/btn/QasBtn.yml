@@ -8,10 +8,10 @@ meta:
 
 props:
   color:
-    desc: Cor do botão, sendo possível alterar somente quando a variante for "tertiary", podendo ser "primary", "grey-9" ou "white".
+    desc: Cor do botão, sendo possível alterar somente quando a variante for "tertiary", podendo ser "primary", "grey-10" ou "white".
     default: primary
     type: String
-    examples: ['grey-9', 'primary', 'white']
+    examples: ['grey-10', 'primary', 'white']
 
   icon:
     desc: Ícone a esquerda.

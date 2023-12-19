@@ -1,5 +1,5 @@
 <template>
-  <div :id="fieldName" class="qas-nested-fields">
+  <div :id="fieldName" class="qas-nested-fields" :data-cy="`nested-fields-${fieldName}`">
     <div v-if="useSingleLabel" class="text-left">
       <qas-label :label="fieldLabel" typography="h5" />
     </div>
@@ -7,7 +7,7 @@
     <div ref="inputContent">
       <component :is="componentTag" v-bind="componentProps">
         <template v-for="(row, index) in nested" :key="`row-${index}`">
-          <div v-if="!row[destroyKey]" :id="`row-${index}`" class="full-width qas-nested-fields__field-item">
+          <div v-if="!row[destroyKey]" :id="`row-${index}`" class="full-width qas-nested-fields__field-item" data-cy="nested-fields-item">
             <header v-if="hasHeader" class="flex items-center q-pb-md" :class="headerClasses">
               <qas-label v-if="!useSingleLabel" :label="getRowLabel(index)" margin="none" typography="h5" />
               <qas-actions-menu v-if="hasBlockActions(row)" v-bind="getActionsMenuProps(index, row)" />
@@ -37,10 +37,10 @@
       <div v-if="useAdd">
         <slot :add="add" name="add-input">
           <div v-if="showAddFirstInputButton" class="text-left">
-            <qas-btn class="q-px-sm" color="primary" variant="tertiary" @click="add()">{{ addFirstInputLabel }}</qas-btn>
+            <qas-btn class="q-px-sm" color="primary" data-cy="nested-fields-add-btn" :label="addFirstInputLabel" variant="tertiary" @click="add()" />
           </div>
 
-          <div v-else-if="useInlineActions" class="cursor-pointer items-center q-col-gutter-x-md q-mt-md row" @click="add()">
+          <div v-else-if="useInlineActions" class="cursor-pointer items-center q-col-gutter-x-md q-mt-md row" data-cy="nested-fields-add-btn" @click="add()">
             <div class="col">
               <qas-input class="disabled no-pointer-events" hide-bottom-space :label="addInputLabel" outlined @focus="add()" />
             </div>
@@ -51,7 +51,7 @@
           </div>
 
           <div v-else class="text-left">
-            <qas-btn class="q-px-sm" color="primary" icon="sym_r_add" :label="addInputLabel" variant="tertiary" @click="add()" />
+            <qas-btn class="q-px-sm" color="primary" data-cy="nested-fields-add-btn" icon="sym_r_add" :label="addInputLabel" variant="tertiary" @click="add()" />
           </div>
         </slot>
       </div>
@@ -108,7 +108,7 @@ export default {
       type: Object,
       default: () => {
         return {
-          color: 'grey-9',
+          color: 'grey-10',
           icon: 'sym_r_delete',
           label: 'Excluir',
           variant: 'tertiary'

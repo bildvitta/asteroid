@@ -30,7 +30,7 @@ Caso a prop `list` contenha **apenas 1** item dentro, ele renderiza um `QasBtn`,
     visibility: { // key que será usado para abrir o slot
       label: 'Nome do item',
       icon: 'sym_r_visibility', // este ícone tem prioridade ao ícone passado através da prop "buttonProps".
-      color: 'grey-9' // propriedade color sobrescreve a propriedade do componente `color` porém só é usada quando existe apenas um item na listagem
+      color: 'grey-10' // propriedade color sobrescreve a propriedade do componente `color` porém só é usada quando existe apenas um item na listagem
       props: {
         // Propriedades do q-item: https://quasar.dev/vue-components/list-and-list-items#api--qitem
       },

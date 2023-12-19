@@ -238,7 +238,7 @@ export default {
     },
 
     filterButtonColor () {
-      return this.hasActiveFilters ? 'primary' : 'grey-9'
+      return this.hasActiveFilters ? 'primary' : 'grey-10'
     },
 
     filterButtonProps () {

@@ -9,7 +9,7 @@ $accent: var(--q-accent);
 
 // Asteroid variables
 :root {
-  --qas-background-color: #fbfbfb;
+  --qas-background-color: rgba(15, 83, 175, 0.03);
   --qas-border-grey: #{$grey-4};
   --qas-generic-border-radius: 4px;
   --qas-generic-transition: 300ms;
@@ -25,6 +25,9 @@ $border-grey: var(--qas-border-grey);
 // variables
 @import './css/variables/index';
 
+// mixins
+@import './css/mixins/index';
+
 // components
 @import './css/components/index';
 
@@ -33,6 +36,3 @@ $border-grey: var(--qas-border-grey);
 
 // utils
 @import './css/utils/index';
-
-// mixins
-@import './css/mixins/index';

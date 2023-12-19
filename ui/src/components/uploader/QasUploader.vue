@@ -621,7 +621,7 @@ export default {
 
     &__header {
       background-color: transparent;
-      color: $grey-9;
+      color: $grey-10;
     }
 
     &__list {

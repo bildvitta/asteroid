@@ -129,7 +129,7 @@ export default {
       return {
         'justify-between': this.card.name,
         'justify-right': !this.card.name,
-        'text-grey-9': !this.disable,
+        'text-grey-10': !this.disable,
         'q-mb-md': this.hasActions || this.card.name
       }
     },
@@ -142,7 +142,7 @@ export default {
         'full-width',
         'items-center',
         'justify-center',
-        'text-grey-9',
+        'text-grey-10',
         'text-subtitle2'
       ]
     }

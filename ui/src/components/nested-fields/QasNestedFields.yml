@@ -246,7 +246,6 @@ slots:
         type: Function
         examples: ["updateValue({ name: 'novo valor' }, 2)"]
 
-
 events:
   '@update:model-value -> function (value)':
     desc: Dispara toda vez que o model é atualizado, também utilizado para v-model.
@@ -254,3 +253,16 @@ events:
       value:
         desc: Novo valor do v-model
         type: String
+
+selectors:
+  'nested-fields-[fieldName]':
+    desc: Seletor criado a partir da propriedade "name" do campo.
+    examples: ['data-cy="nested-fields-companies"']
+
+  'nested-fields-item':
+    desc: Seletor para cada item do nested.
+    examples: ['data-cy="nested-fields-item"']
+
+  'nested-fields-add-btn':
+    desc: Seletor para os botões de adicionar itens ao nested.
+    examples: ['data-cy="nested-fields-add-btn"']
