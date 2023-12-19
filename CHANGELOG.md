@@ -10,7 +10,7 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 ### Sobre os "BREAKING CHANGES"
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
-## Não publicado
+## [3.13.0-beta.17] - 19-12-2023
 ### Modificado
 - `QasAppBar.vue`: alterado `max-width` da logo para `115px`.
 
@@ -2274,3 +2274,4 @@ Adicionado suporte para Pinia/Vuex Seguindo os padrões da biblioteca `@bildvitt
 [3.13.0-beta.14]: https://github.com/bildvitta/asteroid/compare/v3.13.0-beta.13...v3.13.0-beta.14?expand=1
 [3.13.0-beta.15]: https://github.com/bildvitta/asteroid/compare/v3.13.0-beta.14...v3.13.0-beta.15?expand=1
 [3.13.0-beta.16]: https://github.com/bildvitta/asteroid/compare/v3.13.0-beta.15...v3.13.0-beta.16?expand=1
+[3.13.0-beta.17]: https://github.com/bildvitta/asteroid/compare/v3.13.0-beta.16...v3.13.0-beta.17?expand=1
