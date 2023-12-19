@@ -10,6 +10,10 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 ### Sobre os "BREAKING CHANGES"
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
+## Não publicado
+### Modificado
+- `QasAppBar.vue`: alterado `max-width` da logo para `115px`.
+
 ## [3.13.0-beta.16] - 18-12-2023
 ## BREAKING CHANGE
 Devido as mudanças de rebranding poderá haver quebras visuais, algumas revisões que deverão ser feitas: 

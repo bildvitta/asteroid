@@ -108,7 +108,7 @@ function toggleMenuDrawer () {
   }
 
   &__brand {
-    max-width: 164px;
+    max-width: 115px;
   }
 }
 </style>
