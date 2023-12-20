@@ -12,7 +12,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 
 ## Não publicado
 ### Modificado
-`QasTableGenerator`: alterado hover da cor de fundo da linha da tabela para a cor de background padrão.
+- `QasTableGenerator`: alterado hover da cor de fundo da linha da tabela para a cor de background padrão.
 
 ### Corrigido
 - `ErrorComponent`: corrigido problema na exibição da cor de fundo.
