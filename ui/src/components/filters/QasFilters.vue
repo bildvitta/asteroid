@@ -188,47 +188,7 @@ export default {
     },
 
     fields () {
-      const fields = getState.call(this, { entity: this.entity, key: 'filters' })
-
-      // TODO: Remover
-      const removeOptionsFrom = ['manager', 'supervisor', 'realEstateBroker', 'channel', 'subchannel']
-
-      Object.keys(fields || {}).forEach(key => {
-        if (!removeOptionsFrom.includes(key)) {
-          return
-        }
-
-        // if (key === 'manager') {
-        //   fields[key].options = [{
-        //     value: '5baf3d1c-adb8-4621-b45c-4d156e3a139a',
-        //     label: 'DOE GERENTE (nível 2)'
-        //   }]
-
-        //   return
-        // }
-
-        // if (key === 'supervisor') {
-        //   fields[key].options = [{
-        //     value: '7c468932-2d94-4d0d-8ea1-c5cd75f4212c',
-        //     label: 'Leandro Assis Matos'
-        //   }]
-
-        //   return
-        // }
-
-        // if (key === 'realEstateBroker') {
-        //   fields[key].options = [{
-        //     value: '1a8af297-0b87-40aa-9e8d-5007b69ff41d',
-        //     label: 'Bruna da Silva Justo Ferreira'
-        //   }]
-
-        //   return
-        // }
-
-        fields[key].options = []
-      })
-
-      return fields
+      return getState.call(this, { entity: this.entity, key: 'filters' })
     },
 
     filtersClass () {
