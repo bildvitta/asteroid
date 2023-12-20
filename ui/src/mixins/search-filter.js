@@ -91,14 +91,16 @@ export default {
   },
 
   watch: {
-    'lazyLoadingProps.params' (newParams, oldParams) {
-      if (!this.useLazyLoading || isEqual(newParams, oldParams)) return
+    'lazyLoadingProps.params': {
+      handler (newParams, oldParams) {
+        if (!this.useLazyLoading || isEqual(newParams, oldParams)) return
 
-      this.mx_cachedOptions = []
+        this.mx_cachedOptions = []
 
-      this.mx_filterOptionsByStore('')
+        this.mx_filterOptionsByStore('')
 
-      setTimeout(() => this.$emit('update:modelValue', undefined))
+        setTimeout(() => this.$emit('update:modelValue', undefined))
+      }
     },
 
     modelValue (values) {
