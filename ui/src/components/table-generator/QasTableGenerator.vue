@@ -333,13 +333,17 @@ export default {
 
     td {
       @include set-typography($body1);
+
+      &:before {
+        transition: background-color var(--qas-generic-transition);
+      }
     }
 
     tr {
-      transition: background-color var(--qas-generic-transition);
-
       &:hover {
-        background-color: $grey-2;
+        td:before {
+          background-color: var(--qas-background-color);
+        }
       }
     }
 
