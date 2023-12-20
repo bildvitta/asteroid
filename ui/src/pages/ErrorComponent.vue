@@ -56,7 +56,6 @@ export default {
 
 <style lang="scss">
 .error-component {
-  background-color: var(--qas-background-color);
   min-height: 100vh;
   padding: var(--qas-spacing-3xl) 0;
 
