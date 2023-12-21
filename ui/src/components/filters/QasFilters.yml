@@ -22,6 +22,20 @@ props:
     type: Object
     examples: ["{ name: { dense: true, onClick: () => alert('Estou sendo clicado') } }"]
 
+  filters:
+    model: true
+    desc: Diferente do model "currentFilters" que controla os filtros realizado, este model controla os filtros que ainda não foram realizados.
+    default: {}
+    type: Object
+    examples: [v-model:filters="filters"]
+
+  search:
+    model: true
+    desc: Este model controla o campo de busca.
+    default: ''
+    type: String
+    examples: [v-model:search="search"]
+
   search-placeholder:
     desc: Placeholder do campo de busca.
     default: Pesquisar...
