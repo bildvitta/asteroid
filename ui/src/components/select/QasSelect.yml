@@ -86,6 +86,11 @@ props:
     default: true
     type: Boolean
 
+  use-fetch-options-on-focus:
+    desc: Controla se o componente vai fazer um fetch das opções assim que o mesmo é focado (caso tenha lazy loading ativado). Se essa opção estiver habilitada, o componente não vai fazer o fetch das opções assim que é criado, anulando a propriedade "useFetchOptionsOnCreate".
+    default: false
+    type: Boolean
+
   use-search:
     desc: Controla se vai ou não ter campo de busca no select.
     default: undefined
@@ -111,6 +116,14 @@ events:
         desc: Novo valor do v-model:fetching
         default: false
         type: Boolean
+
+  '@update:selectedOptions -> function (value)':
+    desc: Dispara toda vez que a lista de opções selecionadas é atualizada.
+    params:
+      value:
+        desc: Array com as opções selecionadas (label e value)
+        default: []
+        type: Array
 
   '@fetch-options-success -> function (value)':
     desc: Dispara toda vez que o campo de busca faz o fetch do lazy loading com sucesso.
