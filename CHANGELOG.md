@@ -10,6 +10,10 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 ### Sobre os "BREAKING CHANGES"
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
+## Não publicado
+### Corrigido
+- `QasAppMenu`: corrigido problema na animação de abrir e fechar do menu.
+
 ## [3.13.0-beta.18] - 20-12-2023
 ### Modificado
 - `QasTableGenerator`: alterado hover da cor de fundo da linha da tabela para a cor de background padrão.
