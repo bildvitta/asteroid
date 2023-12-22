@@ -10,7 +10,7 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 ### Sobre os "BREAKING CHANGES"
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
-## Não publicado
+## [3.13.0-beta.19] - 22-12-2023
 ### Corrigido
 - `QasAppMenu`: corrigido problema na animação de abrir e fechar do menu.
 
@@ -2287,3 +2287,4 @@ Adicionado suporte para Pinia/Vuex Seguindo os padrões da biblioteca `@bildvitt
 [3.13.0-beta.16]: https://github.com/bildvitta/asteroid/compare/v3.13.0-beta.15...v3.13.0-beta.16?expand=1
 [3.13.0-beta.17]: https://github.com/bildvitta/asteroid/compare/v3.13.0-beta.16...v3.13.0-beta.17?expand=1
 [3.13.0-beta.18]: https://github.com/bildvitta/asteroid/compare/v3.13.0-beta.17...v3.13.0-beta.18?expand=1
+[3.13.0-beta.19]: https://github.com/bildvitta/asteroid/compare/v3.13.0-beta.18...v3.13.0-beta.19?expand=1
