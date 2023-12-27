@@ -4,19 +4,22 @@ import { NotifySuccess, NotifyError } from '../plugins'
 /** Função para lidar com promises, por exemplo requests.
  *
  * @param {Promise} promise
- * @param {object} config={successMessage, errorMessage, useLoading}
+ * @param {object} config={successMessage, errorMessage, useLoading, loadingConfig, onLoading}
  * @example promiseHandle(new Promise(), { errorMessage: 'Erro', successMessage: 'Sucesso' })
  */
 export default async function (promise, config = {}) {
   const {
-    successMessage,
     errorMessage,
+    loadingConfig = {},
+    successMessage,
     useLoading = true,
+
+    // callback
     onLoading
   } = config
 
   onLoading && onLoading(true)
-  useLoading && Loading.show()
+  useLoading && Loading.show(loadingConfig)
 
   const promiseToBeExec = typeof promise === 'function' ? promise() : promise
 
@@ -32,6 +35,6 @@ export default async function (promise, config = {}) {
     return { data: null, error }
   } finally {
     onLoading && onLoading(false)
-    Loading.hide()
+    useLoading && Loading.hide()
   }
 }

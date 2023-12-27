@@ -1,5 +1,5 @@
 <template>
-  <div :id="fieldName" class="qas-nested-fields">
+  <div :id="fieldName" class="qas-nested-fields" :data-cy="`nested-fields-${fieldName}`">
     <div v-if="useSingleLabel" class="text-left">
       <qas-label :label="fieldLabel" typography="h5" />
     </div>
@@ -7,15 +7,17 @@
     <div ref="inputContent">
       <component :is="componentTag" v-bind="componentProps">
         <template v-for="(row, index) in nested" :key="`row-${index}`">
-          <div v-if="!row[destroyKey]" :id="`row-${index}`" class="full-width qas-nested-fields__field-item">
+          <div v-if="!row[destroyKey]" :id="`row-${index}`" class="full-width qas-nested-fields__field-item" data-cy="nested-fields-item">
             <header v-if="hasHeader" class="flex items-center q-pb-md" :class="headerClasses">
               <qas-label v-if="!useSingleLabel" :label="getRowLabel(index)" margin="none" typography="h5" />
               <qas-actions-menu v-if="hasBlockActions(row)" v-bind="getActionsMenuProps(index, row)" />
             </header>
 
+            <slot :errors="transformedErrors" :fields="getFields(index, row)" :index="index" :model="nested[index]" name="before-fields" :update-value="updateValuesFromInput" />
+
             <div ref="formGenerator" class="col-12 justify-between q-col-gutter-x-md row">
-              <slot :errors="transformedErrors" :fields="children" :index="index" name="fields" :update-value="updateValuesFromInput">
-                <qas-form-generator v-model="nested[index]" :class="formClasses" :columns="formColumns" :disable="isDisabledRow(row)" :errors="transformedErrors[index]" :fields="children" :fields-props="fieldsProps" @update:model-value="updateValuesFromInput($event, index)">
+              <slot :errors="transformedErrors" :fields="getFields(index, row)" :index="index" name="fields" :update-value="updateValuesFromInput">
+                <qas-form-generator v-model="nested[index]" :class="formClasses" :columns="formColumns" :disable="isDisabledRow(row)" :errors="transformedErrors[index]" :fields="getFields(index, row)" :fields-props="getFieldsProps(index, row)" @update:model-value="updateValuesFromInput($event, index)">
                   <template v-for="(slot, key) in $slots" #[key]="scope">
                     <slot v-bind="scope" :disabled="isDisabledRow(row)" :errors="transformedErrors" :index="index" :name="key" />
                   </template>
@@ -27,9 +29,7 @@
               </div>
             </div>
 
-            <div class="col-12">
-              <slot :fields="children" :index="index" :model="nested[index]" name="custom-fields" :update-value="updateValuesFromInput" />
-            </div>
+            <slot :errors="transformedErrors" :fields="getFields(index, row)" :index="index" :model="nested[index]" name="after-fields" :update-value="updateValuesFromInput" />
           </div>
         </template>
       </component>
@@ -37,10 +37,10 @@
       <div v-if="useAdd">
         <slot :add="add" name="add-input">
           <div v-if="showAddFirstInputButton" class="text-left">
-            <qas-btn class="q-px-sm" color="primary" variant="tertiary" @click="add()">{{ addFirstInputLabel }}</qas-btn>
+            <qas-btn class="q-px-sm" color="primary" data-cy="nested-fields-add-btn" :label="addFirstInputLabel" variant="tertiary" @click="add()" />
           </div>
 
-          <div v-else-if="useInlineActions" class="cursor-pointer items-center q-col-gutter-x-md q-mt-md row" @click="add()">
+          <div v-else-if="useInlineActions" class="cursor-pointer items-center q-col-gutter-x-md q-mt-md row" data-cy="nested-fields-add-btn" @click="add()">
             <div class="col">
               <qas-input class="disabled no-pointer-events" hide-bottom-space :label="addInputLabel" outlined @focus="add()" />
             </div>
@@ -51,7 +51,7 @@
           </div>
 
           <div v-else class="text-left">
-            <qas-btn class="q-px-sm" color="primary" icon="sym_r_add" :label="addInputLabel" variant="tertiary" @click="add()" />
+            <qas-btn class="q-px-sm" color="primary" data-cy="nested-fields-add-btn" icon="sym_r_add" :label="addInputLabel" variant="tertiary" @click="add()" />
           </div>
         </slot>
       </div>
@@ -65,10 +65,14 @@ import QasBtn from '../btn/QasBtn.vue'
 import QasFormGenerator from '../form-generator/QasFormGenerator.vue'
 import QasInput from '../input/QasInput.vue'
 import QasLabel from '../label/QasLabel.vue'
-import { TransitionGroup } from 'vue'
-import { extend } from 'quasar'
 
 import { constructObject } from '../../helpers'
+
+import { TransitionGroup } from 'vue'
+import debug from 'debug'
+import { extend } from 'quasar'
+
+const log = debug('asteroid-ui:qas-nested-fields')
 
 export default {
   name: 'QasNestedFields',
@@ -104,7 +108,7 @@ export default {
       type: Object,
       default: () => {
         return {
-          color: 'grey-9',
+          color: 'grey-10',
           icon: 'sym_r_delete',
           label: 'Excluir',
           variant: 'tertiary'
@@ -144,14 +148,19 @@ export default {
       default: () => ({})
     },
 
+    fieldsHandlerFn: {
+      type: Function,
+      default: undefined
+    },
+
     fieldsProps: {
-      type: Object,
+      type: [Object, Function],
       default: () => ({})
     },
 
     formColumns: {
-      type: Object,
-      default: () => ({})
+      type: [Array, String, Object],
+      default: () => []
     },
 
     formGutter: {
@@ -377,6 +386,24 @@ export default {
       return list
     },
 
+    getFields (index, row) {
+      const fields = this.children
+
+      if (this.fieldsHandlerFn) {
+        return this.fieldsHandlerFn({ fields, index, row })
+      }
+
+      return fields
+    },
+
+    getFieldsProps (index, row) {
+      if (typeof this.fieldsProps === 'function') {
+        return this.fieldsProps({ index, row })
+      }
+
+      return this.fieldsProps
+    },
+
     add (row = {}) {
       const payload = { ...this.rowObject, ...row }
       const hasIdentifierKey = payload[this.identifierItemKey]
@@ -392,7 +419,7 @@ export default {
         this.setFocus()
       })
 
-      this.$qas.logger.group('QasNestedFields - add', [payload])
+      log('add', payload)
 
       this.updateModelValue()
     },
@@ -410,7 +437,7 @@ export default {
         ? this.nested.splice(index, 1)
         : this.nested.splice(index, 1, { [this.destroyKey]: true, ...row })
 
-      this.$qas.logger.group('QasNestedFields - destroy', [{ index, row }])
+      log('destroy', { index, row })
 
       this.updateModelValue()
     },

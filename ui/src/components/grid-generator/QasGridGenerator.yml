@@ -73,3 +73,11 @@ slots:
         default: {}
         type: Object
 
+selectors:
+  'grid-generator-[fieldName]-field':
+    desc: Seletor do título do campo.
+    examples: ['data-cy="grid-generator-email-field"', 'data-cy="grid-generator-name-field"']
+
+  'grid-generator-[fieldName]-result':
+    desc: Seletor do conteúdo do campo.
+    examples: ['data-cy="grid-generator-email-result"', 'data-cy="grid-generator-name-result"']

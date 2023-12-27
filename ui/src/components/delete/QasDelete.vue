@@ -69,7 +69,7 @@ export default {
     attributes () {
       return {
         ...this.$attrs,
-        color: this.isButton ? 'grey-9' : this.$attrs.color
+        color: this.isButton ? 'grey-10' : this.$attrs.color
       }
     },
 

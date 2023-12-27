@@ -1,7 +1,7 @@
 <template>
   <div class="container error-component flex">
     <div class="column full-width items-center justify-center row">
-      <h2 :aria-label="ariaLabelCode" class="q-mb-sm text-grey-9 text-h2" role="heading">
+      <h2 :aria-label="ariaLabelCode" class="q-mb-sm text-h2" role="heading">
         {{ code }}
       </h2>
 
@@ -56,7 +56,6 @@ export default {
 
 <style lang="scss">
 .error-component {
-  background-color: var(--qas-background-color);
   min-height: 100vh;
   padding: var(--qas-spacing-3xl) 0;
 

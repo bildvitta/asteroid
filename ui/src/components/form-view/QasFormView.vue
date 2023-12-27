@@ -10,11 +10,11 @@
       <slot v-if="useActions" name="actions">
         <qas-actions>
           <template v-if="useSubmitButton" #primary>
-            <qas-btn class="qas-form-view__btn" :data-cy="`btnSave-${entity}`" :disable="disable" :label="submitButtonLabel" :loading="isSubmitting" type="submit" variant="primary" />
+            <qas-btn class="qas-form-view__btn" :data-cy="`form-view-submit-btn-${entity}`" :disable="disable" :label="submitButtonLabel" :loading="isSubmitting" type="submit" variant="primary" />
           </template>
 
           <template v-if="hasCancelButton" #secondary>
-            <qas-btn v-close-popup class="qas-form-view__btn" :data-cy="`btnCancel-${entity}`" :disable="isSubmitting" :label="cancelButtonLabel" type="button" variant="secondary" @click="cancel" />
+            <qas-btn v-close-popup class="qas-form-view__btn" :data-cy="`form-view-cancel-btn-${entity}`" :disable="isSubmitting" :label="cancelButtonLabel" type="button" variant="secondary" @click="cancel" />
           </template>
         </qas-actions>
       </slot>
@@ -33,18 +33,20 @@
 </template>
 
 <script>
-import { isEqualWith } from 'lodash-es'
-import { getAction } from '@bildvitta/store-adapter'
-import { extend } from 'quasar'
-import { onBeforeRouteLeave } from 'vue-router'
-
-import { useHistory } from '../../composables'
-import { NotifyError, NotifySuccess } from '../../plugins'
-
 import QasBtn from '../btn/QasBtn.vue'
 import QasDialog from '../dialog/QasDialog.vue'
 
+import { NotifyError, NotifySuccess } from '../../plugins'
+import { useHistory } from '../../composables'
 import { viewMixin } from '../../mixins'
+
+import debug from 'debug'
+import { extend } from 'quasar'
+import { getAction } from '@bildvitta/store-adapter'
+import { isEqualWith } from 'lodash-es'
+import { onBeforeRouteLeave } from 'vue-router'
+
+const log = debug('asteroid-ui:qas-form-view')
 
 export default {
   name: 'QasFormView',
@@ -57,6 +59,11 @@ export default {
   mixins: [viewMixin],
 
   props: {
+    beforeSubmit: {
+      default: null,
+      type: Function
+    },
+
     cancelButtonLabel: {
       default: 'Voltar',
       type: String
@@ -125,14 +132,14 @@ export default {
       type: Boolean
     },
 
+    useNotifySuccess: {
+      type: Boolean,
+      default: true
+    },
+
     useSubmitButton: {
       default: true,
       type: Boolean
-    },
-
-    beforeSubmit: {
-      default: null,
-      type: Function
     }
   },
 
@@ -213,6 +220,10 @@ export default {
   watch: {
     isSubmitting (value) {
       this.$emit('update:submitting', value)
+    },
+
+    '$route.path' () {
+      this.ignoreRouterGuard = false
     }
   },
 
@@ -251,11 +262,6 @@ export default {
         return next()
       }
 
-      this.$qas.logger.group(
-        'QasFormView - beforeRouteLeave -> dialog chamado, modelValue diferente do cachedResult',
-        [{ modelValue: clonedModelValue, cachedResult: clonedCachedResult }]
-      )
-
       this.handleDialog(() => {
         this.ignoreRouterGuard = true
         next()
@@ -276,10 +282,6 @@ export default {
           url: this.fetchURL,
           ...externalPayload
         }
-
-        this.$qas.logger.group(
-          `QasFormView - fetchSingle -> payload do parâmetro do ${this.entity}/fetchSingle`, [payload]
-        )
 
         const response = await getAction.call(this, {
           entity: this.entity,
@@ -303,28 +305,19 @@ export default {
 
         result && Object.assign(modelValue, result)
 
-        this.$qas.logger.group(
-          `QasFormView - fetchSingle -> resposta da action ${this.entity}/fetchSingle`, [response]
-        )
-
         if (this.useDialogOnUnsavedChanges) {
           this.cachedResult = extend(true, {}, result || modelValue)
-          this.$qas.logger.group('QasFormView - fetchSingle -> cachedResult', [this.cachedResult])
         }
 
         this.$emit('update:modelValue', modelValue)
         this.$emit('fetch-success', response, this.modelValue)
 
-        this.$qas.logger.group('QasFormView - fetchSingle -> modelValue', [modelValue])
+        log(`[${this.entity}]:fetchSingle:success`, { response, modelValue })
       } catch (error) {
         this.mx_fetchError(error)
         this.$emit('fetch-error', error)
 
-        this.$qas.logger.group(
-          `QasFormView - fetchSingle -> exceção da action ${this.entity}/fetchSingle`,
-          [error],
-          { error: true }
-        )
+        log(`[${this.entity}]:fetchSingle:error`, error)
       } finally {
         this.mx_isFetching = false
       }
@@ -374,10 +367,9 @@ export default {
       if (!this.ignoreKeysInUnsavedChanges.length) return
 
       this.ignoreKeysInUnsavedChanges.forEach(key => {
-        if (!firstValue) return
+        if (firstValue) delete firstValue[key]
 
-        delete firstValue[key]
-        delete secondValue[key]
+        if (secondValue) delete secondValue[key]
       })
     },
 
@@ -416,31 +408,31 @@ export default {
           ...externalPayload
         }
 
-        this.$qas.logger.group(
-          `QasFormView - submit -> payload do ${this.entity}/${this.mode}`, [payload]
-        )
-
         const response = await getAction.call(this, {
           entity: this.entity,
           key: this.mode,
           payload
         })
 
+        const modelValue = { ...this.modelValue, ...response.data.result }
+
         if (this.useDialogOnUnsavedChanges) {
-          this.cachedResult = extend(true, {}, this.modelValue)
+          this.cachedResult = extend(true, {}, modelValue)
         }
 
         this.mx_setErrors()
         this.$emit('update:errors', this.mx_errors)
 
-        NotifySuccess(response.data.status.text || this.defaultNotifyMessages.success)
+        this.$emit('update:modelValue', modelValue)
         this.$emit('submit-success', response, this.modelValue)
 
         this.createSubmitSuccessEvent({ ...payload, entity: this.entity })
 
-        this.$qas.logger.group(
-          `QasFormView - submit -> resposta da action ${this.entity}/${this.mode}`, [response]
-        )
+        if (this.useNotifySuccess) {
+          NotifySuccess(response.data.status.text || this.defaultNotifyMessages.success)
+        }
+
+        log(`[${this.entity}]:submit:success`, { response, modelValue })
       } catch (error) {
         const errors = error?.response?.data?.errors
         const message = error?.response?.data?.status?.text
@@ -457,11 +449,7 @@ export default {
 
         this.$emit('submit-error', error)
 
-        this.$qas.logger.group(
-          `QasFormView - submit -> exceção da action ${this.entity}/${this.mode}`,
-          [error],
-          { error: true }
-        )
+        log(`[${this.entity}]:submit:error`, error)
       } finally {
         this.isSubmitting = false
       }

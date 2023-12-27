@@ -141,3 +141,24 @@ events:
       value:
         desc: Retorna todos os filtros realizados.
         type: Object
+
+selectors:
+  filters-btn:
+    desc: Seletor do botão de filtro.
+    examples: ['data-cy="filters-btn"']
+
+  filters-clear-btn:
+    desc: Seletor do botão de limpar do filtro.
+    examples: ['data-cy="filters-clear-btn"']
+
+  'filters-[optionText]-chip':
+    desc: Seletor do chip de acordo com o texto da opção selecionada.
+    examples: ['data-cy="filters-Ativo-chip"']
+
+  'filters-[fieldName]-field':
+    desc: Seletor criado a partir da propriedade "name" do campo.
+    examples: ['data-cy="filters-email-field"', 'data-cy="filters-phone-field"', 'data-cy="filters-password-field"']
+
+  filters-submit-btn:
+    desc: Seletor do botão de submit do filtro.
+    examples: ['data-cy="filters-submit-btn"']

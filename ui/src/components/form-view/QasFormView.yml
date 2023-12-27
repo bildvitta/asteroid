@@ -138,6 +138,11 @@ props:
     default: true
     type: Boolean
 
+  use-notify-success:
+    desc: Controla se vai ter ou não notificação de sucesso ao finalizar o submit.
+    default: true
+    type: Boolean
+
   use-submit-button:
     desc: Controla se vai ter ou não botão de submit.
     default: true
@@ -157,17 +162,21 @@ slots:
     desc: Slot para acessar o header.
 
 events:
-  '@fetch-success -> function(value)':
+  '@fetch-success -> function(response, modelValue)':
     desc: Dispara quando a action "fetchSingle" é executada com sucesso.
     params:
-      value:
+      response:
         desc: Retorna todos os dados "cru" respondido pelo fetch.
         type: Object
 
-  '@fetch-error -> function(value)':
+      modelValue:
+        desc: Retorna o model anterior ao fetch.
+        type: Object
+
+  '@fetch-error -> function(error)':
     desc: Dispara quando a action "fetchSingle" cai em uma exceção.
     params:
-      value:
+      error:
         desc: Retorna todos os dados "cru" respondido na exceção do fetch.
         type: Object
 
@@ -212,3 +221,30 @@ events:
       value:
         desc: Retorna se está ou não fazendo fetching de dados.
         type: Boolean
+
+  '@submit-success -> function(response, modelValue)':
+    desc: Dispara quando a action "submit" é executada com sucesso.
+    params:
+      response:
+        desc: Retorna todos os dados "cru" respondido pelo submit.
+        type: Object
+
+      modelValue:
+        desc: Retorna o model anterior ao submit.
+        type: Object
+
+  '@submit-error -> function(error)':
+    desc: Dispara quando a action "submit" cai em uma exceção.
+    params:
+      error:
+        desc: Retorna todos os dados "cru" respondido na exceção do submit.
+        type: Object
+
+selectors:
+  'form-view-cancel-btn-[entity]':
+    desc: Seletor do botão de cancelar.
+    examples: ['data-cy="form-view-cancel-btn-users"']
+
+  'form-view-submit-btn-[entity]':
+    desc: Seletor do botão de salvar.
+    examples: ['data-cy="form-view-submit-btn-users"']

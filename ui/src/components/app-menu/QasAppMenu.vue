@@ -4,37 +4,37 @@
       <div class="column full-height justify-between no-wrap">
         <div class="full-width">
           <!-- Brand -->
-          <div v-if="!isUntilLarge" class="q-mb-xl q-pt-xl qas-app-menu__label" :class="spacedItemClass">
-            <router-link class="flex relative-position text-no-decoration" :class="brandPositionClass" :to="rootRoute">
-              <q-img v-if="normalizedBrand" :alt="title" class="qas-app-menu__brand qas-app-menu__label" :class="brandClass" height="40px" no-spinner :src="normalizedBrand" />
+          <div v-if="!screen.untilLarge" class="q-mb-xl q-pt-xl qas-app-menu__label" :class="classes.spacedItem">
+            <router-link class="column flex items-center justify-center relative-position text-no-decoration" :to="rootRoute">
+              <q-img v-if="normalizedBrand" :alt="title" class="qas-app-menu__brand qas-app-menu__label" fit="contain" height="27px" img-class="qas-app-menu__brand-img" no-spinner :src="normalizedBrand" />
 
               <span v-else-if="!isMiniMode" class="ellipsis text-bold text-primary text-subtitle2">{{ title }}</span>
 
-              <q-badge v-if="hasDevelopmentBadge" color="red" floating :label="developmentBadgeLabel" />
+              <q-badge v-if="hasDevelopmentBadge" class="q-mt-sm" color="red" :label="developmentBadgeLabel" />
             </router-link>
           </div>
 
-          <div v-if="normalizedBrand" class="qas-app-menu__label" :class="spacedItemClass">
+          <div v-if="normalizedBrand" class="qas-app-menu__label" :class="classes.spacedItem">
             <q-separator />
           </div>
 
-          <div v-if="isUntilLarge" class="q-pr-xl q-pt-md text-right">
-            <qas-btn color="grey-9" icon="sym_r_close" variant="tertiary" @click="closeDrawer" />
+          <div v-if="screen.untilLarge" class="q-pr-xl q-pt-md text-right">
+            <qas-btn color="grey-10" icon="sym_r_close" variant="tertiary" @click="closeDrawer" />
           </div>
 
           <!-- Module -->
-          <div v-if="displayModuleSection" class="items-center justify-between no-wrap q-mt-xl qas-app-menu__label qas-app-menu__module row" :class="spacedItemClass">
+          <div v-if="showAppMenuDropdown" class="items-center justify-between no-wrap q-mt-xl qas-app-menu__label qas-app-menu__module row" :class="classes.spacedItem">
             <div class="full-width text-center">
               <pv-app-menu-dropdown v-bind="appMenuDropdownProps" />
             </div>
           </div>
 
           <!-- List -->
-          <q-list v-if="items.length" class="q-mt-xl qas-app-menu__menu text-grey-9">
+          <q-list v-if="items.length" class="q-mt-xl qas-app-menu__menu text-grey-10">
             <template v-for="(menuItem, index) in items">
-              <div v-if="hasChildren(menuItem)" :key="`children-${index}`" class="qas-app-menu__content" :class="contentClass">
+              <div v-if="hasChildren(menuItem)" :key="`children-${index}`" class="qas-app-menu__content" :class="classes.content">
                 <q-item class="ellipsis items-center q-py-none qas-app-menu__item qas-app-menu__item--label-mini text-weight-bold">
-                  <div class="ellipsis qas-app-menu__label text-grey-9 text-subtitle2" :class="spacedItemClass">
+                  <div class="ellipsis qas-app-menu__label text-grey-10 text-subtitle2" :class="classes.spacedItem">
                     {{ menuItem.label }}
                   </div>
                 </q-item>
@@ -53,7 +53,7 @@
                   </q-item-section>
                 </q-item>
 
-                <div v-if="hasSeparator(index)" class="qas-app-menu__label" :class="spacedItemClass">
+                <div v-if="hasSeparator(index)" class="qas-app-menu__label" :class="classes.spacedItem">
                   <q-separator spaced />
                 </div>
               </div>
@@ -84,289 +84,163 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import PvAppMenuDropdown from './private/PvAppMenuDropdown.vue'
-
 import QasAppUser from '../app-user/QasAppUser.vue'
 
-import { isLocalDevelopment } from '../../helpers'
+import useAppMenuDropdown from './composables/use-app-menu-dropdown'
+import useAppUser from './composables/use-app-user'
+import useDevelopmentBadge from './composables/use-development-badge'
+import { useScreen } from '../../composables'
 
-export default {
+import { ref, computed } from 'vue'
+import { useRouter } from 'vue-router'
+
+defineOptions({
   name: 'QasAppMenu',
+  inheritAttrs: false
+})
 
-  components: {
-    PvAppMenuDropdown,
-    QasAppUser
+const props = defineProps({
+  appUserProps: {
+    type: Object,
+    required: true,
+    default: () => ({})
   },
 
-  inheritAttrs: false,
-
-  props: {
-    appUserProps: {
-      type: Object,
-      required: true,
-      default: () => ({})
-    },
-
-    brand: {
-      default: '',
-      required: true,
-      type: String
-    },
-
-    items: {
-      default: () => [],
-      type: Array
-    },
-
-    miniBrand: {
-      type: String,
-      required: true,
-      default: ''
-    },
-
-    modelValue: {
-      default: true,
-      type: Boolean
-    },
-
-    modules: {
-      default: () => [],
-      type: Array
-    },
-
-    notifications: {
-      default: () => ({}),
-      type: Object
-    },
-
-    title: {
-      default: '',
-      type: String
-    }
+  brand: {
+    default: '',
+    required: true,
+    type: String
   },
 
-  emits: ['sign-out', 'update:modelValue'],
-
-  data () {
-    return {
-      hasOpenedMenu: false,
-      isMini: this.$qas.screen.isLarge,
-      module: ''
-    }
+  items: {
+    default: () => [],
+    type: Array
   },
 
-  computed: {
-    appMenuDropdownProps () {
-      return {
-        buttonDropdownProps: {
-          'onUpdate:menu': this.setHasOpenedMenu
-        },
-
-        currentModule: this.currentModelOption,
-        modules: this.defaultModules
-      }
-    },
-
-    behavior () {
-      return this.isUntilLarge ? 'mobile' : 'desktop'
-    },
-
-    brandClass () {
-      return {
-        'qas-app-menu__brand--spaced': !this.isMiniMode
-      }
-    },
-
-    brandPositionClass () {
-      return {
-        'justify-center': this.isMiniMode
-      }
-    },
-
-    contentClass () {
-      return {
-        'qas-app-menu__content--spaced': !this.isMiniMode
-      }
-    },
-
-    currentModelOption () {
-      return this.defaultModules.find(module => module?.value === this.module)
-    },
-
-    currentModule () {
-      const hostname = window.location.hostname
-      return this.defaultModules.find(module => module?.value.includes(hostname))?.value
-    },
-
-    defaultAppUserProps () {
-      return {
-        avatarSize: '40px',
-
-        menuProps: {
-          'onUpdate:modelValue': this.setHasOpenedMenu
-        },
-
-        // eventos
-        onSignOut: this.signOut,
-        ...this.appUserProps
-      }
-    },
-
-    defaultModules () {
-      if (!isLocalDevelopment()) return this.modules
-
-      const defaultModules = [...this.modules]
-      const { host, protocol } = window.location
-      const value = `${protocol}//${host}`
-
-      // Add a default module called "Localhost" when app is running in local development.
-      defaultModules.unshift({
-        label: `Localhost ${this.title ? `(${this.title})` : ''}`,
-        icon: 'sym_r_home',
-        value
-      })
-
-      return defaultModules
-    },
-
-    developmentBadgeLabel () {
-      const hosts = {
-        localhost: 'Local',
-        '.dev.': 'Develop'
-      }
-
-      if (process.env.DEV) {
-        return hosts.localhost
-      }
-
-      const current = Object.keys(hosts).find(
-        host => location.hostname.includes(host)
-      )
-
-      return current ? hosts[current] : ''
-    },
-
-    displayModuleSection () {
-      return this.defaultModules.length
-    },
-
-    drawerWidth () {
-      return this.isUntilLarge ? 320 : 280
-    },
-
-    hasDevelopmentBadge () {
-      return !!this.developmentBadgeLabel
-    },
-
-    isLargeScreen () {
-      return this.$qas.screen.isLarge
-    },
-
-    isMiniMode () {
-      return this.isLargeScreen && this.isMini && !this.hasOpenedMenu
-    },
-
-    isUntilLarge () {
-      return this.$qas.screen.untilLarge
-    },
-
-    model: {
-      get () {
-        return this.modelValue
-      },
-
-      set (value) {
-        return this.$emit('update:modelValue', value)
-      }
-    },
-
-    normalizedBrand () {
-      return this.isMiniMode ? this.miniBrand : this.brand
-    },
-
-    rootRoute () {
-      return this.$router.hasRoute('Root') ? { name: 'Root' } : { path: '/' }
-    },
-
-    showAppUser () {
-      return this.hasUser && !this.isUntilLarge
-    },
-
-    spacedItemClass () {
-      return {
-        'qas-app-menu__label--spaced': !this.isMiniMode
-      }
-    }
+  miniBrand: {
+    type: String,
+    required: true,
+    default: ''
   },
 
-  watch: {
-    currentModule: {
-      handler (value) {
-        this.module = value
-      },
-
-      immediate: true
-    }
+  modelValue: {
+    default: true,
+    type: Boolean
   },
 
-  methods: {
-    closeDrawer () {
-      this.$emit('update:modelValue', false)
+  modules: {
+    default: () => [],
+    type: Array
+  },
+
+  notifications: {
+    default: () => ({}),
+    type: Object
+  },
+
+  title: {
+    default: '',
+    type: String
+  }
+})
+
+const emits = defineEmits(['sign-out', 'update:modelValue'])
+
+const screen = useScreen()
+const router = useRouter()
+
+const rootRoute = router.hasRoute('Root') ? { name: 'Root' } : { path: '/' }
+
+const hasOpenedMenu = ref(false)
+const isMini = ref(screen.isLarge)
+
+const composableParams = {
+  props,
+  onMenuUpdate: setHasOpenedMenu,
+  onSignOut: () => emits('sign-out')
+}
+
+const { defaultAppUserProps, showAppUser } = useAppUser(composableParams)
+const { appMenuDropdownProps, showAppMenuDropdown } = useAppMenuDropdown(composableParams)
+const { developmentBadgeLabel, hasDevelopmentBadge } = useDevelopmentBadge()
+
+const model = computed({
+  get () {
+    return props.modelValue
+  },
+
+  set (value) {
+    emits('update:modelValue', value)
+  }
+})
+
+const behavior = computed(() => screen.untilLarge ? 'mobile' : 'desktop')
+const drawerWidth = computed(() => screen.untilLarge ? 320 : 280)
+const isMiniMode = computed(() => screen.isLarge && isMini.value && !hasOpenedMenu.value)
+const normalizedBrand = computed(() => isMini.value ? props.miniBrand : props.brand)
+
+const classes = computed(() => {
+  return {
+    content: {
+      'qas-app-menu__content--spaced': !isMiniMode.value
     },
 
-    getNormalizedPath (path) {
-      return path.split('/').filter(Boolean)?.[0]
-    },
-
-    getPathFromObject ({ path, name }) {
-      if (path) return this.getNormalizedPath(path)
-
-      const resolvedRoute = this.$router.resolve({ name })
-      return this.getNormalizedPath(resolvedRoute.path)
-    },
-
-    getRouterRedirect ({ to }) {
-      return to || ''
-    },
-
-    hasChildren ({ children }) {
-      return !!(children || []).length
-    },
-
-    hasSeparator (index) {
-      return !!this.items[index + 1]
-    },
-
-    hasUser () {
-      return !!Object.keys(this.defaultAppUserProps.user || {}).length
-    },
-
-    isActive ({ to }) {
-      const currentPath = this.getNormalizedPath(this.$route.path)
-      const itemPath = typeof to === 'string' ? this.getNormalizedPath(to) : this.getPathFromObject(to)
-
-      return currentPath === itemPath
-    },
-
-    onMouseEvent ({ type }) {
-      if (!this.isLargeScreen) return
-
-      const isMouseLeave = type === 'mouseleave'
-
-      this.isMini = isMouseLeave
-
-      this.model = false
-    },
-
-    signOut () {
-      this.$emit('sign-out')
-    },
-
-    setHasOpenedMenu (value) {
-      this.hasOpenedMenu = value
+    spacedItem: {
+      'qas-app-menu__label--spaced': !isMiniMode.value
     }
   }
+})
+
+// métodos
+function closeDrawer () {
+  emits('update:modelValue', false)
+}
+
+function getNormalizedPath (path) {
+  return path.split('/').filter(Boolean)?.[0]
+}
+
+function getPathFromObject ({ path, name }) {
+  if (path) return getNormalizedPath(path)
+
+  const resolvedRoute = router.resolve({ name })
+
+  return getNormalizedPath(resolvedRoute.path)
+}
+
+function getRouterRedirect ({ to }) {
+  return to || ''
+}
+
+function hasChildren ({ children }) {
+  return !!(children || []).length
+}
+
+function hasSeparator (index) {
+  return !!props.items[index + 1]
+}
+
+function isActive ({ to }) {
+  const currentPath = getNormalizedPath(router.currentRoute.value.path)
+  const itemPath = typeof to === 'string' ? getNormalizedPath(to) : getPathFromObject(to)
+
+  return currentPath === itemPath
+}
+
+function onMouseEvent ({ type }) {
+  if (!screen.isLarge) return
+
+  const isMouseLeave = type === 'mouseleave'
+
+  isMini.value = isMouseLeave
+
+  model.value = false
+}
+
+function setHasOpenedMenu (value) {
+  hasOpenedMenu.value = value
 }
 </script>
 
@@ -412,10 +286,8 @@ export default {
   }
 
   &__brand {
-    width: 40px;
-
-    &--spaced {
-      width: 208px;
+    :deep(.qas-app-menu__brand-img) {
+      transition: opacity 120ms ease-in; // 120ms é o mesmo tempo utilizado na abertura do QDrawer.
     }
   }
 

@@ -2,7 +2,7 @@
   <div class="qas-tabs-generator">
     <q-tabs v-model="model" active-color="primary" align="left" :breakpoint="0" content-class="text-grey-8" dense inline-label left-icon="sym_r_chevron_left" outside-arrows right-icon="sym_r_chevron_right">
       <slot v-for="(tab, key) in formattedTabs" :item="tab" :name="`tab-${tab.value}`">
-        <q-tab :key="key" v-bind="getTabProps(tab)" class="text-body1" :name="tab.value" no-caps :ripple="false">
+        <component :is="tabComponent" :key="key" v-bind="getTabProps(tab)" class="text-body1" :name="tab.value" no-caps :ripple="false">
           <slot :item="tab" :name="`tab-after-${tab.value}`">
             <q-icon v-if="tab.icon" :name="tab.icon" size="sm" />
 
@@ -12,7 +12,7 @@
               {{ getFormattedLabel(tab) }}
             </div>
           </slot>
-        </q-tab>
+        </component>
       </slot>
     </q-tabs>
   </div>
@@ -45,6 +45,10 @@ export default {
       default: () => ({}),
       required: true,
       type: [Object, Array]
+    },
+
+    useRouteTab: {
+      type: Boolean
     }
   },
 
@@ -77,6 +81,10 @@ export default {
 
         this.$emit('update:modelValue', value)
       }
+    },
+
+    tabComponent () {
+      return this.useRouteTab ? 'q-route-tab' : 'q-tab'
     }
   },
 
@@ -178,7 +186,7 @@ export default {
     }
 
     &__arrow:not(&--faded) {
-      color: $grey-9;
+      color: $grey-10;
       transition: color var(--qas-generic-transition);
 
       &:hover {

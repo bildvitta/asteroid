@@ -1,28 +1,6 @@
 <template>
   <div>
     <qas-gallery-card v-bind="defaultGalleryCardProps">
-      <!-- este template é para quando existe um erro carregar uma imagem de um arquivo como PDF, DOCX. -->
-      <template #image-error>
-        <div class="text-uppercase" :class="errorClasses">
-          {{ fileType }}
-        </div>
-      </template>
-
-      <!-- este template é para quando existe um erro ao fazer um UPLOAD! -->
-      <template v-if="hasError" #image>
-        <div :class="errorClasses">
-          <div class="q-pa-sm text-center">
-            <div>
-              <q-icon name="sym_r_cancel" size="sm" />
-            </div>
-
-            <div class="q-mt-sm">
-              Falha ao carregar arquivo.
-            </div>
-          </div>
-        </div>
-      </template>
-
       <template v-if="hasGenerator" #bottom>
         <div>
           <qas-grid-generator v-if="hasGridGenerator" v-bind="defaultGridGeneratorProps" />
@@ -80,7 +58,7 @@ export default {
     },
 
     galleryCardProps: {
-      type: Object,
+      type: [Object, Function],
       default: () => ({})
     },
 
@@ -112,7 +90,8 @@ export default {
   data () {
     return {
       dialogValues: {},
-      showDialog: false
+      showDialog: false,
+      hasErrorOnUploadedFile: false
     }
   },
 
@@ -136,20 +115,66 @@ export default {
       }
     },
 
+    normalizedCardGalleryProps () {
+      const isFunction = typeof this.galleryCardProps === 'function'
+
+      const functionPayload = {
+        hasError: this.hasErrorOnUploadedFile,
+        file: this.file
+      }
+
+      return (isFunction ? this.galleryCardProps(functionPayload) : this.galleryCardProps) || {}
+    },
+
     defaultGalleryCardProps () {
-      const { list, buttonProps, ...actionsMenuProps } = this.galleryCardProps.actionsMenuProps || {}
+      const {
+        list,
+        imageProps,
+
+        buttonProps: btnProps,
+        errorMessage: error,
+        errorIcon: icon,
+
+        ...actionsMenuProps
+      } = this.normalizedCardGalleryProps
+
+      /**
+       * Quando hasError for "true", significa que é falha ao enviar o arquivo ao servidor (upload), e nestes casos:
+       *
+       * buttonProps: deve sempre ser possível excluir a imagem, por isso o disable do botão é "false".
+       * errorMessage: o label do erro deve ser "Falha ao carregar arquivo."
+       * errorIcon: o ícone do erro deve ser "sym_r_cancel".
+       */
+      const buttonProps = this.hasError ? { ...btnProps, disable: false } : btnProps
+      const errorMessage = this.hasError ? 'Falha ao carregar arquivo.' : error || this.fileType
+      const errorIcon = this.hasError ? 'sym_r_cancel' : icon
 
       return {
-        ...this.galleryCardProps,
         disable: this.hasError,
 
+        ...this.normalizedCardGalleryProps,
+
+        errorIcon,
+        errorMessage,
+
+        imageProps: {
+          ...imageProps,
+
+          // callback para sinalizar que houve erro em arquivos já upados.
+          onError: () => {
+            this.hasErrorOnUploadedFile = true
+
+            this.galleryCardProps.imageProps?.onError?.()
+          }
+        },
+
         actionsMenuProps: {
+          ...actionsMenuProps,
+
           buttonProps: {
             disable: false,
             ...buttonProps
           },
-
-          ...actionsMenuProps,
 
           list: {
             ...(
@@ -183,7 +208,7 @@ export default {
 
             destroy: {
               label: 'Excluir',
-              color: 'grey-9',
+              color: 'grey-10',
               icon: 'sym_r_delete',
 
               // callback
@@ -216,21 +241,8 @@ export default {
       }
     },
 
-    errorClasses () {
-      return [
-        'bg-grey-4',
-        'flex',
-        'full-height',
-        'full-width',
-        'items-center',
-        'justify-center',
-        'text-grey-9',
-        'text-subtitle2'
-      ]
-    },
-
     fileName () {
-      return this.url.split('/').pop()
+      return this.url ? this.url.split('/').pop() : ''
     },
 
     fileType () {
@@ -259,6 +271,7 @@ export default {
 
     hasFormFields () {
       const { fields } = this.defaultFormGeneratorProps
+
       return !!Object.keys(fields).length
     },
 
@@ -288,7 +301,19 @@ export default {
     },
 
     normalizedModelValue () {
-      return this.useObjectModel && !this.hasError ? this.currentModelValue : this.file
+      return (
+        this.useObjectModel && !this.hasError
+          ? this.currentModelValue
+
+          /**
+           * Quando da erro ao enviar, a url não é enviada no model, desta forma para aparecer a imagem
+           * de "Falha ao enviar arquivo." é necessário que a "url" exista, então é criada uma url fake.
+           *
+           * Obs: esta URL fake é usada apenas para aparecer a imagem de "Falha ao enviar arquivo."
+           * e não é adicionada ao model.
+           */
+          : { url: this.url || 'error-on-upload-file', ...this.file }
+      )
     },
 
     url () {

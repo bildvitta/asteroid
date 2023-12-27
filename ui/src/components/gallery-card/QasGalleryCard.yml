@@ -9,6 +9,16 @@ props:
     default: {}
     type: Object
 
+  error-icon:
+    desc: Ícone que aparecerá quando uma imagem falhar ao carregar.
+    default: ''
+    type: String
+
+  error-message:
+    desc: Texto que aparecerá quando uma imagem falhar ao carregar.
+    default: ''
+    type: String
+
   card:
     desc: Informações do card, como name (nome) e url.
     default: {}
@@ -40,6 +50,9 @@ slots:
 
   image-error:
     desc: Slot para acessar o conteúdo da imagem quando existe algum erro com a imagem.
+
+  image-error-icon:
+    desc: Slot para acessar o conteúdo de ícone quando existe algum erro com a imagem.
 
   header:
     desc: Slot para acessar o conteúdo do cabeçalho.

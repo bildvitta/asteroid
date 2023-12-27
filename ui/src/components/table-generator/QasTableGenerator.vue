@@ -149,7 +149,7 @@ export default {
           field: name,
           label,
           name,
-          headerClasses: 'text-grey-9'
+          headerClasses: 'text-grey-10'
         })
       }
 
@@ -158,8 +158,6 @@ export default {
         for (const index in this.fields) {
           columnByField(this.fields[index])
         }
-
-        this.$qas.logger.group('QasTableGenerator - Automatic columns', [columns])
 
         return columns
       }
@@ -172,8 +170,6 @@ export default {
           columnByField(this.fields[column])
         }
       })
-
-      this.$qas.logger.group('QasTableGenerator - columns', [columns])
 
       return columns
     },
@@ -198,8 +194,6 @@ export default {
 
         return result
       })
-
-      this.$qas.logger.group('QasTableGenerator - resultsByFields', [mappedResults])
 
       return mappedResults
     },
@@ -339,13 +333,17 @@ export default {
 
     td {
       @include set-typography($body1);
+
+      &:before {
+        transition: background-color var(--qas-generic-transition);
+      }
     }
 
     tr {
-      transition: background-color var(--qas-generic-transition);
-
       &:hover {
-        background-color: $grey-2;
+        td:before {
+          background-color: var(--qas-background-color);
+        }
       }
     }
 

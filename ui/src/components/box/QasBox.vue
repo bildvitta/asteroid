@@ -1,30 +1,28 @@
 <template>
-  <div class="bg-white q-pa-md rounded-borders" :class="boxClass">
+  <div class="bg-white q-pa-md rounded-borders" :class="boxClasses">
     <slot />
   </div>
 </template>
 
-<script>
-export default {
-  name: 'QasBox',
+<script setup>
+import { computed } from 'vue'
 
-  props: {
-    outlined: {
-      type: Boolean
-    },
+defineOptions({ name: 'QasBox' })
 
-    unelevated: {
-      type: Boolean
-    }
+const props = defineProps({
+  outlined: {
+    type: Boolean
   },
 
-  computed: {
-    boxClass () {
-      return {
-        'border-grey': this.outlined,
-        'shadow-2': !this.unelevated
-      }
-    }
+  unelevated: {
+    type: Boolean
   }
-}
+})
+
+const boxClasses = computed(() => {
+  return {
+    'border-grey': props.outlined,
+    'shadow-2': !props.unelevated
+  }
+})
 </script>

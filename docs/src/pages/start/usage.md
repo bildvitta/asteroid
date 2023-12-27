@@ -17,18 +17,18 @@ Este comando além de instalar o Asteroid, também vai criar os arquivos `quasar
 // NÃO MODIFIQUE ESTE ARQUIVO COM AS CONFIGURAÇÕES DO ASTEROID PRÉ DEFINIDAS!
 @import '~@bildvitta/quasar-ui-asteroid/src/index';
 
-$primary   : #004198;
+$primary   : #0f53af;
 $secondary : #1565C0;
 $tertiary  : #c7ceff;
 $accent    : rgba(33, 33, 33, 10%);
-$dark      : #424242;
+$dark      : #212121;
 $positive  : #21ba45;
 $negative  : #d40000;
 $info      : #31ccec;
 $warning   : #f2c037;
 
 // Asteroid
-$primary-contrast: #002e6c;
+$primary-contrast: #1976d2;
 $secondary-contrast: #90caf9;
 
 @include set-brand(primary-contrast, $primary-contrast);

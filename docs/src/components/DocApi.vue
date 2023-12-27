@@ -129,7 +129,8 @@ export default {
         slots: 'Slots',
         events: 'Eventos',
         methods: 'Métodos',
-        inject: 'Injeção'
+        inject: 'Injeção',
+        selectors: 'Seletores (data-cy)'
       }
 
       for (const key in tabs) {

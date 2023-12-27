@@ -1,19 +1,19 @@
 <template>
   <div class="container spaced">
     <div>
-      <qas-numeric-input v-model="integer" entity="test" label="integer" />
+      <qas-numeric-input v-model="integer" label="integer" />
       integer: {{ integer }}
     </div>
     <div class="q-my-lg">
-      <qas-numeric-input v-model="decimal" entity="test" label="decimal" mode="decimal" />
+      <qas-numeric-input v-model="decimal" label="decimal" mode="decimal" />
       decimal: {{ decimal }}
     </div>
     <div class="q-my-lg">
-      <qas-numeric-input v-model="percent" entity="test" label="percent" mode="percent" />
+      <qas-numeric-input v-model="percent" label="percent" mode="percent" />
       percent: {{ percent }}
     </div>
     <div class="q-my-lg">
-      <qas-numeric-input v-model="money" entity="test" label="money" mode="money" />
+      <qas-numeric-input v-model="money" label="money" mode="money" />
       money: {{ money }}
     </div>
   </div>

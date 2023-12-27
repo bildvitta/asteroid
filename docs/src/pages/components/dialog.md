@@ -6,9 +6,15 @@ Componente de dialog.
 
 <doc-api file="dialog/QasDialog" name="QasDialog" />
 
+:::info
+Recomendamos a utilização do evento `@ok|onOk` e `@cancel|onCancel` ao invés de utilizar diretamente o `onClick` na prop `ok` e `cancel`.
+:::
+
 ## Uso
 
 <doc-example file="QasDialog/Basic" title="Básico" />
+<doc-example file="QasDialog/ExDialogCancelAndOk" title="Eventos Ok e Cancel" />
+<doc-example file="QasDialog/ExDialogForm" title="Com formulário" />
 <doc-example file="QasDialog/ExWithActions" title="Com ações" />
 <doc-example file="QasDialog/ExWithSingleAction" title="Com uma única ação" />
 

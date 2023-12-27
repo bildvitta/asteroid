@@ -6,8 +6,18 @@
       <q-item>
         <q-item-section>
           <q-item-label>
-            <span class="doc-api-entry__item-name">{{ name }}</span>
-            <q-badge v-for="item in parseTypes(data.type)" :key="item" class="doc-api-entry__item-type q-ml-xs" color="grey-4" :label="item" text-color="grey-9" />
+            <div class="items-center row">
+              <qas-btn flat :label="normalizedAPI[name].keyValue" size="sm" @click="onCopy(normalizedAPI[name].keyValue)">
+                <q-tooltip self="center middle">
+                  Copiar
+                </q-tooltip>
+              </qas-btn>
+
+              <qas-btn v-if="hasToggleButton(name)" class="q-ml-sm" color="primary" icon="sym_r_swap_horiz" @click="onToggleCase({ name, keyValue: normalizedAPI[name].keyValue })">
+                <q-tooltip self="center middle">{{ getToggleTooltipLabel(normalizedAPI[name].isCamelized) }}</q-tooltip>
+              </qas-btn>
+            </div>
+            <q-badge v-for="item in parseTypes(data.type)" :key="item" class="doc-api-entry__item-type q-ml-xs" color="grey-4" :label="item" text-color="black" />
             <span v-if="data.required" class="doc-api-entry__item-required q-ml-xs">Obrigatório</span>
             <span v-if="data.model" class="doc-api-entry__item-model q-ml-xs">Model</span>
           </q-item-label>
@@ -40,6 +50,9 @@
 </template>
 
 <script>
+import { camelize, decamelize } from 'humps'
+import { copyToClipboard } from 'quasar'
+
 export default {
   // name: 'DocApiEntry',
   inheritAttrs: false,
@@ -48,6 +61,27 @@ export default {
     api: {
       default: () => ({}),
       type: Object
+    }
+  },
+
+  data () {
+    return {
+      normalizedAPI: {}
+    }
+  },
+
+  watch: {
+    api: {
+      immediate: true,
+      handler (value) {
+        for (const key in value) {
+          this.normalizedAPI[key] = {
+            ...value[key],
+            isCamelized: false,
+            keyValue: key
+          }
+        }
+      }
     }
   },
 
@@ -84,6 +118,42 @@ export default {
       const types = ['number', 'boolean']
 
       return types.includes(typeof value) ? String(value) : value
+    },
+
+    isMultipleWord (name) {
+      return name.includes('-')
+    },
+
+    hasToggleButton (name) {
+      return this.isMultipleWord(name) && !name.includes(' ')
+    },
+
+    onToggleCase ({ keyValue, name }) {
+      const isCamelized = !this.isMultipleWord(keyValue)
+
+      /**
+       * Em alguns casos utilizamos a abreviação `[]` para identificar chaves dinâmicas, por exemplo
+       * "form-view-cancel-btn-[entity]", por isto a necessidade do "replace('[', '-[')", uma vez que o
+       * decamelize não lida com isto automaticamente.
+       */
+      this.normalizedAPI[name].keyValue = (
+        isCamelized ? decamelize(keyValue, { separator: '-' }).replace('[', '-[') : camelize(keyValue)
+      )
+
+      this.normalizedAPI[name].isCamelized = !this.isMultipleWord(this.normalizedAPI[name].keyValue)
+    },
+
+    async onCopy (name) {
+      await copyToClipboard(name)
+
+      this.$q.notify({
+        message: `"${name}" copiado para a área de transferência.`,
+        position: 'top'
+      })
+    },
+
+    getToggleTooltipLabel (isCamelized) {
+      return isCamelized ? 'Alternar para kebab-case' : 'Alternar para camelCase'
     }
   }
 }

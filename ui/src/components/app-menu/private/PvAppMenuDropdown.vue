@@ -16,53 +16,47 @@
   </div>
 </template>
 
-<script>
-export default {
-  name: 'PvAppMenuDropdown',
+<script setup>
+import { computed } from 'vue'
 
-  props: {
-    buttonDropdownProps: {
-      type: Object,
-      default: () => ({})
-    },
+defineOptions({ name: 'PvAppMenuDropdown' })
 
-    currentModule: {
-      type: Object,
-      default: () => ({})
-    },
-
-    modules: {
-      type: Array,
-      default: () => []
-    }
+const props = defineProps({
+  buttonDropdownProps: {
+    type: Object,
+    default: () => ({})
   },
 
-  computed: {
-    defaultButtonDropdownProps () {
-      return {
-        ...this.buttonDropdownProps,
-
-        buttonProps: {
-          align: 'between',
-          class: 'text-subtitle2',
-          color: 'primary',
-          iconRight: 'sym_r_expand_more',
-          label: this.currentModule.label,
-          useEllipsis: true,
-          useLabelOnSmallScreen: true
-        }
-      }
-    }
+  currentModule: {
+    type: Object,
+    default: () => ({})
   },
 
-  methods: {
-    isActive ({ value }) {
-      const { host, protocol } = window.location
-      const url = `${protocol}//${host}`
-
-      return url.includes(value)
-    }
+  modules: {
+    type: Array,
+    default: () => []
   }
+})
+
+const defaultButtonDropdownProps = computed(() => ({
+  ...props.buttonDropdownProps,
+
+  buttonProps: {
+    align: 'between',
+    class: 'text-subtitle2',
+    color: 'primary',
+    iconRight: 'sym_r_expand_more',
+    label: props.currentModule.label,
+    useEllipsis: true,
+    useLabelOnSmallScreen: true
+  }
+}))
+
+function isActive ({ value }) {
+  const { host, protocol } = window.location
+  const url = `${protocol}//${host}`
+
+  return url.includes(value)
 }
 </script>
 

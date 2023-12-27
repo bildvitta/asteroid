@@ -1,36 +1,35 @@
 <template>
-  <q-badge v-bind="$props" :aria-multiline="multiLine" class="q-px-sm q-py-xs qas-badge text-caption">
+  <q-badge v-bind="props" :aria-multiline="props.multiLine" class="q-px-sm q-py-xs qas-badge text-caption">
     <slot />
   </q-badge>
 </template>
 
-<script>
-export default {
+<script setup>
+defineOptions({
   name: 'QasBadge',
+  inheritAttrs: false
+})
 
-  inheritAttrs: false,
+const props = defineProps({
+  color: {
+    type: String,
+    default: 'light-blue-2'
+  },
 
-  props: {
-    color: {
-      type: String,
-      default: 'light-blue-2'
-    },
+  label: {
+    type: String,
+    default: ''
+  },
 
-    label: {
-      type: String,
-      default: ''
-    },
+  multiLine: {
+    type: Boolean
+  },
 
-    multiLine: {
-      type: Boolean
-    },
-
-    textColor: {
-      type: String,
-      default: 'grey-9'
-    }
+  textColor: {
+    type: String,
+    default: 'black'
   }
-}
+})
 </script>
 
 <style lang="scss">

@@ -21,37 +21,37 @@
     &--success::before {
       background-color: var(--q-positive);
     }
-  }
 
-  &__content {
-    .q-icon {
-      margin-right: var(--qas-spacing-sm);
-    }
-  }
+    .q-notification__actions {
+      align-self: start;
+      padding-top: var(--qas-spacing-xs);
 
-  &__actions {
-    align-self: start;
-    padding-top: var(--qas-spacing-xs);
-
-    .q-btn {
-      color: white;
-      height: var(--qas-spacing-md);
-      min-height: auto;
-      min-width: auto;
-      padding: 0;
-      text-align: center;
-      text-transform: none;
-      width: var(--qas-spacing-md);
-
-      &__content {
+      .q-btn {
+        color: white !important;
         height: var(--qas-spacing-md);
+        min-height: auto;
+        min-width: auto;
+        padding: 0;
+        text-align: center;
+        text-transform: none;
+        width: var(--qas-spacing-md);
 
-        span {
-          align-self: center;
+        &__content {
           height: var(--qas-spacing-md);
-          line-height: 0.9;
-          width: var(--qas-spacing-md);
+
+          span {
+            align-self: center;
+            height: var(--qas-spacing-md);
+            line-height: 0.9;
+            width: var(--qas-spacing-md);
+          }
         }
+      }
+    }
+
+    .q-notification__content {
+      .q-icon {
+        margin-right: var(--qas-spacing-sm);
       }
     }
   }

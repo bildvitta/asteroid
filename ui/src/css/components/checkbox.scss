@@ -1,0 +1,12 @@
+.q-checkbox {
+  &__label {
+    @include set-typography($body1);
+  }
+
+  &.disabled {
+    .q-checkbox__label,
+    .q-checkbox__inner {
+      color: $grey-6;
+    }
+  }
+}

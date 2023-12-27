@@ -20,7 +20,21 @@
       <slot name="image">
         <q-img class="rounded-borders" height="100%" :src="card.url" v-bind="imageProps">
           <template #error>
-            <slot name="image-error" />
+            <div :class="errorClasses">
+              <div class="text-center">
+                <slot name="image-error-icon">
+                  <div v-if="errorIcon">
+                    <q-icon :name="errorIcon" size="sm" />
+                  </div>
+                </slot>
+
+                <slot name="image-error">
+                  <div>
+                    {{ errorMessage }}
+                  </div>
+                </slot>
+              </div>
+            </div>
           </template>
         </q-img>
       </slot>
@@ -51,6 +65,16 @@ export default {
 
     disable: {
       type: Boolean
+    },
+
+    errorIcon: {
+      type: String,
+      default: ''
+    },
+
+    errorMessage: {
+      type: String,
+      default: ''
     },
 
     gridGeneratorProps: {
@@ -105,9 +129,22 @@ export default {
       return {
         'justify-between': this.card.name,
         'justify-right': !this.card.name,
-        'text-grey-9': !this.disable,
+        'text-grey-10': !this.disable,
         'q-mb-md': this.hasActions || this.card.name
       }
+    },
+
+    errorClasses () {
+      return [
+        'bg-grey-4',
+        'flex',
+        'full-height',
+        'full-width',
+        'items-center',
+        'justify-center',
+        'text-grey-10',
+        'text-subtitle2'
+      ]
     }
   }
 }

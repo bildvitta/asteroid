@@ -16,17 +16,20 @@ export default {
     props () {
       return {
         user,
-        companiesOptions: [
-          {
-            label: 'Empresa 1',
-            value: '1'
-          },
-          {
-            label: 'Empresa 2',
-            value: '2'
-          }
-        ],
-        currentCompany: '1'
+        companyProps: {
+          options: [
+            {
+              label: 'Empresa 1',
+              value: '1'
+            },
+            {
+              label: 'Empresa 2',
+              value: '2'
+            }
+          ],
+
+          modelValue: '2'
+        }
       }
     }
   }

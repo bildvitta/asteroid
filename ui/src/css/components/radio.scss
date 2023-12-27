@@ -1,3 +1,16 @@
-.q-radio__inner::before {
-  color: $primary;
+.q-radio {
+  &__label {
+    @include set-typography($body1);
+  }
+
+  &__inner::before {
+    color: $primary;
+  }
+
+  &.disabled {
+    .q-radio__label,
+    .q-radio__inner {
+      color: $grey-6;
+    }
+  }
 }

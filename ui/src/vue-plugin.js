@@ -28,6 +28,7 @@ import QasGallery from './components/gallery/QasGallery.vue'
 import QasGalleryCard from './components/gallery-card/QasGalleryCard.vue'
 import QasGridGenerator from './components/grid-generator/QasGridGenerator.vue'
 import QasHeaderActions from './components/header-actions/QasHeaderActions.vue'
+import QasInfiniteScroll from './components/infinite-scroll/QasInfiniteScroll.vue'
 import QasInput from './components/input/QasInput.vue'
 import QasLabel from './components/label/QasLabel.vue'
 import QasLayout from './components/layout/QasLayout.vue'
@@ -69,8 +70,7 @@ import {
   Dialog,
   NotifyError,
   NotifySuccess,
-  Screen,
-  Logger
+  Screen
 } from './plugins'
 
 import packageInfo from '../package.json'
@@ -111,6 +111,7 @@ async function install (app) {
   app.component('QasGalleryCard', QasGalleryCard)
   app.component('QasGridGenerator', QasGridGenerator)
   app.component('QasHeaderActions', QasHeaderActions)
+  app.component('QasInfiniteScroll', QasInfiniteScroll)
   app.component('QasInput', QasInput)
   app.component('QasLabel', QasLabel)
   app.component('QasLayout', QasLayout)
@@ -150,10 +151,13 @@ async function install (app) {
     delete: params => Delete.call(app.config.globalProperties, params),
     dialog: Dialog,
     error: NotifyError,
-    logger: Logger(),
     screen: Screen(),
     success: NotifySuccess
   }
+
+  app.provide('qas', {
+    delete: params => Delete.call(app.config.globalProperties, params)
+  })
 
   app.directive(Test.name, Test)
 }
@@ -192,6 +196,7 @@ export {
   QasGalleryCard,
   QasGridGenerator,
   QasHeaderActions,
+  QasInfiniteScroll,
   QasInput,
   QasLabel,
   QasLayout,
@@ -227,7 +232,6 @@ export {
 
   // plugins
   Dialog,
-  Logger,
   NotifyError,
   NotifySuccess,
   Screen,

@@ -10,6 +10,23 @@ Componente para upload com auto redimensionamento que implementa o "QField" e "Q
 Por hora, este componente não funciona na documentação e é preciso testar ele em algum projeto que tenha um bucket para upload.
 :::
 
+:::info
+##### Propriedade galleryCardProps
+
+A propriedade `galleryCardProps` pode ser usada como callback function, que vai retornar as seguintes informações:
+
+```js
+galleryCardPropsFn ({
+  hasError,
+  file: {
+    format,
+    name,
+    url
+  }
+})
+```
+:::
+
 :::tip
 O comportamento padrão do componente **QasUploader** é emitir/receber a `url` de upload do arquivo. Porém, ao utilizar a prop `useObjectModel` o componente começará a emitir/receber o valor como objeto.
 
@@ -29,6 +46,7 @@ O formato padrão do model de objeto é:
 <doc-example file="QasUploader/ExUploaderMultiple" title="Múltiplo" />
 <doc-example file="QasUploader/ExUploaderMultipleObjectModel" title="Múltiplo com useObjectModel" />
 <doc-example file="QasUploader/ExUploaderSingleObjectModel" title="Múltiplo com useObjectModel" />
+<doc-example file="QasUploader/ExUploaderCardCallback" title="Múltiplo com callback nos cards" />
 
 :::info
 - Para que o modo com grid funcione, é necessário utilizar a propriedade `useObjectModel` e que exista pelo menos a propriedade `fields` ou então o fields dentro de `gridGeneratorProps`.

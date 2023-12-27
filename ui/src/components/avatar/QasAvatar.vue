@@ -6,103 +6,85 @@
   </q-avatar>
 </template>
 
-<script>
-const AvatarColors = {
-  Primary: 'primary',
-  SecondaryContrast: 'secondary-contrast',
-  Grey4: 'grey-4'
-}
+<script setup>
+import { AvatarColors } from './enums/AvatarColors'
 
-export default {
+import { ref, computed, watch, useAttrs } from 'vue'
+
+defineOptions({
   name: 'QasAvatar',
+  inheritAttrs: false
+})
 
-  inheritAttrs: false,
+const props = defineProps({
+  color: {
+    type: String,
+    default: AvatarColors.Primary,
+    validator: value => {
+      const availableColors = Object.values(AvatarColors)
 
-  props: {
-    color: {
-      type: String,
-      default: AvatarColors.Primary,
-      validator: value => {
-        const availableColors = Object.values(AvatarColors)
-
-        return availableColors.includes(value)
-      }
-    },
-
-    size: {
-      type: String,
-      default: ''
-    },
-
-    icon: {
-      default: 'sym_r_error',
-      type: String
-    },
-
-    image: {
-      default: '',
-      type: String
-    },
-
-    title: {
-      default: '',
-      type: String
+      return availableColors.includes(value)
     }
   },
 
-  data () {
-    return {
-      hasImageError: false
-    }
+  size: {
+    type: String,
+    default: ''
   },
 
-  computed: {
-    firstLetter () {
-      return this.title[0].toUpperCase()
-    },
-
-    hasImage () {
-      return !this.hasImageError && !!this.image
-    },
-
-    hasTitle () {
-      return !!this.title
-    },
-
-    attributes () {
-      const {
-        rounded,
-        square,
-        fontSize,
-        textColor,
-        ...attributes
-      } = this.$attrs
-
-      const colors = {
-        [AvatarColors.Primary]: 'white',
-        [AvatarColors.SecondaryContrast]: 'primary',
-        [AvatarColors.Grey4]: 'grey-8'
-      }
-
-      return {
-        size: this.size,
-        color: this.color,
-        textColor: colors[this.color],
-        ...attributes
-      }
-    }
+  icon: {
+    default: 'sym_r_error',
+    type: String
   },
 
-  watch: {
-    image () {
-      this.hasImageError = false
-    }
+  image: {
+    default: '',
+    type: String
   },
 
-  methods: {
-    onImageLoadedError () {
-      this.hasImageError = true
-    }
+  title: {
+    default: '',
+    type: String
   }
+})
+
+const attrs = useAttrs()
+
+const hasImageError = ref(false)
+
+const attributes = computed(() => {
+  const {
+    rounded,
+    square,
+    fontSize,
+    textColor,
+    ...attributes
+  } = attrs
+
+  const colors = {
+    [AvatarColors.Primary]: 'white',
+    [AvatarColors.SecondaryContrast]: 'primary',
+    [AvatarColors.Grey4]: 'grey-8'
+  }
+
+  return {
+    size: props.size,
+    color: props.color,
+    textColor: colors[props.color],
+    ...attributes
+  }
+})
+
+const firstLetter = computed(() => props.title[0].toUpperCase())
+
+const hasImage = computed(() => !hasImageError.value && !!props.image)
+const hasTitle = computed(() => !!props.title)
+
+watch(() => props.image, () => {
+  hasImageError.value = false
+})
+
+function onImageLoadedError () {
+  hasImageError.value = true
 }
 </script>

@@ -29,6 +29,17 @@ module.exports = [
   },
 
   {
+    icon: 'sym_r_style',
+    name: 'Style guide',
+    children: [
+      {
+        name: 'Composition API',
+        path: '/style-guide/composition-api'
+      }
+    ]
+  },
+
+  {
     icon: 'sym_r_widgets',
     name: 'Componentes',
     children: [
@@ -155,6 +166,10 @@ module.exports = [
       {
         name: 'HeaderActions',
         path: '/components/header-actions'
+      },
+      {
+        name: 'InfiniteScroll',
+        path: '/components/infinite-scroll'
       },
       {
         name: 'Input',
@@ -302,10 +317,6 @@ module.exports = [
       {
         name: 'Dialog',
         path: '/plugins/dialog'
-      },
-      {
-        name: 'Logger',
-        path: '/plugins/logger'
       },
       {
         name: 'NotifyError',
@@ -522,6 +533,10 @@ module.exports = [
     icon: 'sym_r_play_circle',
     name: 'Boot',
     children: [
+      {
+        name: 'debug',
+        path: '/boot/debug'
+      },
       {
         name: 'queryCache',
         path: '/boot/query-cache'
