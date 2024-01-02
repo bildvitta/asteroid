@@ -14,7 +14,6 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 ### Modificado
 - `QasBtnDropdown`: alterado componente para Composition API.
 
-
 ## [3.13.0] - 27-12-2023
 ## BREAKING CHANGES
 - Anteriormente, o componente `QasFormView` não atualizava automaticamente o v-model após um evento de "submit" com sucesso, o que levava a alguns problemas relacionados a não atualização de certos campos retornados da API. Para resolver isso, implementamos uma mudança para garantir que o `v-model` agora seja sempre atualizado com o resultado retornado pela API após um submit. Isso pode exigir testes para confirmar que o comportamento dos formulários estão alinhados com o esperado.
