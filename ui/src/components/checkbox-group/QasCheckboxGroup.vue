@@ -1,9 +1,9 @@
 <template>
   <div :class="classes">
-    <div v-for="(option, index) in options" :key="index">
+    <div v-for="(option, index) in props.options" :key="index">
       <q-checkbox v-if="hasChildren(option)" :class="getCheckboxClass(option)" :label="option.label" :model-value="getModelValue(index)" @update:model-value="updateCheckbox($event, option, index)" />
 
-      <q-option-group v-if="hasChildren(option)" class="q-ml-sm" :inline="inline" :model-value="modelValue" :options="option.children" type="checkbox" @update:model-value="updateChildren($event, option, index)" />
+      <q-option-group v-if="hasChildren(option)" class="q-ml-sm" :inline="props.inline" :model-value="props.modelValue" :options="option.children" type="checkbox" @update:model-value="updateChildren($event, option, index)" />
 
       <q-option-group v-else v-model="model" v-bind="$attrs" :options="[option]" type="checkbox" />
     </div>
