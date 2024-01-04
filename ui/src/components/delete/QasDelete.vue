@@ -1,110 +1,99 @@
 <template>
-  <component v-bind="attributes" :is="tag" @click.stop.prevent="onDelete">
+  <component v-bind="attributes" :is="props.tag" @click.stop.prevent="onDelete">
     <template v-for="(_, name) in $slots" #[name]="context">
       <slot :name="name" v-bind="context || {}" />
     </template>
   </component>
 </template>
 
-<script>
-import QasBtn from '../btn/QasBtn.vue'
+<script setup>
+import { inject, computed, useAttrs } from 'vue'
+import { useRoute } from 'vue-router'
 
-export default {
+defineOptions({
   name: 'QasDelete',
+  inheritAttrs: false
+})
 
-  components: {
-    QasBtn
+const props = defineProps({
+  customId: {
+    default: '',
+    type: [Number, String]
   },
 
-  inheritAttrs: false,
-
-  props: {
-    customId: {
-      default: '',
-      type: [Number, String]
-    },
-
-    dialogProps: {
-      default: () => ({}),
-      type: Object
-    },
-
-    entity: {
-      required: true,
-      type: String
-    },
-
-    tag: {
-      default: 'qas-btn',
-      type: String
-    },
-
-    url: {
-      default: '',
-      type: String
-    },
-
-    deleting: {
-      type: Boolean
-    },
-
-    useAutoDeleteRoute: {
-      default: true,
-      type: Boolean
-    },
-
-    redirectRoute: {
-      type: [Object, String],
-      default: ''
-    }
+  dialogProps: {
+    default: () => ({}),
+    type: Object
   },
 
-  emits: [
-    'success',
-    'error',
-    'update:deleting'
-  ],
-
-  computed: {
-    attributes () {
-      return {
-        ...this.$attrs,
-        color: this.isButton ? 'grey-10' : this.$attrs.color
-      }
-    },
-
-    id () {
-      return this.customId || this.$route.params.id
-    },
-
-    isButton () {
-      return this.tag === 'qas-btn'
-    }
+  entity: {
+    required: true,
+    type: String
   },
 
-  methods: {
-    onDelete () {
-      this.$qas.delete({
-        deleteActionParams: {
-          entity: this.entity,
-          id: this.id,
-          url: this.url
-        },
+  tag: {
+    default: 'qas-btn',
+    type: String
+  },
 
-        dialogProps: this.dialogProps,
+  url: {
+    default: '',
+    type: String
+  },
 
-        useAutoDeleteRoute: this.useAutoDeleteRoute,
+  deleting: {
+    type: Boolean
+  },
 
-        redirectRoute: this.redirectRoute,
+  useAutoDeleteRoute: {
+    default: true,
+    type: Boolean
+  },
 
-        // callbacks
-        onDelete: isDeleting => this.$emit('update:deleting', isDeleting),
-
-        onDeleteError: error => this.$emit('error', error),
-
-        onDeleteSuccess: response => this.$emit('success', response)
-      })
-    }
+  redirectRoute: {
+    type: [Object, String],
+    default: ''
   }
+})
+
+const emits = defineEmits(['success', 'error', 'update:deleting'])
+
+const attrs = useAttrs()
+const route = useRoute()
+
+// global
+const qas = inject('qas')
+
+const id = computed(() => props.customId || route.params.id)
+const isButton = computed(() => props.tag === 'qas-btn')
+
+const attributes = computed(() => {
+  return {
+    ...attrs,
+    color: isButton.value ? 'grey-10' : attrs.color
+  }
+})
+
+function onDelete () {
+  qas.delete({
+    deleteActionParams: {
+      entity: props.entity,
+      id: id.value,
+      url: props.url
+    },
+
+    dialogProps: props.dialogProps,
+
+    useAutoDeleteRoute: props.useAutoDeleteRoute,
+
+    redirectRoute: props.redirectRoute,
+
+    // callbacks
+    onDelete: isDeleting => emits('update:deleting', isDeleting),
+
+    onDeleteError: error => emits('error', error),
+
+    onDeleteSuccess: response => emits('success', response)
+  })
 }
 </script>
