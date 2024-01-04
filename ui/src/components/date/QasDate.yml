@@ -45,11 +45,6 @@ props:
     default: true
     type: Boolean
 
-  use-unmask-events:
-    desc: A propriedade 'events' do Quasar só funciona com a formatação '/' mesmo que seja passada uma outra máscara. Esta propriedade transforma a formatação da propriedade 'events' de '-' em '/' (mas só funciona caso 'events' seja um Array).
-    default: true
-    type: Boolean
-
   use-unmask-options:
     desc: A propriedade 'options' do Quasar só funciona com a formatação '/' mesmo que seja passada uma outra máscara. Esta propriedade transforma a formatação da propriedade 'options' de '-' em '/' (mas só funciona caso 'options' seja um Array).
     default: true
