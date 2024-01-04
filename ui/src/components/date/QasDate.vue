@@ -94,10 +94,11 @@ onUnmounted(() => dateObserver.value.disconnect())
 
 const dateElement = computed(() => parentDate.value?.$el)
 
-const styles = computed(() => (props.width && { width: props.width }))
 const classes = computed(() => {
   return ['qas-date', 'shadow-2', { 'qas-date--inative': props.useInactiveDates }]
 })
+
+const styles = computed(() => (props.width && { width: props.width }))
 
 const normalizedOptions = computed(() => {
   return props.useUnmaskOptions ? getUnmaskedList(props.options) : props.options
