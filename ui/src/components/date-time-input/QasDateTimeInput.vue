@@ -1,14 +1,14 @@
 <template>
   <qas-input ref="input" v-bind="attributes" v-model="currentValue" inputmode="numeric" :unmasked-value="false" @blur="validateDateTimeOnBlur" @focus="resetError" @update:model-value="updateModelValue">
     <template #append>
-      <qas-btn v-if="!useTimeOnly" color="grey-10" :disable="$attrs.readonly" icon="sym_r_event" variant="tertiary">
-        <q-popup-proxy ref="dateProxy" transition-hide="scale" transition-show="scale" v-bind="datePopupProxyProps">
+      <qas-btn v-if="!props.useTimeOnly" color="grey-10" :disable="$attrs.readonly" icon="sym_r_event" variant="tertiary">
+        <q-popup-proxy ref="dateProxy" transition-hide="scale" transition-show="scale" v-bind="props.datePopupProxyProps">
           <qas-date v-model="currentValue" v-bind="defaultDateProps" :mask="maskDate" width="290px" @update:model-value="updateModelValue" />
         </q-popup-proxy>
       </qas-btn>
 
-      <qas-btn v-if="!useDateOnly" class="q-ml-sm" color="grey-10" :disable="$attrs.readonly" icon="sym_r_access_time">
-        <q-popup-proxy ref="timeProxy" transition-hide="scale" transition-show="scale" v-bind="timePopupProxyProps">
+      <qas-btn v-if="!props.useDateOnly" class="q-ml-sm" color="grey-10" :disable="$attrs.readonly" icon="sym_r_access_time">
+        <q-popup-proxy ref="timeProxy" transition-hide="scale" transition-show="scale" v-bind="props.timePopupProxyProps">
           <q-time v-model="currentValue" v-bind="defaultTimeProps" format24h :mask="maskDate" @update:model-value="updateModelValue" />
         </q-popup-proxy>
       </qas-btn>
@@ -16,255 +16,244 @@
   </qas-input>
 </template>
 
-<script>
-import { date } from 'quasar'
+<script setup>
 import { date as dateFn } from '../../helpers/filters'
 
-export default {
+import { date } from 'quasar'
+import { ref, watch, computed, useAttrs, onMounted } from 'vue'
+
+defineOptions({
   name: 'QasDateTimeInput',
+  inheritAttrs: false
+})
 
-  inheritAttrs: false,
-
-  props: {
-    dateMask: {
-      default: 'DD/MM/YYYY',
-      type: String
-    },
-
-    dateProps: {
-      default: () => ({}),
-      type: Object
-    },
-
-    datePopupProxyProps: {
-      default: () => ({}),
-      type: Object
-    },
-
-    timeMask: {
-      default: 'HH:mm',
-      type: String
-    },
-
-    timeProps: {
-      default: () => ({}),
-      type: Object
-    },
-
-    timePopupProxyProps: {
-      default: () => ({}),
-      type: Object
-    },
-
-    useIso: {
-      type: Boolean
-    },
-
-    useTimeOnly: {
-      type: Boolean
-    },
-
-    useDateOnly: {
-      type: Boolean
-    },
-
-    modelValue: {
-      default: '',
-      type: String
-    }
+const props = defineProps({
+  dateMask: {
+    default: 'DD/MM/YYYY',
+    type: String
   },
 
-  emits: ['update:modelValue'],
-
-  data () {
-    return {
-      currentValue: '',
-      error: false,
-      errorMessage: '',
-      hasInvalidDate: false,
-      lastValue: ''
-    }
+  dateProps: {
+    default: () => ({}),
+    type: Object
   },
 
-  computed: {
-    attributes () {
-      const { modelValue, ...attributes } = this.$attrs
-
-      return {
-        error: this.error,
-        errorMessage: this.errorMessage,
-        ...attributes,
-        mask: this.mask
-      }
-    },
-
-    defaultDateProps () {
-      return {
-        ...this.defaultDateTimeProps,
-        ...this.dateProps
-      }
-    },
-
-    defaultTimeProps () {
-      return {
-        ...this.defaultDateTimeProps,
-        ...this.timeProps
-      }
-    },
-
-    defaultDateTimeProps () {
-      return {
-        readonly: this.$attrs.readonly,
-        disable: this.$attrs.disable
-      }
-    },
-
-    inputElement () {
-      return this.$refs.input
-    },
-
-    mask () {
-      return this.maskDate.replace(/\w/g, '#')
-    },
-
-    maskDate () {
-      const mask = []
-
-      if (!this.useTimeOnly) { mask.push(this.dateMask) }
-      if (!this.useDateOnly) { mask.push(this.timeMask) }
-
-      return mask.join(' ')
-    }
+  datePopupProxyProps: {
+    default: () => ({}),
+    type: Object
   },
 
-  watch: {
-    modelValue (current, original) {
-      if (!current || this.useTimeOnly) {
-        this.currentValue = current
-        return
-      }
-
-      if (current !== original && current !== this.lastValue) {
-        this.currentValue = this.toMask(current)
-      }
-    }
+  timeMask: {
+    default: 'HH:mm',
+    type: String
   },
 
-  created () {
-    this.currentValue = this.toMask(this.modelValue)
+  timeProps: {
+    default: () => ({}),
+    type: Object
   },
 
-  methods: {
-    blur () {
-      this.inputElement.blur()
-    },
+  timePopupProxyProps: {
+    default: () => ({}),
+    type: Object
+  },
 
-    focus () {
-      this.inputElement.focus()
-    },
+  useIso: {
+    type: Boolean
+  },
 
-    updateModelValue (value) {
-      this.currentValue = value
-      const valueLength = value?.replace?.(/_/g, '')?.length
+  useTimeOnly: {
+    type: Boolean
+  },
 
-      this.error = this.validateDateAndTime(value)
+  useDateOnly: {
+    type: Boolean
+  },
 
-      if (this.error) {
-        this.hasInvalidDate = true
-        this.errorMessage = 'Data inválida.'
-        return
-      }
+  modelValue: {
+    default: '',
+    type: String
+  }
+})
 
-      this.hasInvalidDate = false
+const emits = defineEmits(['update:modelValue'])
 
-      if (value === '' || valueLength === this.mask.length) {
-        this.lastValue = this.useTimeOnly ? value : this.toISOString(value)
-        this.$emit('update:modelValue', this.lastValue)
-      }
+const attrs = useAttrs()
 
-      if (this.useDateOnly) {
-        this.$refs.dateProxy.hide()
-      }
+// template refs
+const dateProxy = ref(null)
+const timeProxy = ref(null)
+const input = ref(null)
 
-      if (this.useTimeOnly) {
-        this.$refs.timeProxy.hide()
-      }
-    },
+// validations
+const error = ref(false)
+const errorMessage = ref('')
+const hasInvalidDate = ref(false)
 
-    toISOString (value) {
-      if (!value) return ''
+const currentValue = ref('')
+const lastValue = ref('')
 
-      if (this.useDateOnly && !this.useIso) {
-        return dateFn(date.extractDate(value, this.maskDate), 'yyyy-MM-dd')
-      }
+// computed
+const maskDate = computed(() => {
+  const mask = []
 
-      if (this.useTimeOnly && !this.useIso) {
-        return date.extractDate(value, 'HH:MM')
-      }
+  if (!props.useTimeOnly) { mask.push(props.dateMask) }
+  if (!props.useDateOnly) { mask.push(props.timeMask) }
 
-      return date.extractDate(value, this.maskDate).toISOString()
-    },
+  return mask.join(' ')
+})
 
-    toMask (value) {
-      if (!value || this.useTimeOnly) {
-        return value || ''
-      }
+const mask = computed(() => maskDate.value.replace(/\w/g, '#'))
 
-      const newDate = new Date(value).toISOString()
+const attributes = computed(() => {
+  const { modelValue, ...restAttributes } = attrs
 
-      return date.formatDate(
-        this.useDateOnly ? newDate.slice(0, 23) : newDate,
-        this.maskDate
-      )
-    },
+  return {
+    error: error.value,
+    errorMessage: errorMessage.value,
+    ...restAttributes,
+    mask: mask.value
+  }
+})
 
-    validateDateTimeOnBlur () {
-      const valueLength = this.currentValue?.replace?.(/_/g, '')?.length
+const defaultDateTimeProps = computed(() => {
+  return {
+    readonly: attrs.readonly,
+    disable: attrs.disable
+  }
+})
 
-      // valida se o tamanho digitado é o tamanho que a mascara espera receber
-      this.error = !!((valueLength < this.mask.length || this.error) && valueLength)
+const defaultDateProps = computed(() => {
+  return {
+    ...defaultDateTimeProps.value,
+    ...props.dateProps
+  }
+})
 
-      if (this.error && !this.hasInvalidDate) {
-        this.errorMessage = 'Data incompleta.'
-      }
+const defaultTimeProps = computed(() => {
+  return {
+    ...defaultDateTimeProps.value,
+    ...props.timeProps
+  }
+})
 
-      if (this.hasInvalidDate) {
-        this.currentValue = ''
-      }
+watch(() => props.modelValue, (current, original) => {
+  if (!current || props.useTimeOnly) {
+    currentValue.value = current
+    return
+  }
 
-      if (this.error || this.hasInvalidDate) {
-        this.$emit('update:modelValue', '')
-      }
-    },
+  if (current !== original && current !== lastValue.value) {
+    currentValue.value = toMask(current)
+  }
+})
 
-    validateDateAndTime (value) {
-      if (!value) return false
+onMounted(() => {
+  currentValue.value = toMask(props.modelValue)
+})
 
-      if (this.useDateOnly) return this.validateDateOnly(value)
-      if (this.useTimeOnly) return this.validateTimeOnly(value)
+// functions
+function toISOString (value) {
+  if (!value) return ''
 
-      const [date, time] = value?.split(' ') || []
+  if (props.useDateOnly && !props.useIso) {
+    return dateFn(date.extractDate(value, maskDate.value), 'yyyy-MM-dd')
+  }
 
-      return this.validateDateOnly(date) || this.validateTimeOnly(time)
-    },
+  if (props.useTimeOnly && !props.useIso) {
+    return date.extractDate(value, 'HH:MM')
+  }
 
-    validateDateOnly (value = '') {
-      const [day, month] = value.split('/')
+  return date.extractDate(value, maskDate.value).toISOString()
+}
 
-      return day > 31 || month > 12
-    },
+function toMask (value) {
+  if (!value || props.useTimeOnly) {
+    return value || ''
+  }
 
-    validateTimeOnly (value = '') {
-      const [hour, minute] = value.split(':')
+  const newDate = new Date(value).toISOString()
 
-      return hour > 23 || minute > 59
-    },
+  return date.formatDate(
+    props.useDateOnly ? newDate.slice(0, 23) : newDate,
+    maskDate.value
+  )
+}
 
-    resetError () {
-      if (!this.currentValue) {
-        this.error = false
-      }
-    }
+function updateModelValue (value) {
+  currentValue.value = value
+
+  const valueLength = value?.replace?.(/_/g, '')?.length
+
+  error.value = validateDateAndTime(value)
+
+  if (error.value) {
+    hasInvalidDate.value = true
+    errorMessage.value = 'Data inválida.'
+    return
+  }
+
+  hasInvalidDate.value = false
+
+  if (value === '' || valueLength === mask.value.length) {
+    lastValue.value = props.useTimeOnly ? value : toISOString(value)
+    emits('update:modelValue', lastValue.value)
+  }
+
+  if (props.useDateOnly) {
+    dateProxy.value.hide()
+  }
+
+  if (props.useTimeOnly) {
+    timeProxy.value.hide()
+  }
+}
+
+function validateDateOnly (value = '') {
+  const [day, month] = value.split('/')
+
+  return day > 31 || month > 12
+}
+
+function validateTimeOnly (value = '') {
+  const [hour, minute] = value.split(':')
+
+  return hour > 23 || minute > 59
+}
+
+function validateDateAndTime (value) {
+  if (!value) return false
+
+  if (props.useDateOnly) return validateDateOnly(value)
+  if (props.useTimeOnly) return validateTimeOnly(value)
+
+  const [date, time] = value?.split(' ') || []
+
+  return validateDateOnly(date) || validateTimeOnly(time)
+}
+
+function validateDateTimeOnBlur () {
+  const valueLength = currentValue.value?.replace?.(/_/g, '')?.length
+
+  // valida se o tamanho digitado é o tamanho que a mascara espera receber
+  error.value = !!((valueLength < mask.value.length || error.value) && valueLength)
+
+  if (error.value && !hasInvalidDate.value) {
+    errorMessage.value = 'Data incompleta.'
+  }
+
+  if (hasInvalidDate.value) {
+    currentValue.value = ''
+  }
+
+  if (error.value || hasInvalidDate.value) {
+    emits('update:modelValue', '')
+  }
+}
+
+function resetError () {
+  if (!currentValue.value) {
+    error.value = false
   }
 }
 </script>
