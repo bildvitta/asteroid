@@ -2,8 +2,8 @@
   <div class="qas-gallery">
     <div class="q-col-gutter-md row">
       <div v-for="(image, index) in getInitialImages()" :key="index" :class="galleryColumnsClasses" :data-cy="`gallery-image-${index}`">
-        <qas-gallery-card v-bind="getGalleryCardProps({ image, index })">
-          <template v-for="(_, name) in $slots" #[name]="context">
+        <qas-gallery-card :key="galleryCardCountToReRender" v-bind="getGalleryCardProps({ image, index })">
+          <template v-for="(_, name) in slots" #[name]="context">
             <slot v-bind="context" :image="image" :index="index" :name="name" />
           </template>
         </qas-gallery-card>
@@ -22,243 +22,222 @@
   </div>
 </template>
 
-<script>
-import QasBtn from '../btn/QasBtn.vue'
-import PvGalleryDeleteDialog from './private/PvGalleryDeleteDialog.vue'
+<script setup>
 import PvGalleryCarouselDialog from './private/PvGalleryCarouselDialog.vue'
+import PvGalleryDeleteDialog from './private/PvGalleryDeleteDialog.vue'
+import QasBtn from '../btn/QasBtn.vue'
+
+import { baseProps } from './composables/use-delete'
+import { useScreen } from '../../composables'
+
 import { extend } from 'quasar'
-import { deleteMixin } from '../../mixins'
+import { ref, computed, watch, useSlots } from 'vue'
 
-export default {
-  name: 'QasGallery',
+defineOptions({ name: 'QasGallery' })
 
-  components: {
-    PvGalleryCarouselDialog,
-    PvGalleryDeleteDialog,
-    QasBtn
+const props = defineProps({
+  ...baseProps,
+
+  galleryCardProps: {
+    type: Object,
+    default: () => ({})
   },
 
-  mixins: [deleteMixin],
-
-  props: {
-    carouselNextIcon: {
-      type: String,
-      default: 'sym_r_chevron_right'
-    },
-
-    carouselPreviousIcon: {
-      type: String,
-      default: 'sym_r_chevron_left'
-    },
-
-    galleryCardProps: {
-      type: Object,
-      default: () => ({})
-    },
-
-    initialSize: {
-      type: Number,
-      default: 4,
-      validator: value => {
-        const acceptableValues = [1, 2, 3, 4, 6, 12]
-
-        return acceptableValues.includes(value)
-      }
-    },
-
-    showMoreLabel: {
-      type: String,
-      default: 'Ver mais'
-    },
-
-    useLoadAll: {
-      type: Boolean
-    },
-
-    useDestroy: {
-      type: Boolean
-    },
-
-    useObjectModel: {
-      type: Boolean
-    },
-
-    modelValue: {
-      type: Array,
-      default: () => []
-    },
-
-    modelKey: {
-      type: String,
-      default: ''
-    }
+  initialSize: {
+    type: Number,
+    default: 4,
+    validator: value => [1, 2, 3, 4, 6, 12].includes(value)
   },
 
-  emits: [
-    'delete-error',
-    'delete-success',
-    'update:modelValue'
-  ],
-
-  data () {
-    return {
-      carouselDialog: false,
-      imageIndex: 0,
-      displayedImages: this.initialSize,
-      showDeleteDialog: false,
-      currentModel: [],
-      imageToBeDestroyed: { index: null }
-    }
+  showMoreLabel: {
+    type: String,
+    default: 'Ver mais'
   },
 
-  computed: {
-    galleryColumnsClasses () {
-      const size = 12 / this.initialSize
-      const col = `col-${size}`
-
-      return this.$qas.screen.isSmall ? 'col-12' : col
-    },
-
-    hideShowMore () {
-      return (this.normalizedImages.length <= this.displayedImages) || this.useLoadAll
-    },
-
-    normalizedImages () {
-      if (!this.useObjectModel) {
-        return this.clonedImages.map(url => ({ url }))
-      }
-
-      return this.clonedImages
-    },
-
-    clonedImages () {
-      return extend(true, [], this.modelValue)
-    },
-
-    deleteGalleryDialogProps () {
-      return {
-        customId: this.customId,
-        dialogProps: this.dialogProps,
-        entity: this.entity,
-        modelKey: this.modelKey,
-        payload: this.currentModel,
-        url: this.url
-      }
-    }
+  useLoadAll: {
+    type: Boolean
   },
 
-  watch: {
-    normalizedImages: {
-      handler (value) {
-        this.currentModel = extend(true, [], value)
-      },
-
-      immediate: true
-    }
+  useDestroy: {
+    type: Boolean
   },
 
-  methods: {
-    toggleCarouselDialog (index) {
-      this.imageIndex = index
-      this.carouselDialog = !this.carouselDialog
+  useObjectModel: {
+    type: Boolean
+  },
+
+  modelValue: {
+    type: Array,
+    default: () => []
+  },
+
+  modelKey: {
+    type: String,
+    default: ''
+  }
+})
+
+const emit = defineEmits([
+  'delete-error',
+  'delete-success',
+  'update:modelValue'
+])
+
+const screen = useScreen()
+const slots = useSlots()
+
+const carouselDialog = ref(false)
+const imageIndex = ref(0)
+const displayedImages = ref(props.initialSize)
+const showDeleteDialog = ref(false)
+const currentModel = ref([])
+const imageToBeDestroyed = ref({ index: null })
+
+// contador para key
+const galleryCardCountToReRender = ref(1)
+
+// computed
+const galleryColumnsClasses = computed(() => {
+  const size = 12 / props.initialSize
+  const col = `col-${size}`
+
+  return screen.isSmall ? 'col-12' : col
+})
+
+const clonedImages = computed(() => extend(true, [], props.modelValue))
+
+const normalizedImages = computed(() => {
+  if (props.useObjectModel) return clonedImages.value
+
+  return clonedImages.value.map(url => ({ url }))
+})
+
+const hideShowMore = computed(() => {
+  return (normalizedImages.value.length <= displayedImages.value) || props.useLoadAll
+})
+
+const deleteGalleryDialogProps = computed(() => {
+  return {
+    customId: props.customId,
+    dialogProps: props.dialogProps,
+    entity: props.entity,
+    modelKey: props.modelKey,
+    payload: currentModel.value,
+    url: props.url
+  }
+})
+
+watch(() => normalizedImages.value, value => {
+  currentModel.value = extend(true, [], value)
+}, { immediate: true })
+
+// functions
+function getActionsMenuProps ({ image, index }) {
+  if (!props.useDestroy) return {}
+
+  return {
+    useLabel: false,
+
+    buttonProps: {
+      disable: isDestroyDisabled(image)
     },
 
-    showMore () {
-      this.displayedImages += this.displayedImages
-    },
+    list: {
+      destroy: {
+        label: 'Excluir',
+        color: 'grey-10',
+        icon: 'sym_r_delete',
 
-    onError (error) {
-      const index = this.normalizedImages.findIndex(image => image.url === error)
-
-      if (~index) {
-        this.normalizedImages.splice(index, 1)
-        this.$forceUpdate()
+        handler: () => onDelete(image, index)
       }
-    },
-
-    getGalleryCardProps ({ image, index }) {
-      return {
-        card: image,
-        imageProps: this.getImageProps({ image, index }),
-        actionsMenuProps: this.getActionsMenuProps({ image, index }),
-        ...this.galleryCardProps
-      }
-    },
-
-    getActionsMenuProps ({ image, index }) {
-      if (!this.useDestroy) return {}
-
-      return {
-        useLabel: false,
-
-        buttonProps: {
-          disable: this.isDestroyDisabled(image)
-        },
-
-        list: {
-          destroy: {
-            label: 'Excluir',
-            color: 'grey-10',
-            icon: 'sym_r_delete',
-
-            handler: () => this.onDestroy(image, index)
-          }
-        }
-      }
-    },
-
-    getImageProps ({ image, index }) {
-      return {
-        class: 'cursor-pointer',
-
-        onClick: () => this.toggleCarouselDialog(index),
-        onError: () => this.onError(image.url)
-      }
-    },
-
-    getInitialImages () {
-      return this.useLoadAll
-        ? this.normalizedImages
-        : this.normalizedImages.slice(0, this.displayedImages)
-    },
-
-    onDestroy (image, index) {
-      if (this.isDestroyDisabled(image)) return
-
-      this.imageToBeDestroyed.index = index
-
-      this.currentModel.splice(this.imageToBeDestroyed.index, 1)
-
-      this.showDeleteDialog = !this.showDeleteDialog
-    },
-
-    isDestroyDisabled (image) {
-      return 'destroyable' in image && !image.destroyable
-    },
-
-    onDeleteSuccess () {
-      this.normalizedImages.splice(this.imageToBeDestroyed.index, 1)
-
-      this.$emit('update:modelValue', this.normalizedImages)
-
-      this.$emit(
-        'delete-success',
-        { data: this.normalizedImages, index: this.imageToBeDestroyed.index }
-      )
-    },
-
-    resetCurrentModel () {
-      this.currentModel = extend(true, [], this.normalizedImages)
-    },
-
-    onDeleteError (error) {
-      this.resetCurrentModel()
-
-      this.$emit(
-        'delete-error',
-        { data: error, index: this.imageToBeDestroyed.index }
-      )
     }
   }
+}
+
+function getGalleryCardProps ({ image, index }) {
+  return {
+    actionsMenuProps: getActionsMenuProps({ image, index }),
+    card: image,
+    imageProps: getImageProps({ image, index }),
+
+    ...props.galleryCardProps
+  }
+}
+
+function getImageProps ({ image, index }) {
+  return {
+    class: 'cursor-pointer',
+
+    onClick: () => toggleCarouselDialog(index),
+    onError: () => onError(image.url)
+  }
+}
+
+function getInitialImages () {
+  return props.useLoadAll
+    ? normalizedImages.value
+    : normalizedImages.value.slice(0, displayedImages.value)
+}
+
+function isDestroyDisabled (image) {
+  return 'destroyable' in image && !image.destroyable
+}
+
+function resetCurrentModel () {
+  currentModel.value = extend(true, [], normalizedImages.value)
+}
+
+function onError (error) {
+  const index = normalizedImages.value.findIndex(image => image.url === error)
+
+  if (~index) {
+    normalizedImages.value.splice(index, 1)
+
+    /**
+     * Posteriormente no Options API estava sendo usado "this.$forceUpdate()"
+     * porém agora estamos usando uma forma mais apropriada que é atualizar através de key
+     * com contadores.
+     */
+    galleryCardCountToReRender.value += 1
+  }
+}
+
+function onDeleteError (error) {
+  resetCurrentModel()
+
+  emit(
+    'delete-error',
+    { data: error, index: imageToBeDestroyed.value.index }
+  )
+}
+
+function onDelete (image, index) {
+  if (isDestroyDisabled(image)) return
+
+  imageToBeDestroyed.value.index = index
+
+  currentModel.value.splice(imageToBeDestroyed.value.index, 1)
+
+  showDeleteDialog.value = !showDeleteDialog.value
+}
+
+function onDeleteSuccess () {
+  normalizedImages.value.splice(imageToBeDestroyed.value.index, 1)
+
+  emit('update:modelValue', normalizedImages.value)
+
+  emit(
+    'delete-success',
+    { data: normalizedImages.value, index: imageToBeDestroyed.value.index }
+  )
+}
+
+function toggleCarouselDialog (index) {
+  imageIndex.value = index
+  carouselDialog.value = !carouselDialog.value
+}
+
+function showMore () {
+  displayedImages.value += displayedImages.value
 }
 </script>

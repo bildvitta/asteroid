@@ -10,6 +10,11 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 ### Sobre os "BREAKING CHANGES"
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
+## Não publicado
+### Modificado
+- `QasGallery`: alterado componente para Composition API.
+- `/ui/src/vue-plugin.js`: adicionado método `getAction` do `@bildvitta/store-adapter` na variável global `qas` para conseguir utiliza-lo no composition API (NÃO UTILIZAR NO PROJETO).
+
 ## [3.14.0-beta.0] - 03-01-2024
 ### Corrigido
 - `QasAppUSer`: corrigido select de empresa quando o select possuía busca, que ao clicar no botão de limpar, não limpava e ainda tentava alterar o vinculo para um vinculo vazio.
