@@ -12,6 +12,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 
 ## Não publicado
 ### Modificado
+- `QasCopy`: alterado componente para Composition API.
 - `QasBtnDropdown`: alterado componente para Composition API.
 - `QasCard`: alterado componente para Composition API.
 
