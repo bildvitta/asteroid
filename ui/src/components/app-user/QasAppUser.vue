@@ -18,7 +18,7 @@
       </div>
     </div>
 
-    <q-menu class="shadow-2 text-grey-10" max-height="400px" v-bind="menuProps">
+    <q-menu class="shadow-2 text-grey-10" max-height="400px" v-bind="menuProps" @hide="onMenuHide">
       <div class="q-pb-sm q-pt-md q-px-md qas-app-user__menu">
         <qas-avatar class="q-mb-md" :image="user.photo" size="64px" :title="userName" />
 
@@ -30,7 +30,7 @@
           {{ user.email }}
         </div>
 
-        <qas-select v-if="hasCompaniesSelect" v-model="companiesModel" class="q-my-md" v-bind="defaultCompanyProps" data-cy="app-user-companies-select" @update:model-value="setCompanies" />
+        <qas-select v-if="hasCompaniesSelect" v-bind="defaultCompanyProps" v-model="companiesModel" class="q-my-md" data-cy="app-user-companies-select" @update:model-value="setCompanies" />
 
         <q-list class="q-mt-md">
           <q-item v-close-popup :active="false" class="qas-app-user__menu-item" clickable :to="user.to">
@@ -146,6 +146,8 @@ function signOut () {
 }
 
 async function setCompanies (value) {
+  if (!value) return
+
   loading.value = true
 
   try {
@@ -159,6 +161,12 @@ async function setCompanies (value) {
     NotifyError('Falha ao alterar vínculo.')
   } finally {
     loading.value = false
+  }
+}
+
+function onMenuHide () {
+  if (!companiesModel.value) {
+    companiesModel.value = props.companyProps.modelValue
   }
 }
 </script>
