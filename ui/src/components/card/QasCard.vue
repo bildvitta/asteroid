@@ -1,7 +1,7 @@
 <template>
   <div class="col-12 col-lg-3 col-md-4 col-sm-6">
     <q-card class="border-radius-lg column full-height overflow-hidden" :class="cardClasses">
-      <header v-if="useHeader" class="overflow-hidden relative-position w-full">
+      <header v-if="props.useHeader" class="overflow-hidden relative-position w-full">
         <slot name="header">
           <q-carousel v-model="slideImage" animated class="cursor-pointer" height="205px" infinite :navigation="hasImages" navigation-icon="sym_r_fiber_manual_record" swipeable>
             <template #navigation-icon="{ active, btnProps, onClick }">
@@ -30,84 +30,66 @@
   </div>
 </template>
 
-<script>
-export default {
-  name: 'QasCard',
+<script setup>
+import { Spacing } from '../../enums/Spacing'
 
-  props: {
-    imagePosition: {
-      type: String,
-      default: 'center'
-    },
+import { ref, computed, useSlots } from 'vue'
 
-    gutter: {
-      type: String,
-      default: 'sm'
-    },
+defineOptions({ name: 'QasCard' })
 
-    images: {
-      default: () => [],
-      type: Array
-    },
-
-    outlined: {
-      type: Boolean
-    },
-
-    unelevated: {
-      type: Boolean
-    },
-
-    useHeader: {
-      type: Boolean
-    }
+const props = defineProps({
+  imagePosition: {
+    type: String,
+    default: 'center'
   },
 
-  data () {
-    return {
-      slideImage: 0
-    }
+  gutter: {
+    type: String,
+    default: Spacing.Sm,
+    validator: value => Object.values(Spacing).includes(value)
   },
 
-  computed: {
-    imagePositionClass () {
-      return `bg-position-${this.imagePosition}`
-    },
-
-    cardClasses () {
-      return {
-        'shadow-2': !this.unelevated,
-        'border-primary': this.outlined,
-        'no-shadow': this.outlined,
-        'bg-white': this.outlined
-      }
-    },
-
-    gutterClass () {
-      return `q-col-gutter-${this.gutter}`
-    },
-
-    hasActionsSlot () {
-      return !!this.$slots.actions
-    },
-
-    hasImages () {
-      return this.images.length > 1
-    },
-
-    imagesLength () {
-      return this.images?.length
-    },
-
-    imagesList () {
-      return this.imagesLength && this.images.slice(0, 3)
-    }
+  images: {
+    default: () => [],
+    type: Array
   },
 
-  methods: {
-    getNavigationIcon (active, { icon }) {
-      return active ? 'sym_r_radio_button_checked' : icon
-    }
+  outlined: {
+    type: Boolean
+  },
+
+  unelevated: {
+    type: Boolean
+  },
+
+  useHeader: {
+    type: Boolean
   }
+})
+
+const slots = useSlots()
+
+const slideImage = ref(0)
+
+const cardClasses = computed(() => {
+  return {
+    'shadow-2': !props.unelevated,
+    'border-primary': props.outlined,
+    'no-shadow': props.outlined,
+    'bg-white': props.outlined
+  }
+})
+
+const imagePositionClass = computed(() => `bg-position-${props.imagePosition}`)
+const gutterClass = computed(() => `q-col-gutter-${props.gutter}`)
+
+const hasActionsSlot = computed(() => !!slots.actions)
+const hasImages = computed(() => props.images.length > 1)
+
+const imagesLength = computed(() => props.images?.length)
+const imagesList = computed(() => imagesLength.value && props.images.slice(0, 3))
+
+function getNavigationIcon (active, { icon }) {
+  return active ? 'sym_r_radio_button_checked' : icon
 }
 </script>
