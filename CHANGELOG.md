@@ -12,6 +12,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 
 ## Não publicado
 ### Modificado
+- `QasHeaderActions`: alterado componente para Composition API.
 - `QasDialogRouter`: alterado componente para Composition API.
 - `QasDebugger`: alterado componente para Composition API.
 - `QasCopy`: alterado componente para Composition API.
