@@ -1,69 +1,67 @@
 <template>
   <div class="qas-map">
-    <g-map-map :center="centerPosition" class="qas-map__draw" :zoom="zoom">
-      <g-map-marker v-for="(marker, index) in markers" :key="index" :draggable="marker.draggable" :icon="marker.icon" :position="marker.position" @dragend="updatePosition" @mouseout="closePopup" @mouseover="openPopup(marker, index)">
+    <g-map-map :center="props.centerPosition" class="qas-map__draw" :zoom="props.zoom">
+      <g-map-marker v-for="(marker, index) in props.markers" :key="index" :draggable="marker.draggable" :icon="marker.icon" :position="marker.position" @dragend="updatePosition" @mouseout="closePopup" @mouseover="openPopup(marker, index)">
         <g-map-info-window :opened="canShowPopup(index)">
-          <div class="text-weight-bold">{{ marker.title }}</div>
-          <div>{{ marker.description }}</div>
+          <div class="text-weight-bold">
+            {{ marker.title }}
+          </div>
+
+          <div>
+            {{ marker.description }}
+          </div>
         </g-map-info-window>
       </g-map-marker>
     </g-map-map>
   </div>
 </template>
 
-<script>
-export default {
-  name: 'QasMap',
+<script setup>
+import { ref } from 'vue'
 
-  props: {
-    centerPosition: {
-      type: Object,
-      default: () => ({})
-    },
+defineOptions({ name: 'QasMap' })
 
-    markers: {
-      type: Array,
-      default: () => []
-    },
-
-    zoom: {
-      type: Number,
-      default: 17
-    },
-
-    usePopup: {
-      type: Boolean
-    }
+const props = defineProps({
+  centerPosition: {
+    type: Object,
+    default: () => ({})
   },
 
-  emits: ['update-position'],
-
-  data () {
-    return {
-      isPopupDisplayed: false,
-      currentPlace: null,
-      indexMarker: null
-    }
+  markers: {
+    type: Array,
+    default: () => []
   },
 
-  methods: {
-    openPopup ({ title, description }, index) {
-      this.indexMarker = index
-      this.isPopupDisplayed = !!(title || description)
-    },
+  zoom: {
+    type: Number,
+    default: 17
+  },
 
-    canShowPopup (index) {
-      return this.isPopupDisplayed && this.usePopup && index === this.indexMarker
-    },
-
-    closePopup () {
-      this.isPopupDisplayed = false
-    },
-
-    updatePosition (mouseEvent) {
-      this.$emit('update-position', mouseEvent.latLng.toJSON())
-    }
+  usePopup: {
+    type: Boolean
   }
+})
+
+const emit = defineEmits(['update-position'])
+
+const isPopupDisplayed = ref(false)
+const indexMarker = ref(null)
+
+function canShowPopup (index) {
+  return isPopupDisplayed.value && props.usePopup && index === indexMarker.value
+}
+
+function closePopup () {
+  isPopupDisplayed.value = false
+}
+
+function openPopup ({ title, description }, index) {
+  indexMarker.value = index
+  isPopupDisplayed.value = !!(title || description)
+}
+
+function updatePosition (mouseEvent) {
+  emit('update-position', mouseEvent.latLng.toJSON())
 }
 </script>
 
