@@ -2,77 +2,62 @@
   <div class="justify-between no-wrap q-col-gutter-x-md q-mb-xl row text-body1 text-grey-8" :class="containerClass">
     <div :class="leftClass">
       <slot name="left">
-        {{ text }}
+        {{ props.text }}
       </slot>
     </div>
 
     <div v-if="hasRightSide" class="col-3 col-md-3 col-sm-4 justify-end row">
       <slot name="right">
-        <qas-actions-menu v-if="hasDefaultActionsMenu" v-bind="actionsMenuProps" />
+        <qas-actions-menu v-if="hasDefaultActionsMenu" v-bind="props.actionsMenuProps" />
 
-        <qas-btn v-if="hasDefaultButton" :use-label-on-small-screen="false" v-bind="buttonProps" />
+        <qas-btn v-if="hasDefaultButton" :use-label-on-small-screen="false" v-bind="props.buttonProps" />
       </slot>
     </div>
   </div>
 </template>
 
-<script>
-const AlignTypes = {
-  Start: 'start',
-  Center: 'center',
-  End: 'end'
-}
+<script setup>
+import { FlexAlign } from '../../enums/Align'
 
-export default {
-  name: 'QasHeaderActions',
+import { computed, useSlots } from 'vue'
 
-  props: {
-    actionsMenuProps: {
-      type: Object,
-      default: () => ({})
-    },
+defineOptions({ name: 'QasHeaderActions' })
 
-    alignColumns: {
-      default: AlignTypes.Center,
-      type: String,
-      validator: value => Object.values(AlignTypes).includes(value)
-    },
-
-    buttonProps: {
-      default: () => ({}),
-      type: Object
-    },
-
-    text: {
-      type: String,
-      default: ''
-    }
+const props = defineProps({
+  actionsMenuProps: {
+    type: Object,
+    default: () => ({})
   },
 
-  computed: {
-    containerClass () {
-      return `items-${this.alignColumns}`
-    },
+  alignColumns: {
+    default: FlexAlign.Center,
+    type: String,
+    validator: value => Object.values(FlexAlign).includes(value)
+  },
 
-    hasDefaultButton () {
-      return !!Object.keys(this.buttonProps).length
-    },
+  buttonProps: {
+    default: () => ({}),
+    type: Object
+  },
 
-    hasDefaultActionsMenu () {
-      return !!Object.keys(this.actionsMenuProps).length
-    },
-
-    hasRightSlot () {
-      return !!this.$slots.right
-    },
-
-    hasRightSide () {
-      return this.hasRightSlot || this.hasDefaultActionsMenu || this.hasDefaultButton
-    },
-
-    leftClass () {
-      return this.hasRightSide ? 'col-9 col-md-9 col-sm-8' : 'col-12'
-    }
+  text: {
+    type: String,
+    default: ''
   }
-}
+})
+
+const slots = useSlots()
+
+// computed
+const containerClass = computed(() => `items-${props.alignColumns}`)
+const leftClass = computed(() => hasRightSide.value ? 'col-9 col-md-9 col-sm-8' : 'col-12')
+
+const hasDefaultButton = computed(() => !!Object.keys(props.buttonProps).length)
+const hasDefaultActionsMenu = computed(() => !!Object.keys(props.actionsMenuProps).length)
+
+const hasRightSide = computed(() => {
+  const hasRightSlot = !!slots.right
+
+  return hasRightSlot || hasDefaultActionsMenu.value || hasDefaultButton.value
+})
 </script>

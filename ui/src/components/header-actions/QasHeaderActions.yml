@@ -13,7 +13,7 @@ props:
     desc: Alinhamento vertical das colunas.
     default: center
     type: String
-    examples: [start, center, end]
+    examples: [start, center, end, between, around]
 
   button-props:
     desc: Propriedades do QasBtn.
