@@ -2,31 +2,31 @@
   <q-pagination v-bind="defaultProps" />
 </template>
 
-<script>
-export default {
-  name: 'QasPagination',
+<script setup>
+import { computed, useAttrs } from 'vue'
 
-  computed: {
-    defaultProps () {
-      const { modelValue, ...attributes } = this.$attrs
+defineOptions({ name: 'QasPagination' })
 
-      return {
-        activeColor: 'primary',
-        activeDesign: 'flat',
-        boundaryNumbers: true,
-        class: 'qas-pagination',
-        color: 'grey-8',
-        directionLinks: true,
-        iconNext: 'sym_r_chevron_right',
-        iconPrev: 'sym_r_chevron_left',
-        maxPages: 3,
-        modelValue,
+const attrs = useAttrs()
 
-        ...attributes
-      }
-    }
+const defaultProps = computed(() => {
+  const { modelValue, ...attributes } = attrs
+
+  return {
+    activeColor: 'primary',
+    activeDesign: 'flat',
+    boundaryNumbers: true,
+    class: 'qas-pagination',
+    color: 'grey-8',
+    directionLinks: true,
+    iconNext: 'sym_r_chevron_right',
+    iconPrev: 'sym_r_chevron_left',
+    maxPages: 3,
+    modelValue,
+
+    ...attributes
   }
-}
+})
 </script>
 
 <style lang="scss">

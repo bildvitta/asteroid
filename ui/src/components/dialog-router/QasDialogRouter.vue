@@ -2,84 +2,85 @@
   <q-dialog ref="dialog" persistent @hide="onDialogHide">
     <q-card class="full-width" style="max-width: 80vw;">
       <q-card-section>
-        <component :is="component" v-if="component" :route="route" :use-boundary="false" @hide="hide" />
+        <component :is="component" v-if="component" :route="normalizedRoute" :use-boundary="false" @hide="hide" />
       </q-card-section>
     </q-card>
   </q-dialog>
 </template>
 
-<script>
-import { markRaw } from 'vue'
-import { Loading, extend } from 'quasar'
+<script setup>
 import { NotifyError } from '../../plugins'
 
-export default {
-  name: 'QasDialogRouter',
+import { Loading, extend } from 'quasar'
+import { ref, markRaw } from 'vue'
+import { useRouter, useRoute } from 'vue-router'
 
-  emits: ['error', 'hide'],
+defineOptions({ name: 'QasDialogRouter' })
 
-  expose: ['show', 'hide'],
+const emits = defineEmits(['error', 'hide'])
 
-  data () {
-    return {
-      component: null,
-      parentRoute: '',
-      route: null
+defineExpose({ show, hide })
+
+const router = useRouter()
+const route = useRoute()
+
+// template refs
+const dialog = ref(null)
+
+const component = ref(null)
+const parentRoute = ref('')
+const normalizedRoute = ref(null)
+
+// functions
+function hide () {
+  dialog.value.hide()
+}
+
+function onDialogHide () {
+  if (history && parentRoute.value) {
+    history.replaceState(null, null, parentRoute.value)
+  }
+
+  component.value = ''
+  parentRoute.value = ''
+  normalizedRoute.value = null
+
+  emits('hide')
+}
+
+function getResolvedRoute (path) {
+  return router.resolve(path)
+}
+
+async function show (routeParam) {
+  parentRoute.value = route.fullPath
+  normalizedRoute.value = getResolvedRoute(routeParam)
+
+  if (history) {
+    history.replaceState(null, null, normalizedRoute.value.fullPath)
+  }
+
+  try {
+    Loading.show()
+
+    const component = markRaw(
+      extend(true, {}, [...normalizedRoute.value.matched].pop().components.default)
+    )
+
+    if (typeof component.value !== 'function') {
+      component.value = component
+      dialog.value.show()
+    } else {
+      const componentFn = (await component()).default
+      component.value = componentFn
+
+      dialog.value.show()
     }
-  },
-
-  methods: {
-    hide () {
-      this.$refs.dialog.hide()
-    },
-
-    onDialogHide () {
-      if (history && this.parentRoute) {
-        history.replaceState(null, null, this.parentRoute)
-      }
-
-      this.component = ''
-      this.parentRoute = ''
-      this.route = null
-
-      this.$emit('hide')
-    },
-
-    resolveRoute (path) {
-      return this.$router.resolve(path)
-    },
-
-    async show (route) {
-      this.parentRoute = this.$route.fullPath
-      this.route = this.resolveRoute(route)
-
-      if (history) {
-        history.replaceState(null, null, this.route.fullPath)
-      }
-
-      try {
-        Loading.show()
-
-        const component = markRaw(
-          extend(true, {}, [...this.route.matched].pop().components.default)
-        )
-
-        if (typeof component.value !== 'function') {
-          this.component = component
-          this.$refs.dialog.show()
-        } else {
-          const componentFn = (await component()).default
-          this.component = componentFn
-
-          this.$refs.dialog.show()
-        }
-      } catch (error) {
-        NotifyError('Ops! Erro ao carregar item.')
-        this.$emit('error', error)
-      } finally {
-        Loading.hide()
-      }
-    }
+  } catch (error) {
+    NotifyError('Ops! Erro ao carregar item.')
+    emits('error', error)
+  } finally {
+    Loading.hide()
   }
 }
 </script>
