@@ -19,6 +19,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - `QasCopy`: alterado componente para Composition API.
 - `QasBtnDropdown`: alterado componente para Composition API.
 - `QasCard`: alterado componente para Composition API.
+- `QasCheckboxGroup`: alterado componente para Composition API.
 
 ## [3.14.0-beta.0] - 03-01-2024
 ### Corrigido
