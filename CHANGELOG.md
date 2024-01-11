@@ -12,6 +12,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 
 ## Não publicado
 ### Modificado
+- `QasListItems`: alterado componente para Composition API.
 - `QasGallery`: alterado componente para Composition API.
 - `/ui/src/vue-plugin.js`: adicionado método `getAction` do `@bildvitta/store-adapter` na variável global `qas` para conseguir utiliza-lo no composition API (NÃO UTILIZAR NO PROJETO).
 - `QasGalleryCard`: alterado componente para Composition API.
