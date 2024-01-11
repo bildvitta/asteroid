@@ -1,63 +1,54 @@
 <template>
-  <qas-dialog v-bind="mx_defaultDialogProps" />
+  <qas-dialog v-bind="defaultDialogProps" />
 </template>
 
-<script>
-import { getAction } from '@bildvitta/store-adapter'
-
-import QasDialog from '../../dialog/QasDialog.vue'
+<script setup>
 import { promiseHandler } from '../../../helpers'
-import { deleteMixin } from '../../../mixins'
+import useDelete, { baseProps } from '../composables/use-delete'
 
-export default {
-  name: 'PvGalleryDeleteDialog',
+import { inject } from 'vue'
 
-  components: {
-    QasDialog
+defineOptions({ name: 'PvGalleryDeleteDialog' })
+
+const props = defineProps({
+  ...baseProps,
+
+  payload: {
+    type: Array,
+    default: () => []
   },
 
-  mixins: [deleteMixin],
-
-  props: {
-    payload: {
-      type: Array,
-      default: () => []
-    },
-
-    modelKey: {
-      type: String,
-      default: ''
-    }
-  },
-
-  emits: [
-    'success',
-    'error',
-    'cancel'
-  ],
-
-  methods: {
-    // chamado no mixin
-    async destroy () {
-      const { data, error } = await promiseHandler(
-        getAction.call(this, {
-          entity: this.entity,
-          key: 'update',
-          payload: {
-            id: this.mx_id,
-            url: this.url,
-            payload: { [this.modelKey]: this.payload }
-          }
-        }),
-        {
-          errorMessage: 'Ops! Não foi possível deletar o item.',
-          successMessage: 'Item deletado com sucesso!'
-        }
-      )
-
-      if (data) return this.$emit('success', data)
-      if (error) return this.$emit('error', error)
-    }
+  modelKey: {
+    type: String,
+    default: ''
   }
+})
+
+const emit = defineEmits(['success', 'error', 'cancel'])
+
+const qas = inject('qas')
+
+const { defaultDialogProps, id } = useDelete({ props, emit, destroyFn: destroy })
+
+async function destroy () {
+  const { data, error } = await promiseHandler(
+    qas.getAction({
+      entity: props.entity,
+      key: 'update',
+      payload: {
+        id: id.value,
+        url: props.url,
+        payload: { [props.modelKey]: props.payload }
+      }
+    }),
+    {
+      errorMessage: 'Ops! Não foi possível deletar o item.',
+      successMessage: 'Item deletado com sucesso!'
+    }
+  )
+
+  if (data) return emit('success', data)
+
+  if (error) emit('error', error)
 }
 </script>

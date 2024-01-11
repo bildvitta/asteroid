@@ -11,10 +11,33 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
 ## Não publicado
+## BREAKING CHANGES
+- `QasDateTimeInput`: removido métodos blur e focus que não estavam sendo utilizados.
+
 ### Modificado
 - `QasDateTimeInput`: alterado componente para Composition API.
+- `QasDate`: alterado componente para Composition API.
+- `QasDelete`: alterado componente para Composition API.
+- `QasDialogRouter`: alterado componente para Composition API.
+- `QasTabsGenerator`: alterado componente para Composition API.
+- `QasPagination`: alterado componente para Composition API.
+- `QasPageHeader`: alterado componente para Composition API.
+- `QasMap`: alterado componente para Composition API.
+- `QasListItems`: alterado componente para Composition API.
+- `QasGallery`: alterado componente para Composition API.
+- `QasGalleryCard`: alterado componente para Composition API.
+- `QasLabel`: alterado componente para Composition API.
+- `QasHeaderActions`: alterado componente para Composition API.
+- `QasDialogRouter`: alterado componente para Composition API.
+- `QasDebugger`: alterado componente para Composition API.
+- `QasCopy`: alterado componente para Composition API.
+- `QasBtnDropdown`: alterado componente para Composition API.
+- `QasCard`: alterado componente para Composition API.
+- `QasCheckboxGroup`: alterado componente para Composition API.
+- `/ui/src/vue-plugin.js`: adicionado método `getAction` do `@bildvitta/store-adapter` na variável global `qas` para conseguir utiliza-lo no composition API (NÃO UTILIZAR NO PROJETO).
 
 ### Removido
+- `QasDate`: removido propriedade `useUnmaskEvents`, uma vez que ela não era utilizada para nada dentro do componente.
 - `QasDateTimeInput`: removido métodos blur e focus que não estavam sendo utilizados.
 
 ## [3.14.0-beta.0] - 03-01-2024
@@ -31,7 +54,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - `QasNestedFields`: alterado slot `custom-fields` para se chamar `after-fields`.
 - `QasPageHeader`: removido a query dos breadcrumb. Utilize `useCache: true` no meta das rotas onde precisar persistir a query.
 - Devido as mudanças de rebranding poderá haver quebras visuais, algumas revisões que deverão ser feitas: 
-  - Todos os locais em que é utilizado a cor `grey-9` deverá ser modificado para utilizar a cor `grey-10`, em especial, no componente `QasBtn` que há um validador na propriedade `color` que não deixará `grey-9` ser utilizado, causando um warning no console.  
+  - Todos os locais em que é utilizado a cor `grey-9` deverá ser modificado para utilizar a cor `grey-10`, em especial, no componente `QasBtn` que há um validador na propriedade `color` que não deixará `grey-9` ser utilizado, causando um warning no console.
   - Mudanças realizadas no valor das variáveis `primary`, `primary-contrast` e `dark` do arquivo `quasar.variables.scss`, portanto será necessário atualizar essas variáveis com os valores encontrados na seção "Começando - Usando" da documentação.
   - Cor dos headings (h1 ao h6) foi adicionado por padrão no Asteroid, portanto, se tornando desnecessário passar classe de cor para os mesmos.
 

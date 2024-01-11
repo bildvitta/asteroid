@@ -1,23 +1,31 @@
 <template>
-  <details class="bg-grey-3 q-my-md q-pa-md rounded-borders">
+  <details class="bg-grey-3 q-my-md q-pa-md qas-debugger rounded-borders">
     <summary>Debugger</summary>
 
     <div class="row">
-      <pre v-for="(item, index) in inspect" :key="index" class="col q-pa-sm scroll" style="max-height: 300px;">{{ item }}</pre>
+      <pre v-for="(item, index) in props.inspect" :key="index" class="col q-pa-sm qas-debugger__code scroll">
+        {{ item }}
+      </pre>
     </div>
   </details>
 </template>
 
-<script>
-export default {
-  name: 'QasDebugger',
+<script setup>
+defineOptions({ name: 'QasDebugger' })
 
-  props: {
-    inspect: {
-      default: () => [],
-      required: true,
-      type: Array
-    }
+const props = defineProps({
+  inspect: {
+    default: () => [],
+    required: true,
+    type: Array
+  }
+})
+</script>
+
+<style lang="scss">
+.qas-debugger {
+  &__code {
+    max-height: 300px;
   }
 }
-</script>
+</style>

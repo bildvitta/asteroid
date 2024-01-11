@@ -43,6 +43,14 @@ export default {
         {
           date: '2023-07-04',
           counter: 2
+        },
+        {
+          date: '2023-12-31',
+          counter: 2
+        },
+        {
+          date: '2024-01-01',
+          counter: 2
         }
       ]
     }
