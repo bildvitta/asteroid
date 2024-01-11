@@ -12,9 +12,9 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 
 ## Não publicado
 ### Modificado
+- `QasMap`: alterado componente para Composition API.
 - `QasListItems`: alterado componente para Composition API.
 - `QasGallery`: alterado componente para Composition API.
-- `/ui/src/vue-plugin.js`: adicionado método `getAction` do `@bildvitta/store-adapter` na variável global `qas` para conseguir utiliza-lo no composition API (NÃO UTILIZAR NO PROJETO).
 - `QasGalleryCard`: alterado componente para Composition API.
 - `QasLabel`: alterado componente para Composition API.
 - `QasHeaderActions`: alterado componente para Composition API.
@@ -24,6 +24,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - `QasBtnDropdown`: alterado componente para Composition API.
 - `QasCard`: alterado componente para Composition API.
 - `QasCheckboxGroup`: alterado componente para Composition API.
+- `/ui/src/vue-plugin.js`: adicionado método `getAction` do `@bildvitta/store-adapter` na variável global `qas` para conseguir utiliza-lo no composition API (NÃO UTILIZAR NO PROJETO).
 
 ## [3.14.0-beta.0] - 03-01-2024
 ### Corrigido
