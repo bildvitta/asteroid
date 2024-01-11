@@ -12,6 +12,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 
 ## Não publicado
 ### Modificado
+- `QasDelete`: alterado componente para Composition API.
 - `QasDialogRouter`: alterado componente para Composition API.
 - `QasTabsGenerator`: alterado componente para Composition API.
 - `QasPagination`: alterado componente para Composition API.
