@@ -6,6 +6,7 @@
 </template>
 
 <script setup>
+/* eslint-disable no-console */
 import { date as asteroidDate } from '../../helpers/filters'
 import { MaskOptions } from './enums/DateMaskOptions'
 
@@ -78,7 +79,7 @@ const dateObserver = ref(undefined)
 
 onMounted(() => {
   // muda estilo da navegação
-  setNewNavigatorDisplay()
+  setNewNavigatorDisplay('OnMounted')
 
   // observa as mudanças no DOM do QDate > .q-date__content
   setObserveDate()
@@ -370,7 +371,9 @@ function setEvents ({ year, month }) {
   })
 }
 
-function setNewNavigatorDisplay () {
+function setNewNavigatorDisplay (from) {
+  console.log('TCL: setNewNavigatorDisplay -> from', from)
+  console.log('TCL: setNewNavigatorDisplay -> dateElement', dateElement)
   const navigationElement = dateElement.value.querySelector('.q-date__navigation')
   const navigationChildren = navigationElement?.children || []
 
@@ -423,7 +426,7 @@ function onNavigation (date) {
 
   setCurrentDate(date)
 
-  nextTick(() => setNewNavigatorDisplay())
+  nextTick(() => setNewNavigatorDisplay('onNavigation, nextTick'))
 }
 </script>
 
