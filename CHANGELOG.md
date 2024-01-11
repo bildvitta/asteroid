@@ -12,6 +12,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 
 ## Não publicado
 ### Modificado
+- `QasDate`: alterado componente para Composition API.
 - `QasDelete`: alterado componente para Composition API.
 - `QasDialogRouter`: alterado componente para Composition API.
 - `QasTabsGenerator`: alterado componente para Composition API.
@@ -30,6 +31,9 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - `QasCard`: alterado componente para Composition API.
 - `QasCheckboxGroup`: alterado componente para Composition API.
 - `/ui/src/vue-plugin.js`: adicionado método `getAction` do `@bildvitta/store-adapter` na variável global `qas` para conseguir utiliza-lo no composition API (NÃO UTILIZAR NO PROJETO).
+
+### Removido
+- `QasDate`: removido propriedade `useUnmaskEvents`, uma vez que ela não era utilizada para nada dentro do componente.
 
 ## [3.14.0-beta.0] - 03-01-2024
 ### Corrigido
