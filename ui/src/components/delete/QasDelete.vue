@@ -1,13 +1,13 @@
 <template>
   <component v-bind="attributes" :is="props.tag" @click.stop.prevent="onDelete">
-    <template v-for="(_, name) in $slots" #[name]="context">
+    <template v-for="(_, name) in slots" #[name]="context">
       <slot :name="name" v-bind="context || {}" />
     </template>
   </component>
 </template>
 
 <script setup>
-import { inject, computed, useAttrs } from 'vue'
+import { inject, computed, useAttrs, useSlots } from 'vue'
 import { useRoute } from 'vue-router'
 
 defineOptions({
@@ -58,6 +58,8 @@ const props = defineProps({
 
 const emits = defineEmits(['success', 'error', 'update:deleting'])
 
+const slots = useSlots()
+console.log('TCL: slots', slots)
 const attrs = useAttrs()
 const route = useRoute()
 
