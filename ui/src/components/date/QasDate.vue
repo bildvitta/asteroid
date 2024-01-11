@@ -73,11 +73,16 @@ const emits = defineEmits(['update:modelValue', 'navigation'])
 
 const attrs = useAttrs()
 
-const currentDate = ref({})
+// template refs
 const parentDate = ref(null)
+const dateElement = ref(null)
+
+const currentDate = ref({})
 const dateObserver = ref(undefined)
 
 onMounted(() => {
+  dateElement.value = parentDate.value?.$el
+
   // muda estilo da navegação
   setNewNavigatorDisplay('OnMounted')
 
@@ -92,8 +97,6 @@ onMounted(() => {
 })
 
 onUnmounted(() => dateObserver.value.disconnect())
-
-const dateElement = computed(() => parentDate.value?.$el)
 
 const classes = computed(() => {
   return ['qas-date', 'shadow-2', { 'qas-date--inative': props.useInactiveDates }]
