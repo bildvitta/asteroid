@@ -1,15 +1,15 @@
 <template>
   <qas-box class="qas-list-items">
     <q-list separator>
-      <q-item v-for="(item, index) in list" :key="index" v-ripple :clickable="useClickableItem" @click="onClick({ item, index }, true)">
+      <q-item v-for="(item, index) in props.list" :key="index" v-ripple :clickable="props.useClickableItem" @click="onClick({ item, index }, true)">
         <slot :index="index" :item="item" name="item">
           <q-item-section>
             <slot :index="index" :item="item" name="item-section" />
           </q-item-section>
 
-          <q-item-section v-if="useSectionActions" side>
+          <q-item-section v-if="props.useSectionActions" side>
             <slot :index="index" :item="item" name="item-section-side">
-              <qas-btn color="primary" :icon="icon" variant="tertiary" @click="onClick({ item, index })" />
+              <qas-btn color="primary" :icon="props.icon" variant="tertiary" @click="onClick({ item, index })" />
             </slot>
           </q-item-section>
         </slot>
@@ -18,54 +18,45 @@
   </qas-box>
 </template>
 
-<script>
-import QasBtn from '../btn/QasBtn.vue'
+<script setup>
 import QasBox from '../box/QasBox.vue'
+import QasBtn from '../btn/QasBtn.vue'
 
-export default {
-  name: 'QasListItems',
+defineOptions({ name: 'QasListItems' })
 
-  components: {
-    QasBox,
-    QasBtn
+const props = defineProps({
+  icon: {
+    type: String,
+    default: 'sym_r_chevron_right'
   },
 
-  props: {
-    icon: {
-      type: String,
-      default: 'sym_r_chevron_right'
-    },
-
-    list: {
-      default: () => [],
-      type: Array
-    },
-
-    useClickableItem: {
-      type: Boolean
-    },
-
-    useSectionActions: {
-      default: true,
-      type: Boolean
-    }
+  list: {
+    default: () => [],
+    type: Array
   },
 
-  emits: ['click-item'],
+  useClickableItem: {
+    type: Boolean
+  },
 
-  methods: {
-    onClick ({ item, index }, fromItem) {
-      /**
-       * se o click veio do q-item e "useClickableItem" for "false", ou
-       * se o click não veio do q-item e "useClickableItem" for "true", então retorna sem emitir.
-       */
-      if (
-        (fromItem && !this.useClickableItem) || (!fromItem && this.useClickableItem)
-      ) return
-
-      this.$emit('click-item', { item, index })
-    }
+  useSectionActions: {
+    default: true,
+    type: Boolean
   }
+})
+
+const emit = defineEmits(['click-item'])
+
+function onClick ({ item, index }, fromItem) {
+  /**
+   * se o click veio do q-item e "useClickableItem" for "false", ou
+   * se o click não veio do q-item e "useClickableItem" for "true", então retorna sem emitir.
+   */
+  if (
+    (fromItem && !props.useClickableItem) || (!fromItem && props.useClickableItem)
+  ) return
+
+  emit('click-item', { item, index })
 }
 </script>
 
