@@ -11,7 +11,11 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
 ## Não publicado
+## BREAKING CHANGES
+- `QasDateTimeInput`: removido métodos blur e focus que não estavam sendo utilizados.
+
 ### Modificado
+- `QasDateTimeInput`: alterado componente para Composition API.
 - `QasDate`: alterado componente para Composition API.
 - `QasDelete`: alterado componente para Composition API.
 - `QasDialogRouter`: alterado componente para Composition API.
@@ -34,6 +38,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 
 ### Removido
 - `QasDate`: removido propriedade `useUnmaskEvents`, uma vez que ela não era utilizada para nada dentro do componente.
+- `QasDateTimeInput`: removido métodos blur e focus que não estavam sendo utilizados.
 
 ## [3.14.0-beta.0] - 03-01-2024
 ### Corrigido
