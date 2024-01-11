@@ -81,6 +81,7 @@ const currentDate = ref({})
 const dateObserver = ref(undefined)
 
 onMounted(() => {
+  console.log('TCL: MOUNTED: parentDate.value', parentDate.value)
   dateElement.value = parentDate.value?.$el
 
   // muda estilo da navegação
