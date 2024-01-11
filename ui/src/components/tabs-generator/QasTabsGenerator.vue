@@ -18,92 +18,84 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import QasStatus from '../status/QasStatus.vue'
 
+import { computed } from 'vue'
 import { extend } from 'quasar'
 
-export default {
-  name: 'QasTabsGenerator',
+defineOptions({ name: 'QasTabsGenerator' })
 
-  components: {
-    QasStatus
+const props = defineProps({
+  counters: {
+    default: () => ({}),
+    type: Object
   },
 
-  props: {
-    counters: {
-      default: () => ({}),
-      type: Object
-    },
-
-    modelValue: {
-      default: '',
-      type: [String, Number]
-    },
-
-    tabs: {
-      default: () => ({}),
-      required: true,
-      type: [Object, Array]
-    },
-
-    useRouteTab: {
-      type: Boolean
-    }
+  modelValue: {
+    default: '',
+    type: [String, Number]
   },
 
-  emits: ['update:modelValue'],
-
-  computed: {
-    formattedTabs () {
-      const tabs = extend(true, {}, this.tabs)
-
-      for (const key in tabs) {
-        if (typeof tabs[key] === 'string') {
-          tabs[key] = { label: tabs[key], value: key }
-        }
-      }
-
-      return tabs
-    },
-
-    model: {
-      get () {
-        return this.modelValue
-      },
-
-      set (value) {
-        const currentTab = Array.isArray(this.tabs)
-          ? this.tabs.find(tab => tab?.value === value)
-          : this.formattedTabs[value]
-
-        if (currentTab?.disabled) return
-
-        this.$emit('update:modelValue', value)
-      }
-    },
-
-    tabComponent () {
-      return this.useRouteTab ? 'q-route-tab' : 'q-tab'
-    }
+  tabs: {
+    default: () => ({}),
+    required: true,
+    type: [Object, Array]
   },
 
-  methods: {
-    getFormattedLabel ({ label, counter, value }) {
-      const normalizedCount = this.counters[value] || counter
+  useRouteTab: {
+    type: Boolean
+  }
+})
 
-      if (!normalizedCount) return label
+const emit = defineEmits(['update:modelValue'])
 
-      const countString = String(normalizedCount)
+// computed
+const model = computed({
+  get () {
+    return props.modelValue
+  },
 
-      return `${label} (${countString.padStart(2, '0')})`
-    },
+  set (value) {
+    const currentTab = Array.isArray(props.tabs)
+      ? props.tabs.find(tab => tab?.value === value)
+      : formattedTabs.value[value]
 
-    getTabProps (tab) {
-      const { icon, label, ...payload } = tab
-      return payload
+    if (currentTab?.disabled) return
+
+    emit('update:modelValue', value)
+  }
+})
+
+const formattedTabs = computed(() => {
+  const tabs = extend(true, {}, props.tabs)
+
+  for (const key in tabs) {
+    if (typeof tabs[key] === 'string') {
+      tabs[key] = { label: tabs[key], value: key }
     }
   }
+
+  return tabs
+})
+
+const tabComponent = computed(() => props.useRouteTab ? 'q-route-tab' : 'q-tab')
+
+// functions
+function getFormattedLabel ({ label, counter, value }) {
+  const normalizedCount = props.counters[value] || counter
+
+  if (!normalizedCount) return label
+
+  const countString = String(normalizedCount)
+
+  return `${label} (${countString.padStart(2, '0')})`
+}
+
+function getTabProps (tab) {
+  const { icon, label, ...payload } = tab
+
+  return payload
 }
 </script>
 
