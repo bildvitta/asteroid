@@ -9,7 +9,9 @@
             </q-item-section>
 
             <q-item-section>
-              <div>{{ item.label }}</div>
+              <div>
+                {{ item.label }}
+              </div>
             </q-item-section>
           </q-item>
         </slot>
@@ -86,7 +88,7 @@ const { deleteBtnProps, hasDelete } = useDelete()
 const fullList = computed(() => {
   return {
     ...props.list,
-    ...deleteBtnProps
+    ...deleteBtnProps.value
   }
 })
 
@@ -189,20 +191,20 @@ function onClick (item = {}) {
 
 // ------------------------------- composables ---------------------------------
 function useDelete () {
-  const deleteBtnProps = {}
-
   const hasDelete = computed(() => !!Object.keys(props.deleteProps).length)
 
-  if (hasDelete.value) {
-    Object.assign(deleteBtnProps, {
-      delete: {
-        color: 'grey-10',
-        icon: props.deleteIcon,
-        label: props.deleteLabel,
-        handler: () => qas.delete(props.deleteProps)
-      }
-    })
-  }
+  const deleteBtnProps = computed(() => {
+    return {
+      ...(hasDelete.value && {
+        delete: {
+          color: 'grey-10',
+          icon: props.deleteIcon,
+          label: props.deleteLabel,
+          handler: () => qas.delete(props.deleteProps)
+        }
+      })
+    }
+  })
 
   return {
     deleteBtnProps,
