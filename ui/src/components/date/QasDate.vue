@@ -7,7 +7,6 @@
 </template>
 
 <script setup>
-/* eslint-disable no-console */
 import { date as asteroidDate } from '../../helpers/filters'
 import { MaskOptions } from './enums/DateMaskOptions'
 
@@ -82,11 +81,10 @@ const currentDate = ref({})
 const dateObserver = ref(undefined)
 
 onMounted(() => {
-  console.log('TCL: MOUNTED: parentDate.value', parentDate.value)
   dateElement.value = parentDate.value?.$el
 
   // muda estilo da navegação
-  setNewNavigatorDisplay('OnMounted')
+  setNewNavigatorDisplay()
 
   // observa as mudanças no DOM do QDate > .q-date__content
   setObserveDate()
@@ -261,18 +259,26 @@ function getStatusDay ({ currentDay, index }) {
   return status
 }
 
-function getNormalizedYear ({ isNext, isPrevious, month, year }) {
-  if (isPrevious && month === 1) return year - 1
+function isJanuary (month) {
+  return month === 1
+}
 
-  if (isNext && month === 12) return year + 1
+function isDecember (month) {
+  return month === 12
+}
+
+function getNormalizedYear ({ isNext, isPrevious, month, year }) {
+  if (isPrevious && isJanuary(month)) return year - 1
+
+  if (isNext && isDecember(month)) return year + 1
 
   return year
 }
 
 function getNormalizedMonth ({ month, isPrevious, isNext }) {
-  if (isPrevious) return month === 1 ? (month = 12) : month - 1
+  if (isPrevious) return isJanuary(month) ? (month = 12) : month - 1
 
-  if (isNext) return month === 12 ? (month = 1) : month + 1
+  if (isNext) return isDecember(month) ? (month = 1) : month + 1
 
   return month
 }
@@ -375,9 +381,7 @@ function setEvents ({ year, month }) {
   })
 }
 
-function setNewNavigatorDisplay (from) {
-  console.log('TCL: setNewNavigatorDisplay -> from', from)
-  console.log('TCL: setNewNavigatorDisplay -> dateElement', dateElement)
+function setNewNavigatorDisplay () {
   const navigationElement = dateElement.value.querySelector('.q-date__navigation')
   const navigationChildren = navigationElement?.children || []
 
@@ -430,7 +434,7 @@ function onNavigation (date) {
 
   setCurrentDate(date)
 
-  nextTick(() => setNewNavigatorDisplay('onNavigation, nextTick'))
+  nextTick(() => setNewNavigatorDisplay())
 }
 </script>
 
