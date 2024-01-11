@@ -12,6 +12,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 
 ## Não publicado
 ### Modificado
+- `QasGalleryCard`: alterado componente para Composition API.
 - `QasLabel`: alterado componente para Composition API.
 - `QasHeaderActions`: alterado componente para Composition API.
 - `QasDialogRouter`: alterado componente para Composition API.
