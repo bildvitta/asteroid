@@ -12,6 +12,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 
 ## Não publicado
 ### Modificado
+- `QasPagination`: alterado componente para Composition API.
 - `QasPageHeader`: alterado componente para Composition API.
 - `QasMap`: alterado componente para Composition API.
 - `QasListItems`: alterado componente para Composition API.
