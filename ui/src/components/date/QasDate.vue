@@ -1,7 +1,8 @@
 <template>
   <q-date
-    v-model="model"
     v-bind="attributes"
+    ref="parentDate"
+    v-model="model"
   />
 </template>
 
@@ -124,7 +125,6 @@ const attributes = computed(() => {
     minimal: true,
     multiple: props.multiple,
     options: normalizedOptions.value,
-    ref: 'parentDate',
     style: styles.value,
     textColor: 'white',
 
