@@ -1,118 +1,105 @@
 <template>
   <div :class="classes">
-    <div v-for="(option, index) in options" :key="index">
+    <div v-for="(option, index) in props.options" :key="index">
       <q-checkbox v-if="hasChildren(option)" :class="getCheckboxClass(option)" :label="option.label" :model-value="getModelValue(index)" @update:model-value="updateCheckbox($event, option, index)" />
 
-      <q-option-group v-if="hasChildren(option)" class="q-ml-sm" :inline="inline" :model-value="modelValue" :options="option.children" type="checkbox" @update:model-value="updateChildren($event, option, index)" />
+      <q-option-group v-if="hasChildren(option)" class="q-ml-sm" :inline="props.inline" :model-value="props.modelValue" :options="option.children" type="checkbox" @update:model-value="updateChildren($event, option, index)" />
 
       <q-option-group v-else v-model="model" v-bind="$attrs" :options="[option]" type="checkbox" />
     </div>
   </div>
 </template>
 
-<script>
-export default {
-  name: 'QasCheckboxGroup',
+<script setup>
+import { watch, computed, ref, onMounted } from 'vue'
 
-  props: {
-    options: {
-      default: () => [],
-      type: Array
-    },
+defineOptions({ name: 'QasCheckboxGroup' })
 
-    modelValue: {
-      default: () => [],
-      type: Array
-    },
-
-    inline: {
-      default: true,
-      type: Boolean
-    }
+const props = defineProps({
+  options: {
+    default: () => [],
+    type: Array
   },
 
-  emits: ['update:modelValue'],
-
-  data () {
-    return {
-      group: {}
-    }
+  modelValue: {
+    default: () => [],
+    type: Array
   },
 
-  computed: {
-    model: {
-      get () {
-        return this.modelValue
-      },
+  inline: {
+    default: true,
+    type: Boolean
+  }
+})
 
-      set (value) {
-        this.$emit('update:modelValue', value)
-      }
-    },
+const emits = defineEmits(['update:modelValue'])
 
-    classes () {
-      return this.inline && 'flex q-gutter-x-sm'
-    }
+onMounted(handleParent)
+
+const group = ref({})
+
+const classes = computed(() => props.inline && 'flex q-gutter-x-sm')
+
+const model = computed({
+  get () {
+    return props.modelValue
   },
 
-  watch: {
-    options () {
-      this.handleParent()
-    }
-  },
+  set (value) {
+    updateModelValue(value)
+  }
+})
 
-  created () {
-    this.handleParent()
-  },
+watch(() => props.options, handleParent)
 
-  methods: {
-    handleParent () {
-      for (const index in this.options) {
-        const option = this.options[index]
-        if (this.hasChildren(option)) {
-          this.setGroupIntersection(this.modelValue, option, index)
-        }
-      }
-    },
-
-    hasChildren (option) {
-      return Object.prototype.hasOwnProperty.call(option, 'children')
-    },
-
-    setGroupIntersection (value, option, index) {
-      const options = option.children.map(item => item.value)
-      const intersection = options.filter(item => value.includes(item))
-
-      this.group[index] = intersection.length && (intersection.length === options.length ? true : null)
-    },
-
-    updateCheckbox (value, option, index) {
-      this.group[index] = value
-      const groupValues = option.children.map(item => item.value)
-
-      const updatedValue = value
-        ? [...new Set([...this.modelValue, ...groupValues])]
-        : this.modelValue.filter(item => !groupValues.includes(item))
-
-      this.updateModelValue(updatedValue)
-    },
-
-    updateChildren (value, option, index) {
-      this.setGroupIntersection(value, option, index)
-      this.updateModelValue(value)
-    },
-
-    getCheckboxClass (option) {
-      return this.hasChildren(option) && 'text-weight-bold'
-    },
-
-    getModelValue (index) {
-      return this.group[index]
-    },
-
-    updateModelValue (value) {
-      this.$emit('update:modelValue', value)
+// functions
+function handleParent () {
+  for (const index in props.options) {
+    const option = props.options[index]
+    if (hasChildren(option)) {
+      setGroupIntersection(props.modelValue, option, index)
     }
   }
 }
+
+function hasChildren (option) {
+  return Object.prototype.hasOwnProperty.call(option, 'children')
+}
+
+function setGroupIntersection (value, option, index) {
+  const options = option.children.map(item => item.value)
+  const intersection = options.filter(item => value.includes(item))
+
+  group.value[index] = intersection.length && (intersection.length === options.length ? true : null)
+}
+
+function updateCheckbox (value, option, index) {
+  group.value[index] = value
+
+  const groupValues = option.children.map(item => item.value)
+
+  const updatedValue = value
+    ? [...new Set([...props.modelValue, ...groupValues])]
+    : props.modelValue.filter(item => !groupValues.includes(item))
+
+  updateModelValue(updatedValue)
+}
+
+function updateChildren (value, option, index) {
+  setGroupIntersection(value, option, index)
+  updateModelValue(value)
+}
+
+function updateModelValue (value) {
+  emits('update:modelValue', value)
+}
+
+function getCheckboxClass (option) {
+  return hasChildren(option) && 'text-weight-bold'
+}
+
+function getModelValue (index) {
+  return group.value[index]
+}
+
 </script>
