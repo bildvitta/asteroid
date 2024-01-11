@@ -64,6 +64,8 @@ import QasWelcome from './components/welcome/QasWelcome.vue'
 
 import { Notify, Loading, Quasar, Dialog as QuasarDialog } from 'quasar'
 
+import { getAction } from '@bildvitta/store-adapter'
+
 // Plugins
 import {
   Delete,
@@ -156,7 +158,9 @@ async function install (app) {
   }
 
   app.provide('qas', {
-    delete: params => Delete.call(app.config.globalProperties, params)
+    delete: params => Delete.call(app.config.globalProperties, params),
+
+    getAction: params => getAction.call(app.config.globalProperties, params)
   })
 
   app.directive(Test.name, Test)
