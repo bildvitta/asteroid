@@ -10,7 +10,7 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 ### Sobre os "BREAKING CHANGES"
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
-## Não publicado
+## [3.13.1] - 11-01-2024
 ### Corrigido
 - `QasActionsMenu`: Corrigido problema da const `hasDelete` do composable `useDelete`, onde não estava reativo pois não foi feito como computada.
 
@@ -2383,3 +2383,4 @@ Adicionado suporte para Pinia/Vuex Seguindo os padrões da biblioteca `@bildvitt
 [3.13.0-beta.18]: https://github.com/bildvitta/asteroid/compare/v3.13.0-beta.17...v3.13.0-beta.18?expand=1
 [3.13.0-beta.19]: https://github.com/bildvitta/asteroid/compare/v3.13.0-beta.18...v3.13.0-beta.19?expand=1
 [3.13.0]: https://github.com/bildvitta/asteroid/compare/v3.12.0...v3.13.0?expand=1
+[3.13.1]: https://github.com/bildvitta/asteroid/compare/v3.13.0...v3.13.1?expand=1
