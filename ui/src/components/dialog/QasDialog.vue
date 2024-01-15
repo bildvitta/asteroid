@@ -1,10 +1,10 @@
 <template>
-  <q-dialog ref="dialogRef" class="qas-dialog" data-cy="dialog" :persistent="persistent" v-bind="dialogProps" @update:model-value="updateModelValue">
+  <q-dialog ref="dialogRef" class="qas-dialog" data-cy="dialog" :persistent="props.persistent" v-bind="dialogProps" @update:model-value="updateModelValue">
     <div class="bg-white q-pa-lg" :style="style">
       <header v-if="hasHeader" class="q-mb-lg">
         <slot name="header">
           <div class="items-center justify-between row">
-            <h5 class="text-h5" data-cy="dialog-title">{{ card.title }}</h5>
+            <h5 class="text-h5" data-cy="dialog-title">{{ props.card.title }}</h5>
 
             <qas-btn v-if="isInfoDialog" v-close-popup color="grey-10" data-cy="dialog-close-btn" icon="sym_r_close" variant="tertiary" />
           </div>
@@ -14,14 +14,14 @@
       <section class="text-body1 text-grey-8">
         <component :is="mainComponent.is" ref="form" v-bind="mainComponent.props">
           <slot name="description">
-            <component :is="descriptionComponent" data-cy="dialog-description">{{ card.description }}</component>
+            <component :is="descriptionComponent" data-cy="dialog-description">{{ props.card.description }}</component>
           </slot>
 
           <div v-if="!isInfoDialog">
             <slot name="actions">
               <qas-actions v-bind="defaultActionsProps">
                 <template v-if="hasOk" #primary>
-                  <qas-btn v-close-popup="!useForm" class="full-width" data-cy="dialog-ok-btn" variant="primary" v-bind="defaultOk" />
+                  <qas-btn v-close-popup="!props.useForm" class="full-width" data-cy="dialog-ok-btn" variant="primary" v-bind="defaultOk" />
                 </template>
 
                 <template v-if="hasCancel" #secondary>
@@ -107,7 +107,7 @@ const props = defineProps({
   }
 })
 
-const emits = defineEmits([
+const emit = defineEmits([
   // model
   'update:modelValue',
 
@@ -130,7 +130,7 @@ const { dialogRef, onDialogHide } = useDialogPluginComponent()
 // QForm template
 const form = ref(null)
 
-const composablesParams = { emits, form, props, screen, slots }
+const composablesParams = { emit, form, props, screen, slots }
 
 const { defaultCancel, hasCancel } = useCancel(composablesParams)
 const { defaultOk, hasOk, onOk } = useOk(composablesParams)
@@ -174,7 +174,7 @@ const defaultActionsProps = computed(() => {
 })
 
 function updateModelValue (value) {
-  emits('update:modelValue', value)
+  emit('update:modelValue', value)
 }
 </script>
 

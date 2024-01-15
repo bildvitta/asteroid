@@ -69,7 +69,7 @@ const props = defineProps({
   }
 })
 
-const emits = defineEmits(['update:modelValue', 'navigation'])
+const emit = defineEmits(['update:modelValue', 'navigation'])
 
 const attrs = useAttrs()
 
@@ -139,7 +139,7 @@ const model = computed({
   },
 
   set (value) {
-    emits('update:modelValue', props.useIso ? getISODate(value) : value)
+    emit('update:modelValue', props.useIso ? getISODate(value) : value)
   }
 })
 
@@ -430,7 +430,7 @@ function setObserveDate () {
 }
 
 function onNavigation (date) {
-  emits('navigation', date)
+  emit('navigation', date)
 
   setCurrentDate(date)
 

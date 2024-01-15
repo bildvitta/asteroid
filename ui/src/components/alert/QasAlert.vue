@@ -5,7 +5,7 @@
 
       <div class="text-body1 text-white">
         <slot>
-          {{ text }}
+          {{ props.text }}
         </slot>
       </div>
 

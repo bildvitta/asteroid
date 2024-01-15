@@ -11,7 +11,7 @@
 
       <slot>
         <div v-if="!hideShowMore" class="full-width text-center">
-          <qas-btn color="primary" data-cy="gallery-btn-show-more" :label="showMoreLabel" variant="tertiary" @click="showMore" />
+          <qas-btn color="primary" data-cy="gallery-btn-show-more" :label="props.showMoreLabel" variant="tertiary" @click="showMore" />
         </div>
       </slot>
 

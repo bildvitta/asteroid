@@ -1,10 +1,10 @@
 <template>
   <div class="cursor-pointer items-center no-wrap q-gutter-sm qas-app-user row" data-cy="app-user">
     <div class="relative-position">
-      <qas-avatar :image="user.photo" :size="avatarSize" :title="userName" />
+      <qas-avatar :image="props.user.photo" :size="props.avatarSize" :title="userName" />
 
       <q-badge v-if="hasNotifications" color="red" floating>
-        {{ notifications.count }}
+        {{ props.notifications.count }}
       </q-badge>
     </div>
 
@@ -14,26 +14,26 @@
       </div>
 
       <div class="ellipsis qas-app-user__email text-grey-8">
-        {{ user.email }}
+        {{ props.user.email }}
       </div>
     </div>
 
-    <q-menu class="shadow-2 text-grey-10" max-height="400px" v-bind="menuProps" @hide="onMenuHide">
+    <q-menu class="shadow-2 text-grey-10" max-height="400px" v-bind="props.menuProps" @hide="onMenuHide">
       <div class="q-pb-sm q-pt-md q-px-md qas-app-user__menu">
-        <qas-avatar class="q-mb-md" :image="user.photo" size="64px" :title="userName" />
+        <qas-avatar class="q-mb-md" :image="props.user.photo" size="64px" :title="userName" />
 
         <div class="ellipsis qas-app-user__menu-name">
           {{ userName }}
         </div>
 
         <div class="ellipsis">
-          {{ user.email }}
+          {{ props.user.email }}
         </div>
 
         <qas-select v-if="hasCompaniesSelect" v-bind="defaultCompanyProps" v-model="companiesModel" class="q-my-md" data-cy="app-user-companies-select" @update:model-value="setCompanies" />
 
         <q-list class="q-mt-md">
-          <q-item v-close-popup :active="false" class="qas-app-user__menu-item" clickable :to="user.to">
+          <q-item v-close-popup :active="false" class="qas-app-user__menu-item" clickable :to="props.user.to">
             <q-item-section avatar>
               <q-icon name="sym_r_person" />
             </q-item-section>
@@ -54,7 +54,7 @@
 
             <q-item-section side>
               <q-badge color="red">
-                {{ notifications.count }}
+                {{ props.notifications.count }}
               </q-badge>
             </q-item-section>
           </q-item>
@@ -111,7 +111,7 @@ const props = defineProps({
   }
 })
 
-const emits = defineEmits(['sign-out'])
+const emit = defineEmits(['sign-out'])
 
 // vindo direto do boot api.js
 const axios = inject('axios')
@@ -142,7 +142,7 @@ watch(() => props.companyProps.modelValue, value => {
 
 // métodos
 function signOut () {
-  emits('sign-out')
+  emit('sign-out')
 }
 
 async function setCompanies (value) {

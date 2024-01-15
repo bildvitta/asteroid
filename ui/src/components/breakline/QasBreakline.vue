@@ -1,16 +1,14 @@
 <template>
-  <component :is="tag" v-for="(line, index) in lines" :key="index" v-bind="$attrs">
+  <component :is="props.tag" v-for="(line, index) in lines" :key="index" v-bind="attrs">
     {{ line }}
   </component>
 </template>
 
 <script setup>
-import { computed } from 'vue'
+import { computed, useAttrs, useSlots } from 'vue'
 import { getSlotChildrenText } from '../../helpers'
 
-defineOptions({
-  name: 'QasBreakline'
-})
+defineOptions({ name: 'QasBreakline' })
 
 const props = defineProps({
   split: {
@@ -29,7 +27,8 @@ const props = defineProps({
   }
 })
 
-const slots = defineSlots()
+const attrs = useAttrs()
+const slots = useSlots()
 
 const lines = computed(() => {
   const text = props.text || getSlotChildrenText(slots.default())

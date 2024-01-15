@@ -18,25 +18,51 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - `QasActionsMenu`: Corrigido problema da const `hasDelete` do composable `useDelete`, onde não estava reativo pois não foi feito como computada.
 
 ### Modificado
-- `QasDateTimeInput`: alterado componente para Composition API.
-- `QasDate`: alterado componente para Composition API.
-- `QasDelete`: alterado componente para Composition API.
-- `QasDialogRouter`: alterado componente para Composition API.
-- `QasTabsGenerator`: alterado componente para Composition API.
-- `QasPagination`: alterado componente para Composition API.
-- `QasPageHeader`: alterado componente para Composition API.
-- `QasMap`: alterado componente para Composition API.
-- `QasListItems`: alterado componente para Composition API.
-- `QasGallery`: alterado componente para Composition API.
-- `QasGalleryCard`: alterado componente para Composition API.
-- `QasLabel`: alterado componente para Composition API.
-- `QasHeaderActions`: alterado componente para Composition API.
-- `QasDialogRouter`: alterado componente para Composition API.
-- `QasDebugger`: alterado componente para Composition API.
-- `QasCopy`: alterado componente para Composition API.
-- `QasBtnDropdown`: alterado componente para Composition API.
-- `QasCard`: alterado componente para Composition API.
-- `QasCheckboxGroup`: alterado componente para Composition API.
+- Alterado componentes para Composition API:
+  - QasBtnDropdown.
+  - QasCard.
+  - QasCheckboxGroup.
+  - QasCopy.
+  - QasDate.
+  - QasDateTimeInput.
+  - QasDebugger.
+  - QasDelete.
+  - QasDialogRouter.
+  - QasGallery.
+  - QasGalleryCard.
+  - QasHeaderActions.
+  - QasLabel.
+  - QasListItems.
+  - QasMap.
+  - QasPageHeader.
+  - QasPagination.
+  - QasTabsGenerator.
+
+- Adicionado prefixo de `props` nas propriedades dentro do template:
+  - QasAppAlert: [text].
+  - QasAppBar: [brand, title].
+  - QasAppMenu: [items, title].
+  - QasAppUser: [users, notifications].
+  - QasAvatar: [image, icon, title].
+  - QasBreakline: [tag, icon, title].
+  - QasDialog: [card, persistent, useForm].
+  - QasFormGenerator: [fieldsProps, modelValue, errors].
+  - QasGridGenerator: [headerClass, contentClass].
+  - QasTimeline: [list].
+
+- Modificado nome `emits` para `emit` no script setup:
+  - QasAppBar.
+  - QasAppMenu.
+  - QasAppUser.
+  - QasBtnDropdown.
+
+- Modificado $attrs para useAttrs() no template:
+  - QasBreakline.
+  - QasDialog.
+
+- Modificado slots para useSlots() no template:
+  - QasSelectListDialog.
+
 - `/ui/src/vue-plugin.js`: adicionado método `getAction` do `@bildvitta/store-adapter` na variável global `qas` para conseguir utiliza-lo no composition API (NÃO UTILIZAR NO PROJETO).
 
 ### Removido

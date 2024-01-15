@@ -1,8 +1,8 @@
 <template>
   <q-avatar class="text-bold" v-bind="attributes">
-    <q-img v-if="hasImage" :alt="title" :ratio="1" spinner-color="primary" spinner-size="16px" :src="image" @error="onImageLoadedError" />
+    <q-img v-if="hasImage" :alt="props.title" :ratio="1" spinner-color="primary" spinner-size="16px" :src="props.image" @error="onImageLoadedError" />
     <template v-else-if="hasTitle">{{ firstLetter }}</template>
-    <q-icon v-else :name="icon" />
+    <q-icon v-else :name="props.icon" />
   </q-avatar>
 </template>
 

@@ -60,7 +60,7 @@ const props = defineProps({
   }
 })
 
-const emits = defineEmits(['click', 'update:menu'])
+const emit = defineEmits(['click', 'update:menu'])
 
 const slots = useSlots()
 const screen = useScreen()
@@ -114,11 +114,11 @@ watch(() => props.menu, value => {
 }, { immediate: true })
 
 function onUpdateMenuValue (value) {
-  emits('update:menu', value)
+  emit('update:menu', value)
 }
 
 function onClick (event) {
-  emits('click', event)
+  emit('click', event)
 }
 </script>
 
