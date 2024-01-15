@@ -76,7 +76,7 @@ const props = defineProps({
   }
 })
 
-const emits = defineEmits(['update:modelValue'])
+const emit = defineEmits(['update:modelValue'])
 
 const attrs = useAttrs()
 
@@ -197,7 +197,7 @@ function updateModelValue (value) {
 
   if (value === '' || valueLength === mask.value.length) {
     lastValue.value = props.useTimeOnly ? value : toISOString(value)
-    emits('update:modelValue', lastValue.value)
+    emit('update:modelValue', lastValue.value)
   }
 
   if (props.useDateOnly) {
@@ -247,7 +247,7 @@ function validateDateTimeOnBlur () {
   }
 
   if (error.value || hasInvalidDate.value) {
-    emits('update:modelValue', '')
+    emit('update:modelValue', '')
   }
 }
 

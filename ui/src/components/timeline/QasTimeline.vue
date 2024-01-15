@@ -5,7 +5,7 @@
     layout="comfortable"
   >
     <template
-      v-for="(item, index) in list"
+      v-for="(item, index) in props.list"
       :key="`timeline-${index}-${uid()}`"
     >
       <q-timeline-entry

@@ -56,10 +56,9 @@ const props = defineProps({
   }
 })
 
-const emits = defineEmits(['success', 'error', 'update:deleting'])
+const emit = defineEmits(['success', 'error', 'update:deleting'])
 
 const slots = useSlots()
-console.log('TCL: slots', slots)
 const attrs = useAttrs()
 const route = useRoute()
 
@@ -91,11 +90,11 @@ function onDelete () {
     redirectRoute: props.redirectRoute,
 
     // callbacks
-    onDelete: isDeleting => emits('update:deleting', isDeleting),
+    onDelete: isDeleting => emit('update:deleting', isDeleting),
 
-    onDeleteError: error => emits('error', error),
+    onDeleteError: error => emit('error', error),
 
-    onDeleteSuccess: response => emits('success', response)
+    onDeleteSuccess: response => emit('success', response)
   })
 }
 </script>

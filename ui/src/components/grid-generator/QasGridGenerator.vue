@@ -3,13 +3,13 @@
     <div v-for="(field, key) in fieldsByResult" :key="key" :class="getFieldClass({ index: key, isGridGenerator: true })">
       <slot :field="field" :name="`field-${field.name}`">
         <slot :field="field" name="header">
-          <header :class="headerClass" :data-cy="`grid-generator-${field.name}-field`">
+          <header :class="props.headerClass" :data-cy="`grid-generator-${field.name}-field`">
             {{ field.label }}
           </header>
         </slot>
 
         <slot :field="field" name="content">
-          <div :class="contentClass" :data-cy="`grid-generator-${field.name}-result`">
+          <div :class="props.contentClass" :data-cy="`grid-generator-${field.name}-result`">
             {{ field.formattedResult }}
           </div>
         </slot>

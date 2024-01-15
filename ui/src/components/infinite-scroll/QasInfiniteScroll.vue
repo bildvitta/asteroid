@@ -62,7 +62,7 @@ const props = defineProps({
 
 defineExpose({ refresh, remove })
 
-const emits = defineEmits(['update:list'])
+const emit = defineEmits(['update:list'])
 
 const axios = inject('axios')
 
@@ -97,7 +97,7 @@ const model = computed({
   },
 
   set (newList) {
-    emits('update:list', newList)
+    emit('update:list', newList)
   }
 })
 

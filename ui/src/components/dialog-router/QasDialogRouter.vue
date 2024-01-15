@@ -17,7 +17,7 @@ import { useRouter, useRoute } from 'vue-router'
 
 defineOptions({ name: 'QasDialogRouter' })
 
-const emits = defineEmits(['error', 'hide'])
+const emit = defineEmits(['error', 'hide'])
 
 defineExpose({ show, hide })
 
@@ -45,7 +45,7 @@ function onDialogHide () {
   parentRoute.value = ''
   normalizedRoute.value = null
 
-  emits('hide')
+  emit('hide')
 }
 
 function getResolvedRoute (path) {
@@ -78,7 +78,7 @@ async function show (routeParam) {
     }
   } catch (error) {
     NotifyError('Ops! Erro ao carregar item.')
-    emits('error', error)
+    emit('error', error)
   } finally {
     Loading.hide()
   }
