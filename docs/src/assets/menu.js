@@ -288,6 +288,10 @@ module.exports = [
         path: '/components/timeline'
       },
       {
+        name: 'ToggleVisibility',
+        path: '/components/toggle-visibility'
+      },
+      {
         name: 'Transfer',
         path: '/components/transfer'
       },

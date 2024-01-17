@@ -1,0 +1,9 @@
+type: component
+
+meta:
+  desc: Componente para ocultar conteúdos.
+
+props:
+  emit-value:
+    desc: Controla como sera o retorno do model, se "true" será um array de string, se "false" array de objeto.
+    type: Boolean

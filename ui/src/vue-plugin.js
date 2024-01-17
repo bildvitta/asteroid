@@ -57,6 +57,7 @@ import QasTableGenerator from './components/table-generator/QasTableGenerator.vu
 import QasTabsGenerator from './components/tabs-generator/QasTabsGenerator.vue'
 import QasTextTruncate from './components/text-truncate/QasTextTruncate.vue'
 import QasTimeline from './components/timeline/QasTimeline.vue'
+import QasToggleVisibility from './components/toggle-visibility/QasToggleVisibility.vue'
 import QasTransfer from './components/transfer/QasTransfer.vue'
 import QasTreeGenerator from './components/tree-generator/QasTreeGenerator.vue'
 import QasUploader from './components/uploader/QasUploader.vue'
@@ -142,6 +143,7 @@ async function install (app) {
   app.component('QasTabsGenerator', QasTabsGenerator)
   app.component('QasTextTruncate', QasTextTruncate)
   app.component('QasTimeline', QasTimeline)
+  app.component('QasToggleVisibility', QasToggleVisibility)
   app.component('QasTransfer', QasTransfer)
   app.component('QasTreeGenerator', QasTreeGenerator)
   app.component('QasUploader', QasUploader)
@@ -229,6 +231,7 @@ export {
   QasTabsGenerator,
   QasTextTruncate,
   QasTimeline,
+  QasToggleVisibility,
   QasTransfer,
   QasTreeGenerator,
   QasUploader,
