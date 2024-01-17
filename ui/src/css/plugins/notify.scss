@@ -3,6 +3,7 @@
   max-width: 560px;
 
   &.qas-notification {
+  // &:not(.boot-notification).qas-notification {
     &--error::before,
     &--success::before {
       border-radius: var(--qas-generic-border-radius) 0 0 var(--qas-generic-border-radius);
@@ -53,6 +54,30 @@
       .q-icon {
         margin-right: var(--qas-spacing-sm);
       }
+    }
+  }
+
+  .boot-notification__icon {
+    font-size: 24px;
+  }
+
+  &.boot-notification {
+    position: relative;
+    max-width: 480px;
+    width: 100%;
+
+    &::before {
+      background-color: var(--q-primary);
+      bottom: 0;
+      content: '';
+      left: 0;
+      position: absolute;
+      top: 0;
+      width: 4px;
+    }
+
+    .q-notification__actions .q-btn {
+      color: $grey-10 !important;
     }
   }
 
