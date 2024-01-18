@@ -8,6 +8,7 @@ export default (message, caption) => {
     caption,
     classes: 'qas-notification qas-notification--success',
     message,
+    timeout: 0,
     type: 'success'
   })
 }

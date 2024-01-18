@@ -1,9 +1,10 @@
 .q-notification {
-  margin-top: 80px;
-  max-width: 560px;
+  &:not(.boot-notification).qas-notification {
+    margin-top: 80px;
+    max-width: 560px;
+  }
 
   &.qas-notification {
-  // &:not(.boot-notification).qas-notification {
     &--error::before,
     &--success::before {
       border-radius: var(--qas-generic-border-radius) 0 0 var(--qas-generic-border-radius);
@@ -62,22 +63,36 @@
   }
 
   &.boot-notification {
-    position: relative;
+    // classe do quasar adc fixo 10px de margin-bottom
+    margin-bottom: calc(var(--qas-spacing-xl) - 10px);
     max-width: 480px;
-    width: 100%;
 
-    &::before {
-      background-color: var(--q-primary);
-      bottom: 0;
-      content: '';
-      left: 0;
-      position: absolute;
-      top: 0;
-      width: 4px;
+    &--has-link {
+      transition: var(--qas-generic-transition);
+
+      &:not(:has(.boot-notification__close-button:hover)):hover .boot-notification__title {
+        color: var(--q-primary) !important;
+      }
     }
 
-    .q-notification__actions .q-btn {
-      color: $grey-10 !important;
+    .boot-notification__close-button {
+      position: absolute;
+      right: calc(var(--qas-spacing-sm) * -1);
+      top: 0;
+    }
+
+    .q-notification__wrapper {
+      position: relative;
+
+      &::before {
+        background-color: var(--q-primary);
+        bottom: calc((var(--qas-spacing-sm)) * -1);
+        content: '';
+        left: calc((var(--qas-spacing-md)) * -1);
+        position: absolute;
+        top: calc((var(--qas-spacing-sm)) * -1);
+        width: 4px;
+      }
     }
   }
 
