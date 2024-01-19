@@ -525,6 +525,10 @@ module.exports = [
       {
         name: 'ServerError - 500',
         path: '/paginas/server-error'
+      },
+      {
+        name: 'Notificações',
+        path: '/notifications'
       }
     ]
   },

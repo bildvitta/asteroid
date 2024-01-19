@@ -1,7 +1,9 @@
 import { boot } from 'quasar/wrappers'
 import { Notify } from 'quasar'
 
-export default boot(() => {
+// TODO: precisa adc essa logica no boot do `app-extension`
+
+export default boot(({ router }) => {
   /**
    * @param {{
    *  message: string
@@ -39,7 +41,7 @@ export default boot(() => {
       html: true,
       iconColor: 'primary',
       position: 'bottom-right',
-      timeout: 30000 + 100000,
+      timeout: 30000,
       attrs: {
         onClick: event => onNotifyClick({ event, link, closeNotify })
       }
@@ -86,9 +88,21 @@ export default boot(() => {
 
   window.notify = ({ link }) => notify({
     message: 'A venda com ID #56902 foi aprovada por Rachel Melo Muniz.',
-    title: 'Venda aprovada' + Math.random(),
+    title: 'Venda aprovada',
     link
   })
 
-  window.notify({ link: 'https://youtube.com' })
+  // notify({
+  //   message: 'A venda com ID #56902 foi aprovada por Rachel Melo Muniz.',
+  //   title: 'Venda aprovada',
+  //   link: 'http://youtube.com.br'
+  // })
+
+  // tela de notificação
+
+  router.addRoute('Root', {
+    path: '/notifications',
+    name: 'NotificationsList',
+    component: () => import('../../../ui/src/pages/notifications-list/NotificationsList.vue')
+  })
 })

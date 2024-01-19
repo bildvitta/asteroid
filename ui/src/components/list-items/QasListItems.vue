@@ -62,8 +62,30 @@ function onClick ({ item, index }, fromItem) {
 
 <style lang="scss">
 .qas-list-items {
-  .q-list > .q-item {
-    padding: 24px 16px;
+  .q-list {
+    & > .q-item {
+      padding: var(--qas-spacing-lg) 0;
+    }
+
+    & > .q-item:last-child {
+      padding-bottom: 0;
+    }
+
+    & > .q-item:first-child {
+      padding-top: 0;
+    }
+
+    // & > .q-item {
+    //   padding: var(--qas-spacing-lg) 0;
+    // }
+
   }
+  .q-list > .q-item {
+
+  }
+
+  // .q-list > .q-item:last-child {
+  //   padding-bottom: 0;
+  // }
 }
 </style>
