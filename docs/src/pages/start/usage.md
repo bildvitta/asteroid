@@ -33,7 +33,6 @@ $secondary-contrast: #90caf9;
 
 @include set-brand(primary-contrast, $primary-contrast);
 @include set-brand(secondary-contrast, $secondary-contrast);
-
 ```
 
 **asteroid.config.js**
@@ -72,6 +71,18 @@ module.exports = {
        */
         waitForUserAuthenticate: true
       }
+    },
+
+    /**
+     * Controla o sistema de notificações da aplicação, ao ativado e configurado,
+     * estará disponível os seguintes recursos:
+     *
+     * - Tela de listagem de notificações em `/notifications`;
+     * - Toast de notificação em real time;
+     * - Ícone de notificação no menu em real time.
+     */
+    featureToggle: {
+      useNotifications: false
     },
 
     /**

@@ -2,19 +2,27 @@
 title: notifications
 ---
 
-Boot que controla o sistema de notificação da aplicação, para que este boot funcione, são necessários **2 etapas**:
+Boot que controla o sistema de notificação da aplicação, para que este boot funcione, são necessários **3 etapas**:
 
-##### 1. Habilitar no `asteroid.config.js`:
+Após configurar essas etapas, estará disponível os recursos de notificações, que são:
+
+- Tela de listagem de notificações em `/notifications`;
+- Toast de notificação em real time;
+- Ícone de notificação no menu em real time.
+
+##### 1. Habilitar no `asteroid.config.js`
 ```js
 // asteroid.config.js
 {
-  featureToggle: {
-    useNotifications: true
+  framework: {
+    featureToggle: {
+      useNotifications: true
+    }
   }
 }
 ```
 
-##### 2. Criar e configurar uma store `notifications` com as bibliotecas `StoreModule` ou `VuexStoreModule`:
+##### 2. Criar e configurar uma store `notifications` com as bibliotecas `StoreModule` ou `VuexStoreModule`
 
 Exemplo com `Vuex` e `StoreModule`:
 
@@ -44,3 +52,5 @@ export default store(function (/* { ssrContext } */) {
 })
 ```
 
+##### 3. Certifique-se que exista uma rota com name "Root" no main layout da aplicação
+Adicionamos dinamicamente uma tela de listagens com o path `/notifications`, como é uma rota dinâmica, precisa ser adicionada como rota filha do layout principal para que seja mantido o header e menu da aplicação, para isto, certifique que seu main layout esteja com o name `Root`.

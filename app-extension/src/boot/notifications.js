@@ -1,10 +1,11 @@
+// import asteroidConfig from 'asteroid-config'
+
 import { boot } from 'quasar/wrappers'
 import { Notify } from 'quasar'
 
 // TODO: precisa adc essa logica no boot do `app-extension`
 
 export default boot(({ router }) => {
-  console.log('TCL: router 3', router)
   /**
    * @param {{
    *  message: string
@@ -101,9 +102,18 @@ export default boot(({ router }) => {
 
   // tela de notificação
 
-  router.addRoute({
+  // const { mainLayoutName } = asteroidConfig.framework.route || {}
+
+  // const hasMainLayout = router.hasRoute(mainLayoutName)
+  // console.log('TCL: hasMainLayout', hasMainLayout)
+
+  router.addRoute('Root', {
     path: '/notifications',
     name: 'NotificationsList',
-    component: () => import('../../../ui/src/pages/notifications-list/NotificationsList.vue')
+    component: () => {
+      return import('@bildvitta/quasar-ui-asteroid/src/pages/notifications-list/NotificationsList.vue')
+    }
   })
+  // if (hasMainLayout) {
+  // }
 })

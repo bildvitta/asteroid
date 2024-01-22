@@ -35,6 +35,27 @@ module.exports = {
     },
 
     /**
+     * Controla o sistema de notificações da aplicação, ao ativado e configurado,
+     * estará disponível os seguintes recursos:
+     *
+     * - Tela de listagem de notificações em `/notifications`;
+     * - Toast de notificação em real time;
+     * - Ícone de notificação no menu em real time.
+     *
+     * @type {{ useNotifications: boolean }}
+     */
+    featureToggle: {
+      useNotifications: false
+    },
+
+    route: {
+      /**
+       * Nome do "name" da rota do layout principal da aplicação, o ideal é que sempre seja "Root"
+       */
+      mainLayoutName: 'Root'
+    },
+
+    /**
      * Componentes que necessitam de instalação de bibliotecas de terceiros
      * dentro da aplicação que utiliza o asteroid, a instalação é feita automaticamente pelo asteroid.
      * @type {Array<'QasChartView' | 'QasMap'>}
