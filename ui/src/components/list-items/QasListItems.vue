@@ -1,5 +1,5 @@
 <template>
-  <qas-box class="qas-list-items">
+  <qas-box class="qas-list-items" :class="classes">
     <q-list separator>
       <q-item v-for="(item, index) in props.list" :key="index" v-ripple :clickable="props.useClickableItem" @click="onClick({ item, index }, true)">
         <slot :index="index" :item="item" name="item">
@@ -21,6 +21,8 @@
 <script setup>
 import QasBox from '../box/QasBox.vue'
 import QasBtn from '../btn/QasBtn.vue'
+
+import { computed } from 'vue'
 
 defineOptions({ name: 'QasListItems' })
 
@@ -47,6 +49,8 @@ const props = defineProps({
 
 const emit = defineEmits(['click-item'])
 
+const classes = computed(() => ({ 'qas-list-items--no-click': !props.useClickableItem }))
+
 function onClick ({ item, index }, fromItem) {
   /**
    * se o click veio do q-item e "useClickableItem" for "false", ou
@@ -62,6 +66,14 @@ function onClick ({ item, index }, fromItem) {
 
 <style lang="scss">
 .qas-list-items {
+  &--no-click {
+    .q-item {
+      .q-ripple {
+        display: none;
+      }
+    }
+  }
+
   .q-list {
     & > .q-item {
       padding: var(--qas-spacing-lg) 0;

@@ -544,6 +544,10 @@ module.exports = [
       {
         name: 'queryCache',
         path: '/boot/query-cache'
+      },
+      {
+        name: 'notifications',
+        path: '/boot/notifications'
       }
     ]
   }

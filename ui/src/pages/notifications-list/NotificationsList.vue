@@ -5,7 +5,7 @@
     </template>
 
     <template #default>
-      <qas-list-items :list="results">
+      <qas-list-items :list="results" :use-clickable-item="false" :use-section-actions="false">
         <template #item-section="{ item }">
           <pv-notification-card :notification="item" />
         </template>
@@ -29,6 +29,10 @@ const breadcrumbs = [{ label: 'Notificações' }]
 
 const listViewProps = {
   entity: 'notifications',
-  useFilter: false
+  useFilter: false,
+  onFetchSuccess
 }
+
+// TODO: bater uma API para marcar todos como visto.
+function onFetchSuccess () {}
 </script>
