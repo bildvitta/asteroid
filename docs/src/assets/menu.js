@@ -132,6 +132,10 @@ module.exports = [
         path: '/components/dialog-router'
       },
       {
+        name: 'Drawer',
+        path: '/components/drawer'
+      },
+      {
         name: 'EmptyResultText',
         path: '/components/empty-result-text'
       },

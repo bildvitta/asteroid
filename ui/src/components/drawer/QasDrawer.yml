@@ -1,0 +1,117 @@
+type: component
+
+meta:
+  desc: Componente de drawer que implementa o QasDialog.
+
+props:
+  actions-props:
+    desc: Props repassadas para o "QasActions".
+    default: {}
+    type: Object
+
+  cancel:
+    desc: Props para o botão de cancelar, pode ser objeto com as propriedades ou um boolean, caso for "false", remove o botão de cancelar.
+    default: "{ label: 'Cancelar', outline: true }"
+    type: [Object, Boolean]
+    examples: ["{ label: 'Meu botão de cancelar', onClick: () => alert('fui clicado!') }"]
+
+  card:
+    desc: Objeto contendo as informações para serem exibidas dentro do dialog como "title" e "description".
+    default: {}
+    type: Object
+    examples: ["{ title: 'Meu título', description: 'Minha descrição' }"]
+
+  max-width:
+    desc: Tamanho máximo do dialog.
+    type: String
+
+  min-width:
+    desc: Tamanho mínimo do dialog.
+    type: String
+
+  model-value:
+    desc: Model do componente, abre ou fecha o dialog.
+    type: Boolean
+    examples: [v-model="value"]
+    model: true
+
+  ok:
+    desc: Props para o botão de confirmar (ok), pode ser objeto com as propriedades ou um boolean, caso for "false", remove o botão de confirmar.
+    default: "{ label: 'Ok', outline: type: this.ok?.type || this.useForm ? 'submit' : 'button' }"
+    debugger: true
+    type: [Object, Boolean]
+    examples: ["{ label: 'Meu botão de confirmar', onClick: () => alert('fui clicado!') }"]
+
+  persistent:
+    desc: Define se o dialog vai fechar ou não após clicar fora do dialog.
+    default: true
+    type: Boolean
+
+  use-form:
+    desc: Define se a tag onde fica a descrição no dialog vai ser um "<q-form />" ou "<div />".
+    type: Boolean
+
+  use-full-max-width:
+    desc: propriedade para utilizar `100% do maxWidth`.
+    type: Boolean
+
+  use-validation-all-at-once:
+    desc: Valida todos os campos de uma única vez, ao invés de ser um por vez (que é o padrão).
+    type: Boolean
+
+slots:
+  actions:
+    desc: Slot para ações (botões por exemplo).
+
+  description:
+    desc: Slot para descrição.
+
+  header:
+    desc: Slot para o título.
+
+events:
+  '@update:model-value -> function (value)':
+    desc: Dispara toda vez que o model é atualizado, também utilizado para v-model.
+    params:
+      value:
+        desc: Novo valor do v-model
+        type: Boolean
+
+  '@validate: -> function (value)':
+    desc: Dispara se a prop "useForm" for "true" e após um submit.
+    params:
+      value:
+        desc: Retorna se os campos passou ou não na validação
+        type: Boolean
+
+  '@cancel: -> function ()':
+    desc: Dispara toda vez que é clicado no botão "cancel".
+
+  '@ok: -> function ()':
+    desc: Dispara toda vez que é clicado no botão "ok" ou quando useForm for true e o for clicado "enter" estando com foco em algum input (evento de submit).
+
+selectors:
+  dialog:
+    desc: Seletor do componente.
+    examples: ['data-cy="dialog"']
+
+  dialog-cancel-btn:
+    desc: Seletor do botão de cancelar do componente.
+    examples: ['data-cy="dialog-cancel-btn"']
+
+  dialog-close-btn:
+    desc: Seletor do botão de fechar do componente.
+    examples: ['data-cy="dialog-close-btn"']
+
+  dialog-description:
+    desc: Seletor da descrição do componente.
+    examples: ['data-cy="dialog-description"']
+
+  dialog-ok-btn:
+    desc: Seletor do botão de confirmar do componente.
+    examples: ['data-cy="dialog-ok-btn"']
+
+  dialog-title:
+    desc: Seletor do título do componente.
+    examples: ['data-cy="dialog-title"']
+

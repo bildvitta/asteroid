@@ -19,6 +19,7 @@ import QasDebugger from './components/debugger/QasDebugger.vue'
 import QasDelete from './components/delete/QasDelete.vue'
 import QasDialog from './components/dialog/QasDialog.vue'
 import QasDialogRouter from './components/dialog-router/QasDialogRouter.vue'
+import QasDrawer from './components/drawer/QasDrawer.vue'
 import QasEmptyResultText from './components/empty-result-text/QasEmptyResultText.vue'
 import QasField from './components/field/QasField.vue'
 import QasFilters from './components/filters/QasFilters.vue'
@@ -104,6 +105,7 @@ async function install (app) {
   app.component('QasDelete', QasDelete)
   app.component('QasDialog', QasDialog)
   app.component('QasDialogRouter', QasDialogRouter)
+  app.component('QasDrawer', QasDrawer)
   app.component('QasEmptyResultText', QasEmptyResultText)
   app.component('QasField', QasField)
   app.component('QasFilters', QasFilters)
@@ -191,6 +193,7 @@ export {
   QasDelete,
   QasDialog,
   QasDialogRouter,
+  QasDrawer,
   QasEmptyResultText,
   QasField,
   QasFilters,

@@ -1,5 +1,5 @@
 <template>
-  <q-dialog ref="dialogRef" class="qas-dialog" data-cy="dialog" :persistent="props.persistent" v-bind="dialogProps" @update:model-value="updateModelValue">
+  <q-dialog ref="dialogRef" class="qas-dialog" data-cy="dialog" v-bind="dialogProps" :persistent="props.persistent" @update:model-value="updateModelValue">
     <div class="bg-white q-pa-lg" :style="style">
       <header v-if="hasHeader" class="q-mb-lg">
         <slot name="header">
@@ -147,6 +147,7 @@ const dialogProps = computed(() => {
 
 const style = computed(() => {
   return {
+    // ...(props.useFullMaxWidth && { width: '100vw' }),
     ...(props.useFullMaxWidth && { width: '100%' }),
 
     maxWidth: props.maxWidth || '470px',
