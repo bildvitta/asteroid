@@ -64,7 +64,8 @@ const attributes = computed(() => {
   const colors = {
     [AvatarColors.Primary]: 'white',
     [AvatarColors.SecondaryContrast]: 'primary',
-    [AvatarColors.Grey4]: 'grey-8'
+    [AvatarColors.Grey4]: 'grey-8',
+    [AvatarColors.Red14]: 'white'
   }
 
   return {

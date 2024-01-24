@@ -10,7 +10,7 @@ props:
   color:
     desc: Cor de fundo (background-color).
     type: String
-    examples: ['primary', 'secondary-contrast', 'grey-4']
+    examples: ['primary', 'secondary-contrast', 'grey-4', 'ref-14']
 
   size:
     desc: Tamanho do avatar.

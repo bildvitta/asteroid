@@ -1,25 +1,27 @@
 <template>
-  <qas-dialog v-model="model" v-bind="attributes">
-    <template #header>
-      <div class="items-center justify-between row">
-        <span data-cy="drawer-title">
-          <slot name="title">
-            <h3 v-if="props.title" class="text-h3">
-              {{ props.title }}
-            </h3>
-          </slot>
-        </span>
+  <div>
+    <qas-dialog v-model="model" v-bind="attributes">
+      <template #header>
+        <div class="items-center justify-between row">
+          <span data-cy="drawer-title">
+            <slot name="title">
+              <h3 v-if="props.title" class="text-h3">
+                {{ props.title }}
+              </h3>
+            </slot>
+          </span>
 
-        <qas-btn v-close-popup color="grey-10" data-cy="drawer-close-btn" icon="sym_r_close" variant="tertiary" @click="emit('update:modelValue', false)" />
-      </div>
-    </template>
+          <qas-btn v-close-popup color="grey-10" data-cy="drawer-close-btn" icon="sym_r_close" variant="tertiary" @click="emit('update:modelValue', false)" />
+        </div>
+      </template>
 
-    <template #description>
-      <div data-cy="drawer-default">
-        <slot />
-      </div>
-    </template>
-  </qas-dialog>
+      <template #description>
+        <div data-cy="drawer-default">
+          <slot />
+        </div>
+      </template>
+    </qas-dialog>
+  </div>
 </template>
 
 <script setup>
@@ -69,11 +71,12 @@ const attributes = computed(() => {
   return {
     ...props.dialogProps,
 
+    // fullWidth: true,
     cancel: false,
     maxWidth,
-    maximized: true,
+    // maximized: true,
     ok: false,
-    position: props.position,
+    // position: props.position,
     useFullMaxWidth: true
   }
 })

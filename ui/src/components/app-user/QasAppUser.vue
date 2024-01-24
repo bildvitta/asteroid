@@ -3,9 +3,13 @@
     <div class="relative-position">
       <qas-avatar :image="props.user.photo" :size="props.avatarSize" :title="userName" />
 
-      <q-badge v-if="hasNotifications" color="red" floating>
-        {{ props.notifications.count }}
-      </q-badge>
+      <!-- <div v-if="hasNotifications" class="qas-app-user__notification-badge">
+        {{ props.notifications.count || 20 }}
+      </div> -->
+      <qas-avatar class="qas-app-user__notification-badge" color="red-14" size="xs" :title="props.notifications.count || '20'" />
+      <!-- <q-badge color="red" floating>
+        {{ props.notifications.count || 20 }}
+      </q-badge> -->
     </div>
 
     <div class="ellipsis qas-app-user__data">
@@ -43,7 +47,7 @@
             </q-item-section>
           </q-item>
 
-          <q-item v-if="hasNotifications" v-close-popup class="qas-app-user__menu-item" clickable>
+          <q-item v-if="hasNotifications" v-close-popup class="qas-app-user__menu-item" clickable @click="toggleNotificationsDrawer">
             <q-item-section avatar>
               <q-icon name="sym_r_notifications" />
             </q-item-section>
@@ -71,10 +75,18 @@
         </q-list>
       </div>
     </q-menu>
+
+    <qas-dialog v-model="showNotificationsDrawer" :card="{ title: 'eae' }" max-width="600px" use-full-max-width>
+      <template #description>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque, exercitationem non sunt voluptatibus laboriosam dolore consectetur adipisci voluptate harum eveniet neque iure illo dolor aliquid consequuntur delectus maxime corrupti hic?
+      </template>
+    </qas-dialog>
+    <!-- <PvAppUserNotificationsDrawer v-model="showNotificationsDrawer" /> -->
   </div>
 </template>
 
 <script setup>
+// import PvAppUserNotificationsDrawer from './private/PvAppUserNotificationsDrawer.vue'
 import QasAvatar from '../avatar/QasAvatar.vue'
 
 import { NotifySuccess, NotifyError } from '../../plugins'
@@ -118,6 +130,7 @@ const axios = inject('axios')
 
 const companiesModel = ref('')
 const loading = ref(false)
+const showNotificationsDrawer = ref(false)
 
 const defaultCompanyProps = computed(() => {
   return {
@@ -131,7 +144,7 @@ const defaultCompanyProps = computed(() => {
 })
 
 const hasCompaniesSelect = computed(() => !!props.companyProps.options?.length)
-const hasNotifications = computed(() => !!Object.keys(props.notifications).length)
+const hasNotifications = computed(() => !!Object.keys(props.notifications).length || true)
 
 const userName = computed(() => props.user.name || props.user.givenName)
 
@@ -169,10 +182,20 @@ function onMenuHide () {
     companiesModel.value = props.companyProps.modelValue
   }
 }
+
+function toggleNotificationsDrawer () {
+  console.log('TCL: toggleNotificationsDrawer -> ')
+  showNotificationsDrawer.value = !showNotificationsDrawer.value
+}
 </script>
 
 <style lang="scss">
 .qas-app-user {
+  &__notification-badge {
+    position: absolute;
+    right: calc(var(--qas-spacing-xs) * -1);
+  }
+
   &__data {
     line-height: 1.1;
   }

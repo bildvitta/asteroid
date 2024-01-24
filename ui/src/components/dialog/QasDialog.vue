@@ -1,5 +1,5 @@
 <template>
-  <q-dialog ref="dialogRef" class="qas-dialog" :class="classes" data-cy="dialog" v-bind="dialogProps" :persistent="props.persistent" @update:model-value="updateModelValue">
+  <q-dialog ref="dialogRef" class="qas-dialog" :class="classes" data-cy="dialog" v-bind="dialogProps" :persistent="false" @update:model-value="updateModelValue">
     <div class="bg-white q-pa-lg" :style="style">
       <header v-if="hasHeader" class="q-mb-lg">
         <slot name="header">
@@ -201,14 +201,14 @@ function updateModelValue (value) {
 
   &--right {
     .q-dialog__inner {
-      width: 100%;
-      justify-content: end;
+      // width: 100%;
+      // justify-content: end;
     }
   }
 
   &--left {
     .q-dialog__inner {
-      width: 100%;
+      // width: 100%;
     }
   }
 }
