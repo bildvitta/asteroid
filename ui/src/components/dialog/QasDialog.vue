@@ -1,5 +1,5 @@
 <template>
-  <q-dialog ref="dialogRef" class="qas-dialog" data-cy="dialog" v-bind="dialogProps" :persistent="props.persistent" @update:model-value="updateModelValue">
+  <q-dialog ref="dialogRef" class="qas-dialog" :class="classes" data-cy="dialog" v-bind="dialogProps" :persistent="props.persistent" @update:model-value="updateModelValue">
     <div class="bg-white q-pa-lg" :style="style">
       <header v-if="hasHeader" class="q-mb-lg">
         <slot name="header">
@@ -136,6 +136,21 @@ const { defaultCancel, hasCancel } = useCancel(composablesParams)
 const { defaultOk, hasOk, onOk } = useOk(composablesParams)
 const { descriptionComponent, mainComponent } = useDynamicComponents({ ...composablesParams, onOk, hasOk })
 
+/**
+ * Classes criadas para serem utilizadas quando usado com a prop "position", pois
+ * o comportamento do dialog muda, e não é possível usar em conjunto com a prop
+ * "useFullMaxWidth", então foi necessário uma trativa.
+ */
+const classes = computed(() => {
+  const isRightPosition = attrs.position === 'right'
+  const isLeftPosition = attrs.position === 'left'
+
+  return {
+    'qas-dialog--right': isRightPosition,
+    'qas-dialog--left': isLeftPosition
+  }
+})
+
 const dialogProps = computed(() => {
   return {
     ...(!props.usePlugin && { modelValue: props.modelValue }),
@@ -147,7 +162,6 @@ const dialogProps = computed(() => {
 
 const style = computed(() => {
   return {
-    // ...(props.useFullMaxWidth && { width: '100vw' }),
     ...(props.useFullMaxWidth && { width: '100%' }),
 
     maxWidth: props.maxWidth || '470px',
@@ -183,6 +197,19 @@ function updateModelValue (value) {
 .qas-dialog {
   .q-dialog__inner > div {
     box-shadow: $shadow-2;
+  }
+
+  &--right {
+    .q-dialog__inner {
+      width: 100%;
+      justify-content: end;
+    }
+  }
+
+  &--left {
+    .q-dialog__inner {
+      width: 100%;
+    }
   }
 }
 </style>

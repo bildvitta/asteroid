@@ -1,5 +1,5 @@
 <template>
-  <qas-dialog v-model="model" class="qas-drawer" v-bind="attributes">
+  <qas-dialog v-model="model" v-bind="attributes">
     <template #header>
       <div class="items-center justify-between row">
         <span data-cy="drawer-title">
@@ -10,12 +10,12 @@
           </slot>
         </span>
 
-        <qas-btn v-if="useCloseButton" v-close-popup color="grey-10" data-cy="drawer-close-btn" icon="sym_r_close" variant="tertiary" @click="emit('update:modelValue', false)" />
+        <qas-btn v-close-popup color="grey-10" data-cy="drawer-close-btn" icon="sym_r_close" variant="tertiary" @click="emit('update:modelValue', false)" />
       </div>
     </template>
 
     <template #description>
-      <div>
+      <div data-cy="drawer-default">
         <slot />
       </div>
     </template>
@@ -40,7 +40,7 @@ const props = defineProps({
 
   maxWidth: {
     type: String,
-    default: '680px'
+    default: ''
   },
 
   modelValue: {
@@ -56,11 +56,6 @@ const props = defineProps({
   title: {
     type: String,
     default: ''
-  },
-
-  useCloseButton: {
-    type: Boolean,
-    default: true
   }
 })
 
@@ -93,16 +88,3 @@ const model = computed({
   }
 })
 </script>
-
-<style lang="scss">
-.qas-drawer {
-  .q-dialog__inner {
-    // width: 100%;
-    // justify-content: end;
-  }
-
-  &--right {
-
-  }
-}
-</style>

@@ -1,6 +1,9 @@
 <template>
   <div class="container q-py-lg">
-    <qas-btn @click="toggle">Abrir Dialog</qas-btn>
+    <div class="justify-between row">
+      <qas-btn @click="toggle('left')">Abrir drawer na esquerda</qas-btn>
+      <qas-btn @click="toggle('right')">Abrir drawer na direita</qas-btn>
+    </div>
 
     <qas-drawer v-model="isDrawerOpened" v-bind="drawerProps">
       <qas-list-items class="full-width" :list="list" redirect-key="uuid">
@@ -18,7 +21,8 @@
 export default {
   data () {
     return {
-      isDrawerOpened: true
+      isDrawerOpened: false,
+      position: 'left'
     }
   },
 
@@ -26,7 +30,7 @@ export default {
     drawerProps () {
       return {
         title: 'Título de exemplo',
-        position: 'right'
+        position: this.position
       }
     },
 
@@ -87,7 +91,8 @@ export default {
   },
 
   methods: {
-    toggle () {
+    toggle (position) {
+      this.position = position
       this.isDrawerOpened = !this.isDrawerOpened
     }
   }
