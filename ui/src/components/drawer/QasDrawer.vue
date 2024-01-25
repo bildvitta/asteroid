@@ -1,33 +1,41 @@
 <template>
-  <div>
-    <qas-dialog v-model="model" v-bind="attributes">
-      <template #header>
-        <div class="items-center justify-between row">
-          <span data-cy="drawer-title">
-            <slot name="title">
-              <h3 v-if="props.title" class="text-h3">
-                {{ props.title }}
-              </h3>
-            </slot>
-          </span>
+  <qas-dialog class="qas-drawer" v-bind="attributes" @update:model-value="onUpdateModelValue">
+    <template #header>
+      <div class="items-center justify-between row">
+        <span data-cy="drawer-title">
+          <slot name="title">
+            <h3 v-if="props.title" class="text-h3">
+              {{ props.title }}
+            </h3>
+          </slot>
+        </span>
 
-          <qas-btn v-close-popup color="grey-10" data-cy="drawer-close-btn" icon="sym_r_close" variant="tertiary" @click="emit('update:modelValue', false)" />
-        </div>
-      </template>
+        <qas-btn v-close-popup class="z-max" color="grey-10" data-cy="drawer-close-btn" icon="sym_r_close" variant="tertiary" @click="emit('update:modelValue', false)" />
+      </div>
+    </template>
 
-      <template #description>
-        <div data-cy="drawer-default">
+    <template #description>
+      <div class="">
+        <div class="relative-position" data-cy="drawer-default">
           <slot />
         </div>
-      </template>
-    </qas-dialog>
-  </div>
+
+        <div v-if="props.loading" class="qas-drawer__loading" :style="loadingStyle">
+          <div class="full-height relative-position">
+            <q-inner-loading :showing="props.loading">
+              <q-spinner color="grey" size="2em" />
+            </q-inner-loading>
+          </div>
+        </div>
+      </div>
+    </template>
+  </qas-dialog>
 </template>
 
 <script setup>
 import useScreen from '../../composables/use-screen.js'
 
-import { computed } from 'vue'
+import { computed, useAttrs } from 'vue'
 
 defineOptions({
   name: 'QasDrawer',
@@ -45,10 +53,6 @@ const props = defineProps({
     default: ''
   },
 
-  modelValue: {
-    type: Boolean
-  },
-
   position: {
     type: String,
     default: 'left',
@@ -58,36 +62,56 @@ const props = defineProps({
   title: {
     type: String,
     default: ''
+  },
+
+  loading: {
+    type: Boolean
   }
 })
 
 const emit = defineEmits(['update:modelValue'])
 
+const attrs = useAttrs()
 const screen = useScreen()
+
+const loadingStyle = computed(() => {
+  return {
+    right: `calc(100% - ${props.maxWidth})`
+  }
+})
 
 const attributes = computed(() => {
   const maxWidth = screen.isSmall ? '100%' : props.maxWidth
 
+  const { modelValue } = attrs
+
   return {
+    persistent: false,
+    modelValue,
+
     ...props.dialogProps,
 
-    // fullWidth: true,
     cancel: false,
     maxWidth,
-    // maximized: true,
+    maximized: true,
     ok: false,
-    // position: props.position,
+    position: props.position,
     useFullMaxWidth: true
   }
 })
 
-const model = computed({
-  get () {
-    return props.modelValue
-  },
-
-  set () {
-    emit('update:modelValue', props.modelValue)
-  }
-})
+function onUpdateModelValue (value) {
+  emit('update:modelValue', value)
+}
 </script>
+
+<style lang="scss">
+.qas-drawer {
+  &__loading {
+    height: 100vh;
+    left: 0;
+    position: absolute;
+    top: 0;
+  }
+}
+</style>

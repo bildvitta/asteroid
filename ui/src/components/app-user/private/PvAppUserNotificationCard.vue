@@ -36,7 +36,7 @@ import { dateTime } from '../../../helpers/filters'
 import { computed } from 'vue'
 import { date } from 'quasar'
 
-defineOptions({ name: 'PvNotificationCard' })
+defineOptions({ name: 'PvAppUserNotificationCard' })
 
 const props = defineProps({
   notification: {

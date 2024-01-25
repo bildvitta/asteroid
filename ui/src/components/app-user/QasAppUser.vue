@@ -3,10 +3,7 @@
     <div class="relative-position">
       <qas-avatar :image="props.user.photo" :size="props.avatarSize" :title="userName" />
 
-      <!-- <div v-if="hasNotifications" class="qas-app-user__notification-badge">
-        {{ props.notifications.count || 20 }}
-      </div> -->
-      <qas-avatar class="qas-app-user__notification-badge" color="red-14" size="xs" :title="props.notifications.count || '20'" />
+      <qas-avatar class="qas-app-user__notification-avatar" color="red-14" size="xs" :title="props.notifications.count || '20'" />
       <!-- <q-badge color="red" floating>
         {{ props.notifications.count || 20 }}
       </q-badge> -->
@@ -48,18 +45,14 @@
           </q-item>
 
           <q-item v-if="hasNotifications" v-close-popup class="qas-app-user__menu-item" clickable @click="toggleNotificationsDrawer">
-            <q-item-section avatar>
+            <q-item-section avatar class="relative-position">
               <q-icon name="sym_r_notifications" />
+
+              <qas-avatar class="qas-app-user__notification-avatar qas-app-user__notification-avatar--icon" color="red-14" size="xs" :title="props.notifications.count || '20'" />
             </q-item-section>
 
             <q-item-section>
               Notificações
-            </q-item-section>
-
-            <q-item-section side>
-              <q-badge color="red">
-                {{ props.notifications.count }}
-              </q-badge>
             </q-item-section>
           </q-item>
 
@@ -76,17 +69,12 @@
       </div>
     </q-menu>
 
-    <qas-dialog v-model="showNotificationsDrawer" :card="{ title: 'eae' }" max-width="600px" use-full-max-width>
-      <template #description>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque, exercitationem non sunt voluptatibus laboriosam dolore consectetur adipisci voluptate harum eveniet neque iure illo dolor aliquid consequuntur delectus maxime corrupti hic?
-      </template>
-    </qas-dialog>
-    <!-- <PvAppUserNotificationsDrawer v-model="showNotificationsDrawer" /> -->
+    <pv-app-user-notifications-drawer v-model="showNotificationsDrawer" />
   </div>
 </template>
 
 <script setup>
-// import PvAppUserNotificationsDrawer from './private/PvAppUserNotificationsDrawer.vue'
+import PvAppUserNotificationsDrawer from './private/PvAppUserNotificationsDrawer.vue'
 import QasAvatar from '../avatar/QasAvatar.vue'
 
 import { NotifySuccess, NotifyError } from '../../plugins'
@@ -184,16 +172,23 @@ function onMenuHide () {
 }
 
 function toggleNotificationsDrawer () {
-  console.log('TCL: toggleNotificationsDrawer -> ')
   showNotificationsDrawer.value = !showNotificationsDrawer.value
 }
 </script>
 
 <style lang="scss">
 .qas-app-user {
-  &__notification-badge {
+  &__notification-avatar {
     position: absolute;
-    right: calc(var(--qas-spacing-xs) * -1);
+    top: 0;
+
+    &:not(&--icon) {
+      right: -4px;
+    }
+
+    &--icon {
+      right: 4px;
+    }
   }
 
   &__data {
