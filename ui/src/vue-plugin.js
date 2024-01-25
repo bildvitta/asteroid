@@ -61,6 +61,7 @@ import QasTransfer from './components/transfer/QasTransfer.vue'
 import QasTreeGenerator from './components/tree-generator/QasTreeGenerator.vue'
 import QasUploader from './components/uploader/QasUploader.vue'
 import QasWelcome from './components/welcome/QasWelcome.vue'
+import QasWhatsappLink from './components/whatsapp-link/QasWhatsappLink.vue'
 
 import { Notify, Loading, Quasar, Dialog as QuasarDialog } from 'quasar'
 
@@ -146,6 +147,7 @@ async function install (app) {
   app.component('QasTreeGenerator', QasTreeGenerator)
   app.component('QasUploader', QasUploader)
   app.component('QasWelcome', QasWelcome)
+  app.component('QasWhatsappLink', QasWhatsappLink)
 
   app.use(Quasar, { plugins: { Notify, Loading, QuasarDialog, Dialog } })
 
