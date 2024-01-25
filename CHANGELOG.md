@@ -16,6 +16,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 
 ### Corrigido
 - `QasUploader`: corrigido circular dependency que estava causando estouro de memoria, apesar de não afetar o funcionando aparente do componente.
+- `QasNumericInput`: corrigido problema no componente que, mesmo desativado, permitia a edição do valor. Agora, o input permanece inacessível quando desabilitado.
 
 ## [3.14.0-beta.1] - 15-01-2024
 ## BREAKING CHANGES
