@@ -6,9 +6,7 @@
 import { computed } from 'vue'
 import { fabWhatsapp } from '@quasar/extras/fontawesome-v5'
 
-defineOptions({
-  name: 'QasWhatsappLink'
-})
+defineOptions({ name: 'QasWhatsappLink' })
 
 const props = defineProps({
   callingCode: {
