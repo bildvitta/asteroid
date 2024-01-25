@@ -317,7 +317,7 @@ export default {
     },
 
     url () {
-      return this.defaultGalleryCardProps?.card?.url
+      return this.normalizedCardGalleryProps?.card?.url
     }
   },
 
