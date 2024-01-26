@@ -36,7 +36,7 @@ import { dateTime } from '../../../helpers/filters'
 import { computed } from 'vue'
 import { date } from 'quasar'
 
-defineOptions({ name: 'PvNotificationCard' })
+defineOptions({ name: 'PvLayoutNotificationCard' })
 
 const props = defineProps({
   notification: {
@@ -45,7 +45,7 @@ const props = defineProps({
   }
 })
 
-const markedAsRead = computed(() => props.notification.read)
+const markedAsRead = computed(() => props.notification.isRead)
 
 const iconColor = computed(() => markedAsRead.value ? 'grey-8' : 'primary')
 const titleClass = computed(() => markedAsRead.value ? 'text-grey-8' : 'text-grey-10')

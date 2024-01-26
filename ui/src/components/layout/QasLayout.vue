@@ -1,13 +1,12 @@
 <template>
   <q-layout view="hHh Lpr lff">
-    <slot v-if="$qas.screen.untilLarge" name="app-bar">
-      <qas-app-bar v-bind="appBarProps" @sign-out="signOut" @toggle-menu="toggleMenuDrawer" />
+    <slot v-if="$qas.screen.untilLarge" name="app-bar" :toggle-notifications="toggleNotificationsDrawer">
+      <qas-app-bar v-bind="appBarProps" @sign-out="signOut" @toggle-menu="toggleMenuDrawer" @toggle-notifications="toggleNotificationsDrawer" />
     </slot>
 
-    <slot name="app-menu">
-      <qas-app-menu :model-value="showMenuDrawer" v-bind="defaultAppMenuProps" @sign-out="signOut" @update:model-value="updateMenuDrawer" />
+    <slot name="app-menu" :toggle-notifications="toggleNotificationsDrawer">
+      <qas-app-menu :model-value="showMenuDrawer" v-bind="defaultAppMenuProps" @sign-out="signOut" @toggle-notifications="toggleNotificationsDrawer" @update:model-value="updateMenuDrawer" />
     </slot>
-
     <slot>
       <q-page-container>
         <q-page>
@@ -17,72 +16,94 @@
     </slot>
 
     <q-ajax-bar color="primary" position="bottom" size="2px" />
+
+    <pv-layout-notifications-drawer v-model="notificationsDrawer" />
   </q-layout>
 </template>
 
-<script>
+<script setup>
+import PvLayoutNotificationsDrawer from './private/PvLayoutNotificationsDrawer.vue'
 import QasAppBar from '../app-bar/QasAppBar.vue'
 import QasAppMenu from '../app-menu/QasAppMenu.vue'
 
-export default {
-  name: 'QasLayout',
+import useScreen from '../../composables/use-screen'
+import useNotifications from '../../composables/use-notifications'
 
-  components: {
-    QasAppBar,
-    QasAppMenu
+import { computed, ref, watch } from 'vue'
+
+defineOptions({ name: 'QasLayout' })
+
+const props = defineProps({
+  appBarProps: {
+    default: () => ({}),
+    type: Object
   },
 
-  props: {
-    appBarProps: {
-      default: () => ({}),
-      type: Object
-    },
-
-    appMenuProps: {
-      default: () => ({}),
-      type: Object
-    },
-
-    modelValue: {
-      default: true,
-      type: Boolean
-    }
+  appMenuProps: {
+    default: () => ({}),
+    type: Object
   },
 
-  emits: ['sign-out', 'update:modelValue'],
-
-  data () {
-    return {
-      menuDrawer: false
-    }
+  modelValue: {
+    default: true,
+    type: Boolean
   },
 
-  computed: {
-    defaultAppMenuProps () {
-      return {
-        ...this.appBarProps,
-        ...this.appMenuProps
-      }
-    },
-
-    showMenuDrawer () {
-      return !this.$qas.screen.untilLarge || this.menuDrawer
-    }
-  },
-
-  methods: {
-    signOut () {
-      this.$emit('sign-out')
-    },
-
-    toggleMenuDrawer () {
-      this.updateMenuDrawer(!this.menuDrawer)
-    },
-
-    updateMenuDrawer (value) {
-      this.menuDrawer = value
-      this.$emit('update:modelValue', value)
-    }
+  initialUnreadNotificationsCount: {
+    type: Number,
+    default: 0
   }
+})
+
+const emit = defineEmits(['sign-out', 'update:modelValue'])
+
+const screen = useScreen()
+
+const { setUnreadNotificationsCount } = useNotifications()
+
+const menuDrawer = ref(false)
+const notificationsDrawer = ref(false)
+
+let unreadNotificationsCountWatcher = () => {}
+
+const defaultAppMenuProps = computed(() => {
+  return {
+    ...props.appBarProps,
+    ...props.appMenuProps
+  }
+})
+
+const showMenuDrawer = computed(() => !screen.untilLarge || menuDrawer.value)
+
+/**
+ * A propriedade "initialUnreadNotificationsCount" é escutada apenas uma vez,
+ * quando ela é iniciada, seta o "unreadNotificationsCount" do composable,
+ * após isto quem controla é o QasLayout.
+ */
+unreadNotificationsCountWatcher = watch(() => props.initialUnreadNotificationsCount, value => {
+  if (value) {
+    setUnreadNotificationsCount(value)
+
+    // finaliza o watcher
+    unreadNotificationsCountWatcher()
+  }
+}, { immediate: true })
+
+// functions
+function signOut () {
+  emit('sign-out')
+}
+
+function toggleMenuDrawer () {
+  updateMenuDrawer(!menuDrawer.value)
+}
+
+function updateMenuDrawer (value) {
+  menuDrawer.value = value
+  emit('update:modelValue', value)
+}
+
+function toggleNotificationsDrawer () {
+  notificationsDrawer.value = !notificationsDrawer.value
 }
 </script>

@@ -3,10 +3,7 @@
     <div class="relative-position">
       <qas-avatar :image="props.user.photo" :size="props.avatarSize" :title="userName" />
 
-      <qas-avatar class="qas-app-user__notification-avatar" color="red-14" size="xs" :title="props.notifications.count || '20'" />
-      <!-- <q-badge color="red" floating>
-        {{ props.notifications.count || 20 }}
-      </q-badge> -->
+      <qas-avatar v-if="hasUnreadNotifications" class="qas-app-user__notification-avatar" color="red-14" size="xs" :title="unreadNotificationsToString" :use-crop-title="false" />
     </div>
 
     <div class="ellipsis qas-app-user__data">
@@ -48,7 +45,7 @@
             <q-item-section avatar class="relative-position">
               <q-icon name="sym_r_notifications" />
 
-              <qas-avatar class="qas-app-user__notification-avatar qas-app-user__notification-avatar--icon" color="red-14" size="xs" :title="props.notifications.count || '20'" />
+              <qas-avatar v-if="hasUnreadNotifications" class="qas-app-user__notification-avatar qas-app-user__notification-avatar--icon" color="red-14" size="xs" :title="unreadNotificationsToString" :use-crop-title="false" />
             </q-item-section>
 
             <q-item-section>
@@ -77,6 +74,7 @@
 import PvAppUserNotificationsDrawer from './private/PvAppUserNotificationsDrawer.vue'
 import QasAvatar from '../avatar/QasAvatar.vue'
 
+import useNotifications from '../../composables/use-notifications'
 import { NotifySuccess, NotifyError } from '../../plugins'
 
 import { ref, computed, watch, inject } from 'vue'
@@ -111,10 +109,12 @@ const props = defineProps({
   }
 })
 
-const emit = defineEmits(['sign-out'])
+const emit = defineEmits(['sign-out', 'toggle-notifications'])
 
 // vindo direto do boot api.js
 const axios = inject('axios')
+
+const { unreadNotificationsCount } = useNotifications()
 
 const companiesModel = ref('')
 const loading = ref(false)
@@ -133,6 +133,8 @@ const defaultCompanyProps = computed(() => {
 
 const hasCompaniesSelect = computed(() => !!props.companyProps.options?.length)
 const hasNotifications = computed(() => !!Object.keys(props.notifications).length || true)
+const hasUnreadNotifications = computed(() => unreadNotificationsCount.value > 0)
+const unreadNotificationsToString = computed(() => String(unreadNotificationsCount.value))
 
 const userName = computed(() => props.user.name || props.user.givenName)
 
@@ -172,7 +174,7 @@ function onMenuHide () {
 }
 
 function toggleNotificationsDrawer () {
-  showNotificationsDrawer.value = !showNotificationsDrawer.value
+  emit('toggle-notifications')
 }
 </script>
 

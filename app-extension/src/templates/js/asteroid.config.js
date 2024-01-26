@@ -48,13 +48,6 @@ module.exports = {
       useNotifications: false
     },
 
-    route: {
-      /**
-       * Nome do "name" da rota do layout principal da aplicação, o ideal é que sempre seja "Root"
-       */
-      mainLayoutName: 'Root'
-    },
-
     /**
      * Componentes que necessitam de instalação de bibliotecas de terceiros
      * dentro da aplicação que utiliza o asteroid, a instalação é feita automaticamente pelo asteroid.

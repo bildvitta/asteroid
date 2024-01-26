@@ -45,7 +45,7 @@ const props = defineProps({
   }
 })
 
-const markedAsRead = computed(() => props.notification.read)
+const markedAsRead = computed(() => props.notification.isRead)
 
 const iconColor = computed(() => markedAsRead.value ? 'grey-8' : 'primary')
 const titleClass = computed(() => markedAsRead.value ? 'text-grey-8' : 'text-grey-10')

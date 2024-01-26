@@ -92,18 +92,4 @@ export default boot(({ router }) => {
     title: 'Venda aprovada',
     link
   })
-
-  // notify({
-  //   message: 'A venda com ID #56902 foi aprovada por Rachel Melo Muniz.',
-  //   title: 'Venda aprovada',
-  //   link: 'http://youtube.com.br'
-  // })
-
-  // tela de notificação
-
-  router.addRoute({
-    path: '/notifications',
-    name: 'NotificationsList',
-    component: () => import('../../../ui/src/pages/notifications-list/NotificationsList.vue')
-  })
 })
