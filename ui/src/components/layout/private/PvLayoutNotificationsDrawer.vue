@@ -100,13 +100,13 @@ async function markAsRead () {
     })
 
     /**
-     * zera o contado de notificações, responsável pelo ícone no QasAppUser.
+     * Zera o contador de notificações, responsável pelo ícone no QasAppUser.
      */
     setUnreadNotificationsCount(0)
   }
 }
 
-function onFetchSuccess (data) {
+function onFetchSuccess () {
   hasMadeFirstFetch.value = true
 }
 </script>

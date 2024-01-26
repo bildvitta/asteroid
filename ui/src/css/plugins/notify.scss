@@ -66,6 +66,7 @@
     // classe do quasar adc fixo 10px de margin-bottom
     margin-bottom: calc(var(--qas-spacing-xl) - 10px);
     max-width: 480px;
+    width: 100%;
 
     &--has-link {
       transition: var(--qas-generic-transition);

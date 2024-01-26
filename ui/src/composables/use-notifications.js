@@ -28,11 +28,11 @@ export default function () {
 
   /**
    * @param {{
-    *  message: string
-    *  title: string
-    *  link?: string
-    * }} config
-    */
+   *  message: string
+   *  title: string
+   *  link?: string
+   * }} config
+   */
   function sendNotify (config = {}) {
     const { link } = config
 
@@ -100,6 +100,7 @@ export default function () {
 
   return {
     unreadNotificationsCount,
+
     setUnreadNotificationsCount,
     incrementUnreadNotificationsCount,
     sendNotify,

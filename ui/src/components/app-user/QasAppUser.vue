@@ -65,13 +65,10 @@
         </q-list>
       </div>
     </q-menu>
-
-    <pv-app-user-notifications-drawer v-model="showNotificationsDrawer" />
   </div>
 </template>
 
 <script setup>
-import PvAppUserNotificationsDrawer from './private/PvAppUserNotificationsDrawer.vue'
 import QasAvatar from '../avatar/QasAvatar.vue'
 
 import useNotifications from '../../composables/use-notifications'
@@ -118,7 +115,6 @@ const { unreadNotificationsCount } = useNotifications()
 
 const companiesModel = ref('')
 const loading = ref(false)
-const showNotificationsDrawer = ref(false)
 
 const defaultCompanyProps = computed(() => {
   return {

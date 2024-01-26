@@ -13,7 +13,7 @@ export default boot(({ router }) => {
     const notification = {
       uuid: 'a4c4d47c-3c57-4357-a0db-50ab19058481233as' + Math.random(),
       title: 'Nova notificação',
-      message: 'Você tem uma nova notificação',
+      message: 'Você tem uma nova notificação.',
       link: 'http://reis.com.br/quis-autem-voluptatem-nihil-rerum-impedit-beatae-enim',
       created_at: '2024-01-25T18:21:20.108000Z',
       is_read: false

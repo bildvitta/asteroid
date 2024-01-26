@@ -7,6 +7,7 @@
     <slot name="app-menu" :toggle-notifications="toggleNotificationsDrawer">
       <qas-app-menu :model-value="showMenuDrawer" v-bind="defaultAppMenuProps" @sign-out="signOut" @toggle-notifications="toggleNotificationsDrawer" @update:model-value="updateMenuDrawer" />
     </slot>
+
     <slot>
       <q-page-container>
         <q-page>
@@ -44,14 +45,14 @@ const props = defineProps({
     type: Object
   },
 
-  modelValue: {
-    default: true,
-    type: Boolean
-  },
-
   initialUnreadNotificationsCount: {
     type: Number,
     default: 0
+  },
+
+  modelValue: {
+    default: true,
+    type: Boolean
   }
 })
 
