@@ -331,19 +331,18 @@ export default {
         url: this.url,
         filters: this.filters
       }
-      const resolve = this.fetchData
 
       if (hasBeforeFetch && !this.cancelBeforeFetch) {
         return this.beforeFetch({
           payload,
-          resolve,
+          resolve: this.fetchData,
           done: () => {
             this.cancelBeforeFetch = true
           }
         })
       }
 
-      resolve(payload)
+      this.fetchData(payload)
     },
 
     async fetchData (payload = {}) {
