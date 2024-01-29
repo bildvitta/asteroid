@@ -13,6 +13,8 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 ## Não publicado
 ### Adicionado
 - `QasWhatsappLink`: adicionado novo componente de link para o Whatsapp.
+- `QasChartView`: adicionado propriedade `before-fetch` para controlar o fetch de dados do componente.
+- `QasChartView`: adicionado chamada do evento `onUpdate:currentFilters` repassado para a propriedade `filters-props`.
 
 ### Corrigido
 - `QasUploader`: corrigido circular dependency que estava causando estouro de memoria, apesar de não afetar o funcionando aparente do componente.
