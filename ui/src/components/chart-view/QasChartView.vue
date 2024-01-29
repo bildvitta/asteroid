@@ -74,6 +74,11 @@ export default {
   },
 
   props: {
+    beforeFetch: {
+      default: null,
+      type: Function
+    },
+
     entity: {
       required: true,
       type: String
@@ -137,6 +142,7 @@ export default {
 
   data () {
     return {
+      cancelBeforeFetch: false,
       data: [],
       filters: {},
       isFetched: false,
@@ -296,7 +302,7 @@ export default {
 
   watch: {
     filters () {
-      this.fetchData()
+      this.handleFetchData()
     },
 
     isFetching (value) {
@@ -306,7 +312,7 @@ export default {
 
   created () {
     this.registerChartJS()
-    this.fetchData()
+    this.handleFetchData()
   },
 
   unmounted () {
@@ -314,17 +320,35 @@ export default {
   },
 
   methods: {
-    async fetchData () {
+    handleFetchData () {
+      const hasBeforeFetch = typeof this.beforeFetch === 'function'
+      const payload = {
+        url: this.url,
+        filters: this.filters
+      }
+      const resolve = this.fetchData
+
+      if (hasBeforeFetch && !this.cancelBeforeFetch) {
+        return this.beforeFetch({
+          payload,
+          resolve,
+          done: () => {
+            this.cancelBeforeFetch = true
+          }
+        })
+      }
+
+      resolve(payload)
+    },
+
+    async fetchData (payload = {}) {
       try {
         this.isFetching = true
 
         const response = await getAction.call(this, {
           entity: this.entity,
           key: 'fetchList',
-          payload: {
-            url: this.url,
-            filters: this.filters
-          }
+          payload
         })
 
         const { results } = response.data
