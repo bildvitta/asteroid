@@ -11,7 +11,7 @@
     </template>
 
     <template #right>
-      <qas-filters v-bind="chartFiltersProps" v-model:currentFilters="filters" />
+      <qas-filters v-bind="chartFiltersProps" />
     </template>
   </qas-header-actions>
 
@@ -205,7 +205,12 @@ export default {
         useSpacing: false,
         useUpdateRoute: false,
 
-        ...this.filtersProps
+        ...this.filtersProps,
+
+        'onUpdate:currentFilters': filters => {
+          this.filters = filters
+          this.filtersProps['onUpdate:currentFilters']?.(filters)
+        }
       }
     },
 
