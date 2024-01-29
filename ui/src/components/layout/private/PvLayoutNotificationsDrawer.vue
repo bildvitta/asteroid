@@ -2,10 +2,10 @@
   <qas-drawer v-bind="drawerProps" v-model="model">
     <div class="fixed-position">
       <div class="justify-end row">
-        <qas-btn class="q-mb-xl" icon="sym_r_check_circle" label="Marcar todas como lida" @click="markAsRead" />
+        <qas-btn class="q-mb-xl" :disable="isAllNotificationsRead" icon="sym_r_check_circle" label="Marcar todas como lida" @click="markAsRead" />
       </div>
 
-      <qas-infinite-scroll v-model:list="notifications" max-height="calc(100vh - 165px)" url="http://localhost:8000/api/users/me/notifications" @fetch-success="onFetchSuccess">
+      <qas-infinite-scroll v-model:list="notifications" v-bind="infiniteScrollProps">
         <qas-list-items :list="notifications" :use-clickable-item="false" :use-section-actions="false">
           <template #item-section="{ item }">
             <pv-layout-notification-card :notification="item" />
@@ -59,6 +59,14 @@ onNotifyReceived(notification => {
   notifications.value.unshift(notification)
 })
 
+const infiniteScrollProps = {
+  limitPerPage: 30,
+  maxHeight: 'calc(100vh - 165px)',
+  url: 'users/me/notifications',
+  onFetchSuccess
+}
+
+// computed
 const model = computed({
   get () {
     return props.model
@@ -77,6 +85,12 @@ const drawerProps = computed(() => {
   }
 })
 
+/**
+ * Se todas notificações estiverem lidas, então desabilitar o botão de "Marcar todas como lida"
+ */
+const isAllNotificationsRead = computed(() => notifications.value.every(notification => notification.isRead))
+
+// functions
 async function markAsRead () {
   const { data } = await promiseHandler(
     axios.patch('/users/me/notifications', { markAllAsRead: true }),

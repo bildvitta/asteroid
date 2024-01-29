@@ -29,8 +29,7 @@ module.exports = configure(function (quasar) {
       'asteroid',
       'components',
       'redirect',
-      'vitals',
-      'notifications'
+      'vitals'
     ],
 
     // https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-css

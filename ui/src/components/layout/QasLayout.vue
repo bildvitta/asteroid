@@ -1,10 +1,10 @@
 <template>
   <q-layout view="hHh Lpr lff">
-    <slot v-if="$qas.screen.untilLarge" name="app-bar" :toggle-notifications="toggleNotificationsDrawer">
+    <slot v-if="$qas.screen.untilLarge" name="app-bar">
       <qas-app-bar v-bind="appBarProps" @sign-out="signOut" @toggle-menu="toggleMenuDrawer" @toggle-notifications="toggleNotificationsDrawer" />
     </slot>
 
-    <slot name="app-menu" :toggle-notifications="toggleNotificationsDrawer">
+    <slot name="app-menu">
       <qas-app-menu :model-value="showMenuDrawer" v-bind="defaultAppMenuProps" @sign-out="signOut" @toggle-notifications="toggleNotificationsDrawer" @update:model-value="updateMenuDrawer" />
     </slot>
 
@@ -58,6 +58,9 @@ const props = defineProps({
 
 const emit = defineEmits(['sign-out', 'update:modelValue'])
 
+// expondo método "toggleNotificationsDrawer" para fora do componente.
+defineExpose({ toggleNotificationsDrawer })
+
 const screen = useScreen()
 
 const { setUnreadNotificationsCount } = useNotifications()
@@ -65,8 +68,13 @@ const { setUnreadNotificationsCount } = useNotifications()
 const menuDrawer = ref(false)
 const notificationsDrawer = ref(false)
 
+/**
+ * Como está sendo utilizado em um watcher com a propriedade 'immediate: true',
+ * é necessário criar a variável antes de atribuí-la ao watcher, para assim conseguir pará-lo.
+ */
 let unreadNotificationsCountWatcher = () => {}
 
+// computed
 const defaultAppMenuProps = computed(() => {
   return {
     ...props.appBarProps,
@@ -101,6 +109,7 @@ function toggleMenuDrawer () {
 
 function updateMenuDrawer (value) {
   menuDrawer.value = value
+
   emit('update:modelValue', value)
 }
 

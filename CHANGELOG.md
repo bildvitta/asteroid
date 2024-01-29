@@ -11,11 +11,25 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
 ## Não publicado
+### Adicionado
+- QasLayout:
+  - adicionado nova propriedade `initialUnreadNotificationsCount`.
+  - expondo método `toggleNotificationsDrawer` para controle externo do drawer de notificações.
+
+- `QasAvatar`: Adicionado nova propriedade "useCropTitle" com default "true", para controlar se o titulo será cortado ou não.
+- Adicionado novo componente `QasDrawer`.
+- `QasInfiniteScroll`: Adicionado dois novos eventos `fetch-success` e `fetch-error`.
+- Adicionado novo composable `use-notifications`.
+
 ### Corrigido
 - `QasUploader`: corrigido circular dependency que estava causando estouro de memoria, apesar de não afetar o funcionando aparente do componente.
 
 ### Modificado
+- `QasLayout`: modificado para Composition API.
 - `QasAvatar`: modificado prop `color` para aceitar nova cor: `red-14`.
+
+### Removido
+- `QasAppUser`: removido propriedade `notifications`, agora quem faz o controle de notificações é o `QasLayout`.
 
 ## [3.14.0-beta.1] - 15-01-2024
 ## BREAKING CHANGES

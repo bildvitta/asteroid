@@ -83,7 +83,7 @@ const attributes = computed(() => ({
   ...props.infiniteScrollProps
 }))
 
-const isEmptyList = computed(() => !listLength.value)
+const isEmptyList = computed(() => !listLength.value && !isFetching.value)
 
 const hasNoResults = computed(() => isEmptyList.value && hasMadeFirstFetch.value)
 

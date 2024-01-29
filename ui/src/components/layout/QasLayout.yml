@@ -30,6 +30,7 @@ slots:
 
   app-menu:
     desc: Slot para substituir o "QasAppMenu".
+    params:
 
   default:
     desc: Slot para substituir o "QPageContainer".

@@ -1,12 +1,24 @@
 // import asteroidConfig from 'asteroid-config'
 
+import useNotifications from '@bildvitta/quasar-ui-asteroid/src/composables/use-notifications'
+import onLeaderElection from '../helpers/on-leader-election'
+
 import { boot } from 'quasar/wrappers'
 
-import useNotifications from '@bildvitta/quasar-ui-asteroid/src/composables/use-notifications'
-
-// TODO: precisa adc essa logica no boot do `app-extension`
-
 export default boot(({ router }) => {
+  /**
+   * Aqui vamos estabelecer a conexão com o servidor apenas na tab (aba) líder.
+   * Vamos escutar por novas notificações, sempre que receber uma notificação,
+   * iremos enviar via BroadcastChannel.postMessage().
+   */
+  onLeaderElection(channel => {
+    console.log(router, '>>> router')
+    setTimeout(() => {
+      channel.postMessage('Nova notificação recebida!')
+      document.title = 'LÍDER'
+    }, 1000)
+  })
+
   const { triggerNotify, sendNotify, incrementUnreadNotificationsCount } = useNotifications()
 
   window.notify = ({ link }) => {
