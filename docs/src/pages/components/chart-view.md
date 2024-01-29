@@ -116,3 +116,5 @@ O gráfico pode ser aprimorado ao incluir um título (title) e um subtítulo (su
 Para utilizar o filtro dos dados do gráfico, utilize a propriedade `useFilterButton` com o valor `true`. O filtro permite aos usuários personalizar a visualização dos dados, oferecendo uma experiência interativa e flexível.
 :::
 <doc-example file="QasChartView/WithFilter" title="Com filtro" />
+
+<doc-example file="QasChartView/BeforeFetch" title="Utilizando a propriedade beforeFetch" />

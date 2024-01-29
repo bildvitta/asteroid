@@ -11,7 +11,7 @@
     </template>
 
     <template #right>
-      <qas-filters v-bind="chartFiltersProps" v-model:currentFilters="filters" />
+      <qas-filters v-bind="chartFiltersProps" />
     </template>
   </qas-header-actions>
 
@@ -74,6 +74,11 @@ export default {
   },
 
   props: {
+    beforeFetch: {
+      default: null,
+      type: Function
+    },
+
     entity: {
       required: true,
       type: String
@@ -137,6 +142,7 @@ export default {
 
   data () {
     return {
+      cancelBeforeFetch: false,
       data: [],
       filters: {},
       isFetched: false,
@@ -199,7 +205,12 @@ export default {
         useSpacing: false,
         useUpdateRoute: false,
 
-        ...this.filtersProps
+        ...this.filtersProps,
+
+        'onUpdate:currentFilters': filters => {
+          this.filters = filters
+          this.filtersProps['onUpdate:currentFilters']?.(filters)
+        }
       }
     },
 
@@ -296,7 +307,7 @@ export default {
 
   watch: {
     filters () {
-      this.fetchData()
+      this.handleFetchData()
     },
 
     isFetching (value) {
@@ -306,7 +317,7 @@ export default {
 
   created () {
     this.registerChartJS()
-    this.fetchData()
+    this.handleFetchData()
   },
 
   unmounted () {
@@ -314,17 +325,34 @@ export default {
   },
 
   methods: {
-    async fetchData () {
+    handleFetchData () {
+      const hasBeforeFetch = typeof this.beforeFetch === 'function'
+      const payload = {
+        url: this.url,
+        filters: this.filters
+      }
+
+      if (hasBeforeFetch && !this.cancelBeforeFetch) {
+        return this.beforeFetch({
+          payload,
+          resolve: this.fetchData,
+          done: () => {
+            this.cancelBeforeFetch = true
+          }
+        })
+      }
+
+      this.fetchData(payload)
+    },
+
+    async fetchData (payload = {}) {
       try {
         this.isFetching = true
 
         const response = await getAction.call(this, {
           entity: this.entity,
           key: 'fetchList',
-          payload: {
-            url: this.url,
-            filters: this.filters
-          }
+          payload
         })
 
         const { results } = response.data
