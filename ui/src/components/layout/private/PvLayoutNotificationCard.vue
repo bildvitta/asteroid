@@ -1,5 +1,5 @@
 <template>
-  <div class="items-center justify-between row">
+  <div class="items-center justify-between no-wrap row">
     <div class="items-center row">
       <div class="q-mr-sm">
         <q-icon :color="iconColor" name="sym_r_info" size="md" />

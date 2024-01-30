@@ -3,7 +3,7 @@
     <div class="relative-position">
       <qas-avatar :image="props.user.photo" :size="props.avatarSize" :title="userName" />
 
-      <qas-avatar v-if="hasUnreadNotifications" class="qas-app-user__notification-avatar" color="red-14" size="xs" :title="unreadNotificationsToString" :use-crop-title="false" />
+      <qas-avatar v-if="hasUnreadNotifications" class="qas-app-user__notification-avatar" :class="avatarNotificationClasses" color="red-14" size="xs" :title="unreadNotificationsToString" :use-crop-title="false" />
     </div>
 
     <div class="ellipsis qas-app-user__data">
@@ -45,7 +45,7 @@
             <q-item-section avatar class="relative-position">
               <q-icon name="sym_r_notifications" />
 
-              <qas-avatar v-if="hasUnreadNotifications" class="qas-app-user__notification-avatar qas-app-user__notification-avatar--icon" color="red-14" size="xs" :title="unreadNotificationsToString" :use-crop-title="false" />
+              <qas-avatar v-if="hasUnreadNotifications" class="qas-app-user__notification-avatar qas-app-user__notification-avatar--icon" :class="avatarNotificationClasses" color="red-14" size="xs" :title="unreadNotificationsToString" :use-crop-title="false" />
             </q-item-section>
 
             <q-item-section>
@@ -116,6 +116,8 @@ const { hasNotifications, unreadNotificationsCount } = useNotifications()
 const companiesModel = ref('')
 const loading = ref(false)
 
+const { avatarNotificationClasses } = useAvatarNotifications()
+
 // computed
 const defaultCompanyProps = computed(() => {
   return {
@@ -131,13 +133,40 @@ const defaultCompanyProps = computed(() => {
 const hasCompaniesSelect = computed(() => !!props.companyProps.options?.length)
 const hasUnreadNotifications = computed(() => unreadNotificationsCount.value > 0)
 
-const unreadNotificationsToString = computed(() => String(unreadNotificationsCount.value))
+const unreadNotificationsToString = computed(() => {
+  console.log(unreadNotificationsCount)
+  return String(unreadNotificationsCount.value)
+})
 const userName = computed(() => props.user.name || props.user.givenName)
 
 // watch
 watch(() => props.companyProps.modelValue, value => {
   companiesModel.value = value
 }, { immediate: true })
+
+// composable
+function useAvatarNotifications () {
+  const hasAnimated = ref(false)
+
+  watch(() => unreadNotificationsCount.value, () => {
+    hasAnimated.value = true
+
+    setTimeout(() => {
+      hasAnimated.value = false
+    }, 1000)
+  })
+
+  const avatarNotificationClasses = computed(() => {
+    return {
+      animated: true,
+      rubberBand: hasAnimated.value
+    }
+  })
+
+  return {
+    avatarNotificationClasses
+  }
+}
 
 // métodos
 function signOut () {
@@ -177,6 +206,7 @@ function toggleNotificationsDrawer () {
 <style lang="scss">
 .qas-app-user {
   &__notification-avatar {
+    animation-duration: 1s;
     position: absolute;
     top: 0;
 

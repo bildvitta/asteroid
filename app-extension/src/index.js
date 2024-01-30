@@ -57,7 +57,8 @@ function extendQuasar (quasar, asteroidConfigFile) {
   // Adiciona todas as classes de animação do Animate.css ao quasar
   // https://animate.style/
   const animations = [
-    'slideInDown'
+    'slideInDown',
+    'rubberBand'
   ]
 
   animations.forEach(animation => quasar.animations.push(animation))

@@ -1,9 +1,8 @@
 import asteroidConfig from 'asteroid-config'
-
 import hasParentByClassName from '../helpers/private/has-parent-by-class-name'
 
-import { ref } from 'vue'
 import { Notify } from 'quasar'
+import { ref } from 'vue'
 
 const callbackFunctions = {
   onNotifyReceived: []
@@ -17,7 +16,6 @@ const unreadNotificationsCount = ref(0)
 
 export default function () {
   const hasNotifications = asteroidConfig.framework.featureToggle?.useNotifications
-  console.log('TCL: asteroidConfig.framework', asteroidConfig.framework)
 
   function triggerNotify (notification) {
     callbackFunctions.onNotifyReceived.forEach(fn => fn((notification)))
@@ -104,13 +102,16 @@ export default function () {
   }
 
   return {
+    // const
     hasNotifications,
 
+    // computed
     unreadNotificationsCount,
 
-    setUnreadNotificationsCount,
+    // functions
     incrementUnreadNotificationsCount,
     sendNotify,
+    setUnreadNotificationsCount,
     triggerNotify
   }
 }

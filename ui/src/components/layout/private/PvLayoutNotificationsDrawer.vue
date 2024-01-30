@@ -54,6 +54,7 @@ const notifications = ref([])
  * notificação sem a necessidade de chamar a API e resetar a paginação (feita por scroll).
  */
 onNotifyReceived(notification => {
+  console.log('TCL: notification', notification)
   if (!hasMadeFirstFetch.value) return
 
   notifications.value.unshift(notification)
@@ -88,7 +89,7 @@ const drawerProps = computed(() => {
 /**
  * Se todas notificações estiverem lidas, então desabilitar o botão de "Marcar todas como lida"
  */
-const isAllNotificationsRead = computed(() => notifications.value.every(notification => notification.isRead))
+const isAllNotificationsRead = computed(() => notifications.value.every(notification => notification?.isRead))
 
 // functions
 async function markAsRead () {

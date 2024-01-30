@@ -8,10 +8,10 @@
  * @param {function(BroadcastChannel): void} callbackFn
  * @returns {void}
  */
-export default function (callbackFn) {
-  navigator.locks.request('leader-election', () => {
-    const notificationsChannel = new BroadcastChannel('notifications')
+export function onLeaderElection (callbackFn) {
+  const notificationsChannel = new BroadcastChannel('notifications')
 
+  navigator.locks.request('leader-election', () => {
     callbackFn(notificationsChannel)
 
     /**

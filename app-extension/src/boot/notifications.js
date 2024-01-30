@@ -1,42 +1,57 @@
 /**
- * Este boot só é adicionado dinamicamente caso a opção
+ * Este boot só é adicionado dinamicamente na aplicação caso a opção
  * "asteroidConfig.framework.featureToggle.useNotifications" esteja ativada.
  */
 
+import { onLeaderElection } from '../helpers/channels'
 import useNotifications from '@bildvitta/quasar-ui-asteroid/src/composables/use-notifications'
-import onLeaderElection from '../helpers/on-leader-election'
+import { setEcho, setEchoListener } from '../helpers/echo'
 
 import { boot } from 'quasar/wrappers'
+import { LocalStorage } from 'quasar'
 
-export default boot(({ router }) => {
-  /**
-   * Aqui vamos estabelecer a conexão com o servidor apenas na tab (aba) líder.
-   * Vamos escutar por novas notificações, sempre que receber uma notificação,
-   * iremos enviar via BroadcastChannel.postMessage().
-   */
-  onLeaderElection(channel => {
-    console.log(router, '>>> router')
-    setTimeout(() => {
-      channel.postMessage('Nova notificação recebida!')
-      document.title = 'LÍDER'
-    }, 1000)
+export default boot(() => {
+  window.addEventListener('message', ({ data }) => {
+    if (data.type !== 'updateUser') return
+
+    const user = data.user
+    const accessToken = LocalStorage.getItem('accessToken')
+
+    /**
+     * Aqui vamos estabelecer a conexão com o servidor apenas na tab (aba) líder.
+     * Vamos escutar por novas notificações, sempre que receber uma notificação,
+     * iremos enviar via BroadcastChannel.postMessage().
+     */
+    onLeaderElection(channel => {
+      setEcho(accessToken)
+      setEchoListener({ user, channel })
+    })
+
+    setNotificationChannelListener()
   })
 
-  const { triggerNotify, sendNotify, incrementUnreadNotificationsCount } = useNotifications()
+  /**
+   * Aqui fica o controle externo, onde todas as abas (não somente a líder), vão
+   * escutar pelas notificações e enviar para a aplicação.
+   *
+   * Suas responsabilidades:
+   * - fazer o hook "onNotifyReceived" do composable "useNotifications" ser ativado.
+   * - enviar o "Notify" para a aplicação.
+   * - atualizar o contador de notificações não lidas no menu.
+   */
+  function setNotificationChannelListener () {
+    const {
+      incrementUnreadNotificationsCount,
+      sendNotify,
+      triggerNotify
+    } = useNotifications()
 
-  window.notify = ({ link }) => {
-    const notification = {
-      uuid: 'a4c4d47c-3c57-4357-a0db-50ab19058481233as' + Math.random(),
-      title: 'Nova notificação',
-      message: 'Você tem uma nova notificação.',
-      link: 'http://reis.com.br/quis-autem-voluptatem-nihil-rerum-impedit-beatae-enim',
-      created_at: '2024-01-25T18:21:20.108000Z',
-      is_read: false
+    const notificationsChannel = new BroadcastChannel('notifications')
+
+    notificationsChannel.onmessage = ({ data: { notification } }) => {
+      triggerNotify(notification)
+      sendNotify(notification)
+      incrementUnreadNotificationsCount()
     }
-
-    triggerNotify(notification)
-    incrementUnreadNotificationsCount()
-
-    sendNotify(notification)
   }
 })
