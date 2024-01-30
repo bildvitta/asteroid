@@ -1,4 +1,7 @@
-// import asteroidConfig from 'asteroid-config'
+/**
+ * Este boot só é adicionado dinamicamente caso a opção
+ * "asteroidConfig.framework.featureToggle.useNotifications" esteja ativada.
+ */
 
 import useNotifications from '@bildvitta/quasar-ui-asteroid/src/composables/use-notifications'
 import onLeaderElection from '../helpers/on-leader-election'

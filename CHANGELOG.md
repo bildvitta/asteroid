@@ -15,7 +15,6 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - QasLayout:
   - adicionado nova propriedade `initialUnreadNotificationsCount`.
   - expondo método `toggleNotificationsDrawer` para controle externo do drawer de notificações.
-
 - `QasAvatar`: Adicionado nova propriedade "useCropTitle" com default "true", para controlar se o titulo será cortado ou não.
 - Adicionado novo componente `QasDrawer`.
 - `QasInfiniteScroll`: Adicionado dois novos eventos `fetch-success` e `fetch-error`.

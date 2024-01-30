@@ -18,7 +18,7 @@
 
     <q-ajax-bar color="primary" position="bottom" size="2px" />
 
-    <pv-layout-notifications-drawer v-model="notificationsDrawer" />
+    <pv-layout-notifications-drawer v-if="hasNotifications" v-model="notificationsDrawer" />
   </q-layout>
 </template>
 
@@ -63,7 +63,7 @@ defineExpose({ toggleNotificationsDrawer })
 
 const screen = useScreen()
 
-const { setUnreadNotificationsCount } = useNotifications()
+const { hasNotifications, setUnreadNotificationsCount } = useNotifications()
 
 const menuDrawer = ref(false)
 const notificationsDrawer = ref(false)

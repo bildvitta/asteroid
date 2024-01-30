@@ -111,11 +111,12 @@ const emit = defineEmits(['sign-out', 'toggle-notifications'])
 // vindo direto do boot api.js
 const axios = inject('axios')
 
-const { unreadNotificationsCount } = useNotifications()
+const { hasNotifications, unreadNotificationsCount } = useNotifications()
 
 const companiesModel = ref('')
 const loading = ref(false)
 
+// computed
 const defaultCompanyProps = computed(() => {
   return {
     loading: loading.value,
@@ -128,10 +129,9 @@ const defaultCompanyProps = computed(() => {
 })
 
 const hasCompaniesSelect = computed(() => !!props.companyProps.options?.length)
-const hasNotifications = computed(() => !!Object.keys(props.notifications).length || true)
 const hasUnreadNotifications = computed(() => unreadNotificationsCount.value > 0)
-const unreadNotificationsToString = computed(() => String(unreadNotificationsCount.value))
 
+const unreadNotificationsToString = computed(() => String(unreadNotificationsCount.value))
 const userName = computed(() => props.user.name || props.user.givenName)
 
 // watch
