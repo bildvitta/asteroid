@@ -451,6 +451,7 @@ function onNavigation (date) {
     font-size: 10px !important;
     width: 100%;
     line-height: 1;
+    transition: color var(--qas-generic-transition);
 
     &--pointer {
       bottom: -6px;
@@ -493,15 +494,19 @@ function onNavigation (date) {
     }
   }
 
-  .q-date__navigation > div:last-child,
-  .q-date__navigation > div:first-child {
-    min-width: auto;
-    width: auto;
-  }
-
   .q-date {
     &__navigation {
       justify-content: space-between;
+
+      > div:last-child,
+      > div:first-child {
+        min-width: auto;
+        width: auto;
+      }
+
+      > div:first-child {
+        min-width: 120px;
+      }
 
       .q-btn {
         @include set-button(tertiary, false, false, grey-10);
@@ -550,16 +555,15 @@ function onNavigation (date) {
       min-height: auto;
 
       .q-btn {
-        border: 0;
+        @include set-typography($subtitle2);
+
+        border: 1px solid transparent;
         border-radius: $generic-border-radius;
         box-shadow: none;
         height: auto !important;
+        line-height: 1;
         width: 26px !important;
         transition: color var(--qas-generic-transition);
-
-        @include set-typography($subtitle2);
-
-        line-height: 1;
 
         .q-ripple,
         .q-focus-helper {
@@ -578,8 +582,9 @@ function onNavigation (date) {
           color: var(--q-primary-contrast);
         }
 
-        &.bg-primary, &.q-date__today {
-          border: 1px solid $primary;
+        &.bg-primary,
+        &.q-date__today {
+          border-color: $primary;
           border-radius: $generic-border-radius;
           font-weight: 700;
         }

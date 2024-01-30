@@ -18,38 +18,42 @@
 export default {
   data () {
     return {
-      date: '2023-06-06',
+      date: '2024-01-29',
       events: [
         {
-          date: '2023-06-06',
+          date: '2024-01-31',
           counter: 2
         },
         {
-          date: '2023-06-03',
+          date: '2024-01-06',
           counter: 2
         },
         {
-          date: '2023-05-30',
+          date: '2024-01-03',
           counter: 2
         },
         {
-          date: '2023-05-29',
+          date: '2024-02-01',
           counter: 2
         },
         {
-          date: '2023-07-01',
+          date: '2024-02-20',
           counter: 2
         },
         {
-          date: '2023-07-04',
+          date: '2024-03-01',
           counter: 2
         },
         {
-          date: '2023-12-31',
+          date: '2024-03-04',
           counter: 2
         },
         {
-          date: '2024-01-01',
+          date: '2024-04-31',
+          counter: 2
+        },
+        {
+          date: '2024-04-01',
           counter: 2
         }
       ]
