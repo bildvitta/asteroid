@@ -63,9 +63,6 @@ export default function () {
       timeout: 30000
     })
 
-    // TODO: descomentar
-    // triggerNotify(config)
-
     /**
      * Função que é chamada quando o usuário clica na notificação, se a notificação
      * tem link, então ele vai ser redirecionado para o link em uma nova aba, caso

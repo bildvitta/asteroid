@@ -133,10 +133,7 @@ const defaultCompanyProps = computed(() => {
 const hasCompaniesSelect = computed(() => !!props.companyProps.options?.length)
 const hasUnreadNotifications = computed(() => unreadNotificationsCount.value > 0)
 
-const unreadNotificationsToString = computed(() => {
-  console.log(unreadNotificationsCount)
-  return String(unreadNotificationsCount.value)
-})
+const unreadNotificationsToString = computed(() => String(unreadNotificationsCount.value))
 const userName = computed(() => props.user.name || props.user.givenName)
 
 // watch

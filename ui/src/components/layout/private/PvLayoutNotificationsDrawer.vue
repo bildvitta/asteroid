@@ -25,7 +25,7 @@ import useNotifications, { onNotifyReceived } from '../../../composables/use-not
 
 import { promiseHandler } from '../../../helpers'
 
-import { computed, ref, inject } from 'vue'
+import { computed, ref, inject, onMounted } from 'vue'
 
 defineOptions({ name: 'PvLayoutNotificationsDrawer' })
 
@@ -46,6 +46,14 @@ const isMarkingNotificationsAsRead = ref(false)
 
 const notifications = ref([])
 
+onMounted(() => {
+  const notificationsUtilsChannel = new BroadcastChannel('notifications--utils')
+
+  notificationsUtilsChannel.onmessage = ({ data }) => {
+    if (data.type === 'markAllAsRead') onMarkAsReadSuccess()
+  }
+})
+
 /**
  * Quando o usuário ainda não abriu a central de notificações, a primeira vez que
  * ele abrir vai obter esses dados via API, mesmo que ele tenha recebido a notificação
@@ -54,7 +62,6 @@ const notifications = ref([])
  * notificação sem a necessidade de chamar a API e resetar a paginação (feita por scroll).
  */
 onNotifyReceived(notification => {
-  console.log('TCL: notification', notification)
   if (!hasMadeFirstFetch.value) return
 
   notifications.value.unshift(notification)
@@ -104,21 +111,27 @@ async function markAsRead () {
     }
   )
 
-  /**
-   * Ao marcar todas notificações como lida, é necessário percorrer todo o array
-   * de "notifications" e setar a prop "isRead" como "true", para não precisar chamar
-   * novamente a API para atualizar estes dados.
-   */
   if (data) {
-    notifications.value.forEach(notification => {
-      notification.isRead = true
-    })
+    const notificationsUtilsChannel = new BroadcastChannel('notifications--utils')
 
-    /**
-     * Zera o contador de notificações, responsável pelo ícone no QasAppUser.
-     */
-    setUnreadNotificationsCount(0)
+    notificationsUtilsChannel.postMessage({ type: 'markAllAsRead' })
   }
+}
+
+/**
+ * Ao marcar todas notificações como lida, é necessário percorrer todo o array
+ * de "notifications" e setar a prop "isRead" como "true", para não precisar chamar
+ * novamente a API para atualizar estes dados.
+ */
+function onMarkAsReadSuccess () {
+  notifications.value.forEach(notification => {
+    notification.isRead = true
+  })
+
+  /**
+   * Zera o contador de notificações, responsável pelo ícone no QasAppUser.
+   */
+  setUnreadNotificationsCount(0)
 }
 
 function onFetchSuccess () {

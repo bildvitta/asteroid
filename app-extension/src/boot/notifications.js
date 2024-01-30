@@ -28,6 +28,7 @@ export default boot(() => {
     })
 
     setNotificationChannelListener()
+    setNotificationsUtilsChannel()
   })
 
   /**
@@ -52,6 +53,16 @@ export default boot(() => {
       triggerNotify(notification)
       sendNotify(notification)
       incrementUnreadNotificationsCount()
+    }
+  }
+
+  function setNotificationsUtilsChannel () {
+    const { setUnreadNotificationsCount } = useNotifications()
+
+    const notificationsUtilsChannel = new BroadcastChannel('notifications--utils')
+
+    notificationsUtilsChannel.onmessage = ({ data: { type } }) => {
+      if (type === 'markAllAsRead') setUnreadNotificationsCount(0)
     }
   }
 })
