@@ -10,6 +10,13 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 ### Sobre os "BREAKING CHANGES"
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
+## Não publicado
+### Modificado
+- `QasDate`:
+  - modificado largura mínima da exibição do mês no calendário.
+  - modificado estilo do dia atual.
+  - modificado estilo da exibição dos eventos.
+
 ## [3.14.0-beta.2] - 29-01-2024
 ### Adicionado
 - `QasWhatsappLink`: adicionado novo componente de link para o Whatsapp.
