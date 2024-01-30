@@ -447,14 +447,10 @@ function onNavigation (date) {
   &__event {
     @include set-typography($caption);
 
-    bottom: -6px;
     color: $primary;
     font-size: 10px !important;
-    height: 20px;
-    left: 50%;
-    position: absolute;
-    transform: translateX(-50%);
     width: 100%;
+    line-height: 1;
 
     &--pointer {
       bottom: -6px;
@@ -470,6 +466,10 @@ function onNavigation (date) {
     justify-content: center;
     margin-top: var(--qas-spacing-xs);
     width: 6px;
+  }
+
+  .q-date__calendar-item {
+    vertical-align: initial;
   }
 
   &--inative {
@@ -490,22 +490,6 @@ function onNavigation (date) {
 
     .qas-date__event--inactive.qas-date__event--counter {
       color: $grey-4 !important;
-    }
-  }
-
-  &__calendar-item-event {
-    .q-btn {
-      &.bg-primary span {
-        padding-bottom: 4px;
-      }
-
-      &.bg-primary .qas-date__event {
-        bottom: -2px;
-      }
-
-      &.bg-primary .qas-date__event--pointer {
-        bottom: -2px;
-      }
     }
   }
 
@@ -569,11 +553,13 @@ function onNavigation (date) {
         border: 0;
         border-radius: $generic-border-radius;
         box-shadow: none;
-        height: 36px !important;
-        min-height: 30px;
-        min-width: 30px;
+        height: auto !important;
+        width: 26px !important;
         transition: color var(--qas-generic-transition);
-        width: 30px !important;
+
+        @include set-typography($subtitle2);
+
+        line-height: 1;
 
         .q-ripple,
         .q-focus-helper {
@@ -592,12 +578,16 @@ function onNavigation (date) {
           color: var(--q-primary-contrast);
         }
 
-        @include set-typography($subtitle2);
-      }
-    }
+        &.bg-primary, &.q-date__today {
+          border: 1px solid $primary;
+          border-radius: $generic-border-radius;
+          font-weight: 700;
+        }
 
-    &__today {
-      color: $primary;
+        &.q-date__today {
+          color: $primary;
+        }
+      }
     }
   }
 }
