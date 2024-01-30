@@ -14,47 +14,24 @@
 </template>
 
 <script>
+import { date } from 'quasar'
+
+const today = new Date()
+const yesterday = date.subtractFromDate(today, { days: 1 })
+const tomorrow = date.addToDate(today, { days: 1 })
 
 export default {
   data () {
     return {
-      date: '2024-01-29',
+      date: date.formatDate(today, 'YYYY-MM-DD'),
       events: [
         {
-          date: '2024-01-31',
+          date: date.formatDate(yesterday, 'YYYY-MM-DD'),
           counter: 2
         },
         {
-          date: '2024-01-06',
-          counter: 2
-        },
-        {
-          date: '2024-01-03',
-          counter: 2
-        },
-        {
-          date: '2024-02-01',
-          counter: 2
-        },
-        {
-          date: '2024-02-20',
-          counter: 2
-        },
-        {
-          date: '2024-03-01',
-          counter: 2
-        },
-        {
-          date: '2024-03-04',
-          counter: 2
-        },
-        {
-          date: '2024-04-31',
-          counter: 2
-        },
-        {
-          date: '2024-04-01',
-          counter: 2
+          date: date.formatDate(tomorrow, 'YYYY-MM-DD'),
+          counter: 4
         }
       ]
     }
