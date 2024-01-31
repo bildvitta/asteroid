@@ -17,7 +17,7 @@ export function setLaravelEcho (accessToken) {
 
   window.Echo = new Echo({
     broadcaster: 'pusher',
-    key: handleProcess(() => process.env.ABLY_KEY, 'app-key'),
+    key: isLocal ? 'app-key' : handleProcess(() => process.env.ABLY_KEY, ''),
     wsHost: isLocal ? 'localhost' : 'realtime-pusher.ably.io',
     wsPort: isLocal ? 6001 : 443,
     disableStats: true,
