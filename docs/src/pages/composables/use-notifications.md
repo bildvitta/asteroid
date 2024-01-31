@@ -22,7 +22,7 @@ import { useNotifications, onNotificationReceived } from 'asteroid'
 
 const {
   // const
-  hasNotifications,
+  isNotificationsEnabled,
 
   // computed
   unreadNotificationsCount,
@@ -38,7 +38,7 @@ const {
 onNotificationReceived(notification => {})
 
 // retorna se a central de notificação esta ativada na aplicação (referente ao asteroid.config.js).
-hasNotifications
+isNotificationsEnabled
 
 // retorna o contador de notificações não lidas.
 unreadNotificationsCount.value

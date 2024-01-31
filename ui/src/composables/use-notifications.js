@@ -15,7 +15,7 @@ export function onNotificationReceived (callbackFn) {
 const unreadNotificationsCount = ref(0)
 
 export default function () {
-  const hasNotifications = asteroidConfig.framework.featureToggle?.useNotifications
+  const isNotificationsEnabled = asteroidConfig.framework.featureToggle?.useNotifications
 
   function triggerNotification (notification) {
     callbackFunctions.onNotificationReceived.forEach(fn => fn((notification)))
@@ -100,7 +100,7 @@ export default function () {
 
   return {
     // const
-    hasNotifications,
+    isNotificationsEnabled,
 
     // computed
     unreadNotificationsCount,

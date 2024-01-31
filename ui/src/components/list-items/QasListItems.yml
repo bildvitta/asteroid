@@ -14,6 +14,11 @@ props:
     default: []
     type: Array
 
+  use-box:
+    desc: Controla se o vai ser um QasBox ou div.
+    type: Boolean
+    default: true
+
   use-clickable-item:
     desc: Controla se o item inteiro é clicável ou somente o button dentro do item.
     type: Boolean

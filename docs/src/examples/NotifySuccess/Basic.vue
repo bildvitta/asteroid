@@ -1,7 +1,7 @@
 <template>
   <div class="container spaced text-center">
-    <qas-btn @click="$qas.success('Uma mensagem longa de texto para exemplo')">Usando plugin com injeção</qas-btn>
-    <qas-btn @click="NotifySuccess('Uma mensagem longa de texto para exemplo')">Usando plugin com import</qas-btn>
+    <qas-btn @click="$qas.success('Deu certo!')">Usando plugin com injeção</qas-btn>
+    <qas-btn @click="NotifySuccess('Deu certo!')">Usando plugin com import</qas-btn>
   </div>
 </template>
 

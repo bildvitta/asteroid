@@ -3,7 +3,7 @@
     <div class="relative-position">
       <qas-avatar :image="props.user.photo" :size="props.avatarSize" :title="userName" />
 
-      <qas-avatar v-if="hasUnreadNotifications" class="qas-app-user__notification-avatar" :class="avatarNotificationClasses" color="red-14" size="xs" :title="unreadNotificationsToString" :use-crop-title="false" />
+      <qas-avatar v-if="hasNotificationInUserAvatar" v-bind="avatarNotificationCountProps" />
     </div>
 
     <div class="ellipsis qas-app-user__data">
@@ -41,11 +41,11 @@
             </q-item-section>
           </q-item>
 
-          <q-item v-if="hasNotifications" v-close-popup class="qas-app-user__menu-item" clickable @click="toggleNotificationsDrawer">
+          <q-item v-if="isNotificationsEnabled" v-close-popup class="qas-app-user__menu-item" clickable @click="toggleNotificationsDrawer">
             <q-item-section avatar class="relative-position">
               <q-icon name="sym_r_notifications" />
 
-              <qas-avatar v-if="hasUnreadNotifications" class="qas-app-user__notification-avatar qas-app-user__notification-avatar--icon" :class="avatarNotificationClasses" color="red-14" size="xs" :title="unreadNotificationsToString" :use-crop-title="false" />
+              <qas-avatar v-if="hasUnreadNotifications" class="qas-app-user__notification-avatar--icon" v-bind="avatarNotificationCountProps" />
             </q-item-section>
 
             <q-item-section>
@@ -111,12 +111,12 @@ const emit = defineEmits(['sign-out', 'toggle-notifications'])
 // vindo direto do boot api.js
 const axios = inject('axios')
 
-const { hasNotifications, unreadNotificationsCount } = useNotifications()
+const { isNotificationsEnabled, unreadNotificationsCount } = useNotifications()
 
 const companiesModel = ref('')
 const loading = ref(false)
 
-const { avatarNotificationClasses } = useAvatarNotifications()
+const { avatarNotificationCountProps } = useAvatarNotifications()
 
 // computed
 const defaultCompanyProps = computed(() => {
@@ -132,6 +132,7 @@ const defaultCompanyProps = computed(() => {
 
 const hasCompaniesSelect = computed(() => !!props.companyProps.options?.length)
 const hasUnreadNotifications = computed(() => unreadNotificationsCount.value > 0)
+const hasNotificationInUserAvatar = computed(() => isNotificationsEnabled && hasUnreadNotifications.value)
 
 const unreadNotificationsToString = computed(() => String(unreadNotificationsCount.value))
 const userName = computed(() => props.user.name || props.user.givenName)
@@ -153,15 +154,26 @@ function useAvatarNotifications () {
     }, 1000)
   })
 
-  const avatarNotificationClasses = computed(() => {
+  const avatarNotificationCountProps = computed(() => {
+    const classes = [
+      'qas-app-user__notification-avatar',
+      'animated',
+      {
+        rubberBand: hasAnimated.value
+      }
+    ]
+
     return {
-      animated: true,
-      rubberBand: hasAnimated.value
+      class: classes,
+      color: 'red-14',
+      size: 'xs',
+      title: unreadNotificationsToString.value,
+      useCropTitle: false
     }
   })
 
   return {
-    avatarNotificationClasses
+    avatarNotificationCountProps
   }
 }
 

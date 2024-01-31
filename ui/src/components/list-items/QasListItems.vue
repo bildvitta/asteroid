@@ -1,5 +1,5 @@
 <template>
-  <qas-box class="qas-list-items" :class="classes">
+  <component :is="component" class="qas-list-items" :class="classes">
     <q-list separator>
       <q-item v-for="(item, index) in props.list" :key="index" v-ripple :clickable="props.useClickableItem" @click="onClick({ item, index }, true)">
         <slot :index="index" :item="item" name="item">
@@ -15,11 +15,10 @@
         </slot>
       </q-item>
     </q-list>
-  </qas-box>
+  </component>
 </template>
 
 <script setup>
-import QasBox from '../box/QasBox.vue'
 import QasBtn from '../btn/QasBtn.vue'
 
 import { computed } from 'vue'
@@ -37,6 +36,11 @@ const props = defineProps({
     type: Array
   },
 
+  useBox: {
+    type: Boolean,
+    default: true
+  },
+
   useClickableItem: {
     type: Boolean
   },
@@ -50,6 +54,8 @@ const props = defineProps({
 const emit = defineEmits(['click-item'])
 
 const classes = computed(() => ({ 'qas-list-items--no-click': !props.useClickableItem }))
+
+const component = computed(() => props.useBox ? 'qas-box' : 'div')
 
 function onClick ({ item, index }, fromItem) {
   /**
@@ -86,18 +92,6 @@ function onClick ({ item, index }, fromItem) {
     & > .q-item:first-child {
       padding-top: 0;
     }
-
-    // & > .q-item {
-    //   padding: var(--qas-spacing-lg) 0;
-    // }
-
   }
-  .q-list > .q-item {
-
-  }
-
-  // .q-list > .q-item:last-child {
-  //   padding-bottom: 0;
-  // }
 }
 </style>

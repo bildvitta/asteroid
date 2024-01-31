@@ -12,17 +12,23 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 
 ## Não publicado
 ### Adicionado
+- Adicionado novo componente `QasDrawer`.
 - QasLayout:
   - adicionado nova propriedade `initialUnreadNotificationsCount`.
   - expondo método `toggleNotificationsDrawer` para controle externo do drawer de notificações.
 - `QasAvatar`: Adicionado nova propriedade "useCropTitle" com default "true", para controlar se o titulo será cortado ou não.
-- Adicionado novo componente `QasDrawer`.
 - `QasInfiniteScroll`: Adicionado dois novos eventos `fetch-success` e `fetch-error`.
-- Adicionado novo composable `use-notifications`.
+- Adicionado novo composable `useNotifications`.
+- `QasInfiniteScroll`: adicionados 2 novos eventos: `fetch-success` e `fetch-error`.
+- `QasListItems`: Adicionado nova propriedade `useBox` com default `true` para controlar se o componente vai ter um `QasBox` ou `div`.
 
 ### Modificado
 - `QasLayout`: modificado para Composition API.
 - `QasAvatar`: modificado prop `color` para aceitar nova cor: `red-14`.
+- `QasCard`: modificado classe `w-full` para `full-width` do quasar.
+- `QasDialog` modificado dialog para funcionamento do novo componente `QasDrawer`, uma vez que o mesmo utilizar o QasDialog.
+- `QasListItems`: Modificado estilos de espaçamento.
+- `ui/src/css/plugins/notify.scss`: modificado estilos para adaptar notify da central de notificações.
 
 ### Removido
 - `QasAppUser`: removido propriedade `notifications`, agora quem faz o controle de notificações é o `QasLayout`.

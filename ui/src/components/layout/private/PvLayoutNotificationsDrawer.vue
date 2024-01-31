@@ -6,7 +6,7 @@
       </div>
 
       <qas-infinite-scroll v-model:list="notifications" v-bind="infiniteScrollProps">
-        <qas-list-items :list="notifications" :use-clickable-item="false" :use-section-actions="false">
+        <qas-list-items :list="notifications" :use-box="false" :use-clickable-item="false" :use-section-actions="false">
           <template #item-section="{ item }">
             <pv-layout-notification-card :notification="item" />
           </template>
@@ -69,6 +69,7 @@ onNotificationReceived(notification => {
 
 const infiniteScrollProps = {
   limitPerPage: 30,
+  // os "165px" são referentes ao cabeçalho.
   maxHeight: 'calc(100vh - 165px)',
   url: 'users/me/notifications',
   onFetchSuccess

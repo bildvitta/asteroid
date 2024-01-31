@@ -66,8 +66,6 @@ events:
         desc: valor atual que indica a posição inicial ao recuperar resultados da lista.
         type: Number
 
-
-
 slots:
   default:
     desc: slot para exibir a lista na qual o componente fez a busca.
