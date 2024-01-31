@@ -10,6 +10,76 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 ### Sobre os "BREAKING CHANGES"
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
+## Não publicado
+## BREAKING CHANGES
+- `QasDateTimeInput`: removido métodos blur e focus que não estavam sendo utilizados.
+- `QasDate`: removido propriedade `useUnmaskEvents`, uma vez que ela não era utilizada para nada dentro do componente.
+- `QasDateTimeInput`: removido métodos blur e focus que não estavam sendo utilizados.
+
+### Adicionado
+- `QasWhatsappLink`: adicionado novo componente de link para o Whatsapp.
+- `QasChartView`:
+  - adicionado propriedade `before-fetch` para controlar o fetch de dados do componente.
+  - adicionado chamada do evento `onUpdate:currentFilters` repassado para a propriedade `filters-props`.
+
+### Corrigido
+- `QasUploader`: corrigido circular dependency que estava causando estouro de memoria, apesar de não afetar o funcionando aparente do componente.
+- `QasNumericInput`: corrigido problema no componente que, mesmo desativado, permitia a edição do valor. Agora, o input permanece inacessível quando desabilitado.
+- `QasActionsMenu`: Corrigido problema da const `hasDelete` do composable `useDelete`, onde não estava reativo pois não foi feito como computada.
+- `QasAppUSer`: corrigido select de empresa quando o select possuía busca, que ao clicar no botão de limpar, não limpava e ainda tentava alterar o vinculo para um vinculo vazio.
+
+### Modificado
+- Alterado componentes para Composition API:
+  - QasBtnDropdown.
+  - QasCard.
+  - QasCheckboxGroup.
+  - QasCopy.
+  - QasDate.
+  - QasDateTimeInput.
+  - QasDebugger.
+  - QasDelete.
+  - QasDialogRouter.
+  - QasGallery.
+  - QasGalleryCard.
+  - QasHeaderActions.
+  - QasLabel.
+  - QasListItems.
+  - QasMap.
+  - QasPageHeader.
+  - QasPagination.
+  - QasTabsGenerator.
+
+- Adicionado prefixo de `props` nas propriedades dentro do template:
+  - QasAppAlert: [text].
+  - QasAppBar: [brand, title].
+  - QasAppMenu: [items, title].
+  - QasAppUser: [users, notifications].
+  - QasAvatar: [image, icon, title].
+  - QasBreakline: [tag, icon, title].
+  - QasDialog: [card, persistent, useForm].
+  - QasFormGenerator: [fieldsProps, modelValue, errors].
+  - QasGridGenerator: [headerClass, contentClass].
+  - QasTimeline: [list].
+
+- Modificado nome `emits` para `emit` no script setup:
+  - QasAppBar.
+  - QasAppMenu.
+  - QasAppUser.
+  - QasBtnDropdown.
+
+- Modificado $attrs para useAttrs() no template:
+  - QasBreakline.
+  - QasDialog.
+
+- Modificado slots para useSlots() no template:
+  - QasSelectListDialog.
+
+- `/ui/src/vue-plugin.js`: adicionado método `getAction` do `@bildvitta/store-adapter` na variável global `qas` para conseguir utiliza-lo no composition API (NÃO UTILIZAR NO PROJETO).
+
+### Removido
+- `QasDate`: removido propriedade `useUnmaskEvents`, uma vez que ela não era utilizada para nada dentro do componente.
+- `QasDateTimeInput`: removido métodos blur e focus que não estavam sendo utilizados.
+
 ## [3.14.0-beta.2] - 29-01-2024
 ### Adicionado
 - `QasWhatsappLink`: adicionado novo componente de link para o Whatsapp.
