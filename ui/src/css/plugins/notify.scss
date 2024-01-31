@@ -58,15 +58,12 @@
     }
   }
 
-  .boot-notification__icon {
-    font-size: 24px;
-  }
-
   &.boot-notification {
     // classe do quasar adc fixo 10px de margin-bottom
+    margin-top: 0;
     margin-bottom: calc(var(--qas-spacing-xl) - 10px);
     max-width: 480px;
-    width: 100%;
+    width: calc(100% - 20px);
 
     &--has-link {
       transition: var(--qas-generic-transition);

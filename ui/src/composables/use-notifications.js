@@ -5,11 +5,11 @@ import { Notify } from 'quasar'
 import { ref } from 'vue'
 
 const callbackFunctions = {
-  onNotifyReceived: []
+  onNotificationReceived: []
 }
 
-export function onNotifyReceived (callbackFn) {
-  callbackFunctions.onNotifyReceived.push(callbackFn)
+export function onNotificationReceived (callbackFn) {
+  callbackFunctions.onNotificationReceived.push(callbackFn)
 }
 
 const unreadNotificationsCount = ref(0)
@@ -17,8 +17,8 @@ const unreadNotificationsCount = ref(0)
 export default function () {
   const hasNotifications = asteroidConfig.framework.featureToggle?.useNotifications
 
-  function triggerNotify (notification) {
-    callbackFunctions.onNotifyReceived.forEach(fn => fn((notification)))
+  function triggerNotification (notification) {
+    callbackFunctions.onNotificationReceived.forEach(fn => fn((notification)))
   }
 
   function setUnreadNotificationsCount (value) {
@@ -109,6 +109,6 @@ export default function () {
     incrementUnreadNotificationsCount,
     sendNotify,
     setUnreadNotificationsCount,
-    triggerNotify
+    triggerNotification
   }
 }

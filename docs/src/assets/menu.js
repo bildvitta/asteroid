@@ -504,6 +504,10 @@ module.exports = [
         path: '/composables/use-history'
       },
       {
+        name: 'useNotifications',
+        path: '/composables/use-notifications'
+      },
+      {
         name: 'useQueryCache',
         path: '/composables/use-query-cache'
       },

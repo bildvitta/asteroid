@@ -46,9 +46,11 @@
     "fawmi",
     "fontfaceobserver",
     "grey",
+    "laravel",
     "lazyloading",
     "Nunito",
     "Resizer",
+    "soketi",
     "uuid"
   ]
 }

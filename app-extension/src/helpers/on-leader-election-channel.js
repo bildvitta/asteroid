@@ -6,9 +6,8 @@
  * A função recebe um callback que é executado apenas pela instância líder.
  *
  * @param {function(BroadcastChannel): void} callbackFn
- * @returns {void}
  */
-export function onLeaderElection (callbackFn) {
+export default function onLeaderElection (callbackFn) {
   const notificationsChannel = new BroadcastChannel('notifications')
 
   navigator.locks.request('leader-election', () => {

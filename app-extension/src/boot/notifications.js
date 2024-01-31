@@ -3,12 +3,12 @@
  * "asteroidConfig.framework.featureToggle.useNotifications" esteja ativada.
  */
 
-import { onLeaderElection } from '../helpers/channels'
-import useNotifications from '@bildvitta/quasar-ui-asteroid/src/composables/use-notifications'
-import { setEcho, setEchoListener } from '../helpers/echo'
+import onLeaderElectionChannel from '../helpers/on-leader-election-channel'
+import { setLaravelEcho, setLaravelEchoListener } from '../helpers/laravel-echo'
+import { setNotificationsChannelListener, setNotificationsUtilsChannel } from '../helpers/notifications-channels'
 
-import { boot } from 'quasar/wrappers'
 import { LocalStorage } from 'quasar'
+import { boot } from 'quasar/wrappers'
 
 export default boot(() => {
   window.addEventListener('message', ({ data }) => {
@@ -22,47 +22,15 @@ export default boot(() => {
      * Vamos escutar por novas notificações, sempre que receber uma notificação,
      * iremos enviar via BroadcastChannel.postMessage().
      */
-    onLeaderElection(channel => {
-      setEcho(accessToken)
-      setEchoListener({ user, channel })
+    onLeaderElectionChannel(channel => {
+      setLaravelEcho(accessToken)
+      setLaravelEchoListener({ user, channel })
     })
 
-    setNotificationChannelListener()
+    /**
+     * Controle de notificações por comunicação entre abas (BroadcastChannel).
+     */
+    setNotificationsChannelListener()
     setNotificationsUtilsChannel()
   })
-
-  /**
-   * Aqui fica o controle externo, onde todas as abas (não somente a líder), vão
-   * escutar pelas notificações e enviar para a aplicação.
-   *
-   * Suas responsabilidades:
-   * - fazer o hook "onNotifyReceived" do composable "useNotifications" ser ativado.
-   * - enviar o "Notify" para a aplicação.
-   * - atualizar o contador de notificações não lidas no menu.
-   */
-  function setNotificationChannelListener () {
-    const {
-      incrementUnreadNotificationsCount,
-      sendNotify,
-      triggerNotify
-    } = useNotifications()
-
-    const notificationsChannel = new BroadcastChannel('notifications')
-
-    notificationsChannel.onmessage = ({ data: { notification } }) => {
-      triggerNotify(notification)
-      sendNotify(notification)
-      incrementUnreadNotificationsCount()
-    }
-  }
-
-  function setNotificationsUtilsChannel () {
-    const { setUnreadNotificationsCount } = useNotifications()
-
-    const notificationsUtilsChannel = new BroadcastChannel('notifications--utils')
-
-    notificationsUtilsChannel.onmessage = ({ data: { type } }) => {
-      if (type === 'markAllAsRead') setUnreadNotificationsCount(0)
-    }
-  }
 })

@@ -21,7 +21,7 @@ import PvLayoutNotificationCard from './PvLayoutNotificationCard.vue'
 import QasDrawer from '../../drawer/QasDrawer.vue'
 import QasInfiniteScroll from '../../infinite-scroll/QasInfiniteScroll.vue'
 
-import useNotifications, { onNotifyReceived } from '../../../composables/use-notifications'
+import useNotifications, { onNotificationReceived } from '../../../composables/use-notifications'
 
 import { promiseHandler } from '../../../helpers'
 
@@ -61,7 +61,7 @@ onMounted(() => {
  * notificações recebidas em real time serão incrementadas na central de
  * notificação sem a necessidade de chamar a API e resetar a paginação (feita por scroll).
  */
-onNotifyReceived(notification => {
+onNotificationReceived(notification => {
   if (!hasMadeFirstFetch.value) return
 
   notifications.value.unshift(notification)
