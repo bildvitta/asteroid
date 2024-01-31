@@ -10,8 +10,8 @@ defineOptions({ name: 'QasWhatsappLink' })
 
 const props = defineProps({
   callingCode: {
-    type: String,
-    default: '55'
+    type: [Number, String],
+    default: 55
   },
 
   phone: {
