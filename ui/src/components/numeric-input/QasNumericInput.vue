@@ -1,7 +1,7 @@
 <template>
   <q-field :label="formattedLabel" :model-value="modelValue" outlined>
-    <template #control="{ floatingLabel, id }">
-      <input v-show="floatingLabel" :id="id" ref="input" class="q-field__input" inputmode="numeric" @blur="emitValue" @click="setSelect" @input="emitUpdateModel($event.target.value)">
+    <template #control="{ floatingLabel, id, editable }">
+      <input v-show="floatingLabel" :id="id" ref="input" class="q-field__input" :disabled="!editable" inputmode="numeric" @blur="emitValue" @click="setSelect" @input="emitUpdateModel($event.target.value)">
     </template>
   </q-field>
 </template>

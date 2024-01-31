@@ -20,15 +20,23 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - `QasInfiniteScroll`: Adicionado dois novos eventos `fetch-success` e `fetch-error`.
 - Adicionado novo composable `use-notifications`.
 
-### Corrigido
-- `QasUploader`: corrigido circular dependency que estava causando estouro de memoria, apesar de não afetar o funcionando aparente do componente.
-
 ### Modificado
 - `QasLayout`: modificado para Composition API.
 - `QasAvatar`: modificado prop `color` para aceitar nova cor: `red-14`.
 
 ### Removido
 - `QasAppUser`: removido propriedade `notifications`, agora quem faz o controle de notificações é o `QasLayout`.
+
+## [3.14.0-beta.2] - 29-01-2024
+### Adicionado
+- `QasWhatsappLink`: adicionado novo componente de link para o Whatsapp.
+- `QasChartView`:
+  - adicionado propriedade `before-fetch` para controlar o fetch de dados do componente.
+  - adicionado chamada do evento `onUpdate:currentFilters` repassado para a propriedade `filters-props`.
+
+### Corrigido
+- `QasUploader`: corrigido circular dependency que estava causando estouro de memoria, apesar de não afetar o funcionando aparente do componente.
+- `QasNumericInput`: corrigido problema no componente que, mesmo desativado, permitia a edição do valor. Agora, o input permanece inacessível quando desabilitado.
 
 ## [3.14.0-beta.1] - 15-01-2024
 ## BREAKING CHANGES
@@ -2469,3 +2477,4 @@ Adicionado suporte para Pinia/Vuex Seguindo os padrões da biblioteca `@bildvitt
 [3.13.1]: https://github.com/bildvitta/asteroid/compare/v3.13.0...v3.13.1?expand=1
 [3.14.0-beta.0]: https://github.com/bildvitta/asteroid/compare/v3.13.0...v3.14.0-beta.0?expand=1
 [3.14.0-beta.1]: https://github.com/bildvitta/asteroid/compare/v3.13.1...v3.14.0-beta.1?expand=1
+[3.14.0-beta.2]: https://github.com/bildvitta/asteroid/compare/v3.14.0-beta.1...v3.14.0-beta.2?expand=1

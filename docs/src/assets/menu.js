@@ -306,6 +306,10 @@ module.exports = [
       {
         name: 'Welcome',
         path: '/components/welcome'
+      },
+      {
+        name: 'WhatsappLink',
+        path: '/components/whatsapp-link'
       }
     ]
   },
