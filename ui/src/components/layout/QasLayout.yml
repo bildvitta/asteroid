@@ -14,6 +14,11 @@ props:
     default: { animation: 500 }
     type: Object
 
+  initial-unread-notifications-count:
+    desc: Propriedade para indicar quantas notificações não lidas existem.
+    default: 0
+    type: Number
+
   model-value:
     desc: Model do componente, responsável por abrir/fechar menu lateral.
     default: true

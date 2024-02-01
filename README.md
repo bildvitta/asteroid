@@ -67,6 +67,7 @@ Observação: Alguns componentes do Quasar precisam ser importados manualmente d
 | `SERVER_BASE_URL` | Endereço base de acesso do servidor |
 | `DEBUGGING` | Habilita os loggers dos componentes |
 | `MAPS_API_KEY` | Key do google maps |
+| `ABLY_KEY` | Key do Ably (notificações) |
 
 ## Roadmap:
 

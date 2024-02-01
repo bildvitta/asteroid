@@ -54,7 +54,7 @@ const props = defineProps({
   }
 })
 
-const emit = defineEmits(['sign-out', 'toggle-menu'])
+const emit = defineEmits(['sign-out', 'toggle-menu', 'toggle-notifications'])
 
 const router = useRouter()
 const screen = useScreen()
@@ -68,6 +68,7 @@ const defaultAppUserProps = computed(() => {
     },
 
     onSignOut: signOut,
+    onToggleNotifications: toggleNotifications,
     ...props.appUserProps
   }
 })
@@ -94,6 +95,10 @@ const routerLinkClass = computed(() => screen.isSmall && 'justify-center')
 
 function signOut () {
   emit('sign-out')
+}
+
+function toggleNotifications () {
+  emit('toggle-notifications')
 }
 
 function toggleMenuDrawer () {

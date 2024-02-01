@@ -12,7 +12,7 @@ A prioridade de exibição do avatar é a imagem, caso não exista, será exibid
 :::
 
 :::info
-As cores disponíveis são `primary`, `secondary-contrast` e `grey-4`.
+As cores disponíveis são `primary`, `secondary-contrast`, `grey-4` e `red-14`.
 :::
 
 ## Uso

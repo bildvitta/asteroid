@@ -44,6 +44,28 @@ events:
         desc: Novo valor do list
         type: Array
 
+  '@fetch-error -> function (error)':
+    desc: Dispara toda vez que ocorre algum erro ao fazer nova busca na API.
+    params:
+      error:
+        count: Erro enviado da API.
+        type: Object
+
+  '@fetch-success -> function ({ count, list, offset })':
+    desc: Dispara toda vez que é feito uma nova busca com sucesso na API.
+    params:
+      count:
+        count: Tamanho máximo de itens.
+        type: Number
+
+      list:
+        desc: Lista do endpoint.
+        type: Array
+
+      offset:
+        desc: valor atual que indica a posição inicial ao recuperar resultados da lista.
+        type: Number
+
 slots:
   default:
     desc: slot para exibir a lista na qual o componente fez a busca.

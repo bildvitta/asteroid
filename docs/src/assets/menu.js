@@ -132,6 +132,10 @@ module.exports = [
         path: '/components/dialog-router'
       },
       {
+        name: 'Drawer',
+        path: '/components/drawer'
+      },
+      {
         name: 'EmptyResultText',
         path: '/components/empty-result-text'
       },
@@ -504,6 +508,10 @@ module.exports = [
         path: '/composables/use-history'
       },
       {
+        name: 'useNotifications',
+        path: '/composables/use-notifications'
+      },
+      {
         name: 'useQueryCache',
         path: '/composables/use-query-cache'
       },
@@ -544,6 +552,10 @@ module.exports = [
       {
         name: 'queryCache',
         path: '/boot/query-cache'
+      },
+      {
+        name: 'notifications',
+        path: '/boot/notifications'
       }
     ]
   }

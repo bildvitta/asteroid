@@ -43,6 +43,9 @@ events:
   '@sign-out -> function()':
     desc: Dispara quando o botão de "sair" é clicado.
 
+  '@toggle-notifications -> function()':
+    desc: Dispara quando o botão de "Notificações" é clicado.
+
 selectors:
   app-user:
     desc: Seletor do componente.

@@ -1,7 +1,7 @@
 <template>
   <div class="col-12 col-lg-3 col-md-4 col-sm-6">
     <q-card class="border-radius-lg column full-height overflow-hidden" :class="cardClasses">
-      <header v-if="props.useHeader" class="overflow-hidden relative-position w-full">
+      <header v-if="props.useHeader" class="full-width overflow-hidden relative-position">
         <slot name="header">
           <q-carousel v-model="slideImage" animated class="cursor-pointer" height="205px" infinite :navigation="hasImages" navigation-icon="sym_r_fiber_manual_record" swipeable>
             <template #navigation-icon="{ active, btnProps, onClick }">
@@ -17,8 +17,8 @@
         </slot>
       </header>
 
-      <q-card-section class="col-grow column justify-between w-full">
-        <div class="w-full" :class="gutterClass">
+      <q-card-section class="col-grow column full-width justify-between">
+        <div class="full-width" :class="gutterClass">
           <slot />
         </div>
       </q-card-section>

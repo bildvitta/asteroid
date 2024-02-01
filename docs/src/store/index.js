@@ -26,6 +26,8 @@ const vuexOffline = new VuexOffline({
   ]
 })
 
+window.vuexOffline = vuexOffline
+
 export default async function (/* { ssrContext } */) {
   await vuexOffline.createDatabase()
   await vuexOffline.setupCollections()

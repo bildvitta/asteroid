@@ -18,6 +18,31 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
   - modificado estilo dos dias com eventos, agora os dias ficam alinhados no mesma direção de dias sem eventos.
 - `QasWhatsappLink`: modificado propriedade `calling-code` para aceitar o tipo `Number`.
 
+## [3.14.0-beta.3] - 01-02-2024
+## BREAKING CHANGES
+- `QasAppUser`: removido propriedade `notifications`, agora quem faz o controle de notificações é o `QasLayout`.
+
+### Adicionado
+- Adicionado novo componente `QasDrawer`.
+- `QasLayout`:
+  - adicionado nova propriedade `initialUnreadNotificationsCount`.
+  - expondo método `toggleNotificationsDrawer` para controle externo do drawer de notificações.
+- `QasAvatar`: Adicionado nova propriedade `useCropTitle` com default "true", para controlar se o titulo será cortado ou não.
+- `QasInfiniteScroll`: Adicionado dois novos eventos `fetch-success` e `fetch-error`.
+- Adicionado novo composable `useNotifications`.
+- `QasListItems`: Adicionado nova propriedade `useBox` com default `true` para controlar se o componente vai ter um `QasBox` ou `div`.
+
+### Modificado
+- `QasLayout`: modificado para Composition API.
+- `QasAvatar`: modificado prop `color` para aceitar nova cor: `red-14`.
+- `QasCard`: modificado classe `w-full` para `full-width` do quasar.
+- `QasDialog` modificado dialog para funcionamento do novo componente `QasDrawer`, uma vez que o mesmo utilizar o `QasDialog`.
+- `QasListItems`: Modificado estilos de espaçamento.
+- `ui/src/css/plugins/notify.scss`: modificado estilos para adaptar notify da central de notificações.
+
+### Removido
+- `QasAppUser`: removido propriedade `notifications`, agora quem faz o controle de notificações é o `QasLayout`.
+
 ## [3.14.0-beta.2] - 29-01-2024
 ### Adicionado
 - `QasWhatsappLink`: adicionado novo componente de link para o Whatsapp.
@@ -2469,3 +2494,4 @@ Adicionado suporte para Pinia/Vuex Seguindo os padrões da biblioteca `@bildvitt
 [3.14.0-beta.0]: https://github.com/bildvitta/asteroid/compare/v3.13.0...v3.14.0-beta.0?expand=1
 [3.14.0-beta.1]: https://github.com/bildvitta/asteroid/compare/v3.13.1...v3.14.0-beta.1?expand=1
 [3.14.0-beta.2]: https://github.com/bildvitta/asteroid/compare/v3.14.0-beta.1...v3.14.0-beta.2?expand=1
+[3.14.0-beta.3]: https://github.com/bildvitta/asteroid/compare/v3.14.0-beta.2...v3.14.0-beta.3?expand=1
