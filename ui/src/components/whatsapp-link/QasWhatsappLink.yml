@@ -7,7 +7,7 @@ props:
   calling-code:
     desc: Propriedade para passar o DDI.
     default: 55
-    type: String
+    type: [Number, String]
 
   phone:
     desc: Propriedade para passar o telefone.

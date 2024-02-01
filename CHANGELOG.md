@@ -10,6 +10,14 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 ### Sobre os "BREAKING CHANGES"
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
+## Não publicado
+### Modificado
+- `QasDate`:
+  - modificado largura mínima da exibição do mês no calendário.
+  - modificado estilo do dia atual.
+  - modificado estilo dos dias com eventos, agora os dias ficam alinhados no mesma direção de dias sem eventos.
+- `QasWhatsappLink`: modificado propriedade `calling-code` para aceitar o tipo `Number`.
+
 ## [3.14.0-beta.3] - 01-02-2024
 ## BREAKING CHANGES
 - `QasAppUser`: removido propriedade `notifications`, agora quem faz o controle de notificações é o `QasLayout`.

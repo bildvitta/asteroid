@@ -447,14 +447,11 @@ function onNavigation (date) {
   &__event {
     @include set-typography($caption);
 
-    bottom: -6px;
     color: $primary;
     font-size: 10px !important;
-    height: 20px;
-    left: 50%;
-    position: absolute;
-    transform: translateX(-50%);
     width: 100%;
+    line-height: 1;
+    transition: color var(--qas-generic-transition);
 
     &--pointer {
       bottom: -6px;
@@ -470,6 +467,10 @@ function onNavigation (date) {
     justify-content: center;
     margin-top: var(--qas-spacing-xs);
     width: 6px;
+  }
+
+  .q-date__calendar-item {
+    vertical-align: initial;
   }
 
   &--inative {
@@ -493,31 +494,19 @@ function onNavigation (date) {
     }
   }
 
-  &__calendar-item-event {
-    .q-btn {
-      &.bg-primary span {
-        padding-bottom: 4px;
-      }
-
-      &.bg-primary .qas-date__event {
-        bottom: -2px;
-      }
-
-      &.bg-primary .qas-date__event--pointer {
-        bottom: -2px;
-      }
-    }
-  }
-
-  .q-date__navigation > div:last-child,
-  .q-date__navigation > div:first-child {
-    min-width: auto;
-    width: auto;
-  }
-
   .q-date {
     &__navigation {
       justify-content: space-between;
+
+      > div:last-child,
+      > div:first-child {
+        min-width: auto;
+        width: auto;
+      }
+
+      > div:first-child {
+        min-width: 120px;
+      }
 
       .q-btn {
         @include set-button(tertiary, false, false, grey-10);
@@ -566,14 +555,15 @@ function onNavigation (date) {
       min-height: auto;
 
       .q-btn {
-        border: 0;
+        @include set-typography($subtitle2);
+
+        border: 1px solid transparent;
         border-radius: $generic-border-radius;
         box-shadow: none;
-        height: 36px !important;
-        min-height: 30px;
-        min-width: 30px;
+        height: auto !important;
+        line-height: 1;
+        width: 26px !important;
         transition: color var(--qas-generic-transition);
-        width: 30px !important;
 
         .q-ripple,
         .q-focus-helper {
@@ -592,12 +582,17 @@ function onNavigation (date) {
           color: var(--q-primary-contrast);
         }
 
-        @include set-typography($subtitle2);
-      }
-    }
+        &.bg-primary,
+        &.q-date__today {
+          border-color: $primary;
+          border-radius: $generic-border-radius;
+          font-weight: 700;
+        }
 
-    &__today {
-      color: $primary;
+        &.q-date__today {
+          color: $primary;
+        }
+      }
     }
   }
 }
