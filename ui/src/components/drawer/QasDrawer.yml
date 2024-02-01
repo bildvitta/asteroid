@@ -14,7 +14,7 @@ props:
     type: String
 
   model-value:
-    desc: Model do componente, abre ou fecha o dialog.
+    desc: Model do componente, abre ou fecha o drawer.
     type: Boolean
     examples: [v-model="value"]
     model: true

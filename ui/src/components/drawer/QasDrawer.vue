@@ -15,7 +15,7 @@
     </template>
 
     <template #description>
-      <div class="">
+      <div>
         <div class="relative-position" data-cy="drawer-default">
           <slot />
         </div>

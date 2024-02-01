@@ -81,7 +81,7 @@ const attributes = computed(() => {
   }
 })
 
-const label = computed(() => props.useCropTitle ? props.title[0].toUpperCase() : props.title)
+const label = computed(() => props.useCropTitle ? props.title[0]?.toUpperCase?.() : props.title)
 
 const hasImage = computed(() => !hasImageError.value && !!props.image)
 const hasTitle = computed(() => !!props.title)

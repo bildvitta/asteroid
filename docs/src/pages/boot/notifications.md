@@ -10,6 +10,11 @@ Boot que controla a central de notificação da aplicação, para que este boot 
 
 É utilizado o *pattern* de [leader election](https://en.wikipedia.org/wiki/Leader_election), após eleger uma aba como líder, apenas esta aba irá fazer a conexão com o servidor *websocket*, a comunicação entre outras abas será feita via [BroadcastChannel](https://developer.mozilla.org/en-US/docs/Web/API/Broadcast_Channel_API), o motivo desta implementação é para economia de recursos, uma vez que estamos utilizando um serviço pago, o [Ably](https://ably.com/).
 
+:::info
+Lembre-se de passar a propriedade "initialUnreadNotificationsCount" para o componente `QasLayout`, esta propriedade vem no `/me` como `unreadNotificationsCount`.
+:::
+
+
 #### Mapeamento de arquivos que lidam com notificações:
 - `/app-extension/src/boot/notifications.js`;
 - `/ui/src/components/app-user/QasAppUser.vue`;

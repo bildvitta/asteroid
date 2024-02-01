@@ -97,7 +97,7 @@ const drawerProps = computed(() => {
 /**
  * Se todas notificações estiverem lidas, então desabilitar o botão de "Marcar todas como lida"
  */
-const isAllNotificationsRead = computed(() => notifications.value.every(notification => notification?.isRead))
+const isAllNotificationsRead = computed(() => !notifications.value.some(notification => !notification?.isRead))
 
 // functions
 async function markAsRead () {
