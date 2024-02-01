@@ -146,7 +146,7 @@ const props = defineProps({
   }
 })
 
-const emit = defineEmits(['sign-out', 'update:modelValue'])
+const emit = defineEmits(['sign-out', 'update:modelValue', 'toggle-notifications'])
 
 const screen = useScreen()
 const router = useRouter()
@@ -159,7 +159,8 @@ const isMini = ref(screen.isLarge)
 const composableParams = {
   props,
   onMenuUpdate: setHasOpenedMenu,
-  onSignOut: () => emit('sign-out')
+  onSignOut: () => emit('sign-out'),
+  onToggleNotifications: () => emit('toggle-notifications')
 }
 
 const { defaultAppUserProps, showAppUser } = useAppUser(composableParams)

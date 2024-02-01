@@ -1,0 +1,57 @@
+type: component
+
+meta:
+  desc: Componente de drawer que implementa o QasDialog.
+
+props:
+  dialog-props:
+    desc: Repassa propriedades para o QasDialog.
+    default: {}
+    type: Object
+
+  max-width:
+    desc: Tamanho máximo do dialog.
+    type: String
+
+  model-value:
+    desc: Model do componente, abre ou fecha o drawer.
+    type: Boolean
+    examples: [v-model="value"]
+    model: true
+
+  position:
+    desc: 'Posição do drawer, sendo possível apenas 2 opções: [left, right].'
+    default: left
+    type: String
+
+  title:
+    desc: Titulo do drawer.
+    type: String
+
+slots:
+  default:
+    desc: Slot para conteúdo principal.
+
+  title:
+    desc: Slot para o titulo.
+
+events:
+  '@update:model-value -> function (value)':
+    desc: Dispara toda vez que o model é atualizado, também utilizado para v-model.
+    params:
+      value:
+        desc: Novo valor do v-model
+        type: Boolean
+
+selectors:
+  drawer-close-btn:
+    desc: Seletor do botão de fechar.
+    examples: ['data-cy="drawer-close-btn"']
+
+  drawer-default:
+    desc: Seletor do botão conteúdo do slot default.
+    examples: ['data-cy="drawer-default"']
+
+  drawer-title:
+    desc: Seletor do titulo.
+    examples: ['data-cy="drawer-title"']

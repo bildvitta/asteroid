@@ -1,11 +1,11 @@
 <template>
   <q-layout view="hHh Lpr lff">
     <slot v-if="$qas.screen.untilLarge" name="app-bar">
-      <qas-app-bar v-bind="appBarProps" @sign-out="signOut" @toggle-menu="toggleMenuDrawer" />
+      <qas-app-bar v-bind="appBarProps" @sign-out="signOut" @toggle-menu="toggleMenuDrawer" @toggle-notifications="toggleNotificationsDrawer" />
     </slot>
 
     <slot name="app-menu">
-      <qas-app-menu :model-value="showMenuDrawer" v-bind="defaultAppMenuProps" @sign-out="signOut" @update:model-value="updateMenuDrawer" />
+      <qas-app-menu :model-value="showMenuDrawer" v-bind="defaultAppMenuProps" @sign-out="signOut" @toggle-notifications="toggleNotificationsDrawer" @update:model-value="updateMenuDrawer" />
     </slot>
 
     <slot>
@@ -17,72 +17,103 @@
     </slot>
 
     <q-ajax-bar color="primary" position="bottom" size="2px" />
+
+    <pv-layout-notifications-drawer v-if="isNotificationsEnabled" v-model="notificationsDrawer" />
   </q-layout>
 </template>
 
-<script>
+<script setup>
+import PvLayoutNotificationsDrawer from './private/PvLayoutNotificationsDrawer.vue'
 import QasAppBar from '../app-bar/QasAppBar.vue'
 import QasAppMenu from '../app-menu/QasAppMenu.vue'
 
-export default {
-  name: 'QasLayout',
+import useScreen from '../../composables/use-screen'
+import useNotifications from '../../composables/use-notifications'
 
-  components: {
-    QasAppBar,
-    QasAppMenu
+import { computed, ref, watch } from 'vue'
+
+defineOptions({ name: 'QasLayout' })
+
+const props = defineProps({
+  appBarProps: {
+    default: () => ({}),
+    type: Object
   },
 
-  props: {
-    appBarProps: {
-      default: () => ({}),
-      type: Object
-    },
-
-    appMenuProps: {
-      default: () => ({}),
-      type: Object
-    },
-
-    modelValue: {
-      default: true,
-      type: Boolean
-    }
+  appMenuProps: {
+    default: () => ({}),
+    type: Object
   },
 
-  emits: ['sign-out', 'update:modelValue'],
-
-  data () {
-    return {
-      menuDrawer: false
-    }
+  initialUnreadNotificationsCount: {
+    type: Number,
+    default: 0
   },
 
-  computed: {
-    defaultAppMenuProps () {
-      return {
-        ...this.appBarProps,
-        ...this.appMenuProps
-      }
-    },
-
-    showMenuDrawer () {
-      return !this.$qas.screen.untilLarge || this.menuDrawer
-    }
-  },
-
-  methods: {
-    signOut () {
-      this.$emit('sign-out')
-    },
-
-    toggleMenuDrawer () {
-      this.updateMenuDrawer(!this.menuDrawer)
-    },
-
-    updateMenuDrawer (value) {
-      this.menuDrawer = value
-      this.$emit('update:modelValue', value)
-    }
+  modelValue: {
+    default: true,
+    type: Boolean
   }
+})
+
+const emit = defineEmits(['sign-out', 'update:modelValue'])
+
+// expondo método "toggleNotificationsDrawer" para fora do componente.
+defineExpose({ toggleNotificationsDrawer })
+
+const screen = useScreen()
+
+const { isNotificationsEnabled, setUnreadNotificationsCount } = useNotifications()
+
+const menuDrawer = ref(false)
+const notificationsDrawer = ref(false)
+
+/**
+ * Como está sendo utilizado em um watcher com a propriedade 'immediate: true',
+ * é necessário criar a variável antes de atribuí-la ao watcher, para assim conseguir pará-lo.
+ */
+let unreadNotificationsCountWatcher = () => {}
+
+// computed
+const defaultAppMenuProps = computed(() => {
+  return {
+    ...props.appBarProps,
+    ...props.appMenuProps
+  }
+})
+
+const showMenuDrawer = computed(() => !screen.untilLarge || menuDrawer.value)
+
+/**
+ * A propriedade "initialUnreadNotificationsCount" é escutada apenas uma vez,
+ * quando ela é iniciada, seta o "unreadNotificationsCount" do composable,
+ * após isto quem controla é o QasLayout.
+ */
+unreadNotificationsCountWatcher = watch(() => props.initialUnreadNotificationsCount, value => {
+  if (value) {
+    setUnreadNotificationsCount(value)
+
+    // finaliza o watcher
+    unreadNotificationsCountWatcher()
+  }
+}, { immediate: true })
+
+// functions
+function signOut () {
+  emit('sign-out')
+}
+
+function toggleMenuDrawer () {
+  updateMenuDrawer(!menuDrawer.value)
+}
+
+function updateMenuDrawer (value) {
+  menuDrawer.value = value
+
+  emit('update:modelValue', value)
+}
+
+function toggleNotificationsDrawer () {
+  notificationsDrawer.value = !notificationsDrawer.value
 }
 </script>

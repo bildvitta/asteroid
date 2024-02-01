@@ -1,7 +1,7 @@
 <template>
   <q-avatar class="text-bold" v-bind="attributes">
     <q-img v-if="hasImage" :alt="props.title" :ratio="1" spinner-color="primary" spinner-size="16px" :src="props.image" @error="onImageLoadedError" />
-    <template v-else-if="hasTitle">{{ firstLetter }}</template>
+    <template v-else-if="hasTitle">{{ label }}</template>
     <q-icon v-else :name="props.icon" />
   </q-avatar>
 </template>
@@ -45,6 +45,11 @@ const props = defineProps({
   title: {
     default: '',
     type: String
+  },
+
+  useCropTitle: {
+    type: Boolean,
+    default: true
   }
 })
 
@@ -64,7 +69,8 @@ const attributes = computed(() => {
   const colors = {
     [AvatarColors.Primary]: 'white',
     [AvatarColors.SecondaryContrast]: 'primary',
-    [AvatarColors.Grey4]: 'grey-8'
+    [AvatarColors.Grey4]: 'grey-8',
+    [AvatarColors.Red14]: 'white'
   }
 
   return {
@@ -75,7 +81,7 @@ const attributes = computed(() => {
   }
 })
 
-const firstLetter = computed(() => props.title[0].toUpperCase())
+const label = computed(() => props.useCropTitle ? props.title[0]?.toUpperCase?.() : props.title)
 
 const hasImage = computed(() => !hasImageError.value && !!props.image)
 const hasTitle = computed(() => !!props.title)

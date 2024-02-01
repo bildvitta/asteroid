@@ -3,9 +3,7 @@
     <div class="relative-position">
       <qas-avatar :image="props.user.photo" :size="props.avatarSize" :title="userName" />
 
-      <q-badge v-if="hasNotifications" color="red" floating>
-        {{ props.notifications.count }}
-      </q-badge>
+      <qas-avatar v-if="hasNotificationInUserAvatar" v-bind="avatarNotificationCountProps" />
     </div>
 
     <div class="ellipsis qas-app-user__data">
@@ -43,19 +41,15 @@
             </q-item-section>
           </q-item>
 
-          <q-item v-if="hasNotifications" v-close-popup class="qas-app-user__menu-item" clickable>
-            <q-item-section avatar>
+          <q-item v-if="isNotificationsEnabled" v-close-popup class="qas-app-user__menu-item" clickable @click="toggleNotificationsDrawer">
+            <q-item-section avatar class="relative-position">
               <q-icon name="sym_r_notifications" />
+
+              <qas-avatar v-if="hasUnreadNotifications" class="qas-app-user__notification-avatar--icon" v-bind="avatarNotificationCountProps" />
             </q-item-section>
 
             <q-item-section>
               Notificações
-            </q-item-section>
-
-            <q-item-section side>
-              <q-badge color="red">
-                {{ props.notifications.count }}
-              </q-badge>
             </q-item-section>
           </q-item>
 
@@ -77,6 +71,7 @@
 <script setup>
 import QasAvatar from '../avatar/QasAvatar.vue'
 
+import useNotifications from '../../composables/use-notifications'
 import { NotifySuccess, NotifyError } from '../../plugins'
 
 import { ref, computed, watch, inject } from 'vue'
@@ -111,14 +106,19 @@ const props = defineProps({
   }
 })
 
-const emit = defineEmits(['sign-out'])
+const emit = defineEmits(['sign-out', 'toggle-notifications'])
 
 // vindo direto do boot api.js
 const axios = inject('axios')
 
+const { isNotificationsEnabled, unreadNotificationsCount } = useNotifications()
+
 const companiesModel = ref('')
 const loading = ref(false)
 
+const { avatarNotificationCountProps } = useAvatarNotifications()
+
+// computed
 const defaultCompanyProps = computed(() => {
   return {
     loading: loading.value,
@@ -131,14 +131,51 @@ const defaultCompanyProps = computed(() => {
 })
 
 const hasCompaniesSelect = computed(() => !!props.companyProps.options?.length)
-const hasNotifications = computed(() => !!Object.keys(props.notifications).length)
+const hasUnreadNotifications = computed(() => unreadNotificationsCount.value > 0)
+const hasNotificationInUserAvatar = computed(() => isNotificationsEnabled && hasUnreadNotifications.value)
 
+const unreadNotificationsToString = computed(() => String(unreadNotificationsCount.value))
 const userName = computed(() => props.user.name || props.user.givenName)
 
 // watch
 watch(() => props.companyProps.modelValue, value => {
   companiesModel.value = value
 }, { immediate: true })
+
+// composable
+function useAvatarNotifications () {
+  const hasAnimated = ref(false)
+
+  watch(() => unreadNotificationsCount.value, () => {
+    hasAnimated.value = true
+
+    setTimeout(() => {
+      hasAnimated.value = false
+    }, 1000)
+  })
+
+  const avatarNotificationCountProps = computed(() => {
+    const classes = [
+      'qas-app-user__notification-avatar',
+      'animated',
+      {
+        rubberBand: hasAnimated.value
+      }
+    ]
+
+    return {
+      class: classes,
+      color: 'red-14',
+      size: 'xs',
+      title: unreadNotificationsToString.value,
+      useCropTitle: false
+    }
+  })
+
+  return {
+    avatarNotificationCountProps
+  }
+}
 
 // métodos
 function signOut () {
@@ -169,10 +206,28 @@ function onMenuHide () {
     companiesModel.value = props.companyProps.modelValue
   }
 }
+
+function toggleNotificationsDrawer () {
+  emit('toggle-notifications')
+}
 </script>
 
 <style lang="scss">
 .qas-app-user {
+  &__notification-avatar {
+    animation-duration: 1s;
+    position: absolute;
+    top: 0;
+
+    &:not(&--icon) {
+      right: -4px;
+    }
+
+    &--icon {
+      right: 4px;
+    }
+  }
+
   &__data {
     line-height: 1.1;
   }
