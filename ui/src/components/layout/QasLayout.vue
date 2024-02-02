@@ -68,12 +68,6 @@ const { isNotificationsEnabled, setUnreadNotificationsCount } = useNotifications
 const menuDrawer = ref(false)
 const notificationsDrawer = ref(false)
 
-/**
- * Como está sendo utilizado em um watcher com a propriedade 'immediate: true',
- * é necessário criar a variável antes de atribuí-la ao watcher, para assim conseguir pará-lo.
- */
-let unreadNotificationsCountWatcher = () => {}
-
 // computed
 const defaultAppMenuProps = computed(() => {
   return {
@@ -84,19 +78,7 @@ const defaultAppMenuProps = computed(() => {
 
 const showMenuDrawer = computed(() => !screen.untilLarge || menuDrawer.value)
 
-/**
- * A propriedade "initialUnreadNotificationsCount" é escutada apenas uma vez,
- * quando ela é iniciada, seta o "unreadNotificationsCount" do composable,
- * após isto quem controla é o QasLayout.
- */
-unreadNotificationsCountWatcher = watch(() => props.initialUnreadNotificationsCount, value => {
-  if (value) {
-    setUnreadNotificationsCount(value)
-
-    // finaliza o watcher
-    unreadNotificationsCountWatcher()
-  }
-}, { immediate: true })
+watch(() => props.initialUnreadNotificationsCount, setUnreadNotificationsCount, { immediate: true })
 
 // functions
 function signOut () {
