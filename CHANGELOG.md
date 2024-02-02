@@ -10,6 +10,13 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 ### Sobre os "BREAKING CHANGES"
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
+## Não publicado
+### Corrigido
+- `QasDrawer`: loading estava quebrando no mobile.
+
+### Modificado
+- `QasDrawer`: adicionado default `60%` na propriedade `maxWidth`.
+
 ## [3.14.0-beta.5] - 02-02-2024
 ### Corrigido
 - `QasLayout`: propriedade "initialUnreadNotificationsCount" só era escutada por uma vez, o que gerava problemas quando os dados eram alterados.
