@@ -89,7 +89,6 @@ const model = computed({
 const drawerProps = computed(() => {
   return {
     loading: isMarkingNotificationsAsRead.value,
-    maxWidth: '60%',
     title: 'Notificações'
   }
 })

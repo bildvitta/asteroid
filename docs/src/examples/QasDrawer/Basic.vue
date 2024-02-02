@@ -29,6 +29,7 @@ export default {
   computed: {
     drawerProps () {
       return {
+        maxWidth: '',
         title: 'Título de exemplo',
         position: this.position
       }

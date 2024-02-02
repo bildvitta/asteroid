@@ -50,7 +50,7 @@ const props = defineProps({
 
   maxWidth: {
     type: String,
-    default: ''
+    default: '60%'
   },
 
   position: {
@@ -74,15 +74,16 @@ const emit = defineEmits(['update:modelValue'])
 const attrs = useAttrs()
 const screen = useScreen()
 
+// computed
+const normalizedMaxWidth = computed(() => screen.isSmall ? '100%' : props.maxWidth)
+
 const loadingStyle = computed(() => {
   return {
-    right: `calc(100% - ${props.maxWidth})`
+    right: `calc(100% - ${normalizedMaxWidth.value})`
   }
 })
 
 const attributes = computed(() => {
-  const maxWidth = screen.isSmall ? '100%' : props.maxWidth
-
   const { modelValue } = attrs
 
   return {
@@ -92,7 +93,7 @@ const attributes = computed(() => {
     ...props.dialogProps,
 
     cancel: false,
-    maxWidth,
+    maxWidth: normalizedMaxWidth.value,
     maximized: true,
     ok: false,
     position: props.position,

@@ -11,6 +11,7 @@ props:
 
   max-width:
     desc: Tamanho máximo do dialog.
+    default: 60%
     type: String
 
   model-value:
