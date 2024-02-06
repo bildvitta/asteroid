@@ -1,95 +1,123 @@
 <template>
-  <div class="col-12 col-lg-3 col-md-4 col-sm-6">
-    <q-card class="border-radius-lg column full-height overflow-hidden" :class="cardClasses">
-      <header v-if="props.useHeader" class="full-width overflow-hidden relative-position">
-        <slot name="header">
-          <q-carousel v-model="slideImage" animated class="cursor-pointer" height="205px" infinite :navigation="hasImages" navigation-icon="sym_r_fiber_manual_record" swipeable>
-            <template #navigation-icon="{ active, btnProps, onClick }">
-              <qas-btn color="white" :icon="getNavigationIcon(active, btnProps)" variant="tertiary" @click="onClick" />
-            </template>
+  <div class="col-12 col-lg-3 col-md-4 col-sm-6 qas-card">
+    <q-card
+      class="column full-height overflow-hidden q-px-md q-py-sm rounded-borders-right rounded-borders-sm shadow-2"
+      :style="style"
+    >
+      <div class="items-center justify-between row">
+        <router-link
+          class="qas-card__router text-h4"
+          :to="route"
+        >
+          {{ props.title }}
+        </router-link>
 
-            <q-carousel-slide v-for="(item, index) in imagesList" :key="index" class="bg-no-repeat" :class="imagePositionClass" :img-src="item" :name="index" />
-          </q-carousel>
-
-          <div class="absolute-top flex items-center q-pa-md">
-            <slot name="carousel-header" />
-          </div>
-        </slot>
-      </header>
-
-      <q-card-section class="col-grow column full-width justify-between">
-        <div class="full-width" :class="gutterClass">
-          <slot />
-        </div>
-      </q-card-section>
-
-      <div v-if="hasActionsSlot" class="border-grey border-top overflow-hidden row">
-        <slot name="actions" />
+        <qas-actions-menu
+          v-if="hasActions"
+          :list="actionsMenuProps"
+          :use-label="false"
+        />
       </div>
+
+      <div class="q-my-sm">
+        <slot name="default" />
+      </div>
+
+      <q-separator
+        v-if="hasFooter"
+        class="q-mb-sm"
+      />
+
+      <div
+        v-if="hasFooterSlot"
+        class="overflow-hidden row"
+      >
+        <slot name="footer" />
+      </div>
+
+      <q-expansion-item
+        v-if="canUseExpansion"
+        dense
+        expand-icon-class="text-primary"
+        header-class="q-pa-none text-primary"
+        :label="footerLabel"
+      >
+        <slot name="expansion-content">
+          {{ props.expansionContent }}
+        </slot>
+      </q-expansion-item>
     </q-card>
   </div>
 </template>
 
 <script setup>
-import { Spacing } from '../../enums/Spacing'
-
-import { ref, computed, useSlots } from 'vue'
+import { computed, useSlots } from 'vue'
 
 defineOptions({ name: 'QasCard' })
 
 const props = defineProps({
-  imagePosition: {
+  title: {
     type: String,
-    default: 'center'
+    default: ''
   },
 
-  gutter: {
+  route: {
+    type: Object,
+    default: () => ({})
+  },
+
+  actionsMenuProps: {
+    type: Object,
+    default: () => ({})
+  },
+
+  statusColor: {
     type: String,
-    default: Spacing.Sm,
-    validator: value => Object.values(Spacing).includes(value)
+    default: ''
   },
 
-  images: {
-    default: () => [],
-    type: Array
-  },
-
-  outlined: {
+  useExpansion: {
     type: Boolean
   },
 
-  unelevated: {
-    type: Boolean
+  expansionContent: {
+    type: String,
+    default: ''
   },
 
-  useHeader: {
-    type: Boolean
+  footerLabel: {
+    type: String,
+    default: 'Ver mais'
+  }
+})
+
+const hasActions = computed(() => !!Object.keys(props.actionsMenuProps).length)
+
+const style = computed(() => {
+  if (!props.statusColor) return {}
+
+  return {
+    borderLeft: `4px solid ${props.statusColor}`
   }
 })
 
 const slots = useSlots()
 
-const slideImage = ref(0)
+const hasFooterSlot = computed(() => !!slots.footer)
 
-const cardClasses = computed(() => {
-  return {
-    'shadow-2': !props.unelevated,
-    'border-primary': props.outlined,
-    'no-shadow': props.outlined,
-    'bg-white': props.outlined
-  }
-})
+const canUseExpansion = computed(() => !hasFooterSlot.value && props.useExpansion)
 
-const imagePositionClass = computed(() => `bg-position-${props.imagePosition}`)
-const gutterClass = computed(() => `q-col-gutter-${props.gutter}`)
-
-const hasActionsSlot = computed(() => !!slots.actions)
-const hasImages = computed(() => props.images.length > 1)
-
-const imagesLength = computed(() => props.images?.length)
-const imagesList = computed(() => imagesLength.value && props.images.slice(0, 3))
-
-function getNavigationIcon (active, { icon }) {
-  return active ? 'sym_r_radio_button_checked' : icon
-}
+const hasFooter = computed(() => hasFooterSlot.value || canUseExpansion.value)
 </script>
+
+<style lang="scss">
+.qas-card {
+  &__router {
+    text-decoration: none;
+
+    &:hover {
+      color: $primary;
+    }
+  }
+}
+</style>
