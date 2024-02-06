@@ -4,43 +4,45 @@ meta:
   desc: Componente de card.
 
 props:
-  gutter:
-    desc: Espaçamento dentro <q-card-section /> onde fica o slot "default".
-    default: sm
-    type: String
-    examples: [xs, sm, md, lg, xl]
-
-  images:
-    desc: Imagens do carousel.
-    default: []
-    type: Array
-
-  image-position:
-    desc: Posição da imagem "background-position".
-    default: center
+  title:
+    desc: Título principal do card.
+    default: ''
     type: String
 
-  outlined:
-    desc: Insere uma borda sólida em volta do componente.
+  route:
+    desc: Rota que será utilizada ao clicar no título.
+    default: {}
+    type: Object
+
+  actions-menu-props:
+    desc: Propriedades repassadas para o QasActionsMenu.
+    default: {}
+    type: Object
+
+  status-color:
+    desc: Insere uma borda na esquerda para indicar o status do card.
+    default: ''
+    type: String
+
+  use-expansion:
+    desc: Exibe um "QExpansionItem".
     type: Boolean
 
-  unelevated:
-    desc: Remove a sombra do componente.
-    type: Boolean
+  expansion-content:
+    desc: Conteúdo que ficará dentro do "QExpansionItem".
+    type: String
 
-  use-header:
-    desc: Controla se vai ter ou não o header com carousel.
-    type: Boolean
+  footer-label:
+    desc: Label do "QExpansionItem" presente no footer.
+    default: Ver mais
+    type: String
 
 slots:
-  actions:
-    desc: Slot para acessar conteúdo de ações como botão.
-
-  carousel-header:
-    desc: Slot para acessar usar de header do "<q-carousel />".
-
   default:
-    desc: Slot para acessar conteúdo dentro do "<q-card-section />".
+    desc: Slot para acessar conteúdo principal do card.
 
-  header:
-    desc: Slot para acessar área no lugar do "<q-carousel />".
+  footer:
+    desc: Slot para acessar o footer do card.
+
+  expansion-content:
+    desc: Slot para acessar o conteúdo dentro do "QExpansionItem".
