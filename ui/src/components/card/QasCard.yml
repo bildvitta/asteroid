@@ -22,24 +22,24 @@ props:
   status-color:
     desc: Insere uma borda na esquerda para indicar o status do card.
     default: ''
+    examples: [red-14, blue-8, green-9]
     type: String
 
   use-expansion:
     desc: Exibe um "QExpansionItem".
     type: Boolean
 
-  expansion-content:
-    desc: Conteúdo que ficará dentro do "QExpansionItem".
-    type: String
-
-  footer-label:
-    desc: Label do "QExpansionItem" presente no footer.
-    default: Ver mais
-    type: String
+  expansion-props:
+    desc: Conteúdo que ficará dentro do "QExpansionItem", sendo separado por "label" e "content".
+    type: Object
+    default: {}
 
 slots:
   default:
     desc: Slot para acessar conteúdo principal do card.
+
+  title:
+    desc: Slot para acessar conteúdo do título do card.
 
   footer:
     desc: Slot para acessar o footer do card.

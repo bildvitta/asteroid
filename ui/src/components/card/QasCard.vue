@@ -1,5 +1,5 @@
 <template>
-  <div class="col-12 col-lg-3 col-md-4 col-sm-6 qas-card">
+  <div class="full-width qas-card">
     <q-card
       class="column full-height overflow-hidden q-px-md q-py-sm rounded-borders-right rounded-borders-sm shadow-2"
       :style="style"
@@ -9,7 +9,7 @@
           class="qas-card__router text-h4"
           :to="route"
         >
-          {{ props.title }}
+          <slot name="title">{{ props.title }}</slot>
         </router-link>
 
         <qas-actions-menu
@@ -28,30 +28,29 @@
         class="q-mb-sm"
       />
 
-      <div
-        v-if="hasFooterSlot"
-        class="overflow-hidden row"
-      >
-        <slot name="footer" />
-      </div>
-
-      <q-expansion-item
-        v-if="canUseExpansion"
-        dense
-        expand-icon-class="text-primary"
-        header-class="q-pa-none text-primary"
-        :label="footerLabel"
-      >
-        <slot name="expansion-content">
-          {{ props.expansionContent }}
-        </slot>
-      </q-expansion-item>
+      <slot name="footer">
+        <div class="full-width">
+          <q-expansion-item
+            v-if="props.useExpansion"
+            dense
+            expand-icon-class="text-primary"
+            header-class="q-pa-none text-primary"
+            :label="props.expansionProps.label"
+          >
+            <slot name="expansion-content">
+              {{ props.expansionProps.content }}
+            </slot>
+          </q-expansion-item>
+        </div>
+      </slot>
     </q-card>
   </div>
 </template>
 
 <script setup>
 import { computed, useSlots } from 'vue'
+
+import { colors } from 'quasar'
 
 defineOptions({ name: 'QasCard' })
 
@@ -80,24 +79,21 @@ const props = defineProps({
     type: Boolean
   },
 
-  expansionContent: {
-    type: String,
-    default: ''
-  },
-
-  footerLabel: {
-    type: String,
-    default: 'Ver mais'
+  expansionProps: {
+    type: Object,
+    default: () => ({})
   }
 })
 
 const hasActions = computed(() => !!Object.keys(props.actionsMenuProps).length)
 
 const style = computed(() => {
-  if (!props.statusColor) return {}
+  if (!props.statusColor) return
+
+  const { getPaletteColor } = colors
 
   return {
-    borderLeft: `4px solid ${props.statusColor}`
+    borderLeft: `4px solid ${getPaletteColor(props.statusColor)}`
   }
 })
 
@@ -105,9 +101,7 @@ const slots = useSlots()
 
 const hasFooterSlot = computed(() => !!slots.footer)
 
-const canUseExpansion = computed(() => !hasFooterSlot.value && props.useExpansion)
-
-const hasFooter = computed(() => hasFooterSlot.value || canUseExpansion.value)
+const hasFooter = computed(() => hasFooterSlot.value || props.useExpansion)
 </script>
 
 <style lang="scss">

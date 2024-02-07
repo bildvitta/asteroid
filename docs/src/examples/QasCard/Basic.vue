@@ -13,7 +13,7 @@
       </qas-card>
 
       <qas-card
-        expansion-content="Conteúdo do menu expansivo"
+        :expansion-props="expansionProps"
         :route="{ name: 'Root'}"
         title="Titulo"
         use-expansion
@@ -27,9 +27,9 @@
 
       <qas-card
         :actions-menu-props="actionsMenuProps"
-        expansion-content="Conteúdo do menu expansivo"
+        :expansion-props="expansionProps"
         :route="{ name: 'Root'}"
-        status-color="#c42644"
+        status-color="red-14"
         title="Titulo"
         use-expansion
       >
@@ -57,6 +57,13 @@ export default {
           label: 'Editar',
           icon: 'sym_r_edit'
         }
+      }
+    },
+
+    expansionProps () {
+      return {
+        label: 'Ver mais',
+        content: 'Conteúdo do menu expansivo'
       }
     }
   }
