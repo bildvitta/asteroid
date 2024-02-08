@@ -19,13 +19,11 @@
         <q-separator v-if="hasFooter" class="q-mb-sm" />
 
         <slot name="footer">
-          <div class="full-width">
-            <q-expansion-item v-if="hasExpansion" dense expand-icon-class="text-primary" header-class="q-pa-none text-primary" :label="props.expansionProps.label">
-              <slot name="expansion-content">
-                {{ props.expansionProps.content }}
-              </slot>
-            </q-expansion-item>
-          </div>
+          <q-expansion-item v-if="hasExpansion" class="full-width" dense expand-icon-class="text-primary" header-class="q-pa-none text-primary" :label="props.expansionProps.label">
+            <slot name="expansion-content">
+              {{ props.expansionProps.content }}
+            </slot>
+          </q-expansion-item>
         </slot>
       </div>
     </q-card>
