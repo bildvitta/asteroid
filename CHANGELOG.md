@@ -16,9 +16,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 
 ### Modificado
 - `QasCard`: agora é um card padrão, sem exibição de imagens.
-
-### Adicionado
-- `QasCardImage`: antigo componente de `QasCard`, porém com novo nome.
+- `QasCard`: alterado para `QasCardImage` devido sua função principal ser exibir imagens.
 
 ## [3.14.0-beta.6] - 02-02-2024
 ### Corrigido
