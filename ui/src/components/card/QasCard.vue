@@ -1,5 +1,5 @@
 <template>
-  <div class="full-width qas-card">
+  <div class="qas-card">
     <q-card
       class="column full-height overflow-hidden q-px-md q-py-sm rounded-borders-right rounded-borders-sm shadow-2"
       :style="style"
@@ -23,26 +23,28 @@
         <slot name="default" />
       </div>
 
-      <q-separator
-        v-if="hasFooter"
-        class="q-mb-sm"
-      />
+      <div class="q-mt-auto">
+        <q-separator
+          v-if="hasFooter"
+          class="q-mb-sm"
+        />
 
-      <slot name="footer">
-        <div class="full-width">
-          <q-expansion-item
-            v-if="props.useExpansion"
-            dense
-            expand-icon-class="text-primary"
-            header-class="q-pa-none text-primary"
-            :label="props.expansionProps.label"
-          >
-            <slot name="expansion-content">
-              {{ props.expansionProps.content }}
-            </slot>
-          </q-expansion-item>
-        </div>
-      </slot>
+        <slot name="footer">
+          <div class="full-width">
+            <q-expansion-item
+              v-if="props.useExpansion"
+              dense
+              expand-icon-class="text-primary"
+              header-class="q-pa-none text-primary"
+              :label="props.expansionProps.label"
+            >
+              <slot name="expansion-content">
+                {{ props.expansionProps.content }}
+              </slot>
+            </q-expansion-item>
+          </div>
+        </slot>
+      </div>
     </q-card>
   </div>
 </template>
