@@ -5,9 +5,9 @@
 
       <q-toolbar-title>
         <router-link class="flex items-center no-wrap text-no-decoration" :class="routerLinkClass" :to="rootRoute">
-          <img v-if="brand" :alt="title" class="qas-app-bar__brand" :src="brand">
+          <img v-if="props.brand" :alt="props.title" class="qas-app-bar__brand" :src="props.brand">
 
-          <span v-else class="ellipsis text-bold text-primary">{{ title }}</span>
+          <span v-else class="ellipsis text-bold text-primary">{{ props.title }}</span>
 
           <q-badge v-if="hasDevelopmentBadge" class="q-ml-sm" color="red" :label="developmentBadgeLabel" />
         </router-link>
@@ -54,7 +54,7 @@ const props = defineProps({
   }
 })
 
-const emits = defineEmits(['sign-out', 'toggle-menu'])
+const emit = defineEmits(['sign-out', 'toggle-menu', 'toggle-notifications'])
 
 const router = useRouter()
 const screen = useScreen()
@@ -68,6 +68,7 @@ const defaultAppUserProps = computed(() => {
     },
 
     onSignOut: signOut,
+    onToggleNotifications: toggleNotifications,
     ...props.appUserProps
   }
 })
@@ -93,11 +94,15 @@ const hasUser = computed(() => !!Object.keys(defaultAppUserProps.value.user || {
 const routerLinkClass = computed(() => screen.isSmall && 'justify-center')
 
 function signOut () {
-  emits('sign-out')
+  emit('sign-out')
+}
+
+function toggleNotifications () {
+  emit('toggle-notifications')
 }
 
 function toggleMenuDrawer () {
-  emits('toggle-menu')
+  emit('toggle-menu')
 }
 </script>
 

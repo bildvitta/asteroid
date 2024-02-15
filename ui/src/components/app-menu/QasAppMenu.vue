@@ -5,10 +5,10 @@
         <div class="full-width">
           <!-- Brand -->
           <div v-if="!screen.untilLarge" class="q-mb-xl q-pt-xl qas-app-menu__label" :class="classes.spacedItem">
-            <router-link class="flex justify-center relative-position text-no-decoration" :to="rootRoute">
-              <q-img v-if="normalizedBrand" :alt="title" class="qas-app-menu__brand qas-app-menu__label" :class="classes.brand" fit="contain" height="27px" no-spinner :src="normalizedBrand" />
+            <router-link class="column flex items-center justify-center relative-position text-no-decoration" :to="rootRoute">
+              <q-img v-if="normalizedBrand" :alt="props.title" class="qas-app-menu__brand qas-app-menu__label" fit="contain" height="27px" img-class="qas-app-menu__brand-img" no-spinner :src="normalizedBrand" />
 
-              <span v-else-if="!isMiniMode" class="ellipsis text-bold text-primary text-subtitle2">{{ title }}</span>
+              <span v-else-if="!isMiniMode" class="ellipsis text-bold text-primary text-subtitle2">{{ props.title }}</span>
 
               <q-badge v-if="hasDevelopmentBadge" class="q-mt-sm" color="red" :label="developmentBadgeLabel" />
             </router-link>
@@ -30,8 +30,8 @@
           </div>
 
           <!-- List -->
-          <q-list v-if="items.length" class="q-mt-xl qas-app-menu__menu text-grey-10">
-            <template v-for="(menuItem, index) in items">
+          <q-list v-if="props.items.length" class="q-mt-xl qas-app-menu__menu text-grey-10">
+            <template v-for="(menuItem, index) in props.items">
               <div v-if="hasChildren(menuItem)" :key="`children-${index}`" class="qas-app-menu__content" :class="classes.content">
                 <q-item class="ellipsis items-center q-py-none qas-app-menu__item qas-app-menu__item--label-mini text-weight-bold">
                   <div class="ellipsis qas-app-menu__label text-grey-10 text-subtitle2" :class="classes.spacedItem">
@@ -146,7 +146,7 @@ const props = defineProps({
   }
 })
 
-const emits = defineEmits(['sign-out', 'update:modelValue'])
+const emit = defineEmits(['sign-out', 'update:modelValue', 'toggle-notifications'])
 
 const screen = useScreen()
 const router = useRouter()
@@ -159,7 +159,8 @@ const isMini = ref(screen.isLarge)
 const composableParams = {
   props,
   onMenuUpdate: setHasOpenedMenu,
-  onSignOut: () => emits('sign-out')
+  onSignOut: () => emit('sign-out'),
+  onToggleNotifications: () => emit('toggle-notifications')
 }
 
 const { defaultAppUserProps, showAppUser } = useAppUser(composableParams)
@@ -172,7 +173,7 @@ const model = computed({
   },
 
   set (value) {
-    emits('update:modelValue', value)
+    emit('update:modelValue', value)
   }
 })
 
@@ -183,10 +184,6 @@ const normalizedBrand = computed(() => isMini.value ? props.miniBrand : props.br
 
 const classes = computed(() => {
   return {
-    brand: {
-      'qas-app-menu__brand--spaced': !isMiniMode.value
-    },
-
     content: {
       'qas-app-menu__content--spaced': !isMiniMode.value
     },
@@ -199,7 +196,7 @@ const classes = computed(() => {
 
 // métodos
 function closeDrawer () {
-  emits('update:modelValue', false)
+  emit('update:modelValue', false)
 }
 
 function getNormalizedPath (path) {
@@ -290,10 +287,8 @@ function setHasOpenedMenu (value) {
   }
 
   &__brand {
-    width: 40px;
-
-    &--spaced {
-      width: 208px;
+    :deep(.qas-app-menu__brand-img) {
+      transition: opacity 120ms ease-in; // 120ms é o mesmo tempo utilizado na abertura do QDrawer.
     }
   }
 

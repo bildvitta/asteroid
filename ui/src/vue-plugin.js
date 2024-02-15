@@ -19,6 +19,7 @@ import QasDebugger from './components/debugger/QasDebugger.vue'
 import QasDelete from './components/delete/QasDelete.vue'
 import QasDialog from './components/dialog/QasDialog.vue'
 import QasDialogRouter from './components/dialog-router/QasDialogRouter.vue'
+import QasDrawer from './components/drawer/QasDrawer.vue'
 import QasEmptyResultText from './components/empty-result-text/QasEmptyResultText.vue'
 import QasField from './components/field/QasField.vue'
 import QasFilters from './components/filters/QasFilters.vue'
@@ -61,8 +62,11 @@ import QasTransfer from './components/transfer/QasTransfer.vue'
 import QasTreeGenerator from './components/tree-generator/QasTreeGenerator.vue'
 import QasUploader from './components/uploader/QasUploader.vue'
 import QasWelcome from './components/welcome/QasWelcome.vue'
+import QasWhatsappLink from './components/whatsapp-link/QasWhatsappLink.vue'
 
 import { Notify, Loading, Quasar, Dialog as QuasarDialog } from 'quasar'
+
+import { getAction } from '@bildvitta/store-adapter'
 
 // Plugins
 import {
@@ -102,6 +106,7 @@ async function install (app) {
   app.component('QasDelete', QasDelete)
   app.component('QasDialog', QasDialog)
   app.component('QasDialogRouter', QasDialogRouter)
+  app.component('QasDrawer', QasDrawer)
   app.component('QasEmptyResultText', QasEmptyResultText)
   app.component('QasField', QasField)
   app.component('QasFilters', QasFilters)
@@ -144,6 +149,7 @@ async function install (app) {
   app.component('QasTreeGenerator', QasTreeGenerator)
   app.component('QasUploader', QasUploader)
   app.component('QasWelcome', QasWelcome)
+  app.component('QasWhatsappLink', QasWhatsappLink)
 
   app.use(Quasar, { plugins: { Notify, Loading, QuasarDialog, Dialog } })
 
@@ -156,7 +162,9 @@ async function install (app) {
   }
 
   app.provide('qas', {
-    delete: params => Delete.call(app.config.globalProperties, params)
+    delete: params => Delete.call(app.config.globalProperties, params),
+
+    getAction: params => getAction.call(app.config.globalProperties, params)
   })
 
   app.directive(Test.name, Test)
@@ -187,6 +195,7 @@ export {
   QasDelete,
   QasDialog,
   QasDialogRouter,
+  QasDrawer,
   QasEmptyResultText,
   QasField,
   QasFilters,

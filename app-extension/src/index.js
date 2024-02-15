@@ -16,6 +16,7 @@ function extendQuasar (quasar, asteroidConfigFile) {
     'boot/store-adapter'
   ))
 
+  // controle dos componentes que utilizam bibliotecas terceiras.
   const thirdPartyComponentsList = {
     QasMap: 'boot/map.js',
     QasChartView: 'boot/chart-view.js'
@@ -27,6 +28,11 @@ function extendQuasar (quasar, asteroidConfigFile) {
         thirdPartyComponentsList[key]
       ))
     }
+  }
+
+  // controle das notificações
+  if (asteroidConfigFile.framework.featureToggle.useNotifications) {
+    quasar.boot.push(...resolve('boot/notifications'))
   }
 
   // Transpilação de arquivos!
@@ -51,7 +57,8 @@ function extendQuasar (quasar, asteroidConfigFile) {
   // Adiciona todas as classes de animação do Animate.css ao quasar
   // https://animate.style/
   const animations = [
-    'slideInDown'
+    'slideInDown',
+    'rubberBand'
   ]
 
   animations.forEach(animation => quasar.animations.push(animation))

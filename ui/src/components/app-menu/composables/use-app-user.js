@@ -6,6 +6,7 @@ import { computed } from 'vue'
  * @param {{
  *  props: { appUserProps: {} }
  *  onSignOut: () => void
+ *  onToggleNotifications: () => void
  *  onMenuUpdate: () => void
  * }} config
  */
@@ -14,6 +15,7 @@ export default function useAppUser (config = {}) {
     props,
 
     onSignOut,
+    onToggleNotifications,
     onMenuUpdate
   } = config
 
@@ -29,6 +31,7 @@ export default function useAppUser (config = {}) {
 
       // eventos
       onSignOut,
+      onToggleNotifications,
       ...props.appUserProps
     }
   })

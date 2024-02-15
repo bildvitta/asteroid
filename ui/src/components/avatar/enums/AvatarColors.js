@@ -5,5 +5,6 @@
 export const AvatarColors = {
   Primary: 'primary',
   SecondaryContrast: 'secondary-contrast',
-  Grey4: 'grey-4'
+  Grey4: 'grey-4',
+  Red14: 'red-14'
 }

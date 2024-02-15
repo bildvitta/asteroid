@@ -3,13 +3,13 @@ import { computed } from 'vue'
 /**
  * @param {{
  *  props: { cancel: object },
- *  emits: (event: 'cancel') => void
+ *  emit: (event: 'cancel') => void
  * }} config
  */
 export default function useCancel (config = {}) {
   const {
     props,
-    emits
+    emit
   } = config
 
   const defaultCancel = computed(() => {
@@ -30,7 +30,7 @@ export default function useCancel (config = {}) {
   function onCancel () {
     props.cancel.onClick?.()
 
-    emits('cancel')
+    emit('cancel')
   }
 
   return {

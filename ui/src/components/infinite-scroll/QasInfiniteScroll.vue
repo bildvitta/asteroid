@@ -62,7 +62,7 @@ const props = defineProps({
 
 defineExpose({ refresh, remove })
 
-const emits = defineEmits(['update:list'])
+const emit = defineEmits(['update:list', 'fetch-success', 'fetch-error'])
 
 const axios = inject('axios')
 
@@ -97,7 +97,7 @@ const model = computed({
   },
 
   set (newList) {
-    emits('update:list', newList)
+    emit('update:list', newList)
   }
 })
 
@@ -135,10 +135,14 @@ async function fetchList () {
      * após buscar uma vez e retornar uma lista vazia.
     */
     hasMadeFirstFetch.value = true
-  } catch {
+
+    emit('fetch-success', { list: newList, offset: offset.value, count: count.value })
+  } catch (error) {
     NotifyError('Ops… Não conseguimos acessar as informações. Por favor, tente novamente em alguns minutos.')
 
     hasFetchingError.value = true
+
+    emit('fetch-error', error)
   } finally {
     isFetching.value = false
   }

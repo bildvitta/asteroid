@@ -12,11 +12,239 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 
 ## Não publicado
 ### Adicionado
-- `QasFilters`: adicionado model `filters` para controlar os filtros ativos.
-- `QasFilters`: adicionado model `search` para controlar o campo de busca.
-- `QasFilters`: adicionado suporte a campos do filtro com lazy loading.
+- `QasFilters`: 
+  - adicionado model `filters` para controlar os filtros ativos.
+  - adicionado model `search` para controlar o campo de busca.
+  - adicionado suporte a campos do filtro com lazy loading.
 - `QasSelect`: adicionado prop `useFetchOptionsOnFocus` para controlar se deve buscar as opções somente ao realizar foco no select.
 - `search-filter`: adicionado evento `update:selectedOptions` para retornar as opções selecionadas (label e value).
+
+## [3.14.0-beta.8] - 15-02-2024
+### Modificado
+- `QasListItens`:
+  - alterado cor do botão de `primary` para `grey-10`.
+  - alterado espaçamento entre itens de `lg` para `md`.
+  - removido `v-ripple` para se adequar ao design.
+
+## [3.14.0-beta.7] - 15-02-2024
+### Corrigido
+- `QasDate`: Corrigido exibição de eventos com mais de 3 dígitos no calendário.
+
+## [3.14.0-beta.6] - 02-02-2024
+### Corrigido
+- `QasDrawer`: loading estava quebrando no mobile.
+
+### Modificado
+- `QasDrawer`: adicionado default `60%` na propriedade `maxWidth`.
+
+## [3.14.0-beta.5] - 02-02-2024
+### Corrigido
+- `QasLayout`: propriedade "initialUnreadNotificationsCount" só era escutada por uma vez, o que gerava problemas quando os dados eram alterados.
+
+## [3.14.0-beta.4] - 01-02-2024
+### Modificado
+- `QasDate`:
+  - modificado largura mínima da exibição do mês no calendário.
+  - modificado estilo do dia atual.
+  - modificado estilo dos dias com eventos, agora os dias ficam alinhados no mesma direção de dias sem eventos.
+- `QasWhatsappLink`: modificado propriedade `calling-code` para aceitar o tipo `Number`.
+
+## [3.14.0-beta.3] - 01-02-2024
+## BREAKING CHANGES
+- `QasAppUser`: removido propriedade `notifications`, agora quem faz o controle de notificações é o `QasLayout`.
+
+### Adicionado
+- Adicionado novo componente `QasDrawer`.
+- `QasLayout`:
+  - adicionado nova propriedade `initialUnreadNotificationsCount`.
+  - expondo método `toggleNotificationsDrawer` para controle externo do drawer de notificações.
+- `QasAvatar`: Adicionado nova propriedade `useCropTitle` com default "true", para controlar se o titulo será cortado ou não.
+- `QasInfiniteScroll`: Adicionado dois novos eventos `fetch-success` e `fetch-error`.
+- Adicionado novo composable `useNotifications`.
+- `QasListItems`: Adicionado nova propriedade `useBox` com default `true` para controlar se o componente vai ter um `QasBox` ou `div`.
+
+### Modificado
+- `QasLayout`: modificado para Composition API.
+- `QasAvatar`: modificado prop `color` para aceitar nova cor: `red-14`.
+- `QasCard`: modificado classe `w-full` para `full-width` do quasar.
+- `QasDialog` modificado dialog para funcionamento do novo componente `QasDrawer`, uma vez que o mesmo utilizar o `QasDialog`.
+- `QasListItems`: Modificado estilos de espaçamento.
+- `ui/src/css/plugins/notify.scss`: modificado estilos para adaptar notify da central de notificações.
+
+### Removido
+- `QasAppUser`: removido propriedade `notifications`, agora quem faz o controle de notificações é o `QasLayout`.
+
+## [3.14.0-beta.2] - 29-01-2024
+### Adicionado
+- `QasWhatsappLink`: adicionado novo componente de link para o Whatsapp.
+- `QasChartView`:
+  - adicionado propriedade `before-fetch` para controlar o fetch de dados do componente.
+  - adicionado chamada do evento `onUpdate:currentFilters` repassado para a propriedade `filters-props`.
+
+### Corrigido
+- `QasUploader`: corrigido circular dependency que estava causando estouro de memoria, apesar de não afetar o funcionando aparente do componente.
+- `QasNumericInput`: corrigido problema no componente que, mesmo desativado, permitia a edição do valor. Agora, o input permanece inacessível quando desabilitado.
+
+## [3.14.0-beta.1] - 15-01-2024
+## BREAKING CHANGES
+- `QasDateTimeInput`: removido métodos blur e focus que não estavam sendo utilizados.
+
+### Corrigido
+- `QasActionsMenu`: Corrigido problema da const `hasDelete` do composable `useDelete`, onde não estava reativo pois não foi feito como computada.
+
+### Modificado
+- Alterado componentes para Composition API:
+  - QasBtnDropdown.
+  - QasCard.
+  - QasCheckboxGroup.
+  - QasCopy.
+  - QasDate.
+  - QasDateTimeInput.
+  - QasDebugger.
+  - QasDelete.
+  - QasDialogRouter.
+  - QasGallery.
+  - QasGalleryCard.
+  - QasHeaderActions.
+  - QasLabel.
+  - QasListItems.
+  - QasMap.
+  - QasPageHeader.
+  - QasPagination.
+  - QasTabsGenerator.
+
+- Adicionado prefixo de `props` nas propriedades dentro do template:
+  - QasAppAlert: [text].
+  - QasAppBar: [brand, title].
+  - QasAppMenu: [items, title].
+  - QasAppUser: [users, notifications].
+  - QasAvatar: [image, icon, title].
+  - QasBreakline: [tag, icon, title].
+  - QasDialog: [card, persistent, useForm].
+  - QasFormGenerator: [fieldsProps, modelValue, errors].
+  - QasGridGenerator: [headerClass, contentClass].
+  - QasTimeline: [list].
+
+- Modificado nome `emits` para `emit` no script setup:
+  - QasAppBar.
+  - QasAppMenu.
+  - QasAppUser.
+  - QasBtnDropdown.
+
+- Modificado $attrs para useAttrs() no template:
+  - QasBreakline.
+  - QasDialog.
+
+- Modificado slots para useSlots() no template:
+  - QasSelectListDialog.
+
+- `/ui/src/vue-plugin.js`: adicionado método `getAction` do `@bildvitta/store-adapter` na variável global `qas` para conseguir utiliza-lo no composition API (NÃO UTILIZAR NO PROJETO).
+
+### Removido
+- `QasDate`: removido propriedade `useUnmaskEvents`, uma vez que ela não era utilizada para nada dentro do componente.
+- `QasDateTimeInput`: removido métodos blur e focus que não estavam sendo utilizados.
+
+## [3.13.1] - 11-01-2024
+### Corrigido
+- `QasActionsMenu`: Corrigido problema da const `hasDelete` do composable `useDelete`, onde não estava reativo pois não foi feito como computada.
+
+## [3.14.0-beta.0] - 03-01-2024
+### Corrigido
+- `QasAppUSer`: corrigido select de empresa quando o select possuía busca, que ao clicar no botão de limpar, não limpava e ainda tentava alterar o vinculo para um vinculo vazio.
+
+## [3.13.0] - 27-12-2023
+## BREAKING CHANGES
+- Anteriormente, o componente `QasFormView` não atualizava automaticamente o v-model após um evento de "submit" com sucesso, o que levava a alguns problemas relacionados a não atualização de certos campos retornados da API. Para resolver isso, implementamos uma mudança para garantir que o `v-model` agora seja sempre atualizado com o resultado retornado pela API após um submit. Isso pode exigir testes para confirmar que o comportamento dos formulários estão alinhados com o esperado.
+- `QasAppUser`: removido propriedades `companiesOptions` e `currentCompany` em favor de utilizar a nova propriedade `companyProps`.
+- `QasFormView`: modificação do `data-cy` dos botões de "Salvar" e "Voltar" do formulário. Veja mais detalhes na seção "Modificado" abaixo.
+- `plugins/Logger`: removido plugin de log, uma vez que o mesmo estava poluindo muito o console, alterado para a lib `debug`.
+- `QasDialog`: ref `dialog` interno do componente alterado para `dialogRef`.
+- `QasNestedFields`: alterado slot `custom-fields` para se chamar `after-fields`.
+- `QasPageHeader`: removido a query dos breadcrumb. Utilize `useCache: true` no meta das rotas onde precisar persistir a query.
+- Devido as mudanças de rebranding poderá haver quebras visuais, algumas revisões que deverão ser feitas: 
+  - Todos os locais em que é utilizado a cor `grey-9` deverá ser modificado para utilizar a cor `grey-10`, em especial, no componente `QasBtn` que há um validador na propriedade `color` que não deixará `grey-9` ser utilizado, causando um warning no console.
+  - Mudanças realizadas no valor das variáveis `primary`, `primary-contrast` e `dark` do arquivo `quasar.variables.scss`, portanto será necessário atualizar essas variáveis com os valores encontrados na seção "Começando - Usando" da documentação.
+  - Cor dos headings (h1 ao h6) foi adicionado por padrão no Asteroid, portanto, se tornando desnecessário passar classe de cor para os mesmos.
+
+### Adicionado
+- `QasTabsGenerator`: adicionado nova propriedade `use-route-tab` com o valor `false` por padrão. Essa propriedade serve para controlar se o componente deve utilizar o `q-route-tab` ou `q-tab` do Quasar.
+- `QasInfiniteScroll`: novo componente de infinite scroll.
+- `api.js`: adicionado `provide` do axios por conta de composition components não terem acesso ao `globalProperties`.
+- `QasDialog`: adicionado novos eventos `@ok` que dispara toda vez que é clicado no botão "ok" ou quando useForm for true e o for clicado "enter" estando com foco em algum input (evento de submit).
+- `QasDialog`: adicionado novos eventos `@cancel` que dispara toda vez que é clicado no botão "cancel".
+- `QasAppUser`: adicionado 2 novos `data-cy`, `data-cy="app-user"` e `data-cy="app-user-companies-select"`.
+- `helpers/promiseHandler`: adicionado nova opção `loadingConfig` para personalizar o loading.
+- `QasAppUser`: adicionado nova propriedade `companyProps` que repassa todas as props para o select de vínculos.
+- `QasGalleryCard`: adicionado novas propriedades `errorMessage` e `errorIcon` para controlar conteúdo quando dar falha ao carregar imagem.
+- `QasGalleryCard`: adicionado novo slot `image-error-icon` para controle de ícone.
+- `QasDialog`: adicionado `data-cy` em algumas seções do componente. Como, por exemplo: título, descrição, botões, etc.
+- `QasFormView`: adicionado nova propriedade `useNotifySuccess` para controlar quando mostrar a notificação de sucesso (utilizar somente em casos muito específicos, olhar documentação).
+- `enums/Align`: adicionado novo enum `FlexAlign` para alinhamentos.
+- `QasNestedFields`: adicionado nova prop `fieldsHandlerFn` para para controlar a visibilidade dos campos do formulário.
+- `QasNestedFields`: adicionado novo slot `before-fields` para renderizar conteúdo antes dos campos do formulário.
+- `vue-plugin.js`: Adicionado provider `qas`.
+- `components/base.scss`: adicionado `color: $grey-8` como cor de texto padrão do `body`.
+- `typography.scss`: adicionado propriedade `color: $grey-10` como cor de texto padrão do headings (h1 ao h6).
+- [`checkbox.scss`, `editor.scss`, `field.scss`, `radio.scss`, `toggle.scss`]: adicionado tipografia padrão.
+- [`QasNestedFields`, `QasActionsMenu`]: adicionado novos seletores `data-cy` no componente.
+
+### Corrigido
+- `QasFormView`: corrigido alguns problemas ao utilizar a propriedade `use-dialog-on-unsaved-changes` com o valor `true`.
+- `QasFormView`: corrigido problema ao alterar valores do formulário, salvar e o `v-model` do formulário ficar desatualizado em relação ao resultado retornado da API. Agora o `v-model` é sempre atualizado com o resultado retornado pela API após um submit.
+- `QasDialog`: corrigido bug que fazia que pagina recarregasse ao dar enter quando a prop useForm tinha o valor "true".
+- `QasInfiniteScroll`: corrigido problema do componente não resetar ao utilizar o método `refresh` em alguns cenários.
+- `QasDialog`: corrigido evento de `onClick` no botão de "ok" quando o `useForm` é `true`.
+- `helpers/promiseHandler`: corrigido `Loading.hide()` que era executado mesmo quando a flag `useLoading` era false, isto fazia que cancelasse qualquer loading da aplicação.
+- `Notify`: alterado notify para aplicar estilos nos actions somente em NotifySuccess e NotifyError, uma vez que da forma anterior esta afetando todos os casos.
+- `QasActions`: corrigido computada `defaultGutter` que sempre retornava `md` ou `lg`, ignorando a prop `gutter`.
+- `QasAppMenu`: corrigido props que estavam sendo usado como se estivesse em `Options API`.
+- `QasAppMenu`: corrigido modules que não estava usando `defaultModules`.
+- `QasAppMenu`: corrigido computada `currentModelOption`.
+- `QasActionsMenu`: corrigido problema de a ação de deletar não funcionar após alteração do componente para Composition API.
+- `QasDialog`: corrigido problema de não emitir o evento `@hide`.
+- `plugins/Dialog.js`: corrigido problema de não retornar a instância do dialog.
+- `ErrorComponent`: corrigido problema na exibição da cor de fundo.
+- `QasAppMenu`: corrigido problema na animação de abrir e fechar do menu.- `QasAppMenu`: corrigido problema na animação de abrir e fechar do menu.
+
+### Modificado
+- `QasDialog`: agora a seção de `actions` foi movida para dentro do QForm, isto faz com que ao clicar enter, o botão deja disparado mesmo que não tenha sido clicado (quando useForm for true).
+- `QasUploader`: propriedade `galleryCardProps` agora aceita callback function, para ter controle personalizado por card.
+- `QasGalleryCard`: modificado estilo de card para erro.
+- `QasFormView`: modificado `data-cy` do botão de "Salvar" para `data-cy="form-view-submit-btn-[entity]"`.
+- `QasFormView`: modificado `data-cy` do botão de "Voltar" para `data-cy="form-view-cancel-btn-[entity]"`.
+- [`QasListView`, `QasFormView`, `QasSingleView`, `QasFilters`, `QasNestedField`]: alterado plugin `Logger` para lib `debug` e simplificado os logs.
+- `QasNestedFields`: alterado prop `fieldsProps` para aceitar uma função de callback.
+- `QasNestedFields`: alterado slot `custom-fields` para se chamar `after-fields`. O slot `after-fields` é renderizado após os campos do formulário.
+- `QasNestedFields`: alterado tipo da propriedade `formColumns` para aceitar `array`, `string` ou `object`.
+- `QasActions`: alterado componente para Composition API.
+- `QasActionsMenu`: alterado componente para Composition API.
+- `QasAppBar`: alterado componente para Composition API.
+- `QasAppMenu`: alterado componente para Composition API.
+- `QasAppUser`: alterado componente para Composition API.
+- `QasAvatar`: alterado componente para Composition API.
+- `QasBadge`: alterado componente para Composition API.
+- `QasBox`: alterado componente para Composition API.
+- `QasBtn`: alterado componente para Composition API.
+- `QasDialog`: alterado componente para Composition API.
+- `QasAppUser`: alterado `default` da propriedade `avatarSize` para `40px`.
+- `QasAppUser`: alterado `dataCy` para `data-cy`.
+- `QasBadge`: alterado `default` da propriedade `text-color` para `black`.
+- `QasBtn`: alterado `validator` da propriedade `color` para permitir `grey-10` no lugar de `grey-9`.
+- `QasLabel`: alterado `default` da propriedade `color` para `grey-10`.
+- `typography.scss`: alterado `size` do heading `h4` para `1.25rem` (20px).
+- `quasar.variables.scss`: alterado variáveis de cores `primary`, `primary-contrast` e `dark`.
+- `QasAppBar`: alterado `max-width` da logo para `115px`.
+- `QasTableGenerator`: alterado hover da cor de fundo da linha da tabela para a cor de background padrão.
+
+### Removido
+- `QasAppUser`: removido propriedades `companiesOptions` e `currentCompany` em favor de utilizar a nova propriedade `companyProps`.
+- `plugins/Logger`: removido plugin de log, uma vez que o mesmo estava poluindo muito o console, alterado para a lib `debug`.
+- `QasTableGenerator`: removido logger desnecessário.
+- `QasPageHeader`: removido a query dos links do breadcrumb.
+
+## [3.13.0-beta.19] - 22-12-2023
+### Corrigido
+- `QasAppMenu`: corrigido problema na animação de abrir e fechar do menu.
 
 ## [3.13.0-beta.18] - 20-12-2023
 ### Modificado
@@ -2291,3 +2519,15 @@ Adicionado suporte para Pinia/Vuex Seguindo os padrões da biblioteca `@bildvitt
 [3.13.0-beta.16]: https://github.com/bildvitta/asteroid/compare/v3.13.0-beta.15...v3.13.0-beta.16?expand=1
 [3.13.0-beta.17]: https://github.com/bildvitta/asteroid/compare/v3.13.0-beta.16...v3.13.0-beta.17?expand=1
 [3.13.0-beta.18]: https://github.com/bildvitta/asteroid/compare/v3.13.0-beta.17...v3.13.0-beta.18?expand=1
+[3.13.0-beta.19]: https://github.com/bildvitta/asteroid/compare/v3.13.0-beta.18...v3.13.0-beta.19?expand=1
+[3.13.0]: https://github.com/bildvitta/asteroid/compare/v3.12.0...v3.13.0?expand=1
+[3.13.1]: https://github.com/bildvitta/asteroid/compare/v3.13.0...v3.13.1?expand=1
+[3.14.0-beta.0]: https://github.com/bildvitta/asteroid/compare/v3.13.0...v3.14.0-beta.0?expand=1
+[3.14.0-beta.1]: https://github.com/bildvitta/asteroid/compare/v3.13.1...v3.14.0-beta.1?expand=1
+[3.14.0-beta.2]: https://github.com/bildvitta/asteroid/compare/v3.14.0-beta.1...v3.14.0-beta.2?expand=1
+[3.14.0-beta.3]: https://github.com/bildvitta/asteroid/compare/v3.14.0-beta.2...v3.14.0-beta.3?expand=1
+[3.14.0-beta.4]: https://github.com/bildvitta/asteroid/compare/v3.14.0-beta.3...v3.14.0-beta.4?expand=1
+[3.14.0-beta.5]: https://github.com/bildvitta/asteroid/compare/v3.14.0-beta.4...v3.14.0-beta.5?expand=1
+[3.14.0-beta.6]: https://github.com/bildvitta/asteroid/compare/v3.14.0-beta.5...v3.14.0-beta.6?expand=1
+[3.14.0-beta.7]: https://github.com/bildvitta/asteroid/compare/v3.14.0-beta.6...v3.14.0-beta.7?expand=1
+[3.14.0-beta.8]: https://github.com/bildvitta/asteroid/compare/v3.14.0-beta.7...v3.14.0-beta.8?expand=1
