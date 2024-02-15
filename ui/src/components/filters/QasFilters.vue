@@ -178,16 +178,14 @@ export default {
         const decamelizedFieldKey = decamelize(key)
         const fieldsProps = this.fieldsProps[key] || {}
         const hasLazyLoading = this.fields[key].useLazyLoading || fieldsProps.useLazyLoading
+        const lazyLoadingProps = hasLazyLoading ? {
+          useFetchOptionsOnFocus: true,
+          'onUpdate:selectedOptions': options => {
+            this.lazyLoadingSelectedOptions[key] = options
+          }
+        } : {}
 
-        formattedFieldsProps[decamelizedFieldKey] = {
-          ...fieldsProps,
-          ...(hasLazyLoading && {
-            useFetchOptionsOnFocus: true,
-            'onUpdate:selectedOptions': options => {
-              this.lazyLoadingSelectedOptions[key] = options
-            }
-          })
-        }
+        formattedFieldsProps[decamelizedFieldKey] = Object.assign(fieldsProps, lazyLoadingProps)
       }
 
       return formattedFieldsProps
