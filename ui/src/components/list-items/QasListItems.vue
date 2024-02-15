@@ -1,7 +1,7 @@
 <template>
   <component :is="component" class="qas-list-items" :class="classes">
     <q-list separator>
-      <q-item v-for="(item, index) in props.list" :key="index" v-ripple :clickable="props.useClickableItem" @click="onClick({ item, index }, true)">
+      <q-item v-for="(item, index) in props.list" :key="index" :clickable="props.useClickableItem" @click="onClick({ item, index }, true)">
         <slot :index="index" :item="item" name="item">
           <q-item-section>
             <slot :index="index" :item="item" name="item-section" />
@@ -9,7 +9,7 @@
 
           <q-item-section v-if="props.useSectionActions" side>
             <slot :index="index" :item="item" name="item-section-side">
-              <qas-btn color="primary" :icon="props.icon" variant="tertiary" @click="onClick({ item, index })" />
+              <qas-btn color="grey-10" :icon="props.icon" variant="tertiary" @click="onClick({ item, index })" />
             </slot>
           </q-item-section>
         </slot>
@@ -82,7 +82,7 @@ function onClick ({ item, index }, fromItem) {
 
   .q-list {
     & > .q-item {
-      padding: var(--qas-spacing-lg) 0;
+      padding: var(--qas-spacing-md) 0;
     }
 
     & > .q-item:last-child {

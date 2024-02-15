@@ -10,6 +10,13 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 ### Sobre os "BREAKING CHANGES"
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
+## [Não publicado]
+### Modificado
+- `QasListItens`:
+  - alterado cor do botão de `primary` para `grey-10`.
+  - alterado espaçamento entre itens de `lg` para `md`.
+  - removido `v-ripple` para se adequar ao design.
+
 ## [3.14.0-beta.7] - 15-02-2024
 ### Corrigido
 - `QasDate`: Corrigido exibição de eventos com mais de 3 dígitos no calendário.
