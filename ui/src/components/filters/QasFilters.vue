@@ -123,13 +123,19 @@ export default {
     }
   },
 
-  emits: ['fetch-success', 'fetch-error', 'update:currentFilters', 'update:filters', 'update:search'],
+  emits: [
+    'fetch-success',
+    'fetch-error',
+    'update:currentFilters',
+    'update:filters',
+    'update:search'
+  ],
 
   data () {
     return {
       currentFilters: {},
       hasFetchError: false,
-      internalFilters: this.filters,
+      internalFilters: { ...this.filters },
       internalSearch: this.search,
       isFetching: false,
       lazyLoadingSelectedOptions: {}
@@ -171,11 +177,11 @@ export default {
       for (const key in this.fields) {
         const decamelizedFieldKey = decamelize(key)
         const fieldsProps = this.fieldsProps[key] || {}
-        const useLazyLoading = this.fields[key].useLazyLoading || fieldsProps.useLazyLoading
+        const hasLazyLoading = this.fields[key].useLazyLoading || fieldsProps.useLazyLoading
 
         formattedFieldsProps[decamelizedFieldKey] = {
           ...fieldsProps,
-          ...(useLazyLoading && {
+          ...(hasLazyLoading && {
             useFetchOptionsOnFocus: true,
             'onUpdate:selectedOptions': options => {
               this.lazyLoadingSelectedOptions[key] = options
@@ -209,7 +215,7 @@ export default {
         fieldsProps: this.formattedFieldsProps,
         loading: this.isFetching,
         menuProps: {
-          onHide: this.normalizeInternalFilters
+          onHide: this.setInternalFilters
         },
 
         onClear: this.clearFilters,
@@ -257,11 +263,8 @@ export default {
       deep: true
     },
 
-    internalSearch: {
-      handler (value) {
-        this.$emit('update:search', value)
-      },
-      deep: true
+    internalSearch (value) {
+      this.$emit('update:search', value)
     },
 
     filters (value) {
@@ -379,11 +382,11 @@ export default {
       this.$refs.filtersButton?.hideMenu()
     },
 
-    normalizeInternalFilters () {
+    setInternalFilters () {
       this.internalFilters = { ...this.currentFilters }
     },
 
-    normalizeSelectFieldOptions () {
+    setSelectFieldOptions () {
       for (const key in this.lazyLoadingSelectedOptions) {
         this.fields[key].options = this.lazyLoadingSelectedOptions[key]
       }
@@ -402,7 +405,7 @@ export default {
 
     onUpdateFilters () {
       this.setCurrentFilters()
-      this.normalizeSelectFieldOptions()
+      this.setSelectFieldOptions()
     },
 
     setCurrentFilters () {
