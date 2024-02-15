@@ -449,7 +449,6 @@ function onNavigation (date) {
 
     color: $primary;
     font-size: 10px !important;
-    width: 100%;
     line-height: 1;
     transition: color var(--qas-generic-transition);
 
@@ -562,7 +561,7 @@ function onNavigation (date) {
         box-shadow: none;
         height: auto !important;
         line-height: 1;
-        width: 26px !important;
+        min-width: min-content;
         transition: color var(--qas-generic-transition);
 
         .q-ripple,
