@@ -81,6 +81,10 @@ function onClick ({ item, index }, fromItem) {
   }
 
   .q-list {
+    .q-item {
+      min-height: auto;
+    }
+
     & > .q-item {
       padding: var(--qas-spacing-md) 0;
     }
