@@ -93,11 +93,6 @@ export default {
       type: Boolean
     },
 
-    search: {
-      default: '',
-      type: String
-    },
-
     searchPlaceholder: {
       default: 'Pesquisar...',
       type: String
@@ -127,8 +122,7 @@ export default {
     'fetch-success',
     'fetch-error',
     'update:currentFilters',
-    'update:filters',
-    'update:search'
+    'update:filters'
   ],
 
   data () {
@@ -261,16 +255,8 @@ export default {
       deep: true
     },
 
-    internalSearch (value) {
-      this.$emit('update:search', value)
-    },
-
     filters (value) {
       this.internalFilters = value
-    },
-
-    search (value) {
-      this.internalSearch = value
     }
   },
 

@@ -29,13 +29,6 @@ props:
     type: Object
     examples: [v-model:filters="filters"]
 
-  search:
-    model: true
-    desc: Este model controla o campo de busca.
-    default: ''
-    type: String
-    examples: [v-model:search="search"]
-
   search-placeholder:
     desc: Placeholder do campo de busca.
     default: Pesquisar...
