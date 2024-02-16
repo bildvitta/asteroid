@@ -132,6 +132,11 @@ export default {
       internalFilters: {},
       internalSearch: '',
       isFetching: false,
+      /**
+       * O objeto funciona como um auxiliar para armazenar opções selecionadas do lazy loading.
+       * Isso é necessário porque, por padrão, não há opções no campo. As opções selecionadas servem
+       * para exibir as "tags" dos filtros ativos na tela.
+      */
       lazyLoadingSelectedOptions: {}
     }
   },
@@ -171,6 +176,15 @@ export default {
       for (const key in this.fields) {
         const decamelizedFieldKey = decamelize(key)
         const fieldsProps = this.fieldsProps[key] || {}
+
+        /**
+         * Aqui é onde se encontra a tratativa para campos lazy loading. É atribuída a prop useFetchOptionsOnFocus
+         * por padrão. Ela é necessária pois toda vez que o menu do filtro é aberto é criado uma nova instância
+         * e quando é fechado é destruída essa instância. O que causa que toda vez que abrir novamente o menu,
+         * irá bater todos os endpoints de lazy loading.
+         * Aqui também é escutado pelo evento onUpdate:selectedOptions, esse evento irá trazer as opções selecionadas
+         * e elas serão salvas na chave lazyLoadingSelectedOptions para serem utilizadas posteriormente nas tags.
+        */
         const hasLazyLoading = this.fields[key].useLazyLoading || fieldsProps.useLazyLoading
         const lazyLoadingProps = hasLazyLoading ? {
           useFetchOptionsOnFocus: true,
@@ -207,6 +221,13 @@ export default {
         fieldsProps: this.formattedFieldsProps,
         loading: this.isFetching,
         menuProps: {
+          /**
+           * O tratamento no onHide do menu é que como o menu é recriado toda vez que o filtro é aberto, ocorre que as
+           * opções selecionadas anteriormente (e que não foram filtradas) não ficam salvas na memória, ocasionando em
+           * campos lazy loading um problema de exibir o uuid da opção por não achar essa opção no array de options do field.
+           * Para solucionar esse problema, sempre ao fechar os filtros as opções não filtradas são removidas,
+           * voltando o filtro para o seu estado anterior.
+          */
           onHide: this.setInternalFilters
         },
 
