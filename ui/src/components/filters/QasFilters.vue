@@ -135,8 +135,8 @@ export default {
     return {
       currentFilters: {},
       hasFetchError: false,
-      internalFilters: { ...this.filters },
-      internalSearch: this.search,
+      internalFilters: {},
+      internalSearch: '',
       isFetching: false,
       lazyLoadingSelectedOptions: {}
     }
@@ -439,7 +439,7 @@ export default {
     setSearch () {
       const { search } = this.mx_context
 
-      this.internalSearch = search || this.search
+      this.internalSearch = search || ''
     },
 
     setFilters () {

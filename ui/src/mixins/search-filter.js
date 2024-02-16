@@ -101,18 +101,11 @@ export default {
 
         setTimeout(() => this.$emit('update:modelValue', undefined))
       }
-    },
-
-    modelValue (values) {
-      if (!values) return this.$emit('update:selectedOptions', [])
-
-      const findOption = value => this.mx_filteredOptions.find(option => option.value === value)
-      const isArray = Array.isArray(values)
-
-      const selectedOptions = isArray ? values.map(findOption) : [findOption(values)]
-
-      this.$emit('update:selectedOptions', selectedOptions)
     }
+  },
+
+  created () {
+    this.mx_registerSelectedOptionsEvent()
   },
 
   methods: {
@@ -341,6 +334,21 @@ export default {
       }
 
       return options
+    },
+
+    mx_registerSelectedOptionsEvent () {
+      if (!this.useLazyLoading) return
+
+      this.$watch('modelValue', values => {
+        if (!values) return this.$emit('update:selectedOptions', [])
+
+        const findOption = value => this.mx_filteredOptions.find(option => option.value === value)
+        const isArray = Array.isArray(values)
+
+        const selectedOptions = isArray ? values.map(findOption) : [findOption(values)]
+
+        this.$emit('update:selectedOptions', selectedOptions)
+      })
     }
   }
 }
