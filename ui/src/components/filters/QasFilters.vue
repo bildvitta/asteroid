@@ -443,6 +443,8 @@ export default {
     },
 
     setFilters () {
+      this.internalFilters = {}
+
       const { filters } = this.mx_context
 
       for (const key in filters) {
