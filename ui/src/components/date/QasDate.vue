@@ -451,6 +451,7 @@ function onNavigation (date) {
     font-size: 10px !important;
     line-height: 1;
     transition: color var(--qas-generic-transition);
+    width: 100%;
 
     &--pointer {
       bottom: -6px;
@@ -479,10 +480,11 @@ function onNavigation (date) {
         @include set-typography($subtitle2);
 
         color: $grey-4;
+        line-height: 1;
         visibility: unset;
 
         span {
-          height: 36px;
+          height: auto;
           padding: var(--qas-spacing-xs);
         }
       }
