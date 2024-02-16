@@ -19,6 +19,14 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - `QasSelect`: adicionado prop `useFetchOptionsOnFocus` para controlar se deve buscar as opções somente ao realizar foco no select.
 - `search-filter`: adicionado evento `update:selectedOptions` para retornar as opções selecionadas (label e value).
 
+## [3.14.0-beta.10] - 16-02-2024
+### Corrigido
+- `QasDate`: Corrigido exibição de eventos em dias inativos.
+
+## [3.14.0-beta.9] - 15-02-2024
+### Modificado
+- `QasListItens`: resetado `min-height` que existia no q-item.
+
 ## [3.14.0-beta.8] - 15-02-2024
 ### Modificado
 - `QasListItens`:
@@ -2531,3 +2539,5 @@ Adicionado suporte para Pinia/Vuex Seguindo os padrões da biblioteca `@bildvitt
 [3.14.0-beta.6]: https://github.com/bildvitta/asteroid/compare/v3.14.0-beta.5...v3.14.0-beta.6?expand=1
 [3.14.0-beta.7]: https://github.com/bildvitta/asteroid/compare/v3.14.0-beta.6...v3.14.0-beta.7?expand=1
 [3.14.0-beta.8]: https://github.com/bildvitta/asteroid/compare/v3.14.0-beta.7...v3.14.0-beta.8?expand=1
+[3.14.0-beta.9]: https://github.com/bildvitta/asteroid/compare/v3.14.0-beta.8...v3.14.0-beta.9?expand=1
+[3.14.0-beta.10]: https://github.com/bildvitta/asteroid/compare/v3.14.0-beta.9...v3.14.0-beta.10?expand=1
