@@ -1,5 +1,5 @@
-export default function (element) {
-  setStyle()
+export default function (element, options = {}) {
+  setModel()
 
   let isDown = false
   let moved = false
@@ -25,21 +25,21 @@ export default function (element) {
     isDown = false
 
     element.classList.remove('active')
-    setStyle()
+    setModel()
   }
 
   function onMouseUp () {
     isDown = false
 
     element.classList.remove('active')
-    setStyle()
+    setModel()
   }
 
   function onMouseMove (event) {
     if (event) event.preventDefault()
     if (!isDown) return
 
-    setStyle('grabbing')
+    setModel('grabbing')
 
     const x = event.pageX - element.offsetLeft
     const walk = (x - startX) * 3 // scroll-fast
@@ -47,8 +47,10 @@ export default function (element) {
     moved = true
   }
 
-  function setStyle (model = 'grab') {
+  function setModel (model = 'grab') {
     element.style.cursor = model
+
+    options.onGrabFn?.({ grabbing: model === 'grabbing' })
   }
 
   function destroyEvents () {

@@ -1,0 +1,18 @@
+type: component
+
+meta:
+  desc: Componente de grabbable (scroll na horizontal)
+
+props:
+
+slots:
+  default:
+    desc: Slot para ter o conteúdo que terá o scroll na horizontal.
+
+events:
+  '@grabbable -> function(grabbing)':
+    desc: Dispara toda vez que o "grab" é realizado.
+    params:
+      grabbing:
+        desc: Retorna se está ou não fazendo "grabbing".
+        type: Boolean
