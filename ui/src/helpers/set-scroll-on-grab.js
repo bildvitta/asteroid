@@ -45,6 +45,8 @@ export default function (element, options = {}) {
     const walk = (x - startX) * 3 // scroll-fast
     element.scrollLeft = scrollLeft - walk
     moved = true
+
+    options.onMoveFn?.({ event, element })
   }
 
   function setModel (model = 'grab') {

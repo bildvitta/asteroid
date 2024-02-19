@@ -3,8 +3,6 @@ type: component
 meta:
   desc: Componente de grabbable (scroll na horizontal)
 
-props:
-
 slots:
   default:
     desc: Slot para ter o conteúdo que terá o scroll na horizontal.
