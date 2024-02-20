@@ -4,7 +4,7 @@ meta:
   desc: Componente de grabbable (scroll na horizontal)
 
 props:
-  useScrollBar:
+  use-scroll-bar:
     desc: Se deve ou não usar a barra de rolagem.
     default: false
     type: Boolean

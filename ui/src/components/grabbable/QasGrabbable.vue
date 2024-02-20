@@ -83,10 +83,10 @@ function destroyEventsAndResetGrab () {
   grabPosition.value = null
 }
 
-function onGrab ({ grabbing }) {
-  isGrabbing.value = grabbing
+function onGrab ({ isGrabbing }) {
+  isGrabbing.value = isGrabbing
 
-  emit('grabbing', grabbing)
+  emit('grabbing', isGrabbing)
 }
 
 function setGrabPosition () {
@@ -174,11 +174,6 @@ onBeforeUnmount(() => {
     &--grab-start:before,
     &--grab-end:after {
       content: none !important;
-    }
-
-    &--grabbing * {
-      pointer-events: none;
-      user-select: none;
     }
   }
 }

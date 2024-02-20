@@ -10,7 +10,7 @@ setScrollOnGrab(
   element, // Elemento onde irá ocorrer o scroll
   { // Opções
     onMoveFn: ({ event, element }) => {},
-    onGrabFn: ({ grabbing }) => {}
+    onGrabFn: ({ isGrabbing }) => {}
   }
 )
 ```

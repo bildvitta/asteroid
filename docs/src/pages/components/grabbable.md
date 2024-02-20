@@ -2,7 +2,7 @@
 title: QasGrabbable
 ---
 
-Componente de grabbable (slider na horizontal)
+Componente de grabbable (scroll na horizontal)
 
 <doc-api file="grabbable/QasGrabbable" name="QasGrabbable" />
 

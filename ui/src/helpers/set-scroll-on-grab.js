@@ -4,13 +4,12 @@
  * @param {Object} options
  * @param {Function} options.onMoveFn
  * @param {Function} options.onGrabFn
- * @returns {{element: HTMLElement, haveMoved: (function(): boolean), destroyEvents: (function())}}
+ * @returns {{element: HTMLElement, destroyEvents: (function())}}
  */
 export default function (element, options = {}) {
   setModel()
 
   let isDown = false
-  let moved = false
   let startX
   let scrollLeft
 
@@ -54,7 +53,6 @@ export default function (element, options = {}) {
 
   function onEnter () {
     isDown = true
-    moved = false
 
     element.classList.add('active')
   }
@@ -86,36 +84,38 @@ export default function (element, options = {}) {
 
     element.scrollLeft = scrollLeft - walk
 
-    moved = true
-
     options.onMoveFn?.({ event, element })
   }
 
   function onTouchMove (event) {
-    if (event.touches) event = event.touches[0]
+    event = event.touches[0]
 
     if (!isDown) return
 
     setModel('grabbing')
 
-    moved = true
-
     options.onMoveFn?.({ event, element })
   }
 
   function setModel (model = 'grab') {
-    element.style.cursor = model
+    setStyles(model)
 
-    options.onGrabFn?.({ grabbing: model === 'grabbing' })
+    options.onGrabFn?.({ isGrabbing: model === 'grabbing' })
   }
 
-  function haveMoved () {
-    return moved
+  function setStyles (model = 'grab') {
+    const isGrabbing = model === 'grabbing'
+
+    element.style.cursor = model
+
+    Array.from(element.children).forEach(child => {
+      child.classList.toggle('no-pointer-events', isGrabbing)
+      child.classList.toggle('non-selectable', isGrabbing)
+    })
   }
 
   return {
     element,
-    haveMoved,
     destroyEvents
   }
 }
