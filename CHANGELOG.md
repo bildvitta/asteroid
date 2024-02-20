@@ -18,6 +18,101 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - `QasSelect`: adicionado prop `useFetchOptionsOnFocus` para controlar se deve buscar as opções somente ao realizar foco no select.
 - `search-filter`: adicionado evento `update:selectedOptions` para retornar as opções selecionadas (label e value).
 
+## [3.14.0] - 20-02-2024
+## BREAKING CHANGES
+- `QasDateTimeInput`: removido métodos blur e focus que não estavam sendo utilizados.
+- `QasAppUser`: removido propriedade `notifications`, agora quem faz o controle de notificações é o `QasLayout`.
+- `QasDate`: removido propriedade `useUnmaskEvents`, uma vez que ela não era utilizada para nada dentro do componente.
+
+### Adicionado
+- `QasWhatsappLink`: adicionado novo componente de link para o Whatsapp.
+- `QasChartView`:
+  - adicionado propriedade `before-fetch` para controlar o fetch de dados do componente.
+  - adicionado chamada do evento `onUpdate:currentFilters` repassado para a propriedade `filters-props`.
+- Adicionado novo componente `QasDrawer`.
+- `QasLayout`:
+  - adicionado nova propriedade `initialUnreadNotificationsCount`.
+  - expondo método `toggleNotificationsDrawer` para controle externo do drawer de notificações.
+- `QasAvatar`: Adicionado nova propriedade `useCropTitle` com default "true", para controlar se o titulo será cortado ou não.
+- `QasInfiniteScroll`: Adicionado dois novos eventos `fetch-success` e `fetch-error`.
+- Adicionado novo composable `useNotifications`.
+- `QasListItems`: Adicionado nova propriedade `useBox` com default `true` para controlar se o componente vai ter um `QasBox` ou `div`.
+
+### Corrigido
+- `QasAppUSer`: corrigido select de empresa quando o select possuía busca, que ao clicar no botão de limpar, não limpava e ainda tentava alterar o vinculo para um vinculo vazio.
+- `QasActionsMenu`: Corrigido problema da const `hasDelete` do composable `useDelete`, onde não estava reativo pois não foi feito como computada.
+- `QasUploader`: corrigido circular dependency que estava causando estouro de memoria, apesar de não afetar o funcionando aparente do componente.
+- `QasNumericInput`: corrigido problema no componente que, mesmo desativado, permitia a edição do valor. Agora, o input permanece inacessível quando desabilitado.
+- `QasLayout`: propriedade "initialUnreadNotificationsCount" só era escutada por uma vez, o que gerava problemas quando os dados eram alterados.
+- `QasDrawer`: loading estava quebrando no mobile.
+- `QasDate`: Corrigido exibição de eventos com mais de 3 dígitos no calendário.
+- `QasDate`: Corrigido exibição de eventos em dias inativos.
+
+### Modificado
+- Alterado componentes para Composition API:
+  - QasBtnDropdown.
+  - QasCard.
+  - QasCheckboxGroup.
+  - QasCopy.
+  - QasDate.
+  - QasDateTimeInput.
+  - QasDebugger.
+  - QasDelete.
+  - QasDialogRouter.
+  - QasGallery.
+  - QasGalleryCard.
+  - QasHeaderActions.
+  - QasLabel.
+  - QasListItems.
+  - QasMap.
+  - QasPageHeader.
+  - QasPagination.
+  - QasTabsGenerator.
+- Adicionado prefixo de `props` nas propriedades dentro do template:
+  - QasAppAlert: [text].
+  - QasAppBar: [brand, title].
+  - QasAppMenu: [items, title].
+  - QasAppUser: [users, notifications].
+  - QasAvatar: [image, icon, title].
+  - QasBreakline: [tag, icon, title].
+  - QasDialog: [card, persistent, useForm].
+  - QasFormGenerator: [fieldsProps, modelValue, errors].
+  - QasGridGenerator: [headerClass, contentClass].
+  - QasTimeline: [list].
+- Modificado nome `emits` para `emit` no script setup:
+  - QasAppBar.
+  - QasAppMenu.
+  - QasAppUser.
+  - QasBtnDropdown.
+- Modificado $attrs para useAttrs() no template:
+  - QasBreakline.
+  - QasDialog.
+- Modificado slots para useSlots() no template:
+  - QasSelectListDialog.
+- `/ui/src/vue-plugin.js`: adicionado método `getAction` do `@bildvitta/store-adapter` na variável global `qas` para conseguir utiliza-lo no composition API (NÃO UTILIZAR NO PROJETO).
+- `QasLayout`: modificado para Composition API.
+- `QasAvatar`: modificado prop `color` para aceitar nova cor: `red-14`.
+- `QasCard`: modificado classe `w-full` para `full-width` do quasar.
+- `QasDialog` modificado dialog para funcionamento do novo componente `QasDrawer`, uma vez que o mesmo utilizar o `QasDialog`.
+- `QasListItems`: Modificado estilos de espaçamento.
+- `ui/src/css/plugins/notify.scss`: modificado estilos para adaptar notify da central de notificações.
+- `QasDate`:
+  - modificado largura mínima da exibição do mês no calendário.
+  - modificado estilo do dia atual.
+  - modificado estilo dos dias com eventos, agora os dias ficam alinhados no mesma direção de dias sem eventos.
+- `QasWhatsappLink`: modificado propriedade `calling-code` para aceitar o tipo `Number`.
+- `QasDrawer`: adicionado default `60%` na propriedade `maxWidth`.
+- `QasListItens`:
+  - alterado cor do botão de `primary` para `grey-10`.
+  - alterado espaçamento entre itens de `lg` para `md`.
+  - removido `v-ripple` para se adequar ao design.
+- `QasListItens`: resetado `min-height` que existia no q-item.
+
+### Removido
+- `QasDate`: removido propriedade `useUnmaskEvents`, uma vez que ela não era utilizada para nada dentro do componente.
+- `QasDateTimeInput`: removido métodos blur e focus que não estavam sendo utilizados.
+- `QasAppUser`: removido propriedade `notifications`, agora quem faz o controle de notificações é o `QasLayout`.
+
 ## [3.14.0-beta.10] - 16-02-2024
 ### Corrigido
 - `QasDate`: Corrigido exibição de eventos em dias inativos.
@@ -2540,3 +2635,4 @@ Adicionado suporte para Pinia/Vuex Seguindo os padrões da biblioteca `@bildvitt
 [3.14.0-beta.8]: https://github.com/bildvitta/asteroid/compare/v3.14.0-beta.7...v3.14.0-beta.8?expand=1
 [3.14.0-beta.9]: https://github.com/bildvitta/asteroid/compare/v3.14.0-beta.8...v3.14.0-beta.9?expand=1
 [3.14.0-beta.10]: https://github.com/bildvitta/asteroid/compare/v3.14.0-beta.9...v3.14.0-beta.10?expand=1
+[3.14.0]: https://github.com/bildvitta/asteroid/compare/v3.13.1...v3.14.0?expand=1
