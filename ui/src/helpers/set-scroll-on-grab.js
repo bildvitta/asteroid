@@ -1,5 +1,5 @@
 /**
- * Função para setar scroll uma determinada área (elemento) ao "puxar/agarrar" com o mouse/touch.
+ * Helper de scroll em uma determinada área (elemento) ao realizar evento de grab (puxar/agarrar) com o mouse/touch.
  * @param {HTMLElement} element
  * @param {{ onGrabFn: function, onMoveFn: function, onScrollFn: function }} options
  * @returns {{ element: HTMLElement, destroyEvents: function }}

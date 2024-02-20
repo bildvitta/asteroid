@@ -1,7 +1,7 @@
 type: component
 
 meta:
-  desc: Componente de grabbable (scroll na horizontal)
+  desc: Componente de scroll em uma determinada área (elemento) ao realizar evento de grab (puxar/agarrar) com o mouse/touch.
 
 props:
   use-scroll-bar:

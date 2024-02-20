@@ -11,6 +11,20 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
 ## Não publicado
+### Adicionado
+- `QasGrabbable`: adicionado componente de scroll em uma determinada área (elemento) ao realizar evento de grab (puxar/agarrar) com o mouse/touch.
+- `helpers/setScrollOnGrab`: 
+  - adicionado opções de callback após eventos de grab: `onMoveFn`, `onGrabFn` e `onScrollFn`.
+  - adicionado suporte a dispositivos com touch.
+  - adicionado estilos padrões no container para desabilitar click ao realizar o grab.
+
+### Corrigido
+- `QasTableGenerator`: corrigido ação de click na linha ao realizar o scroll horizontal na tabela.
+
+### Removido
+- `helpers/setScrollOnGrab`: removido método `haveMoved`.
+
+## Não publicado
 ## BREAKING CHANGES
 - `QasDateTimeInput`: removido métodos blur e focus que não estavam sendo utilizados.
 - `QasAppUser`: removido propriedade `notifications`, agora quem faz o controle de notificações é o `QasLayout`.
