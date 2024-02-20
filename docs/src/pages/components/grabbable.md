@@ -9,3 +9,4 @@ Componente de grabbable (slider na horizontal)
 ## Uso
 
 <doc-example file="QasGrabbable/Basic" title="Básico" />
+<doc-example file="QasGrabbable/WithScroll" title="Com barra de scroll horizontal" />

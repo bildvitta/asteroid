@@ -91,10 +91,11 @@ function onGrab ({ grabbing }) {
 
 function setGrabPosition () {
   const { offsetWidth, scrollLeft, scrollWidth } = grabContainer.value
+  const offset = 16
 
-  if (!scrollLeft) {
+  if (scrollLeft <= offset) {
     grabPosition.value = 'start'
-  } else if (scrollLeft + offsetWidth >= scrollWidth) {
+  } else if (scrollLeft + offsetWidth + offset >= scrollWidth) {
     grabPosition.value = 'end'
   } else {
     grabPosition.value = 'middle'
