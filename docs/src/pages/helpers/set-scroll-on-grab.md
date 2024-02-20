@@ -9,8 +9,9 @@ Função para setar scroll uma determinada área (elemento) ao "puxar/agarrar" c
 setScrollOnGrab(
   element, // Elemento onde irá ocorrer o scroll
   { // Opções
-    onMoveFn: ({ event, element }) => {},
-    onGrabFn: ({ isGrabbing }) => {}
+    onMoveFn: ({ element, event }) => {},
+    onGrabFn: ({ element, isGrabbing }) => {},
+    onScrollFn: ({ element, event }) => {}
   }
 )
 ```

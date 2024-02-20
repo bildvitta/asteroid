@@ -2,7 +2,7 @@
  * Função para setar scroll uma determinada área (elemento) ao "puxar/agarrar" com o mouse/touch.
  * @param {HTMLElement} element
  * @param {{ onGrabFn: function, onMoveFn: function, onScrollFn: function }} options
- * @returns {{element: HTMLElement, destroyEvents: function }}
+ * @returns {{ element: HTMLElement, destroyEvents: function }}
  */
 export default function (element, options = {}) {
   setModel()
@@ -16,7 +16,7 @@ export default function (element, options = {}) {
     mouseleave: onLeave,
     mousemove: onMouseMove,
     mouseup: onLeave,
-    scroll: options.onScrollFn,
+    scroll: onScroll,
     touchend: onLeave,
     touchmove: onTouchMove,
     touchstart: onEnter
@@ -69,7 +69,7 @@ export default function (element, options = {}) {
 
     element.scrollLeft = scrollLeft - walk
 
-    options.onMoveFn?.({ event, element })
+    options.onMoveFn?.({ element, event })
   }
 
   function onTouchMove (event) {
@@ -79,18 +79,22 @@ export default function (element, options = {}) {
 
     setModel('grabbing')
 
-    options.onMoveFn?.({ event, element })
+    options.onMoveFn?.({ element, event })
+  }
+
+  function onScroll (event) {
+    options.onScrollFn?.({ element, event })
   }
 
   function setModel (model = 'grab') {
-    setStyles(model)
-
-    options.onGrabFn?.({ isGrabbing: model === 'grabbing' })
-  }
-
-  function setStyles (model = 'grab') {
     const isGrabbing = model === 'grabbing'
 
+    setStyles({ model, isGrabbing })
+
+    options.onGrabFn?.({ element, isGrabbing })
+  }
+
+  function setStyles ({ model, isGrabbing }) {
     element.style.cursor = model
 
     Array.from(element.children).forEach(child => {
