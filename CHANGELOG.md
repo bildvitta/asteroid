@@ -14,7 +14,6 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 ### Adicionado
 - `QasFilters`: 
   - adicionado model `filters` para controlar os filtros ativos.
-  - adicionado model `search` para controlar o campo de busca.
   - adicionado suporte a campos do filtro com lazy loading.
 - `QasSelect`: adicionado prop `useFetchOptionsOnFocus` para controlar se deve buscar as opções somente ao realizar foco no select.
 - `search-filter`: adicionado evento `update:selectedOptions` para retornar as opções selecionadas (label e value).
