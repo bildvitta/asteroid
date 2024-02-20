@@ -3,9 +3,10 @@
     <template #filter>
       <qas-filters :entity="entity">
         <template #default="{ filter, removeFilter }">
-          <div class="q-pt-md text-center">
-            <qas-btn @click="filter({ test: 'Nova query' })">Adicionar uma nova query na url!</qas-btn>
-            <qas-btn @click="removeFilter({ name: 'test' })">Remover query da url!</qas-btn>
+          <div class="flex items-center justify-center q-pt-md">
+            <qas-btn @click="filter({ name: 'test' })">Adicionar uma nova query na url!</qas-btn>
+            <q-separator spaced vertical />
+            <qas-btn @click="removeFilter({ name: 'name' })">Remover query da url!</qas-btn>
           </div>
         </template>
       </qas-filters>

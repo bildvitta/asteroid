@@ -17,6 +17,11 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
   - adicionado opções de callback após eventos de grab: `onMoveFn`, `onGrabFn` e `onScrollFn`.
   - adicionado suporte a dispositivos com touch.
   - adicionado estilos padrões no container para desabilitar click ao realizar o grab.
+- `QasFilters`: 
+  - adicionado model `filters` para controlar os filtros ativos.
+  - adicionado suporte a campos do filtro com lazy loading.
+- `QasSelect`: adicionado prop `useFetchOptionsOnFocus` para controlar se deve buscar as opções somente ao realizar foco no select.
+- `search-filter`: adicionado evento `update:selectedOptions` para retornar as opções selecionadas (label e value).
 
 ### Corrigido
 - `QasTableGenerator`: corrigido ação de click na linha ao realizar o scroll horizontal na tabela.
@@ -24,7 +29,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 ### Removido
 - `helpers/setScrollOnGrab`: removido método `haveMoved`.
 
-## Não publicado
+## [3.14.0] - 20-02-2024
 ## BREAKING CHANGES
 - `QasDateTimeInput`: removido métodos blur e focus que não estavam sendo utilizados.
 - `QasAppUser`: removido propriedade `notifications`, agora quem faz o controle de notificações é o `QasLayout`.
@@ -2641,3 +2646,4 @@ Adicionado suporte para Pinia/Vuex Seguindo os padrões da biblioteca `@bildvitt
 [3.14.0-beta.8]: https://github.com/bildvitta/asteroid/compare/v3.14.0-beta.7...v3.14.0-beta.8?expand=1
 [3.14.0-beta.9]: https://github.com/bildvitta/asteroid/compare/v3.14.0-beta.8...v3.14.0-beta.9?expand=1
 [3.14.0-beta.10]: https://github.com/bildvitta/asteroid/compare/v3.14.0-beta.9...v3.14.0-beta.10?expand=1
+[3.14.0]: https://github.com/bildvitta/asteroid/compare/v3.13.1...v3.14.0?expand=1
