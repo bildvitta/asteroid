@@ -44,7 +44,7 @@ const classes = computed(() => {
 
 const hasScrollOnGrab = computed(() => !!Object.keys(scrollOnGrab.value).length)
 
-function handleScrollOnGrab () {
+function handleEnableScrollOnGrab () {
   const { scrollWidth, offsetWidth } = grabContainer.value
 
   if (scrollWidth > offsetWidth) {
@@ -54,7 +54,7 @@ function handleScrollOnGrab () {
     return
   }
 
-  destroyEventsAndResetGrab()
+  disableScrollOnGrab()
 }
 
 function initScrollOnGrab () {
@@ -67,7 +67,7 @@ function initScrollOnGrab () {
   })
 }
 
-function destroyEventsAndResetGrab () {
+function disableScrollOnGrab () {
   if (!hasScrollOnGrab.value) return
 
   scrollOnGrab.value.destroyEvents()
@@ -88,24 +88,37 @@ function setGrabPosition () {
   const offset = 16
 
   if (scrollLeft <= offset) {
+    /**
+     * Se o scroll estiver no início, o valor de `scrollLeft` será 0. No entanto,
+     * é necessário verificar se o valor de `scrollLeft` é menor ou igual a `offset`
+     * para garantir um espaço de segurança.
+     */
     grabPosition.value = 'start'
   } else if (scrollLeft + offsetWidth + offset >= scrollWidth) {
+    /**
+     * Se o scroll estiver no final, o valor de `scrollLeft` + `offsetWidth` será
+     * igual a `scrollWidth`. Porém, estamos levamos em consideração um espaço de
+     * segurança contido na variável `offset`.
+     */
     grabPosition.value = 'end'
   } else {
+    /**
+     * Se o scroll não estiver no início e nem no final, ele estará no meio.
+     */
     grabPosition.value = 'middle'
   }
 }
 
 onMounted(() => {
-  handleScrollOnGrab()
+  handleEnableScrollOnGrab()
 
-  window.addEventListener('resize', handleScrollOnGrab)
+  window.addEventListener('resize', handleEnableScrollOnGrab)
 })
 
 onBeforeUnmount(() => {
-  window.removeEventListener('resize', handleScrollOnGrab)
+  window.removeEventListener('resize', handleEnableScrollOnGrab)
 
-  destroyEventsAndResetGrab()
+  disableScrollOnGrab()
 })
 </script>
 
@@ -135,8 +148,8 @@ onBeforeUnmount(() => {
       background-color: $blue-grey-4;
     }
 
-    &:before,
-    &:after {
+    &::before,
+    &::after {
       content: '';
       width: 24px;
       height: 100%;
@@ -145,12 +158,12 @@ onBeforeUnmount(() => {
       pointer-events: none;
     }
 
-    &:before {
+    &::before {
       background: linear-gradient(-270deg, rgba($grey-1, 0.7) 0%, rgba(251, 251, 251, 0) 100%);
       left: 0;
     }
 
-    &:after {
+    &::after {
       background: linear-gradient(270deg, rgba($grey-1, 0.7) 0%, rgba(251, 251, 251, 0) 100%);
       right: 0;
     }
@@ -163,10 +176,10 @@ onBeforeUnmount(() => {
       }
     }
 
-    &--no-grab:before,
-    &--no-grab:after,
-    &--grab-start:before,
-    &--grab-end:after {
+    &--no-grab::before,
+    &--no-grab::after,
+    &--grab-start::before,
+    &--grab-end::after {
       content: none !important;
     }
   }

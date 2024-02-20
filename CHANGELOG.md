@@ -27,7 +27,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - `QasTableGenerator`: corrigido ação de click na linha ao realizar o scroll horizontal na tabela.
 
 ### Removido
-- `helpers/setScrollOnGrab`: removido método `haveMoved`.
+- `helpers/setScrollOnGrab`: removido função interna `haveMoved`.
 
 ## [3.14.0] - 20-02-2024
 ## BREAKING CHANGES
