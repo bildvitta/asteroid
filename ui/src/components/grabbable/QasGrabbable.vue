@@ -49,7 +49,6 @@ function handleScrollOnGrab () {
 
   if (scrollWidth > offsetWidth) {
     initScrollOnGrab()
-    initEvents()
     setGrabPosition()
 
     return
@@ -63,18 +62,13 @@ function initScrollOnGrab () {
 
   scrollOnGrab.value = setScrollOnGrab(grabContainer.value, {
     onGrabFn: onGrab,
-    onMoveFn: setGrabPosition
+    onMoveFn: setGrabPosition,
+    onScrollFn: setGrabPosition
   })
-}
-
-function initEvents () {
-  grabContainer.value.addEventListener('scroll', setGrabPosition)
 }
 
 function destroyEventsAndResetGrab () {
   if (!hasScrollOnGrab.value) return
-
-  grabContainer.value.removeEventListener('scroll', setGrabPosition)
 
   scrollOnGrab.value.destroyEvents()
   scrollOnGrab.value.element.style.cursor = 'auto'
@@ -121,7 +115,7 @@ onBeforeUnmount(() => {
     -webkit-overflow-scrolling: touch;
     -ms-overflow-style: none;
     overflow-x: auto;
-    scrollbar-color: $grey-4 transparent;
+    scrollbar-color: $blue-grey-3 transparent;
 
     &::-webkit-scrollbar {
       height: 12px;
@@ -133,12 +127,12 @@ onBeforeUnmount(() => {
     }
 
     &::-webkit-scrollbar-thumb {
-      background-color: $grey-4;
+      background-color: $blue-grey-3;
       border-radius: var(--qas-generic-border-radius);
     }
 
     &::-webkit-scrollbar-thumb:hover {
-      background-color: $grey-5;
+      background-color: $blue-grey-4;
     }
 
     &:before,
