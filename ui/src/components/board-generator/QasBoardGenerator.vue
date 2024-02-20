@@ -62,6 +62,11 @@ const props = defineProps({
   modelValue: {
     type: Object,
     default: () => ({})
+  },
+
+  height: {
+    type: String,
+    default: ''
   }
 })
 
@@ -69,13 +74,13 @@ watch(
   () => props.results,
   () => {
     reset()
-    setColumnContainer()
+    setColumnHeightContainer()
     setColumnsPagination()
     fetchColumns()
   }
 )
 
-watch(columnContainer, () => setColumnContainer())
+watch(columnContainer, () => setColumnHeightContainer())
 
 onMounted(() => {
   setColumnsPagination()
@@ -96,12 +101,12 @@ const columnsModel = computed({
   }
 })
 
-function setColumnContainer () {
+function setColumnHeightContainer () {
   columnContainer.value?.forEach(columnElement => {
     const heightToTop = columnElement?.getBoundingClientRect()?.top
     const value = heightToTop + 60
 
-    columnElement.style.setProperty('height', `calc(100vh - ${value}px)`)
+    columnElement.style.setProperty('height', props.height ? props.height : `calc(100vh - ${value}px)`)
   })
 }
 

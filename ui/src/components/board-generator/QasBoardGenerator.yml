@@ -23,6 +23,10 @@ props:
     desc: URL usada para as APIs das colunas.
     type: String
     required: true
+  
+  height:
+    desc: Altura do container do board. Caso não seja passado um height, o calculo é feito para ocupar a maior altura possível da página.
+    type: String
 
   model-value:
     desc: Model do componente, usado para o v-model.
