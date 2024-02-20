@@ -114,7 +114,7 @@ onUnmounted(() => {
       &:before,
       &:after {
         content: '';
-        width: 64px;
+        width: 24px;
         height: 100%;
         position: absolute;
         top: 0;
@@ -122,12 +122,12 @@ onUnmounted(() => {
       }
 
       &:before {
-        background: linear-gradient(-270deg, $grey-1 0%, rgba(251, 251, 251, 0) 100%);
+        background: linear-gradient(-270deg, rgba($grey-1, 0.7) 0%, rgba(251, 251, 251, 0) 100%);
         left: 0;
       }
 
       &:after {
-        background: linear-gradient(270deg, $grey-1 0%, rgba(251, 251, 251, 0) 100%);
+        background: linear-gradient(270deg, rgba($grey-1, 0.7) 0%, rgba(251, 251, 251, 0) 100%);
         right: 0;
       }
 
