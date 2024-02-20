@@ -123,12 +123,12 @@ onUnmounted(() => {
 
       &:before {
         background: linear-gradient(-270deg, rgba($grey-1, 0.7) 0%, rgba(251, 251, 251, 0) 100%);
-        left: 0;
+        left: -5px;
       }
 
       &:after {
         background: linear-gradient(270deg, rgba($grey-1, 0.7) 0%, rgba(251, 251, 251, 0) 100%);
-        right: 0;
+        right: -5px;
       }
 
       &.grab-start {
