@@ -1,10 +1,8 @@
 /**
  * Função para setar scroll uma determinada área (elemento) ao "puxar/agarrar" com o mouse/touch.
  * @param {HTMLElement} element
- * @param {Object} options
- * @param {Function} options.onMoveFn
- * @param {Function} options.onGrabFn
- * @returns {{element: HTMLElement, destroyEvents: (function())}}
+ * @param {{ onMoveFn: function, onGrabFn: function }} options
+ * @returns {{element: HTMLElement, destroyEvents: function }}
  */
 export default function (element, options = {}) {
   setModel()

@@ -83,10 +83,10 @@ function destroyEventsAndResetGrab () {
   grabPosition.value = null
 }
 
-function onGrab ({ isGrabbing }) {
-  isGrabbing.value = isGrabbing
+function onGrab ({ isGrabbing: grabbing }) {
+  isGrabbing.value = grabbing
 
-  emit('grabbing', isGrabbing)
+  emit('grabbing', grabbing)
 }
 
 function setGrabPosition () {
