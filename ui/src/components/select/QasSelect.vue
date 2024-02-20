@@ -75,6 +75,10 @@ export default {
       type: Boolean
     },
 
+    useFetchOptionsOnFocus: {
+      type: Boolean
+    },
+
     useSearch: {
       type: Boolean,
       default: undefined
@@ -238,6 +242,10 @@ export default {
       this.isPopupContentOpen = true
       this.$emit('popup-show')
 
+      if (this.useFetchOptionsOnFocus && this.mx_fetchCount === 0) {
+        this.mx_setFetchOptions('')
+      }
+
       if (this.mx_isFetching) {
         this.togglePopupContentClass(true)
       }
@@ -246,7 +254,7 @@ export default {
     setLazyLoading () {
       this.mx_setCachedOptions('options')
 
-      if (this.useFetchOptionsOnCreate) this.mx_setFetchOptions('')
+      if (this.useFetchOptionsOnCreate && !this.useFetchOptionsOnFocus) this.mx_setFetchOptions('')
     },
 
     setSearchMethod () {

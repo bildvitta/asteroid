@@ -4,10 +4,10 @@
       <div v-if="showSearch" class="col-12 col-md-6">
         <slot :filter="filter" name="search">
           <q-form v-if="useSearch" @submit.prevent="filter()">
-            <qas-search-input v-model="search" :placeholder="searchPlaceholder" :use-search-on-type="useSearchOnType" @clear="clearSearch" @filter="filter()" @update:model-value="onSearch">
+            <qas-search-input v-model="internalSearch" :placeholder="searchPlaceholder" :use-search-on-type="useSearchOnType" @clear="clearSearch" @filter="filter()" @update:model-value="onSearch">
               <template v-if="showFilterButton" #after-clear>
                 <slot :context="mx_context" :filter="filter" :filters="activeFilters" name="filter-button" :remove-filter="removeFilter">
-                  <pv-filters-button v-if="useFilterButton" ref="filtersButton" v-model="filters" v-bind="filterButtonProps" />
+                  <pv-filters-button v-if="useFilterButton" ref="filtersButton" v-model="internalFilters" v-bind="filterButtonProps" />
                 </slot>
               </template>
             </qas-search-input>
@@ -17,7 +17,7 @@
 
       <div v-else-if="showFilterButton" class="col-12 col-md-6">
         <slot :context="mx_context" :filter="filter" :filters="activeFilters" name="filter-button" :remove-filter="removeFilter">
-          <pv-filters-button v-if="useFilterButton" ref="filtersButton" v-model="filters" v-bind="filterButtonProps" />
+          <pv-filters-button v-if="useFilterButton" ref="filtersButton" v-model="internalFilters" v-bind="filterButtonProps" />
         </slot>
       </div>
 
@@ -73,6 +73,11 @@ export default {
       type: Object
     },
 
+    filters: {
+      default: () => ({}),
+      type: Object
+    },
+
     useFilterButton: {
       default: true,
       type: Boolean
@@ -113,15 +118,26 @@ export default {
     }
   },
 
-  emits: ['fetch-success', 'fetch-error', 'update:currentFilters'],
+  emits: [
+    'fetch-success',
+    'fetch-error',
+    'update:currentFilters',
+    'update:filters'
+  ],
 
   data () {
     return {
       currentFilters: {},
-      filters: {},
       hasFetchError: false,
+      internalFilters: {},
+      internalSearch: '',
       isFetching: false,
-      search: ''
+      /**
+       * O objeto funciona como um auxiliar para armazenar opções selecionadas do lazy loading.
+       * Isso é necessário porque, por padrão, não há opções no campo. As opções selecionadas servem
+       * para exibir as "tags" dos filtros ativos na tela.
+      */
+      lazyLoadingSelectedOptions: {}
     }
   },
 
@@ -155,15 +171,32 @@ export default {
     },
 
     formattedFieldsProps () {
-      const fieldsProps = {}
+      const formattedFieldsProps = {}
 
-      for (const key in this.fieldsProps) {
+      for (const key in this.fields) {
         const decamelizedFieldKey = decamelize(key)
+        const fieldsProps = this.fieldsProps[key] || {}
 
-        fieldsProps[decamelizedFieldKey] = { ...this.fieldsProps[key] }
+        /**
+         * Aqui é onde se encontra a tratativa para campos lazy loading. É atribuída a prop useFetchOptionsOnFocus
+         * por padrão. Ela é necessária pois toda vez que o menu do filtro é aberto é criado uma nova instância
+         * e quando é fechado é destruída essa instância. O que causa que toda vez que abrir novamente o menu,
+         * irá bater todos os endpoints de lazy loading.
+         * Aqui também é escutado pelo evento onUpdate:selectedOptions, esse evento irá trazer as opções selecionadas
+         * e elas serão salvas na chave lazyLoadingSelectedOptions para serem utilizadas posteriormente nas tags.
+        */
+        const hasLazyLoading = this.fields[key].useLazyLoading || fieldsProps.useLazyLoading
+        const lazyLoadingProps = hasLazyLoading ? {
+          useFetchOptionsOnFocus: true,
+          'onUpdate:selectedOptions': options => {
+            this.lazyLoadingSelectedOptions[key] = options
+          }
+        } : {}
+
+        formattedFieldsProps[decamelizedFieldKey] = Object.assign(fieldsProps, lazyLoadingProps)
       }
 
-      return fieldsProps
+      return formattedFieldsProps
     },
 
     fields () {
@@ -187,6 +220,16 @@ export default {
         fields: this.fields,
         fieldsProps: this.formattedFieldsProps,
         loading: this.isFetching,
+        menuProps: {
+          /**
+           * O tratamento no onHide do menu é que como o menu é recriado toda vez que o filtro é aberto, ocorre que as
+           * opções selecionadas anteriormente (e que não foram filtradas) não ficam salvas na memória, ocasionando em
+           * campos lazy loading um problema de exibir o uuid da opção por não achar essa opção no array de options do field.
+           * Para solucionar esse problema, sempre ao fechar os filtros as opções não filtradas são removidas,
+           * voltando o filtro para o seu estado anterior.
+          */
+          onHide: this.setInternalFilters
+        },
 
         onClear: this.clearFilters,
         onFilter: () => this.filter()
@@ -224,6 +267,17 @@ export default {
         this.fetchFilters()
         this.useUpdateRoute && this.updateValues()
       }
+    },
+
+    internalFilters: {
+      handler (value) {
+        this.$emit('update:filters', value)
+      },
+      deep: true
+    },
+
+    filters (value) {
+      this.internalFilters = value
     }
   },
 
@@ -232,10 +286,8 @@ export default {
 
     if (this.useUpdateRoute) {
       this.updateValues()
-      this.updateCurrentFilters()
+      this.onUpdateFilters()
     }
-
-    this.handleSearchModelOnCreate()
   },
 
   methods: {
@@ -244,7 +296,7 @@ export default {
       const query = { ...this.$route.query }
       const activeFilters = {
         ...filters,
-        ...this.filters
+        ...this.internalFilters
       }
 
       if (this.hasFields) {
@@ -256,22 +308,22 @@ export default {
 
           if (hasField) {
             delete query[key]
-            delete this.filters[key]
+            delete this.internalFilters[key]
           }
         }
       } else {
-        this.filters = {}
+        this.internalFilters = {}
       }
 
       this.hideFiltersMenu()
 
       await this.updateRouteQuery(query)
 
-      this.updateCurrentFilters()
+      this.onUpdateFilters()
     },
 
     clearSearch () {
-      this.search = ''
+      this.internalSearch = ''
       this.filter()
     },
 
@@ -283,11 +335,13 @@ export default {
       this.hasFetchError = false
       this.isFetching = true
 
+      const { filters } = this.mx_context
+
       try {
         const response = await getAction.call(this, {
           entity: this.entity,
           key: 'fetchFilters',
-          payload: { url: this.url }
+          payload: { url: this.url, params: filters }
         })
 
         this.$emit('fetch-success', response)
@@ -308,10 +362,10 @@ export default {
 
       const query = {
         ...filters,
-        ...this.filters,
+        ...this.internalFilters,
         ...external,
         ...context,
-        search: this.search || undefined
+        search: this.internalSearch || undefined
       }
 
       for (const key in query) {
@@ -322,7 +376,7 @@ export default {
 
       await this.updateRouteQuery(query)
 
-      this.updateCurrentFilters()
+      this.onUpdateFilters()
     },
 
     getChipValue (value) {
@@ -333,21 +387,36 @@ export default {
       this.$refs.filtersButton?.hideMenu()
     },
 
+    setInternalFilters () {
+      this.internalFilters = { ...this.currentFilters }
+    },
+
+    setSelectFieldOptions () {
+      for (const key in this.lazyLoadingSelectedOptions) {
+        this.fields[key].options = this.lazyLoadingSelectedOptions[key]
+      }
+    },
+
     async removeFilter ({ name }) {
       const query = { ...this.$route.query }
 
       delete query[name]
-      delete this.filters[name]
+      delete this.internalFilters[name]
 
       await this.updateRouteQuery(query)
 
-      this.updateCurrentFilters()
+      this.onUpdateFilters()
     },
 
-    updateCurrentFilters () {
+    onUpdateFilters () {
+      this.setCurrentFilters()
+      this.setSelectFieldOptions()
+    },
+
+    setCurrentFilters () {
       this.currentFilters = {
-        ...this.filters,
-        ...(this.search && { search: this.search })
+        ...this.internalFilters,
+        ...(this.internalSearch && { search: this.internalSearch })
       }
 
       this.$emit('update:currentFilters', this.currentFilters)
@@ -368,12 +437,6 @@ export default {
       return isMultiple ? [value] : value
     },
 
-    handleSearchModelOnCreate () {
-      if (this.useUpdateRoute && !this.useFilterButton) {
-        this.setSearch()
-      }
-    },
-
     onSearch () {
       if (this.useSearchOnType) {
         this.filter()
@@ -382,16 +445,17 @@ export default {
 
     setSearch () {
       const { search } = this.mx_context
-      this.search = search || ''
+
+      this.internalSearch = search || ''
     },
 
     setFilters () {
-      this.filters = {}
+      this.internalFilters = {}
 
       const { filters } = this.mx_context
 
       for (const key in filters) {
-        this.filters[key] = parseValue(this.normalizeValues(filters[key], this.fields[key]?.multiple))
+        this.internalFilters[key] = parseValue(this.normalizeValues(filters[key], this.fields[key]?.multiple))
       }
     }
   }

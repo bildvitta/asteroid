@@ -10,6 +10,14 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 ### Sobre os "BREAKING CHANGES"
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
+## Não publicado
+### Adicionado
+- `QasFilters`: 
+  - adicionado model `filters` para controlar os filtros ativos.
+  - adicionado suporte a campos do filtro com lazy loading.
+- `QasSelect`: adicionado prop `useFetchOptionsOnFocus` para controlar se deve buscar as opções somente ao realizar foco no select.
+- `search-filter`: adicionado evento `update:selectedOptions` para retornar as opções selecionadas (label e value).
+
 ## [3.14.0] - 20-02-2024
 ## BREAKING CHANGES
 - `QasDateTimeInput`: removido métodos blur e focus que não estavam sendo utilizados.
