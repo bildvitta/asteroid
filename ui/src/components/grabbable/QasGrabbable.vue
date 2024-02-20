@@ -11,10 +11,16 @@
 </template>
 
 <script setup>
-import { computed, ref, onMounted, onUnmounted } from 'vue'
+import { computed, ref, onMounted, onBeforeUnmount } from 'vue'
 import { setScrollOnGrab } from '../../helpers'
 
 defineOptions({ name: 'QasGrabbable' })
+
+const props = defineProps({
+  useScrollBar: {
+    type: Boolean
+  }
+})
 
 const emit = defineEmits(['grabbing'])
 
@@ -23,15 +29,18 @@ const grabPosition = ref(null)
 const isGrabbing = ref(false)
 const scrollOnGrab = ref({})
 
-const classes = computed(() => (
-  [
+const classes = computed(() => {
+  const baseClass = 'qas-grabbable__container'
+
+  return [
     {
-      grabbing: isGrabbing.value,
-      'no-grab': !hasScrollOnGrab.value
+      [`${baseClass}--grabbing`]: isGrabbing.value,
+      [`${baseClass}--no-grab`]: !hasScrollOnGrab.value,
+      [`${baseClass}--no-scroll`]: !props.useScrollBar
     },
-    `grab-${grabPosition.value}`
+    `${baseClass}--grab-${grabPosition.value}`
   ]
-))
+})
 
 const hasScrollOnGrab = computed(() => !!Object.keys(scrollOnGrab.value).length)
 
@@ -39,16 +48,14 @@ function handleScrollOnGrab () {
   const { scrollWidth, offsetWidth } = grabContainer.value
 
   if (scrollWidth > offsetWidth) {
-    return initScrollOnGrab()
+    initScrollOnGrab()
+    initEvents()
+    setGrabPosition()
+
+    return
   }
 
-  if (hasScrollOnGrab.value) {
-    scrollOnGrab.value.destroyEvents()
-    scrollOnGrab.value.element.style.cursor = 'auto'
-    scrollOnGrab.value = {}
-
-    grabPosition.value = null
-  }
+  destroyEventsAndResetGrab()
 }
 
 function initScrollOnGrab () {
@@ -60,15 +67,26 @@ function initScrollOnGrab () {
   })
 }
 
+function initEvents () {
+  grabContainer.value.addEventListener('scroll', setGrabPosition)
+}
+
+function destroyEventsAndResetGrab () {
+  if (!hasScrollOnGrab.value) return
+
+  grabContainer.value.removeEventListener('scroll', setGrabPosition)
+
+  scrollOnGrab.value.destroyEvents()
+  scrollOnGrab.value.element.style.cursor = 'auto'
+  scrollOnGrab.value = {}
+
+  grabPosition.value = null
+}
+
 function onGrab ({ grabbing }) {
   isGrabbing.value = grabbing
 
   emit('grabbing', grabbing)
-}
-
-function setGrab () {
-  handleScrollOnGrab()
-  setGrabPosition()
 }
 
 function setGrabPosition () {
@@ -84,17 +102,15 @@ function setGrabPosition () {
 }
 
 onMounted(() => {
-  setGrab()
+  handleScrollOnGrab()
 
-  window.addEventListener('resize', setGrab)
+  window.addEventListener('resize', handleScrollOnGrab)
 })
 
-onUnmounted(() => {
-  window.removeEventListener('resize', setGrab)
+onBeforeUnmount(() => {
+  window.removeEventListener('resize', handleScrollOnGrab)
 
-  if (!hasScrollOnGrab.value) return
-
-  scrollOnGrab.value.destroyEvents()
+  destroyEventsAndResetGrab()
 })
 </script>
 
@@ -104,13 +120,35 @@ onUnmounted(() => {
     -webkit-overflow-scrolling: touch;
     -ms-overflow-style: none;
     overflow-x: auto;
-    scrollbar-width: none;
+    scrollbar-color: $grey-4 transparent;
 
     &::-webkit-scrollbar {
-      width: 0;
+      height: 12px;
+      background-color: transparent;
     }
 
-    &:not(.no-grab) {
+    &::-webkit-scrollbar-track {
+      background-color: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: $grey-4;
+      border-radius: var(--qas-generic-border-radius);
+    }
+
+    &::-webkit-scrollbar-thumb:hover {
+      background-color: $grey-5;
+    }
+
+    &--no-scroll {
+      scrollbar-width: none;
+
+      &::-webkit-scrollbar {
+        width: 0;
+      }
+    }
+
+    &:not(.qas-grabbable__container--no-grab) {
       &:before,
       &:after {
         content: '';
@@ -130,25 +168,16 @@ onUnmounted(() => {
         background: linear-gradient(270deg, rgba($grey-1, 0.7) 0%, rgba(251, 251, 251, 0) 100%);
         right: -5px;
       }
-
-      &.grab-start {
-        &:before {
-          content: none;
-        }
-      }
-
-      &.grab-end {
-        &:after {
-          content: none;
-        }
-      }
     }
 
-    &.grabbing {
-      * {
-        pointer-events: none;
-        user-select: none;
-      }
+    &--grab-start:before,
+    &--grab-end:after {
+      content: none !important;
+    }
+
+    &--grabbing * {
+      pointer-events: none;
+      user-select: none;
     }
   }
 }
