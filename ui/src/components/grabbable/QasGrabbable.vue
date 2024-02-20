@@ -151,12 +151,12 @@ onBeforeUnmount(() => {
     }
 
     &:before {
-      background: linear-gradient(-270deg, rgba($grey-10, 0.7) 0%, rgba(251, 251, 251, 0) 100%);
+      background: linear-gradient(-270deg, rgba($grey-1, 0.7) 0%, rgba(251, 251, 251, 0) 100%);
       left: -5px;
     }
 
     &:after {
-      background: linear-gradient(270deg, rgba($grey-10, 0.7) 0%, rgba(251, 251, 251, 0) 100%);
+      background: linear-gradient(270deg, rgba($grey-1, 0.7) 0%, rgba(251, 251, 251, 0) 100%);
       right: -5px;
     }
 
