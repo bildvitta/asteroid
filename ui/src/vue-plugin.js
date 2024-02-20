@@ -6,6 +6,7 @@ import QasAppMenu from './components/app-menu/QasAppMenu.vue'
 import QasAppUser from './components/app-user/QasAppUser.vue'
 import QasAvatar from './components/avatar/QasAvatar.vue'
 import QasBadge from './components/badge/QasBadge.vue'
+import QasBoardGenerator from './components/board-generator/QasBoardGenerator.vue'
 import QasBox from './components/box/QasBox.vue'
 import QasBreakline from './components/breakline/QasBreakline.vue'
 import QasBtn from './components/btn/QasBtn.vue'
@@ -93,6 +94,7 @@ async function install (app) {
   app.component('QasAppUser', QasAppUser)
   app.component('QasAvatar', QasAvatar)
   app.component('QasBadge', QasBadge)
+  app.component('QasBoardGenerator', QasBoardGenerator)
   app.component('QasBox', QasBox)
   app.component('QasBreakline', QasBreakline)
   app.component('QasBtn', QasBtn)
@@ -182,6 +184,7 @@ export {
   QasAppUser,
   QasAvatar,
   QasBadge,
+  QasBoardGenerator,
   QasBox,
   QasBreakline,
   QasBtn,
