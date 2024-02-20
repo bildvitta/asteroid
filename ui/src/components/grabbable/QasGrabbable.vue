@@ -140,6 +140,26 @@ onBeforeUnmount(() => {
       background-color: $grey-5;
     }
 
+    &:before,
+    &:after {
+      content: '';
+      width: 24px;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      pointer-events: none;
+    }
+
+    &:before {
+      background: linear-gradient(-270deg, rgba($grey-10, 0.7) 0%, rgba(251, 251, 251, 0) 100%);
+      left: -5px;
+    }
+
+    &:after {
+      background: linear-gradient(270deg, rgba($grey-10, 0.7) 0%, rgba(251, 251, 251, 0) 100%);
+      right: -5px;
+    }
+
     &--no-scroll {
       scrollbar-width: none;
 
@@ -148,28 +168,8 @@ onBeforeUnmount(() => {
       }
     }
 
-    &:not(.qas-grabbable__container--no-grab) {
-      &:before,
-      &:after {
-        content: '';
-        width: 24px;
-        height: 100%;
-        position: absolute;
-        top: 0;
-        pointer-events: none;
-      }
-
-      &:before {
-        background: linear-gradient(-270deg, rgba($grey-1, 0.7) 0%, rgba(251, 251, 251, 0) 100%);
-        left: -5px;
-      }
-
-      &:after {
-        background: linear-gradient(270deg, rgba($grey-1, 0.7) 0%, rgba(251, 251, 251, 0) 100%);
-        right: -5px;
-      }
-    }
-
+    &--no-grab:before,
+    &--no-grab:after,
     &--grab-start:before,
     &--grab-end:after {
       content: none !important;
