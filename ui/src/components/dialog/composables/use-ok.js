@@ -3,13 +3,13 @@ import { computed } from 'vue'
 /**
  * @param {{
  *  props: { ok: object, useForm: boolean },
- *  emits: (event: 'ok') => void
+ *  emit: (event: 'ok') => void
  * }} config
  */
 export default function useOk (config = {}) {
   const {
     props,
-    emits
+    emit
   } = config
 
   const defaultOk = computed(() => {
@@ -33,7 +33,7 @@ export default function useOk (config = {}) {
   function onOk () {
     props.ok.onClick?.()
 
-    emits('ok')
+    emit('ok')
   }
 
   return {

@@ -10,14 +10,14 @@
         <div :class="classes">
           <div v-for="(field, key) in fieldsetItem.fields.visible" :key="key" :class="getFieldClass({ index: key, fields: normalizedFields })">
             <slot :field="field" :name="`field-${field.name}`">
-              <qas-field :disable="isFieldDisabled(field)" v-bind="fieldsProps[field.name]" :error="errors[key]" :field="field" :model-value="modelValue[field.name]" @update:model-value="updateModelValue({ key: field.name, value: $event })" />
+              <qas-field :disable="isFieldDisabled(field)" v-bind="props.fieldsProps[field.name]" :error="props.errors[key]" :field="field" :model-value="props.modelValue[field.name]" @update:model-value="updateModelValue({ key: field.name, value: $event })" />
             </slot>
           </div>
         </div>
 
         <div v-for="(field, key) in fieldsetItem.fields.hidden" :key="key">
           <slot :field="field" :name="`field-${field.name}`">
-            <qas-field :disable="isFieldDisabled(field)" v-bind="fieldsProps[field.name]" :field="field" :model-value="modelValue[field.name]" @update:model-value="updateModelValue({ key: field.name, value: $event })" />
+            <qas-field :disable="isFieldDisabled(field)" v-bind="props.fieldsProps[field.name]" :field="field" :model-value="props.modelValue[field.name]" @update:model-value="updateModelValue({ key: field.name, value: $event })" />
           </slot>
         </div>
       </div>

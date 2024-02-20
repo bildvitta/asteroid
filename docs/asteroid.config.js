@@ -32,6 +32,20 @@ module.exports = {
     },
 
     /**
+     * Controla o sistema de notificações da aplicação, ao ativado e configurado,
+     * estará disponível os seguintes recursos:
+     *
+     * - Item de notificação no componente QasAppUser;
+     * - Toast de notificação em real time;
+     * - Ícone de notificação no menu em real time.
+     *
+     * @type {{ useNotifications: boolean }}
+     */
+    featureToggle: {
+      useNotifications: false
+    },
+
+    /**
      * Componentes que necessitam de instalação de bibliotecas de terceiros
      * dentro da aplicação que utiliza o asteroid, a instalação é feita automaticamente pelo asteroid.
      * @type {Array<'QasChartView' | 'QasMap'>}

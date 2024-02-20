@@ -39,3 +39,6 @@ events:
 
   '@toggle-menu -> function()':
     desc: Dispara quando o botão de "hambúrguer" é clicado para abrir o menu lateral.
+
+  '@toggle-notifications -> function()':
+    desc: Dispara quando o botão de "Notificações" é clicado.

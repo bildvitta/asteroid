@@ -55,7 +55,7 @@
       v-bind="defaultDialogProps"
       v-model="showDialog"
     >
-      <template v-for="(_, name) in $slots" #[name]="context">
+      <template v-for="(_, name) in slots" #[name]="context">
         <slot :name="`dialog-${name}`" v-bind="context || {}" />
       </template>
 
@@ -76,7 +76,7 @@
 </template>
 
 <script setup>
-import { computed, ref, watch } from 'vue'
+import { computed, ref, watch, useSlots } from 'vue'
 
 defineOptions({ name: 'QasSelectListDialog' })
 
@@ -140,6 +140,8 @@ const props = defineProps({
 })
 
 const emit = defineEmits(['add', 'remove', 'update:modelValue'])
+
+const slots = useSlots()
 
 const hasError = computed(() => Array.isArray(props.error) ? !!props.error.length : !!props.error)
 const errorMessage = computed(() => Array.isArray(props.error) ? props.error.join(' ') : props.error)

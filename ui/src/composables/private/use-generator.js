@@ -3,14 +3,6 @@ import { Spacing } from '../../enums/Spacing'
 
 const IRREGULAR_CLASSES = ['col', 'col-auto', 'fit']
 
-/**
- * @constant
- * @type {{
- *  columns: (string|Object|Array.<Object>),
- *  fields: Object,
- *  gutter: (string|Boolean)
- * }}
-*/
 export const baseProps = {
   columns: {
     default: () => [],
