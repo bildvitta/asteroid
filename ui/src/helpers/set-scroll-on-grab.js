@@ -31,15 +31,11 @@ export default function (element, options = {}) {
   addEvents()
 
   function addEvents () {
-    Object.entries(events).forEach(([event, fn]) => {
-      element.addEventListener(event, fn)
-    })
+    Object.entries(events).forEach(([event, fn]) => element.addEventListener(event, fn))
   }
 
   function destroyEvents () {
-    Object.entries(events).forEach(([event, fn]) => {
-      element.removeEventListener(event, fn)
-    })
+    Object.entries(events).forEach(([event, fn]) => element.removeEventListener(event, fn))
   }
 
   function onEnter () {
