@@ -12,11 +12,22 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 
 ## Não publicado
 ### Adicionado
+- `QasGrabbable`: adicionado componente de scroll em uma determinada área (elemento) ao realizar evento de grab (puxar/agarrar) com o mouse/touch.
+- `helpers/setScrollOnGrab`: 
+  - adicionado opções de callback após eventos de grab: `onMoveFn`, `onGrabFn` e `onScrollFn`.
+  - adicionado suporte a dispositivos com touch.
+  - adicionado estilos padrões no container para desabilitar click ao realizar o grab.
 - `QasFilters`: 
   - adicionado model `filters` para controlar os filtros ativos.
   - adicionado suporte a campos do filtro com lazy loading.
 - `QasSelect`: adicionado prop `useFetchOptionsOnFocus` para controlar se deve buscar as opções somente ao realizar foco no select.
 - `search-filter`: adicionado evento `update:selectedOptions` para retornar as opções selecionadas (label e value).
+
+### Corrigido
+- `QasTableGenerator`: corrigido ação de click na linha ao realizar o scroll horizontal na tabela.
+
+### Removido
+- `helpers/setScrollOnGrab`: removido função interna `haveMoved`.
 
 ## [3.14.0] - 20-02-2024
 ## BREAKING CHANGES
