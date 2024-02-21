@@ -10,6 +10,12 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 ### Sobre os "BREAKING CHANGES"
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
+## Não publicado
+### Corrigido
+- `QasGrabbable`:
+  - corrigido problema do conteúdo ser alterado após o componente ser montado e o grab não ser ajustado de acordo com o novo conteúdo.
+  - corrigido z-index do fade lateral.
+
 ## [3.15.0-beta.0] - 21-02-2024
 ### Adicionado
 - `QasGrabbable`: adicionado componente de scroll em uma determinada área (elemento) ao realizar evento de grab (puxar/agarrar) com o mouse/touch.

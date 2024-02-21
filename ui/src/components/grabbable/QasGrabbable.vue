@@ -28,6 +28,7 @@ const grabContainer = ref(null)
 const grabPosition = ref(null)
 const isGrabbing = ref(false)
 const scrollOnGrab = ref({})
+const resizeObserver = ref(null)
 
 const classes = computed(() => {
   const baseClass = 'qas-grabbable__container'
@@ -54,7 +55,7 @@ function handleEnableScrollOnGrab () {
     return
   }
 
-  disableScrollOnGrab()
+  destroyScrollOnGrab()
 }
 
 function initScrollOnGrab () {
@@ -67,7 +68,7 @@ function initScrollOnGrab () {
   })
 }
 
-function disableScrollOnGrab () {
+function destroyScrollOnGrab () {
   if (!hasScrollOnGrab.value) return
 
   scrollOnGrab.value.destroyEvents()
@@ -109,16 +110,26 @@ function setGrabPosition () {
   }
 }
 
+function setResizeObserver () {
+  resizeObserver.value = new ResizeObserver(entries => {
+    entries.forEach(() => handleEnableScrollOnGrab())
+  })
+
+  resizeObserver.value.observe(grabContainer.value)
+}
+
+function destroyResizeObserver () {
+  resizeObserver.value.unobserve(grabContainer.value)
+}
+
 onMounted(() => {
   handleEnableScrollOnGrab()
-
-  window.addEventListener('resize', handleEnableScrollOnGrab)
+  setResizeObserver()
 })
 
 onBeforeUnmount(() => {
-  window.removeEventListener('resize', handleEnableScrollOnGrab)
-
-  disableScrollOnGrab()
+  destroyResizeObserver()
+  destroyScrollOnGrab()
 })
 </script>
 
@@ -156,6 +167,7 @@ onBeforeUnmount(() => {
       position: absolute;
       top: 0;
       pointer-events: none;
+      z-index: 1;
     }
 
     &::before {
