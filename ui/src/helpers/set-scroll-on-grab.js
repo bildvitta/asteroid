@@ -11,17 +11,18 @@
 * @returns {{ element: HTMLElement, destroyEvents: function }}
 */
 export default function (element, options = {}) {
-  setModel()
-
   let isDown = false
   let startX
   let scrollLeft
+  let isGrabbing = false
+
+  onGrab()
 
   const events = {
     mousedown: onMouseEnter,
-    mouseleave: onLeave,
+    mouseleave: onMouseLeave,
     mousemove: onMouseMove,
-    mouseup: onLeave,
+    mouseup: onMouseLeave,
     scroll: onScroll,
     touchend: onLeave,
     touchmove: onTouchMove,
@@ -53,10 +54,16 @@ export default function (element, options = {}) {
 
   function onLeave () {
     isDown = false
+    isGrabbing = false
 
     element.classList.remove('active')
 
-    setModel()
+    onGrab()
+  }
+
+  function onMouseLeave () {
+    onLeave()
+    blockEvents()
   }
 
   function onMouseMove (event) {
@@ -64,7 +71,10 @@ export default function (element, options = {}) {
 
     if (!isDown) return
 
-    setModel('grabbing')
+    isGrabbing = true
+
+    onGrab()
+    blockEvents()
 
     const x = event.pageX - element.offsetLeft
     const walk = (x - startX) * 3 // scroll-fast
@@ -79,7 +89,9 @@ export default function (element, options = {}) {
 
     if (!isDown) return
 
-    setModel('grabbing')
+    isGrabbing = true
+
+    onGrab()
 
     options.onMoveFn?.({ element, event })
   }
@@ -88,17 +100,13 @@ export default function (element, options = {}) {
     options.onScrollFn?.({ element, event })
   }
 
-  function setModel (model = 'grab') {
-    const isGrabbing = model === 'grabbing'
-
-    setStyles({ model, isGrabbing })
+  function onGrab () {
+    element.style.cursor = isGrabbing ? 'grabbing' : 'grab'
 
     options.onGrabFn?.({ element, isGrabbing })
   }
 
-  function setStyles ({ model, isGrabbing }) {
-    element.style.cursor = model
-
+  function blockEvents () {
     Array.from(element.children).forEach(child => {
       child.classList.toggle('no-pointer-events', isGrabbing)
       child.classList.toggle('non-selectable', isGrabbing)
