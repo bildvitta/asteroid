@@ -1,10 +1,15 @@
 /**
- * Helper de scroll em uma determinada área (elemento) ao realizar evento de grab (puxar/agarrar) com o mouse/touch.
- *
- * @param {HTMLElement} element
- * @param {{ onGrabFn: function, onMoveFn: function, onScrollFn: function }} options
- * @returns {{ element: HTMLElement, destroyEvents: function }}
- */
+* Helper de scroll em uma determinada área (elemento) ao realizar evento de grab (puxar/agarrar) com o mouse/touch.
+*
+* @param {HTMLElement} element
+* @param {{
+*  onGrabFn: function({ element: HTMLElement, isGrabbing: boolean }),
+*  onMoveFn: function({ element: HTMLElement, event: MouseEvent | TouchEvent }),
+*  onScrollFn: function({ element: HTMLElement, event: Event })
+* }} options
+*
+* @returns {{ element: HTMLElement, destroyEvents: function }}
+*/
 export default function (element, options = {}) {
   setModel()
 
