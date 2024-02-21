@@ -111,9 +111,7 @@ function setGrabPosition () {
 }
 
 function setResizeObserver () {
-  resizeObserver.value = new ResizeObserver(entries => {
-    entries.forEach(() => handleEnableScrollOnGrab())
-  })
+  resizeObserver.value = new ResizeObserver(handleEnableScrollOnGrab)
 
   resizeObserver.value.observe(grabContainer.value)
 }
@@ -123,7 +121,6 @@ function destroyResizeObserver () {
 }
 
 onMounted(() => {
-  handleEnableScrollOnGrab()
   setResizeObserver()
 })
 
