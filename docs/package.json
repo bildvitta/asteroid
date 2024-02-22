@@ -30,7 +30,6 @@
     "highlight.js": "^11.8.0",
     "markdown-it": "^13.0.1",
     "quasar": "^2.14.2",
-    "smoothscroll-polyfill": "^0.4.4",
     "vue": "^3.3.13",
     "vue-chartjs": "^5.2.0",
     "vue-router": "^4.2.2",

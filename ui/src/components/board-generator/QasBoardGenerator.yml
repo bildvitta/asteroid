@@ -28,6 +28,11 @@ props:
     desc: Altura do container do board. Caso não seja passado um height, o calculo é feito para ocupar a maior altura possível da página.
     type: String
 
+  limit:
+    desc: Quantidade de itens da coluna por busca na API.
+    type: Number
+    default: 12
+
   model-value:
     desc: Model do componente, usado para o v-model.
     default: undefined

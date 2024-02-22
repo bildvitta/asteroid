@@ -1,5 +1,5 @@
 <template>
-  <app-slider-board class="qas-board-generator">
+  <qas-grabbable class="qas-board-generator">
     <div class="no-wrap q-col-gutter-sm q-px-xl row">
       <div v-for="(header, index) in results" :key="index" class="q-mr-sm">
         <qas-box class="q-mb-md">
@@ -22,20 +22,20 @@
         </div>
       </div>
     </div>
-  </app-slider-board>
+  </qas-grabbable>
 </template>
 
 <script setup>
-import { ref, watch, computed, onMounted, toRaw } from 'vue'
-import AppSliderBoard from './PvSlider'
+import { ref, watch, computed, onMounted, toRaw, inject } from 'vue'
 import promiseHandler from '../../helpers/promise-handler'
-import axios from 'axios'
 
 defineOptions({ name: 'QasBoardGenerator' })
 
 const columnContainer = ref(null)
 const columnsPagination = ref({})
 const columnsLoading = ref({})
+
+const axios = inject('axios')
 
 const props = defineProps({
   results: {
@@ -67,6 +67,11 @@ const props = defineProps({
   height: {
     type: String,
     default: ''
+  },
+
+  limit: {
+    type: Number,
+    default: 12
   }
 })
 
@@ -112,7 +117,7 @@ function setColumnHeightContainer () {
 
 async function fetchColumns () {
   /*
-  * Bater api pra cada header
+  * Bater API pra cada header
   */
   props.results.forEach(header => fetchColumn(header))
 }
@@ -140,7 +145,7 @@ async function fetchColumn (header) {
   )
 
   /*
-  * exxemplo de como columnsModel irá ficar:
+  * exemplo de como columnsModel irá ficar:
   * {
   *  '2024-02-15': [...],
   *  '2024-02-16': [...]
@@ -179,7 +184,7 @@ function getKeyByHeaderKey (header = {}) {
 }
 
 /*
-* Para cara header, irá ser criado um item com sua chave identificadora para lidar com paginação e loading.
+* Para cada header, irá ser criado um item com sua chave identificadora para lidar com paginação e loading.
 * columnsPagination -> { '2024-02-15': { limit: 12, offset: 0 }, '2024-02-16': { limit: 12, offset: 0 }, ... }
 * columnsLoading ->{ '2024-02-15': false, '2024-02-16': false, ... }
 */
@@ -190,7 +195,7 @@ function setColumnsPagination () {
   props.results.forEach(header => {
     const headerKey = getKeyByHeaderKey(header)
 
-    columnsPagination.value[headerKey] = { limit: 12, offset: 0 }
+    columnsPagination.value[headerKey] = { limit: props.limit, offset: 0 }
     columnsLoading.value[headerKey] = false
   })
 }
