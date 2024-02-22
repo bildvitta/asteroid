@@ -129,6 +129,14 @@ events:
         default: false
         type: Boolean
 
+  '@update:selectedOptions -> function (value)':
+    desc: Dispara toda vez que a lista de opções selecionadas é atualizada.
+    params:
+      value:
+        desc: Array com as opções selecionadas (label e value)
+        default: []
+        type: Array
+
   '@fetch-options-success -> function (value)':
     desc: Dispara toda vez que o campo de busca faz o fetch do lazy loading com sucesso.
     params:

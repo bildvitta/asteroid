@@ -36,6 +36,7 @@ export default {
   emits: [
     'update:modelValue',
     'update:fetching',
+    'update:selectedOptions',
     'fetch-options-success',
     'fetch-options-error'
   ],
@@ -103,6 +104,10 @@ export default {
     }
   },
 
+  created () {
+    this.mx_registerSelectedOptionsEvent()
+  },
+
   methods: {
     async mx_filterOptionsByStore (search) {
       this.mx_resetFilter(search)
@@ -153,12 +158,19 @@ export default {
       this.mx_isScrolling = true
 
       const options = await this.mx_fetchOptions()
+
       this.mx_filteredOptions.push(...options)
 
       // this is to prevent the virtual-scroll event to be fired again
       this.$nextTick(() => {
         this.mx_isScrolling = false
       })
+    },
+
+    mx_decamelizeFieldName (fieldName) {
+      if (fieldName.includes('_')) return fieldName.replaceAll('_', '-')
+
+      return decamelize(fieldName, { separator: '-' })
     },
 
     async mx_fetchOptions () {
@@ -180,7 +192,7 @@ export default {
           key: 'fetchFieldOptions',
           payload: {
             url,
-            field: decamelizeFieldName ? decamelize(this.name, { separator: '-' }) : this.name,
+            field: decamelizeFieldName ? this.mx_decamelizeFieldName(this.name) : this.name,
             params: {
               ...params,
               search: this.mx_search,
@@ -322,6 +334,21 @@ export default {
       }
 
       return options
+    },
+
+    mx_registerSelectedOptionsEvent () {
+      if (!this.useLazyLoading) return
+
+      this.$watch('modelValue', values => {
+        if (!values) return this.$emit('update:selectedOptions', [])
+
+        const findOption = value => this.mx_filteredOptions.find(option => option.value === value)
+        const isArray = Array.isArray(values)
+
+        const selectedOptions = isArray ? values.map(findOption) : [findOption(values)]
+
+        this.$emit('update:selectedOptions', selectedOptions)
+      })
     }
   }
 }

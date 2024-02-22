@@ -168,6 +168,10 @@ module.exports = [
         path: '/components/gallery-card'
       },
       {
+        name: 'Grabbable',
+        path: '/components/grabbable'
+      },
+      {
         name: 'GridGenerator',
         path: '/components/grid-generator'
       },
