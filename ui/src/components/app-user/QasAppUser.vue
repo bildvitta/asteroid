@@ -37,7 +37,7 @@
             </q-item-section>
 
             <q-item-section>
-              Editar
+              Perfil
             </q-item-section>
           </q-item>
 
