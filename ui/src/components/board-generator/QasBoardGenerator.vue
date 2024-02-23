@@ -72,7 +72,7 @@ const props = defineProps({
 
   columnWidth: {
     type: String,
-    default: '288'
+    default: '288px'
   },
 
   useToRaw: {
@@ -114,7 +114,7 @@ const columnsModel = computed({
 
 const hasColumnsLength = computed(() => Object.keys(columnsModel.value).length)
 
-const containerStyle = computed(() => `width: ${props.columnWidth}px;`)
+const containerStyle = computed(() => `width: ${props.columnWidth};`)
 
 /*
 * Setar o tamanho do container do board, onde deverá ser a altura passada via prop, ou o default será ocupar o maximo
