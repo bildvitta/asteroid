@@ -23,6 +23,11 @@ props:
     desc: URL usada para as APIs das colunas.
     type: String
     required: true
+
+  column-width:
+    desc: Largura da coluna
+    type: String
+    default: 288
   
   height:
     desc: Altura do container do board. Caso não seja passado um height, o calculo é feito para ocupar a maior altura possível da página.
@@ -33,10 +38,15 @@ props:
     type: Number
     default: 12
 
+  use-raw:
+    desc: Define se os valores dos itens das colunas irá ser atribuido utilizando o "toRaw"(https://vuejs.org/api/reactivity-advanced.html#toraw)
+    type: Boolean
+    default: true
+
   model-value:
     desc: Model do componente, usado para o v-model.
-    default: undefined
-    type: [Object]
+    default: {}
+    type: Object
     examples: [v-model="value"]
     model: true
 

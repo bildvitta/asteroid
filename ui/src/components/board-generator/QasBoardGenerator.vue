@@ -1,23 +1,20 @@
 <template>
-  <qas-grabbable class="qas-board-generator">
+  <qas-grabbable class="qas-board-generator" use-scroll-bar>
     <div class="no-wrap q-col-gutter-sm q-px-xl row">
       <div v-for="(header, index) in results" :key="index" class="q-mr-sm">
         <qas-box class="q-mb-md">
           <slot :context="header" name="header-column" />
         </qas-box>
 
-        <div ref="columnContainer" class="qas-board-generator__column">
-          <slot v-for="column in getColumn(header)" :context="column" name="column-item" />
+        <div ref="columnContainer" class="qas-board-generator__column" :style="containerStyle">
+          <slot v-for="item in getItemsByHeader(header)" :context="item" name="column-item" />
 
-          <div class="full-width justify-center q-mt-sm row">
-            <qas-btn
-              v-if="showSeeMore(getKeyByHeaderKey(header))" icon="sym_r_add" label="Ver mais"
-              :use-label-on-small-screen="false" variant="tertiary" @click="fetchColumn(header)"
-            />
+          <div class="full-width justify-center q-mb-md q-mt-sm row">
+            <qas-btn v-if="hasSeeMore(header)" icon="sym_r_add" label="Ver mais" :use-label-on-small-screen="false" variant="tertiary" @click="fetchColumn(header)" />
 
-            <q-spinner v-if="columnsLoading[getKeyByHeaderKey(header)]" color="grey-4" size="3em" />
+            <q-spinner v-if="columnsLoading[getKeyByHeader(header)]" color="grey-4" size="3em" />
 
-            <qas-empty-result-text v-if="showEmptyResultText(header)" />
+            <qas-empty-result-text v-if="hasEmptyResultText(header)" />
           </div>
         </div>
       </div>
@@ -55,7 +52,6 @@ const props = defineProps({
 
   columnUrl: {
     type: String,
-    default: '',
     required: true
   },
 
@@ -69,9 +65,19 @@ const props = defineProps({
     default: ''
   },
 
-  limit: {
+  limitPerColumn: {
     type: Number,
     default: 12
+  },
+
+  columnWidth: {
+    type: String,
+    default: '288'
+  },
+
+  useToRaw: {
+    type: Boolean,
+    default: true
   }
 })
 
@@ -85,7 +91,7 @@ watch(
   }
 )
 
-watch(columnContainer, () => setColumnHeightContainer())
+watch(columnContainer, setColumnHeightContainer)
 
 onMounted(() => {
   setColumnsPagination()
@@ -94,7 +100,7 @@ onMounted(() => {
 
 const emit = defineEmits(['update:modelValue'])
 
-defineExpose({ fetchColumns, fetchColumn })
+defineExpose({ fetchColumns, fetchColumn, reset })
 
 const columnsModel = computed({
   get () {
@@ -106,19 +112,28 @@ const columnsModel = computed({
   }
 })
 
+const hasColumnsLength = computed(() => Object.keys(columnsModel.value).length)
+
+const containerStyle = computed(() => `width: ${props.columnWidth}px;`)
+
+/*
+* Setar o tamanho do container do board, onde deverá ser a altura passada via prop, ou o default será ocupar o maximo
+* de espaço que ele conseguir considerando a altura do container em relação ao topo.
+*/
 function setColumnHeightContainer () {
   columnContainer.value?.forEach(columnElement => {
     const heightToTop = columnElement?.getBoundingClientRect()?.top
-    const value = heightToTop + 60
+    const paddingSpacing = 60
+    const value = heightToTop + paddingSpacing
 
     columnElement.style.setProperty('height', props.height ? props.height : `calc(100vh - ${value}px)`)
   })
 }
 
+/*
+* Bater API pra cada header
+*/
 async function fetchColumns () {
-  /*
-  * Bater API pra cada header
-  */
   props.results.forEach(header => fetchColumn(header))
 }
 
@@ -126,10 +141,10 @@ async function fetchColumns () {
 * Busca a coluna com base no header recebido.
 */
 async function fetchColumn (header) {
-  const headerKey = getKeyByHeaderKey(header)
+  const headerKey = getKeyByHeader(header)
   const { limit, offset } = columnsPagination.value[headerKey] || {}
 
-  const response = await promiseHandler(
+  const { data: response, error } = await promiseHandler(
     axios.get(`${props.columnUrl}/${headerKey}`, {
       params: {
         ...props.columnParams,
@@ -138,48 +153,55 @@ async function fetchColumn (header) {
       }
     }),
     {
-      onLoading: value => { columnsLoading.value[headerKey] = value },
+      onLoading: value => {
+        columnsLoading.value[headerKey] = value
+      },
       useLoading: false,
-      errorMessage: 'Não conseguimos salvar as informações. Por favor, tente novamente em alguns minutos.'
+      errorMessage: 'Não conseguimos buscar as colunas do board. Por favor, tente novamente em alguns minutos.'
     }
   )
 
+  if (error) return
+
   /*
   * exemplo de como columnsModel irá ficar:
+  *
   * {
   *  '2024-02-15': [...],
   *  '2024-02-16': [...]
   * }
+  *
   * onde cada item do objeto é uma coluna no board. O mesmo vale para "columnsLoading" e "columnPagination", organizando
   * os loadings e o controle de paginação por chave identificadora do header.
   */
-  const columnItems = response.data?.data?.results || []
-
-  columnsModel.value[headerKey] = toRaw([
+  const newColumnValues = [
     ...columnsModel.value[headerKey] || [],
-    ...columnItems
-  ])
+    ...response.data?.results || []
+  ]
 
-  columnsPagination.value[headerKey] = {
-    ...columnsPagination.value[headerKey],
-    offset: columnsModel.value[headerKey].length,
-    count: response.data?.data?.count
-  }
+  columnsModel.value[headerKey] = props.useToRaw ? toRaw(newColumnValues) : newColumnValues
+
+  columnsPagination.value[headerKey].offset = columnsModel.value[headerKey].length
+  columnsPagination.value[headerKey].count = response.data?.count
 }
 
-function getColumn (header) {
-  return Object.keys(columnsModel.value).length ? columnsModel.value[getKeyByHeaderKey(header)] : []
+function getItemsByHeader (header) {
+  return hasColumnsLength.value ? columnsModel.value[getKeyByHeader(header)] : []
 }
 
-/*
+/**
 * Pegar key com base na chave identificador, exemplo:
 * header -> { date: '2024-02-12', ... }
 * columnIdKey -> 'date'
 * retorno -> '2024-02-12'
 *
 * Onde esta chave será o "id" da coluna, sendo usado para bater a API, lidar com paginação, loading, etc.
+*
+* @example
+* getKeyByHeader({ date: '2024-02-12', ... })
+* @returns {String} // '2024-02-12'
 */
-function getKeyByHeaderKey (header = {}) {
+function getKeyByHeader (header = {}) {
   return header[props.columnIdKey]
 }
 
@@ -193,30 +215,30 @@ function setColumnsPagination () {
   columnsLoading.value = {}
 
   props.results.forEach(header => {
-    const headerKey = getKeyByHeaderKey(header)
+    const headerKey = getKeyByHeader(header)
 
-    columnsPagination.value[headerKey] = { limit: props.limit, offset: 0 }
+    columnsPagination.value[headerKey] = { limit: props.limitPerColumn, offset: 0 }
     columnsLoading.value[headerKey] = false
   })
 }
 
-function showEmptyResultText (header) {
-  return !columnsLoading.value[getKeyByHeaderKey(header)] && !getColumn(header)?.length
+function hasEmptyResultText (header) {
+  return !columnsLoading.value[getKeyByHeader(header)] && !getItemsByHeader(header)?.length
 }
 
 /*
 * Valida se o tamanho dos itens da coluna é menor que o valor total de itens que o back retorna e
 * se a coluna não está em carregamento.
 */
-function showSeeMore (headerKey) {
-  return (
-    (columnsModel.value[headerKey]?.length < columnsPagination.value[headerKey]?.count) &&
-    !columnsLoading.value[headerKey]
-  )
+function hasSeeMore (header) {
+  const headerKey = getKeyByHeader(header)
+  const hasMorePagination = columnsModel.value[headerKey]?.length < columnsPagination.value[headerKey]?.count
+
+  return hasMorePagination && !columnsLoading.value[headerKey]
 }
 
 function reset () {
-  columnsModel.value = []
+  columnsModel.value = {}
   columnsPagination.value = {}
   columnsLoading.value = {}
 }
@@ -227,8 +249,6 @@ function reset () {
   max-height: 100vh;
 
   &__column {
-    width: 288px;
-    /* Tamanho das colunas de acordo com o figma */
     overflow-x: hidden;
     scrollbar-width: none;
 
