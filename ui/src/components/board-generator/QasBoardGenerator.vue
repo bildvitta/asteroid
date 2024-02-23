@@ -23,7 +23,7 @@
 </template>
 
 <script setup>
-import { ref, watch, computed, onMounted, toRaw, inject } from 'vue'
+import { ref, watch, computed, onMounted, shallowRef, inject } from 'vue'
 import promiseHandler from '../../helpers/promise-handler'
 
 defineOptions({ name: 'QasBoardGenerator' })
@@ -75,7 +75,7 @@ const props = defineProps({
     default: '288px'
   },
 
-  useToRaw: {
+  useShallowRef: {
     type: Boolean,
     default: true
   }
@@ -179,7 +179,7 @@ async function fetchColumn (header) {
     ...response.data?.results || []
   ]
 
-  columnsModel.value[headerKey] = props.useToRaw ? toRaw(newColumnValues) : newColumnValues
+  columnsModel.value[headerKey] = props.useShallowRef ? shallowRef(newColumnValues) : newColumnValues
 
   columnsPagination.value[headerKey].offset = columnsModel.value[headerKey].length
   columnsPagination.value[headerKey].count = response.data?.count

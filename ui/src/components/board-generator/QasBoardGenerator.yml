@@ -38,8 +38,8 @@ props:
     type: Number
     default: 12
 
-  use-raw:
-    desc: Define se os valores dos itens das colunas irá ser atribuido utilizando o "toRaw"(https://vuejs.org/api/reactivity-advanced.html#toraw)
+  use-shallow-ref:
+    desc: Define se os valores dos itens das colunas irá ser atribuido utilizando o "shallowRef", onde somente a primeira camada do model será reativa.(https://vuejs.org/api/reactivity-advanced.html#shallowref)
     type: Boolean
     default: true
 
