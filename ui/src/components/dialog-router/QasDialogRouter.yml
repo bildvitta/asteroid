@@ -15,7 +15,7 @@ events:
     desc: Dispara quando o QasDialog é fechado.
 
 methods:
-  '@show (route) => undefined':
+  '@show: (route) => void':
     desc: Função para abrir o a pagina dentro do dialog.
     route:
       value:

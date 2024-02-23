@@ -197,9 +197,8 @@ function getItemsByHeader (header) {
 *
 * Onde esta chave será o "id" da coluna, sendo usado para bater a API, lidar com paginação, loading, etc.
 *
-* @example
-* getKeyByHeader({ date: '2024-02-12', ... })
-* @returns {String} // '2024-02-12'
+* @example getKeyByHeader({ date: '2024-02-12', ... })
+* @returns {string} // '2024-02-12'
 */
 function getKeyByHeader (header = {}) {
   return header[props.columnIdKey]

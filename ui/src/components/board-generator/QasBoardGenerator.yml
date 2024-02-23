@@ -76,8 +76,8 @@ events:
         type: Object
 
 methods:
-  'fetchColumns () => undefined':
+  'fetchColumns: () => void':
     desc: Busca todas colunas com base nos headers fornecidos.
 
-  'fetchColumn (header) => undefined':
+  'fetchColumn: (header) => void':
     desc: Busca uma coluna especifica com base no header fornecido.
