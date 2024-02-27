@@ -2,7 +2,7 @@
   <div class="qas-grabbable relative-position">
     <div
       ref="grabContainer"
-      class="flex no-wrap qas-grabbable__container"
+      class="flex no-wrap qas-grabbable__container secondary-scroll"
       :class="classes"
     >
       <slot />
@@ -136,25 +136,6 @@ onBeforeUnmount(() => {
     -webkit-overflow-scrolling: touch;
     -ms-overflow-style: none;
     overflow-x: auto;
-    scrollbar-color: $blue-grey-3 transparent;
-
-    &::-webkit-scrollbar {
-      height: 12px;
-      background-color: transparent;
-    }
-
-    &::-webkit-scrollbar-track {
-      background-color: transparent;
-    }
-
-    &::-webkit-scrollbar-thumb {
-      background-color: $blue-grey-3;
-      border-radius: var(--qas-generic-border-radius);
-    }
-
-    &::-webkit-scrollbar-thumb:hover {
-      background-color: $blue-grey-4;
-    }
 
     &::before,
     &::after {
