@@ -473,6 +473,10 @@ module.exports = [
         path: '/styles/opacity'
       },
       {
+        name: 'scroll',
+        path: '/styles/scroll'
+      },
+      {
         name: 'set-brand',
         path: '/styles/set-brand'
       },
