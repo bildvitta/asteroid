@@ -1,0 +1,22 @@
+type: component
+
+meta:
+  desc: Componente de scroll em uma determinada área (elemento) ao realizar evento de grab (puxar/agarrar) com o mouse/touch.
+
+props:
+  use-scroll-bar:
+    desc: Se deve ou não usar a barra de rolagem.
+    default: false
+    type: Boolean
+
+slots:
+  default:
+    desc: Slot para ter o conteúdo que terá o scroll na horizontal.
+
+events:
+  '@grabbable -> function(grabbing)':
+    desc: Dispara toda vez que o "grab" é realizado.
+    params:
+      grabbing:
+        desc: Retorna se está ou não fazendo "grabbing".
+        type: Boolean

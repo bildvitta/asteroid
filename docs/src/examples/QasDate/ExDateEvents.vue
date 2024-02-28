@@ -27,11 +27,15 @@ export default {
       events: [
         {
           date: date.formatDate(yesterday, 'YYYY-MM-DD'),
-          counter: 2
+          counter: 8
+        },
+        {
+          date: date.formatDate(today, 'YYYY-MM-DD'),
+          counter: 12
         },
         {
           date: date.formatDate(tomorrow, 'YYYY-MM-DD'),
-          counter: 4
+          counter: 123
         }
       ]
     }

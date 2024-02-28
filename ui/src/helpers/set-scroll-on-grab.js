@@ -1,70 +1,120 @@
-export default function (element) {
-  setStyle()
-
+/**
+* Helper de scroll em uma determinada área (elemento) ao realizar evento de grab (puxar/agarrar) com o mouse/touch.
+*
+* @param {HTMLElement} element
+* @param {{
+*  onGrabFn: function({ element: HTMLElement, isGrabbing: boolean }),
+*  onMoveFn: function({ element: HTMLElement, event: MouseEvent | TouchEvent }),
+*  onScrollFn: function({ element: HTMLElement, event: Event })
+* }} options
+*
+* @returns {{ element: HTMLElement, destroyEvents: function }}
+*/
+export default function (element, options = {}) {
   let isDown = false
-  let moved = false
   let startX
   let scrollLeft
+  let isGrabbing = false
 
-  element.addEventListener('mousedown', onMouseDown)
-  element.addEventListener('mouseleave', onMouseLeave)
-  element.addEventListener('mouseup', onMouseUp)
-  element.addEventListener('mousemove', onMouseMove)
+  onGrab()
 
-  function onMouseDown (event) {
+  const events = {
+    mousedown: onMouseEnter,
+    mouseleave: onMouseLeave,
+    mousemove: onMouseMove,
+    mouseup: onMouseLeave,
+    scroll: onScroll,
+    touchend: onLeave,
+    touchmove: onTouchMove,
+    touchstart: onEnter
+  }
+
+  addEvents()
+
+  function addEvents () {
+    Object.entries(events).forEach(([event, fn]) => element.addEventListener(event, fn))
+  }
+
+  function destroyEvents () {
+    Object.entries(events).forEach(([event, fn]) => element.removeEventListener(event, fn))
+  }
+
+  function onEnter () {
     isDown = true
-    moved = false
 
     element.classList.add('active')
+  }
+
+  function onMouseEnter (event) {
+    onEnter()
 
     startX = event.pageX - element.offsetLeft
     scrollLeft = element.scrollLeft
   }
 
-  function onMouseLeave () {
+  function onLeave () {
     isDown = false
+    isGrabbing = false
 
     element.classList.remove('active')
-    setStyle()
+
+    onGrab()
   }
 
-  function onMouseUp () {
-    isDown = false
-
-    element.classList.remove('active')
-    setStyle()
+  function onMouseLeave () {
+    onLeave()
+    blockEvents()
   }
 
   function onMouseMove (event) {
     if (event) event.preventDefault()
+
     if (!isDown) return
 
-    setStyle('grabbing')
+    isGrabbing = true
+
+    onGrab()
+    blockEvents()
 
     const x = event.pageX - element.offsetLeft
     const walk = (x - startX) * 3 // scroll-fast
+
     element.scrollLeft = scrollLeft - walk
-    moved = true
+
+    options.onMoveFn?.({ element, event })
   }
 
-  function setStyle (model = 'grab') {
-    element.style.cursor = model
+  function onTouchMove (event) {
+    event = event.touches[0]
+
+    if (!isDown) return
+
+    isGrabbing = true
+
+    onGrab()
+
+    options.onMoveFn?.({ element, event })
   }
 
-  function destroyEvents () {
-    element.removeEventListener('mousedown', onMouseDown)
-    element.removeEventListener('mouseleave', onMouseLeave)
-    element.removeEventListener('mouseup', onMouseUp)
-    element.removeEventListener('mousemove', onMouseMove)
+  function onScroll (event) {
+    options.onScrollFn?.({ element, event })
   }
 
-  function haveMoved () {
-    return moved
+  function onGrab () {
+    element.style.cursor = isGrabbing ? 'grabbing' : 'grab'
+
+    options.onGrabFn?.({ element, isGrabbing })
+  }
+
+  function blockEvents () {
+    Array.from(element.children).forEach(child => {
+      child.classList.toggle('no-pointer-events', isGrabbing)
+      child.classList.toggle('non-selectable', isGrabbing)
+    })
   }
 
   return {
     element,
-    haveMoved,
     destroyEvents
   }
 }

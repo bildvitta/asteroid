@@ -28,6 +28,7 @@ import QasFormGenerator from './components/form-generator/QasFormGenerator.vue'
 import QasFormView from './components/form-view/QasFormView.vue'
 import QasGallery from './components/gallery/QasGallery.vue'
 import QasGalleryCard from './components/gallery-card/QasGalleryCard.vue'
+import QasGrabbable from './components/grabbable/QasGrabbable.vue'
 import QasGridGenerator from './components/grid-generator/QasGridGenerator.vue'
 import QasHeaderActions from './components/header-actions/QasHeaderActions.vue'
 import QasInfiniteScroll from './components/infinite-scroll/QasInfiniteScroll.vue'
@@ -116,6 +117,7 @@ async function install (app) {
   app.component('QasFormView', QasFormView)
   app.component('QasGallery', QasGallery)
   app.component('QasGalleryCard', QasGalleryCard)
+  app.component('QasGrabbable', QasGrabbable)
   app.component('QasGridGenerator', QasGridGenerator)
   app.component('QasHeaderActions', QasHeaderActions)
   app.component('QasInfiniteScroll', QasInfiniteScroll)
@@ -205,6 +207,7 @@ export {
   QasFormView,
   QasGallery,
   QasGalleryCard,
+  QasGrabbable,
   QasGridGenerator,
   QasHeaderActions,
   QasInfiniteScroll,

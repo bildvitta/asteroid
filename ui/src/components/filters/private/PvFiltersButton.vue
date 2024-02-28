@@ -1,6 +1,6 @@
 <template>
   <qas-btn :color="color" data-cy="filters-btn" icon="sym_r_tune" variant="tertiary">
-    <q-menu ref="menu" anchor="center right" class="full-width" max-width="270px" self="top right">
+    <q-menu ref="menu" anchor="center right" class="full-width" max-width="270px" self="top right" v-bind="menuProps">
       <div v-if="loading" class="q-pa-xl text-center">
         <q-spinner color="grey" size="2em" />
       </div>
@@ -64,6 +64,11 @@ export default {
 
     loading: {
       type: Boolean
+    },
+
+    menuProps: {
+      default: () => ({}),
+      type: Object
     },
 
     modelValue: {

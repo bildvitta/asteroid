@@ -168,6 +168,10 @@ module.exports = [
         path: '/components/gallery-card'
       },
       {
+        name: 'Grabbable',
+        path: '/components/grabbable'
+      },
+      {
         name: 'GridGenerator',
         path: '/components/grid-generator'
       },
@@ -471,6 +475,10 @@ module.exports = [
       {
         name: 'opacity',
         path: '/styles/opacity'
+      },
+      {
+        name: 'scroll',
+        path: '/styles/scroll'
       },
       {
         name: 'set-brand',
