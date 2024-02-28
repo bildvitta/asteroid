@@ -96,6 +96,10 @@ module.exports = [
         path: '/components/card'
       },
       {
+        name: 'CardImage',
+        path: '/components/card-image'
+      },
+      {
         name: 'ChartView',
         path: '/components/chart-view'
       },

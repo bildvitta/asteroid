@@ -11,6 +11,7 @@ import QasBreakline from './components/breakline/QasBreakline.vue'
 import QasBtn from './components/btn/QasBtn.vue'
 import QasBtnDropdown from './components/btn-dropdown/QasBtnDropdown.vue'
 import QasCard from './components/card/QasCard.vue'
+import QasCardImage from './components/card-image/QasCardImage.vue'
 import QasCheckboxGroup from './components/checkbox-group/QasCheckboxGroup.vue'
 import QasCopy from './components/copy/QasCopy.vue'
 import QasDate from './components/date/QasDate.vue'
@@ -99,6 +100,7 @@ async function install (app) {
   app.component('QasBtn', QasBtn)
   app.component('QasBtnDropdown', QasBtnDropdown)
   app.component('QasCard', QasCard)
+  app.component('QasCardImage', QasCardImage)
   app.component('QasCheckboxGroup', QasCheckboxGroup)
   app.component('QasCopy', QasCopy)
   app.component('QasDate', QasDate)
