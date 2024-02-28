@@ -13,6 +13,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 ## Não publicado
 ### Adicionado
 - `QasBoardGenerator`: adicionado componente de board, responsável pela exibição e busca dos dados de um board de colunas.
+- `utils/scroll.scss`: Adicionado classe `secondary-scroll` com um estilo de scroll mais sútil em relação a padrão.
 
 ### Modificado
 - `QasAppUser`: Alterado do menu "Editar" para "Perfil", uma vez que agora a pagina do /me não é somente para editar.
