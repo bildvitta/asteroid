@@ -6,7 +6,7 @@
           <slot :context="header" name="header-column" />
         </qas-box>
 
-        <div ref="columnContainer" class="qas-board-generator__column" :style="containerStyle">
+        <div ref="columnContainer" class="qas-board-generator__column secondary-scroll" :style="containerStyle">
           <slot v-for="item in getItemsByHeader(header)" :context="item" name="column-item" />
 
           <div class="full-width justify-center q-mb-md q-mt-sm row">
@@ -253,7 +253,6 @@ function reset () {
 
     &:hover {
       scrollbar-width: thin;
-      scrollbar-color: $blue-1 transparent;
 
       &::-webkit-scrollbar {
         display: block;
@@ -261,22 +260,7 @@ function reset () {
     }
 
     &::-webkit-scrollbar {
-      width: 8px;
       display: none;
-    }
-
-    &::-webkit-scrollbar-track {
-      background: transparent;
-    }
-
-    &::-webkit-scrollbar-thumb {
-      background-color: $blue-1;
-      -webkit-border-radius: 10px;
-      border-radius: 10px;
-    }
-
-    &::-webkit-scrollbar-thumb:hover {
-      background-color: $blue-1;
     }
   }
 }
