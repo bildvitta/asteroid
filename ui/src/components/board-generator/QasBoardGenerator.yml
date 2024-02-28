@@ -1,0 +1,83 @@
+type: component
+
+meta:
+  desc: Componente usado para board de colunas.
+
+props:
+  results:
+    desc: Lista de itens sendo cada um o header de cada coluna.
+    default: []
+    type: Array
+
+  column-id-key:
+    desc: chave que será o id usado para ser o identificador da coluna.
+    type: String
+    required: true
+
+  column-params:
+    desc: parâmetros customizados caso precise passar para as APIs das colunas.
+    type: Object
+    default: {}
+
+  column-url:
+    desc: URL usada para as APIs das colunas.
+    type: String
+    required: true
+
+  column-width:
+    desc: Largura da coluna
+    type: String
+    default: 288
+  
+  height:
+    desc: Altura do container do board. Caso não seja passado um height, o calculo é feito para ocupar a maior altura possível da página.
+    type: String
+
+  limit:
+    desc: Quantidade de itens da coluna por busca na API.
+    type: Number
+    default: 12
+
+  use-shallow-ref:
+    desc: Define se os valores dos itens das colunas irá ser atribuido utilizando o "shallowRef", onde somente a primeira camada do model será reativa.(https://vuejs.org/api/reactivity-advanced.html#shallowref)
+    type: Boolean
+    default: true
+
+  model-value:
+    desc: Model do componente, usado para o v-model.
+    default: {}
+    type: Object
+    examples: [v-model="value"]
+    model: true
+
+slots:
+  header-column:
+    desc: Slot para acessar o card do header de cada coluna.
+    scope:
+      context:
+        desc: Informações de cada item do header que foi fornecido através do "results".
+        type: Object
+        default: {}
+
+  column-item:
+    desc: Slot para acessar o item da coluna.
+    scope:
+      context:
+        desc: Informações de cada item da coluna que foi buscado através da API.
+        type: Object
+        default: {}
+
+events:
+  '@update:model-value -> function(value)':
+    desc: Dispara quando o model-value altera, também usado para v-model.
+    params:
+      value:
+        desc: Novo valor do model.
+        type: Object
+
+methods:
+  'fetchColumns: () => void':
+    desc: Busca todas colunas com base nos headers fornecidos.
+
+  'fetchColumn: (header) => void':
+    desc: Busca uma coluna especifica com base no header fornecido.

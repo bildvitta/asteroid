@@ -73,7 +73,11 @@ module.exports = [
       },
       {
         name: 'Badge',
-        path: '/components/Badge'
+        path: '/components/badge'
+      },
+      {
+        name: 'BoardGenerator',
+        path: '/components/board-generator'
       },
       {
         name: 'Box',

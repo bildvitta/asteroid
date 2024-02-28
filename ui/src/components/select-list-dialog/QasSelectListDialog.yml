@@ -98,11 +98,11 @@ events:
         type: Array
 
 methods:
-  'add ({ options = [], value }) => undefined':
+  'add: ({ options = [], value }) => void':
     desc: Adiciona itens a lista de selecionados, é preciso adicionar quais opções são referentes ao model.
 
-  'remove (value) => undefined':
+  'remove: (value) => void':
     desc: remove um item da lista de selecionados passando o valor referente a ele na lista.
 
-  'removeAll () => undefined':
+  'removeAll: () => void':
     desc: remove todos os itens da lista de selecionados.
