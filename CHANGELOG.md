@@ -11,6 +11,9 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
 ## Não publicado
+### Adicionado
+- `utils/scroll.scss`: Adicionado classe `secondary-scroll` com um estilo de scroll mais sútil em relação a padrão.
+
 ### Modificado
 - `QasAppUser`: Alterado do menu "Editar" para "Perfil", uma vez que agora a pagina do /me não é somente para editar.
 
