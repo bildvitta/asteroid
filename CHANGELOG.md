@@ -11,8 +11,18 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
 ## Não publicado
+## BREAKING CHANGES
+-  `QasCard`: Componente agora se chama `QasCardImage`, pois agora foi criado um novo componente com o nome  de `QasCard` (`QasCard <-> QasCardImage`).
+
 ### Adicionado
+- `QasCard` (novo): adicionado novo componente de card tendo o nome do antigo `QasCard`, pois este card não depende de imagens.
 - `QasBoardGenerator`: adicionado componente de board, responsável pela exibição e busca dos dados de um board de colunas.
+
+### Modificado
+- `QasCard` (antigo): Alterado nome do componente para `QasCardImage`, uma vez que ele é um card com imagens.
+
+## [3.15.0-beta.2] - 28-02-2024
+### Adicionado
 - `utils/scroll.scss`: Adicionado classe `secondary-scroll` com um estilo de scroll mais sútil em relação a padrão.
 
 ### Modificado
@@ -2663,3 +2673,4 @@ Adicionado suporte para Pinia/Vuex Seguindo os padrões da biblioteca `@bildvitt
 [3.14.0]: https://github.com/bildvitta/asteroid/compare/v3.13.1...v3.14.0?expand=1
 [3.15.0-beta.0]: https://github.com/bildvitta/asteroid/compare/v3.14.0...v3.15.0-beta.0?expand=1
 [3.15.0-beta.1]: https://github.com/bildvitta/asteroid/compare/v3.15.0-beta.0...v3.15.0-beta.1?expand=1
+[3.15.0-beta.2]: https://github.com/bildvitta/asteroid/compare/v3.15.0-beta.1...v3.15.0-beta.2?expand=1
