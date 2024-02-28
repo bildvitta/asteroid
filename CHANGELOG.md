@@ -10,7 +10,7 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 ### Sobre os "BREAKING CHANGES"
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
-## Não publicado
+## [3.15.0-beta.2] - 28-02-2024
 ### Adicionado
 - `utils/scroll.scss`: Adicionado classe `secondary-scroll` com um estilo de scroll mais sútil em relação a padrão.
 
@@ -2662,3 +2662,4 @@ Adicionado suporte para Pinia/Vuex Seguindo os padrões da biblioteca `@bildvitt
 [3.14.0]: https://github.com/bildvitta/asteroid/compare/v3.13.1...v3.14.0?expand=1
 [3.15.0-beta.0]: https://github.com/bildvitta/asteroid/compare/v3.14.0...v3.15.0-beta.0?expand=1
 [3.15.0-beta.1]: https://github.com/bildvitta/asteroid/compare/v3.15.0-beta.0...v3.15.0-beta.1?expand=1
+[3.15.0-beta.2]: https://github.com/bildvitta/asteroid/compare/v3.15.0-beta.1...v3.15.0-beta.2?expand=1
