@@ -1,13 +1,13 @@
 <template>
   <qas-grabbable class="qas-board-generator" use-scroll-bar>
     <div class="no-wrap q-col-gutter-sm q-px-xl row">
-      <div v-for="(header, index) in results" :key="index" class="q-mr-sm">
+      <div v-for="(header, index) in headers" :key="index" class="q-mr-sm">
         <qas-box class="q-mb-md">
-          <slot :context="header" name="header-column" />
+          <slot :fields="getFieldsByHeader(header)" :header="header" name="header-column" />
         </qas-box>
 
         <div ref="columnContainer" class="qas-board-generator__column secondary-scroll" :style="containerStyle">
-          <slot v-for="item in getItemsByHeader(header)" :context="item" name="column-item" />
+          <slot v-for="item in getItemsByHeader(header)" :fields="getFieldsByHeader(header)" :item="item" name="column-item" />
 
           <div class="full-width justify-center q-mb-md q-mt-sm row">
             <qas-btn v-if="hasSeeMore(header)" icon="sym_r_add" label="Ver mais" :use-label-on-small-screen="false" variant="tertiary" @click="fetchColumn(header)" />
@@ -31,13 +31,24 @@ defineOptions({ name: 'QasBoardGenerator' })
 const columnContainer = ref(null)
 const columnsPagination = ref({})
 const columnsLoading = ref({})
+const columnsFieldsModel = ref({})
 
 const axios = inject('axios')
 
 const props = defineProps({
-  results: {
+  headers: {
     type: Array,
     default: () => []
+  },
+
+  results: {
+    type: Object,
+    default: () => ({})
+  },
+
+  fields: {
+    type: Object,
+    default: () => ({})
   },
 
   columnIdKey: {
@@ -55,11 +66,6 @@ const props = defineProps({
     required: true
   },
 
-  modelValue: {
-    type: Object,
-    default: () => ({})
-  },
-
   height: {
     type: String,
     default: ''
@@ -72,7 +78,7 @@ const props = defineProps({
 
   columnWidth: {
     type: String,
-    default: '288px'
+    default: '300px'
   },
 
   useShallowRef: {
@@ -81,8 +87,13 @@ const props = defineProps({
   }
 })
 
+const emit = defineEmits([
+  'update:results',
+  'update:fields'
+])
+
 watch(
-  () => props.results,
+  () => props.headers,
   () => {
     reset()
     setColumnHeightContainer()
@@ -93,26 +104,26 @@ watch(
 
 watch(columnContainer, setColumnHeightContainer)
 
+watch(columnsFieldsModel.value, newValues => emit('update:fields', newValues))
+
 onMounted(() => {
   setColumnsPagination()
   fetchColumns()
 })
 
-const emit = defineEmits(['update:modelValue'])
-
 defineExpose({ fetchColumns, fetchColumn, reset })
 
-const columnsModel = computed({
+const columnsResultsModel = computed({
   get () {
-    return props.modelValue
+    return props.results
   },
 
   set (newValues) {
-    emit('update:modelValue', newValues)
+    emit('update:results', newValues)
   }
 })
 
-const hasColumnsLength = computed(() => Object.keys(columnsModel.value).length)
+const hasColumnsLength = computed(() => Object.keys(columnsResultsModel.value).length)
 
 const containerStyle = computed(() => `width: ${props.columnWidth};`)
 
@@ -134,7 +145,7 @@ function setColumnHeightContainer () {
 * Bater API pra cada header
 */
 async function fetchColumns () {
-  props.results.forEach(header => fetchColumn(header))
+  props.headers.forEach(header => fetchColumn(header))
 }
 
 /*
@@ -164,29 +175,30 @@ async function fetchColumn (header) {
   if (error) return
 
   /*
-  * exemplo de como columnsModel irá ficar:
+  * exemplo de como columnsResultsModel irá ficar:
   *
   * {
   *  '2024-02-15': [...],
   *  '2024-02-16': [...]
   * }
   *
-  * onde cada item do objeto é uma coluna no board. O mesmo vale para "columnsLoading" e "columnPagination", organizando
-  * os loadings e o controle de paginação por chave identificadora do header.
+  * onde cada item do objeto é uma coluna no board. O mesmo vale para "columnsFieldsModel", "columnsLoading" e
+  * "columnPagination", organizando os fields, loadings e o controle de paginação por chave identificadora do header.
   */
   const newColumnValues = [
-    ...columnsModel.value[headerKey] || [],
+    ...columnsResultsModel.value[headerKey] || [],
     ...response.data?.results || []
   ]
 
-  columnsModel.value[headerKey] = props.useShallowRef ? shallowRef(newColumnValues) : newColumnValues
+  columnsResultsModel.value[headerKey] = props.useShallowRef ? shallowRef(newColumnValues) : newColumnValues
+  columnsFieldsModel.value[headerKey] = response.data?.fields || {}
 
-  columnsPagination.value[headerKey].offset = columnsModel.value[headerKey].length
+  columnsPagination.value[headerKey].offset = columnsResultsModel.value[headerKey].length
   columnsPagination.value[headerKey].count = response.data?.count
 }
 
 function getItemsByHeader (header) {
-  return hasColumnsLength.value ? columnsModel.value[getKeyByHeader(header)] : []
+  return hasColumnsLength.value ? columnsResultsModel.value[getKeyByHeader(header)] : []
 }
 
 /**
@@ -213,7 +225,7 @@ function setColumnsPagination () {
   columnsPagination.value = {}
   columnsLoading.value = {}
 
-  props.results.forEach(header => {
+  props.headers.forEach(header => {
     const headerKey = getKeyByHeader(header)
 
     columnsPagination.value[headerKey] = { limit: props.limitPerColumn, offset: 0 }
@@ -231,15 +243,21 @@ function hasEmptyResultText (header) {
 */
 function hasSeeMore (header) {
   const headerKey = getKeyByHeader(header)
-  const hasMorePagination = columnsModel.value[headerKey]?.length < columnsPagination.value[headerKey]?.count
+  const hasMorePagination = columnsResultsModel.value[headerKey]?.length < columnsPagination.value[headerKey]?.count
 
   return hasMorePagination && !columnsLoading.value[headerKey]
 }
 
 function reset () {
-  columnsModel.value = {}
+  columnsResultsModel.value = {}
   columnsPagination.value = {}
   columnsLoading.value = {}
+}
+
+function getFieldsByHeader (header) {
+  const headerKey = getKeyByHeader(header)
+
+  return columnsFieldsModel.value[headerKey] || {}
 }
 </script>
 

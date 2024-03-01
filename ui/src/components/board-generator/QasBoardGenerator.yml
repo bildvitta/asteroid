@@ -4,7 +4,7 @@ meta:
   desc: Componente usado para board de colunas.
 
 props:
-  results:
+  headers:
     desc: Lista de itens sendo cada um o header de cada coluna.
     default: []
     type: Array
@@ -43,33 +43,50 @@ props:
     type: Boolean
     default: true
 
-  model-value:
-    desc: Model do componente, usado para o v-model.
+  results:
+    desc: Model do componente, usado para o v-model dos itens da coluna.
     default: {}
     type: Object
-    examples: [v-model="value"]
+    examples: [v-model:results="resultsColumns"]
+    model: true
+  
+  fields:
+    desc: Model dos fields, usado para recuperar os fields por coluna fora do template.
+    default: {}
+    type: Object
+    examples: [v-model:fields="fieldsColumns"]
     model: true
 
 slots:
   header-column:
     desc: Slot para acessar o card do header de cada coluna.
     scope:
-      context:
-        desc: Informações de cada item do header que foi fornecido através do "results".
+      fields:
+        desc: Fields referente à coluna atual do template.
+        type: Object
+        default: {}
+      
+      header:
+        desc: Informações de cada item do header que foi fornecido através da prop "headers"
         type: Object
         default: {}
 
   column-item:
     desc: Slot para acessar o item da coluna.
     scope:
-      context:
+      fields:
+        desc: Fields referente à coluna atual do template.
+        type: Object
+        default: {}
+      
+      item:
         desc: Informações de cada item da coluna que foi buscado através da API.
         type: Object
         default: {}
 
 events:
-  '@update:model-value -> function(value)':
-    desc: Dispara quando o model-value altera, também usado para v-model.
+  '@update:results -> function(value)':
+    desc: Dispara quando o "results" altera, também usado para v-model.
     params:
       value:
         desc: Novo valor do model.
