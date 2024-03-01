@@ -23,7 +23,7 @@
 </template>
 
 <script setup>
-import { ref, watch, computed, onMounted, shallowRef, inject } from 'vue'
+import { ref, watch, computed, onMounted, markRaw, inject } from 'vue'
 import promiseHandler from '../../helpers/promise-handler'
 
 defineOptions({ name: 'QasBoardGenerator' })
@@ -81,7 +81,7 @@ const props = defineProps({
     default: '300px'
   },
 
-  useShallowRef: {
+  useMarkRaw: {
     type: Boolean,
     default: true
   }
@@ -190,7 +190,7 @@ async function fetchColumn (header) {
     ...response.data?.results || []
   ]
 
-  columnsResultsModel.value[headerKey] = props.useShallowRef ? shallowRef(newColumnValues) : newColumnValues
+  columnsResultsModel.value[headerKey] = props.useMarkRaw ? markRaw(newColumnValues) : newColumnValues
   columnsFieldsModel.value[headerKey] = response.data?.fields || {}
 
   columnsPagination.value[headerKey].offset = columnsResultsModel.value[headerKey].length

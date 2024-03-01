@@ -12,12 +12,16 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 
 ## Não publicado
 ## BREAKING CHANGES
--  `QasBoardGenerator`: props `results` alterada para `headers`, onde o `v-model` agora é recuperado pelo `v-model:results`.
+- `QasBoardGenerator`:
+  - props `results` alterada para `headers`,
+  - `v-model` agora é recuperado pelo `v-model:results`.
+  - alterado prop `use-shallow-ref` para `use-mark-raw`.
 
 ### Modificado
 - `QasBoardGenerator`: 
-  - props `results` alterada para `headers`.
-  - `v-model` agora é recuperado pelo `v-model:results`
+  - alterado prop `results` para `headers`.
+  - `v-model` agora é recuperado pelo `v-model:results`.
+  - alterado prop `use-shallow-ref` para `use-mark-raw`.
 
 ### Adicionado
 - `QasBoardGenerator`: adicionado v-model de fields para cada coluna.

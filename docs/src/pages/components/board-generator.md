@@ -9,7 +9,7 @@ Componente usado para board de colunas.
 ## Uso
 
 :::info
-Caso precise manipular os dados do model das colunas em camadas mais profundas, use a prop "use-shallow-ref" como false.
+Caso precise manipular os dados do model das colunas em camadas mais profundas, use a prop "use-mark-raw" como false.
 :::
 
 <doc-example file="QasBoardGenerator/Basic" title="Básico" />
