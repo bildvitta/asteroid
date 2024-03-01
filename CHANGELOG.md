@@ -10,9 +10,26 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 ### Sobre os "BREAKING CHANGES"
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
+## Não publicado
+## BREAKING CHANGES
+- `QasBtnDropdown`:
+  - removido propriedade `buttonProps`;
+  - removido slot `left-button`.
+
+### Adicionado
+- `QasBtnDropdown`: adicionado nova propriedade `buttonsPropsList`.
+
+### Modificado
+- `QasBtnDropdown`: alterado componente para receber uma lista de botões.
+
+### Removido
+- `QasBtnDropdown`:
+  - removido propriedade `buttonProps`;
+  - removido slot `left-button`.
+
 ## [3.15.0-beta.3] - 28-02-2024
 ## BREAKING CHANGES
--  `QasCard`: Componente agora se chama `QasCardImage`, pois agora foi criado um novo componente com o nome  de `QasCard` (`QasCard <-> QasCardImage`).
+- `QasCard`: Componente agora se chama `QasCardImage`, pois agora foi criado um novo componente com o nome  de `QasCard` (`QasCard <-> QasCardImage`).
 
 ### Adicionado
 - `QasCard` (novo): adicionado novo componente de card tendo o nome do antigo `QasCard`, pois este card não depende de imagens.

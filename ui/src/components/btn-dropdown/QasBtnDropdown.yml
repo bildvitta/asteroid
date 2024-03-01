@@ -4,11 +4,11 @@ meta:
   desc: Componente semelhante ao QBtnDropdown porém utilizando o QasBtn e QSeparator para aplicar estilos padrões do Design System.
 
 props:
-  button-props:
-    desc: Propriedades repassadas para o QasBtn.
-    default: {}
-    type: Object
-    examples: ["{ color: 'white', icon: 'sym_r_person' }"]
+  buttons-props-list:
+    desc: Lista de propriedades repassadas para os botões.
+    default: []
+    type: Array
+    examples: ["[{ color: 'white', icon: 'sym_r_person' }]"]
 
   dropdown-icon:
     desc: Ícone a direita do dropdown.
@@ -33,10 +33,7 @@ props:
 
 slots:
   default:
-    desc: Slot para passar o conteúdo do dropdown (menu)
-
-  left-button:
-    desc: Slot para substituir o botão a esquerda.
+    desc: Slot para passar o conteúdo do dropdown (menu).
 
 events:
   '@click -> function (event)':
