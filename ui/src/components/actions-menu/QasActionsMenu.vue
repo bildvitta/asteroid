@@ -32,6 +32,8 @@ import useScreen from '../../composables/use-screen'
 
 import { computed, inject } from 'vue'
 
+// const SPLIT_NAMES_QUANTITY = 2
+
 defineOptions({ name: 'QasActionsMenu' })
 
 const qas = inject('qas')
@@ -70,6 +72,11 @@ const props = defineProps({
   splitName: {
     default: '',
     type: String
+  },
+
+  splitNames: {
+    default: () => [],
+    type: Array
   },
 
   useLabel: {
@@ -167,6 +174,7 @@ const isBtnDropdown = computed(() => Object.keys(fullList.value || {}).length > 
 // -------------------------------- component ----------------------------------
 const component = computed(() => {
   const is = isBtnDropdown.value ? QasBtnDropdown : QasBtn
+  console.log('TCL: component -> btnDropdownProps', btnDropdownProps)
 
   return {
     is,

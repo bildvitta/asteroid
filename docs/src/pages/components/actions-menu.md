@@ -52,8 +52,8 @@ Caso a prop `list` contenha **apenas 1** item dentro, ele renderiza um `QasBtn`,
 :::
 
 <doc-example file="QasActionsMenu/Basic" title="Básico" />
-<doc-example file="QasActionsMenu/ExWithSplit" title="Usando com split" />
+<!-- <doc-example file="QasActionsMenu/ExWithSplit" title="Usando com split" />
 <doc-example file="QasActionsMenu/Delete" title="QasDelete como padrão" />
 <doc-example file="QasActionsMenu/CustomSlot" title="Templates dinâmicos" />
 <doc-example file="QasActionsMenu/ExUseLabel" title="Ícone sem label" />
-<doc-example file="QasActionsMenu/ExUseTooltip" title="Com tooltip" />
+<doc-example file="QasActionsMenu/ExUseTooltip" title="Com tooltip" /> -->
