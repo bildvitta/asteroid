@@ -141,13 +141,17 @@ function setColumnHeightContainer () {
 * Bater API pra cada header
 */
 async function fetchColumns () {
-  const promises = []
+  const promises = props.headers.map(header => fetchColumn(header))
 
-  props.headers.forEach(header => promises.push(fetchColumn(header)))
+  const { error } = await promiseHandler(promises, { useLoading: false })
 
-  Promise.all(promises)
-    .then(() => emit('fetch-columns-success'))
-    .catch(error => emit('fetch-columns-error', error))
+  if (error) {
+    emit('fetch-columns-error', error)
+
+    return
+  }
+
+  emit('fetch-columns-success')
 }
 
 /*
@@ -177,7 +181,7 @@ async function fetchColumn (header) {
   if (error) {
     emit('fetch-column-error', error)
 
-    throw new Error(error)
+    throw error
   }
 
   /*
