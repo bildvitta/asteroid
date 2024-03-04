@@ -23,24 +23,25 @@
 </template>
 
 <script setup>
-const buttonsPropsList1 = [
-  {
+const buttonsPropsList1 = {
+  export: {
     label: 'Exportar arquivo',
     icon: 'sym_r_upload',
     color: 'primary'
   },
-  {
+  sync: {
     label: 'Sincronizar arquivos',
     iconRight: 'sym_r_sync'
   }
-]
+}
 
-const buttonsPropsList2 = [
-  {
+const buttonsPropsList2 = {
+  export: {
     label: 'Exportar arquivo',
-    icon: 'sym_r_upload'
+    icon: 'sym_r_upload',
+    color: 'primary'
   }
-]
+}
 
 function onClick () {
   alert('clicado')

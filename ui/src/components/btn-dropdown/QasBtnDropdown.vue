@@ -1,7 +1,7 @@
 <template>
   <div class="qas-btn-dropdown" :class="classes.parent">
     <div v-if="hasButtons" class="flex">
-      <div v-for="(buttonProps, index) in defaultButtonPropsList" :key="index">
+      <div v-for="(buttonProps, key, index) in props.buttonsPropsList" :key="key">
         <div class="flex">
           <qas-btn variant="tertiary" v-bind="buttonProps" @click="onClick">
             <q-menu v-if="hasMenuOnLeftSide" v-model="isMenuOpened" anchor="bottom right" auto-close self="top right" @update:model-value="onUpdateMenuValue">
@@ -40,8 +40,8 @@ defineOptions({
 
 const props = defineProps({
   buttonsPropsList: {
-    default: () => [],
-    type: Array
+    default: () => ({}),
+    type: Object
   },
 
   dropdownIcon: {
@@ -81,25 +81,8 @@ const classes = computed(() => {
   }
 })
 
-const buttonsPropsListSize = computed(() => props.buttonsPropsList.length)
+const buttonsPropsListSize = computed(() => Object.keys(props.buttonsPropsList).length)
 const isSingleButton = computed(() => buttonsPropsListSize.value === 1)
-
-const defaultButtonPropsList = computed(() => {
-  return props.buttonsPropsList.map((buttonProps, index) => {
-    const { iconRight, color } = buttonProps
-
-    const isLastButton = isLast(index)
-    const isSingle = !index && isSingleButton.value
-
-    return {
-      color: color || (isSingle && props.useSplit) ? 'primary' : 'grey-10',
-      iconRight: iconRight || (isLastButton && !props.useSplit) ? props.dropdownIcon : undefined,
-      useLabelOnSmallScreen: false,
-
-      ...buttonProps
-    }
-  })
-})
 
 const hasButtons = computed(() => !screen.isSmall || !props.useSplit)
 const hasDefaultSlot = computed(() => !!slots.default)

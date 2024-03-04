@@ -1,6 +1,7 @@
 <template>
-  <div v-if="hasActions" class="qas-actions-menu" data-cy="actions-menu">
-    <component :is="component.is" v-bind="component.props" variant="tertiary" @click.stop.prevent>
+  <div class="qas-actions-menu" data-cy="actions-menu">
+    <!-- <div v-if="hasActions" class="qas-actions-menu" data-cy="actions-menu"> -->
+    <!-- <component :is="component.is" v-bind="component.props" variant="tertiary" @click.stop.prevent>
       <q-list v-if="isBtnDropdown" data-cy="actions-menu-list">
         <slot v-for="(item, key) in actions" :item="item" :name="key">
           <q-item v-bind="item.props" :key="key" clickable data-cy="actions-menu-list-item" @click="onClick(item)">
@@ -20,19 +21,37 @@
       <q-tooltip v-if="hasTooltip" class="text-caption">
         {{ tooltipLabel }}
       </q-tooltip>
-    </component>
+    </component> -->
+
+    <qas-btn-dropdown v-bind="btnDropdownProps">
+      <q-list data-cy="actions-menu-list">
+        <slot v-for="(item, key) in formattedList.dropdownList" :item="item" :name="key">
+          <q-item v-bind="item.props" :key="key" clickable data-cy="actions-menu-list-item" @click="onClick(item)">
+            <q-item-section avatar>
+              <q-icon :name="item.icon" />
+            </q-item-section>
+
+            <q-item-section>
+              <div>
+                {{ item.label }}
+              </div>
+            </q-item-section>
+          </q-item>
+        </slot>
+      </q-list>
+    </qas-btn-dropdown>
   </div>
 </template>
 
 <script setup>
-import QasBtn from '../btn/QasBtn.vue'
+// import QasBtn from '../btn/QasBtn.vue'
 import QasBtnDropdown from '../btn-dropdown/QasBtnDropdown.vue'
 
 import useScreen from '../../composables/use-screen'
 
 import { computed, inject } from 'vue'
 
-// const SPLIT_NAMES_QUANTITY = 2
+const SPLIT_SIZE = 2
 
 defineOptions({ name: 'QasActionsMenu' })
 
@@ -74,11 +93,6 @@ const props = defineProps({
     type: String
   },
 
-  splitNames: {
-    default: () => [],
-    type: Array
-  },
-
   useLabel: {
     default: true,
     type: Boolean
@@ -86,11 +100,21 @@ const props = defineProps({
 
   useTooltip: {
     type: Boolean
+  },
+
+  useSplit: {
+    type: Boolean,
+    default: true
   }
 })
 
 const screen = useScreen()
-const { deleteBtnProps, hasDelete } = useDelete()
+
+const { deleteBtnProps } = useDelete()
+
+const hasSplitName = computed(() => !!props.splitName)
+const listSize = computed(() => Object.keys(props.list).length)
+const hasSplit = computed(() => hasSplitName.value && listSize.value > SPLIT_SIZE)
 
 const fullList = computed(() => {
   return {
@@ -99,105 +123,95 @@ const fullList = computed(() => {
   }
 })
 
-const hasSplit = computed(() => !!props.splitName)
-
-// --------------------------------- actions -----------------------------------
-const actions = computed(() => {
-  const list = { ...fullList.value }
-
-  if (hasSplit.value && list[props.splitName] && isBtnDropdown.value) {
-    screen.isSmall
-      ? Object.assign(list, { [props.splitName]: list[props.splitName] })
-      : delete list[props.splitName]
-  }
-
-  return list
-})
-
-const hasActions = computed(() => !!Object.keys(actions.value).length)
-const firstItemKey = computed(() => Object.keys(actions.value)?.[0])
-
-// -------------------------------- tooltip ------------------------------------
-const tooltipLabel = computed(() => actions.value[firstItemKey.value]?.label)
-const hasTooltip = computed(() => {
-  return !isBtnDropdown.value && !props.useLabel && props.useTooltip
-})
-
-// --------------------------------- button ------------------------------------
-const defaultButtonProps = computed(() => {
-  const { label, variant, ...buttonProps } = props.buttonProps
-
-  return {
-    useHoverOnWhiteColor: true,
-    useLabelOnSmallScreen: false,
-    ...buttonProps
-  }
-})
-
 const btnDropdownProps = computed(() => {
-  const { icon, label } = fullList.value[props.splitName] || {}
+  // const buttonsPropsList = [...fullList.value]
+  // console.log('TCL: btnDropdownProps -> buttonsPropsList', buttonsPropsList)
+  // console.log('TCL: btnDropdownProps -> buttonsPropsList', buttonsPropsList)
 
-  const {
-    icon: defaultIcon,
-    ...defaultBtnProps
-  } = defaultButtonProps.value
+  // console.log('TCL: btnDropdownProps -> hasSplitName.value', hasSplitName.value)
+  // if (!hasSplitName.value) {
+  //   const [buttonProps] = buttonsPropsList
 
+  //   if (props.useLabel) {
+  //     buttonProps.label = 'Opções'
+  //   }
+  // }
+
+  // if (hasSplitName.value) {
+
+  // }
+
+  console.log('TCL: btnDropdownProps -> formattedList.value.buttons', formattedList.value)
   return {
-    buttonProps: {
-      ...(props.useLabel && { label: hasSplit.value ? label : 'Opções' }),
-      ...defaultBtnProps,
-      icon: icon || defaultIcon
-    },
-
-    dropdownIcon: props.dropdownIcon,
-    useSplit: hasSplit.value,
-
-    onClick: () => onClick(fullList.value[props.splitName])
+    buttonsPropsList: formattedList.value.buttons,
+    useSplit: hasSplit.value
   }
 })
 
-const btnProps = computed(() => {
-  const { color, icon } = actions.value[firstItemKey.value] || {}
-  const { color: defaultColor, ...defaultBtnProps } = defaultButtonProps.value
+const formattedList = computed(() => {
+  const buttonsPropsList = {}
 
-  return {
-    color: color || defaultColor,
-    icon,
-    label: props.useLabel ? tooltipLabel.value : '',
-    onClick,
-    ...defaultBtnProps
+  const payload = {
+    dropdownList: {},
+    buttons: {}
   }
-})
 
-const isBtnDropdown = computed(() => Object.keys(fullList.value || {}).length > 1)
-
-// -------------------------------- component ----------------------------------
-const component = computed(() => {
-  const is = isBtnDropdown.value ? QasBtnDropdown : QasBtn
-  console.log('TCL: component -> btnDropdownProps', btnDropdownProps)
-
-  return {
-    is,
-    props: {
-      ...(isBtnDropdown.value ? btnDropdownProps.value : btnProps.value),
-      ...(hasDelete.value && props.deleteProps)
+  for (const key in fullList.value) {
+    buttonsPropsList[key] = {
+      ...fullList.value[key],
+      color: 'grey-10'
     }
   }
+
+  if (hasSplitName.value) {
+    buttonsPropsList[props.splitName].color = 'primary'
+  }
+
+  /**
+   * Este é o caso onde não é utilizado com split, sendo o botão de "opções",
+   * onde será usado em casos como dentro de cards, etc.
+   */
+  if (!hasSplitName.value || screen.isSmall) {
+    payload.buttons.options = {
+      label: 'Opções',
+      color: 'grey-10',
+      useLabelOnSmallScreen: false,
+      iconRight: 'sym_r_more_vert'
+    }
+
+    payload.dropdownList = buttonsPropsList
+    return payload
+  }
+
+  if (listSize.value === SPLIT_SIZE) {
+    payload.buttons = {
+      [props.splitName]: {
+        ...buttonsPropsList[props.splitName],
+        color: 'primary',
+        ...props.buttonProps
+      },
+
+      ...buttonsPropsList
+    }
+
+    return payload
+  }
+
+  if (listSize.value > SPLIT_SIZE) {
+    payload.buttons = {
+      [props.splitName]: buttonsPropsList[props.splitName]
+    }
+
+    delete buttonsPropsList[props.splitName]
+
+    payload.dropdownList = buttonsPropsList
+
+    return payload
+  }
+
+  return payload
 })
 
-// --------------------------------- methods -----------------------------------
-function onClick (item = {}) {
-  if (!isBtnDropdown.value) {
-    item = actions.value[firstItemKey.value]
-  }
-
-  if (typeof item.handler === 'function') {
-    const { handler, ...filtered } = item
-    item.handler(filtered)
-  }
-}
-
-// ------------------------------- composables ---------------------------------
 function useDelete () {
   const hasDelete = computed(() => !!Object.keys(props.deleteProps).length)
 

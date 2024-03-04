@@ -1,26 +1,43 @@
 <template>
   <div class="container q-py-lg">
-    <qas-actions-menu :delete-props="{ deleteActionParams: { entity: 'users', id: 'my-custom-id-from-user' } }" :list="list" />
+    <qas-actions-menu v-bind="props" />
   </div>
 </template>
 
-<script>
-export default {
-  computed: {
-    list () {
-      return {
-        visibility: {
-          icon: 'sym_r_visibility',
-          label: 'Visualizar',
-          handler: () => alert('handler ativado')
-        },
-        edit: {
-          icon: 'sym_r_create',
-          label: 'Editar',
-          handler: () => alert('handler ativado')
-        }
-      }
-    }
+<script setup>
+const list = {
+  visibility: {
+    icon: 'sym_r_visibility',
+    label: 'Visualizar',
+    handler: () => alert('handler ativado')
+  },
+  edit: {
+    icon: 'sym_r_create',
+    label: 'Editar',
+    handler: () => alert('handler ativado')
+  },
+  person: {
+    icon: 'sym_r_person',
+    label: 'Perfil',
+    handler: () => alert('handler ativado')
   }
+}
+// const list = {
+//   visibility: {
+//     icon: 'sym_r_visibility',
+//     label: 'Visualizar',
+//     handler: () => alert('handler ativado')
+//   },
+//   edit: {
+//     icon: 'sym_r_create',
+//     label: 'Editar',
+//     handler: () => alert('handler ativado')
+//   }
+// }
+
+const props = {
+  list,
+  splitName: 'visibility',
+  useLabel: false
 }
 </script>

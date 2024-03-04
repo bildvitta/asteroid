@@ -11,17 +11,18 @@
 </template>
 
 <script setup>
-const buttonsPropsList = [
-  {
+const buttonsPropsList = {
+  export: {
     label: 'Exportar arquivo',
     icon: 'sym_r_upload',
     color: 'primary',
     onClick: () => alert('Exportando...')
   },
-  {
+
+  sync: {
     label: 'Sincronizar arquivos',
     iconRight: 'sym_r_sync',
     onClick: () => alert('Sincronizando...')
   }
-]
+}
 </script>

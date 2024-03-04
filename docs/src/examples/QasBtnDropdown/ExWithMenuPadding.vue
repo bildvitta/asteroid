@@ -11,10 +11,11 @@
 </template>
 
 <script setup>
-const buttonsPropsList = [
-  {
+const buttonsPropsList = {
+  export: {
     label: 'Exportar arquivo',
-    icon: 'sym_r_upload'
+    icon: 'sym_r_upload',
+    color: 'primary'
   }
-]
+}
 </script>
