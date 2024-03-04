@@ -146,6 +146,7 @@ async function fetchColumns () {
   const { error } = await promiseHandler(promises, { useLoading: false })
 
   if (error) {
+    console.log(error)
     emit('fetch-columns-error', error)
 
     return
@@ -201,12 +202,63 @@ async function fetchColumn (header) {
   ]
 
   columnsResultsModel.value[headerKey] = props.useMarkRaw ? markRaw(newColumnValues) : newColumnValues
-  columnsFieldsModel.value[headerKey] = response.data?.fields || {}
+
+  /*
+  * Pode acontecer das options nos fields da segunda página serem diferentes da primeira página,
+  * portanto deve ocorrer o merge.
+  */
+  if (!response.data?.fields) {
+    columnsFieldsModel.value[headerKey] = getMergedFields(columnsFieldsModel.value[headerKey], response.data?.fields)
+  }
 
   columnsPagination.value[headerKey].offset = columnsResultsModel.value[headerKey].length
   columnsPagination.value[headerKey].count = response.data?.count
 
   emit('fetch-column-success', { response, header })
+}
+
+/*
+* Mergeia os options antigos com os novos de cada field.
+*/
+function getMergedFields (oldFields, newFields) {
+  // Primeira vez batendo a API, retorna os novos fields.
+  if (!oldFields) return newFields
+
+  // Caso bata a API e por algum motivo não venha fields, mantenha o antigos.
+  if (oldFields && !newFields) return oldFields
+
+  let mergedFields = {}
+
+  for (const field in oldFields) {
+    const oldCurrentField = oldFields[field]
+    const newCurrentField = newFields[field]
+
+    mergedFields = {
+      ...mergedFields,
+      [field]: {
+        ...oldCurrentField,
+        ...newCurrentField,
+        ...(oldCurrentField.options && { options: handleOptions(oldCurrentField.options, newCurrentField.options) })
+      }
+    }
+  }
+
+  return mergedFields
+}
+
+/*
+* Tratamento para fazer o merge e evitar options duplicados.
+*/
+function handleOptions (oldOptions, newOptions) {
+  const options = [...oldOptions]
+
+  newOptions.forEach(item => {
+    const hasOption = options.find(option => option.value === item.value)
+
+    if (!hasOption) options.push(item)
+  })
+
+  return options
 }
 
 function getItemsByHeader (header) {
