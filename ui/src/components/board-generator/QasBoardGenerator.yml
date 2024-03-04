@@ -103,6 +103,16 @@ events:
         desc: Retorna todos os dados "cru" respondido na exceção do fetch.
         type: Object
 
+  '@update:fetch-columns-success -> function()':
+    desc: Dispara quando todos "fetchColumn" foram executados com sucesso.
+
+  '@update:fetch-columns-error -> function()':
+    desc: Dispara quando algum "fetchColumn" cai em uma exceção.
+    params:
+      error:
+        desc: Retorna todos os dados "cru" respondido na exceção do fetch.
+        type: Object
+
 methods:
   'fetchColumns: () => void':
     desc: Busca todas colunas com base nos headers fornecidos.

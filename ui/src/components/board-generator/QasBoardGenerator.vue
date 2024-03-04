@@ -85,7 +85,9 @@ const props = defineProps({
 const emit = defineEmits([
   'update:results',
   'fetch-column-success',
-  'fetch-column-error'
+  'fetch-column-error',
+  'fetch-columns-success',
+  'fetch-columns-error'
 ])
 
 watch(
@@ -139,7 +141,13 @@ function setColumnHeightContainer () {
 * Bater API pra cada header
 */
 async function fetchColumns () {
-  props.headers.forEach(header => fetchColumn(header))
+  const promises = []
+
+  props.headers.forEach(header => promises.push(fetchColumn(header)))
+
+  Promise.all(promises)
+    .then(() => emit('fetch-columns-success'))
+    .catch(error => emit('fetch-columns-error', error))
 }
 
 /*
@@ -166,7 +174,12 @@ async function fetchColumn (header) {
     }
   )
 
-  if (error) return emit('fetch-column-error', error)
+  if (error) {
+    emit('fetch-column-error', error)
+    console.log(error)
+
+    throw new Error(error)
+  }
 
   /*
   * exemplo de como columnsResultsModel irá ficar:
