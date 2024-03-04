@@ -176,7 +176,6 @@ async function fetchColumn (header) {
 
   if (error) {
     emit('fetch-column-error', error)
-    console.log(error)
 
     throw new Error(error)
   }
