@@ -25,6 +25,13 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 
 ### Adicionado
 - `QasBoardGenerator`: Adicionado eventos `fetch-columns-success`, `fetch-columns-error`, `fetch-column-success` e `fetch-column-error`.
+## [3.15.0-beta.5] - 01-03-2024
+### Modificado
+- `QasNestedFields`: alterado comportamento da propriedade `formGutter`, agora ela é repassada para o componente `QasFormGenerator` e utilizada nos espaçamentos dos campos do formulário.
+
+## [3.15.0-beta.4] - 01-03-2024
+### Modificado
+- `QasOptionGroup`: alterado componente para sobrescrever a prop `inline`.
 
 ## [3.15.0-beta.3] - 28-02-2024
 ## BREAKING CHANGES
@@ -2691,3 +2698,5 @@ Adicionado suporte para Pinia/Vuex Seguindo os padrões da biblioteca `@bildvitt
 [3.15.0-beta.1]: https://github.com/bildvitta/asteroid/compare/v3.15.0-beta.0...v3.15.0-beta.1?expand=1
 [3.15.0-beta.2]: https://github.com/bildvitta/asteroid/compare/v3.15.0-beta.1...v3.15.0-beta.2?expand=1
 [3.15.0-beta.3]: https://github.com/bildvitta/asteroid/compare/v3.15.0-beta.2...v3.15.0-beta.3?expand=1
+[3.15.0-beta.4]: https://github.com/bildvitta/asteroid/compare/v3.15.0-beta.3...v3.15.0-beta.4?expand=1
+[3.15.0-beta.5]: https://github.com/bildvitta/asteroid/compare/v3.15.0-beta.4...v3.15.0-beta.5?expand=1
