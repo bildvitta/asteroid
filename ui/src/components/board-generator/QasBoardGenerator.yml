@@ -106,7 +106,7 @@ events:
   '@update:fetch-columns-success -> function()':
     desc: Dispara quando todos "fetchColumn" foram executados com sucesso.
 
-  '@update:fetch-columns-error -> function()':
+  '@update:fetch-columns-error -> function(error)':
     desc: Dispara quando algum "fetchColumn" cai em uma exceção.
     params:
       error:
