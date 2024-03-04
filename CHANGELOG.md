@@ -24,7 +24,9 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
   - alterado prop `use-shallow-ref` para `use-mark-raw`.
 
 ### Adicionado
-- `QasBoardGenerator`: Adicionado eventos `fetch-columns-success`, `fetch-columns-error`, `fetch-column-success` e `fetch-column-error`.
+- `QasBoardGenerator`: 
+  - Adicionado eventos `fetch-columns-success`, `fetch-columns-error`, `fetch-column-success` e `fetch-column-error`.
+  - Adicionad prop `lazy-loading-fields-keys`.
 
 ## [3.15.0-beta.5] - 01-03-2024
 ### Modificado

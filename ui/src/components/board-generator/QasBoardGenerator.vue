@@ -79,6 +79,11 @@ const props = defineProps({
   useMarkRaw: {
     type: Boolean,
     default: true
+  },
+
+  lazyLoadingFieldsKeys: {
+    type: Array,
+    default: () => []
   }
 })
 
@@ -207,7 +212,9 @@ async function fetchColumn (header) {
   * portanto deve ocorrer o merge.
   */
   if (response.data?.fields) {
-    columnsFieldsModel.value[headerKey] = getMergedFields(columnsFieldsModel.value[headerKey], response.data?.fields)
+    columnsFieldsModel.value[headerKey] = markRaw(
+      getMergedFields(columnsFieldsModel.value[headerKey], response.data?.fields)
+    )
   }
 
   columnsPagination.value[headerKey].offset = columnsResultsModel.value[headerKey].length
@@ -221,26 +228,16 @@ async function fetchColumn (header) {
 */
 function getMergedFields (oldFields, newFields) {
   // Primeira vez batendo a API, retorna os novos fields.
-  if (!oldFields) return newFields
+  if (!oldFields || !props.lazyLoadingFieldsKeys.length) return newFields
 
   // Caso bata a API e por algum motivo não venha fields, mantenha o antigos.
   if (oldFields && !newFields) return oldFields
 
-  let mergedFields = {}
+  const mergedFields = { ...oldFields }
 
-  for (const field in oldFields) {
-    const oldCurrentField = oldFields[field]
-    const newCurrentField = newFields[field]
-
-    mergedFields = {
-      ...mergedFields,
-      [field]: {
-        ...oldCurrentField,
-        ...newCurrentField,
-        ...(oldCurrentField.options && { options: handleOptions(oldCurrentField.options, newCurrentField.options) })
-      }
-    }
-  }
+  props.lazyLoadingFieldsKeys.forEach(fieldKey => {
+    mergedFields[fieldKey].options = getNonDuplicatedOptions(oldFields[fieldKey].options, newFields[fieldKey].options)
+  })
 
   return mergedFields
 }
@@ -248,7 +245,7 @@ function getMergedFields (oldFields, newFields) {
 /*
 * Tratamento para fazer o merge e evitar options duplicados.
 */
-function handleOptions (oldOptions, newOptions) {
+function getNonDuplicatedOptions (oldOptions, newOptions) {
   const options = [...oldOptions]
 
   newOptions.forEach(item => {

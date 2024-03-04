@@ -4,11 +4,6 @@ meta:
   desc: Componente usado para board de colunas.
 
 props:
-  headers:
-    desc: Lista de itens sendo cada um o header de cada coluna.
-    default: []
-    type: Array
-
   column-id-key:
     desc: chave que será o id usado para ser o identificador da coluna.
     type: String
@@ -28,10 +23,20 @@ props:
     desc: Largura da coluna
     type: String
     default: 288
+
+  headers:
+    desc: Lista de itens sendo cada um o header de cada coluna.
+    default: []
+    type: Array
   
   height:
     desc: Altura do container do board. Caso não seja passado um height, o calculo é feito para ocupar a maior altura possível da página.
     type: String
+  
+  lazy-loading-fields-keys:
+    desc: Chaves dos campos que são lazy loading para o tratamento de merge das options.
+    type: Array
+    default: []
 
   limit:
     desc: Quantidade de itens da coluna por busca na API.
