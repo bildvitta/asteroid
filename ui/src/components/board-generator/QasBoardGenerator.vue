@@ -46,11 +46,6 @@ const props = defineProps({
     default: () => ({})
   },
 
-  fields: {
-    type: Object,
-    default: () => ({})
-  },
-
   columnIdKey: {
     type: String,
     required: true
@@ -89,7 +84,7 @@ const props = defineProps({
 
 const emit = defineEmits([
   'update:results',
-  'update:fields'
+  'fetch-column-success'
 ])
 
 watch(
@@ -103,8 +98,6 @@ watch(
 )
 
 watch(columnContainer, setColumnHeightContainer)
-
-watch(columnsFieldsModel.value, newValues => emit('update:fields', newValues))
 
 onMounted(() => {
   setColumnsPagination()
@@ -195,6 +188,8 @@ async function fetchColumn (header) {
 
   columnsPagination.value[headerKey].offset = columnsResultsModel.value[headerKey].length
   columnsPagination.value[headerKey].count = response.data?.count
+
+  emit('fetch-column-success', { response, header })
 }
 
 function getItemsByHeader (header) {

@@ -1,7 +1,6 @@
 <template>
   <div class="q-py-md" style="height: 500px; background-color: var(--qas-background-color);">
     <qas-board-generator
-      v-model:fields="fieldsColumns"
       v-model:results="resultsColumns"
       column-id-key="id"
       column-url="url-example"
@@ -34,7 +33,6 @@ export default {
 
   data () {
     return {
-      fieldsColumns: {},
       resultsColumns: {
         /*
         * Somente de exemplo, quando na verdade o componente será responsável por bater

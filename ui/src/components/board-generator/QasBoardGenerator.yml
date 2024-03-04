@@ -49,13 +49,6 @@ props:
     type: Object
     examples: [v-model:results="resultsColumns"]
     model: true
-  
-  fields:
-    desc: Model dos fields, usado para recuperar os fields por coluna fora do template.
-    default: {}
-    type: Object
-    examples: [v-model:fields="fieldsColumns"]
-    model: true
 
 slots:
   header-column:
@@ -90,6 +83,17 @@ events:
     params:
       value:
         desc: Novo valor do model.
+        type: Object
+
+  '@update:fetch-column-success -> function({ response, header })':
+    desc: Dispara após uma busca de uma coluna for feita.
+    params:
+      response:
+        desc: Retorno da API.
+        type: Object
+
+      header:
+        desc: header da coluna atual.
         type: Object
 
 methods:
