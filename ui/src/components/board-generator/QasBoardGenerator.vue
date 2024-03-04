@@ -146,7 +146,6 @@ async function fetchColumns () {
   const { error } = await promiseHandler(promises, { useLoading: false })
 
   if (error) {
-    console.log(error)
     emit('fetch-columns-error', error)
 
     return
