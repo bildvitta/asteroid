@@ -25,6 +25,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 
 ### Adicionado
 - `QasBoardGenerator`: Adicionado eventos `fetch-columns-success`, `fetch-columns-error`, `fetch-column-success` e `fetch-column-error`.
+
 ## [3.15.0-beta.5] - 01-03-2024
 ### Modificado
 - `QasNestedFields`: alterado comportamento da propriedade `formGutter`, agora ela é repassada para o componente `QasFormGenerator` e utilizada nos espaçamentos dos campos do formulário.
