@@ -17,16 +17,16 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
   - `v-model` agora é recuperado pelo `v-model:results`.
   - alterado prop `use-shallow-ref` para `use-mark-raw`.
 
+### Adicionado
+- `QasBoardGenerator`: 
+  - adicionado eventos `fetch-columns-success`, `fetch-columns-error`, `fetch-column-success` e `fetch-column-error`.
+  - adicionado prop `lazy-loading-fields-keys`.
+
 ### Modificado
 - `QasBoardGenerator`: 
   - alterado prop `results` para `headers`.
   - `v-model` agora é recuperado pelo `v-model:results`.
   - alterado prop `use-shallow-ref` para `use-mark-raw`.
-
-### Adicionado
-- `QasBoardGenerator`: 
-  - adicionado eventos `fetch-columns-success`, `fetch-columns-error`, `fetch-column-success` e `fetch-column-error`.
-  - adicionado prop `lazy-loading-fields-keys`.
 
 ## [3.15.0-beta.5] - 01-03-2024
 ### Modificado
