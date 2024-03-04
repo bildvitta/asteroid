@@ -206,7 +206,7 @@ async function fetchColumn (header) {
   * Pode acontecer das options nos fields da segunda página serem diferentes da primeira página,
   * portanto deve ocorrer o merge.
   */
-  if (!response.data?.fields) {
+  if (response.data?.fields) {
     columnsFieldsModel.value[headerKey] = getMergedFields(columnsFieldsModel.value[headerKey], response.data?.fields)
   }
 
