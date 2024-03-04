@@ -84,7 +84,8 @@ const props = defineProps({
 
 const emit = defineEmits([
   'update:results',
-  'fetch-column-success'
+  'fetch-column-success',
+  'fetch-column-error'
 ])
 
 watch(
@@ -165,7 +166,7 @@ async function fetchColumn (header) {
     }
   )
 
-  if (error) return
+  if (error) return emit('fetch-column-error', error)
 
   /*
   * exemplo de como columnsResultsModel irá ficar:

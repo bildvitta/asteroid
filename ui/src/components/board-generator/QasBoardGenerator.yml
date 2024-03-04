@@ -86,7 +86,7 @@ events:
         type: Object
 
   '@update:fetch-column-success -> function({ response, header })':
-    desc: Dispara após uma busca de uma coluna for feita.
+    desc: Dispara quando o "fetchColumn" é executado com sucesso.
     params:
       response:
         desc: Retorno da API.
@@ -94,6 +94,13 @@ events:
 
       header:
         desc: header da coluna atual.
+        type: Object
+
+  '@update:fetch-column-error -> function(error)':
+    desc: Dispara quando o "fetchColumn" cai em uma exceção.
+    params:
+      error:
+        desc: Retorna todos os dados "cru" respondido na exceção do fetch.
         type: Object
 
 methods:
