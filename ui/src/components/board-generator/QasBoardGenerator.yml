@@ -4,11 +4,6 @@ meta:
   desc: Componente usado para board de colunas.
 
 props:
-  results:
-    desc: Lista de itens sendo cada um o header de cada coluna.
-    default: []
-    type: Array
-
   column-id-key:
     desc: chave que será o id usado para ser o identificador da coluna.
     type: String
@@ -28,51 +23,99 @@ props:
     desc: Largura da coluna
     type: String
     default: 288
+
+  headers:
+    desc: Lista de itens sendo cada um o header de cada coluna.
+    default: []
+    type: Array
   
   height:
     desc: Altura do container do board. Caso não seja passado um height, o calculo é feito para ocupar a maior altura possível da página.
     type: String
+  
+  lazy-loading-fields-keys:
+    desc: Chaves dos campos que são lazy loading para o tratamento de merge das options.
+    type: Array
+    default: []
 
   limit:
     desc: Quantidade de itens da coluna por busca na API.
     type: Number
     default: 12
 
-  use-shallow-ref:
-    desc: Define se os valores dos itens das colunas irá ser atribuido utilizando o "shallowRef", onde somente a primeira camada do model será reativa.(https://vuejs.org/api/reactivity-advanced.html#shallowref)
+  use-mark-raw:
+    desc: Define se os valores dos itens das colunas irá ser atribuido utilizando o "markRaw", onde somente a primeira camada do model será reativa.(https://vuejs.org/api/reactivity-advanced.html#markraw)
     type: Boolean
     default: true
 
-  model-value:
-    desc: Model do componente, usado para o v-model.
+  results:
+    desc: Model do componente, usado para o v-model dos itens da coluna.
     default: {}
     type: Object
-    examples: [v-model="value"]
+    examples: [v-model:results="resultsColumns"]
     model: true
 
 slots:
   header-column:
     desc: Slot para acessar o card do header de cada coluna.
     scope:
-      context:
-        desc: Informações de cada item do header que foi fornecido através do "results".
+      fields:
+        desc: Fields referente à coluna atual do template.
+        type: Object
+        default: {}
+      
+      header:
+        desc: Informações de cada item do header que foi fornecido através da prop "headers"
         type: Object
         default: {}
 
   column-item:
     desc: Slot para acessar o item da coluna.
     scope:
-      context:
+      fields:
+        desc: Fields referente à coluna atual do template.
+        type: Object
+        default: {}
+      
+      item:
         desc: Informações de cada item da coluna que foi buscado através da API.
         type: Object
         default: {}
 
 events:
-  '@update:model-value -> function(value)':
-    desc: Dispara quando o model-value altera, também usado para v-model.
+  '@update:results -> function(value)':
+    desc: Dispara quando o "results" altera, também usado para v-model.
     params:
       value:
         desc: Novo valor do model.
+        type: Object
+
+  '@update:fetch-column-success -> function({ response, header })':
+    desc: Dispara quando o "fetchColumn" é executado com sucesso.
+    params:
+      response:
+        desc: Retorno da API.
+        type: Object
+
+      header:
+        desc: header da coluna atual.
+        type: Object
+
+  '@update:fetch-column-error -> function(error)':
+    desc: Dispara quando o "fetchColumn" cai em uma exceção.
+    params:
+      error:
+        desc: Retorna todos os dados "cru" respondido na exceção do fetch.
+        type: Object
+
+  '@update:fetch-columns-success -> function()':
+    desc: Dispara quando todos "fetchColumn" foram executados com sucesso.
+
+  '@update:fetch-columns-error -> function(error)':
+    desc: Dispara quando algum "fetchColumn" cai em uma exceção.
+    params:
+      error:
+        desc: Retorna todos os dados "cru" respondido na exceção do fetch.
         type: Object
 
 methods:
