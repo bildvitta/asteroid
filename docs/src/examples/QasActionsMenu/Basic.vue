@@ -9,6 +9,7 @@ const list = {
   visibility: {
     icon: 'sym_r_visibility',
     label: 'Visualizar',
+    disable: true,
     handler: () => alert('handler ativado')
   },
   edit: {
@@ -36,8 +37,11 @@ const list = {
 // }
 
 const props = {
+  buttonProps: {
+    disable: true
+  },
   list,
   splitName: 'visibility',
-  useLabel: false
+  useLabel1: false
 }
 </script>

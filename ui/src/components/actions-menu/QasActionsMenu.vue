@@ -149,23 +149,8 @@ const btnDropdownProps = computed(() => {
 })
 
 const formattedList = computed(() => {
-  const buttonsPropsList = {}
-
-  const payload = {
-    dropdownList: {},
-    buttons: {}
-  }
-
-  for (const key in fullList.value) {
-    buttonsPropsList[key] = {
-      ...fullList.value[key],
-      color: 'grey-10'
-    }
-  }
-
-  if (hasSplitName.value) {
-    buttonsPropsList[props.splitName].color = 'primary'
-  }
+  const buttonsPropsList = { ...fullList.value }
+  const payload = { dropdownList: {}, buttons: {} }
 
   /**
    * Este é o caso onde não é utilizado com split, sendo o botão de "opções",
@@ -173,44 +158,68 @@ const formattedList = computed(() => {
    */
   if (!hasSplitName.value || screen.isSmall) {
     payload.buttons.options = {
-      label: 'Opções',
+      label: getLabel({ label: 'Opções' }),
       color: 'grey-10',
       useLabelOnSmallScreen: false,
       iconRight: 'sym_r_more_vert'
     }
 
     payload.dropdownList = buttonsPropsList
+
     return payload
   }
 
+  const primaryKey = props.splitName
+  const primaryButton = buttonsPropsList[props.splitName]
+
+  // buttonsPropsList[props.splitName].color = 'primary'
+
+  const getDefaultProperties = properties => {
+    return {
+      ...properties,
+      color: 'primary',
+      ...props.buttonProps,
+      label: getLabel(properties)
+    }
+  }
+
   if (listSize.value === SPLIT_SIZE) {
+    const secondaryKey = Object.keys(buttonsPropsList).find(key => key !== props.splitName)
+
+    const secondaryButton = buttonsPropsList[secondaryKey]
+
     payload.buttons = {
-      [props.splitName]: {
-        ...buttonsPropsList[props.splitName],
-        color: 'primary',
-        ...props.buttonProps
+      [primaryKey]: {
+        ...getDefaultProperties(primaryButton),
+        color: 'primary'
       },
 
-      ...buttonsPropsList
+      [secondaryKey]: {
+        ...getDefaultProperties(secondaryButton),
+        color: 'grey-10'
+      }
     }
-
-    return payload
   }
 
   if (listSize.value > SPLIT_SIZE) {
     payload.buttons = {
-      [props.splitName]: buttonsPropsList[props.splitName]
+      [primaryKey]: {
+        ...primaryButton,
+        label: getLabel(primaryButton)
+      }
     }
 
-    delete buttonsPropsList[props.splitName]
+    delete buttonsPropsList[primaryKey]
 
     payload.dropdownList = buttonsPropsList
-
-    return payload
   }
 
   return payload
 })
+
+function getLabel (properties) {
+  return props.useLabel ? properties.label : ''
+}
 
 function useDelete () {
   const hasDelete = computed(() => !!Object.keys(props.deleteProps).length)
