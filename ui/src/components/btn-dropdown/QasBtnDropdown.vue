@@ -3,7 +3,7 @@
     <div v-if="hasButtons" class="flex">
       <div v-for="(buttonProps, key, index) in props.buttonsPropsList" :key="key">
         <div class="flex">
-          <qas-btn variant="tertiary" v-bind="buttonProps" @click="onClick">
+          <qas-btn :disable="props.disable" v-bind="buttonProps" variant="tertiary" @click="onClick">
             <q-menu v-if="hasMenuOnLeftSide" v-model="isMenuOpened" anchor="bottom right" auto-close self="top right" @update:model-value="onUpdateMenuValue">
               <div :class="classes.menuContent">
                 <slot />
@@ -17,7 +17,7 @@
     </div>
 
     <div v-if="props.useSplit">
-      <qas-btn color="grey-10" :icon="props.dropdownIcon" variant="tertiary">
+      <qas-btn color="grey-10" :disable="disable" :icon="props.dropdownIcon" variant="tertiary">
         <q-menu v-if="hasDefaultSlot" anchor="bottom right" auto-close self="top right">
           <div :class="classes.menuContent">
             <slot />
@@ -47,6 +47,10 @@ const props = defineProps({
   dropdownIcon: {
     default: 'sym_r_more_vert',
     type: String
+  },
+
+  disable: {
+    type: Boolean
   },
 
   useSplit: {

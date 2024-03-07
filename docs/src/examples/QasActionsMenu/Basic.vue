@@ -5,43 +5,52 @@
 </template>
 
 <script setup>
-const list = {
+import { computed, ref } from 'vue'
+
+const list = ref({
   visibility: {
     icon: 'sym_r_visibility',
     label: 'Visualizar',
-    disable: true,
-    handler: () => alert('handler ativado')
-  },
-  edit: {
-    icon: 'sym_r_create',
-    label: 'Editar',
-    handler: () => alert('handler ativado')
-  },
-  person: {
-    icon: 'sym_r_person',
-    label: 'Perfil',
     handler: () => alert('handler ativado')
   }
-}
-// const list = {
-//   visibility: {
-//     icon: 'sym_r_visibility',
-//     label: 'Visualizar',
-//     handler: () => alert('handler ativado')
-//   },
-//   edit: {
-//     icon: 'sym_r_create',
-//     label: 'Editar',
-//     handler: () => alert('handler ativado')
-//   }
-// }
+  // edit: {
+  //   icon: 'sym_r_create',
+  //   label: 'Editar',
+  //   handler: () => alert('handler ativado')
+  // }
+  // person: {
+  //   icon: 'sym_r_person',
+  //   label: 'Perfil',
+  //   handler: () => alert('handler ativado')
+  // }
+})
 
-const props = {
-  buttonProps: {
-    disable: true
-  },
-  list,
-  splitName: 'visibility',
-  useLabel1: false
-}
+const deleteProps = ref({
+  deleteActionParams: { entity: 'users', id: 'my-custom-id-from-user', onDeleteSuccess: () => {} }
+})
+
+setTimeout(() => {
+  deleteProps.value = {}
+
+  // delete list.value.visibility
+
+  // list.value.edit.disable = true
+
+  // list.value.person = {
+  //   icon: 'sym_r_person',
+  //   label: 'Perfil',
+  //   handler: () => alert('handler ativado')
+  // }
+}, 3000)
+
+const props = computed(() => {
+  return {
+    // disable: true,
+    deleteProps: deleteProps.value,
+    list: list.value,
+    splitName1: 'visibility',
+    useLabel: false,
+    useTooltip: true
+  }
+})
 </script>
