@@ -40,23 +40,22 @@
         </slot>
       </q-list>
     </qas-btn-dropdown>
+
     <q-tooltip v-if="hasTooltip" class="text-caption">
       {{ tooltipLabel }}
-      eae
     </q-tooltip>
   </div>
 </template>
 
 <script setup>
-console.log('OPA 2')
 import QasBtnDropdown from '../btn-dropdown/QasBtnDropdown.vue'
 
 import useScreen from '../../composables/use-screen'
 
 import { computed, inject } from 'vue'
 
-const SPLIT_SIZE = 2
 const DEFAULT_COLOR = 'grey-10'
+const SPLIT_SIZE = 2
 
 defineOptions({ name: 'QasActionsMenu' })
 
@@ -151,10 +150,11 @@ const primaryButtonProps = computed(() => {
 
   return {
     color: isSingle.value && hasDelete.value ? DEFAULT_COLOR : 'primary',
-    ...buttonProps
+
+    ...buttonProps,
+    onClick: () => setClickHandler(buttonProps)
   }
 })
-// console.log('TCL: primaryButton -> primaryButton', primaryButton)
 
 const formattedList = computed(() => {
   const buttonsPropsList = { ...fullList.value }
@@ -166,10 +166,10 @@ const formattedList = computed(() => {
   const payload = { dropdownList: {}, buttonsList: {} }
 
   /**
-   * Cenário onde não é utilizado com split, sendo o botão de "opções",
+   * Cenário onde não é utilizado com split e não tem apenas 1 item, sendo o botão de "opções",
    * onde será usado em casos como dentro de cards, etc.
    */
-  if (!hasSplitName.value || screen.isSmall) {
+  if ((!hasSplitName.value || screen.isSmall) && !isSingle.value) {
     payload.buttonsList.options = {
       color: DEFAULT_COLOR,
       iconRight: 'sym_r_more_vert',
@@ -188,8 +188,9 @@ const formattedList = computed(() => {
   const primaryButton = { ...primaryButtonProps.value }
   // const primaryButton = buttonsPropsList[primaryKey]
 
-  primaryButton.onClick = () => setClickHandler(primaryButton)
-
+  /**
+   * Cenário para quando existir apenas 1 item na lista.
+   */
   if (isSingle.value) {
     payload.buttonsList = {
       [primaryKey]: {
@@ -201,7 +202,7 @@ const formattedList = computed(() => {
   }
 
   /**
-   * Cenário caso onde ficará um botão ao lado do outro "Ação primaria | Ação secundaria".
+   * Cenário onde ficará um botão ao lado do outro "Ação primaria | Ação secundaria".
    */
   if (listSize.value === SPLIT_SIZE) {
     const secondaryKey = Object.keys(buttonsPropsList).find(key => key !== primaryKey)

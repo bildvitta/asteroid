@@ -12,12 +12,12 @@ const list = ref({
     icon: 'sym_r_visibility',
     label: 'Visualizar',
     handler: () => alert('handler ativado')
+  },
+  edit: {
+    icon: 'sym_r_create',
+    label: 'Editar',
+    handler: () => alert('handler ativado')
   }
-  // edit: {
-  //   icon: 'sym_r_create',
-  //   label: 'Editar',
-  //   handler: () => alert('handler ativado')
-  // }
   // person: {
   //   icon: 'sym_r_person',
   //   label: 'Perfil',
@@ -30,7 +30,7 @@ const deleteProps = ref({
 })
 
 setTimeout(() => {
-  deleteProps.value = {}
+  // deleteProps.value = {}
 
   // delete list.value.visibility
 
@@ -46,11 +46,11 @@ setTimeout(() => {
 const props = computed(() => {
   return {
     // disable: true,
-    deleteProps: deleteProps.value,
+    deleteProps1: deleteProps.value,
     list: list.value,
-    splitName1: 'visibility',
-    useLabel: false,
-    useTooltip: true
+    splitName: 'visibility',
+    useLabel1: false,
+    useTooltip1: true
   }
 })
 </script>
