@@ -39,6 +39,8 @@ props:
 slots:
   default:
     desc: Slot para passar o conteúdo do dropdown (menu).
+  bottom-[buttons-props-list-key]:
+    desc: Slot unitário para acessar abaixo de cada botão (normalmente utilizado para tooltip).
 
 events:
   '@click -> function (event)':

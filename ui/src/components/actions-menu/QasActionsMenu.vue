@@ -16,11 +16,13 @@
           </q-item>
         </slot>
       </q-list>
-    </qas-btn-dropdown>
 
-    <q-tooltip v-if="hasTooltip" class="text-caption">
-      {{ tooltipLabel }}
-    </q-tooltip>
+      <template v-for="(item, name) in tooltipLabels" :key="name" #[`bottom-${name}`]>
+        <q-tooltip v-if="hasTooltip && item.label">
+          {{ item.label }}
+        </q-tooltip>
+      </template>
+    </qas-btn-dropdown>
   </div>
 </template>
 
@@ -127,12 +129,6 @@ const primaryKey = computed(() => {
   return props.splitName in fullList.value ? props.splitName : Object.keys(fullList.value)?.[0]
 })
 
-/**
- * Computadas para controle do tooltip
- */
-const hasTooltip = computed(() => !props.useLabel && props.useTooltip && isSingle.value)
-const tooltipLabel = computed(() => fullList.value[primaryKey.value]?.label)
-
 const btnDropdownProps = computed(() => {
   return {
     buttonsPropsList: formattedList.value.buttonsList,
@@ -179,7 +175,7 @@ const formattedList = computed(() => {
       iconRight: 'sym_r_more_vert',
       useLabelOnSmallScreen: false,
       ...props.buttonProps,
-      label: getLabel({ label: 'Opções' })
+      label: getLabel({ label: 'Opções' }) // label não pode ser sobrescrita.
     }
 
     payload.dropdownList = buttonsPropsList
@@ -240,6 +236,30 @@ const formattedList = computed(() => {
   }
 
   return payload
+})
+
+/**
+ * Computadas para controle do tooltip
+ */
+const hasTooltip = computed(() => !props.useLabel && props.useTooltip)
+
+/**
+ * Precisa existir um tooltip para item de "formattedList.value.buttonsList",
+ * então é preciso fazer um tratamento, uma vez que dentro de "formattedList.value.buttonsList"
+ * não existe mais "labels", então recuperamos elas de "fullList".
+ */
+const tooltipLabels = computed(() => {
+  if (!hasTooltip.value) return {}
+
+  const formattedProps = {}
+
+  for (const key in formattedList.value.buttonsList) {
+    formattedProps[key] = {
+      label: fullList.value[key]?.label
+    }
+  }
+
+  return formattedProps
 })
 
 // functions

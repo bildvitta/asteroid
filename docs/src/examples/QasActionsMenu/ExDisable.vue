@@ -40,20 +40,16 @@ const list = {
 const list2 = {
   ...list,
   visibility: {
-    icon: 'sym_r_visibility',
-    label: 'Visualizar',
-    disable: true,
-    handler: () => alert('handler ativado')
+    ...list.visibility,
+    disable: true
   }
 }
 
 const list3 = {
   ...list,
   edit: {
-    icon: 'sym_r_create',
-    label: 'Editar',
-    disable: true,
-    handler: () => alert('handler ativado')
+    ...list.edit,
+    disable: true
   }
 }
 

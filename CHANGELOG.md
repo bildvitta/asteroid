@@ -22,8 +22,10 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
   - `QasActionsMenu`: removido propriedade `dropdownIcon`, uma vez que é possível passar pelo `buttonProps`.
 
 ### Adicionado
-- `QasBtnDropdown`: adicionado nova propriedade `buttonsPropsList`.
-- `QasBtnDropdown`: adicionado nova propriedade `disable`.
+- `QasBtnDropdown`:
+  - adicionado nova propriedade `buttonsPropsList`.
+  - adicionado nova propriedade `disable`.
+  - adicionado novo slot `bottom-[buttons-props-list-key]`.
 - `QasActionsMenu`: adicionado nova propriedade `disable`.
 
 ### Modificado
