@@ -80,11 +80,6 @@ const props = defineProps({
 
   useTooltip: {
     type: Boolean
-  },
-
-  useSplit: {
-    type: Boolean,
-    default: true
   }
 })
 
@@ -183,9 +178,7 @@ const formattedList = computed(() => {
       color: DEFAULT_COLOR,
       iconRight: 'sym_r_more_vert',
       useLabelOnSmallScreen: false,
-
       ...props.buttonProps,
-
       label: getLabel({ label: 'Opções' })
     }
 
@@ -222,7 +215,6 @@ const formattedList = computed(() => {
 
       [secondaryKey]: {
         ...secondaryButton,
-
         color: DEFAULT_COLOR,
         label: getLabel(secondaryButton),
         onClick: () => setClickHandler(secondaryButton)

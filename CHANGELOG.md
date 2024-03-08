@@ -15,18 +15,29 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - `QasBtnDropdown`:
   - removido propriedade `buttonProps`;
   - removido slot `left-button`.
+- `QasActionsMenu`:
+  - modificado comportamento, agora caso esteja usando a prop `splitName` e tenha 2 itens na lista, o componente deixará os botões um ao lado do outro.
+  - antes o componente utilizava `QasBtnDropDown` quando tinha mais de 1 item e `QasBtn` quando tinha apenas 1 item, agora ele sempre utiliza o `QasBtnDropdown`.
+  - propriedade `buttonProps` é aplicada quando o componente esta no modo "Opções", que é quando não utiliza o `splitName` ou esteja no `mobile`.
+  - `QasActionsMenu`: removido propriedade `dropdownIcon`, uma vez que é possível passar pelo `buttonProps`.
 
 ### Adicionado
 - `QasBtnDropdown`: adicionado nova propriedade `buttonsPropsList`.
+- `QasBtnDropdown`: adicionado nova propriedade `disable`.
+- `QasActionsMenu`: adicionado nova propriedade `disable`.
 
 ### Modificado
 - `QasBtnDropdown`: alterado componente para receber uma lista de botões.
+- `QasActionsMenu`:
+  - modificado comportamento, agora caso esteja usando a prop `splitName` e tenha 2 itens na lista, o componente deixará os botões um ao lado do outro.
+  - antes o componente utilizava `QasBtnDropDown` quando tinha mais de 1 item e `QasBtn` quando tinha apenas 1 item, agora ele sempre utiliza o `QasBtnDropdown`.
+  - propriedade `buttonProps` é aplicada quando o componente esta no modo "Opções", que é quando não utiliza o `splitName` ou esteja no `mobile`.
 
 ### Removido
 - `QasBtnDropdown`:
-  - removido propriedade `buttonProps`;
+  - removido propriedade `buttonProps`.
   - removido slot `left-button`.
-- `QasActionsMenu`: removido propriedade `dropdownIcon`, uma vez que é possível passar pelo `buttonProps`;
+- `QasActionsMenu`: removido propriedade `dropdownIcon`, uma vez que é possível passar pelo `buttonProps`.
 
 ## [3.15.0-beta.3] - 28-02-2024
 ## BREAKING CHANGES

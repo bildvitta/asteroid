@@ -10,6 +10,11 @@ props:
     type: Array
     examples: ["[{ color: 'white', icon: 'sym_r_person' }]"]
 
+  disable:
+    desc: Desabilita o componente como um todo.
+    default: false
+    type: Boolean
+
   dropdown-icon:
     desc: Ícone a direita do dropdown.
     default: sym_r_more_vert

@@ -11,6 +11,10 @@
             </q-menu>
           </qas-btn>
 
+          <q-tooltip class="text-caption">
+            {{ 'tooltipLabel' }}
+          </q-tooltip>
+
           <q-separator v-if="hasSeparator(index)" class="q-mx-sm qas-btn-dropdown__separator self-center" dark vertical />
         </div>
       </div>

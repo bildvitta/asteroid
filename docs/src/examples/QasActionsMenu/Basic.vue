@@ -47,9 +47,9 @@ setTimeout(() => {
 const props = computed(() => {
   return {
     // disable: true,
-    deleteProps1: deleteProps.value,
+    deleteProps: deleteProps.value,
     list: list.value,
-    splitName: 'person',
+    splitName: 'person1',
     useLabel1: false,
     useTooltip: true,
     buttonProps: {

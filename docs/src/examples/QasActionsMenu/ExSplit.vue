@@ -5,7 +5,6 @@
 </template>
 
 <script setup>
-
 const list = {
   visibility: {
     icon: 'sym_r_visibility',
@@ -15,11 +14,6 @@ const list = {
   edit: {
     icon: 'sym_r_create',
     label: 'Editar',
-    handler: () => alert('handler ativado')
-  },
-  person: {
-    icon: 'sym_r_person',
-    label: 'Perfil',
     handler: () => alert('handler ativado')
   }
 }
