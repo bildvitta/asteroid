@@ -26,6 +26,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - `QasBtnDropdown`:
   - removido propriedade `buttonProps`;
   - removido slot `left-button`.
+- `QasActionsMenu`: removido propriedade `dropdownIcon`, uma vez que é possível passar pelo `buttonProps`;
 
 ## [3.15.0-beta.3] - 28-02-2024
 ## BREAKING CHANGES

@@ -8,16 +8,16 @@
 import { computed, ref } from 'vue'
 
 const list = ref({
-  visibility: {
-    icon: 'sym_r_visibility',
-    label: 'Visualizar',
-    handler: () => alert('handler ativado')
-  },
+  // visibility: {
+  //   icon: 'sym_r_visibility',
+  //   label: 'Visualizar',
+  //   handler: () => alert('handler ativado')
+  // },
   // edit: {
   //   icon: 'sym_r_create',
   //   label: 'Editar',
   //   handler: () => alert('handler ativado')
-  // }
+  // },
   person: {
     icon: 'sym_r_person',
     label: 'Perfil',
@@ -30,26 +30,25 @@ const deleteProps = ref({
 })
 
 setTimeout(() => {
-  deleteProps.value = {}
+  // deleteProps.value = {}
 
   // delete list.value.visibility
-  delete list.value.person
 
   // list.value.edit.disable = true
 
-  list.value.person = {
-    icon: 'sym_r_person',
-    label: 'Perfil',
-    handler: () => alert('handler ativado')
-  }
+  // list.value.person = {
+  //   icon: 'sym_r_person',
+  //   label: 'Perfil',
+  //   handler: () => alert('handler ativado')
+  // }
 }, 3000)
 
 const props = computed(() => {
   return {
     // disable: true,
-    deleteProps1: deleteProps.value,
+    deleteProps: deleteProps.value,
     list: list.value,
-    splitName: 'person',
+    splitName: 'visibility',
     useLabel1: false,
     useTooltip: true,
     buttonProps: {
