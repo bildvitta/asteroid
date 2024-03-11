@@ -7,7 +7,7 @@ import { computed } from 'vue'
  * neste caso, ele se torna o botão de "opções" onde será usado em casos como
  * dentro de cards, etc.
  *
- * @param {{ color: string, props: { buttonProps: object } }}
+ * @param {{ color: string, props: { buttonProps: object, useLabel: boolean } }}
  */
 export default function useOptionsActions ({ props, color }) {
   const buttonsList = computed(() => {
@@ -17,7 +17,7 @@ export default function useOptionsActions ({ props, color }) {
         iconRight: 'sym_r_more_vert',
         useLabelOnSmallScreen: false,
         ...props.buttonProps,
-        label: getLabel({ useLabel: true, label: 'Opções' }) // label não pode ser sobrescrita.
+        label: getLabel({ useLabel: props.useLabel, label: 'Opções' }) // label não pode ser sobrescrita.
       }
     }
   })
