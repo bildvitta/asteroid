@@ -10,7 +10,7 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 ### Sobre os "BREAKING CHANGES"
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
-## Não publicado
+## [3.15.0-beta.7] - 11-03-2024
 ### Corrigido
 - `boot/notifications`: corrigido a forma de passar o token para o método `setLaravelEcho`, onde precisou de uma validação para formatar o token passando o valor correto.
 
@@ -2708,3 +2708,4 @@ Adicionado suporte para Pinia/Vuex Seguindo os padrões da biblioteca `@bildvitt
 [3.15.0-beta.4]: https://github.com/bildvitta/asteroid/compare/v3.15.0-beta.3...v3.15.0-beta.4?expand=1
 [3.15.0-beta.5]: https://github.com/bildvitta/asteroid/compare/v3.15.0-beta.4...v3.15.0-beta.5?expand=1
 [3.15.0-beta.6]: https://github.com/bildvitta/asteroid/compare/v3.15.0-beta.5...v3.15.0-beta.6?expand=1
+[3.15.0-beta.7]: https://github.com/bildvitta/asteroid/compare/v3.15.0-beta.6...v3.15.0-beta.7?expand=1
