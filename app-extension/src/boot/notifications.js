@@ -12,6 +12,7 @@ import { boot } from 'quasar/wrappers'
 
 export default boot(() => {
   window.addEventListener('message', ({ data }) => {
+    console.log('passou aqui xddd')
     if (data.type !== 'updateUser') return
 
     const user = data.user
@@ -23,7 +24,10 @@ export default boot(() => {
      * iremos enviar via BroadcastChannel.postMessage().
      */
     onLeaderElectionChannel(channel => {
-      setLaravelEcho(accessToken)
+      const hasBearerPrefix = accessToken.startsWith('Bearer ')
+      const userToken = hasBearerPrefix ? accessToken : `Bearer ${accessToken}`
+
+      setLaravelEcho(userToken)
       setLaravelEchoListener({ user, channel })
     })
 
