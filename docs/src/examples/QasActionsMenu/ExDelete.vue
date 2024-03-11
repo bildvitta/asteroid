@@ -1,20 +1,12 @@
 <template>
   <div class="container q-py-lg">
-    <div>
-      <qas-actions-menu v-bind="props" />
-    </div>
+    <qas-actions-menu v-bind="props" />
 
-    <div>
-      <qas-actions-menu v-bind="props2" />
-    </div>
+    <qas-actions-menu v-bind="props2" />
 
-    <div>
-      <qas-actions-menu v-bind="props3" />
-    </div>
+    <qas-actions-menu v-bind="props3" />
 
-    <div>
-      <qas-actions-menu v-bind="props4" />
-    </div>
+    <qas-actions-menu v-bind="props4" />
   </div>
 </template>
 
