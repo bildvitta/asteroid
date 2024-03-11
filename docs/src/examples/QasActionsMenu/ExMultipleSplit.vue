@@ -5,7 +5,6 @@
 </template>
 
 <script setup>
-
 const list = {
   visibility: {
     icon: 'sym_r_visibility',
@@ -26,6 +25,6 @@ const list = {
 
 const props = {
   list,
-  splitName: 'visibility'
+  splitName: 'person'
 }
 </script>

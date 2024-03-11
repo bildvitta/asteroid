@@ -1,5 +1,5 @@
 <template>
-  <div v-if="hasList" class="inline-block qas-actions-menu" data-cy="actions-menu">
+  <div v-if="hasList" class="qas-actions-menu" data-cy="actions-menu">
     <qas-btn-dropdown v-bind="btnDropdownProps">
       <q-list data-cy="actions-menu-list">
         <slot v-for="(item, key) in formattedList.dropdownList" :item="item" :name="key">
@@ -18,7 +18,7 @@
       </q-list>
 
       <template v-for="(item, name) in tooltipLabels" :key="name" #[`bottom-${name}`]>
-        <q-tooltip v-if="hasTooltip && item.label">
+        <q-tooltip v-if="showTooltip(item)">
           {{ item.label }}
         </q-tooltip>
       </template>
@@ -30,6 +30,16 @@
 import QasBtnDropdown from '../btn-dropdown/QasBtnDropdown.vue'
 
 import useScreen from '../../composables/use-screen'
+
+import useDelete from './composables/use-delete'
+import useTooltips from './composables/use-tooltips'
+import useOptionsActions from './composables/use-options-actions'
+import useSingleAction from './composables/use-single-action'
+import useDoubleSplitActions from './composables/use-double-split-actions'
+import useSingleSplitActions from './composables/use-single-split-actions'
+
+import getLabel from './utils/get-label'
+import setClickHandler from './utils/set-click-handler'
 
 import { computed, inject } from 'vue'
 
@@ -87,7 +97,7 @@ const props = defineProps({
 
 const screen = useScreen()
 
-const { deleteBtnProps, hasDelete } = useDelete()
+const { deleteBtnProps, hasDelete } = useDelete({ color: DEFAULT_COLOR, props, qas })
 
 const hasSplitName = computed(() => !!props.splitName)
 const hasList = computed(() => !!Object.keys(fullList.value).length)
@@ -150,7 +160,7 @@ const primaryButtonProps = computed(() => {
 
     ...buttonProps,
 
-    label: getLabel(buttonProps),
+    label: getLabel({ useLabel: props.useLabel, label: buttonProps.label }),
     onClick: () => setClickHandler(buttonProps)
   }
 })
@@ -164,145 +174,59 @@ const formattedList = computed(() => {
    */
   const payload = { dropdownList: {}, buttonsList: {} }
 
-  /**
-   * Cenário onde não é utilizado com split e tenha mais de 1 item na lista,
-   * neste caso, ele se torna o botão de "opções" onde será usado em casos como
-   * dentro de cards, etc.
-   */
   if ((!hasSplitName.value || screen.isSmall) && !isSingle.value) {
-    payload.buttonsList.options = {
-      color: DEFAULT_COLOR,
-      iconRight: 'sym_r_more_vert',
-      useLabelOnSmallScreen: false,
-      ...props.buttonProps,
-      label: getLabel({ label: 'Opções' }) // label não pode ser sobrescrita.
-    }
+    const { buttonsList } = useOptionsActions({ color: DEFAULT_COLOR, props })
 
+    payload.buttonsList = buttonsList.value
     payload.dropdownList = buttonsPropsList
 
     return payload
   }
 
-  /**
-   * Cenário para quando existir apenas 1 item na lista.
-   */
   if (isSingle.value) {
-    payload.buttonsList = {
-      [primaryKey.value]: {
-        ...primaryButtonProps.value
-      }
-    }
+    const { buttonsList } = useSingleAction({ primaryButtonProps, primaryKey })
+
+    payload.buttonsList = buttonsList.value
 
     return payload
   }
 
-  /**
-   * Cenário onde ficará um botão ao lado do outro "Ação primaria | Ação secundaria".
-   */
   if (listSize.value === SPLIT_SIZE) {
-    const secondaryKey = Object.keys(buttonsPropsList).find(key => key !== primaryKey.value)
-    const secondaryButton = buttonsPropsList[secondaryKey]
+    const { buttonsList } = useDoubleSplitActions({
+      buttonsPropsList,
+      color: DEFAULT_COLOR,
+      primaryButtonProps,
+      primaryKey,
+      props
+    })
 
-    payload.buttonsList = {
-      [primaryKey.value]: {
-        ...primaryButtonProps.value,
-        label: getLabel(primaryButtonProps.value)
-      },
-
-      [secondaryKey]: {
-        ...secondaryButton,
-        color: DEFAULT_COLOR,
-        label: getLabel(secondaryButton),
-        onClick: () => setClickHandler(secondaryButton)
-      }
-    }
+    payload.buttonsList = buttonsList.value
   }
 
-  /**
-   * Cenário onde vai ter mais de 2 itens na lista, então precisa ficar
-   * o botão primário fora do dropdown e o restante dentro do dropdown.
-   */
   if (listSize.value > SPLIT_SIZE) {
-    payload.buttonsList = {
-      [primaryKey.value]: {
-        ...primaryButtonProps.value,
-        label: getLabel(primaryButtonProps.value)
-      }
-    }
+    const { list } = useSingleSplitActions({
+      buttonsPropsList,
+      primaryButtonProps,
+      primaryKey,
+      props
+    })
 
-    delete buttonsPropsList[primaryKey.value]
-
-    payload.dropdownList = buttonsPropsList
+    payload.buttonsList = list.value.buttonsList
+    payload.dropdownList = list.value.dropdownList
   }
 
   return payload
 })
 
-/**
- * Computadas para controle do tooltip
- */
-const hasTooltip = computed(() => !props.useLabel && props.useTooltip)
-
-/**
- * Precisa existir um tooltip para item de "formattedList.value.buttonsList",
- * então é preciso fazer um tratamento, uma vez que dentro de "formattedList.value.buttonsList"
- * não existe mais "labels", então recuperamos elas de "fullList".
- */
-const tooltipLabels = computed(() => {
-  if (!hasTooltip.value) return {}
-
-  const formattedProps = {}
-
-  for (const key in formattedList.value.buttonsList) {
-    formattedProps[key] = {
-      label: fullList.value[key]?.label
-    }
-  }
-
-  return formattedProps
-})
+const { showTooltip, tooltipLabels } = useTooltips({ formattedList, fullList, props })
 
 // functions
-function getLabel (properties) {
-  return props.useLabel ? properties.label : ''
-}
-
 function getItemProps (item) {
   const { disable, props: itemProps } = item
 
   return {
     disable,
     ...itemProps
-  }
-}
-
-function setClickHandler (item = {}) {
-  if (typeof item.handler === 'function') {
-    const { handler, ...filtered } = item
-    item.handler(filtered)
-  }
-}
-
-// composables
-function useDelete () {
-  const hasDelete = computed(() => !!Object.keys(props.deleteProps).length)
-
-  const deleteBtnProps = computed(() => {
-    return {
-      ...(hasDelete.value && {
-        delete: {
-          color: DEFAULT_COLOR,
-          icon: props.deleteIcon,
-          label: props.deleteLabel,
-          handler: () => qas.delete(props.deleteProps)
-        }
-      })
-    }
-  })
-
-  return {
-    deleteBtnProps,
-    hasDelete
   }
 }
 </script>
