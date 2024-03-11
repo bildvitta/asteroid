@@ -12,7 +12,6 @@ import { boot } from 'quasar/wrappers'
 
 export default boot(() => {
   window.addEventListener('message', ({ data }) => {
-    console.log('passou aqui xddd')
     if (data.type !== 'updateUser') return
 
     const user = data.user
