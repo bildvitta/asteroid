@@ -17,13 +17,16 @@ export default boot(() => {
     const user = data.user
     const accessToken = LocalStorage.getItem('accessToken')
 
+    const hasBearerPrefix = accessToken.startsWith('Bearer ')
+    const userToken = hasBearerPrefix ? accessToken : `Bearer ${accessToken}`
+
     /**
      * Aqui vamos estabelecer a conexão com o servidor apenas na tab (aba) líder.
      * Vamos escutar por novas notificações, sempre que receber uma notificação,
      * iremos enviar via BroadcastChannel.postMessage().
      */
     onLeaderElectionChannel(channel => {
-      setLaravelEcho(accessToken)
+      setLaravelEcho(userToken)
       setLaravelEchoListener({ user, channel })
     })
 
