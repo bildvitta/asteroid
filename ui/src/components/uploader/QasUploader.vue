@@ -1,6 +1,5 @@
 <template>
   <div class="qas-uploader">
-    <qas-btn label="test" @click="reset" />
     <q-uploader ref="uploader" auto-upload class="bg-transparent" :class="uploaderClasses" v-bind="attributes" :factory="factory" flat :max-files="maxFiles" method="PUT" @factory-failed="factoryFailed" @uploaded="uploaded" @uploading="updateUploading(true)">
       <template #header="scope">
         <slot name="header" :scope="scope">

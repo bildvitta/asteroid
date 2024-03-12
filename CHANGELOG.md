@@ -14,6 +14,9 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 ### Adicionado
 `QasUploader`: adicionado método de `reset` caso queira resetar o campo.
 
+### Corrigido
+`QasUploader`: corrigido valor do emit ao remover um item do uploader, pois estava quebrando no caso do uso `use-object-model`.
+
 ## [3.15.0-beta.6] - 04-03-2024
 ## BREAKING CHANGES
 - `QasBoardGenerator`:
