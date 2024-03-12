@@ -395,12 +395,18 @@ export default {
         }
       })
 
+      console.log(uploadedFiles, '<-- uploadedFiles')
+
       const pathsList = Array.isArray(this.modelValue)
         ? this.modelValue
         : (this.modelValue ? [this.modelValue] : [])
 
+      console.log(pathsList, '<-- pathsList')
+
       const mergedList = [...pathsList, ...uploadedFiles]
       const files = {}
+
+      console.log(mergedList, '<-- mergedList')
 
       mergedList.forEach(file => {
         if (this.useObjectModel && file.uuid) {
@@ -420,11 +426,14 @@ export default {
         }
 
         if (file.url) {
+          console.log('nesse if')
           const fileName = this.getFileName(file.url)
           files[fileName] = file
         }
       })
 
+      console.log(files, '<-- files')
+      console.log('______________________________________________________________')
       return files
     },
 
@@ -482,6 +491,7 @@ export default {
     },
 
     removeFile (key, scope, file) {
+      console.log(key, scope, file, '<-- ')
       if (file.isUploaded) {
         scope.removeFile(scope.files[file.indexToDelete])
       }
@@ -489,7 +499,7 @@ export default {
       if (file.isFailed) return
 
       if (!this.isMultiple) {
-        return this.$emit('update:modelValue')
+        return this.$emit('update:modelValue', this.useObjectModel ? {} : '')
       }
 
       const clonedValue = extend(true, [], this.modelValue)
