@@ -1,5 +1,6 @@
 <template>
   <div class="qas-uploader">
+    <qas-btn label="test" @click="reset" />
     <q-uploader ref="uploader" auto-upload class="bg-transparent" :class="uploaderClasses" v-bind="attributes" :factory="factory" flat :max-files="maxFiles" method="PUT" @factory-failed="factoryFailed" @uploaded="uploaded" @uploading="updateUploading(true)">
       <template #header="scope">
         <slot name="header" :scope="scope">
@@ -395,18 +396,12 @@ export default {
         }
       })
 
-      console.log(uploadedFiles, '<-- uploadedFiles')
-
       const pathsList = Array.isArray(this.modelValue)
         ? this.modelValue
         : (this.modelValue ? [this.modelValue] : [])
 
-      console.log(pathsList, '<-- pathsList')
-
       const mergedList = [...pathsList, ...uploadedFiles]
       const files = {}
-
-      console.log(mergedList, '<-- mergedList')
 
       mergedList.forEach(file => {
         if (this.useObjectModel && file.uuid) {
@@ -426,14 +421,11 @@ export default {
         }
 
         if (file.url) {
-          console.log('nesse if')
           const fileName = this.getFileName(file.url)
           files[fileName] = file
         }
       })
 
-      console.log(files, '<-- files')
-      console.log('______________________________________________________________')
       return files
     },
 
@@ -491,7 +483,6 @@ export default {
     },
 
     removeFile (key, scope, file) {
-      console.log(key, scope, file, '<-- ')
       if (file.isUploaded) {
         scope.removeFile(scope.files[file.indexToDelete])
       }
@@ -615,6 +606,13 @@ export default {
       this.$emit('update:modelValue', this.isMultiple ? [...this.modelValue, model] : model || '')
 
       this.updateUploading(false)
+    },
+
+    reset () {
+      this.$refs.uploader.reset()
+      const newModel = this.isMultiple ? [] : this.useObjectModel ? {} : ''
+
+      this.$emit('update:modelValue', newModel)
     }
   }
 }
