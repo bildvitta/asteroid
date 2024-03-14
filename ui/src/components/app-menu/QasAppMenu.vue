@@ -1,6 +1,6 @@
 <template>
   <div class="qas-app-menu">
-    <q-drawer v-model="model" :behavior="behavior" class="shadow-2" :mini="isMiniMode" :mini-width="88" show-if-above :width="drawerWidth" @mouseenter="onMouseEvent" @mouseleave="onMouseEvent">
+    <q-drawer :key="reRenderCount" v-model="model" :behavior="behavior" class="shadow-2" :mini="isMiniMode" :mini-width="88" show-if-above :width="drawerWidth" @mouseenter="onMouseEvent" @mouseleave="onMouseEvent">
       <div class="column full-height justify-between no-wrap">
         <div class="full-width">
           <!-- Brand -->
@@ -93,13 +93,15 @@ import useAppUser from './composables/use-app-user'
 import useDevelopmentBadge from './composables/use-development-badge'
 import { useScreen } from '../../composables'
 
-import { ref, computed } from 'vue'
+import { ref, computed, watch } from 'vue'
 import { useRouter } from 'vue-router'
 
 defineOptions({
   name: 'QasAppMenu',
   inheritAttrs: false
 })
+
+console.log('Fui chamado no app-menu')
 
 const props = defineProps({
   appUserProps: {
@@ -155,6 +157,7 @@ const rootRoute = router.hasRoute('Root') ? { name: 'Root' } : { path: '/' }
 
 const hasOpenedMenu = ref(false)
 const isMini = ref(screen.isLarge)
+const reRenderCount = ref(0)
 
 const composableParams = {
   props,
@@ -191,6 +194,24 @@ const classes = computed(() => {
     spacedItem: {
       'qas-app-menu__label--spaced': !isMiniMode.value
     }
+  }
+})
+
+/**
+ * @desc Recurso tecnológico temporário (ou definitivo), este bug ocorre por conta
+ * da atualização do vue para a versão `v3.4+`, onde tiveram mudanças referentes a
+ * reatividade, existem issues abertas no Quasar, porém sem expectativas
+ * de que um dia será resolvido por parte deles.
+ *
+ * @see {@link https://github.com/quasarframework/quasar/issues/16651}
+ */
+watch(() => behavior.value, value => {
+  /**
+   * @desc quando o comportamento passa a ser desktop novamente é porque aconteceu um
+   * resize na pagina, então é necessário renderizar o componente QDrawer novamente.
+   */
+  if (value === 'desktop') {
+    reRenderCount.value += 1
   }
 })
 
