@@ -101,8 +101,6 @@ defineOptions({
   inheritAttrs: false
 })
 
-console.log('Fui chamado no app-menu')
-
 const props = defineProps({
   appUserProps: {
     type: Object,
