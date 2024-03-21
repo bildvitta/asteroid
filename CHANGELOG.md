@@ -17,6 +17,10 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 ### Corrigido
 `QasUploader`: corrigido valor do emit ao remover um item do uploader, pois estava quebrando no caso do uso `use-object-model`.
 
+## [3.15.0-beta.8] - 14-03-2024
+### Corrigido
+- `QasAppMenu`: Correção temporária (ou permanente caso não seja resolvido no quasar), bug que ocorria com o QDrawer quando usado com a versão do vue `v3.4+`, onde era removido o scroll da pagina quando ocorria um resize na pagina de desktop pra mobile.
+
 ## [3.15.0-beta.7] - 11-03-2024
 ### Corrigido
 - `boot/notifications`: corrigido a forma de passar o token para o método `setLaravelEcho`, onde precisou de uma validação para formatar o token passando o valor correto.
@@ -2716,3 +2720,4 @@ Adicionado suporte para Pinia/Vuex Seguindo os padrões da biblioteca `@bildvitt
 [3.15.0-beta.5]: https://github.com/bildvitta/asteroid/compare/v3.15.0-beta.4...v3.15.0-beta.5?expand=1
 [3.15.0-beta.6]: https://github.com/bildvitta/asteroid/compare/v3.15.0-beta.5...v3.15.0-beta.6?expand=1
 [3.15.0-beta.7]: https://github.com/bildvitta/asteroid/compare/v3.15.0-beta.6...v3.15.0-beta.7?expand=1
+[3.15.0-beta.8]: https://github.com/bildvitta/asteroid/compare/v3.15.0-beta.7...v3.15.0-beta.8?expand=1
