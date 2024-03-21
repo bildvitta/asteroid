@@ -10,6 +10,13 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 ### Sobre os "BREAKING CHANGES"
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
+## Não publicado
+### Adicionado
+`QasUploader`: adicionado método de `reset` caso queira resetar o campo externamente.
+
+### Corrigido
+`QasUploader`: corrigido valor do emit ao remover um item do uploader, pois estava quebrando no caso do uso `use-object-model`.
+
 ## [3.15.0-beta.8] - 14-03-2024
 ### Corrigido
 - `QasAppMenu`: Correção temporária (ou permanente caso não seja resolvido no quasar), bug que ocorria com o QDrawer quando usado com a versão do vue `v3.4+`, onde era removido o scroll da pagina quando ocorria um resize na pagina de desktop pra mobile.

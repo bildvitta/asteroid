@@ -489,7 +489,7 @@ export default {
       if (file.isFailed) return
 
       if (!this.isMultiple) {
-        return this.$emit('update:modelValue')
+        return this.$emit('update:modelValue', this.useObjectModel ? {} : '')
       }
 
       const clonedValue = extend(true, [], this.modelValue)
@@ -605,6 +605,14 @@ export default {
       this.$emit('update:modelValue', this.isMultiple ? [...this.modelValue, model] : model || '')
 
       this.updateUploading(false)
+    },
+
+    reset () {
+      this.$refs.uploader.reset()
+
+      const emptyModel = this.isMultiple ? [] : this.useObjectModel ? {} : ''
+
+      this.$emit('update:modelValue', emptyModel)
     }
   }
 }
