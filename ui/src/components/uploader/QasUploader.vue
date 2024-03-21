@@ -609,9 +609,10 @@ export default {
 
     reset () {
       this.$refs.uploader.reset()
-      const newModel = this.isMultiple ? [] : this.useObjectModel ? {} : ''
 
-      this.$emit('update:modelValue', newModel)
+      const emptyModel = this.isMultiple ? [] : this.useObjectModel ? {} : ''
+
+      this.$emit('update:modelValue', emptyModel)
     }
   }
 }
