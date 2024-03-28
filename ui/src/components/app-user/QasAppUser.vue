@@ -72,6 +72,7 @@
 import QasAvatar from '../avatar/QasAvatar.vue'
 
 import useNotifications from '../../composables/use-notifications'
+import useQueryCache from '../../composables/use-query-cache'
 import { NotifySuccess, NotifyError } from '../../plugins'
 
 import { ref, computed, watch, inject } from 'vue'
@@ -115,6 +116,8 @@ const axios = inject('axios')
 const router = useRouter()
 
 const { isNotificationsEnabled, unreadNotificationsCount } = useNotifications()
+
+const { reset } = useQueryCache()
 
 const companiesModel = ref('')
 const loading = ref(false)
@@ -207,7 +210,7 @@ async function setCompanies (value) {
 }
 
 function clearCachedFilters () {
-  sessionStorage.clear()
+  reset()
 
   router.push({ query: {} })
 }
