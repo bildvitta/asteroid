@@ -13,7 +13,8 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 ## Não publicado
 ### Adicionado
 `QasUploader`: adicionado método de `reset` caso queira resetar o campo externamente.
-`QasAppUser`: adicionado reset de filtros cacheados ao realizar a troca de vínculo.
+`use-query-cache`: adicionado função para limpar todos os filtros cacheados.
+`QasAppUser`: adicionado `reset` de filtros cacheados ao realizar a troca de vínculo.
 
 ### Corrigido
 `QasUploader`: corrigido valor do emit ao remover um item do uploader, pois estava quebrando no caso do uso `use-object-model`.
