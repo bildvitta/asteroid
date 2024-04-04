@@ -28,6 +28,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
   - adicionado nova propriedade `disable`.
   - adicionado novo slot `bottom-[buttons-props-list-key]`.
 - `QasActionsMenu`: adicionado nova propriedade `disable`.
+- `use-query-cache`: adicionado função para limpar todos os filtros cacheados.
 
 ### Modificado
 - `QasBtnDropdown`: alterado componente para receber uma lista de botões.
@@ -35,6 +36,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
   - modificado comportamento, agora caso esteja usando a prop `splitName` e tenha 2 itens na lista, o componente deixará os botões um ao lado do outro.
   - antes o componente utilizava `QasBtnDropDown` quando tinha mais de 1 item e `QasBtn` quando tinha apenas 1 item, agora ele sempre utiliza o `QasBtnDropdown`.
   - propriedade `buttonProps` é aplicada quando o componente esta no modo "Opções", que é quando não utiliza o `splitName` ou esteja no `mobile`.
+- `QasAppUser`: alterado componente para usar o `reset` do `use-query-cache` ao realizar a troca de vínculo, fazendo com que seja resetado todo os filtros previamente cacheados.
 
 ### Corrigido
 - `QasUploader`: corrigido valor do emit ao remover um item do uploader, pois estava quebrando no caso do uso `use-object-model`.

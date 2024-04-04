@@ -72,9 +72,11 @@
 import QasAvatar from '../avatar/QasAvatar.vue'
 
 import useNotifications from '../../composables/use-notifications'
+import useQueryCache from '../../composables/use-query-cache'
 import { NotifySuccess, NotifyError } from '../../plugins'
 
 import { ref, computed, watch, inject } from 'vue'
+import { useRouter } from 'vue-router'
 
 defineOptions({ name: 'QasAppUser' })
 
@@ -111,7 +113,11 @@ const emit = defineEmits(['sign-out', 'toggle-notifications'])
 // vindo direto do boot api.js
 const axios = inject('axios')
 
+const router = useRouter()
+
 const { isNotificationsEnabled, unreadNotificationsCount } = useNotifications()
+
+const { reset } = useQueryCache()
 
 const companiesModel = ref('')
 const loading = ref(false)
@@ -198,7 +204,15 @@ async function setCompanies (value) {
     NotifyError('Falha ao alterar vínculo.')
   } finally {
     loading.value = false
+
+    clearCachedFilters()
   }
+}
+
+function clearCachedFilters () {
+  reset()
+
+  router.push({ query: {} })
 }
 
 function onMenuHide () {

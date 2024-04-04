@@ -1,7 +1,7 @@
 import { SessionStorage } from 'quasar'
 import { filterObject } from '../helpers'
 
-const cachedFilters = SessionStorage.getItem('cachedFilters') || {}
+let cachedFilters = SessionStorage.getItem('cachedFilters') || {}
 
 function updateSessionStorage () {
   SessionStorage.set('cachedFilters', cachedFilters)
@@ -41,6 +41,12 @@ export default function () {
     updateSessionStorage()
   }
 
+  function reset () {
+    cachedFilters = {}
+
+    updateSessionStorage()
+  }
+
   return {
     addOne,
     addMany,
@@ -48,6 +54,7 @@ export default function () {
     findAll,
     clearOne,
     clearAll,
-    cachedFilters
+    cachedFilters,
+    reset
   }
 }
