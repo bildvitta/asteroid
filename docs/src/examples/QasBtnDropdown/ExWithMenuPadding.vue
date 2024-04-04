@@ -1,6 +1,6 @@
 <template>
   <div class="container q-py-lg">
-    <qas-btn-dropdown :button-props="{ label: 'Usuário' }" use-menu-padding>
+    <qas-btn-dropdown :buttons-props-list="buttonsPropsList" use-menu-padding>
       <q-list>
         <q-item v-for="item in 10" :key="item">
           Meu item - {{ item }}
@@ -9,3 +9,13 @@
     </qas-btn-dropdown>
   </div>
 </template>
+
+<script setup>
+const buttonsPropsList = {
+  export: {
+    label: 'Exportar arquivo',
+    icon: 'sym_r_upload',
+    color: 'primary'
+  }
+}
+</script>

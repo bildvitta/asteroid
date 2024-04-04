@@ -10,10 +10,16 @@ const list = {
     icon: 'sym_r_visibility',
     label: 'Visualizar',
     handler: () => alert('handler ativado')
+  },
+  edit: {
+    icon: 'sym_r_create',
+    label: 'Editar',
+    handler: () => alert('handler ativado')
   }
 }
 
 const props = {
-  list
+  list,
+  splitName: 'visibility'
 }
 </script>

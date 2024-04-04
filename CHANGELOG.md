@@ -11,11 +11,39 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
 ## Não publicado
+## BREAKING CHANGES
+- `QasBtnDropdown`:
+  - removido propriedade `buttonProps`;
+  - removido slot `left-button`.
+- `QasActionsMenu`:
+  - modificado comportamento, agora caso esteja usando a prop `splitName` e tenha 2 itens na lista, o componente deixará os botões um ao lado do outro.
+  - antes o componente utilizava `QasBtnDropDown` quando tinha mais de 1 item e `QasBtn` quando tinha apenas 1 item, agora ele sempre utiliza o `QasBtnDropdown`.
+  - propriedade `buttonProps` é aplicada quando o componente esta no modo "Opções", que é quando não utiliza o `splitName` ou esteja no `mobile`.
+  - `QasActionsMenu`: removido propriedade `dropdownIcon`, uma vez que é possível passar pelo `buttonProps`.
+
 ### Adicionado
-`QasUploader`: adicionado método de `reset` caso queira resetar o campo externamente.
+- `QasUploader`: adicionado método de `reset` caso queira resetar o campo externamente.
+- `QasBtnDropdown`:
+  - adicionado nova propriedade `buttonsPropsList`.
+  - adicionado nova propriedade `disable`.
+  - adicionado novo slot `bottom-[buttons-props-list-key]`.
+- `QasActionsMenu`: adicionado nova propriedade `disable`.
+
+### Modificado
+- `QasBtnDropdown`: alterado componente para receber uma lista de botões.
+- `QasActionsMenu`:
+  - modificado comportamento, agora caso esteja usando a prop `splitName` e tenha 2 itens na lista, o componente deixará os botões um ao lado do outro.
+  - antes o componente utilizava `QasBtnDropDown` quando tinha mais de 1 item e `QasBtn` quando tinha apenas 1 item, agora ele sempre utiliza o `QasBtnDropdown`.
+  - propriedade `buttonProps` é aplicada quando o componente esta no modo "Opções", que é quando não utiliza o `splitName` ou esteja no `mobile`.
 
 ### Corrigido
-`QasUploader`: corrigido valor do emit ao remover um item do uploader, pois estava quebrando no caso do uso `use-object-model`.
+- `QasUploader`: corrigido valor do emit ao remover um item do uploader, pois estava quebrando no caso do uso `use-object-model`.
+
+### Removido
+- `QasActionsMenu`: removido propriedade `dropdownIcon`, uma vez que é possível passar pelo `buttonProps`.
+- `QasBtnDropdown`:
+  - removido propriedade `buttonProps`.
+  - removido slot `left-button`.
 
 ## [3.15.0-beta.8] - 14-03-2024
 ### Corrigido
@@ -53,7 +81,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 
 ## [3.15.0-beta.3] - 28-02-2024
 ## BREAKING CHANGES
--  `QasCard`: Componente agora se chama `QasCardImage`, pois agora foi criado um novo componente com o nome  de `QasCard` (`QasCard <-> QasCardImage`).
+- `QasCard`: Componente agora se chama `QasCardImage`, pois agora foi criado um novo componente com o nome  de `QasCard` (`QasCard <-> QasCardImage`).
 
 ### Adicionado
 - `QasCard` (novo): adicionado novo componente de card tendo o nome do antigo `QasCard`, pois este card não depende de imagens.
