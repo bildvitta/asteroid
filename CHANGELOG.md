@@ -22,6 +22,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
   - `QasActionsMenu`: removido propriedade `dropdownIcon`, uma vez que é possível passar pelo `buttonProps`.
 
 ### Adicionado
+- `QasUploader`: adicionado método de `reset` caso queira resetar o campo externamente.
 - `QasBtnDropdown`:
   - adicionado nova propriedade `buttonsPropsList`.
   - adicionado nova propriedade `disable`.
@@ -35,11 +36,48 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
   - antes o componente utilizava `QasBtnDropDown` quando tinha mais de 1 item e `QasBtn` quando tinha apenas 1 item, agora ele sempre utiliza o `QasBtnDropdown`.
   - propriedade `buttonProps` é aplicada quando o componente esta no modo "Opções", que é quando não utiliza o `splitName` ou esteja no `mobile`.
 
+### Corrigido
+- `QasUploader`: corrigido valor do emit ao remover um item do uploader, pois estava quebrando no caso do uso `use-object-model`.
+
 ### Removido
+- `QasActionsMenu`: removido propriedade `dropdownIcon`, uma vez que é possível passar pelo `buttonProps`.
 - `QasBtnDropdown`:
   - removido propriedade `buttonProps`.
   - removido slot `left-button`.
-- `QasActionsMenu`: removido propriedade `dropdownIcon`, uma vez que é possível passar pelo `buttonProps`.
+
+## [3.15.0-beta.8] - 14-03-2024
+### Corrigido
+- `QasAppMenu`: Correção temporária (ou permanente caso não seja resolvido no quasar), bug que ocorria com o QDrawer quando usado com a versão do vue `v3.4+`, onde era removido o scroll da pagina quando ocorria um resize na pagina de desktop pra mobile.
+
+## [3.15.0-beta.7] - 11-03-2024
+### Corrigido
+- `boot/notifications`: corrigido a forma de passar o token para o método `setLaravelEcho`, onde precisou de uma validação para formatar o token passando o valor correto.
+
+## [3.15.0-beta.6] - 04-03-2024
+## BREAKING CHANGES
+- `QasBoardGenerator`:
+  - props `results` alterada para `headers`,
+  - `v-model` agora é recuperado pelo `v-model:results`.
+  - alterado prop `use-shallow-ref` para `use-mark-raw`.
+
+### Adicionado
+- `QasBoardGenerator`: 
+  - adicionado eventos `fetch-columns-success`, `fetch-columns-error`, `fetch-column-success` e `fetch-column-error`.
+  - adicionado prop `lazy-loading-fields-keys`.
+
+### Modificado
+- `QasBoardGenerator`: 
+  - alterado prop `results` para `headers`.
+  - `v-model` agora é recuperado pelo `v-model:results`.
+  - alterado prop `use-shallow-ref` para `use-mark-raw`.
+
+## [3.15.0-beta.5] - 01-03-2024
+### Modificado
+- `QasNestedFields`: alterado comportamento da propriedade `formGutter`, agora ela é repassada para o componente `QasFormGenerator` e utilizada nos espaçamentos dos campos do formulário.
+
+## [3.15.0-beta.4] - 01-03-2024
+### Modificado
+- `QasOptionGroup`: alterado componente para sobrescrever a prop `inline`.
 
 ## [3.15.0-beta.3] - 28-02-2024
 ## BREAKING CHANGES
@@ -2706,3 +2744,8 @@ Adicionado suporte para Pinia/Vuex Seguindo os padrões da biblioteca `@bildvitt
 [3.15.0-beta.1]: https://github.com/bildvitta/asteroid/compare/v3.15.0-beta.0...v3.15.0-beta.1?expand=1
 [3.15.0-beta.2]: https://github.com/bildvitta/asteroid/compare/v3.15.0-beta.1...v3.15.0-beta.2?expand=1
 [3.15.0-beta.3]: https://github.com/bildvitta/asteroid/compare/v3.15.0-beta.2...v3.15.0-beta.3?expand=1
+[3.15.0-beta.4]: https://github.com/bildvitta/asteroid/compare/v3.15.0-beta.3...v3.15.0-beta.4?expand=1
+[3.15.0-beta.5]: https://github.com/bildvitta/asteroid/compare/v3.15.0-beta.4...v3.15.0-beta.5?expand=1
+[3.15.0-beta.6]: https://github.com/bildvitta/asteroid/compare/v3.15.0-beta.5...v3.15.0-beta.6?expand=1
+[3.15.0-beta.7]: https://github.com/bildvitta/asteroid/compare/v3.15.0-beta.6...v3.15.0-beta.7?expand=1
+[3.15.0-beta.8]: https://github.com/bildvitta/asteroid/compare/v3.15.0-beta.7...v3.15.0-beta.8?expand=1
