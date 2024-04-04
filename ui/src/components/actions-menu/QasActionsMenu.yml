@@ -5,10 +5,14 @@ meta:
 
 props:
   button-props:
-    desc: Propriedades repassadas para o "QasBtn" caso esteja em modo de botão (apenas um item na prop "list"), caso esteja em modo de dropdown (mais de 1 item na prop "list") é enviado para a propriedade buttonProps do "QasBtnDropdown".
+    desc: Propriedades que são usadas no modo "Opções", que é quando não é usado a propriedade "splitName" ou esteja no mobile;
     default: {}
     type: Object
-    examples: ["{ color: 'white', icon: 'sym_r_person', useLabelOnSmallScreen: false }"]
+
+  disable:
+    desc: Desabilita o componente como um todo.
+    default: false
+    type: Boolean
 
   delete-icon:
     desc: Ícone do botão de deletar.
