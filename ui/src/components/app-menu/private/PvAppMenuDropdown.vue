@@ -41,14 +41,16 @@ const props = defineProps({
 const defaultButtonDropdownProps = computed(() => ({
   ...props.buttonDropdownProps,
 
-  buttonProps: {
-    align: 'between',
-    class: 'text-subtitle2',
-    color: 'primary',
-    iconRight: 'sym_r_expand_more',
-    label: props.currentModule.label,
-    useEllipsis: true,
-    useLabelOnSmallScreen: true
+  buttonsPropsList: {
+    modules: {
+      align: 'between',
+      class: 'text-subtitle2',
+      color: 'primary',
+      iconRight: 'sym_r_expand_more',
+      label: props.currentModule.label,
+      useEllipsis: true,
+      useLabelOnSmallScreen: true
+    }
   }
 }))
 

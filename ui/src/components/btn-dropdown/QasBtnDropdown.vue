@@ -1,6 +1,6 @@
 <template>
   <div class="qas-btn-dropdown" :class="classes.parent">
-    <div v-if="hasButtons" class="flex">
+    <div v-if="hasButtons" :class="classes.list">
       <div v-for="(buttonProps, key, index) in props.buttonsPropsList" :key="key">
         <div class="flex">
           <qas-btn :disable="props.disable" v-bind="buttonProps" variant="tertiary" @click="onClick">
@@ -88,6 +88,10 @@ const classes = computed(() => {
 
     menuContent: {
       'q-pa-md': props.useMenuPadding
+    },
+
+    list: {
+      flex: !isSingleButton.value
     }
   }
 })
