@@ -76,6 +76,7 @@ function previous () {
 
     &__caption {
       color: $grey-6;
+      font-weight: 400;
     }
   }
 
