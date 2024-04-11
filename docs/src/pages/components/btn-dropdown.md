@@ -11,7 +11,7 @@ Este é um componente puro de dropdown, é utilizado para situações especifica
 :::
 
 :::info
-- A propriedade `useEllipsis` dentro de `buttonProps` só funciona quando `useSplit` é `false`.
+- A propriedade `useEllipsis` dentro do `buttonPropsList` só funciona quando existe apenas 1 botão.
 :::
 
 ## Uso
