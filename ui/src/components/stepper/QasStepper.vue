@@ -1,9 +1,6 @@
 <template>
   <div class="qas-stepper" :class="classes">
-    <q-stepper
-      ref="stepper" v-model="model" active-color="primary" active-icon="none" animated
-      :contracted="$qas.screen.untilLarge" done-color="primary" done-icon="none" flat :header-class="headerClass" inactive-color="grey-6" keep-alive
-    >
+    <q-stepper ref="stepper" v-model="model" active-color="primary" active-icon="none" animated :contracted="$qas.screen.untilLarge" done-color="primary" done-icon="none" flat :header-class="headerClass" inactive-color="grey-6" keep-alive>
       <template v-for="(_, name) in $slots" #[name]="context">
         <slot :name="name" v-bind="getContext(context)" />
       </template>
