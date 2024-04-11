@@ -1,10 +1,13 @@
 <template>
   <div class="qas-btn-dropdown" :class="classes.parent">
-    <div v-if="hasButtons" class="flex">
+    <div v-if="hasButtons" :class="classes.list">
       <div v-for="(buttonProps, key, index) in props.buttonsPropsList" :key="key">
         <div class="flex">
           <qas-btn :disable="props.disable" v-bind="buttonProps" variant="tertiary" @click="onClick">
-            <q-menu v-if="hasMenuOnLeftSide" v-model="isMenuOpened" anchor="bottom right" auto-close self="top right" @update:model-value="onUpdateMenuValue">
+            <q-menu
+              v-if="hasMenuOnLeftSide" v-model="isMenuOpened" anchor="bottom right" auto-close self="top right"
+              @update:model-value="onUpdateMenuValue"
+            >
               <div :class="classes.menuContent">
                 <slot />
               </div>
@@ -13,7 +16,10 @@
 
           <slot :name="`bottom-${key}`" />
 
-          <q-separator v-if="hasSeparator(index)" class="q-mx-sm qas-btn-dropdown__separator self-center" dark vertical />
+          <q-separator
+            v-if="hasSeparator(index)" class="q-mx-sm qas-btn-dropdown__separator self-center" dark
+            vertical
+          />
         </div>
       </div>
     </div>
@@ -88,6 +94,10 @@ const classes = computed(() => {
 
     menuContent: {
       'q-pa-md': props.useMenuPadding
+    },
+
+    list: {
+      flex: !isSingleButton.value
     }
   }
 })
