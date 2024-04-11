@@ -1,9 +1,8 @@
 <template>
   <div class="qas-stepper" :class="classes">
     <q-stepper
-      ref="stepper" v-model="model" active-color="primary" active-icon="none" alternative-labels
-      animated :contracted="$qas.screen.untilLarge" done-color="primary" done-icon="none" flat
-      header-class="text-subtitle1" inactive-color="grey-6" keep-alive
+      ref="stepper" v-model="model" active-color="primary" active-icon="none" animated
+      :contracted="$qas.screen.untilLarge" done-color="primary" done-icon="none" flat :header-class="headerClass" inactive-color="grey-6" keep-alive
     >
       <template v-for="(_, name) in $slots" #[name]="context">
         <slot :name="name" v-bind="getContext(context)" />
@@ -14,6 +13,8 @@
 
 <script setup>
 import { computed, ref } from 'vue'
+import { Spacing } from '../../enums/Spacing'
+import { gutterValidator } from '../../composables/private/use-generator'
 
 defineOptions({ name: 'QasStepper' })
 
@@ -25,6 +26,12 @@ const props = defineProps({
   modelValue: {
     type: [Number, String],
     default: 0
+  },
+
+  spacing: {
+    default: Spacing.Lg,
+    type: [String, Boolean],
+    validator: gutterValidator
   }
 })
 
@@ -46,6 +53,10 @@ const classes = computed(() => {
   return {
     'qas-stepper--disable': props.disable
   }
+})
+
+const headerClass = computed(() => {
+  return `text-subtitle1 q-pb-${props.spacing}`
 })
 
 function getContext (context) {
@@ -71,12 +82,13 @@ function previous () {
     background-color: transparent;
 
     &__tab {
-      padding: 0 0 var(--qas-spacing-lg) 0;
+      padding: 0;
     }
 
     &__caption {
       color: $grey-6;
       font-weight: 400;
+      text-align: center;
     }
   }
 

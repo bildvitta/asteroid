@@ -9,5 +9,3 @@ Componente de stepper.
 ## Uso
 
 <doc-example file="QasStepper/Basic" title="Básico" />
-
-<doc-example file="QasStepper/Custom" title="Custom" />

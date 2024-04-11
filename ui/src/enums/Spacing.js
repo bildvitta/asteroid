@@ -14,6 +14,8 @@
  *  Xl: 'xl',
  *  '2xl': '2xl',
  *  '3xl': '3xl',
+ *  '4xl': '4xl',
+ *  '5xl': '5xl'
  * }}
 */
 export const Spacing = {
@@ -24,7 +26,9 @@ export const Spacing = {
   Lg: 'lg',
   Xl: 'xl',
   '2xl': '2xl',
-  '3xl': '3xl'
+  '3xl': '3xl',
+  '4xl': '4xl',
+  '5xl': '5xl'
 }
 
 /**
@@ -40,9 +44,11 @@ export const Spacing = {
  *  Sm: '8px',
  *  Md: '16px',
  *  Lg: '24px',
- *  Xl: '32px',
+ *  Xl: '52px',
  *  '2xl': '40px',
- *  '3xl': '48px'
+ *  '3xl': '48px',
+ *  '4xl': '56px',
+ *  '5xl': '64px'
  * }}
 */
 export const SpacingWithUnit = {
@@ -53,5 +59,7 @@ export const SpacingWithUnit = {
   Lg: '24px',
   Xl: '32px',
   '2xl': '40px',
-  '3xl': '48px'
+  '3xl': '48px',
+  '4xl': '56px',
+  '5xl': '64px'
 }

@@ -42,13 +42,13 @@ props:
     desc: Espaçamento entre rótulos (label).
     default: lg
     type: [String, Boolean]
-    examples: [xs, sm, md, lg, xl, false]
+    examples: [xs, sm, md, lg, xl, '2xl', '3xl', '4xl', '5xl', false]
 
   gutter:
     desc: Espaçamento entre colunas.
     default: lg
     type: [String, Boolean]
-    examples: [xs, sm, md, lg, xl, false]
+    examples: [xs, sm, md, lg, xl, '2xl', '3xl', '4xl', '5xl', false]
 
   model-value:
     desc: Model do componente, usado para o v-model.

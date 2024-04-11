@@ -2,7 +2,7 @@
   <div class="container spaced">
     <qas-stepper v-model="model">
       <template #default="{ next, previous }">
-        <q-step :done="model > 1" :name="1" prefix="1" title="Página 1">
+        <q-step caption="example" :done="model > 1" :name="1" prefix="1" title="Página 1">
           <div class="q-mb-md">Conteúdo da Página 1</div>
 
           <div class="column items-start q-gutter-sm">
@@ -31,15 +31,10 @@
   </div>
 </template>
 
-<script>
-export default {
-  name: 'Basic',
+<script setup>
+import { ref } from 'vue'
 
-  data () {
-    return {
-      model: 2
-    }
-  }
+defineOptions({ name: 'Basic' })
 
-}
+const model = ref(2)
 </script>

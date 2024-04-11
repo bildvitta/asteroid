@@ -1,10 +1,28 @@
 type: component
 
 meta:
-  desc: Componente de steppers de páginas.
+  desc: Componente de stepper.
 
 props:
-  color:
-    desc: cor dos status.
-    default: light-blue-2
-    type: String
+  disable:
+    desc: Adiciona aparência de componente desabilitado.
+    default: false
+    type: Boolean
+
+  gutter:
+    desc: Espaçamento entre o stepper e o conteúdo da página.
+    default: lg
+    type: [String, Boolean]
+    examples: [xs, sm, md, lg, xl, '2xl', '3xl', '4xl', '5xl', false]
+
+  model-value:
+    desc: Model do componente, responsável por controlar em qual step deverá ser exibido.
+    type: [Number, String]
+
+events:
+  '@update:model-value -> function(value)':
+    desc: Dispara quando o model-value altera, também usado para v-model.
+    params:
+      value:
+        desc: Valor do mode-value.
+        type: [Number, String]
