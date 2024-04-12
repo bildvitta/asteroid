@@ -11,6 +11,10 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
 ## Não publicado
+### Adicionado
+- `Spacing.js`: Adicionado espaçamentos `4xl e 5xl`.
+- `QasStepper`: Adicionado componente de stepper.
+
 ### Corrigido
 - `QasBtnDropdown`: corrigido classes para o funcionamento do "ellipsis".
 - `QasAppMenu`: corrigido o uso do `QasBtnDropdown`.

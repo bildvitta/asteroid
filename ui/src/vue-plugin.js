@@ -57,6 +57,7 @@ import QasSignatureUploader from './components/signature-uploader/QasSignatureUp
 import QasSingleView from './components/single-view/QasSingleView.vue'
 import QasSortable from './components/sortable/QasSortable.vue'
 import QasStatus from './components/status/QasStatus.vue'
+import QasStepper from './components/stepper/QasStepper.vue'
 import QasTableGenerator from './components/table-generator/QasTableGenerator.vue'
 import QasTabsGenerator from './components/tabs-generator/QasTabsGenerator.vue'
 import QasTextTruncate from './components/text-truncate/QasTextTruncate.vue'
@@ -147,6 +148,7 @@ async function install (app) {
   app.component('QasSingleView', QasSingleView)
   app.component('QasSortable', QasSortable)
   app.component('QasStatus', QasStatus)
+  app.component('QasStepper', QasStepper)
   app.component('QasTableGenerator', QasTableGenerator)
   app.component('QasTabsGenerator', QasTabsGenerator)
   app.component('QasTextTruncate', QasTextTruncate)
@@ -238,6 +240,7 @@ export {
   QasSingleView,
   QasSortable,
   QasStatus,
+  QasStepper,
   QasTableGenerator,
   QasTabsGenerator,
   QasTextTruncate,

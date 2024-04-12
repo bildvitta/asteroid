@@ -45,6 +45,16 @@ $space-3xl: (
   y: ($space-y-base * 3) // 48px
 );
 
+$space-4xl: (
+  x: ($space-x-base * 3.5),// 56px
+  y: ($space-y-base * 3.5) // 56px
+);
+
+$space-5xl: (
+  x: ($space-x-base * 4), // 64px
+  y: ($space-y-base * 4) // 64px
+);
+
 $spaces: (
   none: $space-none, // 0px
   xs: $space-xs, // 4px
@@ -53,7 +63,9 @@ $spaces: (
   lg: $space-lg, // 24px
   xl: $space-xl, // 32px
   2xl: $space-2xl, // 40px
-  3xl: $space-3xl // 48px
+  3xl: $space-3xl, // 48px
+  4xl: $space-4xl, // 56px
+  5xl: $space-5xl // 64px
 );
 
 $flex-gutter-xs : map.get($space-xs, 'x');
@@ -63,6 +75,8 @@ $flex-gutter-lg : map.get($space-lg, 'x');
 $flex-gutter-xl : map.get($space-xl, 'x');
 $flex-gutter-2xl : map.get($space-2xl, 'x');
 $flex-gutter-3xl : map.get($space-3xl, 'x');
+$flex-gutter-4xl : map.get($space-4xl, 'x');
+$flex-gutter-5xl : map.get($space-5xl, 'x');
 
 $flex-gutter: (
   none: 0, // 0px
@@ -71,8 +85,10 @@ $flex-gutter: (
   md: $flex-gutter-md, // 16px
   lg: $flex-gutter-lg, // 24px
   xl: $flex-gutter-xl, // 32px
-  2xl: $flex-gutter-2xl, // 48px
-  3xl: $flex-gutter-3xl // 40px
+  2xl: $flex-gutter-2xl, // 40px
+  3xl: $flex-gutter-3xl, // 48px
+  4xl: $flex-gutter-4xl, // 56px
+  5xl: $flex-gutter-5xl // 64px
 );
 
 :root {

@@ -288,6 +288,10 @@ module.exports = [
         path: '/components/Status'
       },
       {
+        name: 'Stepper',
+        path: '/components/stepper'
+      },
+      {
         name: 'TableGenerator',
         path: '/components/table-generator'
       },

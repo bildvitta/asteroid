@@ -78,7 +78,7 @@ props:
     desc: Espaçamento entre colunas do formulário.
     default: lg
     type: [String, Boolean]
-    examples: [xs, sm, md, lg, xl, false]
+    examples: [xs, sm, md, lg, xl, 2xl, 3xl, 4xl, 5xl, false]
 
   identifier-item-key:
     desc: Define um identificador para o item. O identificador será utilizado para validar exclusão do item, por exemplo.

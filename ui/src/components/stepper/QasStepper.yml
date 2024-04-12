@@ -1,0 +1,36 @@
+type: component
+
+meta:
+  desc: Componente de stepper.
+
+props:
+  disable:
+    desc: Deixa o componente desabilitado.
+    default: false
+    type: Boolean
+
+  spacing:
+    desc: Espaçamento entre o stepper e o conteúdo da página.
+    default: lg
+    type: [String, Boolean]
+    examples: [xs, sm, md, lg, xl, '2xl', '3xl', '4xl', '5xl', false]
+
+  model-value:
+    desc: Model do componente, responsável por controlar em qual step deverá ser exibido.
+    model: true
+    type: [Number, String]
+
+events:
+  '@update:model-value -> function(value)':
+    desc: Dispara quando o model-value altera, também usado para v-model.
+    params:
+      value:
+        desc: Valor do mode-value.
+        type: [Number, String]
+
+methods:
+  'next: () => void':
+    desc: Avança o stepper para o prõximo step.
+
+  'previous: () => void':
+    desc: Volta o stepper para o step anterior.

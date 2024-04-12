@@ -30,7 +30,7 @@ props:
     desc: Espaçamento entre colunas.
     default: lg
     type: String
-    examples: [xs, sm, md, lg, xl]
+    examples: [xs, sm, md, lg, xl, 2xl, 3xl, 4xl, 5xl]
 
   header-class:
     desc: Classe de cada "header" pai referente ao "label".
