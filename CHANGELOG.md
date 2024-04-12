@@ -12,7 +12,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 
 ## Não publicado
 ### Adicionado
-- `Spacing.js`: Adicionado espaçamentos `3xl, 4xl e 5xl`.
+- `Spacing.js`: Adicionado espaçamentos `4xl e 5xl`.
 - `QasStepper`: Adicionado componente de stepper.
 
 ### Corrigido

@@ -5,11 +5,11 @@ meta:
 
 props:
   disable:
-    desc: Adiciona aparência de componente desabilitado.
+    desc: Deixa o componente desabilitado.
     default: false
     type: Boolean
 
-  gutter:
+  spacing:
     desc: Espaçamento entre o stepper e o conteúdo da página.
     default: lg
     type: [String, Boolean]
@@ -26,3 +26,10 @@ events:
       value:
         desc: Valor do mode-value.
         type: [Number, String]
+
+methods:
+  'next: () => void':
+    desc: Avança o stepper para o prõximo step.
+
+  'previous: () => void':
+    desc: Volta o stepper para o step anterior.

@@ -1,6 +1,6 @@
 <template>
   <div class="qas-stepper" :class="classes">
-    <q-stepper ref="stepper" v-model="model" active-color="primary" active-icon="none" animated :contracted="$qas.screen.untilLarge" done-color="primary" done-icon="none" flat :header-class="headerClass" inactive-color="grey-6" keep-alive>
+    <q-stepper ref="stepper" v-model="model" active-color="primary" active-icon="none" animated :contracted="screen.untilLarge" done-color="primary" done-icon="none" flat :header-class="headerClass" inactive-color="grey-6" keep-alive>
       <template v-for="(_, name) in $slots" #[name]="context">
         <slot :name="name" v-bind="getContext(context)" />
       </template>
@@ -12,6 +12,7 @@
 import { computed, ref } from 'vue'
 import { Spacing } from '../../enums/Spacing'
 import { gutterValidator } from '../../composables/private/use-generator'
+import useScreen from '../../composables/use-screen'
 
 defineOptions({ name: 'QasStepper' })
 
@@ -34,7 +35,11 @@ const props = defineProps({
 
 const stepper = ref(null)
 
+const screen = useScreen()
+
 const emit = defineEmits(['update:modelValue'])
+
+defineExpose({ next, previous })
 
 const model = computed({
   get () {
@@ -46,15 +51,9 @@ const model = computed({
   }
 })
 
-const classes = computed(() => {
-  return {
-    'qas-stepper--disable': props.disable
-  }
-})
+const classes = computed(() => ({ 'qas-stepper--disable': props.disable }))
 
-const headerClass = computed(() => {
-  return `text-subtitle1 q-pb-${props.spacing}`
-})
+const headerClass = computed(() => `text-subtitle1 q-pb-${props.spacing}`)
 
 function getContext (context) {
   return {
@@ -65,10 +64,14 @@ function getContext (context) {
 }
 
 function next () {
+  if (props.disable) return
+
   stepper.value.next()
 }
 
 function previous () {
+  if (props.disable) return
+
   stepper.value.previous()
 }
 </script>
@@ -83,9 +86,8 @@ function previous () {
     }
 
     &__caption {
+      @include set-typography($caption);
       color: $grey-6;
-      font-weight: 400;
-      text-align: center;
     }
   }
 
