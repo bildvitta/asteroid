@@ -17,6 +17,7 @@ props:
 
   model-value:
     desc: Model do componente, responsável por controlar em qual step deverá ser exibido.
+    model: true
     type: [Number, String]
 
 events:
