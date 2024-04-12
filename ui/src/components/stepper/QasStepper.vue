@@ -11,7 +11,7 @@
 <script setup>
 import { computed, ref } from 'vue'
 import { Spacing } from '../../enums/Spacing'
-import { gutterValidator } from '../../composables/private/use-generator'
+import { gutterValidator } from '../../helpers/private/gutter-validator'
 import useScreen from '../../composables/use-screen'
 
 defineOptions({ name: 'QasStepper' })

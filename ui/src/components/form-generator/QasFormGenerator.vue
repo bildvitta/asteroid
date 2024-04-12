@@ -26,7 +26,8 @@
 </template>
 
 <script setup>
-import useGenerator, { baseProps, gutterValidator } from '../../composables/private/use-generator'
+import { gutterValidator } from '../../helpers/private/gutter-validator'
+import useGenerator, { baseProps } from '../../composables/private/use-generator'
 import { Spacing } from '../../enums/Spacing'
 import { computed } from 'vue'
 
