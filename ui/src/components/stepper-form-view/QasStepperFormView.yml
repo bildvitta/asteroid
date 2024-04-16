@@ -1,0 +1,10 @@
+type: component
+
+meta:
+  desc: Componente de stepper.
+
+props:
+  disable:
+    desc: Deixa o componente desabilitado.
+    default: false
+    type: Boolean

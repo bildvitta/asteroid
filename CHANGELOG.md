@@ -10,6 +10,16 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 ### Sobre os "BREAKING CHANGES"
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
+## [Não publicado]
+## BREAKING CHANGES
+- `QasStepper`: Removido possibilidade do model ser `String`, irá ser possível somente `Number`.
+
+### Removido
+- `QasStepper`: Removido possibilidade do model ser `String`, irá ser possível somente `Number`.
+
+### Adicionado
+- `QasStepperFormView`: Adicionado componente de gerador de steppers de formulário, utilizando o `QasSteppers`.
+
 ## [3.15.0-beta.10] - 12-04-2024
 ### Adicionado
 - `Spacing.js`: Adicionado espaçamentos `4xl e 5xl`.
