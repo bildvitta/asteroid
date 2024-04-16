@@ -1,10 +1,55 @@
 type: component
 
 meta:
-  desc: Componente de stepper.
+  desc: Componente para steppers de formulário.
 
 props:
-  disable:
-    desc: Deixa o componente desabilitado.
-    default: false
-    type: Boolean
+  steppers:
+    desc: Lista de step, cada item possuindo "stepProps" e "component".
+    required: true
+    type: Array
+
+  form-view-props:
+    desc: Propriedades que serão repassadas para os componentes, podendo repassar coisas que serão comúm entre as páginas, como "entity", "mode".
+    type: Object
+
+
+inject:
+  current-step:
+    desc: Step atual caso precise para alguma lógica.
+    type: Number
+
+  form-view-props:
+    desc: Propriedades do form-view que foram passadas para o QasStepperFormView.
+    type: Object
+
+  'goTo: (step) => void':
+    desc: Função usada para mudar o step atual.
+    params:
+      step:
+        desc: Nome do step que deseja visualizar.
+        type: Number
+
+  'next: (payload) => void':
+    desc: Avança para o próximo step.
+    params:
+      payload:
+        desc: Payload do formulário atual, que será mergeado no "stepperValues", com a intenção de guardar o payload completo para ser enviado no último step.
+        type: Object
+
+  'previous: () => void':
+    desc: Volta para o step anterior.
+
+  'setStepProps: () => void':
+    desc: Altera as propriedades de um step específico caso precise que seja alterado com base em alguma lógica atual da página.
+    params:
+      step:
+        desc: Step que deseja alterar as propriedades
+        type: Number
+
+      payload:
+        desc: Propriedades do step como "title", "prefix", "caption", entre outros.
+
+  steppers-values:
+    desc: Payload com todos valores que foram mergeados através da função "next" ao decorrer dos avanços dos steps. É usado para você recuperar no último step com intenção de enviar o payload completo de todos step para a API.
+    type: Object

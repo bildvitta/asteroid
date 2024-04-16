@@ -2,8 +2,8 @@
   <qas-stepper ref="stepper" v-model="model" :keep-alive-include="[1,2]">
     <template #default>
       <q-step
-        v-for="(step, stepIndex) in props.steppers" :key="stepIndex" :done="model > stepIndex + 1"
-        :name="stepIndex + 1" v-bind="stepPropsList[stepIndex]"
+        v-for="(step, stepIndex) in props.steppers" :key="stepIndex" :done="isDone(stepIndex)"
+        :name="stepName(stepIndex)" v-bind="stepPropsList[stepIndex]"
       >
         <component :is="step.component" />
       </q-step>
@@ -63,6 +63,14 @@ function nextStep ({ payload = {} }) {
   Object.assign(values.value, payload)
 
   next.value()
+}
+
+function isDone (stepIndex) {
+  return model.value > stepIndex + 1
+}
+
+function stepName (stepIndex) {
+  return stepIndex + 1
 }
 
 provide('stepper', {

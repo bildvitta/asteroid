@@ -4,10 +4,8 @@ title: QasStepperFormView
 
 Trocar depois
 
-<doc-api file="stepper/QasStepper" name="QasStepper" />
+<doc-api file="stepper-form-view/QasStepperFormView" name="QasStepperFormView" />
 
 ## Uso
 
-<doc-example file="QasStepper/Basic" title="Básico" />
-
-<doc-example file="QasStepper/StepperWithIcon" title="Com ícone" />
+<doc-example file="QasStepperFormView/Basic" title="Básico" />
