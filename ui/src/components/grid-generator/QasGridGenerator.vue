@@ -1,6 +1,9 @@
 <template>
   <div :class="classes">
-    <div v-for="(field, key) in fieldsByResult" :key="key" :class="getFieldClass({ index: key, isGridGenerator: true })">
+    <div
+      v-for="(field, key) in fieldsByResult" :key="key"
+      :class="getFieldClass({ index: key, isGridGenerator: true })"
+    >
       <slot :field="field" :name="`field-${field.name}`">
         <slot :field="field" name="header">
           <header :class="props.headerClass" :data-cy="`grid-generator-${field.name}-field`">
@@ -9,7 +12,7 @@
         </slot>
 
         <slot :field="field" name="content">
-          <div :class="props.contentClass" :data-cy="`grid-generator-${field.name}-result`">
+          <div :class="contentClass" :data-cy="`grid-generator-${field.name}-result`" :title="field.formattedResult">
             {{ field.formattedResult }}
           </div>
         </slot>
@@ -21,11 +24,14 @@
 <script setup>
 import useGenerator, { baseProps } from '../../composables/private/use-generator'
 import { isEmpty, humanize } from '../../helpers'
+import { useScreen } from '../../composables'
 import { isObject } from 'lodash-es'
 import { ref, computed, watch } from 'vue'
 
 // define component name
 defineOptions({ name: 'QasGridGenerator' })
+
+const screen = useScreen()
 
 // props
 const props = defineProps({
@@ -54,6 +60,11 @@ const props = defineProps({
   useEmptyResult: {
     default: true,
     type: Boolean
+  },
+
+  useEllipsis: {
+    default: true,
+    type: Boolean
   }
 })
 
@@ -63,6 +74,11 @@ const { classes, getFieldClass } = useGenerator({ props })
 // computed
 const hasResult = computed(() => Object.keys(props.result).length)
 const hasFields = computed(() => Object.keys(props.fields).length)
+
+const contentClass = computed(() => ({
+  ...props.contentClass,
+  ellipsis: !screen.isSmall && props.useEllipsis
+}))
 
 const fieldsByResult = ref({})
 
