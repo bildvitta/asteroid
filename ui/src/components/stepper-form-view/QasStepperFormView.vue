@@ -12,7 +12,7 @@
 </template>
 
 <script setup>
-import { defineModel, ref, provide, onMounted } from 'vue'
+import { defineModel, ref, provide, onMounted, computed } from 'vue'
 
 defineOptions({ name: 'QasStepperFormView' })
 
@@ -47,6 +47,14 @@ onMounted(() => {
   goTo.value = stepper.value.goTo
 })
 
+const formattedFormViewProps = computed(() => {
+  return {
+    useBoundary: false,
+    useNotifySuccess: false,
+    ...props.formViewProps
+  }
+})
+
 function setStepProps ({ step, payload }) {
   if (!step) {
     stepPropsList.value = payload
@@ -75,7 +83,7 @@ function stepName (stepIndex) {
 
 provide('stepper', {
   currentStep: model,
-  formViewProps: props.formViewProps,
+  formViewProps: formattedFormViewProps,
   goTo: step => goTo.value(step),
   next: nextStep,
   previous: () => previous.value(),
