@@ -20,7 +20,7 @@ inject:
     type: Number
 
   form-view-props:
-    desc: Propriedades do form-view que foram passadas para o QasStepperFormView.
+    desc: Propriedades do QasFormView que são comuns entre todos os steppers.
     type: Object
 
   'goTo: (step) => void':

@@ -6,6 +6,28 @@ Componente para lidar com formulário em steps.
 
 <doc-api file="stepper-form-view/QasStepperFormView" name="QasStepperFormView" />
 
+::: danger
+O componente internamente utiliza `defineModel`(https://vuejs.org/api/sfc-script-setup.html#definemodel), recurso disponível
+somente para versões `3.4+` do Vue.
+:::
+
+:::info
+Existem alguns padrões de API que é recomendado utilizar.
+Os endpoints devem seguir o padrão `:entity/step/:stepActive/new`, onde o `stepActive` é o valor do step atual.
+
+Exemplos:
+
+Estou na página 1 de criação de usuário, considerando que a entidade é `users` -> `users/step/one/new`.
+Estou na página 2 de criação de usuário, considerando que a entidade é `users` -> `users/step/two/new`.
+Estou na página 1 de edição de usuário, considerando que a entidade é `users` -> `users/:id/step/one/edit`.
+Estou na página 2 de edição de usuário, considerando que a entidade é `users` -> `users/:id/step/two/edit`.
+
+Outro ponto também, é que nos endpoints de POST das páginas, deverá ser sempre usado somente para validar os campos,
+sendo o último step sendo encarregado de enviar o payload mergeando todos payloads de todas páginas, para isso existe 
+a combinação da função `next` e o `stepper.stepsValues.value` para recuperar o payload dos outros step estando no
+último step(para mais detalhes, há um exemplo usado na documentação abaixo).
+:::
+
 ## Uso
 
 <doc-example file="QasStepperFormView/Basic" title="Básico" />
@@ -15,7 +37,7 @@ Siga os exemplos de como utilizar as funções fornecidas pelo componente atrav�
 Os componentes de página estão todos comentados.
 :::
 
-Página 1:
+Página 1 usada no exemplo ácima:
 ```js
 <template>
   <qas-form-view v-model="values" v-model:fields="fields" :cancel-route="false" v-bind="formViewProps" @submit-success="onSubmitSuccess">
@@ -50,7 +72,7 @@ function onSubmitSuccess (payload) {
 </script>
 ```
 
-Página 2:
+Página 2 usada no exemplo ácima:
 ```js
 <template>
   <qas-form-view v-model="values" v-model:fields="fields" :cancel-route="cancelRoute" v-bind="formViewProps" :before-submit="beforeSubmit">

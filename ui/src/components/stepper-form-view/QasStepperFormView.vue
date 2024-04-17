@@ -25,7 +25,7 @@ const props = defineProps({
   }
 })
 
-const model = defineModel({ type: [String, Number] })
+const model = defineModel({ type: [Number], default: 1 })
 
 const values = ref({})
 
