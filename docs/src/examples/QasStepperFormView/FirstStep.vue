@@ -20,7 +20,6 @@ const values = ref({})
 const stepper = inject('stepper')
 
 const formattedFields = computed(() => {
-  console.log(fields.value)
   if (!Object.keys(fields.value).length) return {}
 
   const { company, name } = fields.value
