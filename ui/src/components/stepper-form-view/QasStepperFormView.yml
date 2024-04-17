@@ -4,7 +4,7 @@ meta:
   desc: Componente para steppers de formulário.
 
 props:
-  steppers:
+  steps:
     desc: Lista de step, cada item possuindo "stepProps" e "component".
     required: true
     type: Array
@@ -50,6 +50,6 @@ inject:
       payload:
         desc: Propriedades do step como "title", "prefix", "caption", entre outros.
 
-  steppers-values:
+  steps-values:
     desc: Payload com todos valores que foram mergeados através da função "next" ao decorrer dos avanços dos steps. É usado para você recuperar no último step com intenção de enviar o payload completo de todos step para a API.
     type: Object

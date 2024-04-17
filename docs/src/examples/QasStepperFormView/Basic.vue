@@ -1,6 +1,6 @@
 <template>
   <div class="container spaced">
-    <qas-stepper-form-view v-model="model" :form-view-props="formViewProps" :steppers="steppers" />
+    <qas-stepper-form-view v-model="model" :form-view-props="formViewProps" :steps="steps" />
   </div>
 </template>
 
@@ -18,7 +18,7 @@ const formViewProps = {
   mode: 'create'
 }
 
-const steppers = computed(() => {
+const steps = computed(() => {
   return [
     {
       stepProps: {
