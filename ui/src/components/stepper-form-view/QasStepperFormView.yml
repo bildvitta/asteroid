@@ -15,8 +15,8 @@ props:
 
 
 inject:
-  current-step:
-    desc: Step atual caso precise para alguma lógica.
+  stepper-model:
+    desc: Model do stepper caso precise recuperar o step atual para alguma lógica. Possui reatividade, portanto para acessar é necessário do ".value"
     type: Number
 
   form-view-props:
@@ -51,5 +51,5 @@ inject:
         desc: Propriedades do step como "title", "prefix", "caption", entre outros.
 
   steps-values:
-    desc: Payload com todos valores que foram mergeados através da função "next" ao decorrer dos avanços dos steps. É usado para você recuperar no último step com intenção de enviar o payload completo de todos step para a API.
+    desc: Payload com todos valores que foram mergeados através da função "next" ao decorrer dos avanços dos steps. É usado para você recuperar no último step com intenção de enviar o payload completo de todos step para a API. Possui reatividade, portanto para acessar é necessário do ".value"
     type: Object

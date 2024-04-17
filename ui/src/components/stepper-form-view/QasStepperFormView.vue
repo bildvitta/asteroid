@@ -1,5 +1,5 @@
 <template>
-  <qas-stepper ref="stepper" v-model="model" :keep-alive-include="stepsList">
+  <qas-stepper ref="stepper" v-model="model" v-bind="stepperProps">
     <template #default>
       <q-step v-for="(step, stepIndex) in props.steps" :key="stepIndex" :done="isDone(stepIndex)" :name="getStepName(stepIndex)" v-bind="stepPropsList[stepIndex]">
         <component :is="step.component" />
@@ -22,28 +22,29 @@ const props = defineProps({
   formViewProps: {
     type: Object,
     default: () => ({})
+  },
+
+  stepperProps: {
+    type: Object,
+    default: () => ({})
   }
 })
 
-const model = defineModel({ type: [Number], default: 1 })
+const model = defineModel({ type: Number, default: 1 })
 
 const values = ref({})
-
 const stepPropsList = ref([])
-
 const stepper = ref(null)
 
-setStepProps({ payload: [...props.steps.map(step => step.stepProps)] })
+setStepProps({ payload: [...props.steps.map(({ stepProps }) => stepProps)] })
 
-const formattedFormViewProps = computed(() => {
+const defaultFormViewProps = computed(() => {
   return {
     useBoundary: false,
     useNotifySuccess: false,
     ...props.formViewProps
   }
 })
-
-const stepsList = computed(() => props.steps.map((_, stepIndex) => stepIndex + 1))
 
 function setStepProps ({ step, payload }) {
   if (step) {
@@ -72,8 +73,8 @@ function getStepName (stepIndex) {
 }
 
 provide('stepper', {
-  currentStep: model,
-  formViewProps: formattedFormViewProps,
+  stepperModel: model,
+  formViewProps: defaultFormViewProps,
   goTo: step => stepper.value.goTo(step),
   next: nextStep,
   previous: () => stepper.value.previous(),

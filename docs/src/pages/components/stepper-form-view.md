@@ -2,7 +2,7 @@
 title: QasStepperFormView
 ---
 
-Componente para lidar com formulário em steps.
+Componente para lidar com formulário em steps de formulário.
 
 <doc-api file="stepper-form-view/QasStepperFormView" name="QasStepperFormView" />
 
@@ -22,10 +22,10 @@ Estou na página 2 de criação de usuário, considerando que a entidade é `use
 Estou na página 1 de edição de usuário, considerando que a entidade é `users` -> `users/:id/step/one/edit`.
 Estou na página 2 de edição de usuário, considerando que a entidade é `users` -> `users/:id/step/two/edit`.
 
-Outro ponto também, é que nos endpoints de POST das páginas, deverá ser sempre usado somente para validar os campos,
-sendo o último step sendo encarregado de enviar o payload mergeando todos payloads de todas páginas, para isso existe 
+Outro ponto também, é que nos endpoints de POST/PUT/PATCH das páginas, deverá ser sempre usado somente para validar os campos,
+sendo o último step o encarregado de enviar o payload mergeando todos payloads de todas páginas, para isso existe 
 a combinação da função `next` e o `stepper.stepsValues.value` para recuperar o payload dos outros step estando no
-último step(para mais detalhes, há um exemplo usado na documentação abaixo).
+último step (para mais detalhes, há um exemplo usado na documentação abaixo).
 :::
 
 ## Uso
