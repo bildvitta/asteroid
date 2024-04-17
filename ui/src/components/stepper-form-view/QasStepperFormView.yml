@@ -13,6 +13,9 @@ props:
     desc: Propriedades que serão repassadas para os componentes, podendo repassar coisas que serão comúm entre as páginas, como "entity", "mode".
     type: Object
 
+  stepper-props:
+    desc: Propriedades que serão repassadas para o QasStepper.
+    type: Object
 
 inject:
   stepper-model:
@@ -20,7 +23,7 @@ inject:
     type: Number
 
   form-view-props:
-    desc: Propriedades do QasFormView que são comuns entre todos os steppers.
+    desc: Propriedades do QasFormView que são comuns entre todos os steppers. Possui reatividade, portanto para acessar é necessário do ".value"
     type: Object
 
   'goTo: (step) => void':
