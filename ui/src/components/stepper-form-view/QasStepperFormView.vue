@@ -9,7 +9,7 @@
 </template>
 
 <script setup>
-import { defineModel, ref, provide, computed } from 'vue'
+import { ref, provide, computed } from 'vue'
 
 defineOptions({ name: 'QasStepperFormView' })
 
