@@ -9,3 +9,4 @@ Componente para criação de textos dinâmicos.
 ## Uso
 <doc-example file="QasGridGenerator/Basic" title="Básico" />
 <doc-example file="QasGridGenerator/Slots" title="Slots" />
+<doc-example file="QasGridGenerator/UseInline" title="Inline" />

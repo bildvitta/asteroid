@@ -48,6 +48,15 @@ props:
     default: true
     type: Boolean
 
+  use-ellipsis:
+    desc: Adiciona a classe "ellipsis" para o elemento do conteúdo.
+    default: true
+    type: Boolean
+
+  use-inline:
+    desc: Adiciona a disposição dos campos por linha, ou seja, header e content ocupando a linha toda.
+    type: Boolean
+
 slots:
   content:
     desc: Slot para o conteúdo (content).

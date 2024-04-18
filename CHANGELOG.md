@@ -10,6 +10,14 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 ### Sobre os "BREAKING CHANGES"
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
+## Não publicado
+### Adicionado
+- `QasGridGenerator`: Adicionado prop `useEllipsis` que por default é `true`, que irá adicionar a classe `ellipsis` em seu conteúdo.
+- `QasGridGenerator`: Adicionado prop `useInline` para mudar a disposição dos campos para ser por linha, ou seja, header e content ocupando a linha toda.
+
+### Corrigido
+- `QasGridGenerator`: Corrigido ao passar `col` na prop columns(`{ lg: 'col' }`).
+
 ## [3.15.0-beta.10] - 12-04-2024
 ### Adicionado
 - `Spacing.js`: Adicionado espaçamentos `4xl e 5xl`.

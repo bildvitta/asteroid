@@ -86,7 +86,11 @@ export default function ({ props = {} }) {
     for (const key in formattedColumns) {
       const value = formattedColumns[key]
 
-      classes.push(IRREGULAR_CLASSES.includes(value) ? value : `${profiles[key]}-${value}`)
+      if (IRREGULAR_CLASSES.includes(value)) {
+        classes.push(value === 'col' ? profiles[key] : value)
+      } else {
+        classes.push(`${profiles[key]}-${value}`)
+      }
     }
 
     return [...classes, renamedClasses]

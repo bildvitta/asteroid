@@ -1,9 +1,6 @@
 <template>
   <div :class="classes">
-    <div
-      v-for="(field, key) in fieldsByResult" :key="key"
-      :class="getFieldClass({ index: key, isGridGenerator: true })"
-    >
+    <div v-for="(field, key) in fieldsByResult" :key="key" :class="getContainerClass({ key })">
       <slot :field="field" :name="`field-${field.name}`">
         <slot :field="field" name="header">
           <header :class="props.headerClass" :data-cy="`grid-generator-${field.name}-field`">
@@ -64,6 +61,10 @@ const props = defineProps({
 
   useEllipsis: {
     default: true,
+    type: Boolean
+  },
+
+  useInline: {
     type: Boolean
   }
 })
@@ -132,10 +133,20 @@ function getFieldsByResult () {
     }
   }
 
+  console.log(fieldsByResult, '<-- fieldsByResult')
+
   return fieldsByResult
 }
 
 function setFieldsByResult () {
   fieldsByResult.value = getFieldsByResult()
+}
+
+function getContainerClass ({ key }) {
+  if (props.useInline) {
+    return 'row justify-between col-12'
+  }
+
+  return getFieldClass({ index: key, isGridGenerator: true })
 }
 </script>
