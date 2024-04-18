@@ -8,7 +8,7 @@ props:
     desc: Colunas do grid de cada campo.
     default: col-6
     type: [Array, String, Object]
-    examples: ["[{ sm: 6, md: 12 }]", "{ name: { sm: 6, md: 12 } }", "12"]
+    examples: ["[{ sm: 6, md: 12 }]", "{ name: { sm: 6, md: 12 } }", "12", "{ sm: 6, md: 12 }"]
 
   disable:
     desc: Deixa os campos desabilitados enviando a prop "disable" para cada campo.
@@ -62,6 +62,9 @@ props:
     desc: Altera ordem dos campos.
     default: []
     type: Array
+
+  use-common-columns:
+    desc: Utilizado quando passar a estrutura da prop "columns" sendo um objeto onde seus breakpoints serão replicados para todos fields.
 
 slots:
   'field-[nome-da-chave]':

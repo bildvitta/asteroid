@@ -8,7 +8,7 @@ props:
     desc: Colunas do grid de cada campo.
     default: col-6
     type: [Array, String, Object]
-    examples: ["{ name: { sm: 6, md: 12 } }", "[{ sm: 6, md: 12 }]"]
+    examples: ["{ name: { sm: 6, md: 12 } }", "[{ sm: 6, md: 12 }]", "{ sm: 6, md: 12 }"]
 
   content-class:
     desc: Classe de cada "div" pai referente ao resultado.
@@ -56,6 +56,9 @@ props:
   use-inline:
     desc: Adiciona a disposição dos campos por linha, ou seja, header e content ocupando a linha toda.
     type: Boolean
+
+  use-common-columns:
+    desc: Utilizado quando passar a estrutura da prop "columns" sendo um objeto onde seus breakpoints serão replicados para todos fields.
 
 slots:
   content:
