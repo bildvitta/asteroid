@@ -19,7 +19,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - `QasGridGenerator`: Corrigido ao passar `col` na prop columns(`{ lg: 'col' }`).
 
 ### Modificado
-- `QasFormGenerator`: Alterado valor do margin-bottom da label do field-set. Quando possuir descrição será `sm`, caso contrário `md`.
+- `QasFormGenerator`: Alterado valor do margin-bottom da label do fieldset. Quando possuir descrição será `sm`, caso contrário `md`.
 
 ## [3.15.0-beta.10] - 12-04-2024
 ### Adicionado
