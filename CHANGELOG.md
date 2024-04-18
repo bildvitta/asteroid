@@ -20,8 +20,12 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 ### Corrigido
 - `QasGridGenerator`: Corrigido comportamento da propriedade `columns` quando passado com valores `col`, exemplo `{ lg: 'col' }`.
 
-### Modificado
-- `QasFormGenerator`: Alterado valor do margin-bottom da label do fieldset. Quando possuir descrição será `sm`, caso contrário `md`.
+## [3.15.0-beta.11] - 18-04-2024
+### Adicionado
+- `QasStepperFormView`: Adicionado componente de gerador de steppers de formulário, utilizando o `QasSteppers`.
+
+### Corrigido
+- Adicionado um `max-width` no `QasCard` para ajustar o overflow do seu conteúdo.
 
 ## [3.15.0-beta.10] - 12-04-2024
 ### Adicionado
@@ -2775,3 +2779,4 @@ Adicionado suporte para Pinia/Vuex Seguindo os padrões da biblioteca `@bildvitt
 [3.15.0-beta.8]: https://github.com/bildvitta/asteroid/compare/v3.15.0-beta.7...v3.15.0-beta.8?expand=1
 [3.15.0-beta.9]: https://github.com/bildvitta/asteroid/compare/v3.15.0-beta.8...v3.15.0-beta.9?expand=1
 [3.15.0-beta.10]: https://github.com/bildvitta/asteroid/compare/v3.15.0-beta.9...v3.15.0-beta.10?expand=1
+[3.15.0-beta.11]: https://github.com/bildvitta/asteroid/compare/v3.15.0-beta.10...v3.15.0-beta.11?expand=1

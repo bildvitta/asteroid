@@ -11,7 +11,7 @@
         <qas-actions-menu v-if="hasActions" :list="actionsMenuProps" :use-label="false" />
       </div>
 
-      <div class="q-my-sm">
+      <div class="q-my-sm qas-card__content">
         <slot name="default" />
       </div>
 
@@ -97,6 +97,10 @@ const hasFooter = computed(() => hasFooterSlot.value || hasExpansion.value)
 
 <style lang="scss">
 .qas-card {
+  &__content {
+    max-width: 100%;
+  }
+
   &__router {
     &:hover {
       color: $primary;
