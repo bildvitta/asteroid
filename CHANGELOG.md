@@ -10,9 +10,13 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 ### Sobre os "BREAKING CHANGES"
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
+## [Não publicado]
 ## Não publicado
 ### Adicionado
 - `QasStepperFormView`: Adicionado componente de gerador de steppers de formulário, utilizando o `QasSteppers`.
+
+### Corrigido
+- Adicionado um `max-width` no `QasCard` para ajustar o overflow do seu conteúdo.
 
 ## [3.15.0-beta.10] - 12-04-2024
 ### Adicionado
