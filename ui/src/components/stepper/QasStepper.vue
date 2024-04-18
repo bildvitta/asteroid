@@ -22,7 +22,7 @@ const props = defineProps({
   },
 
   modelValue: {
-    type: [Number, String],
+    type: [String, Number],
     default: 0
   },
 
@@ -39,7 +39,7 @@ const screen = useScreen()
 
 const emit = defineEmits(['update:modelValue'])
 
-defineExpose({ next, previous })
+defineExpose({ next, previous, goTo })
 
 const model = computed({
   get () {
@@ -61,6 +61,10 @@ function getContext (context) {
     next,
     previous
   }
+}
+
+function goTo (step) {
+  stepper.value.goTo(step)
 }
 
 function next () {
