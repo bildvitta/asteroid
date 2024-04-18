@@ -7,44 +7,16 @@
   </qas-single-view>
 </template>
 
-<script>
-export default {
-  name: 'UsersList',
+<script setup>
+import { ref } from 'vue'
 
-  data () {
-    return {
-      fields: {},
-      errors: {},
-      result: [],
-      metadata: {}
-    }
-  },
+defineOptions({ name: 'UsersList' })
 
-  computed: {
-    entity () {
-      return 'users'
-    },
+const fields = ref({})
+const result = ref({})
 
-    breadcrumbs () {
-      return [
-        {
-          label: 'Início',
-          route: { path: '/' }
-        },
-        {
-          label: 'Algum caminho',
-          route: { path: '/' }
-        },
-        {
-          label: 'Users'
-        }
-      ]
-    },
+const entity = 'users'
 
-    // USAR SOMENTE SE NECESSÁRIO, AQUI PEGAMOS O ID DO USUÁRIO NO NOSSO MOCK DE DADOS
-    customId () {
-      return '3102fad5-f14c-45d4-98e9-46ef0aa9580e'
-    }
-  }
-}
+// USAR SOMENTE SE NECESSÁRIO, AQUI PEGAMOS O ID DO USUÁRIO NO NOSSO MOCK DE DADOS
+const customId = '3102fad5-f14c-45d4-98e9-46ef0aa9580e'
 </script>

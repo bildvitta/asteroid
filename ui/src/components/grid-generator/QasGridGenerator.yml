@@ -58,7 +58,7 @@ props:
     type: Boolean
 
   use-common-columns:
-    desc: Utilizado quando passar a estrutura da prop "columns" sendo um objeto onde seus breakpoints serão replicados para todos fields.
+    desc: Usado quando precisa passar a prop "columns" como objeto sendo que será o valor comum para todos fields
 
 slots:
   content:

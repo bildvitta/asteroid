@@ -12,12 +12,13 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 
 ## Não publicado
 ### Adicionado
-- `QasGridGenerator`: Adicionado prop `useEllipsis` que por default é `true`, que irá adicionar a classe `ellipsis` em seu conteúdo.
-- `QasGridGenerator`: Adicionado prop `useInline` para mudar a disposição dos campos para ser por linha, ou seja, header e content ocupando a linha toda.
+- `QasGridGenerator`:
+  - Adicionado prop `useEllipsis` que por default é `true`, que irá adicionar a classe `ellipsis` em cada item do grid.
+  - Adicionado prop `useInline` para mudar a disposição dos campos para ser por linha, ou seja, header e content ocupando a linha toda.
 - [`QasFormGenerator`, `QasGridGenerator`]: Adicionado prop `useCommonColumns` onde será possível passar um único objeto com seus breakpoints e será replicado para todos fields.
 
 ### Corrigido
-- `QasGridGenerator`: Corrigido ao passar `col` na prop columns(`{ lg: 'col' }`).
+- `QasGridGenerator`: Corrigido comportamento da propriedade `columns` quando passado com valores `col`, exemplo `{ lg: 'col' }`.
 
 ### Modificado
 - `QasFormGenerator`: Alterado valor do margin-bottom da label do fieldset. Quando possuir descrição será `sm`, caso contrário `md`.
