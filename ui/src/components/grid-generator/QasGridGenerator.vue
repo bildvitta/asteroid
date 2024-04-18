@@ -133,8 +133,6 @@ function getFieldsByResult () {
     }
   }
 
-  console.log(fieldsByResult, '<-- fieldsByResult')
-
   return fieldsByResult
 }
 
