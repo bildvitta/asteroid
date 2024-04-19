@@ -8,7 +8,7 @@ props:
     desc: Colunas do grid de cada campo.
     default: col-6
     type: [Array, String, Object]
-    examples: ["{ name: { sm: 6, md: 12 } }", "[{ sm: 6, md: 12 }]"]
+    examples: ["{ name: { sm: 6, md: 12 } }", "[{ sm: 6, md: 12 }]", "{ sm: 6, md: 12 }"]
 
   content-class:
     desc: Classe de cada "div" pai referente ao resultado.
@@ -47,6 +47,18 @@ props:
     desc: Se o resultado de algum campo for vazio e esta propriedade for "false", ele remove todo o campo.
     default: true
     type: Boolean
+
+  use-ellipsis:
+    desc: Adiciona a classe "ellipsis" para o elemento do conteúdo.
+    default: true
+    type: Boolean
+
+  use-inline:
+    desc: Adiciona a disposição dos campos por linha, ou seja, header e content ocupando a linha toda.
+    type: Boolean
+
+  use-common-columns:
+    desc: Usado quando precisa passar a prop "columns" como objeto sendo que será o valor comum para todos fields
 
 slots:
   content:

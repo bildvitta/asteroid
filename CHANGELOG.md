@@ -10,7 +10,17 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 ### Sobre os "BREAKING CHANGES"
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
-## [Não publicado]
+## Não publicado
+### Adicionado
+- `QasGridGenerator`:
+  - Adicionado prop `useEllipsis` que por default é `true`, que irá adicionar a classe `ellipsis` em cada item do grid.
+  - Adicionado prop `useInline` para mudar a disposição dos campos para ser por linha, ou seja, header e content ocupando a linha toda.
+  - Adicionado title ao header e content ao utilizar a prop `useEllipsis`.
+- [`QasFormGenerator`, `QasGridGenerator`]: Adicionado prop `useCommonColumns` onde será possível passar um único objeto com seus breakpoints e será replicado para todos fields.
+
+### Corrigido
+- `QasGridGenerator`: Corrigido comportamento da propriedade `columns` quando passado com valores `col`, exemplo `{ lg: 'col' }`.
+
 ## [3.15.0-beta.11] - 18-04-2024
 ### Adicionado
 - `QasStepperFormView`: Adicionado componente de gerador de steppers de formulário, utilizando o `QasSteppers`.
