@@ -10,7 +10,17 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 ### Sobre os "BREAKING CHANGES"
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
-## [Não publicado]
+## [3.15.0-beta.12] - 19-04-2024
+### Adicionado
+- `QasGridGenerator`:
+  - Adicionado prop `useEllipsis` que por default é `true`, que irá adicionar a classe `ellipsis` em cada item do grid.
+  - Adicionado prop `useInline` para mudar a disposição dos campos para ser por linha, ou seja, header e content ocupando a linha toda.
+  - Adicionado title ao header e content ao utilizar a prop `useEllipsis`.
+- [`QasFormGenerator`, `QasGridGenerator`]: Adicionado prop `useCommonColumns` onde será possível passar um único objeto com seus breakpoints e será replicado para todos fields.
+
+### Corrigido
+- `QasGridGenerator`: Corrigido comportamento da propriedade `columns` quando passado com valores `col`, exemplo `{ lg: 'col' }`.
+
 ## [3.15.0-beta.11] - 18-04-2024
 ### Adicionado
 - `QasStepperFormView`: Adicionado componente de gerador de steppers de formulário, utilizando o `QasSteppers`.
@@ -2771,3 +2781,4 @@ Adicionado suporte para Pinia/Vuex Seguindo os padrões da biblioteca `@bildvitt
 [3.15.0-beta.9]: https://github.com/bildvitta/asteroid/compare/v3.15.0-beta.8...v3.15.0-beta.9?expand=1
 [3.15.0-beta.10]: https://github.com/bildvitta/asteroid/compare/v3.15.0-beta.9...v3.15.0-beta.10?expand=1
 [3.15.0-beta.11]: https://github.com/bildvitta/asteroid/compare/v3.15.0-beta.10...v3.15.0-beta.11?expand=1
+[3.15.0-beta.12]: https://github.com/bildvitta/asteroid/compare/v3.15.0-beta.11...v3.15.0-beta.12?expand=1

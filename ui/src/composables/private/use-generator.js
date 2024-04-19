@@ -19,6 +19,10 @@ export const baseProps = {
     default: Spacing.Lg,
     type: [String, Boolean],
     validator: gutterValidator
+  },
+
+  useCommonColumns: {
+    type: Boolean
   }
 }
 
@@ -86,7 +90,11 @@ export default function ({ props = {} }) {
     for (const key in formattedColumns) {
       const value = formattedColumns[key]
 
-      classes.push(IRREGULAR_CLASSES.includes(value) ? value : `${profiles[key]}-${value}`)
+      if (IRREGULAR_CLASSES.includes(value)) {
+        classes.push(value === 'col' ? profiles[key] : value)
+      } else {
+        classes.push(`${profiles[key]}-${value}`)
+      }
     }
 
     return [...classes, renamedClasses]
@@ -103,10 +111,23 @@ export default function ({ props = {} }) {
    * @private
   */
   function _handleColumnsByField ({ index, isGridGenerator }) {
+    /*
+     * Quando é passado o columns como um único objeto que será replicado para todos fields.
+     */
+    if (props.useCommonColumns && Object.keys(props.columns).length) {
+      return _getBreakpoint(props.columns)
+    }
+
+    /*
+     * Quando não é passado columns, retornará o default.
+     */
     if (!props.columns[index]) {
       return _getDefaultColumnClass(isGridGenerator)
     }
 
+    /*
+     * Quando é passado um objeto por field.
+     */
     return _getBreakpoint(props.columns[index])
   }
 
