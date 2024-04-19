@@ -23,7 +23,7 @@ import QasDialog from './components/dialog/QasDialog.vue'
 import QasDialogRouter from './components/dialog-router/QasDialogRouter.vue'
 import QasDrawer from './components/drawer/QasDrawer.vue'
 import QasEmptyResultText from './components/empty-result-text/QasEmptyResultText.vue'
-import QasExpansionCard from './components/expansion-card/QasExpansionCard.vue'
+import QasExpansionItem from './components/expansion-item/QasExpansionItem.vue'
 import QasField from './components/field/QasField.vue'
 import QasFilters from './components/filters/QasFilters.vue'
 import QasFormGenerator from './components/form-generator/QasFormGenerator.vue'
@@ -116,7 +116,7 @@ async function install (app) {
   app.component('QasDialogRouter', QasDialogRouter)
   app.component('QasDrawer', QasDrawer)
   app.component('QasEmptyResultText', QasEmptyResultText)
-  app.component('QasExpansionCard', QasExpansionCard)
+  app.component('QasExpansionItem', QasExpansionItem)
   app.component('QasField', QasField)
   app.component('QasFilters', QasFilters)
   app.component('QasFormGenerator', QasFormGenerator)
@@ -210,7 +210,7 @@ export {
   QasDialogRouter,
   QasDrawer,
   QasEmptyResultText,
-  QasExpansionCard,
+  QasExpansionItem,
   QasField,
   QasFilters,
   QasFormGenerator,
