@@ -3,7 +3,7 @@
     <div v-for="(field, key) in fieldsByResult" :key="key" :class="getContainerClass({ key })">
       <slot :field="field" :name="`field-${field.name}`">
         <slot :field="field" name="header">
-          <header :class="props.headerClass" :data-cy="`grid-generator-${field.name}-field`">
+          <header :class="headerClass" :data-cy="`grid-generator-${field.name}-field`" :title="field.label">
             {{ field.label }}
           </header>
         </slot>
@@ -76,10 +76,39 @@ const { classes, getFieldClass } = useGenerator({ props })
 const hasResult = computed(() => Object.keys(props.result).length)
 const hasFields = computed(() => Object.keys(props.fields).length)
 
-const contentClass = computed(() => ({
-  ...props.contentClass,
-  ellipsis: !screen.isSmall && props.useEllipsis
-}))
+const contentClass = computed(() => {
+  if (!props.useEllipsis || (screen.isSmall && props.useEllipsis)) return props.contentClass
+
+  if (Array.isArray(props.contentClass)) {
+    return [...props.contentClass, 'ellipsis']
+  }
+
+  if (typeof props.contentClass === 'string') {
+    return `${props.contentClass} ellipsis`
+  }
+
+  return {
+    ...props.contentClass,
+    ellipsis: true
+  }
+})
+
+const headerClass = computed(() => {
+  if (!props.useEllipsis || (screen.isSmall && props.useEllipsis)) return props.headerClass
+
+  if (Array.isArray(props.headerClass)) {
+    return [...props.headerClass, 'ellipsis']
+  }
+
+  if (typeof props.headerClass === 'string') {
+    return `${props.headerClass} ellipsis`
+  }
+
+  return {
+    ...props.headerClass,
+    ellipsis: true
+  }
+})
 
 const fieldsByResult = ref({})
 
