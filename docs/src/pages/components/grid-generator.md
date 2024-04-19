@@ -14,6 +14,10 @@ Caso os breakpoints dos campos sejam todos iguais, exemplo:
 é necessário utilizar a prop `use-common-columns` para que isso funcione.
 :::
 
+:::info
+Ao utilizar a prop `useInline`, o gutter passa a ter o valor `md`.
+:::
+
 ## Uso
 <doc-example file="QasGridGenerator/Basic" title="Básico" />
 <doc-example file="QasGridGenerator/Slots" title="Slots" />

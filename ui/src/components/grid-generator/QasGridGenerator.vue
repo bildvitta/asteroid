@@ -3,13 +3,13 @@
     <div v-for="(field, key) in fieldsByResult" :key="key" :class="getContainerClass({ key })">
       <slot :field="field" :name="`field-${field.name}`">
         <slot :field="field" name="header">
-          <header :class="headerClass" :data-cy="`grid-generator-${field.name}-field`" :title="field.label">
+          <header :class="headerClass" :data-cy="`grid-generator-${field.name}-field`" :title="getTitle(field, 'label')">
             {{ field.label }}
           </header>
         </slot>
 
         <slot :field="field" name="content">
-          <div :class="contentClass" :data-cy="`grid-generator-${field.name}-result`" :title="field.formattedResult">
+          <div :class="contentClass" :data-cy="`grid-generator-${field.name}-result`" :title="getTitle(field, 'formattedResult')">
             {{ field.formattedResult }}
           </div>
         </slot>
@@ -181,5 +181,9 @@ function getContainerClass ({ key }) {
   }
 
   return getFieldClass({ index: key, isGridGenerator: true })
+}
+
+function getTitle (field, key) {
+  return props.useEllipsis ? field[key] : ''
 }
 </script>
