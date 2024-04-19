@@ -1,0 +1,9 @@
+type: component
+
+meta:
+  desc: Componente de card expansivo, wrapper do QExpansionItem(https://quasar.dev/vue-components/expansion-item)
+
+props:
+  error:
+    desc: Array ou String contendo a mensagem de erro.
+    type: [Array, String]
