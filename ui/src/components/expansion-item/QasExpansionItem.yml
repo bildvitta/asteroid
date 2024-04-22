@@ -23,3 +23,13 @@ props:
   grid-generator-props:
     desc: Propriedades que serão repassadas para o QasGridGenerator.
     type: Object
+
+slots:
+  header:
+    desc: 'Slot para substituir o conteúdo do header'
+
+  label:
+    desc: 'Slot para substituir o conteúdo da label do header.'
+
+  content:
+    desc: 'Slot para substituir o conteúdo principal do card.'

@@ -6,9 +6,11 @@
           <slot name="header">
             <div class="full-width">
               <div class="items-center q-col-gutter-sm row">
-                <h5 class="col-auto text-h5 text-weight-medium">
-                  {{ props.label }}
-                </h5>
+                <slot name="label">
+                  <h5 class="col-auto text-h5 text-weight-medium">
+                    {{ props.label }}
+                  </h5>
+                </slot>
 
                 <div class="col-auto items-center q-col-gutter-sm row">
                   <div v-for="(badge, badgeIndex) in props.badges" :key="badgeIndex" class="col-auto">
@@ -69,7 +71,7 @@ const hasError = computed(() => props.error || !!props.errorMessage)
 
 const errorClasses = computed(() => ({ 'qas-expansion-item--error': hasError.value }))
 
-const hasGridGenerator = computed(() => Object.keys(props.gridGeneratorProps).length)
+const hasGridGenerator = computed(() => !!Object.keys(props.gridGeneratorProps).length)
 </script>
 
 <style lang="scss">

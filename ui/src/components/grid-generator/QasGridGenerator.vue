@@ -20,7 +20,7 @@
 
 <script setup>
 import useGenerator, { baseProps } from '../../composables/private/use-generator'
-import { isEmpty, humanize, filterListByHandle } from '../../helpers'
+import { isEmpty, humanize } from '../../helpers'
 import { useScreen } from '../../composables'
 import { isObject } from 'lodash-es'
 import { ref, computed, watch } from 'vue'
@@ -77,56 +77,24 @@ const hasResult = computed(() => Object.keys(props.result).length)
 const hasFields = computed(() => Object.keys(props.fields).length)
 
 const contentClass = computed(() => {
-  if (!props.useEllipsis || (screen.isSmall && props.useEllipsis)) return props.contentClass
+  return [
+    props.contentClass,
 
-  if (Array.isArray(props.contentClass)) {
-    return [...props.contentClass, 'ellipsis']
-  }
-
-  if (typeof props.contentClass === 'string') {
-    return `${props.contentClass} ellipsis`
-  }
-
-  return {
-    ...props.contentClass,
-    ellipsis: true
-  }
-})
-
-const defaultsHeaderClass = computed(() => {
-  return filterListByHandle([
     {
-      handle: !screen.isSmall && props.useEllipsis,
-      item: 'ellipsis'
-    },
-    {
-      handle: screen.isSmall || !props.useInline,
-      item: 'text-bold'
+      ellipsis: !screen.isSmall && props.useEllipsis
     }
-  ])
+  ]
 })
 
 const headerClass = computed(() => {
-  if (Array.isArray(props.headerClass)) {
-    return [...props.headerClass, ...defaultsHeaderClass.value]
-  }
+  return [
+    props.headerClass,
 
-  if (typeof props.headerClass === 'string') {
-    const normalizedDefaultsClasses = defaultsHeaderClass.value.join(' ')
-
-    return `${props.headerClass} ${normalizedDefaultsClasses}`
-  }
-
-  const normalizedDefaultsClasses = {}
-
-  defaultsHeaderClass.value.forEach(classValue => {
-    normalizedDefaultsClasses[classValue] = true
-  })
-
-  return {
-    ...props.headerClass,
-    ...normalizedDefaultsClasses
-  }
+    {
+      ellipsis: !screen.isSmall && props.useEllipsis,
+      'text-bold': screen.isSmall || !props.useInline
+    }
+  ]
 })
 
 const classes = computed(() => {
