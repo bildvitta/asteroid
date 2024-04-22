@@ -15,7 +15,6 @@ export default function useOptionsActions ({ props, color }) {
       options: {
         color,
         iconRight: 'sym_r_more_vert',
-        useLabelOnSmallScreen: false,
         ...props.buttonProps,
         label: getLabel({ useLabel: props.useLabel, label: 'Opções' }) // label não pode ser sobrescrita.
       }
