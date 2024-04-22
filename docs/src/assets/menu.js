@@ -148,6 +148,10 @@ module.exports = [
         path: '/components/empty-result-text'
       },
       {
+        name: 'ExpansionItem',
+        path: '/components/expansion-item'
+      },
+      {
         name: 'Field',
         path: '/components/field'
       },

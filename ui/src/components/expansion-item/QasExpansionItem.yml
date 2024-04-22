@@ -1,0 +1,35 @@
+type: component
+
+meta:
+  desc: Componente de card expansivo, wrapper do QExpansionItem(https://quasar.dev/vue-components/expansion-item)
+
+props:
+  badges:
+    desc: Lista de badges que serão exibidas na parte superior do card.
+    type: Array
+
+  error:
+    desc: Booleano que caso seja true o card passa a ter uma borda vermelha.
+    type: Boolean
+
+  error-message:
+    desc: Mensagem de erro onde será exibida na parte inferior do card.
+    type: String
+
+  label:
+    desc: Titulo exibido na parte superior do card.
+    type: String
+
+  grid-generator-props:
+    desc: Propriedades que serão repassadas para o QasGridGenerator.
+    type: Object
+
+slots:
+  header:
+    desc: 'Slot para substituir o conteúdo do header'
+
+  label:
+    desc: 'Slot para substituir o conteúdo da label do header.'
+
+  content:
+    desc: 'Slot para substituir o conteúdo principal do card.'

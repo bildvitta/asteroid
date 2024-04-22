@@ -18,7 +18,8 @@ export default {
       fields: {},
       errors: {},
       result: [],
-      metadata: {}
+      metadata: {},
+      buttonTest: false
     }
   },
 

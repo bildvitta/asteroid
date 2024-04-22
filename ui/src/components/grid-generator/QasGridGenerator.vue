@@ -40,7 +40,7 @@ const props = defineProps({
   },
 
   headerClass: {
-    default: 'text-bold',
+    default: '',
     type: [Array, Object, String]
   },
 
@@ -77,37 +77,24 @@ const hasResult = computed(() => Object.keys(props.result).length)
 const hasFields = computed(() => Object.keys(props.fields).length)
 
 const contentClass = computed(() => {
-  if (!props.useEllipsis || (screen.isSmall && props.useEllipsis)) return props.contentClass
+  return [
+    props.contentClass,
 
-  if (Array.isArray(props.contentClass)) {
-    return [...props.contentClass, 'ellipsis']
-  }
-
-  if (typeof props.contentClass === 'string') {
-    return `${props.contentClass} ellipsis`
-  }
-
-  return {
-    ...props.contentClass,
-    ellipsis: true
-  }
+    {
+      ellipsis: !screen.isSmall && props.useEllipsis
+    }
+  ]
 })
 
 const headerClass = computed(() => {
-  if (!props.useEllipsis || (screen.isSmall && props.useEllipsis)) return props.headerClass
+  return [
+    props.headerClass,
 
-  if (Array.isArray(props.headerClass)) {
-    return [...props.headerClass, 'ellipsis']
-  }
-
-  if (typeof props.headerClass === 'string') {
-    return `${props.headerClass} ellipsis`
-  }
-
-  return {
-    ...props.headerClass,
-    ellipsis: true
-  }
+    {
+      ellipsis: !screen.isSmall && props.useEllipsis,
+      'text-bold': screen.isSmall || !props.useInline
+    }
+  ]
 })
 
 const classes = computed(() => {
