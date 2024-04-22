@@ -14,6 +14,9 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 ### Adicionado
 - `QasExpansionItem`: Adicionado componente de card expansivo.
 
+### Modificado
+- `QasGridGenerator`: Ao utilizar o `use-inline`, os titulos não terão `text-bold`.
+
 ## [3.15.0-beta.12] - 19-04-2024
 ### Adicionado
 - `QasGridGenerator`:
