@@ -20,7 +20,7 @@
 
 <script setup>
 import useGenerator, { baseProps } from '../../composables/private/use-generator'
-import { isEmpty, humanize } from '../../helpers'
+import { isEmpty, humanize, filterListByHandle } from '../../helpers'
 import { useScreen } from '../../composables'
 import { isObject } from 'lodash-es'
 import { ref, computed, watch } from 'vue'
@@ -40,7 +40,7 @@ const props = defineProps({
   },
 
   headerClass: {
-    default: 'text-bold',
+    default: '',
     type: [Array, Object, String]
   },
 
@@ -93,20 +93,39 @@ const contentClass = computed(() => {
   }
 })
 
-const headerClass = computed(() => {
-  if (!props.useEllipsis || (screen.isSmall && props.useEllipsis)) return props.headerClass
+const defaultsHeaderClass = computed(() => {
+  return filterListByHandle([
+    {
+      handle: !screen.isSmall && props.useEllipsis,
+      item: 'ellipsis'
+    },
+    {
+      handle: screen.isSmall || !props.useInline,
+      item: 'text-bold'
+    }
+  ])
+})
 
+const headerClass = computed(() => {
   if (Array.isArray(props.headerClass)) {
-    return [...props.headerClass, 'ellipsis']
+    return [...props.headerClass, ...defaultsHeaderClass.value]
   }
 
   if (typeof props.headerClass === 'string') {
-    return `${props.headerClass} ellipsis`
+    const normalizedDefaultsClasses = defaultsHeaderClass.value.join(' ')
+
+    return `${props.headerClass} ${normalizedDefaultsClasses}`
   }
+
+  const normalizedDefaultsClasses = {}
+
+  defaultsHeaderClass.value.forEach(classValue => {
+    normalizedDefaultsClasses[classValue] = true
+  })
 
   return {
     ...props.headerClass,
-    ellipsis: true
+    ...normalizedDefaultsClasses
   }
 })
 

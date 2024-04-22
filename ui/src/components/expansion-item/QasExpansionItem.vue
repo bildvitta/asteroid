@@ -22,7 +22,9 @@
 
         <q-separator class="q-my-md" />
 
-        <slot name="content" />
+        <slot name="content">
+          <qas-grid-generator v-if="hasGridGenerator" v-bind="gridGeneratorProps" use-inline />
+        </slot>
       </q-expansion-item>
     </qas-box>
 
@@ -66,6 +68,8 @@ const props = defineProps({
 const hasError = computed(() => props.error || !!props.errorMessage)
 
 const errorClasses = computed(() => ({ 'qas-expansion-item--error': hasError.value }))
+
+const hasGridGenerator = computed(() => Object.keys(props.gridGeneratorProps).length)
 </script>
 
 <style lang="scss">

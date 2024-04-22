@@ -4,6 +4,22 @@ meta:
   desc: Componente de card expansivo, wrapper do QExpansionItem(https://quasar.dev/vue-components/expansion-item)
 
 props:
+  badges:
+    desc: Lista de badges que serão exibidas na parte superior do card.
+    type: Array
+
   error:
-    desc: Array ou String contendo a mensagem de erro.
-    type: [Array, String]
+    desc: Booleano que caso seja true o card passa a ter uma borda vermelha.
+    type: Boolean
+
+  error-message:
+    desc: Mensagem de erro onde será exibida na parte inferior do card.
+    type: String
+
+  label:
+    desc: Titulo exibido na parte superior do card.
+    type: String
+
+  grid-generator-props:
+    desc: Propriedades que serão repassadas para o QasGridGenerator.
+    type: Object

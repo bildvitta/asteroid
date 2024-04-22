@@ -4,6 +4,10 @@
     <template #default>
       <div>
         <qas-grid-generator :fields="fields" :result="result" />
+
+        <!-- <qas-grid-generator :fields="fields" :header-class="{ 'bg-red': buttonTest }" :result="result" />
+
+        <qas-btn label="test" @click="() => buttonTest = !buttonTest" /> -->
       </div>
     </template>
   </qas-single-view>
@@ -18,7 +22,8 @@ export default {
       fields: {},
       errors: {},
       result: [],
-      metadata: {}
+      metadata: {},
+      buttonTest: false
     }
   },
 

@@ -9,3 +9,5 @@ Componente de card expansivo, wrapper do QExpansionItem(https://quasar.dev/vue-c
 ## Uso
 
 <doc-example file="QasExpansionItem/Basic" title="Básico" />
+<doc-example file="QasExpansionItem/Slot" title="Slot" />
+<doc-example file="QasExpansionItem/Error" title="Com erro" />
