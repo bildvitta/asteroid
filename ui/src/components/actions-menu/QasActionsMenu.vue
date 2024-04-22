@@ -140,8 +140,22 @@ const primaryKey = computed(() => {
 })
 
 const btnDropdownProps = computed(() => {
+  const defaultButtonPropsList = {
+    useHoverOnWhiteColor: true,
+    useLabelOnSmallScreen: false
+  }
+
+  const normalizedButtonPropsList = {}
+
+  for (const key in formattedList.value.buttonsList) {
+    normalizedButtonPropsList[key] = {
+      ...defaultButtonPropsList,
+      ...formattedList.value.buttonsList[key]
+    }
+  }
+
   return {
-    buttonsPropsList: formattedList.value.buttonsList,
+    buttonsPropsList: normalizedButtonPropsList,
     disable: props.disable,
     useSplit: hasSplit.value
   }
