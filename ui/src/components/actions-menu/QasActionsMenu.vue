@@ -139,9 +139,27 @@ const primaryKey = computed(() => {
   return props.splitName in fullList.value ? props.splitName : Object.keys(fullList.value)?.[0]
 })
 
+const defaultButtonPropsList = computed(() => {
+  const defaultButtonPropsList = {
+    useHoverOnWhiteColor: true,
+    useLabelOnSmallScreen: false
+  }
+
+  const normalizedButtonPropsList = {}
+
+  for (const key in formattedList.value.buttonsList) {
+    normalizedButtonPropsList[key] = {
+      ...defaultButtonPropsList,
+      ...formattedList.value.buttonsList[key]
+    }
+  }
+
+  return normalizedButtonPropsList
+})
+
 const btnDropdownProps = computed(() => {
   return {
-    buttonsPropsList: formattedList.value.buttonsList,
+    buttonsPropsList: defaultButtonPropsList.value,
     disable: props.disable,
     useSplit: hasSplit.value
   }

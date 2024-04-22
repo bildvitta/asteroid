@@ -17,6 +17,10 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 ### Modificado
 - `QasGridGenerator`: Ao utilizar o `use-inline`, os titulos não terão `text-bold`.
 
+## [3.15.0-beta.13] - 22-04-2024
+### Corrigido
+- `QasActionsMenu`: Corrigido props defaults que estavam faltando no componente após a refatoração/redesign (`{ useHoverOnWhiteColor: true, useLabelOnSmallScreen: false }`).
+
 ## [3.15.0-beta.12] - 19-04-2024
 ### Adicionado
 - `QasGridGenerator`:
@@ -2789,3 +2793,4 @@ Adicionado suporte para Pinia/Vuex Seguindo os padrões da biblioteca `@bildvitt
 [3.15.0-beta.10]: https://github.com/bildvitta/asteroid/compare/v3.15.0-beta.9...v3.15.0-beta.10?expand=1
 [3.15.0-beta.11]: https://github.com/bildvitta/asteroid/compare/v3.15.0-beta.10...v3.15.0-beta.11?expand=1
 [3.15.0-beta.12]: https://github.com/bildvitta/asteroid/compare/v3.15.0-beta.11...v3.15.0-beta.12?expand=1
+[3.15.0-beta.13]: https://github.com/bildvitta/asteroid/compare/v3.15.0-beta.12...v3.15.0-beta.13?expand=1
