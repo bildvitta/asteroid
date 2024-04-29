@@ -11,7 +11,7 @@ props:
     examples: ['beforeFetch({ payload, resolve, done })']
 
   colors-list:
-    desc: 'Lista de cores personalizadas para utilizar nos gráficos'
+    desc: Lista de cores personalizadas para utilizar nos gráficos
     default: []
     type: Array,
     examples: ['#34B53A', '#016DD9', '#FFB200', '#F62D1B']
