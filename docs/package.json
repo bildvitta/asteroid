@@ -23,7 +23,7 @@
     "@fawmi/vue-google-maps": "^0.9.79",
     "@quasar/extras": "^1.16.11",
     "axios": "^1.4.0",
-    "chart.js": "^4.3.0",
+    "chart.js": "^4.4.2",
     "chartjs-plugin-datalabels": "^2.2.0",
     "chartjs-plugin-zoom": "^2.0.1",
     "core-js": "^3.30.2",
@@ -38,7 +38,7 @@
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.21.8",
-    "@quasar/app-webpack": "^3.12.3",
+    "@quasar/app-webpack": "^3.12.8",
     "eslint-webpack-plugin": "^4.0.1",
     "gray-matter": "^4.0.3",
     "markdown-it-container": "^3.0.0",
