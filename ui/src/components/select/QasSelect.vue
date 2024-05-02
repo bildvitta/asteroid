@@ -194,6 +194,8 @@ export default {
 
         if (this.fuse || this.hasFuse) this.setFuse()
 
+        if (this.options.length === 1 && this.required && !this.modelValue) this.setOptionValue()
+
         this.mx_filteredOptions = this.options
       },
 
@@ -271,6 +273,10 @@ export default {
       if (popupContentElement) {
         popupContentElement.classList.toggle('qas-select__is-fetching', force)
       }
+    },
+
+    setOptionValue () {
+      this.$emit('update:modelValue', this.options[0])
     }
   }
 }
