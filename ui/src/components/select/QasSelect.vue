@@ -314,7 +314,7 @@ export default {
     }
   }
 
-  &__option:hover .q-item__label {
+  &__option:hover .q-item__label--caption {
     color: var(--q-primary);
   }
 }
