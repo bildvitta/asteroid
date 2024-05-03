@@ -22,6 +22,20 @@
       </slot>
     </template>
 
+    <template #option="scope">
+      <q-item v-bind="scope.itemProps" class="qas-select__option">
+        <q-item-section>
+          <div class="items-center q-gutter-sm row">
+            <q-item-label>{{ scope.opt.label }}</q-item-label>
+
+            <qas-badge v-if="hasBadge(scope)" v-bind="scope.opt.badgeProps" />
+          </div>
+
+          <q-item-label v-if="scope.opt.caption" caption class="q-mt-xs">{{ scope.opt.caption }}</q-item-label>
+        </q-item-section>
+      </q-item>
+    </template>
+
     <template v-for="(_, name) in $slots" #[name]="context">
       <slot :name="name" v-bind="context || {}" />
     </template>
@@ -277,6 +291,10 @@ export default {
 
     setOptionValue () {
       this.$emit('update:modelValue', this.options[0])
+    },
+
+    hasBadge ({ opt }) {
+      return !!opt.badgeProps
     }
   }
 }
@@ -294,6 +312,10 @@ export default {
         color: $grey-6;
       }
     }
+  }
+
+  &__option:hover .q-item__label {
+    color: var(--q-primary);
   }
 }
 </style>
