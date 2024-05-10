@@ -10,7 +10,7 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 ### Sobre os "BREAKING CHANGES"
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
-## Não publicado
+## [3.15.0-beta.15] - 10-05-2024
 ### Adicionado
 - `QasChartView`: Adicionado prop `colors-list` para personalizar as cores dos gráficos.
 
@@ -2799,3 +2799,4 @@ Adicionado suporte para Pinia/Vuex Seguindo os padrões da biblioteca `@bildvitt
 [3.15.0-beta.12]: https://github.com/bildvitta/asteroid/compare/v3.15.0-beta.11...v3.15.0-beta.12?expand=1
 [3.15.0-beta.13]: https://github.com/bildvitta/asteroid/compare/v3.15.0-beta.12...v3.15.0-beta.13?expand=1
 [3.15.0-beta.14]: https://github.com/bildvitta/asteroid/compare/v3.15.0-beta.13...v3.15.0-beta.14?expand=1
+[3.15.0-beta.15]: https://github.com/bildvitta/asteroid/compare/v3.15.0-beta.14...v3.15.0-beta.15?expand=1
