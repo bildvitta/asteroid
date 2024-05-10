@@ -47,7 +47,7 @@ import {
 import { Bar as BarChart, Doughnut as DoughnutChart, Line as LineChart } from 'vue-chartjs'
 
 // Configurações padrões
-import { charts, colors, font } from './config'
+import { charts, colors as defaultColors, font } from './config'
 
 // Plugins
 import zoomPlugin from 'chartjs-plugin-zoom'
@@ -77,6 +77,11 @@ export default {
     beforeFetch: {
       default: null,
       type: Function
+    },
+
+    colorsList: {
+      type: Array,
+      default: () => []
     },
 
     entity: {
@@ -161,6 +166,7 @@ export default {
 
       const [dataset] = this.data
       const labels = this.getXAxisData(dataset.data.map(item => item.x))
+      const colors = this.colorsList.length ? this.colorsList : defaultColors
 
       const datasets = this.data.map(({ label, data }, index) => {
         const backgroundColor = this.isDoughnut ? colors : colors.at(index)
