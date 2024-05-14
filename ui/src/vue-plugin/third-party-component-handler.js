@@ -15,7 +15,8 @@ export default function ({ name, importFn = () => {} }) {
     await onBefore()
 
     QasComponent.then(({ default: QasComponent }) => {
-      app.component(name, QasComponent)
+      console.log('TCL: initializeComponent -> QasComponent', QasComponent)
+      // app.component(name, QasComponent)
 
       onAfter(QasComponent)
     })

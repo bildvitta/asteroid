@@ -14,6 +14,8 @@ const ESLintPlugin = require('eslint-webpack-plugin')
 
 const { getVueComponent } = require('./build/markdown.js')
 
+const UnplugVue = require('unplugin-vue-components/webpack')
+
 module.exports = configure(function (quasar) {
   return {
     // https://quasar.dev/quasar-cli/supporting-ts
@@ -131,6 +133,30 @@ module.exports = configure(function (quasar) {
             return getVueComponent(source)
           }
         })
+
+        // auto import
+        const components = {
+          QasChartView: {
+            from: '@bildvitta/quasar-ui-asteroid/src/components/chart-view/index.js'
+          },
+
+          QasMap: {
+            from: '@bildvitta/quasar-ui-asteroid/src/components/map/index.js'
+          }
+        }
+
+        chain.plugin('unplugin-vue-components/webpack').use(
+          UnplugVue.default({
+            resolvers: name => {
+              if (name.startsWith('Qas')) {
+                return {
+                  name,
+                  from: components[name]?.from || 'asteroid'
+                }
+              }
+            }
+          })
+        )
       }
     },
 

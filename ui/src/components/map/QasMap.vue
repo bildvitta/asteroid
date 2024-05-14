@@ -1,5 +1,6 @@
 <template>
   <div class="qas-map">
+    MAPEADO
     <g-map-map :center="props.centerPosition" class="qas-map__draw" :zoom="props.zoom">
       <g-map-marker v-for="(marker, index) in props.markers" :key="index" :draggable="marker.draggable" :icon="marker.icon" :position="marker.position" @dragend="updatePosition" @mouseout="closePopup" @mouseover="openPopup(marker, index)">
         <g-map-info-window :opened="canShowPopup(index)">

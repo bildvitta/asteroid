@@ -1,7 +1,3 @@
-<!--
-  * Este é um componente interno para ser utilizado dentro do componente "QasTreeGenerator"
-  * por isto não existe documentação para este componente e nem é exportado para fora do asteroid
--->
 <template>
   <qas-form-view ref="formView" v-model="values" v-model:errors="errors" v-model:fields="fields" :use-actions="false" :use-boundary="false" v-bind="formViewProps">
     <template #default>
@@ -11,11 +7,11 @@
 </template>
 
 <script>
-import QasFormGenerator from '../form-generator/QasFormGenerator.vue'
-import QasFormView from '../form-view/QasFormView.vue'
+import QasFormGenerator from '../../form-generator/QasFormGenerator.vue'
+import QasFormView from '../../form-view/QasFormView.vue'
 
 export default {
-  name: 'QasTreeForm',
+  name: 'PvTreeForm',
 
   components: {
     QasFormGenerator,

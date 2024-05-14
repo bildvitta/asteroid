@@ -52,7 +52,7 @@
 
           <qas-nested-fields v-if="hasNestedAdd" v-model="nestedModel" class="q-mt-md" :field="nestedFieldProp" :fields-props="fieldsProps" :form-columns="nestedColumns" :row-object="rowObject" :use-duplicate="false" use-inline-actions />
 
-          <qas-tree-form v-if="hasFormView" ref="treeForm" v-model:submitting="isSubmitting" :form-generator-props="formGeneratorProps" :form-view-props="defaultFormViewProps" @submit-success="onSubmitSuccess" />
+          <pv-tree-form v-if="hasFormView" ref="treeForm" v-model:submitting="isSubmitting" :form-generator-props="formGeneratorProps" :form-view-props="defaultFormViewProps" @submit-success="onSubmitSuccess" />
         </div>
       </template>
     </qas-dialog>
@@ -67,13 +67,13 @@ import { required } from '../../helpers/rules.js'
 import { extend } from 'quasar'
 import axios from 'axios'
 
-import QasTreeForm from './QasTreeForm.vue'
+import PvTreeForm from './private/PvTreeForm.vue'
 
 export default {
   name: 'QasTreeGenerator',
 
   components: {
-    QasTreeForm
+    PvTreeForm
   },
 
   props: {

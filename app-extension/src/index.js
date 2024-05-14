@@ -94,6 +94,8 @@ module.exports = async function (api) {
 
     validate()
 
+    console.log('FUI CHAMADO NO INDEX', api.resolve.app(asteroid))
+
     webpack.resolve.alias = {
       ...webpack.resolve.alias,
 
