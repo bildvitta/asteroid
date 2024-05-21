@@ -7,6 +7,11 @@ meta:
   desc: Componente para select que implementa o "QSelect" repassando propriedades, slots e eventos.
 
 props:
+  badgeList:
+    desc: Listagem da(s) badges que terá em cada option. Essa listagem deverá trazer "model", sendo o mesmo que o backend enviar na opção e "badgeProps", que é a propriedade repassada ao "QasBadge".
+    default: []
+    type: Array
+
   entity:
     desc: Entidade enviada para a action "fetchFieldOptions" (usar somente quando "useLazyLoading" estiver habilitada).
     default: ''
@@ -80,6 +85,10 @@ props:
     desc: O componente internamente espera receber na propriedade "options" um array de objeto contendo "label" e "value", caso o seu objeto não tenha "value" mas um "uuid" por exemplo, você pode definir esta prop "label-value" como "uuid".
     type: String
     examples: [value-key="uuid"]
+
+  use-custom-option:
+    desc: Controla se as opções do select poderão ter conteúdo personalizado, tal como "badge" e "caption".
+    type: Boolean
 
   use-fetch-options-on-create:
     desc: Controla se o componente vai fazer um fetch das opções assim que o mesmo é criado (caso tenha lazy loading ativado).

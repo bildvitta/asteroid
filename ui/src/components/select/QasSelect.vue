@@ -22,13 +22,13 @@
       </slot>
     </template>
 
-    <template #option="scope">
+    <template v-if="useCustomOption" #option="scope">
       <q-item v-bind="scope.itemProps" class="qas-select__option">
         <q-item-section>
-          <div class="items-center q-gutter-sm row">
+          <div class="items-center q-gutter-x-sm row">
             <q-item-label>{{ scope.opt.label }}</q-item-label>
 
-            <qas-badge v-if="hasBadge(scope)" v-bind="scope.opt.badgeProps" />
+            <qas-badge v-for="(badge, index) in getFilteredBadgeList(scope.opt)" :key="index" v-bind="getBadgeProps({ badge, scope })" />
           </div>
 
           <q-item-label v-if="scope.opt.caption" caption class="q-mt-xs">{{ scope.opt.caption }}</q-item-label>
@@ -55,6 +55,11 @@ export default {
   mixins: [searchFilterMixin],
 
   props: {
+    badgeList: {
+      default: () => [],
+      type: Array
+    },
+
     fuseOptions: {
       default: () => ({}),
       type: Object
@@ -81,6 +86,10 @@ export default {
     },
 
     required: {
+      type: Boolean
+    },
+
+    useCustomOption: {
       type: Boolean
     },
 
@@ -293,8 +302,19 @@ export default {
       this.$emit('update:modelValue', this.options[0])
     },
 
-    hasBadge ({ opt }) {
-      return !!opt.badgeProps
+    getFilteredBadgeList ({ label, value, disable, caption, ...rest }) {
+      return this.badgeList.filter(item => rest[item.model])
+    },
+
+    getBadgeProps ({ badge, scope }) {
+      const { label, value, disable, caption, ...rest } = scope.opt
+
+      const badgeModelList = Object.keys(rest)
+      const indexBadgeModel = badgeModelList.findIndex(item => item === badge.model)
+
+      if (badge.model !== badgeModelList[indexBadgeModel]) return
+
+      return badge.badgeProps
     }
   }
 }
