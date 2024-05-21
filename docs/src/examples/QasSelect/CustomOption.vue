@@ -5,7 +5,8 @@
       Model: {{ model }}
 
       <div class="q-mt-md">
-        <qas-select v-model="model" :badge-list="badgeList" label="Select com caption na option" :options="optionsWithCaption" use-custom-option />
+        <qas-select v-model="model2" label="Select com caption na option" :options="optionsWithCaption" use-custom-option />
+        Model: {{ model2 }}
       </div>
     </div>
   </div>
@@ -16,7 +17,7 @@ export default {
   data () {
     return {
       model: '',
-      model2: []
+      model2: ''
     }
   },
 
@@ -72,6 +73,11 @@ export default {
           label: 'Usuário 2',
           value: 2,
           caption: 'CPF: 111.222.333-55'
+        },
+        {
+          label: 'Usuário 2',
+          value: 3,
+          caption: 'CPF: 111.222.333-66'
         }
       ]
     }
