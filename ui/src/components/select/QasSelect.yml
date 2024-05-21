@@ -7,7 +7,7 @@ meta:
   desc: Componente para select que implementa o "QSelect" repassando propriedades, slots e eventos.
 
 props:
-  badgeList:
+  badge-list:
     desc: Listagem da(s) badges que terá em cada option. Essa listagem deverá trazer "model", sendo o mesmo que o backend enviar na opção e "badgeProps", que é a propriedade repassada ao "QasBadge".
     default: []
     type: Array

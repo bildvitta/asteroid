@@ -1,13 +1,12 @@
 <template>
   <div class="container q-py-lg">
     <div>
-      <qas-select v-model="model" label="Meu select!" :options="options" />
+      <qas-select v-model="model" :badge-list="badgeList" label="Select com badge na option" :options="optionsWithBadge" use-custom-option />
       Model: {{ model }}
-    </div>
 
-    <div class="q-mt-lg">
-      <qas-select v-model="model2" label="Meu select multiple" multiple :options="options" />
-      Model múltiplo: {{ model2 }}
+      <div class="q-mt-md">
+        <qas-select v-model="model" :badge-list="badgeList" label="Select com caption na option" :options="optionsWithCaption" use-custom-option />
+      </div>
     </div>
   </div>
 </template>
@@ -22,7 +21,26 @@ export default {
   },
 
   computed: {
-    options () {
+    badgeList () {
+      return [
+        {
+          model: 'isTester',
+          badgeProps: {
+            color: 'blue-3',
+            label: 'Tester'
+          }
+        },
+        {
+          model: 'isAvaible',
+          badgeProps: {
+            color: 'green-3',
+            label: 'Disponível'
+          }
+        }
+      ]
+    },
+
+    optionsWithBadge () {
       return [
         {
           label: 'Opção 1',
@@ -30,31 +48,30 @@ export default {
         },
         {
           label: 'Opção 2',
-          value: 2
+          value: 2,
+          isTester: true,
+          isAvaible: false
         },
         {
           label: 'Opção 3',
-          value: 3
+          value: 3,
+          isTester: true,
+          isAvaible: true
+        }
+      ]
+    },
+
+    optionsWithCaption () {
+      return [
+        {
+          label: 'Usuário 1',
+          value: 1,
+          caption: 'CPF: 111.222.333-44'
         },
         {
-          label: 'Opção 4',
-          value: 4
-        },
-        {
-          label: 'Opção 5',
-          value: 5
-        },
-        {
-          label: 'Opção 6',
-          value: 6
-        },
-        {
-          label: 'Opção 7',
-          value: 7
-        },
-        {
-          label: 'Opção 8',
-          value: 8
+          label: 'Usuário 2',
+          value: 2,
+          caption: 'CPF: 111.222.333-55'
         }
       ]
     }
