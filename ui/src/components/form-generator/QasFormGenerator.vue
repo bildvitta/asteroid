@@ -2,7 +2,7 @@
   <div :class="fieldsetClasses">
     <div v-for="(fieldsetItem, fieldsetItemKey) in normalizedFields" :key="fieldsetItemKey" class="full-width">
       <slot v-if="fieldsetItem.label" :name="`legend-${fieldsetItemKey}`">
-        <qas-label :label="fieldsetItem.label" />
+        <qas-label :label="fieldsetItem.label" :margin="getLabelMargin(fieldsetItem)" />
         <div v-if="fieldsetItem.description" class="q-mb-md text-body1 text-grey-8">{{ fieldsetItem.description }}</div>
       </slot>
 
@@ -26,7 +26,8 @@
 </template>
 
 <script setup>
-import useGenerator, { baseProps, gutterValidator } from '../../composables/private/use-generator'
+import { gutterValidator } from '../../helpers/private/gutter-validator'
+import useGenerator, { baseProps } from '../../composables/private/use-generator'
 import { Spacing } from '../../enums/Spacing'
 import { computed } from 'vue'
 
@@ -178,5 +179,9 @@ function useFieldset ({ props }) {
     fieldsetClasses,
     hasFieldset
   }
+}
+
+function getLabelMargin (fieldsetItem) {
+  return fieldsetItem.description ? 'sm' : 'md'
 }
 </script>

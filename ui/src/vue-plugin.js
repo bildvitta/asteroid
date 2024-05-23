@@ -6,11 +6,13 @@ import QasAppMenu from './components/app-menu/QasAppMenu.vue'
 import QasAppUser from './components/app-user/QasAppUser.vue'
 import QasAvatar from './components/avatar/QasAvatar.vue'
 import QasBadge from './components/badge/QasBadge.vue'
+import QasBoardGenerator from './components/board-generator/QasBoardGenerator.vue'
 import QasBox from './components/box/QasBox.vue'
 import QasBreakline from './components/breakline/QasBreakline.vue'
 import QasBtn from './components/btn/QasBtn.vue'
 import QasBtnDropdown from './components/btn-dropdown/QasBtnDropdown.vue'
 import QasCard from './components/card/QasCard.vue'
+import QasCardImage from './components/card-image/QasCardImage.vue'
 import QasCheckboxGroup from './components/checkbox-group/QasCheckboxGroup.vue'
 import QasCopy from './components/copy/QasCopy.vue'
 import QasDate from './components/date/QasDate.vue'
@@ -21,12 +23,14 @@ import QasDialog from './components/dialog/QasDialog.vue'
 import QasDialogRouter from './components/dialog-router/QasDialogRouter.vue'
 import QasDrawer from './components/drawer/QasDrawer.vue'
 import QasEmptyResultText from './components/empty-result-text/QasEmptyResultText.vue'
+import QasExpansionItem from './components/expansion-item/QasExpansionItem.vue'
 import QasField from './components/field/QasField.vue'
 import QasFilters from './components/filters/QasFilters.vue'
 import QasFormGenerator from './components/form-generator/QasFormGenerator.vue'
 import QasFormView from './components/form-view/QasFormView.vue'
 import QasGallery from './components/gallery/QasGallery.vue'
 import QasGalleryCard from './components/gallery-card/QasGalleryCard.vue'
+import QasGrabbable from './components/grabbable/QasGrabbable.vue'
 import QasGridGenerator from './components/grid-generator/QasGridGenerator.vue'
 import QasHeaderActions from './components/header-actions/QasHeaderActions.vue'
 import QasInfiniteScroll from './components/infinite-scroll/QasInfiniteScroll.vue'
@@ -54,6 +58,8 @@ import QasSignatureUploader from './components/signature-uploader/QasSignatureUp
 import QasSingleView from './components/single-view/QasSingleView.vue'
 import QasSortable from './components/sortable/QasSortable.vue'
 import QasStatus from './components/status/QasStatus.vue'
+import QasStepper from './components/stepper/QasStepper.vue'
+import QasStepperFormView from './components/stepper-form-view/QasStepperFormView.vue'
 import QasTableGenerator from './components/table-generator/QasTableGenerator.vue'
 import QasTabsGenerator from './components/tabs-generator/QasTabsGenerator.vue'
 import QasTextTruncate from './components/text-truncate/QasTextTruncate.vue'
@@ -93,11 +99,13 @@ async function install (app) {
   app.component('QasAppUser', QasAppUser)
   app.component('QasAvatar', QasAvatar)
   app.component('QasBadge', QasBadge)
+  app.component('QasBoardGenerator', QasBoardGenerator)
   app.component('QasBox', QasBox)
   app.component('QasBreakline', QasBreakline)
   app.component('QasBtn', QasBtn)
   app.component('QasBtnDropdown', QasBtnDropdown)
   app.component('QasCard', QasCard)
+  app.component('QasCardImage', QasCardImage)
   app.component('QasCheckboxGroup', QasCheckboxGroup)
   app.component('QasCopy', QasCopy)
   app.component('QasDate', QasDate)
@@ -108,12 +116,14 @@ async function install (app) {
   app.component('QasDialogRouter', QasDialogRouter)
   app.component('QasDrawer', QasDrawer)
   app.component('QasEmptyResultText', QasEmptyResultText)
+  app.component('QasExpansionItem', QasExpansionItem)
   app.component('QasField', QasField)
   app.component('QasFilters', QasFilters)
   app.component('QasFormGenerator', QasFormGenerator)
   app.component('QasFormView', QasFormView)
   app.component('QasGallery', QasGallery)
   app.component('QasGalleryCard', QasGalleryCard)
+  app.component('QasGrabbable', QasGrabbable)
   app.component('QasGridGenerator', QasGridGenerator)
   app.component('QasHeaderActions', QasHeaderActions)
   app.component('QasInfiniteScroll', QasInfiniteScroll)
@@ -141,6 +151,8 @@ async function install (app) {
   app.component('QasSingleView', QasSingleView)
   app.component('QasSortable', QasSortable)
   app.component('QasStatus', QasStatus)
+  app.component('QasStepper', QasStepper)
+  app.component('QasStepperFormView', QasStepperFormView)
   app.component('QasTableGenerator', QasTableGenerator)
   app.component('QasTabsGenerator', QasTabsGenerator)
   app.component('QasTextTruncate', QasTextTruncate)
@@ -182,6 +194,7 @@ export {
   QasAppUser,
   QasAvatar,
   QasBadge,
+  QasBoardGenerator,
   QasBox,
   QasBreakline,
   QasBtn,
@@ -197,12 +210,14 @@ export {
   QasDialogRouter,
   QasDrawer,
   QasEmptyResultText,
+  QasExpansionItem,
   QasField,
   QasFilters,
   QasFormGenerator,
   QasFormView,
   QasGallery,
   QasGalleryCard,
+  QasGrabbable,
   QasGridGenerator,
   QasHeaderActions,
   QasInfiniteScroll,
@@ -230,6 +245,8 @@ export {
   QasSingleView,
   QasSortable,
   QasStatus,
+  QasStepper,
+  QasStepperFormView,
   QasTableGenerator,
   QasTabsGenerator,
   QasTextTruncate,

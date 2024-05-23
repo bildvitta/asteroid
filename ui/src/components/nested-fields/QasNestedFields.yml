@@ -75,10 +75,10 @@ props:
     examples: ["[{ sm: 6, md: 12 }]", "{ name: { sm: 6, md: 12 } }", "12"]
 
   form-gutter:
-    desc: Espaçamento entre cada campo.
-    default: md
-    type: String
-    examples: [xs, sm, md, lg, xl]
+    desc: Espaçamento entre colunas do formulário.
+    default: lg
+    type: [String, Boolean]
+    examples: [xs, sm, md, lg, xl, 2xl, 3xl, 4xl, 5xl, false]
 
   identifier-item-key:
     desc: Define um identificador para o item. O identificador será utilizado para validar exclusão do item, por exemplo.

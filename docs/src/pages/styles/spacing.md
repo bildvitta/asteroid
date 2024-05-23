@@ -11,6 +11,8 @@ Aqui alteramos tamanho default do quasar e criamos nossos próprios tamanhos.
 Atualmente existem:
 - 2xl
 - 3xl
+- 4xl
+- 5xl
 :::
 
 #### Tokens
@@ -23,3 +25,5 @@ Atualmente existem:
 | xl | 32px | --qas-spacing-xl |
 | 2xl `adicional` | 40px | --qas-spacing-2xl |
 | 3xl `adicional` | 48px | --qas-spacing-3xl |
+| 4xl `adicional` | 56px | --qas-spacing-4xl |
+| 5xl `adicional` | 64px | --qas-spacing-5xl |

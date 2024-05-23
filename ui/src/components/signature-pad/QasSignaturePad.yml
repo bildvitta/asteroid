@@ -29,11 +29,11 @@ slots:
   default:
     desc: Usado para conseguir recuperar as função internas do componente.
     scope:
-      'clearSignature () => undefined':
+      'clearSignature: () => void':
         desc: Limpa a assinatura.
         type: Function
 
-      'getSignatureData () => String':
+      'getSignatureData: () => String':
         desc: 'Obtém a assinatura em formato de imagem com "tipo" de acordo com o que foi passado para o componente (ex: "image/png"). Utiliza o HTMLCanvasElement.toDataURL()'
         type: Function
 
@@ -46,8 +46,8 @@ events:
         type: Boolean
 
 methods:
-  'clearSignature () => undefined':
+  'clearSignature: () => void':
     desc: Limpa a assinatura.
 
-  'getSignatureData () => String':
+  'getSignatureData: () => String':
     desc: 'Obtém a assinatura em formato de imagem com "tipo" de acordo com o que foi passado para o componente (ex: "image/png"). Utiliza o HTMLCanvasElement.toDataURL()'

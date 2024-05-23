@@ -1,0 +1,21 @@
+.secondary-scroll {
+  scrollbar-color: $blue-grey-3 transparent;
+
+  &::-webkit-scrollbar {
+    height: 12px;
+    background-color: transparent;
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: $blue-grey-3;
+    border-radius: var(--qas-generic-border-radius);
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background-color: $blue-grey-4;
+  }
+}

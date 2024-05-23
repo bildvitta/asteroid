@@ -10,6 +10,259 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 ### Sobre os "BREAKING CHANGES"
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
+## Não publicado
+## BREAKING CHANGES
+- `QasCard`: Componente agora se chama `QasCardImage`, pois agora foi criado um novo componente com o nome de `QasCard` (`QasCard <-> QasCardImage`).
+
+- `QasBoardGenerator`:
+  - props `results` alterada para `headers`,
+  - `v-model` agora é recuperado pelo `v-model:results`.
+  - alterado prop `use-shallow-ref` para `use-mark-raw`.
+
+- `QasBtnDropdown`:
+  - removido propriedade `buttonProps`;
+  - removido slot `left-button`.
+
+- `QasActionsMenu`:
+  - modificado comportamento, agora caso esteja usando a prop `splitName` e tenha 2 itens na lista, o componente deixará os botões um ao lado do outro.
+  - antes o componente utilizava `QasBtnDropDown` quando tinha mais de 1 item e `QasBtn` quando tinha apenas 1 item, agora ele sempre utiliza o `QasBtnDropdown`.
+  - propriedade `buttonProps` é aplicada quando o componente esta no modo "Opções", que é quando não utiliza o `splitName` ou esteja no `mobile`.
+  - `QasActionsMenu`: removido propriedade `dropdownIcon`, uma vez que é possível passar pelo `buttonProps`.
+
+### Adicionado
+- `QasGrabbable`: adicionado componente de scroll em uma determinada área (elemento) ao realizar evento de grab (puxar/agarrar) com o mouse/touch.
+- `QasSelect`: adicionado prop `useFetchOptionsOnFocus` para controlar se deve buscar as opções somente ao realizar foco no select.
+- `search-filter`: adicionado evento `update:selectedOptions` para retornar as opções selecionadas (label e value).
+- `utils/scroll.scss`: Adicionado classe `secondary-scroll` com um estilo de scroll mais sútil em relação a padrão.
+- `QasCard` (novo): adicionado novo componente de card tendo o nome do antigo `QasCard`, pois este card não depende de imagens.
+- `QasBoardGenerator`: adicionado componente de board, responsável pela exibição e busca dos dados de um board de colunas.
+- `QasUploader`: adicionado método de `reset` caso queira resetar o campo externamente.
+- `QasActionsMenu`: adicionado nova propriedade `disable`.
+- `use-query-cache`: adicionado função para limpar todos os filtros cacheados.
+- `Spacing.js`: Adicionado espaçamentos `4xl e 5xl`.
+- `QasStepper`: Adicionado componente de stepper.
+- `QasStepperFormView`: Adicionado componente de gerador de steppers de formulário, utilizando o `QasSteppers`.
+- `QasExpansionItem`: Adicionado componente de card expansivo.
+- `QasChartView`: Adicionado prop `colors-list` para personalizar as cores dos gráficos.
+- [`QasFormGenerator`, `QasGridGenerator`]: Adicionado prop `useCommonColumns` onde será possível passar um único objeto com seus breakpoints e será replicado para todos fields.
+
+- `helpers/setScrollOnGrab`:
+  - adicionado opções de callback após eventos de grab: `onMoveFn`, `onGrabFn` e `onScrollFn`.
+  - adicionado suporte a dispositivos com touch.
+  - adicionado estilos padrões no container para desabilitar click ao realizar o grab.
+
+- `QasFilters`:
+  - adicionado model `filters` para controlar os filtros ativos.
+  - adicionado suporte a campos do filtro com lazy loading.
+
+- `QasBoardGenerator`: 
+  - adicionado eventos `fetch-columns-success`, `fetch-columns-error`, `fetch-column-success` e `fetch-column-error`.
+  - adicionado prop `lazy-loading-fields-keys`.
+
+- `QasBtnDropdown`:
+  - adicionado nova propriedade `buttonsPropsList`.
+  - adicionado nova propriedade `disable`.
+  - adicionado novo slot `bottom-[buttons-props-list-key]`.
+
+- `QasGridGenerator`:
+  - Adicionado prop `useEllipsis` que por default é `true`, que irá adicionar a classe `ellipsis` em cada item do grid.
+  - Adicionado prop `useInline` para mudar a disposição dos campos para ser por linha, ou seja, header e content ocupando a linha toda.
+  - Adicionado title ao header e content ao utilizar a prop `useEllipsis`.
+
+### Corrigido
+- `QasTableGenerator`: corrigido ação de click na linha ao realizar o scroll horizontal na tabela.
+- `boot/notifications`: corrigido a forma de passar o token para o método `setLaravelEcho`, onde precisou de uma validação para formatar o token passando o valor correto.
+- `QasAppMenu`: Correção temporária (ou permanente caso não seja resolvido no quasar), bug que ocorria com o QDrawer quando usado com a versão do vue `v3.4+`, onde era removido o scroll da pagina quando ocorria um resize na pagina de desktop pra mobile.
+- `QasUploader`: corrigido valor do emit ao remover um item do uploader, pois estava quebrando no caso do uso `use-object-model`.
+- `QasBtnDropdown`: corrigido classes para o funcionamento do "ellipsis".
+- `QasAppMenu`: corrigido o uso do `QasBtnDropdown`.
+- Adicionado um `max-width` no `QasCard` para ajustar o overflow do seu conteúdo.
+- `QasGridGenerator`: Corrigido comportamento da propriedade `columns` quando passado com valores `col`, exemplo `{ lg: 'col' }`.
+- `QasActionsMenu`: Corrigido props defaults que estavam faltando no componente após a refatoração/redesign (`{ useHoverOnWhiteColor: true, useLabelOnSmallScreen: false }`).
+
+### Modificado
+- `QasAppUser`: Alterado do menu "Editar" para "Perfil", uma vez que agora a pagina do /me não é somente para editar.
+- `QasCard` (antigo): Alterado nome do componente para `QasCardImage`, uma vez que ele é um card com imagens.
+- `QasOptionGroup`: alterado componente para sobrescrever a prop `inline`.
+- `QasNestedFields`: alterado comportamento da propriedade `formGutter`, agora ela é repassada para o componente `QasFormGenerator` e utilizada nos espaçamentos dos campos do formulário.
+- `QasAppUser`: alterado componente para usar o `reset` do `use-query-cache` ao realizar a troca de vínculo, fazendo com que seja resetado todo os filtros previamente cacheados.
+- `QasGridGenerator`: Ao utilizar o `use-inline`, os titulos não terão `text-bold`.
+- `QasBtnDropdown`: alterado componente para receber uma lista de botões.
+
+- `QasBoardGenerator`:
+  - alterado prop `results` para `headers`.
+  - `v-model` agora é recuperado pelo `v-model:results`.
+  - alterado prop `use-shallow-ref` para `use-mark-raw`.
+
+- `QasActionsMenu`:
+  - modificado comportamento, agora caso esteja usando a prop `splitName` e tenha 2 itens na lista, o componente deixará os botões um ao lado do outro.
+  - antes o componente utilizava `QasBtnDropDown` quando tinha mais de 1 item e `QasBtn` quando tinha apenas 1 item, agora ele sempre utiliza o `QasBtnDropdown`.
+  - propriedade `buttonProps` é aplicada quando o componente esta no modo "Opções", que é quando não utiliza o `splitName` ou esteja no `mobile`.
+
+### Removido
+- `helpers/setScrollOnGrab`: removido função interna `haveMoved`.
+- `QasActionsMenu`: removido propriedade `dropdownIcon`, uma vez que é possível passar pelo `buttonProps`.
+
+- `QasBtnDropdown`:
+  - removido propriedade `buttonProps`.
+  - removido slot `left-button`.
+
+## [3.15.0-beta.15] - 10-05-2024
+### Adicionado
+- `QasChartView`: Adicionado prop `colors-list` para personalizar as cores dos gráficos.
+
+## [3.15.0-beta.14] - 24-04-2024
+### Adicionado
+- `QasExpansionItem`: Adicionado componente de card expansivo.
+
+### Modificado
+- `QasGridGenerator`: Ao utilizar o `use-inline`, os titulos não terão `text-bold`.
+
+## [3.15.0-beta.13] - 22-04-2024
+### Corrigido
+- `QasActionsMenu`: Corrigido props defaults que estavam faltando no componente após a refatoração/redesign (`{ useHoverOnWhiteColor: true, useLabelOnSmallScreen: false }`).
+
+## [3.15.0-beta.12] - 19-04-2024
+### Adicionado
+- `QasGridGenerator`:
+  - Adicionado prop `useEllipsis` que por default é `true`, que irá adicionar a classe `ellipsis` em cada item do grid.
+  - Adicionado prop `useInline` para mudar a disposição dos campos para ser por linha, ou seja, header e content ocupando a linha toda.
+  - Adicionado title ao header e content ao utilizar a prop `useEllipsis`.
+- [`QasFormGenerator`, `QasGridGenerator`]: Adicionado prop `useCommonColumns` onde será possível passar um único objeto com seus breakpoints e será replicado para todos fields.
+
+### Corrigido
+- `QasGridGenerator`: Corrigido comportamento da propriedade `columns` quando passado com valores `col`, exemplo `{ lg: 'col' }`.
+
+## [3.15.0-beta.11] - 18-04-2024
+### Adicionado
+- `QasStepperFormView`: Adicionado componente de gerador de steppers de formulário, utilizando o `QasSteppers`.
+
+### Corrigido
+- Adicionado um `max-width` no `QasCard` para ajustar o overflow do seu conteúdo.
+
+## [3.15.0-beta.10] - 12-04-2024
+### Adicionado
+- `Spacing.js`: Adicionado espaçamentos `4xl e 5xl`.
+- `QasStepper`: Adicionado componente de stepper.
+
+### Corrigido
+- `QasBtnDropdown`: corrigido classes para o funcionamento do "ellipsis".
+- `QasAppMenu`: corrigido o uso do `QasBtnDropdown`.
+
+## [3.15.0-beta.9] - 04-04-2024
+## BREAKING CHANGES
+- `QasBtnDropdown`:
+  - removido propriedade `buttonProps`;
+  - removido slot `left-button`.
+- `QasActionsMenu`:
+  - modificado comportamento, agora caso esteja usando a prop `splitName` e tenha 2 itens na lista, o componente deixará os botões um ao lado do outro.
+  - antes o componente utilizava `QasBtnDropDown` quando tinha mais de 1 item e `QasBtn` quando tinha apenas 1 item, agora ele sempre utiliza o `QasBtnDropdown`.
+  - propriedade `buttonProps` é aplicada quando o componente esta no modo "Opções", que é quando não utiliza o `splitName` ou esteja no `mobile`.
+  - `QasActionsMenu`: removido propriedade `dropdownIcon`, uma vez que é possível passar pelo `buttonProps`.
+
+### Adicionado
+- `QasUploader`: adicionado método de `reset` caso queira resetar o campo externamente.
+- `QasBtnDropdown`:
+  - adicionado nova propriedade `buttonsPropsList`.
+  - adicionado nova propriedade `disable`.
+  - adicionado novo slot `bottom-[buttons-props-list-key]`.
+- `QasActionsMenu`: adicionado nova propriedade `disable`.
+- `use-query-cache`: adicionado função para limpar todos os filtros cacheados.
+
+### Modificado
+- `QasBtnDropdown`: alterado componente para receber uma lista de botões.
+- `QasActionsMenu`:
+  - modificado comportamento, agora caso esteja usando a prop `splitName` e tenha 2 itens na lista, o componente deixará os botões um ao lado do outro.
+  - antes o componente utilizava `QasBtnDropDown` quando tinha mais de 1 item e `QasBtn` quando tinha apenas 1 item, agora ele sempre utiliza o `QasBtnDropdown`.
+  - propriedade `buttonProps` é aplicada quando o componente esta no modo "Opções", que é quando não utiliza o `splitName` ou esteja no `mobile`.
+- `QasAppUser`: alterado componente para usar o `reset` do `use-query-cache` ao realizar a troca de vínculo, fazendo com que seja resetado todo os filtros previamente cacheados.
+
+### Corrigido
+- `QasUploader`: corrigido valor do emit ao remover um item do uploader, pois estava quebrando no caso do uso `use-object-model`.
+
+### Removido
+- `QasActionsMenu`: removido propriedade `dropdownIcon`, uma vez que é possível passar pelo `buttonProps`.
+- `QasBtnDropdown`:
+  - removido propriedade `buttonProps`.
+  - removido slot `left-button`.
+
+## [3.15.0-beta.8] - 14-03-2024
+### Corrigido
+- `QasAppMenu`: Correção temporária (ou permanente caso não seja resolvido no quasar), bug que ocorria com o QDrawer quando usado com a versão do vue `v3.4+`, onde era removido o scroll da pagina quando ocorria um resize na pagina de desktop pra mobile.
+
+## [3.15.0-beta.7] - 11-03-2024
+### Corrigido
+- `boot/notifications`: corrigido a forma de passar o token para o método `setLaravelEcho`, onde precisou de uma validação para formatar o token passando o valor correto.
+
+## [3.15.0-beta.6] - 04-03-2024
+## BREAKING CHANGES
+- `QasBoardGenerator`:
+  - props `results` alterada para `headers`,
+  - `v-model` agora é recuperado pelo `v-model:results`.
+  - alterado prop `use-shallow-ref` para `use-mark-raw`.
+
+### Adicionado
+- `QasBoardGenerator`: 
+  - adicionado eventos `fetch-columns-success`, `fetch-columns-error`, `fetch-column-success` e `fetch-column-error`.
+  - adicionado prop `lazy-loading-fields-keys`.
+
+### Modificado
+- `QasBoardGenerator`: 
+  - alterado prop `results` para `headers`.
+  - `v-model` agora é recuperado pelo `v-model:results`.
+  - alterado prop `use-shallow-ref` para `use-mark-raw`.
+
+## [3.15.0-beta.5] - 01-03-2024
+### Modificado
+- `QasNestedFields`: alterado comportamento da propriedade `formGutter`, agora ela é repassada para o componente `QasFormGenerator` e utilizada nos espaçamentos dos campos do formulário.
+
+## [3.15.0-beta.4] - 01-03-2024
+### Modificado
+- `QasOptionGroup`: alterado componente para sobrescrever a prop `inline`.
+
+## [3.15.0-beta.3] - 28-02-2024
+## BREAKING CHANGES
+- `QasCard`: Componente agora se chama `QasCardImage`, pois agora foi criado um novo componente com o nome  de `QasCard` (`QasCard <-> QasCardImage`).
+
+### Adicionado
+- `QasCard` (novo): adicionado novo componente de card tendo o nome do antigo `QasCard`, pois este card não depende de imagens.
+- `QasBoardGenerator`: adicionado componente de board, responsável pela exibição e busca dos dados de um board de colunas.
+
+### Modificado
+- `QasCard` (antigo): Alterado nome do componente para `QasCardImage`, uma vez que ele é um card com imagens.
+
+## [3.15.0-beta.2] - 28-02-2024
+### Adicionado
+- `utils/scroll.scss`: Adicionado classe `secondary-scroll` com um estilo de scroll mais sútil em relação a padrão.
+
+### Modificado
+- `QasAppUser`: Alterado do menu "Editar" para "Perfil", uma vez que agora a pagina do /me não é somente para editar.
+
+## [3.15.0-beta.1] - 21-02-2024
+### Corrigido
+- `QasGrabbable`:
+  - corrigido problema do conteúdo ser alterado após o componente ser montado e o grab não ser ajustado de acordo com o novo conteúdo.
+  - corrigido z-index do fade lateral.
+
+## [3.15.0-beta.0] - 21-02-2024
+### Adicionado
+- `QasGrabbable`: adicionado componente de scroll em uma determinada área (elemento) ao realizar evento de grab (puxar/agarrar) com o mouse/touch.
+- `helpers/setScrollOnGrab`: 
+  - adicionado opções de callback após eventos de grab: `onMoveFn`, `onGrabFn` e `onScrollFn`.
+  - adicionado suporte a dispositivos com touch.
+  - adicionado estilos padrões no container para desabilitar click ao realizar o grab.
+- `QasFilters`: 
+  - adicionado model `filters` para controlar os filtros ativos.
+  - adicionado suporte a campos do filtro com lazy loading.
+- `QasSelect`: adicionado prop `useFetchOptionsOnFocus` para controlar se deve buscar as opções somente ao realizar foco no select.
+- `search-filter`: adicionado evento `update:selectedOptions` para retornar as opções selecionadas (label e value).
+
+### Corrigido
+- `QasTableGenerator`: corrigido ação de click na linha ao realizar o scroll horizontal na tabela.
+
+### Removido
+- `helpers/setScrollOnGrab`: removido função interna `haveMoved`.
+
 ## [3.14.0] - 20-02-2024
 ## BREAKING CHANGES
 - `QasDateTimeInput`: removido métodos blur e focus que não estavam sendo utilizados.
@@ -2628,3 +2881,19 @@ Adicionado suporte para Pinia/Vuex Seguindo os padrões da biblioteca `@bildvitt
 [3.14.0-beta.9]: https://github.com/bildvitta/asteroid/compare/v3.14.0-beta.8...v3.14.0-beta.9?expand=1
 [3.14.0-beta.10]: https://github.com/bildvitta/asteroid/compare/v3.14.0-beta.9...v3.14.0-beta.10?expand=1
 [3.14.0]: https://github.com/bildvitta/asteroid/compare/v3.13.1...v3.14.0?expand=1
+[3.15.0-beta.0]: https://github.com/bildvitta/asteroid/compare/v3.14.0...v3.15.0-beta.0?expand=1
+[3.15.0-beta.1]: https://github.com/bildvitta/asteroid/compare/v3.15.0-beta.0...v3.15.0-beta.1?expand=1
+[3.15.0-beta.2]: https://github.com/bildvitta/asteroid/compare/v3.15.0-beta.1...v3.15.0-beta.2?expand=1
+[3.15.0-beta.3]: https://github.com/bildvitta/asteroid/compare/v3.15.0-beta.2...v3.15.0-beta.3?expand=1
+[3.15.0-beta.4]: https://github.com/bildvitta/asteroid/compare/v3.15.0-beta.3...v3.15.0-beta.4?expand=1
+[3.15.0-beta.5]: https://github.com/bildvitta/asteroid/compare/v3.15.0-beta.4...v3.15.0-beta.5?expand=1
+[3.15.0-beta.6]: https://github.com/bildvitta/asteroid/compare/v3.15.0-beta.5...v3.15.0-beta.6?expand=1
+[3.15.0-beta.7]: https://github.com/bildvitta/asteroid/compare/v3.15.0-beta.6...v3.15.0-beta.7?expand=1
+[3.15.0-beta.8]: https://github.com/bildvitta/asteroid/compare/v3.15.0-beta.7...v3.15.0-beta.8?expand=1
+[3.15.0-beta.9]: https://github.com/bildvitta/asteroid/compare/v3.15.0-beta.8...v3.15.0-beta.9?expand=1
+[3.15.0-beta.10]: https://github.com/bildvitta/asteroid/compare/v3.15.0-beta.9...v3.15.0-beta.10?expand=1
+[3.15.0-beta.11]: https://github.com/bildvitta/asteroid/compare/v3.15.0-beta.10...v3.15.0-beta.11?expand=1
+[3.15.0-beta.12]: https://github.com/bildvitta/asteroid/compare/v3.15.0-beta.11...v3.15.0-beta.12?expand=1
+[3.15.0-beta.13]: https://github.com/bildvitta/asteroid/compare/v3.15.0-beta.12...v3.15.0-beta.13?expand=1
+[3.15.0-beta.14]: https://github.com/bildvitta/asteroid/compare/v3.15.0-beta.13...v3.15.0-beta.14?expand=1
+[3.15.0-beta.15]: https://github.com/bildvitta/asteroid/compare/v3.15.0-beta.14...v3.15.0-beta.15?expand=1

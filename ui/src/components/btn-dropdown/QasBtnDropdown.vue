@@ -1,21 +1,25 @@
 <template>
   <div class="qas-btn-dropdown" :class="classes.parent">
-    <div v-if="hasLeftButton" :class="classes.leftSide">
-      <slot name="left-button">
-        <qas-btn variant="tertiary" v-bind="defaultButtonProps" @click="onClick">
-          <q-menu v-if="hasMenuOnLeftSide" v-model="isMenuOpened" anchor="bottom right" auto-close self="top right" @update:model-value="onUpdateMenuValue">
-            <div :class="classes.menuContent">
-              <slot />
-            </div>
-          </q-menu>
-        </qas-btn>
-      </slot>
+    <div v-if="hasButtons" :class="classes.list">
+      <div v-for="(buttonProps, key, index) in props.buttonsPropsList" :key="key">
+        <div class="flex">
+          <qas-btn :disable="props.disable" v-bind="buttonProps" variant="tertiary" @click="onClick">
+            <q-menu v-if="hasMenuOnLeftSide" v-model="isMenuOpened" anchor="bottom right" auto-close self="top right" @update:model-value="onUpdateMenuValue">
+              <div :class="classes.menuContent">
+                <slot />
+              </div>
+            </q-menu>
+          </qas-btn>
+
+          <slot :name="`bottom-${key}`" />
+
+          <q-separator v-if="hasSeparator(index)" class="q-mx-sm qas-btn-dropdown__separator self-center" dark vertical />
+        </div>
+      </div>
     </div>
 
-    <q-separator v-if="hasSeparator" class="q-mr-sm qas-btn-dropdown__separator self-center" dark vertical />
-
     <div v-if="props.useSplit">
-      <qas-btn color="grey-10" :icon="props.dropdownIcon" variant="tertiary">
+      <qas-btn color="grey-10" :disable="disable" :icon="props.dropdownIcon" variant="tertiary">
         <q-menu v-if="hasDefaultSlot" anchor="bottom right" auto-close self="top right">
           <div :class="classes.menuContent">
             <slot />
@@ -37,7 +41,7 @@ defineOptions({
 })
 
 const props = defineProps({
-  buttonProps: {
+  buttonsPropsList: {
     default: () => ({}),
     type: Object
   },
@@ -47,7 +51,11 @@ const props = defineProps({
     type: String
   },
 
-  useSplit: {
+  disable: {
+    type: Boolean
+  },
+
+  menu: {
     type: Boolean
   },
 
@@ -55,8 +63,13 @@ const props = defineProps({
     type: Boolean
   },
 
-  menu: {
+  useSplit: {
     type: Boolean
+  },
+
+  useTooltip: {
+    type: Boolean,
+    default: true
   }
 })
 
@@ -67,47 +80,28 @@ const screen = useScreen()
 
 const isMenuOpened = ref(false)
 
-const defaultButtonProps = computed(() => {
-  const {
-    icon,
-    iconRight,
-    color,
-    ...defaultProps
-  } = props.buttonProps
-
-  const defaultIconRight = iconRight || props.dropdownIcon
-
-  return {
-    useLabelOnSmallScreen: false,
-
-    ...defaultProps,
-
-    color: color || (!props.useSplit ? 'grey-10' : 'primary'),
-    ...(!props.useSplit && { iconRight: defaultIconRight }),
-    ...(props.useSplit && { icon })
-  }
-})
-
 const classes = computed(() => {
   return {
     parent: {
       'flex inline items-center': props.useSplit
     },
 
-    leftSide: {
-      'q-mr-sm': props.useSplit
-    },
-
     menuContent: {
       'q-pa-md': props.useMenuPadding
+    },
+
+    list: {
+      flex: !isSingleButton.value
     }
   }
 })
 
+const buttonsPropsListSize = computed(() => Object.keys(props.buttonsPropsList).length)
+const isSingleButton = computed(() => buttonsPropsListSize.value === 1)
+
+const hasButtons = computed(() => !screen.isSmall || !props.useSplit)
 const hasDefaultSlot = computed(() => !!slots.default)
-const hasLeftButton = computed(() => !screen.isSmall || !props.useSplit)
-const hasMenuOnLeftSide = computed(() => hasDefaultSlot.value && !props.useSplit)
-const hasSeparator = computed(() => !screen.isSmall && props.useSplit)
+const hasMenuOnLeftSide = computed(() => hasDefaultSlot.value && !props.useSplit && isSingleButton.value)
 
 watch(() => props.menu, value => {
   isMenuOpened.value = value
@@ -119,6 +113,14 @@ function onUpdateMenuValue (value) {
 
 function onClick (event) {
   emit('click', event)
+}
+
+function isLast (index) {
+  return index + 1 === buttonsPropsListSize.value
+}
+
+function hasSeparator (index) {
+  return props.useSplit || !isLast(index)
 }
 </script>
 

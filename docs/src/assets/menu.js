@@ -73,7 +73,11 @@ module.exports = [
       },
       {
         name: 'Badge',
-        path: '/components/Badge'
+        path: '/components/badge'
+      },
+      {
+        name: 'BoardGenerator',
+        path: '/components/board-generator'
       },
       {
         name: 'Box',
@@ -94,6 +98,10 @@ module.exports = [
       {
         name: 'Card',
         path: '/components/card'
+      },
+      {
+        name: 'CardImage',
+        path: '/components/card-image'
       },
       {
         name: 'ChartView',
@@ -140,6 +148,10 @@ module.exports = [
         path: '/components/empty-result-text'
       },
       {
+        name: 'ExpansionItem',
+        path: '/components/expansion-item'
+      },
+      {
         name: 'Field',
         path: '/components/field'
       },
@@ -162,6 +174,10 @@ module.exports = [
       {
         name: 'GalleryCard',
         path: '/components/gallery-card'
+      },
+      {
+        name: 'Grabbable',
+        path: '/components/grabbable'
       },
       {
         name: 'GridGenerator',
@@ -274,6 +290,14 @@ module.exports = [
       {
         name: 'Status',
         path: '/components/Status'
+      },
+      {
+        name: 'Stepper',
+        path: '/components/stepper'
+      },
+      {
+        name: 'StepperFormView',
+        path: '/components/stepper-form-view'
       },
       {
         name: 'TableGenerator',
@@ -467,6 +491,10 @@ module.exports = [
       {
         name: 'opacity',
         path: '/styles/opacity'
+      },
+      {
+        name: 'scroll',
+        path: '/styles/scroll'
       },
       {
         name: 'set-brand',

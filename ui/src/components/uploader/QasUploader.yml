@@ -186,3 +186,7 @@ events:
       value:
         desc: Retorna se está ou não fazendo um upload.
         type: Boolean
+
+methods:
+  'reset: () => void':
+    desc: Reseta o campo do uploader.

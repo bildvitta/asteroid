@@ -217,10 +217,6 @@ export default {
 
     hasScrollOnGrab () {
       return !!Object.keys(this.scrollOnGrab).length
-    },
-
-    isScrolling () {
-      return this.hasScrollOnGrab && this.scrollOnGrab.haveMoved()
     }
   },
 
@@ -299,18 +295,11 @@ export default {
       return {
         class: 'text-no-decoration text-grey-8 flex full-width items-center full-height',
         [this.useExternalLink ? 'href' : 'to']: this.rowRouteFn(row),
-        onClick: this.onRowClickHandler,
         ...(this.useExternalLink && { target: '_blank' })
       }
     },
 
-    onRowClickHandler (event) {
-      if (this.isScrolling) return event.preventDefault()
-    },
-
     onRowClick () {
-      if (this.isScrolling) return
-
       this.$attrs.onRowClick(...arguments)
     }
   }

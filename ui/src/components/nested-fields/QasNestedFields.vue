@@ -17,7 +17,7 @@
 
             <div ref="formGenerator" class="col-12 justify-between q-col-gutter-x-md row">
               <slot :errors="transformedErrors" :fields="getFields(index, row)" :index="index" name="fields" :update-value="updateValuesFromInput">
-                <qas-form-generator v-model="nested[index]" :class="formClasses" :columns="formColumns" :disable="isDisabledRow(row)" :errors="transformedErrors[index]" :fields="getFields(index, row)" :fields-props="getFieldsProps(index, row)" @update:model-value="updateValuesFromInput($event, index)">
+                <qas-form-generator v-model="nested[index]" class="col" :columns="formColumns" :disable="isDisabledRow(row)" :errors="transformedErrors[index]" :fields="getFields(index, row)" :fields-props="getFieldsProps(index, row)" :gutter="formGutter" @update:model-value="updateValuesFromInput($event, index)">
                   <template v-for="(slot, key) in $slots" #[key]="scope">
                     <slot v-bind="scope" :disabled="isDisabledRow(row)" :errors="transformedErrors" :index="index" :name="key" />
                   </template>
@@ -67,6 +67,7 @@ import QasInput from '../input/QasInput.vue'
 import QasLabel from '../label/QasLabel.vue'
 
 import { constructObject } from '../../helpers'
+import { Spacing } from '../../enums/Spacing'
 
 import { TransitionGroup } from 'vue'
 import debug from 'debug'
@@ -164,17 +165,9 @@ export default {
     },
 
     formGutter: {
-      type: String,
-      default: 'md',
-      validator: value => {
-        return [
-          'xs',
-          'sm',
-          'md',
-          'lg',
-          'xl'
-        ].includes(value)
-      }
+      default: Spacing.Lg,
+      type: [String, Boolean],
+      validator: value => typeof value === 'boolean' || Object.values(Spacing).includes(value)
     },
 
     identifierItemKey: {
@@ -278,13 +271,6 @@ export default {
 
     fieldName () {
       return this.field?.name
-    },
-
-    formClasses () {
-      return {
-        col: true,
-        [`q-col-gutter-x-${this.formGutter}`]: this.useInlineActions
-      }
     },
 
     showDestroyButton () {

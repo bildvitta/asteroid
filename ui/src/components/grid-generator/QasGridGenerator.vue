@@ -1,15 +1,15 @@
 <template>
   <div :class="classes">
-    <div v-for="(field, key) in fieldsByResult" :key="key" :class="getFieldClass({ index: key, isGridGenerator: true })">
+    <div v-for="(field, key) in fieldsByResult" :key="key" :class="getContainerClass({ key })">
       <slot :field="field" :name="`field-${field.name}`">
         <slot :field="field" name="header">
-          <header :class="props.headerClass" :data-cy="`grid-generator-${field.name}-field`">
+          <header :class="headerClass" :data-cy="`grid-generator-${field.name}-field`" :title="getTitle(field, 'label')">
             {{ field.label }}
           </header>
         </slot>
 
         <slot :field="field" name="content">
-          <div :class="props.contentClass" :data-cy="`grid-generator-${field.name}-result`">
+          <div :class="contentClass" :data-cy="`grid-generator-${field.name}-result`" :title="getTitle(field, 'formattedResult')">
             {{ field.formattedResult }}
           </div>
         </slot>
@@ -21,11 +21,14 @@
 <script setup>
 import useGenerator, { baseProps } from '../../composables/private/use-generator'
 import { isEmpty, humanize } from '../../helpers'
+import { useScreen } from '../../composables'
 import { isObject } from 'lodash-es'
 import { ref, computed, watch } from 'vue'
 
 // define component name
 defineOptions({ name: 'QasGridGenerator' })
+
+const screen = useScreen()
 
 // props
 const props = defineProps({
@@ -37,7 +40,7 @@ const props = defineProps({
   },
 
   headerClass: {
-    default: 'text-bold',
+    default: '',
     type: [Array, Object, String]
   },
 
@@ -54,15 +57,51 @@ const props = defineProps({
   useEmptyResult: {
     default: true,
     type: Boolean
+  },
+
+  useEllipsis: {
+    default: true,
+    type: Boolean
+  },
+
+  useInline: {
+    type: Boolean
   }
 })
 
 // composables
-const { classes, getFieldClass } = useGenerator({ props })
+const { classes: useGeneratorClasses, getFieldClass } = useGenerator({ props })
 
 // computed
 const hasResult = computed(() => Object.keys(props.result).length)
 const hasFields = computed(() => Object.keys(props.fields).length)
+
+const contentClass = computed(() => {
+  return [
+    props.contentClass,
+
+    {
+      ellipsis: !screen.isSmall && props.useEllipsis
+    }
+  ]
+})
+
+const headerClass = computed(() => {
+  return [
+    props.headerClass,
+
+    {
+      ellipsis: !screen.isSmall && props.useEllipsis,
+      'text-bold': screen.isSmall || !props.useInline
+    }
+  ]
+})
+
+const classes = computed(() => {
+  if (props.useInline) return 'row q-col-gutter-md'
+
+  return useGeneratorClasses.value
+})
 
 const fieldsByResult = ref({})
 
@@ -121,5 +160,17 @@ function getFieldsByResult () {
 
 function setFieldsByResult () {
   fieldsByResult.value = getFieldsByResult()
+}
+
+function getContainerClass ({ key }) {
+  if (props.useInline) {
+    return 'row justify-between col-12'
+  }
+
+  return getFieldClass({ index: key, isGridGenerator: true })
+}
+
+function getTitle (field, key) {
+  return props.useEllipsis ? field[key] : ''
 }
 </script>

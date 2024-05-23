@@ -35,8 +35,8 @@ export default {
   computed: {
     attributes () {
       return {
-        ...this.$attrs,
-        inline: !this.$qas.screen.isSmall
+        inline: !this.$qas.screen.isSmall,
+        ...this.$attrs
       }
     },
 

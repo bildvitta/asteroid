@@ -1,0 +1,58 @@
+type: component
+
+meta:
+  desc: Componente para steppers de formulário.
+
+props:
+  steps:
+    desc: Lista de step, cada item possuindo "stepProps" e "component".
+    required: true
+    type: Array
+
+  form-view-props:
+    desc: Propriedades que serão repassadas para os componentes, podendo repassar coisas que serão comúm entre as páginas, como "entity", "mode".
+    type: Object
+
+  stepper-props:
+    desc: Propriedades que serão repassadas para o QasStepper.
+    type: Object
+
+inject:
+  stepper-model:
+    desc: Model do stepper caso precise recuperar o step atual para alguma lógica. Possui reatividade, portanto para acessar é necessário do ".value"
+    type: Number
+
+  form-view-props:
+    desc: Propriedades do QasFormView que são comuns entre todos os steppers. Possui reatividade, portanto para acessar é necessário do ".value"
+    type: Object
+
+  'goTo: (step) => void':
+    desc: Função usada para mudar o step atual.
+    params:
+      step:
+        desc: Nome do step que deseja visualizar.
+        type: Number
+
+  'next: (payload) => void':
+    desc: Avança para o próximo step.
+    params:
+      payload:
+        desc: Payload do formulário atual, que será mergeado no "stepperValues", com a intenção de guardar o payload completo para ser enviado no último step.
+        type: Object
+
+  'previous: () => void':
+    desc: Volta para o step anterior.
+
+  'setStepProps: () => void':
+    desc: Altera as propriedades de um step específico caso precise que seja alterado com base em alguma lógica atual da página.
+    params:
+      step:
+        desc: Step que deseja alterar as propriedades
+        type: Number
+
+      payload:
+        desc: Propriedades do step como "title", "prefix", "caption", entre outros.
+
+  steps-values:
+    desc: Payload com todos valores que foram mergeados através da função "next" ao decorrer dos avanços dos steps. É usado para você recuperar no último step com intenção de enviar o payload completo de todos step para a API. Possui reatividade, portanto para acessar é necessário do ".value"
+    type: Object

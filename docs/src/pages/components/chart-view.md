@@ -107,6 +107,11 @@ O retorno da API deverá conter a seguinte estrutura:
 :::
 <doc-example file="QasChartView/MultipleResults" title="Múltiplos gráficos" />
 
+:::warning
+Utilizar a propriedade `colors-list` com cautela para não quebrar o Design System.
+:::
+<doc-example file="QasChartView/WithCustomColors" title="Gráfico com cores personalizadas" />
+
 :::info
 O gráfico pode ser aprimorado ao incluir um título (title) e um subtítulo (subtitle) para fornecer uma descrição clara dos dados apresentados.
 :::
