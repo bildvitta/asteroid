@@ -10,6 +10,11 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 ### Sobre os "BREAKING CHANGES"
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
+## Não publicado
+### Modificado
+- `Components`: Agora os componentes não são registrados via app.component, uma vez que isto fazia com que o `tree shaking` não funcionasse, agora é implementado o `unplugin-vue-components` para fazer o registro/auto import, diminuindo o bundle na hora do build, não adicionando components/helpers/composables não utilizados.
+- [`QasChartView`, `QasMap`]: adicionado `index.js` para exportar esses componentes uma vez que são componentes com dependências de terceiros e ele não são exportados do `vue-plugin`.
+
 ## [3.15.0-beta.15] - 10-05-2024
 ### Adicionado
 - `QasChartView`: Adicionado prop `colors-list` para personalizar as cores dos gráficos.

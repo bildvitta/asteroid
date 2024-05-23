@@ -23,6 +23,7 @@
   },
   "bugs": "https://github.com/bildvitta/asteroid/issues",
   "homepage": "",
+  "sideEffects": false,
   "engines": {
     "node": ">= 8.9.0",
     "npm": ">= 5.6.0",
@@ -35,6 +36,7 @@
     "fontfaceobserver": "^2.3.0",
     "humps": "^2.0.1",
     "laravel-echo": "^1.15.3",
-    "pusher-js": "^8.4.0-rc2"
+    "pusher-js": "^8.4.0-rc2",
+    "unplugin-vue-components": "^0.27.0"
   }
 }

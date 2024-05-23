@@ -30,6 +30,9 @@
         </div>
       </div>
     </div>
+
+    <qas-btn icon="sym_r_edit" label="Hello word" />
+    <qas-select label="Eae man" />
   </doc-page>
 </template>
 

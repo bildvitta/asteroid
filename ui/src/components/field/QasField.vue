@@ -7,6 +7,7 @@
 </template>
 
 <script>
+import QasSelect from '../select/QasSelect.vue'
 import QasCheckboxGroup from '../checkbox-group/QasCheckboxGroup.vue'
 import QasDateTimeInput from '../date-time-input/QasDateTimeInput.vue'
 import QasInput from '../input/QasInput.vue'
@@ -33,7 +34,8 @@ export default {
     QasOptionGroup,
     QasPasswordInput,
     QasSignatureUploader,
-    QasUploader
+    QasUploader,
+    QasSelect
   },
 
   inheritAttrs: false,

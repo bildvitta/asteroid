@@ -22,6 +22,7 @@ const backgroundClass = computed(() => `bg-${props.color}`)
 
 <style lang="scss">
 .qas-status {
+  background-color: red;
   border-radius: 100%;
   height: 16px;
   width: 16px;

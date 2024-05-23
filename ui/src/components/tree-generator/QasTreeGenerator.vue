@@ -60,14 +60,15 @@
 </template>
 
 <script>
+import PvTreeForm from './private/PvTreeForm.vue'
+
 import destroyNestedChildrenByKey from '../../helpers/destroy-nested-children-by-key.js'
 import findChildrenByKey from '../../helpers/find-children-by-key.js'
 import promiseHandler from '../../helpers/promise-handler.js'
 import { required } from '../../helpers/rules.js'
+
 import { extend } from 'quasar'
 import axios from 'axios'
-
-import PvTreeForm from './private/PvTreeForm.vue'
 
 export default {
   name: 'QasTreeGenerator',

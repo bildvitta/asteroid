@@ -1,6 +1,19 @@
 const sourcePath = '~@bildvitta/quasar-app-extension-asteroid/src/'
 const resolve = (...paths) => paths.map(path => sourcePath + path)
 
+const UnpluginVueComponents = require('unplugin-vue-components/webpack')
+
+const thirdPartyComponentsList = {
+  QasMap: {
+    boot: 'boot/map.js',
+    from: '@bildvitta/quasar-ui-asteroid/src/components/map/index.js'
+  },
+
+  QasChartView: {
+    from: '@bildvitta/quasar-ui-asteroid/src/components/chart-view/index.js'
+  }
+}
+
 function extendQuasar (quasar, asteroidConfigFile) {
   // Arquivos de boot
   // https://quasar.dev/quasar-cli-vite/boot-files#introduction
@@ -17,16 +30,11 @@ function extendQuasar (quasar, asteroidConfigFile) {
   ))
 
   // controle dos componentes que utilizam bibliotecas terceiras.
-  const thirdPartyComponentsList = {
-    QasMap: 'boot/map.js',
-    QasChartView: 'boot/chart-view.js'
-  }
-
   for (const key in thirdPartyComponentsList) {
-    if (asteroidConfigFile.framework.thirdPartyComponents.includes(key)) {
-      quasar.boot.push(...resolve(
-        thirdPartyComponentsList[key]
-      ))
+    const { boot } = thirdPartyComponentsList[key]
+
+    if (asteroidConfigFile.framework.thirdPartyComponents.includes(key) && boot) {
+      quasar.boot.push(...resolve(boot))
     }
   }
 
@@ -94,8 +102,6 @@ module.exports = async function (api) {
 
     validate()
 
-    console.log('FUI CHAMADO NO INDEX', api.resolve.app(asteroid))
-
     webpack.resolve.alias = {
       ...webpack.resolve.alias,
 
@@ -103,5 +109,21 @@ module.exports = async function (api) {
       'asteroid-config-app': asteroidConfigPath,
       asteroid: api.resolve.app(asteroid)
     }
+  })
+
+  api.chainWebpack(chain => {
+    // auto import de componentes
+    chain.plugin('unplugin-vue-components/webpack').use(
+      UnpluginVueComponents.default({
+        resolvers: name => {
+          if (name.startsWith('Qas')) {
+            return {
+              name,
+              from: thirdPartyComponentsList[name]?.from || 'asteroid'
+            }
+          }
+        }
+      })
+    )
   })
 }

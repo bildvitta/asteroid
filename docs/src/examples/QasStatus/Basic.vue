@@ -5,7 +5,13 @@
 </template>
 
 <script>
+import { QasStatus } from 'asteroid'
+
 export default {
+  components: {
+    QasStatus
+  },
+
   computed: {
     colors () {
       return [

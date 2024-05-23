@@ -16,6 +16,9 @@ const { getVueComponent } = require('./build/markdown.js')
 
 const UnplugVue = require('unplugin-vue-components/webpack')
 
+// import Unimport from 'unimport/unplugin'
+// const Unimport = require('unimport/unplugin').default
+
 module.exports = configure(function (quasar) {
   return {
     // https://quasar.dev/quasar-cli/supporting-ts
@@ -147,9 +150,13 @@ module.exports = configure(function (quasar) {
 
         chain.plugin('unplugin-vue-components/webpack').use(
           UnplugVue.default({
+
             resolvers: name => {
+              console.log("TCL: chainWebpack -> name === 'QasStatus'", name === 'QasStatus')
+              if (name === 'QasStatus') return
               if (name.startsWith('Qas')) {
                 return {
+                  importStyle: 'scss',
                   name,
                   from: components[name]?.from || 'asteroid'
                 }
@@ -157,6 +164,35 @@ module.exports = configure(function (quasar) {
             }
           })
         )
+
+        // console.log('TCL: chainWebpack -> Unimport.webpack', Unimport.webpack)
+        // chain.plugin('unimport/unplugin').use(Unimport.webpack({
+        //   addons: {
+        //     vueTemplate: true
+        //   },
+        //   // presets: [
+        //   //   {
+        //   //     from: '@bildvitta/quasar-ui-asteroid/src/asteroid.js',
+
+        //   //     imports: [
+        //   //       'QasActions',
+        //   //       'QasBtn'
+        //   //     ]
+        //   //   }
+        //   // ]
+        //   imports: [
+        //     {
+        //       from: 'asteroid',
+        //       as: 'QasStatus',
+        //       name: 'QasStatus'
+        //     },
+        //     {
+        //       from: 'asteroid',
+        //       as: 'QasBtn',
+        //       name: 'QasBtn'
+        //     }
+        //   ]
+        // }))
       }
     },
 

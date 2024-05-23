@@ -81,7 +81,6 @@ declare module 'vue' {
     QasSignatureUploader: typeof import('asteroid')['QasSignatureUploader']
     QasSingleView: typeof import('asteroid')['QasSingleView']
     QasSortable: typeof import('asteroid')['QasSortable']
-    QasStatus: typeof import('asteroid')['QasStatus']
     QasStepper: typeof import('asteroid')['QasStepper']
     QasStepperFormView: typeof import('asteroid')['QasStepperFormView']
     QasTableGenerator: typeof import('asteroid')['QasTableGenerator']

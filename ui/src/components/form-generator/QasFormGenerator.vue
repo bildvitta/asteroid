@@ -26,6 +26,8 @@
 </template>
 
 <script setup>
+import QasField from '../field/QasField.vue'
+
 import { gutterValidator } from '../../helpers/private/gutter-validator'
 import useGenerator, { baseProps } from '../../composables/private/use-generator'
 import { Spacing } from '../../enums/Spacing'
