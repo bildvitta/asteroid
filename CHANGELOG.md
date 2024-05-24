@@ -10,7 +10,7 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 ### Sobre os "BREAKING CHANGES"
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
-## Não publicado
+## [3.16.0-beta.0] - 24-05-2024
 ### Corrigido
 - `QasSelect`: Corrigido forma de atribuir as options, já que estava dando problema de endereço de memória em selects dependentes que são lazy-loading dentro de um `QasNestedFields`.
 
@@ -2902,3 +2902,4 @@ Adicionado suporte para Pinia/Vuex Seguindo os padrões da biblioteca `@bildvitt
 [3.15.0-beta.14]: https://github.com/bildvitta/asteroid/compare/v3.15.0-beta.13...v3.15.0-beta.14?expand=1
 [3.15.0-beta.15]: https://github.com/bildvitta/asteroid/compare/v3.15.0-beta.14...v3.15.0-beta.15?expand=1
 [3.15.0]: https://github.com/bildvitta/asteroid/compare/v3.14.0...v3.15.0?expand=1
+[3.16.0-beta.0]: https://github.com/bildvitta/asteroid/compare/v3.15.0...v3.16.0-beta.0?expand=1
