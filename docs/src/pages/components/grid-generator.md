@@ -20,5 +20,6 @@ Ao utilizar a prop `useInline`, o gutter passa a ter o valor `md`.
 
 ## Uso
 <doc-example file="QasGridGenerator/Basic" title="Básico" />
+<doc-example file="QasGridGenerator/ExGridCommonColumns" title="Common Columns" />
 <doc-example file="QasGridGenerator/Slots" title="Slots" />
 <doc-example file="QasGridGenerator/UseInline" title="Inline" />
