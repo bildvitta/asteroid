@@ -10,6 +10,10 @@ props:
     type: [Array, String, Object]
     examples: ["[{ sm: 6, md: 12 }]", "{ name: { sm: 6, md: 12 } }", "12", "{ sm: 6, md: 12 }"]
 
+  common-columns:
+    desc: Usado quando precisa passar o mesmo valor para todas as colunas, sem especificar cada uma, ela é feita como um merge com a prop "columns".
+    examples: ["{ name: { sm: 6, md: 12 } }", "12"]
+
   disable:
     desc: Deixa os campos desabilitados enviando a prop "disable" para cada campo.
     default: "false"
@@ -62,9 +66,6 @@ props:
     desc: Altera ordem dos campos.
     default: []
     type: Array
-
-  use-common-columns:
-    desc: Utilizado quando passar a estrutura da prop "columns" sendo um objeto onde seus breakpoints serão replicados para todos fields.
 
 slots:
   'field-[nome-da-chave]':
