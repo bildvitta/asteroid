@@ -1,6 +1,7 @@
 <template>
   <div class="qas-app-menu">
     <q-drawer :key="reRenderCount" v-model="model" :behavior="behavior" class="shadow-2" :mini="isMiniMode" :mini-width="88" show-if-above :width="drawerWidth" @mouseenter="onMouseEvent" @mouseleave="onMouseEvent">
+      <!-- <q-drawer :key="reRenderCount" v-model="model" :behavior="behavior" class="shadow-2" :mini="isMiniMode" :mini-width="88" show-if-above :width="drawerWidth" @mouseenter="onMouseEvent" @mouseleave="onMouseEvent"> -->
       <div class="column full-height justify-between no-wrap">
         <div class="full-width">
           <!-- Brand -->
@@ -76,8 +77,28 @@
         </div>
 
         <!-- User -->
-        <div v-if="showAppUser" class="full-width q-pb-lg q-px-lg">
-          <qas-app-user v-bind="defaultAppUserProps" />
+        <div v-if="showAppUser" class="full-width">
+          <!-- <pv-app-menu-help-chat /> -->
+
+          <q-list class="q-mt-xl">
+            <q-item class="text-primary" clickable>
+              <q-item-section avatar>
+                <q-icon name="sym_r_chat" />
+              </q-item-section>
+
+              <q-item-section>
+                <q-item-label>
+                  <div class="ellipsis inline-block text-subtitle2">
+                    Solicitar ajuda
+                  </div>
+                </q-item-label>
+              </q-item-section>
+
+              <pv-app-menu-help-chat />
+            </q-item>
+          </q-list>
+
+          <qas-app-user class="q-pb-lg q-px-lg" v-bind="defaultAppUserProps" />
         </div>
       </div>
     </q-drawer>
@@ -85,6 +106,7 @@
 </template>
 
 <script setup>
+import PvAppMenuHelpChat from './private/PvAppMenuHelpChat.vue'
 import PvAppMenuDropdown from './private/PvAppMenuDropdown.vue'
 import QasAppUser from '../app-user/QasAppUser.vue'
 
