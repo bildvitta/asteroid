@@ -174,6 +174,10 @@ export default {
 
     formattedLabel () {
       return getRequiredLabel({ label: this.label, required: this.required })
+    },
+
+    valueKey () {
+      return this.$attrs.valueKey || 'value'
     }
   },
 
@@ -188,13 +192,19 @@ export default {
       this.togglePopupContentClass(value)
     },
 
+    required () {
+      if (this.options.length === 1 && this.required && !this.modelValue) this.setOptionValue()
+    },
+
     options: {
-      handler () {
+      handler (value) {
         if (this.useLazyLoading && this.mx_hasFilteredOptions) return
 
         if (this.fuse || this.hasFuse) this.setFuse()
 
         if (this.options.length === 1 && this.required && !this.modelValue) this.setOptionValue()
+
+        if (!this.modelValue && !this.useLazyLoading) this.checkOptions(value)
 
         this.mx_filteredOptions = [...this.options]
       },
@@ -277,6 +287,40 @@ export default {
 
     setOptionValue () {
       this.$emit('update:modelValue', this.options[0])
+    },
+
+    checkOptions (options) {
+      const isPrimitiveModel = typeof this.modelValue === 'number' ||
+        typeof this.modelValue === 'string' ||
+        typeof this.modelValue === 'boolean'
+
+      if (isPrimitiveModel) return this.validateOptionsInPrimitiveModel(options)
+
+      if (typeof this.modelValue === 'object') return this.validateOptionsInObjectModel(options)
+
+      this.validateOptionsInArrayModel(options)
+    },
+
+    validateOptionsInPrimitiveModel (options) {
+      const hasOption = options.some(item => item[this.valueKey] === this.modelValue)
+
+      if (!hasOption) this.clearModel()
+    },
+
+    validateOptionsInObjectModel (options) {
+      const hasOption = options.some(item => item[this.valueKey] === this.modelValue[this.valueKey])
+
+      if (!hasOption) this.clearModel()
+    },
+
+    validateOptionsInArrayModel (options) {
+      const hasOption = options.some(item => this.modelValue.includes(item.value))
+
+      if (!hasOption) this.clearModel()
+    },
+
+    clearModel () {
+      this.$emit('update:modelValue', '')
     }
   }
 }
