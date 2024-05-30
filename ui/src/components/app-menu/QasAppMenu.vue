@@ -1,7 +1,6 @@
 <template>
   <div class="qas-app-menu">
-    <q-drawer :key="reRenderCount" v-model="model" :behavior="behavior" class="shadow-2" :mini="isMiniMode" :mini-width="88" show-if-above :width="drawerWidth" @mouseenter="onMouseEvent" @mouseleave="onMouseEvent">
-      <!-- <q-drawer :key="reRenderCount" v-model="model" :behavior="behavior" class="shadow-2" :mini="isMiniMode" :mini-width="88" show-if-above :width="drawerWidth" @mouseenter="onMouseEvent" @mouseleave="onMouseEvent"> -->
+    <q-drawer :key="reRenderCount" v-model="model" :behavior="behavior" class="overflow-hidden-y shadow-2" :mini="isMiniMode" :mini-width="88" show-if-above :width="drawerWidth" @mouseenter="onMouseEvent" @mouseleave="onMouseEvent">
       <div class="column full-height justify-between no-wrap">
         <div class="full-width">
           <!-- Brand -->
@@ -31,7 +30,7 @@
           </div>
 
           <!-- List -->
-          <q-list v-if="props.items.length" class="q-mt-xl qas-app-menu__menu text-grey-10">
+          <q-list v-if="props.items.length" class="q-mt-xl qas-app-menu__menu text-grey-10" :class="menuClasses">
             <template v-for="(menuItem, index) in props.items">
               <div v-if="hasChildren(menuItem)" :key="`children-${index}`" class="qas-app-menu__content" :class="classes.content">
                 <q-item class="ellipsis items-center q-py-none qas-app-menu__item qas-app-menu__item--label-mini text-weight-bold">
@@ -76,30 +75,27 @@
           </q-list>
         </div>
 
-        <!-- User -->
         <div v-if="showAppUser" class="full-width">
-          <!-- <pv-app-menu-help-chat /> -->
-
-          <q-list class="q-mt-xl">
-            <q-item class="text-primary" clickable>
+          <!-- Chat Ajuda -->
+          <q-list v-if="helpChatLink" class="q-mt-xl">
+            <q-item class="q-mb-md text-primary" clickable>
               <q-item-section avatar>
                 <q-icon name="sym_r_chat" />
               </q-item-section>
 
               <q-item-section>
                 <q-item-label>
-                  <div class="ellipsis inline-block text-subtitle2">
+                  <div class="ellipsis text-subtitle2">
                     Solicitar ajuda
                   </div>
                 </q-item-label>
               </q-item-section>
 
-              <keep-alive>
-                <pv-app-menu-help-chat :iframe />
-              </keep-alive>
+              <pv-app-menu-help-chat :link="props.helpChatLink" :mini-brand="props.miniBrand" @update:model-value="setHasOpenedHelpChat" />
             </q-item>
           </q-list>
 
+          <!-- User -->
           <qas-app-user class="q-pb-lg q-px-lg" v-bind="defaultAppUserProps" />
         </div>
       </div>
@@ -117,7 +113,7 @@ import useAppUser from './composables/use-app-user'
 import useDevelopmentBadge from './composables/use-development-badge'
 import { useScreen } from '../../composables'
 
-import { ref, computed, watch, h } from 'vue'
+import { ref, computed, watch } from 'vue'
 import { useRouter } from 'vue-router'
 
 defineOptions({
@@ -136,6 +132,11 @@ const props = defineProps({
     default: '',
     required: true,
     type: String
+  },
+
+  helpChatLink: {
+    type: String,
+    default: ''
   },
 
   items: {
@@ -175,16 +176,10 @@ const emit = defineEmits(['sign-out', 'update:modelValue', 'toggle-notifications
 const screen = useScreen()
 const router = useRouter()
 
-const iframe = h('iframe', {
-  class: 'pv-app-menu-help-chat__iframe',
-  src: 'https://webchat.botframework.com/embed/webchat_nave_desk_ms?s=8o-EXlD3btc.tJ1o1abtwA7eNw2emYJyulBTtYkjF4X6ZpQHP5-iCLw',
-  allowPopups: true
-})
-
-console.log('TCL: iframe', iframe)
 const rootRoute = router.hasRoute('Root') ? { name: 'Root' } : { path: '/' }
 
 const hasOpenedMenu = ref(false)
+const hasOpenedHelpChat = ref(false)
 const isMini = ref(screen.isLarge)
 const reRenderCount = ref(0)
 
@@ -211,8 +206,14 @@ const model = computed({
 
 const behavior = computed(() => screen.untilLarge ? 'mobile' : 'desktop')
 const drawerWidth = computed(() => screen.untilLarge ? 320 : 280)
-const isMiniMode = computed(() => screen.isLarge && isMini.value && !hasOpenedMenu.value)
 const normalizedBrand = computed(() => isMini.value ? props.miniBrand : props.brand)
+
+const isMiniMode = computed(() => {
+  console.log('TCL: isMiniMode -> hasOpenedMenu.value', hasOpenedMenu.value)
+  return screen.isLarge && isMini.value && !hasOpenedMenu.value && !hasOpenedHelpChat.value
+})
+
+const menuClasses = computed(() => ({ 'qas-app-menu__menu--spaced': !props.helpChatLink }))
 
 const classes = computed(() => {
   return {
@@ -293,6 +294,11 @@ function onMouseEvent ({ type }) {
 function setHasOpenedMenu (value) {
   hasOpenedMenu.value = value
 }
+
+function setHasOpenedHelpChat (value) {
+  console.log('TCL: setHasOpenedHelpChat -> value', value)
+  hasOpenedHelpChat.value = value
+}
 </script>
 
 <style lang="scss" scoped>
@@ -366,8 +372,16 @@ function setHasOpenedMenu (value) {
   // Media: untilLarge
   @media (min-width: $breakpoint-sm-max) {
     &__menu {
+      overflow-x: hidden;
+      // max-height: calc(100vh - 365px);
+
+      &:not(&--spaced) {
+        max-height: calc(100vh - 365px);
+      }
+    }
+
+    &__menu--spaced {
       max-height: calc(100vh - 310px);
-      overflow-x: auto;
     }
   }
 }
