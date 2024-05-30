@@ -94,7 +94,9 @@
                 </q-item-label>
               </q-item-section>
 
-              <pv-app-menu-help-chat />
+              <keep-alive>
+                <pv-app-menu-help-chat :iframe />
+              </keep-alive>
             </q-item>
           </q-list>
 
@@ -115,7 +117,7 @@ import useAppUser from './composables/use-app-user'
 import useDevelopmentBadge from './composables/use-development-badge'
 import { useScreen } from '../../composables'
 
-import { ref, computed, watch } from 'vue'
+import { ref, computed, watch, h } from 'vue'
 import { useRouter } from 'vue-router'
 
 defineOptions({
@@ -173,6 +175,13 @@ const emit = defineEmits(['sign-out', 'update:modelValue', 'toggle-notifications
 const screen = useScreen()
 const router = useRouter()
 
+const iframe = h('iframe', {
+  class: 'pv-app-menu-help-chat__iframe',
+  src: 'https://webchat.botframework.com/embed/webchat_nave_desk_ms?s=8o-EXlD3btc.tJ1o1abtwA7eNw2emYJyulBTtYkjF4X6ZpQHP5-iCLw',
+  allowPopups: true
+})
+
+console.log('TCL: iframe', iframe)
 const rootRoute = router.hasRoute('Root') ? { name: 'Root' } : { path: '/' }
 
 const hasOpenedMenu = ref(false)
