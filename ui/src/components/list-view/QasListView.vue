@@ -28,9 +28,11 @@
           <qas-pagination v-model="page" :max="totalPages" @click="changePage" />
         </div>
 
-        <q-inner-loading :showing="hasResults && mx_isFetching">
+        <pv-list-view-loading :model-value="hasResults && mx_isFetching" />
+
+        <!-- <q-inner-loading :showing="hasResults && mx_isFetching">
           <q-spinner color="grey" size="3em" />
-        </q-inner-loading>
+        </q-inner-loading> -->
       </main>
     </q-pull-to-refresh>
 
@@ -39,17 +41,22 @@
 </template>
 
 <script>
+import PvListViewLoading from './private/PvListViewLoading.vue'
+
 import QasFilters from '../filters/QasFilters.vue'
 import QasPagination from '../pagination/QasPagination.vue'
+
+import { viewMixin, contextMixin } from '../../mixins'
+
 import debug from 'debug'
 import { extend } from 'quasar'
 import { getState, getAction } from '@bildvitta/store-adapter'
-import { viewMixin, contextMixin } from '../../mixins'
 
 const log = debug('asteroid-ui:qas-list-view')
 
 export default {
   components: {
+    PvListViewLoading,
     QasFilters,
     QasPagination
   },
@@ -186,6 +193,8 @@ export default {
 
     async fetchList (externalPayload = {}) {
       this.mx_isFetching = true
+
+      await new Promise(resolve => setTimeout(resolve, 10000))
 
       try {
         const payload = {
