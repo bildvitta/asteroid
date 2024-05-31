@@ -58,6 +58,7 @@ export default {
   computed: {
     appMenuProps () {
       return {
+        helpChatLink: 'https://webchat.botframework.com/embed/webchat_nave_desk_ms?s=8o-EXlD3btc.tJ1o1abtwA7eNw2emYJyulBTtYkjF4X6ZpQHP5-iCLw',
         brand: 'https://placehold.co/208x40',
         miniBrand: 'https://placehold.co/40x40',
         modules,
