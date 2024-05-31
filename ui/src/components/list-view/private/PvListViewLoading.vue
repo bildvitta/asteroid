@@ -1,12 +1,12 @@
 <template>
-  <q-inner-loading :showing="model">
+  <q-inner-loading :showing="true">
     <q-spinner color="gray" size="3em" />
 
     <transition>
       <div v-if="showWaitingMessage" class="flex items-end text-center">
-        <h4 class="q-mr-xs text-h4">
-          Aguarde, isto pode levar alguns segundos <q-spinner-dots color="gray-10" />
-        </h4>
+        <h6 class="q-mr-xs text-h6">
+          Aguarde, isto pode levar alguns segundos...
+        </h6>
       </div>
     </transition>
   </q-inner-loading>
@@ -14,13 +14,12 @@
 
 <script setup>
 import { watch, ref } from 'vue'
-import { NotifySuccess } from '../../../plugins'
 
 defineOptions({ name: 'PvListViewLoading' })
 
 const model = defineModel({ type: Boolean })
 
-const showWaitingMessage = ref(false)
+const showWaitingMessage = ref(true)
 const loadingListener = ref(null)
 
 watch(() => model.value, value => {
@@ -41,8 +40,6 @@ function startTrigger () {
   if (model.value) {
     showWaitingMessage.value = true
 
-    NotifySuccess('Aguarde, isto pode levar alguns segundos...')
-
     clearInterval(loadingListener.value)
   }
 }
@@ -50,6 +47,10 @@ function startTrigger () {
 </script>
 
 <style>
+.q-inner-loading {
+  background-color: rgba(255, 255, 255, 0.8);
+}
+
 .v-enter-active,
 .v-leave-active {
   transition: opacity 0.5s ease;
