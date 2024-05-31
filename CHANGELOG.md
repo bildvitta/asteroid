@@ -16,6 +16,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 
 ### Adicionado
 - [`QasFormGenerator`, `QasGridGenerator`]: adicionado nova propriedade `commonColumns`, esta propriedade vai substituir a necessidade do `useCommonColumns` e dar mais flexibilidade.
+- `QasAppMenu`: adicionado propriedade `helpChatLink`, para a ação de "Solicitar ajuda".
 
 ### Removido
 - [`QasFormGenerator`, `QasGridGenerator`]: removido a propriedade `useCommonColumns` em favor de utilizar a propriedade `commonColumns`.
