@@ -12,7 +12,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 
 ## Não publicado
 ### Corrigido
-- `QasAppMenu`: adicionado validações para garantir que aconteça nenhum erro que trave a aplicação.
+- `QasAppMenu`: adicionado validações para garantir que não aconteça nenhum erro que trave a aplicação.
 
 ## [3.16.0-beta.1] - 31-05-2024
 ## BREAKING CHANGES
