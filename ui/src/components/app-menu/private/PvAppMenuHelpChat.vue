@@ -101,6 +101,11 @@ onUnmounted(() => {
 })
 
 // functions
+
+/**
+ * Define o estilo do iframe de acordo com a posição do "chatContent" dentro
+ * do QMenu.
+ */
 function setIframeStyle () {
   const iframe = getIframe()
 
