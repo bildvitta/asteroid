@@ -106,10 +106,12 @@ onUnmounted(() => {
  * Define o estilo do iframe de acordo com a posição do "chatContent" dentro
  * do QMenu.
  */
-function setIframeStyle () {
+async function setIframeStyle () {
+  await nextTick()
+
   const iframe = getIframe()
 
-  if (!iframe) return
+  if (!iframe || !chatContent.value) return
 
   const { bottom, left, top } = chatContent.value.getBoundingClientRect()
 
