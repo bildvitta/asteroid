@@ -1,6 +1,6 @@
 <template>
   <div class="qas-app-menu">
-    <q-drawer :key="reRenderCount" v-model="model" :behavior="behavior" class="overflow-hidden-y shadow-2" :mini="isMiniMode" :mini-width="88" show-if-above :width="drawerWidth" @mouseenter="onMouseEvent" @mouseleave="onMouseEvent">
+    <q-drawer :key="reRenderCount" v-model="model" :behavior="behavior" class="shadow-2" :mini="isMiniMode" :mini-width="88" show-if-above :width="drawerWidth" @mouseenter="onMouseEvent" @mouseleave="onMouseEvent">
       <div class="column full-height justify-between no-wrap">
         <div class="full-width">
           <!-- Brand -->
@@ -75,7 +75,7 @@
           </q-list>
         </div>
 
-        <div v-if="showAppUser" class="full-width">
+        <div v-if="showAppUser">
           <!-- Chat Ajuda -->
           <q-list v-if="helpChatLink" class="q-mt-xl">
             <q-item class="q-mb-md text-primary" clickable>
@@ -96,7 +96,9 @@
           </q-list>
 
           <!-- User -->
-          <qas-app-user class="q-pb-lg q-px-lg" v-bind="defaultAppUserProps" />
+          <div class="full-width q-pb-lg q-px-lg">
+            <qas-app-user v-bind="defaultAppUserProps" />
+          </div>
         </div>
       </div>
     </q-drawer>
@@ -209,7 +211,6 @@ const drawerWidth = computed(() => screen.untilLarge ? 320 : 280)
 const normalizedBrand = computed(() => isMini.value ? props.miniBrand : props.brand)
 
 const isMiniMode = computed(() => {
-  console.log('TCL: isMiniMode -> hasOpenedMenu.value', hasOpenedMenu.value)
   return screen.isLarge && isMini.value && !hasOpenedMenu.value && !hasOpenedHelpChat.value
 })
 
@@ -296,7 +297,6 @@ function setHasOpenedMenu (value) {
 }
 
 function setHasOpenedHelpChat (value) {
-  console.log('TCL: setHasOpenedHelpChat -> value', value)
   hasOpenedHelpChat.value = value
 }
 </script>

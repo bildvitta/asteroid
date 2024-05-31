@@ -1,3 +1,7 @@
+<!-- O chat em si é renderizado em um iframe, o que QMenu, toda vez que fecha se auto destroy, então não podemos usar o
+iframe dentro do QMenu, pois toda vez que um iframe é destruído ele perde o seu estado, e teria que iniciar um novo chat,
+pra isto é criado um iframe no body, e posicionado com JS + CSS para ficar sobre o QMenu. -->
+
 <template>
   <q-menu class="pv-app-menu-help-chat shadow-2" v-bind="menuProps">
     <header class="q-pa-md">
@@ -37,7 +41,7 @@
 <script setup>
 import { useScreen } from '../../../composables'
 
-import { onUnmounted, ref, nextTick, computed } from 'vue'
+import { onMounted, onUnmounted, ref, nextTick, computed } from 'vue'
 
 defineOptions({ name: 'PvAppMenuHelpChat' })
 
@@ -55,11 +59,13 @@ const props = defineProps({
 
 const screen = useScreen()
 
+// refs
 const chatContent = ref(null)
 const isOpened = ref(false)
 const showIframe = ref(false)
 const showInnerLoading = ref(false)
 
+// computed
 const boxClasses = computed(() => {
   return {
     flex: !showIframe.value,
@@ -74,10 +80,18 @@ const menuProps = computed(() => {
     self: screen.isSmall ? 'bottom middle' : 'top left',
     touchPosition: !screen.isSmall,
 
-    onBeforeHide,
+    onBeforeHide: hideIframe,
     onShow
   }
 })
+
+// hooks
+
+/**
+ * Toda vez que a prop "behavior" do componente "QasAppMenu" é alterada, este componente
+ * é renderizado novamente, então é necessário esconder o iframe caso ele ja esteja aberto.
+ */
+onMounted(hideIframe)
 
 onUnmounted(() => {
   if (showIframe.value) {
@@ -86,6 +100,7 @@ onUnmounted(() => {
   }
 })
 
+// functions
 function setIframeStyle () {
   const iframe = getIframe()
 
@@ -112,7 +127,7 @@ function onShow () {
   if (showIframe.value) setIframeStyle()
 }
 
-function onBeforeHide () {
+function hideIframe () {
   isOpened.value = false
 
   const iframe = getIframe()
