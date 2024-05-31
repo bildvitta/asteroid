@@ -373,7 +373,6 @@ function setHasOpenedHelpChat (value) {
   @media (min-width: $breakpoint-sm-max) {
     &__menu {
       overflow-x: hidden;
-      // max-height: calc(100vh - 365px);
 
       &:not(&--spaced) {
         max-height: calc(100vh - 365px);
