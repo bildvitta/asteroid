@@ -1,5 +1,5 @@
 <template>
-  <div class="justify-between no-wrap q-col-gutter-x-md q-mb-xl row text-body1 text-grey-8" :class="containerClass">
+  <div class="justify-between no-wrap q-col-gutter-x-md row text-body1 text-grey-8" :class="containerClass">
     <div :class="leftClass">
       <slot name="left">
         {{ props.text }}
@@ -43,13 +43,19 @@ const props = defineProps({
   text: {
     type: String,
     default: ''
+  },
+
+  margin: {
+    type: String,
+    default: 'xl',
+    validator: value => ['none', 'xs', 'sm', 'md', 'lg', 'xl'].includes(value)
   }
 })
 
 const slots = useSlots()
 
 // computed
-const containerClass = computed(() => `items-${props.alignColumns}`)
+const containerClass = computed(() => `items-${props.alignColumns} q-mb-${props.margin}`)
 const leftClass = computed(() => hasRightSide.value ? 'col-9 col-md-9 col-sm-8' : 'col-12')
 
 const hasDefaultButton = computed(() => !!Object.keys(props.buttonProps).length)

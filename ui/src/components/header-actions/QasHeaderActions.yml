@@ -24,6 +24,12 @@ props:
     desc: Descrição da seção a esquerda.
     type: String
 
+  margin:
+    desc: Espaçamento entre o componente e o conteúdo abaixo.
+    default: xl
+    type: String
+    examples: ['none', 'xs', 'sm', 'md', 'lg', 'xl']
+
 slots:
   left:
     desc: slot para acessar seção da esquerda (descrição).

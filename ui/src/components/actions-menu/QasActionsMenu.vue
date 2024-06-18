@@ -3,7 +3,10 @@
     <qas-btn-dropdown v-bind="btnDropdownProps">
       <q-list data-cy="actions-menu-list">
         <slot v-for="(item, key) in formattedList.dropdownList" :item="item" :name="key">
-          <q-item v-bind="getItemProps(item)" :key="key" clickable data-cy="actions-menu-list-item" @click="setClickHandler(item)">
+          <q-item
+            v-bind="getItemProps(item)" :key="key" active-class="primary" class="qas-actions-menu__item"
+            clickable data-cy="actions-menu-list-item" @click="setClickHandler(item)"
+          >
             <q-item-section avatar>
               <q-icon :name="item.icon" />
             </q-item-section>
@@ -240,11 +243,21 @@ const { showTooltip, tooltipLabels } = useTooltips({ formattedList, fullList, pr
 
 // functions
 function getItemProps (item) {
-  const { disable, props: itemProps } = item
+  const { disable, props: itemProps, to } = item
 
   return {
     disable,
+    to,
     ...itemProps
   }
 }
 </script>
+
+<style lang="scss">
+.qas-actions-menu {
+  &__item {
+    &::before {
+    }
+  }
+}
+</style>
