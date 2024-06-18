@@ -19,8 +19,7 @@ const list = {
   person: {
     icon: 'sym_r_person',
     label: 'Perfil teste',
-    // handler: () => alert('handler ativado')
-    to: { path: '/' }
+    handler: () => alert('handler ativado')
   }
 }
 
