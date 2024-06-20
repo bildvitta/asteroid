@@ -18,6 +18,8 @@
 
 <script setup>
 import { FlexAlign } from '../../enums/Align'
+import { Spacing } from '../../enums/Spacing'
+import { gutterValidator } from '../../helpers/private/gutter-validator'
 
 import { computed, useSlots } from 'vue'
 
@@ -45,17 +47,18 @@ const props = defineProps({
     default: ''
   },
 
-  margin: {
+  spacing: {
+    default: Spacing.Xl,
     type: String,
-    default: 'xl',
-    validator: value => ['none', 'xs', 'sm', 'md', 'lg', 'xl'].includes(value)
+    validator: gutterValidator
   }
 })
 
 const slots = useSlots()
 
 // computed
-const containerClass = computed(() => `items-${props.alignColumns} q-mb-${props.margin}`)
+const containerClass = computed(() => `items-${props.alignColumns} q-mb-${props.spacing}`)
+
 const leftClass = computed(() => hasRightSide.value ? 'col-9 col-md-9 col-sm-8' : 'col-12')
 
 const hasDefaultButton = computed(() => !!Object.keys(props.buttonProps).length)
