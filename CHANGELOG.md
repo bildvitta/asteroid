@@ -13,7 +13,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 ## [Não publicado]
 ### Adicionado
 - `QasActionsMenu`: possibilidade de passar a prop `to` para os botões.
-- `QasHeaderActions`: adicionado prop `margin`.
+- `QasHeaderActions`: adicionado prop `spacing`.
 
 ## [3.16.0-beta.2] - 31-05-2024
 ### Corrigido

@@ -28,7 +28,7 @@ props:
     desc: Espaçamento entre o componente e o conteúdo abaixo.
     default: xl
     type: String
-    examples: [xs, sm, md, lg, xl, '2xl', '3xl', '4xl', '5xl']
+    examples: [none, xs, sm, md, lg, xl, '2xl', '3xl', '4xl', '5xl']
 
 slots:
   left:
