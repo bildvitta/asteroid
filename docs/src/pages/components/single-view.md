@@ -6,8 +6,14 @@ Componente para C.R.U.D. responsável pela visualização (Read) ou conhecido ta
 
 <doc-api file="single-view/QasSingleView" name="QasSingleView" />
 
+:::danger
+#### useStore
+- Utilize esta propriedade como "false" apenas em casos específicos como quando precisar utilizar este componente dentro de um dialog.
+- Caso esteja usando "useStore" como "false", e esteja passando a propriedade "entity", o componente tentará criar uma url automaticamente transformando entity em `kebab-case` e concatenando com o id da URL caso exista, é possível sobrescrever passando a prop "url".
+:::
+
 :::warning
-Este componente depende do `Vuex`, utiliza módulos com actions, state e getters para manipular/recuperar os dados. Por exemplo, para você utilizar em uma entidade de show de usuários, você **deve** ter um modulo de `users` e dentro de dele ter os seguinte requisitos:
+Este componente depende do `Vuex` ou `Pinia` caso esteja utilizando a propriedade `useStore: true`, utiliza módulos com actions, state e getters para manipular/recuperar os dados. Por exemplo, para você utilizar em uma entidade de show de usuários, você **deve** ter um modulo de `users` e dentro de dele ter os seguinte requisitos:
 - state: list.
 - getters: list e byId.
 - actions: fetchSingle.
