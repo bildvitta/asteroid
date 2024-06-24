@@ -15,7 +15,9 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - `QasSingleView`: Adicionado propriedade `use-store` para dar a possibilidade de utilizar o componente sem a store do vuex/pinia.
 
 ### Modificado
-- `QasSingleView`: Modificado para composition API.
+- `QasSingleView`:
+  - modificado para composition API.
+  - removido obrigatoriedade da propriedade "entity".
 
 ## [3.16.0-beta.3] - 20-06-2024
 ### Adicionado
