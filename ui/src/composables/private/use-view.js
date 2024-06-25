@@ -51,7 +51,7 @@ export const baseProps = {
   }
 }
 
-export const emitList = [
+export const baseEmits = [
   'update:fields',
   'update:errors',
   'update:metadata',
@@ -62,7 +62,7 @@ export const emitList = [
  * @param {{
  *  mode: import('@bildvitta/composables').ViewModeTypes,
  *  props: baseProps,
- *  emit: (emitList: string) => void,
+ *  emit: (baseEmits: string) => void,
  *  slots: import('vue').Slots
  * }} config
  */

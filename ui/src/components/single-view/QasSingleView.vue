@@ -21,7 +21,7 @@
 </template>
 
 <script setup>
-import useView, { baseProps, emitList } from '../../composables/private/use-view'
+import useView, { baseProps, baseEmits } from '../../composables/private/use-view'
 
 import debug from 'debug'
 import { decamelize } from 'humps'
@@ -47,7 +47,7 @@ const props = defineProps({
 })
 
 const emit = defineEmits([
-  ...emitList,
+  ...baseEmits,
 
   'update:result',
   'fetch-success',
