@@ -16,6 +16,9 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
   - Adicionado nova propriedade `useCustomOption` para poder utilizar a opção personalizada com caption ou badge.
   - Adicionado nova propriedade `badgeList` para conseguir controlar a badge a partir do retorno do backend.
 
+### Modificado
+- Modificado `QasSelect` para setar como padrão em casos que ele for required e tem apenas uma opção.
+
 ## [3.16.0-beta.4] - 26-06-2024
 ### Adicionado
 - `QasSingleView`: Adicionado propriedade `use-store` para dar a possibilidade de utilizar o componente sem a store do vuex/pinia.
