@@ -17,7 +17,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
   - Adicionado nova propriedade `badgeList` para conseguir controlar a badge a partir do retorno do backend.
 
 ### Modificado
-- Modificado `QasSelect` para setar como padrão em casos que ele for required e tem apenas uma opção.
+- `QasSelect`: Alterado comportamento para quando houver apenas uma opção e o componente for `required`, setar automaticamente essa opção.
 
 ## [3.16.0-beta.4] - 26-06-2024
 ### Adicionado
