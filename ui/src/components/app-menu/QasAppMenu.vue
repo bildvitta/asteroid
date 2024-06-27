@@ -30,7 +30,7 @@
           </div>
 
           <!-- List -->
-          <q-list v-if="props.items.length" class="q-mt-xl qas-app-menu__menu text-grey-10">
+          <q-list v-if="props.items.length" class="q-mt-xl qas-app-menu__menu text-grey-10" :class="menuClasses">
             <template v-for="(menuItem, index) in props.items">
               <div v-if="hasChildren(menuItem)" :key="`children-${index}`" class="qas-app-menu__content" :class="classes.content">
                 <q-item class="ellipsis items-center q-py-none qas-app-menu__item qas-app-menu__item--label-mini text-weight-bold">
@@ -75,9 +75,30 @@
           </q-list>
         </div>
 
-        <!-- User -->
-        <div v-if="showAppUser" class="full-width q-pb-lg q-px-lg">
-          <qas-app-user v-bind="defaultAppUserProps" />
+        <div v-if="showAppUser">
+          <!-- Chat Ajuda -->
+          <q-list v-if="helpChatLink" class="q-mt-xl">
+            <q-item class="q-mb-md text-primary" clickable>
+              <q-item-section avatar>
+                <q-icon name="sym_r_chat" />
+              </q-item-section>
+
+              <q-item-section>
+                <q-item-label>
+                  <div class="ellipsis text-subtitle2">
+                    Solicitar ajuda
+                  </div>
+                </q-item-label>
+              </q-item-section>
+
+              <pv-app-menu-help-chat :link="props.helpChatLink" :mini-brand="props.miniBrand" @update:model-value="setHasOpenedHelpChat" />
+            </q-item>
+          </q-list>
+
+          <!-- User -->
+          <div class="full-width q-pb-lg q-px-lg">
+            <qas-app-user v-bind="defaultAppUserProps" />
+          </div>
         </div>
       </div>
     </q-drawer>
@@ -85,6 +106,7 @@
 </template>
 
 <script setup>
+import PvAppMenuHelpChat from './private/PvAppMenuHelpChat.vue'
 import PvAppMenuDropdown from './private/PvAppMenuDropdown.vue'
 import QasAppUser from '../app-user/QasAppUser.vue'
 
@@ -112,6 +134,11 @@ const props = defineProps({
     default: '',
     required: true,
     type: String
+  },
+
+  helpChatLink: {
+    type: String,
+    default: ''
   },
 
   items: {
@@ -154,6 +181,7 @@ const router = useRouter()
 const rootRoute = router.hasRoute('Root') ? { name: 'Root' } : { path: '/' }
 
 const hasOpenedMenu = ref(false)
+const hasOpenedHelpChat = ref(false)
 const isMini = ref(screen.isLarge)
 const reRenderCount = ref(0)
 
@@ -180,8 +208,13 @@ const model = computed({
 
 const behavior = computed(() => screen.untilLarge ? 'mobile' : 'desktop')
 const drawerWidth = computed(() => screen.untilLarge ? 320 : 280)
-const isMiniMode = computed(() => screen.isLarge && isMini.value && !hasOpenedMenu.value)
 const normalizedBrand = computed(() => isMini.value ? props.miniBrand : props.brand)
+
+const isMiniMode = computed(() => {
+  return screen.isLarge && isMini.value && !hasOpenedMenu.value && !hasOpenedHelpChat.value
+})
+
+const menuClasses = computed(() => ({ 'qas-app-menu__menu--spaced': !props.helpChatLink }))
 
 const classes = computed(() => {
   return {
@@ -262,6 +295,10 @@ function onMouseEvent ({ type }) {
 function setHasOpenedMenu (value) {
   hasOpenedMenu.value = value
 }
+
+function setHasOpenedHelpChat (value) {
+  hasOpenedHelpChat.value = value
+}
 </script>
 
 <style lang="scss" scoped>
@@ -335,8 +372,15 @@ function setHasOpenedMenu (value) {
   // Media: untilLarge
   @media (min-width: $breakpoint-sm-max) {
     &__menu {
+      overflow-x: hidden;
+
+      &:not(&--spaced) {
+        max-height: calc(100vh - 365px);
+      }
+    }
+
+    &__menu--spaced {
       max-height: calc(100vh - 310px);
-      overflow-x: auto;
     }
   }
 }

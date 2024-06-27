@@ -3,7 +3,7 @@
   <qas-single-view v-model:fields="fields" v-model:result="result" :custom-id="customId" :entity="entity">
     <template #default>
       <div>
-        <qas-grid-generator :fields="fields" :result="result" />
+        <qas-grid-generator :columns="{ name: { col: 12 } }" :fields="fields" :result="result" />
       </div>
     </template>
   </qas-single-view>

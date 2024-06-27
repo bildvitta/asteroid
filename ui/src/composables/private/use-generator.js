@@ -10,6 +10,11 @@ export const baseProps = {
     type: [Array, String, Object]
   },
 
+  commonColumns: {
+    default: () => ({}),
+    type: [Object, String]
+  },
+
   fields: {
     default: () => ({}),
     type: Object
@@ -19,10 +24,6 @@ export const baseProps = {
     default: Spacing.Lg,
     type: [String, Boolean],
     validator: gutterValidator
-  },
-
-  useCommonColumns: {
-    type: Boolean
   }
 }
 
@@ -61,9 +62,7 @@ export default function ({ props = {} }) {
    * @returns {(string|string[])}
    */
   function getFieldClass ({ index, isGridGenerator, fields }) {
-    if (typeof props.columns === 'string') {
-      return IRREGULAR_CLASSES.includes(props.columns) ? props.columns : `col-${props.columns}`
-    }
+    if (typeof props.columns === 'string') return _getStringColumns(props.columns)
 
     return Array.isArray(props.columns)
       ? _handleColumnsByIndex({ index, isGridGenerator, fields })
@@ -72,7 +71,13 @@ export default function ({ props = {} }) {
 
   /**
    * @private
-  */
+   */
+  function _getStringColumns (columns) {
+    return IRREGULAR_CLASSES.includes(columns) ? columns : `col-${columns}`
+  }
+  /**
+   * @private
+   */
   function _getBreakpoint (columns) {
     const classes = []
 
@@ -104,6 +109,10 @@ export default function ({ props = {} }) {
    * @private
   */
   function _getDefaultColumnClass (isGridGenerator) {
+    if (typeof props.commonColumns === 'string') return _getStringColumns(props.commonColumns)
+
+    if (Object.keys(props.commonColumns).length) return _getBreakpoint(props.commonColumns)
+
     return isGridGenerator ? 'col-6 col-xs-12 col-sm-4' : 'col-6'
   }
 
@@ -111,13 +120,6 @@ export default function ({ props = {} }) {
    * @private
   */
   function _handleColumnsByField ({ index, isGridGenerator }) {
-    /*
-     * Quando é passado o columns como um único objeto que será replicado para todos fields.
-     */
-    if (props.useCommonColumns && Object.keys(props.columns).length) {
-      return _getBreakpoint(props.columns)
-    }
-
     /*
      * Quando não é passado columns, retornará o default.
      */

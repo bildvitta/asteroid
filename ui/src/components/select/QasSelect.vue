@@ -217,7 +217,7 @@ export default {
 
         if (this.fuse || this.hasFuse) this.setFuse()
 
-        this.mx_filteredOptions = this.options
+        this.mx_filteredOptions = [...this.options]
       },
 
       immediate: true

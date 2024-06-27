@@ -1,6 +1,6 @@
 <template>
-  <div :class="mx_componentClass">
-    <header v-if="mx_hasHeaderSlot">
+  <div :class="componentClass">
+    <header v-if="hasHeaderSlot">
       <slot name="header" />
     </header>
 
@@ -8,117 +8,160 @@
       <slot />
     </template>
 
-    <qas-empty-result-text v-else-if="!mx_isFetching" class="q-my-xl" />
+    <qas-empty-result-text v-else-if="!viewState.fetching" class="q-my-xl" />
 
-    <footer v-if="mx_hasFooterSlot">
+    <footer v-if="hasFooterSlot">
       <slot name="footer" />
     </footer>
 
-    <q-inner-loading :showing="mx_isFetching">
+    <q-inner-loading :showing="viewState.fetching">
       <q-spinner color="grey" size="3em" />
     </q-inner-loading>
   </div>
 </template>
 
-<script>
-import viewMixin from '../../mixins/view'
+<script setup>
+import useView, { baseProps, baseEmits } from '../../composables/private/use-view'
 
-import { markRaw } from 'vue'
-import { getGetter, getAction } from '@bildvitta/store-adapter'
 import debug from 'debug'
+import { decamelize } from 'humps'
+import { markRaw, computed, watch, inject } from 'vue'
+import { useRoute } from 'vue-router'
 
 const log = debug('asteroid-ui:qas-single-view')
 
-export default {
-  name: 'QasSingleView',
+defineOptions({ name: 'QasSingleView' })
 
-  mixins: [viewMixin],
+const props = defineProps({
+  ...baseProps,
 
-  props: {
-    customId: {
-      default: '',
-      type: [Number, String]
-    },
-
-    result: {
-      default: () => ({}),
-      type: Object
-    }
+  customId: {
+    default: '',
+    type: [Number, String]
   },
 
-  emits: [
-    'update:result',
-    'fetch-success',
-    'fetch-error'
-  ],
-
-  computed: {
-    hasResult () {
-      return !!this.resultModel
-    },
-
-    id () {
-      return this.customId || this.$route.params.id
-    },
-
-    resultModel () {
-      return getGetter.call(this, { entity: this.entity, key: 'byId' })(this.id) || {}
-    }
-  },
-
-  watch: {
-    $route (to, from) {
-      if (to.name === from.name) {
-        this.mx_fetchHandler({ id: this.id, url: this.url }, this.fetchSingle)
-      }
-    },
-
-    resultModel (value) {
-      this.$emit('update:result', markRaw({ ...value }))
-    }
-  },
-
-  created () {
-    this.mx_fetchHandler({ id: this.id, url: this.url }, this.fetchSingle)
-  },
-
-  methods: {
-    async fetchSingle (externalPayload = {}) {
-      this.mx_isFetching = true
-
-      try {
-        const payload = { id: this.id, url: this.url, ...externalPayload }
-
-        const response = await getAction.call(this, {
-          entity: this.entity,
-          key: 'fetchSingle',
-          payload
-        })
-
-        const { errors, fields, metadata } = response.data
-
-        this.mx_setErrors(errors)
-        this.mx_setFields(fields)
-        this.mx_setMetadata(metadata)
-
-        this.mx_updateModels({
-          errors: this.mx_errors,
-          fields: this.mx_fields,
-          metadata: this.mx_metadata
-        })
-
-        this.$emit('fetch-success', response)
-
-        log(`[${this.entity}]:fetchSingle:success`, response)
-      } catch (error) {
-        this.mx_fetchError(error)
-        this.$emit('fetch-error', error)
-
-        log(`[${this.entity}]:fetchSingle:error`, error)
-      } finally {
-        this.mx_isFetching = false
-      }
-    }
+  result: {
+    default: () => ({}),
+    type: Object
   }
+})
+
+const emit = defineEmits([
+  ...baseEmits,
+
+  'update:result',
+  'fetch-success',
+  'fetch-error'
+])
+
+const slots = defineSlots()
+
+// globals
+const axios = inject('axios')
+const qas = inject('qas')
+
+// composables
+const route = useRoute()
+
+const {
+  // state
+  viewState,
+
+  // computed
+  componentClass,
+  hasHeaderSlot,
+  hasFooterSlot,
+
+  // functions
+  errorHandler,
+  fetchHandler,
+  setErrors,
+  setFields,
+  setMetadata,
+  setResult,
+  updateModels
+} = useView({ emit, props, slots, mode: 'single' })
+
+// computed
+const id = computed(() => props.customId || route.params.id)
+
+const resultModel = computed(() => {
+  if (props.useStore) return qas.getGetter({ entity: props.entity, key: 'byId' })(id.value) || {}
+
+  return viewState.value.result || {}
+})
+
+const hasResult = computed(() => !!resultModel.value)
+
+// watch
+watch(() => route, (to, from) => {
+  if (to.name === from.name) {
+    fetchHandler({ id: id.value, url: props.url }, fetchSingle)
+  }
+})
+
+watch(() => resultModel.value, value => emit('update:result', markRaw({ ...value })))
+
+// created
+fetchHandler({ id: id.value, url: props.url }, fetchSingle)
+
+// functions
+async function fetchSingle (externalPayload = {}) {
+  viewState.value.fetching = true
+
+  try {
+    const payload = { id: id.value, url: props.url, ...externalPayload }
+
+    const response = await getAction(payload)
+
+    const { errors, fields, metadata, result } = response.data
+
+    setErrors(errors)
+    setFields(fields)
+    setMetadata(metadata)
+
+    /**
+     * result só precisa ser adicionado ao estado se não estiver usando store,
+     * pois com a store é usado o getter.
+     */
+    !props.useStore && setResult(result)
+
+    updateModels({
+      errors: viewState.value.errors,
+      fields: viewState.value.fields,
+      metadata: viewState.value.metadata,
+
+      ...(!props.useStore && { result: viewState.value.result })
+    })
+
+    emit('fetch-success', response)
+
+    log(`[${props.entity}]:fetchSingle:success`, response)
+  } catch (error) {
+    errorHandler(error)
+    emit('fetch-error', error)
+
+    log(`[${props.entity}]:fetchSingle:error`, error)
+  } finally {
+    viewState.value.fetching = false
+  }
+}
+
+function getAction (payload) {
+  if (props.useStore) {
+    return qas.getAction({
+      entity: props.entity,
+      key: 'fetchSingle',
+      payload
+    })
+  }
+
+  const { id: unusedID, url: unusedURL, ...externalPayload } = payload
+
+  const decamelizedEntity = decamelize(props.entity, { separator: '-' })
+
+  const url = props.url || `${decamelizedEntity}/${id.value}`
+
+  return axios.get(url, { ...externalPayload })
 }
 </script>

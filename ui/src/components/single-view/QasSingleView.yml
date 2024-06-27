@@ -62,6 +62,11 @@ props:
     default: true
     type: Boolean
 
+  use-route:
+    desc: Controla se o componente usará internamente uma store do vuex/pinia ou se vai ser utilizado o axios diretamente.
+    default: true
+    type: Boolean
+
 slots:
   default:
     desc: 'Slot para ter o conteúdo principal (dentro do main).'

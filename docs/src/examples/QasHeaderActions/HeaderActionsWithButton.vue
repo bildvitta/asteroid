@@ -1,6 +1,6 @@
 <template>
   <div class="container spaced">
-    <qas-header-actions class="q-mb-sm" v-bind="headerActionsProps" />
+    <qas-header-actions v-bind="headerActionsProps" />
   </div>
 </template>
 

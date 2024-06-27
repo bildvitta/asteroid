@@ -1,5 +1,5 @@
 <template>
-  <div class="justify-between no-wrap q-col-gutter-x-md q-mb-xl row text-body1 text-grey-8" :class="containerClass">
+  <div class="justify-between no-wrap q-col-gutter-x-md row text-body1 text-grey-8" :class="containerClass">
     <div :class="leftClass">
       <slot name="left">
         {{ props.text }}
@@ -18,6 +18,8 @@
 
 <script setup>
 import { FlexAlign } from '../../enums/Align'
+import { Spacing } from '../../enums/Spacing'
+import { gutterValidator } from '../../helpers/private/gutter-validator'
 
 import { computed, useSlots } from 'vue'
 
@@ -43,13 +45,20 @@ const props = defineProps({
   text: {
     type: String,
     default: ''
+  },
+
+  spacing: {
+    default: Spacing.Xl,
+    type: String,
+    validator: gutterValidator
   }
 })
 
 const slots = useSlots()
 
 // computed
-const containerClass = computed(() => `items-${props.alignColumns}`)
+const containerClass = computed(() => `items-${props.alignColumns} q-mb-${props.spacing}`)
+
 const leftClass = computed(() => hasRightSide.value ? 'col-9 col-md-9 col-sm-8' : 'col-12')
 
 const hasDefaultButton = computed(() => !!Object.keys(props.buttonProps).length)

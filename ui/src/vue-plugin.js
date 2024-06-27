@@ -72,7 +72,7 @@ import QasWhatsappLink from './components/whatsapp-link/QasWhatsappLink.vue'
 
 import { Notify, Loading, Quasar, Dialog as QuasarDialog } from 'quasar'
 
-import { getAction } from '@bildvitta/store-adapter'
+import { getAction, getGetter } from '@bildvitta/store-adapter'
 
 // Plugins
 import {
@@ -176,7 +176,8 @@ async function install (app) {
   app.provide('qas', {
     delete: params => Delete.call(app.config.globalProperties, params),
 
-    getAction: params => getAction.call(app.config.globalProperties, params)
+    getAction: params => getAction.call(app.config.globalProperties, params),
+    getGetter: params => getGetter.call(app.config.globalProperties, params)
   })
 
   app.directive(Test.name, Test)
