@@ -28,7 +28,9 @@
           <div class="items-center q-gutter-x-sm row">
             <q-item-label>{{ scope.opt.label }}</q-item-label>
 
-            <qas-badge v-for="(badge, index) in getFilteredBadgeList(scope.opt)" :key="index" v-bind="getBadgeProps({ badge, scope })" />
+            <div v-for="(badge, index) in getFilteredBadgeList(scope.opt)" :key="index">
+              <qas-badge v-if="canShowBadge(badge)" v-bind="getBadgeProps(badge)" />
+            </div>
           </div>
 
           <q-item-label v-if="scope.opt.caption" caption class="q-mt-xs">{{ scope.opt.caption }}</q-item-label>
@@ -55,9 +57,10 @@ export default {
   mixins: [searchFilterMixin],
 
   props: {
-    badgeList: {
-      default: () => [],
-      type: Array
+
+    badgeProps: {
+      default: () => ({}),
+      type: Object
     },
 
     fuseOptions: {
@@ -297,18 +300,21 @@ export default {
     },
 
     getFilteredBadgeList ({ label, value, disable, caption, ...rest }) {
-      return this.badgeList.filter(item => rest[item.model])
+      const badgeList = Object.entries(rest).map(([key, value]) => ({ [key]: value }))
+
+      return badgeList.filter(item => Object.keys(this.badgeProps).includes(Object.keys(item)[0]))
     },
 
-    getBadgeProps ({ badge, scope }) {
-      const { label, value, disable, caption, ...rest } = scope.opt
+    getBadgeProps (badge) {
+      const model = Object.keys(badge)[0]
 
-      const badgeModelList = Object.keys(rest)
-      const indexBadgeModel = badgeModelList.findIndex(item => item === badge.model)
+      return this.badgeProps[model](badge[model])
+    },
 
-      if (badge.model !== badgeModelList[indexBadgeModel]) return
+    canShowBadge (badge) {
+      const model = Object.keys(badge)[0]
 
-      return badge.badgeProps
+      return badge[model] || this.getBadgeProps(badge).show
     }
   }
 }

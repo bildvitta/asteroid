@@ -1,7 +1,7 @@
 <template>
   <div class="container q-py-lg">
     <div>
-      <qas-select v-model="model" :badge-list="badgeList" label="Select com badge na option" :options="optionsWithBadge" use-custom-option />
+      <qas-select v-model="model" :badge-props="badgeProps" label="Select com badge na option" :options="optionsWithBadge" use-custom-option />
       Model: {{ model }}
 
       <div class="q-mt-md">
@@ -19,39 +19,40 @@ defineOptions({ name: 'CustomOption' })
 
 const model = ref('')
 
-const badgeList = [
-  {
-    model: 'isTester',
-    badgeProps: {
-      color: 'blue-3',
-      label: 'Tester'
+const badgeProps = {
+  isTester: () => {
+    return {
+      color: 'grey-8',
+      label: 'Tester',
+      textColor: 'white'
     }
   },
-  {
-    model: 'isAvaible',
-    badgeProps: {
-      color: 'green-3',
-      label: 'Disponível'
+
+  isAvailable: value => {
+    return {
+      show: true,
+      color: value ? 'positive' : 'negative',
+      textColor: 'white',
+      label: value ? 'Disponível' : 'Inativo'
     }
   }
-]
+}
 
 const optionsWithBadge = [
   {
-    label: 'Opção 1',
+    label: 'Usuario 1',
     value: 1
   },
   {
-    label: 'Opção 2',
+    label: 'Usuario 2',
     value: 2,
     isTester: true,
-    isAvaible: false
+    isAvailable: false
   },
   {
-    label: 'Opção 3',
+    label: 'Usuario 3',
     value: 3,
-    isTester: true,
-    isAvaible: true
+    isAvailable: true
   }
 ]
 
