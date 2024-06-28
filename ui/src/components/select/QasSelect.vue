@@ -22,6 +22,22 @@
       </slot>
     </template>
 
+    <template v-if="useCustomOption" #option="scope">
+      <q-item v-bind="scope.itemProps" class="qas-select__option">
+        <q-item-section>
+          <div class="items-center q-gutter-x-sm row">
+            <q-item-label>{{ scope.opt.label }}</q-item-label>
+
+            <div v-for="(badge, index) in getFilteredBadgeList(scope.opt)" :key="index">
+              <qas-badge v-if="canShowBadge(badge)" v-bind="getBadgeProps(badge)" />
+            </div>
+          </div>
+
+          <q-item-label v-if="scope.opt.caption" caption class="q-mt-xs">{{ scope.opt.caption }}</q-item-label>
+        </q-item-section>
+      </q-item>
+    </template>
+
     <template v-for="(_, name) in $slots" #[name]="context">
       <slot :name="name" v-bind="context || {}" />
     </template>
@@ -41,6 +57,12 @@ export default {
   mixins: [searchFilterMixin],
 
   props: {
+
+    badgeProps: {
+      default: () => ({}),
+      type: Object
+    },
+
     fuseOptions: {
       default: () => ({}),
       type: Object
@@ -67,6 +89,10 @@ export default {
     },
 
     required: {
+      type: Boolean
+    },
+
+    useCustomOption: {
       type: Boolean
     },
 
@@ -271,6 +297,24 @@ export default {
       if (popupContentElement) {
         popupContentElement.classList.toggle('qas-select__is-fetching', force)
       }
+    },
+
+    getFilteredBadgeList ({ label, value, disable, caption, ...rest }) {
+      const badgeList = Object.entries(rest).map(([key, value]) => ({ [key]: value }))
+
+      return badgeList.filter(item => Object.keys(this.badgeProps).includes(Object.keys(item)[0]))
+    },
+
+    getBadgeProps (badge) {
+      const model = Object.keys(badge)[0]
+
+      return this.badgeProps[model](badge[model])
+    },
+
+    canShowBadge (badge) {
+      const model = Object.keys(badge)[0]
+
+      return badge[model] || this.getBadgeProps(badge).show
     }
   }
 }
@@ -288,6 +332,10 @@ export default {
         color: $grey-6;
       }
     }
+  }
+
+  &__option:hover .q-item__label--caption {
+    color: var(--q-primary);
   }
 }
 </style>
