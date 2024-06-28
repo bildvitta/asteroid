@@ -11,11 +11,6 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
 ## [Não publicado]
-### Adicionado
-- `QasSelect`:
-  - Adicionado nova propriedade `useCustomOption` para poder utilizar a opção personalizada com caption ou badge.
-  - Adicionado nova propriedade `badgeList` para conseguir controlar a badge a partir do retorno do backend.
-
 ### Modificado
 - `QasSelect`: Alterado comportamento para quando houver apenas uma opção e o componente for `required`, setar automaticamente essa opção.
 
