@@ -197,10 +197,6 @@ export default {
 
     formattedLabel () {
       return getRequiredLabel({ label: this.label, required: this.required })
-    },
-
-    canSetDefaultOption () {
-      return this.required && this.options.length === 1 && !this.modelValue
     }
   },
 
@@ -215,19 +211,11 @@ export default {
       this.togglePopupContentClass(value)
     },
 
-    required () {
-      if (!this.canSetDefaultOption) return
-
-      this.setDefaultOption()
-    },
-
     options: {
       handler () {
         if (this.useLazyLoading && this.mx_hasFilteredOptions) return
 
         if (this.fuse || this.hasFuse) this.setFuse()
-
-        if (this.canSetDefaultOption) this.setDefaultOption()
 
         this.mx_filteredOptions = [...this.options]
       },
@@ -321,14 +309,6 @@ export default {
       if (badge.model !== badgeModelList[indexBadgeModel]) return
 
       return badge.badgeProps
-    },
-
-    setDefaultOption () {
-      const modelValue = this.attributes.emitValue
-        ? this.options[0].value
-        : this.options[0]
-
-      this.$emit('update:modelValue', modelValue)
     }
   }
 }
