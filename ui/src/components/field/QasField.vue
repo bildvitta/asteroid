@@ -61,24 +61,25 @@ export default {
   computed: {
     component () {
       const {
+        disable,
         entity,
         extensions,
+        filled,
         label,
+        mask,
+        maxFiles,
         maxlength,
         minlength,
         multiple,
         name,
         options,
+        placeholder,
+        places,
+        prefix,
         readonly,
         required,
-        disable,
-        filled = readonly,
         suffix,
-        prefix,
-        places,
         type,
-        mask,
-        maxFiles,
         useIso,
         useLazyLoading,
         useStrengthChecker
@@ -94,7 +95,6 @@ export default {
       const input = {
         label,
         hideBottomSpace: !error.error,
-        outlined: true,
         ...error,
         readonly,
         required,
@@ -103,6 +103,7 @@ export default {
         maxlength,
         minlength,
         suffix,
+        placeholder,
         prefix,
         useIso
       }
