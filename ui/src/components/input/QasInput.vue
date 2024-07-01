@@ -1,7 +1,15 @@
 <template>
-  <q-input ref="input" v-model="model" :autogrow="isTextarea" bottom-slots :counter="hasCounter" :dense="dense" :error="errorData" v-bind="$attrs" :error-message="errorMessage" :inputmode="defaultInputmode" :label="formattedLabel" :mask="currentMask" :outlined="outlined" :placeholder="placeholder" :unmasked-value="unmaskedValue" @paste="onPaste">
+  <q-input ref="input" v-model="model" :autogrow="isTextarea" bottom-slots :class="classes" :counter="hasCounter" :dense="dense" :error="errorData" v-bind="$attrs" :error-message="errorMessage" :inputmode="defaultInputmode" :label="formattedLabel" :mask="currentMask" :outlined="outlined" :placeholder="placeholder" :unmasked-value="unmaskedValue" @paste="onPaste">
     <template v-for="(_, name) in $slots" #[name]="context">
       <slot :name="name" v-bind="context || {}" />
+    </template>
+
+    <template v-if="icon" #append>
+      <q-icon :name="icon" size="xs" />
+    </template>
+
+    <template v-if="iconRight" #prepend>
+      <q-icon :name="iconRight" size="xs" />
     </template>
   </q-input>
 </template>
@@ -62,6 +70,16 @@ export default {
 
     useRemoveErrorOnType: {
       type: Boolean
+    },
+
+    icon: {
+      type: String,
+      default: ''
+    },
+
+    iconRight: {
+      type: String,
+      default: ''
     }
   },
 
@@ -126,6 +144,12 @@ export default {
     },
 
     // redesign
+    classes () {
+      return {
+        'qas-input--has-icon': this.hasAppend || this.hasPrepend
+      }
+    },
+
     isTextarea () {
       return this.$attrs.type === 'textarea'
     },
@@ -136,6 +160,14 @@ export default {
 
     hasCounter () {
       return this.$attrs.counter ?? (this.$attrs.maxlength && this.isTextarea)
+    },
+
+    hasPrepend () {
+      return !!this.$slots.prepend || this.iconRight
+    },
+
+    hasAppend () {
+      return !!this.$slots.append || this.icon
     }
   },
 

@@ -1,5 +1,5 @@
 <template>
-  <q-select v-model="model" v-bind="attributes">
+  <q-select v-model="model" v-bind="attributes" dense :outlined="false">
     <template v-if="isSearchable" #prepend>
       <q-icon name="sym_r_search" />
     </template>
