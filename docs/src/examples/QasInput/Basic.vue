@@ -2,7 +2,7 @@
   <div class="container q-py-lg row">
     <qas-input v-model="model" class="col-4" label="Meu input">
       <template #prepend>
-        <q-icon name="sym_r_search" size="xs" />
+        <q-icon name="sym_r_search" size="md" />
         <!-- <q-icon name="sym_r_search" size="xs" /> -->
       </template>
       <template #append>
