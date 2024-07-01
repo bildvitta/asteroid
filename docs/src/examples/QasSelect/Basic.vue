@@ -1,7 +1,7 @@
 <template>
   <div class="container q-py-lg">
     <div>
-      <qas-select v-model="model" label="Meu select!" :options="options" />
+      <qas-select v-model="model" error label="Meu select!" :options="options" />
       Model: {{ model }}
     </div>
 
