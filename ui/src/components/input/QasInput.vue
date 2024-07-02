@@ -146,7 +146,7 @@ export default {
     // redesign
     classes () {
       return {
-        'qas-input--has-icon': this.hasAppend || this.hasPrepend
+        'qas-input--has-icon': this.hasPrepend
       }
     },
 

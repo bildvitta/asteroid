@@ -17,28 +17,7 @@
   }
 
   &--dense {
-    .q-field__append,
-    .q-field__prepend {
-      // height: 36px;
-    }
-
-    .q-field__native {
-      // padding-bottom: var(--qas-spacing-xs) !important;
-    }
-
-    .q-field__control-container {
-      // padding-top: var(--qas-spacing-sm) !important;
-    }
-
-    &:not(.q-textarea--autogrow) {
-      .q-field__control {
-        // height: 36px !important;
-      }
-    }
-
-
     .q-textarea {
-      // max-height: 36px !important;
       height: 100%;
     }
 
@@ -60,12 +39,13 @@
     }
   }
 
-  &--float,
-  &--focused {
+  // Somente fields com label
+  &--float.q-field--labeled,
+  &--focused.q-field--labeled {
     transition: transform 0.3s;
 
     .q-field__label {
-      transform: translateY(-14px) !important;
+      transform: translateY(-10px) !important;
     }
 
     .q-field__prepend {
