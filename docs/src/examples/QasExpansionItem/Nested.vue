@@ -13,6 +13,22 @@
             Meu conteúdo customizado 2
           </template>
         </qas-expansion-item>
+
+        <qas-expansion-item label="Informações 3">
+          <template #content>
+            <qas-expansion-item label="Informações 3.1">
+              <template #content>
+                Meu conteúdo customizado 3.1
+              </template>
+            </qas-expansion-item>
+          </template>
+        </qas-expansion-item>
+
+        <qas-expansion-item label="Informações 4">
+          <template #content>
+            Meu conteúdo customizado 4
+          </template>
+        </qas-expansion-item>
       </template>
     </qas-expansion-item>
   </div>

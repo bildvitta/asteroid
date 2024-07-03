@@ -1,6 +1,6 @@
 <template>
   <div class="qas-expansion-item" :class="errorClasses">
-    <qas-box class="qas-expansion-item__box">
+    <component :is="component.is" class="qas-expansion-item__box">
       <q-expansion-item header-class="text-bold q-mt-sm q-pa-none" :label="props.label">
         <template #header>
           <slot name="header">
@@ -22,13 +22,15 @@
           </slot>
         </template>
 
-        <q-separator class="q-my-md" />
+        <q-separator v-if="!hasNestedExpansionItem" class="q-my-md" />
 
         <slot name="content">
           <qas-grid-generator v-if="hasGridGenerator" v-bind="gridGeneratorProps" use-inline />
         </slot>
+
+        <q-separator v-if="hasNestedExpansionItem && props.useBottomSeparator" class="q-my-md" />
       </q-expansion-item>
-    </qas-box>
+    </component>
 
     <div v-if="hasError" class="q-pt-sm qas-expansion-item__error-message text-caption text-negative">
       {{ props.errorMessage }}
@@ -37,7 +39,9 @@
 </template>
 
 <script setup>
-import { computed } from 'vue'
+import QasBox from '../box/QasBox.vue'
+
+import { computed, provide, inject } from 'vue'
 
 defineOptions({ name: 'QasExpansionItem' })
 
@@ -64,19 +68,34 @@ const props = defineProps({
   gridGeneratorProps: {
     type: Object,
     default: () => ({})
+  },
+
+  useBottomSeparator: {
+    type: Boolean,
+    default: true
   }
 })
 
+provide('isExpansionItem', true)
+
+const hasNestedExpansionItem = inject('isExpansionItem', false)
+
+const component = {
+  is: hasNestedExpansionItem ? 'div' : QasBox
+}
+
 const hasError = computed(() => props.error || !!props.errorMessage)
-
 const errorClasses = computed(() => ({ 'qas-expansion-item--error': hasError.value }))
-
 const hasGridGenerator = computed(() => !!Object.keys(props.gridGeneratorProps).length)
 </script>
 
 <style lang="scss">
 .qas-expansion-item {
   $root: &;
+
+  & + & {
+    margin-top: var(--qas-spacing-lg);
+  }
 
   &--error {
     #{$root}__box {
