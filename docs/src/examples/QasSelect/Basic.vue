@@ -1,13 +1,13 @@
 <template>
-  <div class="container q-py-lg">
-    <div>
+  <div class="container q-col-gutter-sm q-py-lg row">
+    <div class="col-6">
       <qas-select v-model="model" error label="Meu select!" :options="options" />
-      Model: {{ model }}
+      <!-- Model: {{ model }} -->
     </div>
 
-    <div class="q-mt-lg">
+    <div class="col-6">
       <qas-select v-model="model2" label="Meu select multiple" multiple :options="options" />
-      Model múltiplo: {{ model2 }}
+      <!-- Model múltiplo: {{ model2 }} -->
     </div>
   </div>
 </template>
@@ -25,7 +25,7 @@ export default {
     options () {
       return [
         {
-          label: 'Opção 1',
+          label: 'Opção 1 - Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam nec turpis.',
           value: 1
         },
         {
@@ -55,6 +55,34 @@ export default {
         {
           label: 'Opção 8',
           value: 8
+        },
+        {
+          label: 'Opção 9',
+          value: 9
+        },
+        {
+          label: 'Opção 10',
+          value: 10
+        },
+        {
+          label: 'Opção 11',
+          value: 11
+        },
+        {
+          label: 'Opção 12',
+          value: 12
+        },
+        {
+          label: 'Opção 13',
+          value: 13
+        },
+        {
+          label: 'Opção 14',
+          value: 14
+        },
+        {
+          label: 'Opção 15',
+          value: 15
         }
       ]
     }

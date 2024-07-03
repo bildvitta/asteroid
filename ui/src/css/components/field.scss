@@ -13,7 +13,7 @@
 
   &__label,
   &--dense &__label {
-    @include set-typography($caption);
+    @include set-typography($body2);
   }
 
   &--dense {
@@ -42,10 +42,10 @@
   // Somente fields com label
   &--float.q-field--labeled,
   &--focused.q-field--labeled {
-    transition: transform 0.3s;
+    transition: transform 0.3s, font-size 0.3s;
 
     .q-field__label {
-      transform: translateY(-10px) !important;
+      transform: translateY(-10px) scale(0.85) !important;
     }
 
     .q-field__prepend {
@@ -59,10 +59,16 @@
     }
   }
 
+  .q-field__label {
+    transition: transform 0.3s, font-size 0.3s;
+  }
+
+  &--float.qas-select--has-icon,
+  &--focused.qas-select--has-icon,
   &--float.qas-input--has-icon,
   &--focused.qas-input--has-icon {
     .q-field__label {
-      transform: translate(-24px, -14px) !important;
+      transform: translate(-24px, -14px) scale(0.85) !important;
     }
   }
 
