@@ -12,6 +12,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 
 ## Não publicado
 ### Adicionado
+- `QasToggleVisibility`: Adicionado novo componente.
 - `QasExpansionItem`: adicionado novo slot `header-bottom`.
 
 ### Modificado
