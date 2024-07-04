@@ -1,0 +1,30 @@
+type: component
+
+meta:
+  desc: Componente para ocultar e exibir conteúdo, utilizado para dados sensíveis.
+
+props:
+  group:
+    desc: Propriedade para criar grupos de separação.
+    default: ''
+    type: String
+    examples: ["name", "document", "users"]
+
+  text:
+    desc: Texto a ser oculto/exibido.
+    default: ''
+    type: String
+
+  uuid:
+    desc: É criado um uuid random, porém é possível sobrescrever por esta propriedade.
+    default: ''
+    type: String
+
+  width:
+    desc: Tamanho do conteúdo a ser oculto/exibido.
+    default: '140px'
+    type: String
+
+slots:
+  default:
+    desc: Slot para inserir conteúdo a ser oculto/exibido.
