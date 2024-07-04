@@ -16,7 +16,7 @@ props:
     type: String
 
   uuid:
-    desc: É criado um uuid random, porém é possível sobrescrever por esta propriedade.
+    desc: É criado um uuid random para cada componente, para que possa ser feito o controle interno, porém é possível sobrescrever por esta propriedade.
     default: ''
     type: String
 
