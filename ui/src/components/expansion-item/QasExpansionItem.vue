@@ -1,5 +1,5 @@
 <template>
-  <div class="qas-expansion-item" :class="errorClasses">
+  <div ref="expansionItem" class="qas-expansion-item" :class="errorClasses">
     <component :is="component.is" class="qas-expansion-item__box">
       <q-expansion-item header-class="text-bold q-mt-sm q-pa-none" :label="props.label">
         <template #header>
@@ -7,7 +7,7 @@
             <div class="full-width">
               <div class="items-center q-col-gutter-sm row">
                 <slot name="label">
-                  <h5 class="col-auto text-h5 text-weight-medium">
+                  <h5 class="col-auto text-h5">
                     {{ props.label }}
                   </h5>
                 </slot>
@@ -18,17 +18,21 @@
                   </div>
                 </div>
               </div>
+
+              <div v-if="hasHeaderBottom" class="q-mt-sm">
+                <slot name="header-bottom" />
+              </div>
             </div>
           </slot>
         </template>
 
-        <q-separator v-if="!hasNestedExpansionItem" class="q-my-md" />
+        <q-separator v-if="!isNestedExpansionItem" class="q-my-md" />
 
         <slot name="content">
           <qas-grid-generator v-if="hasGridGenerator" v-bind="gridGeneratorProps" use-inline />
         </slot>
 
-        <q-separator v-if="hasNestedExpansionItem && props.useBottomSeparator" class="q-my-md" />
+        <q-separator v-if="hasBottomSeparator" class="q-mt-md" />
       </q-expansion-item>
     </component>
 
@@ -41,7 +45,7 @@
 <script setup>
 import QasBox from '../box/QasBox.vue'
 
-import { computed, provide, inject } from 'vue'
+import { computed, provide, inject, onMounted, ref } from 'vue'
 
 defineOptions({ name: 'QasExpansionItem' })
 
@@ -68,25 +72,48 @@ const props = defineProps({
   gridGeneratorProps: {
     type: Object,
     default: () => ({})
-  },
-
-  useBottomSeparator: {
-    type: Boolean,
-    default: true
   }
 })
 
 provide('isExpansionItem', true)
 
-const hasNestedExpansionItem = inject('isExpansionItem', false)
+// slots
+const slots = defineSlots()
 
+// refs
+const expansionItem = ref(null)
+const hasNextSibling = ref(false)
+
+onMounted(setHasNextSibling)
+
+// constants
+const isNestedExpansionItem = inject('isExpansionItem', false)
 const component = {
-  is: hasNestedExpansionItem ? 'div' : QasBox
+  is: isNestedExpansionItem ? 'div' : QasBox
 }
 
+// computed
 const hasError = computed(() => props.error || !!props.errorMessage)
 const errorClasses = computed(() => ({ 'qas-expansion-item--error': hasError.value }))
+
 const hasGridGenerator = computed(() => !!Object.keys(props.gridGeneratorProps).length)
+const hasBottomSeparator = computed(() => isNestedExpansionItem && hasNextSibling.value)
+const hasHeaderBottom = computed(() => !!slots['header-bottom'])
+
+// functions
+
+/**
+ * Caso o componente esteja dentro de um QasExpansionItem, verifica se existe um próximo irmão
+ * para adicionar um separador.
+ */
+function setHasNextSibling (value) {
+  if (!isNestedExpansionItem) return
+
+  const hasTextContentSibling = !!expansionItem.value.nextSibling.textContent?.trim?.()
+  const hasElementSibling = !!expansionItem.value.nextElementSibling
+
+  hasNextSibling.value = hasElementSibling || hasTextContentSibling
+}
 </script>
 
 <style lang="scss">
