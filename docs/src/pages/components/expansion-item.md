@@ -16,9 +16,8 @@ Não recomendamos o uso de nested de 3 níveis (QasExpansionItem dentro de QasEx
 
 ## Uso
 
-<!-- <doc-example file="QasExpansionItem/Basic" title="Básico" /> -->
-<!-- <doc-example file="QasExpansionItem/Slot" title="Slot" /> -->
+<doc-example file="QasExpansionItem/Basic" title="Básico" />
+<doc-example file="QasExpansionItem/Slot" title="Slot" />
 <doc-example file="QasExpansionItem/Nested" title="Nested" />
 <doc-example file="QasExpansionItem/HeaderBottomSlot" title="HeaderBottomSlot" />
-
-<!-- <doc-example file="QasExpansionItem/Error" title="Com erro" /> -->
+<doc-example file="QasExpansionItem/Error" title="Com erro" />

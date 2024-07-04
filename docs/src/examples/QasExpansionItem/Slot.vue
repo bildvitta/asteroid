@@ -1,6 +1,6 @@
 <template>
   <div class="container spaced">
-    <qas-expansion-item :badges="badges" label="Cleyton">
+    <qas-expansion-item :badges="badges" label="John Doe">
       <template #content>
         Meu conteúdo customizado
       </template>
