@@ -2,9 +2,7 @@
   <div class="container spaced">
     <qas-expansion-item :badges="badges" label="John Doe">
       <template #header-bottom>
-        <div>
-          <qas-badge>Header bottom</qas-badge>
-        </div>
+        <qas-badge>Header bottom</qas-badge>
       </template>
 
       <template #content>
