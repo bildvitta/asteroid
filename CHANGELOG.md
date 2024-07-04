@@ -13,6 +13,10 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 ## Não publicado
 ### Adicionado
 - `QasToggleVisibility`: Adicionado novo componente.
+- `QasExpansionItem`: adicionado novo slot `header-bottom`.
+
+### Modificado
+- `QasExpansionItem`: modificado layout do componente quando ele é usado como nested (QasExpansionItem dentro de QasExpansionItem).
 
 ## [3.16.0-beta.4] - 26-06-2024
 ### Adicionado
