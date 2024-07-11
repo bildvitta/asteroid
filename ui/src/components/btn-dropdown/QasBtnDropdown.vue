@@ -2,8 +2,8 @@
   <div class="qas-btn-dropdown" :class="classes.parent">
     <div v-if="hasButtons" :class="classes.list">
       <div v-for="(buttonProps, key, index) in props.buttonsPropsList" :key="key">
-        <div class="flex">
-          <qas-btn :disable="props.disable" v-bind="buttonProps" variant="tertiary" @click="onClick">
+        <div class="flex no-wrap">
+          <qas-btn :disable="props.disable" v-bind="buttonProps" no-wrap variant="tertiary" @click="onClick">
             <q-menu v-if="hasMenuOnLeftSide" v-model="isMenuOpened" anchor="bottom right" auto-close self="top right" @update:model-value="onUpdateMenuValue">
               <div :class="classes.menuContent">
                 <slot />
@@ -91,7 +91,7 @@ const classes = computed(() => {
     },
 
     list: {
-      flex: !isSingleButton.value
+      'flex no-wrap': !isSingleButton.value
     }
   }
 })

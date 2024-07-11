@@ -82,6 +82,9 @@ const {
   updateModels
 } = useView({ emit, props, slots, mode: 'single' })
 
+// Expose
+defineExpose({ fetchSingle, fetchHandler })
+
 // computed
 const id = computed(() => props.customId || route.params.id)
 
