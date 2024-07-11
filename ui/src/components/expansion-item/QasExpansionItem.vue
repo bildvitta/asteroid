@@ -1,7 +1,7 @@
 <template>
-  <div ref="expansionItem" class="full-width qas-expansion-item" :class="errorClasses">
+  <div ref="expansionItem" class="full-width qas-expansion-item" :class="errorClasses" v-bind="expansionProps.parent">
     <component :is="component.is" class="qas-expansion-item__box">
-      <q-expansion-item header-class="text-bold q-mt-sm q-pa-none" :label="props.label" v-bind="expansionItemProps">
+      <q-expansion-item header-class="text-bold q-mt-sm q-pa-none" :label="props.label" v-bind="expansionProps.item">
         <template #header>
           <slot name="header">
             <div class="full-width">
@@ -105,14 +105,30 @@ const hasGridGenerator = computed(() => !!Object.keys(props.gridGeneratorProps).
 const hasBottomSeparator = computed(() => isNestedExpansionItem && hasNextSibling.value)
 const hasHeaderBottom = computed(() => !!slots['header-bottom'])
 
-const expansionItemProps = computed(() => {
+const expansionProps = computed(() => {
+  const {
+    'onUpdate:modelValue': onUpdateModelValue,
+    onShow,
+    onBeforeShow,
+    onBeforeHide,
+    onAfterShow,
+    onAfterHide,
+    ...propsPayload
+  } = attrs
+
   return {
-    onShow: attrs.onShow,
-    onBeforeShow: attrs.onBeforeShow,
-    onBeforeHide: attrs.onBeforeHide,
-    onAfterShow: attrs.onAfterShow,
-    onAfterHide: attrs.onAfterHide,
-    'onUpdate:modelValue': attrs['onUpdate:modelValue']
+    parent: {
+      ...propsPayload
+    },
+
+    item: {
+      onUpdateModelValue,
+      onShow,
+      onBeforeShow,
+      onBeforeHide,
+      onAfterShow,
+      onAfterHide
+    }
   }
 })
 
