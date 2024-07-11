@@ -6,7 +6,7 @@
       </slot>
     </div>
 
-    <div v-if="hasRightSide" class="col-3 col-md-3 col-sm-4 justify-end row">
+    <div v-if="hasRightSide" class="justify-end row">
       <slot name="right">
         <qas-actions-menu v-if="hasDefaultActionsMenu" v-bind="props.actionsMenuProps" />
 
@@ -59,7 +59,11 @@ const slots = useSlots()
 // computed
 const containerClass = computed(() => `items-${props.alignColumns} q-mb-${props.spacing}`)
 
-const leftClass = computed(() => hasRightSide.value ? 'col-9 col-md-9 col-sm-8' : 'col-12')
+const leftClass = computed(() => {
+  return {
+    'col-12': !hasRightSide.value
+  }
+})
 
 const hasDefaultButton = computed(() => !!Object.keys(props.buttonProps).length)
 const hasDefaultActionsMenu = computed(() => !!Object.keys(props.actionsMenuProps).length)
