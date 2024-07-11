@@ -28,6 +28,12 @@ Para fazer esses exemplos na documentação, estamos utilizando o `VuexOffline`,
 Estamos utilizando nos exemplos um `custom-id` pois é necessario para conseguir utilizar os mocks de dados, **não** significa que você precisa sempre utiliza-lo para lidar com o id, na verdade na maioria das vezes você não vai precisar do `custom-id`, ele é para quando precisa de um caso de uso mais específico.
 :::
 
+:::warning
+Devido este componente estar em Composition API, foi necessário definir quais métodos estarão expostos para se utilizar com [Template Refs](https://vuejs.org/guide/essentials/template-refs.html). Os métodos expostos foram:
+- fetchSingle
+- fetchHandler
+:::
+
 :::tip
 Este componente serve para lidar com **visualização unica**, se você precisar de um componente para lidar com listagem, use o componente `QasListView`.
 :::
