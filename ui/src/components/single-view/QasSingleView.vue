@@ -167,5 +167,4 @@ function getAction (payload) {
 
   return axios.get(url, { ...externalPayload })
 }
-
 </script>
