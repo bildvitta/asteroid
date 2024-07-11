@@ -1,7 +1,7 @@
 <template>
-  <div ref="expansionItem" class="qas-expansion-item" :class="errorClasses">
+  <div ref="expansionItem" class="full-width qas-expansion-item" :class="errorClasses">
     <component :is="component.is" class="qas-expansion-item__box">
-      <q-expansion-item header-class="text-bold q-mt-sm q-pa-none" :label="props.label">
+      <q-expansion-item header-class="text-bold q-mt-sm q-pa-none" :label="props.label" v-bind="expansionItemProps">
         <template #header>
           <slot name="header">
             <div class="full-width">
@@ -45,9 +45,12 @@
 <script setup>
 import QasBox from '../box/QasBox.vue'
 
-import { computed, provide, inject, onMounted, ref } from 'vue'
+import { computed, provide, inject, onMounted, ref, useAttrs } from 'vue'
 
-defineOptions({ name: 'QasExpansionItem' })
+defineOptions({
+  name: 'QasExpansionItem',
+  inheritAttrs: false
+})
 
 const props = defineProps({
   badges: {
@@ -75,6 +78,8 @@ const props = defineProps({
   }
 })
 
+const attrs = useAttrs()
+
 provide('isExpansionItem', true)
 
 // slots
@@ -100,6 +105,17 @@ const hasGridGenerator = computed(() => !!Object.keys(props.gridGeneratorProps).
 const hasBottomSeparator = computed(() => isNestedExpansionItem && hasNextSibling.value)
 const hasHeaderBottom = computed(() => !!slots['header-bottom'])
 
+const expansionItemProps = computed(() => {
+  return {
+    onShow: attrs.onShow,
+    onBeforeShow: attrs.onBeforeShow,
+    onBeforeHide: attrs.onBeforeHide,
+    onAfterShow: attrs.onAfterShow,
+    onAfterHide: attrs.onAfterHide,
+    'onUpdate:modelValue': attrs['onUpdate:modelValue']
+  }
+})
+
 // functions
 
 /**
@@ -119,10 +135,6 @@ function setHasNextSibling (value) {
 <style lang="scss">
 .qas-expansion-item {
   $root: &;
-
-  & + & {
-    margin-top: var(--qas-spacing-lg);
-  }
 
   &--error {
     #{$root}__box {
