@@ -7,7 +7,8 @@ Componente de card expansivo, wrapper do QExpansionItem(https://quasar.dev/vue-c
 <doc-api file="expansion-item/QasExpansionItem" name="QasExpansionItem" />
 
 :::info
-Quando usado QasExpansionItem dentro de QasExpansionItem, o componente já lida com isto internamente alterando o estilo dos QasExpansionItem interno.
+- Quando usado QasExpansionItem dentro de QasExpansionItem, o componente já lida com isto internamente alterando o estilo dos QasExpansionItem interno.
+- O componente repassa todos os eventos do [QExpansionItem](https://quasar.dev/vue-components/expansion-item#usage).
 :::
 
 :::warning

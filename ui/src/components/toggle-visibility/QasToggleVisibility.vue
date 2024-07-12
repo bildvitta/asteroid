@@ -21,7 +21,7 @@
       <qas-btn
         class="q-ml-sm qas-toggle-visibility__button"
         :icon
-        @click="toggleVisibility"
+        @click.prevent.stop="toggleVisibility"
       />
     </div>
   </div>
