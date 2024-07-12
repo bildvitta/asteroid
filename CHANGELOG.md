@@ -18,7 +18,6 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 ### Modificado
 - `QasExpansionItem`:
   - Repassando todos eventos do QExpansionItem.
-  - Mudanças de layout quando usado expansion dentro de expansion.
 - `QasToggleVisibility`: adicionado evento `prevent.stop` no botão para não disparar evento de click na tabela.
 
 ## [3.16.0-beta.5] - 04-07-2024
