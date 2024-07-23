@@ -3,6 +3,8 @@
  * "asteroidConfig.framework.featureToggle.useNotifications" esteja ativada.
  */
 
+import { isLocalDevelopment } from '@bildvitta/quasar-ui-asteroid/src/helpers'
+
 import onLeaderElectionChannel from '../helpers/on-leader-election-channel'
 import { setLaravelEcho, setLaravelEchoListener } from '../helpers/laravel-echo'
 import { setNotificationsChannelListener, setNotificationsUtilsChannel } from '../helpers/notifications-channels'
@@ -11,6 +13,11 @@ import { LocalStorage } from 'quasar'
 import { boot } from 'quasar/wrappers'
 
 export default boot(() => {
+  /**
+   * Se estivermos em desenvolvimento local, não vamos estabelecer conexão com o servidor.
+   */
+  if (isLocalDevelopment()) return
+
   window.addEventListener('message', ({ data }) => {
     if (data.type !== 'updateUser') return
 
