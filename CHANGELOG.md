@@ -10,7 +10,7 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 ### Sobre os "BREAKING CHANGES"
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
-## Não publicado
+## [3.16.0-beta.7] - 23-07-2024
 ### Modificado
 - `boot/notifications`: removido notificações em localhost, uma vez que ficava gerando vários errors de conexão no console/network, o que atrapalhava o desenvolvimento local.
 
@@ -2960,3 +2960,4 @@ Adicionado suporte para Pinia/Vuex Seguindo os padrões da biblioteca `@bildvitt
 [3.16.0-beta.4]: https://github.com/bildvitta/asteroid/compare/v3.16.0-beta.3...v3.16.0-beta.4?expand=1
 [3.16.0-beta.5]: https://github.com/bildvitta/asteroid/compare/v3.16.0-beta.4...v3.16.0-beta.5?expand=1
 [3.16.0-beta.6]: https://github.com/bildvitta/asteroid/compare/v3.16.0-beta.5...v3.16.0-beta.6?expand=1
+[3.16.0-beta.7]: https://github.com/bildvitta/asteroid/compare/v3.16.0-beta.6...v3.16.0-beta.7?expand=1
