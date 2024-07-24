@@ -28,9 +28,11 @@
 
         <q-separator v-if="!isNestedExpansionItem" class="q-my-md" />
 
-        <slot name="content">
-          <qas-grid-generator v-if="hasGridGenerator" v-bind="gridGeneratorProps" use-inline />
-        </slot>
+        <div :class="contentClasses">
+          <slot name="content">
+            <qas-grid-generator v-if="hasGridGenerator" v-bind="gridGeneratorProps" use-inline />
+          </slot>
+        </div>
 
         <q-separator v-if="hasBottomSeparator" class="q-mt-md" />
       </q-expansion-item>
@@ -99,11 +101,12 @@ const component = {
 
 // computed
 const hasError = computed(() => props.error || !!props.errorMessage)
-const errorClasses = computed(() => ({ 'qas-expansion-item--error': hasError.value }))
-
 const hasGridGenerator = computed(() => !!Object.keys(props.gridGeneratorProps).length)
 const hasBottomSeparator = computed(() => isNestedExpansionItem && hasNextSibling.value)
 const hasHeaderBottom = computed(() => !!slots['header-bottom'])
+
+const errorClasses = computed(() => ({ 'qas-expansion-item--error': hasError.value }))
+const contentClasses = computed(() => ({ 'q-mt-sm': isNestedExpansionItem }))
 
 const expansionProps = computed(() => {
   const {
@@ -141,7 +144,7 @@ const expansionProps = computed(() => {
 function setHasNextSibling (value) {
   if (!isNestedExpansionItem) return
 
-  const hasTextContentSibling = !!expansionItem.value.nextSibling.textContent?.trim?.()
+  const hasTextContentSibling = !!expansionItem.value.nextSibling?.textContent?.trim?.()
   const hasElementSibling = !!expansionItem.value.nextElementSibling
 
   hasNextSibling.value = hasElementSibling || hasTextContentSibling
