@@ -30,7 +30,7 @@
 
         <div :class="contentClasses">
           <slot name="content">
-            <qas-grid-generator v-if="hasGridGenerator" v-bind="gridGeneratorProps" use-inline />
+            <qas-grid-generator v-if="hasGridGenerator" use-inline v-bind="gridGeneratorProps" />
           </slot>
         </div>
 

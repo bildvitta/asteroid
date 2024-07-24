@@ -12,7 +12,9 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 
 ## Não publicado
 ### Modificado
-- `QasExpansionItem`: adicionado espaçamento `sm` no conteúdo quando for nested.
+- `QasExpansionItem`:
+  - adicionado espaçamento `sm` no conteúdo quando for nested.
+  - agora é possível sobrescrever a propriedade "useInline" pela `gridGeneratorProps`.
 
 ### Corrigido
 - `QasExpansionItem`: corrigido função `setHasNextSibling`.
