@@ -10,6 +10,15 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 ### Sobre os "BREAKING CHANGES"
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
+## Não publicado
+### Modificado
+- `QasExpansionItem`:
+  - adicionado espaçamento `sm` no conteúdo quando for nested.
+  - agora é possível sobrescrever a propriedade "useInline" pela `gridGeneratorProps`.
+
+### Corrigido
+- `QasExpansionItem`: corrigido função `setHasNextSibling`.
+
 ## [3.16.0-beta.7] - 23-07-2024
 ### Modificado
 - `boot/notifications`: removido notificações em localhost, uma vez que ficava gerando vários errors de conexão no console/network, o que atrapalhava o desenvolvimento local.
