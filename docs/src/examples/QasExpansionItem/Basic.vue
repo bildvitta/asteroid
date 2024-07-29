@@ -1,7 +1,7 @@
 <template>
   <!-- Usando qas-single-view apenas para recuperar os dados -->
   <qas-single-view v-model:fields="fields" v-model:result="result" :custom-id="customId" :entity="entity">
-    <qas-expansion-item :badges="badges" :grid-generator-props="gridGeneratorProps" label="John Doe" />
+    <qas-expansion-item :badges="badges" :grid-generator-props="gridGeneratorProps" label="John Doe" :use-header-separator="false" />
   </qas-single-view>
 </template>
 

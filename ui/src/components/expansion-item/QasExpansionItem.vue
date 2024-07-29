@@ -26,7 +26,7 @@
           </slot>
         </template>
 
-        <q-separator v-if="!isNestedExpansionItem" class="q-my-md" />
+        <q-separator v-if="hasHeaderSeparator" class="q-my-md" />
 
         <div :class="contentClasses">
           <slot name="content">
@@ -77,6 +77,11 @@ const props = defineProps({
   gridGeneratorProps: {
     type: Object,
     default: () => ({})
+  },
+
+  useHeaderSeparator: {
+    type: Boolean,
+    default: true
   }
 })
 
@@ -105,8 +110,26 @@ const hasGridGenerator = computed(() => !!Object.keys(props.gridGeneratorProps).
 const hasBottomSeparator = computed(() => isNestedExpansionItem && hasNextSibling.value)
 const hasHeaderBottom = computed(() => !!slots['header-bottom'])
 
+const hasHeaderSeparator = computed(() => {
+  // if (props.useHeaderSeparator) return !isNestedExpansionItem
+
+  // return props.useHeaderSeparator
+
+  // true && false
+  // false && false
+  // false && true
+  // true && true
+  return props.useHeaderSeparator && !isNestedExpansionItem
+})
+
 const errorClasses = computed(() => ({ 'qas-expansion-item--error': hasError.value }))
-const contentClasses = computed(() => ({ 'q-mt-sm': isNestedExpansionItem }))
+
+const contentClasses = computed(() => {
+  return {
+    'q-mt-sm': isNestedExpansionItem,
+    'q-mt-md': !isNestedExpansionItem && !props.useHeaderSeparator
+  }
+})
 
 const expansionProps = computed(() => {
   const {
