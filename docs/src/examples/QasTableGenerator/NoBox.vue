@@ -9,7 +9,7 @@
 
 <script>
 export default {
-  name: 'UsersList',
+  name: 'NoBox',
 
   data () {
     return {
