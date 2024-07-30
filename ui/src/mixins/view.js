@@ -57,7 +57,7 @@ export default {
       mx_metadata: {},
       mx_cancelBeforeFetch: false,
       mx_isFetching: false,
-      mx_isFetchError: false
+      mx_hasFetchError: false
     }
   },
 
@@ -89,7 +89,7 @@ export default {
     },
 
     mx_canShowFetchErrorSlot () {
-      return this.mx_isFetchError && this.mx_hasFetchErrorSlot
+      return this.mx_hasFetchError && this.mx_hasFetchErrorSlot
     }
   },
 
@@ -110,7 +110,7 @@ export default {
         return
       }
 
-      this.mx_isFetchError = true
+      this.mx_hasFetchError = true
 
       this.$qas.error(this.mx_fetchErrorMessage)
     },
