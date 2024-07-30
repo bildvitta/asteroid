@@ -31,6 +31,7 @@ Componente implementa o `QasBox` repassando todas propriedades.
 ## Uso
 
 <doc-example file="QasTableGenerator/Basic" title="Básico" />
+<doc-example file="QasTableGenerator/NoBox" title="Sem box" />
 
 Este componente renderiza componentes dinamicamente através da prop `fields`, cada field dentro de fields tem um `name`, através dele, você consegue acessar os slots dinâmicos.
 

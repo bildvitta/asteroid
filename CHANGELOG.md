@@ -16,6 +16,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 
 ### Corrigido
 - `QasExpansionItem`: Adicionado classe para z-index, onde corrige o problema de quando usado grid com gutter no conteúdo e sobrepunha o header fazendo com que perdesse o evento de click.
+- `QasTableGenerator`: adicionado nova propriedade `useBox`.
 
 ## [3.16.0-beta.8] - 24-07-2024
 ### Modificado
