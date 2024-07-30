@@ -80,6 +80,7 @@ export default function useView (config) {
 
   // refs
   const cancelBeforeFetch = ref(false)
+  const isFetchError = ref(false)
 
   // constants
   const fetchErrorMessage = 'Ops… Não conseguimos acessar as informações. Por favor, tente novamente em alguns minutos.'
@@ -88,6 +89,8 @@ export default function useView (config) {
   const componentClass = computed(() => props.useBoundary && 'container spaced')
   const hasFooterSlot = computed(() => !!slots.footer)
   const hasHeaderSlot = computed(() => !!slots.header)
+  const hasErrorSlot = computed(() => !!slots.error)
+  const canShowErrorSlot = computed(() => hasErrorSlot.value && isFetchError.value)
 
   // watch
   watch(() => viewState.value.fetching, value => emit('update:fetching', value))
@@ -110,6 +113,8 @@ export default function useView (config) {
 
       return
     }
+
+    isFetchError.value = true
 
     NotifyError(fetchErrorMessage)
   }
@@ -167,6 +172,7 @@ export default function useView (config) {
     componentClass,
     hasFooterSlot,
     hasHeaderSlot,
+    canShowErrorSlot,
 
     // functions
     errorHandler,

@@ -155,6 +155,9 @@ slots:
   default:
     desc: Slot para ter o conteúdo principal (dentro do main).
 
+  error:
+    desc: Slot disponibilizado em caso de fetchError.
+
   footer:
     desc: Slot para acessar o footer.
 

@@ -97,6 +97,9 @@ slots:
   empty-results:
     desc: 'Slot acessar quando a listagem está vazia.'
 
+  error:
+    desc: Slot disponibilizado em caso de fetchError.
+
   filter:
     desc: 'Slot para acessar o filtro.'
 

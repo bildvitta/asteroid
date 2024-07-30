@@ -10,6 +10,16 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 ### Sobre os "BREAKING CHANGES"
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
+## Não publicado
+### Adicionado
+- [`QasFormView`, `QasListView`, `QasSingleView`]: adicionado novo slot chamado `error` que é disponibilizado quando ocorre o `fetchError`.
+
+### Modificado
+- `QasLabel`: Modificado tag renderizada no componente para ser de acordo com a passada pela prop `typography`.
+
+### Corrigido
+- `QasGridGenerator`: Corrigido gutter quando se é utilizado a prop `useInline`.
+
 ## [3.16.0-beta.8] - 24-07-2024
 ### Modificado
 - `QasExpansionItem`:

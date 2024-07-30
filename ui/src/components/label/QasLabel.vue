@@ -1,7 +1,7 @@
 <template>
-  <div :class="classes">
+  <component :is="props.typography" :class="classes">
     <slot :label-with-suffix="formattedLabel">{{ formattedLabel }}</slot>
-  </div>
+  </component>
 </template>
 
 <script setup>
