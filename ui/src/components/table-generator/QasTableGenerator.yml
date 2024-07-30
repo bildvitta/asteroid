@@ -36,6 +36,11 @@ props:
     type: Function
     examples: ["(row) => ({ path: 'table-generator', params: { id: row.uuid } })"]
 
+  use-box:
+    desc: Controla se o componente vai usar QasBox ou div.
+    default: true
+    type: Boolean
+
   use-external-link:
     desc: Usado em conjunto com a prop "row-route-fn" quando há a necessidade da rota ser um link externo.
     default: false
