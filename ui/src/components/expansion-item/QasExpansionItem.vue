@@ -1,7 +1,7 @@
 <template>
   <div ref="expansionItem" class="full-width qas-expansion-item" :class="errorClasses" v-bind="expansionProps.parent">
     <component :is="component.is" class="qas-expansion-item__box">
-      <q-expansion-item header-class="text-bold q-mt-sm q-pa-none" :label="props.label" v-bind="expansionProps.item">
+      <q-expansion-item header-class="text-bold q-mt-sm q-pa-none qas-expansion-item__header" :label="props.label" v-bind="expansionProps.item">
         <template #header>
           <slot name="header">
             <div class="full-width">
@@ -118,11 +118,9 @@ const hasHeaderBottom = computed(() => !!slots['header-bottom'])
  * - Se a propriedade useHeaderSeparator for false, não retorna separador.
  */
 const hasHeaderSeparator = computed(() => {
-  if (props.useHeaderSeparator) return true
-
   if (typeof props.useHeaderSeparator === 'undefined') return !isNestedExpansionItem
 
-  return false
+  return props.useHeaderSeparator
 })
 
 const errorClasses = computed(() => ({ 'qas-expansion-item--error': hasError.value }))
@@ -180,6 +178,12 @@ function setHasNextSibling (value) {
 <style lang="scss">
 .qas-expansion-item {
   $root: &;
+
+  // em alguns casos quando usado com grid, o espaçamento afetava o header, com z-index o problema é resolvido
+  &__header {
+    position: relative;
+    z-index: 1;
+  }
 
   &--error {
     #{$root}__box {
