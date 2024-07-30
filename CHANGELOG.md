@@ -12,7 +12,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 
 ## Não publicado
 ### Adicionado
-- [`QasFormView`, `QasListView`, `QasSingleView`]: adicionado novo slot chamado `error` que é disponibilizado quando ocorre o `fetchError`.
+- [`QasFormView`, `QasListView`, `QasSingleView`]: adicionado novo slot chamado `fetch-error` que é disponibilizado quando ocorre o `fetchError`.
 
 ### Modificado
 - `QasLabel`: Modificado tag renderizada no componente para ser de acordo com a passada pela prop `typography`.

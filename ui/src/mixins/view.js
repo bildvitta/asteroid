@@ -80,16 +80,16 @@ export default {
       return !!(this.$slots.header)
     },
 
-    mx_hasErrorSlot () {
-      return !!(this.$slots.error)
+    mx_hasFetchErrorSlot () {
+      return !!(this.$slots.fetchError)
     },
 
     mx_fetchErrorMessage () {
       return 'Ops… Não conseguimos acessar as informações. Por favor, tente novamente em alguns minutos.'
     },
 
-    mx_canShowErrorSlot () {
-      return this.mx_isFetchError && this.mx_hasErrorSlot
+    mx_canShowFetchErrorSlot () {
+      return this.mx_isFetchError && this.mx_hasFetchErrorSlot
     }
   },
 

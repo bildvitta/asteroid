@@ -5,7 +5,7 @@
     </header>
 
     <q-form ref="form" v-bind="defaultFormProps">
-      <slot v-if="mx_canShowErrorSlot" name="error" />
+      <slot v-if="mx_canShowFetchErrorSlot" name="fetch-error" />
 
       <slot v-else />
 

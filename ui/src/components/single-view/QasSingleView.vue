@@ -9,7 +9,7 @@
     </template>
 
     <div v-else-if="!viewState.fetching">
-      <slot v-if="canShowErrorSlot" name="error" />
+      <slot v-if="canShowFetchErrorSlot" name="fetch-error" />
 
       <qas-empty-result-text v-else class="q-my-xl" />
     </div>
@@ -75,7 +75,7 @@ const {
   componentClass,
   hasHeaderSlot,
   hasFooterSlot,
-  canShowErrorSlot,
+  canShowFetchErrorSlot,
 
   // functions
   errorHandler,
