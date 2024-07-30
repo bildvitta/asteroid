@@ -13,7 +13,7 @@ Componente de card expansivo, wrapper do QExpansionItem(https://quasar.dev/vue-c
 
 :::warning
 - Não recomendamos o uso de nested de 3 níveis (QasExpansionItem dentro de QasExpansionItem dentro de QasExpansionItem).
-- Usar a propriedade "useHeader" passando valor "false" somente em casos específicos.
+- O separador no header funciona de forma automática, porém em alguns casos é necessário forçar aparecer/remover, use a propriedade "useHeaderSeparator" nestes casos específicos.
 :::
 
 ## Uso

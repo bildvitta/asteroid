@@ -25,9 +25,9 @@ props:
     type: Object
 
   use-header-separator:
-    desc: Propriedade para controlar o QSeparator no header.
+    desc: Propriedade para forçar o QSeparator no header.
     type: Boolean
-    default: true
+    default: undefined
 
 slots:
   header:

@@ -81,7 +81,7 @@ const props = defineProps({
 
   useHeaderSeparator: {
     type: Boolean,
-    default: true
+    default: undefined
   }
 })
 
@@ -110,16 +110,19 @@ const hasGridGenerator = computed(() => !!Object.keys(props.gridGeneratorProps).
 const hasBottomSeparator = computed(() => isNestedExpansionItem && hasNextSibling.value)
 const hasHeaderBottom = computed(() => !!slots['header-bottom'])
 
+/**
+ * Verifica se o componente deve adicionar um separador no header.
+ *
+ * - Se a propriedade useHeaderSeparator for true, retorna separador.
+ * - Se a propriedade useHeaderSeparator for undefined, retorna separador apenas se não for um componente aninhado.
+ * - Se a propriedade useHeaderSeparator for false, não retorna separador.
+ */
 const hasHeaderSeparator = computed(() => {
-  // if (props.useHeaderSeparator) return !isNestedExpansionItem
+  if (props.useHeaderSeparator) return true
 
-  // return props.useHeaderSeparator
+  if (typeof props.useHeaderSeparator === 'undefined') return !isNestedExpansionItem
 
-  // true && false
-  // false && false
-  // false && true
-  // true && true
-  return props.useHeaderSeparator && !isNestedExpansionItem
+  return false
 })
 
 const errorClasses = computed(() => ({ 'qas-expansion-item--error': hasError.value }))
