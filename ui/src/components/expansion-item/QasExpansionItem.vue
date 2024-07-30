@@ -118,9 +118,7 @@ const hasHeaderBottom = computed(() => !!slots['header-bottom'])
  * - Se a propriedade useHeaderSeparator for false, não retorna separador.
  */
 const hasHeaderSeparator = computed(() => {
-  if (typeof props.useHeaderSeparator === 'undefined') return !isNestedExpansionItem
-
-  return props.useHeaderSeparator
+  return typeof props.useHeaderSeparator === 'undefined' ? !isNestedExpansionItem : props.useHeaderSeparator
 })
 
 const errorClasses = computed(() => ({ 'qas-expansion-item--error': hasError.value }))
