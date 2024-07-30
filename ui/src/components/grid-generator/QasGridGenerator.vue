@@ -163,9 +163,7 @@ function setFieldsByResult () {
 }
 
 function getContainerClass ({ key }) {
-  if (props.useInline) {
-    return `row justify-between col-12 q-col-gutter-x-${props.gutter}`
-  }
+  if (props.useInline) return 'row justify-between col-12'
 
   return getFieldClass({ index: key, isGridGenerator: true })
 }
