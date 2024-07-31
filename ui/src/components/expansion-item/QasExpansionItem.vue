@@ -1,7 +1,7 @@
 <template>
   <div ref="expansionItem" class="full-width qas-expansion-item" :class="errorClasses" v-bind="expansionProps.parent">
     <component :is="component.is" class="qas-expansion-item__box">
-      <q-expansion-item header-class="text-bold q-mt-sm q-pa-none" :label="props.label" v-bind="expansionProps.item">
+      <q-expansion-item header-class="text-bold q-mt-sm q-pa-none qas-expansion-item__header" :label="props.label" v-bind="expansionProps.item">
         <template #header>
           <slot name="header">
             <div class="full-width">
@@ -26,7 +26,7 @@
           </slot>
         </template>
 
-        <q-separator v-if="!isNestedExpansionItem" class="q-my-md" />
+        <q-separator v-if="hasHeaderSeparator" class="q-my-md" />
 
         <div :class="contentClasses">
           <slot name="content">
@@ -77,6 +77,11 @@ const props = defineProps({
   gridGeneratorProps: {
     type: Object,
     default: () => ({})
+  },
+
+  useHeaderSeparator: {
+    type: Boolean,
+    default: undefined
   }
 })
 
@@ -105,8 +110,25 @@ const hasGridGenerator = computed(() => !!Object.keys(props.gridGeneratorProps).
 const hasBottomSeparator = computed(() => isNestedExpansionItem && hasNextSibling.value)
 const hasHeaderBottom = computed(() => !!slots['header-bottom'])
 
+/**
+ * Verifica se o componente deve adicionar um separador no header.
+ *
+ * - Se a propriedade useHeaderSeparator for true, retorna separador.
+ * - Se a propriedade useHeaderSeparator for undefined, retorna separador apenas se não for um componente aninhado.
+ * - Se a propriedade useHeaderSeparator for false, não retorna separador.
+ */
+const hasHeaderSeparator = computed(() => {
+  return typeof props.useHeaderSeparator === 'undefined' ? !isNestedExpansionItem : props.useHeaderSeparator
+})
+
 const errorClasses = computed(() => ({ 'qas-expansion-item--error': hasError.value }))
-const contentClasses = computed(() => ({ 'q-mt-sm': isNestedExpansionItem }))
+
+const contentClasses = computed(() => {
+  return {
+    'q-mt-sm': isNestedExpansionItem,
+    'q-mt-md': !isNestedExpansionItem && !props.useHeaderSeparator
+  }
+})
 
 const expansionProps = computed(() => {
   const {
@@ -154,6 +176,12 @@ function setHasNextSibling (value) {
 <style lang="scss">
 .qas-expansion-item {
   $root: &;
+
+  // em alguns casos quando usado com grid, o espaçamento afetava o header, com z-index o problema é resolvido
+  &__header {
+    position: relative;
+    z-index: 1;
+  }
 
   &--error {
     #{$root}__box {
