@@ -12,9 +12,14 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 
 ## Não publicado
 ### Adicionado
-- `QasExpansionItem`: Adicionado nova propriedade `useHeaderSeparator` para forçar o controle do QSeparator.
+- [`QasFormView`, `QasListView`, `QasSingleView`]: adicionado novo slot chamado `fetch-error` que é disponibilizado quando ocorre o `fetchError`.
+
+### Modificado
+- `QasLabel`: Modificado tag renderizada no componente para ser de acordo com a passada pela prop `typography`.
 
 ### Corrigido
+- `QasGridGenerator`: Corrigido gutter quando se é utilizado a prop `useInline`.
+- `QasExpansionItem`: Adicionado nova propriedade `useHeaderSeparator` para forçar o controle do QSeparator.
 - `QasExpansionItem`: Adicionado classe para z-index, onde corrige o problema de quando usado grid com gutter no conteúdo e sobrepunha o header fazendo com que perdesse o evento de click.
 - `QasTableGenerator`: adicionado nova propriedade `useBox`.
 
