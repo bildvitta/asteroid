@@ -70,7 +70,7 @@ const props = defineProps({
 })
 
 // composables
-const { classes: useGeneratorClasses, getFieldClass } = useGenerator({ props })
+const { classes, getFieldClass } = useGenerator({ props })
 
 // computed
 const hasResult = computed(() => Object.keys(props.result).length)
@@ -95,12 +95,6 @@ const headerClass = computed(() => {
       'text-bold': screen.isSmall || !props.useInline
     }
   ]
-})
-
-const classes = computed(() => {
-  if (props.useInline) return 'row q-col-gutter-md'
-
-  return useGeneratorClasses.value
 })
 
 const fieldsByResult = ref({})
