@@ -1,5 +1,9 @@
 <template>
   <div class="q-mt-sm" :class="classes">
+    <div v-if="hasTertiarySlot" :class="columnClasses">
+      <slot name="tertiary" />
+    </div>
+
     <div v-if="hasSecondarySlot" :class="columnClasses">
       <slot name="secondary" />
     </div>
@@ -52,6 +56,8 @@ const classes = computed(() => {
   const isSmallOrFullWidth = screen.isSmall || props.useFullWidth
 
   return [
+    'items-center',
+
     // alinhamento
     `justify-${props.align}`,
 
@@ -71,4 +77,5 @@ const columnClasses = computed(() => {
 
 const hasPrimarySlot = computed(() => !!slots.primary)
 const hasSecondarySlot = computed(() => !!slots.secondary)
+const hasTertiarySlot = computed(() => !!slots.tertiary)
 </script>

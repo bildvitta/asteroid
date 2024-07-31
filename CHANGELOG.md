@@ -10,6 +10,10 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 ### Sobre os "BREAKING CHANGES"
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
+## Não publicado
+### Adicionado
+- `QasActions`: adicionado nova opção de ação terciária.
+
 ## [3.16.0-beta.9] - 31-07-2024
 ### Adicionado
 - [`QasFormView`, `QasListView`, `QasSingleView`]: adicionado novo slot chamado `fetch-error` que é disponibilizado quando ocorre o `fetchError`.
