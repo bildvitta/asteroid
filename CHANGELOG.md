@@ -11,6 +11,9 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
 ## Não publicado
+## BREAKING CHANGES
+- `QasSingleView`: Possível breaking change ao utilizar o `before-fetch`.
+
 ### Corrigido
 - `QasSingleView`: Corrigido validação do `hasResults` (voltou para a anterior).
 - [`use-view`, `view`]: Corrigido nome do slot na validação para ver se existe ou não o slot de `fetch-error`.
