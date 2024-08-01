@@ -89,7 +89,7 @@ export default function useView (config) {
   const componentClass = computed(() => props.useBoundary && 'container spaced')
   const hasFooterSlot = computed(() => !!slots.footer)
   const hasHeaderSlot = computed(() => !!slots.header)
-  const hasFetchErrorSlot = computed(() => !!slots.fetchError)
+  const hasFetchErrorSlot = computed(() => !!slots['fetch-error'])
   const canShowFetchErrorSlot = computed(() => hasFetchErrorSlot.value && hasFetchError.value)
 
   // watch
