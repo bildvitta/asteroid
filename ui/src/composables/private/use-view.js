@@ -146,13 +146,9 @@ export default function useView (config) {
   }
 
   function fetchHandler (payload, resolve) {
-    console.log('Bateu no handler', resolve)
     const hasBeforeFetch = typeof props.beforeFetch === 'function'
 
     if (hasBeforeFetch && !cancelBeforeFetch.value) {
-      // resolve()
-      console.log(props.beforeFetch)
-      console.log('caiu aqui', payload)
       return props.beforeFetch({
         payload,
         resolve: payload => resolve(payload),
