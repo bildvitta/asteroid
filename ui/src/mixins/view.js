@@ -81,7 +81,7 @@ export default {
     },
 
     mx_hasFetchErrorSlot () {
-      return !!(this.$slots.fetchError)
+      return !!(this.$slots['fetch-error'])
     },
 
     mx_fetchErrorMessage () {

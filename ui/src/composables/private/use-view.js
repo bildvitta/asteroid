@@ -89,7 +89,7 @@ export default function useView (config) {
   const componentClass = computed(() => props.useBoundary && 'container spaced')
   const hasFooterSlot = computed(() => !!slots.footer)
   const hasHeaderSlot = computed(() => !!slots.header)
-  const hasFetchErrorSlot = computed(() => !!slots.fetchError)
+  const hasFetchErrorSlot = computed(() => !!slots['fetch-error'])
   const canShowFetchErrorSlot = computed(() => hasFetchErrorSlot.value && hasFetchError.value)
 
   // watch
@@ -146,9 +146,13 @@ export default function useView (config) {
   }
 
   function fetchHandler (payload, resolve) {
+    console.log('Bateu no handler', resolve)
     const hasBeforeFetch = typeof props.beforeFetch === 'function'
 
     if (hasBeforeFetch && !cancelBeforeFetch.value) {
+      // resolve()
+      console.log(props.beforeFetch)
+      console.log('caiu aqui', payload)
       return props.beforeFetch({
         payload,
         resolve: payload => resolve(payload),
