@@ -15,7 +15,9 @@
         </div>
 
         <div v-else-if="!mx_isFetching">
-          <slot name="empty-results">
+          <slot v-if="mx_canShowFetchErrorSlot" name="fetch-error" />
+
+          <slot v-else name="empty-results">
             <qas-empty-result-text />
           </slot>
         </div>

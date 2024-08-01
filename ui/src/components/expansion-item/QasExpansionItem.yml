@@ -24,9 +24,17 @@ props:
     desc: Propriedades que serão repassadas para o QasGridGenerator.
     type: Object
 
+  use-header-separator:
+    desc: Propriedade para forçar o QSeparator no header.
+    type: Boolean
+    default: undefined
+
 slots:
   header:
     desc: 'Slot para substituir o conteúdo do header'
+
+  header-bottom:
+    desc: 'Slot para acessar o conteúdo que fica abaixo do header.'
 
   label:
     desc: 'Slot para substituir o conteúdo da label do header.'

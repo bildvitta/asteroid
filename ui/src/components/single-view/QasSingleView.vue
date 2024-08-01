@@ -8,7 +8,11 @@
       <slot />
     </template>
 
-    <qas-empty-result-text v-else-if="!viewState.fetching" class="q-my-xl" />
+    <div v-else-if="!viewState.fetching">
+      <slot v-if="canShowFetchErrorSlot" name="fetch-error" />
+
+      <qas-empty-result-text v-else class="q-my-xl" />
+    </div>
 
     <footer v-if="hasFooterSlot">
       <slot name="footer" />
@@ -71,6 +75,7 @@ const {
   componentClass,
   hasHeaderSlot,
   hasFooterSlot,
+  canShowFetchErrorSlot,
 
   // functions
   errorHandler,
@@ -82,6 +87,9 @@ const {
   updateModels
 } = useView({ emit, props, slots, mode: 'single' })
 
+// Expose
+defineExpose({ fetchSingle, fetchHandler })
+
 // computed
 const id = computed(() => props.customId || route.params.id)
 
@@ -91,7 +99,7 @@ const resultModel = computed(() => {
   return viewState.value.result || {}
 })
 
-const hasResult = computed(() => !!resultModel.value)
+const hasResult = computed(() => !!Object.keys(resultModel.value).length)
 
 // watch
 watch(() => route, (to, from) => {

@@ -10,6 +10,50 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 ### Sobre os "BREAKING CHANGES"
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
+## [3.16.0-beta.9] - 31-07-2024
+### Adicionado
+- [`QasFormView`, `QasListView`, `QasSingleView`]: adicionado novo slot chamado `fetch-error` que é disponibilizado quando ocorre o `fetchError`.
+
+### Modificado
+- `QasLabel`: Modificado tag renderizada no componente para ser de acordo com a passada pela prop `typography`.
+
+### Corrigido
+- `QasGridGenerator`: Corrigido gutter quando se é utilizado a prop `useInline`.
+- `QasExpansionItem`: Adicionado nova propriedade `useHeaderSeparator` para forçar o controle do QSeparator.
+- `QasExpansionItem`: Adicionado classe para z-index, onde corrige o problema de quando usado grid com gutter no conteúdo e sobrepunha o header fazendo com que perdesse o evento de click.
+- `QasTableGenerator`: adicionado nova propriedade `useBox`.
+
+## [3.16.0-beta.8] - 24-07-2024
+### Modificado
+- `QasExpansionItem`:
+  - adicionado espaçamento `sm` no conteúdo quando for nested.
+  - agora é possível sobrescrever a propriedade "useInline" pela `gridGeneratorProps`.
+
+### Corrigido
+- `QasExpansionItem`: corrigido função `setHasNextSibling`.
+
+## [3.16.0-beta.7] - 23-07-2024
+### Modificado
+- `boot/notifications`: removido notificações em localhost, uma vez que ficava gerando vários errors de conexão no console/network, o que atrapalhava o desenvolvimento local.
+
+## [3.16.0-beta.6] - 12-07-2024
+### Corrigido
+- `QasHeaderActions`: Corrigido quebra de de layout em casos de ter 2 itens com split usando `QasActionsMenu`.
+- `QasSingleView`: Corrigido exposição de métodos para possibilidade de usar `Template Refs`.
+
+### Modificado
+- `QasExpansionItem`:
+  - Repassando todos eventos do QExpansionItem.
+- `QasToggleVisibility`: adicionado evento `prevent.stop` no botão para não disparar evento de click na tabela.
+
+## [3.16.0-beta.5] - 04-07-2024
+### Adicionado
+- `QasToggleVisibility`: Adicionado novo componente.
+- `QasExpansionItem`: adicionado novo slot `header-bottom`.
+
+### Modificado
+- `QasExpansionItem`: modificado layout do componente quando ele é usado como nested (QasExpansionItem dentro de QasExpansionItem).
+
 ## [3.16.0-beta.4] - 26-06-2024
 ### Adicionado
 - `QasSingleView`: Adicionado propriedade `use-store` para dar a possibilidade de utilizar o componente sem a store do vuex/pinia.
@@ -2936,3 +2980,8 @@ Adicionado suporte para Pinia/Vuex Seguindo os padrões da biblioteca `@bildvitt
 [3.16.0-beta.2]: https://github.com/bildvitta/asteroid/compare/v3.16.0-beta.1...v3.16.0-beta.2?expand=1
 [3.16.0-beta.3]: https://github.com/bildvitta/asteroid/compare/v3.16.0-beta.2...v3.16.0-beta.3?expand=1
 [3.16.0-beta.4]: https://github.com/bildvitta/asteroid/compare/v3.16.0-beta.3...v3.16.0-beta.4?expand=1
+[3.16.0-beta.5]: https://github.com/bildvitta/asteroid/compare/v3.16.0-beta.4...v3.16.0-beta.5?expand=1
+[3.16.0-beta.6]: https://github.com/bildvitta/asteroid/compare/v3.16.0-beta.5...v3.16.0-beta.6?expand=1
+[3.16.0-beta.7]: https://github.com/bildvitta/asteroid/compare/v3.16.0-beta.6...v3.16.0-beta.7?expand=1
+[3.16.0-beta.8]: https://github.com/bildvitta/asteroid/compare/v3.16.0-beta.7...v3.16.0-beta.8?expand=1
+[3.16.0-beta.9]: https://github.com/bildvitta/asteroid/compare/v3.16.0-beta.8...v3.16.0-beta.9?expand=1

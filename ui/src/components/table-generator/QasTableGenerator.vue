@@ -1,5 +1,5 @@
 <template>
-  <qas-box class="q-px-lg q-py-md">
+  <component :is="parentComponent.is" v-bind="parentComponent.props">
     <q-table ref="table" class="bg-white qas-table-generator text-grey-8" v-bind="attributes">
       <template v-for="(_, name) in slots" #[name]="context">
         <slot :name="name" v-bind="context" />
@@ -15,7 +15,7 @@
         </q-td>
       </template>
     </q-table>
-  </qas-box>
+  </component>
 </template>
 
 <script>
@@ -55,6 +55,11 @@ export default {
     emptyResultText: {
       default: '-',
       type: String
+    },
+
+    useBox: {
+      type: Boolean,
+      default: true
     },
 
     useScrollOnGrab: {
@@ -217,6 +222,15 @@ export default {
 
     hasScrollOnGrab () {
       return !!Object.keys(this.scrollOnGrab).length
+    },
+
+    parentComponent () {
+      return {
+        is: this.useBox ? 'qas-box' : 'div',
+        props: {
+          class: this.useBox ? 'q-px-lg q-py-md' : ''
+        }
+      }
     }
   },
 
