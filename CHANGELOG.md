@@ -14,6 +14,9 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 ## BREAKING CHANGES
 - `QasSingleView`: Possível breaking change ao utilizar o `before-fetch`.
 
+### Adicionado
+- `QasActions`: adicionado nova opção de ação terciária.
+
 ### Corrigido
 - `QasSingleView`: Corrigido validação do `hasResults` (voltou para a anterior).
 - [`use-view`, `view`]: Corrigido nome do slot na validação para ver se existe ou não o slot de `fetch-error`.
