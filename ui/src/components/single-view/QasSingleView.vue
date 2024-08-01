@@ -4,14 +4,14 @@
       <slot name="header" />
     </header>
 
-    <template v-if="hasResult">
+    <slot v-if="canShowFetchErrorSlot" name="fetch-error" />
+
+    <template v-else-if="hasResult">
       <slot />
     </template>
 
     <div v-else-if="!viewState.fetching">
-      <slot v-if="canShowFetchErrorSlot" name="fetch-error" />
-
-      <qas-empty-result-text v-else class="q-my-xl" />
+      <qas-empty-result-text class="q-my-xl" />
     </div>
 
     <footer v-if="hasFooterSlot">
@@ -99,7 +99,7 @@ const resultModel = computed(() => {
   return viewState.value.result || {}
 })
 
-const hasResult = computed(() => !!Object.keys(resultModel.value).length)
+const hasResult = computed(() => !!resultModel.value)
 
 // watch
 watch(() => route, (to, from) => {
