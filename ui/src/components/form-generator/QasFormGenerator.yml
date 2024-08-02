@@ -67,6 +67,11 @@ props:
     default: []
     type: Array
 
+  use-box:
+    desc: Contra QasBox dentro do form-generator e fieldset.
+    default: false
+    type: Boolean
+
 slots:
   'field-[nome-da-chave]':
     desc: Acessa o slot de um campo especifico.

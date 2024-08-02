@@ -1,7 +1,7 @@
 <template>
   <div class="container q-col-gutter-sm q-py-lg row">
     <div class="col-6">
-      <qas-select v-model="model" error label="Meu select!" :options="options" />
+      <qas-select v-model="model" label="Meu select!" :options="options" />
       <!-- Model: {{ model }} -->
     </div>
 
@@ -86,6 +86,12 @@ export default {
         }
       ]
     }
+  },
+
+  created () {
+    setTimeout(() => {
+      this.model = 1
+    }, 2000)
   }
 }
 </script>

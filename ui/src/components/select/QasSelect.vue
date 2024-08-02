@@ -1,5 +1,5 @@
 <template>
-  <q-select v-model="model" v-bind="attributes" class="qas-select" :outlined="false">
+  <q-select v-model="model" v-bind="attributes" class="qas-select" :class="componentClass" no-error-icon :outlined="false">
     <template v-if="isSearchable" #prepend>
       <q-icon name="sym_r_search" />
     </template>
@@ -24,15 +24,15 @@
 
     <template v-if="attributes.useChips" #selected-item="{ opt, tabindex, index, removeAtIndex }">
       <q-chip
-        class="q-px-sm q-py-xs"
-        color="light-blue-2"
+        class="q-px-sm q-py-xs text-bold"
+        color="black"
         dense
         :disable="isDisabled"
         icon-remove="sym_r_close"
         removable
         square
-        :tabindex="tabindex"
-        text-color="grey-9"
+        :tabindex
+        text-color="white"
         @remove="removeAtIndex(index)"
       >
         <div class="ellipsis" :title="opt.label">
@@ -116,7 +116,6 @@ export default {
   computed: {
     attributes () {
       return {
-        class: this.componentClass,
         clearable: this.isSearchable,
         emitValue: true,
         mapOptions: true,
@@ -207,6 +206,7 @@ export default {
 
     // redesign
     componentClass () {
+      console.log('TCL: componentClass -> this.isSearchable || this.hasAppend', this.isSearchable || this.hasAppend)
       return {
         'qas-select--has-icon': this.isSearchable || this.hasAppend,
         'qas-select--closed': !this.isPopupContentOpen,
@@ -377,7 +377,7 @@ export default {
   }
 
   .q-chip__icon--remove {
-    color: $grey-9;
+    // color: $grey-9;
     opacity: 1;
   }
 }

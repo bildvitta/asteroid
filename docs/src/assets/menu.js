@@ -248,6 +248,10 @@ module.exports = [
         path: '/components/profile'
       },
       {
+        name: 'Radio',
+        path: '/components/radio'
+      },
+      {
         name: 'Resizer',
         path: '/components/resizer'
       },
@@ -310,6 +314,10 @@ module.exports = [
       {
         name: 'TextTruncate',
         path: '/components/text-truncate'
+      },
+      {
+        name: 'Toggle',
+        path: '/components/toggle'
       },
       {
         name: 'ToggleVisibility',

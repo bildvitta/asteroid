@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <qas-input ref="input" v-model="model" v-bind="$attrs" data-cy="search-input" :debounce="debounce" dense hide-bottom-space input-class="ellipsis text-grey-8" inputmode="search" type="search">
+  <qas-box class="qas-search-input" :use-spacing="false">
+    <qas-input ref="input" v-model="model" class="qas-search-input__input" v-bind="$attrs" data-cy="search-input" :debounce="debounce" dense hide-bottom-space input-class="ellipsis text-grey-8" inputmode="search" outlined type="search">
       <template #prepend>
         <q-icon v-if="useSearchOnType" color="grey-8" name="sym_r_search" />
 
@@ -13,7 +13,7 @@
         <slot name="after-clear" />
       </template>
     </qas-input>
-  </div>
+  </qas-box>
 </template>
 
 <script>
@@ -77,3 +77,11 @@ export default {
   }
 }
 </script>
+
+<style lang="scss">
+.qas-search-input {
+  .qas-search-input__input .q-field__control:before {
+    border: 0;
+  }
+}
+</style>

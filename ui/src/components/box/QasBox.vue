@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-white q-pa-md rounded-borders" :class="boxClasses">
+  <div class="bg-white rounded-borders" :class="boxClasses">
     <slot />
   </div>
 </template>
@@ -16,13 +16,19 @@ const props = defineProps({
 
   unelevated: {
     type: Boolean
+  },
+
+  useSpacing: {
+    type: Boolean,
+    default: true
   }
 })
 
 const boxClasses = computed(() => {
   return {
     'border-grey': props.outlined,
-    'shadow-2': !props.unelevated
+    'shadow-2': !props.unelevated,
+    'q-pa-md': props.useSpacing
   }
 })
 </script>

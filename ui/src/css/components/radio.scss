@@ -1,10 +1,14 @@
 .q-radio {
   &__label {
-    @include set-typography($body1);
+    @include set-typography($body2);
   }
 
   &__inner::before {
     color: $primary;
+  }
+
+  &.q-radio--dense .q-radio__label {
+    padding-left: var(--qas-spacing-sm);
   }
 
   &.disabled {

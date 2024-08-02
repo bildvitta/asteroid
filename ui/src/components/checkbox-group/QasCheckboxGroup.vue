@@ -1,11 +1,11 @@
 <template>
   <div :class="classes">
     <div v-for="(option, index) in props.options" :key="index">
-      <q-checkbox v-if="hasChildren(option)" :class="getCheckboxClass(option)" :label="option.label" :model-value="getModelValue(index)" @update:model-value="updateCheckbox($event, option, index)" />
+      <q-checkbox v-if="hasChildren(option)" :class="getCheckboxClass(option)" dense :label="option.label" :model-value="getModelValue(index)" @update:model-value="updateCheckbox($event, option, index)" />
 
-      <q-option-group v-if="hasChildren(option)" class="q-ml-sm" :inline="props.inline" :model-value="props.modelValue" :options="option.children" type="checkbox" @update:model-value="updateChildren($event, option, index)" />
+      <q-option-group v-if="hasChildren(option)" class="q-ml-xs" dense :inline="props.inline" :model-value="props.modelValue" :options="option.children" type="checkbox" @update:model-value="updateChildren($event, option, index)" />
 
-      <q-option-group v-else v-model="model" v-bind="attrs" :options="[option]" type="checkbox" />
+      <q-option-group v-else v-model="model" v-bind="attrs" dense :options="[option]" type="checkbox" />
     </div>
   </div>
 </template>

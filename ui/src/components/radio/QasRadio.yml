@@ -1,0 +1,5 @@
+type: component
+
+meta:
+  desc: Componente wrapper do QRadio.
+

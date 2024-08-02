@@ -16,6 +16,7 @@ Para saber mais sobre o **API Design Pattern** clice [aqui](https://www.notion.s
 
 ## Uso
 <doc-example file="QasFormGenerator/Basic" title="Básico" />
+<doc-example file="QasFormGenerator/Boxed" title="Com box" />
 
 :::tip
 Muitas vezes precisamos adicionar rótulos (label) e descrições (description) a determinados blocos de campos para dar mais contexto, com esta propriedade conseguimos fazer isto de uma forma simples, sem a necessidade de abrir um slot para isto.

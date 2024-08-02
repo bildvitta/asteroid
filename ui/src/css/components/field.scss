@@ -63,6 +63,8 @@
     transition: transform 0.3s, font-size 0.3s;
   }
 
+  &--float.qas-numeric-input--has-icon,
+  &--focused.qas-numeric-input--has-icon,
   &--float.qas-select--has-icon,
   &--focused.qas-select--has-icon,
   &--float.qas-input--has-icon,

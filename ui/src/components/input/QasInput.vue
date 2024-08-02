@@ -1,15 +1,15 @@
 <template>
-  <q-input ref="input" v-model="model" :autogrow="isTextarea" bottom-slots :class="classes" :counter="hasCounter" :dense="dense" :error="errorData" v-bind="$attrs" :error-message="errorMessage" :inputmode="defaultInputmode" :label="formattedLabel" :mask="currentMask" :outlined="outlined" :placeholder="placeholder" :unmasked-value="unmaskedValue" @paste="onPaste">
-    <template v-for="(_, name) in $slots" #[name]="context">
-      <slot :name="name" v-bind="context || {}" />
-    </template>
-
+  <q-input ref="input" v-model="model" :autogrow="isTextarea" bottom-slots :class="classes" :counter="hasCounter" :dense="dense" :error="errorData" v-bind="$attrs" :error-message="errorMessage" :inputmode="defaultInputmode" :label="formattedLabel" :mask="currentMask" no-error-icon :outlined="outlined" :placeholder="placeholder" :unmasked-value="unmaskedValue" @paste="onPaste">
     <template v-if="icon" #append>
       <q-icon :name="icon" size="xs" />
     </template>
 
     <template v-if="iconRight" #prepend>
       <q-icon :name="iconRight" size="xs" />
+    </template>
+
+    <template v-for="(_, name) in $slots" #[name]="context">
+      <slot :name="name" v-bind="context || {}" />
     </template>
   </q-input>
 </template>
@@ -164,10 +164,6 @@ export default {
 
     hasPrepend () {
       return !!this.$slots.prepend || this.iconRight
-    },
-
-    hasAppend () {
-      return !!this.$slots.append || this.icon
     }
   },
 

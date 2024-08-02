@@ -1,8 +1,16 @@
 <template>
   <div class="container q-col-gutter-2xl q-py-lg row">
-    <qas-input v-model="model" class="col-4" label="Meu input" type="textarea" />
-    <qas-input v-model="model2" class="col-4" error error-message="Mensagem de erro" label="Meu input" type="textarea" />
-    <qas-input v-model="model2" class="col-4" error error-message="Mensagem de erro" label="Meu input" />
+    <div class="col-4">
+      <qas-input v-model="model" label="Meu input" type="textarea" />
+    </div>
+
+    <div class="col-4">
+      <qas-input v-model="model2" error error-message="Mensagem de erro" label="Meu input" type="textarea" />
+    </div>
+
+    <div class="col-4">
+      <qas-input v-model="model2" error error-message="Mensagem de erro" label="Meu input" />
+    </div>
   </div>
 </template>
 

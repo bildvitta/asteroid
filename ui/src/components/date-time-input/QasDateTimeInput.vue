@@ -17,7 +17,7 @@
 </template>
 
 <script setup>
-import { date as dateFn } from '../../helpers/filters'
+import { date as dateFn, getPlaceholder } from '../../helpers'
 
 import { date } from 'quasar'
 import { ref, watch, computed, useAttrs, onMounted } from 'vue'
@@ -105,14 +105,24 @@ const maskDate = computed(() => {
 
 const mask = computed(() => maskDate.value.replace(/\w/g, '#'))
 
+const maskType = computed(() => {
+  const types = {
+    [props.useDateOnly]: 'date',
+    [props.useTimeOnly]: 'time'
+  }
+
+  return types.true || 'datetime'
+})
+
 const attributes = computed(() => {
-  const { modelValue, ...restAttributes } = attrs
+  const { modelValue, placeholder, ...restAttributes } = attrs
 
   return {
     error: error.value,
     errorMessage: errorMessage.value,
     ...restAttributes,
-    mask: mask.value
+    mask: mask.value,
+    placeholder: placeholder || getPlaceholder(maskType.value)
   }
 })
 

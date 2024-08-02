@@ -1,26 +1,28 @@
 <template>
   <div :class="fieldsetClasses">
     <div v-for="(fieldsetItem, fieldsetItemKey) in normalizedFields" :key="fieldsetItemKey" class="full-width">
-      <slot v-if="fieldsetItem.label" :name="`legend-${fieldsetItemKey}`">
-        <qas-label :label="fieldsetItem.label" :margin="getLabelMargin(fieldsetItem)" />
-        <div v-if="fieldsetItem.description" class="q-mb-md text-body1 text-grey-8">{{ fieldsetItem.description }}</div>
-      </slot>
+      <component :is="containerComponent.is" v-bind="containerComponent.props">
+        <slot v-if="fieldsetItem.label" :name="`legend-${fieldsetItemKey}`">
+          <qas-label :label="fieldsetItem.label" :margin="getLabelMargin(fieldsetItem)" />
+          <div v-if="fieldsetItem.description" class="q-mb-md text-body1 text-grey-8">{{ fieldsetItem.description }}</div>
+        </slot>
 
-      <div>
-        <div :class="classes">
-          <div v-for="(field, key) in fieldsetItem.fields.visible" :key="key" :class="getFieldClass({ index: key, fields: normalizedFields })">
+        <div>
+          <div :class="classes">
+            <div v-for="(field, key) in fieldsetItem.fields.visible" :key="key" :class="getFieldClass({ index: key, fields: normalizedFields })">
+              <slot :field="field" :name="`field-${field.name}`">
+                <qas-field :disable="isFieldDisabled(field)" v-bind="props.fieldsProps[field.name]" :error="props.errors[key]" :field="field" :model-value="props.modelValue[field.name]" @update:model-value="updateModelValue({ key: field.name, value: $event })" />
+              </slot>
+            </div>
+          </div>
+
+          <div v-for="(field, key) in fieldsetItem.fields.hidden" :key="key">
             <slot :field="field" :name="`field-${field.name}`">
-              <qas-field :disable="isFieldDisabled(field)" v-bind="props.fieldsProps[field.name]" :error="props.errors[key]" :field="field" :model-value="props.modelValue[field.name]" @update:model-value="updateModelValue({ key: field.name, value: $event })" />
+              <qas-field :disable="isFieldDisabled(field)" v-bind="props.fieldsProps[field.name]" :field="field" :model-value="props.modelValue[field.name]" @update:model-value="updateModelValue({ key: field.name, value: $event })" />
             </slot>
           </div>
         </div>
-
-        <div v-for="(field, key) in fieldsetItem.fields.hidden" :key="key">
-          <slot :field="field" :name="`field-${field.name}`">
-            <qas-field :disable="isFieldDisabled(field)" v-bind="props.fieldsProps[field.name]" :field="field" :model-value="props.modelValue[field.name]" @update:model-value="updateModelValue({ key: field.name, value: $event })" />
-          </slot>
-        </div>
-      </div>
+      </component>
     </div>
   </div>
 </template>
@@ -35,6 +37,11 @@ defineOptions({ name: 'QasFormGenerator' })
 
 const props = defineProps({
   ...baseProps,
+
+  boxProps: {
+    default: () => ({}),
+    type: Object
+  },
 
   disable: {
     type: Boolean
@@ -70,6 +77,10 @@ const props = defineProps({
   order: {
     default: () => [],
     type: Array
+  },
+
+  useBox: {
+    type: Boolean
   }
 })
 
@@ -81,6 +92,15 @@ const { classes, getFieldClass } = useGenerator({ props })
 const { fieldsetClasses, hasFieldset } = useFieldset({ props })
 
 // computed
+const containerComponent = computed(() => {
+  return {
+    is: props.useBox ? 'qas-box' : 'div',
+    props: {
+      ...(props.useBox && { ...props.boxProps })
+    }
+  }
+})
+
 const groupedFields = computed(() => {
   const fields = { hidden: {}, visible: {} }
 
@@ -150,6 +170,10 @@ function getFieldType ({ type }) {
   return type === 'hidden' ? 'hidden' : 'visible'
 }
 
+function getLabelMargin (fieldsetItem) {
+  return fieldsetItem.description ? 'sm' : 'md'
+}
+
 function isFieldDisabled ({ disable }) {
   return disable || props.disable
 }
@@ -179,9 +203,5 @@ function useFieldset ({ props }) {
     fieldsetClasses,
     hasFieldset
   }
-}
-
-function getLabelMargin (fieldsetItem) {
-  return fieldsetItem.description ? 'sm' : 'md'
 }
 </script>

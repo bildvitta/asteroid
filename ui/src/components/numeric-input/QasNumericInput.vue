@@ -1,14 +1,22 @@
 <template>
-  <q-field :label="formattedLabel" :model-value="modelValue" outlined>
+  <q-field class="qas-numeric-input" :class="classes" dense :label="formattedLabel" :model-value="modelValue">
     <template #control="{ floatingLabel, id, editable }">
-      <input v-show="floatingLabel" :id="id" ref="input" class="q-field__input" :disabled="!editable" inputmode="numeric" @blur="emitValue" @click="setSelect" @input="emitUpdateModel($event.target.value)">
+      <input v-show="floatingLabel" :id="id" ref="input" class="q-field__input" :disabled="!editable" inputmode="numeric" :placeholder @blur="emitValue" @click="setSelect" @input="emitUpdateModel($event.target.value)">
+    </template>
+
+    <template v-if="icon" #append>
+      <q-icon :name="icon" size="xs" />
+    </template>
+
+    <template v-if="iconRight" #prepend>
+      <q-icon :name="iconRight" size="xs" />
     </template>
   </q-field>
 </template>
 
 <script>
 import AutoNumeric from 'autonumeric'
-import { getRequiredLabel } from '../../helpers'
+import { getRequiredLabel, getPlaceholder } from '../../helpers'
 
 const defaultModes = {
   decimal: 'commaDecimalCharDotSeparator',
@@ -71,6 +79,16 @@ export default {
     usePositive: {
       default: true,
       type: Boolean
+    },
+
+    icon: {
+      type: String,
+      default: ''
+    },
+
+    iconRight: {
+      type: String,
+      default: ''
     }
   },
 
@@ -92,6 +110,23 @@ export default {
 
     formattedLabel () {
       return getRequiredLabel({ label: this.label, required: this.required })
+    },
+
+    // redesign
+    classes () {
+      return {
+        'qas-numeric-input--has-icon': this.hasPrepend
+      }
+    },
+
+    hasPrepend () {
+      return !!this.$slots.prepend || this.iconRight
+    },
+
+    placeholder () {
+      const { placeholder } = this.$attrs
+
+      return placeholder || getPlaceholder(this.mode)
     }
   },
 

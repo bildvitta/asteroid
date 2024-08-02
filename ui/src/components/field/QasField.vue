@@ -15,6 +15,8 @@ import QasOptionGroup from '../option-group/QasOptionGroup.vue'
 import QasPasswordInput from '../password-input/QasPasswordInput.vue'
 import QasSignatureUploader from '../signature-uploader/QasSignatureUploader.vue'
 import QasUploader from '../uploader/QasUploader.vue'
+import QasToggle from '../toggle/QasToggle.vue'
+import QasRadio from '../radio/QasRadio.vue'
 
 const attributesProfile = {
   maxLength: 'maxlength',
@@ -141,9 +143,9 @@ export default {
         datetime: { ...datetimeInput },
         time: { ...datetimeInput, useTimeOnly: true },
 
-        boolean: { is: 'q-toggle', label, ...error },
+        boolean: { is: QasToggle, label, ...error },
         checkbox: { is: 'qas-checkbox-group', label, options, ...error },
-        radio: { is: 'qas-option-group', label, options },
+        radio: { is: QasRadio, label, options },
 
         upload: { is: 'qas-uploader', accept, autoUpload: true, entity, label, multiple, readonly, maxFiles, ...error },
         editor: { is: 'q-editor', toolbar, ...error },

@@ -48,6 +48,7 @@ import QasPasswordInput from './components/password-input/QasPasswordInput.vue'
 import QasPasswordStrengthChecker from './components/password-strength-checker/QasPasswordStrengthChecker.vue'
 import QasProfile from './components/profile/QasProfile.vue'
 import QasResizer from './components/resizer/QasResizer.vue'
+import QasRadio from './components/radio/QasRadio.vue'
 import QasSearchBox from './components/search-box/QasSearchBox.vue'
 import QasSearchInput from './components/search-input/QasSearchInput.vue'
 import QasSelect from './components/select/QasSelect.vue'
@@ -64,6 +65,7 @@ import QasTableGenerator from './components/table-generator/QasTableGenerator.vu
 import QasTabsGenerator from './components/tabs-generator/QasTabsGenerator.vue'
 import QasTextTruncate from './components/text-truncate/QasTextTruncate.vue'
 import QasTimeline from './components/timeline/QasTimeline.vue'
+import QasToggle from './components/toggle/QasToggle.vue'
 import QasToggleVisibility from './components/toggle-visibility/QasToggleVisibility.vue'
 import QasTransfer from './components/transfer/QasTransfer.vue'
 import QasTreeGenerator from './components/tree-generator/QasTreeGenerator.vue'
@@ -142,6 +144,7 @@ async function install (app) {
   app.component('QasPasswordStrengthChecker', QasPasswordStrengthChecker)
   app.component('QasProfile', QasProfile)
   app.component('QasResizer', QasResizer)
+  app.component('QasRadio', QasRadio)
   app.component('QasSearchBox', QasSearchBox)
   app.component('QasSearchInput', QasSearchInput)
   app.component('QasSelect', QasSelect)
@@ -158,6 +161,7 @@ async function install (app) {
   app.component('QasTabsGenerator', QasTabsGenerator)
   app.component('QasTextTruncate', QasTextTruncate)
   app.component('QasTimeline', QasTimeline)
+  app.component('QasToggle', QasToggle)
   app.component('QasToggleVisibility', QasToggleVisibility)
   app.component('QasTransfer', QasTransfer)
   app.component('QasTreeGenerator', QasTreeGenerator)
@@ -238,6 +242,7 @@ export {
   QasPasswordStrengthChecker,
   QasProfile,
   QasResizer,
+  QasRadio,
   QasSearchBox,
   QasSearchInput,
   QasSelect,
@@ -254,6 +259,7 @@ export {
   QasTabsGenerator,
   QasTextTruncate,
   QasTimeline,
+  QasToggle,
   QasToggleVisibility,
   QasTransfer,
   QasTreeGenerator,
