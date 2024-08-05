@@ -12,23 +12,12 @@ defineOptions({
 
 const attrs = useAttrs()
 
-// const isOptionGroup = computed(() => !!attrs.options?.length)
-
-// const attributes = computed(() => {
-//   const {
-//     inline = false,
-//     dense = true
-//   } = attrs
-
-//   return {
-//     ...attrs,
-//     inline: isOptionGroup.value ? inline : undefined,
-//     dense
-//   }
-// })
-
-// const component = computed(() => attrs.options?.length ? 'q-option-group' : 'q-radio')
-
+/**
+ * - quando é um grupo de opções, o componente é 'QOptionGroup', caso contrário,
+ * é 'QRadio'.
+ * - a propriedade inline só é usada no caso do QOptionGroup.
+ * - todos os casos é usado o dense.
+ */
 const component = computed(() => {
   const isOptionGroup = !!attrs.options?.length
 
@@ -51,5 +40,4 @@ const component = computed(() => {
     }
   }
 })
-console.log('TCL: component -> component', component)
 </script>

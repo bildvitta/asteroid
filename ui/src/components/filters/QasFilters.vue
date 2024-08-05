@@ -29,7 +29,7 @@
     <div v-if="hasChip" class="q-mt-md">
       <!-- TODO rever com novo estilo -->
       <q-chip v-for="(filterItem, key) in activeFilters" :key="key" color="white" :data-cy="`filters-${filterItem.value}-chip`" dense icon-remove="sym_r_close" removable size="md" text-color="grey-8" @remove="removeFilter(filterItem)">
-        {{ getChipValue(filterItem.value) }}
+        <span class="ellipsis" style="max-width: 100px;" :title="filterItem.label">{{ filterItem.label }}</span> : "{{ getChipValue(filterItem.value) }}"
       </q-chip>
     </div>
 

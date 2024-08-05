@@ -8,4 +8,6 @@ Componente para gerar dinamicamente checkbox agrupados.
 
 ## Uso
 
-<doc-example file="QasCheckboxGroup/Basic" title="Básico" />
+<doc-example file="QasCheckboxGroup/Single" title="Single" />
+<doc-example file="QasCheckboxGroup/Options" title="Options" />
+<doc-example file="QasCheckboxGroup/Children" title="Children options" />

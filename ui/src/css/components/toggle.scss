@@ -1,23 +1,9 @@
 .q-toggle {
   &__label {
     @include set-typography($body2);
+
+    padding-left: var(--qas-spacing-sm) !important;
   }
-
-  // .q-toggle__inner {
-  //   width: 0.8em !important;
-  //   min-width: 0.8em !important;
-  //   height: 0.5em !important;
-  //   padding: 0.07625em 0 !important;
-  // }
-
-  // .q-toggle__label {
-  //   padding-left: 0.5em !important;
-  // }
-
-  // .q-toggle__thumb {
-  //   top: 0;
-  //   left: 0;
-  // }
 
   &.disabled {
     .q-toggle__label {

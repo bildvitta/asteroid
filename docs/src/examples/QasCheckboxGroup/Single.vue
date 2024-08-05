@@ -1,6 +1,6 @@
 <template>
   <div class="container spaced">
-    <qas-toggle v-model="model" label="Ativar" />
+    <qas-checkbox-group v-model="model" :false-value="false" label="Aceitar" :true-value="true" />
 
     <div class="q-mt-lg">
       model: {{ model }}
@@ -11,7 +11,7 @@
 <script setup>
 import { ref } from 'vue'
 
-defineOptions({ name: 'Basic' })
+defineOptions({ name: 'Single' })
 
 const model = ref(false)
 </script>

@@ -1,10 +1,6 @@
 <template>
   <div class="container spaced">
-    <qas-form-generator v-model="model" :columns="columns" :fields="fields" :fields-props="fieldsProps" :fieldset="fieldset">
-      <template #legend-another>
-        Custom slot "another"
-      </template>
-    </qas-form-generator>
+    <qas-form-generator v-model="model" :columns="columns" :fields="fields" :fields-props="fieldsProps" :fieldset="fieldset" />
 
     <div class="q-mt-lg">
       model: <qas-debugger :inspect="[model]" />
@@ -47,6 +43,7 @@ export default {
 
         another: {
           label: 'Outras informações',
+          description: 'Informe a empresa, telefone e documento do usuário.',
           fields: ['phone', 'company']
         }
       }

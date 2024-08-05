@@ -1,61 +1,64 @@
 <template>
   <div :id="fieldName" class="qas-nested-fields" :data-cy="`nested-fields-${fieldName}`">
-    <div v-if="useSingleLabel" class="text-left">
-      <qas-label :label="fieldLabel" typography="h5" />
-    </div>
+    <component :is="boxComponent">
+      <div v-if="useSingleLabel" class="text-left">
+        <qas-label :label="fieldLabel" typography="h5" />
+      </div>
 
-    <div ref="inputContent">
-      <component :is="componentTag" v-bind="componentProps">
-        <template v-for="(row, index) in nested" :key="`row-${index}`">
-          <div v-if="!row[destroyKey]" :id="`row-${index}`" class="full-width qas-nested-fields__field-item" data-cy="nested-fields-item">
-            <header v-if="hasHeader" class="flex items-center q-pb-md" :class="headerClasses">
-              <qas-label v-if="!useSingleLabel" :label="getRowLabel(index)" margin="none" typography="h5" />
-              <qas-actions-menu v-if="hasBlockActions(row)" v-bind="getActionsMenuProps(index, row)" />
-            </header>
+      <div ref="inputContent">
+        <component :is="componentTag" v-bind="componentProps">
+          <template v-for="(row, index) in nested" :key="`row-${index}`">
+            <div v-if="!row[destroyKey]" :id="`row-${index}`" class="full-width qas-nested-fields__field-item" data-cy="nested-fields-item">
+              <header v-if="hasHeader" class="flex items-center q-pb-md" :class="headerClasses">
+                <qas-label v-if="!useSingleLabel" :label="getRowLabel(index)" margin="none" typography="h5" />
 
-            <slot :errors="transformedErrors" :fields="getFields(index, row)" :index="index" :model="nested[index]" name="before-fields" :update-value="updateValuesFromInput" />
+                <qas-actions-menu v-if="hasBlockActions(row)" v-bind="getActionsMenuProps(index, row)" :use-label="false" />
+              </header>
 
-            <div ref="formGenerator" class="col-12 justify-between q-col-gutter-x-md row">
-              <slot :errors="transformedErrors" :fields="getFields(index, row)" :index="index" name="fields" :update-value="updateValuesFromInput">
-                <qas-form-generator v-model="nested[index]" class="col" :columns="formColumns" :disable="isDisabledRow(row)" :errors="transformedErrors[index]" :fields="getFields(index, row)" :fields-props="getFieldsProps(index, row)" :gutter="formGutter" @update:model-value="updateValuesFromInput($event, index)">
-                  <template v-for="(slot, key) in $slots" #[key]="scope">
-                    <slot v-bind="scope" :disabled="isDisabledRow(row)" :errors="transformedErrors" :index="index" :name="key" />
-                  </template>
-                </qas-form-generator>
-              </slot>
+              <slot :errors="transformedErrors" :fields="getFields(index, row)" :index="index" :model="nested[index]" name="before-fields" :update-value="updateValuesFromInput" />
 
-              <div v-if="hasInlineActions(row)" class="flex items-center qas-nested-fields__actions">
-                <qas-actions-menu v-bind="getActionsMenuProps(index, row)" />
+              <div ref="formGenerator" class="col-12 justify-between q-col-gutter-x-md row">
+                <slot :errors="transformedErrors" :fields="getFields(index, row)" :index="index" name="fields" :update-value="updateValuesFromInput">
+                  <qas-form-generator v-model="nested[index]" class="col" :columns="formColumns" :disable="isDisabledRow(row)" :errors="transformedErrors[index]" :fields="getFields(index, row)" :fields-props="getFieldsProps(index, row)" :gutter="formGutter" @update:model-value="updateValuesFromInput($event, index)">
+                    <template v-for="(slot, key) in $slots" #[key]="scope">
+                      <slot v-bind="scope" :disabled="isDisabledRow(row)" :errors="transformedErrors" :index="index" :name="key" />
+                    </template>
+                  </qas-form-generator>
+                </slot>
+
+                <div v-if="hasInlineActions(row)" class="flex items-center qas-nested-fields__actions">
+                  <qas-actions-menu v-bind="getActionsMenuProps(index, row)" :use-label="false" />
+                </div>
+              </div>
+
+              <slot :errors="transformedErrors" :fields="getFields(index, row)" :index="index" :model="nested[index]" name="after-fields" :update-value="updateValuesFromInput" />
+            </div>
+          </template>
+        </component>
+
+        <div v-if="useAdd">
+          <slot :add="add" name="add-input">
+            <div v-if="showAddFirstInputButton" class="text-left">
+              <qas-btn class="q-px-sm" color="primary" data-cy="nested-fields-add-btn" :label="addFirstInputLabel" variant="tertiary" @click="add()" />
+            </div>
+
+            <div v-else-if="useInlineActions" class="cursor-pointer items-center q-col-gutter-x-md q-mt-md row" data-cy="nested-fields-add-btn" @click="add()">
+              <div class="col">
+                <qas-input class="disabled no-pointer-events" hide-bottom-space :label="addInputLabel" @focus="add()" />
+              </div>
+
+              <div class="col-auto">
+                <qas-btn color="primary" icon="sym_r_add_circle_outline" variant="tertiary" />
               </div>
             </div>
 
-            <slot :errors="transformedErrors" :fields="getFields(index, row)" :index="index" :model="nested[index]" name="after-fields" :update-value="updateValuesFromInput" />
-          </div>
-        </template>
-      </component>
-
-      <div v-if="useAdd">
-        <slot :add="add" name="add-input">
-          <div v-if="showAddFirstInputButton" class="text-left">
-            <qas-btn class="q-px-sm" color="primary" data-cy="nested-fields-add-btn" :label="addFirstInputLabel" variant="tertiary" @click="add()" />
-          </div>
-
-          <div v-else-if="useInlineActions" class="cursor-pointer items-center q-col-gutter-x-md q-mt-md row" data-cy="nested-fields-add-btn" @click="add()">
-            <div class="col">
-              <qas-input class="disabled no-pointer-events" hide-bottom-space :label="addInputLabel" @focus="add()" />
+            <div v-else class="text-left">
+              <qas-btn class="q-px-sm" color="primary" data-cy="nested-fields-add-btn" icon="sym_r_add" :label="addInputLabel" variant="tertiary" @click="add()" />
             </div>
-
-            <div class="col-auto">
-              <qas-btn color="primary" icon="sym_r_add_circle_outline" variant="tertiary" />
-            </div>
-          </div>
-
-          <div v-else class="text-left">
-            <qas-btn class="q-px-sm" color="primary" data-cy="nested-fields-add-btn" icon="sym_r_add" :label="addInputLabel" variant="tertiary" @click="add()" />
-          </div>
-        </slot>
+          </slot>
+        </div>
       </div>
-    </div>
+    </component>
   </div>
 </template>
 
@@ -195,6 +198,11 @@ export default {
       default: true
     },
 
+    useBox: {
+      type: Boolean,
+      default: true
+    },
+
     useDestroyAlways: {
       type: Boolean,
       default: undefined
@@ -250,6 +258,10 @@ export default {
   computed: {
     children () {
       return this.field?.children
+    },
+
+    boxComponent () {
+      return this.useBox ? 'qas-box' : 'div'
     },
 
     componentTag () {
