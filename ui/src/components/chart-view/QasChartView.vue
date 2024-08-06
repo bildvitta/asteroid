@@ -50,7 +50,7 @@ import { Bar as BarChart, Doughnut as DoughnutChart, Line as LineChart } from 'v
 import { charts, colors as defaultColors, font } from './config'
 
 // Plugins
-// import zoomPlugin from 'chartjs-plugin-zoom'
+import zoomPlugin from 'chartjs-plugin-zoom'
 import chartDataLabels from 'chartjs-plugin-datalabels'
 
 // Outras importações
@@ -234,7 +234,7 @@ export default {
         },
         {
           handle: this.isBar || this.isLine,
-          item: chartDataLabels
+          item: zoomPlugin
         }
       ])
     },
@@ -361,76 +361,7 @@ export default {
           payload
         })
 
-        const { results } = {
-          status: {
-            code: 200
-          },
-          count: 1,
-          fields: {
-            label: {
-              name: 'label',
-              type: 'text',
-              label: 'Label'
-            },
-            data: {
-              name: 'data',
-              type: 'nested',
-              label: 'Data',
-              children: {
-                x: {
-                  name: 'x',
-                  type: 'text',
-                  label: 'Eixo x'
-                },
-                y: {
-                  name: 'y',
-                  type: 'number',
-                  label: 'Eixo y'
-                },
-                tooltip: {
-                  name: 'tooltip',
-                  type: 'text',
-                  label: 'Tooltip customizado (opcional)'
-                }
-              }
-            }
-          },
-          results: [
-            {
-              label: 'Título do gráfico (ex: Número de contatos por dia)',
-              data: [
-                {
-                  x: '03/06',
-                  y: 5
-                },
-                {
-                  x: '04/06',
-                  y: 10
-                },
-                {
-                  x: '05/06',
-                  y: 8
-                },
-                {
-                  x: '06/06',
-                  y: 12
-                },
-                {
-                  x: '07/06',
-                  y: 4
-                },
-                {
-                  x: '08/06',
-                  y: 5
-                },
-                {
-                  x: '09/06',
-                  y: 11
-                }
-              ]
-            }
-          ]
-        }
+        const { results } = response.data
 
         this.data = results
 
