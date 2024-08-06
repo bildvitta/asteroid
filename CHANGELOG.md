@@ -10,6 +10,10 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 ### Sobre os "BREAKING CHANGES"
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
+## Não publicado
+### Modificado
+- Alterado tag de título do `QasChartView` para usar o `QasLabel` e manter padrão do DS.
+
 ## [3.16.0-beta.10] - 01-08-2024
 ## BREAKING CHANGES
 - `QasSingleView`: Possível breaking change ao utilizar o `before-fetch`.
