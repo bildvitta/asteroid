@@ -15,6 +15,11 @@ props:
     type: String
     examples: [start, center, end, between, around]
 
+  badges:
+    desc: Adiciona badges ao lado do titulo (QasLabel), caso não tenha titulo fica somente as bages acima da descrição.
+    default: []
+    type: Array
+
   button-props:
     desc: Propriedades do QasBtn.
     default: {}
@@ -23,6 +28,11 @@ props:
   description:
     desc: Descrição da seção a esquerda.
     type: String
+
+  label-props:
+    desc: Propriedades repassadas para o componente QasLabel.
+    type: Object
+    default: {}
 
   spacing:
     desc: Espaçamento entre o componente e o conteúdo abaixo.

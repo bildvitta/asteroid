@@ -35,7 +35,9 @@ export default {
     QasOptionGroup,
     QasPasswordInput,
     QasSignatureUploader,
-    QasUploader
+    QasUploader,
+    QasToggle,
+    QasRadio
   },
 
   inheritAttrs: false,
@@ -143,9 +145,9 @@ export default {
         datetime: { ...datetimeInput },
         time: { ...datetimeInput, useTimeOnly: true },
 
-        boolean: { is: QasToggle, label, ...error },
+        boolean: { is: 'qas-toggle', label, ...error },
         checkbox: { is: 'qas-checkbox', label, options, ...error },
-        radio: { is: QasRadio, label, options },
+        radio: { is: 'qas-radio', label, options },
 
         upload: { is: 'qas-uploader', accept, autoUpload: true, entity, label, multiple, readonly, maxFiles, ...error },
         editor: { is: 'q-editor', toolbar, ...error },

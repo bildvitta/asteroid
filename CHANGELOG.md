@@ -22,34 +22,53 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
   - Caso esteja usando `QChip` (fora do QasSelect) substituir o uso pelo `QasBadge` com a prop `removable`.
   - Atentar-se para possíveis breaking changes nos inputs: `QasToggle`, `QasCheckbox`, e `QasRadio`, validar nos formulários dos produtos.
 
-- `QasHeaderActions`:
+- `QasHeaderActions/QasHeader`:
   - renomeado para `QasHeader`.
   - alterado propriedade `text` para `description`.
 
 - `QasInput`: adicionado contado no type`textarea`, então caso exista lugares com contadores de caracteres, é necessário remover para não duplicar.
-- `QasCheckboxGroup`: renomeado para `QasCheckbox`.
+- `QasCheckboxGroup/QasCheckbox`: renomeado para `QasCheckbox`.
 - `QasPageHeader`: alterada propriedade `headerActionsProps` para `headerProps` para se adequar ao novo nome do componente `QasHeader`.
 
 ### Adicionado
-- `QasFormGenerator`: adicionado recurso no fieldset para dividir colunas entre eles.
 - `QasRadio`: adicionado novo componente.
 - `QasToggle`: adicionado novo componente.
 - `QasNestedFields`: adicionado nova propriedade `useBox`.
+- `QasBox`: adicionado nova propriedade `useSpacing`.
+- `QasHeaderActions/QasHeader`: adicionado novas propriedades `labelProps` e `badges`.
+- `QasInput`: adicionado novas propriedades `icon` e `iconRight` para não precisar abrir slots nestes casos.
+- `QasNumericInput`: adicionado novas propriedades `icon` e `iconRight` para não precisar abrir slots nestes casos.
+
+- `QasFormGenerator`:
+  - adicionado recurso no fieldset para dividir colunas entre eles.
+  - adicionado novas propriedades `useBox` e `boxProps`.
+
 - `QasBadge`:
-  - adicionado propriedades para renderizar `QChip` (removable, tabindex, modelValue).
-  - adicionado eventos para renderizar `QChip` (remove, update:modelValue).
+  - adicionado propriedades para renderizar `QChip` (`removable`, `tabindex`, `modelValue`).
+  - adicionado eventos para renderizar `QChip` (`remove`, `update:modelValue`).
 
 ### Modificado
-- `QasCheckboxGroup`: renomeado para `QasCheckbox`.
 - `QasHeaderActions`: renomeado para `QasHeader`.
 - `QasChartView`: adequado ao componente `QasHeader`.
 - `QasSelect`: alterado layout.
 - `QasNestedFields`: alterado layout.
 - `QasInput`: alterado layout.
 - `QasSearchInput`: alterado layout.
+- `QasField`: alterações para layout e novos componentes.
+- `QasHeaderActions/QasHeader`: alterado propriedade `text` para `description`.
+
+- adicionado placeholder padrão:
+  - `QasDatetimeInput`.
+  - `QasInput`.
+  - `QasNumericInput`.
+
 - `QasFilters`:
   - alterado layout.
   - utilizando `QasBadge` ao invés de `QChip`.
+
+- `QasCheckboxGroup/QasCheckbox`:
+  - renomeado para `QasCheckbox`.
+  - agora quando não é passado `options` o componente opera em modo "single".
 
 ## [3.16.0-beta.10] - 01-08-2024
 ## BREAKING CHANGES

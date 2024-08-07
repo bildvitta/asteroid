@@ -2,7 +2,15 @@
   <div class="justify-between no-wrap q-col-gutter-x-md row" :class="containerClass">
     <div :class="leftClass">
       <slot name="left">
-        <qas-label v-if="hasLabel" v-bind="defaultLabelProps" />
+        <div class="items-center q-col-gutter-sm row" :class="labelSectionClasses">
+          <qas-label v-if="hasLabel" v-bind="defaultLabelProps" />
+
+          <div class="col-auto items-center q-col-gutter-sm row">
+            <div v-for="(badge, badgeIndex) in props.badges" :key="badgeIndex" class="col-auto">
+              <qas-badge v-bind="badge" />
+            </div>
+          </div>
+        </div>
 
         <span v-if="props.description" class="text-body1 text-grey-8">
           {{ props.description }}
@@ -41,6 +49,11 @@ const props = defineProps({
     validator: value => Object.values(FlexAlign).includes(value)
   },
 
+  badges: {
+    type: Array,
+    default: () => []
+  },
+
   buttonProps: {
     default: () => ({}),
     type: Object
@@ -74,13 +87,20 @@ const leftClass = computed(() => {
   }
 })
 
+const labelSectionClasses = computed(() => {
+  return {
+    'q-mb-xs': hasBadges.value
+  }
+})
+
 const defaultLabelProps = computed(() => {
   return {
-    margin: 'xs',
+    margin: hasBadges.value ? 'none' : 'xs',
     ...props.labelProps
   }
 })
 
+const hasBadges = computed(() => !!props.badges.length)
 const hasLabel = computed(() => !!Object.keys(props.labelProps).length)
 const hasDefaultButton = computed(() => !!Object.keys(props.buttonProps).length)
 const hasDefaultActionsMenu = computed(() => !!Object.keys(props.actionsMenuProps).length)

@@ -19,6 +19,11 @@ props:
     default: "false"
     type: Boolean
 
+  box-props:
+    desc: Propriedades repassadas para o componente `QasBox`.
+    default: {}
+    type: Object
+
   error:
     desc: Objeto contendo propriedades contendo a mensagem de erro.
     default: {}

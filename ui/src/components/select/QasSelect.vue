@@ -28,21 +28,6 @@
           {{ opt.label }}
         </div>
       </qas-badge>
-      <!-- <q-chip
-        color="light-blue-2"
-        dense
-        :disable="isDisabled"
-        icon-remove="sym_r_close"
-        removable
-        square
-        :tabindex
-        text-color="black"
-        @remove="removeAtIndex(index)"
-      >
-        <div class="ellipsis" :title="opt.label">
-          {{ opt.label }}
-        </div>
-      </q-chip> -->
     </template>
 
     <template v-for="(_, name) in $slots" #[name]="context">
@@ -211,7 +196,6 @@ export default {
 
     // redesign
     componentClass () {
-      console.log('TCL: componentClass -> this.isSearchable || this.hasAppend', this.isSearchable || this.hasAppend)
       return {
         'qas-select--has-icon': this.isSearchable || this.hasAppend,
         'qas-select--closed': !this.isPopupContentOpen,

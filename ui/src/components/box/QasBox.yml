@@ -11,3 +11,7 @@ props:
   unelevated:
     desc: Remove a sombra do componente.
     type: Boolean
+
+  use-spacing:
+    desc: Controla espaçamento do componente.
+    type: Boolean
