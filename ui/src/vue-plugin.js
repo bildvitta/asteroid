@@ -13,7 +13,7 @@ import QasBtn from './components/btn/QasBtn.vue'
 import QasBtnDropdown from './components/btn-dropdown/QasBtnDropdown.vue'
 import QasCard from './components/card/QasCard.vue'
 import QasCardImage from './components/card-image/QasCardImage.vue'
-import QasCheckboxGroup from './components/checkbox-group/QasCheckboxGroup.vue'
+import QasCheckbox from './components/checkbox/QasCheckbox.vue'
 import QasCopy from './components/copy/QasCopy.vue'
 import QasDate from './components/date/QasDate.vue'
 import QasDateTimeInput from './components/date-time-input/QasDateTimeInput.vue'
@@ -32,7 +32,7 @@ import QasGallery from './components/gallery/QasGallery.vue'
 import QasGalleryCard from './components/gallery-card/QasGalleryCard.vue'
 import QasGrabbable from './components/grabbable/QasGrabbable.vue'
 import QasGridGenerator from './components/grid-generator/QasGridGenerator.vue'
-import QasHeaderActions from './components/header-actions/QasHeaderActions.vue'
+import QasHeader from './components/header/QasHeader.vue'
 import QasInfiniteScroll from './components/infinite-scroll/QasInfiniteScroll.vue'
 import QasInput from './components/input/QasInput.vue'
 import QasLabel from './components/label/QasLabel.vue'
@@ -109,7 +109,7 @@ async function install (app) {
   app.component('QasBtnDropdown', QasBtnDropdown)
   app.component('QasCard', QasCard)
   app.component('QasCardImage', QasCardImage)
-  app.component('QasCheckboxGroup', QasCheckboxGroup)
+  app.component('QasCheckbox', QasCheckbox)
   app.component('QasCopy', QasCopy)
   app.component('QasDate', QasDate)
   app.component('QasDateTimeInput', QasDateTimeInput)
@@ -128,7 +128,7 @@ async function install (app) {
   app.component('QasGalleryCard', QasGalleryCard)
   app.component('QasGrabbable', QasGrabbable)
   app.component('QasGridGenerator', QasGridGenerator)
-  app.component('QasHeaderActions', QasHeaderActions)
+  app.component('QasHeader', QasHeader)
   app.component('QasInfiniteScroll', QasInfiniteScroll)
   app.component('QasInput', QasInput)
   app.component('QasLabel', QasLabel)
@@ -207,7 +207,7 @@ export {
   QasBtn,
   QasBtnDropdown,
   QasCard,
-  QasCheckboxGroup,
+  QasCheckbox,
   QasCopy,
   QasDate,
   QasDateTimeInput,
@@ -226,7 +226,7 @@ export {
   QasGalleryCard,
   QasGrabbable,
   QasGridGenerator,
-  QasHeaderActions,
+  QasHeader,
   QasInfiniteScroll,
   QasInput,
   QasLabel,

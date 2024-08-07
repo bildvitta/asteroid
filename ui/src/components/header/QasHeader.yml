@@ -20,7 +20,7 @@ props:
     default: {}
     type: Object
 
-  text:
+  description:
     desc: Descrição da seção a esquerda.
     type: String
 

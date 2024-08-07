@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import QasCheckboxGroup from '../checkbox-group/QasCheckboxGroup.vue'
+import QasCheckbox from '../checkbox/QasCheckbox.vue'
 import QasDateTimeInput from '../date-time-input/QasDateTimeInput.vue'
 import QasInput from '../input/QasInput.vue'
 import QasNumericInput from '../numeric-input/QasNumericInput.vue'
@@ -28,7 +28,7 @@ export default {
   name: 'QasField',
 
   components: {
-    QasCheckboxGroup,
+    QasCheckbox,
     QasDateTimeInput,
     QasInput,
     QasNumericInput,
@@ -144,7 +144,7 @@ export default {
         time: { ...datetimeInput, useTimeOnly: true },
 
         boolean: { is: QasToggle, label, ...error },
-        checkbox: { is: 'qas-checkbox-group', label, options, ...error },
+        checkbox: { is: 'qas-checkbox', label, options, ...error },
         radio: { is: QasRadio, label, options },
 
         upload: { is: 'qas-uploader', accept, autoUpload: true, entity, label, multiple, readonly, maxFiles, ...error },

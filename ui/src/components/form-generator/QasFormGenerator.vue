@@ -1,9 +1,10 @@
 <template>
   <div :class="fieldsetClasses">
-    <div v-for="(fieldsetItem, fieldsetItemKey) in normalizedFields" :key="fieldsetItemKey" class="full-width">
+    <div v-for="(fieldsetItem, fieldsetItemKey) in normalizedFields" :key="fieldsetItemKey" :class="getFieldSetColumnClass(fieldsetItem.column)">
       <component :is="containerComponent.is" v-bind="containerComponent.props">
         <slot v-if="fieldsetItem.label" :name="`legend-${fieldsetItemKey}`">
           <qas-label :label="fieldsetItem.label" :margin="getLabelMargin(fieldsetItem)" />
+
           <div v-if="fieldsetItem.description" class="q-mb-md text-body1 text-grey-8">{{ fieldsetItem.description }}</div>
         </slot>
 
@@ -87,7 +88,8 @@ const props = defineProps({
 const emit = defineEmits(['update:modelValue'])
 
 // composables
-const { classes, getFieldClass } = useGenerator({ props })
+const { classes, getFieldClass, getFieldSetColumnClass } = useGenerator({ props })
+console.log('TCL: _getBreakpoint', getFieldSetColumnClass(undefined))
 
 const { fieldsetClasses, hasFieldset } = useFieldset({ props })
 
@@ -146,6 +148,7 @@ const normalizedFields = computed(() => {
     fields[fieldsetKey] = {
       label: fieldsetItem.label,
       description: fieldsetItem.description,
+      column: fieldsetItem.column,
       fields: { hidden: {}, visible: {} }
     }
 
@@ -191,7 +194,7 @@ function useFieldset ({ props }) {
     const classes = ['row']
 
     if (props.fieldsetGutter) {
-      classes.push(`q-col-gutter-y-${props.fieldsetGutter}`)
+      classes.push(`q-col-gutter-${props.fieldsetGutter}`)
     }
 
     return classes

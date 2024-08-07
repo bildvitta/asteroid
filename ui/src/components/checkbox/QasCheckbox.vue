@@ -25,7 +25,7 @@
 import { watch, computed, ref, onMounted, useAttrs } from 'vue'
 
 defineOptions({
-  name: 'QasCheckboxGroup',
+  name: 'QasCheckbox',
   inheritAttrs: false
 })
 

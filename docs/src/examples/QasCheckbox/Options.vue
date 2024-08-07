@@ -1,6 +1,6 @@
 <template>
   <div class="container spaced">
-    <qas-checkbox-group v-model="model" :options />
+    <qas-checkbox v-model="model" :options />
 
     <div class="q-mt-lg">
       model: {{ model }}

@@ -1,19 +1,9 @@
 <template>
-  <qas-header-actions v-if="hasHeaderActions" align-columns="end">
-    <template #left>
-      <h3 v-if="title" class="text-h3">
-        {{ title }}
-      </h3>
-
-      <div v-if="subtitle" class="text-body1 text-grey-8">
-        {{ subtitle }}
-      </div>
-    </template>
-
+  <qas-header v-if="hasHeader" v-bind="headerProps">
     <template #right>
       <qas-filters v-bind="chartFiltersProps" />
     </template>
-  </qas-header-actions>
+  </qas-header>
 
   <div v-bind="parentComponentProps">
     <component :is="chartComponent.is" v-if="showChart" v-bind="chartComponent.props" />
@@ -271,7 +261,7 @@ export default {
       return !!this.chartData?.datasets.filter(dataset => dataset.data.length)?.length
     },
 
-    hasHeaderActions () {
+    hasHeader () {
       return this.title || this.subtitle || this.useFilterButton
     },
 
@@ -307,6 +297,16 @@ export default {
         bar: [BarElement],
         doughnut: [ArcElement],
         line: [LineElement]
+      }
+    },
+
+    headerProps () {
+      return {
+        alignColumns: 'end',
+        description: this.subtitle,
+        labelProps: {
+          label: this.title
+        }
       }
     }
   },

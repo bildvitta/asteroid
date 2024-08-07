@@ -1,8 +1,12 @@
 <template>
-  <div class="justify-between no-wrap q-col-gutter-x-md row text-body1 text-grey-8" :class="containerClass">
+  <div class="justify-between no-wrap q-col-gutter-x-md row" :class="containerClass">
     <div :class="leftClass">
       <slot name="left">
-        {{ props.text }}
+        <qas-label v-if="hasLabel" v-bind="defaultLabelProps" />
+
+        <span v-if="props.description" class="text-body1 text-grey-8">
+          {{ props.description }}
+        </span>
       </slot>
     </div>
 
@@ -23,7 +27,7 @@ import { gutterValidator } from '../../helpers/private/gutter-validator'
 
 import { computed, useSlots } from 'vue'
 
-defineOptions({ name: 'QasHeaderActions' })
+defineOptions({ name: 'QasHeader' })
 
 const props = defineProps({
   actionsMenuProps: {
@@ -42,7 +46,7 @@ const props = defineProps({
     type: Object
   },
 
-  text: {
+  description: {
     type: String,
     default: ''
   },
@@ -51,6 +55,11 @@ const props = defineProps({
     default: Spacing.Xl,
     type: String,
     validator: gutterValidator
+  },
+
+  labelProps: {
+    type: Object,
+    default: () => ({})
   }
 })
 
@@ -65,6 +74,14 @@ const leftClass = computed(() => {
   }
 })
 
+const defaultLabelProps = computed(() => {
+  return {
+    margin: 'xs',
+    ...props.labelProps
+  }
+})
+
+const hasLabel = computed(() => !!Object.keys(props.labelProps).length)
 const hasDefaultButton = computed(() => !!Object.keys(props.buttonProps).length)
 const hasDefaultActionsMenu = computed(() => !!Object.keys(props.actionsMenuProps).length)
 

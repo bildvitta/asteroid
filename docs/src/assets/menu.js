@@ -184,8 +184,8 @@ module.exports = [
         path: '/components/grid-generator'
       },
       {
-        name: 'HeaderActions',
-        path: '/components/header-actions'
+        name: 'Header',
+        path: '/components/header'
       },
       {
         name: 'InfiniteScroll',

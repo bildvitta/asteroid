@@ -1,6 +1,6 @@
 <template>
   <div class="container spaced">
-    <qas-form-generator v-model="model" :columns="columns" :fields="fields" :fields-props="fieldsProps" :fieldset="fieldset" />
+    <qas-form-generator v-model="model" :columns="columns" :fields="fields" :fields-props="fieldsProps" :fieldset="fieldset" fieldset-gutter="lg" :use-box="true" />
 
     <div class="q-mt-lg">
       model: <qas-debugger :inspect="[model]" />
@@ -38,13 +38,15 @@ export default {
         personalInformation: {
           label: 'Informações pessoais',
           description: 'Informe o nome e email do usuário.',
-          fields: ['isActive', 'name', 'email']
+          fields: ['isActive', 'name', 'email'],
+          column: { col: 12, sm: 6 }
         },
 
         another: {
           label: 'Outras informações',
           description: 'Informe a empresa, telefone e documento do usuário.',
-          fields: ['phone', 'company']
+          fields: ['phone', 'company'],
+          column: { col: 12, sm: 6 }
         }
       }
     },

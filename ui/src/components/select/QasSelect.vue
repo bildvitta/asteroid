@@ -23,22 +23,26 @@
     </template>
 
     <template v-if="attributes.useChips" #selected-item="{ opt, tabindex, index, removeAtIndex }">
-      <q-chip
-        class="q-px-sm q-py-xs text-bold"
-        color="black"
+      <qas-badge removable :tabindex @remove="removeAtIndex(index)">
+        <div class="ellipsis" :title="opt.label">
+          {{ opt.label }}
+        </div>
+      </qas-badge>
+      <!-- <q-chip
+        color="light-blue-2"
         dense
         :disable="isDisabled"
         icon-remove="sym_r_close"
         removable
         square
         :tabindex
-        text-color="white"
+        text-color="black"
         @remove="removeAtIndex(index)"
       >
         <div class="ellipsis" :title="opt.label">
           {{ opt.label }}
         </div>
-      </q-chip>
+      </q-chip> -->
     </template>
 
     <template v-for="(_, name) in $slots" #[name]="context">
@@ -49,10 +53,11 @@
 
 <script>
 import { getRequiredLabel } from '../../helpers'
-import { uid } from 'quasar'
 import { searchFilterMixin } from '../../mixins'
-import Fuse from 'fuse.js'
 import fuseConfig from '../../shared/fuse-config'
+
+import { uid } from 'quasar'
+import Fuse from 'fuse.js'
 
 export default {
   name: 'QasSelect',

@@ -199,8 +199,7 @@ export default {
     },
 
     useBox: {
-      type: Boolean,
-      default: true
+      type: Boolean
     },
 
     useDestroyAlways: {
