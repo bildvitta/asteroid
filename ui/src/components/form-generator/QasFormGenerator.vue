@@ -32,7 +32,7 @@
 import { gutterValidator } from '../../helpers/private/gutter-validator'
 import useGenerator, { baseProps } from '../../composables/private/use-generator'
 import { Spacing } from '../../enums/Spacing'
-import { computed } from 'vue'
+import { computed, provide, inject } from 'vue'
 
 defineOptions({ name: 'QasFormGenerator' })
 
@@ -81,24 +81,36 @@ const props = defineProps({
   },
 
   useBox: {
-    type: Boolean
+    type: Boolean,
+    default: true
   }
 })
 
 const emit = defineEmits(['update:modelValue'])
 
+provide('isFormGenerator', true)
+
 // composables
 const { classes, getFieldClass, getFieldSetColumnClass } = useGenerator({ props })
-console.log('TCL: _getBreakpoint', getFieldSetColumnClass(undefined))
 
 const { fieldsetClasses, hasFieldset } = useFieldset({ props })
 
+// constants
+const hasNestedFormGenerator = inject('isFormGenerator', false)
+
 // computed
+
+/**
+ * Se o QasFormGenerator tiver um elemento acima que também é um QasFormGenerator,
+ * mesmo que a propriedade useBox seja true, o componente não deve renderizar o box.
+ */
 const containerComponent = computed(() => {
+  const hasBox = props.useBox && !hasNestedFormGenerator
+
   return {
-    is: props.useBox ? 'qas-box' : 'div',
+    is: hasBox ? 'qas-box' : 'div',
     props: {
-      ...(props.useBox && { ...props.boxProps })
+      ...(hasBox && { ...props.boxProps })
     }
   }
 })

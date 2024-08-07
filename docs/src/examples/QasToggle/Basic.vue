@@ -1,8 +1,6 @@
 <template>
   <div class="container spaced">
-    <qas-chip>
-      Eai
-    </qas-chip>
+    <qas-toggle label="Aceitar" :model-value="false" />
   </div>
 </template>
 

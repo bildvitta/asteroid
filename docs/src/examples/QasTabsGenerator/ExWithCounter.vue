@@ -25,7 +25,7 @@ export default {
           label: 'Tab 1',
           value: 'tab1',
           icon: 'sym_r_person',
-          counter: 10
+          counter: 100000
         },
         {
           label: 'Tab 2',

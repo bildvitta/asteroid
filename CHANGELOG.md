@@ -21,6 +21,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
   - Remover TODOS `QChip` de slot do `QasSelect`.
   - Caso esteja usando `QChip` (fora do QasSelect) substituir o uso pelo `QasBadge` com a prop `removable`.
   - Atentar-se para possíveis breaking changes nos inputs: `QasToggle`, `QasCheckbox`, e `QasRadio`, validar nos formulários dos produtos.
+  - Verificar todos os lugares que estão usando contadores no `QasTabsGenerator` se não estão tratando ele antes de passar.
 
 - `QasHeaderActions/QasHeader`:
   - renomeado para `QasHeader`.
@@ -29,6 +30,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - `QasInput`: adicionado contado no type`textarea`, então caso exista lugares com contadores de caracteres, é necessário remover para não duplicar.
 - `QasCheckboxGroup/QasCheckbox`: renomeado para `QasCheckbox`.
 - `QasPageHeader`: alterada propriedade `headerActionsProps` para `headerProps` para se adequar ao novo nome do componente `QasHeader`.
+- - `QasTabsGenerator`: agora o contador implementa a função `decimal` do asteroid, então caso esteja tratando esse valor por fora, remover.
 
 ### Adicionado
 - `QasRadio`: adicionado novo componente.
@@ -56,6 +58,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - `QasSearchInput`: alterado layout.
 - `QasField`: alterações para layout e novos componentes.
 - `QasHeaderActions/QasHeader`: alterado propriedade `text` para `description`.
+- `QasTabsGenerator`: agora o contador implementa a função `decimal` do asteroid.
 
 - adicionado placeholder padrão:
   - `QasDatetimeInput`.
