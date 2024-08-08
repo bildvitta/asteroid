@@ -30,7 +30,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - `QasInput`: adicionado contado no type`textarea`, então caso exista lugares com contadores de caracteres, é necessário remover para não duplicar.
 - `QasCheckboxGroup/QasCheckbox`: renomeado para `QasCheckbox`.
 - `QasPageHeader`: alterada propriedade `headerActionsProps` para `headerProps` para se adequar ao novo nome do componente `QasHeader`.
-- - `QasTabsGenerator`: agora o contador implementa a função `decimal` do asteroid, então caso esteja tratando esse valor por fora, remover.
+- `QasTabsGenerator`: agora o contador implementa a função `decimal` do asteroid, então caso esteja tratando esse valor por fora, remover.
 
 ### Adicionado
 - `QasRadio`: adicionado novo componente.
@@ -72,6 +72,10 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - `QasCheckboxGroup/QasCheckbox`:
   - renomeado para `QasCheckbox`.
   - agora quando não é passado `options` o componente opera em modo "single".
+
+### Removido
+- `QasPageHeader`: alterada propriedade `headerActionsProps` para `headerProps` para se adequar ao novo nome do componente `QasHeader`.
+- `QasHeaderActions/QasHeader`: alterado propriedade `text` para `description`.
 
 ## [3.16.0-beta.10] - 01-08-2024
 ## BREAKING CHANGES
