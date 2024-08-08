@@ -63,7 +63,7 @@ props:
 
 slots:
   content:
-    desc: Slot para o conteúdo (content).
+    desc: Slot para o conteúdo (valor) de todas os campos de uma vez.
     scope:
       field:
         desc: Conteúdo do field atual mais o resultado formatado.
@@ -79,7 +79,23 @@ slots:
         type: Object
 
   header:
-    desc: Slot para o header.
+    desc: Slot para o header de todas os campos de uma vez.
+    scope:
+      field:
+        desc: Conteúdo do field atual mais o resultado formatado.
+        default: {}
+        type: Object
+
+  'header-field-[nome-da-chave]':
+    desc: Slot para o header especifico de um field.
+    scope:
+      field:
+        desc: Conteúdo do field atual mais o resultado formatado.
+        default: {}
+        type: Object
+
+  'content-field-[nome-da-chave]':
+    desc: Slot para o conteúdo (valor) especifico de um field.
     scope:
       field:
         desc: Conteúdo do field atual mais o resultado formatado.

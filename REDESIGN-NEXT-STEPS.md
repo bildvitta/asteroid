@@ -1,3 +1,2 @@
-- [] Possibilidade de variação de tamanho de badges;
 - [] Possibilidade de variação de tamanho de ícone nos botões;
 - 

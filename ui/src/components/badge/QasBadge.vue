@@ -1,5 +1,5 @@
 <template>
-  <component :is="component.is" v-bind="component.props" class="q-px-sm q-py-xs qas-badge text-caption">
+  <component :is="component.is" v-bind="component.props" class="q-px-sm qas-badge text-caption">
     <slot />
   </component>
 </template>
@@ -80,6 +80,8 @@ const component = computed(() => {
 
 <style lang="scss">
 .qas-badge {
-  min-height: 24px;
+  min-height: 20px;
+  padding-bottom: 2px;
+  padding-top: 2px;
 }
 </style>

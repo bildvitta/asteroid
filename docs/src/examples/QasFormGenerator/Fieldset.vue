@@ -39,12 +39,19 @@ export default {
           label: 'Informações pessoais',
           description: 'Informe o nome e email do usuário.',
           fields: ['isActive', 'name', 'email'],
+          column: '12'
+        },
+
+        address: {
+          label: 'Endereço',
+          description: 'Informe o endereço, cidade, estado e país do usuário.',
+          fields: ['address', 'city', 'state', 'country'],
           column: { col: 12, sm: 6 }
         },
 
         another: {
           label: 'Outras informações',
-          description: 'Informe a empresa, telefone e documento do usuário.',
+          description: 'Informe o documento do usuário.',
           fields: ['phone', 'company'],
           column: { col: 12, sm: 6 }
         }
@@ -109,6 +116,30 @@ export default {
           label: 'Telefone',
           type: 'string',
           mask: 'phone'
+        },
+
+        address: {
+          name: 'address',
+          label: 'Endereço',
+          type: 'string'
+        },
+
+        city: {
+          name: 'city',
+          label: 'Cidade',
+          type: 'string'
+        },
+
+        state: {
+          name: 'state',
+          label: 'Estado',
+          type: 'string'
+        },
+
+        country: {
+          name: 'country',
+          label: 'País',
+          type: 'string'
         }
       }
     }

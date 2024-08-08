@@ -40,7 +40,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - `QasHeaderActions/QasHeader`: adicionado novas propriedades `labelProps` e `badges`.
 - `QasInput`: adicionado novas propriedades `icon` e `iconRight` para não precisar abrir slots nestes casos.
 - `QasNumericInput`: adicionado novas propriedades `icon` e `iconRight` para não precisar abrir slots nestes casos.
-
+- `QasGridGenerator`: adicionado 2 novos slots, `content-field-[nome-da-chave]` e `header-field-[nome-da-chave]`.
 - `QasFormGenerator`:
   - adicionado recurso no fieldset para dividir colunas entre eles.
   - adicionado novas propriedades `useBox` e `boxProps`.
@@ -59,6 +59,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - `QasField`: alterações para layout e novos componentes.
 - `QasHeaderActions/QasHeader`: alterado propriedade `text` para `description`.
 - `QasTabsGenerator`: agora o contador implementa a função `decimal` do asteroid.
+- `QasBadge`: modificado altura minima de 24px para para 20px e espaçamento vertical de 4px para 2px.
 
 - adicionado placeholder padrão:
   - `QasDatetimeInput`.

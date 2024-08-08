@@ -85,8 +85,17 @@ slots:
         desc: Payload do campo atual.
         default: {}
         type: Object
-'legend-[nome-da-chave]':
-    desc: Acessa o slot de um rótulo (label).
+
+  'legend-[nome-da-chave]':
+      desc: Acessa o slot de um rótulo (label).
+
+  'legend-section-[nome-da-chave]':
+    desc: Acessa o slot da seção de fields daquele fieldset.
+    scope:
+      fields:
+        desc: Campos daquela seção.
+        default: {}
+        type: Object
 
 events:
   '@update:model-value -> function(value)':
