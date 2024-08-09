@@ -184,6 +184,10 @@ module.exports = [
         path: '/components/grid-generator'
       },
       {
+        name: 'GridItem',
+        path: '/components/grid-item'
+      },
+      {
         name: 'Header',
         path: '/components/header'
       },

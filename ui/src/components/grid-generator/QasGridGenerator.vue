@@ -2,7 +2,7 @@
   <div :class="classes">
     <div v-for="(field, key) in fieldsByResult" :key="key" :class="getContainerClass({ key })">
       <slot :field="field" :name="`field-${field.name}`">
-        <qas-item>
+        <qas-grid-item :use-ellipsis="props.useEllipsis" :use-inline="props.useInline">
           <template #header>
             <slot :field="field" :name="`header-field-${field.name}`">
               <slot :field="field" name="header">
@@ -22,23 +22,13 @@
               </slot>
             </slot>
           </template>
-        </qas-item>
-
-        <!-- <slot :field="field" :name="`content-field-${field.name}`">
-          <slot :field="field" name="content">
-            <div class="text-body1 text-grey-10" :class="contentClass" :data-cy="`grid-generator-${field.name}-result`" :title="getTitle(field, 'formattedResult')">
-              {{ field.formattedResult }}
-            </div>
-          </slot>
-        </slot> -->
+        </qas-grid-item>
       </slot>
     </div>
   </div>
 </template>
 
 <script setup>
-import QasItem from './QasItem.vue'
-
 import useGenerator, { baseProps } from '../../composables/private/use-generator'
 import { isEmpty, humanize } from '../../helpers'
 import { useScreen } from '../../composables'
@@ -111,8 +101,7 @@ const headerClass = computed(() => {
     props.headerClass,
 
     {
-      ellipsis: !screen.isSmall && props.useEllipsis,
-      'text-bold': screen.isSmall || !props.useInline
+      ellipsis: !screen.isSmall && props.useEllipsis
     }
   ]
 })

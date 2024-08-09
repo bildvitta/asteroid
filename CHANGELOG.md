@@ -22,10 +22,15 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
   - Caso esteja usando `QChip` (fora do QasSelect) substituir o uso pelo `QasBadge` com a prop `removable`.
   - Atentar-se para possíveis breaking changes nos inputs: `QasToggle`, `QasCheckbox`, e `QasRadio`, validar nos formulários dos produtos.
   - Verificar todos os lugares que estão usando contadores no `QasTabsGenerator` se não estão tratando ele antes de passar.
+  - Verificar todos os lugares que utilizam `QasGridGenerator` para possíveis breaking changes de estilos.
 
 - `QasHeaderActions/QasHeader`:
   - renomeado para `QasHeader`.
   - alterado propriedade `text` para `description`.
+
+- `QasGridGenerator`:
+  - modificado tipografia;
+  - utilizando novo componente `QasGridItem`.
 
 - `QasInput`: adicionado contado no type`textarea`, então caso exista lugares com contadores de caracteres, é necessário remover para não duplicar.
 - `QasCheckboxGroup/QasCheckbox`: renomeado para `QasCheckbox`.
@@ -35,12 +40,14 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 ### Adicionado
 - `QasRadio`: adicionado novo componente.
 - `QasToggle`: adicionado novo componente.
+- `QasGridItem`: adicionado novo componente.
 - `QasNestedFields`: adicionado nova propriedade `useBox`.
 - `QasBox`: adicionado nova propriedade `useSpacing`.
 - `QasHeaderActions/QasHeader`: adicionado novas propriedades `labelProps` e `badges`.
 - `QasInput`: adicionado novas propriedades `icon` e `iconRight` para não precisar abrir slots nestes casos.
 - `QasNumericInput`: adicionado novas propriedades `icon` e `iconRight` para não precisar abrir slots nestes casos.
 - `QasGridGenerator`: adicionado 2 novos slots, `content-field-[nome-da-chave]` e `header-field-[nome-da-chave]`.
+
 - `QasFormGenerator`:
   - adicionado recurso no fieldset para dividir colunas entre eles.
   - adicionado novas propriedades `useBox` e `boxProps`.
@@ -60,6 +67,10 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - `QasHeaderActions/QasHeader`: alterado propriedade `text` para `description`.
 - `QasTabsGenerator`: agora o contador implementa a função `decimal` do asteroid.
 - `QasBadge`: modificado altura minima de 24px para para 20px e espaçamento vertical de 4px para 2px.
+
+- `QasGridGenerator`:
+  - modificado tipografia;
+  - utilizando novo componente `QasGridItem`.
 
 - adicionado placeholder padrão:
   - `QasDatetimeInput`.

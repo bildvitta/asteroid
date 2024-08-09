@@ -32,6 +32,7 @@ import QasGallery from './components/gallery/QasGallery.vue'
 import QasGalleryCard from './components/gallery-card/QasGalleryCard.vue'
 import QasGrabbable from './components/grabbable/QasGrabbable.vue'
 import QasGridGenerator from './components/grid-generator/QasGridGenerator.vue'
+import QasGridItem from './components/grid-item/QasGridItem.vue'
 import QasHeader from './components/header/QasHeader.vue'
 import QasInfiniteScroll from './components/infinite-scroll/QasInfiniteScroll.vue'
 import QasInput from './components/input/QasInput.vue'
@@ -128,6 +129,7 @@ async function install (app) {
   app.component('QasGalleryCard', QasGalleryCard)
   app.component('QasGrabbable', QasGrabbable)
   app.component('QasGridGenerator', QasGridGenerator)
+  app.component('QasGridItem', QasGridItem)
   app.component('QasHeader', QasHeader)
   app.component('QasInfiniteScroll', QasInfiniteScroll)
   app.component('QasInput', QasInput)
@@ -226,6 +228,7 @@ export {
   QasGalleryCard,
   QasGrabbable,
   QasGridGenerator,
+  QasGridItem,
   QasHeader,
   QasInfiniteScroll,
   QasInput,

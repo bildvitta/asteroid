@@ -4,34 +4,8 @@
     <template #default>
       <div>
         <qas-grid-generator :fields="fields" :result="result">
-          <!-- <template #field-name="{ field }">
-            <div>
-              name: <pre>{{ field }}</pre>
-            </div>
-          </template> -->
-
-          <template #header-field-name="{ field }">
-            <div>
-              <pre>{{ field }}</pre>
-            </div>
-          </template>
-
-          <template #header>
-            <div>
-              header 2
-            </div>
-          </template>
-
-          <template #content-field-name>
-            <div>
-              content
-            </div>
-          </template>
-
-          <template #content>
-            <div>
-              content 2
-            </div>
+          <template #field-name="{ field }">
+            <qas-grid-item :label="field.label" :value="field.formattedResult" />
           </template>
         </qas-grid-generator>
       </div>
