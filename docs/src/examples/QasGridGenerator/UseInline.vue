@@ -2,13 +2,7 @@
   <!-- Usando qas-single-view apenas para recuperar os dados -->
   <qas-single-view v-model:fields="fields" v-model:result="result" :custom-id="customId" :entity="entity">
     <template #default>
-      <qas-grid-generator :fields="fields" :result="result" use-inline>
-        <!-- <template #content-field-phone>
-          <div class="text-h4">
-            eae
-          </div>
-        </template> -->
-      </qas-grid-generator>
+      <qas-grid-generator :fields="fields" :result="result" use-inline />
     </template>
   </qas-single-view>
 </template>

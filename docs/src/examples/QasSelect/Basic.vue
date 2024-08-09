@@ -2,12 +2,10 @@
   <div class="container q-col-gutter-sm q-py-lg row">
     <div class="col-6">
       <qas-select v-model="model" label="Meu select!" :options="options" />
-      <!-- Model: {{ model }} -->
     </div>
 
     <div class="col-6">
       <qas-select v-model="model2" label="Meu select multiple" multiple :options="options" />
-      <!-- Model múltiplo: {{ model2 }} -->
     </div>
   </div>
 </template>
@@ -86,12 +84,6 @@ export default {
         }
       ]
     }
-  },
-
-  created () {
-    setTimeout(() => {
-      this.model = 1
-    }, 2000)
   }
 }
 </script>
