@@ -312,6 +312,10 @@ module.exports = [
         path: '/components/text-truncate'
       },
       {
+        name: 'ToggleVisibility',
+        path: '/components/toggle-visibility'
+      },
+      {
         name: 'Timeline',
         path: '/components/timeline'
       },

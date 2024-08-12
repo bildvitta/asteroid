@@ -10,6 +10,137 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 ### Sobre os "BREAKING CHANGES"
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
+## Não publicado
+## BREAKING CHANGES
+- [`QasFormGenerator`, `QasGridGenerator`]: removido a propriedade `useCommonColumns` em favor de utilizar a propriedade `commonColumns`.
+- `QasSingleView`: Possível breaking change ao utilizar o `before-fetch`.
+
+### Adicionado
+- [`QasFormGenerator`, `QasGridGenerator`]: adicionado nova propriedade `commonColumns`, esta propriedade vai substituir a necessidade do `useCommonColumns` e dar mais flexibilidade.
+- `QasAppMenu`: adicionado propriedade `helpChatLink`, para a ação de "Solicitar ajuda".
+- `QasActionsMenu`: possibilidade de passar a prop `to` para os botões.
+- `QasHeaderActions`: adicionado prop `spacing`.
+- `QasSingleView`: Adicionado propriedade `use-store` para dar a possibilidade de utilizar o componente sem a store do vuex/pinia.
+- `QasToggleVisibility`: Adicionado novo componente.
+- `QasExpansionItem`: adicionado novo slot `header-bottom`.
+- [`QasFormView`, `QasListView`, `QasSingleView`]: adicionado novo slot chamado `fetch-error` que é disponibilizado quando ocorre o `fetchError`.
+- `QasActions`: adicionado nova opção de ação terciária.
+
+### Corrigido
+- `QasSelect`: Corrigido forma de atribuir as options, já que estava dando problema de endereço de memória em selects dependentes que são lazy-loading dentro de um `QasNestedFields`.
+- `QasAppMenu`: adicionado validações para garantir que não aconteça nenhum erro que trave a aplicação.
+- `QasHeaderActions`: Corrigido quebra de de layout em casos de ter 2 itens com split usando `QasActionsMenu`.
+- `QasExpansionItem`: corrigido função `setHasNextSibling`.
+- `QasGridGenerator`: Corrigido gutter quando se é utilizado a prop `useInline`.
+- `QasExpansionItem`: Adicionado nova propriedade `useHeaderSeparator` para forçar o controle do QSeparator.
+- `QasExpansionItem`: Adicionado classe para z-index, onde corrige o problema de quando usado grid com gutter no conteúdo e sobrepunha o header fazendo com que perdesse o evento de click.
+- `QasTableGenerator`: adicionado nova propriedade `useBox`.
+
+### Modificado
+- `QasSingleView`:
+  - modificado para composition API.
+  - removido obrigatoriedade da propriedade "entity".
+- `QasExpansionItem`: modificado layout do componente quando ele é usado como nested (QasExpansionItem dentro de QasExpansionItem).
+- `QasExpansionItem`:
+  - Repassando todos eventos do QExpansionItem.
+- `QasToggleVisibility`: adicionado evento `prevent.stop` no botão para não disparar evento de click na tabela.
+- `boot/notifications`: removido notificações em localhost, uma vez que ficava gerando vários errors de conexão no console/network, o que atrapalhava o desenvolvimento local.
+- `QasExpansionItem`:
+  - adicionado espaçamento `sm` no conteúdo quando for nested.
+  - agora é possível sobrescrever a propriedade "useInline" pela `gridGeneratorProps`.
+- `QasLabel`: Modificado tag renderizada no componente para ser de acordo com a passada pela prop `typography`.
+
+### Removido
+- [`QasFormGenerator`, `QasGridGenerator`]: removido a propriedade `useCommonColumns` em favor de utilizar a propriedade `commonColumns`.
+
+## [3.16.0-beta.10] - 01-08-2024
+## BREAKING CHANGES
+- `QasSingleView`: Possível breaking change ao utilizar o `before-fetch`.
+
+### Adicionado
+- `QasActions`: adicionado nova opção de ação terciária.
+
+### Corrigido
+- `QasSingleView`: Corrigido validação do `hasResults` (voltou para a anterior).
+- [`use-view`, `view`]: Corrigido nome do slot na validação para ver se existe ou não o slot de `fetch-error`.
+
+## [3.16.0-beta.9] - 31-07-2024
+### Adicionado
+- [`QasFormView`, `QasListView`, `QasSingleView`]: adicionado novo slot chamado `fetch-error` que é disponibilizado quando ocorre o `fetchError`.
+
+### Modificado
+- `QasLabel`: Modificado tag renderizada no componente para ser de acordo com a passada pela prop `typography`.
+
+### Corrigido
+- `QasGridGenerator`: Corrigido gutter quando se é utilizado a prop `useInline`.
+- `QasExpansionItem`: Adicionado nova propriedade `useHeaderSeparator` para forçar o controle do QSeparator.
+- `QasExpansionItem`: Adicionado classe para z-index, onde corrige o problema de quando usado grid com gutter no conteúdo e sobrepunha o header fazendo com que perdesse o evento de click.
+- `QasTableGenerator`: adicionado nova propriedade `useBox`.
+
+## [3.16.0-beta.8] - 24-07-2024
+### Modificado
+- `QasExpansionItem`:
+  - adicionado espaçamento `sm` no conteúdo quando for nested.
+  - agora é possível sobrescrever a propriedade "useInline" pela `gridGeneratorProps`.
+
+### Corrigido
+- `QasExpansionItem`: corrigido função `setHasNextSibling`.
+
+## [3.16.0-beta.7] - 23-07-2024
+### Modificado
+- `boot/notifications`: removido notificações em localhost, uma vez que ficava gerando vários errors de conexão no console/network, o que atrapalhava o desenvolvimento local.
+
+## [3.16.0-beta.6] - 12-07-2024
+### Corrigido
+- `QasHeaderActions`: Corrigido quebra de de layout em casos de ter 2 itens com split usando `QasActionsMenu`.
+- `QasSingleView`: Corrigido exposição de métodos para possibilidade de usar `Template Refs`.
+
+### Modificado
+- `QasExpansionItem`:
+  - Repassando todos eventos do QExpansionItem.
+- `QasToggleVisibility`: adicionado evento `prevent.stop` no botão para não disparar evento de click na tabela.
+
+## [3.16.0-beta.5] - 04-07-2024
+### Adicionado
+- `QasToggleVisibility`: Adicionado novo componente.
+- `QasExpansionItem`: adicionado novo slot `header-bottom`.
+
+### Modificado
+- `QasExpansionItem`: modificado layout do componente quando ele é usado como nested (QasExpansionItem dentro de QasExpansionItem).
+
+## [3.16.0-beta.4] - 26-06-2024
+### Adicionado
+- `QasSingleView`: Adicionado propriedade `use-store` para dar a possibilidade de utilizar o componente sem a store do vuex/pinia.
+
+### Modificado
+- `QasSingleView`:
+  - modificado para composition API.
+  - removido obrigatoriedade da propriedade "entity".
+
+## [3.16.0-beta.3] - 20-06-2024
+### Adicionado
+- `QasActionsMenu`: possibilidade de passar a prop `to` para os botões.
+- `QasHeaderActions`: adicionado prop `spacing`.
+
+## [3.16.0-beta.2] - 31-05-2024
+### Corrigido
+- `QasAppMenu`: adicionado validações para garantir que não aconteça nenhum erro que trave a aplicação.
+
+## [3.16.0-beta.1] - 31-05-2024
+## BREAKING CHANGES
+- [`QasFormGenerator`, `QasGridGenerator`]: removido a propriedade `useCommonColumns` em favor de utilizar a propriedade `commonColumns`.
+
+### Adicionado
+- [`QasFormGenerator`, `QasGridGenerator`]: adicionado nova propriedade `commonColumns`, esta propriedade vai substituir a necessidade do `useCommonColumns` e dar mais flexibilidade.
+- `QasAppMenu`: adicionado propriedade `helpChatLink`, para a ação de "Solicitar ajuda".
+
+### Removido
+- [`QasFormGenerator`, `QasGridGenerator`]: removido a propriedade `useCommonColumns` em favor de utilizar a propriedade `commonColumns`.
+
+## [3.16.0-beta.0] - 24-05-2024
+### Corrigido
+- `QasSelect`: Corrigido forma de atribuir as options, já que estava dando problema de endereço de memória em selects dependentes que são lazy-loading dentro de um `QasNestedFields`.
+
 ## [3.15.0] - 23-05-2024
 ## BREAKING CHANGES
 - `QasCard`: Componente agora se chama `QasCardImage`, pois agora foi criado um novo componente com o nome de `QasCard` (`QasCard <-> QasCardImage`).
@@ -2898,3 +3029,14 @@ Adicionado suporte para Pinia/Vuex Seguindo os padrões da biblioteca `@bildvitt
 [3.15.0-beta.14]: https://github.com/bildvitta/asteroid/compare/v3.15.0-beta.13...v3.15.0-beta.14?expand=1
 [3.15.0-beta.15]: https://github.com/bildvitta/asteroid/compare/v3.15.0-beta.14...v3.15.0-beta.15?expand=1
 [3.15.0]: https://github.com/bildvitta/asteroid/compare/v3.14.0...v3.15.0?expand=1
+[3.16.0-beta.0]: https://github.com/bildvitta/asteroid/compare/v3.15.0...v3.16.0-beta.0?expand=1
+[3.16.0-beta.1]: https://github.com/bildvitta/asteroid/compare/v3.16.0-beta.0...v3.16.0-beta.1?expand=1
+[3.16.0-beta.2]: https://github.com/bildvitta/asteroid/compare/v3.16.0-beta.1...v3.16.0-beta.2?expand=1
+[3.16.0-beta.3]: https://github.com/bildvitta/asteroid/compare/v3.16.0-beta.2...v3.16.0-beta.3?expand=1
+[3.16.0-beta.4]: https://github.com/bildvitta/asteroid/compare/v3.16.0-beta.3...v3.16.0-beta.4?expand=1
+[3.16.0-beta.5]: https://github.com/bildvitta/asteroid/compare/v3.16.0-beta.4...v3.16.0-beta.5?expand=1
+[3.16.0-beta.6]: https://github.com/bildvitta/asteroid/compare/v3.16.0-beta.5...v3.16.0-beta.6?expand=1
+[3.16.0-beta.7]: https://github.com/bildvitta/asteroid/compare/v3.16.0-beta.6...v3.16.0-beta.7?expand=1
+[3.16.0-beta.8]: https://github.com/bildvitta/asteroid/compare/v3.16.0-beta.7...v3.16.0-beta.8?expand=1
+[3.16.0-beta.9]: https://github.com/bildvitta/asteroid/compare/v3.16.0-beta.8...v3.16.0-beta.9?expand=1
+[3.16.0-beta.10]: https://github.com/bildvitta/asteroid/compare/v3.16.0-beta.9...v3.16.0-beta.10?expand=1

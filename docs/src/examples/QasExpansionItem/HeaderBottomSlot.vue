@@ -1,6 +1,10 @@
 <template>
   <div class="container spaced">
     <qas-expansion-item :badges="badges" label="John Doe">
+      <template #header-bottom>
+        <qas-badge>Header bottom</qas-badge>
+      </template>
+
       <template #content>
         Meu conteúdo customizado
       </template>
@@ -9,8 +13,6 @@
 </template>
 
 <script setup>
-defineOptions({ name: 'UsersList' })
-
 const badges = [
   {
     color: 'green-14',

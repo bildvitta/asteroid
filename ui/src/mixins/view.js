@@ -56,7 +56,8 @@ export default {
       mx_fields: {},
       mx_metadata: {},
       mx_cancelBeforeFetch: false,
-      mx_isFetching: false
+      mx_isFetching: false,
+      mx_hasFetchError: false
     }
   },
 
@@ -79,8 +80,16 @@ export default {
       return !!(this.$slots.header)
     },
 
+    mx_hasFetchErrorSlot () {
+      return !!(this.$slots['fetch-error'])
+    },
+
     mx_fetchErrorMessage () {
       return 'Ops… Não conseguimos acessar as informações. Por favor, tente novamente em alguns minutos.'
+    },
+
+    mx_canShowFetchErrorSlot () {
+      return this.mx_hasFetchError && this.mx_hasFetchErrorSlot
     }
   },
 
@@ -100,6 +109,8 @@ export default {
 
         return
       }
+
+      this.mx_hasFetchError = true
 
       this.$qas.error(this.mx_fetchErrorMessage)
     },

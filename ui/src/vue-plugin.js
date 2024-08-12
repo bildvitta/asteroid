@@ -64,6 +64,7 @@ import QasTableGenerator from './components/table-generator/QasTableGenerator.vu
 import QasTabsGenerator from './components/tabs-generator/QasTabsGenerator.vue'
 import QasTextTruncate from './components/text-truncate/QasTextTruncate.vue'
 import QasTimeline from './components/timeline/QasTimeline.vue'
+import QasToggleVisibility from './components/toggle-visibility/QasToggleVisibility.vue'
 import QasTransfer from './components/transfer/QasTransfer.vue'
 import QasTreeGenerator from './components/tree-generator/QasTreeGenerator.vue'
 import QasUploader from './components/uploader/QasUploader.vue'
@@ -72,7 +73,7 @@ import QasWhatsappLink from './components/whatsapp-link/QasWhatsappLink.vue'
 
 import { Notify, Loading, Quasar, Dialog as QuasarDialog } from 'quasar'
 
-import { getAction } from '@bildvitta/store-adapter'
+import { getAction, getGetter } from '@bildvitta/store-adapter'
 
 // Plugins
 import {
@@ -157,6 +158,7 @@ async function install (app) {
   app.component('QasTabsGenerator', QasTabsGenerator)
   app.component('QasTextTruncate', QasTextTruncate)
   app.component('QasTimeline', QasTimeline)
+  app.component('QasToggleVisibility', QasToggleVisibility)
   app.component('QasTransfer', QasTransfer)
   app.component('QasTreeGenerator', QasTreeGenerator)
   app.component('QasUploader', QasUploader)
@@ -176,7 +178,8 @@ async function install (app) {
   app.provide('qas', {
     delete: params => Delete.call(app.config.globalProperties, params),
 
-    getAction: params => getAction.call(app.config.globalProperties, params)
+    getAction: params => getAction.call(app.config.globalProperties, params),
+    getGetter: params => getGetter.call(app.config.globalProperties, params)
   })
 
   app.directive(Test.name, Test)
@@ -251,6 +254,7 @@ export {
   QasTabsGenerator,
   QasTextTruncate,
   QasTimeline,
+  QasToggleVisibility,
   QasTransfer,
   QasTreeGenerator,
   QasUploader,

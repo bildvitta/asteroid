@@ -6,8 +6,14 @@ Componente para C.R.U.D. responsável pela visualização (Read) ou conhecido ta
 
 <doc-api file="single-view/QasSingleView" name="QasSingleView" />
 
+:::danger
+#### useStore
+- Utilize esta propriedade como "false" apenas em casos específicos como quando precisar utilizar este componente dentro de um dialog.
+- Caso esteja usando "useStore" como "false", e esteja passando a propriedade "entity", o componente tentará criar uma url automaticamente transformando entity em `kebab-case` e concatenando com o id da URL caso exista, é possível sobrescrever passando a prop "url".
+:::
+
 :::warning
-Este componente depende do `Vuex`, utiliza módulos com actions, state e getters para manipular/recuperar os dados. Por exemplo, para você utilizar em uma entidade de show de usuários, você **deve** ter um modulo de `users` e dentro de dele ter os seguinte requisitos:
+Este componente depende do `Vuex` ou `Pinia` caso esteja utilizando a propriedade `useStore: true`, utiliza módulos com actions, state e getters para manipular/recuperar os dados. Por exemplo, para você utilizar em uma entidade de show de usuários, você **deve** ter um modulo de `users` e dentro de dele ter os seguinte requisitos:
 - state: list.
 - getters: list e byId.
 - actions: fetchSingle.
@@ -20,6 +26,12 @@ Para fazer esses exemplos na documentação, estamos utilizando o `VuexOffline`,
 
 :::warning
 Estamos utilizando nos exemplos um `custom-id` pois é necessario para conseguir utilizar os mocks de dados, **não** significa que você precisa sempre utiliza-lo para lidar com o id, na verdade na maioria das vezes você não vai precisar do `custom-id`, ele é para quando precisa de um caso de uso mais específico.
+:::
+
+:::warning
+Devido este componente estar em Composition API, foi necessário definir quais métodos estarão expostos para se utilizar com [Template Refs](https://vuejs.org/guide/essentials/template-refs.html). Os métodos expostos foram:
+- fetchSingle
+- fetchHandler
 :::
 
 :::tip

@@ -10,6 +10,10 @@ props:
     type: [Array, String, Object]
     examples: ["{ name: { sm: 6, md: 12 } }", "[{ sm: 6, md: 12 }]", "{ sm: 6, md: 12 }"]
 
+  common-columns:
+    desc: Usado quando precisa passar o mesmo valor para todas as colunas, sem especificar cada uma, ela é feita como um merge com a prop "columns".
+    examples: ["{ name: { sm: 6, md: 12 } }", "12"]
+
   content-class:
     desc: Classe de cada "div" pai referente ao resultado.
     default: ''
@@ -56,9 +60,6 @@ props:
   use-inline:
     desc: Adiciona a disposição dos campos por linha, ou seja, header e content ocupando a linha toda.
     type: Boolean
-
-  use-common-columns:
-    desc: Usado quando precisa passar a prop "columns" como objeto sendo que será o valor comum para todos fields
 
 slots:
   content:

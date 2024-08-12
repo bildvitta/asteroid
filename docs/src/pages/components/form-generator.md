@@ -43,3 +43,5 @@ Em alguns casos, queremos acessar todo o conteúdo de um campo especifico para f
 <doc-example file="QasFormGenerator/CustomSlot" title="Acessando slots" />
 
 <doc-example file="QasFormGenerator/CustomProps" title="Custom props" />
+
+<doc-example file="QasFormGenerator/ExFormCommonColumns" title="Common columns" />
