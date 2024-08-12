@@ -1,37 +1,39 @@
 <template>
   <div class="qas-card">
-    <q-card class="column full-height overflow-hidden q-px-md q-py-sm rounded-borders-right rounded-borders-sm shadow-2" :style="style">
-      <div class="items-center justify-between row">
-        <component :is="titleComponent" class="text-h4 text-no-decoration" :class="titleClasses" :to="route">
-          <slot name="title">
-            {{ props.title }}
-          </slot>
-        </component>
-
-        <qas-actions-menu v-if="hasActions" :list="actionsMenuProps" :use-label="false" />
-      </div>
-
-      <div class="q-my-sm qas-card__content">
-        <slot name="default" />
-      </div>
-
-      <div class="q-mt-auto">
-        <q-separator v-if="hasFooter" class="q-mb-sm" />
-
-        <slot name="footer">
-          <q-expansion-item v-if="hasExpansion" class="full-width" dense expand-icon-class="text-primary" header-class="q-pa-none text-primary" :label="props.expansionProps.label">
-            <slot name="expansion-content">
-              {{ props.expansionProps.content }}
+    <qas-box class="rounded-borders-right" v-bind="boxProps" spacing-y="sm" :style>
+      <q-card class="column full-height overflow-hidden shadow-0">
+        <div class="items-center justify-between row">
+          <component :is="titleComponent" class="text-h4 text-no-decoration" :class="titleClasses" :to="route">
+            <slot name="title">
+              {{ props.title }}
             </slot>
-          </q-expansion-item>
-        </slot>
-      </div>
-    </q-card>
+          </component>
+
+          <qas-actions-menu v-if="hasActions" :list="actionsMenuProps" :use-label="false" />
+        </div>
+
+        <div class="q-my-sm qas-card__content">
+          <slot name="default" />
+        </div>
+
+        <div class="q-mt-auto">
+          <q-separator v-if="hasFooter" class="q-mb-sm" />
+
+          <slot name="footer">
+            <q-expansion-item v-if="hasExpansion" class="full-width" dense expand-icon-class="text-primary" header-class="q-pa-none text-primary" :label="props.expansionProps.label">
+              <slot name="expansion-content">
+                {{ props.expansionProps.content }}
+              </slot>
+            </q-expansion-item>
+          </slot>
+        </div>
+      </q-card>
+    </qas-box>
   </div>
 </template>
 
 <script setup>
-import { computed, useSlots } from 'vue'
+import { computed, useSlots, inject } from 'vue'
 
 import { colors } from 'quasar'
 
@@ -64,6 +66,13 @@ const props = defineProps({
   }
 })
 
+const isInsideBox = inject('isBox', false)
+
+const boxProps = {
+  outlined: isInsideBox,
+  unelevated: isInsideBox
+}
+
 const hasActions = computed(() => !!Object.keys(props.actionsMenuProps).length)
 
 const hasExpansion = computed(() => !!Object.keys(props.expansionProps).length)
@@ -84,7 +93,7 @@ const style = computed(() => {
   const { getPaletteColor } = colors
 
   return {
-    borderLeft: `4px solid ${getPaletteColor(props.statusColor)}`
+    borderLeft: `4px solid ${getPaletteColor(props.statusColor)} !important`
   }
 })
 

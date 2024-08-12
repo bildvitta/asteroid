@@ -1,12 +1,16 @@
 <template>
   <div class="container spaced">
     <qas-header>
-      <template #left>
-        Slot da esquerda!
+      <template #label>
+        <qas-label label="Label" />
       </template>
 
-      <template #right>
-        Slot da direita!
+      <template #description>
+        Descrição
+      </template>
+
+      <template #actions>
+        <qas-btn>Ação</qas-btn>
       </template>
     </qas-header>
   </div>

@@ -1,19 +1,13 @@
 type: component
 
 meta:
-  desc: Componente para cabeçalho usado com alguma descrição e ação.
+  desc: Componente para cabeçalho composto por label (título), badges, descrição e ação.
 
 props:
   actions-menu-props:
     desc: Propriedades do QasActionsMenu.
     default: {}
     type: Object
-
-  align-columns:
-    desc: Alinhamento vertical das colunas.
-    default: center
-    type: String
-    examples: [start, center, end, between, around]
 
   badges:
     desc: Adiciona badges ao lado do titulo (QasLabel), caso não tenha titulo fica somente as bages acima da descrição.
@@ -41,8 +35,11 @@ props:
     examples: [none, xs, sm, md, lg, xl, '2xl', '3xl', '4xl', '5xl']
 
 slots:
-  left:
-    desc: slot para acessar seção da esquerda (descrição).
+  actions:
+    desc: slot para acessar seção da direita (ações).
 
-  right:
-    desc: slot para acessar seção da direita (ação).
+  description:
+    desc: slot para acessar seção de descrição.
+
+  label:
+    desc: slot para acessar o label (título).

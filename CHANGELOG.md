@@ -17,6 +17,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
   - Substituir todos `QRadio` por `QasRadio`.
   - Substituir todos `QasCheckboxGroup` por `QasCheckbox`.
   - Substituir todos `QasHeaderActions` por `QasHeader`.
+  - Revisar todos os `QasHeaderActions/QasHeader` se atentando as mudanças principalmente referente aos slots e propriedade `alignColumns`.
   - Atentar-se para prop `headerActionsProps` no componente `QasPageHeader`.
   - Remover TODOS `QChip` de slot do `QasSelect`.
   - Caso esteja usando `QChip` (fora do QasSelect) substituir o uso pelo `QasBadge` com a prop `removable`.
@@ -27,6 +28,8 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - `QasHeaderActions/QasHeader`:
   - renomeado para `QasHeader`.
   - alterado propriedade `text` para `description`.
+  - removido propriedade `alignColumns`.
+  - removido slots `right` e `left` em favor de utilizar novos slots.
 
 - `QasGridGenerator`:
   - modificado tipografia;
@@ -42,11 +45,14 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - `QasToggle`: adicionado novo componente.
 - `QasGridItem`: adicionado novo componente.
 - `QasNestedFields`: adicionado nova propriedade `useBox`.
-- `QasBox`: adicionado nova propriedade `useSpacing`.
-- `QasHeaderActions/QasHeader`: adicionado novas propriedades `labelProps` e `badges`.
+- `QasBox`: adicionado novas propriedades `useSpacing`, `spacingX` e `spacingY`.
 - `QasInput`: adicionado novas propriedades `icon` e `iconRight` para não precisar abrir slots nestes casos.
 - `QasNumericInput`: adicionado novas propriedades `icon` e `iconRight` para não precisar abrir slots nestes casos.
 - `QasGridGenerator`: adicionado 2 novos slots, `content-field-[nome-da-chave]` e `header-field-[nome-da-chave]`.
+
+- `QasHeaderActions/QasHeader`:
+  - adicionado novas propriedades `labelProps` e `badges`.
+  - adicionado novos slots `actions`, `description` e `label`.
 
 - `QasFormGenerator`:
   - adicionado recurso no fieldset para dividir colunas entre eles.
@@ -67,6 +73,9 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - `QasHeaderActions/QasHeader`: alterado propriedade `text` para `description`.
 - `QasTabsGenerator`: agora o contador implementa a função `decimal` do asteroid.
 - `QasBadge`: modificado altura minima de 24px para para 20px e espaçamento vertical de 4px para 2px.
+- `QasPageHeader`: alterado espaçamento do `bottom` de `lg` para `md`.
+- `QasGalleryCard`: adicionado componente `QasBox` e sempre adicionado estilo de "borda" quando estiver box dentro de box.
+- `QasCard`: adicionado componente `QasBox` e sempre adicionado estilo de "borda" quando estiver box dentro de box.
 
 - `QasGridGenerator`:
   - modificado tipografia;
@@ -87,7 +96,10 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 
 ### Removido
 - `QasPageHeader`: alterada propriedade `headerActionsProps` para `headerProps` para se adequar ao novo nome do componente `QasHeader`.
-- `QasHeaderActions/QasHeader`: alterado propriedade `text` para `description`.
+- `QasHeaderActions/QasHeader`:
+  - alterado propriedade `text` para `description`.
+  - removido propriedade `alignColumns`.
+  - removido slots `right` e `left` em favor de utilizar novos slots.
 
 ## [3.16.0-beta.10] - 01-08-2024
 ## BREAKING CHANGES

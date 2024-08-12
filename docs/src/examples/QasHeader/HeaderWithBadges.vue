@@ -15,6 +15,11 @@ export default {
           label: 'Título do header'
         },
 
+        buttonProps: {
+          icon: 'sym_r_add',
+          label: 'Novo usuário'
+        },
+
         badges: [
           {
             label: 'Badge 1'
