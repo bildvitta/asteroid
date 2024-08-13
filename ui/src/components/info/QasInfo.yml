@@ -18,15 +18,15 @@ props:
       variant: primary
     type: Object
 
-  text:
-    desc: Texto a ser exibido.
-    type: String
-    default: ''
-
   router-link-props:
     desc: Propriedades do componente RouterLink.
     default: {}
     type: Object
+
+  text:
+    desc: Texto a ser exibido.
+    type: String
+    default: ''
 
   use-regex:
     desc: Faz a busca pelos "[]" dentro da propriedade "text" para substituir pelo QasBtn ou RouterLink.

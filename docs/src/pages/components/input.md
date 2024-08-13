@@ -42,5 +42,5 @@ Caso seja passado uma mask que não seja essas acima, será usado a que foi pass
 
 <doc-example file="QasInput/Basic" title="Básico" />
 <doc-example file="QasInput/Textarea" title="Textarea" />
-<!-- <doc-example file="QasInput/Required" title="Obrigatório" /> -->
-<!-- <doc-example file="QasInput/Masks" title="Mascaras" /> -->
+<doc-example file="QasInput/Required" title="Obrigatório" />
+<doc-example file="QasInput/Masks" title="Mascaras" />

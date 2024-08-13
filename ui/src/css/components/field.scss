@@ -4,7 +4,7 @@
   .q-field__append,
   .q-field__prepend {
     will-change: transform;
-    transition: transform 0.3s;
+    transition: transform var(--qas-generic-transition);
   }
 
   .q-field__label {
@@ -42,25 +42,25 @@
   // Somente fields com label
   &--float.q-field--labeled,
   &--focused.q-field--labeled {
-    transition: transform 0.3s, font-size 0.3s;
+    transition: transform var(--qas-generic-transition), font-size var(--qas-generic-transition);
 
     .q-field__label {
       transform: translateY(-10px) scale(0.85) !important;
     }
 
     .q-field__prepend {
-      transition: transform 0.3s;
+      transition: transform var(--qas-generic-transition);
       transform: translateY(6px) !important;
     }
 
     .q-field__append {
-      transition: transform 0.3s;
+      transition: transform var(--qas-generic-transition);
       transform: translateY(6px) !important;
     }
   }
 
   .q-field__label {
-    transition: transform 0.3s, font-size 0.3s;
+    transition: transform var(--qas-generic-transition), font-size var(--qas-generic-transition);
   }
 
   &--float.qas-numeric-input--has-icon,

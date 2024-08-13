@@ -1,5 +1,5 @@
 <template>
-  <section class="qas-filters" :class="filtersClass">
+  <section class="qas-filters" :class="filtersClasses">
     <div v-if="showFilters" class="q-col-gutter-x-md row">
       <div v-if="showSearch" class="col-12 col-md-6">
         <slot :filter="filter" name="search">
@@ -204,7 +204,7 @@ export default {
       return getState.call(this, { entity: this.entity, key: 'filters' })
     },
 
-    filtersClass () {
+    filtersClasses () {
       return {
         'q-mb-xl': this.useSpacing
       }

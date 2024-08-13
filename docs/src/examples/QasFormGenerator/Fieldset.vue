@@ -1,6 +1,6 @@
 <template>
   <div class="container spaced">
-    <qas-form-generator v-model="model" :columns="columns" :fields="fields" :fields-props="fieldsProps" :fieldset="fieldset" fieldset-gutter="lg" :use-box="true" />
+    <qas-form-generator v-model="model" :columns="columns" :fields="fields" :fields-props="fieldsProps" :fieldset="fieldset" fieldset-gutter="lg" use-box />
 
     <div class="q-mt-lg">
       model: <qas-debugger :inspect="[model]" />

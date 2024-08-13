@@ -1,6 +1,6 @@
 <template>
   <div :id="fieldName" class="qas-nested-fields" :data-cy="`nested-fields-${fieldName}`">
-    <component :is="boxComponent">
+    <component :is="containerComponent">
       <div v-if="useSingleLabel" class="text-left">
         <qas-label :label="fieldLabel" typography="h5" />
       </div>
@@ -259,7 +259,7 @@ export default {
       return this.field?.children
     },
 
-    boxComponent () {
+    containerComponent () {
       return this.useBox ? 'qas-box' : 'div'
     },
 

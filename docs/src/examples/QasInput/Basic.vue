@@ -4,6 +4,7 @@
       <template #prepend>
         <q-icon name="sym_r_search" size="md" />
       </template>
+
       <template #append>
         <q-icon name="sym_r_edit" size="xs" />
         <qas-btn icon="sym_r_search" />
@@ -14,6 +15,7 @@
       <template #prepend>
         <q-icon name="sym_r_search" size="md" />
       </template>
+
       <template #append>
         <q-icon name="sym_r_edit" size="xs" />
         <qas-btn icon="sym_r_search" />

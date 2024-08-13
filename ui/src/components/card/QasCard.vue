@@ -1,6 +1,6 @@
 <template>
   <div class="qas-card">
-    <qas-box class="rounded-borders-right" v-bind="boxProps" spacing-y="sm" :style>
+    <qas-box class="rounded-borders-right" v-bind="boxProps">
       <q-card class="column full-height overflow-hidden shadow-0">
         <div class="items-center justify-between row">
           <component :is="titleComponent" class="text-h4 text-no-decoration" :class="titleClasses" :to="route">
@@ -9,7 +9,7 @@
             </slot>
           </component>
 
-          <qas-actions-menu v-if="hasActions" :list="actionsMenuProps" :use-label="false" />
+          <qas-actions-menu v-if="hasActions" :list="props.actionsMenuProps" :use-label="false" />
         </div>
 
         <div class="q-my-sm qas-card__content">
@@ -68,10 +68,14 @@ const props = defineProps({
 
 const isInsideBox = inject('isBox', false)
 
-const boxProps = {
-  outlined: isInsideBox,
-  unelevated: isInsideBox
-}
+const boxProps = computed(() => {
+  return {
+    outlined: isInsideBox,
+    unelevated: isInsideBox,
+    spacingY: 'sm',
+    style: style.value
+  }
+})
 
 const hasActions = computed(() => !!Object.keys(props.actionsMenuProps).length)
 

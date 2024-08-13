@@ -1,5 +1,5 @@
 <template>
-  <div :class="classes.main">
+  <div :class="classes.container">
     <header v-bind="headerProps">
       <slot name="header">
         {{ props.label }}
@@ -27,11 +27,6 @@ const props = defineProps({
     default: ''
   },
 
-  value: {
-    type: [String, Number, Boolean],
-    default: ''
-  },
-
   useEllipsis: {
     default: true,
     type: Boolean
@@ -39,6 +34,11 @@ const props = defineProps({
 
   useInline: {
     type: Boolean
+  },
+
+  value: {
+    type: [String, Number, Boolean],
+    default: ''
   }
 })
 
@@ -51,7 +51,7 @@ const classes = computed(() => {
   const isInline = props.useInline && !screen.isSmall
 
   return {
-    main: {
+    container: {
       flex: isInline,
       'q-col-gutter-x-md': isInline,
       'justify-between': isInline,

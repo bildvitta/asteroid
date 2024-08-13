@@ -1,5 +1,5 @@
 <template>
-  <q-select v-model="model" v-bind="attributes" class="qas-select" :class="componentClass" no-error-icon :outlined="false">
+  <q-select v-model="model" v-bind="attributes" class="qas-select" :class="componentClasses" no-error-icon :outlined="false">
     <template v-if="isSearchable" #prepend>
       <q-icon name="sym_r_search" />
     </template>
@@ -110,7 +110,6 @@ export default {
         emitValue: true,
         mapOptions: true,
         outlined: true,
-
         dense: true,
         dropdownIcon: 'sym_r_expand_more',
         clearIcon: 'sym_r_close',
@@ -132,12 +131,6 @@ export default {
         onPopupShow: this.onPopupShow,
 
         ...(this.useLazyLoading && { onVirtualScroll: this.mx_onVirtualScroll })
-
-        // ...(this.useLazyLoading && {
-        //   onPopupHide: this.onPopupHide,
-        //   onPopupShow: this.onPopupShow,
-        //   onVirtualScroll: this.mx_onVirtualScroll
-        // })
       }
     },
 
@@ -195,7 +188,7 @@ export default {
     },
 
     // redesign
-    componentClass () {
+    componentClasses () {
       return {
         'qas-select--has-icon': this.isSearchable || this.hasAppend,
         'qas-select--closed': !this.isPopupContentOpen,
@@ -366,7 +359,6 @@ export default {
   }
 
   .q-chip__icon--remove {
-    // color: $grey-9;
     opacity: 1;
   }
 }

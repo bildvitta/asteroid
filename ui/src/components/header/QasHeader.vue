@@ -1,5 +1,5 @@
 <template>
-  <div :class="containerClass">
+  <div :class="containerClasses">
     <div v-if="hasLabelSection" class="items-center justify-between no-wrap row" :class="labelSectionClasses">
       <div class="items-center q-col-gutter-sm row">
         <slot name="label">
@@ -67,22 +67,22 @@ const props = defineProps({
     default: ''
   },
 
+  labelProps: {
+    type: Object,
+    default: () => ({})
+  },
+
   spacing: {
     default: Spacing.Xl,
     type: String,
     validator: gutterValidator
-  },
-
-  labelProps: {
-    type: Object,
-    default: () => ({})
   }
 })
 
 const slots = useSlots()
 
 // computed
-const containerClass = computed(() => `q-mb-${props.spacing}`)
+const containerClasses = computed(() => `q-mb-${props.spacing}`)
 
 const labelSectionClasses = computed(() => {
   return {

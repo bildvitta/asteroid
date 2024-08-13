@@ -1,5 +1,5 @@
 <template>
-  <div class="app-alert-actions flex items-center no-wrap">
+  <div class="flex items-center no-wrap qas-info">
     <qas-avatar v-bind="defaultAvatarProps" />
 
     <component
@@ -35,14 +35,14 @@ const props = defineProps({
     default: () => ({})
   },
 
-  text: {
-    type: String,
-    required: true
-  },
-
   routerLinkProps: {
     type: Object,
     default: () => ({})
+  },
+
+  text: {
+    type: String,
+    required: true
   },
 
   useRegex: {
@@ -102,7 +102,7 @@ const textComponent = computed(() => {
       RouterLink,
       {
         ...props.routerLinkProps,
-        class: 'text-primary text-subtitle1 app-alert-actions__link'
+        class: 'text-primary text-subtitle1 qas-info__link'
       },
       {
         default: () => routerLabel
@@ -128,7 +128,7 @@ const textComponent = computed(() => {
    *
    * ```html
    * <router-link
-   *  class="text-primary text-subtitle1 app-alert-actions__link"
+   *  class="text-primary text-subtitle1 qas-info__link"
    *  :to="props.route"
    * >
    *  Clique aqui
@@ -150,7 +150,7 @@ const textComponent = computed(() => {
 </script>
 
 <style lang="scss">
-.app-alert-actions {
+.qas-info {
   &__link {
     text-decoration: none;
   }

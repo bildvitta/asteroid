@@ -7,7 +7,7 @@ Componente wrapper do QBadge/QChip do quasar.
 <doc-api file="badge/QasBadge" name="QasBadge" />
 
 :::tip
-- Quando usado como "removable" ele renderiza um QChip.
+- Quando usado com "removable" ele renderiza um QChip.
 - Quando usado sem "removable" ele renderiza um QBadge.
 :::
 

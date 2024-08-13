@@ -114,7 +114,7 @@ props:
     type: Boolean
 
   use-box:
-    desc: Contra o QasBox.
+    desc: Controla o QasBox.
     default: false
     type: Boolean
 
