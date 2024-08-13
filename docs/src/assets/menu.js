@@ -200,6 +200,10 @@ module.exports = [
         path: '/components/input'
       },
       {
+        name: 'Info',
+        path: '/components/info'
+      },
+      {
         name: 'Label',
         path: '/components/label'
       },

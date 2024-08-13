@@ -44,6 +44,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - `QasRadio`: adicionado novo componente.
 - `QasToggle`: adicionado novo componente.
 - `QasGridItem`: adicionado novo componente.
+- `QasInfo`: adicionado novo componente.
 - `QasNestedFields`: adicionado nova propriedade `useBox`.
 - `QasBox`: adicionado novas propriedades `useSpacing`, `spacingX` e `spacingY`.
 - `QasInput`: adicionado novas propriedades `icon` e `iconRight` para não precisar abrir slots nestes casos.
