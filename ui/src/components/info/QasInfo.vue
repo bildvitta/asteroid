@@ -1,5 +1,5 @@
 <template>
-  <div class="flex items-center no-wrap qas-info">
+  <div class="flex items-center no-wrap qas-info text-body1 text-grey-8">
     <qas-avatar v-bind="defaultAvatarProps" />
 
     <component
@@ -141,9 +141,6 @@ const textComponent = computed(() => {
 
   return h(
     'span',
-    {
-      class: 'text-body1 text-grey-8'
-    },
     splitted
   )
 })
