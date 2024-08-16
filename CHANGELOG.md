@@ -11,8 +11,96 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
 ## Não publicado
-### Corrigido
-- Corrigido tamanho dos botões do `QasActions` em casos de telas pequenas, no qual se deve ficar tamanho total da largura.
+## BREAKING CHANGES
+- `A fazer`:
+  - Substituir todos `QToggle` por `QasToggle`.
+  - Substituir todos `QRadio` por `QasRadio`.
+  - Substituir todos `QasCheckboxGroup` por `QasCheckbox`.
+  - Substituir todos `QasHeaderActions` por `QasHeader`.
+  - Revisar todos os `QasHeaderActions/QasHeader` se atentando as mudanças principalmente referente aos slots e propriedade `alignColumns`.
+  - Atentar-se para prop `headerActionsProps` no componente `QasPageHeader`.
+  - Remover TODOS `QChip` de slot do `QasSelect`.
+  - Caso esteja usando `QChip` (fora do QasSelect) substituir o uso pelo `QasBadge` com a prop `removable`.
+  - Atentar-se para possíveis breaking changes nos inputs: `QasToggle`, `QasCheckbox`, e `QasRadio`, validar nos formulários dos produtos.
+  - Verificar todos os lugares que estão usando contadores no `QasTabsGenerator` se não estão tratando ele antes de passar.
+  - Verificar todos os lugares que utilizam `QasGridGenerator` para possíveis breaking changes de estilos.
+
+- `QasHeaderActions/QasHeader`:
+  - renomeado para `QasHeader`.
+  - alterado propriedade `text` para `description`.
+  - removido propriedade `alignColumns`.
+  - removido slots `right` e `left` em favor de utilizar novos slots.
+
+- `QasGridGenerator`:
+  - modificado tipografia;
+  - utilizando novo componente `QasGridItem`.
+
+- `QasInput`: adicionado contado no type`textarea`, então caso exista lugares com contadores de caracteres, é necessário remover para não duplicar.
+- `QasCheckboxGroup/QasCheckbox`: renomeado para `QasCheckbox`.
+- `QasPageHeader`: alterada propriedade `headerActionsProps` para `headerProps` para se adequar ao novo nome do componente `QasHeader`.
+- `QasTabsGenerator`: agora o contador implementa a função `decimal` do asteroid, então caso esteja tratando esse valor por fora, remover.
+
+### Adicionado
+- `QasRadio`: adicionado novo componente.
+- `QasToggle`: adicionado novo componente.
+- `QasGridItem`: adicionado novo componente.
+- `QasInfo`: adicionado novo componente.
+- `QasNestedFields`: adicionado nova propriedade `useBox`.
+- `QasBox`: adicionado novas propriedades `useSpacing`, `spacingX` e `spacingY`.
+- `QasInput`: adicionado novas propriedades `icon` e `iconRight` para não precisar abrir slots nestes casos.
+- `QasNumericInput`: adicionado novas propriedades `icon` e `iconRight` para não precisar abrir slots nestes casos.
+- `QasGridGenerator`: adicionado 2 novos slots, `content-field-[nome-da-chave]` e `header-field-[nome-da-chave]`.
+
+- `QasHeaderActions/QasHeader`:
+  - adicionado novas propriedades `labelProps` e `badges`.
+  - adicionado novos slots `actions`, `description` e `label`.
+
+- `QasFormGenerator`:
+  - adicionado recurso no fieldset para dividir colunas entre eles.
+  - adicionado novas propriedades `useBox` e `boxProps`.
+
+- `QasBadge`:
+  - adicionado propriedades para renderizar `QChip` (`removable`, `tabindex`, `modelValue`).
+  - adicionado eventos para renderizar `QChip` (`remove`, `update:modelValue`).
+
+### Modificado
+- `QasHeaderActions`: renomeado para `QasHeader`.
+- `QasChartView`: adequado ao componente `QasHeader`.
+- `QasSelect`: alterado layout.
+- `QasNestedFields`: alterado layout.
+- `QasInput`: alterado layout.
+- `QasSearchInput`: alterado layout.
+- `QasField`: alterações para layout e novos componentes.
+- `QasHeaderActions/QasHeader`: alterado propriedade `text` para `description`.
+- `QasTabsGenerator`: agora o contador implementa a função `decimal` do asteroid.
+- `QasBadge`: modificado altura minima de 24px para para 20px e espaçamento vertical de 4px para 2px.
+- `QasPageHeader`: alterado espaçamento do `bottom` de `lg` para `md`.
+- `QasGalleryCard`: adicionado componente `QasBox` e sempre adicionado estilo de "borda" quando estiver box dentro de box.
+- `QasCard`: adicionado componente `QasBox` e sempre adicionado estilo de "borda" quando estiver box dentro de box.
+
+- `QasGridGenerator`:
+  - modificado tipografia;
+  - utilizando novo componente `QasGridItem`.
+
+- adicionado placeholder padrão:
+  - `QasDatetimeInput`.
+  - `QasInput`.
+  - `QasNumericInput`.
+
+- `QasFilters`:
+  - alterado layout.
+  - utilizando `QasBadge` ao invés de `QChip`.
+
+- `QasCheckboxGroup/QasCheckbox`:
+  - renomeado para `QasCheckbox`.
+  - agora quando não é passado `options` o componente opera em modo "single".
+
+### Removido
+- `QasPageHeader`: alterada propriedade `headerActionsProps` para `headerProps` para se adequar ao novo nome do componente `QasHeader`.
+- `QasHeaderActions/QasHeader`:
+  - alterado propriedade `text` para `description`.
+  - removido propriedade `alignColumns`.
+  - removido slots `right` e `left` em favor de utilizar novos slots.
 
 ## [3.16.1-beta.0] - 15-08-2024
 ### Corrigido

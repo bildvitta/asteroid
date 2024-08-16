@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import QasCheckboxGroup from '../checkbox-group/QasCheckboxGroup.vue'
+import QasCheckbox from '../checkbox/QasCheckbox.vue'
 import QasDateTimeInput from '../date-time-input/QasDateTimeInput.vue'
 import QasInput from '../input/QasInput.vue'
 import QasNumericInput from '../numeric-input/QasNumericInput.vue'
@@ -15,6 +15,8 @@ import QasOptionGroup from '../option-group/QasOptionGroup.vue'
 import QasPasswordInput from '../password-input/QasPasswordInput.vue'
 import QasSignatureUploader from '../signature-uploader/QasSignatureUploader.vue'
 import QasUploader from '../uploader/QasUploader.vue'
+import QasToggle from '../toggle/QasToggle.vue'
+import QasRadio from '../radio/QasRadio.vue'
 
 const attributesProfile = {
   maxLength: 'maxlength',
@@ -26,14 +28,16 @@ export default {
   name: 'QasField',
 
   components: {
-    QasCheckboxGroup,
+    QasCheckbox,
     QasDateTimeInput,
     QasInput,
     QasNumericInput,
     QasOptionGroup,
     QasPasswordInput,
     QasSignatureUploader,
-    QasUploader
+    QasUploader,
+    QasToggle,
+    QasRadio
   },
 
   inheritAttrs: false,
@@ -61,24 +65,25 @@ export default {
   computed: {
     component () {
       const {
+        disable,
         entity,
         extensions,
+        filled,
         label,
+        mask,
+        maxFiles,
         maxlength,
         minlength,
         multiple,
         name,
         options,
+        placeholder,
+        places,
+        prefix,
         readonly,
         required,
-        disable,
-        filled = readonly,
         suffix,
-        prefix,
-        places,
         type,
-        mask,
-        maxFiles,
         useIso,
         useLazyLoading,
         useStrengthChecker
@@ -94,7 +99,6 @@ export default {
       const input = {
         label,
         hideBottomSpace: !error.error,
-        outlined: true,
         ...error,
         readonly,
         required,
@@ -103,6 +107,7 @@ export default {
         maxlength,
         minlength,
         suffix,
+        placeholder,
         prefix,
         useIso
       }
@@ -140,9 +145,9 @@ export default {
         datetime: { ...datetimeInput },
         time: { ...datetimeInput, useTimeOnly: true },
 
-        boolean: { is: 'q-toggle', label, ...error },
-        checkbox: { is: 'qas-checkbox-group', label, options, ...error },
-        radio: { is: 'qas-option-group', label, options },
+        boolean: { is: 'qas-toggle', label, ...error },
+        checkbox: { is: 'qas-checkbox', label, options, ...error },
+        radio: { is: 'qas-radio', label, options },
 
         upload: { is: 'qas-uploader', accept, autoUpload: true, entity, label, multiple, readonly, maxFiles, ...error },
         editor: { is: 'q-editor', toolbar, ...error },

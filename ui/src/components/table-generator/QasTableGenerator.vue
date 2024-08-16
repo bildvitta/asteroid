@@ -1,5 +1,5 @@
 <template>
-  <component :is="parentComponent.is" v-bind="parentComponent.props">
+  <component :is="parentComponent.is">
     <q-table ref="table" class="bg-white qas-table-generator text-grey-8" v-bind="attributes">
       <template v-for="(_, name) in slots" #[name]="context">
         <slot :name="name" v-bind="context" />
@@ -226,10 +226,7 @@ export default {
 
     parentComponent () {
       return {
-        is: this.useBox ? 'qas-box' : 'div',
-        props: {
-          class: this.useBox ? 'q-px-lg q-py-md' : ''
-        }
+        is: this.useBox ? 'qas-box' : 'div'
       }
     }
   },

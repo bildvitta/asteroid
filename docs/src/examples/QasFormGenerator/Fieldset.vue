@@ -1,10 +1,6 @@
 <template>
   <div class="container spaced">
-    <qas-form-generator v-model="model" :columns="columns" :fields="fields" :fields-props="fieldsProps" :fieldset="fieldset">
-      <template #legend-another>
-        Custom slot "another"
-      </template>
-    </qas-form-generator>
+    <qas-form-generator v-model="model" :columns="columns" :fields="fields" :fields-props="fieldsProps" :fieldset="fieldset" fieldset-gutter="lg" use-box />
 
     <div class="q-mt-lg">
       model: <qas-debugger :inspect="[model]" />
@@ -42,12 +38,22 @@ export default {
         personalInformation: {
           label: 'Informações pessoais',
           description: 'Informe o nome e email do usuário.',
-          fields: ['isActive', 'name', 'email']
+          fields: ['isActive', 'name', 'email'],
+          column: '12'
+        },
+
+        address: {
+          label: 'Endereço',
+          description: 'Informe o endereço, cidade, estado e país do usuário.',
+          fields: ['address', 'city', 'state', 'country'],
+          column: { col: 12, sm: 6 }
         },
 
         another: {
           label: 'Outras informações',
-          fields: ['phone', 'company']
+          description: 'Informe o documento do usuário.',
+          fields: ['phone', 'company'],
+          column: { col: 12, sm: 6 }
         }
       }
     },
@@ -110,6 +116,30 @@ export default {
           label: 'Telefone',
           type: 'string',
           mask: 'phone'
+        },
+
+        address: {
+          name: 'address',
+          label: 'Endereço',
+          type: 'string'
+        },
+
+        city: {
+          name: 'city',
+          label: 'Cidade',
+          type: 'string'
+        },
+
+        state: {
+          name: 'state',
+          label: 'Estado',
+          type: 'string'
+        },
+
+        country: {
+          name: 'country',
+          label: 'País',
+          type: 'string'
         }
       }
     }

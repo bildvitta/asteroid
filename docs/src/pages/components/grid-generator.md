@@ -15,7 +15,8 @@ Caso os breakpoints dos campos sejam todos iguais, exemplo:
 :::
 
 :::info
-Ao utilizar a prop `useInline`, o gutter passa a ter o valor `md`.
+- Ao utilizar a prop `useInline`, o gutter passa a ter o valor `md`.
+- Ao abrir slots `field-[nome-da-chave]` tente utilizar o componente `QasGridItem`.
 :::
 
 ## Uso

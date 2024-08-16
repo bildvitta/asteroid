@@ -1,8 +1,9 @@
 <template>
-  <div class="qas-filter-input">
-    <qas-input ref="input" v-model="model" v-bind="$attrs" class="bg-white rounded-borders-sm" data-cy="search-input" :debounce="debounce" dense hide-bottom-space input-class="ellipsis text-grey-8" inputmode="search" type="search">
+  <qas-box class="qas-search-input" :use-spacing="false">
+    <qas-input ref="input" v-model="model" class="qas-search-input__input" v-bind="$attrs" data-cy="search-input" :debounce="debounce" dense hide-bottom-space input-class="ellipsis text-grey-8" inputmode="search" outlined type="search">
       <template #prepend>
         <q-icon v-if="useSearchOnType" color="grey-8" name="sym_r_search" />
+
         <qas-btn v-else color="grey-10" icon="sym_r_search" variant="tertiary" @click="$emit('filter')" />
       </template>
 
@@ -12,7 +13,7 @@
         <slot name="after-clear" />
       </template>
     </qas-input>
-  </div>
+  </qas-box>
 </template>
 
 <script>
@@ -78,22 +79,9 @@ export default {
 </script>
 
 <style lang="scss">
-.qas-filter-input {
-  position: relative;
-
-  .q-field {
-    &--dense .q-field__prepend {
-      padding-right: var(--qas-spacing-xs);
-    }
-
-    &--dense .q-field__append {
-      padding-left: var(--qas-spacing-sm);
-    }
-
-    &__native {
-      padding-bottom: var(--qas-spacing-sm);
-      padding-top: var(--qas-spacing-sm);
-    }
+.qas-search-input {
+  .qas-search-input__input .q-field__control:before {
+    border: 0;
   }
 }
 </style>

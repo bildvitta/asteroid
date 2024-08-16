@@ -3,12 +3,9 @@
   <qas-single-view v-model:fields="fields" v-model:result="result" :custom-id="customId" :entity="entity">
     <template #default>
       <div>
-        field-[nome-da-chave]:
         <qas-grid-generator :fields="fields" :result="result">
           <template #field-name="{ field }">
-            <div>
-              name: <pre>{{ field }}</pre>
-            </div>
+            <qas-grid-item :label="field.label" :value="field.formattedResult" />
           </template>
         </qas-grid-generator>
       </div>

@@ -1,0 +1,22 @@
+type: component
+
+meta:
+  desc: Componente para renderizar chave/valor comumente utilizado junto ao QasGridGenerator.
+
+props:
+  label:
+    desc: Rótulo do header.
+    default: ''
+    type: String
+
+  value:
+    desc: Valor do conteúdo.
+    default: ''
+    type: [String, Number, Boolean]
+
+slots:
+  content:
+    desc: Slot para o conteúdo (value).
+
+  header:
+    desc: Slot para o header (label).

@@ -75,12 +75,19 @@ export default function ({ props = {} }) {
       : _handleColumnsByField({ index, isGridGenerator })
   }
 
+  function getFieldSetColumnClass (column) {
+    if (!column) return 'col-12'
+
+    return typeof column === 'string' ? _getStringColumns(column) : _getBreakpoint(column)
+  }
+
   /**
    * @private
    */
   function _getStringColumns (columns) {
     return IRREGULAR_CLASSES.includes(columns) ? columns : `col-${columns}`
   }
+
   /**
    * @private
    */
@@ -167,6 +174,7 @@ export default function ({ props = {} }) {
   return {
     classes,
 
-    getFieldClass
+    getFieldClass,
+    getFieldSetColumnClass
   }
 }

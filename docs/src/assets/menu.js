@@ -184,8 +184,12 @@ module.exports = [
         path: '/components/grid-generator'
       },
       {
-        name: 'HeaderActions',
-        path: '/components/header-actions'
+        name: 'GridItem',
+        path: '/components/grid-item'
+      },
+      {
+        name: 'Header',
+        path: '/components/header'
       },
       {
         name: 'InfiniteScroll',
@@ -194,6 +198,10 @@ module.exports = [
       {
         name: 'Input',
         path: '/components/input'
+      },
+      {
+        name: 'Info',
+        path: '/components/info'
       },
       {
         name: 'Label',
@@ -246,6 +254,10 @@ module.exports = [
       {
         name: 'Profile',
         path: '/components/profile'
+      },
+      {
+        name: 'Radio',
+        path: '/components/radio'
       },
       {
         name: 'Resizer',
@@ -310,6 +322,10 @@ module.exports = [
       {
         name: 'TextTruncate',
         path: '/components/text-truncate'
+      },
+      {
+        name: 'Toggle',
+        path: '/components/toggle'
       },
       {
         name: 'ToggleVisibility',
