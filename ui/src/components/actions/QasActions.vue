@@ -56,7 +56,7 @@ const classes = computed(() => {
   const isSmallOrFullWidth = screen.isSmall || props.useFullWidth
 
   return [
-    'items-center',
+    !screen.isSmall && 'items-center',
 
     // alinhamento
     `justify-${props.align}`,

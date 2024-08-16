@@ -10,6 +10,14 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 ### Sobre os "BREAKING CHANGES"
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
+## Não publicado
+### Corrigido
+- Corrigido tamanho dos botões do `QasActions` em casos de telas pequenas, no qual se deve ficar tamanho total da largura.
+
+## [3.16.1-beta.0] - 15-08-2024
+### Corrigido
+- Corrigido tamanho dos botões do `QasActions` em casos de telas pequenas, no qual se deve ficar tamanho total da largura.
+
 ## [3.16.0] - 12-08-2024
 ## BREAKING CHANGES
 - [`QasFormGenerator`, `QasGridGenerator`]: removido a propriedade `useCommonColumns` em favor de utilizar a propriedade `commonColumns`.
@@ -3041,3 +3049,4 @@ Adicionado suporte para Pinia/Vuex Seguindo os padrões da biblioteca `@bildvitt
 [3.16.0-beta.9]: https://github.com/bildvitta/asteroid/compare/v3.16.0-beta.8...v3.16.0-beta.9?expand=1
 [3.16.0-beta.10]: https://github.com/bildvitta/asteroid/compare/v3.16.0-beta.9...v3.16.0-beta.10?expand=1
 [3.16.0]: https://github.com/bildvitta/asteroid/compare/v3.15.0...v3.16.0?expand=1
+[3.16.1-beta.0]: https://github.com/bildvitta/asteroid/compare/v3.16.0...v3.16.1-beta.0?expand=1
