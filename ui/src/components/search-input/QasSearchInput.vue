@@ -55,7 +55,6 @@ export default {
       return this.isBoxOrDialog ? 'div' : 'qas-box'
     },
 
-    // TODO: fazer doc
     containerClasses () {
       return {
         bordered: this.isBoxOrDialog
