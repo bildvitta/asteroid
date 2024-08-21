@@ -35,3 +35,8 @@
 .border-right {
   border-right-width: 1px !important;
 }
+
+.bordered {
+  border: 1px solid $grey-4;
+  border-radius: $generic-border-radius;
+}

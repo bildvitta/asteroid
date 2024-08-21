@@ -55,9 +55,10 @@ export default {
       return this.isBoxOrDialog ? 'div' : 'qas-box'
     },
 
+    // TODO: fazer doc
     containerClasses () {
       return {
-        'qas-search-input--bordered': this.isBoxOrDialog
+        bordered: this.isBoxOrDialog
       }
     },
 
@@ -101,11 +102,6 @@ export default {
 .qas-search-input {
   .qas-search-input__input .q-field__control:before {
     border: 0;
-  }
-
-  &--bordered {
-    border: 1px solid $grey-4;
-    border-radius: $generic-border-radius;
   }
 }
 </style>
