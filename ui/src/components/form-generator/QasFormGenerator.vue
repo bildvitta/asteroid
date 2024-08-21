@@ -10,7 +10,7 @@
 
         <div>
           <slot :fields="fieldsetItem.fields?.visible" :name="`legend-section-${fieldsetItemKey}`">
-            <div class="items-end justify-end" :class="rowContainerClasses(fieldsetItem)">
+            <div class="items-end justify-end" :class="getRowContainerClasses(fieldsetItem)">
               <div :class="fieldContainerClasses">
                 <div v-for="(field, key) in fieldsetItem.fields.visible" :key="key" :class="getFieldClass({ index: key, fields: normalizedFields })">
                   <slot :field="field" :name="`field-${field.name}`">
@@ -192,7 +192,9 @@ const normalizedFields = computed(() => {
 const fieldContainerClasses = computed(() => {
   return [
     ...classes.value,
-    (!screen.isSmall && 'col')
+    {
+      col: !screen.isSmall
+    }
   ]
 })
 
@@ -216,13 +218,11 @@ function updateModelValue ({ key, value }) {
   emit('update:modelValue', models)
 }
 
-function hasButtonProps ({ buttonProps }) {
-  if (!buttonProps) return
-
-  return !!Object.keys(buttonProps)?.length
+function hasButtonProps ({ buttonProps = {} }) {
+  return !!Object.keys(buttonProps).length
 }
 
-function rowContainerClasses (item) {
+function getRowContainerClasses (item) {
   return { row: hasButtonProps(item) }
 }
 
