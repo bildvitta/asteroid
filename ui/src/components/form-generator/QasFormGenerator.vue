@@ -10,12 +10,16 @@
 
         <div>
           <slot :fields="fieldsetItem.fields?.visible" :name="`legend-section-${fieldsetItemKey}`">
-            <div :class="classes">
-              <div v-for="(field, key) in fieldsetItem.fields.visible" :key="key" :class="getFieldClass({ index: key, fields: normalizedFields })">
-                <slot :field="field" :name="`field-${field.name}`">
-                  <qas-field :disable="isFieldDisabled(field)" v-bind="props.fieldsProps[field.name]" :error="props.errors[key]" :field="field" :model-value="props.modelValue[field.name]" @update:model-value="updateModelValue({ key: field.name, value: $event })" />
-                </slot>
+            <div class="items-end justify-end" :class="rowContainerClasses(fieldsetItem)">
+              <div :class="fieldContainerClasses">
+                <div v-for="(field, key) in fieldsetItem.fields.visible" :key="key" :class="getFieldClass({ index: key, fields: normalizedFields })">
+                  <slot :field="field" :name="`field-${field.name}`">
+                    <qas-field :disable="isFieldDisabled(field)" v-bind="props.fieldsProps[field.name]" :error="props.errors[key]" :field="field" :model-value="props.modelValue[field.name]" @update:model-value="updateModelValue({ key: field.name, value: $event })" />
+                  </slot>
+                </div>
               </div>
+
+              <qas-btn v-if="hasButtonProps(fieldsetItem)" class="md:q-mt-none q-ml-md q-mt-md" v-bind="fieldsetItem.buttonProps" />
             </div>
 
             <div v-for="(field, key) in fieldsetItem.fields.hidden" :key="key">
@@ -34,6 +38,7 @@
 import { gutterValidator } from '../../helpers/private/gutter-validator'
 import useGenerator, { baseProps } from '../../composables/private/use-generator'
 import { Spacing } from '../../enums/Spacing'
+import { useScreen } from '../../composables'
 import { computed, provide, inject } from 'vue'
 
 defineOptions({ name: 'QasFormGenerator' })
@@ -95,6 +100,8 @@ provide('isFormGenerator', true)
 const { classes, getFieldClass, getFieldSetColumnClass } = useGenerator({ props })
 
 const { fieldsetClasses, hasFieldset } = useFieldset({ props })
+
+const screen = useScreen()
 
 // constants
 const hasNestedFormGenerator = inject('isFormGenerator', false)
@@ -162,6 +169,7 @@ const normalizedFields = computed(() => {
       label: fieldsetItem.label,
       description: fieldsetItem.description,
       column: fieldsetItem.column,
+      buttonProps: fieldsetItem.buttonProps,
       fields: { hidden: {}, visible: {} }
     }
 
@@ -179,6 +187,13 @@ const normalizedFields = computed(() => {
   }
 
   return fields
+})
+
+const fieldContainerClasses = computed(() => {
+  return [
+    ...classes.value,
+    (!screen.isSmall && 'col')
+  ]
 })
 
 // methods
@@ -199,6 +214,16 @@ function updateModelValue ({ key, value }) {
   models[key] = value
 
   emit('update:modelValue', models)
+}
+
+function hasButtonProps ({ buttonProps }) {
+  if (!buttonProps) return
+
+  return !!Object.keys(buttonProps)?.length
+}
+
+function rowContainerClasses (item) {
+  return { row: hasButtonProps(item) }
 }
 
 // composables

@@ -39,6 +39,7 @@ Muitas vezes precisamos adicionar rótulos (label) e descrições (description) 
 :::
 
 <doc-example file="QasFormGenerator/Fieldset" title="Agrupando fields por rótulo (label)" />
+<doc-example file="QasFormGenerator/WithButton" title="Usando botão dentro do fieldset" />
 
 Em alguns casos, queremos acessar todo o conteúdo de um campo especifico para fazer uma logica um pouco mais detalhada, neste caso conseguimos acessar o slot de cada campo individualmente.
 <doc-example file="QasFormGenerator/CustomSlot" title="Acessando slots" />
