@@ -333,8 +333,15 @@ export default {
 <style lang="scss">
 .qas-table-generator {
   .q-table {
+    thead tr {
+      height: 24px;
+    }
+
     th {
       @include set-typography($subtitle1);
+
+      border: 0 !important;
+      padding: 0 calc(var(--qas-spacing-lg) / 2);
     }
 
     td,
@@ -347,6 +354,10 @@ export default {
     td {
       @include set-typography($body1);
 
+      height: 40px;
+      padding-left: calc(var(--qas-spacing-lg) / 2);
+      padding-right: calc(var(--qas-spacing-lg) / 2);
+
       &:before {
         transition: background-color var(--qas-generic-transition);
       }
@@ -357,6 +368,10 @@ export default {
         td:before {
           background-color: var(--qas-background-color);
         }
+      }
+
+      &:last-child td {
+        padding-bottom: 0;
       }
     }
 
