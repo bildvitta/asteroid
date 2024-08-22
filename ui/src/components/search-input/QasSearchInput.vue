@@ -1,5 +1,5 @@
 <template>
-  <qas-box class="qas-search-input" :use-spacing="false">
+  <component :is="component" class="qas-search-input" :class="containerClasses" :use-spacing="false">
     <qas-input ref="input" v-model="model" class="qas-search-input__input" v-bind="$attrs" data-cy="search-input" :debounce="debounce" dense hide-bottom-space input-class="ellipsis text-grey-8" inputmode="search" outlined type="search">
       <template #prepend>
         <q-icon v-if="useSearchOnType" color="grey-8" name="sym_r_search" />
@@ -13,12 +13,17 @@
         <slot name="after-clear" />
       </template>
     </qas-input>
-  </qas-box>
+  </component>
 </template>
 
 <script>
 export default {
   name: 'QasSearchInput',
+
+  inject: {
+    isBox: { default: false },
+    isDialog: { default: false }
+  },
 
   inheritAttrs: false,
 
@@ -46,6 +51,20 @@ export default {
   ],
 
   computed: {
+    component () {
+      return this.isBoxOrDialog ? 'div' : 'qas-box'
+    },
+
+    containerClasses () {
+      return {
+        bordered: this.isBoxOrDialog
+      }
+    },
+
+    isBoxOrDialog () {
+      return this.isBox || this.isDialog
+    },
+
     debounce () {
       return this.useDebounce ? '1200' : ''
     },

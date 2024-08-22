@@ -8,3 +8,4 @@ Componente de input para pesquisa / filtros.
 
 ## Uso
 <doc-example file="QasSearchInput/Basic" title="Básico" />
+<doc-example file="QasSearchInput/InsideBox" title="Dentro de um QasBox" />

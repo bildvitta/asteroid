@@ -10,6 +10,14 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 ### Sobre os "BREAKING CHANGES"
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
+## Não publicado
+### Modificado
+- Modificado componente de `QasSelectListDialog` para que os quando estiver usando dentro de uma box, não use o `qas-box`.
+- Modificado componente de `QasSearchInput` para usar borda ao invés de `qas-box` quando estiver dentro de um box ou um dialog.
+
+### Adicionado
+- `QasFormGenerator`: Adicionado possibilidade de ter botão de ação por fieldset ao final dos fields.
+
 ## [3.17.0-beta.0] - 16-08-2024
 ## BREAKING CHANGES
 - `A fazer`:
