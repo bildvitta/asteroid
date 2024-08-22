@@ -44,3 +44,8 @@ Caso seja passado uma mask que não seja essas acima, será usado a que foi pass
 <doc-example file="QasInput/Textarea" title="Textarea" />
 <doc-example file="QasInput/Required" title="Obrigatório" />
 <doc-example file="QasInput/Masks" title="Mascaras" />
+
+:::info
+As propriedades `counter` e `maxlength` são recuperadas via attrs sendo repassadas pelo Quasar, por isso não estão na lista de props do componente.
+:::
+<doc-example file="QasInput/Counter" title="Com contador e máximo de caracteres" />

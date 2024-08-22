@@ -1,5 +1,9 @@
 <template>
   <component :is="parentComponent.is">
+    <slot name="parent-header">
+      <qas-header v-if="hasHeaderProps" v-bind="headerProps" />
+    </slot>
+
     <q-table ref="table" class="bg-white qas-table-generator text-grey-8" v-bind="attributes">
       <template v-for="(_, name) in slots" #[name]="context">
         <slot :name="name" v-bind="context" />
@@ -39,6 +43,11 @@ export default {
     fields: {
       default: () => ({}),
       type: [Array, Object]
+    },
+
+    headerProps: {
+      default: () => ({}),
+      type: Object
     },
 
     results: {
@@ -228,6 +237,10 @@ export default {
       return {
         is: this.useBox ? 'qas-box' : 'div'
       }
+    },
+
+    hasHeaderProps () {
+      return !!Object.keys(this.headerProps).length
     }
   },
 
