@@ -79,6 +79,10 @@ export default {
       type: Boolean
     },
 
+    useAutoSelect: {
+      type: Boolean
+    },
+
     useFetchOptionsOnCreate: {
       default: true,
       type: Boolean
@@ -188,7 +192,7 @@ export default {
     },
 
     canSetDefaultOption () {
-      return this.required && this.options.length === 1 && !this.modelValue
+      return (this.required || this.useAutoSelect) && this.options.length === 1 && !this.modelValue
     },
 
     // redesign

@@ -4,11 +4,6 @@
       <qas-select v-model="model" label="Meu select obrigatório" :options="options" required />
       Model: {{ model }}
     </div>
-
-    <div class="q-mt-md">
-      <qas-select v-model="model2" label="Com uma opção" :options="options2" required />
-      Model: {{ model2 }}
-    </div>
   </div>
 </template>
 
@@ -18,7 +13,6 @@ import { ref } from 'vue'
 defineOptions({ name: 'Required' })
 
 const model = ref('')
-const model2 = ref('')
 
 const options = [
   {
@@ -52,12 +46,6 @@ const options = [
   {
     label: 'Opção 8',
     value: 8
-  }
-]
-const options2 = [
-  {
-    label: 'Unica opção 1',
-    value: 1
   }
 ]
 </script>

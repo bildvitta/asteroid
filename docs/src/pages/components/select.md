@@ -21,11 +21,12 @@ Hoje Utilizamos 1 biblioteca compatível:
 ## Uso
 
 <doc-example file="QasSelect/Basic" title="Básico" />
+<doc-example file="QasSelect/Required" title="Obrigatório" />
 
 :::info
-Quando o select for `required` e houver apenas UMA opção disponível, o seu valor é setado automaticamente.
+Quando o select for `required` ou tiver a prop `use-auto-select` e houver apenas UMA opção disponível, o seu valor é setado automaticamente.
 :::
-<doc-example file="QasSelect/Required" title="Obrigatório" />
+<doc-example file="QasSelect/AutoSelect" title="Auto select" />
 
 <doc-example file="QasSelect/Searchable" title="Com pesquisa" />
 
