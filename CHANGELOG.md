@@ -10,6 +10,10 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 ### Sobre os "BREAKING CHANGES"
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
+## Não publicado
+### Adicionado
+- `QasSelect`: Adicionado comportamento no qual é setado automaticamente caso o select for required e houver apenas uma opção.
+
 ## [3.17.0-beta.1] - 22-08-2024
 ### Adicionado
 - `QasFormGenerator`: Adicionado possibilidade de ter botão de ação por fieldset ao final dos fields.
