@@ -30,6 +30,32 @@
       </qas-badge>
     </template>
 
+    <template v-if="useCustomOption" #option="scope">
+      <q-item v-bind="scope.itemProps" class="qas-select__option">
+        <q-item-section>
+          <div class="items-center q-gutter-x-sm row">
+            <q-item-label>{{ scope.opt.label }}</q-item-label>
+
+            <div v-for="(badge, index) in getFilteredBadgeList(scope.opt)" :key="index">
+              <qas-badge v-if="canShowBadge(badge)" v-bind="getBadgeProps(badge)" />
+            </div>
+          </div>
+
+          <div v-if="scope.opt.caption">
+            <div v-if="isCaptionArray(scope.opt.caption)" class="items-center q-col-gutter-x-sm row">
+              <q-item-label v-for="(caption, index) in scope.opt.caption" :key="index" caption class="items-center q-mt-xs row">
+                <div>{{ caption }}</div>
+
+                <q-separator v-if="!isLastCaption({ caption: scope.opt.caption, index })" class="q-ml-sm" vertical />
+              </q-item-label>
+            </div>
+
+            <q-item-label v-else caption class="q-mt-xs">{{ scope.opt.caption }}</q-item-label>
+          </div>
+        </q-item-section>
+      </q-item>
+    </template>
+
     <template v-for="(_, name) in $slots" #[name]="context">
       <slot :name="name" v-bind="context || {}" />
     </template>
@@ -50,6 +76,11 @@ export default {
   mixins: [searchFilterMixin],
 
   props: {
+    badgeProps: {
+      default: () => ({}),
+      type: Object
+    },
+
     fuseOptions: {
       default: () => ({}),
       type: Object
@@ -80,6 +111,10 @@ export default {
     },
 
     useAutoSelect: {
+      type: Boolean
+    },
+
+    useCustomOption: {
       type: Boolean
     },
 
@@ -328,6 +363,32 @@ export default {
         : this.options[0]
 
       this.$emit('update:modelValue', modelValue)
+    },
+
+    getFilteredBadgeList ({ label, value, disable, caption, ...rest }) {
+      const badgeList = Object.entries(rest).map(([key, value]) => ({ [key]: value }))
+
+      return badgeList.filter(item => Object.keys(this.badgeProps).includes(Object.keys(item)[0]))
+    },
+
+    getBadgeProps (badge) {
+      const model = Object.keys(badge)[0]
+
+      return this.badgeProps[model](badge[model])
+    },
+
+    canShowBadge (badge) {
+      const model = Object.keys(badge)[0]
+
+      return badge[model] || this.getBadgeProps(badge).show
+    },
+
+    isCaptionArray (caption) {
+      return Array.isArray(caption)
+    },
+
+    isLastCaption ({ caption, index }) {
+      return index === caption.length - 1
     }
   }
 }
@@ -351,6 +412,10 @@ export default {
     .q-item {
       font-weight: 400 !important;
     }
+  }
+
+  &__option:hover .q-item__label--caption {
+    color: var(--q-primary);
   }
 
   &--closed {
