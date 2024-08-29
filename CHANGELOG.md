@@ -18,7 +18,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 ### Adicionado
 - `QasFormGenerator`: Adicionado possibilidade de ter botão de ação por fieldset ao final dos fields.
 - `QasSelect`:
-  - Adicionado nova propriedade `useCustomOption` para poder utilizar a opção personalizada com caption ou badge.
+  - Adicionado nova propriedade `useCustomOptions` para poder utilizar a opção personalizada com caption ou badge.
   - Adicionado nova propriedade `badgeList` para conseguir controlar a badge a partir do retorno do backend.
 
 ### Modificado

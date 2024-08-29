@@ -27,7 +27,7 @@
 
   &--clickable:not(&--active) {
     color: $grey-10;
-    transition: color 300ms;
+    transition: var(--qas-generic-transition);
 
     &:not(&.q-router-link--active):hover {
       color: var(--q-primary-contrast);
@@ -35,7 +35,7 @@
   }
 
   &__label--caption {
-    transition: color 300ms;
+    transition: var(--qas-generic-transition);
   }
 
   &__section--avatar {

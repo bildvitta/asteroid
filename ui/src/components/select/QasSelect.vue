@@ -30,27 +30,29 @@
       </qas-badge>
     </template>
 
-    <template v-if="useCustomOption" #option="scope">
+    <template v-if="useCustomOptions" #option="scope">
       <q-item v-bind="scope.itemProps" class="qas-select__option">
         <q-item-section>
           <div class="items-center q-gutter-x-sm row">
-            <q-item-label>{{ scope.opt.label }}</q-item-label>
+            <q-item-label>
+              {{ scope.opt.label }}
+            </q-item-label>
 
             <div v-for="(badge, index) in getFilteredBadgeList(scope.opt)" :key="index">
-              <qas-badge v-if="canShowBadge(badge)" v-bind="getBadgeProps(badge)" />
+              <qas-badge v-if="hasBadge(badge)" v-bind="getBadgeProps(badge)" />
             </div>
           </div>
 
           <div v-if="scope.opt.caption">
-            <div v-if="isCaptionArray(scope.opt.caption)" class="items-center q-col-gutter-x-sm row">
-              <q-item-label v-for="(caption, index) in scope.opt.caption" :key="index" caption class="items-center q-mt-xs row">
-                <div>{{ caption }}</div>
+            <div class="items-center q-col-gutter-x-sm row">
+              <q-item-label v-for="(caption, index) in getCaptionArray(scope.opt.caption)" :key="index" caption class="items-center q-mt-xs row">
+                <div>
+                  {{ caption }}
+                </div>
 
-                <q-separator v-if="!isLastCaption({ caption: scope.opt.caption, index })" class="q-ml-sm" vertical />
+                <q-separator v-if="hasSeparator({ caption: getCaptionArray(scope.opt.caption), index })" class="q-ml-sm" vertical />
               </q-item-label>
             </div>
-
-            <q-item-label v-else caption class="q-mt-xs">{{ scope.opt.caption }}</q-item-label>
           </div>
         </q-item-section>
       </q-item>
@@ -114,7 +116,7 @@ export default {
       type: Boolean
     },
 
-    useCustomOption: {
+    useCustomOptions: {
       type: Boolean
     },
 
@@ -377,18 +379,18 @@ export default {
       return this.badgeProps[model](badge[model])
     },
 
-    canShowBadge (badge) {
+    hasBadge (badge) {
       const model = Object.keys(badge)[0]
 
       return badge[model] || this.getBadgeProps(badge).show
     },
 
-    isCaptionArray (caption) {
-      return Array.isArray(caption)
+    getCaptionArray (caption) {
+      return Array.isArray(caption) ? caption : [caption]
     },
 
-    isLastCaption ({ caption, index }) {
-      return index === caption.length - 1
+    hasSeparator ({ caption, index }) {
+      return index !== caption.length - 1
     }
   }
 }

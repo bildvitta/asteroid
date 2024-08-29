@@ -1,11 +1,11 @@
 <template>
   <div class="container q-py-lg">
     <div>
-      <qas-select v-model="model" :badge-props="badgeProps" label="Select com badge na option" :options="optionsWithBadge" use-custom-option />
+      <qas-select v-model="model" :badge-props="badgeProps" label="Select com badge na option" :options="optionsWithBadge" use-custom-options />
       Model: {{ model }}
 
       <div class="q-mt-md">
-        <qas-select v-model="model" label="Select com caption na option" :options="optionsWithCaption" use-custom-option />
+        <qas-select v-model="model" label="Select com caption na option" :options="optionsWithCaption" use-custom-options />
         Model: {{ model }}
       </div>
     </div>
@@ -40,7 +40,7 @@ const badgeProps = {
 
 const optionsWithBadge = [
   {
-    label: 'Usuario 1',
+    label: 'Usuario 1 ',
     value: 1
   },
   {
