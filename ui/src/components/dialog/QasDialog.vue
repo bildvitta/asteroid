@@ -45,7 +45,7 @@ import useDynamicComponents from './composables/use-dynamic-components'
 import useOk from './composables/use-ok'
 import { useScreen } from '../../composables'
 
-import { computed, ref, useAttrs, useSlots } from 'vue'
+import { computed, ref, useAttrs, useSlots, provide } from 'vue'
 import { useDialogPluginComponent } from 'quasar'
 
 defineOptions({ name: 'QasDialog' })
@@ -119,6 +119,8 @@ const emit = defineEmits([
   // eventos do plugin
   ...useDialogPluginComponent.emits
 ])
+
+provide('isDialog', true)
 
 const attrs = useAttrs()
 const screen = useScreen()

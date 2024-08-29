@@ -113,6 +113,11 @@ props:
     default: true
     type: Boolean
 
+  use-box:
+    desc: Controla o QasBox.
+    default: false
+    type: Boolean
+
   use-destroy-always:
     desc: Controla o botão de remover em todas linhas, incluindo a primeira.
     type: Boolean

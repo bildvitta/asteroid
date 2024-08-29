@@ -2,17 +2,27 @@
   <div :class="classes">
     <div v-for="(field, key) in fieldsByResult" :key="key" :class="getContainerClass({ key })">
       <slot :field="field" :name="`field-${field.name}`">
-        <slot :field="field" name="header">
-          <header :class="headerClass" :data-cy="`grid-generator-${field.name}-field`" :title="getTitle(field, 'label')">
-            {{ field.label }}
-          </header>
-        </slot>
+        <qas-grid-item :use-ellipsis="props.useEllipsis" :use-inline="props.useInline">
+          <template #header>
+            <slot :field="field" :name="`header-field-${field.name}`">
+              <slot :field="field" name="header">
+                <div :class="headerClass" :data-cy="`grid-generator-${field.name}-field`" :title="getTitle(field, 'label')">
+                  {{ field.label }}
+                </div>
+              </slot>
+            </slot>
+          </template>
 
-        <slot :field="field" name="content">
-          <div :class="contentClass" :data-cy="`grid-generator-${field.name}-result`" :title="getTitle(field, 'formattedResult')">
-            {{ field.formattedResult }}
-          </div>
-        </slot>
+          <template #content>
+            <slot :field="field" :name="`content-field-${field.name}`">
+              <slot :field="field" name="content">
+                <div :class="contentClass" :data-cy="`grid-generator-${field.name}-result`" :title="getTitle(field, 'formattedResult')">
+                  {{ field.formattedResult }}
+                </div>
+              </slot>
+            </slot>
+          </template>
+        </qas-grid-item>
       </slot>
     </div>
   </div>
@@ -91,8 +101,7 @@ const headerClass = computed(() => {
     props.headerClass,
 
     {
-      ellipsis: !screen.isSmall && props.useEllipsis,
-      'text-bold': screen.isSmall || !props.useInline
+      ellipsis: !screen.isSmall && props.useEllipsis
     }
   ]
 })

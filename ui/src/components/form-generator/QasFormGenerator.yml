@@ -19,6 +19,11 @@ props:
     default: "false"
     type: Boolean
 
+  box-props:
+    desc: Propriedades repassadas para o componente `QasBox`.
+    default: {}
+    type: Object
+
   error:
     desc: Objeto contendo propriedades contendo a mensagem de erro.
     default: {}
@@ -67,6 +72,11 @@ props:
     default: []
     type: Array
 
+  use-box:
+    desc: Contra QasBox dentro do form-generator e fieldset.
+    default: false
+    type: Boolean
+
 slots:
   'field-[nome-da-chave]':
     desc: Acessa o slot de um campo especifico.
@@ -75,8 +85,17 @@ slots:
         desc: Payload do campo atual.
         default: {}
         type: Object
-'legend-[nome-da-chave]':
-    desc: Acessa o slot de um rótulo (label).
+
+  'legend-[nome-da-chave]':
+      desc: Acessa o slot de um rótulo (label).
+
+  'legend-section-[nome-da-chave]':
+    desc: Acessa o slot da seção de fields daquele fieldset.
+    scope:
+      fields:
+        desc: Campos daquela seção.
+        default: {}
+        type: Object
 
 events:
   '@update:model-value -> function(value)':

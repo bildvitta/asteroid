@@ -14,10 +14,11 @@ Define qual direção será criado uma borda.
 
 ### Colors
 Define uma cor para a borda de acordo com as variáveis `$primary` `$secondary`
-|     **Nome da Classe**    |                       **Descrição**                        |            **Adiciona**             |
-|---------------------------|------------------------------------------------------------|-------------------------------------|
-|`border-primary`           | Cria uma Borda com a cor da variável `$primary`            |`border: 0 solid $primary`           |
-|`border-primary-contrast`  | Cria uma Borda com a cor da variável `$primary-contrast`   |`border: 0 solid $primary-contrast`  |
-|`border-secondary`         | Cria uma Borda com a cor da variável `$secondary`          |`border: 0 solid $secondary`         |
-|`border-secondary-contrast`| Cria uma Borda com a cor da variável `$secondary-contrast` |`border: 0 solid $secondary-contrast`|
-|`border-grey`| Cria uma Borda com a cor da variável `$border-grey` |`border: 0 solid $secondary-contrast`|
+|     **Nome da Classe**    |                       **Descrição**                        |            **Adiciona**               |
+|---------------------------|------------------------------------------------------------|-------------------------------------  |
+|`border-primary`           | Cria uma Borda com a cor da variável `$primary`            |`border: 1px solid $primary`           |
+|`border-primary-contrast`  | Cria uma Borda com a cor da variável `$primary-contrast`   |`border: 1px solid $primary-contrast`  |
+|`border-secondary`         | Cria uma Borda com a cor da variável `$secondary`          |`border: 1px solid $secondary`         |
+|`border-secondary-contrast`| Cria uma Borda com a cor da variável `$secondary-contrast` |`border: 1px solid $secondary-contrast`|
+|`border-grey`              | Cria uma Borda com a cor da variável `$border-grey`        |`border: 1px solid $border-grey`       |
+|`bordered`                 | Cria uma Borda com a cor da variável `$border-grey` e arredondada        |`border: 1px solid $border-grey` `border-radius: $generic-border-radius`   |

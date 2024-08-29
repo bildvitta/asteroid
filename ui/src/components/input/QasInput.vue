@@ -1,5 +1,13 @@
 <template>
-  <q-input ref="input" v-model="model" bottom-slots :error="errorData" v-bind="$attrs" :error-message="errorMessage" :inputmode="defaultInputmode" :label="formattedLabel" :mask="currentMask" :outlined="outlined" :unmasked-value="unmaskedValue" @paste="onPaste">
+  <q-input ref="input" v-model="model" :autogrow="isTextarea" bottom-slots :class="classes" :counter="hasCounter" :dense="dense" :error="errorData" v-bind="$attrs" :error-message="errorMessage" :inputmode="defaultInputmode" :label="formattedLabel" :mask="currentMask" no-error-icon :outlined="outlined" :placeholder="placeholder" :unmasked-value="unmaskedValue" @paste="onPaste">
+    <template v-if="icon" #append>
+      <q-icon :name="icon" size="xs" />
+    </template>
+
+    <template v-if="iconRight" #prepend>
+      <q-icon :name="iconRight" size="xs" />
+    </template>
+
     <template v-for="(_, name) in $slots" #[name]="context">
       <slot :name="name" v-bind="context || {}" />
     </template>
@@ -7,7 +15,7 @@
 </template>
 
 <script>
-import { getRequiredLabel } from '../../helpers'
+import { getRequiredLabel, getPlaceholder } from '../../helpers'
 
 const Masks = {
   CompanyDocument: 'company-document',
@@ -23,6 +31,11 @@ export default {
   inheritAttrs: false,
 
   props: {
+    dense: {
+      default: true,
+      type: Boolean
+    },
+
     error: {
       type: Boolean
     },
@@ -43,7 +56,6 @@ export default {
     },
 
     outlined: {
-      default: true,
       type: Boolean
     },
 
@@ -58,6 +70,16 @@ export default {
 
     useRemoveErrorOnType: {
       type: Boolean
+    },
+
+    icon: {
+      type: String,
+      default: ''
+    },
+
+    iconRight: {
+      type: String,
+      default: ''
     }
   },
 
@@ -119,6 +141,29 @@ export default {
       const { label } = this.$attrs
 
       return getRequiredLabel({ label, required: this.required })
+    },
+
+    // redesign
+    classes () {
+      return {
+        'qas-input--has-icon': this.hasPrepend
+      }
+    },
+
+    isTextarea () {
+      return this.$attrs.type === 'textarea'
+    },
+
+    placeholder () {
+      return this.$attrs.placeholder || getPlaceholder(this.mask || this.$attrs.type)
+    },
+
+    hasCounter () {
+      return this.$attrs.counter ?? (this.$attrs.maxlength && this.isTextarea)
+    },
+
+    hasPrepend () {
+      return !!this.$slots.prepend || this.iconRight
     }
   },
 

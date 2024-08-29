@@ -12,6 +12,16 @@ props:
     default: {}
     type: Object
 
+  icon:
+    desc: Ícone a esquerda.
+    type: String
+    default: ''
+
+  icon-right:
+    desc: Ícone a direita.
+    type: String
+    default: ''
+
   places:
     desc: Quantidade de casas decimais.
     default: 2

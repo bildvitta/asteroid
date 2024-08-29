@@ -81,6 +81,10 @@ props:
     type: String
     examples: [value-key="uuid"]
 
+  use-auto-select:
+    desc: Controla se o select vai auto preencher em casos de ter uma única opção e não for required.
+    type: Boolean
+
   use-fetch-options-on-create:
     desc: Controla se o componente vai fazer um fetch das opções assim que o mesmo é criado (caso tenha lazy loading ativado).
     default: true

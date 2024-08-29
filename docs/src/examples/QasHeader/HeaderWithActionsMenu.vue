@@ -1,15 +1,15 @@
 <template>
   <div class="container spaced">
-    <qas-header-actions class="q-mb-md" v-bind="headerActionsProps" />
+    <qas-header class="q-mb-md" v-bind="headerProps" />
   </div>
 </template>
 
 <script>
 export default {
   computed: {
-    headerActionsProps () {
+    headerProps () {
       return {
-        text: 'Algum texto de exemplo para ficar ao lado do botão de adicionar.',
+        description: 'Algum texto de exemplo para ficar ao lado do botão de adicionar.',
         actionsMenuProps: {
           deleteProps: {
             entity: 'users'

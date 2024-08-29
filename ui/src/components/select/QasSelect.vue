@@ -1,5 +1,5 @@
 <template>
-  <q-select v-model="model" v-bind="attributes">
+  <q-select v-model="model" v-bind="attributes" class="qas-select" :class="componentClasses" no-error-icon :outlined="false">
     <template v-if="isSearchable" #prepend>
       <q-icon name="sym_r_search" />
     </template>
@@ -22,6 +22,14 @@
       </slot>
     </template>
 
+    <template v-if="attributes.useChips" #selected-item="{ opt, tabindex, index, removeAtIndex }">
+      <qas-badge removable :tabindex @remove="removeAtIndex(index)">
+        <div class="ellipsis" :title="opt.label">
+          {{ opt.label }}
+        </div>
+      </qas-badge>
+    </template>
+
     <template v-for="(_, name) in $slots" #[name]="context">
       <slot :name="name" v-bind="context || {}" />
     </template>
@@ -30,10 +38,11 @@
 
 <script>
 import { getRequiredLabel } from '../../helpers'
-import { uid } from 'quasar'
 import { searchFilterMixin } from '../../mixins'
-import Fuse from 'fuse.js'
 import fuseConfig from '../../shared/fuse-config'
+
+import { uid } from 'quasar'
+import Fuse from 'fuse.js'
 
 export default {
   name: 'QasSelect',
@@ -70,6 +79,10 @@ export default {
       type: Boolean
     },
 
+    useAutoSelect: {
+      type: Boolean
+    },
+
     useFetchOptionsOnCreate: {
       default: true,
       type: Boolean
@@ -97,12 +110,15 @@ export default {
   computed: {
     attributes () {
       return {
-        class: 'qas-select',
         clearable: this.isSearchable,
         emitValue: true,
         mapOptions: true,
         outlined: true,
-        popupContentClass: this.popupContentClass,
+        dense: true,
+        dropdownIcon: 'sym_r_expand_more',
+        clearIcon: 'sym_r_close',
+        popupContentClass: `qas-select__menu ${this.popupContentClass}`,
+        useChips: this.isMultiple && this.isPopupContentOpen,
 
         ...this.$attrs,
 
@@ -115,11 +131,10 @@ export default {
 
         ...(this.isSearchable && { onFilter: this.onFilter }),
 
-        ...(this.useLazyLoading && {
-          onPopupHide: this.onPopupHide,
-          onPopupShow: this.onPopupShow,
-          onVirtualScroll: this.mx_onVirtualScroll
-        })
+        onPopupHide: this.onPopupHide,
+        onPopupShow: this.onPopupShow,
+
+        ...(this.useLazyLoading && { onVirtualScroll: this.mx_onVirtualScroll })
       }
     },
 
@@ -174,6 +189,31 @@ export default {
 
     formattedLabel () {
       return getRequiredLabel({ label: this.label, required: this.required })
+    },
+
+    canSetDefaultOption () {
+      return (this.required || this.useAutoSelect) && this.options.length === 1 && !this.modelValue
+    },
+
+    // redesign
+    componentClasses () {
+      return {
+        'qas-select--has-icon': this.isSearchable || this.hasAppend,
+        'qas-select--closed': !this.isPopupContentOpen,
+        'qas-select--loading': this.hasLoading
+      }
+    },
+
+    isDisabled () {
+      return this.$attrs.disable || this.$attrs.disable === ''
+    },
+
+    isMultiple () {
+      return this.$attrs.multiple || this.$attrs.multiple === ''
+    },
+
+    hasAppend () {
+      return !!this.$slots.append
     }
   },
 
@@ -188,15 +228,24 @@ export default {
       this.togglePopupContentClass(value)
     },
 
+    required () {
+      if (!this.canSetDefaultOption) return
+
+      this.setDefaultOption()
+    },
+
     options: {
       handler () {
         if (this.useLazyLoading && this.mx_hasFilteredOptions) return
 
         if (this.fuse || this.hasFuse) this.setFuse()
 
+        if (this.canSetDefaultOption) this.setDefaultOption()
+
         this.mx_filteredOptions = [...this.options]
       },
 
+      deep: true,
       immediate: true
     }
   },
@@ -271,6 +320,14 @@ export default {
       if (popupContentElement) {
         popupContentElement.classList.toggle('qas-select__is-fetching', force)
       }
+    },
+
+    setDefaultOption () {
+      const modelValue = this.attributes.emitValue
+        ? this.options[0].value
+        : this.options[0]
+
+      this.$emit('update:modelValue', modelValue)
     }
   }
 }
@@ -288,6 +345,46 @@ export default {
         color: $grey-6;
       }
     }
+  }
+
+  &__menu {
+    .q-item {
+      font-weight: 400 !important;
+    }
+  }
+
+  &--closed {
+    .q-field__native span {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    &:not(.qas-select--loading) {
+      .q-field__native .q-field__input {
+        position: absolute;
+        caret-color: transparent;
+      }
+    }
+  }
+
+  .q-field__prepend,
+  .q-field__append {
+    .q-icon {
+      color: $grey-8;
+    }
+  }
+
+  .q-field__focusable-action {
+    opacity: 1;
+  }
+
+  .q-chip {
+    font-size: 11px;
+  }
+
+  .q-chip__icon--remove {
+    opacity: 1;
   }
 }
 </style>

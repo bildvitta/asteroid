@@ -1,5 +1,5 @@
 <template>
-  <section :class="filtersClass">
+  <section class="qas-filters" :class="filtersClasses">
     <div v-if="showFilters" class="q-col-gutter-x-md row">
       <div v-if="showSearch" class="col-12 col-md-6">
         <slot :filter="filter" name="search">
@@ -15,7 +15,7 @@
         </slot>
       </div>
 
-      <div v-else-if="showFilterButton" class="col-12 col-md-6">
+      <div v-else-if="showFilterButton" class="col-12">
         <slot :context="mx_context" :filter="filter" :filters="activeFilters" name="filter-button" :remove-filter="removeFilter">
           <pv-filters-button v-if="useFilterButton" ref="filtersButton" v-model="internalFilters" v-bind="filterButtonProps" />
         </slot>
@@ -27,10 +27,11 @@
     </div>
 
     <div v-if="hasChip" class="q-mt-md">
-      <!-- TODO rever com novo estilo -->
-      <q-chip v-for="(filterItem, key) in activeFilters" :key="key" color="white" :data-cy="`filters-${filterItem.value}-chip`" dense icon-remove="sym_r_close" removable size="md" text-color="grey-8" @remove="removeFilter(filterItem)">
-        {{ getChipValue(filterItem.value) }}
-      </q-chip>
+      <qas-badge v-for="(filterItem, key) in activeFilters" :key="key" :data-cy="`filters-${filterItem.value}-chip`" removable @remove="removeFilter(filterItem)">
+        <div class="ellipsis qas-filters__badge-content" :title="getChipValue(filterItem.value)">
+          {{ filterItem.label }}: "{{ getChipValue(filterItem.value) }}"
+        </div>
+      </qas-badge>
     </div>
 
     <slot :context="mx_context" :filter="filter" :filters="activeFilters" :remove-filter="removeFilter" />
@@ -203,7 +204,7 @@ export default {
       return getState.call(this, { entity: this.entity, key: 'filters' })
     },
 
-    filtersClass () {
+    filtersClasses () {
       return {
         'q-mb-xl': this.useSpacing
       }
@@ -461,3 +462,11 @@ export default {
   }
 }
 </script>
+
+<style lang="scss">
+.qas-filters {
+  &__badge-content {
+    max-width: 300px;
+  }
+}
+</style>

@@ -1,19 +1,76 @@
 .q-field {
+  $root: &;
+
+  .q-field__append,
+  .q-field__prepend {
+    will-change: transform;
+    transition: transform var(--qas-generic-transition);
+  }
+
+  .q-field__label {
+    will-change: transform;
+  }
+
   &__label,
   &--dense &__label {
-    @include set-typography($body1);
+    @include set-typography($body2);
+  }
+
+  &--dense {
+    .q-textarea {
+      height: 100%;
+    }
+
+    .q-icon {
+      font-size: 18px !important;
+    }
   }
 
   &__native,
   &__input,
   &--dense &__native,
   &--dense &__input {
-    @include set-typography($body1);
+    @include set-typography($body2);
 
     color: $grey-10;
 
     &::placeholder {
       color: $grey-6;
+    }
+  }
+
+  // Somente fields com label
+  &--float.q-field--labeled,
+  &--focused.q-field--labeled {
+    transition: transform var(--qas-generic-transition), font-size var(--qas-generic-transition);
+
+    .q-field__label {
+      transform: translateY(-10px) scale(0.85) !important;
+    }
+
+    .q-field__prepend {
+      transition: transform var(--qas-generic-transition);
+      transform: translateY(6px) !important;
+    }
+
+    .q-field__append {
+      transition: transform var(--qas-generic-transition);
+      transform: translateY(6px) !important;
+    }
+  }
+
+  .q-field__label {
+    transition: transform var(--qas-generic-transition), font-size var(--qas-generic-transition);
+  }
+
+  &--float.qas-numeric-input--has-icon,
+  &--focused.qas-numeric-input--has-icon,
+  &--float.qas-select--has-icon,
+  &--focused.qas-select--has-icon,
+  &--float.qas-input--has-icon,
+  &--focused.qas-input--has-icon {
+    .q-field__label {
+      transform: translate(-24px, -14px) scale(0.85) !important;
     }
   }
 
