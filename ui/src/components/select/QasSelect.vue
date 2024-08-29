@@ -376,13 +376,13 @@ export default {
     getBadgeProps (badge) {
       const model = Object.keys(badge)[0]
 
-      return this.badgeProps[model](badge[model])
+      return this.badgeProps[model](badge[model]).props
     },
 
     hasBadge (badge) {
       const model = Object.keys(badge)[0]
 
-      return badge[model] || this.getBadgeProps(badge).show
+      return badge[model] || this.badgeProps[model](badge[model]).show
     },
 
     getCaptionArray (caption) {

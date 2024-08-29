@@ -22,18 +22,22 @@ const model = ref('')
 const badgeProps = {
   isTester: () => {
     return {
-      color: 'grey-8',
-      label: 'Tester',
-      textColor: 'white'
+      props: {
+        color: 'grey-8',
+        label: 'Tester',
+        textColor: 'white'
+      }
     }
   },
 
   isAvailable: value => {
     return {
       show: true,
-      color: value ? 'positive' : 'negative',
-      textColor: 'white',
-      label: value ? 'Disponível' : 'Inativo'
+      props: {
+        color: value ? 'positive' : 'negative',
+        textColor: 'white',
+        label: value ? 'Disponível' : 'Inativo'
+      }
     }
   }
 }

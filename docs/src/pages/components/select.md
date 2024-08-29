@@ -31,7 +31,16 @@ Quando o select for `required` ou tiver a prop `use-auto-select` e houver apenas
 <doc-example file="QasSelect/Searchable" title="Com pesquisa" />
 
 :::info
-O backend deverá retornar nas options, um boolean com uma key, como por exemplo, `isTester: true|false`.
+O backend deverá retornar nas options, um boolean com uma key, como por exemplo:
+```js
+[
+  {
+    label: 'Label 1',
+    value: '1',
+    isTester: true // chave que vai ser usada pra validação da badge no nosso exemplo
+  }
+]
+```
 Por padrão caso for false, não é exibido a badge, sendo que caso queira que sempre exiba, basta passar `show: true` na key desejado da `badgeProps`, assim você consegue colocar um estilo diferente de acordo com o valor enviado pelo backend.
 :::
 <doc-example file="QasSelect/CustomOption" title="Com opção personalizada" />
