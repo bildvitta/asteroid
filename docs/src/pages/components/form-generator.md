@@ -21,12 +21,25 @@ Para saber mais sobre o **API Design Pattern** clice [aqui](https://www.notion.s
 :::tip
 Muitas vezes precisamos adicionar rótulos (label) e descrições (description) a determinados blocos de campos para dar mais contexto, com esta propriedade conseguimos fazer isto de uma forma simples, sem a necessidade de abrir um slot para isto.
 
+> Observação: Se passar a key "label" dentro do `headerProps.labelProps` ela irá sobrescrever a label imediata do fieldset.
+
 ```js
 {
   personalInformation: {
     label: 'Informações pessoais',
     description: 'Informe o nome e email do usuário.'
-    fields: ['name', 'email']
+    fields: ['name', 'email'],
+    headerProps: {
+      badges: [
+        {
+          label: 'Minha badge',
+          textColor: 'grey-10'
+        }
+      ],
+      buttonProps: {
+        label: 'Atualizar'
+      }
+    }
   },
 
   another: {

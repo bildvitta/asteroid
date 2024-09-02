@@ -2,10 +2,8 @@
   <div :class="fieldsetClasses">
     <div v-for="(fieldsetItem, fieldsetItemKey) in normalizedFields" :key="fieldsetItemKey" :class="getFieldSetColumnClass(fieldsetItem.column)">
       <component :is="containerComponent.is" v-bind="containerComponent.props">
-        <slot v-if="fieldsetItem.label" :name="`legend-${fieldsetItemKey}`">
-          <qas-label :label="fieldsetItem.label" :margin="getLabelMargin(fieldsetItem)" />
-
-          <div v-if="fieldsetItem.description" class="q-mb-md text-body1 text-grey-8">{{ fieldsetItem.description }}</div>
+        <slot v-if="hasFieldsetItem(fieldsetItem)" :name="`legend-${fieldsetItemKey}`">
+          <qas-header v-bind="getHeaderProps(fieldsetItem)" />
         </slot>
 
         <div>
@@ -170,7 +168,8 @@ const normalizedFields = computed(() => {
       description: fieldsetItem.description,
       column: fieldsetItem.column,
       buttonProps: fieldsetItem.buttonProps,
-      fields: { hidden: {}, visible: {} }
+      fields: { hidden: {}, visible: {} },
+      headerProps: fieldsetItem.headerProps
     }
 
     fieldsetItem.fields.forEach(fieldName => {
@@ -203,8 +202,17 @@ function getFieldType ({ type }) {
   return type === 'hidden' ? 'hidden' : 'visible'
 }
 
-function getLabelMargin (fieldsetItem) {
-  return fieldsetItem.description ? 'sm' : 'md'
+function getHeaderProps (fieldsetItem) {
+  return {
+    description: fieldsetItem.description,
+
+    labelProps: {
+      ...fieldsetItem.headerProps?.labelProps,
+      ...(fieldsetItem.label && { label: fieldsetItem.label })
+    },
+
+    ...fieldsetItem.headerProps
+  }
 }
 
 function isFieldDisabled ({ disable }) {
@@ -216,6 +224,10 @@ function updateModelValue ({ key, value }) {
   models[key] = value
 
   emit('update:modelValue', models)
+}
+
+function hasFieldsetItem (fieldset = {}) {
+  return !!Object.keys(fieldset).length
 }
 
 function hasButtonProps ({ buttonProps = {} }) {

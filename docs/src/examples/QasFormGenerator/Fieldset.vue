@@ -39,7 +39,19 @@ export default {
           label: 'Informações pessoais',
           description: 'Informe o nome e email do usuário.',
           fields: ['isActive', 'name', 'email'],
-          column: '12'
+          column: '12',
+          headerProps: {
+            badges: [
+              {
+                label: 'Minha badge',
+                textColor: 'grey-10'
+              }
+            ],
+            buttonProps: {
+              label: 'Atualizar',
+              onClick: () => alert('Atualizando...')
+            }
+          }
         },
 
         address: {

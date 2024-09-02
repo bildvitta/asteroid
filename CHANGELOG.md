@@ -14,6 +14,10 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 ### Adicionado
 - `QasSelect`: Adicionado comportamento no qual é setado automaticamente caso o select for required e houver apenas uma opção.
 
+### Modificado
+- `QasFormGenerator`: Agora o fieldset implementa o componente `QasHeader`.
+- `QasHeader`: modificado espaçamento bottom padrão de `xl` para `md`.
+
 ## [3.17.0-beta.1] - 22-08-2024
 ### Adicionado
 - `QasFormGenerator`: Adicionado possibilidade de ter botão de ação por fieldset ao final dos fields.
