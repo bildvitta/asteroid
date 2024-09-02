@@ -10,6 +10,12 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 ### Sobre os "BREAKING CHANGES"
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
+## Não publicado
+### Adicionado
+- `QasSelect`:
+  - Adicionado nova propriedade `useCustomOptions` para poder utilizar a opção personalizada com caption ou badge.
+  - Adicionado nova propriedade `badgeList` para conseguir controlar a badge a partir do retorno do backend.
+
 ## [3.17.0-beta.3] - 02-09-2024
 ### Adicionado
 - `QasGridGenerator`: adicionado novas propriedades `use-box`, `box-props` e `header-props`.
@@ -25,9 +31,6 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 ## [3.17.0-beta.1] - 22-08-2024
 ### Adicionado
 - `QasFormGenerator`: Adicionado possibilidade de ter botão de ação por fieldset ao final dos fields.
-- `QasSelect`:
-  - Adicionado nova propriedade `useCustomOptions` para poder utilizar a opção personalizada com caption ou badge.
-  - Adicionado nova propriedade `badgeList` para conseguir controlar a badge a partir do retorno do backend.
 
 ### Modificado
 - `QasTableGenerator`: modificado layout de espaçamentos e borda da tabela.
