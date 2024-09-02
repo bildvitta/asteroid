@@ -30,6 +30,34 @@
       </qas-badge>
     </template>
 
+    <template v-if="useCustomOptions" #option="scope">
+      <q-item v-bind="scope.itemProps" class="qas-select__option">
+        <q-item-section>
+          <div class="items-center q-gutter-x-sm row">
+            <q-item-label>
+              {{ scope.opt.label }}
+            </q-item-label>
+
+            <div v-for="(badge, index) in getFilteredBadgeList(scope.opt)" :key="index">
+              <qas-badge v-if="hasBadge(badge)" v-bind="getBadgeProps(badge)" />
+            </div>
+          </div>
+
+          <div v-if="scope.opt.caption">
+            <div class="items-center q-col-gutter-x-sm row">
+              <q-item-label v-for="(caption, index) in getCaptionArray(scope.opt.caption)" :key="index" caption class="items-center q-mt-xs row">
+                <div>
+                  {{ caption }}
+                </div>
+
+                <q-separator v-if="hasSeparator({ caption: getCaptionArray(scope.opt.caption), index })" class="q-ml-sm" vertical />
+              </q-item-label>
+            </div>
+          </div>
+        </q-item-section>
+      </q-item>
+    </template>
+
     <template v-for="(_, name) in $slots" #[name]="context">
       <slot :name="name" v-bind="context || {}" />
     </template>
@@ -50,6 +78,11 @@ export default {
   mixins: [searchFilterMixin],
 
   props: {
+    badgeProps: {
+      default: () => ({}),
+      type: Object
+    },
+
     fuseOptions: {
       default: () => ({}),
       type: Object
@@ -80,6 +113,10 @@ export default {
     },
 
     useAutoSelect: {
+      type: Boolean
+    },
+
+    useCustomOptions: {
       type: Boolean
     },
 
@@ -328,6 +365,51 @@ export default {
         : this.options[0]
 
       this.$emit('update:modelValue', modelValue)
+    },
+
+    getFilteredBadgeList (payload = {}) {
+      const { label, value, disable, caption, ...rest } = payload
+
+      const badgeList = []
+
+      /**
+       * Exemplo de estrutura percorrida:
+       *
+       * @example
+       * {
+       *   isTester: true,
+       *   isOwner: false
+       * }
+       */
+      for (const [key, val] of Object.entries(rest)) {
+        if (key in this.badgeProps) {
+          badgeList.push({ [key]: val })
+        }
+      }
+
+      return badgeList
+    },
+
+    getBadgeProps (badge) {
+      const model = Object.keys(badge)[0]
+
+      const isFunction = typeof this.badgeProps[model] === 'function'
+
+      return isFunction ? this.badgeProps[model](badge[model]).props : this.badgeProps[model]
+    },
+
+    hasBadge (badge) {
+      const model = Object.keys(badge)[0]
+
+      return badge[model] || this.badgeProps[model](badge[model]).show
+    },
+
+    getCaptionArray (caption) {
+      return Array.isArray(caption) ? caption : [caption]
+    },
+
+    hasSeparator ({ caption, index }) {
+      return index !== caption.length - 1
     }
   }
 }
@@ -351,6 +433,10 @@ export default {
     .q-item {
       font-weight: 400 !important;
     }
+  }
+
+  &__option:hover .q-item__label--caption {
+    color: var(--q-primary);
   }
 
   &--closed {

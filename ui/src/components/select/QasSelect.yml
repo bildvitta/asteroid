@@ -7,6 +7,12 @@ meta:
   desc: Componente para select que implementa o "QSelect" repassando propriedades, slots e eventos.
 
 props:
+  badge-list:
+    desc: Configuração das badges no qual cada key é um callback com o valor booleano retornado pelo back.
+    default: {}
+    examples: ["{ isTester: () => { return { color: 'grey-8', label: 'Tester', textColor: 'white' }} }"]
+    type: Object
+
   entity:
     desc: Entidade enviada para a action "fetchFieldOptions" (usar somente quando "useLazyLoading" estiver habilitada).
     default: ''
