@@ -97,7 +97,7 @@ provide('isFormGenerator', true)
 // composables
 const { classes, getFieldClass, getFieldSetColumnClass } = useGenerator({ props })
 
-const { fieldsetClasses, hasFieldset } = useFieldset({ props })
+const { fieldsetClasses, hasFieldset, hasFieldsetItem } = useFieldset({ props })
 
 const screen = useScreen()
 
@@ -226,10 +226,6 @@ function updateModelValue ({ key, value }) {
   emit('update:modelValue', models)
 }
 
-function hasFieldsetItem (fieldset = {}) {
-  return !!Object.keys(fieldset).length
-}
-
 function hasButtonProps ({ buttonProps = {} }) {
   return !!Object.keys(buttonProps).length
 }
@@ -252,9 +248,15 @@ function useFieldset ({ props }) {
 
   const hasFieldset = computed(() => !!Object.keys(props.fieldset).length)
 
+  function hasFieldsetItem (fieldset = {}) {
+    return !!Object.keys(fieldset).length
+  }
+
   return {
     fieldsetClasses,
-    hasFieldset
+    hasFieldset,
+
+    hasFieldsetItem
   }
 }
 </script>
