@@ -1,31 +1,35 @@
 <template>
-  <div :class="classes">
-    <div v-for="(field, key) in fieldsByResult" :key="key" :class="getContainerClass({ key })">
-      <slot :field="field" :name="`field-${field.name}`">
-        <qas-grid-item :use-ellipsis="props.useEllipsis" :use-inline="props.useInline">
-          <template #header>
-            <slot :field="field" :name="`header-field-${field.name}`">
-              <slot :field="field" name="header">
-                <div :class="headerClass" :data-cy="`grid-generator-${field.name}-field`" :title="getTitle(field, 'label')">
-                  {{ field.label }}
-                </div>
-              </slot>
-            </slot>
-          </template>
+  <component :is="component.is" v-bind="component.props">
+    <qas-header v-if="hasHeader" v-bind="props.headerProps" />
 
-          <template #content>
-            <slot :field="field" :name="`content-field-${field.name}`">
-              <slot :field="field" name="content">
-                <div :class="contentClass" :data-cy="`grid-generator-${field.name}-result`" :title="getTitle(field, 'formattedResult')">
-                  {{ field.formattedResult }}
-                </div>
+    <div :class="classes">
+      <div v-for="(field, key) in fieldsByResult" :key="key" :class="getContainerClass({ key })">
+        <slot :field="field" :name="`field-${field.name}`">
+          <qas-grid-item :use-ellipsis="props.useEllipsis" :use-inline="props.useInline">
+            <template #header>
+              <slot :field="field" :name="`header-field-${field.name}`">
+                <slot :field="field" name="header">
+                  <div :class="headerClass" :data-cy="`grid-generator-${field.name}-field`" :title="getTitle(field, 'label')">
+                    {{ field.label }}
+                  </div>
+                </slot>
               </slot>
-            </slot>
-          </template>
-        </qas-grid-item>
-      </slot>
+            </template>
+
+            <template #content>
+              <slot :field="field" :name="`content-field-${field.name}`">
+                <slot :field="field" name="content">
+                  <div :class="contentClass" :data-cy="`grid-generator-${field.name}-result`" :title="getTitle(field, 'formattedResult')">
+                    {{ field.formattedResult }}
+                  </div>
+                </slot>
+              </slot>
+            </template>
+          </qas-grid-item>
+        </slot>
+      </div>
     </div>
-  </div>
+  </component>
 </template>
 
 <script setup>
@@ -44,6 +48,11 @@ const screen = useScreen()
 const props = defineProps({
   ...baseProps,
 
+  boxProps: {
+    type: Object,
+    default: () => ({})
+  },
+
   contentClass: {
     default: '',
     type: [Array, Object, String]
@@ -54,6 +63,11 @@ const props = defineProps({
     type: [Array, Object, String]
   },
 
+  headerProps: {
+    type: Object,
+    default: () => ({})
+  },
+
   emptyResultText: {
     default: '-',
     type: String
@@ -62,6 +76,10 @@ const props = defineProps({
   result: {
     default: () => ({}),
     type: Object
+  },
+
+  useBox: {
+    type: Boolean
   },
 
   useEmptyResult: {
@@ -85,6 +103,7 @@ const { classes, getFieldClass } = useGenerator({ props })
 // computed
 const hasResult = computed(() => Object.keys(props.result).length)
 const hasFields = computed(() => Object.keys(props.fields).length)
+const hasHeader = computed(() => Object.keys(props.headerProps).length)
 
 const contentClass = computed(() => {
   return [
@@ -94,6 +113,13 @@ const contentClass = computed(() => {
       ellipsis: !screen.isSmall && props.useEllipsis
     }
   ]
+})
+
+const component = computed(() => {
+  return {
+    is: props.useBox ? 'qas-box' : 'div',
+    props: props.useBox ? props.boxProps : {}
+  }
 })
 
 const headerClass = computed(() => {

@@ -4,6 +4,11 @@ meta:
   desc: Componente para criação de textos dinâmicos.
 
 props:
+  box-props:
+    desc: Propriedades do "QasBox" que envolve o conteúdo.
+    default: {}
+    type: Object
+
   columns:
     desc: Colunas do grid de cada campo.
     default: col-6
@@ -41,6 +46,11 @@ props:
     default: 'text-bold'
     type: [Array, Object, String]
 
+  header-props:
+    desc: Propriedades do "QasHeader".
+    default: {}
+    type: Object
+
   result:
     desc: Resultado contendo todas informações para serem exibidas na tela.
     default: {}
@@ -50,6 +60,11 @@ props:
   use-empty-result:
     desc: Se o resultado de algum campo for vazio e esta propriedade for "false", ele remove todo o campo.
     default: true
+    type: Boolean
+
+  use-box:
+    desc: Controla se o componente vai ter o QasBox englobando ou não.
+    default: false
     type: Boolean
 
   use-ellipsis:
