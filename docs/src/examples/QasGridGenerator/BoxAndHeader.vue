@@ -1,19 +1,18 @@
 <template>
   <!-- Usando qas-single-view apenas para recuperar os dados -->
-  <qas-single-view v-model:fields="fields" v-model:result="result" :custom-id="customId" :entity="entity">
+  <qas-single-view v-model:fields="viewState.fields" v-model:result="viewState.result" :custom-id="customId" :entity="entity">
     <template #default>
-      <div>
-        <qas-grid-generator v-bind="gridGeneratorProps" />
-      </div>
+      <qas-grid-generator v-bind="gridGeneratorProps" />
     </template>
   </qas-single-view>
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
+import { computed } from 'vue'
+import { useView } from '@bildvitta/composables'
 
-const fields = ref({})
-const result = ref([])
+const { viewState } = useView({ mode: 'single' })
+console.log('TCL: viewState', viewState)
 
 const entity = 'users'
 
@@ -22,8 +21,8 @@ const customId = '3102fad5-f14c-45d4-98e9-46ef0aa9580e'
 
 const gridGeneratorProps = computed(() => {
   return {
-    fields: fields.value,
-    result: result.value,
+    fields: viewState.value.fields,
+    result: viewState.value.result,
 
     headerProps: {
       labelProps: {
