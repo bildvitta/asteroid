@@ -31,7 +31,7 @@ Quando o select for `required` ou tiver a prop `use-auto-select` e houver apenas
 <doc-example file="QasSelect/Searchable" title="Com pesquisa" />
 
 :::info
-O backend deverá retornar nas options, um boolean com uma key, como por exemplo:
+Caso queira usar badges nas opções, o back precisa retornar a chave em questão dizendo qual badge será mostrada, ex:
 ```js
 [
   {

@@ -20,14 +20,10 @@ defineOptions({ name: 'CustomOption' })
 const model = ref('')
 
 const badgeProps = {
-  isTester: () => {
-    return {
-      props: {
-        color: 'grey-8',
-        label: 'Tester',
-        textColor: 'white'
-      }
-    }
+  isTester: {
+    color: 'grey-8',
+    label: 'Tester',
+    textColor: 'white'
   },
 
   isAvailable: value => {

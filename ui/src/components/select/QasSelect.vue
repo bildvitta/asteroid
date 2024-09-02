@@ -368,15 +368,32 @@ export default {
     },
 
     getFilteredBadgeList ({ label, value, disable, caption, ...rest }) {
-      const badgeList = Object.entries(rest).map(([key, value]) => ({ [key]: value }))
+      const badgeList = []
 
-      return badgeList.filter(item => Object.keys(this.badgeProps).includes(Object.keys(item)[0]))
+      /**
+       * Exemplo de estrutura percorrida:
+       *
+       * @example
+       * {
+       *   isTester: true,
+       *   isOwner: false
+       * }
+       */
+      for (const [key, val] of Object.entries(rest)) {
+        if (key in this.badgeProps) {
+          badgeList.push({ [key]: val })
+        }
+      }
+
+      return badgeList
     },
 
     getBadgeProps (badge) {
       const model = Object.keys(badge)[0]
 
-      return this.badgeProps[model](badge[model]).props
+      const isFunction = typeof this.badgeProps[model] === 'function'
+
+      return isFunction ? this.badgeProps[model](badge[model]).props : this.badgeProps[model]
     },
 
     hasBadge (badge) {
