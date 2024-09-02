@@ -367,7 +367,9 @@ export default {
       this.$emit('update:modelValue', modelValue)
     },
 
-    getFilteredBadgeList ({ label, value, disable, caption, ...rest }) {
+    getFilteredBadgeList (payload = {}) {
+      const { label, value, disable, caption, ...rest } = payload
+
       const badgeList = []
 
       /**
