@@ -12,7 +12,6 @@ import { computed } from 'vue'
 import { useView } from '@bildvitta/composables'
 
 const { viewState } = useView({ mode: 'single' })
-console.log('TCL: viewState', viewState)
 
 const entity = 'users'
 
