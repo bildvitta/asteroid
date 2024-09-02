@@ -3,7 +3,7 @@
     <div v-if="hasLabelSection" class="items-center justify-between no-wrap row" :class="labelSectionClasses">
       <div class="items-center q-col-gutter-sm row">
         <slot name="label">
-          <qas-label v-bind="defaultLabelProps" />
+          <qas-label v-if="hasLabel" v-bind="defaultLabelProps" />
         </slot>
 
         <div v-if="hasBadges" class="col-auto items-center q-col-gutter-sm row">
@@ -73,7 +73,7 @@ const props = defineProps({
   },
 
   spacing: {
-    default: Spacing.Xl,
+    default: Spacing.Md,
     type: String,
     validator: gutterValidator
   }
@@ -102,5 +102,5 @@ const hasLabel = computed(() => !!Object.keys(props.labelProps).length)
 const hasDefaultButton = computed(() => !!Object.keys(props.buttonProps).length)
 const hasDefaultActionsMenu = computed(() => !!Object.keys(props.actionsMenuProps).length)
 const hasDescriptionSection = computed(() => props.description || slots.description)
-const hasLabelSection = computed(() => hasLabel.value || slots.label)
+const hasLabelSection = computed(() => hasLabel.value || slots.label || hasBadges.value)
 </script>
