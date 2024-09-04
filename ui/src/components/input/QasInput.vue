@@ -203,6 +203,10 @@ export default {
       return this.inputReference.focus()
     },
 
+    blur () {
+      return this.inputReference.blur()
+    },
+
     resetValidation () {
       return this.inputReference.resetValidation()
     },

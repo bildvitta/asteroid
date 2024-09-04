@@ -4,10 +4,20 @@
       <div v-if="showSearch" class="col-12 col-md-6">
         <slot :filter="filter" name="search">
           <q-form v-if="useSearch" @submit.prevent="filter()">
-            <qas-search-input v-model="internalSearch" :placeholder="searchPlaceholder" :use-search-on-type="useSearchOnType" @clear="clearSearch" @filter="filter()" @update:model-value="onSearch">
+            <qas-search-input
+              ref="searchInput" v-model="internalSearch" :placeholder="searchPlaceholder"
+              :use-search-on-type="useSearchOnType" @clear="clearSearch" @click="() => console.log('caiu')"
+              @filter="filter()" @update:model-value="onSearch"
+            >
               <template v-if="showFilterButton" #after-clear>
-                <slot :context="mx_context" :filter="filter" :filters="activeFilters" name="filter-button" :remove-filter="removeFilter">
-                  <pv-filters-button v-if="useFilterButton" ref="filtersButton" v-model="internalFilters" v-bind="filterButtonProps" />
+                <slot
+                  :context="mx_context" :filter="filter" :filters="activeFilters" name="filter-button"
+                  :remove-filter="removeFilter"
+                >
+                  <pv-filters-button
+                    v-if="useFilterButton" ref="filtersButton" v-model="internalFilters"
+                    v-bind="filterButtonProps"
+                  />
                 </slot>
               </template>
             </qas-search-input>
@@ -16,8 +26,14 @@
       </div>
 
       <div v-else-if="showFilterButton" class="col-12">
-        <slot :context="mx_context" :filter="filter" :filters="activeFilters" name="filter-button" :remove-filter="removeFilter">
-          <pv-filters-button v-if="useFilterButton" ref="filtersButton" v-model="internalFilters" v-bind="filterButtonProps" />
+        <slot
+          :context="mx_context" :filter="filter" :filters="activeFilters" name="filter-button"
+          :remove-filter="removeFilter"
+        >
+          <pv-filters-button
+            v-if="useFilterButton" ref="filtersButton" v-model="internalFilters"
+            v-bind="filterButtonProps"
+          />
         </slot>
       </div>
 
@@ -27,7 +43,10 @@
     </div>
 
     <div v-if="hasChip" class="q-mt-md">
-      <qas-badge v-for="(filterItem, key) in activeFilters" :key="key" :data-cy="`filters-${filterItem.value}-chip`" removable @remove="removeFilter(filterItem)">
+      <qas-badge
+        v-for="(filterItem, key) in activeFilters" :key="key" :data-cy="`filters-${filterItem.value}-chip`"
+        removable @remove="removeFilter(filterItem)"
+      >
         <div class="ellipsis qas-filters__badge-content" :title="getChipValue(filterItem.value)">
           {{ filterItem.label }}: "{{ getChipValue(filterItem.value) }}"
         </div>
@@ -160,7 +179,7 @@ export default {
           const field = { ...this.fields[key], ...this.formattedFieldsProps?.[decamelize(key)] }
           const value = humanize(field, this.normalizeValues(filters[key], field?.multiple))
 
-          if (!value) continue
+          if (!value || (Array.isArray(value) && !value.length)) continue
 
           const { label, name } = field
 
@@ -386,6 +405,7 @@ export default {
 
     hideFiltersMenu () {
       this.$refs.filtersButton?.hideMenu()
+      this.$refs.searchInput?.input?.blur()
     },
 
     setInternalFilters () {
