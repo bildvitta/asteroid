@@ -9,15 +9,11 @@
         <component :is="componentTag" v-bind="componentProps">
           <template v-for="(row, index) in nested" :key="`row-${index}`">
             <div v-if="!row[destroyKey]" :id="`row-${index}`" class="full-width qas-nested-fields__field-item" data-cy="nested-fields-item">
-              <header v-if="hasHeader" class="flex items-center q-pb-md" :class="headerClasses">
-                <qas-label v-if="!useSingleLabel" :label="getRowLabel(index)" margin="none" typography="h5" />
-
-                <qas-actions-menu v-if="hasBlockActions(row)" v-bind="getActionsMenuProps(index, row)" :use-label="false" />
-              </header>
+              <qas-header v-bind="getHeaderProps({ index, row })" />
 
               <slot :errors="transformedErrors" :fields="getFields(index, row)" :index="index" :model="nested[index]" name="before-fields" :update-value="updateValuesFromInput" />
 
-              <div ref="formGenerator" class="col-12 justify-between q-col-gutter-x-md row">
+              <div ref="formGenerator" :class="formGeneratorParentClasses">
                 <slot :errors="transformedErrors" :fields="getFields(index, row)" :index="index" name="fields" :update-value="updateValuesFromInput">
                   <qas-form-generator v-model="nested[index]" class="col" :columns="formColumns" :disable="isDisabledRow(row)" :errors="transformedErrors[index]" :fields="getFields(index, row)" :fields-props="getFieldsProps(index, row)" :gutter="formGutter" @update:model-value="updateValuesFromInput($event, index)">
                     <template v-for="(slot, key) in $slots" #[key]="scope">
@@ -27,7 +23,7 @@
                 </slot>
 
                 <div v-if="hasInlineActions(row)" class="flex items-center qas-nested-fields__actions">
-                  <qas-actions-menu v-bind="getActionsMenuProps(index, row)" :use-label="false" />
+                  <qas-actions-menu v-bind="getInlineActionsMenuProps(index, row)" :use-label="false" />
                 </div>
               </div>
 
@@ -36,7 +32,7 @@
           </template>
         </component>
 
-        <div v-if="useAdd">
+        <div v-if="useAdd" :class="addButtonClass">
           <slot :add="add" name="add-input">
             <div v-if="showAddFirstInputButton" class="text-left">
               <qas-btn class="q-px-sm" color="primary" data-cy="nested-fields-add-btn" :label="addFirstInputLabel" variant="tertiary" @click="add()" />
@@ -168,9 +164,20 @@ export default {
     },
 
     formGutter: {
-      default: Spacing.Lg,
+      default: Spacing.Md,
       type: [String, Boolean],
       validator: value => typeof value === 'boolean' || Object.values(Spacing).includes(value)
+    },
+
+    headerProps: {
+      type: Function,
+      default: () => ({})
+      // default: (index, row) => {
+      //   return {
+      //     labelProps: {
+      //       label: index === 0 ? 'Janeiro' : 'Fevereiro'
+      //     }
+      //   }
     },
 
     identifierItemKey: {
@@ -300,11 +307,14 @@ export default {
       return (this.useSingleLabel && !this.useInlineActions) || !this.useSingleLabel
     },
 
-    headerClasses () {
+    addButtonClass () {
       return {
-        'justify-end': this.useSingleLabel,
-        'justify-between': !this.useSingleLabel
+        'q-mt-md': !!this.nested.length
       }
+    },
+
+    formGeneratorParentClasses () {
+      return this.useInlineActions ? 'col-12 justify-between q-col-gutter-x-md row' : 'full-width'
     }
   },
 
@@ -333,8 +343,8 @@ export default {
   },
 
   methods: {
-    getActionsMenuProps (index, row) {
-      if (typeof this.actionsMenuProps === 'function') {
+    getInlineActionsMenuProps (index, row) {
+      if (typeof this.actionsMenuProps === 'function' && this.useInlineActions) {
         return this.actionsMenuProps({
           index,
           row,
@@ -344,7 +354,7 @@ export default {
 
       return {
         ...this.actionsMenuProps,
-        list: this.getActionsMenuList(index, row)
+        list: this.getActionsMenuList(index, row, this.actionsMenuProps?.list)
       }
     },
 
@@ -368,11 +378,11 @@ export default {
       return list
     },
 
-    getActionsMenuList (index, row) {
+    getActionsMenuList (index, row, defaultList = {}) {
       const list = this.getDefaultActionsMenuList(index, row)
 
-      for (const key in this.actionsMenuProps.list) {
-        const { handler, ...content } = this.actionsMenuProps.list[key] || {}
+      for (const key in defaultList) {
+        const { handler, ...content } = defaultList[key] || {}
 
         list[key] = {
           handler: payload => handler?.({ payload, row, index }),
@@ -507,6 +517,37 @@ export default {
 
     hasInlineActions (row) {
       return this.useInlineActions && !this.isDisabledRow(row)
+    },
+
+    getHeaderProps ({ index, row }) {
+      const hasLabel = !this.useSingleLabel
+      const hasActions = this.hasBlockActions(row)
+
+      const { labelProps, actionsMenuProps, ...payload } = this.headerProps?.(index, row) || {}
+
+      return {
+        ...payload,
+
+        spacing: 'sm',
+
+        ...(hasActions && {
+          actionsMenuProps: {
+            useLabel: false,
+
+            ...actionsMenuProps,
+
+            list: this.getActionsMenuList(index, row, actionsMenuProps?.list)
+          }
+        }),
+
+        ...(hasLabel && {
+          labelProps: {
+            typography: 'h5',
+            label: this.getRowLabel(index),
+            ...labelProps
+          }
+        })
+      }
     }
   }
 }
@@ -514,16 +555,13 @@ export default {
 
 <style lang="scss">
 .qas-nested-fields {
+  // mesmo tamanho do input
   &__actions {
-    height: 56px;
-  }
-
-  &__field-item {
-    margin-bottom: var(--qas-spacing-md);
+    height: 40px;
   }
 
   &__field-item + &__field-item {
-    margin-top: var(--qas-spacing-xl);
+    margin-top: var(--qas-spacing-lg);
   }
 }
 </style>

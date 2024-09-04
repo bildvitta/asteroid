@@ -56,7 +56,7 @@ export default function ({ props = {} }) {
   const defaultGutter = computed(() => {
     if (props.gutter) return props.gutter
 
-    return props.useInline ? Spacing.Md : Spacing.Lg
+    return Spacing.Md
   })
 
   /**

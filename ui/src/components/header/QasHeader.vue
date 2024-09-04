@@ -14,13 +14,15 @@
       </div>
 
       <slot name="actions">
-        <qas-actions-menu v-if="hasDefaultActionsMenu" v-bind="props.actionsMenuProps" />
+        <div class="text-right">
+          <qas-actions-menu v-if="hasDefaultActionsMenu" v-bind="props.actionsMenuProps" />
 
-        <qas-btn v-if="hasDefaultButton" :use-label-on-small-screen="false" v-bind="props.buttonProps" />
+          <qas-btn v-if="hasDefaultButton" :use-label-on-small-screen="false" v-bind="props.buttonProps" />
+        </div>
       </slot>
     </div>
 
-    <div class="items-start justify-between no-wrap q-col-gutter-sm row">
+    <div class="items-start no-wrap q-col-gutter-sm row" :class="descriptionSectionClasses">
       <div v-if="hasDescriptionSection" class="text-body1 text-grey-8">
         <slot name="description">
           {{ props.description }}
@@ -90,6 +92,13 @@ const labelSectionClasses = computed(() => {
   }
 })
 
+const descriptionSectionClasses = computed(() => {
+  return {
+    'justify-between': hasDescriptionSection.value,
+    'justify-end': hasActionsSection.value && !hasDescriptionSection.value
+  }
+})
+
 const defaultLabelProps = computed(() => {
   return {
     margin: hasBadges.value ? 'none' : 'xs',
@@ -97,6 +106,7 @@ const defaultLabelProps = computed(() => {
   }
 })
 
+const hasActionsSection = computed(() => !!slots.actions || hasDefaultButton.value || hasDefaultActionsMenu.value)
 const hasBadges = computed(() => !!props.badges.length)
 const hasLabel = computed(() => !!Object.keys(props.labelProps).length)
 const hasDefaultButton = computed(() => !!Object.keys(props.buttonProps).length)

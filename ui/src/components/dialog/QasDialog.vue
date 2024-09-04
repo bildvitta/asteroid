@@ -1,10 +1,11 @@
 <template>
   <q-dialog ref="dialogRef" class="qas-dialog" :class="classes" data-cy="dialog" v-bind="dialogProps" :persistent="props.persistent" @update:model-value="updateModelValue">
-    <div class="bg-white q-pa-lg" :style="style">
-      <header v-if="hasHeader" class="q-mb-lg">
+    <div class="bg-white q-pa-md" :style="style">
+      <header v-if="hasHeader" class="q-mb-md">
         <slot name="header">
           <div class="items-center justify-between row">
-            <h5 class="text-h5" data-cy="dialog-title">{{ props.card.title }}</h5>
+            <qas-label data-cy="dialog-title" :label="props.card.title" margin="none" />
+            <!-- <h5 class="text-h5" >{{  }}</h5> -->
 
             <qas-btn v-if="isInfoDialog" v-close-popup color="grey-10" data-cy="dialog-close-btn" icon="sym_r_close" variant="tertiary" />
           </div>
