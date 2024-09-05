@@ -11,8 +11,11 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
 ## Não publicado
+### Modificado
+- `QasGridGenerator`: comportamento do `useEllipsis` agora os campos do tipo `textarea` não serão afetados.
+
 ### Corrigido
-- `QasFilters`: 
+- `QasFilters`:
   - Não exibir badge ao limpar um campo do filtro pelo backspace, exibia uma badge com valor vazio.
   - Campo de input não ficar com foco após efetuar a busca ou limpar pelo filtro lateral.
 

@@ -19,6 +19,11 @@ Caso os breakpoints dos campos sejam todos iguais, exemplo:
 - Ao abrir slots `field-[nome-da-chave]` tente utilizar o componente `QasGridItem`.
 :::
 
+:::info
+Ao utilizar a prop `useEllipsis` não irá afetar campos textarea, pois campos com esse tipo deverão sempre serem exibidos
+por completo.
+:::
+
 ## Uso
 <doc-example file="QasGridGenerator/Basic" title="Básico" />
 <doc-example file="QasGridGenerator/BoxAndHeader" title="Box e header" />

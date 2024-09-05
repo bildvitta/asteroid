@@ -3,9 +3,9 @@
     <qas-header v-if="hasHeader" v-bind="props.headerProps" />
 
     <div :class="classes">
-      <div v-for="(field, key) in fieldsByResult" :key="key" :class="getContainerClass({ key })">
+      <div v-for="(field, key) in fieldsByResult" :key="key" class="test" :class="getContainerClass({ key })">
         <slot :field="field" :name="`field-${field.name}`">
-          <qas-grid-item :use-ellipsis="props.useEllipsis" :use-inline="props.useInline">
+          <qas-grid-item :use-ellipsis="hasEllipsis(field)" :use-inline="props.useInline">
             <template #header>
               <slot :field="field" :name="`header-field-${field.name}`">
                 <slot :field="field" name="header">
@@ -19,7 +19,7 @@
             <template #content>
               <slot :field="field" :name="`content-field-${field.name}`">
                 <slot :field="field" name="content">
-                  <div :class="contentClass" :data-cy="`grid-generator-${field.name}-result`" :title="getTitle(field, 'formattedResult')">
+                  <div :class="getContentClass(field)" :data-cy="`grid-generator-${field.name}-result`" :title="getTitle(field, 'formattedResult')">
                     {{ field.formattedResult }}
                   </div>
                 </slot>
@@ -105,16 +105,6 @@ const hasResult = computed(() => Object.keys(props.result).length)
 const hasFields = computed(() => Object.keys(props.fields).length)
 const hasHeader = computed(() => Object.keys(props.headerProps).length)
 
-const contentClass = computed(() => {
-  return [
-    props.contentClass,
-
-    {
-      ellipsis: !screen.isSmall && props.useEllipsis
-    }
-  ]
-})
-
 const component = computed(() => {
   return {
     is: props.useBox ? 'qas-box' : 'div',
@@ -199,5 +189,21 @@ function getContainerClass ({ key }) {
 
 function getTitle (field, key) {
   return props.useEllipsis ? field[key] : ''
+}
+
+function hasEllipsis (field) {
+  if ((field.type === 'textarea') && !props.useInline) return false
+
+  return props.useEllipsis
+}
+
+function getContentClass (field) {
+  return [
+    props.contentClass,
+
+    {
+      ellipsis: !screen.isSmall && this.hasEllipsis(field)
+    }
+  ]
 }
 </script>
