@@ -16,14 +16,8 @@
       </div>
 
       <div v-else-if="showFilterButton" class="col-12">
-        <slot
-          :context="mx_context" :filter="filter" :filters="activeFilters" name="filter-button"
-          :remove-filter="removeFilter"
-        >
-          <pv-filters-button
-            v-if="useFilterButton" ref="filtersButton" v-model="internalFilters"
-            v-bind="filterButtonProps"
-          />
+        <slot :context="mx_context" :filter="filter" :filters="activeFilters" name="filter-button" :remove-filter="removeFilter">
+          <pv-filters-button v-if="useFilterButton" ref="filtersButton" v-model="internalFilters" v-bind="filterButtonProps" />
         </slot>
       </div>
 
