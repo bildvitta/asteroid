@@ -14,6 +14,13 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 ### Corrigido
 - `QasActions`: corrigido style que não deixava div 100% quando usado com a prop `useFullWidth`.
 
+### Modificado
+- `QasDialog`:
+  - alterado espaçamento interno de `lg` para `md`.
+  - alterado titulo de h5 para h4 com componente `QasLabel`.
+  - alterado espaçamento bottom do título de `lg` para `md`.
+- [`QasFormGenerator`, `QasGridGenerator`]: alterado espaçamento gutter de `lg` para `md`.
+
 ## [3.17.0-beta.4] - 02-09-2024
 ### Adicionado
 - `QasSelect`:

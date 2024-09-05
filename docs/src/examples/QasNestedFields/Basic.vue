@@ -56,11 +56,7 @@ export default {
   data () {
     return {
       nested,
-      model: [{
-        name: 'John Doe',
-        email: '',
-        cities: [1, 2]
-      }]
+      model: []
     }
   },
 

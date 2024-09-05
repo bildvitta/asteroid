@@ -2,7 +2,7 @@
   <div :id="fieldName" class="qas-nested-fields" :data-cy="`nested-fields-${fieldName}`">
     <component :is="containerComponent">
       <div v-if="useSingleLabel" class="text-left">
-        <qas-label :label="fieldLabel" typography="h5" />
+        <qas-label :label="fieldLabel" />
       </div>
 
       <div ref="inputContent">
@@ -66,7 +66,7 @@ import QasInput from '../input/QasInput.vue'
 import QasLabel from '../label/QasLabel.vue'
 
 import { constructObject } from '../../helpers'
-import { Spacing } from '../../enums/Spacing'
+import { Spacing, SpacingWithNumber } from '../../enums/Spacing'
 
 import { TransitionGroup } from 'vue'
 import debug from 'debug'
@@ -466,14 +466,32 @@ export default {
 
     setScroll () {
       const elements = this.$refs.inputContent.children
-      const element = elements[elements.length - 1]
-      const { top } = element.getBoundingClientRect()
-      const pageOffset = window.pageYOffset
 
-      window.scrollTo({
-        behavior: 'smooth',
-        top: pageOffset + top
-      })
+      // elemento de ação, e não das linhas (rows) de inputs
+      const element = elements[elements.length - 1]
+
+      // ultima linha (rows) de inputs
+      const rowsElement = elements[0]?.children
+
+      // pegamos a posição do elemento de ação
+      const { top } = element.getBoundingClientRect()
+
+      // pegamos a altura da ultima linha (rows) de inputs
+      const lastRowHeight = rowsElement?.[rowsElement.length - 1]?.clientHeight
+
+      // pegamos a posição da página
+      const pageOffset = window.scrollY
+
+      // 56 é a altura do header no mobile
+      const safeScrollSize = this.$qas.screen.isSmall ? 56 + SpacingWithNumber.Lg : SpacingWithNumber.Lg
+
+      /**
+       * É necessário descontar a altura da última linha (rows) de inputs para que o scroll
+       * fique no final da última linha (rows) de inputs.
+       */
+      const scrollTop = pageOffset + top - (lastRowHeight + safeScrollSize)
+
+      window.scrollTo({ behavior: 'smooth', top: scrollTop })
     },
 
     async setFocus () {
