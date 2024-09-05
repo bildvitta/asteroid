@@ -2,7 +2,7 @@
   <div ref="parent" :class="classes">
     <div class="no-wrap row text-no-wrap">
       <div ref="truncate" class="ellipsis">
-        <slot>{{ displayText }}</slot>
+        <slot>{{ formattedDisplayText }}</slot>
       </div>
 
       <qas-btn v-if="hasButton" class="q-ml-sm" :label="buttonLabel" @click.stop.prevent="toggle" />
@@ -87,6 +87,11 @@ const props = defineProps({
 
   useObjectList: {
     type: Boolean
+  },
+
+  emptyText: {
+    type: String,
+    default: '-'
   }
 })
 
@@ -118,6 +123,12 @@ const {
 useMutationObserver({ truncate, callbackFn: truncateText })
 
 const classes = computed(() => [`text-${props.color}`, `text-${props.typography}`])
+
+const formattedDisplayText = computed(() => {
+  if (props.list.length || props.text) return displayText.value
+
+  return props.emptyText
+})
 
 // composable functions
 function useDialog ({ props, textContent }) {

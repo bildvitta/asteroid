@@ -51,6 +51,10 @@ props:
     desc: Utiliza a propriedade "list" como array de objeto contendo label (uso junto a prop list).
     type: Boolean
 
+  empty-text:
+    desc: Texto a ser exibido no caso de não haver itens no "list" ou o "text" for vazio.
+    type: String
+
 slots:
   default:
     desc: slot padrão que é utilizado para acessar o texto original (tanto o que é truncado quando o de dentro do dialog)
