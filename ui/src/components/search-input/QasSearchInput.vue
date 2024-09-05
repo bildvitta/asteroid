@@ -1,6 +1,6 @@
 <template>
   <component :is="component" class="qas-search-input" :class="containerClasses" :use-spacing="false">
-    <qas-input ref="input" v-model="model" class="qas-search-input__input" v-bind="$attrs" data-cy="search-input" :debounce="debounce" dense hide-bottom-space input-class="ellipsis text-grey-8" inputmode="search" outlined type="search">
+    <qas-input ref="input" v-model="model" v-bind="$attrs" class="qas-search-input__input" data-cy="search-input" :debounce="debounce" dense hide-bottom-space input-class="ellipsis text-grey-8" inputmode="search" outlined type="search">
       <template #prepend>
         <q-icon v-if="useSearchOnType" color="grey-8" name="sym_r_search" />
 
