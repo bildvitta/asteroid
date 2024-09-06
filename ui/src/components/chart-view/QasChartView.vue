@@ -1,23 +1,25 @@
 <template>
-  <qas-header v-if="hasHeader" v-bind="headerProps">
-    <template #right>
-      <qas-filters v-bind="chartFiltersProps" />
-    </template>
-  </qas-header>
+  <component :is="containerComponent.is" v-bind="containerComponent.props">
+    <qas-header v-if="hasHeader" v-bind="headerProps">
+      <template #right>
+        <qas-filters v-bind="chartFiltersProps" />
+      </template>
+    </qas-header>
 
-  <div v-bind="parentComponentProps">
-    <component :is="chartComponent.is" v-if="showChart" v-bind="chartComponent.props" />
+    <div v-bind="parentComponentProps">
+      <component :is="chartComponent.is" v-if="showChart" v-bind="chartComponent.props" />
 
-    <div v-else-if="!isFetching">
-      <slot name="empty-results">
-        <qas-empty-result-text />
-      </slot>
+      <div v-else-if="!isFetching">
+        <slot name="empty-results">
+          <qas-empty-result-text />
+        </slot>
+      </div>
+
+      <q-inner-loading :showing="isFetching">
+        <q-spinner color="grey" size="3em" />
+      </q-inner-loading>
     </div>
-
-    <q-inner-loading :showing="isFetching">
-      <q-spinner color="grey" size="3em" />
-    </q-inner-loading>
-  </div>
+  </component>
 </template>
 
 <script>
@@ -126,6 +128,16 @@ export default {
 
     useFilterButton: {
       type: Boolean
+    },
+
+    useBox: {
+      type: Boolean,
+      default: true
+    },
+
+    boxProps: {
+      default: () => ({}),
+      type: Object
     }
   },
 
@@ -306,6 +318,16 @@ export default {
         description: this.subtitle,
         labelProps: {
           label: this.title
+        }
+      }
+    },
+
+    containerComponent () {
+      return {
+        is: this.useBox ? 'qas-box' : 'div',
+
+        props: {
+          ...(this.useBox && { ...this.boxProps })
         }
       }
     }
