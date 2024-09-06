@@ -13,12 +13,15 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 ## Não publicado
 ## BREAKING CHANGES
 - `QasNestedFields`: agora propriedade `actions-menu-props` só funciona junto da prop `:use-inline-actions="true"`.
+
 ### Adicionado
 - `QasNestedFields`: adicionado componente `QasHeader` com a prop `header-props`.
 
 ### Corrigido
 - `QasActions`: corrigido style que não deixava div 100% quando usado com a prop `useFullWidth`.
 - `QasNestedFields`: corrigido problemas de espaçamentos.
+- `QasFormGenerator`: corrigido div vazia quando não tinha fieldset.
+- `QasHeader`: corrigido problemas de layout.
 
 ### Modificado
 - `QasDialog`:
@@ -29,6 +32,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - `QasNestedFields`:
   - modificado set scroll ao adicionado novas linhas, agora o scroll fica fixo na ultima linha adicionada.
   - agora propriedade `actions-menu-props` só funciona junto da prop `:use-inline-actions="true"`.
+  - default do `formGutter` alterado de `lg` para `md`.
 
 ## [3.17.0-beta.4] - 02-09-2024
 ### Adicionado
