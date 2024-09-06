@@ -1,6 +1,6 @@
 <template>
   <div :class="containerClasses">
-    <div v-if="hasLabelSection" class="items-center justify-between no-wrap row" :class="labelSectionClasses">
+    <div v-if="hasLabelSection" class="full-width items-center justify-between no-wrap row" :class="labelSectionClasses">
       <div class="items-center q-col-gutter-sm row">
         <slot name="label">
           <qas-label v-if="hasLabel" v-bind="defaultLabelProps" />
@@ -14,7 +14,7 @@
       </div>
 
       <slot name="actions">
-        <div class="text-right">
+        <div class="q-mt-xs text-right">
           <qas-actions-menu v-if="hasDefaultActionsMenu" v-bind="props.actionsMenuProps" />
 
           <qas-btn v-if="hasDefaultButton" :use-label-on-small-screen="false" v-bind="props.buttonProps" />
@@ -101,7 +101,7 @@ const descriptionSectionClasses = computed(() => {
 
 const defaultLabelProps = computed(() => {
   return {
-    margin: hasBadges.value ? 'none' : 'xs',
+    margin: 'none',
     ...props.labelProps
   }
 })

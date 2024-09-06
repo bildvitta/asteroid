@@ -11,8 +11,14 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
 ## Não publicado
+## BREAKING CHANGES
+- `QasNestedFields`: agora propriedade `actions-menu-props` só funciona junto da prop `:use-inline-actions="true"`.
+### Adicionado
+- `QasNestedFields`: adicionado componente `QasHeader` com a prop `header-props`.
+
 ### Corrigido
 - `QasActions`: corrigido style que não deixava div 100% quando usado com a prop `useFullWidth`.
+- `QasNestedFields`: corrigido problemas de espaçamentos.
 
 ### Modificado
 - `QasDialog`:
@@ -20,6 +26,9 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
   - alterado titulo de h5 para h4 com componente `QasLabel`.
   - alterado espaçamento bottom do título de `lg` para `md`.
 - [`QasFormGenerator`, `QasGridGenerator`]: alterado espaçamento gutter de `lg` para `md`.
+- `QasNestedFields`:
+  - modificado set scroll ao adicionado novas linhas, agora o scroll fica fixo na ultima linha adicionada.
+  - agora propriedade `actions-menu-props` só funciona junto da prop `:use-inline-actions="true"`.
 
 ## [3.17.0-beta.4] - 02-09-2024
 ### Adicionado

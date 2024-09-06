@@ -80,6 +80,22 @@ props:
     type: [String, Boolean]
     examples: [xs, sm, md, lg, xl, 2xl, 3xl, 4xl, 5xl, false]
 
+  header-props:
+    desc: Propriedades do header do nested por linha por callback.
+    default: () => {}
+    type: Function
+    params:
+      context:
+        desc: Payload da linha (row) -> index/row.
+        type: Object
+        params:
+          index:
+            desc: Índice da linha.
+            type: Number
+          row:
+            desc: Valores contendo na linha atual.
+            type: Object
+
   identifier-item-key:
     desc: Define um identificador para o item. O identificador será utilizado para validar exclusão do item, por exemplo.
     default: uuid
@@ -250,6 +266,7 @@ slots:
         desc: Função para atualizar o model, passando o novo valor e o index.
         type: Function
         examples: ["updateValue({ name: 'novo valor' }, 2)"]
+
 
 events:
   '@update:model-value -> function (value)':

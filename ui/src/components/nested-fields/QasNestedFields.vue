@@ -9,7 +9,7 @@
         <component :is="componentTag" v-bind="componentProps">
           <template v-for="(row, index) in nested" :key="`row-${index}`">
             <div v-if="!row[destroyKey]" :id="`row-${index}`" class="full-width qas-nested-fields__field-item" data-cy="nested-fields-item">
-              <qas-header v-bind="getHeaderProps({ index, row })" />
+              <qas-header v-if="hasHeader({ row })" class="flex" v-bind="getHeaderProps({ index, row })" />
 
               <slot :errors="transformedErrors" :fields="getFields(index, row)" :index="index" :model="nested[index]" name="before-fields" :update-value="updateValuesFromInput" />
 
@@ -171,13 +171,7 @@ export default {
 
     headerProps: {
       type: Function,
-      default: () => ({})
-      // default: (index, row) => {
-      //   return {
-      //     labelProps: {
-      //       label: index === 0 ? 'Janeiro' : 'Fevereiro'
-      //     }
-      //   }
+      default: () => {}
     },
 
     identifierItemKey: {
@@ -301,10 +295,6 @@ export default {
 
     showAddFirstInputButton () {
       return this.useFirstInputButton && !this.nested.length
-    },
-
-    hasHeader () {
-      return (this.useSingleLabel && !this.useInlineActions) || !this.useSingleLabel
     },
 
     addButtonClass () {
@@ -537,11 +527,15 @@ export default {
       return this.useInlineActions && !this.isDisabledRow(row)
     },
 
+    hasHeader ({ row }) {
+      return this.hasBlockActions(row) || !this.useSingleLabel
+    },
+
     getHeaderProps ({ index, row }) {
       const hasLabel = !this.useSingleLabel
       const hasActions = this.hasBlockActions(row)
 
-      const { labelProps, actionsMenuProps, ...payload } = this.headerProps?.(index, row) || {}
+      const { labelProps, actionsMenuProps, ...payload } = this.headerProps?.({ index, row }) || {}
 
       return {
         ...payload,
