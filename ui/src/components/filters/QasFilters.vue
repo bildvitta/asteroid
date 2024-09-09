@@ -160,7 +160,7 @@ export default {
           const field = { ...this.fields[key], ...this.formattedFieldsProps?.[decamelize(key)] }
           const value = humanize(field, this.normalizeValues(filters[key], field?.multiple))
 
-          if (!value) continue
+          if (!value || (Array.isArray(value) && !value.length)) continue
 
           const { label, name } = field
 

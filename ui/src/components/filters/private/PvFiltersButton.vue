@@ -1,6 +1,6 @@
 <template>
   <qas-btn data-cy="filters-btn" icon="sym_r_filter_alt" label="Filtrar" :use-label-on-small-screen="false" variant="tertiary">
-    <q-menu ref="menu" anchor="center right" class="full-width" max-width="270px" self="top right" v-bind="menuProps">
+    <q-menu ref="menu" anchor="center right" class="full-width" max-width="270px" v-bind="menuProps" no-refocus self="top right">
       <div v-if="loading" class="q-pa-xl text-center">
         <q-spinner color="grey" size="2em" />
       </div>

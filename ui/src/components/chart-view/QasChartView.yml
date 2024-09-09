@@ -10,6 +10,11 @@ props:
     type: Function
     examples: ['beforeFetch({ payload, resolve, done })']
 
+  box-props:
+    desc: Propriedades do "QasBox" que envolve o conteúdo.
+    default: {}
+    type: Object
+
   colors-list:
     desc: Lista de cores personalizadas para utilizar nos gráficos
     default: []
@@ -64,6 +69,11 @@ props:
   url:
     desc: Envia como parâmetro para a action "fetchList" do modulo correspondente a "entity".
     type: String
+
+  use-box:
+    desc: Controla se o componente vai ter o QasBox englobando ou não.
+    default: true
+    type: Boolean
 
   use-filter-button:
     desc: Controla se o componente vai usar ou não o componente "QasFilters".

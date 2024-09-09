@@ -11,6 +11,7 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
 ## Não publicado
+
 ## BREAKING CHANGES
 - `QasNestedFields`: agora propriedade `actions-menu-props` só funciona junto da prop `:use-inline-actions="true"`.
 
@@ -18,12 +19,17 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - `QasNestedFields`:
   - adicionado componente `QasHeader` com a prop `header-props`.
   - adicionado nova propriedade `form-common-columns`.
+- `QasTextTruncate`: adicionado prop `emptyText` para exibição no caso do `list` ou `text` não tiver valor.
+- `QasChartView`: adicionado novas propriedades `useBox` e `boxProps`.
 
 ### Corrigido
 - `QasActions`: corrigido style que não deixava div 100% quando usado com a prop `useFullWidth`.
 - `QasNestedFields`: corrigido problemas de espaçamentos.
 - `QasFormGenerator`: corrigido div vazia quando não tinha fieldset.
 - `QasHeader`: corrigido problemas de layout.
+- `QasFilters`:
+  - Não exibir badge ao limpar um campo do filtro pelo backspace, exibia uma badge com valor vazio.
+  - Campo de input não ficar com foco após efetuar a busca ou limpar pelo filtro lateral.
 
 ### Modificado
 - `QasDialog`:
@@ -35,6 +41,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
   - modificado set scroll ao adicionado novas linhas, agora o scroll fica fixo na ultima linha adicionada.
   - agora propriedade `actions-menu-props` só funciona junto da prop `:use-inline-actions="true"`.
   - default do `formGutter` alterado de `lg` para `md`.
+- `QasGridGenerator`: comportamento do `useEllipsis` agora os campos do tipo `textarea` não serão afetados.
 
 ## [3.17.0-beta.4] - 02-09-2024
 ### Adicionado

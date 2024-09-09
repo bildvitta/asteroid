@@ -1,23 +1,25 @@
 <template>
-  <qas-header v-if="hasHeader" v-bind="headerProps">
-    <template #right>
-      <qas-filters v-bind="chartFiltersProps" />
-    </template>
-  </qas-header>
+  <component :is="parentComponent.is" v-bind="parentComponent.props">
+    <qas-header v-if="hasHeader" v-bind="headerProps">
+      <template #right>
+        <qas-filters v-bind="chartFiltersProps" />
+      </template>
+    </qas-header>
 
-  <div v-bind="parentComponentProps">
-    <component :is="chartComponent.is" v-if="showChart" v-bind="chartComponent.props" />
+    <div v-bind="parentComponentProps">
+      <component :is="chartComponent.is" v-if="showChart" v-bind="chartComponent.props" />
 
-    <div v-else-if="!isFetching">
-      <slot name="empty-results">
-        <qas-empty-result-text />
-      </slot>
+      <div v-else-if="!isFetching">
+        <slot name="empty-results">
+          <qas-empty-result-text />
+        </slot>
+      </div>
+
+      <q-inner-loading :showing="isFetching">
+        <q-spinner color="grey" size="3em" />
+      </q-inner-loading>
     </div>
-
-    <q-inner-loading :showing="isFetching">
-      <q-spinner color="grey" size="3em" />
-    </q-inner-loading>
-  </div>
+  </component>
 </template>
 
 <script>
@@ -67,6 +69,11 @@ export default {
     beforeFetch: {
       default: null,
       type: Function
+    },
+
+    boxProps: {
+      default: () => ({}),
+      type: Object
     },
 
     colorsList: {
@@ -122,6 +129,11 @@ export default {
     url: {
       default: '',
       type: String
+    },
+
+    useBox: {
+      type: Boolean,
+      default: true
     },
 
     useFilterButton: {
@@ -306,6 +318,16 @@ export default {
         description: this.subtitle,
         labelProps: {
           label: this.title
+        }
+      }
+    },
+
+    parentComponent () {
+      return {
+        is: this.useBox ? 'qas-box' : 'div',
+
+        props: {
+          ...(this.useBox && { ...this.boxProps })
         }
       }
     }
