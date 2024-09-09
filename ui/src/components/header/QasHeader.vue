@@ -1,6 +1,6 @@
 <template>
   <div :class="containerClasses">
-    <div v-if="hasLabelSection" class="items-center justify-between no-wrap row" :class="labelSectionClasses">
+    <div v-if="hasLabelSection" class="full-width items-center justify-between no-wrap row" :class="labelSectionClasses">
       <div class="items-center q-col-gutter-sm row">
         <slot name="label">
           <qas-label v-if="hasLabel" v-bind="defaultLabelProps" />
@@ -14,13 +14,15 @@
       </div>
 
       <slot name="actions">
-        <qas-actions-menu v-if="hasDefaultActionsMenu" v-bind="props.actionsMenuProps" />
+        <div class="q-mt-xs text-right">
+          <qas-actions-menu v-if="hasDefaultActionsMenu" v-bind="props.actionsMenuProps" />
 
-        <qas-btn v-if="hasDefaultButton" :use-label-on-small-screen="false" v-bind="props.buttonProps" />
+          <qas-btn v-if="hasDefaultButton" :use-label-on-small-screen="false" v-bind="props.buttonProps" />
+        </div>
       </slot>
     </div>
 
-    <div class="items-start justify-between no-wrap q-col-gutter-sm row">
+    <div class="items-start no-wrap q-col-gutter-sm row" :class="descriptionSectionClasses">
       <div v-if="hasDescriptionSection" class="text-body1 text-grey-8">
         <slot name="description">
           {{ props.description }}
@@ -90,13 +92,21 @@ const labelSectionClasses = computed(() => {
   }
 })
 
+const descriptionSectionClasses = computed(() => {
+  return {
+    'justify-between': hasDescriptionSection.value,
+    'justify-end': hasActionsSection.value && !hasDescriptionSection.value
+  }
+})
+
 const defaultLabelProps = computed(() => {
   return {
-    margin: hasBadges.value ? 'none' : 'xs',
+    margin: 'none',
     ...props.labelProps
   }
 })
 
+const hasActionsSection = computed(() => !!slots.actions || hasDefaultButton.value || hasDefaultActionsMenu.value)
 const hasBadges = computed(() => !!props.badges.length)
 const hasLabel = computed(() => !!Object.keys(props.labelProps).length)
 const hasDefaultButton = computed(() => !!Object.keys(props.buttonProps).length)

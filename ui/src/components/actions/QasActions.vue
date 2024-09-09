@@ -72,7 +72,7 @@ const classes = computed(() => {
 const columnClasses = computed(() => {
   if (props.useEqualWidth) return 'col-12 col-sm-6'
 
-  return props.useFullWidth ? 'col-12' : 'col-12 col-sm-auto'
+  return props.useFullWidth ? 'full-width' : 'col-12 col-sm-auto'
 })
 
 const hasPrimarySlot = computed(() => !!slots.primary)

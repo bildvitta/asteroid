@@ -2,7 +2,7 @@
   <div :class="fieldsetClasses">
     <div v-for="(fieldsetItem, fieldsetItemKey) in normalizedFields" :key="fieldsetItemKey" :class="getFieldSetColumnClass(fieldsetItem.column)">
       <component :is="containerComponent.is" v-bind="containerComponent.props">
-        <slot v-if="hasFieldsetItem(fieldsetItem)" :name="`legend-${fieldsetItemKey}`">
+        <slot v-if="fieldset.__isFieldset" :name="`legend-${fieldsetItemKey}`">
           <qas-header v-bind="getHeaderProps(fieldsetItem)" />
         </slot>
 
@@ -97,7 +97,7 @@ provide('isFormGenerator', true)
 // composables
 const { classes, getFieldClass, getFieldSetColumnClass } = useGenerator({ props })
 
-const { fieldsetClasses, hasFieldset, hasFieldsetItem } = useFieldset({ props })
+const { fieldsetClasses, hasFieldset } = useFieldset({ props })
 
 const screen = useScreen()
 
@@ -169,7 +169,10 @@ const normalizedFields = computed(() => {
       column: fieldsetItem.column,
       buttonProps: fieldsetItem.buttonProps,
       fields: { hidden: {}, visible: {} },
-      headerProps: fieldsetItem.headerProps
+      headerProps: fieldsetItem.headerProps,
+
+      // Indica que existe um fieldset para que o QasHeader possa ser renderizado
+      __isFieldset: true
     }
 
     fieldsetItem.fields.forEach(fieldName => {
@@ -248,15 +251,9 @@ function useFieldset ({ props }) {
 
   const hasFieldset = computed(() => !!Object.keys(props.fieldset).length)
 
-  function hasFieldsetItem (fieldset = {}) {
-    return !!Object.keys(fieldset).length
-  }
-
   return {
     fieldsetClasses,
-    hasFieldset,
-
-    hasFieldsetItem
+    hasFieldset
   }
 }
 </script>
