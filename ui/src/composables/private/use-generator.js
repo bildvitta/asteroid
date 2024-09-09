@@ -21,7 +21,7 @@ export const baseProps = {
   },
 
   gutter: {
-    default: undefined,
+    default: Spacing.Md,
     type: [String, Boolean],
     validator: gutterValidator
   }
@@ -46,17 +46,11 @@ export default function ({ props = {} }) {
   const classes = computed(() => {
     const classesList = ['row']
 
-    if (defaultGutter.value) {
-      classesList.push(`q-col-gutter-${defaultGutter.value}`)
+    if (props.gutter) {
+      classesList.push(`q-col-gutter-${props.gutter}`)
     }
 
     return classesList
-  })
-
-  const defaultGutter = computed(() => {
-    if (props.gutter) return props.gutter
-
-    return props.useInline ? Spacing.Md : Spacing.Lg
   })
 
   /**
