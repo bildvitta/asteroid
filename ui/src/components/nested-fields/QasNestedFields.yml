@@ -74,6 +74,12 @@ props:
     type: [Array, String, Object]
     examples: ["[{ sm: 6, md: 12 }]", "{ name: { sm: 6, md: 12 } }", "12"]
 
+  form-common-columns:
+    desc: Colunas do grid comuns.
+    default: {}
+    type: [String, Object]
+    examples: ["{ col: 12, sm: 6}" , "12"]
+
   form-gutter:
     desc: Espaçamento entre colunas do formulário.
     default: lg

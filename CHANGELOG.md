@@ -15,7 +15,9 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - `QasNestedFields`: agora propriedade `actions-menu-props` só funciona junto da prop `:use-inline-actions="true"`.
 
 ### Adicionado
-- `QasNestedFields`: adicionado componente `QasHeader` com a prop `header-props`.
+- `QasNestedFields`:
+  - adicionado componente `QasHeader` com a prop `header-props`.
+  - adicionado nova propriedade `form-common-columns`.
 
 ### Corrigido
 - `QasActions`: corrigido style que não deixava div 100% quando usado com a prop `useFullWidth`.

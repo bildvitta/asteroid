@@ -15,7 +15,7 @@
 
               <div ref="formGenerator" :class="formGeneratorParentClasses">
                 <slot :errors="transformedErrors" :fields="getFields(index, row)" :index="index" name="fields" :update-value="updateValuesFromInput">
-                  <qas-form-generator v-model="nested[index]" class="col" :columns="formColumns" :disable="isDisabledRow(row)" :errors="transformedErrors[index]" :fields="getFields(index, row)" :fields-props="getFieldsProps(index, row)" :gutter="formGutter" @update:model-value="updateValuesFromInput($event, index)">
+                  <qas-form-generator v-model="nested[index]" class="col" :columns="formColumns" :common-columns="formCommonColumns" :disable="isDisabledRow(row)" :errors="transformedErrors[index]" :fields="getFields(index, row)" :fields-props="getFieldsProps(index, row)" :gutter="formGutter" @update:model-value="updateValuesFromInput($event, index)">
                     <template v-for="(slot, key) in $slots" #[key]="scope">
                       <slot v-bind="scope" :disabled="isDisabledRow(row)" :errors="transformedErrors" :index="index" :name="key" />
                     </template>
@@ -161,6 +161,11 @@ export default {
     formColumns: {
       type: [Array, String, Object],
       default: () => []
+    },
+
+    formCommonColumns: {
+      type: [Object, String],
+      default: () => ({})
     },
 
     formGutter: {
