@@ -52,7 +52,7 @@ props:
     type: Boolean
 
   empty-text:
-    desc: Texto a ser exibido no caso de não haver itens no "list" ou o "text" for vazio.
+    desc: Texto a ser exibido no caso de não houver itens no "list" ou o "text" for vazio.
     type: String
 
 slots:

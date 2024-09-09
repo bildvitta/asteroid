@@ -13,7 +13,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 ## Não publicado
 ### Adicionado
 - `QasTextTruncate`: adicionado prop `emptyText` para exibição no caso do `list` ou `text` não tiver valor.
-- `QasChartView`: adicionado nova propriedade `useBox`.
+- `QasChartView`: adicionado novas propriedades `useBox` e `boxProps`.
 
 ### Modificado
 - `QasGridGenerator`: comportamento do `useEllipsis` agora os campos do tipo `textarea` não serão afetados.

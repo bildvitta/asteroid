@@ -1,5 +1,5 @@
 <template>
-  <component :is="containerComponent.is" v-bind="containerComponent.props">
+  <component :is="parentComponent.is" v-bind="parentComponent.props">
     <qas-header v-if="hasHeader" v-bind="headerProps">
       <template #right>
         <qas-filters v-bind="chartFiltersProps" />
@@ -71,6 +71,11 @@ export default {
       type: Function
     },
 
+    boxProps: {
+      default: () => ({}),
+      type: Object
+    },
+
     colorsList: {
       type: Array,
       default: () => []
@@ -126,18 +131,13 @@ export default {
       type: String
     },
 
-    useFilterButton: {
-      type: Boolean
-    },
-
     useBox: {
       type: Boolean,
       default: true
     },
 
-    boxProps: {
-      default: () => ({}),
-      type: Object
+    useFilterButton: {
+      type: Boolean
     }
   },
 
@@ -322,7 +322,7 @@ export default {
       }
     },
 
-    containerComponent () {
+    parentComponent () {
       return {
         is: this.useBox ? 'qas-box' : 'div',
 

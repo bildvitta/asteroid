@@ -3,7 +3,7 @@
     <qas-header v-if="hasHeader" v-bind="props.headerProps" />
 
     <div :class="classes">
-      <div v-for="(field, key) in fieldsByResult" :key="key" class="test" :class="getContainerClass({ key })">
+      <div v-for="(field, key) in fieldsByResult" :key="key" :class="getContainerClassses({ key })">
         <slot :field="field" :name="`field-${field.name}`">
           <qas-grid-item :use-ellipsis="hasEllipsis(field)" :use-inline="props.useInline">
             <template #header>
@@ -19,7 +19,7 @@
             <template #content>
               <slot :field="field" :name="`content-field-${field.name}`">
                 <slot :field="field" name="content">
-                  <div :class="getContentClass(field)" :data-cy="`grid-generator-${field.name}-result`" :title="getTitle(field, 'formattedResult')">
+                  <div :class="getContentClasses(field)" :data-cy="`grid-generator-${field.name}-result`" :title="getTitle(field, 'formattedResult')">
                     {{ field.formattedResult }}
                   </div>
                 </slot>
@@ -181,7 +181,7 @@ function setFieldsByResult () {
   fieldsByResult.value = getFieldsByResult()
 }
 
-function getContainerClass ({ key }) {
+function getContainerClassses ({ key }) {
   if (props.useInline) return 'row justify-between col-12'
 
   return getFieldClass({ index: key, isGridGenerator: true })
@@ -192,12 +192,13 @@ function getTitle (field, key) {
 }
 
 function hasEllipsis (field) {
-  if ((field.type === 'textarea') && !props.useInline) return false
-
-  return props.useEllipsis
+  /**
+   * Para campos do tipo "textarea" vamos sempre exibir o conteúdo por completo.
+   */
+  return (field.type === 'textarea') && !props.useInline ? false : props.useEllipsis
 }
 
-function getContentClass (field) {
+function getContentClasses (field) {
   return [
     props.contentClass,
 
