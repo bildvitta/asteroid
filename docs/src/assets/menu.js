@@ -108,8 +108,8 @@ module.exports = [
         path: '/components/chart-view'
       },
       {
-        name: 'CheckboxGroup',
-        path: '/components/checkbox-group'
+        name: 'Checkbox',
+        path: '/components/checkbox'
       },
       {
         name: 'Copy',
