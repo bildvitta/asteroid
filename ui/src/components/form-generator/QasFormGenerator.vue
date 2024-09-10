@@ -2,7 +2,7 @@
   <div :class="fieldsetClasses">
     <div v-for="(fieldsetItem, fieldsetItemKey) in normalizedFields" :key="fieldsetItemKey" :class="getFieldSetColumnClass(fieldsetItem.column)">
       <component :is="containerComponent.is" v-bind="containerComponent.props">
-        <slot v-if="fieldset.__isFieldset" :name="`legend-${fieldsetItemKey}`">
+        <slot v-if="fieldsetItem.__isFieldset" :name="`legend-${fieldsetItemKey}`">
           <qas-header v-bind="getHeaderProps(fieldsetItem)" />
         </slot>
 
