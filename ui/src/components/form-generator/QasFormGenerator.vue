@@ -27,6 +27,8 @@
             </div>
           </slot>
         </div>
+
+        <slot name="after" />
       </component>
     </div>
   </div>

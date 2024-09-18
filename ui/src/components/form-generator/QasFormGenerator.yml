@@ -97,6 +97,9 @@ slots:
         default: {}
         type: Object
 
+  'after':
+    desc: Acessa o slot após o form.
+
 events:
   '@update:model-value -> function(value)':
     desc: Dispara quando o model-value altera, também usado para v-model.

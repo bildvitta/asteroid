@@ -1,22 +1,42 @@
 <template>
   <div class="container spaced">
-    <qas-form-generator v-model="model" :columns="columns" :fields="fields">
+    <qas-form-generator v-model="model" columns="12" :fields="fields" use-box>
       <template #field-name="{ field }">
-        <div>
+        <div class="bg-red">
           Estou dentro do slot <span class="text-bold">name</span>
-          Scope field: <qas-debugger :inspect="[field]" />
+
+          <div>Scope field:</div>
+
+          <div class="q-pa-sm">
+            <qas-debugger :inspect="[field]" />
+          </div>
         </div>
       </template>
+
       <template #field-phone="{ field }">
-        <div>
+        <div class="bg-blue">
           Estou dentro do slot <span class="text-bold">phone</span>
-          Scope field: <qas-debugger :inspect="[field]" />
+
+          <div>Scope field:</div>
+
+          <div class="q-pa-sm">
+            <qas-debugger :inspect="[field]" />
+          </div>
+        </div>
+      </template>
+
+      <template #after>
+        <div class="bg-green">
+          <div class="q-my-md">
+            Estou dentro do slot <span class="text-bold">after</span>
+          </div>
+
+          <qas-label label="Resumo" />
+
+          <qas-grid-generator :fields="fields" :result="gridValues" use-inline />
         </div>
       </template>
     </qas-form-generator>
-    <div class="q-mt-lg">
-      model: <qas-debugger :inspect="[model]" />
-    </div>
   </div>
 </template>
 
@@ -29,10 +49,12 @@ export default {
   },
 
   computed: {
-    columns () {
+    gridValues () {
       return {
-        phone: { col: 12 },
-        document: { col: 12 }
+        isActive: false,
+        company: 'empresa-1',
+        name: 'Cleyton',
+        email: 'cleyton@email.com.br'
       }
     },
 
