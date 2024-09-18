@@ -97,8 +97,8 @@ slots:
         default: {}
         type: Object
 
-  'after':
-    desc: Acessa o slot após o form.
+  'after-[nome-da-chave]':
+    desc: Acessa o slot after de um fieldset específico.
 
 events:
   '@update:model-value -> function(value)':

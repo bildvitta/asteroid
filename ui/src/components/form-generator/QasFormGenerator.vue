@@ -28,7 +28,7 @@
           </slot>
         </div>
 
-        <slot name="after" />
+        <slot v-if="fieldsetItem.__isFieldset" :name="`after-${fieldsetItemKey}`" />
       </component>
     </div>
   </div>
