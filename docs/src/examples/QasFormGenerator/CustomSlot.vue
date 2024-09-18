@@ -24,18 +24,6 @@
           </div>
         </div>
       </template>
-
-      <template #after>
-        <div class="bg-green">
-          <div class="q-my-md">
-            Estou dentro do slot <span class="text-bold">after</span>
-          </div>
-
-          <qas-label label="Resumo" />
-
-          <qas-grid-generator :fields="fields" :result="gridValues" use-inline />
-        </div>
-      </template>
     </qas-form-generator>
   </div>
 </template>
@@ -49,15 +37,6 @@ export default {
   },
 
   computed: {
-    gridValues () {
-      return {
-        isActive: false,
-        company: 'empresa-1',
-        name: 'Cleyton',
-        email: 'cleyton@email.com.br'
-      }
-    },
-
     fields () {
       return {
         isActive: {
