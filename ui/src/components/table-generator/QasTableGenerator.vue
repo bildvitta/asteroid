@@ -4,7 +4,7 @@
       <qas-header v-if="hasHeaderProps" v-bind="headerProps" />
     </slot>
 
-    <q-table ref="table" class="bg-white qas-table-generator text-grey-8" v-bind="attributes">
+    <q-table v-show="hasResults" ref="table" class="bg-white qas-table-generator text-grey-8" v-bind="attributes">
       <template v-for="(_, name) in slots" #[name]="context">
         <slot :name="name" v-bind="context" />
       </template>
@@ -19,6 +19,8 @@
         </q-td>
       </template>
     </q-table>
+
+    <qas-empty-result-text v-if="!hasResults" />
   </component>
 </template>
 
@@ -130,10 +132,14 @@ export default {
       return !!this.$slots['body-cell']
     },
 
+    hasResults () {
+      return !!this.resultsByFields.length
+    },
+
     attributes () {
       const attributes = {
         class: this.tableClass,
-        columns: this.columnsByFields,
+        columns: this.hasResults ? this.columnsByFields : [],
         flat: true,
         hideBottom: true,
         pagination: { rowsPerPage: 0 },

@@ -1,6 +1,6 @@
 <template>
   <div ref="expansionItem" class="full-width qas-expansion-item" :class="errorClasses" v-bind="expansionProps.parent">
-    <component :is="component.is" class="qas-expansion-item__box">
+    <component :is="component.is" class="qas-expansion-item__box" v-bind="boxProps">
       <q-expansion-item header-class="text-bold q-mt-sm q-pa-none qas-expansion-item__header" :label="props.label" v-bind="expansionProps.item">
         <template #header>
           <slot name="header">
@@ -100,6 +100,8 @@ onMounted(setHasNextSibling)
 
 // constants
 const isNestedExpansionItem = inject('isExpansionItem', false)
+const isNestedBox = inject('isBox', false)
+
 const component = {
   is: isNestedExpansionItem ? 'div' : QasBox
 }
@@ -155,6 +157,21 @@ const expansionProps = computed(() => {
       onAfterHide
     }
   }
+})
+
+const boxProps = computed(() => {
+  /**
+   * Caso o QasExpansionItem estiver dentro de um QasBox e não for um QasExpansionItem
+   * dentro de outro QasExpansionItem, o componente terá uma borda.
+  */
+  if (isNestedBox && !isNestedExpansionItem) {
+    return {
+      unelevated: true,
+      outlined: true
+    }
+  }
+
+  return {}
 })
 
 // functions
