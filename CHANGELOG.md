@@ -13,6 +13,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 ## [Nao publicado]
 ### Adicionado
 - `QasTableGenerator`: adicionado componente `QasEmptyResultText` onde será exibido no caso dos valores da tabela serem vazios.
+- `QasActionsMenu`: adicionado label `Opções` no botão splitted quando não for mobile.
 
 ### Modificado
 - `QasExpansionItem`: modificado componente para ter uma borda caso esteja dentro de um `QasBox`.
