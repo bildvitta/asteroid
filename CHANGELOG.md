@@ -17,9 +17,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 
 ### Modificado
 - `QasExpansionItem`: modificado componente para ter uma borda caso esteja dentro de um `QasBox`.
-
-### Modificado
-- `QasDateTimeInput`: alterado o ícone do calendário.
+- `QasDateTimeInput`: modificado o ícone do calendário.
 
 ## [3.17.0-beta.6] - 10-09-2024
 ### Corrigido
