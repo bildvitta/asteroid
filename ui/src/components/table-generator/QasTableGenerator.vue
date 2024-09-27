@@ -139,7 +139,7 @@ export default {
     attributes () {
       const attributes = {
         class: this.tableClass,
-        columns: this.hasResults ? this.columnsByFields : [],
+        columns: this.columnsByFields,
         flat: true,
         hideBottom: true,
         pagination: { rowsPerPage: 0 },

@@ -109,7 +109,6 @@ const splittedButtonProps = computed(() => {
   return {
     color: 'grey-10',
     disable: props.disable,
-    ...(screen.isSmall ? { icon: props.dropdownIcon } : { iconRight: props.dropdownIcon }),
     [iconKey]: props.dropdownIcon,
     variant: 'tertiary',
     label: 'Opções',
