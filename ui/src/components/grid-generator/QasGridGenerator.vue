@@ -203,7 +203,7 @@ function getContentClasses (field) {
     props.contentClass,
 
     {
-      ellipsis: !screen.isSmall && this.hasEllipsis(field)
+      ellipsis: !screen.isSmall && hasEllipsis(field)
     }
   ]
 }

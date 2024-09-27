@@ -1,6 +1,18 @@
 <template>
   <div class="container spaced">
-    <qas-form-generator v-model="model" :columns="columns" :fields="fields" :fields-props="fieldsProps" :fieldset="fieldset" fieldset-gutter="lg" use-box />
+    <qas-form-generator v-model="model" :columns="columns" :fields="fields" :fields-props="fieldsProps" :fieldset="fieldset" fieldset-gutter="lg" use-box>
+      <template #legend-bottom-personalInformation>
+        <div class="bg-blue">
+          <div class="q-my-md">
+            Estou dentro do slot <span class="text-bold">legend-bottom</span> do fieldset <span class="text-bold">personalInformation</span>
+          </div>
+
+          <qas-label label="Resumo" />
+
+          <qas-grid-generator :fields="fields" :result="gridValues" use-inline />
+        </div>
+      </template>
+    </qas-form-generator>
 
     <div class="q-mt-lg">
       model: <qas-debugger :inspect="[model]" />
@@ -30,6 +42,15 @@ export default {
         isActive: {
           'onUpdate:modelValue': value => alert(`Usuário ativo?: ${value}`)
         }
+      }
+    },
+
+    gridValues () {
+      return {
+        isActive: false,
+        company: 'empresa-1',
+        name: 'Cleyton',
+        email: 'cleyton@email.com.br'
       }
     },
 
