@@ -97,8 +97,8 @@ slots:
         default: {}
         type: Object
 
-  'after-[nome-da-chave]':
-    desc: Acessa o slot after de um fieldset específico.
+  'legend-bottom-[nome-da-chave]':
+    desc: Acessa o slot da seção abaixo do conteúdo do form de um fieldset específico.
 
 events:
   '@update:model-value -> function(value)':

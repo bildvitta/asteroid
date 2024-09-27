@@ -28,7 +28,7 @@
           </slot>
         </div>
 
-        <slot v-if="fieldsetItem.__isFieldset" :name="`after-${fieldsetItemKey}`" />
+        <slot v-if="fieldsetItem.__isFieldset" :name="`legend-bottom-${fieldsetItemKey}`" />
       </component>
     </div>
   </div>

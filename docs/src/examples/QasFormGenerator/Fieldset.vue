@@ -1,10 +1,10 @@
 <template>
   <div class="container spaced">
     <qas-form-generator v-model="model" :columns="columns" :fields="fields" :fields-props="fieldsProps" :fieldset="fieldset" fieldset-gutter="lg" use-box>
-      <template #after-personalInformation>
+      <template #legend-bottom-personalInformation>
         <div class="bg-blue">
           <div class="q-my-md">
-            Estou dentro do slot <span class="text-bold">after</span> do fieldset <span class="text-bold">personalInformation</span>
+            Estou dentro do slot <span class="text-bold">legend-bottom</span> do fieldset <span class="text-bold">personalInformation</span>
           </div>
 
           <qas-label label="Resumo" />
