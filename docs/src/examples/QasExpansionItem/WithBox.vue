@@ -1,6 +1,6 @@
 <template>
   <!-- Usando qas-single-view apenas para recuperar os dados -->
-  <qas-single-view v-model:fields="fields" v-model:result="result" :custom-id="customId" :entity="entity">
+  <qas-single-view v-model:fields="viewState.fields" v-model:result="viewState.result" :custom-id="customId" :entity="entity">
     <qas-box>
       <div class="q-mb-md">Conteúdo dentro de uma box, o Expansion deverá ter uma borda.</div>
       <qas-expansion-item :badges="badges" :grid-generator-props="gridGeneratorProps" label="John Doe" />
@@ -9,12 +9,12 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
+import { computed } from 'vue'
+import { useView } from '@bildvitta/composables'
 
-defineOptions({ name: 'UsersList' })
+defineOptions({ name: 'WithBox' })
 
-const fields = ref({})
-const result = ref({})
+const { viewState } = useView({ mode: 'single' })
 
 const entity = 'users'
 
@@ -33,8 +33,8 @@ const badges = [
 
 const gridGeneratorProps = computed(() => {
   return {
-    fields: fields.value,
-    result: result.value
+    fields: viewState.value.fields,
+    result: viewState.value.result
   }
 })
 

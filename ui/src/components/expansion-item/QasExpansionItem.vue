@@ -164,14 +164,14 @@ const boxProps = computed(() => {
    * Caso o QasExpansionItem estiver dentro de um QasBox e não for um QasExpansionItem
    * dentro de outro QasExpansionItem, o componente terá uma borda.
   */
-  if (isNestedBox && !isNestedExpansionItem) {
-    return {
-      unelevated: true,
-      outlined: true
-    }
-  }
+  const isBoxed = isNestedBox && !isNestedExpansionItem
 
-  return {}
+  if (!isBoxed) return {}
+
+  return {
+    unelevated: isBoxed,
+    outlined: isBoxed
+  }
 })
 
 // functions
