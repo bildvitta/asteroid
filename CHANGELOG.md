@@ -13,6 +13,15 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 ## Não publicado
 ### Adicionado
 - `QasFormGenerator`: criado slot `legend-bottom-[nome-do-fieldset]`.
+- `QasTableGenerator`: adicionado componente `QasEmptyResultText` onde será exibido no caso dos valores da tabela serem vazios.
+
+### Modificado
+- `QasExpansionItem`: modificado componente para ter uma borda caso esteja dentro de um `QasBox`.
+- `QasDateTimeInput`: modificado o ícone do calendário.
+- `QasActionsMenu`: modificado o botão splitted, agora possui a label `Opções` quando não for mobile.
+
+## Corrigido
+- `QasGridGenerator`: ajuste de lógica do ellipsis que estava causando um warning.
 
 ## [3.17.0-beta.6] - 10-09-2024
 ### Corrigido
