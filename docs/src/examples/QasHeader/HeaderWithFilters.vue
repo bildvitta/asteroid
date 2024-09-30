@@ -5,6 +5,8 @@
 </template>
 
 <script setup>
+defineOptions({ name: 'HeaderWithFilters' })
+
 const headerProps = {
   filtersProps: {
     entity: 'users'
