@@ -24,6 +24,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 
 ## Corrigido
 - `QasGridGenerator`: ajuste de lógica do ellipsis que estava causando um warning.
+- `QasChartView`: corrigido tamanho mínimo do componente quando não existem items há serem exibidos.
 
 ## [3.17.0-beta.6] - 10-09-2024
 ### Corrigido

@@ -265,7 +265,7 @@ export default {
     parentComponentProps () {
       return {
         class: 'relative-position',
-        style: `min-height: ${this.height}`
+        style: `min-height: ${this.hasDataSets ? this.height : 'auto'}`
       }
     },
 
