@@ -263,9 +263,11 @@ export default {
     },
 
     parentComponentProps () {
+      const hasMinHeight = this.isFetching || this.hasDataSets
+
       return {
         class: 'relative-position',
-        style: `min-height: ${this.hasDataSets ? this.height : 'auto'}`
+        style: `min-height: ${hasMinHeight ? this.height : 'auto'}`
       }
     },
 
