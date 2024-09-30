@@ -15,9 +15,7 @@
 
       <slot name="actions">
         <div class="q-mt-xs text-right">
-          <qas-actions-menu v-if="hasDefaultActionsMenu" v-bind="props.actionsMenuProps" />
-
-          <qas-btn v-if="hasDefaultButton" :use-label-on-small-screen="false" v-bind="props.buttonProps" />
+          <component :is="actionsComponent.is" v-if="hasActionsSection" v-bind="actionsComponent.props" />
         </div>
       </slot>
     </div>
@@ -31,9 +29,7 @@
 
       <div v-if="!hasLabelSection" class="justify-end row">
         <slot name="actions">
-          <qas-actions-menu v-if="hasDefaultActionsMenu" v-bind="props.actionsMenuProps" />
-
-          <qas-btn v-if="hasDefaultButton" :use-label-on-small-screen="false" v-bind="props.buttonProps" />
+          <component :is="actionsComponent.is" v-if="hasActionsSection" v-bind="actionsComponent.props" />
         </slot>
       </div>
     </div>
@@ -67,6 +63,11 @@ const props = defineProps({
   description: {
     type: String,
     default: ''
+  },
+
+  filtersProps: {
+    default: () => ({}),
+    type: Object
   },
 
   labelProps: {
@@ -106,10 +107,43 @@ const defaultLabelProps = computed(() => {
   }
 })
 
-const hasActionsSection = computed(() => !!slots.actions || hasDefaultButton.value || hasDefaultActionsMenu.value)
+const actionsComponent = computed(() => {
+  const component = {
+    [hasDefaultButton.value]: {
+      is: 'qas-btn',
+      props: {
+        ...props.buttonProps,
+        useLabelOnSmallScreen: false
+      }
+    },
+
+    [hasDefaultActionsMenu.value]: {
+      is: 'qas-actions-menu',
+      props: props.actionsMenuProps
+    },
+
+    [hasDefaultFilters.value]: {
+      is: 'qas-filters',
+      props: {
+        useSearch: false,
+        useChip: false,
+        useSpacing: false,
+        ...props.filtersProps
+      }
+    }
+  }
+
+  return component.true
+})
+
+const hasActionsSection = computed(() => {
+  return !!slots.actions || hasDefaultButton.value || hasDefaultActionsMenu.value || hasDefaultFilters.value
+})
+
 const hasBadges = computed(() => !!props.badges.length)
 const hasLabel = computed(() => !!Object.keys(props.labelProps).length)
 const hasDefaultButton = computed(() => !!Object.keys(props.buttonProps).length)
+const hasDefaultFilters = computed(() => !!Object.keys(props.filtersProps).length)
 const hasDefaultActionsMenu = computed(() => !!Object.keys(props.actionsMenuProps).length)
 const hasDescriptionSection = computed(() => props.description || slots.description)
 const hasLabelSection = computed(() => hasLabel.value || slots.label || hasBadges.value)

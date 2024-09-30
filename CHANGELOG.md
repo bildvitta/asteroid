@@ -17,6 +17,8 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 ### Adicionado
 - `QasFormGenerator`: criado slot `legend-bottom-[nome-do-fieldset]`.
 - `QasTableGenerator`: adicionado componente `QasEmptyResultText` onde será exibido no caso dos valores da tabela serem vazios.
+- `QasHeader`: adicionado nova propriedade `filtersProps`.
+- `QasListItems`: adicionado propriedades `descriptionKey` e `labelKey` para usar o componente através de propriedades ao invés de slot.
 
 ### Modificado
 - `QasExpansionItem`: modificado componente para ter uma borda caso esteja dentro de um `QasBox`.
@@ -27,6 +29,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 ## Corrigido
 - `QasGridGenerator`: ajuste de lógica do ellipsis que estava causando um warning.
 - `QasFormGenerator`: ajuste ao usar o `buttonProps` com um select com opções com label grande, fazia com que o select não respeitasse o ellipsis.
+- `QasChartView`: corrigido tamanho mínimo do componente quando não existem items há serem exibidos.
 
 ## [3.17.0-beta.6] - 10-09-2024
 ### Corrigido
