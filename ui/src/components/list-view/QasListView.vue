@@ -191,9 +191,11 @@ export default {
         const query = { ...this.$route.query, page: this.page }
 
         this.$router.push({ query })
-      } else {
-        this.fetchList({ page: this.page })
+
+        return
       }
+
+      this.fetchList({ page: this.page })
     },
 
     async fetchList (externalPayload = {}) {
