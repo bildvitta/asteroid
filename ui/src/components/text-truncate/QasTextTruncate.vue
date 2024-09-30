@@ -148,7 +148,7 @@ function useDialog ({ props, textContent }) {
     }
   })
 
-  // methods
+  // functions
   function toggle () {
     show.value = !show.value
   }
@@ -170,7 +170,7 @@ function useMutationObserver ({ truncate, callbackFn = () => {} }) {
   onMounted(() => observeContentChange())
   onUnmounted(() => observer.value.disconnect())
 
-  // methods
+  // functions
   function observeContentChange () {
     const config = { childList: true, subtree: true, characterData: true }
 
@@ -197,7 +197,7 @@ function useTruncate ({ parent, props }) {
   // computed
   const isTruncated = computed(() => textWidth.value > maxPossibleWidth.value)
 
-  // methods
+  // functions
   function truncateText () {
     parent.value.style.maxWidth = '100%'
     textWidth.value = truncate.value.clientWidth

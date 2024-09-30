@@ -206,7 +206,7 @@ const fieldContainerClasses = computed(() => {
   ]
 })
 
-// methods
+// functions
 function getFieldType ({ type }) {
   return type === 'hidden' ? 'hidden' : 'visible'
 }

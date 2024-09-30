@@ -153,7 +153,7 @@ const formattedFields = computed(() => {
 // watch
 watch(() => formattedFields.value, setFieldsByResult, { immediate: true })
 
-// methods
+// functions
 function getFieldsByResult () {
   if (!hasResult.value || !hasFields.value) return {}
 
