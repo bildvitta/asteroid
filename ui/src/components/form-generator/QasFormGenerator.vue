@@ -17,7 +17,9 @@
                 </div>
               </div>
 
-              <qas-btn v-if="hasButtonProps(fieldsetItem)" class="md:q-mt-none q-ml-md q-mt-md" v-bind="fieldsetItem.buttonProps" />
+              <div v-if="hasButtonProps(fieldsetItem)" :class="buttonContainerClasses">
+                <qas-btn v-bind="fieldsetItem.buttonProps" />
+              </div>
             </div>
 
             <div v-for="(field, key) in fieldsetItem.fields.hidden" :key="key">
@@ -202,6 +204,12 @@ const fieldContainerClasses = computed(() => {
   ]
 })
 
+const buttonContainerClasses = computed(() => {
+  return screen.isSmall
+    ? 'row items-center justify-end q-mt-lg'
+    : 'q-ml-lg'
+})
+
 // methods
 function getFieldType ({ type }) {
   return type === 'hidden' ? 'hidden' : 'visible'
@@ -236,7 +244,7 @@ function hasButtonProps ({ buttonProps = {} }) {
 }
 
 function getRowContainerClasses (item) {
-  return { row: hasButtonProps(item) }
+  return { row: hasButtonProps(item) && !screen.isSmall }
 }
 
 // composables

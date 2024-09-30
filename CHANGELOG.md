@@ -19,9 +19,11 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - `QasExpansionItem`: modificado componente para ter uma borda caso esteja dentro de um `QasBox`.
 - `QasDateTimeInput`: modificado o ícone do calendário.
 - `QasActionsMenu`: modificado o botão splitted, agora possui a label `Opções` quando não for mobile.
+- `QasListView`: modificado a forma que os loadings são exibidos.
 
 ## Corrigido
 - `QasGridGenerator`: ajuste de lógica do ellipsis que estava causando um warning.
+- `QasFormGenerator`: ajuste ao usar o `buttonProps` com um select com opções com label grande, fazia com que o select não respeitasse o ellipsis.
 
 ## [3.17.0-beta.6] - 10-09-2024
 ### Corrigido
