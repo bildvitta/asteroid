@@ -16,9 +16,6 @@
       <slot name="actions">
         <div class="q-mt-xs text-right">
           <component :is="actionsComponent.is" v-if="hasActionsSection" v-bind="actionsComponent.props" />
-          <!-- <qas-actions-menu v-if="hasDefaultActionsMenu" v-bind="props.actionsMenuProps" />
-
-          <qas-btn v-if="hasDefaultButton" :use-label-on-small-screen="false" v-bind="props.buttonProps" /> -->
         </div>
       </slot>
     </div>
@@ -33,9 +30,6 @@
       <div v-if="!hasLabelSection" class="justify-end row">
         <slot name="actions">
           <component :is="actionsComponent.is" v-if="hasActionsSection" v-bind="actionsComponent.props" />
-          <!-- <qas-actions-menu v-if="hasDefaultActionsMenu" v-bind="props.actionsMenuProps" />
-
-          <qas-btn v-if="hasDefaultButton" :use-label-on-small-screen="false" v-bind="props.buttonProps" /> -->
         </slot>
       </div>
     </div>
@@ -132,6 +126,8 @@ const actionsComponent = computed(() => {
       is: 'qas-filters',
       props: {
         useSearch: false,
+        useChip: false,
+        useSpacing: false,
         ...props.filtersProps
       }
     }
