@@ -61,3 +61,8 @@ Agora ao fazer o fetch, o valor da url enviada para a action do fetchList será 
 
 <doc-example file="QasListView/BeforeFetch" title="Controlando fetch" />
 <doc-example file="QasListView/ExAutoRefetchOnDelete" title="Controle de refetch ao deletar automático" />
+
+:::info
+Ao utilizar mais de um list-view na mesma página que tenha paginação, é recomendado o uso da prop `use-query-pagination` como `false`, para as queries da paginação não se conflitarem, mantendo o controle internamente no componente.
+:::
+<doc-example file="QasListView/InternalPagination" title="Controle interno da paginação" />
