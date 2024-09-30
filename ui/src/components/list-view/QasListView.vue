@@ -163,7 +163,6 @@ export default {
   },
 
   created () {
-    console.log('teste')
     this.mx_fetchHandler({ ...this.mx_context, url: this.url }, this.fetchList)
 
     this.setCurrentPage()
