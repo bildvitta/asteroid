@@ -8,16 +8,20 @@
 
         <div>
           <slot :fields="fieldsetItem.fields?.visible" :name="`legend-section-${fieldsetItemKey}`">
-            <div class="items-end justify-end" :class="getRowContainerClasses(fieldsetItem)">
-              <div :class="fieldContainerClasses">
-                <div v-for="(field, key) in fieldsetItem.fields.visible" :key="key" :class="getFieldClass({ index: key, fields: normalizedFields })">
-                  <slot :field="field" :name="`field-${field.name}`">
-                    <qas-field :disable="isFieldDisabled(field)" v-bind="props.fieldsProps[field.name]" :error="props.errors[key]" :field="field" :model-value="props.modelValue[field.name]" @update:model-value="updateModelValue({ key: field.name, value: $event })" />
-                  </slot>
+            <div class="q-col-gutter-md row">
+              <div class="col">
+                <div :class="fieldContainerClasses">
+                  <div v-for="(field, key) in fieldsetItem.fields.visible" :key="key" :class="getFieldClass({ index: key, fields: normalizedFields })">
+                    <slot :field="field" :name="`field-${field.name}`">
+                      <qas-field :disable="isFieldDisabled(field)" v-bind="props.fieldsProps[field.name]" :error="props.errors[key]" :field="field" :model-value="props.modelValue[field.name]" @update:model-value="updateModelValue({ key: field.name, value: $event })" />
+                    </slot>
+                  </div>
                 </div>
               </div>
 
-              <qas-btn v-if="hasButtonProps(fieldsetItem)" class="md:q-mt-none q-ml-md q-mt-md" v-bind="fieldsetItem.buttonProps" />
+              <div v-if="hasButtonProps(fieldsetItem)" class="col-12 col-sm-auto items-end justify-end row">
+                <qas-btn v-bind="fieldsetItem.buttonProps" />
+              </div>
             </div>
 
             <div v-for="(field, key) in fieldsetItem.fields.hidden" :key="key">
@@ -202,7 +206,7 @@ const fieldContainerClasses = computed(() => {
   ]
 })
 
-// methods
+// functions
 function getFieldType ({ type }) {
   return type === 'hidden' ? 'hidden' : 'visible'
 }
@@ -233,10 +237,6 @@ function updateModelValue ({ key, value }) {
 
 function hasButtonProps ({ buttonProps = {} }) {
   return !!Object.keys(buttonProps).length
-}
-
-function getRowContainerClasses (item) {
-  return { row: hasButtonProps(item) }
 }
 
 // composables

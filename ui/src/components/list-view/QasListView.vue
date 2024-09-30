@@ -12,6 +12,10 @@
       <main class="relative-position">
         <div v-if="showResults">
           <slot />
+
+          <q-inner-loading :showing="mx_isFetching">
+            <q-spinner color="grey" size="3em" />
+          </q-inner-loading>
         </div>
 
         <div v-else-if="!mx_isFetching">
@@ -29,10 +33,6 @@
         <div v-if="hasPages" class="flex items-center q-mt-md" :class="paginationClasses">
           <qas-pagination v-model="page" :max="totalPages" @click="changePage" />
         </div>
-
-        <q-inner-loading :showing="hasResults && mx_isFetching">
-          <q-spinner color="grey" size="3em" />
-        </q-inner-loading>
       </main>
     </q-pull-to-refresh>
 

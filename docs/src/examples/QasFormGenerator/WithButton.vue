@@ -19,7 +19,8 @@ const columns = {
   isActive: { col: 12 },
   phone: { col: 12, sm: 4 },
   name: { col: 12, sm: 4 },
-  email: { col: 12, sm: 4 }
+  email: { col: 12, sm: 4 },
+  company: { col: 12, sm: 4 }
 }
 
 const fieldsProps = {
@@ -32,8 +33,7 @@ const fieldset = {
   personalInformation: {
     label: 'Informações pessoais',
     description: 'Informe o nome e email do usuário.',
-    fields: ['isActive', 'phone', 'name', 'email'],
-    column: '12',
+    fields: ['isActive', 'phone', 'name', 'company'],
     buttonProps: {
       label: 'Botão',
       icon: 'sym_r_draft',
@@ -53,6 +53,19 @@ const fields = {
     label: 'Usuário ativo?',
     type: 'boolean',
     default: false
+  },
+
+  company: {
+    name: 'company',
+    label: 'Empresa',
+    multiple: true,
+    type: 'select',
+    options: [
+      { label: 'Empresa com nome grande 1', value: 'company-1' },
+      { label: 'Empresa com nome grande 2', value: 'company-2' },
+      { label: 'Empresa com nome grande 3', value: 'company-3' },
+      { label: 'Empresa com nome grande 4', value: 'company-4' }
+    ]
   },
 
   name: {
