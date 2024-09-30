@@ -23,6 +23,11 @@ props:
     desc: Descrição da seção a esquerda.
     type: String
 
+  filters-props:
+    desc: Propriedades do QasFilters.
+    default: {}
+    type: Object
+
   label-props:
     desc: Propriedades repassadas para o componente QasLabel.
     type: Object

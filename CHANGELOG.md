@@ -14,6 +14,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 ### Adicionado
 - `QasFormGenerator`: criado slot `legend-bottom-[nome-do-fieldset]`.
 - `QasTableGenerator`: adicionado componente `QasEmptyResultText` onde será exibido no caso dos valores da tabela serem vazios.
+- `QasHeader`: adicionado nova propriedade `filtersProps`.
 - `QasListItems`: adicionado propriedades `descriptionKey` e `labelKey` para usar o componente através de propriedades ao invés de slot.
 
 ### Modificado
