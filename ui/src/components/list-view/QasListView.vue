@@ -87,6 +87,11 @@ export default {
       type: Boolean
     },
 
+    useQueryPagination: {
+      default: true,
+      type: Boolean
+    },
+
     useRefresh: {
       default: true,
       type: Boolean
@@ -182,8 +187,12 @@ export default {
 
   methods: {
     changePage () {
-      const query = { ...this.$route.query, page: this.page }
-      this.$router.push({ query })
+      if (this.useQueryPagination) {
+        const query = { ...this.$route.query, page: this.page }
+        this.$router.push({ query })
+      } else {
+        this.fetchList({ page: this.page })
+      }
     },
 
     async fetchList (externalPayload = {}) {
