@@ -12,7 +12,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 
 ## Não publicado
 ## BREAKING CHANGES
-- `QasListView`: possível breaking changes caso o loading era controlado externamente em conjunto com o `useResultsAreaOnly`.Agora o loading é exibido mesmo a prop sendo passada.
+- `QasListView`: possível breaking changes caso o loading era controlado externamente em conjunto com o `useResultsAreaOnly`. Agora o loading é exibido mesmo a prop sendo passada.
 
 ### Adicionado
 - `QasFormGenerator`: criado slot `legend-bottom-[nome-do-fieldset]`.
