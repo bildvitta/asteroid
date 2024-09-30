@@ -11,6 +11,9 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
 ## Não publicado
+## BREAKING CHANGES
+- `QasListView`: possível breaking changes caso o loading era controlado externamente em conjunto com o `useResultsAreaOnly`.Agora o loading é exibido mesmo a prop sendo passada.
+
 ### Adicionado
 - `QasFormGenerator`: criado slot `legend-bottom-[nome-do-fieldset]`.
 - `QasTableGenerator`: adicionado componente `QasEmptyResultText` onde será exibido no caso dos valores da tabela serem vazios.
