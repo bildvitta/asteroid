@@ -82,7 +82,7 @@ props:
     type: Boolean
 
   use-query-pagination:
-    desc: Controla se vai ter controla da paginação via query. Recomendado o uso como "false" em casos de ter mais de um list-view na mesma página.
+    desc: Habilita o controle da paginação via query param da URL. Recomendado o uso como "false" em casos de ter mais de um list-view na mesma página.
     default: true
     type: Boolean
 
