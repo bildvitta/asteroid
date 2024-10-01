@@ -133,8 +133,6 @@ const actionsComponent = computed(() => {
     }
   }
 
-  console.log(component)
-
   return component.true
 })
 
