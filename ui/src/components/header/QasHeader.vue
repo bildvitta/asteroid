@@ -13,11 +13,11 @@
         </div>
       </div>
 
-      <slot name="actions">
-        <div class="q-mt-xs text-right">
+      <div class="text-right">
+        <slot name="actions">
           <component :is="actionsComponent.is" v-if="hasActionsSection" v-bind="actionsComponent.props" />
-        </div>
-      </slot>
+        </slot>
+      </div>
     </div>
 
     <div class="items-start no-wrap q-col-gutter-sm row" :class="descriptionSectionClasses">
@@ -27,7 +27,7 @@
         </slot>
       </div>
 
-      <div v-if="!hasLabelSection" class="justify-end row">
+      <div v-if="!hasLabelSection" class="justify-end row text-right">
         <slot name="actions">
           <component :is="actionsComponent.is" v-if="hasActionsSection" v-bind="actionsComponent.props" />
         </slot>
@@ -132,6 +132,8 @@ const actionsComponent = computed(() => {
       }
     }
   }
+
+  console.log(component)
 
   return component.true
 })
