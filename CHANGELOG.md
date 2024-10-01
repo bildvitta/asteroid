@@ -12,7 +12,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 
 ## Não publicado
 ### Corrigido
-- `QasHeader`: corrigido espaçamento/alinhamento quando usado a propriedade `actions`.
+- `QasHeader`: corrigido espaçamento/alinhamento da seção de actions.
 
 ## [3.17.0-beta.8] - 30-09-2024
 ### Corrigido
