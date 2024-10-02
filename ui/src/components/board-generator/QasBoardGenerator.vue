@@ -7,8 +7,10 @@
         </qas-box>
 
         <div ref="columnContainer" class="qas-board-generator__column secondary-scroll" :style="containerStyle">
-          <div v-for="(item, indexItem) in getItemsByHeader(header)" :key="indexItem" ref="columnsItems" class="qas-board-generator__item">
-            <slot :fields="getFieldsByHeader(header)" :item="item" name="column-item" />
+          <div ref="columnsItems" class="qas-board-generator__column-items" :data-header-key="getKeyByHeader(header)">
+            <div v-for="item in getItemsByHeader(header)" :id="item[props.itemIdKey]" :key="item[props.itemIdKey]" class="qas-board-generator__item">
+              <slot :fields="getFieldsByHeader(header)" :item="item" name="column-item" />
+            </div>
           </div>
 
           <div class="full-width justify-center q-mb-md q-mt-sm row">
@@ -21,10 +23,14 @@
         </div>
       </div>
     </div>
+
+    <qas-dialog v-model="showConfirmDialog" v-bind="defaultConfirmDialogProps" />
   </qas-grabbable>
 </template>
 
 <script setup>
+import QasDialog from '../dialog/QasDialog.vue'
+
 import { ref, watch, computed, onMounted, markRaw, inject } from 'vue'
 import promiseHandler from '../../helpers/promise-handler'
 
@@ -37,6 +43,10 @@ const columnsPagination = ref({})
 const columnsLoading = ref({})
 const columnsFieldsModel = ref({})
 const columnsItems = ref(null)
+const showConfirmDialog = ref(false)
+
+const onCancelDrop = ref(() => {})
+const onConfirmDrop = ref(() => {})
 
 const axios = inject('axios')
 
@@ -71,7 +81,17 @@ const props = defineProps({
     required: true
   },
 
+  confirmDialogProps: {
+    type: Object,
+    default: () => ({})
+  },
+
   height: {
+    type: String,
+    default: ''
+  },
+
+  itemIdKey: {
     type: String,
     default: ''
   },
@@ -86,13 +106,32 @@ const props = defineProps({
     default: '300px'
   },
 
+  sortableConfig: {
+    type: Object,
+    default: () => ({})
+  },
+
   useMarkRaw: {
     type: Boolean,
     default: true
   },
 
-  useDragAndDrop: {
+  useDragAndDropX: {
     type: Boolean
+  },
+
+  useDragAndDropY: {
+    type: Boolean
+  },
+
+  updatePositionUrl: {
+    type: String,
+    default: ''
+  },
+
+  updatePositionParams: {
+    type: Object,
+    default: () => ({})
   },
 
   lazyLoadingFieldsKeys: {
@@ -106,13 +145,16 @@ const emit = defineEmits([
   'fetch-column-success',
   'fetch-column-error',
   'fetch-columns-success',
-  'fetch-columns-error'
+  'fetch-columns-error',
+  'update-success'
 ])
+
+const hasDragAndDrop = !!props.useDragAndDropX || !!props.useDragAndDropY
 
 const grabbableProps = {
   useScrollBar: true,
 
-  ...(props.useDragAndDrop && {
+  ...(hasDragAndDrop && {
     targetToCancelMouseDown: 'qas-board-generator__item'
   })
 }
@@ -152,6 +194,22 @@ const hasColumnsLength = computed(() => Object.keys(columnsResultsModel.value).l
 
 const containerStyle = computed(() => `width: ${props.columnWidth};`)
 
+const defaultConfirmDialogProps = computed(() => {
+  const defaultProps = {
+    ok: {
+      label: 'Confirmar',
+      onClick: onConfirmDrop.value
+    },
+
+    cancel: {
+      onClick: onCancelDrop.value
+    }
+  }
+
+  // TODO: trocar aqui
+  return defaultProps
+})
+
 // functions
 /*
 * Setar o tamanho do container do board, onde deverá ser a altura passada via prop, ou o default será ocupar o maximo
@@ -178,8 +236,8 @@ async function fetchColumns () {
   if (error) {
     emit('fetch-columns-error', error)
 
-    if (props.useDragAndDrop) handleElementsList()
-
+    // Todo: COLOCAR NO SUCESS
+    if (hasDragAndDrop) handleElementsList()
     return
   }
 
@@ -347,26 +405,154 @@ function getFieldsByHeader (header) {
   return columnsFieldsModel.value[headerKey] || {}
 }
 
+/**
+ * Loopa todos os itens da coluna com base no ref para pegar o elemento HTML e setar e instaciar o sortable.
+ */
 function handleElementsList () {
-  columnsItems.value.forEach(element => setSortable(element))
+  columnsItems.value.forEach((element, index) => setSortable(element, index))
 }
 
-function setSortable (element) {
-  const sortable = new Sortable(element, {
+/**
+ * Descricao:
+ * Seta a instancia do sortable, no qual varia de acordo com as props passadas.
+ *
+ * @param {HTMLElement} element
+ * @param {Number} index
+ */
+function setSortable (element, index) {
+  const defaultConfig = {
     animation: 500,
-    group: 'shared',
-    ghostClass: 'ghost',
-    sort: false,
+    sort: props.useDragAndDropY,
     swapThreshold: 1,
     delay: 50,
     delayOnTouchOnly: true,
     emptyInsertThreshold: 0
+  }
+
+  /**
+   * Verifica se tenho config sendo passado por props.
+   */
+  const hasSortableConfig = !!Object.keys(props.sortableConfig).length
+
+  /**
+   * Caso seja apenas drag and drop no eixo Y
+   */
+  const useOnlyDragAndDropY = !!props.useDragAndDropY && !props.useDragAndDropX
+
+  const sortable = new Sortable(element, {
+    ...defaultConfig,
+
+    ...(hasSortableConfig && props.sortableConfig),
+
+    group: useOnlyDragAndDropY ? `column-${index}` : 'shared',
+
+    direction: useOnlyDragAndDropY ? 'vertical' : 'horizontal',
+
     // onChoose: () => (isDragging.value = true),
     // onEnd: () => (isDragging.value = false)
-    // onAdd: event => this.$emit('add-item', event)
+    onAdd: event => onDropCard(event)
   })
 
   return sortable
+}
+
+function onDropCard (event) {
+  toggleConfirmDialog()
+
+  /**
+   * Seto os callbacks passando o evento referente ao drop
+   */
+  onCancelDrop.value = () => cancelDrop(event)
+
+  onConfirmDrop.value = () => confirmDrop(event)
+}
+
+function toggleConfirmDialog () {
+  showConfirmDialog.value = !showConfirmDialog.value
+}
+
+/**
+ * Descricao:
+ * Caso eu cancele o drop, insere na posicao antiga que pertencia (event.oldIndex) dentro do seu antigo pai (event.from)
+ *
+ * @param {event} event
+ */
+function cancelDrop (event) {
+  event.from.insertBefore(event.item, event.from.children[event.oldIndex])
+
+  toggleConfirmDialog()
+}
+
+function confirmDrop (event) {
+  const { from, item: { id: itemId } } = event
+
+  const { headerKey } = from.dataset
+
+  updatePosition({ headerKey, itemId })
+}
+
+/**
+ *
+ * @param {{
+ *  headerKey: string,
+ *  itemId: string
+ * }}
+ */
+function removeItemFromList ({ headerKey, itemId }) {
+  /**
+   * Coluna referente ao model de resultado
+   */
+  const columnItemList = columnsResultsModel.value[headerKey]
+
+  /**
+   * Busca o item com base em seu ID na lista de itens da coluna
+   */
+  const itemIndex = columnItemList.findIndex(itemContent => itemContent[props.itemIdKey] === itemId)
+
+  /**
+   * Remove o item da listagem com base no index, sendo que preciso subtrair 1 para pegar o index correto
+   */
+  columnItemList.splice(itemIndex, 1)
+}
+
+/**
+ * Descricao:
+ * Metodo que realiza a request de update
+ *
+ * @param {{
+ *  headerKey: string,
+ *  itemId: string
+ * }}
+ */
+async function updatePosition ({ headerKey, itemId }) {
+  const { data, error } = await promiseHandler(
+    axios.get(`${props.updatePositionUrl}/${itemId}/update-position`, {
+      params: props.updatePositionParams
+    }),
+    {
+      errorMessage: 'Mensagem de erro pra colocar aqui.',
+      useLoading: false,
+      onLoading: value => {
+        columnsLoading.value[headerKey] = value
+      }
+    }
+  )
+
+  if (error) {
+    onCancelDrop.value()
+
+    return
+  }
+
+  removeItemFromList({ headerKey, itemId })
+
+  setItemList({ headerKey, data })
+
+  emit('update-success')
+}
+
+function setItemList ({ headerKey, data }) {
+  console.log('Adicionar o item a nova listagem')
 }
 </script>
 
@@ -389,6 +575,11 @@ function setSortable (element) {
     &::-webkit-scrollbar {
       display: none;
     }
+  }
+
+  // 60px é o valor do padding definido no container da column.
+  &__column-items {
+    height: calc(100% - 60px);
   }
 }
 </style>
