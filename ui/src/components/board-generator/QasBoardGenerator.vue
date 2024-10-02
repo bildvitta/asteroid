@@ -1,13 +1,15 @@
 <template>
-  <qas-grabbable class="qas-board-generator" use-scroll-bar>
+  <qas-grabbable class="qas-board-generator" v-bind="grabbableProps">
     <div class="no-wrap q-col-gutter-sm q-px-xl row">
       <div v-for="(header, index) in headers" :key="index" class="q-mr-sm">
-        <qas-box class="q-mb-md">
-          <slot :fields="getFieldsByHeader(header)" :header="header" name="header-column" />
+        <qas-box class="q-mb-md" v-bind="headerBoxProps">
+          <slot :fields="getFieldsByHeader(header)" :header="header" :index="index" name="header-column" />
         </qas-box>
 
         <div ref="columnContainer" class="qas-board-generator__column secondary-scroll" :style="containerStyle">
-          <slot v-for="item in getItemsByHeader(header)" :fields="getFieldsByHeader(header)" :item="item" name="column-item" />
+          <div v-for="(item, indexItem) in getItemsByHeader(header)" :key="indexItem" ref="columnsItems" class="qas-board-generator__item">
+            <slot :fields="getFieldsByHeader(header)" :item="item" name="column-item" />
+          </div>
 
           <div class="full-width justify-center q-mb-md q-mt-sm row">
             <qas-btn v-if="hasSeeMore(header)" icon="sym_r_add" label="Ver mais" :use-label-on-small-screen="false" variant="tertiary" @click="fetchColumn(header)" />
@@ -26,12 +28,15 @@
 import { ref, watch, computed, onMounted, markRaw, inject } from 'vue'
 import promiseHandler from '../../helpers/promise-handler'
 
+import Sortable from 'sortablejs'
+
 defineOptions({ name: 'QasBoardGenerator' })
 
 const columnContainer = ref(null)
 const columnsPagination = ref({})
 const columnsLoading = ref({})
 const columnsFieldsModel = ref({})
+const columnsItems = ref(null)
 
 const axios = inject('axios')
 
@@ -42,6 +47,11 @@ const props = defineProps({
   },
 
   results: {
+    type: Object,
+    default: () => ({})
+  },
+
+  headerBoxProps: {
     type: Object,
     default: () => ({})
   },
@@ -81,6 +91,10 @@ const props = defineProps({
     default: true
   },
 
+  useDragAndDrop: {
+    type: Boolean
+  },
+
   lazyLoadingFieldsKeys: {
     type: Array,
     default: () => []
@@ -95,6 +109,15 @@ const emit = defineEmits([
   'fetch-columns-error'
 ])
 
+const grabbableProps = {
+  useScrollBar: true,
+
+  ...(props.useDragAndDrop && {
+    targetToCancelMouseDown: 'qas-board-generator__item'
+  })
+}
+
+// Watchers
 watch(
   () => props.headers,
   () => {
@@ -114,6 +137,7 @@ onMounted(() => {
 
 defineExpose({ fetchColumns, fetchColumn, reset })
 
+// Computeds
 const columnsResultsModel = computed({
   get () {
     return props.results
@@ -128,6 +152,7 @@ const hasColumnsLength = computed(() => Object.keys(columnsResultsModel.value).l
 
 const containerStyle = computed(() => `width: ${props.columnWidth};`)
 
+// functions
 /*
 * Setar o tamanho do container do board, onde deverá ser a altura passada via prop, ou o default será ocupar o maximo
 * de espaço que ele conseguir considerando a altura do container em relação ao topo.
@@ -152,6 +177,8 @@ async function fetchColumns () {
 
   if (error) {
     emit('fetch-columns-error', error)
+
+    if (props.useDragAndDrop) handleElementsList()
 
     return
   }
@@ -318,6 +345,28 @@ function getFieldsByHeader (header) {
   const headerKey = getKeyByHeader(header)
 
   return columnsFieldsModel.value[headerKey] || {}
+}
+
+function handleElementsList () {
+  columnsItems.value.forEach(element => setSortable(element))
+}
+
+function setSortable (element) {
+  const sortable = new Sortable(element, {
+    animation: 500,
+    group: 'shared',
+    ghostClass: 'ghost',
+    sort: false,
+    swapThreshold: 1,
+    delay: 50,
+    delayOnTouchOnly: true,
+    emptyInsertThreshold: 0
+    // onChoose: () => (isDragging.value = true),
+    // onEnd: () => (isDragging.value = false)
+    // onAdd: event => this.$emit('add-item', event)
+  })
+
+  return sortable
 }
 </script>
 
