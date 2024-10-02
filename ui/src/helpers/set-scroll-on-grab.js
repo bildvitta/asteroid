@@ -7,10 +7,11 @@
 *  onMoveFn: function({ element: HTMLElement, event: MouseEvent | TouchEvent }),
 *  onScrollFn: function({ element: HTMLElement, event: Event })
 * }} options
+* @param {String} targetToCancelMouseDown
 *
 * @returns {{ element: HTMLElement, destroyEvents: function }}
 */
-export default function (element, options = {}) {
+export default function (element, options = {}, targetToCancelMouseDown) {
   let isDown = false
   let startX
   let scrollLeft
@@ -46,6 +47,11 @@ export default function (element, options = {}) {
   }
 
   function onMouseEnter (event) {
+    /**
+     * closest busca ancestral mais próximo de um elemento, ou seja, verifica se no event que recebo, tenho a classe no qual nao se deve aplicar o grab.
+     */
+    if (!!targetToCancelMouseDown && !!event.target.closest(`.${targetToCancelMouseDown}`)) return null
+
     onEnter()
 
     startX = event.pageX - element.offsetLeft
