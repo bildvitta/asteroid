@@ -10,6 +10,18 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 ### Sobre os "BREAKING CHANGES"
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
+## Nao publicado
+### Adicionado
+- `QasBoardGenerator`: 
+  - Adicionado possibilidade do componente ser Drag and Drop.
+  - Adicionado `headerBoxProps` para repassar props pro box do header.
+- `QasGrabbable`: Adicionado prop para passar um elemento para ignorar o Grab.
+- `set-scroll-on-grab`: Adicionado validacao para controlar elementos a ser ignorado no grab.
+
+### Modificado
+- Atualizado SortableJS para `1.15.3`.
+- `QasCard`: Modificado tipografia do titulo para H5.
+
 ## [3.17.0-beta.8] - 30-09-2024
 ### Corrigido
 - `QasChartView`: corrigido altura mínima ao fazer fetch.

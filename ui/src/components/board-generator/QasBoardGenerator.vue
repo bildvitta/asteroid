@@ -9,7 +9,7 @@
         <div ref="columnContainer" class="qas-board-generator__column secondary-scroll" :style="containerStyle">
           <div ref="columnsItems" class="qas-board-generator__column-items" :data-header-key="getKeyByHeader(header)">
             <div v-for="item in getItemsByHeader(header)" :id="item[props.itemIdKey]" :key="item[props.itemIdKey]" class="qas-board-generator__item">
-              <slot :fields="getFieldsByHeader(header)" :item="item" name="column-item" />
+              <slot :column-index="index" :fields="getFieldsByHeader(header)" :item="item" name="column-item" />
             </div>
           </div>
 
