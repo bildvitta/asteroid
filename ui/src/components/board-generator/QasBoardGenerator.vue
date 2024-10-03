@@ -190,9 +190,11 @@ const columnsResultsModel = computed({
   }
 })
 
-const hasColumnsLength = computed(() => Object.keys(columnsResultsModel.value).length)
+const hasColumnsLength = computed(() => !!Object.keys(columnsResultsModel.value).length)
 
 const containerStyle = computed(() => `width: ${props.columnWidth};`)
+
+const hasConfirmDialogProps = computed(() => !!Object.keys(props.confirmDialogProps).length)
 
 const defaultConfirmDialogProps = computed(() => {
   const defaultProps = {
@@ -206,8 +208,10 @@ const defaultConfirmDialogProps = computed(() => {
     }
   }
 
-  // TODO: trocar aqui
-  return defaultProps
+  return {
+    ...defaultProps,
+    ...props.confirmDialogProps
+  }
 })
 
 // functions
@@ -450,21 +454,23 @@ function setSortable (element, index) {
 
     // onEnd: () => (isDragging.value = false)
     onAdd: event => onDropCard(event),
-    onSort: event => onDropCard(event)
+
+    ...(props.useDragAndDropY && {
+      onSort: event => onDropCard(event)
+    })
   })
 
   return sortable
 }
 
 function onDropCard (event) {
-  toggleConfirmDialog()
-
-  /**
-   * Seto os callbacks passando o evento referente ao drop
-   */
   onCancelDrop.value = () => cancelDrop(event)
 
   onConfirmDrop.value = () => confirmDrop(event)
+
+  hasConfirmDialogProps.value
+    ? toggleConfirmDialog()
+    : confirmDrop(event)
 }
 
 function toggleConfirmDialog () {
@@ -495,7 +501,7 @@ function cancelDrop (event) {
     event.from.insertBefore(event.item, insertBeforeElement)
   }
 
-  toggleConfirmDialog()
+  if (hasConfirmDialogProps.value) toggleConfirmDialog()
 }
 
 function confirmDrop (event) {
