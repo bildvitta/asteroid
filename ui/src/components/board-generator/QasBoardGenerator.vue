@@ -108,7 +108,13 @@ const props = defineProps({
 
   sortableConfig: {
     type: Object,
-    default: () => ({})
+    default: () => ({
+      animation: 500,
+      swapThreshold: 1,
+      delay: 50,
+      delayOnTouchOnly: true,
+      emptyInsertThreshold: 0
+    })
   },
 
   useMarkRaw: {
@@ -246,6 +252,8 @@ async function fetchColumns () {
   }
 
   emit('fetch-columns-success')
+
+  if (hasDragAndDrop) handleElementsList()
 }
 
 /*
@@ -424,29 +432,15 @@ function handleElementsList () {
  * @param {Number} index
  */
 function setSortable (element, index) {
-  const defaultConfig = {
-    animation: 500,
-    sort: props.useDragAndDropY,
-    swapThreshold: 1,
-    delay: 50,
-    delayOnTouchOnly: true,
-    emptyInsertThreshold: 0
-  }
-
-  /**
-   * Verifica se tenho config sendo passado por props.
-   */
-  const hasSortableConfig = !!Object.keys(props.sortableConfig).length
-
   /**
    * Caso seja apenas drag and drop no eixo Y
    */
   const useOnlyDragAndDropY = !!props.useDragAndDropY && !props.useDragAndDropX
 
   const sortable = new Sortable(element, {
-    ...defaultConfig,
+    sort: props.useDragAndDropY,
 
-    ...(hasSortableConfig && props.sortableConfig),
+    ...props.sortableConfig,
 
     group: useOnlyDragAndDropY ? `column-${index}` : 'shared',
 
@@ -556,7 +550,7 @@ async function updatePosition ({ headerKey, itemId, event }) {
   const { data, error } = await promiseHandler(
     axios.patch(`${props.updatePositionUrl}/${itemId}/update-position`, params),
     {
-      errorMessage: 'Mensagem de erro pra colocar aqui.',
+      errorMessage: 'Ocorreu um erro ao atualizar a posição de seu item.',
       useLoading: false,
       onLoading: value => {
         columnsLoading.value[headerKey] = value
