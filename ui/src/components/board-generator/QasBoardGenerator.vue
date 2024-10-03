@@ -448,9 +448,9 @@ function setSortable (element, index) {
 
     direction: useOnlyDragAndDropY ? 'vertical' : 'horizontal',
 
-    // onChoose: () => (isDragging.value = true),
     // onEnd: () => (isDragging.value = false)
-    onAdd: event => onDropCard(event)
+    onAdd: event => onDropCard(event),
+    onSort: event => onDropCard(event)
   })
 
   return sortable
@@ -478,17 +478,32 @@ function toggleConfirmDialog () {
  * @param {event} event
  */
 function cancelDrop (event) {
-  event.from.insertBefore(event.item, event.from.children[event.oldIndex])
+  if (props.useDragAndDropX) event.from.insertBefore(event.item, event.from.children[event.oldIndex])
+
+  if (props.useDragAndDropY) {
+    const oldIndex = event.oldIndex
+
+    const targetIndex = oldIndex === 0 ? oldIndex : oldIndex + 1
+
+    /**
+     * Verifica se o índice alvo é válido, caso contrário, define como o final
+     */
+    const insertBeforeElement = targetIndex < event.from.children.length
+      ? event.from.children[targetIndex]
+      : null
+
+    event.from.insertBefore(event.item, insertBeforeElement)
+  }
 
   toggleConfirmDialog()
 }
 
 function confirmDrop (event) {
-  const { from, item: { id: itemId } } = event
+  const { to, item: { id: itemId } } = event
 
-  const { headerKey } = from.dataset
+  const { headerKey } = to.dataset
 
-  updatePosition({ headerKey, itemId })
+  updatePosition({ headerKey, itemId, event })
 }
 
 /**
@@ -521,14 +536,19 @@ function removeItemFromList ({ headerKey, itemId }) {
  *
  * @param {{
  *  headerKey: string,
- *  itemId: string
+ *  itemId: string,
+ *  event: event
  * }}
  */
-async function updatePosition ({ headerKey, itemId }) {
+async function updatePosition ({ headerKey, itemId, event }) {
+  const params = {
+    [props.columnIdKey]: headerKey,
+    ...(props.useDragAndDropY && { newIndex: event.newIndex }),
+    ...props.updatePositionParams
+  }
+
   const { data, error } = await promiseHandler(
-    axios.get(`${props.updatePositionUrl}/${itemId}/update-position`, {
-      params: props.updatePositionParams
-    }),
+    axios.patch(`${props.updatePositionUrl}/${itemId}/update-position`, params),
     {
       errorMessage: 'Mensagem de erro pra colocar aqui.',
       useLoading: false,
