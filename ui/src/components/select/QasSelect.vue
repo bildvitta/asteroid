@@ -1,7 +1,7 @@
 <template>
-  <q-select v-model="model" v-bind="attributes" class="qas-select" :class="componentClasses" no-error-icon :outlined="false">
-    <template v-if="isSearchable" #prepend>
-      <q-icon name="sym_r_search" />
+  <q-select v-model="model" v-bind="attributes" class="qas-select" :class="componentClasses" no-error-icon>
+    <template v-if="hasIcon" #prepend>
+      <q-icon :name="defaultIcon" />
     </template>
 
     <template #no-option>
@@ -77,6 +77,11 @@ export default {
 
   mixins: [searchFilterMixin],
 
+  inject: {
+    isBox: { default: false },
+    isDialog: { default: false }
+  },
+
   props: {
     badgeProps: {
       default: () => ({}),
@@ -86,6 +91,11 @@ export default {
     fuseOptions: {
       default: () => ({}),
       type: Object
+    },
+
+    icon: {
+      type: String,
+      default: ''
     },
 
     label: {
@@ -132,6 +142,11 @@ export default {
     useSearch: {
       type: Boolean,
       default: undefined
+    },
+
+    useFilterMode: {
+      type: Boolean,
+      default: false
     }
   },
 
@@ -150,7 +165,7 @@ export default {
         clearable: this.isSearchable,
         emitValue: true,
         mapOptions: true,
-        outlined: true,
+        outlined: this.useFilterMode,
         dense: true,
         dropdownIcon: 'sym_r_expand_more',
         clearIcon: 'sym_r_close',
@@ -186,6 +201,10 @@ export default {
 
     isSearchable () {
       return this.hasFuse || this.useLazyLoading
+    },
+
+    isBordered () {
+      return (this.isBox || this.isDialog) && this.useFilterMode
     },
 
     hasError () {
@@ -235,7 +254,13 @@ export default {
     // redesign
     componentClasses () {
       return {
-        'qas-select--has-icon': this.isSearchable || this.hasAppend,
+        ...(this.useFilterMode && {
+          'qas-select--filter rounded-borders': true,
+          'shadow-2': !this.isBordered,
+          bordered: this.isBordered
+        }),
+
+        'qas-select--has-icon': this.hasAppend || this.hasIcon,
         'qas-select--closed': !this.isPopupContentOpen,
         'qas-select--loading': this.hasLoading
       }
@@ -251,6 +276,14 @@ export default {
 
     hasAppend () {
       return !!this.$slots.append
+    },
+
+    defaultIcon () {
+      return this.icon || 'sym_r_search'
+    },
+
+    hasIcon () {
+      return this.isSearchable || !!this.icon
     }
   },
 
@@ -426,6 +459,12 @@ export default {
       .q-item {
         color: $grey-6;
       }
+    }
+  }
+
+  &--filter {
+    .q-field__control:before {
+      border: 0;
     }
   }
 
