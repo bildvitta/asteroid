@@ -1,27 +1,31 @@
 <template>
   <div ref="expansionItem" class="full-width qas-expansion-item" :class="errorClasses" v-bind="expansionProps.parent">
     <component :is="component.is" class="qas-expansion-item__box" v-bind="boxProps">
-      <q-expansion-item header-class="text-bold q-mt-sm q-pa-none qas-expansion-item__header" :label="props.label" v-bind="expansionProps.item">
+      <q-expansion-item v-bind="expansionProps.item" :disable="true" header-class="text-bold q-mt-sm q-pa-none qas-expansion-item__header" hide-expand-icon :label="props.label">
         <template #header>
           <slot name="header">
-            <div class="full-width">
-              <div class="items-center q-col-gutter-sm row">
-                <slot name="label">
-                  <h5 class="col-auto text-h5">
-                    {{ props.label }}
-                  </h5>
-                </slot>
+            <div class="full-width justify-between row">
+              <div class="col-auto">
+                <div class="items-center q-col-gutter-sm row">
+                  <slot name="label">
+                    <h5 class="col-auto text-h5">
+                      {{ props.label }}
+                    </h5>
+                  </slot>
 
-                <div class="col-auto items-center q-col-gutter-sm row">
-                  <div v-for="(badge, badgeIndex) in props.badges" :key="badgeIndex" class="col-auto">
-                    <qas-badge v-bind="badge" />
+                  <div v-if="hasBadges" class="col-auto items-center q-col-gutter-sm row">
+                    <div v-for="(badge, badgeIndex) in props.badges" :key="badgeIndex" class="col-auto">
+                      <qas-badge v-bind="badge" />
+                    </div>
                   </div>
+                </div>
+
+                <div v-if="hasHeaderBottom" class="q-mt-sm">
+                  <slot name="header-bottom" />
                 </div>
               </div>
 
-              <div v-if="hasHeaderBottom" class="q-mt-sm">
-                <slot name="header-bottom" />
-              </div>
+              <qas-btn icon="sym_r_keyboard_arrow_up" />
             </div>
           </slot>
         </template>
@@ -58,6 +62,11 @@ const props = defineProps({
   badges: {
     type: Array,
     default: () => []
+  },
+
+  disabled: {
+    type: Boolean,
+    default: false
   },
 
   error: {
@@ -107,6 +116,7 @@ const component = {
 }
 
 // computed
+const hasBadges = computed(() => !!props.badges.length)
 const hasError = computed(() => props.error || !!props.errorMessage)
 const hasGridGenerator = computed(() => !!Object.keys(props.gridGeneratorProps).length)
 const hasBottomSeparator = computed(() => isNestedExpansionItem && hasNextSibling.value)

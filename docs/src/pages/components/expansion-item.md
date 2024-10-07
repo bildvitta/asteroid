@@ -18,9 +18,10 @@ Componente de card expansivo, wrapper do QExpansionItem(https://quasar.dev/vue-c
 
 ## Uso
 
-<doc-example file="QasExpansionItem/Basic" title="Básico" />
+<!-- <doc-example file="QasExpansionItem/Basic" title="Básico" />
 <doc-example file="QasExpansionItem/Slot" title="Slot" />
 <doc-example file="QasExpansionItem/Nested" title="Nested" />
 <doc-example file="QasExpansionItem/HeaderBottomSlot" title="HeaderBottomSlot" />
 <doc-example file="QasExpansionItem/Error" title="Com erro" />
-<doc-example file="QasExpansionItem/WithBox" title="Dentro de um QasBox" />
+<doc-example file="QasExpansionItem/WithBox" title="Dentro de um QasBox" /> -->
+<doc-example file="QasExpansionItem/Disable" title="Desabilitado" />
