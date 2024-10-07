@@ -14,7 +14,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 ### Adicionado
 - `QasSelect`:
   - Adicionado propriedade `icon` para ser utilizado sem necessidade de slot e junto a propriedade `useFilterMode`.
-  - Adicionado nova propriedade `useFilter`.
+  - Adicionado nova propriedade `useFilterMode`.
 
 ## [3.17.0-beta.8] - 30-09-2024
 ### Corrigido
