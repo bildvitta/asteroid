@@ -10,6 +10,12 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 ### Sobre os "BREAKING CHANGES"
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
+## Não publicado
+### Adicionado
+- `QasSelect`:
+  - Adicionado propriedade `icon` para ser utilizado sem necessidade de slot e junto a propriedade `useFilterMode`.
+  - Adicionado nova propriedade `useFilter`.
+
 ## [3.17.0-beta.8] - 30-09-2024
 ### Corrigido
 - `QasChartView`: corrigido altura mínima ao fazer fetch.

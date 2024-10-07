@@ -24,6 +24,15 @@ Hoje Utilizamos 1 biblioteca compatível:
 <doc-example file="QasSelect/Required" title="Obrigatório" />
 
 :::info
+#### Modo filtro
+
+- Utilize o modo de filtro apenas em casos onde o select serve para filtrar informações na tela.
+- Sempre utilize um ícone personalizado quando utilizado no modo filtro.
+- Select fora de box/dialog tem estilo com sombra, dentro de box/dialog tem estilo com borda.
+:::
+<doc-example file="QasSelect/FilterMode" title="Modo Filtro" />
+
+:::info
 Quando o select for `required` ou tiver a prop `use-auto-select` e houver apenas UMA opção disponível, o seu valor é setado automaticamente.
 :::
 <doc-example file="QasSelect/AutoSelect" title="Auto select" />
