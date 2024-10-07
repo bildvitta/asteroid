@@ -145,8 +145,7 @@ export default {
     },
 
     useFilterMode: {
-      type: Boolean,
-      default: false
+      type: Boolean
     }
   },
 
