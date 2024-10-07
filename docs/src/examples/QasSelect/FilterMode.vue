@@ -75,26 +75,6 @@ const selectProps = {
     {
       label: 'Opção 10',
       value: 10
-    },
-    {
-      label: 'Opção 11',
-      value: 11
-    },
-    {
-      label: 'Opção 12',
-      value: 12
-    },
-    {
-      label: 'Opção 13',
-      value: 13
-    },
-    {
-      label: 'Opção 14',
-      value: 14
-    },
-    {
-      label: 'Opção 15',
-      value: 15
     }
   ],
 
