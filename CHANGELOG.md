@@ -10,6 +10,21 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 ### Sobre os "BREAKING CHANGES"
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
+## Não publicado
+## BREAKING CHANGES
+- `QasExpansionItems`: modificado slot header, agora ao abrir, ele sobrescreve toda a seção header, incluindo o botão de dropdown.
+
+### Adicionado
+- `QasExpansionItems`:
+  - adicionado propriedade `disable`.
+  - adicionado propriedade `disableButton`.
+  - adicionado propriedade `group`.
+  - adicionado v-model.
+  - adicionado novo slot `header-left`.
+
+### Modificado
+- `QasExpansionItems`: modificado slot header, agora ao abrir, ele sobrescreve toda a seção header, incluindo o botão de dropdown.
+
 ## [3.17.0-beta.9] - 07-10-2024
 ### Adicionado
 - `QasSelect`:
