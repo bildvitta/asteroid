@@ -149,8 +149,7 @@ const classes = computed(() => {
   return {
     'qas-expansion-item--error': hasError.value,
     'qas-expansion-item--disabled': props.disable || props.disableButton,
-    'qas-expansion-item--disabled-full': props.disable,
-    'qas-expansion-item--disabled-button': !props.disable && props.disableButton
+    'qas-expansion-item--disabled-full': props.disable
   }
 })
 
