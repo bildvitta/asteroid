@@ -7,7 +7,7 @@
             <qas-search-input v-model="internalSearch" :placeholder="searchPlaceholder" :use-search-on-type="useSearchOnType" @clear="clearSearch" @filter="filter()" @update:model-value="onSearch">
               <template v-if="showFilterButton" #after-clear>
                 <slot :context="mx_context" :filter="filter" :filters="activeFilters" name="filter-button" :remove-filter="removeFilter">
-                  <pv-filters-button v-if="useFilterButton" ref="filtersButton" v-model="internalFilters" v-bind="filterButtonProps" />
+                  <pv-filters-drawer v-if="useFilterButton" ref="filtersButton" v-model="internalFilters" v-bind="filterButtonProps" />
                 </slot>
               </template>
             </qas-search-input>
@@ -17,7 +17,7 @@
 
       <div v-else-if="showFilterButton" class="col-12">
         <slot :context="mx_context" :filter="filter" :filters="activeFilters" name="filter-button" :remove-filter="removeFilter">
-          <pv-filters-button v-if="useFilterButton" ref="filtersButton" v-model="internalFilters" v-bind="filterButtonProps" />
+          <pv-filters-drawer v-if="useFilterButton" ref="filtersButton" v-model="internalFilters" v-bind="filterButtonProps" />
         </slot>
       </div>
 
@@ -39,7 +39,8 @@
 </template>
 
 <script>
-import PvFiltersButton from './private/PvFiltersButton.vue'
+// import PvFiltersButton from './private/PvFiltersButton.vue'
+import PvFiltersDrawer from './private/PvFiltersDrawer.vue'
 import debug from 'debug'
 
 import { camelize, camelizeKeys, decamelize } from 'humps'
@@ -53,7 +54,8 @@ export default {
   name: 'QasFilters',
 
   components: {
-    PvFiltersButton
+    // PvFiltersButton,
+    PvFiltersDrawer
   },
 
   mixins: [contextMixin],
