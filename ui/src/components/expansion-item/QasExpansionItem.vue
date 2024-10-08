@@ -1,7 +1,7 @@
 <template>
   <div ref="expansionItem" class="full-width qas-expansion-item" :class="classes" v-bind="expansionProps.parent">
     <component :is="component.is" class="qas-expansion-item__box" v-bind="boxProps">
-      <q-expansion-item v-model="modelValue" v-bind="expansionProps.item" :disable="isDisabled" :group="props.group" header-class="text-bold q-mt-sm q-pa-none qas-expansion-item__header" hide-expand-icon :label="props.label">
+      <q-expansion-item v-model="modelValue" v-bind="expansionProps.item" header-class="text-bold q-mt-sm q-pa-none qas-expansion-item__header">
         <template #header>
           <slot name="header">
             <div class="full-width justify-between no-wrap row">
@@ -172,11 +172,15 @@ const expansionProps = computed(() => {
   } = attrs
 
   return {
-    parent: {
-      ...propsPayload
-    },
+    parent: propsPayload,
 
     item: {
+      disable: isDisabled.value,
+      hideExpandIcon: true,
+      label: props.label,
+      group: props.group,
+
+      // events
       onUpdateModelValue,
       onShow,
       onBeforeShow,
