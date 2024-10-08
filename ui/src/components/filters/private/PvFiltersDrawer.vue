@@ -112,7 +112,7 @@ const showDrawer = ref(false)
 const drawerProps = {
   title: 'Filtrar',
   position: 'right',
-  maxWidth: '600px'
+  maxWidth: '480px'
 }
 
 // functions
