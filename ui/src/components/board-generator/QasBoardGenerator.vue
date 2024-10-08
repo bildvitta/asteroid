@@ -6,17 +6,15 @@
           <slot :fields="getFieldsByHeader(header)" :header="header" :index="index" name="header-column" />
         </qas-box>
 
-        <div ref="columnContainer" class="qas-board-generator__column secondary-scroll" :style="containerStyle">
-          <div ref="columnsItems" class="qas-board-generator__column-items" :data-header-key="getKeyByHeader(header)">
-            <div v-for="item in getItemsByHeader(header)" :id="item[props.itemIdKey]" :key="item[props.itemIdKey]" class="qas-board-generator__item">
-              <slot :column-index="index" :fields="getFieldsByHeader(header)" :item="item" name="column-item" />
-            </div>
+        <div ref="columnContainer" class="qas-board-generator__column secondary-scroll" :data-header-key="getKeyByHeader(header)" :style="containerStyle">
+          <div v-for="item in getItemsByHeader(header)" :id="item[props.itemIdKey]" :key="item[props.itemIdKey]" class="qas-board-generator__item">
+            <slot :column-index="index" :fields="getFieldsByHeader(header)" :item="item" name="column-item" />
           </div>
 
-          <div class="full-width justify-center q-mb-md q-mt-sm row">
+          <div class="full-width justify-center row">
             <qas-btn v-if="hasSeeMore(header)" icon="sym_r_add" label="Ver mais" :use-label-on-small-screen="false" variant="tertiary" @click="fetchColumn(header)" />
 
-            <q-spinner v-if="columnsLoading[getKeyByHeader(header)]" color="grey-4" size="3em" />
+            <q-spinner v-if="columnsLoading[getKeyByHeader(header)]" class="q-mb-md" color="grey-4" size="3em" />
 
             <qas-empty-result-text v-if="hasEmptyResultText(header)" />
           </div>
@@ -31,24 +29,12 @@
 <script setup>
 import QasDialog from '../dialog/QasDialog.vue'
 
-import { ref, watch, computed, onMounted, markRaw, inject } from 'vue'
+import { ref, watch, computed, onUnmounted, markRaw, inject, nextTick, onMounted } from 'vue'
 import promiseHandler from '../../helpers/promise-handler'
 
 import Sortable from 'sortablejs'
 
 defineOptions({ name: 'QasBoardGenerator' })
-
-const columnContainer = ref(null)
-const columnsPagination = ref({})
-const columnsLoading = ref({})
-const columnsFieldsModel = ref({})
-const columnsItems = ref(null)
-const showConfirmDialog = ref(false)
-
-const onCancelDrop = ref(() => {})
-const onConfirmDrop = ref(() => {})
-
-const axios = inject('axios')
 
 const props = defineProps({
   headers: {
@@ -155,6 +141,37 @@ const emit = defineEmits([
   'update-success'
 ])
 
+defineExpose({ fetchColumns, fetchColumn, reset })
+
+// Inject
+const axios = inject('axios')
+
+// Refs
+const columnContainer = ref(null)
+const columnsPagination = ref({})
+const columnsLoading = ref({})
+const columnsFieldsModel = ref({})
+const showConfirmDialog = ref(false)
+const isDragging = ref(false)
+const isLoadingUpdatePosition = ref(false)
+
+/**
+ * Instâncias do sortable, que são utilizadas para realizar o destroy ao sair da página
+ */
+const sortableInstances = ref([])
+
+/**
+ * Callbacks que recebe o event de movimentação
+ */
+const onCancelDrop = ref(() => {})
+const onConfirmDrop = ref(() => {})
+
+/**
+ * Variável auxiliar que controla quando estou atualizando o header em caso de drag and drop
+ */
+const isUpdatePosition = ref(false)
+
+// Consts
 const hasDragAndDrop = !!props.useDragAndDropX || !!props.useDragAndDropY
 
 const grabbableProps = {
@@ -168,11 +185,21 @@ const grabbableProps = {
 // Watchers
 watch(
   () => props.headers,
-  () => {
+  async () => {
+    if (isUpdatePosition.value) {
+      isUpdatePosition.value = false
+
+      return
+    }
+
+    await nextTick()
+
     reset()
     setColumnHeightContainer()
     setColumnsPagination()
     fetchColumns()
+
+    console.log('chamei pelo watch')
   }
 )
 
@@ -181,9 +208,11 @@ watch(columnContainer, setColumnHeightContainer)
 onMounted(() => {
   setColumnsPagination()
   fetchColumns()
+
+  console.log('chamei pelo on mounted')
 })
 
-defineExpose({ fetchColumns, fetchColumn, reset })
+onUnmounted(destroySortable)
 
 // Computeds
 const columnsResultsModel = computed({
@@ -206,7 +235,8 @@ const defaultConfirmDialogProps = computed(() => {
   const defaultProps = {
     ok: {
       label: 'Confirmar',
-      onClick: onConfirmDrop.value
+      onClick: onConfirmDrop.value,
+      loading: isLoadingUpdatePosition.value
     },
 
     cancel: {
@@ -246,8 +276,6 @@ async function fetchColumns () {
   if (error) {
     emit('fetch-columns-error', error)
 
-    // Todo: COLOCAR NO SUCESS
-    if (hasDragAndDrop) handleElementsList()
     return
   }
 
@@ -390,8 +418,17 @@ function setColumnsPagination () {
   })
 }
 
+/**
+ * Descricao:
+ * Exibe o texto quando:
+ * - Nao esta carregando a coluna
+ * - Nao tem itens na coluna
+ * - Nao estou fazendo o drag and drop
+ *
+ * @param {Object} header
+ */
 function hasEmptyResultText (header) {
-  return !columnsLoading.value[getKeyByHeader(header)] && !getItemsByHeader(header)?.length
+  return !columnsLoading.value[getKeyByHeader(header)] && !getItemsByHeader(header)?.length && !isDragging.value
 }
 
 /*
@@ -417,11 +454,21 @@ function getFieldsByHeader (header) {
   return columnsFieldsModel.value[headerKey] || {}
 }
 
+// function getColumnItemsClasses (header) {
+//   return {
+//     'qas-board-generator__column-items': !hasEmptyResultText(header)
+//   }
+// }
+
 /**
  * Loopa todos os itens da coluna com base no ref para pegar o elemento HTML e setar e instaciar o sortable.
  */
 function handleElementsList () {
-  columnsItems.value.forEach((element, index) => setSortable(element, index))
+  columnContainer.value.forEach((element, index) => {
+    const sortable = setSortable(element, index)
+
+    sortableInstances.value.push(sortable)
+  })
 }
 
 /**
@@ -446,7 +493,8 @@ function setSortable (element, index) {
 
     direction: useOnlyDragAndDropY ? 'vertical' : 'horizontal',
 
-    // onEnd: () => (isDragging.value = false)
+    onStart: () => (isDragging.value = true),
+
     onAdd: event => onDropCard(event),
 
     ...(props.useDragAndDropY && {
@@ -496,14 +544,17 @@ function cancelDrop (event) {
   }
 
   if (hasConfirmDialogProps.value) toggleConfirmDialog()
+
+  isDragging.value = false
 }
 
 function confirmDrop (event) {
-  const { to, item: { id: itemId } } = event
+  const { from, to, item: { id: itemId } } = event
 
-  const { headerKey } = to.dataset
+  const { headerKey: newHeaderKey } = to.dataset
+  const { headerKey: oldHeaderKey } = from.dataset
 
-  updatePosition({ headerKey, itemId, event })
+  updatePosition({ newHeaderKey, oldHeaderKey, itemId, event })
 }
 
 /**
@@ -528,6 +579,11 @@ function removeItemFromList ({ headerKey, itemId }) {
    * Remove o item da listagem com base no index, sendo que preciso subtrair 1 para pegar o index correto
    */
   columnItemList.splice(itemIndex, 1)
+
+  /**
+   * Remove o item do count da coluna para não mostrar o botão de "Ver mais¨.
+   */
+  columnsPagination.value[headerKey].count -= 1
 }
 
 /**
@@ -535,14 +591,15 @@ function removeItemFromList ({ headerKey, itemId }) {
  * Metodo que realiza a request de update
  *
  * @param {{
- *  headerKey: string,
- *  itemId: string,
+ *  newHeaderKey: string - ID da coluna de destino,
+ *  oldHeaderKey: string - ID da antiga coluna,
+ *  itemId: string - ID do meu item a ser movimento,
  *  event: event
  * }}
  */
-async function updatePosition ({ headerKey, itemId, event }) {
+async function updatePosition ({ newHeaderKey, oldHeaderKey, itemId, event }) {
   const params = {
-    [props.columnIdKey]: headerKey,
+    [props.columnIdKey]: newHeaderKey,
     ...(props.useDragAndDropY && { newIndex: event.newIndex }),
     ...props.updatePositionParams
   }
@@ -553,7 +610,9 @@ async function updatePosition ({ headerKey, itemId, event }) {
       errorMessage: 'Ocorreu um erro ao atualizar a posição de seu item.',
       useLoading: false,
       onLoading: value => {
-        columnsLoading.value[headerKey] = value
+        isLoadingUpdatePosition.value = value
+
+        columnsLoading.value[newHeaderKey] = value
       }
     }
   )
@@ -564,15 +623,32 @@ async function updatePosition ({ headerKey, itemId, event }) {
     return
   }
 
-  removeItemFromList({ headerKey, itemId })
+  removeItemFromList({ headerKey: oldHeaderKey, itemId })
 
-  setItemList({ headerKey, data })
+  setItemList({ headerKey: newHeaderKey, data: data.data, index: event.newIndex })
+
+  isDragging.value = false
+  isUpdatePosition.value = true
+
+  toggleConfirmDialog()
 
   emit('update-success')
 }
 
-function setItemList ({ headerKey, data }) {
-  console.log('Adicionar o item a nova listagem')
+function setItemList ({ headerKey, data, index }) {
+  /**
+   * Coluna referente ao model de resultado
+   */
+  const columnItemList = columnsResultsModel.value[headerKey]
+
+  /**
+   * Adiciona o item na posição do event escolhido.
+   */
+  columnItemList.splice(index, 0, data.result)
+}
+
+function destroySortable () {
+  sortableInstances.value.forEach(sortable => sortable.destroy())
 }
 </script>
 
