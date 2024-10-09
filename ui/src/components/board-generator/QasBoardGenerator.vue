@@ -29,7 +29,7 @@
 <script setup>
 import QasDialog from '../dialog/QasDialog.vue'
 
-import { ref, watch, computed, onUnmounted, markRaw, inject, nextTick, onMounted } from 'vue'
+import { ref, watch, computed, onUnmounted, markRaw, inject, onMounted, nextTick } from 'vue'
 import promiseHandler from '../../helpers/promise-handler'
 
 import Sortable from 'sortablejs'
@@ -185,7 +185,7 @@ const grabbableProps = {
 // Watchers
 watch(
   () => props.headers,
-  async () => {
+  async (newValue, oldValue) => {
     if (isUpdatePosition.value) {
       isUpdatePosition.value = false
 
@@ -194,12 +194,15 @@ watch(
 
     await nextTick()
 
+    /**
+     * Caso o valor anterior seja igual o atual, não preciso bater a API novamente
+     */
+    if (isEqual(newValue, oldValue)) return
+
     reset()
     setColumnHeightContainer()
     setColumnsPagination()
     fetchColumns()
-
-    console.log('chamei pelo watch')
   }
 )
 
@@ -208,8 +211,6 @@ watch(columnContainer, setColumnHeightContainer)
 onMounted(() => {
   setColumnsPagination()
   fetchColumns()
-
-  console.log('chamei pelo on mounted')
 })
 
 onUnmounted(destroySortable)
@@ -314,22 +315,28 @@ async function fetchColumn (header) {
     throw error
   }
 
-  /*
-  * exemplo de como columnsResultsModel irá ficar:
-  *
-  * {
-  *  '2024-02-15': [...],
-  *  '2024-02-16': [...]
-  * }
-  *
-  * onde cada item do objeto é uma coluna no board. O mesmo vale para "columnsFieldsModel", "columnsLoading" e
-  * "columnPagination", organizando os fields, loadings e o controle de paginação por chave identificadora do header.
-  */
+  const newValues = response.data?.results || []
+  const resultsModel = columnsResultsModel.value[headerKey] || []
+
+  /**
+   * Caso o valor do model atual seja igual o results do response, não adiciona nada nos novos valores da coluna.
+   */
   const newColumnValues = [
-    ...columnsResultsModel.value[headerKey] || [],
-    ...response.data?.results || []
+    ...resultsModel,
+    ...(isEqual(newValues, resultsModel) ? [] : newValues)
   ]
 
+  /**
+   * exemplo de como columnsResultsModel irá ficar:
+   *
+   * {
+   *  '2024-02-15': [...],
+   *  '2024-02-16': [...]
+   * }
+   *
+   * onde cada item do objeto é uma coluna no board. O mesmo vale para "columnsFieldsModel", "columnsLoading" e
+   * "columnPagination", organizando os fields, loadings e o controle de paginação por chave identificadora do header.
+   */
   columnsResultsModel.value[headerKey] = props.useMarkRaw ? markRaw(newColumnValues) : newColumnValues
 
   /*
@@ -649,6 +656,10 @@ function setItemList ({ headerKey, data, index }) {
 
 function destroySortable () {
   sortableInstances.value.forEach(sortable => sortable.destroy())
+}
+
+function isEqual (value1, value2) {
+  return JSON.stringify(value1) === JSON.stringify(value2)
 }
 </script>
 
