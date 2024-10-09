@@ -19,6 +19,11 @@ defineOptions({ name: 'QasGrabbable' })
 const props = defineProps({
   useScrollBar: {
     type: Boolean
+  },
+
+  targetToCancelMouseDown: {
+    type: String,
+    default: ''
   }
 })
 
@@ -61,17 +66,20 @@ function handleEnableScrollOnGrab () {
 function initScrollOnGrab () {
   if (hasScrollOnGrab.value) return
 
-  scrollOnGrab.value = setScrollOnGrab(grabContainer.value, {
-    onGrabFn: onGrab,
-    onMoveFn: setGrabPosition,
-    onScrollFn: setGrabPosition
-  })
+  scrollOnGrab.value = setScrollOnGrab(
+    grabContainer.value,
+    {
+      onGrabFn: onGrab,
+      onMoveFn: setGrabPosition,
+      onScrollFn: setGrabPosition
+    },
+    props.targetToCancelMouseDown
+  )
 }
 
 function destroyScrollOnGrab () {
   if (!hasScrollOnGrab.value) return
 
-  scrollOnGrab.value.destroyEvents()
   scrollOnGrab.value.element.style.cursor = 'auto'
   scrollOnGrab.value = {}
 

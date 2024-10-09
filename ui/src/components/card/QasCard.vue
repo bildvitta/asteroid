@@ -3,7 +3,7 @@
     <qas-box class="rounded-borders-right" v-bind="boxProps">
       <q-card class="column full-height overflow-hidden shadow-0">
         <div class="items-center justify-between row">
-          <component :is="titleComponent" class="text-h4 text-no-decoration" :class="titleClasses" :to="route">
+          <component :is="titleComponent" class="text-h5 text-no-decoration" :class="titleClasses" :to="route">
             <slot name="title">
               {{ props.title }}
             </slot>
@@ -89,7 +89,7 @@ const titleClasses = computed(() => {
   }
 })
 
-const titleComponent = computed(() => hasRoute.value ? 'router-link' : 'div')
+const titleComponent = computed(() => hasRoute.value ? 'router-link' : 'h5')
 
 const style = computed(() => {
   if (!props.statusColor) return
