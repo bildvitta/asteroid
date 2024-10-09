@@ -35,6 +35,11 @@ props:
       keys: [label, value]
       threshold: 0.4
 
+  icon:
+    desc: Ícone da esquerda.
+    type: String
+    default: ''
+
   label:
     desc: Label do componente.
     type: String

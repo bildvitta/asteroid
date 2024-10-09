@@ -44,15 +44,15 @@
   &--focused.q-field--labeled {
     transition: transform var(--qas-generic-transition), font-size var(--qas-generic-transition);
 
-    .q-field__label {
+    &:not(&.qas-select--filter):not(&.qas-select--has-icon) .q-field__label {
       transform: translateY(-10px) scale(0.85) !important;
     }
 
-    .q-field__prepend {
-      transition: transform var(--qas-generic-transition);
-      transform: translateY(6px) !important;
+    &.qas-select--filter:not(&.qas-select--has-icon) .q-field__label {
+      transform: translateY(-8px) scale(0.85) !important;
     }
 
+    .q-field__prepend,
     .q-field__append {
       transition: transform var(--qas-generic-transition);
       transform: translateY(6px) !important;
@@ -65,12 +65,19 @@
 
   &--float.qas-numeric-input--has-icon,
   &--focused.qas-numeric-input--has-icon,
-  &--float.qas-select--has-icon,
-  &--focused.qas-select--has-icon,
+  &--float.qas-select--has-icon:not(.qas-select--filter),
+  &--focused.qas-select--has-icon:not(.qas-select--filter),
   &--float.qas-input--has-icon,
   &--focused.qas-input--has-icon {
     .q-field__label {
       transform: translate(-24px, -14px) scale(0.85) !important;
+    }
+  }
+
+  &--float.qas-select--has-icon.qas-select--filter,
+  &--focused.qas-select--has-icon.qas-select--filter {
+    .q-field__label {
+      transform: translate(-24px, -8px) scale(0.85) !important;
     }
   }
 

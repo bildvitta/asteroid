@@ -25,6 +25,27 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 ### Corrigido
 - `QasBoardGenerator`: Corrigido problema de duplicidade de model nos itens das colunas quando se entra na página novamente.
 
+## [3.17.0-beta.10] - 08-10-2024
+## BREAKING CHANGES
+- `QasExpansionItems`: modificado slot header, agora ao abrir, ele sobrescreve toda a seção header, incluindo o botão de dropdown.
+
+### Adicionado
+- `QasExpansionItems`:
+  - adicionado propriedade `disable`.
+  - adicionado propriedade `disableButton`.
+  - adicionado propriedade `group`.
+  - adicionado v-model.
+  - adicionado novo slot `header-left`.
+
+### Modificado
+- `QasExpansionItems`: modificado slot header, agora ao abrir, ele sobrescreve toda a seção header, incluindo o botão de dropdown.
+
+## [3.17.0-beta.9] - 07-10-2024
+### Adicionado
+- `QasSelect`:
+  - Adicionado propriedade `icon` para ser utilizado sem necessidade de slot e junto a propriedade `useFilterMode`.
+  - Adicionado nova propriedade `useFilterMode`.
+
 ## [3.17.0-beta.8] - 30-09-2024
 ### Corrigido
 - `QasChartView`: corrigido altura mínima ao fazer fetch.
@@ -3251,3 +3272,8 @@ Adicionado suporte para Pinia/Vuex Seguindo os padrões da biblioteca `@bildvitt
 [3.17.0-beta.6]: https://github.com/bildvitta/asteroid/compare/v3.17.0-beta.5...v3.17.0-beta.6?expand=1
 [3.17.0-beta.7]: https://github.com/bildvitta/asteroid/compare/v3.17.0-beta.6...v3.17.0-beta.7?expand=1
 [3.17.0-beta.8]: https://github.com/bildvitta/asteroid/compare/v3.17.0-beta.7...v3.17.0-beta.8?expand=1
+<<<<<<< HEAD
+=======
+[3.17.0-beta.9]: https://github.com/bildvitta/asteroid/compare/v3.17.0-beta.8...v3.17.0-beta.9?expand=1
+[3.17.0-beta.10]: https://github.com/bildvitta/asteroid/compare/v3.17.0-beta.9...v3.17.0-beta.10?expand=1
+>>>>>>> 9cbbfdb04b1a9e6b2031133ef1e52f803bb0850c
