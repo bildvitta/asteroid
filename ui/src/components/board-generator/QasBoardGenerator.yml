@@ -45,6 +45,7 @@ props:
 
   item-id-key:
     desc: Identificador unico do item a ser movido, sendo que sera usado nas requisicoes realizadas pelo drop.
+    type: String
 
   lazy-loading-fields-keys:
     desc: Chaves dos campos que são lazy loading para o tratamento de merge das options.

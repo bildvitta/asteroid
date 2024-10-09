@@ -461,12 +461,6 @@ function getFieldsByHeader (header) {
   return columnsFieldsModel.value[headerKey] || {}
 }
 
-// function getColumnItemsClasses (header) {
-//   return {
-//     'qas-board-generator__column-items': !hasEmptyResultText(header)
-//   }
-// }
-
 /**
  * Loopa todos os itens da coluna com base no ref para pegar o elemento HTML e setar e instaciar o sortable.
  */
