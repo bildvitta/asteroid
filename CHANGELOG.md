@@ -22,6 +22,9 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - Atualizado SortableJS para `1.15.3`.
 - `QasCard`: Modificado tipografia do titulo para H5.
 
+### Corrigido
+- `QasBoardGenerator`: Corrigido problema de duplicidade de model nos itens das colunas quando se entra na página novamente.
+
 ## [3.17.0-beta.8] - 30-09-2024
 ### Corrigido
 - `QasChartView`: corrigido altura mínima ao fazer fetch.
