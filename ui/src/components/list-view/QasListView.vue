@@ -47,6 +47,7 @@ import debug from 'debug'
 import { extend } from 'quasar'
 import { getState, getAction } from '@bildvitta/store-adapter'
 import { viewMixin, contextMixin } from '../../mixins'
+import { computed } from 'vue'
 
 const log = debug('asteroid-ui:qas-list-view')
 
@@ -57,6 +58,12 @@ export default {
   },
 
   mixins: [contextMixin, viewMixin],
+
+  provide () {
+    return {
+      isFetchSuccess: computed(() => this.isFetchSuccess)
+    }
+  },
 
   props: {
     filtersProps: {
@@ -107,7 +114,8 @@ export default {
   data () {
     return {
       page: 1,
-      resultsQuantity: 0
+      resultsQuantity: 0,
+      isFetchSuccess: false
     }
   },
 
@@ -188,6 +196,7 @@ export default {
 
     async fetchList (externalPayload = {}) {
       this.mx_isFetching = true
+      this.isFetchSuccess = false
 
       try {
         const payload = {
@@ -214,6 +223,8 @@ export default {
           fields: this.mx_fields,
           metadata: this.mx_metadata
         })
+
+        this.isFetchSuccess = true
 
         this.$emit('fetch-success', response)
 
