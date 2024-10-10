@@ -29,7 +29,7 @@
 <script setup>
 import QasDialog from '../dialog/QasDialog.vue'
 
-import { ref, watch, computed, onUnmounted, markRaw, inject, onMounted, nextTick } from 'vue'
+import { ref, watch, computed, onUnmounted, markRaw, inject } from 'vue'
 import promiseHandler from '../../helpers/promise-handler'
 
 import Sortable from 'sortablejs'
@@ -146,6 +146,8 @@ defineExpose({ fetchColumns, fetchColumn, reset })
 // Inject
 const axios = inject('axios')
 
+const isFetchSuccessHeader = inject('isFetchSuccess', false)
+
 // Refs
 const columnContainer = ref(null)
 const columnsPagination = ref({})
@@ -184,20 +186,12 @@ const grabbableProps = {
 
 // Watchers
 watch(
-  () => props.headers,
-  async (newValue, oldValue) => {
-    if (isUpdatePosition.value) {
-      isUpdatePosition.value = false
-
-      return
-    }
-
-    await nextTick()
-
+  () => isFetchSuccessHeader.value,
+  value => {
     /**
-     * Caso o valor anterior seja igual o atual, não preciso bater a API novamente
+     * isFetchSuccessHeader é uma variavel que pego do listView por inject/provide, no qual caso eu faça request do header e dê sucesso, eu chamo as demais funções.
      */
-    if (isEqual(newValue, oldValue)) return
+    if (!value) return
 
     reset()
     setColumnHeightContainer()
@@ -206,12 +200,16 @@ watch(
   }
 )
 
-watch(columnContainer, setColumnHeightContainer)
+watch(
+  () => props.headers,
+  () => {
+    if (!isUpdatePosition.value) return
 
-onMounted(() => {
-  setColumnsPagination()
-  fetchColumns()
-})
+    isUpdatePosition.value = false
+  }
+)
+
+watch(columnContainer, setColumnHeightContainer)
 
 onUnmounted(destroySortable)
 
@@ -318,12 +316,9 @@ async function fetchColumn (header) {
   const newValues = response.data?.results || []
   const resultsModel = columnsResultsModel.value[headerKey] || []
 
-  /**
-   * Caso o valor do model atual seja igual o results do response, não adiciona nada nos novos valores da coluna.
-   */
   const newColumnValues = [
     ...resultsModel,
-    ...(isEqual(newValues, resultsModel) ? [] : newValues)
+    ...newValues
   ]
 
   /**
@@ -650,10 +645,6 @@ function setItemList ({ headerKey, data, index }) {
 
 function destroySortable () {
   sortableInstances.value.forEach(sortable => sortable.destroy())
-}
-
-function isEqual (value1, value2) {
-  return JSON.stringify(value1) === JSON.stringify(value2)
 }
 </script>
 
