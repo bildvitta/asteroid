@@ -26,6 +26,14 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 ### Corrigido
 - `QasBoardGenerator`: Corrigido problema de duplicidade de model nos itens das colunas quando se entra na página novamente.
 
+## [3.17.0-beta.12] - 10-10-2024
+### Corrigido
+- `QasExpansionItem`: corrigido propriedade "group" que o default era string vazia, e isto fazia que todos fizessem parte do mesmo grupo de `""`.
+
+## [3.17.0-beta.11] - 09-10-2024
+### Corrigido
+- `QasHeader`: corrigido bug quando abria o slot de actions e não renderizava elemento, por exemplo com v-if.
+
 ## [3.17.0-beta.10] - 08-10-2024
 ## BREAKING CHANGES
 - `QasExpansionItems`: modificado slot header, agora ao abrir, ele sobrescreve toda a seção header, incluindo o botão de dropdown.
@@ -3275,3 +3283,5 @@ Adicionado suporte para Pinia/Vuex Seguindo os padrões da biblioteca `@bildvitt
 [3.17.0-beta.8]: https://github.com/bildvitta/asteroid/compare/v3.17.0-beta.7...v3.17.0-beta.8?expand=1
 [3.17.0-beta.9]: https://github.com/bildvitta/asteroid/compare/v3.17.0-beta.8...v3.17.0-beta.9?expand=1
 [3.17.0-beta.10]: https://github.com/bildvitta/asteroid/compare/v3.17.0-beta.9...v3.17.0-beta.10?expand=1
+[3.17.0-beta.11]: https://github.com/bildvitta/asteroid/compare/v3.17.0-beta.10...v3.17.0-beta.11?expand=1
+[3.17.0-beta.12]: https://github.com/bildvitta/asteroid/compare/v3.17.0-beta.11...v3.17.0-beta.12?expand=1

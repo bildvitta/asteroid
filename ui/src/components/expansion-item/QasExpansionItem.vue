@@ -85,7 +85,7 @@ const props = defineProps({
 
   group: {
     type: String,
-    default: ''
+    default: undefined
   },
 
   label: {
