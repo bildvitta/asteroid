@@ -244,8 +244,8 @@ const defaultConfirmDialogProps = computed(() => {
   }
 
   return {
-    ...defaultProps,
-    ...props.confirmDialogProps
+    ...props.confirmDialogProps,
+    ...defaultProps
   }
 })
 

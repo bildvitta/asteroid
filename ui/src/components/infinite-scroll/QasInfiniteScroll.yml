@@ -5,7 +5,7 @@ meta:
 
 props:
   fields:
-    desc: Model da lista de itens.
+    desc: Model dos fields.
     default: {}
     type: Object
     examples: [v-model:fields="fields"]
