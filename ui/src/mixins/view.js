@@ -150,7 +150,7 @@ export default {
         })
       }
 
-      resolve()
+      resolve(payload)
     }
   }
 }

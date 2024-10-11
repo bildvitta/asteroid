@@ -147,13 +147,21 @@ export default {
 
     paginationClasses () {
       return this.$qas.screen.isSmall ? 'justify-center column' : 'justify-end'
+    },
+
+    context () {
+      if (this.useQueryPagination) return this.mx_context
+
+      const { page, ...rest } = this.mx_context
+
+      return { ...rest, page: this.page }
     }
   },
 
   watch: {
     $route (to, from) {
       if (to.name === from.name) {
-        this.mx_fetchHandler({ ...this.mx_context, url: this.url }, this.fetchList)
+        this.mx_fetchHandler({ ...this.context, url: this.url }, this.fetchList)
         this.setCurrentPage()
       }
     },
@@ -168,7 +176,7 @@ export default {
   },
 
   created () {
-    this.mx_fetchHandler({ ...this.mx_context, url: this.url }, this.fetchList)
+    this.mx_fetchHandler({ ...this.context, url: this.url }, this.fetchList)
 
     this.setCurrentPage()
   },
@@ -195,7 +203,7 @@ export default {
         return
       }
 
-      this.fetchList({ page: this.page })
+      this.mx_fetchHandler({ ...this.context, url: this.url }, this.fetchList)
     },
 
     async fetchList (externalPayload = {}) {
@@ -203,7 +211,7 @@ export default {
 
       try {
         const payload = {
-          ...this.mx_context,
+          ...this.context,
           url: this.url,
           ...externalPayload
         }
@@ -242,7 +250,7 @@ export default {
     },
 
     async refresh (done) {
-      await this.mx_fetchHandler({ ...this.mx_context, url: this.url }, this.fetchList)
+      await this.mx_fetchHandler({ ...this.context, url: this.url }, this.fetchList)
 
       if (typeof done === 'function') {
         done()
@@ -250,11 +258,13 @@ export default {
     },
 
     setCurrentPage () {
-      this.page = parseInt(this.$route.query.page || 1)
+      const routeQueryPage = this.$route.query.page
+
+      this.page = this.useQueryPagination && routeQueryPage ? parseInt(routeQueryPage) : 1
     },
 
     onAutoHandleDelete ({ detail: { entity } }) {
-      const { page } = this.mx_context
+      const { page } = this.context
 
       /*
       * - se a entidade que estiver sendo excluída for diferente da entidade da listagem, ignora.
@@ -286,12 +296,12 @@ export default {
       * caso remova algo de uma pagina que não seja a ultima, chama o método fetchList novamente
       * ex: estou na pagina 2 e existem 3 paginas, removo um item da pagina 2, então chamo o método fetchList
       */
-      this.mx_fetchHandler({ ...this.mx_context, url: this.url }, this.fetchList)
+      this.mx_fetchHandler({ ...this.context, url: this.url }, this.fetchList)
     },
 
     onDeleteResult (event) {
       if (this.useAutoRefetchOnDelete) {
-        this.mx_fetchHandler({ ...this.mx_context, url: this.url }, this.fetchList)
+        this.mx_fetchHandler({ ...this.context, url: this.url }, this.fetchList)
         return
       }
 
