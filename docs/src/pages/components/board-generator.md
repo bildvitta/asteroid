@@ -28,7 +28,6 @@ passado.
 
 <doc-example file="QasBoardGenerator/Basic" title="Básico" />
 
-
 #### Drag and Drop
 
 :::warning
