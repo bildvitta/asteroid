@@ -94,13 +94,7 @@ const props = defineProps({
 
   sortableConfig: {
     type: Object,
-    default: () => ({
-      animation: 500,
-      swapThreshold: 1,
-      delay: 50,
-      delayOnTouchOnly: true,
-      emptyInsertThreshold: 0
-    })
+    default: () => ({})
   },
 
   useMarkRaw: {
@@ -146,7 +140,7 @@ defineExpose({ fetchColumns, fetchColumn, reset })
 // Inject
 const axios = inject('axios')
 
-const isFetchSuccessHeader = inject('isFetchSuccess', false)
+const isFetchSuccessHeader = inject('isFetchListSuccess', false)
 
 // Refs
 const columnContainer = ref(null)
@@ -180,7 +174,7 @@ const grabbableProps = {
   useScrollBar: true,
 
   ...(hasDragAndDrop && {
-    targetToCancelMouseDown: 'qas-board-generator__item'
+    cancelMouseDownTarget: 'qas-board-generator__item'
   })
 }
 
@@ -475,6 +469,14 @@ function handleElementsList () {
  * @param {Number} index
  */
 function setSortable (element, index) {
+  const defaultSortableConfig = {
+    animation: 500,
+    swapThreshold: 1,
+    delay: 50,
+    delayOnTouchOnly: true,
+    emptyInsertThreshold: 0
+  }
+
   /**
    * Caso seja apenas drag and drop no eixo Y
    */
@@ -483,13 +485,15 @@ function setSortable (element, index) {
   const sortable = new Sortable(element, {
     sort: props.useDragAndDropY,
 
+    ...defaultSortableConfig,
+
     ...props.sortableConfig,
 
     group: useOnlyDragAndDropY ? `column-${index}` : 'shared',
 
     direction: useOnlyDragAndDropY ? 'vertical' : 'horizontal',
 
-    onStart: () => (isDragging.value = true),
+    onStart: toggleIsDragging,
 
     onAdd: event => onDropCard(event),
 
@@ -499,6 +503,10 @@ function setSortable (element, index) {
   })
 
   return sortable
+}
+
+function toggleIsDragging () {
+  isDragging.value = !isDragging.value
 }
 
 function onDropCard (event) {
@@ -516,17 +524,22 @@ function toggleConfirmDialog () {
 }
 
 /**
- * Descricao:
- * Caso eu cancele o drop, insere na posicao antiga que pertencia (event.oldIndex) dentro do seu antigo pai (event.from)
- *
  * @param {event} event
  */
 function cancelDrop (event) {
+  /**
+   * Insere na posição antiga que pertencia (event.oldIndex) dentro do seu antigo pai (event.from)
+   */
   if (props.useDragAndDropX) event.from.insertBefore(event.item, event.from.children[event.oldIndex])
 
   if (props.useDragAndDropY) {
     const oldIndex = event.oldIndex
 
+    /**
+     * Se oldIndex for 0, o targetIndex deverá ser 0, pois isso indica que se o item é o primeiro da lista, ele não será movido para outra posição.
+     *
+     * Caso o oldIndex for diferente, devo incrementar 1 para adicionar, pois isso permite que o item seja inserido logo após sua posição original.
+     */
     const targetIndex = oldIndex === 0 ? oldIndex : oldIndex + 1
 
     /**
@@ -541,7 +554,7 @@ function cancelDrop (event) {
 
   if (hasConfirmDialogProps.value) toggleConfirmDialog()
 
-  isDragging.value = false
+  toggleIsDragging()
 }
 
 function confirmDrop (event) {
@@ -623,9 +636,9 @@ async function updatePosition ({ newHeaderKey, oldHeaderKey, itemId, event }) {
 
   setItemList({ headerKey: newHeaderKey, data: data.data, index: event.newIndex })
 
-  isDragging.value = false
   isUpdatePosition.value = true
 
+  toggleIsDragging()
   toggleConfirmDialog()
 
   emit('update-success')

@@ -69,8 +69,8 @@ defineExpose({ refresh, remove })
 
 const emit = defineEmits(['fetch-success', 'fetch-error'])
 
-const modelList = defineModel('list', { type: Array })
-const modelFields = defineModel('fields', { type: Object })
+const modelList = defineModel('list', { type: Array, default: () => [] })
+const modelFields = defineModel('fields', { type: Object, default: () => ({}) })
 
 const axios = inject('axios')
 

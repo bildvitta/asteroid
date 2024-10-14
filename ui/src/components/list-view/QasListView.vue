@@ -61,7 +61,7 @@ export default {
 
   provide () {
     return {
-      isFetchSuccess: computed(() => this.isFetchSuccess)
+      isFetchListSuccess: computed(() => this.isFetchListSuccess)
     }
   },
 
@@ -115,7 +115,7 @@ export default {
     return {
       page: 1,
       resultsQuantity: 0,
-      isFetchSuccess: false
+      isFetchListSuccess: false
     }
   },
 
@@ -196,7 +196,7 @@ export default {
 
     async fetchList (externalPayload = {}) {
       this.mx_isFetching = true
-      this.isFetchSuccess = false
+      this.isFetchListSuccess = false
 
       try {
         const payload = {
@@ -224,7 +224,7 @@ export default {
           metadata: this.mx_metadata
         })
 
-        this.isFetchSuccess = true
+        this.isFetchListSuccess = true
 
         this.$emit('fetch-success', response)
 

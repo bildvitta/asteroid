@@ -9,7 +9,7 @@ props:
     default: false
     type: Boolean
 
-  target-to-cancel-mouse-down:
+  cancel-mouse-down-target:
     desc: Classe do elemento no qual será ignorado para não realizar o grab.
     type: String
 

@@ -21,7 +21,7 @@ const props = defineProps({
     type: Boolean
   },
 
-  targetToCancelMouseDown: {
+  cancelMouseDownTarget: {
     type: String,
     default: ''
   }
@@ -73,7 +73,7 @@ function initScrollOnGrab () {
       onMoveFn: setGrabPosition,
       onScrollFn: setGrabPosition
     },
-    props.targetToCancelMouseDown
+    props.cancelMouseDownTarget
   )
 }
 
