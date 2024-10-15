@@ -9,6 +9,11 @@ Componente usado para board de colunas.
 ## Uso
 
 :::info
+Normalmente componente utilizado junto com `QasListView` para pegar os headers, sendo realizado a requisição das colunas após o `fetchSuccess`.
+Porém ainda sim é possível utilizar sem, sendo que precisa passar os headers fixos para buscar as colunas.
+:::
+
+:::info
 Caso precise manipular os dados do model das colunas em camadas mais profundas, use a prop "use-mark-raw" como false.
 :::
 

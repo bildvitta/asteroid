@@ -61,7 +61,8 @@ export default {
 
   provide () {
     return {
-      isFetchListSuccess: computed(() => this.isFetchListSuccess)
+      isFetchListSuccess: computed(() => this.isFetchListSuccess),
+      isListView: true
     }
   },
 

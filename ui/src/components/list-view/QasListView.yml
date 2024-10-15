@@ -163,3 +163,7 @@ provide:
   is-fetch-list-success:
     desc: Valor que diz se o `fetchList` foi realizado com sucesso ou não.
     type: Boolean
+
+  is-list-view:
+    desc: Provide que diz quando se está utilizando o listView
+    type: Boolean

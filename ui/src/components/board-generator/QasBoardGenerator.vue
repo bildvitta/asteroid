@@ -29,7 +29,7 @@
 <script setup>
 import QasDialog from '../dialog/QasDialog.vue'
 
-import { ref, watch, computed, onUnmounted, markRaw, inject } from 'vue'
+import { ref, watch, computed, onUnmounted, markRaw, inject, onMounted } from 'vue'
 import promiseHandler from '../../helpers/promise-handler'
 
 import Sortable from 'sortablejs'
@@ -142,6 +142,8 @@ const axios = inject('axios')
 
 const isFetchSuccessHeader = inject('isFetchListSuccess', false)
 
+const isListView = inject('isListView', false)
+
 // Refs
 const columnContainer = ref(null)
 const columnsPagination = ref({})
@@ -187,10 +189,7 @@ watch(
      */
     if (!value) return
 
-    reset()
-    setColumnHeightContainer()
-    setColumnsPagination()
-    fetchColumns()
+    fetchColumnsValues()
   }
 )
 
@@ -204,6 +203,16 @@ watch(
 )
 
 watch(columnContainer, setColumnHeightContainer)
+
+// Lifecycles
+onMounted(() => {
+  /**
+   * Caso eu use o listView (valor pego por provide), a request é feito pelo watch quando se ocorre o sucesso do `fetchList`
+   */
+  if (isListView) return
+
+  fetchColumnsValues()
+})
 
 onUnmounted(destroySortable)
 
@@ -412,6 +421,13 @@ function setColumnsPagination () {
     columnsPagination.value[headerKey] = { limit: props.limitPerColumn, offset: 0 }
     columnsLoading.value[headerKey] = false
   })
+}
+
+function fetchColumnsValues () {
+  reset()
+  setColumnHeightContainer()
+  setColumnsPagination()
+  fetchColumns()
 }
 
 /**
