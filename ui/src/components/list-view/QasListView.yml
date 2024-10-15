@@ -160,7 +160,7 @@ events:
         type: Boolean
 
 provide:
-  is-fetch-list-succeded:
+  is-fetch-list-succeeded:
     desc: Valor que diz se o `fetchList` foi realizado com sucesso ou não.
     type: Boolean
 

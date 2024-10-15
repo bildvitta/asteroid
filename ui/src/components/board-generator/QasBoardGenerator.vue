@@ -140,7 +140,7 @@ defineExpose({ fetchColumns, fetchColumn, reset })
 // Inject
 const axios = inject('axios')
 
-const isFetchSuccessHeader = inject('isFetchListSucceded', false)
+const isFetchSuccessHeader = inject('isFetchListSucceeded', false)
 
 const isInsideListView = inject('isListView', false)
 
