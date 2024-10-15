@@ -25,6 +25,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 
 ### Corrigido
 - `QasBoardGenerator`: Corrigido problema de duplicidade de model nos itens das colunas quando se entra na página novamente.
+- `QasHeader`: corrigido espaçamento/alinhamento da seção de actions.
 
 ## [3.17.0-beta.12] - 10-10-2024
 ### Corrigido
