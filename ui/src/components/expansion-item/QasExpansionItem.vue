@@ -1,27 +1,33 @@
 <template>
-  <div ref="expansionItem" class="full-width qas-expansion-item" :class="errorClasses" v-bind="expansionProps.parent">
+  <div ref="expansionItem" class="full-width qas-expansion-item" :class="classes" v-bind="expansionProps.parent">
     <component :is="component.is" class="qas-expansion-item__box" v-bind="boxProps">
-      <q-expansion-item header-class="text-bold q-mt-sm q-pa-none qas-expansion-item__header" :label="props.label" v-bind="expansionProps.item">
+      <q-expansion-item v-model="modelValue" v-bind="expansionProps.item" header-class="text-bold q-mt-sm q-pa-none qas-expansion-item__header">
         <template #header>
           <slot name="header">
-            <div class="full-width">
-              <div class="items-center q-col-gutter-sm row">
-                <slot name="label">
-                  <h5 class="col-auto text-h5">
-                    {{ props.label }}
-                  </h5>
-                </slot>
+            <div class="full-width justify-between no-wrap row">
+              <div>
+                <slot name="header-left">
+                  <div class="items-center q-col-gutter-sm row">
+                    <slot name="label">
+                      <h5 class="col-auto qas-expansion-item__label text-h5">
+                        {{ props.label }}
+                      </h5>
+                    </slot>
 
-                <div class="col-auto items-center q-col-gutter-sm row">
-                  <div v-for="(badge, badgeIndex) in props.badges" :key="badgeIndex" class="col-auto">
-                    <qas-badge v-bind="badge" />
+                    <div v-if="hasBadges" class="col-auto items-center q-col-gutter-sm row">
+                      <div v-for="(badge, badgeIndex) in props.badges" :key="badgeIndex" class="col-auto">
+                        <qas-badge v-bind="badge" />
+                      </div>
+                    </div>
                   </div>
-                </div>
+
+                  <div v-if="hasHeaderBottom" class="q-mt-sm">
+                    <slot name="header-bottom" />
+                  </div>
+                </slot>
               </div>
 
-              <div v-if="hasHeaderBottom" class="q-mt-sm">
-                <slot name="header-bottom" />
-              </div>
+              <qas-btn class="qas-expansion-item__dropdown" color="grey-10" :disable="isDisabled" icon="sym_r_keyboard_arrow_up" />
             </div>
           </slot>
         </template>
@@ -60,6 +66,14 @@ const props = defineProps({
     default: () => []
   },
 
+  disable: {
+    type: Boolean
+  },
+
+  disableButton: {
+    type: Boolean
+  },
+
   error: {
     type: Boolean
   },
@@ -67,6 +81,11 @@ const props = defineProps({
   errorMessage: {
     type: String,
     default: ''
+  },
+
+  group: {
+    type: String,
+    default: undefined
   },
 
   label: {
@@ -84,6 +103,8 @@ const props = defineProps({
     default: undefined
   }
 })
+
+const modelValue = defineModel({ type: Boolean })
 
 const attrs = useAttrs()
 
@@ -107,6 +128,7 @@ const component = {
 }
 
 // computed
+const hasBadges = computed(() => !!props.badges.length)
 const hasError = computed(() => props.error || !!props.errorMessage)
 const hasGridGenerator = computed(() => !!Object.keys(props.gridGeneratorProps).length)
 const hasBottomSeparator = computed(() => isNestedExpansionItem && hasNextSibling.value)
@@ -123,7 +145,13 @@ const hasHeaderSeparator = computed(() => {
   return typeof props.useHeaderSeparator === 'undefined' ? !isNestedExpansionItem : props.useHeaderSeparator
 })
 
-const errorClasses = computed(() => ({ 'qas-expansion-item--error': hasError.value }))
+const classes = computed(() => {
+  return {
+    'qas-expansion-item--error': hasError.value,
+    'qas-expansion-item--disabled': props.disable || props.disableButton,
+    'qas-expansion-item--disabled-full': props.disable
+  }
+})
 
 const contentClasses = computed(() => {
   return {
@@ -144,11 +172,15 @@ const expansionProps = computed(() => {
   } = attrs
 
   return {
-    parent: {
-      ...propsPayload
-    },
+    parent: propsPayload,
 
     item: {
+      disable: isDisabled.value,
+      hideExpandIcon: true,
+      label: props.label,
+      group: props.group,
+
+      // events
       onUpdateModelValue,
       onShow,
       onBeforeShow,
@@ -174,6 +206,8 @@ const boxProps = computed(() => {
   }
 })
 
+const isDisabled = computed(() => props.disable || props.disableButton)
+
 // functions
 
 /**
@@ -194,10 +228,16 @@ function setHasNextSibling (value) {
 .qas-expansion-item {
   $root: &;
 
-  // em alguns casos quando usado com grid, o espaçamento afetava o header, com z-index o problema é resolvido
-  &__header {
-    position: relative;
-    z-index: 1;
+  &--disabled {
+    .q-item.disabled {
+      opacity: 1 !important;
+    }
+  }
+
+  &--disabled-full {
+    #{$root}__label {
+      color: $grey-6 !important;
+    }
   }
 
   &--error {
@@ -207,6 +247,24 @@ function setHasNextSibling (value) {
 
     #{$root}__error-message {
       padding-left: 12px; // espaçamento igual ao de erro do quasar.
+    }
+  }
+
+  // em alguns casos quando usado com grid, o espaçamento afetava o header, com z-index o problema é resolvido
+  &__header {
+    position: relative;
+    z-index: 1;
+  }
+
+  .q-expansion-item {
+    #{$root}__dropdown {
+      transition: transform var(--qas-generic-transition);;
+    }
+
+    &--expanded {
+      #{$root}__dropdown {
+        transform: rotate(180deg);
+      }
     }
   }
 

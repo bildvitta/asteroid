@@ -13,9 +13,9 @@
         </div>
       </div>
 
-      <div class="text-right">
+      <div v-if="hasActionsSection" class="text-right">
         <slot name="actions">
-          <component :is="actionsComponent.is" v-if="hasActionsSection" v-bind="actionsComponent.props" />
+          <component :is="actionsComponent.is" v-if="hasActionsComponent" v-bind="actionsComponent.props" />
         </slot>
       </div>
     </div>
@@ -29,7 +29,7 @@
 
       <div v-if="!hasLabelSection" class="justify-end row text-right">
         <slot name="actions">
-          <component :is="actionsComponent.is" v-if="hasActionsSection" v-bind="actionsComponent.props" />
+          <component :is="actionsComponent.is" v-if="hasActionsComponent" v-bind="actionsComponent.props" />
         </slot>
       </div>
     </div>
@@ -136,9 +136,11 @@ const actionsComponent = computed(() => {
   return component.true
 })
 
-const hasActionsSection = computed(() => {
-  return !!slots.actions || hasDefaultButton.value || hasDefaultActionsMenu.value || hasDefaultFilters.value
+const hasActionsComponent = computed(() => {
+  return hasDefaultButton.value || hasDefaultActionsMenu.value || hasDefaultFilters.value
 })
+
+const hasActionsSection = computed(() => !!slots.actions || hasActionsComponent.value)
 
 const hasBadges = computed(() => !!props.badges.length)
 const hasLabel = computed(() => !!Object.keys(props.labelProps).length)

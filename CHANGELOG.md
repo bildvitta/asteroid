@@ -11,8 +11,50 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
 ## Não publicado
+### Adicionado
+- `QasBoardGenerator`: 
+  - Adicionado possibilidade do componente ser Drag and Drop.
+  - Adicionado `headerBoxProps` para repassar props pro box do header.
+- `QasGrabbable`: Adicionado prop para passar um elemento para ignorar o Grab.
+- `set-scroll-on-grab`: Adicionado validacao para controlar elementos a ser ignorado no grab.
+- `QasInfiniteScroll`: Adicionado model `v-model:fields` para acessar os fields do fetch.
+
+### Modificado
+- Atualizado SortableJS para `1.15.3`.
+- `QasCard`: Modificado tipografia do titulo para H5.
+
 ### Corrigido
+- `QasBoardGenerator`: Corrigido problema de duplicidade de model nos itens das colunas quando se entra na página novamente.
 - `QasHeader`: corrigido espaçamento/alinhamento da seção de actions.
+
+## [3.17.0-beta.12] - 10-10-2024
+### Corrigido
+- `QasExpansionItem`: corrigido propriedade "group" que o default era string vazia, e isto fazia que todos fizessem parte do mesmo grupo de `""`.
+
+## [3.17.0-beta.11] - 09-10-2024
+### Corrigido
+- `QasHeader`: corrigido bug quando abria o slot de actions e não renderizava elemento, por exemplo com v-if.
+
+## [3.17.0-beta.10] - 08-10-2024
+## BREAKING CHANGES
+- `QasExpansionItems`: modificado slot header, agora ao abrir, ele sobrescreve toda a seção header, incluindo o botão de dropdown.
+
+### Adicionado
+- `QasExpansionItems`:
+  - adicionado propriedade `disable`.
+  - adicionado propriedade `disableButton`.
+  - adicionado propriedade `group`.
+  - adicionado v-model.
+  - adicionado novo slot `header-left`.
+
+### Modificado
+- `QasExpansionItems`: modificado slot header, agora ao abrir, ele sobrescreve toda a seção header, incluindo o botão de dropdown.
+
+## [3.17.0-beta.9] - 07-10-2024
+### Adicionado
+- `QasSelect`:
+  - Adicionado propriedade `icon` para ser utilizado sem necessidade de slot e junto a propriedade `useFilterMode`.
+  - Adicionado nova propriedade `useFilterMode`.
 
 ## [3.17.0-beta.8] - 30-09-2024
 ### Corrigido
@@ -3240,3 +3282,7 @@ Adicionado suporte para Pinia/Vuex Seguindo os padrões da biblioteca `@bildvitt
 [3.17.0-beta.6]: https://github.com/bildvitta/asteroid/compare/v3.17.0-beta.5...v3.17.0-beta.6?expand=1
 [3.17.0-beta.7]: https://github.com/bildvitta/asteroid/compare/v3.17.0-beta.6...v3.17.0-beta.7?expand=1
 [3.17.0-beta.8]: https://github.com/bildvitta/asteroid/compare/v3.17.0-beta.7...v3.17.0-beta.8?expand=1
+[3.17.0-beta.9]: https://github.com/bildvitta/asteroid/compare/v3.17.0-beta.8...v3.17.0-beta.9?expand=1
+[3.17.0-beta.10]: https://github.com/bildvitta/asteroid/compare/v3.17.0-beta.9...v3.17.0-beta.10?expand=1
+[3.17.0-beta.11]: https://github.com/bildvitta/asteroid/compare/v3.17.0-beta.10...v3.17.0-beta.11?expand=1
+[3.17.0-beta.12]: https://github.com/bildvitta/asteroid/compare/v3.17.0-beta.11...v3.17.0-beta.12?expand=1
