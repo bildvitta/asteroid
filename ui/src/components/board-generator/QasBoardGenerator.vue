@@ -140,9 +140,9 @@ defineExpose({ fetchColumns, fetchColumn, reset })
 // Inject
 const axios = inject('axios')
 
-const isFetchSuccessHeader = inject('isFetchListSuccess', false)
+const isFetchSuccessHeader = inject('isFetchListSucceded', false)
 
-const isListView = inject('isListView', false)
+const isInsideListView = inject('isListView', false)
 
 // Refs
 const columnContainer = ref(null)
@@ -209,7 +209,7 @@ onMounted(() => {
   /**
    * Caso eu use o listView (valor pego por provide), a request é feito pelo watch quando se ocorre o sucesso do `fetchList`
    */
-  if (isListView) return
+  if (isInsideListView) return
 
   fetchColumnsValues()
 })
