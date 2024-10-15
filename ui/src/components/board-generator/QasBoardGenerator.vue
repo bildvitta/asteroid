@@ -15,9 +15,9 @@
             <qas-btn v-if="hasSeeMore(header)" icon="sym_r_add" label="Ver mais" :use-label-on-small-screen="false" variant="tertiary" @click="fetchColumn(header)" />
 
             <q-spinner v-if="columnsLoading[getKeyByHeader(header)]" class="q-mb-md" color="grey-4" size="3em" />
-
-            <qas-empty-result-text v-if="hasEmptyResultText(header)" />
           </div>
+
+          <qas-empty-result-text v-if="hasEmptyResultText(header)" />
         </div>
       </div>
     </div>
