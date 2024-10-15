@@ -10,6 +10,22 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 ### Sobre os "BREAKING CHANGES"
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
+## Não publicado
+### Adicionado
+- `QasBoardGenerator`: 
+  - Adicionado possibilidade do componente ser Drag and Drop.
+  - Adicionado `headerBoxProps` para repassar props pro box do header.
+- `QasGrabbable`: Adicionado prop para passar um elemento para ignorar o Grab.
+- `set-scroll-on-grab`: Adicionado validacao para controlar elementos a ser ignorado no grab.
+- `QasInfiniteScroll`: Adicionado model `v-model:fields` para acessar os fields do fetch.
+
+### Modificado
+- Atualizado SortableJS para `1.15.3`.
+- `QasCard`: Modificado tipografia do titulo para H5.
+
+### Corrigido
+- `QasBoardGenerator`: Corrigido problema de duplicidade de model nos itens das colunas quando se entra na página novamente.
+
 ## [3.17.0-beta.12] - 10-10-2024
 ### Corrigido
 - `QasExpansionItem`: corrigido propriedade "group" que o default era string vazia, e isto fazia que todos fizessem parte do mesmo grupo de `""`.
