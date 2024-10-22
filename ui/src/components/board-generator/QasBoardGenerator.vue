@@ -167,7 +167,7 @@ const onConfirmDrop = ref(() => {})
 /**
  * Variável auxiliar que controla quando estou atualizando o header em caso de drag and drop
  */
-const isUpdatePosition = ref(false)
+const isUpdatingPosition = ref(false)
 
 // Consts
 const hasDragAndDrop = !!props.useDragAndDropX || !!props.useDragAndDropY
@@ -186,8 +186,9 @@ watch(
   value => {
     /**
      * isFetchSuccessHeader é uma variavel que pego do listView por inject/provide, no qual caso eu faça request do header e dê sucesso, eu chamo as demais funções.
+     * Valido se não houve sucesso na requisição do header ou se não é uma atualização de posição, para assim não bater novamente nas colunas apenas no header.
      */
-    if (!value) return
+    if (!value || isUpdatingPosition.value) return
 
     fetchColumnsValues()
   }
@@ -196,9 +197,9 @@ watch(
 watch(
   () => props.headers,
   () => {
-    if (!isUpdatePosition.value) return
+    if (isUpdatingPosition.value) return
 
-    isUpdatePosition.value = false
+    isUpdatingPosition.value = false
   }
 )
 
@@ -531,12 +532,16 @@ function onDropCard (event) {
   onConfirmDrop.value = () => confirmDrop(event)
 
   hasConfirmDialogProps.value
-    ? toggleConfirmDialog()
+    ? openConfirmDialog()
     : confirmDrop(event)
 }
 
-function toggleConfirmDialog () {
-  showConfirmDialog.value = !showConfirmDialog.value
+function openConfirmDialog () {
+  showConfirmDialog.value = true
+}
+
+function closeConfirmDialog () {
+  showConfirmDialog.value = false
 }
 
 /**
@@ -568,7 +573,7 @@ function cancelDrop (event) {
     event.from.insertBefore(event.item, insertBeforeElement)
   }
 
-  if (hasConfirmDialogProps.value) toggleConfirmDialog()
+  if (hasConfirmDialogProps.value) closeConfirmDialog()
 
   toggleIsDragging()
 }
@@ -652,10 +657,11 @@ async function updatePosition ({ newHeaderKey, oldHeaderKey, itemId, event }) {
 
   setItemList({ headerKey: newHeaderKey, data: data.data, index: event.newIndex })
 
-  isUpdatePosition.value = true
+  isUpdatingPosition.value = true
 
   toggleIsDragging()
-  toggleConfirmDialog()
+
+  closeConfirmDialog()
 
   emit('update-success')
 }
