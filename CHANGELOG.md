@@ -10,6 +10,10 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 ### Sobre os "BREAKING CHANGES"
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
+## Não publicado
+### Corrigido
+- `QasChartView`: corrigido hook `unmounted` para `beforeUnmounted`, quando saia de uma pagina com chart e ia para outra, o componente removia o registro após o registro da outra pagina, gerando erros.
+
 ## [3.16.1] - 16-08-2024
 ### Corrigido
 - Corrigido tamanho dos botões do `QasActions` em casos de telas pequenas, no qual se deve ficar tamanho total da largura.
