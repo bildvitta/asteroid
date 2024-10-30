@@ -6,16 +6,20 @@
     </q-checkbox>
 
     <!-- Group -->
-    <div v-else :class="classes">
-      <div v-for="(option, index) in props.options" :key="index">
-        <!-- Com children -->
-        <q-checkbox v-if="hasChildren(option)" :class="getCheckboxClass(option)" dense :label="option.label" :model-value="getModelValue(index)" @update:model-value="updateCheckbox($event, option, index)" />
+    <div v-else>
+      <div v-if="hasCheckboxLabel" class="q-mb-sm text-body1">{{ checkboxLabel }}</div>
 
-        <!-- Com children -->
-        <q-option-group v-if="hasChildren(option)" class="q-ml-xs q-mt-xs" dense :inline="props.inline" :model-value="props.modelValue" :options="option.children" type="checkbox" @update:model-value="updateChildren($event, option, index)" />
+      <div :class="classes">
+        <div v-for="(option, index) in props.options" :key="index">
+          <!-- Com children -->
+          <q-checkbox v-if="hasChildren(option)" :class="getCheckboxClass(option)" dense :label="option.label" :model-value="getModelValue(index)" @update:model-value="updateCheckbox($event, option, index)" />
 
-        <!-- Sem children -->
-        <q-option-group v-else v-model="model" v-bind="attrs" dense :options="[option]" type="checkbox" />
+          <!-- Com children -->
+          <q-option-group v-if="hasChildren(option)" class="q-ml-xs q-mt-xs" dense :inline="props.inline" :model-value="props.modelValue" :options="option.children" type="checkbox" @update:model-value="updateChildren($event, option, index)" />
+
+          <!-- Sem children -->
+          <q-option-group v-else v-model="model" v-bind="attrs" dense :options="[option]" type="checkbox" />
+        </div>
       </div>
     </div>
   </div>
@@ -58,6 +62,10 @@ onMounted(handleParent)
 
 // computed
 const classes = computed(() => props.inline && 'flex q-gutter-x-sm')
+
+const checkboxLabel = computed(() => attrs.label)
+
+const hasCheckboxLabel = computed(() => !!checkboxLabel.value)
 
 const model = computed({
   get () {
