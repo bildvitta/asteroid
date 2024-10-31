@@ -138,7 +138,9 @@ export default {
 
     attributes () {
       const attributes = {
-        tableClass: 'overflow-hidden-y',
+        tableClass: {
+          'overflow-hidden-y': !this.useStickyHeader
+        },
         class: this.tableClass,
         columns: this.columnsByFields,
         flat: true,
