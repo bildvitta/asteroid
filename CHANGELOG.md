@@ -14,6 +14,9 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 ## BREAKING CHANGES
 - `QasRadio` e `QasCheckbox`: Adicionado label por padrão a partir do field, caso tenha lugares que são feitos a mão, irá duplicar a label.
 
+### Corrigido
+- `QasTableGenerator`: Corrigido scroll vertical desnecessário no Safari.
+
 ### Adicionado
 - `QasRadio` e `QasCheckbox`: Adicionado label por padrão em casos de ter mais de uma opção.
 

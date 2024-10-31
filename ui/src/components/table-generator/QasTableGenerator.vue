@@ -138,6 +138,7 @@ export default {
 
     attributes () {
       const attributes = {
+        tableClass: 'overflow-hidden-y',
         class: this.tableClass,
         columns: this.columnsByFields,
         flat: true,
