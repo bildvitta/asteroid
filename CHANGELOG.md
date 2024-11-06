@@ -16,9 +16,11 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 
 ### Corrigido
 - `QasTableGenerator`: Corrigido scroll vertical desnecessário no Safari.
+- `QasGrabbable`: Corrigido o grab em casos de não passar elementos para ignorar.
 
 ### Adicionado
 - `QasRadio` e `QasCheckbox`: Adicionado label por padrão em casos de ter mais de uma opção.
+- `QasCopy`: Adicionado prop `use-text` para controlar se irá exibir label ao lado do botão de copiar.
 
 ## [3.17.0-beta.14] - 22-10-2024
 ### Corrigido
