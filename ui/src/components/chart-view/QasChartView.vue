@@ -350,7 +350,7 @@ export default {
     this.handleFetchData()
   },
 
-  unmounted () {
+  beforeUnmount () {
     this.unregisterChartJS()
   },
 
