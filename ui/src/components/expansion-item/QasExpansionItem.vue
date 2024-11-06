@@ -83,6 +83,11 @@ const props = defineProps({
     default: ''
   },
 
+  gridGeneratorProps: {
+    type: Object,
+    default: () => ({})
+  },
+
   group: {
     type: String,
     default: undefined
@@ -93,9 +98,9 @@ const props = defineProps({
     default: ''
   },
 
-  gridGeneratorProps: {
-    type: Object,
-    default: () => ({})
+  maxContentHeight: {
+    type: String,
+    default: ''
   },
 
   useHeaderSeparator: {
@@ -156,7 +161,8 @@ const classes = computed(() => {
 const contentClasses = computed(() => {
   return {
     'q-mt-sm': isNestedExpansionItem,
-    'q-mt-md': !isNestedExpansionItem && !props.useHeaderSeparator
+    'q-mt-md': !isNestedExpansionItem && !props.useHeaderSeparator,
+    'qas-expansion-item__content overflow-auto': !!props.maxContentHeight
   }
 })
 
@@ -248,6 +254,10 @@ function setHasNextSibling (value) {
     #{$root}__error-message {
       padding-left: 12px; // espaçamento igual ao de erro do quasar.
     }
+  }
+
+  &__content {
+    max-height: v-bind("props.maxContentHeight");
   }
 
   // em alguns casos quando usado com grid, o espaçamento afetava o header, com z-index o problema é resolvido
