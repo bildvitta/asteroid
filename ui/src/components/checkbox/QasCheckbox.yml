@@ -9,6 +9,12 @@ props:
     default: true
     type: Boolean
 
+  label:
+    desc: Label utilizada em casos de ser checkbox-group.
+    default: ''
+    type: String
+
+
   model-value:
     desc: Model do componente, usado para v-model.
     default: []

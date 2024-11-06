@@ -14,11 +14,18 @@ defineOptions({
   inheritAttrs: false
 })
 
+const props = defineProps({
+  label: {
+    default: '',
+    type: String
+  }
+})
+
 const attrs = useAttrs()
 
 const isOptionGroup = computed(() => !!attrs.options?.length)
 
-const optionGroupLabel = computed(() => attrs.label)
+const optionGroupLabel = computed(() => props.label)
 
 // Só mostra a label caso for q-option-group e tenha label vindo nas props
 const canShowOptionGroupLabel = computed(() => isOptionGroup.value && !!optionGroupLabel.value)
@@ -37,6 +44,8 @@ const component = computed(() => {
 
     props: {
       ...payloadProps,
+
+      label: props.label,
 
       ...(isOptionGroup.value && {
         inline,

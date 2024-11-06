@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- Single -->
-    <q-checkbox v-if="isSingle" v-model="model" v-bind="attrs" dense>
+    <q-checkbox v-if="isSingle" v-model="model" v-bind="singleAttrs" dense>
       <slot />
     </q-checkbox>
 
@@ -34,6 +34,11 @@ defineOptions({
 })
 
 const props = defineProps({
+  label: {
+    default: '',
+    type: String
+  },
+
   options: {
     default: () => [],
     type: Array
@@ -63,7 +68,7 @@ onMounted(handleParent)
 // computed
 const classes = computed(() => props.inline && 'flex q-gutter-x-sm')
 
-const checkboxLabel = computed(() => attrs.label)
+const checkboxLabel = computed(() => props.label)
 
 const hasCheckboxLabel = computed(() => !!checkboxLabel.value)
 
@@ -78,6 +83,14 @@ const model = computed({
 })
 
 const isSingle = computed(() => !props.options.length)
+
+const singleAttrs = computed(() => {
+  return {
+    ...attrs,
+
+    label: props.label
+  }
+})
 
 // watch
 watch(() => props.options, handleParent)
