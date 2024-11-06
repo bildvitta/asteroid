@@ -22,6 +22,17 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - `QasRadio` e `QasCheckbox`: Adicionado label por padrão em casos de ter mais de uma opção.
 - `QasCopy`: Adicionado prop `use-text` para controlar se irá exibir label ao lado do botão de copiar.
 
+## [3.17.0-beta.15] - 06-11-2024
+### Adicionado
+- `QasAvatar`: adicionado possibilidade de passar cores fora das defaults.
+
+### Corrigido
+- `QasChartView`: corrigido hook `unmounted` para `beforeUnmounted`, quando saia de uma pagina com chart e ia para outra, o componente removia o registro após o registro da outra pagina, gerando erros [main -> develop].
+
+## [3.16.2] - 23-10-2024
+### Corrigido
+- `QasChartView`: corrigido hook `unmounted` para `beforeUnmounted`, quando saia de uma pagina com chart e ia para outra, o componente removia o registro após o registro da outra pagina, gerando erros.
+
 ## [3.17.0-beta.14] - 22-10-2024
 ### Corrigido
 - `QasBoardGenerator`:
@@ -165,6 +176,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 
 ## [3.17.0-beta.0] - 16-08-2024
 ## BREAKING CHANGES
+
 - `A fazer`:
   - Substituir todos `QToggle` por `QasToggle`.
   - Substituir todos `QRadio` por `QasRadio`.
@@ -254,6 +266,10 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
   - alterado propriedade `text` para `description`.
   - removido propriedade `alignColumns`.
   - removido slots `right` e `left` em favor de utilizar novos slots.
+
+## [3.16.1] - 16-08-2024
+### Corrigido
+- Corrigido tamanho dos botões do `QasActions` em casos de telas pequenas, no qual se deve ficar tamanho total da largura.
 
 ## [3.16.1-beta.0] - 15-08-2024
 ### Corrigido
@@ -3306,3 +3322,6 @@ Adicionado suporte para Pinia/Vuex Seguindo os padrões da biblioteca `@bildvitt
 [3.17.0-beta.12]: https://github.com/bildvitta/asteroid/compare/v3.17.0-beta.11...v3.17.0-beta.12?expand=1
 [3.17.0-beta.13]: https://github.com/bildvitta/asteroid/compare/v3.17.0-beta.12...v3.17.0-beta.13?expand=1
 [3.17.0-beta.14]: https://github.com/bildvitta/asteroid/compare/v3.17.0-beta.13...v3.17.0-beta.14?expand=1
+[3.16.1]: https://github.com/bildvitta/asteroid/compare/v3.16.0...v3.16.1?expand=1
+[3.16.2]: https://github.com/bildvitta/asteroid/compare/v3.16.1...v3.16.2?expand=1
+[3.17.0-beta.15]: https://github.com/bildvitta/asteroid/compare/v3.16.2...v3.17.0-beta.15?expand=1
