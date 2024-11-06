@@ -10,7 +10,7 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 ### Sobre os "BREAKING CHANGES"
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
-## Não publicado
+## [3.17.0-beta.15] - 06-11-2024
 ### Adicionado
 - `QasAvatar`: adicionado possibilidade de passar cores fora das defaults.
 
@@ -3312,3 +3312,4 @@ Adicionado suporte para Pinia/Vuex Seguindo os padrões da biblioteca `@bildvitt
 [3.17.0-beta.14]: https://github.com/bildvitta/asteroid/compare/v3.17.0-beta.13...v3.17.0-beta.14?expand=1
 [3.16.1]: https://github.com/bildvitta/asteroid/compare/v3.16.0...v3.16.1?expand=1
 [3.16.2]: https://github.com/bildvitta/asteroid/compare/v3.16.1...v3.16.2?expand=1
+[3.17.0-beta.15]: https://github.com/bildvitta/asteroid/compare/v3.16.2...v3.17.0-beta.15?expand=1
