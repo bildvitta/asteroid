@@ -1,13 +1,15 @@
 <template>
   <div>
     <!-- Single -->
-    <q-checkbox v-if="isSingle" v-model="model" v-bind="singleAttrs" dense>
+    <q-checkbox v-if="isSingle" v-model="model" v-bind="singleAttributes" dense>
       <slot />
     </q-checkbox>
 
     <!-- Group -->
     <div v-else>
-      <div v-if="hasCheckboxLabel" class="q-mb-sm text-body1">{{ checkboxLabel }}</div>
+      <div v-if="hasCheckboxLabel" class="q-mb-sm text-body1">
+        {{ props.label }}
+      </div>
 
       <div :class="classes">
         <div v-for="(option, index) in props.options" :key="index">
@@ -68,9 +70,7 @@ onMounted(handleParent)
 // computed
 const classes = computed(() => props.inline && 'flex q-gutter-x-sm')
 
-const checkboxLabel = computed(() => props.label)
-
-const hasCheckboxLabel = computed(() => !!checkboxLabel.value)
+const hasCheckboxLabel = computed(() => !!props.label)
 
 const model = computed({
   get () {
@@ -84,7 +84,7 @@ const model = computed({
 
 const isSingle = computed(() => !props.options.length)
 
-const singleAttrs = computed(() => {
+const singleAttributes = computed(() => {
   return {
     ...attrs,
 

@@ -14,7 +14,6 @@ props:
     default: ''
     type: String
 
-
   model-value:
     desc: Model do componente, usado para v-model.
     default: []

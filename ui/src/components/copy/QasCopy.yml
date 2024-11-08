@@ -14,7 +14,7 @@ props:
     type: String
 
   use-text:
-    desc: Controla se o texto vai ser exibido ou não no botão.
+    desc: Controla se o texto será exibo ao lado do botão ou não.
     type: Boolean
     default: true
 

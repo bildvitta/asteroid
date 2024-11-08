@@ -1,6 +1,8 @@
 <template>
   <div>
-    <div v-if="canShowOptionGroupLabel" class="q-mb-sm text-body1">{{ optionGroupLabel }}</div>
+    <div v-if="canShowOptionGroupLabel" class="q-mb-sm text-body1">
+      {{ props.label }}
+    </div>
 
     <component :is="component.is" v-bind="component.props" />
   </div>
@@ -25,10 +27,8 @@ const attrs = useAttrs()
 
 const isOptionGroup = computed(() => !!attrs.options?.length)
 
-const optionGroupLabel = computed(() => props.label)
-
 // Só mostra a label caso for q-option-group e tenha label vindo nas props
-const canShowOptionGroupLabel = computed(() => isOptionGroup.value && !!optionGroupLabel.value)
+const canShowOptionGroupLabel = computed(() => isOptionGroup.value && !!props.label)
 
 /**
  * - quando é um grupo de opções, o componente é 'QOptionGroup', caso contrário,
