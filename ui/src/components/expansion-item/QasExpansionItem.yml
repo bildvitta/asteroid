@@ -40,6 +40,11 @@ props:
     default: false
     type: Boolean
 
+  max-content-height:
+    desc: Define um tamanho máximo de altura do conteúdo.
+    default: ''
+    type: String
+
   grid-generator-props:
     desc: Propriedades que serão repassadas para o QasGridGenerator.
     type: Object

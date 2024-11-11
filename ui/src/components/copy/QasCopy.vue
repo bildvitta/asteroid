@@ -1,6 +1,6 @@
 <template>
   <span>
-    <slot>{{ props.text }}</slot>
+    <slot v-if="props.useText">{{ props.text }}</slot>
 
     <qas-btn class="q-ml-xs" color="primary" :icon="props.icon" :loading="isLoading" variant="tertiary" @click.stop.prevent="copy">
       <q-tooltip>Copiar</q-tooltip>
@@ -23,6 +23,11 @@ const props = defineProps({
   text: {
     required: true,
     type: String
+  },
+
+  useText: {
+    type: Boolean,
+    default: true
   }
 })
 

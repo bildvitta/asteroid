@@ -10,6 +10,18 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 ### Sobre os "BREAKING CHANGES"
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
+## Não publicado
+## BREAKING CHANGES
+- `QasRadio` e `QasCheckbox`: Adicionado label por padrão a partir do field, caso tenha lugares que são feitos a mão, irá duplicar a label.
+
+### Corrigido
+- `QasTableGenerator`: Corrigido scroll vertical desnecessário no Safari.
+- `QasGrabbable`: Corrigido o grab em casos de não passar elementos para ignorar.
+
+### Adicionado
+- `QasRadio` e `QasCheckbox`: Adicionado label por padrão em casos de ter mais de uma opção.
+- `QasCopy`: Adicionado prop `use-text` para controlar se irá exibir label ao lado do botão de copiar.
+
 ## [3.17.0-beta.15] - 06-11-2024
 ### Adicionado
 - `QasAvatar`: adicionado possibilidade de passar cores fora das defaults.

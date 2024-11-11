@@ -13,3 +13,8 @@ props:
     desc: Texto a ser copiado.
     type: String
 
+  use-text:
+    desc: Controla se o texto será exibo ao lado do botão ou não.
+    type: Boolean
+    default: true
+

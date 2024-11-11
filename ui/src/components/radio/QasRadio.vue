@@ -1,5 +1,11 @@
 <template>
-  <component :is="component.is" v-bind="component.props" />
+  <div>
+    <div v-if="canShowOptionGroupLabel" class="q-mb-sm text-body1">
+      {{ props.label }}
+    </div>
+
+    <component :is="component.is" v-bind="component.props" />
+  </div>
 </template>
 
 <script setup>
@@ -10,7 +16,19 @@ defineOptions({
   inheritAttrs: false
 })
 
+const props = defineProps({
+  label: {
+    default: '',
+    type: String
+  }
+})
+
 const attrs = useAttrs()
+
+const isOptionGroup = computed(() => !!attrs.options?.length)
+
+// Só mostra a label caso for q-option-group e tenha label vindo nas props
+const canShowOptionGroupLabel = computed(() => isOptionGroup.value && !!props.label)
 
 /**
  * - quando é um grupo de opções, o componente é 'QOptionGroup', caso contrário,
@@ -19,16 +37,17 @@ const attrs = useAttrs()
  * - todos os casos é usado o dense.
  */
 const component = computed(() => {
-  const isOptionGroup = !!attrs.options?.length
-
   const { inline = true, ...payloadProps } = attrs
 
   return {
-    is: isOptionGroup ? 'q-option-group' : 'q-radio',
+    is: isOptionGroup.value ? 'q-option-group' : 'q-radio',
+
     props: {
       ...payloadProps,
 
-      ...(isOptionGroup && {
+      label: props.label,
+
+      ...(isOptionGroup.value && {
         inline,
         class: {
           'q-gutter-x-md': inline,
