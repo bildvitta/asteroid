@@ -11,8 +11,21 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
 ## Não publicado
-### Adicionado
-- `QasExpansionItem`: Adicionado `full-width` para o slot `header-left` conseguir pegar largura total do elemento.
+## BREAKING CHANGES
+- `QasExpansionItem`:
+  - Renomeado slot `label` para `header-label`.
+  - Removido slot `header-left`.
+
+### Corrigido
+- `QasExpansionItem`: Corrigido direção do ícone de dropdown.
+
+### Modificado
+- `QasExpansionItem`:
+  - Modificado slot `header` para ele ser o antigo `header-left`, pegando toda a largura do conteúdo menos o ícone.
+  - Renomeado slot `label` para `header-label`.
+
+### Removido
+- `QasExpansionItem`: Removido slot `header-left`.
 
 ## [3.17.0-beta.16] - 11-11-2024
 ## BREAKING CHANGES

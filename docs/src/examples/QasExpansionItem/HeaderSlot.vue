@@ -1,7 +1,7 @@
 <template>
   <div class="container spaced">
     <qas-expansion-item label="John Doe">
-      <template #header-left>
+      <template #header>
         <div class="items-center justify-between row">
           <qas-label label="Meu titulo" margin="none" typography="h5" />
 
@@ -19,7 +19,7 @@
 </template>
 
 <script setup>
-import { dateTime } from '../../../../ui/src/helpers'
+import { dateTime } from '@bildvitta/quasar-ui-asteroid/src/helpers'
 
 defineOptions({ name: 'HeaderLeftSlot' })
 

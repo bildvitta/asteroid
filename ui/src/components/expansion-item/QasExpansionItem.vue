@@ -3,33 +3,31 @@
     <component :is="component.is" class="qas-expansion-item__box" v-bind="boxProps">
       <q-expansion-item v-model="modelValue" v-bind="expansionProps.item" header-class="text-bold q-mt-sm q-pa-none qas-expansion-item__header">
         <template #header>
-          <slot name="header">
-            <div class="full-width justify-between no-wrap row">
-              <div class="full-width">
-                <slot name="header-left">
-                  <div class="items-center q-col-gutter-sm row">
-                    <slot name="label">
-                      <h5 class="col-auto qas-expansion-item__label text-h5">
-                        {{ props.label }}
-                      </h5>
-                    </slot>
+          <div class="full-width justify-between no-wrap row">
+            <div class="full-width">
+              <slot name="header">
+                <div class="items-center q-col-gutter-sm row">
+                  <slot name="header-label">
+                    <h5 class="col-auto qas-expansion-item__label text-h5">
+                      {{ props.label }}
+                    </h5>
+                  </slot>
 
-                    <div v-if="hasBadges" class="col-auto items-center q-col-gutter-sm row">
-                      <div v-for="(badge, badgeIndex) in props.badges" :key="badgeIndex" class="col-auto">
-                        <qas-badge v-bind="badge" />
-                      </div>
+                  <div v-if="hasBadges" class="col-auto items-center q-col-gutter-sm row">
+                    <div v-for="(badge, badgeIndex) in props.badges" :key="badgeIndex" class="col-auto">
+                      <qas-badge v-bind="badge" />
                     </div>
                   </div>
+                </div>
 
-                  <div v-if="hasHeaderBottom" class="q-mt-sm">
-                    <slot name="header-bottom" />
-                  </div>
-                </slot>
-              </div>
-
-              <qas-btn class="qas-expansion-item__dropdown" color="grey-10" :disable="isDisabled" icon="sym_r_keyboard_arrow_up" />
+                <div v-if="hasHeaderBottom" class="q-mt-sm">
+                  <slot name="header-bottom" />
+                </div>
+              </slot>
             </div>
-          </slot>
+
+            <qas-btn class="qas-expansion-item__dropdown" color="grey-10" :disable="isDisabled" icon="sym_r_keyboard_arrow_down" />
+          </div>
         </template>
 
         <q-separator v-if="hasHeaderSeparator" class="q-my-md" />
