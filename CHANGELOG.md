@@ -14,7 +14,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 ## BREAKING CHANGES
 - `QasExpansionItem`:
   - Renomeado slot `label` para `header-label`.
-  - Removido slot `header-left`.
+  - Removido slot `header-left` (agora o `header` tem o mesmo comportamento que o `header-left`).
 
 ### Corrigido
 - `QasExpansionItem`: Corrigido direção do ícone de dropdown.
@@ -25,7 +25,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
   - Renomeado slot `label` para `header-label`.
 
 ### Removido
-- `QasExpansionItem`: Removido slot `header-left`.
+- `QasExpansionItem`: Removido slot `header-left` (agora o `header` tem o mesmo comportamento que o `header-left`).
 
 ## [3.17.0-beta.16] - 11-11-2024
 ## BREAKING CHANGES
