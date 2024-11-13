@@ -5,7 +5,7 @@
         <template #header>
           <slot name="header">
             <div class="full-width justify-between no-wrap row">
-              <div>
+              <div class="full-width">
                 <slot name="header-left">
                   <div class="items-center q-col-gutter-sm row">
                     <slot name="label">
