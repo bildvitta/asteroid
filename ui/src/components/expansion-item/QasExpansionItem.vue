@@ -8,9 +8,7 @@
               <slot name="header">
                 <div class="items-center q-col-gutter-sm row">
                   <slot name="header-label">
-                    <h5 class="col-auto qas-expansion-item__label text-h5">
-                      {{ props.label }}
-                    </h5>
+                    <qas-label class="col-auto qas-expansion-item__label" :label="props.label" margin="none" typography="h5" />
                   </slot>
 
                   <div v-if="hasBadges" class="col-auto items-center q-col-gutter-sm row">
