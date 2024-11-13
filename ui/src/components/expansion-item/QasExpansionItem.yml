@@ -56,15 +56,12 @@ props:
 
 slots:
   header:
-    desc: Slot para substituir o conteúdo do header (incluindo o botão dropdown).
+    desc: Slot para substituir o conteúdo do header (não inclui o botão dropdown).
 
   header-bottom:
     desc: Slot para acessar o conteúdo que fica abaixo do header.
 
-  header-left:
-    desc: Slot para substituir o conteúdo do header á esquerda (não inclui o botão dropdown).
-
-  label:
+  header-label:
     desc: Slot para substituir o conteúdo da label do header.
 
   content:

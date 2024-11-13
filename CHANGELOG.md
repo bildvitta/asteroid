@@ -10,6 +10,23 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 ### Sobre os "BREAKING CHANGES"
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
+## Não publicado
+## BREAKING CHANGES
+- `QasExpansionItem`:
+  - Renomeado slot `label` para `header-label`.
+  - Removido slot `header-left` (agora o `header` tem o mesmo comportamento que o `header-left`).
+
+### Corrigido
+- `QasExpansionItem`: Corrigido direção do ícone de dropdown.
+
+### Modificado
+- `QasExpansionItem`:
+  - Modificado slot `header` para ele ser o antigo `header-left`, pegando toda a largura do conteúdo menos o ícone.
+  - Renomeado slot `label` para `header-label`.
+
+### Removido
+- `QasExpansionItem`: Removido slot `header-left` (agora o `header` tem o mesmo comportamento que o `header-left`).
+
 ## [3.17.0-beta.16] - 11-11-2024
 ## BREAKING CHANGES
 - `QasRadio` e `QasCheckbox`: Adicionado label por padrão a partir do field, caso tenha lugares que são feitos a mão, irá duplicar a label.
