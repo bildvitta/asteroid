@@ -24,7 +24,6 @@ function installNextUi ({ execaSync, ora, nextVersion, packages, retry = false }
 
     return { success: true, error: false }
   } catch (error) {
-    console.log(error, '<-- error')
     if (retry) {
       installSpinner.fail('Falha ao instalar "ui" no "app-extension')
       return { success: false, error: true }
