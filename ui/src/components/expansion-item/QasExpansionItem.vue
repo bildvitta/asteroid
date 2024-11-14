@@ -244,7 +244,7 @@ function setHasNextSibling (value) {
 
   &--error {
     #{$root}__box {
-      border: 2px solid $negative;
+      border: 2px solid $negative !important;
     }
 
     #{$root}__error-message {
