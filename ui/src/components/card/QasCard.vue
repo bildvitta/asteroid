@@ -9,7 +9,7 @@
             </slot>
           </component>
 
-          <qas-actions-menu v-if="hasActions" :list="props.actionsMenuProps" :use-label="false" />
+          <qas-actions-menu v-if="hasActions" v-bind="formattedActionsMenuProps" />
         </div>
 
         <div class="q-my-sm qas-card__content">
@@ -106,6 +106,13 @@ const slots = useSlots()
 const hasFooterSlot = computed(() => !!slots.footer)
 
 const hasFooter = computed(() => hasFooterSlot.value || hasExpansion.value)
+
+const formattedActionsMenuProps = computed(() => {
+  return {
+    ...props.actionsMenuProps,
+    useLabel: false
+  }
+})
 </script>
 
 <style lang="scss">
