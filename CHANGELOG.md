@@ -11,6 +11,9 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
 ## Não publicado
+### Modificado
+- `QasExpansionItem`: Modificado comportamente renderizar na dom o content apenas ao abrir o expansion pela primeira vez.
+
 ### Corrigido
 - `QasExpansionItem`: Corrigido cor da borda em casos de erro e dentro de um `QasBox`.
 
