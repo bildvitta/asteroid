@@ -1,7 +1,7 @@
 <template>
   <div ref="expansionItem" class="full-width qas-expansion-item" :class="classes" v-bind="expansionProps.parent">
     <component :is="component.is" class="qas-expansion-item__box" v-bind="boxProps">
-      <q-expansion-item v-model="modelValue" v-bind="expansionProps.item" header-class="text-bold q-mt-sm q-pa-none qas-expansion-item__header">
+      <q-expansion-item v-model="modelValue" v-bind="expansionProps.item" header-class="text-bold q-mt-sm q-pa-none qas-expansion-item__header" @show="setShowContent">
         <template #header>
           <div class="full-width justify-between no-wrap row">
             <div class="full-width">
@@ -31,7 +31,7 @@
         <q-separator v-if="hasHeaderSeparator" class="q-my-md" />
 
         <div :class="contentClasses">
-          <slot name="content">
+          <slot v-if="showContent" name="content">
             <qas-grid-generator v-if="hasGridGenerator" use-inline v-bind="gridGeneratorProps" />
           </slot>
         </div>
@@ -117,6 +117,7 @@ const slots = defineSlots()
 // refs
 const expansionItem = ref(null)
 const hasNextSibling = ref(false)
+const showContent = ref(false)
 
 onMounted(setHasNextSibling)
 
@@ -216,13 +217,17 @@ const isDisabled = computed(() => props.disable || props.disableButton)
  * Caso o componente esteja dentro de um QasExpansionItem, verifica se existe um próximo irmão
  * para adicionar um separador.
  */
-function setHasNextSibling (value) {
+function setHasNextSibling () {
   if (!isNestedExpansionItem) return
 
   const hasTextContentSibling = !!expansionItem.value.nextSibling?.textContent?.trim?.()
   const hasElementSibling = !!expansionItem.value.nextElementSibling
 
   hasNextSibling.value = hasElementSibling || hasTextContentSibling
+}
+
+function setShowContent () {
+  showContent.value = true
 }
 </script>
 
@@ -244,7 +249,7 @@ function setHasNextSibling (value) {
 
   &--error {
     #{$root}__box {
-      border: 2px solid $negative;
+      border: 2px solid $negative !important;
     }
 
     #{$root}__error-message {
