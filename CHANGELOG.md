@@ -15,7 +15,9 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - `QasCard`: a prop `actionsMenuProps` anteriormente era passado diretamente era repassado pra o `list` internamente, impedindo de repassar outras props. Agora deve passar o `list` dentro do `actionsMenuProps`.
 
 ### Modificado
-- `QasCard`: Modificado a forma de passar `actionsMenuProps`, agora é possível passar outras props além do `list`.
+- `QasCard`: 
+  - Modificado a forma de passar `actionsMenuProps`, agora é possível passar outras props além do `list`.
+  - Modificado o titulo, agora existe o tratamento com a classe `ellipsis`. 
 
 ## [3.17.0-beta.17] - 13-11-2024
 ## BREAKING CHANGES
