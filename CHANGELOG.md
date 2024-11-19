@@ -17,7 +17,11 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 ### Modificado
 - `QasCard`: 
   - Modificado a forma de passar `actionsMenuProps`, agora é possível passar outras props além do `list`.
-  - Modificado o titulo, agora existe o tratamento com a classe `ellipsis`. 
+  - Modificado o titulo, agora existe o tratamento com a classe `ellipsis`.
+- `QasExpansionItem`: Modificado comportamente renderizar na dom o content apenas ao abrir o expansion pela primeira vez.
+
+### Corrigido
+- `QasExpansionItem`: Corrigido cor da borda em casos de erro e dentro de um `QasBox`.
 
 ## [3.17.0-beta.17] - 13-11-2024
 ## BREAKING CHANGES
