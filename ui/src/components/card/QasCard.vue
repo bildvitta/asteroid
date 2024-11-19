@@ -2,14 +2,14 @@
   <div class="qas-card">
     <qas-box class="rounded-borders-right" v-bind="boxProps">
       <q-card class="column full-height overflow-hidden shadow-0">
-        <div class="items-center justify-between row">
-          <component :is="titleComponent" class="text-h5 text-no-decoration" :class="titleClasses" :to="route">
+        <div class="full-width items-center justify-between no-wrap row">
+          <component :is="titleComponent" class="ellipsis text-h5 text-no-decoration" :class="titleClasses" :to="route">
             <slot name="title">
               {{ props.title }}
             </slot>
           </component>
 
-          <qas-actions-menu v-if="hasActions" :list="props.actionsMenuProps" :use-label="false" />
+          <qas-actions-menu v-if="hasActions" v-bind="formattedActionsMenuProps" />
         </div>
 
         <div class="q-my-sm qas-card__content">
@@ -66,8 +66,10 @@ const props = defineProps({
   }
 })
 
+// consts
 const isInsideBox = inject('isBox', false)
 
+// computeds
 const boxProps = computed(() => {
   return {
     outlined: isInsideBox,
@@ -106,6 +108,13 @@ const slots = useSlots()
 const hasFooterSlot = computed(() => !!slots.footer)
 
 const hasFooter = computed(() => hasFooterSlot.value || hasExpansion.value)
+
+const formattedActionsMenuProps = computed(() => {
+  return {
+    ...props.actionsMenuProps,
+    useLabel: false
+  }
+})
 </script>
 
 <style lang="scss">
