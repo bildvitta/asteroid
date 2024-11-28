@@ -58,7 +58,9 @@
                 </div>
               </div>
 
-              <q-item v-else :key="index" :active="isActive(menuItem)" active-class="q-router-link--active" class="qas-app-menu__item" :to="getRouterRedirect(menuItem)">
+              <!-- quando tem children vazio, não deve mostrar label do item, e a label do item
+              não tem "to", então validar se tem "to" para mostrar o item -->
+              <q-item v-else-if="menuItem.to" :key="index" :active="isActive(menuItem)" active-class="q-router-link--active" class="qas-app-menu__item" :to="getRouterRedirect(menuItem)">
                 <q-item-section v-if="menuItem.icon" avatar>
                   <q-icon :name="menuItem.icon" />
                 </q-item-section>
@@ -276,6 +278,9 @@ function hasSeparator (index) {
 }
 
 function isActive ({ to }) {
+  // quando o children vem vazio, "to" é "undefined", então precisa ser feito esta trativa.
+  if (!to) return false
+
   const currentPath = getNormalizedPath(router.currentRoute.value.path)
   const itemPath = typeof to === 'string' ? getNormalizedPath(to) : getPathFromObject(to)
 
