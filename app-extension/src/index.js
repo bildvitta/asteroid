@@ -1,6 +1,8 @@
 const sourcePath = '~@bildvitta/quasar-app-extension-asteroid/src/'
 const resolve = (...paths) => paths.map(path => sourcePath + path)
 
+// const path = require('node:path')
+
 function extendQuasar (quasar, asteroidConfigFile) {
   // Arquivos de boot
   // https://quasar.dev/quasar-cli-vite/boot-files#introduction
@@ -73,6 +75,38 @@ function extendQuasar (quasar, asteroidConfigFile) {
 }
 
 module.exports = async function (api) {
+  if (api.hasVite) {
+    api.extendViteConf(viteConf => {
+      api.compatibleWith('@quasar/app-vite', '^1.5.0 || ^2.0.0-rc.1')
+      // Adiciona um "alias" chamado "asteroid" para a aplicação
+      const asteroid = 'node_modules/@bildvitta/quasar-ui-asteroid/src/asteroid.js'
+      const asteroidConfig = 'node_modules/@bildvitta/quasar-app-extension-asteroid/src/defaults/default-asteroid-config.js'
+      const asteroidConfigHandler = require('./helpers/asteroid-config-handler')
+
+      const { validate, getAsteroidConfigPath } = asteroidConfigHandler(api)
+      const asteroidConfigPath = getAsteroidConfigPath()
+      console.log('TCL: asteroidConfigHandler', asteroidConfigPath)
+
+      validate()
+
+      Object.assign(viteConf.resolve.alias, {
+        'asteroid-config': api.resolve.app(asteroidConfig),
+        'asteroid-config-app': asteroidConfigPath,
+        asteroid: api.resolve.app(asteroid)
+      })
+
+      // viteConf.resolve.alias = {
+      //   ...viteConf.resolve.alias,
+
+      //   'asteroid-config': api.resolve.app(asteroidConfig),
+      //   'asteroid-config-app': asteroidConfigPath,
+      //   asteroid: api.resolve.app(asteroid)
+      // }
+    })
+
+    return
+  }
+
   const asteroidConfigHandler = require('./helpers/asteroid-config-handler')
   const { validate, getAsteroidConfigPath } = asteroidConfigHandler(api)
   const asteroidConfigPath = getAsteroidConfigPath()

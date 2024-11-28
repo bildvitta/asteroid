@@ -9,6 +9,7 @@
     "access": "public",
     "registry": "https://registry.npmjs.org/"
   },
+  "type": "commonjs",
   "keys": [
     "quasar",
     "extension",
