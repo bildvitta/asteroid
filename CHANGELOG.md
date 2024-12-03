@@ -10,6 +10,10 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 ### Sobre os "BREAKING CHANGES"
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
+## [Unreleased]
+### Corrigido
+- `QasAppMenu`: corrigido problema que ocorria quando um item do menu com "children" ficava vazio, ele quebrava por não encontrar a rota e mostrava um label mesmo que sem nenhum item abaixo.
+
 ## [3.17.0-beta.18] - 19-11-2024
 ## BREAKING CHANGES
 - `QasCard`: a prop `actionsMenuProps` anteriormente era passado diretamente era repassado pra o `list` internamente, impedindo de repassar outras props. Agora deve passar o `list` dentro do `actionsMenuProps`.
