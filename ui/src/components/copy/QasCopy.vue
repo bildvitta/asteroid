@@ -28,13 +28,18 @@ const props = defineProps({
   useText: {
     type: Boolean,
     default: true
+  },
+
+  rawText: {
+    default: '',
+    type: String
   }
 })
 
 const isLoading = ref(false)
 
 function copy () {
-  copyToClipboard(props.text, value => {
+  copyToClipboard(props.rawText || props.text, value => {
     isLoading.value = value
   })
 }
