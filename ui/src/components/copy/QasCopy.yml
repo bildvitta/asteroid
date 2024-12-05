@@ -19,5 +19,5 @@ props:
     default: true
 
   raw-text:
-    desc: Valor a ser copiado caso seja diferente do texto exibido.
+    desc: Caso o texto a ser copiado precise ser diferente do texto a ser exibido, utilize esta propriedade.
     type: String
