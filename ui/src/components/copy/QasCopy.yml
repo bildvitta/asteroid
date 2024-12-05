@@ -18,3 +18,6 @@ props:
     type: Boolean
     default: true
 
+  raw-text:
+    desc: Valor a ser copiado caso seja diferente do texto exibido.
+    type: String
