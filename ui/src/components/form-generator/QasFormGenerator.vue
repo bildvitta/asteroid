@@ -2,7 +2,7 @@
   <div :class="fieldsetClasses">
     <div v-for="(fieldsetItem, fieldsetItemKey) in normalizedFields" :key="fieldsetItemKey" :class="getFieldSetColumnClass(fieldsetItem.column)">
       <component :is="containerComponent.is" v-bind="containerComponent.props">
-        <slot v-if="fieldsetItem.__isFieldset" :name="`legend-${fieldsetItemKey}`">
+        <slot v-if="fieldsetItem.__hasHeader" :name="`legend-${fieldsetItemKey}`">
           <qas-header v-bind="getHeaderProps(fieldsetItem)" />
         </slot>
 
@@ -32,7 +32,7 @@
           </slot>
         </div>
 
-        <slot v-if="fieldsetItem.__isFieldset" :name="`legend-bottom-${fieldsetItemKey}`" />
+        <slot v-if="fieldsetItem.__hasFieldset" :name="`legend-bottom-${fieldsetItemKey}`" />
       </component>
     </div>
   </div>
@@ -177,8 +177,13 @@ const normalizedFields = computed(() => {
       fields: { hidden: {}, visible: {} },
       headerProps: fieldsetItem.headerProps,
 
-      // Indica que existe um fieldset para que o QasHeader possa ser renderizado
-      __isFieldset: true
+      // Indica que existe um fieldset para que o legend-bottom possa ser renderizado.
+      __hasFieldset: true,
+
+      // Indica que existe props para que o header seja renderizado.
+      __hasHeader: (
+        !!fieldsetItem.label || !!fieldsetItem.description || Object.keys(fieldsetItem.headerProps || {}).length
+      )
     }
 
     fieldsetItem.fields.forEach(fieldName => {
