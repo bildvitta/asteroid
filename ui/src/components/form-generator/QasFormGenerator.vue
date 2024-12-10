@@ -169,6 +169,9 @@ const normalizedFields = computed(() => {
   for (const fieldsetKey in props.fieldset) {
     const fieldsetItem = props.fieldset[fieldsetKey]
 
+    const { label, description, headerProps } = fieldsetItem
+    const hasHeader = !!label || !!description || Object.keys(headerProps || {}).length
+
     fields[fieldsetKey] = {
       label: fieldsetItem.label,
       description: fieldsetItem.description,
@@ -181,9 +184,7 @@ const normalizedFields = computed(() => {
       __hasFieldset: true,
 
       // Indica que existe props para que o header seja renderizado.
-      __hasHeader: (
-        !!fieldsetItem.label || !!fieldsetItem.description || Object.keys(fieldsetItem.headerProps || {}).length
-      )
+      __hasHeader: hasHeader
     }
 
     fieldsetItem.fields.forEach(fieldName => {
