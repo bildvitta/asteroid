@@ -2,8 +2,8 @@
   <div :class="fieldsetClasses">
     <div v-for="(fieldsetItem, fieldsetItemKey) in normalizedFields" :key="fieldsetItemKey" :class="getFieldSetColumnClass(fieldsetItem.column)">
       <component :is="containerComponent.is" v-bind="containerComponent.props">
-        <slot v-if="fieldsetItem.__isFieldset" :name="`legend-${fieldsetItemKey}`">
-          <qas-header v-bind="getHeaderProps(fieldsetItem)" />
+        <slot v-if="fieldsetItem.__hasFieldset" :name="`legend-${fieldsetItemKey}`">
+          <qas-header v-if="fieldsetItem.__hasHeader" v-bind="getHeaderProps(fieldsetItem)" />
         </slot>
 
         <div>
@@ -32,7 +32,7 @@
           </slot>
         </div>
 
-        <slot v-if="fieldsetItem.__isFieldset" :name="`legend-bottom-${fieldsetItemKey}`" />
+        <slot v-if="fieldsetItem.__hasFieldset" :name="`legend-bottom-${fieldsetItemKey}`" />
       </component>
     </div>
   </div>
@@ -169,16 +169,29 @@ const normalizedFields = computed(() => {
   for (const fieldsetKey in props.fieldset) {
     const fieldsetItem = props.fieldset[fieldsetKey]
 
-    fields[fieldsetKey] = {
-      label: fieldsetItem.label,
-      description: fieldsetItem.description,
-      column: fieldsetItem.column,
-      buttonProps: fieldsetItem.buttonProps,
-      fields: { hidden: {}, visible: {} },
-      headerProps: fieldsetItem.headerProps,
+    const {
+      label,
+      description,
+      column,
+      buttonProps,
+      headerProps
+    } = fieldsetItem
 
-      // Indica que existe um fieldset para que o QasHeader possa ser renderizado
-      __isFieldset: true
+    const hasHeader = !!(label || description || Object.keys(headerProps || {}).length)
+
+    fields[fieldsetKey] = {
+      label,
+      description,
+      column,
+      buttonProps,
+      fields: { hidden: {}, visible: {} },
+      headerProps,
+
+      // Indica que existe um fieldset para que o legend-bottom possa ser renderizado.
+      __hasFieldset: true,
+
+      // Indica que existe props para que o header seja renderizado.
+      __hasHeader: hasHeader
     }
 
     fieldsetItem.fields.forEach(fieldName => {

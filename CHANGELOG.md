@@ -14,6 +14,9 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 ### Adicionado
 - `QasCopy`: adicionado prop `raw-text` pra usar em casos onde o texto exibido não é o mesmo do valor que vai ser copiado.
 
+### Corrigido
+- `QasFormGenerator`: corrigido validação para exibição do `fieldset`, ao não passar propriedades como label e description, fazia com que ficasse um espaço em branco.
+
 ## [3.17.0-beta.19] - 03-12-2024
 ### Corrigido
 - `QasAppMenu`: corrigido problema que ocorria quando um item do menu com "children" ficava vazio, ele quebrava por não encontrar a rota e mostrava um label mesmo que sem nenhum item abaixo.
