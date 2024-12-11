@@ -43,6 +43,12 @@ O formato padrão do model de objeto é:
 ## Uso
 
 <doc-example file="QasUploader/Basic" title="Básico" />
+
+:::info
+- Caso utilize o `headerProps`, por padrão sempre teremos o item `add` para realizar a adição dos arquivos, caso queira sobrescrever a ação de upload, basta passar um outro item `add` em list.
+:::
+<doc-example file="QasUploader/WithHeaderProps" title="Personalizando o Header" />
+
 <doc-example file="QasUploader/ExUploaderMultiple" title="Múltiplo" />
 <doc-example file="QasUploader/ExUploaderMultipleObjectModel" title="Múltiplo com useObjectModel" />
 <doc-example file="QasUploader/ExUploaderSingleObjectModel" title="Múltiplo com useObjectModel" />
