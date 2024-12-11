@@ -169,16 +169,23 @@ const normalizedFields = computed(() => {
   for (const fieldsetKey in props.fieldset) {
     const fieldsetItem = props.fieldset[fieldsetKey]
 
-    const { label, description, headerProps } = fieldsetItem
-    const hasHeader = !!label || !!description || Object.keys(headerProps || {}).length
+    const {
+      label,
+      description,
+      column,
+      buttonProps,
+      headerProps
+    } = fieldsetItem
+
+    const hasHeader = !!(label || description || Object.keys(headerProps || {}).length)
 
     fields[fieldsetKey] = {
-      label: fieldsetItem.label,
-      description: fieldsetItem.description,
-      column: fieldsetItem.column,
-      buttonProps: fieldsetItem.buttonProps,
+      label,
+      description,
+      column,
+      buttonProps,
       fields: { hidden: {}, visible: {} },
-      headerProps: fieldsetItem.headerProps,
+      headerProps,
 
       // Indica que existe um fieldset para que o legend-bottom possa ser renderizado.
       __hasFieldset: true,
