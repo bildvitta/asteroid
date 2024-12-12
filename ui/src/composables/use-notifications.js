@@ -107,7 +107,8 @@ export default function () {
     function sendNotificationSound () {
       const audio = new Audio(naveNotificationSound)
 
-      audio.play()
+      // o áudio agora é reproduzível; reproduza-o se as permissões permitirem
+      audio.addEventListener('canplaythrough', audio.play)
     }
   }
 
