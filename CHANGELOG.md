@@ -16,7 +16,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 
 ### Adicionado
 - `QasStepper`:
-  - Repassado possibilidade de passar props do `Quasar` para o componente.
+  - Adicionado possibilidade de passar props do `Quasar` para o componente.
   - Adicionado estilização em caso de step com erro.
   - Adicionado estilização em caso do stepper usar a prop `header-nav`.
 
