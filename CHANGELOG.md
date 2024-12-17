@@ -14,6 +14,10 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 ### Modificado
 - `QasUploader`: modificado header do componente para utilizar o `QasHeader` ao invés do `QasLabel`.
 
+## [3.17.0-beta.21] - 12-12-2024
+### Adicionado
+- `composables/use-notifications`: adicionado som de notificação toda vez que as notificações `in app` são chamadas.
+
 ## [3.17.0-beta.20] - 11-12-2024
 ### Adicionado
 - `QasCopy`: adicionado prop `raw-text` pra usar em casos onde o texto exibido não é o mesmo do valor que vai ser copiado.
@@ -3375,3 +3379,4 @@ Adicionado suporte para Pinia/Vuex Seguindo os padrões da biblioteca `@bildvitt
 [3.17.0-beta.18]: https://github.com/bildvitta/asteroid/compare/v3.17.0-beta.17...v3.17.0-beta.18?expand=1
 [3.17.0-beta.19]: https://github.com/bildvitta/asteroid/compare/v3.17.0-beta.18...v3.17.0-beta.19?expand=1
 [3.17.0-beta.20]: https://github.com/bildvitta/asteroid/compare/v3.17.0-beta.19...v3.17.0-beta.20?expand=1
+[3.17.0-beta.21]: https://github.com/bildvitta/asteroid/compare/v3.17.0-beta.20...v3.17.0-beta.21?expand=1
