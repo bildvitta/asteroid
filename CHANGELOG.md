@@ -14,6 +14,12 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 ### Modificado
 - `QasUploader`: modificado header do componente para utilizar o `QasHeader` ao invés do `QasLabel`.
 
+### Adicionado
+- `QasStepper`:
+  - Repassado possibilidade de passar props do `Quasar` para o componente.
+  - Adicionado estilização em caso de step com erro.
+  - Adicionado estilização em caso do stepper usar a prop `header-nav`.
+
 ## [3.17.0-beta.21] - 12-12-2024
 ### Adicionado
 - `composables/use-notifications`: adicionado som de notificação toda vez que as notificações `in app` são chamadas.

@@ -65,7 +65,7 @@ const stepperProps = computed(() => {
     errorIcon: 'sym_r_close',
     errorColor: 'white',
     headerClass: `text-subtitle1 q-pb-${props.spacing}`,
-    inactiveColor: attrs.headerNav ? 'grey-10' : 'grey-6'
+    inactiveColor: attrs['header-nav'] || attrs.headerNav ? 'grey-10' : 'grey-6'
   }
 
   return {
@@ -112,8 +112,8 @@ function previous () {
 
       &--active {
         .q-icon {
-          font-size: 14px !important;
-          color: white!important;
+          font-size: 14px;
+          color: white;
         }
 
         .q-stepper__dot {
@@ -131,7 +131,7 @@ function previous () {
         }
 
         .q-icon {
-          font-size: 14px !important;
+          font-size: 14px;
         }
       }
     }
