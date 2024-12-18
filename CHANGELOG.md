@@ -13,6 +13,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 ## Não publicado
 ### Modificado
 - `QasUploader`: modificado header do componente para utilizar o `QasHeader` ao invés do `QasLabel`.
+- `QasStepperFormView`: modificado atribuição de nome da step (necessário para utilizar `keep-alive-exclude`).
 
 ### Adicionado
 - `QasStepper`:
