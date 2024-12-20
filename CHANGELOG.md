@@ -10,6 +10,17 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 ### Sobre os "BREAKING CHANGES"
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
+## Não publicado
+### Modificado
+- `QasUploader`: modificado header do componente para utilizar o `QasHeader` ao invés do `QasLabel`.
+- `QasStepperFormView`: modificado atribuição de nome da step (necessário para utilizar `keep-alive-exclude`).
+
+### Adicionado
+- `QasStepper`:
+  - Adicionado possibilidade de passar props do `Quasar` para o componente.
+  - Adicionado estilização em caso de step com erro.
+  - Adicionado estilização em caso do stepper usar a prop `header-nav`.
+
 ## [3.17.0-beta.21] - 12-12-2024
 ### Adicionado
 - `composables/use-notifications`: adicionado som de notificação toda vez que as notificações `in app` são chamadas.
