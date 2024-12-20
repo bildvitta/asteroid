@@ -1,7 +1,7 @@
 <template>
   <qas-stepper ref="stepper" v-model="model" v-bind="stepperProps">
     <template #default>
-      <q-step v-for="(step, stepIndex) in props.steps" :key="stepIndex" :done="isDone(stepIndex)" :name="getStepName({step, stepIndex})" v-bind="stepPropsList[stepIndex]">
+      <q-step v-for="(step, stepIndex) in props.steps" :key="stepIndex" :done="isDone(stepIndex)" :name="getStepName({ step, stepIndex })" v-bind="stepPropsList[stepIndex]">
         <component :is="step.component" />
       </q-step>
     </template>

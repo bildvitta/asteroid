@@ -11,7 +11,7 @@
             </template>
 
             <template v-for="(_, name) in $slots" #[getHeaderSlotName(name)]="context">
-              <slot :name="`${name}`" v-bind="context" />
+              <slot :name v-bind="context" />
             </template>
           </qas-header>
 
