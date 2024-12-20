@@ -7,12 +7,16 @@
 <script setup>
 import { ref } from 'vue'
 
-defineOptions({ name: 'WithHeaderProps' })
+defineOptions({ name: 'WithError' })
 
 const model = ref(['https://placehold.co/600x400/orange/white?text=img1'])
 
 const uploaderProps = {
   entity: 'serviceOrders',
+
+  error: true,
+
+  errorMessage: 'Erro de validação',
 
   addButtonLabel: 'Botão de adicionar',
 

@@ -30,6 +30,8 @@ const props = defineProps({
   }
 })
 
+defineExpose({ setStepProps })
+
 const model = defineModel({ type: [Number, String], default: 1 })
 
 const values = ref({})

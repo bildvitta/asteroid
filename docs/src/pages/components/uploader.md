@@ -49,6 +49,8 @@ O formato padrão do model de objeto é:
 :::
 <doc-example file="QasUploader/WithHeaderProps" title="Personalizando o Header" />
 
+<doc-example file="QasUploader/WithError" title="Com erro" />
+
 <doc-example file="QasUploader/ExUploaderMultiple" title="Múltiplo" />
 <doc-example file="QasUploader/ExUploaderMultipleObjectModel" title="Múltiplo com useObjectModel" />
 <doc-example file="QasUploader/ExUploaderSingleObjectModel" title="Múltiplo com useObjectModel" />
