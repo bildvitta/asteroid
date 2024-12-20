@@ -47,7 +47,7 @@ O formato padrão do model de objeto é:
 :::info
 - Caso utilize o `headerProps`, por padrão sempre teremos o item `add` para realizar a adição dos arquivos, caso queira sobrescrever a ação de upload, basta passar um outro item `add` em list.
 :::
-<doc-example file="QasUploader/WithHeaderProps" title="Personalizando o Header" />
+<doc-example file="QasUploader/WithHeaderProps" title="Usando HeaderProps" />
 
 <doc-example file="QasUploader/WithError" title="Com erro" />
 
