@@ -1,6 +1,6 @@
 <template>
   <div :class="fieldsetClasses">
-    <div v-for="(fieldsetItem, fieldsetItemKey) in normalizedFields" :key="fieldsetItemKey" :class="getFieldSetColumnClass(fieldsetItem.column)">
+    <div v-for="(fieldsetItem, fieldsetItemKey) in normalizedFields" :key="fieldsetItemKey" :class="getFormattedColumnClasses(fieldsetItem.column)">
       <component :is="containerComponent.is" v-bind="containerComponent.props">
         <slot v-if="fieldsetItem.__hasFieldset" :name="`legend-${fieldsetItemKey}`">
           <qas-header v-if="fieldsetItem.__hasHeader" v-bind="getHeaderProps(fieldsetItem)" />
@@ -101,7 +101,7 @@ const emit = defineEmits(['update:modelValue'])
 provide('isFormGenerator', true)
 
 // composables
-const { classes, getFieldClass, getFieldSetColumnClass } = useGenerator({ props })
+const { classes, getFieldClass, getFormattedColumnClasses } = useGenerator({ props })
 
 const { fieldsetClasses, hasFieldset } = useFieldset({ props })
 

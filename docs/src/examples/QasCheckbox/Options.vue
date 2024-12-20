@@ -1,5 +1,9 @@
 <template>
   <div class="container spaced">
+    <qas-checkbox v-model="model" :columns="{ col: 12, sm: 4, md: 3 }" label="Checkbox com opções" :options />
+
+    <q-separator class="q-my-md" />
+
     <qas-checkbox v-model="model" label="Checkbox com opções" :options />
 
     <div class="q-mt-lg">
@@ -17,7 +21,7 @@ const model = ref([])
 
 const options = [
   {
-    label: 'Opção 1',
+    label: 'Opção de teste com nome grande 1',
     value: 1
   },
   {
@@ -27,6 +31,26 @@ const options = [
   {
     label: 'Opção 3',
     value: 3
+  },
+  {
+    label: 'Opção 4',
+    value: 4
+  },
+  {
+    label: 'Opção 5',
+    value: 5
+  },
+  {
+    label: 'Opção 6',
+    value: 6
+  },
+  {
+    label: 'Opção 7',
+    value: 7
+  },
+  {
+    label: 'Opção 8',
+    value: 8
   }
 ]
 </script>

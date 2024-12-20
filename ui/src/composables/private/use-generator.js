@@ -69,7 +69,7 @@ export default function ({ props = {} }) {
       : _handleColumnsByField({ index, isGridGenerator })
   }
 
-  function getFieldSetColumnClass (column) {
+  function getFormattedColumnClasses (column) {
     if (!column) return 'col-12'
 
     return typeof column === 'string' ? _getStringColumns(column) : _getBreakpoint(column)
@@ -169,6 +169,6 @@ export default function ({ props = {} }) {
     classes,
 
     getFieldClass,
-    getFieldSetColumnClass
+    getFormattedColumnClasses
   }
 }

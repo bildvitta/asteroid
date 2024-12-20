@@ -12,15 +12,23 @@
       </div>
 
       <div :class="classes">
-        <div v-for="(option, index) in props.options" :key="index">
+        <div v-for="(option, index) in props.options" :key="index" :class="checkboxContainerClasses">
           <!-- Com children -->
           <q-checkbox v-if="hasChildren(option)" :class="getCheckboxClass(option)" dense :label="option.label" :model-value="getModelValue(index)" @update:model-value="updateCheckbox($event, option, index)" />
 
           <!-- Com children -->
-          <q-option-group v-if="hasChildren(option)" class="q-ml-xs q-mt-xs" dense :inline="props.inline" :model-value="props.modelValue" :options="option.children" type="checkbox" @update:model-value="updateChildren($event, option, index)" />
+          <q-option-group v-if="hasChildren(option)" class="q-ml-xs q-mt-xs" dense :inline="props.inline" :model-value="props.modelValue" :options="option.children" type="checkbox" @update:model-value="updateChildren($event, option, index)">
+            <template #label="option">
+              <div class="ellipsis" :title="option.label">{{ option.label }}</div>
+            </template>
+          </q-option-group>
 
           <!-- Sem children -->
-          <q-option-group v-else v-model="model" v-bind="attrs" dense :options="[option]" type="checkbox" />
+          <q-option-group v-else v-model="model" v-bind="attrs" dense :options="[option]" type="checkbox">
+            <template #label="option">
+              <div class="ellipsis" :title="option.label">{{ option.label }}</div>
+            </template>
+          </q-option-group>
         </div>
       </div>
     </div>
@@ -29,6 +37,7 @@
 
 <script setup>
 import { watch, computed, ref, onMounted, useAttrs } from 'vue'
+import { useGenerator } from '../../composables/private'
 
 defineOptions({
   name: 'QasCheckbox',
@@ -54,12 +63,19 @@ const props = defineProps({
   inline: {
     default: true,
     type: Boolean
+  },
+
+  columns: {
+    type: [String, Object],
+    default: ''
   }
 })
 
 const emit = defineEmits(['update:modelValue'])
 
 const attrs = useAttrs()
+
+const { getFormattedColumnClasses } = useGenerator({})
 
 // refs
 const group = ref({})
@@ -68,7 +84,13 @@ const group = ref({})
 onMounted(handleParent)
 
 // computed
-const classes = computed(() => props.inline && 'flex q-gutter-x-sm')
+const classes = computed(() => props.inline && 'row q-col-gutter-sm')
+
+const checkboxContainerClasses = computed(() => {
+  if (!props.columns) return ''
+
+  return getFormattedColumnClasses(props.columns)
+})
 
 const hasCheckboxLabel = computed(() => !!props.label)
 
@@ -148,3 +170,15 @@ function getModelValue (index) {
   return group.value[index]
 }
 </script>
+
+<style lang="scss">
+.q-option-group {
+  .q-checkbox {
+    display: flex;
+
+    &__label {
+      overflow: hidden !important;
+    }
+  }
+}
+</style>
