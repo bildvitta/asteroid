@@ -104,16 +104,20 @@ module.exports = [
         path: '/components/card-image'
       },
       {
+        name: 'CompanySelect',
+        path: '/components/company-select'
+      },
+      {
+        name: 'Copy',
+        path: '/components/copy'
+      },
+      {
         name: 'ChartView',
         path: '/components/chart-view'
       },
       {
         name: 'Checkbox',
         path: '/components/checkbox'
-      },
-      {
-        name: 'Copy',
-        path: '/components/copy'
       },
       {
         name: 'Date',

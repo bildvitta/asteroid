@@ -14,6 +14,7 @@ import QasBtnDropdown from './components/btn-dropdown/QasBtnDropdown.vue'
 import QasCard from './components/card/QasCard.vue'
 import QasCardImage from './components/card-image/QasCardImage.vue'
 import QasCheckbox from './components/checkbox/QasCheckbox.vue'
+import QasCompanySelect from './components/company-select/QasCompanySelect.vue'
 import QasCopy from './components/copy/QasCopy.vue'
 import QasDate from './components/date/QasDate.vue'
 import QasDateTimeInput from './components/date-time-input/QasDateTimeInput.vue'
@@ -112,6 +113,7 @@ async function install (app) {
   app.component('QasCard', QasCard)
   app.component('QasCardImage', QasCardImage)
   app.component('QasCheckbox', QasCheckbox)
+  app.component('QasCompanySelect', QasCompanySelect)
   app.component('QasCopy', QasCopy)
   app.component('QasDate', QasDate)
   app.component('QasDateTimeInput', QasDateTimeInput)
@@ -213,6 +215,7 @@ export {
   QasCard,
   QasCheckbox,
   QasCopy,
+  QasCompanySelect,
   QasDate,
   QasDateTimeInput,
   QasDebugger,

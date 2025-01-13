@@ -5,7 +5,11 @@ const routes = [
     path: '/',
     name: 'Root',
     component: () => import('src/layouts/DocLayout.vue'),
-    children: getPages()
+    children: getPages(),
+    beforeEnter: (to, from, next) => {
+      console.log('beforeRouteEnter', localStorage.getItem('accessToken'))
+      next()
+    }
   },
 
   {

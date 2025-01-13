@@ -30,6 +30,8 @@
         </div>
       </div>
     </div>
+
+    <qas-company-select />
   </doc-page>
 </template>
 

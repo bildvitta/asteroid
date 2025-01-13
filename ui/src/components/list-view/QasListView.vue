@@ -43,10 +43,14 @@
 <script>
 import QasFilters from '../filters/QasFilters.vue'
 import QasPagination from '../pagination/QasPagination.vue'
+
+import useCompany from '../../composables/use-company'
+// import useCompany, { onCompanyChange } from '../../composables/use-company'
+import { viewMixin, contextMixin } from '../../mixins'
+
 import debug from 'debug'
 import { extend } from 'quasar'
 import { getState, getAction } from '@bildvitta/store-adapter'
-import { viewMixin, contextMixin } from '../../mixins'
 import { computed } from 'vue'
 
 const log = debug('asteroid-ui:qas-list-view')
@@ -75,6 +79,10 @@ export default {
     results: {
       default: () => [],
       type: Array
+    },
+
+    useCompanyFilter: {
+      type: Boolean
     },
 
     useAutoHandleOnDelete: {
@@ -116,7 +124,8 @@ export default {
     return {
       page: 1,
       resultsQuantity: 0,
-      isFetchListSucceeded: false
+      isFetchListSucceeded: false,
+      companyComposable: null
     }
   },
 
@@ -175,6 +184,8 @@ export default {
     this.mx_fetchHandler({ ...this.mx_context, url: this.url }, this.fetchList)
 
     this.setCurrentPage()
+
+    this.setCompanyFilter()
   },
 
   mounted () {
@@ -184,6 +195,8 @@ export default {
   },
 
   unmounted () {
+    this.removeCompanyFilter()
+
     if (!this.hasDeleteEventListener) return
 
     window.removeEventListener('delete-success', this.onDeleteResult)
@@ -296,6 +309,30 @@ export default {
       }
 
       this.onAutoHandleDelete(event)
+    },
+
+    setCompanyFilter () {
+      if (this.useCompanyFilter) {
+        this.companyComposable = useCompany()
+
+        this.companyComposable.onCompanyChange(this.onCompanyChange)
+      }
+    },
+
+    removeCompanyFilter () {
+      if (this.useCompanyFilter) {
+        console.log('TCL: removeCompanyFilter -> this.companyComposable', this.companyComposable)
+        this.companyComposable.removeCompanyChangeHook(this.onCompanyChange)
+      }
+    },
+
+    onCompanyChange (company) {
+      const { filters } = this.mx_context
+
+      filters.company = company
+
+      console.log('TCL: companyHandler -> this.mx_context', this.mx_context)
+      this.mx_fetchHandler({ ...this.mx_context, url: this.url }, this.fetchList)
     }
   }
 }
