@@ -37,6 +37,11 @@ import Sortable from 'sortablejs'
 defineOptions({ name: 'QasBoardGenerator' })
 
 const props = defineProps({
+  beforeUpdatePosition: {
+    type: Function,
+    default: undefined
+  },
+
   headers: {
     type: Array,
     default: () => []
@@ -132,10 +137,11 @@ const emit = defineEmits([
   'fetch-column-error',
   'fetch-columns-success',
   'fetch-columns-error',
-  'update-success'
+  'update-success',
+  'update-error'
 ])
 
-defineExpose({ fetchColumns, fetchColumn, reset })
+defineExpose({ fetchColumns, fetchColumn, reset, cancelDrop })
 
 // Inject
 const axios = inject('axios')
@@ -392,6 +398,20 @@ function getItemsByHeader (header) {
   return hasColumnsLength.value ? columnsResultsModel.value[getKeyByHeader(header)] : []
 }
 
+function getColumnItemById (id) {
+  return Object.values(columnsResultsModel.value).flat().find(item => item[props.itemIdKey] === id)
+}
+
+/**
+ * Recupera o payload do header por id:
+ *
+ * @example getHeaderById('2024-02-15')
+ * @returns {Object} // { date: '2024-02-15'... }
+ */
+function getHeaderById (id) {
+  return props.headers.find(header => String(getKeyByHeader(header)) === String(id))
+}
+
 /**
 * Pegar key com base na chave identificador, exemplo:
 * header -> { date: '2024-02-12', ... }
@@ -479,7 +499,7 @@ function handleElementsList () {
 }
 
 /**
- * Descricao:
+ * Descrição:
  * Seta a instancia do sortable, no qual varia de acordo com as props passadas.
  *
  * @param {HTMLElement} element
@@ -530,6 +550,20 @@ function onDropCard (event) {
   onCancelDrop.value = () => cancelDrop(event)
 
   onConfirmDrop.value = () => confirmDrop(event)
+
+  if (typeof props.beforeUpdatePosition === 'function') {
+    props.beforeUpdatePosition({
+      event,
+      cancel: onCancelDrop.value,
+      getItem: () => getColumnItemById(event.item.id),
+      getColumnTo: () => getHeaderById(event.to.dataset.headerKey),
+      getColumnFrom: () => getHeaderById(event.from.dataset.headerKey),
+      openConfirmDialog,
+      update: () => confirmDrop(event)
+    })
+
+    return
+  }
 
   hasConfirmDialogProps.value
     ? openConfirmDialog()
@@ -617,8 +651,7 @@ function removeItemFromList ({ headerKey, itemId }) {
 }
 
 /**
- * Descricao:
- * Metodo que realiza a request de update
+ * Método que realiza a request de update
  *
  * @param {{
  *  newHeaderKey: string - ID da coluna de destino,
@@ -650,6 +683,8 @@ async function updatePosition ({ newHeaderKey, oldHeaderKey, itemId, event }) {
   if (error) {
     onCancelDrop.value()
 
+    emit('update-error', error)
+
     return
   }
 
@@ -663,7 +698,7 @@ async function updatePosition ({ newHeaderKey, oldHeaderKey, itemId, event }) {
 
   closeConfirmDialog()
 
-  emit('update-success')
+  emit('update-success', data.data)
 }
 
 function setItemList ({ headerKey, data, index }) {

@@ -8,6 +8,24 @@ Componente usado para board de colunas.
 
 ## Uso
 
+:::warning
+##### beforeUpdatePosition
+- Utilize a propriedade `beforeUpdatePosition` apenas em casos necessários, como validar um card antes de salvar a posição.
+- propriedade que é um callback é utilizada para servir como um interceptador.
+
+```js
+function beforeUpdatePosition (context) {
+  // context.event
+  // context.cancel()
+  // context.getItem()
+  // context.getColumnTo()
+  // context.getColumnFrom()
+  // context.openConfirmDialog()
+  // context.update()
+}
+```
+:::
+
 :::info
 Normalmente componente utilizado junto com `QasListView` para pegar os headers, sendo realizado a requisição das colunas após o `fetchSuccess`.
 Porém ainda sim é possível utilizar sem, sendo que precisa passar os headers fixos para buscar as colunas.
