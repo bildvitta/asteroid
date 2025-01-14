@@ -7,7 +7,7 @@
         </qas-box>
 
         <div :id="header[props.columnIdKey]" ref="columnContainer" class="qas-board-generator__column secondary-scroll" :data-header-key="getKeyByHeader(header)" :style="containerStyle">
-          <div v-for="item in getItemsByHeader(header)" :id="item[props.itemIdKey]" :key="item[props.itemIdKey]" class="qas-board-generator__item">
+          <div v-for="item in getItemsByHeader(header)" :id="`header-column__${item[props.itemIdKey]}`" :key="item[props.itemIdKey]" class="qas-board-generator__item">
             <slot :column-index="index" :fields="getFieldsByHeader(header)" :item="item" name="column-item" />
           </div>
 
@@ -402,6 +402,10 @@ function getItemById (id) {
   return Object.values(columnsResultsModel.value).flat().find(item => item[props.itemIdKey] === id)
 }
 
+function getHeaderColumnId (id) {
+  return id.replace('header-column__', '')
+}
+
 function getHeaderById (id) {
   return props.headers.find(header => getKeyByHeader(header) === id)
 }
@@ -548,12 +552,15 @@ function onDropCard (event) {
   onConfirmDrop.value = () => confirmDrop(event)
 
   if (typeof props.beforeUpdatePosition === 'function') {
+    const toId = getHeaderColumnId(event.to.id)
+    const fromId = getHeaderColumnId(event.from.id)
+
     props.beforeUpdatePosition({
       event,
       cancel: () => onCancelDrop.value(),
       getItem: () => getItemById(event.item.id),
-      getColumnTo: () => getHeaderById(event.to.id),
-      getColumnFrom: () => getHeaderById(event.from.id),
+      getColumnTo: () => getHeaderById(toId),
+      getColumnFrom: () => getHeaderById(fromId),
       openConfirmDialog,
       update: () => confirmDrop(event)
     })
