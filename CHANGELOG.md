@@ -16,6 +16,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
   - adicionado nova propriedade `beforeUpdatePosition`.
   - adicionado novo evento `update-error`.
   - adicionado payload do retorno da api no evento `update-success`.
+  - adicionado método `cancelDrop` no `defineExpose`.
 
 ## [3.17.0-beta.22] - 20-12-2024
 ### Modificado

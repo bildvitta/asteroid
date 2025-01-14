@@ -398,7 +398,7 @@ function getItemsByHeader (header) {
   return hasColumnsLength.value ? columnsResultsModel.value[getKeyByHeader(header)] : []
 }
 
-function getItemById (id) {
+function getColumnItemById (id) {
   return Object.values(columnsResultsModel.value).flat().find(item => item[props.itemIdKey] === id)
 }
 
@@ -549,7 +549,7 @@ function onDropCard (event) {
     props.beforeUpdatePosition({
       event,
       cancel: () => onCancelDrop.value(),
-      getItem: () => getItemById(event.item.id),
+      getItem: () => getColumnItemById(event.item.id),
       getColumnTo: () => getHeaderById(event.to.dataset.headerKey),
       getColumnFrom: () => getHeaderById(event.from.dataset.headerKey),
       openConfirmDialog,
