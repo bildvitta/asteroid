@@ -34,6 +34,15 @@ props:
         type: Function
         default: undefined
 
+      getColumnTo:
+        desc: Recupera o payload da coluna que o item será adicionado.
+        type: Function
+        default: {}
+
+      getColumnFrom:
+        desc: Recupera o payload da coluna que o item saiu.
+        type: Function
+        default: {}
 
   column-id-key:
     desc: chave que será o id usado para ser o identificador da coluna.
@@ -202,6 +211,9 @@ events:
         type: Object
 
 methods:
+  'cancelDrop: () => void':
+    desc: Cancela o drop e volta o item para coluna original.
+
   'fetchColumns: () => void':
     desc: Busca todas colunas com base nos headers fornecidos.
 

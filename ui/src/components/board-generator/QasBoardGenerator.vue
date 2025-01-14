@@ -406,8 +406,6 @@ function getHeaderById (id) {
   return props.headers.find(header => String(getKeyByHeader(header)) === String(id))
 }
 
-// function getColumnBy
-
 /**
 * Pegar key com base na chave identificador, exemplo:
 * header -> { date: '2024-02-12', ... }
