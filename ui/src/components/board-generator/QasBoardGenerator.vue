@@ -402,6 +402,12 @@ function getColumnItemById (id) {
   return Object.values(columnsResultsModel.value).flat().find(item => item[props.itemIdKey] === id)
 }
 
+/**
+ * Recupera o payload do header por id:
+ *
+ * @example getHeaderById('2024-02-15')
+ * @returns {Object} // { date: '2024-02-15'... }
+ */
 function getHeaderById (id) {
   return props.headers.find(header => String(getKeyByHeader(header)) === String(id))
 }
@@ -548,7 +554,7 @@ function onDropCard (event) {
   if (typeof props.beforeUpdatePosition === 'function') {
     props.beforeUpdatePosition({
       event,
-      cancel: () => onCancelDrop.value(),
+      cancel: onCancelDrop.value,
       getItem: () => getColumnItemById(event.item.id),
       getColumnTo: () => getHeaderById(event.to.dataset.headerKey),
       getColumnFrom: () => getHeaderById(event.from.dataset.headerKey),
