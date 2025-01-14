@@ -37,6 +37,11 @@ import Sortable from 'sortablejs'
 defineOptions({ name: 'QasBoardGenerator' })
 
 const props = defineProps({
+  beforeUpdatePosition: {
+    type: Function,
+    default: undefined
+  },
+
   headers: {
     type: Array,
     default: () => []
@@ -132,10 +137,11 @@ const emit = defineEmits([
   'fetch-column-error',
   'fetch-columns-success',
   'fetch-columns-error',
-  'update-success'
+  'update-success',
+  'update-error'
 ])
 
-defineExpose({ fetchColumns, fetchColumn, reset })
+defineExpose({ fetchColumns, fetchColumn, reset, cancelDrop })
 
 // Inject
 const axios = inject('axios')
@@ -392,6 +398,10 @@ function getItemsByHeader (header) {
   return hasColumnsLength.value ? columnsResultsModel.value[getKeyByHeader(header)] : []
 }
 
+function getItemById (id) {
+  return Object.values(columnsResultsModel.value).flat().find(item => item[props.itemIdKey] === id)
+}
+
 /**
 * Pegar key com base na chave identificador, exemplo:
 * header -> { date: '2024-02-12', ... }
@@ -479,7 +489,7 @@ function handleElementsList () {
 }
 
 /**
- * Descricao:
+ * Descrição:
  * Seta a instancia do sortable, no qual varia de acordo com as props passadas.
  *
  * @param {HTMLElement} element
@@ -530,6 +540,18 @@ function onDropCard (event) {
   onCancelDrop.value = () => cancelDrop(event)
 
   onConfirmDrop.value = () => confirmDrop(event)
+
+  if (typeof props.beforeUpdatePosition === 'function') {
+    props.beforeUpdatePosition({
+      event,
+      cancel: () => onCancelDrop.value(),
+      getItem: () => getItemById(event.item.id),
+      openConfirmDialog,
+      update: () => confirmDrop(event)
+    })
+
+    return
+  }
 
   hasConfirmDialogProps.value
     ? openConfirmDialog()
@@ -650,6 +672,8 @@ async function updatePosition ({ newHeaderKey, oldHeaderKey, itemId, event }) {
   if (error) {
     onCancelDrop.value()
 
+    emit('update-error', error)
+
     return
   }
 
@@ -663,7 +687,7 @@ async function updatePosition ({ newHeaderKey, oldHeaderKey, itemId, event }) {
 
   closeConfirmDialog()
 
-  emit('update-success')
+  emit('update-success', data.data)
 }
 
 function setItemList ({ headerKey, data, index }) {

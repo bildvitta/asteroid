@@ -8,6 +8,10 @@ Componente usado para board de colunas.
 
 ## Uso
 
+:::warning
+Utilize a propriedade `beforeUpdatePosition` apenas em casos necessários, como validar um card antes de salvar a posição.
+:::
+
 :::info
 Normalmente componente utilizado junto com `QasListView` para pegar os headers, sendo realizado a requisição das colunas após o `fetchSuccess`.
 Porém ainda sim é possível utilizar sem, sendo que precisa passar os headers fixos para buscar as colunas.
