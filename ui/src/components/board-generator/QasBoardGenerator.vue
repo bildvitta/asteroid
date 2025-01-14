@@ -6,7 +6,7 @@
           <slot :fields="getFieldsByHeader(header)" :header="header" :index="index" name="header-column" />
         </qas-box>
 
-        <div ref="columnContainer" class="qas-board-generator__column secondary-scroll" :data-header-key="getKeyByHeader(header)" :style="containerStyle">
+        <div :id="header[props.columnIdKey]" ref="columnContainer" class="qas-board-generator__column secondary-scroll" :data-header-key="getKeyByHeader(header)" :style="containerStyle">
           <div v-for="item in getItemsByHeader(header)" :id="item[props.itemIdKey]" :key="item[props.itemIdKey]" class="qas-board-generator__item">
             <slot :column-index="index" :fields="getFieldsByHeader(header)" :item="item" name="column-item" />
           </div>
@@ -402,6 +402,12 @@ function getItemById (id) {
   return Object.values(columnsResultsModel.value).flat().find(item => item[props.itemIdKey] === id)
 }
 
+function getHeaderById (id) {
+  return props.headers.find(header => getKeyByHeader(header) === id)
+}
+
+// function getColumnBy
+
 /**
 * Pegar key com base na chave identificador, exemplo:
 * header -> { date: '2024-02-12', ... }
@@ -546,6 +552,8 @@ function onDropCard (event) {
       event,
       cancel: () => onCancelDrop.value(),
       getItem: () => getItemById(event.item.id),
+      getColumnTo: () => getHeaderById(event.to.id),
+      getColumnFrom: () => getHeaderById(event.from.id),
       openConfirmDialog,
       update: () => confirmDrop(event)
     })
@@ -639,8 +647,7 @@ function removeItemFromList ({ headerKey, itemId }) {
 }
 
 /**
- * Descricao:
- * Metodo que realiza a request de update
+ * Método que realiza a request de update
  *
  * @param {{
  *  newHeaderKey: string - ID da coluna de destino,
