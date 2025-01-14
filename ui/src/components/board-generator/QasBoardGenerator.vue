@@ -403,7 +403,7 @@ function getItemById (id) {
 }
 
 function getHeaderById (id) {
-  return props.headers.find(header => getKeyByHeader(header) === id)
+  return props.headers.find(header => String(getKeyByHeader(header)) === String(id))
 }
 
 // function getColumnBy
