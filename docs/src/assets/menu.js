@@ -280,6 +280,10 @@ module.exports = [
         path: '/components/select'
       },
       {
+        name: 'SelectFilter',
+        path: '/components/select'
+      },
+      {
         name: 'SelectList',
         path: '/components/select-list'
       },

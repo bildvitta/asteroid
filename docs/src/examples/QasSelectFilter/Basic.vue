@@ -1,6 +1,6 @@
 <template>
   <div class="container q-my-xl">
-    <qas-company-select v-model="company" :options @company-change="onUpdateModelValue" />
+    <qas-select-filter v-model="company" :options @update:model-value="onUpdateModelValue" />
 
     <div>
       Company: <div>{{ company }}</div>
@@ -10,8 +10,11 @@
 
 <script setup>
 import { ref } from 'vue'
+import { useRouter } from 'vue-router'
 
-const company = ref('')
+const router = useRouter()
+
+const company = ref()
 
 const options = ref([])
 
@@ -40,7 +43,11 @@ setTimeout(() => {
   ]
 }, 2000)
 
+setTimeout(() => {
+  router.push({ query: { company: '3' } })
+}, 3000)
+
 function onUpdateModelValue (value) {
-  console.log('TCL: onUpdateModelValue -> value', value)
+  console.log('BASIC: onUpdateModelValue -> value', value)
 }
 </script>

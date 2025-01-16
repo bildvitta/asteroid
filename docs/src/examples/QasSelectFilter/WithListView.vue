@@ -2,7 +2,8 @@
   <qas-list-view v-model:fields="viewState.fields" v-model:results="viewState.results" :entity use-company-filter :use-filter="false" @fetch-success="onFetchSuccess">
     <template #header>
       <div class="q-pa-lg">
-        <qas-company-select :options />
+        <qas-select-filter v-model="company" :options />
+        <pre>{{ company }}</pre>
       </div>
     </template>
 
@@ -22,10 +23,13 @@
 
 <script setup>
 import { useView } from '@bildvitta/composables'
+import { ref } from 'vue'
 
 const { viewState } = useView({ mode: 'list' })
 
 const entity = 'users'
+
+const company = ref('')
 
 const options = [
   {
