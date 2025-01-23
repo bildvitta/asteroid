@@ -10,7 +10,7 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 ### Sobre os "BREAKING CHANGES"
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
-## Não publicado
+## [3.17.0-beta.24] - 23-01-2025
 ## BREAKING CHANGES
 - `QasAppUser`: adicionado validação do endpoint `PATCH -> users/me` através de uma env `ME_VERSION`, é necessário adicionar esta env no `quasar.config.js`.
 
@@ -3409,3 +3409,4 @@ Adicionado suporte para Pinia/Vuex Seguindo os padrões da biblioteca `@bildvitt
 [3.17.0-beta.21]: https://github.com/bildvitta/asteroid/compare/v3.17.0-beta.20...v3.17.0-beta.21?expand=1
 [3.17.0-beta.22]: https://github.com/bildvitta/asteroid/compare/v3.17.0-beta.21...v3.17.0-beta.22?expand=1
 [3.17.0-beta.23]: https://github.com/bildvitta/asteroid/compare/v3.17.0-beta.22...v3.17.0-beta.23?expand=1
+[3.17.0-beta.24]: https://github.com/bildvitta/asteroid/compare/v3.17.0-beta.23...v3.17.0-beta.24?expand=1
