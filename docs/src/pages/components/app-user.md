@@ -12,7 +12,7 @@ Adicione a env `ME_VERSION` obrigatoriamente no `quasar.config.js`, com os dois 
 
 A funcionalidade de troca de vínculo de empresa é ativada quando existe mais de 1 opção na prop `companyProps.options`:
 - Quando existe apenas uma opção, é exibido o select como forma de informação de vinculo atual.
-- Os valores enviados para os options depende da versão do /me do projeto, caso esteja no antigo /me (versão 1), é necessário enviar o "companyLinksOptions".
+- Se estiver na nova versão antiga do /me (versão 1), é necessário adicionar o valor `1` na env `ME_VERSION` no projeto e adicionar nos options o "companyLinksOptions".
 - Se estiver na nova versão do /me (versão 2), é necessário adicionar o valor `2` na env `ME_VERSION` no projeto e adicionar nos options o "mainCompanyOptions".
 
 **Endpoint executado ao trocar de empresa: `PATCH -> users/me`**
