@@ -104,16 +104,16 @@ module.exports = [
         path: '/components/card-image'
       },
       {
+        name: 'Copy',
+        path: '/components/copy'
+      },
+      {
         name: 'ChartView',
         path: '/components/chart-view'
       },
       {
         name: 'Checkbox',
         path: '/components/checkbox'
-      },
-      {
-        name: 'Copy',
-        path: '/components/copy'
       },
       {
         name: 'Date',
@@ -274,6 +274,10 @@ module.exports = [
       {
         name: 'Select',
         path: '/components/select'
+      },
+      {
+        name: 'SelectFilter',
+        path: '/components/select-filter'
       },
       {
         name: 'SelectList',
@@ -546,6 +550,10 @@ module.exports = [
       {
         name: 'useContext',
         path: '/composables/use-context'
+      },
+      {
+        name: 'useDefaultFilters',
+        path: '/composables/use-default-filters'
       },
       {
         name: 'useForm',

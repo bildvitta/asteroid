@@ -10,6 +10,18 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 ### Sobre os "BREAKING CHANGES"
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
+## Não publicado
+## BREAKING CHANGES
+- `QasAppUser`: adicionado validação do endpoint `PATCH -> users/me` através de uma env `ME_VERSION`, é necessário adicionar esta env no `quasar.config.js`.
+
+### Adicionado
+- `QasSelectFilter`: Adicionado novo componente para lidar com filtros adicionando a query na URL e trabalhando em conjunto com o novo composable `useDefaultFilters`.
+- `composables/useDefaultFilters`: adicionado novo composable para lidar com filtros defaults adicionados antes de entrar na pagina e após adicionado/alterado pelo componente `QasSelectFilter`.
+
+### Modificado
+- `QasAppUser`: adicionado validação do endpoint `PATCH -> users/me` através de uma env `ME_VERSION`, é necessário adicionar esta env no `quasar.config.js`.
+- `composables/useQueryFilter/findOne`: adicionado optional chaining.
+
 ## [3.17.0-beta.23] - 14-01-2025
 ### Adicionado
 - `QasBoardGenerator`:
