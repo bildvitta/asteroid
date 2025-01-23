@@ -2,7 +2,7 @@
 title: QasSelectFilter
 ---
 
-Componente de select que filtra adicionando query na URL, comumente utilizado para seleção de vinculo de empresas..
+Componente de select que filtra adicionando query na URL, comumente utilizado para seleção
 
 <doc-api file="select-filter/QasSelectFilter" name="QasSelectFilter" />
 
