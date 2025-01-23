@@ -30,9 +30,6 @@
         </div>
       </div>
     </div>
-
-    <qas-select-filter />
-    <qas-btn label="index 2" to="/2" />
   </doc-page>
 </template>
 
@@ -40,19 +37,7 @@
 import { version } from 'asteroid'
 import packageInfo from '../../package.json'
 
-import { setDefaultFiltersBeforeEnter } from '../../../ui/src/composables/use-filter-select'
-
 export default ({
-  beforeRouteEnter: setDefaultFiltersBeforeEnter,
-
-  data () {
-    return {
-      filterQuery: {}
-    }
-  },
-
-  // beforeRouteUpdate: setDefaultFilterQuery,
-
   computed: {
     version () {
       return `Asteroid - v${version}`
@@ -63,15 +48,6 @@ export default ({
 
       return `Quasar - v${version}`
     }
-  },
-
-  created () {
-    // // this.filterQuery = useFilterQuery()
-    // // console.log('Fui chamado apenas 1x no created.', this.useFilterQuery)
-
-    // setTimeout(() => {
-    //   this.filterQuery.setFilterQuery('disabled', 'status')
-    // }, 3000)
   }
 })
 </script>

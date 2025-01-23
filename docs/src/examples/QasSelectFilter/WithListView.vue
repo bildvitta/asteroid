@@ -53,9 +53,4 @@ const options = [
     value: '5'
   }
 ]
-
-// functions
-function onFetchSuccess (results) {
-  console.log('TCL: onFetchSuccess -> results', results)
-}
 </script>

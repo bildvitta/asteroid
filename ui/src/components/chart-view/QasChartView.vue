@@ -46,8 +46,9 @@ import zoomPlugin from 'chartjs-plugin-zoom'
 import chartDataLabels from 'chartjs-plugin-datalabels'
 
 // Outras importações
-import { extend } from 'quasar'
 import { filterListByHandle } from '../../helpers'
+
+import { extend, is } from 'quasar'
 import { getAction } from '@bildvitta/store-adapter'
 
 const ChartTypes = {
@@ -129,6 +130,11 @@ export default {
     url: {
       default: '',
       type: String
+    },
+
+    urlQueryList: {
+      default: () => (['company']),
+      type: Array
     },
 
     useBox: {
@@ -332,6 +338,10 @@ export default {
           ...(this.useBox && { ...this.boxProps })
         }
       }
+    },
+
+    queryFromURL () {
+      return this.getQueryFromURL(this.$route.query)
     }
   },
 
@@ -342,6 +352,10 @@ export default {
 
     isFetching (value) {
       this.$emit('update:fetching', value)
+    },
+
+    $route (to, from) {
+      this.onRouteChange(to, from)
     }
   },
 
@@ -357,9 +371,10 @@ export default {
   methods: {
     handleFetchData () {
       const hasBeforeFetch = typeof this.beforeFetch === 'function'
+
       const payload = {
         url: this.url,
-        filters: this.filters
+        filters: { ...this.filters, ...this.queryFromURL }
       }
 
       if (hasBeforeFetch && !this.cancelBeforeFetch) {
@@ -435,6 +450,42 @@ export default {
         ...this.defaultChartItems,
         ...this.elementsChartItems[this.type]
       )
+    },
+
+    onRouteChange (to, from) {
+      const { query } = to
+
+      const isSameRoute = to.name === from.name
+      const hasQueryInURLQueryList = this.urlQueryList.some(urlQuery => query[urlQuery])
+
+      /**
+       * feito com função para evitar um deepEqual desnecessário, uma vez que
+       * caso "isSameRoute" seja falso, ou "hasQueryInURLQueryList" seja falso,
+       * não é necessário fazer a comparação.
+       */
+      const hasQueryChanged = () => !is.deepEqual(this.queryFromURL, this.getQueryFromURL(from.query))
+
+      /**
+       * Verifica se a rota atual é a mesma, se há uma query na URL que corresponde à queryList,
+       * e se a query correspondente à queryList foi alterada. Se todas essas condições forem
+       * verdadeiras, faz a requisição de dados.
+       */
+      if (isSameRoute && hasQueryInURLQueryList && hasQueryChanged()) this.handleFetchData()
+    },
+
+    /**
+     * "urlQueryList" é uma lista de query que o componente deve pegar da URL.
+     */
+    getQueryFromURL (query = {}) {
+      const newQuery = {}
+
+      this.urlQueryList.forEach(urlQuery => {
+        if (query[urlQuery]) {
+          newQuery[urlQuery] = query[urlQuery]
+        }
+      })
+
+      return newQuery
     }
   }
 }

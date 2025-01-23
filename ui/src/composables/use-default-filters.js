@@ -1,7 +1,11 @@
 import { computed, ref } from 'vue'
-import { LocalStorage } from 'quasar'
+import { LocalStorage, is } from 'quasar'
 
 const filterQuery = ref({})
+
+const defaultFiltersHooks = {
+  defaultFiltersChange: []
+}
 
 /**
  * Define os filtros padrão antes de entrar na rota.
@@ -17,7 +21,7 @@ const filterQuery = ref({})
  * @param {Array} queryList='company' - Lista de filtros a serem aplicados.
  */
 export function setDefaultFiltersBeforeEnter (to, _from, next, queryList = ['company']) {
-  const { getDefaultFiltersFromStorage, setFilterQuery } = useFilterSelect()
+  const { getDefaultFiltersFromStorage, setFilterQuery } = useDefaultFilters()
 
   const { query } = to
   const newQuery = { ...query }
@@ -26,25 +30,25 @@ export function setDefaultFiltersBeforeEnter (to, _from, next, queryList = ['com
   const defaultFiltersFromStorage = getDefaultFiltersFromStorage()
 
   queryList.forEach(name => {
-    // se o filtro já estiver salvo no estado, então utiliza ele
+    // 1. se o filtro já estiver salvo no estado, então utiliza ele
     if (filterQuery.value[name]) {
       newQuery[name] = filterQuery.value[name]
       return
     }
 
-    // se o filtro já estiver na query, então utiliza ele
+    // 2. se o filtro já estiver na query, então utiliza ele
     if (query[name]) {
       setFilterQuery(query[name], name)
 
       return
     }
 
-    // se o filtro já estiver salvo no LocalStorage, então utiliza ele
-    const storedQuery = defaultFiltersFromStorage[name]
+    const storedFilter = defaultFiltersFromStorage[name]
 
-    if (storedQuery) {
-      setFilterQuery(storedQuery, name)
-      newQuery[name] = storedQuery
+    // 3. se o filtro já estiver salvo no LocalStorage, então utiliza ele
+    if (storedFilter) {
+      setFilterQuery(storedFilter, name)
+      newQuery[name] = storedFilter
     }
   })
 
@@ -52,12 +56,15 @@ export function setDefaultFiltersBeforeEnter (to, _from, next, queryList = ['com
    * Verifica se houve mudanças na query antes de redirecionar, sem essa validação
    * o redirecionamento ocorre mesmo que a query seja a mesma, gerando loop infinito.
    */
-  if (JSON.stringify(newQuery) !== JSON.stringify(query)) return next({ ...to, query: newQuery, replace: true })
+  if (!is.deepEqual(newQuery, query)) return next({ ...to, query: newQuery, replace: true })
 
   next()
 }
 
-export default function useFilterSelect () {
+/**
+ * Este composable recupera os filtros default salvos no LocalStorage na chave 'defaultFilters'.
+ */
+export default function useDefaultFilters () {
   const hasFilterQuery = computed(() => !!Object.keys(filterQuery.value).length)
 
   function setFilterQuery (query, name = 'company') {
@@ -70,10 +77,30 @@ export default function useFilterSelect () {
     return defaultFiltersFromStorage
   }
 
+  function triggerDefaultFiltersChange (newFilters, oldFilters) {
+    // necessário verificar se houve mudanças antes de disparar o evento para não duplicar.
+    if (is.deepEqual(newFilters, oldFilters)) return
+
+    defaultFiltersHooks.defaultFiltersChange.forEach(hook => hook(newFilters, oldFilters))
+  }
+
+  function onDefaultFiltersChange (callback) {
+    defaultFiltersHooks.defaultFiltersChange.push(callback)
+  }
+
+  function removeOnDefaultFiltersChange (callback) {
+    const index = defaultFiltersHooks.defaultFiltersChange.indexOf(callback)
+
+    if (~index) defaultFiltersHooks.defaultFiltersChange.splice(index, 1)
+  }
+
   return {
     filterQuery,
     hasFilterQuery,
     getDefaultFiltersFromStorage,
-    setFilterQuery
+    onDefaultFiltersChange,
+    removeOnDefaultFiltersChange,
+    setFilterQuery,
+    triggerDefaultFiltersChange
   }
 }

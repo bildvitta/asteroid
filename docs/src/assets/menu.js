@@ -104,10 +104,6 @@ module.exports = [
         path: '/components/card-image'
       },
       {
-        name: 'CompanySelect',
-        path: '/components/company-select'
-      },
-      {
         name: 'Copy',
         path: '/components/copy'
       },
@@ -281,7 +277,7 @@ module.exports = [
       },
       {
         name: 'SelectFilter',
-        path: '/components/select'
+        path: '/components/select-filter'
       },
       {
         name: 'SelectList',
@@ -554,6 +550,10 @@ module.exports = [
       {
         name: 'useContext',
         path: '/composables/use-context'
+      },
+      {
+        name: 'useDefaultFilters',
+        path: '/composables/use-default-filters'
       },
       {
         name: 'useForm',

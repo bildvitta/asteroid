@@ -1,11 +1,12 @@
 <template>
-  <qas-select v-model="internalModel" :label="props.label" :options="props.options" @update:model-value="onUpdateModel" />
+  <qas-select v-model="internalModel" :label="props.label" :options="props.options" use-filter-mode @update:model-value="onUpdateModel" />
 </template>
 
 <script setup>
-import useFilterSelect from '../../composables/use-filter-select'
+import useDefaultFilters from '../../composables/use-default-filters'
 
-import { watch, ref } from 'vue'
+import { extend } from 'quasar'
+import { watch, ref, nextTick } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 
 defineOptions({ name: 'QasSelectFilter' })
@@ -13,7 +14,7 @@ defineOptions({ name: 'QasSelectFilter' })
 const props = defineProps({
   label: {
     type: String,
-    default: 'Selecione a empresa'
+    default: 'Selecione uma empresa vinculada'
   },
 
   name: {
@@ -23,35 +24,14 @@ const props = defineProps({
 
   options: {
     type: Array,
-    default: () => [
-      {
-        label: 'Empresa 1',
-        value: '1'
-      },
-      {
-        label: 'Empresa 2',
-        value: '2'
-      },
-      {
-        label: 'Empresa 3',
-        value: '3'
-      },
-      {
-        label: 'Empresa 4',
-        value: '4'
-      },
-      {
-        label: 'Empresa 5',
-        value: '5'
-      }
-    ]
+    default: () => []
   }
 })
 
 // composables
 const router = useRouter()
 const route = useRoute()
-const { setFilterQuery } = useFilterSelect()
+const { setFilterQuery, triggerDefaultFiltersChange, filterQuery } = useDefaultFilters()
 
 // models
 const model = defineModel({ type: String, default: '' })
@@ -68,13 +48,18 @@ watch(() => route.query[props.name], setModels)
  * seja atualizado com o novo valor, pois cai no watch que atualiza o model interno e externo.
  */
 function onUpdateModel (value) {
-  router.push({ query: { [props.name]: value } })
+  const { ...query } = route.query
+
+  router.push({ query: { ...query, [props.name]: value } })
 }
 
 function setModels (value) {
   model.value = value
   internalModel.value = value
 
+  const oldFilters = extend(true, {}, filterQuery.value)
+
   setFilterQuery(value, props.name)
+  nextTick(() => triggerDefaultFiltersChange(filterQuery.value, oldFilters))
 }
 </script>
