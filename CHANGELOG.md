@@ -22,6 +22,14 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - `QasAppUser`: adicionado validação do endpoint `PATCH -> users/me` através de uma env `ME_VERSION`, é necessário adicionar esta env no `quasar.config.js`.
 - `composables/useQueryFilter/findOne`: adicionado optional chaining.
 
+## [3.17.0-beta.23] - 14-01-2025
+### Adicionado
+- `QasBoardGenerator`:
+  - adicionado nova propriedade `beforeUpdatePosition`.
+  - adicionado novo evento `update-error`.
+  - adicionado payload do retorno da api no evento `update-success`.
+  - adicionado método `cancelDrop` no `defineExpose`.
+
 ## [3.17.0-beta.22] - 20-12-2024
 ### Modificado
 - `QasUploader`: modificado header do componente para utilizar o `QasHeader` ao invés do `QasLabel`.
@@ -3400,3 +3408,4 @@ Adicionado suporte para Pinia/Vuex Seguindo os padrões da biblioteca `@bildvitt
 [3.17.0-beta.20]: https://github.com/bildvitta/asteroid/compare/v3.17.0-beta.19...v3.17.0-beta.20?expand=1
 [3.17.0-beta.21]: https://github.com/bildvitta/asteroid/compare/v3.17.0-beta.20...v3.17.0-beta.21?expand=1
 [3.17.0-beta.22]: https://github.com/bildvitta/asteroid/compare/v3.17.0-beta.21...v3.17.0-beta.22?expand=1
+[3.17.0-beta.23]: https://github.com/bildvitta/asteroid/compare/v3.17.0-beta.22...v3.17.0-beta.23?expand=1
