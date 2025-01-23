@@ -97,7 +97,9 @@ O retorno da API deverá conter a seguinte estrutura:
 :::
 
 ## Uso
+:::info
 Quando utilizar o componente e precisar utilizar a query da URL para enviar no fetch do QasChartView, utilize a propriedade `urlQueryList (default: ['company'])`, por exemplo:
+:::
 <doc-example file="QasChartView/BarWithSelectFilter" title="Gráfico de barra com QasSelectFilter" />
 
 <doc-example file="QasChartView/Bar" title="Gráfico de barra" />

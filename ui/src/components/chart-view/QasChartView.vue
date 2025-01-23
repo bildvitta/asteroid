@@ -480,8 +480,10 @@ export default {
       const newQuery = {}
 
       this.urlQueryList.forEach(urlQuery => {
-        if (query[urlQuery]) {
-          newQuery[urlQuery] = query[urlQuery]
+        const queryValue = query[urlQuery]
+
+        if (queryValue) {
+          newQuery[urlQuery] = queryValue
         }
       })
 

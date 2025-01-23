@@ -8,7 +8,7 @@ Componente utilizado no `QasAppBar` e `QasAppMenu` para exibir o nome do usuári
 
 :::warning
 ##### process.env.ME_VERSION
-Adicione a env `ME_VERSION` no `quasar.config.js`, com os dois possíveis valores `1|2` sendo number e não string.
+Adicione a env `ME_VERSION` obrigatoriamente no `quasar.config.js`, com os dois possíveis valores `1|2` sendo number e não string.
 
 A funcionalidade de troca de vínculo de empresa é ativada quando existe mais de 1 opção na prop `companyProps.options`:
 - Quando existe apenas uma opção, é exibido o select como forma de informação de vinculo atual.

@@ -3,16 +3,17 @@
     <template #header>
       <div class="q-pa-lg">
         <qas-select-filter v-model="company" :options />
+
         <pre>{{ company }}</pre>
       </div>
     </template>
 
     <template #default>
       <div class="q-my-lg q-pa-lg">
-        Template default
         <div>
           Results: <qas-debugger :inspect="[viewState.results]" />
         </div>
+
         <div>
           Fields: <qas-debugger :inspect="[viewState.fields]" />
         </div>
