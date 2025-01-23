@@ -13,6 +13,5 @@ Componente de select que filtra adicionando query na URL, comumente utilizado pa
 :::
 
 ## Uso
-
 <doc-example file="QasSelectFilter/Basic" title="Básico" />
 <doc-example file="QasSelectFilter/WithListView" title="Com list view" />
