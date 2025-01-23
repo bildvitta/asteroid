@@ -1,5 +1,5 @@
 <template>
-  <qas-list-view v-model:fields="viewState.fields" v-model:results="viewState.results" :entity use-company-filter :use-filter="false" @fetch-success="onFetchSuccess">
+  <qas-list-view v-model:fields="viewState.fields" v-model:results="viewState.results" :entity use-company-filter :use-filter="false">
     <template #header>
       <div class="q-pa-lg">
         <qas-select-filter v-model="company" :options />
