@@ -12,12 +12,14 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 
 ## [Não publicado]
 ## BREAKING CHANGES
-- `QasExpansionItem`: a prop `useHeaderSeparator` vem por default `true` agora.
+- `QasExpansionItem`: a prop `useHeaderSeparator` foi removida, agora não existe mais separator no header.
 
 ### Modificado
 - `QasExpansionItem`: 
   - Modificado a borda do componente, agora ao ter um expansion dentro de outro expansion, ficará uma borda.
-  - `QasExpansionItem`: a prop `useHeaderSeparator` vem por default `true` agora.
+
+### Removido
+- `QasExpansionItem`: a prop `useHeaderSeparator` foi removida, agora não existe mais separator no header.
 
 ## [3.17.0-beta.22] - 20-12-2024
 ### Modificado

@@ -28,8 +28,6 @@
           </div>
         </template>
 
-        <q-separator v-if="props.useHeaderSeparator" class="q-my-md" />
-
         <div :class="contentClasses">
           <slot v-if="showContent" name="content">
             <qas-grid-generator v-if="hasGridGenerator" use-inline v-bind="gridGeneratorProps" />
@@ -95,11 +93,6 @@ const props = defineProps({
   maxContentHeight: {
     type: String,
     default: ''
-  },
-
-  useHeaderSeparator: {
-    type: Boolean,
-    default: true
   }
 })
 
@@ -136,8 +129,7 @@ const classes = computed(() => {
 
 const contentClasses = computed(() => {
   return {
-    'q-mt-sm': isNestedExpansionItem,
-    'q-mt-md': !isNestedExpansionItem && !props.useHeaderSeparator,
+    'q-mt-md': true,
     'qas-expansion-item__content overflow-auto': !!props.maxContentHeight
   }
 })
