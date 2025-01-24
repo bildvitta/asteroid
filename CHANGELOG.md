@@ -21,6 +21,26 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 ### Removido
 - `QasExpansionItem`: a prop `useHeaderSeparator` foi removida, agora não existe mais separator no header.
 
+## [3.17.0-beta.24] - 23-01-2025
+## BREAKING CHANGES
+- `QasAppUser`: adicionado validação do endpoint `PATCH -> users/me` através de uma env `ME_VERSION`, é necessário adicionar esta env no `quasar.config.js`.
+
+### Adicionado
+- `QasSelectFilter`: Adicionado novo componente para lidar com filtros adicionando a query na URL e trabalhando em conjunto com o novo composable `useDefaultFilters`.
+- `composables/useDefaultFilters`: adicionado novo composable para lidar com filtros defaults adicionados antes de entrar na pagina e após adicionado/alterado pelo componente `QasSelectFilter`.
+
+### Modificado
+- `QasAppUser`: adicionado validação do endpoint `PATCH -> users/me` através de uma env `ME_VERSION`, é necessário adicionar esta env no `quasar.config.js`.
+- `composables/useQueryFilter/findOne`: adicionado optional chaining.
+
+## [3.17.0-beta.23] - 14-01-2025
+### Adicionado
+- `QasBoardGenerator`:
+  - adicionado nova propriedade `beforeUpdatePosition`.
+  - adicionado novo evento `update-error`.
+  - adicionado payload do retorno da api no evento `update-success`.
+  - adicionado método `cancelDrop` no `defineExpose`.
+
 ## [3.17.0-beta.22] - 20-12-2024
 ### Modificado
 - `QasUploader`: modificado header do componente para utilizar o `QasHeader` ao invés do `QasLabel`.
@@ -3399,3 +3419,5 @@ Adicionado suporte para Pinia/Vuex Seguindo os padrões da biblioteca `@bildvitt
 [3.17.0-beta.20]: https://github.com/bildvitta/asteroid/compare/v3.17.0-beta.19...v3.17.0-beta.20?expand=1
 [3.17.0-beta.21]: https://github.com/bildvitta/asteroid/compare/v3.17.0-beta.20...v3.17.0-beta.21?expand=1
 [3.17.0-beta.22]: https://github.com/bildvitta/asteroid/compare/v3.17.0-beta.21...v3.17.0-beta.22?expand=1
+[3.17.0-beta.23]: https://github.com/bildvitta/asteroid/compare/v3.17.0-beta.22...v3.17.0-beta.23?expand=1
+[3.17.0-beta.24]: https://github.com/bildvitta/asteroid/compare/v3.17.0-beta.23...v3.17.0-beta.24?expand=1
