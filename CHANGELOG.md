@@ -10,16 +10,15 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 ### Sobre os "BREAKING CHANGES"
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
-## [Não publicado]
+## Não publicado
 ## BREAKING CHANGES
-- `QasExpansionItem`: a prop `useHeaderSeparator` foi removida, agora não existe mais separator no header.
+- `QasExpansionItem`: removido a prop `useHeaderSeparator`, agora não existe mais separator no header.
 
 ### Modificado
-- `QasExpansionItem`: 
-  - Modificado a borda do componente, agora ao ter um expansion dentro de outro expansion, ficará uma borda.
+- `QasExpansionItem`: Modificado a borda do componente, agora ao ter um expansion dentro de outro expansion, ficará uma borda.
 
 ### Removido
-- `QasExpansionItem`: a prop `useHeaderSeparator` foi removida, agora não existe mais separator no header.
+- `QasExpansionItem`: removido a prop `useHeaderSeparator`, agora não existe mais separator no header.
 
 ## [3.17.0-beta.24] - 23-01-2025
 ## BREAKING CHANGES
