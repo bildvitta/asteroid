@@ -10,6 +10,16 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 ### Sobre os "BREAKING CHANGES"
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
+## Não publicado
+## BREAKING CHANGES
+- `QasExpansionItem`: removido a prop `useHeaderSeparator`, agora não existe mais separator no header.
+
+### Modificado
+- `QasExpansionItem`: Modificado a borda do componente, agora ao ter um expansion dentro de outro expansion, ficará uma borda.
+
+### Removido
+- `QasExpansionItem`: removido a prop `useHeaderSeparator`, agora não existe mais separator no header.
+
 ## [3.17.0-beta.24] - 23-01-2025
 ## BREAKING CHANGES
 - `QasAppUser`: adicionado validação do endpoint `PATCH -> users/me` através de uma env `ME_VERSION`, é necessário adicionar esta env no `quasar.config.js`.
