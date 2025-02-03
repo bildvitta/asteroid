@@ -10,7 +10,7 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 ### Sobre os "BREAKING CHANGES"
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
-## Não publicado
+## [3.17.0-beta.26] - 03-02-2025
 ### Corrigido
 - `QasExpansionItem`: corrigido ícone de dropdown quando possui um expansion dentro de outro.
 
@@ -3425,3 +3425,4 @@ Adicionado suporte para Pinia/Vuex Seguindo os padrões da biblioteca `@bildvitt
 [3.17.0-beta.23]: https://github.com/bildvitta/asteroid/compare/v3.17.0-beta.22...v3.17.0-beta.23?expand=1
 [3.17.0-beta.24]: https://github.com/bildvitta/asteroid/compare/v3.17.0-beta.23...v3.17.0-beta.24?expand=1
 [3.17.0-beta.25]: https://github.com/bildvitta/asteroid/compare/v3.17.0-beta.24...v3.17.0-beta.25?expand=1
+[3.17.0-beta.26]: https://github.com/bildvitta/asteroid/compare/v3.17.0-beta.25...v3.17.0-beta.26?expand=1
