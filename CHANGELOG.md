@@ -10,6 +10,16 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 ### Sobre os "BREAKING CHANGES"
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
+## Não publicado
+## BREAKING CHANGES
+- `QasAppUser`: modificado chat para o `gleap`, precisando de novas configurações.
+
+### Adicionado
+- Adicionado lib `Gleap` no `/ui`.
+
+### Modificado
+- `QasAppUser`: modificado chat para o `gleap`, precisando de novas configurações.
+
 ## [3.17.0-beta.25] - 27-01-2025
 ## BREAKING CHANGES
 - `QasExpansionItem`: removido a prop `useHeaderSeparator`, agora não existe mais separator no header.

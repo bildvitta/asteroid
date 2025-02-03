@@ -61,6 +61,7 @@ export default {
         brand: 'https://placehold.co/208x40',
         miniBrand: 'https://placehold.co/40x40',
         modules,
+        useChat: true,
         appUserProps: {
           companyProps: {
             options: [
