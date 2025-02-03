@@ -74,7 +74,6 @@ async function main () {
   }
 
   const latestVersions = getLatestVersions({ execaSync, ora, isBeta })
-  console.log('TCL: main -> latestVersions', latestVersions)
   const model = isBeta ? 'beta' : isAlpha ? 'alpha' : 'stable'
 
   const currentVersion = require('../package.json').version
@@ -182,7 +181,6 @@ async function main () {
   }
 
   // Se a proxima versão for diferente da ultima versão publicada, então significa que podemos lançar uma nova versão do ui
-  console.log(latestVersions.ui[model], model)
   if (nextVersion !== latestVersions.ui[model]) {
     const { error: uiError } = releaseUi({
       execaSync,
