@@ -20,6 +20,10 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 ### Modificado
 - `QasAppUser`: modificado chat para o `gleap`, precisando de novas configurações.
 
+## [3.17.0-beta.26] - 03-02-2025
+### Corrigido
+- `QasExpansionItem`: corrigido ícone de dropdown quando possui um expansion dentro de outro.
+
 ## [3.17.0-beta.25] - 27-01-2025
 ## BREAKING CHANGES
 - `QasExpansionItem`: removido a prop `useHeaderSeparator`, agora não existe mais separator no header.
@@ -3431,3 +3435,4 @@ Adicionado suporte para Pinia/Vuex Seguindo os padrões da biblioteca `@bildvitt
 [3.17.0-beta.23]: https://github.com/bildvitta/asteroid/compare/v3.17.0-beta.22...v3.17.0-beta.23?expand=1
 [3.17.0-beta.24]: https://github.com/bildvitta/asteroid/compare/v3.17.0-beta.23...v3.17.0-beta.24?expand=1
 [3.17.0-beta.25]: https://github.com/bildvitta/asteroid/compare/v3.17.0-beta.24...v3.17.0-beta.25?expand=1
+[3.17.0-beta.26]: https://github.com/bildvitta/asteroid/compare/v3.17.0-beta.25...v3.17.0-beta.26?expand=1

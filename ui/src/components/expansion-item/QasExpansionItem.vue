@@ -234,6 +234,12 @@ function setShowContent () {
         transform: rotate(180deg);
       }
     }
+
+    &--collapsed {
+      #{$root}__dropdown {
+        transform: none;
+      }
+    }
   }
 
   .q-item {
