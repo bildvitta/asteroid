@@ -64,16 +64,18 @@ async function main () {
   )
 
   const currentBranch = execaSync('git', ['branch', '--show-current']).stdout
-  const acceptableBranch = ['main', 'develop']
+  const acceptableBranch = ['main', 'develop', /^feature\/.+/]
   const isBeta = currentBranch === 'develop'
+  const isAlpha = /^feature\/.+/.test(currentBranch)
 
-  if (!acceptableBranch.includes(currentBranch)) {
-    ora('Só é possível publicar nas branchs "main" e "develop"').fail()
+  if (!acceptableBranch.some(branch => typeof branch === 'string' ? branch === currentBranch : branch.test(currentBranch))) {
+    ora('Só é possível publicar nas branchs "main", "develop" e "feature/*"').fail()
     return
   }
 
   const latestVersions = getLatestVersions({ execaSync, ora, isBeta })
-  const model = isBeta ? 'beta' : 'stable'
+  console.log('TCL: main -> latestVersions', latestVersions)
+  const model = isBeta ? 'beta' : isAlpha ? 'alpha' : 'stable'
 
   const currentVersion = require('../package.json').version
 
@@ -163,7 +165,7 @@ async function main () {
     latestVersions
   })
 
-  if (!hasUnreleased) {
+  if (!isAlpha && !hasUnreleased) {
     ora(
       'Não foi possível encontrar o "## Não publicado" dentro do CHANGELOG.md por favor adicione para continuar'
     ).fail()
@@ -171,12 +173,16 @@ async function main () {
     return
   }
 
-  const changelogContent = getContent()
   const publishCommands = ['publish']
 
-  isBeta && publishCommands.push('--tag', 'beta')
+  if (isBeta) {
+    publishCommands.push('--tag', 'beta')
+  } else if (isAlpha) {
+    publishCommands.push('--tag', 'alpha')
+  }
 
   // Se a proxima versão for diferente da ultima versão publicada, então significa que podemos lançar uma nova versão do ui
+  console.log(latestVersions.ui[model], model)
   if (nextVersion !== latestVersions.ui[model]) {
     const { error: uiError } = releaseUi({
       execaSync,
@@ -200,9 +206,9 @@ async function main () {
   if (appExtensionError) return
 
   // atualiza o CHANGELOG.md
-  updateContent()
+  if (!isAlpha) updateContent()
 
-  // commita,faz o push, cria tag e faz push da tag
+  // commita, faz o push, cria tag e faz push da tag
   gitHandler({
     ora,
     execaSync,
@@ -211,33 +217,37 @@ async function main () {
     packages
   })
 
-  let createdReleaseFromAPI = false
+  if (!isAlpha) {
+    const changelogContent = getContent()
 
-  if (process.env.GITHUB_TOKEN) {
-    const { success } = await createGithubRelease({
-      body: changelogContent,
-      isBeta,
-      ora,
-      version: nextVersion
-    })
+    let createdReleaseFromAPI = false
 
-    createdReleaseFromAPI = success
-  } else {
-    createGithubReleaseFromBrowser({
-      changelogContent,
-      nextVersion,
-      ora
-    })
-  }
+    if (process.env.GITHUB_TOKEN) {
+      const { success } = await createGithubRelease({
+        body: changelogContent,
+        isBeta,
+        ora,
+        version: nextVersion
+      })
 
-  if (process.env.DISCORD_WEBHOOK_CHANGELOG) {
-    notifyDiscordChat({
-      changelogContent,
-      ora,
-      nextVersion,
-      isBeta,
-      hasGithubRelease: !!process.env.GITHUB_TOKEN && createdReleaseFromAPI
-    })
+      createdReleaseFromAPI = success
+    } else {
+      createGithubReleaseFromBrowser({
+        changelogContent,
+        nextVersion,
+        ora
+      })
+    }
+
+    if (process.env.DISCORD_WEBHOOK_CHANGELOG) {
+      notifyDiscordChat({
+        changelogContent,
+        ora,
+        nextVersion,
+        isBeta,
+        hasGithubRelease: !!process.env.GITHUB_TOKEN && createdReleaseFromAPI
+      })
+    }
   }
 }
 
