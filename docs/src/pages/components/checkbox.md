@@ -13,3 +13,4 @@ Por padrão é exibido a label em casos de ser options group, quando se recebe a
 <doc-example file="QasCheckbox/Single" title="Single" />
 <doc-example file="QasCheckbox/Options" title="Options" />
 <doc-example file="QasCheckbox/Children" title="Children options" />
+<doc-example file="QasCheckbox/WithError" title="With error" />

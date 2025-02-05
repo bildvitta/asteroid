@@ -146,7 +146,7 @@ export default {
         time: { ...datetimeInput, useTimeOnly: true },
 
         boolean: { is: 'qas-toggle', label, ...error },
-        checkbox: { is: 'qas-checkbox', label, options, ...error },
+        checkbox: { is: 'qas-checkbox', label, options, ...error, required },
         radio: { is: 'qas-radio', label, options },
 
         upload: { is: 'qas-uploader', accept, autoUpload: true, entity, label, multiple, readonly, maxFiles, ...error },

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="qas-checkbox">
     <!-- Single -->
     <q-checkbox v-if="isSingle" v-model="model" v-bind="singleAttributes" dense>
       <slot />
@@ -7,8 +7,8 @@
 
     <!-- Group -->
     <div v-else>
-      <div v-if="hasCheckboxLabel" class="q-mb-sm text-body1">
-        {{ props.label }}
+      <div v-if="hasCheckboxLabel" class="q-mb-sm text-body1" :class="checkboxLabelClasses">
+        {{ formattedLabel }}
       </div>
 
       <div :class="classes">
@@ -25,13 +25,14 @@
       </div>
     </div>
 
-    <div v-if="errorMessage" class="q-mt-xs text-caption text-negative">
-      {{ errorMessage }}
+    <div v-if="props.errorMessage" class="q-pt-sm qas-checkbox__error-message text-negative">
+      {{ props.errorMessage }}
     </div>
   </div>
 </template>
 
 <script setup>
+import { getRequiredLabel } from '../../helpers'
 import { watch, computed, ref, onMounted, useAttrs } from 'vue'
 
 defineOptions({
@@ -63,6 +64,10 @@ const props = defineProps({
   errorMessage: {
     type: String,
     default: ''
+  },
+
+  required: {
+    type: Boolean
   }
 })
 
@@ -99,6 +104,14 @@ const singleAttributes = computed(() => {
 
     label: props.label
   }
+})
+
+const checkboxLabelClasses = computed(() => {
+  return { 'text-negative': props.errorMessage }
+})
+
+const formattedLabel = computed(() => {
+  return getRequiredLabel({ label: props.label, required: props.required })
 })
 
 // watch
@@ -157,3 +170,12 @@ function getModelValue (index) {
   return group.value[index]
 }
 </script>
+
+<style lang="scss">
+.qas-checkbox {
+  &__error-message {
+    // Tamanho da fonte utilizada nos errors no q-field.
+    font-size: 11px;
+  }
+}
+</style>

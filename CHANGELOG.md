@@ -12,7 +12,9 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 
 ## Não publicado
 ### Adicionado
-- `QasCheckbox`: adicionado prop `error-message` pra exibir o erro no campo.
+- `QasCheckbox`: 
+ - adicionado prop `error-message` pra exibir o erro no campo.
+ - adicionado prop `required` pra exibir `*` como sufixo da label.
 
 ## [3.17.0-beta.26] - 03-02-2025
 ### Corrigido
