@@ -66,6 +66,10 @@ const props = defineProps({
     default: ''
   },
 
+  error: {
+    type: Boolean
+  },
+
   required: {
     type: Boolean
   }
@@ -107,7 +111,7 @@ const singleAttributes = computed(() => {
 })
 
 const checkboxLabelClasses = computed(() => {
-  return { 'text-negative': props.errorMessage }
+  return { 'text-negative': props.error }
 })
 
 const formattedLabel = computed(() => {

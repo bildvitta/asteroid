@@ -1,8 +1,8 @@
 <template>
   <div class="container q-gutter-y-lg spaced">
-    <qas-checkbox v-model="model" error-message="Mensagem de erro de teste" label="Checkbox com opções" :options />
+    <qas-checkbox v-model="model" error error-message="Mensagem de erro de teste" label="Checkbox com opções" :options />
 
-    <qas-checkbox v-model="modelWithChildren" error-message="Mensagem de erro de teste" label="Checkbox com chidren" :options="optionsChildren" required />
+    <qas-checkbox v-model="modelWithChildren" error error-message="Mensagem de erro de teste" label="Checkbox com chidren" :options="optionsChildren" required />
   </div>
 </template>
 
