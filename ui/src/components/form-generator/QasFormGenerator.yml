@@ -24,7 +24,7 @@ props:
     default: {}
     type: Object
 
-  error:
+  errors:
     desc: Objeto contendo propriedades contendo a mensagem de erro.
     default: {}
     type: Object
