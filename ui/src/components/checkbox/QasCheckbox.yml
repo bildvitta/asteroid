@@ -26,6 +26,10 @@ props:
     default: []
     type: Array
 
+  error-message:
+    desc: Mensagem de erro exibida na parte inferior do checkbox.
+    type: String
+
 events:
   '@update:model-value -> function(value)':
     desc: Dispara quando o model-value altera, também usado para v-model.

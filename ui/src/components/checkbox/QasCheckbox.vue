@@ -14,7 +14,7 @@
       <div :class="classes">
         <div v-for="(option, index) in props.options" :key="index">
           <!-- Com children -->
-          <q-checkbox v-if="hasChildren(option)" :class="getCheckboxClass(option)" dense :label="option.label" :model-value="getModelValue(index)" @update:model-value="updateCheckbox($event, option, index)" />
+          <q-checkbox v-if="hasChildren(option)" :class="getCheckboxClass(option)" dense :indeterminate-value="false" :label="option.label" :model-value="getModelValue(index)" @update:model-value="updateCheckbox($event, option, index)" />
 
           <!-- Com children -->
           <q-option-group v-if="hasChildren(option)" class="q-ml-xs q-mt-xs" dense :inline="props.inline" :model-value="props.modelValue" :options="option.children" type="checkbox" @update:model-value="updateChildren($event, option, index)" />
@@ -23,6 +23,10 @@
           <q-option-group v-else v-model="model" v-bind="attrs" dense :options="[option]" type="checkbox" />
         </div>
       </div>
+    </div>
+
+    <div v-if="errorMessage" class="q-mt-xs text-caption text-negative">
+      {{ errorMessage }}
     </div>
   </div>
 </template>
@@ -54,6 +58,11 @@ const props = defineProps({
   inline: {
     default: true,
     type: Boolean
+  },
+
+  errorMessage: {
+    type: String,
+    default: ''
   }
 })
 
@@ -116,7 +125,7 @@ function setGroupIntersection (value, option, index) {
   const options = option.children.map(item => item.value)
   const intersection = options.filter(item => value.includes(item))
 
-  group.value[index] = intersection.length && (intersection.length === options.length ? true : null)
+  group.value[index] = intersection.length ? (intersection.length === options.length ? true : null) : false
 }
 
 function updateCheckbox (value, option, index) {
@@ -145,6 +154,7 @@ function getCheckboxClass (option) {
 }
 
 function getModelValue (index) {
+  console.log(group.value, '<-- group')
   return group.value[index]
 }
 </script>
