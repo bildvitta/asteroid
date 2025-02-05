@@ -154,7 +154,6 @@ function getCheckboxClass (option) {
 }
 
 function getModelValue (index) {
-  console.log(group.value, '<-- group')
   return group.value[index]
 }
 </script>
