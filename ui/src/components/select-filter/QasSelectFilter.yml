@@ -26,19 +26,6 @@ props:
     default: []
     type: Array
 
-  error:
-    desc: Booleano que caso seja true a label passa a ter a cor vermelha.
-    type: Boolean
-
-  error-message:
-    desc: Mensagem de erro exibida na parte inferior do checkbox.
-    type: String
-
-  required:
-    desc: Controla se exibirá o sufixo "*" ao lado do texto.
-    default: false
-    type: Boolean
-
 events:
   '@update:model-value -> function(value)':
     desc: Dispara quando o model-value altera, também usado para v-model.

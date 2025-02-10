@@ -10,6 +10,46 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 ### Sobre os "BREAKING CHANGES"
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
+## [3.17.0-beta.27] - 07-02-2025
+### Adicionado
+- `QasCheckbox`: 
+ - adicionado prop `error-message` pra exibir o erro no campo.
+ - adicionado prop `required` pra exibir `*` como sufixo da label.
+
+## [3.17.0-beta.26] - 03-02-2025
+### Corrigido
+- `QasExpansionItem`: corrigido ícone de dropdown quando possui um expansion dentro de outro.
+
+## [3.17.0-beta.25] - 27-01-2025
+## BREAKING CHANGES
+- `QasExpansionItem`: removido a prop `useHeaderSeparator`, agora não existe mais separator no header.
+
+### Modificado
+- `QasExpansionItem`: Modificado a borda do componente, agora ao ter um expansion dentro de outro expansion, ficará uma borda.
+
+### Removido
+- `QasExpansionItem`: removido a prop `useHeaderSeparator`, agora não existe mais separator no header.
+
+## [3.17.0-beta.24] - 23-01-2025
+## BREAKING CHANGES
+- `QasAppUser`: adicionado validação do endpoint `PATCH -> users/me` através de uma env `ME_VERSION`, é necessário adicionar esta env no `quasar.config.js`.
+
+### Adicionado
+- `QasSelectFilter`: Adicionado novo componente para lidar com filtros adicionando a query na URL e trabalhando em conjunto com o novo composable `useDefaultFilters`.
+- `composables/useDefaultFilters`: adicionado novo composable para lidar com filtros defaults adicionados antes de entrar na pagina e após adicionado/alterado pelo componente `QasSelectFilter`.
+
+### Modificado
+- `QasAppUser`: adicionado validação do endpoint `PATCH -> users/me` através de uma env `ME_VERSION`, é necessário adicionar esta env no `quasar.config.js`.
+- `composables/useQueryFilter/findOne`: adicionado optional chaining.
+
+## [3.17.0-beta.23] - 14-01-2025
+### Adicionado
+- `QasBoardGenerator`:
+  - adicionado nova propriedade `beforeUpdatePosition`.
+  - adicionado novo evento `update-error`.
+  - adicionado payload do retorno da api no evento `update-success`.
+  - adicionado método `cancelDrop` no `defineExpose`.
+
 ## [3.17.0-beta.22] - 20-12-2024
 ### Modificado
 - `QasUploader`: modificado header do componente para utilizar o `QasHeader` ao invés do `QasLabel`.
@@ -3388,3 +3428,8 @@ Adicionado suporte para Pinia/Vuex Seguindo os padrões da biblioteca `@bildvitt
 [3.17.0-beta.20]: https://github.com/bildvitta/asteroid/compare/v3.17.0-beta.19...v3.17.0-beta.20?expand=1
 [3.17.0-beta.21]: https://github.com/bildvitta/asteroid/compare/v3.17.0-beta.20...v3.17.0-beta.21?expand=1
 [3.17.0-beta.22]: https://github.com/bildvitta/asteroid/compare/v3.17.0-beta.21...v3.17.0-beta.22?expand=1
+[3.17.0-beta.23]: https://github.com/bildvitta/asteroid/compare/v3.17.0-beta.22...v3.17.0-beta.23?expand=1
+[3.17.0-beta.24]: https://github.com/bildvitta/asteroid/compare/v3.17.0-beta.23...v3.17.0-beta.24?expand=1
+[3.17.0-beta.25]: https://github.com/bildvitta/asteroid/compare/v3.17.0-beta.24...v3.17.0-beta.25?expand=1
+[3.17.0-beta.26]: https://github.com/bildvitta/asteroid/compare/v3.17.0-beta.25...v3.17.0-beta.26?expand=1
+[3.17.0-beta.27]: https://github.com/bildvitta/asteroid/compare/v3.17.0-beta.27-alpha.0...v3.17.0-beta.27?expand=1

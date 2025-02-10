@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="qas-checkbox">
     <!-- Single -->
     <q-checkbox v-if="isSingle" v-model="model" v-bind="singleAttributes" dense>
       <slot />
@@ -7,35 +7,40 @@
 
     <!-- Group -->
     <div v-else>
-      <div v-if="hasCheckboxLabel" class="q-mb-sm text-body1">
-        {{ props.label }}
+      <div v-if="hasCheckboxLabel" class="q-mb-sm text-body1" :class="checkboxLabelClasses">
+        {{ formattedLabel }}
       </div>
 
       <div :class="classes">
         <div v-for="(option, index) in props.options" :key="index" :class="checkboxContainerClasses">
           <!-- Com children -->
-          <q-checkbox v-if="hasChildren(option)" :class="getCheckboxClass(option)" dense :label="option.label" :model-value="getModelValue(index)" @update:model-value="updateCheckbox($event, option, index)" />
+          <q-checkbox v-if="hasChildren(option)" :class="getCheckboxClass(option)" dense :indeterminate-value="false" :label="option.label" :model-value="getModelValue(index)" @update:model-value="updateCheckbox($event, option, index)" />
 
           <!-- Com children -->
           <q-option-group v-if="hasChildren(option)" class="q-ml-xs q-mt-xs" dense :inline="props.inline" :model-value="props.modelValue" :options="option.children" type="checkbox" @update:model-value="updateChildren($event, option, index)">
-            <template #label="option">
-              <div class="ellipsis" :title="option.label">{{ option.label }}</div>
+            <template v-if="hasGridColumns" #label="checkboxOption">
+              <div class="ellipsis" :title="checkboxOption.label">{{ checkboxOption.label }}</div>
             </template>
           </q-option-group>
 
           <!-- Sem children -->
           <q-option-group v-else v-model="model" v-bind="attrs" dense :options="[option]" type="checkbox">
-            <template #label="option">
-              <div class="ellipsis" :title="option.label">{{ option.label }}</div>
+            <template v-if="hasGridColumns" #label="checkboxOption">
+              <div class="ellipsis" :title="checkboxOption.label">{{ checkboxOption.label }}</div>
             </template>
           </q-option-group>
         </div>
       </div>
     </div>
+
+    <div v-if="props.errorMessage" class="q-pt-sm qas-checkbox__error-message text-negative">
+      {{ props.errorMessage }}
+    </div>
   </div>
 </template>
 
 <script setup>
+import { getRequiredLabel } from '../../helpers'
 import { watch, computed, ref, onMounted, useAttrs } from 'vue'
 import { useGenerator } from '../../composables/private'
 
@@ -68,6 +73,19 @@ const props = defineProps({
   columns: {
     type: [String, Object],
     default: ''
+  },
+
+  errorMessage: {
+    type: String,
+    default: ''
+  },
+
+  error: {
+    type: Boolean
+  },
+
+  required: {
+    type: Boolean
   }
 })
 
@@ -114,6 +132,16 @@ const singleAttributes = computed(() => {
   }
 })
 
+const checkboxLabelClasses = computed(() => {
+  return { 'text-negative': props.error }
+})
+
+const formattedLabel = computed(() => {
+  return getRequiredLabel({ label: props.label, required: props.required })
+})
+
+const hasGridColumns = computed(() => !!props.columns)
+
 // watch
 watch(() => props.options, handleParent)
 
@@ -138,7 +166,7 @@ function setGroupIntersection (value, option, index) {
   const options = option.children.map(item => item.value)
   const intersection = options.filter(item => value.includes(item))
 
-  group.value[index] = intersection.length && (intersection.length === options.length ? true : null)
+  group.value[index] = intersection.length ? (intersection.length === options.length ? true : null) : false
 }
 
 function updateCheckbox (value, option, index) {
@@ -172,13 +200,21 @@ function getModelValue (index) {
 </script>
 
 <style lang="scss">
-.q-option-group {
-  .q-checkbox {
-    display: flex;
+.qas-checkbox {
+  .q-option-group {
+    .q-checkbox {
+      display: flex;
 
-    &__label {
-      overflow: hidden !important;
+      &__label {
+        // necessário para o ellipsis funcionar.
+        overflow: hidden !important;
+      }
     }
+  }
+
+  &__error-message {
+    // Tamanho da fonte utilizada nos errors no q-field.
+    font-size: 11px;
   }
 }
 </style>

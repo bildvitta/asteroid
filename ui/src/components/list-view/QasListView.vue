@@ -43,10 +43,12 @@
 <script>
 import QasFilters from '../filters/QasFilters.vue'
 import QasPagination from '../pagination/QasPagination.vue'
+
+import { viewMixin, contextMixin } from '../../mixins'
+
 import debug from 'debug'
 import { extend } from 'quasar'
 import { getState, getAction } from '@bildvitta/store-adapter'
-import { viewMixin, contextMixin } from '../../mixins'
 import { computed } from 'vue'
 
 const log = debug('asteroid-ui:qas-list-view')

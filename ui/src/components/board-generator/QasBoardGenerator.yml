@@ -4,6 +4,46 @@ meta:
   desc: Componente usado para board de colunas.
 
 props:
+  before-update-position:
+    desc: função onde será executada antes do dialog de confirmação ou atualização da posição.
+    type: function
+    default: undefined
+    params:
+      event:
+        desc: Evento do "onAdd" do sortablejs.
+        type: Object
+        default: {}
+
+      cancel:
+        desc: Cancela o drag and drop.
+        type: Function
+        default: undefined
+
+      getItem:
+        desc: Recupera o item atual a ser dropado.
+        type: Function
+        default: {}
+
+      openConfirmDialog:
+        desc: Chama o dialog de confirmação para salvar nova posição.
+        type: Function
+        default: undefined
+
+      update:
+        desc: Salva nova posição.
+        type: Function
+        default: undefined
+
+      getColumnTo:
+        desc: Recupera o payload da coluna que o item será adicionado.
+        type: Function
+        default: {}
+
+      getColumnFrom:
+        desc: Recupera o payload da coluna que o item saiu.
+        type: Function
+        default: {}
+
   column-id-key:
     desc: chave que será o id usado para ser o identificador da coluna.
     type: String
@@ -158,8 +198,22 @@ events:
 
   '@update-success -> function()':
     desc: Dispara quando o PATCH do drag and drop é com sucesso.
+    params:
+      data:
+        desc: Retorno da API.
+        type: Object
+
+  '@update-error -> function()':
+    desc: Dispara quando o PATCH do drag and drop cai em uma exceção.
+    params:
+      error:
+        desc: Retorno da API.
+        type: Object
 
 methods:
+  'cancelDrop: () => void':
+    desc: Cancela o drop e volta o item para coluna original.
+
   'fetchColumns: () => void':
     desc: Busca todas colunas com base nos headers fornecidos.
 
