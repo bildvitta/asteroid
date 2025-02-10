@@ -10,6 +10,10 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 ### Sobre os "BREAKING CHANGES"
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
+## Não publicado
+### Adicionado
+- `QasCheckbox`: adicionado prop `columns` pra que seja possível ter as options alinhadas em um grid.
+
 ## [3.17.0-beta.27] - 07-02-2025
 ### Adicionado
 - `QasCheckbox`: 

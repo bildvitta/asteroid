@@ -39,6 +39,11 @@ props:
     default: false
     type: Boolean
 
+  columns:
+    desc: Colunas do grid que as options irão seguir.
+    type: Object
+    examples: '{ col: 12, sm: 4, md: 3 }'
+
 events:
   '@update:model-value -> function(value)':
     desc: Dispara quando o model-value altera, também usado para v-model.
