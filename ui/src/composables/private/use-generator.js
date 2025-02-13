@@ -45,10 +45,14 @@ export const baseProps = {
 export default function ({ props = {}, isGrid = false }) {
   const screen = useScreen()
 
+  /**
+   * Se a propriedade gutter não for passada, será calculada automaticamente.
+   * se for usado no grid e for inline, o gutter será menor.
+   */
   const defaultGutter = computed(() => {
     if (props.gutter !== undefined) return props.gutter
 
-    return (props.useInline && !screen.isSmall) && isGrid ? Spacing.Sm : Spacing.Md
+    return isGrid && (props.useInline && !screen.isSmall) ? Spacing.Sm : Spacing.Md
   })
 
   /**
