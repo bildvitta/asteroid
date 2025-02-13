@@ -17,3 +17,10 @@ Quando for utilizar por slot, não pode haver nenhum elemento englobando o texto
 :::
 
 <doc-example file="QasTextTruncate/DefaultSlot" title="Slot default" />
+
+:::info
+- Quando utilizar com badge, é necessário utilizar junto com a propriedade "useObjectList".
+- Só é repassados para o QasBadge props que o mesmo aceite.
+- Utilize a propriedade "useWrapBadge" quando utilizar fora de tabela em casos que precise quebrar as badges em mais linhas.
+:::
+<doc-example file="QasTextTruncate/WithBadge" title="Uso com badges" />

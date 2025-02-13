@@ -3,7 +3,7 @@
     <qas-header v-if="hasHeader" v-bind="props.headerProps" />
 
     <div :class="classes">
-      <div v-for="(field, key) in fieldsByResult" :key="key" :class="getContainerClassses({ key })">
+      <div v-for="(field, key) in fieldsByResult" :key="key" :class="getContainerClasses({ key })">
         <slot :field="field" :name="`field-${field.name}`">
           <qas-grid-item :use-ellipsis="hasEllipsis(field)" :use-inline="props.useInline">
             <template #header>
@@ -98,7 +98,7 @@ const props = defineProps({
 })
 
 // composables
-const { classes, getFieldClass } = useGenerator({ props })
+const { classes, getFieldClass } = useGenerator({ props, isGrid: true })
 
 // computed
 const hasResult = computed(() => Object.keys(props.result).length)
@@ -181,7 +181,7 @@ function setFieldsByResult () {
   fieldsByResult.value = getFieldsByResult()
 }
 
-function getContainerClassses ({ key }) {
+function getContainerClasses ({ key }) {
   if (props.useInline) return 'row justify-between col-12'
 
   return getFieldClass({ index: key, isGridGenerator: true })
