@@ -2,7 +2,17 @@
   <div ref="parent" :class="classes">
     <div class="no-wrap row text-no-wrap">
       <div ref="truncate" class="ellipsis">
-        <slot>{{ formattedText }}</slot>
+        <slot>
+          <div v-if="hasBadges" class="items-center q-col-gutter-sm row" :class="badgeParentClasses">
+            <div v-for="(item, index) in normalizedBadgesList" :key="index">
+              <qas-badge v-bind="getBadgeProps(item)" />
+            </div>
+          </div>
+
+          <div v-else class="ellipsis">
+            {{ formattedText }}
+          </div>
+        </slot>
       </div>
 
       <qas-btn v-if="hasButton" class="q-ml-sm" :label="buttonLabel" @click.stop.prevent="toggle" />
@@ -10,7 +20,7 @@
 
     <qas-dialog v-model="show" v-bind="defaultProps" aria-label="Diálogo de texto completo" role="dialog">
       <template v-if="isCounterMode" #description>
-        <div class="q-col-gutter-y-md row">
+        <div class="q-col-gutter-y-sm row">
           <div
             v-for="(item, index) in normalizedList"
             :key="index"
@@ -25,6 +35,10 @@
 </template>
 
 <script setup>
+import QasDialog from '../dialog/QasDialog.vue'
+
+import { baseProps } from '../../shared/badge-config'
+
 import {
   computed,
   onMounted,
@@ -33,9 +47,6 @@ import {
   watch
 } from 'vue'
 
-import QasDialog from '../dialog/QasDialog.vue'
-
-// define component name
 defineOptions({ name: 'QasTextTruncate' })
 
 // props
@@ -53,6 +64,11 @@ const props = defineProps({
   dialogTitle: {
     type: String,
     default: ''
+  },
+
+  emptyText: {
+    type: String,
+    default: '-'
   },
 
   maxWidth: {
@@ -85,13 +101,16 @@ const props = defineProps({
     default: () => []
   },
 
+  useBadge: {
+    type: Boolean
+  },
+
   useObjectList: {
     type: Boolean
   },
 
-  emptyText: {
-    type: String,
-    default: '-'
+  useWrapBadge: {
+    type: Boolean
   }
 })
 
@@ -101,10 +120,17 @@ const parent = ref(null)
 
 // composable
 const {
+  hasBadges,
+  badgeParentClasses,
+  normalizedBadgesList,
+  getBadgeProps
+} = useBadgeHandler()
+
+const {
   textContent,
   isTruncated,
   truncateText
-} = useTruncate({ parent, props })
+} = useTruncate({ parent, props, hasBadges })
 
 const {
   defaultProps,
@@ -122,6 +148,7 @@ const {
 
 useMutationObserver({ truncate, callbackFn: truncateText })
 
+// computeds
 const classes = computed(() => [`text-${props.color}`, `text-${props.typography}`])
 
 const formattedText = computed(() => props.list.length || props.text ? displayText.value : props.emptyText)
@@ -182,7 +209,7 @@ function useMutationObserver ({ truncate, callbackFn = () => {} }) {
   }
 }
 
-function useTruncate ({ parent, props }) {
+function useTruncate ({ parent, props, hasBadges }) {
   // reactive vars
   const maxPossibleWidth = ref('')
   const textContent = ref('')
@@ -191,14 +218,17 @@ function useTruncate ({ parent, props }) {
   // lifecycle
   onMounted(() => truncateText())
 
-  // watch
-  watch(() => props.maxWidth, truncateText)
-
   // computed
   const isTruncated = computed(() => textWidth.value > maxPossibleWidth.value)
 
+  // watch
+  watch(() => props.maxWidth, truncateText)
+
   // functions
   function truncateText () {
+    // Se tiver badges, então não pode ser feito calculo de width.
+    if (hasBadges.value) return
+
     parent.value.style.maxWidth = '100%'
     textWidth.value = truncate.value.clientWidth
     textContent.value = truncate.value?.innerHTML
@@ -269,6 +299,36 @@ function useCounter () {
     normalizedList,
     normalizedCounterText,
     counterLabel
+  }
+}
+
+function useBadgeHandler () {
+  const hasBadges = computed(() => props.useBadge && props.useObjectList && props.list.length)
+
+  const normalizedBadgesList = computed(() => props.list.slice(0, props.maxVisibleItem))
+  const badgeParentClasses = computed(() => ({ 'no-wrap': !props.useWrapBadge }))
+
+  function getBadgeProps (item) {
+    const itemProps = {}
+
+    /**
+     * recupera somente keys que estão em baseProps do QasBadge
+     * pra evitar que passe propriedades desnecessárias
+     */
+    for (const key in item) {
+      if (baseProps[key]) {
+        itemProps[key] = item[key]
+      }
+    }
+
+    return itemProps
+  }
+
+  return {
+    hasBadges,
+    badgeParentClasses,
+    normalizedBadgesList,
+    getBadgeProps
   }
 }
 </script>

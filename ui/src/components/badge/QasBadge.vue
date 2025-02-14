@@ -5,6 +5,8 @@
 </template>
 
 <script setup>
+import { baseProps } from '../../shared/badge-config'
+
 import { computed } from 'vue'
 
 defineOptions({
@@ -12,35 +14,7 @@ defineOptions({
   inheritAttrs: false
 })
 
-const props = defineProps({
-  color: {
-    type: String,
-    default: 'light-blue-2'
-  },
-
-  label: {
-    type: String,
-    default: ''
-  },
-
-  multiLine: {
-    type: Boolean
-  },
-
-  textColor: {
-    type: String,
-    default: 'black'
-  },
-
-  removable: {
-    type: Boolean
-  },
-
-  tabindex: {
-    type: [String, Number],
-    default: undefined
-  }
-})
+const props = defineProps(baseProps)
 
 const emit = defineEmits(['remove'])
 const model = defineModel({ type: Boolean, default: true })

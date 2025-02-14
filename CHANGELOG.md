@@ -10,9 +10,25 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 ### Sobre os "BREAKING CHANGES"
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
+## Não publicado
+## BREAKING CHANGES
+- [`QasGridItem`, `QasGridGenerator`]: modificado classe de cor, agora o label tem as mesmas cores tanto inline quando modo normal "text-grey-10",
+verificar lugares onde usa modo inline para ver se não estava sendo estilizado manualmente.
+
+### Adicionado
+`QasTextTruncate`: Adicionado novas propriedade `useBadge` e `useWrapBadge`.
+
+### Modificado
+- `QasTextTruncate`: modificado espaçamento entre itens no dialog para `sm`.
+- `QasGridItem`: modificado classe de cor, agora o label tem as mesmas cores tanto inline quando modo normal "text-grey-10".
+- `QasGridGenerator`:
+  - modificado tamanho default da propriedade "gutter", agora quando for "useInline" terá o default de "8px".
+  - `composables/private/useGenerator`: modificações referente ao gutter para o QasGridGenerator.
+  - corrigido typo "getContainerClassses" por "getContainerClasses".
+
 ## [3.17.0-beta.27] - 07-02-2025
 ### Adicionado
-- `QasCheckbox`: 
+- `QasCheckbox`:
  - adicionado prop `error-message` pra exibir o erro no campo.
  - adicionado prop `required` pra exibir `*` como sufixo da label.
 

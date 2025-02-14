@@ -65,8 +65,8 @@ const classes = computed(() => {
     },
 
     content: {
+      'text-grey-10': true,
       'text-body1': !isInline,
-      'text-grey-10': !isInline,
       'text-subtitle1': isInline,
       ellipsis: hasEllipsis.value
     }
