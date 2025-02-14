@@ -58,7 +58,9 @@
                 </div>
               </div>
 
-              <q-item v-else :key="index" :active="isActive(menuItem)" active-class="q-router-link--active" class="qas-app-menu__item" :to="getRouterRedirect(menuItem)">
+              <!-- quando tem children vazio, não deve mostrar label do item, e a label do item
+              não tem "to", então validar se tem "to" para mostrar o item -->
+              <q-item v-else-if="menuItem.to" :key="index" :active="isActive(menuItem)" active-class="q-router-link--active" class="qas-app-menu__item" :to="getRouterRedirect(menuItem)">
                 <q-item-section v-if="menuItem.icon" avatar>
                   <q-icon :name="menuItem.icon" />
                 </q-item-section>
@@ -77,8 +79,8 @@
 
         <div v-if="showAppUser">
           <!-- Chat Ajuda -->
-          <q-list v-if="helpChatLink" class="q-mt-xl">
-            <q-item class="q-mb-md text-primary" clickable>
+          <q-list v-if="useChat" class="q-mt-xl">
+            <q-item class="q-mb-md text-primary" clickable @click="toggleChat">
               <q-item-section avatar>
                 <q-icon name="sym_r_chat" />
               </q-item-section>
@@ -90,8 +92,6 @@
                   </div>
                 </q-item-label>
               </q-item-section>
-
-              <pv-app-menu-help-chat :link="props.helpChatLink" :mini-brand="props.miniBrand" @update:model-value="setHasOpenedHelpChat" />
             </q-item>
           </q-list>
 
@@ -106,7 +106,6 @@
 </template>
 
 <script setup>
-import PvAppMenuHelpChat from './private/PvAppMenuHelpChat.vue'
 import PvAppMenuDropdown from './private/PvAppMenuDropdown.vue'
 import QasAppUser from '../app-user/QasAppUser.vue'
 
@@ -114,8 +113,12 @@ import useAppMenuDropdown from './composables/use-app-menu-dropdown'
 import useAppUser from './composables/use-app-user'
 import useDevelopmentBadge from './composables/use-development-badge'
 import { useScreen } from '../../composables'
+import { useAuthUser } from '../../composables/private'
 
-import { ref, computed, watch } from 'vue'
+import { handleProcess } from '../../helpers'
+
+import Gleap from 'gleap'
+import { ref, computed, watch, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 
 defineOptions({
@@ -134,11 +137,6 @@ const props = defineProps({
     default: '',
     required: true,
     type: String
-  },
-
-  helpChatLink: {
-    type: String,
-    default: ''
   },
 
   items: {
@@ -170,6 +168,10 @@ const props = defineProps({
   title: {
     default: '',
     type: String
+  },
+
+  useChat: {
+    type: Boolean
   }
 })
 
@@ -177,6 +179,8 @@ const emit = defineEmits(['sign-out', 'update:modelValue', 'toggle-notifications
 
 const screen = useScreen()
 const router = useRouter()
+
+const { toggleChat } = useChatMenu()
 
 const rootRoute = router.hasRoute('Root') ? { name: 'Root' } : { path: '/' }
 
@@ -214,7 +218,7 @@ const isMiniMode = computed(() => {
   return screen.isLarge && isMini.value && !hasOpenedMenu.value && !hasOpenedHelpChat.value
 })
 
-const menuClasses = computed(() => ({ 'qas-app-menu__menu--spaced': !props.helpChatLink }))
+const menuClasses = computed(() => ({ 'qas-app-menu__menu--spaced': !props.useChat }))
 
 const classes = computed(() => {
   return {
@@ -276,6 +280,9 @@ function hasSeparator (index) {
 }
 
 function isActive ({ to }) {
+  // quando o children vem vazio, "to" é "undefined", então precisa ser feito esta trativa.
+  if (!to) return false
+
   const currentPath = getNormalizedPath(router.currentRoute.value.path)
   const itemPath = typeof to === 'string' ? getNormalizedPath(to) : getPathFromObject(to)
 
@@ -296,8 +303,59 @@ function setHasOpenedMenu (value) {
   hasOpenedMenu.value = value
 }
 
-function setHasOpenedHelpChat (value) {
-  hasOpenedHelpChat.value = value
+// composables definitions
+function useChatMenu () {
+  // composables
+  const { user, hasUser } = useAuthUser()
+
+  // consts
+  const isMeVersionTwo = process.env.ME_VERSION === 2
+
+  // hooks
+  onMounted(initializeChat)
+
+  // functions
+  function initializeChat () {
+    const gleapEnv = handleProcess(() => process.env.GLEAP)
+
+    if (!props.useChat || !gleapEnv || !hasUser.value) return
+
+    Gleap.initialize(gleapEnv)
+    Gleap.setLanguage('pt-BR')
+
+    const {
+      uuid,
+      name,
+      email,
+      callingCode,
+      phone,
+      companyLink,
+      companyLinksOptions,
+      mainCompanyOptions, // somente na v2
+      currentMainCompany // somente na v2
+    } = user.value
+
+    const companyId = isMeVersionTwo ? currentMainCompany : companyLink
+    const companyNameList = isMeVersionTwo ? mainCompanyOptions : companyLinksOptions
+    const companyName = companyNameList?.find(({ value }) => value === companyId)?.label
+
+    Gleap.identify(uuid, {
+      name,
+      email,
+      phone: `+${callingCode || '55'}${phone}`,
+      companyId,
+      companyName
+    })
+  }
+
+  function toggleChat () {
+    Gleap.isOpened() ? Gleap.close() : Gleap.open()
+  }
+
+  return {
+    initializeChat,
+    toggleChat
+  }
 }
 </script>
 
