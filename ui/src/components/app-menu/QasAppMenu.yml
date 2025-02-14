@@ -15,11 +15,6 @@ props:
     type: String
     required: true
 
-  help-chat-link:
-    desc: Link para ser usado no iframe do chat, caso não passe nada, o chat não será exibido.
-    type: String
-    default: ''
-
   items:
     desc: Itens do menu.
     type: Array
@@ -48,6 +43,11 @@ props:
   title:
     desc: Título que vai ficar no label do select de módulos.
     type: String
+
+  use-chat:
+    desc: Componente para controlar se vai ter ou não o chat.
+    type: Boolean
+    default: true
 
 slots:
   user:
