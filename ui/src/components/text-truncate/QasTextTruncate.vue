@@ -311,7 +311,10 @@ function useBadgeHandler () {
   function getBadgeProps (item) {
     const itemProps = {}
 
-    // recupera somente keys que estão em baseProps do QasBadge
+    /**
+     * recupera somente keys que estão em baseProps do QasBadge
+     * pra evitar que passe propriedades desnecessárias
+     */
     for (const key in item) {
       if (baseProps[key]) {
         itemProps[key] = item[key]

@@ -15,7 +15,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 `QasTextTruncate`: Adicionado novas propriedade `useBadge` e `useWrapBadge`.
 
 ### Modificado
-- `QasGridGenerator`: modificado espaçamento entre itens no dialog para `sm`.
+- `QasTextTruncate`: modificado espaçamento entre itens no dialog para `sm`.
 - `QasGridItem`: modificado classe de cor, agora o label tem as mesmas cores tanto inline quando modo normal "text-grey-10".
 - `QasGridGenerator`:
   - modificado tamanho default da propriedade "gutter", agora quando for "useInline" terá o default de "8px".

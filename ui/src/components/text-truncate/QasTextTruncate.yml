@@ -62,7 +62,7 @@ props:
     type: Boolean
 
   use-wrap-badge:
-    desc: Habilita o componente a "quebrar" o badge quando o texto for muito grande.
+    desc: habilita a quebra de linha das badges quando o texto for muito grande.
     default: false
     type: Boolean
 

@@ -1,6 +1,6 @@
 <template>
   <div class="container q-py-lg">
-    <qas-text-truncate class="text-negative" dialog-title="Aqui está meu título!" :list="list" :max-visible-item="2" :max-width="100" use-badge use-object-list />
+    <qas-text-truncate class="text-negative" dialog-title="Aqui está meu título!" :list :max-visible-item="2" :max-width="100" use-badge use-object-list />
   </div>
 </template>
 
