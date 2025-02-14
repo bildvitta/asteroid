@@ -3,13 +3,13 @@
     <div class="no-wrap row text-no-wrap">
       <div ref="truncate" class="ellipsis">
         <slot>
-          <div v-if="hasBadges" class="q-col-gutter-sm row" :class="badgeParentClasses">
+          <div v-if="hasBadges" class="items-center q-col-gutter-sm row" :class="badgeParentClasses">
             <div v-for="(item, index) in normalizedBadgesList" :key="index">
               <qas-badge v-bind="getBadgeProps(item)" />
             </div>
           </div>
 
-          <div v-else>
+          <div v-else class="ellipsis">
             {{ formattedText }}
           </div>
         </slot>
