@@ -10,7 +10,7 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 ### Sobre os "BREAKING CHANGES"
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
-## Não publicado
+## [3.17.0-beta.28] - 14-02-2025
 ## BREAKING CHANGES
 - [`QasGridItem`, `QasGridGenerator`]: modificado classe de cor, agora o label tem as mesmas cores tanto inline quando modo normal "text-grey-10",
 verificar lugares onde usa modo inline para ver se não estava sendo estilizado manualmente.
@@ -3449,3 +3449,4 @@ Adicionado suporte para Pinia/Vuex Seguindo os padrões da biblioteca `@bildvitt
 [3.17.0-beta.25]: https://github.com/bildvitta/asteroid/compare/v3.17.0-beta.24...v3.17.0-beta.25?expand=1
 [3.17.0-beta.26]: https://github.com/bildvitta/asteroid/compare/v3.17.0-beta.25...v3.17.0-beta.26?expand=1
 [3.17.0-beta.27]: https://github.com/bildvitta/asteroid/compare/v3.17.0-beta.27-alpha.0...v3.17.0-beta.27?expand=1
+[3.17.0-beta.28]: https://github.com/bildvitta/asteroid/compare/v3.17.0-beta.27...v3.17.0-beta.28?expand=1
