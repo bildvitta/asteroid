@@ -401,8 +401,6 @@ export default {
     },
 
     setDefaultOption () {
-      console.log('bati aqui dentro', this.modelValue)
-
       const modelValue = this.attributes.emitValue
         ? this.options[0].value
         : this.options[0]
