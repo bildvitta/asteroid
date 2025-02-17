@@ -247,7 +247,16 @@ export default {
     },
 
     canSetDefaultOption () {
-      return (this.required || this.useAutoSelect) && this.options.length === 1 && !this.modelValue
+      // Como o default do model pode ser um array (caso de multiple), é necessário validar o length
+      const hasModelValue = Array.isArray(this.modelValue) ? !!this.modelValue.length : !!this.modelValue
+
+      /**
+       * Posso setar o default quando:
+       * - o campo for required ou tiver a prop useAutoSelect
+       * - tiver apenas uma option
+       * - O modelValue estiver vazio
+       */
+      return (this.required || this.useAutoSelect) && this.options.length === 1 && !hasModelValue
     },
 
     // redesign
@@ -392,6 +401,8 @@ export default {
     },
 
     setDefaultOption () {
+      console.log('bati aqui dentro', this.modelValue)
+
       const modelValue = this.attributes.emitValue
         ? this.options[0].value
         : this.options[0]
