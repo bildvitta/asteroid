@@ -10,7 +10,7 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 ### Sobre os "BREAKING CHANGES"
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
-## Não publicado
+## [3.17.0-beta.29] - 17-02-2025
 ## BREAKING CHANGES
 - `QasAppMenu`: modificado chat para o `gleap`, precisando de novas configurações.
 
@@ -3474,3 +3474,4 @@ Adicionado suporte para Pinia/Vuex Seguindo os padrões da biblioteca `@bildvitt
 [3.17.0-beta.27]: https://github.com/bildvitta/asteroid/compare/v3.17.0-beta.27-alpha.0...v3.17.0-beta.27?expand=1
 [3.17.0-beta.28]: https://github.com/bildvitta/asteroid/compare/v3.17.0-beta.27...v3.17.0-beta.28?expand=1
 [3.16.3]: https://github.com/bildvitta/asteroid/compare/v3.16.2...v3.16.3?expand=1
+[3.17.0-beta.29]: https://github.com/bildvitta/asteroid/compare/v3.16.3...v3.17.0-beta.29?expand=1
