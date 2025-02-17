@@ -10,6 +10,29 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 ### Sobre os "BREAKING CHANGES"
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
+## Não publicado
+## BREAKING CHANGES
+- `QasAppMenu`: modificado chat para o `gleap`, precisando de novas configurações.
+
+### Adicionado
+- Adicionado lib `Gleap` no `/ui`.
+
+### Modificado
+- `QasAppMenu`: modificado chat para o `gleap`, precisando de novas configurações.
+
+## [3.16.3] - 14-02-2025
+## BREAKING CHANGES
+- `QasAppMenu`: modificado chat para o `gleap`, precisando de novas configurações.
+
+### Adicionado
+- Adicionado lib `Gleap` no `/ui`.
+
+### Corrigido
+- `QasAppMenu`: corrigido problema que ocorria quando um item do menu com "children" ficava vazio, ele quebrava por não encontrar a rota e mostrava um label mesmo que sem nenhum item abaixo.
+
+### Modificado
+- `QasAppMenu`: modificado chat para o `gleap`, precisando de novas configurações.
+
 ## [3.17.0-beta.28] - 14-02-2025
 ## BREAKING CHANGES
 - [`QasGridItem`, `QasGridGenerator`]: modificado classe de cor, agora o label tem as mesmas cores tanto inline quando modo normal "text-grey-10",
@@ -3450,3 +3473,4 @@ Adicionado suporte para Pinia/Vuex Seguindo os padrões da biblioteca `@bildvitt
 [3.17.0-beta.26]: https://github.com/bildvitta/asteroid/compare/v3.17.0-beta.25...v3.17.0-beta.26?expand=1
 [3.17.0-beta.27]: https://github.com/bildvitta/asteroid/compare/v3.17.0-beta.27-alpha.0...v3.17.0-beta.27?expand=1
 [3.17.0-beta.28]: https://github.com/bildvitta/asteroid/compare/v3.17.0-beta.27...v3.17.0-beta.28?expand=1
+[3.16.3]: https://github.com/bildvitta/asteroid/compare/v3.16.2...v3.16.3?expand=1
