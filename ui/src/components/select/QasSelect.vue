@@ -252,8 +252,8 @@ export default {
 
       /**
        * Posso setar o default quando:
-       * - o campo for required ou tiver a prop useAutoSelect
-       * - tiver apenas uma option
+       * - O campo for required ou tiver a prop useAutoSelect
+       * - Tiver apenas uma option
        * - O modelValue estiver vazio
        */
       return (this.required || this.useAutoSelect) && this.options.length === 1 && !hasModelValue
