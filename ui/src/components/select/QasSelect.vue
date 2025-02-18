@@ -38,7 +38,7 @@
               {{ scope.opt.label }}
             </q-item-label>
 
-            <div v-for="(badge, index) in getFilteredBadgeList(scope.opt)" :key="index">
+            <div v-for="(badge, index) in getFilteredBadgeList(scope.opt)" :key="index" class="flex">
               <qas-badge v-if="hasBadge(badge)" v-bind="getBadgeProps(badge)" />
             </div>
           </div>

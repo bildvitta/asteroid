@@ -12,7 +12,9 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 
 ## Não publicado
 ### Corrigido
-- `QasSelect`: corrigido lógica para setar o model com a única option disponível.
+- `QasSelect`: 
+  - Corrigido lógica para setar o model com a única option disponível.
+  - Corrigido alinhamento das badges.
 
 ## [3.17.0-beta.29] - 17-02-2025
 ## BREAKING CHANGES
