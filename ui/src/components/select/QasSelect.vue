@@ -38,7 +38,7 @@
               {{ scope.opt.label }}
             </q-item-label>
 
-            <div v-for="(badge, index) in getFilteredBadgeList(scope.opt)" :key="index">
+            <div v-for="(badge, index) in getFilteredBadgeList(scope.opt)" :key="index" class="flex">
               <qas-badge v-if="hasBadge(badge)" v-bind="getBadgeProps(badge)" />
             </div>
           </div>
@@ -247,7 +247,16 @@ export default {
     },
 
     canSetDefaultOption () {
-      return (this.required || this.useAutoSelect) && this.options.length === 1 && !this.modelValue
+      // Como o default do model pode ser um array (caso de multiple), é necessário validar o length
+      const hasModelValue = Array.isArray(this.modelValue) ? !!this.modelValue.length : !!this.modelValue
+
+      /**
+       * Posso setar o default quando:
+       * - O campo for required ou tiver a prop useAutoSelect
+       * - Tiver apenas uma option
+       * - O modelValue estiver vazio
+       */
+      return (this.required || this.useAutoSelect) && this.options.length === 1 && !hasModelValue
     },
 
     // redesign
