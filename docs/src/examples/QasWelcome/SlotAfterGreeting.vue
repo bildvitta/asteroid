@@ -9,7 +9,7 @@
 </template>
 
 <script setup>
-defineOptions({ name: 'SlotAfterGreetings' })
+defineOptions({ name: 'SlotAfterGreeting' })
 
 const shortcuts = [
   {
