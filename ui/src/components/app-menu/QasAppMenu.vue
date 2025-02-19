@@ -342,7 +342,7 @@ function useChatMenu () {
     Gleap.identify(uuid, {
       name,
       email,
-      phone: `+${callingCode || '55'}${phone}`,
+      phone: `${callingCode || '55'}${phone}`,
       companyId,
       companyName
     })
