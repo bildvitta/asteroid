@@ -21,6 +21,8 @@
 <script setup>
 import QasStatus from '../status/QasStatus.vue'
 
+import { decimal } from '../../helpers'
+
 import { computed } from 'vue'
 import { extend } from 'quasar'
 
@@ -87,7 +89,7 @@ function getFormattedLabel ({ label, counter, value }) {
 
   if (!normalizedCount) return label
 
-  const countString = String(normalizedCount)
+  const countString = String(decimal(normalizedCount))
 
   return `${label} (${countString.padStart(2, '0')})`
 }

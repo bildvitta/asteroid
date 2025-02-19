@@ -3,18 +3,20 @@
     <q-uploader ref="uploader" auto-upload class="bg-transparent" :class="uploaderClasses" v-bind="attributes" :factory="factory" flat :max-files="maxFiles" method="PUT" @factory-failed="factoryFailed" @uploaded="uploaded" @uploading="updateUploading(true)">
       <template #header="scope">
         <slot name="header" :scope="scope">
-          <div class="flex items-center justify-between">
-            <div>
-              <qas-label v-bind="labelProps" />
-
-              <div v-if="errorMessage" class="q-mt-xs text-caption text-negative">
-                {{ errorMessage }}
+          <qas-header class="q-mb-none" v-bind="getHeaderProps(scope)">
+            <template #description>
+              <div :class="headerDescriptionClasses">
+                {{ headerProps.description }}
               </div>
-            </div>
+            </template>
 
-            <div v-if="hasAddFile">
-              <qas-btn color="primary" icon="sym_r_add" :label="addButtonLabel" :use-label-on-small-screen="false" variant="tertiary" @click="onAddButtonClick(scope)" />
-            </div>
+            <template v-for="(_, name) in $slots" #[getHeaderSlotName(name)]="context">
+              <slot :name v-bind="context" />
+            </template>
+          </qas-header>
+
+          <div v-if="errorMessage" class="q-mt-xs text-caption text-negative">
+            {{ errorMessage }}
           </div>
 
           <!-- ------------------------------------ tags hidden -------------------------------------- -->
@@ -24,15 +26,13 @@
       </template>
 
       <template #list="scope">
-        <div v-if="hasGalleryCardSection(getFilesList(scope.files, scope))" class="q-col-gutter-lg q-mt-sm row">
+        <div v-if="hasGalleryCardSection(getFilesList(scope.files, scope))" class="q-col-gutter-lg row">
           <div v-for="(file, key, index) in getFilesList(scope.files, scope)" :key="index" :class="columnClasses">
             <pv-uploader-gallery-card v-bind="getUploaderGalleryCardProps({ key, scope, file, index })" />
           </div>
         </div>
 
-        <div v-else class="q-mt-lg">
-          <qas-empty-result-text />
-        </div>
+        <qas-empty-result-text v-else />
       </template>
     </q-uploader>
 
@@ -42,6 +42,7 @@
 
 <script>
 import PvUploaderGalleryCard from './private/PvUploaderGalleryCard.vue'
+import QasHeader from '../header/QasHeader.vue'
 
 import { uid, extend } from 'quasar'
 import { NotifyError } from '../../plugins'
@@ -53,7 +54,8 @@ export default {
   name: 'QasUploader',
 
   components: {
-    PvUploaderGalleryCard
+    PvUploaderGalleryCard,
+    QasHeader
   },
 
   inheritAttrs: false,
@@ -123,6 +125,11 @@ export default {
     gridGeneratorProps: {
       default: () => ({}),
       type: Object
+    },
+
+    headerProps: {
+      type: Object,
+      default: () => ({})
     },
 
     label: {
@@ -197,6 +204,12 @@ export default {
   computed: {
     attributes () {
       return this.$attrs
+    },
+
+    headerDescriptionClasses () {
+      return {
+        'text-negative': this.error
+      }
     },
 
     columnClasses () {
@@ -288,15 +301,6 @@ export default {
 
     isMultiple () {
       return this.$attrs.multiple || this.$attrs.multiple === ''
-    },
-
-    labelProps () {
-      return {
-        label: this.label,
-        margin: 'none',
-
-        ...(this.error && { color: 'negative' })
-      }
     },
 
     self () {
@@ -613,6 +617,48 @@ export default {
       const emptyModel = this.isMultiple ? [] : this.useObjectModel ? {} : ''
 
       this.$emit('update:modelValue', emptyModel)
+    },
+
+    getHeaderSlotName (name) {
+      return name.replace('header-', '')
+    },
+
+    getHeaderProps (scope) {
+      const { labelProps, actionsMenuProps, ...othersHeaderProps } = this.headerProps
+
+      const { list, ...othersActionsMenuProps } = actionsMenuProps || {}
+
+      return {
+        spacing: 'lg',
+
+        labelProps: {
+          label: this.label,
+
+          margin: 'none',
+
+          ...labelProps,
+
+          ...(this.error && { color: 'negative' })
+        },
+
+        ...(this.hasAddFile && {
+          actionsMenuProps: {
+            list: {
+              add: {
+                icon: 'sym_r_add',
+                label: this.addButtonLabel,
+                handler: () => this.onAddButtonClick(scope)
+              },
+
+              ...list
+            },
+
+            ...othersActionsMenuProps
+          }
+        }),
+
+        ...othersHeaderProps
+      }
     }
   }
 }

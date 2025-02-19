@@ -14,6 +14,10 @@
       </slot>
     </div>
 
+    <div v-if="hasAfterGreetingSlot" class="q-mt-lg">
+      <slot name="after-greeting" />
+    </div>
+
     <div v-if="hasShortcuts">
       <qas-label class="q-mt-lg" label="Atalhos" />
 
@@ -102,6 +106,10 @@ export default {
       if (time >= '12:00' && time < '18:59') return 'Boa tarde'
 
       return 'Boa noite'
+    },
+
+    hasAfterGreetingSlot () {
+      return !!this.$slots['after-greeting']
     }
   }
 }

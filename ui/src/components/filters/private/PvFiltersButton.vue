@@ -1,6 +1,6 @@
 <template>
-  <qas-btn :color="color" data-cy="filters-btn" icon="sym_r_tune" variant="tertiary">
-    <q-menu ref="menu" anchor="center right" class="full-width" max-width="270px" self="top right" v-bind="menuProps">
+  <qas-btn data-cy="filters-btn" icon="sym_r_filter_alt" label="Filtrar" :use-label-on-small-screen="false" variant="tertiary">
+    <q-menu ref="menu" anchor="center right" class="full-width" max-width="270px" v-bind="menuProps" no-refocus self="top right">
       <div v-if="loading" class="q-pa-xl text-center">
         <q-spinner color="grey" size="2em" />
       </div>
@@ -18,6 +18,7 @@
           <template #primary>
             <qas-btn class="full-width" data-cy="filters-submit-btn" label="Filtrar" type="submit" variant="primary" />
           </template>
+
           <template #secondary>
             <qas-btn class="full-width" data-cy="filters-clear-btn" label="Limpar" variant="secondary" @click="$emit('clear')" />
           </template>

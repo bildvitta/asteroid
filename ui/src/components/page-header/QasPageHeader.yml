@@ -15,7 +15,7 @@ props:
     desc: Título do cabeçalho.
     type: String
 
-  header-actions-props:
+  header-props:
     desc: Propriedades do QasHeaderActions.
     default: {}
     type: Object

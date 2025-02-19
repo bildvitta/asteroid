@@ -1,42 +1,40 @@
 <template>
-  <div ref="expansionItem" class="full-width qas-expansion-item" :class="errorClasses" v-bind="expansionProps.parent">
-    <component :is="component.is" class="qas-expansion-item__box">
-      <q-expansion-item header-class="text-bold q-mt-sm q-pa-none qas-expansion-item__header" :label="props.label" v-bind="expansionProps.item">
+  <div ref="expansionItem" class="full-width qas-expansion-item" :class="classes" v-bind="expansionProps.parent">
+    <qas-box class="qas-expansion-item__box" v-bind="boxProps">
+      <q-expansion-item v-model="modelValue" v-bind="expansionProps.item" header-class="text-bold q-mt-sm q-pa-none qas-expansion-item__header" @show="setShowContent">
         <template #header>
-          <slot name="header">
+          <div class="full-width justify-between no-wrap row">
             <div class="full-width">
-              <div class="items-center q-col-gutter-sm row">
-                <slot name="label">
-                  <h5 class="col-auto text-h5">
-                    {{ props.label }}
-                  </h5>
-                </slot>
+              <slot name="header">
+                <div class="items-center q-col-gutter-sm row">
+                  <slot name="header-label">
+                    <qas-label class="col-auto qas-expansion-item__label" :label="props.label" margin="none" typography="h5" />
+                  </slot>
 
-                <div class="col-auto items-center q-col-gutter-sm row">
-                  <div v-for="(badge, badgeIndex) in props.badges" :key="badgeIndex" class="col-auto">
-                    <qas-badge v-bind="badge" />
+                  <div v-if="hasBadges" class="col-auto items-center q-col-gutter-sm row">
+                    <div v-for="(badge, badgeIndex) in props.badges" :key="badgeIndex" class="col-auto">
+                      <qas-badge v-bind="badge" />
+                    </div>
                   </div>
                 </div>
-              </div>
 
-              <div v-if="hasHeaderBottom" class="q-mt-sm">
-                <slot name="header-bottom" />
-              </div>
+                <div v-if="hasHeaderBottom" class="q-mt-sm">
+                  <slot name="header-bottom" />
+                </div>
+              </slot>
             </div>
-          </slot>
+
+            <qas-btn class="qas-expansion-item__dropdown" color="grey-10" :disable="isDisabled" icon="sym_r_keyboard_arrow_down" />
+          </div>
         </template>
 
-        <q-separator v-if="hasHeaderSeparator" class="q-my-md" />
-
         <div :class="contentClasses">
-          <slot name="content">
+          <slot v-if="showContent" name="content">
             <qas-grid-generator v-if="hasGridGenerator" use-inline v-bind="gridGeneratorProps" />
           </slot>
         </div>
-
-        <q-separator v-if="hasBottomSeparator" class="q-mt-md" />
       </q-expansion-item>
-    </component>
+    </qas-box>
 
     <div v-if="hasError" class="q-pt-sm qas-expansion-item__error-message text-caption text-negative">
       {{ props.errorMessage }}
@@ -47,7 +45,7 @@
 <script setup>
 import QasBox from '../box/QasBox.vue'
 
-import { computed, provide, inject, onMounted, ref, useAttrs } from 'vue'
+import { computed, provide, inject, ref, useAttrs } from 'vue'
 
 defineOptions({
   name: 'QasExpansionItem',
@@ -60,6 +58,14 @@ const props = defineProps({
     default: () => []
   },
 
+  disable: {
+    type: Boolean
+  },
+
+  disableButton: {
+    type: Boolean
+  },
+
   error: {
     type: Boolean
   },
@@ -69,21 +75,28 @@ const props = defineProps({
     default: ''
   },
 
-  label: {
-    type: String,
-    default: ''
-  },
-
   gridGeneratorProps: {
     type: Object,
     default: () => ({})
   },
 
-  useHeaderSeparator: {
-    type: Boolean,
+  group: {
+    type: String,
     default: undefined
+  },
+
+  label: {
+    type: String,
+    default: ''
+  },
+
+  maxContentHeight: {
+    type: String,
+    default: ''
   }
 })
+
+const modelValue = defineModel({ type: Boolean })
 
 const attrs = useAttrs()
 
@@ -94,39 +107,30 @@ const slots = defineSlots()
 
 // refs
 const expansionItem = ref(null)
-const hasNextSibling = ref(false)
-
-onMounted(setHasNextSibling)
+const showContent = ref(false)
 
 // constants
 const isNestedExpansionItem = inject('isExpansionItem', false)
-const component = {
-  is: isNestedExpansionItem ? 'div' : QasBox
-}
+const isNestedBox = inject('isBox', false)
 
 // computed
+const hasBadges = computed(() => !!props.badges.length)
 const hasError = computed(() => props.error || !!props.errorMessage)
 const hasGridGenerator = computed(() => !!Object.keys(props.gridGeneratorProps).length)
-const hasBottomSeparator = computed(() => isNestedExpansionItem && hasNextSibling.value)
 const hasHeaderBottom = computed(() => !!slots['header-bottom'])
 
-/**
- * Verifica se o componente deve adicionar um separador no header.
- *
- * - Se a propriedade useHeaderSeparator for true, retorna separador.
- * - Se a propriedade useHeaderSeparator for undefined, retorna separador apenas se não for um componente aninhado.
- * - Se a propriedade useHeaderSeparator for false, não retorna separador.
- */
-const hasHeaderSeparator = computed(() => {
-  return typeof props.useHeaderSeparator === 'undefined' ? !isNestedExpansionItem : props.useHeaderSeparator
+const classes = computed(() => {
+  return {
+    'qas-expansion-item--error': hasError.value,
+    'qas-expansion-item--disabled': props.disable || props.disableButton,
+    'qas-expansion-item--disabled-full': props.disable
+  }
 })
-
-const errorClasses = computed(() => ({ 'qas-expansion-item--error': hasError.value }))
 
 const contentClasses = computed(() => {
   return {
-    'q-mt-sm': isNestedExpansionItem,
-    'q-mt-md': !isNestedExpansionItem && !props.useHeaderSeparator
+    'q-mt-md': true,
+    'qas-expansion-item__content overflow-auto': !!props.maxContentHeight
   }
 })
 
@@ -142,11 +146,15 @@ const expansionProps = computed(() => {
   } = attrs
 
   return {
-    parent: {
-      ...propsPayload
-    },
+    parent: propsPayload,
 
     item: {
+      disable: isDisabled.value,
+      hideExpandIcon: true,
+      label: props.label,
+      group: props.group,
+
+      // events
       onUpdateModelValue,
       onShow,
       onBeforeShow,
@@ -157,19 +165,26 @@ const expansionProps = computed(() => {
   }
 })
 
+const boxProps = computed(() => {
+  /**
+   * Caso o QasExpansionItem estiver dentro de um QasBox ou for um QasExpansionItem
+   * dentro de outro QasExpansionItem, o componente terá uma borda.
+  */
+  const isBoxed = isNestedBox || isNestedExpansionItem
+
+  if (!isBoxed) return {}
+
+  return {
+    unelevated: isBoxed,
+    outlined: isBoxed
+  }
+})
+
+const isDisabled = computed(() => props.disable || props.disableButton)
+
 // functions
-
-/**
- * Caso o componente esteja dentro de um QasExpansionItem, verifica se existe um próximo irmão
- * para adicionar um separador.
- */
-function setHasNextSibling (value) {
-  if (!isNestedExpansionItem) return
-
-  const hasTextContentSibling = !!expansionItem.value.nextSibling?.textContent?.trim?.()
-  const hasElementSibling = !!expansionItem.value.nextElementSibling
-
-  hasNextSibling.value = hasElementSibling || hasTextContentSibling
+function setShowContent () {
+  showContent.value = true
 }
 </script>
 
@@ -177,19 +192,53 @@ function setHasNextSibling (value) {
 .qas-expansion-item {
   $root: &;
 
+  &--disabled {
+    .q-item.disabled {
+      opacity: 1 !important;
+    }
+  }
+
+  &--disabled-full {
+    #{$root}__label {
+      color: $grey-6 !important;
+    }
+  }
+
+  &--error {
+    #{$root}__box {
+      border: 2px solid $negative !important;
+    }
+
+    #{$root}__error-message {
+      padding-left: 12px; // espaçamento igual ao de erro do quasar.
+    }
+  }
+
+  &__content {
+    max-height: v-bind("props.maxContentHeight");
+  }
+
   // em alguns casos quando usado com grid, o espaçamento afetava o header, com z-index o problema é resolvido
   &__header {
     position: relative;
     z-index: 1;
   }
 
-  &--error {
-    #{$root}__box {
-      border: 2px solid $negative;
+  .q-expansion-item {
+    #{$root}__dropdown {
+      transition: transform var(--qas-generic-transition);;
     }
 
-    #{$root}__error-message {
-      padding-left: 12px; // espaçamento igual ao de erro do quasar.
+    &--expanded {
+      #{$root}__dropdown {
+        transform: rotate(180deg);
+      }
+    }
+
+    &--collapsed {
+      #{$root}__dropdown {
+        transform: none;
+      }
     }
   }
 

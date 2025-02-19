@@ -1,0 +1,50 @@
+type: component
+
+meta:
+  desc: Componente para cabeçalho composto por label (título), badges, descrição e ação.
+
+props:
+  actions-menu-props:
+    desc: Propriedades do QasActionsMenu.
+    default: {}
+    type: Object
+
+  badges:
+    desc: Adiciona badges ao lado do titulo (QasLabel), caso não tenha titulo fica somente as bages acima da descrição.
+    default: []
+    type: Array
+
+  button-props:
+    desc: Propriedades do QasBtn.
+    default: {}
+    type: Object
+
+  description:
+    desc: Descrição da seção a esquerda.
+    type: String
+
+  filters-props:
+    desc: Propriedades do QasFilters.
+    default: {}
+    type: Object
+
+  label-props:
+    desc: Propriedades repassadas para o componente QasLabel.
+    type: Object
+    default: {}
+
+  spacing:
+    desc: Espaçamento entre o componente e o conteúdo abaixo.
+    default: xl
+    type: String
+    examples: [none, xs, sm, md, lg, xl, '2xl', '3xl', '4xl', '5xl']
+
+slots:
+  actions:
+    desc: slot para acessar seção da direita (ações).
+
+  description:
+    desc: slot para acessar seção de descrição.
+
+  label:
+    desc: slot para acessar o label (título).

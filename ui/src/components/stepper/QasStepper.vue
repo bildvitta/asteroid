@@ -1,6 +1,6 @@
 <template>
   <div class="qas-stepper" :class="classes">
-    <q-stepper ref="stepper" v-model="model" active-color="primary" active-icon="none" animated :contracted="screen.untilLarge" done-color="primary" done-icon="none" flat :header-class="headerClass" inactive-color="grey-6" keep-alive>
+    <q-stepper ref="stepper" v-model="model" v-bind="stepperProps">
       <template v-for="(_, name) in $slots" #[name]="context">
         <slot :name="name" v-bind="getContext(context)" />
       </template>
@@ -9,7 +9,7 @@
 </template>
 
 <script setup>
-import { computed, ref } from 'vue'
+import { computed, ref, useAttrs } from 'vue'
 import { Spacing } from '../../enums/Spacing'
 import { gutterValidator } from '../../helpers/private/gutter-validator'
 import useScreen from '../../composables/use-screen'
@@ -35,6 +35,8 @@ const props = defineProps({
 
 const stepper = ref(null)
 
+const attrs = useAttrs()
+
 const screen = useScreen()
 
 const emit = defineEmits(['update:modelValue'])
@@ -53,7 +55,27 @@ const model = computed({
 
 const classes = computed(() => ({ 'qas-stepper--disable': props.disable }))
 
-const headerClass = computed(() => `text-subtitle1 q-pb-${props.spacing}`)
+const stepperProps = computed(() => {
+  const defaultProps = {
+    contracted: screen.untilLarge,
+    doneColor: 'primary',
+    flat: true,
+    animated: true,
+    activeColor: 'primary',
+    errorIcon: 'sym_r_close',
+    errorColor: 'white',
+    headerClass: `text-subtitle1 q-pb-${props.spacing}`,
+    inactiveColor: attrs['header-nav'] || attrs.headerNav ? 'grey-10' : 'grey-6'
+  }
+
+  return {
+    activeIcon: 'none',
+    doneIcon: 'none',
+    keepAlive: true,
+    ...attrs,
+    ...defaultProps
+  }
+})
 
 function getContext (context) {
   return {
@@ -87,6 +109,31 @@ function previous () {
 
     &__tab {
       padding: 0;
+
+      &--active {
+        .q-icon {
+          font-size: 14px;
+          color: white;
+        }
+
+        .q-stepper__dot {
+          background-color: var(--q-primary) !important;
+        }
+      }
+
+      &:not(.q-stepper__tab--active).q-stepper__tab--error-with-icon  {
+        .q-stepper__title {
+          color: $grey-10;
+        }
+
+        .q-stepper__dot {
+          background-color: $negative !important;
+        }
+
+        .q-icon {
+          font-size: 14px;
+        }
+      }
     }
 
     &__caption {

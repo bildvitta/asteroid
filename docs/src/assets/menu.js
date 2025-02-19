@@ -104,16 +104,16 @@ module.exports = [
         path: '/components/card-image'
       },
       {
+        name: 'Copy',
+        path: '/components/copy'
+      },
+      {
         name: 'ChartView',
         path: '/components/chart-view'
       },
       {
-        name: 'CheckboxGroup',
-        path: '/components/checkbox-group'
-      },
-      {
-        name: 'Copy',
-        path: '/components/copy'
+        name: 'Checkbox',
+        path: '/components/checkbox'
       },
       {
         name: 'Date',
@@ -184,8 +184,12 @@ module.exports = [
         path: '/components/grid-generator'
       },
       {
-        name: 'HeaderActions',
-        path: '/components/header-actions'
+        name: 'GridItem',
+        path: '/components/grid-item'
+      },
+      {
+        name: 'Header',
+        path: '/components/header'
       },
       {
         name: 'InfiniteScroll',
@@ -194,6 +198,10 @@ module.exports = [
       {
         name: 'Input',
         path: '/components/input'
+      },
+      {
+        name: 'Info',
+        path: '/components/info'
       },
       {
         name: 'Label',
@@ -248,6 +256,10 @@ module.exports = [
         path: '/components/profile'
       },
       {
+        name: 'Radio',
+        path: '/components/radio'
+      },
+      {
         name: 'Resizer',
         path: '/components/resizer'
       },
@@ -262,6 +274,10 @@ module.exports = [
       {
         name: 'Select',
         path: '/components/select'
+      },
+      {
+        name: 'SelectFilter',
+        path: '/components/select-filter'
       },
       {
         name: 'SelectList',
@@ -310,6 +326,10 @@ module.exports = [
       {
         name: 'TextTruncate',
         path: '/components/text-truncate'
+      },
+      {
+        name: 'Toggle',
+        path: '/components/toggle'
       },
       {
         name: 'ToggleVisibility',
@@ -530,6 +550,10 @@ module.exports = [
       {
         name: 'useContext',
         path: '/composables/use-context'
+      },
+      {
+        name: 'useDefaultFilters',
+        path: '/composables/use-default-filters'
       },
       {
         name: 'useForm',

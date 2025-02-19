@@ -83,8 +83,13 @@ props:
     default: {}
     type: Object
 
+  header-props:
+    desc: Propriedades repassadas para o componente "QasHeader".
+    default: {}
+    type: Object
+
   label:
-    desc: Label do componente, repassado para o componente "QasLabel".
+    desc: Label do componente.
     type: String
 
   max-files:
@@ -157,6 +162,15 @@ slots:
         desc: Payload repassado pelo QUploader.
         default: {}
         type: Object
+
+  header-actions:
+    desc: Acessa o slot actions do "QasHeader".
+
+  header-description:
+    desc: Acessa o slot description do "QasHeader".
+
+  header-label:
+    desc: Acessa o slot label do "QasHeader".
 
   list:
     desc: Acesso ao conteúdo onde fica a listagem de arquivos.

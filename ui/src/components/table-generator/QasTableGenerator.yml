@@ -20,6 +20,12 @@ props:
     type: Object
     examples: ["{ email: { name: 'email', type: 'email', label: 'E-mail' } }"]
 
+  header-props:
+    desc: Propriedades repassadas para o componente `QasHeader`.
+    default: {}
+    type: Object
+    examples: ["{ description: 'Descrição', labelProps: { label: 'Titulo do header'} }"]
+
   results:
     desc: Lista com resultados para serem mostrados na tabela.
     default: {}
@@ -69,6 +75,9 @@ slots:
         desc: Payload da linha da tabela.
         default: {}
         type: Object
+
+  parent-header:
+    desc: 'Acesso ao slot do header dentro container'
 
 events:
   '@row-click -> function(event, row, index)':

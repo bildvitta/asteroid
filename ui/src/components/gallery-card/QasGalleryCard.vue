@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-white q-pa-md qas-gallery-card rounded-borders shadow-2" :class="classes">
+  <qas-box class="bg-white qas-gallery-card" :class="classes" v-bind="boxProps">
     <header class="flat items-center no-wrap row" :class="headerClasses">
       <slot name="header">
         <div class="ellipsis q-mr-xs qas-gallery__name text-subtitle1">
@@ -45,11 +45,11 @@
         <qas-grid-generator v-if="hasGridGenerator" v-bind="props.gridGeneratorProps" />
       </slot>
     </div>
-  </div>
+  </qas-box>
 </template>
 
 <script setup>
-import { computed, useSlots } from 'vue'
+import { computed, useSlots, inject } from 'vue'
 
 defineOptions({ name: 'QasGalleryCard' })
 
@@ -90,6 +90,13 @@ const props = defineProps({
 })
 
 const slots = useSlots()
+
+const isInsideBox = inject('isBox', false)
+
+const boxProps = {
+  outlined: isInsideBox,
+  unelevated: isInsideBox
+}
 
 const errorClasses = [
   'bg-grey-4',

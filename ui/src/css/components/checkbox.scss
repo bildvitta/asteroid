@@ -1,6 +1,8 @@
 .q-checkbox {
   &__label {
     @include set-typography($body1);
+
+    padding-left: var(--qas-spacing-sm) !important;
   }
 
   &.disabled {

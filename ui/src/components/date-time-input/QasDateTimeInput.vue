@@ -1,7 +1,7 @@
 <template>
   <qas-input ref="input" v-bind="attributes" v-model="currentValue" inputmode="numeric" :unmasked-value="false" @blur="validateDateTimeOnBlur" @focus="resetError" @update:model-value="updateModelValue">
     <template #append>
-      <qas-btn v-if="!props.useTimeOnly" color="grey-10" :disable="attrs.readonly" icon="sym_r_event" variant="tertiary">
+      <qas-btn v-if="!props.useTimeOnly" color="grey-10" :disable="attrs.readonly" icon="sym_r_calendar_today" variant="tertiary">
         <q-popup-proxy ref="dateProxy" transition-hide="scale" transition-show="scale" v-bind="props.datePopupProxyProps">
           <qas-date v-model="currentValue" v-bind="defaultDateProps" :mask="maskDate" width="290px" @update:model-value="updateModelValue" />
         </q-popup-proxy>
@@ -17,7 +17,7 @@
 </template>
 
 <script setup>
-import { date as dateFn } from '../../helpers/filters'
+import { date as dateFn, getPlaceholder } from '../../helpers'
 
 import { date } from 'quasar'
 import { ref, watch, computed, useAttrs, onMounted } from 'vue'
@@ -105,14 +105,24 @@ const maskDate = computed(() => {
 
 const mask = computed(() => maskDate.value.replace(/\w/g, '#'))
 
+const maskType = computed(() => {
+  const types = {
+    [props.useDateOnly]: 'date',
+    [props.useTimeOnly]: 'time'
+  }
+
+  return types.true || 'datetime'
+})
+
 const attributes = computed(() => {
-  const { modelValue, ...restAttributes } = attrs
+  const { modelValue, placeholder, ...restAttributes } = attrs
 
   return {
     error: error.value,
     errorMessage: errorMessage.value,
     ...restAttributes,
-    mask: mask.value
+    mask: mask.value,
+    placeholder: placeholder || getPlaceholder(maskType.value)
   }
 })
 

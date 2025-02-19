@@ -1,0 +1,11 @@
+type: component
+
+props:
+  label:
+    desc: Label utilizada em casos de ser q-option-group.
+    default: ''
+    type: String
+
+meta:
+  desc: Componente wrapper do QRadio.
+

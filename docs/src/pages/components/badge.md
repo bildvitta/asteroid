@@ -2,18 +2,16 @@
 title: QasBadge
 ---
 
-Componente wrapper do QBadge do quasar.
+Componente wrapper do QBadge/QChip do quasar.
 
 <doc-api file="badge/QasBadge" name="QasBadge" />
 
 :::tip
-Apesar de ser um wrapper do Quasar, ele só repassa as propriedades:
-- color
-- label
-- multi-line
-- text-color
+- Quando usado com "removable" ele renderiza um QChip.
+- Quando usado sem "removable" ele renderiza um QBadge.
 :::
 
 ## Uso
 
-<doc-example file="QasBadge/Basic" title="Básico" />
+<doc-example file="QasBadge/Basic" title="Básico/QBadge" />
+<doc-example file="QasBadge/Removable" title="Removível/QChip" />

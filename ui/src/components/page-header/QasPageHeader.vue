@@ -1,6 +1,6 @@
 <template>
   <div>
-    <q-toolbar class="justify-between q-mb-lg q-px-none qas-page-header">
+    <q-toolbar class="justify-between q-mb-md q-px-none qas-page-header">
       <div class="ellipsis">
         <q-toolbar-title v-if="props.title" class="text-h3">
           {{ props.title }}
@@ -18,14 +18,14 @@
 
     <div>
       <slot name="bottom">
-        <qas-header-actions v-if="hasHeaderActions" v-bind="props.headerActionsProps" />
+        <qas-header v-if="hasHeader" v-bind="props.headerProps" />
       </slot>
     </div>
   </div>
 </template>
 
 <script setup>
-import QasHeaderActions from '../header-actions/QasHeaderActions.vue'
+import QasHeader from '../header/QasHeader.vue'
 
 import { castArray } from 'lodash-es'
 import { computed } from 'vue'
@@ -40,7 +40,7 @@ const props = defineProps({
     type: [Array, String]
   },
 
-  headerActionsProps: {
+  headerProps: {
     default: () => ({}),
     type: Object
   },
@@ -111,7 +111,7 @@ const normalizedBreadcrumbs = computed(() => {
   ]
 })
 
-const hasHeaderActions = computed(() => !!Object.keys(props.headerActionsProps).length)
+const hasHeader = computed(() => !!Object.keys(props.headerProps).length)
 
 const homeRoute = computed(() => router.hasRoute('Root') ? { name: 'Root' } : '/')
 </script>

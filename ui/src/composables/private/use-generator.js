@@ -1,6 +1,8 @@
-import { computed } from 'vue'
 import { Spacing } from '../../enums/Spacing'
 import { gutterValidator } from '../../helpers/private/gutter-validator'
+import useScreen from '../use-screen'
+
+import { computed } from 'vue'
 
 const IRREGULAR_CLASSES = ['col', 'col-auto', 'fit']
 
@@ -34,12 +36,25 @@ export const baseProps = {
  * @name useGenerator
  * @param {Object} options - Opções do componente.
  * @param {baseProps} options.props - Propriedades do componente.
+ * @param {boolean} options.isGrid - Propriedades do componente.
  * @returns {{
  *  classes: classes,
  *  getFieldClass: getFieldClass
  * }}
  */
-export default function ({ props = {} }) {
+export default function ({ props = {}, isGrid = false }) {
+  const screen = useScreen()
+
+  /**
+   * Se a propriedade gutter não for passada, será calculada automaticamente.
+   * se for usado no grid e for inline, o gutter será menor.
+   */
+  const defaultGutter = computed(() => {
+    if (props.gutter !== undefined) return props.gutter
+
+    return isGrid && (props.useInline && !screen.isSmall) ? Spacing.Sm : Spacing.Md
+  })
+
   /**
    * @type {{ value: string[] | string }}
    */
@@ -51,12 +66,6 @@ export default function ({ props = {} }) {
     }
 
     return classesList
-  })
-
-  const defaultGutter = computed(() => {
-    if (props.gutter) return props.gutter
-
-    return props.useInline ? Spacing.Md : Spacing.Lg
   })
 
   /**
@@ -75,12 +84,19 @@ export default function ({ props = {} }) {
       : _handleColumnsByField({ index, isGridGenerator })
   }
 
+  function getFieldSetColumnClass (column) {
+    if (!column) return 'col-12'
+
+    return typeof column === 'string' ? _getStringColumns(column) : _getBreakpoint(column)
+  }
+
   /**
    * @private
    */
   function _getStringColumns (columns) {
     return IRREGULAR_CLASSES.includes(columns) ? columns : `col-${columns}`
   }
+
   /**
    * @private
    */
@@ -167,6 +183,7 @@ export default function ({ props = {} }) {
   return {
     classes,
 
-    getFieldClass
+    getFieldClass,
+    getFieldSetColumnClass
   }
 }

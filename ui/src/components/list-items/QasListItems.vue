@@ -4,7 +4,18 @@
       <q-item v-for="(item, index) in props.list" :key="index" :clickable="props.useClickableItem" @click="onClick({ item, index }, true)">
         <slot :index="index" :item="item" name="item">
           <q-item-section>
-            <slot :index="index" :item="item" name="item-section" />
+            <slot :index="index" :item="item" name="item-section">
+              <qas-label
+                v-if="item[props.labelKey]"
+                :label="item[props.labelKey]"
+                :margin="getLabelMargin(item)"
+                typography="h5"
+              />
+
+              <div v-if="item[props.descriptionKey]" class="text-body1">
+                {{ item[props.descriptionKey] }}
+              </div>
+            </slot>
           </q-item-section>
 
           <q-item-section v-if="props.useSectionActions" side>
@@ -26,9 +37,19 @@ import { computed } from 'vue'
 defineOptions({ name: 'QasListItems' })
 
 const props = defineProps({
+  descriptionKey: {
+    type: String,
+    default: 'description'
+  },
+
   icon: {
     type: String,
     default: 'sym_r_chevron_right'
+  },
+
+  labelKey: {
+    type: String,
+    default: 'label'
   },
 
   list: {
@@ -57,16 +78,19 @@ const classes = computed(() => ({ 'qas-list-items--no-click': !props.useClickabl
 
 const component = computed(() => props.useBox ? 'qas-box' : 'div')
 
+// functions
 function onClick ({ item, index }, fromItem) {
   /**
    * se o click veio do q-item e "useClickableItem" for "false", ou
    * se o click não veio do q-item e "useClickableItem" for "true", então retorna sem emitir.
    */
-  if (
-    (fromItem && !props.useClickableItem) || (!fromItem && props.useClickableItem)
-  ) return
+  if ((fromItem && !props.useClickableItem) || (!fromItem && props.useClickableItem)) return
 
   emit('click-item', { item, index })
+}
+
+function getLabelMargin (item) {
+  return item[props.descriptionKey] ? 'xs' : 'none'
 }
 </script>
 

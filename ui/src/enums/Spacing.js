@@ -63,3 +63,36 @@ export const SpacingWithUnit = {
   '4xl': '56px',
   '5xl': '64px'
 }
+
+/**
+ * Todas variáveis utilizadas para espaçamentos, com unidade de medida.
+ *
+ * @property
+ * @name SpacingWithUnit
+ * @readonly
+ * @enum
+ * @type {{
+ *  None: 0,
+ *  Xs: 4,
+ *  Sm: 8,
+ *  Md: 16,
+ *  Lg: 24,
+ *  Xl: 32,
+ *  '2xl': 40,
+ *  '3xl': 48,
+ *  '4xl': 56,
+ *  '5xl': 64
+ * }}
+*/
+export const SpacingWithNumber = {
+  None: 0,
+  Xs: 4,
+  Sm: 8,
+  Md: 16,
+  Lg: 24,
+  Xl: 32,
+  '2xl': 40,
+  '3xl': 48,
+  '4xl': 56,
+  '5xl': 64
+}

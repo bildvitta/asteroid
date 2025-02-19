@@ -12,7 +12,7 @@
       </div>
 
       <div class="col-4">
-        <qas-card :expansion-props="expansionProps" :route="{ name: 'Root' }" title="Titulo" use-expansion>
+        <qas-card :expansion-props="expansionProps" :route="{ name: 'Root' }" title="Titulo">
           <template #default>
             <div>
               Meu conteúdo

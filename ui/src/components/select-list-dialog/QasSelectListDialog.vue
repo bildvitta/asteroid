@@ -16,8 +16,9 @@
       {{ props.description }}
     </div>
 
-    <qas-box
-      v-if="hasBox"
+    <component
+      :is="containerListComponent"
+      v-if="canShowContainerList"
       class="q-mt-md relative-position"
     >
       <span class="text-grey-10 text-subtitle1">
@@ -42,7 +43,7 @@
           size="2em"
         />
       </q-inner-loading>
-    </qas-box>
+    </component>
 
     <span
       v-if="hasError"
@@ -76,7 +77,7 @@
 </template>
 
 <script setup>
-import { computed, ref, watch, useSlots } from 'vue'
+import { computed, ref, watch, useSlots, inject } from 'vue'
 
 defineOptions({ name: 'QasSelectListDialog' })
 
@@ -143,8 +144,11 @@ const emit = defineEmits(['add', 'remove', 'update:modelValue'])
 
 const slots = useSlots()
 
+const isBox = inject('isBox', false)
+
 const hasError = computed(() => Array.isArray(props.error) ? !!props.error.length : !!props.error)
 const errorMessage = computed(() => Array.isArray(props.error) ? props.error.join(' ') : props.error)
+const containerListComponent = computed(() => isBox ? 'div' : 'qas-box')
 
 const {
   listModel,
@@ -160,7 +164,7 @@ const {
 const {
   selectedOptions,
 
-  hasBox,
+  canShowContainerList,
 
   add,
   removeAll,
@@ -224,7 +228,10 @@ function useList () {
     filteredOptions.value = [...options]
   })
 
-  const hasBox = computed(() => hasFilteredOptions.value || props.loading)
+  /**
+   * Valida se tenho opções ou se está carregando para mostrar o container da listagem.
+   */
+  const canShowContainerList = computed(() => hasFilteredOptions.value || props.loading)
   const hasFilteredOptions = computed(() => model.value.length)
 
   /*
@@ -282,7 +289,7 @@ function useList () {
     filteredOptions,
     selectedOptions,
 
-    hasBox,
+    canShowContainerList,
     hasFilteredOptions,
 
     add,

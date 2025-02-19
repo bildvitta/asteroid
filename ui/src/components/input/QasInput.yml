@@ -15,6 +15,16 @@ props:
     desc: Controla cor da borda do input.
     type: Boolean
 
+  icon:
+    desc: Ícone a esquerda.
+    type: String
+    default: ''
+
+  icon-right:
+    desc: Ícone a direita.
+    type: String
+    default: ''
+
   mask:
     desc: Máscara do input, é possível passar um slug de mascara ou um pattern personalizado.
     type: String

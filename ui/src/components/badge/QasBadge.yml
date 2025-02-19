@@ -1,7 +1,7 @@
 type: component
 
 meta:
-  desc: Componente wrapper do QBadge do quasar.
+  desc: Componente wrapper do QBadge/QChip do quasar.
 
 props:
   color:
@@ -23,6 +23,33 @@ props:
     default: black
     type: String
 
+  removable:
+    desc: Transforma componente em QChip.
+    default: false
+    type: Boolean
+
+  tabindex:
+    desc: Usado para "foco" (usar junto a propriedade "removable").
+    default: undefined
+    type: [String, Number]
+
+  model-value:
+    desc: Model do componente (usar junto a propriedade "removable").
+    default: true
+    type: Boolean
+
 slots:
   default:
-    desc: Slot do conteúdo do badge.
+    desc: Slot do conteúdo do badge/chip.
+
+events:
+  '@remove -> function()':
+    desc: Evento emitido ao clicar no botão de remoção.
+
+  '@update:model-value -> function(value)':
+    desc: Dispara quando o model-value altera, também usado para v-model.
+    params:
+      value:
+        desc: Novo valor do model.
+        type: Boolean
+

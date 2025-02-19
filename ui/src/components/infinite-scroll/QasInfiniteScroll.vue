@@ -33,6 +33,11 @@ const props = defineProps({
     default: () => []
   },
 
+  fields: {
+    type: Object,
+    default: () => ({})
+  },
+
   limitPerPage: {
     type: Number,
     default: 12
@@ -62,7 +67,10 @@ const props = defineProps({
 
 defineExpose({ refresh, remove })
 
-const emit = defineEmits(['update:list', 'fetch-success', 'fetch-error'])
+const emit = defineEmits(['fetch-success', 'fetch-error'])
+
+const modelList = defineModel('list', { type: Array, default: () => [] })
+const modelFields = defineModel('fields', { type: Object, default: () => ({}) })
 
 const axios = inject('axios')
 
@@ -74,7 +82,7 @@ const hasMadeFirstFetch = ref(false)
 const count = ref(0)
 const offset = ref(0)
 
-const listLength = computed(() => model.value.length)
+const listLength = computed(() => modelList.value.length)
 
 const attributes = computed(() => ({
   offset: 100,
@@ -90,16 +98,6 @@ const hasNoResults = computed(() => isEmptyList.value && hasMadeFirstFetch.value
 const containerStyle = computed(() => ({
   ...(props.maxHeight && { maxHeight: props.maxHeight, overflow: 'auto' })
 }))
-
-const model = computed({
-  get () {
-    return props.list
-  },
-
-  set (newList) {
-    emit('update:list', newList)
-  }
-})
 
 async function onLoad (_, done) {
   const hasMadeFirstFetchAndHasNoData = hasMadeFirstFetch.value && !listLength.value
@@ -124,11 +122,12 @@ async function fetchList () {
       params: { offset: offset.value, limit: props.limitPerPage, ...props.params }
     })
 
-    const newList = [...model.value, ...(data.results || [])]
+    const newList = [...modelList.value, ...(data.results || [])]
 
-    model.value = newList
+    modelList.value = newList
     offset.value = newList.length
     count.value = data.count
+    modelFields.value = data.fields
 
     /**
      * Sinalizar que houve já uma busca, para evitar que onLoad entre em looping,
@@ -136,7 +135,7 @@ async function fetchList () {
     */
     hasMadeFirstFetch.value = true
 
-    emit('fetch-success', { list: newList, offset: offset.value, count: count.value })
+    emit('fetch-success', { list: newList, fields: modelFields.value, offset: offset.value, count: count.value })
   } catch (error) {
     NotifyError('Ops… Não conseguimos acessar as informações. Por favor, tente novamente em alguns minutos.')
 
@@ -151,7 +150,7 @@ async function fetchList () {
 function refresh () {
   count.value = 0
   offset.value = 0
-  model.value = []
+  modelList.value = []
 
   hasMadeFirstFetch.value = false
 
@@ -162,7 +161,7 @@ function refresh () {
 }
 
 function remove (index) {
-  model.value.splice(index, 1)
+  modelList.value.splice(index, 1)
   count.value -= 1
   offset.value -= 1
 }

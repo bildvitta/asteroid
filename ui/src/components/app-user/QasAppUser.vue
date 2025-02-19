@@ -108,23 +108,29 @@ const props = defineProps({
   }
 })
 
+// emits
 const emit = defineEmits(['sign-out', 'toggle-notifications'])
 
-// vindo direto do boot api.js
+// globals
 const axios = inject('axios')
 
+// composables
 const router = useRouter()
 
 const { isNotificationsEnabled, unreadNotificationsCount } = useNotifications()
 
 const { reset } = useQueryCache()
 
+const { avatarNotificationCountProps } = useAvatarNotifications()
+
+// refs
 const companiesModel = ref('')
 const loading = ref(false)
 
-const { avatarNotificationCountProps } = useAvatarNotifications()
+// consts
+const IS_ME_VERSION_2 = process.env.ME_VERSION === 2
 
-// computed
+// computeds
 const defaultCompanyProps = computed(() => {
   return {
     loading: loading.value,
@@ -148,7 +154,52 @@ watch(() => props.companyProps.modelValue, value => {
   companiesModel.value = value
 }, { immediate: true })
 
-// composable
+// functions
+function signOut () {
+  emit('sign-out')
+}
+
+async function setCompanies (value) {
+  if (!value) return
+
+  loading.value = true
+
+  try {
+    await axios.patch('users/me', {
+      [IS_ME_VERSION_2 ? 'currentMainCompany' : 'companies']: value
+    })
+
+    setTimeout(() => location.reload(), 1500)
+
+    NotifySuccess('Vínculo alterado com sucesso.')
+  } catch {
+    companiesModel.value = props.companyProps.modelValue
+
+    NotifyError('Falha ao alterar vínculo.')
+  } finally {
+    loading.value = false
+
+    clearCachedFilters()
+  }
+}
+
+function clearCachedFilters () {
+  reset()
+
+  router.push({ query: {} })
+}
+
+function onMenuHide () {
+  if (!companiesModel.value) {
+    companiesModel.value = props.companyProps.modelValue
+  }
+}
+
+function toggleNotificationsDrawer () {
+  emit('toggle-notifications')
+}
+
+// composables definitions
 function useAvatarNotifications () {
   const hasAnimated = ref(false)
 
@@ -181,48 +232,6 @@ function useAvatarNotifications () {
   return {
     avatarNotificationCountProps
   }
-}
-
-// métodos
-function signOut () {
-  emit('sign-out')
-}
-
-async function setCompanies (value) {
-  if (!value) return
-
-  loading.value = true
-
-  try {
-    await axios.patch('users/me', { companies: value })
-    setTimeout(() => location.reload(), 1500)
-
-    NotifySuccess('Vínculo alterado com sucesso.')
-  } catch {
-    companiesModel.value = props.companyProps.modelValue
-
-    NotifyError('Falha ao alterar vínculo.')
-  } finally {
-    loading.value = false
-
-    clearCachedFilters()
-  }
-}
-
-function clearCachedFilters () {
-  reset()
-
-  router.push({ query: {} })
-}
-
-function onMenuHide () {
-  if (!companiesModel.value) {
-    companiesModel.value = props.companyProps.modelValue
-  }
-}
-
-function toggleNotificationsDrawer () {
-  emit('toggle-notifications')
 }
 </script>
 
