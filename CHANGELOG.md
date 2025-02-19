@@ -19,6 +19,14 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
   - Corrigido lógica para setar o model com a única option disponível.
   - Corrigido alinhamento das badges.
 
+## [3.17.0-beta.30] - 19-02-2025
+### Corrigido
+- `QasAppMenu`: removido prefixo `+` no phone enviado para o gleap que estava incorreto.
+
+## [3.16.4] - 19-02-2025
+### Corrigido
+- `QasAppMenu`: removido prefixo `+` no phone enviado para o gleap que estava incorreto.
+
 ## [3.17.0-beta.29] - 17-02-2025
 ## BREAKING CHANGES
 - `QasAppMenu`: modificado chat para o `gleap`, precisando de novas configurações.
@@ -3484,3 +3492,6 @@ Adicionado suporte para Pinia/Vuex Seguindo os padrões da biblioteca `@bildvitt
 [3.17.0-beta.28]: https://github.com/bildvitta/asteroid/compare/v3.17.0-beta.27...v3.17.0-beta.28?expand=1
 [3.16.3]: https://github.com/bildvitta/asteroid/compare/v3.16.2...v3.16.3?expand=1
 [3.17.0-beta.29]: https://github.com/bildvitta/asteroid/compare/v3.16.3...v3.17.0-beta.29?expand=1
+[3.16.3]: https://github.com/bildvitta/asteroid/compare/v3.16.2...v3.16.3?expand=1
+[3.16.4]: https://github.com/bildvitta/asteroid/compare/v3.16.3...v3.16.4?expand=1
+[3.17.0-beta.30]: https://github.com/bildvitta/asteroid/compare/v3.16.4...v3.17.0-beta.30?expand=1
