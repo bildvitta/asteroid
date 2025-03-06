@@ -224,7 +224,6 @@ function useTruncate ({ parent, props, hasBadges }) {
 
   // watch
   watch(() => props.maxWidth, truncateText)
-  watch(() => props.text, truncateText)
 
   // functions
   async function truncateText () {
