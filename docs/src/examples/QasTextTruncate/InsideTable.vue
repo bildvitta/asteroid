@@ -13,6 +13,8 @@
 <script setup>
 import { useView } from '@bildvitta/composables'
 
+defineOptions({ name: 'InsideTable' })
+
 const { viewState } = useView({ mode: 'list' })
 
 const entity = 'users'
