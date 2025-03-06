@@ -229,16 +229,14 @@ function useTruncate ({ parent, props, hasBadges }) {
   // functions
   async function truncateText () {
     await nextTick()
+
     // Se tiver badges, então não pode ser feito calculo de width.
     if (hasBadges.value) return
 
     parent.value.style.maxWidth = '100%'
     textWidth.value = truncate.value.clientWidth
-    console.log('TCL: truncateText -> textWidth.value', truncate.value)
-    // console.log('TCL: truncateText -> textWidth.value', truncate.value.clientWidth)
     textContent.value = truncate.value?.innerHTML
 
-    // console.log('TCL: truncateText -> truncate.value.parentElement', truncate.value)
     maxPossibleWidth.value = props.maxWidth || truncate.value.parentElement.clientWidth * 0.90
 
     parent.value.style.maxWidth = `${maxPossibleWidth.value}px`
