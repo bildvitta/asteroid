@@ -2,6 +2,8 @@
   <qas-box class="container q-my-md spaced">
     <qas-search-input v-model="search" />
 
+    <qas-search-input v-model="search" class="q-mt-lg" error error-message="Mensagem de erro" />
+
     <div class="q-mt-lg">
       Model: {{ search }}
     </div>
@@ -12,4 +14,6 @@
 import { ref } from 'vue'
 
 const search = ref('')
+
+defineOptions({ name: 'InsideBox' })
 </script>

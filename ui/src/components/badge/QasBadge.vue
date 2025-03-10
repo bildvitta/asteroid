@@ -1,5 +1,5 @@
 <template>
-  <component :is="component.is" v-bind="component.props" class="q-px-sm qas-badge text-caption">
+  <component :is="component.is" v-bind="component.props" class="q-px-sm qas-badge text-body2">
     <slot />
   </component>
 </template>

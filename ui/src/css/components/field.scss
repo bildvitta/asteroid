@@ -7,13 +7,39 @@
     transition: transform var(--qas-generic-transition);
   }
 
+  &--standard &__control:hover::before {
+    border-color: var(--q-primary-contrast) !important;
+  }
+
+  &--standard &__control::after {
+    height: 1px;
+  }
+
+  &--outlined &__control::after,
+  &--outlined.q-field--highlighted &__control::after {
+    border-width: 1px !important;
+  }
+
   .q-field__label {
-    will-change: transform;
+    will-change: transform, font-size;
   }
 
   &__label,
   &--dense &__label {
     @include set-typography($body2);
+  }
+
+  // pega o ícone imediato dos append e prepend, não os do q-chip por exemplo.
+  &--error {
+    .q-field__input,
+    .q-field__native {
+      color: $negative !important;
+    }
+
+    .q-field__marginal > .q-icon,
+    .q-field__marginal > .qas-btn .q-icon {
+      color: $negative !important;
+    }
   }
 
   &--dense {
@@ -42,6 +68,7 @@
   // Somente fields com label
   &--float.q-field--labeled,
   &--focused.q-field--labeled {
+    will-change: transform, font-size;
     transition: transform var(--qas-generic-transition), font-size var(--qas-generic-transition);
 
     &:not(&.qas-select--filter):not(&.qas-select--has-icon) .q-field__label {
@@ -84,5 +111,41 @@
   &--outlined .q-field__control {
     background-color: white;
     border-radius: $generic-border-radius;
+  }
+
+  // logica referente ao modo filtro
+  &.qas-search-input,
+  &.qas-select--filter {
+    .q-field__control::before {
+      transition: border var(--qas-generic-transition);
+    }
+
+    &:not(&.q-field--error):not(&.q-field--highlighted):hover {
+      .q-field__control::after {
+        border-color: var(--q-primary-contrast);
+      }
+    }
+
+    .q-field__control {
+      border-radius: $generic-border-radius;
+    }
+
+    .q-field__control::before {
+      border: 0;
+    }
+  }
+
+  &.qas-search-input--shadow,
+  &.qas-select--filter-shadow {
+    .q-field__control {
+      box-shadow: $shadow-2;
+    }
+  }
+
+  &.qas-search-input--border,
+  &.qas-select--filter-border {
+    .q-field__control {
+      @extend .bordered;
+    }
   }
 }

@@ -5,7 +5,7 @@
     </div>
 
     <div class="col-4">
-      <qas-input v-model="model2" error error-message="Mensagem de erro" label="Meu input" type="textarea" />
+      <qas-input v-model="model2" error error-message="Mensagem de erro" icon-right="sym_r_person" label="Meu input" type="textarea" />
     </div>
 
     <div class="col-4">

@@ -205,8 +205,19 @@ function setShowContent () {
   }
 
   &--error {
+    #{$root}__header {
+      * {
+        color: $negative;
+      }
+
+      .qas-label,
+      .qas-btn {
+        color: $negative !important;
+      }
+    }
+
     #{$root}__box {
-      border: 2px solid $negative !important;
+      border: 1px solid $negative !important;
     }
 
     #{$root}__error-message {

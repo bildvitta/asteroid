@@ -10,6 +10,21 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 ### Sobre os "BREAKING CHANGES"
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
+## Não publicado
+## BREAKING CHANGE
+- `QasInput`: alterado ordem da prop `iconRight` que estava adicionando na esquerda e não na direita, verificar lugares.
+- Alterar `quasar.variables.scss`, nova cor do `$negative` sendo `$red-14`.
+
+### Modificado
+- `QasInput`: alterado ordem da prop `iconRight` que estava adicionando na esquerda e não na direita.
+- `QasSelect`: ignorando propriedade `useChips` que vem através de `$attrs`.
+- `QasBadge`: alterado tipografia para `text-body2`.
+- `QasExpansionItem`:
+  - alterado borda para 1px.
+- [`QasInput`, `QasSelect`, `QasSearchInput`]:
+  - mudança de design quando com erro.
+  - mudança de design no hover.
+
 ## [3.17.0-beta.31] - 19-02-2025
 ### Adicionado
 - `QasWelcome`: Adicionado slot `after-greeting` para acessar conteúdo após saudações.
