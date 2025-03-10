@@ -204,10 +204,6 @@ export default {
       return this.hasFuse || this.useLazyLoading
     },
 
-    isBordered () {
-      return (this.isBox || this.isDialog) && this.useFilterMode
-    },
-
     hasError () {
       return this.mx_hasFetchError || this.$attrs.error
     },
@@ -263,12 +259,14 @@ export default {
 
     // redesign
     componentClasses () {
+      const isBordered = (this.isBox || this.isDialog) && this.useFilterMode
+
       // estilos definidos no arquivo field.scss
       return {
         ...(this.useFilterMode && {
           'qas-select--filter': true,
-          'qas-select--filter-border': this.isBordered,
-          'qas-select--filter-shadow': !this.isBordered
+          'qas-select--filter-border': isBordered,
+          'qas-select--filter-shadow': !isBordered
         }),
 
         'qas-select--has-icon': this.hasAppend || this.hasIcon,
