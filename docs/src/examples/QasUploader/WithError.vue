@@ -1,7 +1,6 @@
 <template>
   <div class="container spaced">
     <qas-uploader v-model="model" v-bind="uploaderProps" />
-    <pre>{{ model }}</pre>
   </div>
 </template>
 
@@ -10,7 +9,7 @@ import { ref } from 'vue'
 
 defineOptions({ name: 'WithError' })
 
-const model = ref(['https://placehold.co/600x400/orange/white?text=img1', 'https://placehold.co/600x400/orange/red?text=img1'])
+const model = ref(['https://placehold.co/600x400/orange/white?text=img1'])
 
 const uploaderProps = {
   entity: 'serviceOrders',
@@ -20,6 +19,8 @@ const uploaderProps = {
   errorMessage: 'Campo obrigatório.',
 
   addButtonLabel: 'Botão de adicionar',
+
+  multiple: true,
 
   headerProps: {
     labelProps: {

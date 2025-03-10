@@ -1,14 +1,18 @@
 <template>
   <div>
-    <div v-if="canShowOptionGroupLabel" class="q-mb-sm text-body1">
+    <div v-if="canShowOptionGroupLabel" class="q-mb-sm text-body1" :class="labelClasses">
       {{ props.label }}
     </div>
 
     <component :is="component.is" v-bind="component.props" />
+
+    <qas-error-message v-if="props.errorMessage" :message="props.errorMessage" />
   </div>
 </template>
 
 <script setup>
+import useErrorMessage, { baseErrorProps } from '../../composables/private/use-error-message'
+
 import { computed, useAttrs } from 'vue'
 
 defineOptions({
@@ -17,17 +21,26 @@ defineOptions({
 })
 
 const props = defineProps({
+  ...baseErrorProps,
+
   label: {
     default: '',
     type: String
   }
 })
 
+// globals
 const attrs = useAttrs()
 
+// composables
+const { labelClasses } = useErrorMessage(props)
+
+// computeds
 const isOptionGroup = computed(() => !!attrs.options?.length)
 
-// Só mostra a label caso for q-option-group e tenha label vindo nas props
+/**
+ * Só mostra a label caso for q-option-group e tenha label vindo nas props
+ */
 const canShowOptionGroupLabel = computed(() => isOptionGroup.value && !!props.label)
 
 /**

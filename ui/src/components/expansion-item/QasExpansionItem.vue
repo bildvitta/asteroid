@@ -36,14 +36,14 @@
       </q-expansion-item>
     </qas-box>
 
-    <div v-if="hasError" class="q-pt-sm qas-expansion-item__error-message text-caption text-negative">
-      {{ props.errorMessage }}
-    </div>
+    <qas-error-message v-if="hasError" :message="props.errorMessage" />
   </div>
 </template>
 
 <script setup>
 import QasBox from '../box/QasBox.vue'
+
+import { baseErrorProps } from '../../composables/private/use-error-message'
 
 import { computed, provide, inject, ref, useAttrs } from 'vue'
 
@@ -53,6 +53,8 @@ defineOptions({
 })
 
 const props = defineProps({
+  ...baseErrorProps,
+
   badges: {
     type: Array,
     default: () => []
@@ -64,15 +66,6 @@ const props = defineProps({
 
   disableButton: {
     type: Boolean
-  },
-
-  error: {
-    type: Boolean
-  },
-
-  errorMessage: {
-    type: String,
-    default: ''
   },
 
   gridGeneratorProps: {
@@ -218,10 +211,6 @@ function setShowContent () {
 
     #{$root}__box {
       border: 1px solid $negative !important;
-    }
-
-    #{$root}__error-message {
-      padding-left: 12px; // espaçamento igual ao de erro do quasar.
     }
   }
 

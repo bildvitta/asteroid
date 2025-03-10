@@ -40,6 +40,10 @@
     .q-field__marginal > .qas-btn .q-icon {
       color: $negative !important;
     }
+
+    .q-field__bottom {
+      @include set-error-message;
+    }
   }
 
   &--dense {
