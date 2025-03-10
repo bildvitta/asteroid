@@ -1,6 +1,6 @@
 <template>
   <div class="container spaced">
-    <qas-expansion-item error label="John Doe">
+    <qas-expansion-item label="John Doe">
       <template #header>
         <div class="items-center justify-between row">
           <qas-label label="Meu titulo" margin="none" typography="h5" />
