@@ -13,7 +13,7 @@
 <script setup>
 import { ref } from 'vue'
 
-const search = ref('')
-
 defineOptions({ name: 'InsideBox' })
+
+const search = ref('')
 </script>

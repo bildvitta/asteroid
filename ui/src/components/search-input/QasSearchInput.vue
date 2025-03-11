@@ -1,5 +1,5 @@
 <template>
-  <qas-input ref="input" v-model="model" class="qas-search-input" :class="containerClasses" v-bind="$attrs" data-cy="search-input" :debounce="debounce" dense hide-bottom-space input-class="ellipsis text-grey-8" inputmode="search" outlined type="search">
+  <qas-input ref="input" v-model="model" class="qas-search-input" :class="classes" v-bind="$attrs" data-cy="search-input" :debounce hide-bottom-space input-class="ellipsis text-grey-8" inputmode="search" outlined type="search">
     <template #prepend>
       <q-icon v-if="useSearchOnType" color="grey-8" name="sym_r_search" />
 
@@ -49,7 +49,7 @@ export default {
   ],
 
   computed: {
-    containerClasses () {
+    classes () {
       const bordered = this.isBox || this.isDialog
 
       return {

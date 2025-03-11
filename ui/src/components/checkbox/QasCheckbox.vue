@@ -7,7 +7,7 @@
 
     <!-- Group -->
     <div v-else>
-      <div v-if="hasCheckboxLabel" class="q-mb-sm text-body1" :class="labelClasses">
+      <div v-if="props.label" class="q-mb-sm text-body1" :class="labelClasses">
         {{ formattedLabel }}
       </div>
 
@@ -85,8 +85,6 @@ onMounted(handleParent)
 
 // computed
 const classes = computed(() => props.inline && 'flex q-gutter-x-sm')
-
-const hasCheckboxLabel = computed(() => !!props.label)
 
 const model = computed({
   get () {

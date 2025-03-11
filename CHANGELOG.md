@@ -20,12 +20,13 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - `QasRadio`: adicionado propriedades `error` e `errorMessage` em conjunto do componente `QasErrorMessage`.
 - `css/mixins/set-error-message`: mixin para aplicar os estilos diretamente no css.
 
-### Modificado
+### Corrigido
 - `QasInput`: alterado ordem da prop `iconRight` que estava adicionando na esquerda e não na direita.
+
+### Modificado
 - `QasSelect`: ignorando propriedade `useChips` que vem através de `$attrs`.
 - `QasBadge`: alterado tipografia para `text-body2`.
-- `QasExpansionItem`:
-  - alterado borda para 1px.
+- `QasExpansionItem`: alterado borda para 1px.
 - [`QasInput`, `QasSelect`, `QasSearchInput`]:
   - mudança de design quando com erro.
   - mudança de design no hover.

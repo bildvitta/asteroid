@@ -199,9 +199,7 @@ function setShowContent () {
 
   &--error {
     #{$root}__header {
-      * {
-        color: $negative;
-      }
+      color: $negative;
 
       .qas-label,
       .qas-btn {

@@ -13,7 +13,7 @@
 <script setup>
 import { ref } from 'vue'
 
-const search = ref('')
-
 defineOptions({ name: 'Basic' })
+
+const search = ref('')
 </script>

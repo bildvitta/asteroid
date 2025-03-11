@@ -6,6 +6,10 @@ Componente de card expansivo, wrapper do QExpansionItem(https://quasar.dev/vue-c
 
 <doc-api file="expansion-item/QasExpansionItem" name="QasExpansionItem" />
 
+:::warning
+Caso esteja utilizando o slot de `header` em conjunto com a prop `error`, preste atenção nas cores, o titulo precisa ser cor `negative`, e como abriu slot talvez precise fazer este controle manualmente.
+:::
+
 :::info
 - Quando usado QasExpansionItem dentro de QasExpansionItem, o componente já lida com isto internamente alterando o estilo dos QasExpansionItem interno.
 - O componente repassa todos os eventos do [QExpansionItem](https://quasar.dev/vue-components/expansion-item#usage).
