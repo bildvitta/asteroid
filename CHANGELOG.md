@@ -10,7 +10,7 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 ### Sobre os "BREAKING CHANGES"
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
-## Não publicado
+## [3.17.0] - 12-03-2025
 ## BREAKING CHANGES
 - `A fazer`:
   - Substituir todos `QToggle` por `QasToggle`.
@@ -3714,3 +3714,4 @@ Adicionado suporte para Pinia/Vuex Seguindo os padrões da biblioteca `@bildvitt
 [3.17.0-beta.30]: https://github.com/bildvitta/asteroid/compare/v3.16.4...v3.17.0-beta.30?expand=1
 [3.17.0-beta.31]: https://github.com/bildvitta/asteroid/compare/v3.17.0-beta.30...v3.17.0-beta.31?expand=1
 [3.17.0-beta.32]: https://github.com/bildvitta/asteroid/compare/v3.17.0-beta.31...v3.17.0-beta.32?expand=1
+[3.17.0]: https://github.com/bildvitta/asteroid/compare/v3.16.4...v3.17.0?expand=1
