@@ -16,16 +16,32 @@ Para saber mais sobre o **API Design Pattern** clice [aqui](https://www.notion.s
 
 ## Uso
 <doc-example file="QasFormGenerator/Basic" title="Básico" />
+<doc-example file="QasFormGenerator/Boxed" title="Com box" />
 
 :::tip
+##### Fieldset
+
 Muitas vezes precisamos adicionar rótulos (label) e descrições (description) a determinados blocos de campos para dar mais contexto, com esta propriedade conseguimos fazer isto de uma forma simples, sem a necessidade de abrir um slot para isto.
+
+> Observação: Se passar a key "label" dentro do `headerProps.labelProps` ela irá sobrescrever a label imediata do fieldset.
 
 ```js
 {
   personalInformation: {
     label: 'Informações pessoais',
     description: 'Informe o nome e email do usuário.'
-    fields: ['name', 'email']
+    fields: ['name', 'email'],
+    headerProps: {
+      badges: [
+        {
+          label: 'Minha badge',
+          textColor: 'grey-10'
+        }
+      ],
+      buttonProps: {
+        label: 'Atualizar'
+      }
+    }
   },
 
   another: {
@@ -38,10 +54,9 @@ Muitas vezes precisamos adicionar rótulos (label) e descrições (description) 
 :::
 
 <doc-example file="QasFormGenerator/Fieldset" title="Agrupando fields por rótulo (label)" />
+<doc-example file="QasFormGenerator/WithButton" title="Usando botão dentro do fieldset" />
 
 Em alguns casos, queremos acessar todo o conteúdo de um campo especifico para fazer uma logica um pouco mais detalhada, neste caso conseguimos acessar o slot de cada campo individualmente.
 <doc-example file="QasFormGenerator/CustomSlot" title="Acessando slots" />
-
 <doc-example file="QasFormGenerator/CustomProps" title="Custom props" />
-
 <doc-example file="QasFormGenerator/ExFormCommonColumns" title="Common columns" />

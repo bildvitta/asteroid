@@ -1,10 +1,10 @@
 <template>
   <q-dialog ref="dialogRef" class="qas-dialog" :class="classes" data-cy="dialog" v-bind="dialogProps" :persistent="props.persistent" @update:model-value="updateModelValue">
-    <div class="bg-white q-pa-lg" :style="style">
-      <header v-if="hasHeader" class="q-mb-lg">
+    <div class="bg-white q-pa-md" :style="style">
+      <header v-if="hasHeader" class="q-mb-md">
         <slot name="header">
           <div class="items-center justify-between row">
-            <h5 class="text-h5" data-cy="dialog-title">{{ props.card.title }}</h5>
+            <qas-label data-cy="dialog-title" :label="props.card.title" margin="none" />
 
             <qas-btn v-if="isInfoDialog" v-close-popup color="grey-10" data-cy="dialog-close-btn" icon="sym_r_close" variant="tertiary" />
           </div>
@@ -45,7 +45,7 @@ import useDynamicComponents from './composables/use-dynamic-components'
 import useOk from './composables/use-ok'
 import { useScreen } from '../../composables'
 
-import { computed, ref, useAttrs, useSlots } from 'vue'
+import { computed, ref, useAttrs, useSlots, provide } from 'vue'
 import { useDialogPluginComponent } from 'quasar'
 
 defineOptions({ name: 'QasDialog' })
@@ -119,6 +119,8 @@ const emit = defineEmits([
   // eventos do plugin
   ...useDialogPluginComponent.emits
 ])
+
+provide('isDialog', true)
 
 const attrs = useAttrs()
 const screen = useScreen()

@@ -7,6 +7,12 @@ meta:
   desc: Componente para select que implementa o "QSelect" repassando propriedades, slots e eventos.
 
 props:
+  badge-props:
+    desc: Configuração das badges no qual cada key é um callback com o valor booleano retornado pelo back.
+    default: {}
+    examples: ["{ isTester: () => { return { color: 'grey-8', label: 'Tester', textColor: 'white' }} }"]
+    type: Object
+
   entity:
     desc: Entidade enviada para a action "fetchFieldOptions" (usar somente quando "useLazyLoading" estiver habilitada).
     default: ''
@@ -28,6 +34,11 @@ props:
       ignoreLocation: true
       keys: [label, value]
       threshold: 0.4
+
+  icon:
+    desc: Ícone da esquerda.
+    type: String
+    default: ''
 
   label:
     desc: Label do componente.
@@ -80,6 +91,10 @@ props:
     desc: O componente internamente espera receber na propriedade "options" um array de objeto contendo "label" e "value", caso o seu objeto não tenha "value" mas um "uuid" por exemplo, você pode definir esta prop "label-value" como "uuid".
     type: String
     examples: [value-key="uuid"]
+
+  use-auto-select:
+    desc: Controla se o select vai auto preencher em casos de ter uma única opção e não for required.
+    type: Boolean
 
   use-fetch-options-on-create:
     desc: Controla se o componente vai fazer um fetch das opções assim que o mesmo é criado (caso tenha lazy loading ativado).

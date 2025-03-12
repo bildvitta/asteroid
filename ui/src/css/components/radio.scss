@@ -1,6 +1,8 @@
 .q-radio {
   &__label {
-    @include set-typography($body1);
+    @include set-typography($body2);
+
+    padding-left: var(--qas-spacing-sm) !important;
   }
 
   &__inner::before {

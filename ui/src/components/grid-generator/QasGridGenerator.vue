@@ -1,21 +1,35 @@
 <template>
-  <div :class="classes">
-    <div v-for="(field, key) in fieldsByResult" :key="key" :class="getContainerClass({ key })">
-      <slot :field="field" :name="`field-${field.name}`">
-        <slot :field="field" name="header">
-          <header :class="headerClass" :data-cy="`grid-generator-${field.name}-field`" :title="getTitle(field, 'label')">
-            {{ field.label }}
-          </header>
-        </slot>
+  <component :is="component.is" v-bind="component.props">
+    <qas-header v-if="hasHeader" v-bind="props.headerProps" />
 
-        <slot :field="field" name="content">
-          <div :class="contentClass" :data-cy="`grid-generator-${field.name}-result`" :title="getTitle(field, 'formattedResult')">
-            {{ field.formattedResult }}
-          </div>
+    <div :class="classes">
+      <div v-for="(field, key) in fieldsByResult" :key="key" :class="getContainerClasses({ key })">
+        <slot :field="field" :name="`field-${field.name}`">
+          <qas-grid-item :use-ellipsis="hasEllipsis(field)" :use-inline="props.useInline">
+            <template #header>
+              <slot :field="field" :name="`header-field-${field.name}`">
+                <slot :field="field" name="header">
+                  <div :class="headerClass" :data-cy="`grid-generator-${field.name}-field`" :title="getTitle(field, 'label')">
+                    {{ field.label }}
+                  </div>
+                </slot>
+              </slot>
+            </template>
+
+            <template #content>
+              <slot :field="field" :name="`content-field-${field.name}`">
+                <slot :field="field" name="content">
+                  <div :class="getContentClasses(field)" :data-cy="`grid-generator-${field.name}-result`" :title="getTitle(field, 'formattedResult')">
+                    {{ field.formattedResult }}
+                  </div>
+                </slot>
+              </slot>
+            </template>
+          </qas-grid-item>
         </slot>
-      </slot>
+      </div>
     </div>
-  </div>
+  </component>
 </template>
 
 <script setup>
@@ -34,6 +48,11 @@ const screen = useScreen()
 const props = defineProps({
   ...baseProps,
 
+  boxProps: {
+    type: Object,
+    default: () => ({})
+  },
+
   contentClass: {
     default: '',
     type: [Array, Object, String]
@@ -44,6 +63,11 @@ const props = defineProps({
     type: [Array, Object, String]
   },
 
+  headerProps: {
+    type: Object,
+    default: () => ({})
+  },
+
   emptyResultText: {
     default: '-',
     type: String
@@ -52,6 +76,10 @@ const props = defineProps({
   result: {
     default: () => ({}),
     type: Object
+  },
+
+  useBox: {
+    type: Boolean
   },
 
   useEmptyResult: {
@@ -70,20 +98,18 @@ const props = defineProps({
 })
 
 // composables
-const { classes, getFieldClass } = useGenerator({ props })
+const { classes, getFieldClass } = useGenerator({ props, isGrid: true })
 
 // computed
 const hasResult = computed(() => Object.keys(props.result).length)
 const hasFields = computed(() => Object.keys(props.fields).length)
+const hasHeader = computed(() => Object.keys(props.headerProps).length)
 
-const contentClass = computed(() => {
-  return [
-    props.contentClass,
-
-    {
-      ellipsis: !screen.isSmall && props.useEllipsis
-    }
-  ]
+const component = computed(() => {
+  return {
+    is: props.useBox ? 'qas-box' : 'div',
+    props: props.useBox ? props.boxProps : {}
+  }
 })
 
 const headerClass = computed(() => {
@@ -91,8 +117,7 @@ const headerClass = computed(() => {
     props.headerClass,
 
     {
-      ellipsis: !screen.isSmall && props.useEllipsis,
-      'text-bold': screen.isSmall || !props.useInline
+      ellipsis: !screen.isSmall && props.useEllipsis
     }
   ]
 })
@@ -128,7 +153,7 @@ const formattedFields = computed(() => {
 // watch
 watch(() => formattedFields.value, setFieldsByResult, { immediate: true })
 
-// methods
+// functions
 function getFieldsByResult () {
   if (!hasResult.value || !hasFields.value) return {}
 
@@ -156,7 +181,7 @@ function setFieldsByResult () {
   fieldsByResult.value = getFieldsByResult()
 }
 
-function getContainerClass ({ key }) {
+function getContainerClasses ({ key }) {
   if (props.useInline) return 'row justify-between col-12'
 
   return getFieldClass({ index: key, isGridGenerator: true })
@@ -164,5 +189,22 @@ function getContainerClass ({ key }) {
 
 function getTitle (field, key) {
   return props.useEllipsis ? field[key] : ''
+}
+
+function hasEllipsis (field) {
+  /**
+   * Para campos do tipo "textarea" vamos sempre exibir o conteúdo por completo.
+   */
+  return (field.type === 'textarea') && !props.useInline ? false : props.useEllipsis
+}
+
+function getContentClasses (field) {
+  return [
+    props.contentClass,
+
+    {
+      ellipsis: !screen.isSmall && hasEllipsis(field)
+    }
+  ]
 }
 </script>

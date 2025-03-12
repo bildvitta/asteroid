@@ -4,6 +4,11 @@ meta:
   desc: Componente para criação de textos dinâmicos.
 
 props:
+  box-props:
+    desc: Propriedades do "QasBox" que envolve o conteúdo.
+    default: {}
+    type: Object
+
   columns:
     desc: Colunas do grid de cada campo.
     default: col-6
@@ -31,8 +36,8 @@ props:
     examples: ["{ email: { name: 'email', type: 'email', label: 'E-mail' } }"]
 
   gutter:
-    desc: Espaçamento entre colunas.
-    default: lg
+    desc: Em caso de uso inline o default é "sm" senão é "md".
+    default: ''
     type: String
     examples: [xs, sm, md, lg, xl, 2xl, 3xl, 4xl, 5xl]
 
@@ -40,6 +45,11 @@ props:
     desc: Classe de cada "header" pai referente ao "label".
     default: 'text-bold'
     type: [Array, Object, String]
+
+  header-props:
+    desc: Propriedades do "QasHeader".
+    default: {}
+    type: Object
 
   result:
     desc: Resultado contendo todas informações para serem exibidas na tela.
@@ -50,6 +60,11 @@ props:
   use-empty-result:
     desc: Se o resultado de algum campo for vazio e esta propriedade for "false", ele remove todo o campo.
     default: true
+    type: Boolean
+
+  use-box:
+    desc: Controla se o componente vai ter o QasBox englobando ou não.
+    default: false
     type: Boolean
 
   use-ellipsis:
@@ -63,7 +78,7 @@ props:
 
 slots:
   content:
-    desc: Slot para o conteúdo (content).
+    desc: Slot para o conteúdo (valor) de todas os campos de uma vez.
     scope:
       field:
         desc: Conteúdo do field atual mais o resultado formatado.
@@ -79,7 +94,23 @@ slots:
         type: Object
 
   header:
-    desc: Slot para o header.
+    desc: Slot para o header de todas os campos de uma vez.
+    scope:
+      field:
+        desc: Conteúdo do field atual mais o resultado formatado.
+        default: {}
+        type: Object
+
+  'header-field-[nome-da-chave]':
+    desc: Slot para o header especifico de um field.
+    scope:
+      field:
+        desc: Conteúdo do field atual mais o resultado formatado.
+        default: {}
+        type: Object
+
+  'content-field-[nome-da-chave]':
+    desc: Slot para o conteúdo (valor) especifico de um field.
     scope:
       field:
         desc: Conteúdo do field atual mais o resultado formatado.

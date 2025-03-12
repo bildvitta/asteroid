@@ -13,7 +13,8 @@ import QasBtn from './components/btn/QasBtn.vue'
 import QasBtnDropdown from './components/btn-dropdown/QasBtnDropdown.vue'
 import QasCard from './components/card/QasCard.vue'
 import QasCardImage from './components/card-image/QasCardImage.vue'
-import QasCheckboxGroup from './components/checkbox-group/QasCheckboxGroup.vue'
+import QasCheckbox from './components/checkbox/QasCheckbox.vue'
+import QasSelectFilter from './components/select-filter/QasSelectFilter.vue'
 import QasCopy from './components/copy/QasCopy.vue'
 import QasDate from './components/date/QasDate.vue'
 import QasDateTimeInput from './components/date-time-input/QasDateTimeInput.vue'
@@ -32,9 +33,11 @@ import QasGallery from './components/gallery/QasGallery.vue'
 import QasGalleryCard from './components/gallery-card/QasGalleryCard.vue'
 import QasGrabbable from './components/grabbable/QasGrabbable.vue'
 import QasGridGenerator from './components/grid-generator/QasGridGenerator.vue'
-import QasHeaderActions from './components/header-actions/QasHeaderActions.vue'
+import QasGridItem from './components/grid-item/QasGridItem.vue'
+import QasHeader from './components/header/QasHeader.vue'
 import QasInfiniteScroll from './components/infinite-scroll/QasInfiniteScroll.vue'
 import QasInput from './components/input/QasInput.vue'
+import QasInfo from './components/info/QasInfo.vue'
 import QasLabel from './components/label/QasLabel.vue'
 import QasLayout from './components/layout/QasLayout.vue'
 import QasListItems from './components/list-items/QasListItems.vue'
@@ -48,6 +51,7 @@ import QasPasswordInput from './components/password-input/QasPasswordInput.vue'
 import QasPasswordStrengthChecker from './components/password-strength-checker/QasPasswordStrengthChecker.vue'
 import QasProfile from './components/profile/QasProfile.vue'
 import QasResizer from './components/resizer/QasResizer.vue'
+import QasRadio from './components/radio/QasRadio.vue'
 import QasSearchBox from './components/search-box/QasSearchBox.vue'
 import QasSearchInput from './components/search-input/QasSearchInput.vue'
 import QasSelect from './components/select/QasSelect.vue'
@@ -64,6 +68,7 @@ import QasTableGenerator from './components/table-generator/QasTableGenerator.vu
 import QasTabsGenerator from './components/tabs-generator/QasTabsGenerator.vue'
 import QasTextTruncate from './components/text-truncate/QasTextTruncate.vue'
 import QasTimeline from './components/timeline/QasTimeline.vue'
+import QasToggle from './components/toggle/QasToggle.vue'
 import QasToggleVisibility from './components/toggle-visibility/QasToggleVisibility.vue'
 import QasTransfer from './components/transfer/QasTransfer.vue'
 import QasTreeGenerator from './components/tree-generator/QasTreeGenerator.vue'
@@ -107,7 +112,8 @@ async function install (app) {
   app.component('QasBtnDropdown', QasBtnDropdown)
   app.component('QasCard', QasCard)
   app.component('QasCardImage', QasCardImage)
-  app.component('QasCheckboxGroup', QasCheckboxGroup)
+  app.component('QasCheckbox', QasCheckbox)
+  app.component('QasSelectFilter', QasSelectFilter)
   app.component('QasCopy', QasCopy)
   app.component('QasDate', QasDate)
   app.component('QasDateTimeInput', QasDateTimeInput)
@@ -126,9 +132,11 @@ async function install (app) {
   app.component('QasGalleryCard', QasGalleryCard)
   app.component('QasGrabbable', QasGrabbable)
   app.component('QasGridGenerator', QasGridGenerator)
-  app.component('QasHeaderActions', QasHeaderActions)
+  app.component('QasGridItem', QasGridItem)
+  app.component('QasHeader', QasHeader)
   app.component('QasInfiniteScroll', QasInfiniteScroll)
   app.component('QasInput', QasInput)
+  app.component('QasInfo', QasInfo)
   app.component('QasLabel', QasLabel)
   app.component('QasLayout', QasLayout)
   app.component('QasListItems', QasListItems)
@@ -142,6 +150,7 @@ async function install (app) {
   app.component('QasPasswordStrengthChecker', QasPasswordStrengthChecker)
   app.component('QasProfile', QasProfile)
   app.component('QasResizer', QasResizer)
+  app.component('QasRadio', QasRadio)
   app.component('QasSearchBox', QasSearchBox)
   app.component('QasSearchInput', QasSearchInput)
   app.component('QasSelect', QasSelect)
@@ -158,6 +167,7 @@ async function install (app) {
   app.component('QasTabsGenerator', QasTabsGenerator)
   app.component('QasTextTruncate', QasTextTruncate)
   app.component('QasTimeline', QasTimeline)
+  app.component('QasToggle', QasToggle)
   app.component('QasToggleVisibility', QasToggleVisibility)
   app.component('QasTransfer', QasTransfer)
   app.component('QasTreeGenerator', QasTreeGenerator)
@@ -203,8 +213,9 @@ export {
   QasBtn,
   QasBtnDropdown,
   QasCard,
-  QasCheckboxGroup,
+  QasCheckbox,
   QasCopy,
+  QasSelectFilter,
   QasDate,
   QasDateTimeInput,
   QasDebugger,
@@ -222,9 +233,11 @@ export {
   QasGalleryCard,
   QasGrabbable,
   QasGridGenerator,
-  QasHeaderActions,
+  QasGridItem,
+  QasHeader,
   QasInfiniteScroll,
   QasInput,
+  QasInfo,
   QasLabel,
   QasLayout,
   QasListItems,
@@ -238,6 +251,7 @@ export {
   QasPasswordStrengthChecker,
   QasProfile,
   QasResizer,
+  QasRadio,
   QasSearchBox,
   QasSearchInput,
   QasSelect,
@@ -254,6 +268,7 @@ export {
   QasTabsGenerator,
   QasTextTruncate,
   QasTimeline,
+  QasToggle,
   QasToggleVisibility,
   QasTransfer,
   QasTreeGenerator,

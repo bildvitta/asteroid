@@ -1,6 +1,6 @@
 <template>
   <div class="container spaced">
-    <qas-page-header :breadcrumbs="breadcrumbs" :header-actions-props="headerActionsProps" title="Nome do usuário" />
+    <qas-page-header :breadcrumbs :header-props title="Nome do usuário" />
   </div>
 </template>
 
@@ -26,9 +26,9 @@ export default {
       ]
     },
 
-    headerActionsProps () {
+    headerProps () {
       return {
-        text: 'Algum texto de exemplo para ficar ao lado do botão de adicionar.',
+        description: 'Algum texto de exemplo para ficar ao lado do botão de adicionar.',
         actionsMenuProps: {
           deleteProps: {
             entity: 'users'

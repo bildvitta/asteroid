@@ -10,9 +10,249 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 ### Sobre os "BREAKING CHANGES"
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
+## Não publicado
+## BREAKING CHANGES
+- `A fazer`:
+  - Substituir todos `QToggle` por `QasToggle`.
+  - Substituir todos `QRadio` por `QasRadio`.
+  - Substituir todos `QasCheckboxGroup` por `QasCheckbox`.
+  - Substituir todos `QasHeaderActions` por `QasHeader`.
+  - Revisar todos os `QasHeaderActions/QasHeader` se atentando as mudanças principalmente referente aos slots e propriedade `alignColumns`.
+  - Atentar-se para prop `headerActionsProps` no componente `QasPageHeader`.
+  - Remover TODOS `QChip` de slot do `QasSelect`.
+  - Caso esteja usando `QChip` (fora do QasSelect) substituir o uso pelo `QasBadge` com a prop `removable`.
+  - Atentar-se para possíveis breaking changes nos inputs: `QasToggle`, `QasCheckbox`, e `QasRadio`, validar nos formulários dos produtos.
+  - Verificar todos os lugares que estão usando contadores no `QasTabsGenerator` se não estão tratando ele antes de passar.
+  - Verificar todos os lugares que utilizam `QasGridGenerator` para possíveis breaking changes de estilos.
+- `QasHeaderActions/QasHeader`:
+  - renomeado para `QasHeader`.
+  - alterado propriedade `text` para `description`.
+  - removido propriedade `alignColumns`.
+  - removido slots `right` e `left` em favor de utilizar novos slots.
+- `QasGridGenerator`:
+  - modificado tipografia;
+  - utilizando novo componente `QasGridItem`.
+- `QasInput`: adicionado contado no type`textarea`, então caso exista lugares com contadores de caracteres, é necessário remover para não duplicar.
+- `QasCheckboxGroup/QasCheckbox`: renomeado para `QasCheckbox`.
+- `QasPageHeader`: alterada propriedade `headerActionsProps` para `headerProps` para se adequar ao novo nome do componente `QasHeader`.
+- `QasTabsGenerator`: agora o contador implementa a função `decimal` do asteroid, então caso esteja tratando esse valor por fora, remover.
+- `QasNestedFields`: agora propriedade `actions-menu-props` só funciona junto da prop `:use-inline-actions="true"`.
+- `QasListView`: possível breaking changes caso o loading era controlado externamente em conjunto com o `useResultsAreaOnly`. Agora o loading é exibido mesmo a prop sendo passada.
+- `QasRadio` e `QasCheckbox`: Adicionado label por padrão a partir do field, caso tenha lugares que são feitos a mão, irá duplicar a label.
+- `QasExpansionItem`:
+  - renomeado slot `label` para `header-label`.
+  - modificado slot header, agora ao abrir, ele sobrescreve toda a seção header, incluindo o botão de dropdown.
+  - removido a prop `useHeaderSeparator`, agora não existe mais separator no header.
+- `QasCard`: a prop `actionsMenuProps` anteriormente era passado diretamente era repassado pra o `list` internamente, impedindo de repassar outras props. Agora deve passar o `list` dentro do `actionsMenuProps`.
+- `QasAppUser`: adicionado validação do endpoint `PATCH -> users/me` através de uma env `ME_VERSION`, é necessário adicionar esta env no `quasar.config.js`.
+- [`QasGridItem`, `QasGridGenerator`]: modificado classe de cor, agora o label tem as mesmas cores tanto inline quando modo normal "text-grey-10",
+- verificar lugares onde usa modo inline para ver se não estava sendo estilizado manualmente.
+- `QasAppMenu`: modificado chat para o `gleap`, precisando de novas configurações.
+
+### Adicionado
+- `QasRadio`:
+  - adicionado novo componente.
+  - adicionado label por padrão em casos de ter mais de uma opção.
+- `QasToggle`: adicionado novo componente.
+- `QasGridItem`: adicionado novo componente.
+- `QasInfo`: adicionado novo componente.
+- `QasNestedFields`:
+  - adicionado nova propriedade `useBox`.
+  - adicionado componente `QasHeader` com a prop `header-props`.
+  - adicionado nova propriedade `form-common-columns`.
+- `QasBox`: adicionado novas propriedades `useSpacing`, `spacingX` e `spacingY`.
+- `QasInput`: adicionado novas propriedades `icon` e `iconRight` para não precisar abrir slots nestes casos.
+- `QasNumericInput`: adicionado novas propriedades `icon` e `iconRight` para não precisar abrir slots nestes casos.
+- `QasGridGenerator`:
+  - adicionado 2 novos slots, `content-field-[nome-da-chave]` e `header-field-[nome-da-chave]`.
+  - adicionado novas propriedades `use-box`, `box-props` e `header-props`.
+  - adicionado nova propriedade `boxProps`.
+  - adicionado nova propriedade `filtersProps`.
+- `QasHeaderActions/QasHeader`:
+  - adicionado nova propriedade `useBox`.
+  - adicionado novas propriedades `labelProps` e `badges`.
+  - adicionado novos slots `actions`, `description` e `label`.
+- `QasFormGenerator`:
+  - adicionado recurso no fieldset para dividir colunas entre eles.
+  - adicionado novas propriedades `useBox` e `boxProps`.
+  - adicionado possibilidade de ter botão de ação por fieldset ao final dos fields.
+  - criado slot `legend-bottom-[nome-do-fieldset]`.
+- `QasBadge`:
+  - adicionado propriedades para renderizar `QChip` (`removable`, `tabindex`, `modelValue`).
+  - adicionado eventos para renderizar `QChip` (`remove`, `update:modelValue`).
+- `QasSelect`:
+  - adicionado comportamento no qual é setado automaticamente caso o select for required e houver apenas uma opção.
+  - adicionado nova propriedade `useCustomOptions` para poder utilizar a opção personalizada com caption ou badge.
+  - adicionado nova propriedade `badgeList` para conseguir controlar a badge a partir do retorno do backend.
+  - adicionado propriedade `icon` para ser utilizado sem necessidade de slot e junto a propriedade `useFilterMode`.
+  - adicionado nova propriedade `useFilterMode`.
+- `QasActions`: corrigido style que não deixava div 100% quando usado com a prop `useFullWidth`.
+- `QasTextTruncate`:
+  - adicionado prop `emptyText` para exibição no caso do `list` ou `text` não tiver valor.
+  - adicionado novas propriedade `useBadge` e `useWrapBadge`.
+- `QasChartView`: adicionado novas propriedades `useBox` e `boxProps`.
+- `QasTableGenerator`: adicionado componente `QasEmptyResultText` onde será exibido no caso dos valores da tabela serem vazios.
+- `QasListItems`: adicionado propriedades `descriptionKey` e `labelKey` para usar o componente através de propriedades ao invés de slot.
+- `QasExpansionItems`:
+  - adicionado propriedade `disable`.
+  - adicionado propriedade `disableButton`.
+  - adicionado propriedade `group`.
+  - adicionado v-model.
+- `QasGrabbable`: Adicionado prop para passar um elemento para ignorar o Grab.
+- `set-scroll-on-grab`: Adicionado validacao para controlar elementos a ser ignorado no grab.
+- `QasInfiniteScroll`: Adicionado model `v-model:fields` para acessar os fields do fetch.
+- `QasAvatar`: adicionado possibilidade de passar cores fora das defaults.
+- `QasCopy`: Adicionado prop `use-text` para controlar se irá exibir label ao lado do botão de copiar.
+- `QasCopy`: adicionado prop `raw-text` pra usar em casos onde o texto exibido não é o mesmo do valor que vai ser copiado.
+- `composables/use-notifications`: adicionado som de notificação toda vez que as notificações `in app` são chamadas.
+- `QasStepper`:
+  - Adicionado possibilidade de passar props do `Quasar` para o componente.
+  - Adicionado estilização em caso de step com erro.
+  - Adicionado estilização em caso do stepper usar a prop `header-nav`.
+- `QasBoardGenerator`:
+  - adicionado nova propriedade `beforeUpdatePosition`.
+  - adicionado novo evento `update-error`.
+  - adicionado payload do retorno da api no evento `update-success`.
+  - adicionado método `cancelDrop` no `defineExpose`.
+  - adicionado possibilidade do componente ser Drag and Drop.
+  - adicionado `headerBoxProps` para repassar props pro box do header.
+- `QasSelectFilter`: Adicionado novo componente para lidar com filtros adicionando a query na URL e trabalhando em conjunto com o novo composable `useDefaultFilters`.
+- `composables/useDefaultFilters`: adicionado novo composable para lidar com filtros defaults adicionados antes de entrar na pagina e após adicionado/alterado pelo componente `QasSelectFilter`.
+- `QasCheckbox`:
+ - adicionado prop `error-message` pra exibir o erro no campo.
+ - adicionado prop `required` pra exibir `*` como sufixo da label.
+ - adicionado label por padrão em casos de ter mais de uma opção.
+- Adicionado lib `Gleap` no `/ui`.
+- `QasWelcome`: Adicionado slot `after-greeting` para acessar conteúdo após saudações.
+
+### Modificado
+- `QasHeaderActions`: renomeado para `QasHeader`.
+- `QasChartView`: adequado ao componente `QasHeader`.
+- `QasSelect`: alterado layout.
+- `QasNestedFields`:
+  - modificado set scroll ao adicionado novas linhas, agora o scroll fica fixo na ultima linha adicionada.
+  - agora propriedade `actions-menu-props` só funciona junto da prop `:use-inline-actions="true"`.
+  - default do `formGutter` alterado de `lg` para `md`.
+  - alterado layout.
+- `QasInput`: alterado layout.
+- `QasSearchInput`:
+  - alterado layout.
+  - modificado para usar borda ao invés de `qas-box` quando estiver dentro de um box ou um dialog.
+- `QasField`: alterações para layout e novos componentes.
+- `QasHeaderActions/QasHeader`: alterado propriedade `text` para `description`.
+- `QasTabsGenerator`: agora o contador implementa a função `decimal` do asteroid.
+- `QasBadge`: modificado altura minima de 24px para para 20px e espaçamento vertical de 4px para 2px.
+- `QasPageHeader`: alterado espaçamento do `bottom` de `lg` para `md`.
+- `QasGalleryCard`: adicionado componente `QasBox` e sempre adicionado estilo de "borda" quando estiver box dentro de box.
+- `QasCard`:
+  - adicionado componente `QasBox` e sempre adicionado estilo de "borda" quando estiver box dentro de box.
+  - modificado tipografia do titulo para H5.
+  - modificado a forma de passar `actionsMenuProps`, agora é possível passar outras props além do `list`.
+  - modificado o titulo, agora existe o tratamento com a classe `ellipsis`.
+- `QasGridGenerator`:
+  - modificado tipografia;
+  - utilizando novo componente `QasGridItem`.
+  - alterado espaçamento gutter de `lg` para `md`
+  - comportamento do `useEllipsis` agora os campos do tipo `textarea` não serão afetados.
+  - modificado tamanho default da propriedade "gutter", agora quando for "useInline" terá o default de "8px".
+  - `composables/private/useGenerator`: modificações referente ao gutter para o QasGridGenerator.
+  - corrigido typo "getContainerClassses" por "getContainerClasses".
+- `QasFilters`:
+  - alterado layout.
+  - utilizando `QasBadge` ao invés de `QChip`.
+- `QasCheckboxGroup/QasCheckbox`:
+  - renomeado para `QasCheckbox`.
+  - agora quando não é passado `options` o componente opera em modo "single".
+- `QasTableGenerator`: modificado layout de espaçamentos e borda da tabela.
+- `QasSelectListDialog`: modificado para que os quando estiver usando dentro de uma box, não use o `qas-box`.
+- `QasFormGenerator`:
+  - agora o fieldset implementa o componente `QasHeader`.
+  - alterado espaçamento gutter de `lg` para `md`.
+- `QasHeader`: modificado espaçamento bottom padrão de `xl` para `md`.
+- `QasDialog`:
+  - alterado espaçamento interno de `lg` para `md`.
+  - alterado titulo de h5 para h4 com componente `QasLabel`.
+  - alterado espaçamento bottom do título de `lg` para `md`.
+- `QasExpansionItem`:
+  - modificado slot header, agora ao abrir, ele sobrescreve toda a seção header, incluindo o botão de dropdown.
+  - renomeado slot `label` para `header-label`.
+  - modificado comportamento renderizar na dom o content apenas ao abrir o expansion pela primeira vez.
+- `QasUploader`: modificado header do componente para utilizar o `QasHeader` ao invés do `QasLabel`.
+- `QasStepperFormView`: modificado atribuição de nome da step (necessário para utilizar `keep-alive-exclude`).
+- `QasAppUser`: adicionado validação do endpoint `PATCH -> users/me` através de uma env `ME_VERSION`, é necessário adicionar esta env no `quasar.config.js`.
+- `composables/useQueryFilter/findOne`: adicionado optional chaining.
+- `QasTextTruncate`: modificado espaçamento entre itens no dialog para `sm`.
+- `QasGridItem`: modificado classe de cor, agora o label tem as mesmas cores tanto inline quando modo normal "text-grey-10".
+- `QasAppMenu`: modificado chat para o `gleap`, precisando de novas configurações.
+- Atualizado SortableJS para `1.15.3`.
+- adicionado placeholder padrão:
+  - `QasDatetimeInput`.
+  - `QasInput`.
+  - `QasNumericInput`.
+
+### Corrigido
+- `QasActions`: corrigido style que não deixava div 100% quando usado com a prop `useFullWidth`.
+- `QasNestedFields`: corrigido problemas de espaçamentos.
+- `QasChartView`:
+  - corrigido altura mínima ao fazer fetch.
+  - corrigido hook `unmounted` para `beforeUnmounted`, quando saia de uma pagina com chart e ia para outra, o componente removia o registro após o registro da outra pagina, gerando erros [main -> develop].
+- `QasHeader`:
+  - corrigido problemas de layout.
+  - corrigido espaçamento/alinhamento da seção de actions.
+  - corrigido bug quando abria o slot de actions e não renderizava elemento, por exemplo com v-if.
+- `QasFilters`:
+  - não exibir badge ao limpar um campo do filtro pelo backspace, exibia uma badge com valor vazio.
+  - campo de input não ficar com foco após efetuar a busca ou limpar pelo filtro lateral.
+- `QasExpansionItem`:
+  - corrigido propriedade "group" que o default era string vazia, e isto fazia que todos fizessem parte do mesmo grupo de `""`.
+  - corrigido direção do ícone de dropdown.
+  - corrigido cor da borda em casos de erro e dentro de um `QasBox`.
+  - corrigido ícone de dropdown quando possui um expansion dentro de outro.
+- `QasBoardGenerator`:
+  - corrigido problema de duplicidade de model nos itens das colunas quando se entra na página novamente.
+  - corrigido scroll vertical desnecessário no Safari.
+- `QasGrabbable`: Corrigido o grab em casos de não passar elementos para ignorar.
+- `QasAppMenu`: corrigido problema que ocorria quando um item do menu com "children" ficava vazio, ele quebrava por não encontrar a rota e mostrava um label mesmo que sem nenhum item abaixo.
+- `QasTextTruncate`: corrigido botão do "ver mais" que não aparecia mesmo quando existia ellipsis.
+
+### Removido
+- `QasPageHeader`: alterada propriedade `headerActionsProps` para `headerProps` para se adequar ao novo nome do componente `QasHeader`.
+- `QasHeaderActions/QasHeader`:
+  - alterado propriedade `text` para `description`.
+  - removido propriedade `alignColumns`.
+  - removido slots `right` e `left` em favor de utilizar novos slots.
+- `QasExpansionItem`: removido a prop `useHeaderSeparator`, agora não existe mais separator no header.
+
+## [3.17.0-beta.32] - 12-03-2025
+### Corrigido
+- `QasTextTruncate`: corrigido botão do "ver mais" que não aparecia mesmo quando existia ellipsis.
+
+## [3.17.0-beta.31] - 19-02-2025
+### Adicionado
+- `QasWelcome`: Adicionado slot `after-greeting` para acessar conteúdo após saudações.
+
+### Corrigido
+- `QasSelect`: 
+  - Corrigido lógica para setar o model com a única option disponível.
+  - Corrigido alinhamento das badges.
+
+## [3.17.0-beta.30] - 19-02-2025
+### Corrigido
+- `QasAppMenu`: removido prefixo `+` no phone enviado para o gleap que estava incorreto.
+
 ## [3.16.4] - 19-02-2025
 ### Corrigido
 - `QasAppMenu`: removido prefixo `+` no phone enviado para o gleap que estava incorreto.
+
+## [3.17.0-beta.29] - 17-02-2025
+## BREAKING CHANGES
+- `QasAppMenu`: modificado chat para o `gleap`, precisando de novas configurações.
+
+### Adicionado
+- Adicionado lib `Gleap` no `/ui`.
+
+### Modificado
+- `QasAppMenu`: modificado chat para o `gleap`, precisando de novas configurações.
 
 ## [3.16.3] - 14-02-2025
 ## BREAKING CHANGES
@@ -27,9 +267,374 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 ### Modificado
 - `QasAppMenu`: modificado chat para o `gleap`, precisando de novas configurações.
 
+## [3.17.0-beta.28] - 14-02-2025
+## BREAKING CHANGES
+- [`QasGridItem`, `QasGridGenerator`]: modificado classe de cor, agora o label tem as mesmas cores tanto inline quando modo normal "text-grey-10",
+verificar lugares onde usa modo inline para ver se não estava sendo estilizado manualmente.
+
+### Adicionado
+`QasTextTruncate`: Adicionado novas propriedade `useBadge` e `useWrapBadge`.
+
+### Modificado
+- `QasTextTruncate`: modificado espaçamento entre itens no dialog para `sm`.
+- `QasGridItem`: modificado classe de cor, agora o label tem as mesmas cores tanto inline quando modo normal "text-grey-10".
+- `QasGridGenerator`:
+  - modificado tamanho default da propriedade "gutter", agora quando for "useInline" terá o default de "8px".
+  - `composables/private/useGenerator`: modificações referente ao gutter para o QasGridGenerator.
+  - corrigido typo "getContainerClassses" por "getContainerClasses".
+
+## [3.17.0-beta.27] - 07-02-2025
+### Adicionado
+- `QasCheckbox`:
+ - adicionado prop `error-message` pra exibir o erro no campo.
+ - adicionado prop `required` pra exibir `*` como sufixo da label.
+
+## [3.17.0-beta.26] - 03-02-2025
+### Corrigido
+- `QasExpansionItem`: corrigido ícone de dropdown quando possui um expansion dentro de outro.
+
+## [3.17.0-beta.25] - 27-01-2025
+## BREAKING CHANGES
+- `QasExpansionItem`: removido a prop `useHeaderSeparator`, agora não existe mais separator no header.
+
+### Modificado
+- `QasExpansionItem`: Modificado a borda do componente, agora ao ter um expansion dentro de outro expansion, ficará uma borda.
+
+### Removido
+- `QasExpansionItem`: removido a prop `useHeaderSeparator`, agora não existe mais separator no header.
+
+## [3.17.0-beta.24] - 23-01-2025
+## BREAKING CHANGES
+- `QasAppUser`: adicionado validação do endpoint `PATCH -> users/me` através de uma env `ME_VERSION`, é necessário adicionar esta env no `quasar.config.js`.
+
+### Adicionado
+- `QasSelectFilter`: Adicionado novo componente para lidar com filtros adicionando a query na URL e trabalhando em conjunto com o novo composable `useDefaultFilters`.
+- `composables/useDefaultFilters`: adicionado novo composable para lidar com filtros defaults adicionados antes de entrar na pagina e após adicionado/alterado pelo componente `QasSelectFilter`.
+
+### Modificado
+- `QasAppUser`: adicionado validação do endpoint `PATCH -> users/me` através de uma env `ME_VERSION`, é necessário adicionar esta env no `quasar.config.js`.
+- `composables/useQueryFilter/findOne`: adicionado optional chaining.
+
+## [3.17.0-beta.23] - 14-01-2025
+### Adicionado
+- `QasBoardGenerator`:
+  - adicionado nova propriedade `beforeUpdatePosition`.
+  - adicionado novo evento `update-error`.
+  - adicionado payload do retorno da api no evento `update-success`.
+  - adicionado método `cancelDrop` no `defineExpose`.
+
+## [3.17.0-beta.22] - 20-12-2024
+### Modificado
+- `QasUploader`: modificado header do componente para utilizar o `QasHeader` ao invés do `QasLabel`.
+- `QasStepperFormView`: modificado atribuição de nome da step (necessário para utilizar `keep-alive-exclude`).
+
+### Adicionado
+- `QasStepper`:
+  - Adicionado possibilidade de passar props do `Quasar` para o componente.
+  - Adicionado estilização em caso de step com erro.
+  - Adicionado estilização em caso do stepper usar a prop `header-nav`.
+
+## [3.17.0-beta.21] - 12-12-2024
+### Adicionado
+- `composables/use-notifications`: adicionado som de notificação toda vez que as notificações `in app` são chamadas.
+
+## [3.17.0-beta.20] - 11-12-2024
+### Adicionado
+- `QasCopy`: adicionado prop `raw-text` pra usar em casos onde o texto exibido não é o mesmo do valor que vai ser copiado.
+
+### Corrigido
+- `QasFormGenerator`: corrigido validação para exibição do `fieldset`, ao não passar propriedades como label e description, fazia com que ficasse um espaço em branco.
+
+## [3.17.0-beta.19] - 03-12-2024
+### Corrigido
+- `QasAppMenu`: corrigido problema que ocorria quando um item do menu com "children" ficava vazio, ele quebrava por não encontrar a rota e mostrava um label mesmo que sem nenhum item abaixo.
+
+## [3.17.0-beta.18] - 19-11-2024
+## BREAKING CHANGES
+- `QasCard`: a prop `actionsMenuProps` anteriormente era passado diretamente era repassado pra o `list` internamente, impedindo de repassar outras props. Agora deve passar o `list` dentro do `actionsMenuProps`.
+
+### Modificado
+- `QasCard`: 
+  - Modificado a forma de passar `actionsMenuProps`, agora é possível passar outras props além do `list`.
+  - Modificado o titulo, agora existe o tratamento com a classe `ellipsis`.
+- `QasExpansionItem`: Modificado comportamente renderizar na dom o content apenas ao abrir o expansion pela primeira vez.
+
+### Corrigido
+- `QasExpansionItem`: Corrigido cor da borda em casos de erro e dentro de um `QasBox`.
+
+## [3.17.0-beta.17] - 13-11-2024
+## BREAKING CHANGES
+- `QasExpansionItem`:
+  - Renomeado slot `label` para `header-label`.
+  - Removido slot `header-left` (agora o `header` tem o mesmo comportamento que o `header-left`).
+
+### Corrigido
+- `QasExpansionItem`: Corrigido direção do ícone de dropdown.
+
+### Modificado
+- `QasExpansionItem`:
+  - Modificado slot `header` para ele ser o antigo `header-left`, pegando toda a largura do conteúdo menos o ícone.
+  - Renomeado slot `label` para `header-label`.
+
+### Removido
+- `QasExpansionItem`: Removido slot `header-left` (agora o `header` tem o mesmo comportamento que o `header-left`).
+
+## [3.17.0-beta.16] - 11-11-2024
+## BREAKING CHANGES
+- `QasRadio` e `QasCheckbox`: Adicionado label por padrão a partir do field, caso tenha lugares que são feitos a mão, irá duplicar a label.
+
+### Corrigido
+- `QasTableGenerator`: Corrigido scroll vertical desnecessário no Safari.
+- `QasGrabbable`: Corrigido o grab em casos de não passar elementos para ignorar.
+
+### Adicionado
+- `QasRadio` e `QasCheckbox`: Adicionado label por padrão em casos de ter mais de uma opção.
+- `QasCopy`: Adicionado prop `use-text` para controlar se irá exibir label ao lado do botão de copiar.
+
+## [3.17.0-beta.15] - 06-11-2024
+### Adicionado
+- `QasAvatar`: adicionado possibilidade de passar cores fora das defaults.
+
+### Corrigido
+- `QasChartView`: corrigido hook `unmounted` para `beforeUnmounted`, quando saia de uma pagina com chart e ia para outra, o componente removia o registro após o registro da outra pagina, gerando erros [main -> develop].
+
 ## [3.16.2] - 23-10-2024
 ### Corrigido
 - `QasChartView`: corrigido hook `unmounted` para `beforeUnmounted`, quando saia de uma pagina com chart e ia para outra, o componente removia o registro após o registro da outra pagina, gerando erros.
+
+## [3.17.0-beta.14] - 22-10-2024
+### Corrigido
+- `QasBoardGenerator`:
+  - Corrigido lógica para fechar o dialog de confirmação de drop.
+  - Corrigido lógica para não bater as APIs de colunas ao realizar o drop.
+
+## [3.17.0-beta.13] - 15-10-2024
+### Adicionado
+- `QasBoardGenerator`: 
+  - Adicionado possibilidade do componente ser Drag and Drop.
+  - Adicionado `headerBoxProps` para repassar props pro box do header.
+- `QasGrabbable`: Adicionado prop para passar um elemento para ignorar o Grab.
+- `set-scroll-on-grab`: Adicionado validacao para controlar elementos a ser ignorado no grab.
+- `QasInfiniteScroll`: Adicionado model `v-model:fields` para acessar os fields do fetch.
+
+### Modificado
+- Atualizado SortableJS para `1.15.3`.
+- `QasCard`: Modificado tipografia do titulo para H5.
+
+### Corrigido
+- `QasBoardGenerator`: Corrigido problema de duplicidade de model nos itens das colunas quando se entra na página novamente.
+- `QasHeader`: corrigido espaçamento/alinhamento da seção de actions.
+
+## [3.17.0-beta.12] - 10-10-2024
+### Corrigido
+- `QasExpansionItem`: corrigido propriedade "group" que o default era string vazia, e isto fazia que todos fizessem parte do mesmo grupo de `""`.
+
+## [3.17.0-beta.11] - 09-10-2024
+### Corrigido
+- `QasHeader`: corrigido bug quando abria o slot de actions e não renderizava elemento, por exemplo com v-if.
+
+## [3.17.0-beta.10] - 08-10-2024
+## BREAKING CHANGES
+- `QasExpansionItems`: modificado slot header, agora ao abrir, ele sobrescreve toda a seção header, incluindo o botão de dropdown.
+
+### Adicionado
+- `QasExpansionItems`:
+  - adicionado propriedade `disable`.
+  - adicionado propriedade `disableButton`.
+  - adicionado propriedade `group`.
+  - adicionado v-model.
+  - adicionado novo slot `header-left`.
+
+### Modificado
+- `QasExpansionItems`: modificado slot header, agora ao abrir, ele sobrescreve toda a seção header, incluindo o botão de dropdown.
+
+## [3.17.0-beta.9] - 07-10-2024
+### Adicionado
+- `QasSelect`:
+  - Adicionado propriedade `icon` para ser utilizado sem necessidade de slot e junto a propriedade `useFilterMode`.
+  - Adicionado nova propriedade `useFilterMode`.
+
+## [3.17.0-beta.8] - 30-09-2024
+### Corrigido
+- `QasChartView`: corrigido altura mínima ao fazer fetch.
+
+## [3.17.0-beta.7] - 30-09-2024
+## BREAKING CHANGES
+- `QasListView`: possível breaking changes caso o loading era controlado externamente em conjunto com o `useResultsAreaOnly`. Agora o loading é exibido mesmo a prop sendo passada.
+
+### Adicionado
+- `QasFormGenerator`: criado slot `legend-bottom-[nome-do-fieldset]`.
+- `QasTableGenerator`: adicionado componente `QasEmptyResultText` onde será exibido no caso dos valores da tabela serem vazios.
+- `QasHeader`: adicionado nova propriedade `filtersProps`.
+- `QasListItems`: adicionado propriedades `descriptionKey` e `labelKey` para usar o componente através de propriedades ao invés de slot.
+
+### Modificado
+- `QasExpansionItem`: modificado componente para ter uma borda caso esteja dentro de um `QasBox`.
+- `QasDateTimeInput`: modificado o ícone do calendário.
+- `QasActionsMenu`: modificado o botão splitted, agora possui a label `Opções` quando não for mobile.
+- `QasListView`: modificado a forma que os loadings são exibidos.
+
+## Corrigido
+- `QasGridGenerator`: ajuste de lógica do ellipsis que estava causando um warning.
+- `QasFormGenerator`: ajuste ao usar o `buttonProps` com um select com opções com label grande, fazia com que o select não respeitasse o ellipsis.
+- `QasChartView`: corrigido tamanho mínimo do componente quando não existem items há serem exibidos.
+
+## [3.17.0-beta.6] - 10-09-2024
+### Corrigido
+- `QasFormGenerator`: corrigido fieldset que não estava sendo exibido.
+
+## [3.17.0-beta.5] - 09-09-2024
+
+## BREAKING CHANGES
+- `QasNestedFields`: agora propriedade `actions-menu-props` só funciona junto da prop `:use-inline-actions="true"`.
+
+### Adicionado
+- `QasNestedFields`:
+  - adicionado componente `QasHeader` com a prop `header-props`.
+  - adicionado nova propriedade `form-common-columns`.
+- `QasTextTruncate`: adicionado prop `emptyText` para exibição no caso do `list` ou `text` não tiver valor.
+- `QasChartView`: adicionado novas propriedades `useBox` e `boxProps`.
+
+### Corrigido
+- `QasActions`: corrigido style que não deixava div 100% quando usado com a prop `useFullWidth`.
+- `QasNestedFields`: corrigido problemas de espaçamentos.
+- `QasFormGenerator`: corrigido div vazia quando não tinha fieldset.
+- `QasHeader`: corrigido problemas de layout.
+- `QasFilters`:
+  - Não exibir badge ao limpar um campo do filtro pelo backspace, exibia uma badge com valor vazio.
+  - Campo de input não ficar com foco após efetuar a busca ou limpar pelo filtro lateral.
+
+### Modificado
+- `QasDialog`:
+  - alterado espaçamento interno de `lg` para `md`.
+  - alterado titulo de h5 para h4 com componente `QasLabel`.
+  - alterado espaçamento bottom do título de `lg` para `md`.
+- [`QasFormGenerator`, `QasGridGenerator`]: alterado espaçamento gutter de `lg` para `md`.
+- `QasNestedFields`:
+  - modificado set scroll ao adicionado novas linhas, agora o scroll fica fixo na ultima linha adicionada.
+  - agora propriedade `actions-menu-props` só funciona junto da prop `:use-inline-actions="true"`.
+  - default do `formGutter` alterado de `lg` para `md`.
+- `QasGridGenerator`: comportamento do `useEllipsis` agora os campos do tipo `textarea` não serão afetados.
+
+## [3.17.0-beta.4] - 02-09-2024
+### Adicionado
+- `QasSelect`:
+  - Adicionado nova propriedade `useCustomOptions` para poder utilizar a opção personalizada com caption ou badge.
+  - Adicionado nova propriedade `badgeList` para conseguir controlar a badge a partir do retorno do backend.
+
+## [3.17.0-beta.3] - 02-09-2024
+### Adicionado
+- `QasGridGenerator`: adicionado novas propriedades `use-box`, `box-props` e `header-props`.
+
+## [3.17.0-beta.2] - 02-09-2024
+### Adicionado
+- `QasSelect`: Adicionado comportamento no qual é setado automaticamente caso o select for required e houver apenas uma opção.
+
+### Modificado
+- `QasFormGenerator`: Agora o fieldset implementa o componente `QasHeader`.
+- `QasHeader`: modificado espaçamento bottom padrão de `xl` para `md`.
+
+## [3.17.0-beta.1] - 22-08-2024
+### Adicionado
+- `QasFormGenerator`: Adicionado possibilidade de ter botão de ação por fieldset ao final dos fields.
+
+### Modificado
+- `QasTableGenerator`: modificado layout de espaçamentos e borda da tabela.
+- `QasSelectListDialog`: modificado para que os quando estiver usando dentro de uma box, não use o `qas-box`.
+- `QasSearchInput`: modificado para usar borda ao invés de `qas-box` quando estiver dentro de um box ou um dialog.
+
+## [3.17.0-beta.0] - 16-08-2024
+## BREAKING CHANGES
+
+- `A fazer`:
+  - Substituir todos `QToggle` por `QasToggle`.
+  - Substituir todos `QRadio` por `QasRadio`.
+  - Substituir todos `QasCheckboxGroup` por `QasCheckbox`.
+  - Substituir todos `QasHeaderActions` por `QasHeader`.
+  - Revisar todos os `QasHeaderActions/QasHeader` se atentando as mudanças principalmente referente aos slots e propriedade `alignColumns`.
+  - Atentar-se para prop `headerActionsProps` no componente `QasPageHeader`.
+  - Remover TODOS `QChip` de slot do `QasSelect`.
+  - Caso esteja usando `QChip` (fora do QasSelect) substituir o uso pelo `QasBadge` com a prop `removable`.
+  - Atentar-se para possíveis breaking changes nos inputs: `QasToggle`, `QasCheckbox`, e `QasRadio`, validar nos formulários dos produtos.
+  - Verificar todos os lugares que estão usando contadores no `QasTabsGenerator` se não estão tratando ele antes de passar.
+  - Verificar todos os lugares que utilizam `QasGridGenerator` para possíveis breaking changes de estilos.
+
+- `QasHeaderActions/QasHeader`:
+  - renomeado para `QasHeader`.
+  - alterado propriedade `text` para `description`.
+  - removido propriedade `alignColumns`.
+  - removido slots `right` e `left` em favor de utilizar novos slots.
+
+- `QasGridGenerator`:
+  - modificado tipografia;
+  - utilizando novo componente `QasGridItem`.
+
+- `QasInput`: adicionado contado no type`textarea`, então caso exista lugares com contadores de caracteres, é necessário remover para não duplicar.
+- `QasCheckboxGroup/QasCheckbox`: renomeado para `QasCheckbox`.
+- `QasPageHeader`: alterada propriedade `headerActionsProps` para `headerProps` para se adequar ao novo nome do componente `QasHeader`.
+- `QasTabsGenerator`: agora o contador implementa a função `decimal` do asteroid, então caso esteja tratando esse valor por fora, remover.
+
+### Adicionado
+- `QasRadio`: adicionado novo componente.
+- `QasToggle`: adicionado novo componente.
+- `QasGridItem`: adicionado novo componente.
+- `QasInfo`: adicionado novo componente.
+- `QasNestedFields`: adicionado nova propriedade `useBox`.
+- `QasBox`: adicionado novas propriedades `useSpacing`, `spacingX` e `spacingY`.
+- `QasInput`: adicionado novas propriedades `icon` e `iconRight` para não precisar abrir slots nestes casos.
+- `QasNumericInput`: adicionado novas propriedades `icon` e `iconRight` para não precisar abrir slots nestes casos.
+- `QasGridGenerator`: adicionado 2 novos slots, `content-field-[nome-da-chave]` e `header-field-[nome-da-chave]`.
+
+- `QasHeaderActions/QasHeader`:
+  - adicionado novas propriedades `labelProps` e `badges`.
+  - adicionado novos slots `actions`, `description` e `label`.
+
+- `QasFormGenerator`:
+  - adicionado recurso no fieldset para dividir colunas entre eles.
+  - adicionado novas propriedades `useBox` e `boxProps`.
+
+- `QasBadge`:
+  - adicionado propriedades para renderizar `QChip` (`removable`, `tabindex`, `modelValue`).
+  - adicionado eventos para renderizar `QChip` (`remove`, `update:modelValue`).
+
+### Modificado
+- `QasHeaderActions`: renomeado para `QasHeader`.
+- `QasChartView`: adequado ao componente `QasHeader`.
+- `QasSelect`: alterado layout.
+- `QasNestedFields`: alterado layout.
+- `QasInput`: alterado layout.
+- `QasSearchInput`: alterado layout.
+- `QasField`: alterações para layout e novos componentes.
+- `QasHeaderActions/QasHeader`: alterado propriedade `text` para `description`.
+- `QasTabsGenerator`: agora o contador implementa a função `decimal` do asteroid.
+- `QasBadge`: modificado altura minima de 24px para para 20px e espaçamento vertical de 4px para 2px.
+- `QasPageHeader`: alterado espaçamento do `bottom` de `lg` para `md`.
+- `QasGalleryCard`: adicionado componente `QasBox` e sempre adicionado estilo de "borda" quando estiver box dentro de box.
+- `QasCard`: adicionado componente `QasBox` e sempre adicionado estilo de "borda" quando estiver box dentro de box.
+
+- `QasGridGenerator`:
+  - modificado tipografia;
+  - utilizando novo componente `QasGridItem`.
+
+- adicionado placeholder padrão:
+  - `QasDatetimeInput`.
+  - `QasInput`.
+  - `QasNumericInput`.
+
+- `QasFilters`:
+  - alterado layout.
+  - utilizando `QasBadge` ao invés de `QChip`.
+
+- `QasCheckboxGroup/QasCheckbox`:
+  - renomeado para `QasCheckbox`.
+  - agora quando não é passado `options` o componente opera em modo "single".
+
+### Removido
+- `QasPageHeader`: alterada propriedade `headerActionsProps` para `headerProps` para se adequar ao novo nome do componente `QasHeader`.
+- `QasHeaderActions/QasHeader`:
+  - alterado propriedade `text` para `description`.
+  - removido propriedade `alignColumns`.
+  - removido slots `right` e `left` em favor de utilizar novos slots.
 
 ## [3.16.1] - 16-08-2024
 ### Corrigido
@@ -3071,7 +3676,41 @@ Adicionado suporte para Pinia/Vuex Seguindo os padrões da biblioteca `@bildvitt
 [3.16.0-beta.10]: https://github.com/bildvitta/asteroid/compare/v3.16.0-beta.9...v3.16.0-beta.10?expand=1
 [3.16.0]: https://github.com/bildvitta/asteroid/compare/v3.15.0...v3.16.0?expand=1
 [3.16.1-beta.0]: https://github.com/bildvitta/asteroid/compare/v3.16.0...v3.16.1-beta.0?expand=1
+[3.17.0-beta.0]: https://github.com/bildvitta/asteroid/compare/v3.16.1...v3.17.0-beta.0?expand=1
+[3.17.0-beta.1]: https://github.com/bildvitta/asteroid/compare/v3.17.0-beta.0...v3.17.0-beta.1?expand=1
+[3.17.0-beta.2]: https://github.com/bildvitta/asteroid/compare/v3.17.0-beta.1...v3.17.0-beta.2?expand=1
+[3.17.0-beta.3]: https://github.com/bildvitta/asteroid/compare/v3.17.0-beta.2...v3.17.0-beta.3?expand=1
+[3.17.0-beta.4]: https://github.com/bildvitta/asteroid/compare/v3.17.0-beta.3...v3.17.0-beta.4?expand=1
+[3.17.0-beta.5]: https://github.com/bildvitta/asteroid/compare/v3.17.0-beta.4...v3.17.0-beta.5?expand=1
+[3.17.0-beta.6]: https://github.com/bildvitta/asteroid/compare/v3.17.0-beta.5...v3.17.0-beta.6?expand=1
+[3.17.0-beta.7]: https://github.com/bildvitta/asteroid/compare/v3.17.0-beta.6...v3.17.0-beta.7?expand=1
+[3.17.0-beta.8]: https://github.com/bildvitta/asteroid/compare/v3.17.0-beta.7...v3.17.0-beta.8?expand=1
+[3.17.0-beta.9]: https://github.com/bildvitta/asteroid/compare/v3.17.0-beta.8...v3.17.0-beta.9?expand=1
+[3.17.0-beta.10]: https://github.com/bildvitta/asteroid/compare/v3.17.0-beta.9...v3.17.0-beta.10?expand=1
+[3.17.0-beta.11]: https://github.com/bildvitta/asteroid/compare/v3.17.0-beta.10...v3.17.0-beta.11?expand=1
+[3.17.0-beta.12]: https://github.com/bildvitta/asteroid/compare/v3.17.0-beta.11...v3.17.0-beta.12?expand=1
+[3.17.0-beta.13]: https://github.com/bildvitta/asteroid/compare/v3.17.0-beta.12...v3.17.0-beta.13?expand=1
+[3.17.0-beta.14]: https://github.com/bildvitta/asteroid/compare/v3.17.0-beta.13...v3.17.0-beta.14?expand=1
 [3.16.1]: https://github.com/bildvitta/asteroid/compare/v3.16.0...v3.16.1?expand=1
 [3.16.2]: https://github.com/bildvitta/asteroid/compare/v3.16.1...v3.16.2?expand=1
+[3.17.0-beta.15]: https://github.com/bildvitta/asteroid/compare/v3.16.2...v3.17.0-beta.15?expand=1
+[3.17.0-beta.16]: https://github.com/bildvitta/asteroid/compare/v3.17.0-beta.15...v3.17.0-beta.16?expand=1
+[3.17.0-beta.17]: https://github.com/bildvitta/asteroid/compare/v3.17.0-beta.16...v3.17.0-beta.17?expand=1
+[3.17.0-beta.18]: https://github.com/bildvitta/asteroid/compare/v3.17.0-beta.17...v3.17.0-beta.18?expand=1
+[3.17.0-beta.19]: https://github.com/bildvitta/asteroid/compare/v3.17.0-beta.18...v3.17.0-beta.19?expand=1
+[3.17.0-beta.20]: https://github.com/bildvitta/asteroid/compare/v3.17.0-beta.19...v3.17.0-beta.20?expand=1
+[3.17.0-beta.21]: https://github.com/bildvitta/asteroid/compare/v3.17.0-beta.20...v3.17.0-beta.21?expand=1
+[3.17.0-beta.22]: https://github.com/bildvitta/asteroid/compare/v3.17.0-beta.21...v3.17.0-beta.22?expand=1
+[3.17.0-beta.23]: https://github.com/bildvitta/asteroid/compare/v3.17.0-beta.22...v3.17.0-beta.23?expand=1
+[3.17.0-beta.24]: https://github.com/bildvitta/asteroid/compare/v3.17.0-beta.23...v3.17.0-beta.24?expand=1
+[3.17.0-beta.25]: https://github.com/bildvitta/asteroid/compare/v3.17.0-beta.24...v3.17.0-beta.25?expand=1
+[3.17.0-beta.26]: https://github.com/bildvitta/asteroid/compare/v3.17.0-beta.25...v3.17.0-beta.26?expand=1
+[3.17.0-beta.27]: https://github.com/bildvitta/asteroid/compare/v3.17.0-beta.27-alpha.0...v3.17.0-beta.27?expand=1
+[3.17.0-beta.28]: https://github.com/bildvitta/asteroid/compare/v3.17.0-beta.27...v3.17.0-beta.28?expand=1
+[3.16.3]: https://github.com/bildvitta/asteroid/compare/v3.16.2...v3.16.3?expand=1
+[3.17.0-beta.29]: https://github.com/bildvitta/asteroid/compare/v3.16.3...v3.17.0-beta.29?expand=1
 [3.16.3]: https://github.com/bildvitta/asteroid/compare/v3.16.2...v3.16.3?expand=1
 [3.16.4]: https://github.com/bildvitta/asteroid/compare/v3.16.3...v3.16.4?expand=1
+[3.17.0-beta.30]: https://github.com/bildvitta/asteroid/compare/v3.16.4...v3.17.0-beta.30?expand=1
+[3.17.0-beta.31]: https://github.com/bildvitta/asteroid/compare/v3.17.0-beta.30...v3.17.0-beta.31?expand=1
+[3.17.0-beta.32]: https://github.com/bildvitta/asteroid/compare/v3.17.0-beta.31...v3.17.0-beta.32?expand=1

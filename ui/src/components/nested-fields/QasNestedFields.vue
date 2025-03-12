@@ -1,61 +1,60 @@
 <template>
   <div :id="fieldName" class="qas-nested-fields" :data-cy="`nested-fields-${fieldName}`">
-    <div v-if="useSingleLabel" class="text-left">
-      <qas-label :label="fieldLabel" typography="h5" />
-    </div>
+    <component :is="containerComponent">
+      <div v-if="useSingleLabel" class="text-left">
+        <qas-label :label="fieldLabel" />
+      </div>
 
-    <div ref="inputContent">
-      <component :is="componentTag" v-bind="componentProps">
-        <template v-for="(row, index) in nested" :key="`row-${index}`">
-          <div v-if="!row[destroyKey]" :id="`row-${index}`" class="full-width qas-nested-fields__field-item" data-cy="nested-fields-item">
-            <header v-if="hasHeader" class="flex items-center q-pb-md" :class="headerClasses">
-              <qas-label v-if="!useSingleLabel" :label="getRowLabel(index)" margin="none" typography="h5" />
-              <qas-actions-menu v-if="hasBlockActions(row)" v-bind="getActionsMenuProps(index, row)" />
-            </header>
+      <div ref="inputContent">
+        <component :is="componentTag" v-bind="componentProps">
+          <template v-for="(row, index) in nested" :key="`row-${index}`">
+            <div v-if="!row[destroyKey]" :id="`row-${index}`" class="full-width qas-nested-fields__field-item" data-cy="nested-fields-item">
+              <qas-header v-if="hasHeader({ row })" class="flex" v-bind="getHeaderProps({ index, row })" />
 
-            <slot :errors="transformedErrors" :fields="getFields(index, row)" :index="index" :model="nested[index]" name="before-fields" :update-value="updateValuesFromInput" />
+              <slot :errors="transformedErrors" :fields="getFields(index, row)" :index="index" :model="nested[index]" name="before-fields" :update-value="updateValuesFromInput" />
 
-            <div ref="formGenerator" class="col-12 justify-between q-col-gutter-x-md row">
-              <slot :errors="transformedErrors" :fields="getFields(index, row)" :index="index" name="fields" :update-value="updateValuesFromInput">
-                <qas-form-generator v-model="nested[index]" class="col" :columns="formColumns" :disable="isDisabledRow(row)" :errors="transformedErrors[index]" :fields="getFields(index, row)" :fields-props="getFieldsProps(index, row)" :gutter="formGutter" @update:model-value="updateValuesFromInput($event, index)">
-                  <template v-for="(slot, key) in $slots" #[key]="scope">
-                    <slot v-bind="scope" :disabled="isDisabledRow(row)" :errors="transformedErrors" :index="index" :name="key" />
-                  </template>
-                </qas-form-generator>
-              </slot>
+              <div ref="formGenerator" :class="formGeneratorParentClasses">
+                <slot :errors="transformedErrors" :fields="getFields(index, row)" :index="index" name="fields" :update-value="updateValuesFromInput">
+                  <qas-form-generator v-model="nested[index]" class="col" :columns="formColumns" :common-columns="formCommonColumns" :disable="isDisabledRow(row)" :errors="transformedErrors[index]" :fields="getFields(index, row)" :fields-props="getFieldsProps(index, row)" :gutter="formGutter" @update:model-value="updateValuesFromInput($event, index)">
+                    <template v-for="(slot, key) in $slots" #[key]="scope">
+                      <slot v-bind="scope" :disabled="isDisabledRow(row)" :errors="transformedErrors" :index="index" :name="key" />
+                    </template>
+                  </qas-form-generator>
+                </slot>
 
-              <div v-if="hasInlineActions(row)" class="flex items-center qas-nested-fields__actions">
-                <qas-actions-menu v-bind="getActionsMenuProps(index, row)" />
+                <div v-if="hasInlineActions(row)" class="flex items-center qas-nested-fields__actions">
+                  <qas-actions-menu v-bind="getInlineActionsMenuProps(index, row)" :use-label="false" />
+                </div>
+              </div>
+
+              <slot :errors="transformedErrors" :fields="getFields(index, row)" :index="index" :model="nested[index]" name="after-fields" :update-value="updateValuesFromInput" />
+            </div>
+          </template>
+        </component>
+
+        <div v-if="useAdd" :class="addButtonClass">
+          <slot :add="add" name="add-input">
+            <div v-if="showAddFirstInputButton" class="text-left">
+              <qas-btn class="q-px-sm" color="primary" data-cy="nested-fields-add-btn" :label="addFirstInputLabel" variant="tertiary" @click="add()" />
+            </div>
+
+            <div v-else-if="useInlineActions" class="cursor-pointer items-center q-col-gutter-x-md q-mt-md row" data-cy="nested-fields-add-btn" @click="add()">
+              <div class="col">
+                <qas-input class="disabled no-pointer-events" hide-bottom-space :label="addInputLabel" @focus="add()" />
+              </div>
+
+              <div class="col-auto">
+                <qas-btn color="primary" icon="sym_r_add_circle_outline" variant="tertiary" />
               </div>
             </div>
 
-            <slot :errors="transformedErrors" :fields="getFields(index, row)" :index="index" :model="nested[index]" name="after-fields" :update-value="updateValuesFromInput" />
-          </div>
-        </template>
-      </component>
-
-      <div v-if="useAdd">
-        <slot :add="add" name="add-input">
-          <div v-if="showAddFirstInputButton" class="text-left">
-            <qas-btn class="q-px-sm" color="primary" data-cy="nested-fields-add-btn" :label="addFirstInputLabel" variant="tertiary" @click="add()" />
-          </div>
-
-          <div v-else-if="useInlineActions" class="cursor-pointer items-center q-col-gutter-x-md q-mt-md row" data-cy="nested-fields-add-btn" @click="add()">
-            <div class="col">
-              <qas-input class="disabled no-pointer-events" hide-bottom-space :label="addInputLabel" outlined @focus="add()" />
+            <div v-else class="text-left">
+              <qas-btn class="q-px-sm" color="primary" data-cy="nested-fields-add-btn" icon="sym_r_add" :label="addInputLabel" variant="tertiary" @click="add()" />
             </div>
-
-            <div class="col-auto">
-              <qas-btn color="primary" icon="sym_r_add_circle_outline" variant="tertiary" />
-            </div>
-          </div>
-
-          <div v-else class="text-left">
-            <qas-btn class="q-px-sm" color="primary" data-cy="nested-fields-add-btn" icon="sym_r_add" :label="addInputLabel" variant="tertiary" @click="add()" />
-          </div>
-        </slot>
+          </slot>
+        </div>
       </div>
-    </div>
+    </component>
   </div>
 </template>
 
@@ -67,7 +66,7 @@ import QasInput from '../input/QasInput.vue'
 import QasLabel from '../label/QasLabel.vue'
 
 import { constructObject } from '../../helpers'
-import { Spacing } from '../../enums/Spacing'
+import { Spacing, SpacingWithNumber } from '../../enums/Spacing'
 
 import { TransitionGroup } from 'vue'
 import debug from 'debug'
@@ -164,10 +163,20 @@ export default {
       default: () => []
     },
 
+    formCommonColumns: {
+      type: [Object, String],
+      default: () => ({})
+    },
+
     formGutter: {
-      default: Spacing.Lg,
+      default: Spacing.Md,
       type: [String, Boolean],
       validator: value => typeof value === 'boolean' || Object.values(Spacing).includes(value)
+    },
+
+    headerProps: {
+      type: Function,
+      default: () => {}
     },
 
     identifierItemKey: {
@@ -193,6 +202,10 @@ export default {
     useAnimation: {
       type: Boolean,
       default: true
+    },
+
+    useBox: {
+      type: Boolean
     },
 
     useDestroyAlways: {
@@ -252,6 +265,10 @@ export default {
       return this.field?.children
     },
 
+    containerComponent () {
+      return this.useBox ? 'qas-box' : 'div'
+    },
+
     componentTag () {
       return this.useAnimation ? 'transition-group' : 'div'
     },
@@ -285,15 +302,14 @@ export default {
       return this.useFirstInputButton && !this.nested.length
     },
 
-    hasHeader () {
-      return (this.useSingleLabel && !this.useInlineActions) || !this.useSingleLabel
+    addButtonClass () {
+      return {
+        'q-mt-md': !!this.nested.length
+      }
     },
 
-    headerClasses () {
-      return {
-        'justify-end': this.useSingleLabel,
-        'justify-between': !this.useSingleLabel
-      }
+    formGeneratorParentClasses () {
+      return this.useInlineActions ? 'col-12 justify-between q-col-gutter-x-md row' : 'full-width'
     }
   },
 
@@ -322,8 +338,8 @@ export default {
   },
 
   methods: {
-    getActionsMenuProps (index, row) {
-      if (typeof this.actionsMenuProps === 'function') {
+    getInlineActionsMenuProps (index, row) {
+      if (typeof this.actionsMenuProps === 'function' && this.useInlineActions) {
         return this.actionsMenuProps({
           index,
           row,
@@ -333,7 +349,7 @@ export default {
 
       return {
         ...this.actionsMenuProps,
-        list: this.getActionsMenuList(index, row)
+        list: this.getActionsMenuList(index, row, this.actionsMenuProps?.list)
       }
     },
 
@@ -357,11 +373,11 @@ export default {
       return list
     },
 
-    getActionsMenuList (index, row) {
+    getActionsMenuList (index, row, defaultList = {}) {
       const list = this.getDefaultActionsMenuList(index, row)
 
-      for (const key in this.actionsMenuProps.list) {
-        const { handler, ...content } = this.actionsMenuProps.list[key] || {}
+      for (const key in defaultList) {
+        const { handler, ...content } = defaultList[key] || {}
 
         list[key] = {
           handler: payload => handler?.({ payload, row, index }),
@@ -445,14 +461,32 @@ export default {
 
     setScroll () {
       const elements = this.$refs.inputContent.children
-      const element = elements[elements.length - 1]
-      const { top } = element.getBoundingClientRect()
-      const pageOffset = window.pageYOffset
 
-      window.scrollTo({
-        behavior: 'smooth',
-        top: pageOffset + top
-      })
+      // elemento de ação, e não das linhas (rows) de inputs
+      const element = elements[elements.length - 1]
+
+      // ultima linha (rows) de inputs
+      const rowsElement = elements[0]?.children
+
+      // pegamos a posição do elemento de ação
+      const { top } = element.getBoundingClientRect()
+
+      // pegamos a altura da ultima linha (rows) de inputs
+      const lastRowHeight = rowsElement?.[rowsElement.length - 1]?.clientHeight
+
+      // pegamos a posição da página
+      const pageOffset = window.scrollY
+
+      // 56 é a altura do header no mobile
+      const safeScrollSize = this.$qas.screen.isSmall ? 56 + SpacingWithNumber.Lg : SpacingWithNumber.Lg
+
+      /**
+       * É necessário descontar a altura da última linha (rows) de inputs para que o scroll
+       * fique no final da última linha (rows) de inputs.
+       */
+      const scrollTop = pageOffset + top - (lastRowHeight + safeScrollSize)
+
+      window.scrollTo({ behavior: 'smooth', top: scrollTop })
     },
 
     async setFocus () {
@@ -496,6 +530,41 @@ export default {
 
     hasInlineActions (row) {
       return this.useInlineActions && !this.isDisabledRow(row)
+    },
+
+    hasHeader ({ row }) {
+      return this.hasBlockActions(row) || !this.useSingleLabel
+    },
+
+    getHeaderProps ({ index, row }) {
+      const hasLabel = !this.useSingleLabel
+      const hasActions = this.hasBlockActions(row)
+
+      const { labelProps, actionsMenuProps, ...payload } = this.headerProps?.({ index, row }) || {}
+
+      return {
+        ...payload,
+
+        spacing: 'sm',
+
+        ...(hasActions && {
+          actionsMenuProps: {
+            useLabel: false,
+
+            ...actionsMenuProps,
+
+            list: this.getActionsMenuList(index, row, actionsMenuProps?.list)
+          }
+        }),
+
+        ...(hasLabel && {
+          labelProps: {
+            typography: 'h5',
+            label: this.getRowLabel(index),
+            ...labelProps
+          }
+        })
+      }
     }
   }
 }
@@ -503,16 +572,13 @@ export default {
 
 <style lang="scss">
 .qas-nested-fields {
+  // mesmo tamanho do input
   &__actions {
-    height: 56px;
-  }
-
-  &__field-item {
-    margin-bottom: var(--qas-spacing-md);
+    height: 40px;
   }
 
   &__field-item + &__field-item {
-    margin-top: var(--qas-spacing-xl);
+    margin-top: var(--qas-spacing-lg);
   }
 }
 </style>

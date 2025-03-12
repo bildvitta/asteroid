@@ -1,33 +1,25 @@
 <template>
-  <qas-header-actions v-if="hasHeaderActions" align-columns="end">
-    <template #left>
-      <h3 v-if="title" class="text-h3">
-        {{ title }}
-      </h3>
+  <component :is="parentComponent.is" v-bind="parentComponent.props">
+    <qas-header v-if="hasHeader" v-bind="headerProps">
+      <template #right>
+        <qas-filters v-bind="chartFiltersProps" />
+      </template>
+    </qas-header>
 
-      <div v-if="subtitle" class="text-body1 text-grey-8">
-        {{ subtitle }}
+    <div v-bind="parentComponentProps">
+      <component :is="chartComponent.is" v-if="showChart" v-bind="chartComponent.props" />
+
+      <div v-else-if="!isFetching">
+        <slot name="empty-results">
+          <qas-empty-result-text />
+        </slot>
       </div>
-    </template>
 
-    <template #right>
-      <qas-filters v-bind="chartFiltersProps" />
-    </template>
-  </qas-header-actions>
-
-  <div v-bind="parentComponentProps">
-    <component :is="chartComponent.is" v-if="showChart" v-bind="chartComponent.props" />
-
-    <div v-else-if="!isFetching">
-      <slot name="empty-results">
-        <qas-empty-result-text />
-      </slot>
+      <q-inner-loading :showing="isFetching">
+        <q-spinner color="grey" size="3em" />
+      </q-inner-loading>
     </div>
-
-    <q-inner-loading :showing="isFetching">
-      <q-spinner color="grey" size="3em" />
-    </q-inner-loading>
-  </div>
+  </component>
 </template>
 
 <script>
@@ -54,8 +46,9 @@ import zoomPlugin from 'chartjs-plugin-zoom'
 import chartDataLabels from 'chartjs-plugin-datalabels'
 
 // Outras importações
-import { extend } from 'quasar'
 import { filterListByHandle } from '../../helpers'
+
+import { extend, is } from 'quasar'
 import { getAction } from '@bildvitta/store-adapter'
 
 const ChartTypes = {
@@ -77,6 +70,11 @@ export default {
     beforeFetch: {
       default: null,
       type: Function
+    },
+
+    boxProps: {
+      default: () => ({}),
+      type: Object
     },
 
     colorsList: {
@@ -132,6 +130,16 @@ export default {
     url: {
       default: '',
       type: String
+    },
+
+    urlQueryList: {
+      default: () => (['company']),
+      type: Array
+    },
+
+    useBox: {
+      type: Boolean,
+      default: true
     },
 
     useFilterButton: {
@@ -261,9 +269,11 @@ export default {
     },
 
     parentComponentProps () {
+      const hasMinHeight = this.isFetching || this.hasDataSets
+
       return {
         class: 'relative-position',
-        style: `min-height: ${this.height}`
+        style: `min-height: ${hasMinHeight ? this.height : 'auto'}`
       }
     },
 
@@ -271,7 +281,7 @@ export default {
       return !!this.chartData?.datasets.filter(dataset => dataset.data.length)?.length
     },
 
-    hasHeaderActions () {
+    hasHeader () {
       return this.title || this.subtitle || this.useFilterButton
     },
 
@@ -308,6 +318,30 @@ export default {
         doughnut: [ArcElement],
         line: [LineElement]
       }
+    },
+
+    headerProps () {
+      return {
+        alignColumns: 'end',
+        description: this.subtitle,
+        labelProps: {
+          label: this.title
+        }
+      }
+    },
+
+    parentComponent () {
+      return {
+        is: this.useBox ? 'qas-box' : 'div',
+
+        props: {
+          ...(this.useBox && { ...this.boxProps })
+        }
+      }
+    },
+
+    queryFromURL () {
+      return this.getQueryFromURL(this.$route.query)
     }
   },
 
@@ -318,6 +352,10 @@ export default {
 
     isFetching (value) {
       this.$emit('update:fetching', value)
+    },
+
+    $route (to, from) {
+      this.onRouteChange(to, from)
     }
   },
 
@@ -333,9 +371,10 @@ export default {
   methods: {
     handleFetchData () {
       const hasBeforeFetch = typeof this.beforeFetch === 'function'
+
       const payload = {
         url: this.url,
-        filters: this.filters
+        filters: { ...this.filters, ...this.queryFromURL }
       }
 
       if (hasBeforeFetch && !this.cancelBeforeFetch) {
@@ -411,6 +450,44 @@ export default {
         ...this.defaultChartItems,
         ...this.elementsChartItems[this.type]
       )
+    },
+
+    onRouteChange (to, from) {
+      const { query } = to
+
+      const isSameRoute = to.name === from.name
+      const hasQueryInURLQueryList = this.urlQueryList.some(urlQuery => query[urlQuery])
+
+      /**
+       * feito com função para evitar um deepEqual desnecessário, uma vez que
+       * caso "isSameRoute" seja falso, ou "hasQueryInURLQueryList" seja falso,
+       * não é necessário fazer a comparação.
+       */
+      const hasQueryChanged = () => !is.deepEqual(this.queryFromURL, this.getQueryFromURL(from.query))
+
+      /**
+       * Verifica se a rota atual é a mesma, se há uma query na URL que corresponde à queryList,
+       * e se a query correspondente à queryList foi alterada. Se todas essas condições forem
+       * verdadeiras, faz a requisição de dados.
+       */
+      if (isSameRoute && hasQueryInURLQueryList && hasQueryChanged()) this.handleFetchData()
+    },
+
+    /**
+     * "urlQueryList" é uma lista de query que o componente deve pegar da URL.
+     */
+    getQueryFromURL (query = {}) {
+      const newQuery = {}
+
+      this.urlQueryList.forEach(urlQuery => {
+        const queryValue = query[urlQuery]
+
+        if (queryValue) {
+          newQuery[urlQuery] = queryValue
+        }
+      })
+
+      return newQuery
     }
   }
 }

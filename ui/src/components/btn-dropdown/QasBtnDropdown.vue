@@ -19,7 +19,7 @@
     </div>
 
     <div v-if="props.useSplit">
-      <qas-btn color="grey-10" :disable="disable" :icon="props.dropdownIcon" variant="tertiary">
+      <qas-btn v-bind="splittedButtonProps">
         <q-menu v-if="hasDefaultSlot" anchor="bottom right" auto-close self="top right">
           <div :class="classes.menuContent">
             <slot />
@@ -102,6 +102,19 @@ const isSingleButton = computed(() => buttonsPropsListSize.value === 1)
 const hasButtons = computed(() => !screen.isSmall || !props.useSplit)
 const hasDefaultSlot = computed(() => !!slots.default)
 const hasMenuOnLeftSide = computed(() => hasDefaultSlot.value && !props.useSplit && isSingleButton.value)
+
+const splittedButtonProps = computed(() => {
+  const iconKey = screen.isSmall ? 'icon' : 'iconRight'
+
+  return {
+    color: 'grey-10',
+    disable: props.disable,
+    [iconKey]: props.dropdownIcon,
+    variant: 'tertiary',
+    label: 'Opções',
+    useLabelOnSmallScreen: false
+  }
+})
 
 watch(() => props.menu, value => {
   isMenuOpened.value = value

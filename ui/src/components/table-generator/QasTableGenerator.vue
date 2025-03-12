@@ -1,6 +1,10 @@
 <template>
-  <component :is="parentComponent.is" v-bind="parentComponent.props">
-    <q-table ref="table" class="bg-white qas-table-generator text-grey-8" v-bind="attributes">
+  <component :is="parentComponent.is">
+    <slot name="parent-header">
+      <qas-header v-if="hasHeaderProps" v-bind="headerProps" />
+    </slot>
+
+    <q-table v-show="hasResults" ref="table" class="bg-white qas-table-generator text-grey-8" v-bind="attributes">
       <template v-for="(_, name) in slots" #[name]="context">
         <slot :name="name" v-bind="context" />
       </template>
@@ -15,6 +19,8 @@
         </q-td>
       </template>
     </q-table>
+
+    <qas-empty-result-text v-if="!hasResults" />
   </component>
 </template>
 
@@ -39,6 +45,11 @@ export default {
     fields: {
       default: () => ({}),
       type: [Array, Object]
+    },
+
+    headerProps: {
+      default: () => ({}),
+      type: Object
     },
 
     results: {
@@ -121,8 +132,15 @@ export default {
       return !!this.$slots['body-cell']
     },
 
+    hasResults () {
+      return !!this.resultsByFields.length
+    },
+
     attributes () {
       const attributes = {
+        tableClass: {
+          'overflow-hidden-y': !this.useStickyHeader
+        },
         class: this.tableClass,
         columns: this.columnsByFields,
         flat: true,
@@ -226,11 +244,12 @@ export default {
 
     parentComponent () {
       return {
-        is: this.useBox ? 'qas-box' : 'div',
-        props: {
-          class: this.useBox ? 'q-px-lg q-py-md' : ''
-        }
+        is: this.useBox ? 'qas-box' : 'div'
       }
+    },
+
+    hasHeaderProps () {
+      return !!Object.keys(this.headerProps).length
     }
   },
 
@@ -323,8 +342,15 @@ export default {
 <style lang="scss">
 .qas-table-generator {
   .q-table {
+    thead tr {
+      height: 24px;
+    }
+
     th {
       @include set-typography($subtitle1);
+
+      border: 0 !important;
+      padding: 0 calc(var(--qas-spacing-lg) / 2);
     }
 
     td,
@@ -337,6 +363,10 @@ export default {
     td {
       @include set-typography($body1);
 
+      height: 40px;
+      padding-left: calc(var(--qas-spacing-lg) / 2);
+      padding-right: calc(var(--qas-spacing-lg) / 2);
+
       &:before {
         transition: background-color var(--qas-generic-transition);
       }
@@ -347,6 +377,10 @@ export default {
         td:before {
           background-color: var(--qas-background-color);
         }
+      }
+
+      &:last-child td {
+        padding-bottom: 0;
       }
     }
 

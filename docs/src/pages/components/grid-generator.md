@@ -15,11 +15,18 @@ Caso os breakpoints dos campos sejam todos iguais, exemplo:
 :::
 
 :::info
-Ao utilizar a prop `useInline`, o gutter passa a ter o valor `md`.
+- Ao utilizar a prop `useInline`, o gutter passa a ter o valor `md`.
+- Ao abrir slots `field-[nome-da-chave]` tente utilizar o componente `QasGridItem`.
+:::
+
+:::info
+Ao utilizar a prop `useEllipsis` não irá afetar campos textarea, pois campos com esse tipo deverão sempre serem exibidos
+por completo.
 :::
 
 ## Uso
 <doc-example file="QasGridGenerator/Basic" title="Básico" />
+<doc-example file="QasGridGenerator/BoxAndHeader" title="Box e header" />
 <doc-example file="QasGridGenerator/ExGridCommonColumns" title="Common Columns" />
 <doc-example file="QasGridGenerator/Slots" title="Slots" />
 <doc-example file="QasGridGenerator/UseInline" title="Inline" />

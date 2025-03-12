@@ -4,9 +4,19 @@ meta:
   desc: Componente para listagem.
 
 props:
+  description-key:
+    desc: Chave para acessar a descrição do item.
+    default: description
+    type: String
+
   icon:
     desc: Nome do ícone
     default: sym_r_chevron_right
+    type: String
+
+  label-key:
+    desc: Chave para acessar o label do item.
+    default: label
     type: String
 
   list:

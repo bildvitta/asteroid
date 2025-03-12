@@ -74,11 +74,33 @@ props:
     type: [Array, String, Object]
     examples: ["[{ sm: 6, md: 12 }]", "{ name: { sm: 6, md: 12 } }", "12"]
 
+  form-common-columns:
+    desc: Colunas do grid comuns.
+    default: {}
+    type: [String, Object]
+    examples: ["{ col: 12, sm: 6}" , "12"]
+
   form-gutter:
     desc: Espaçamento entre colunas do formulário.
     default: lg
     type: [String, Boolean]
     examples: [xs, sm, md, lg, xl, 2xl, 3xl, 4xl, 5xl, false]
+
+  header-props:
+    desc: Propriedades do header do nested por linha por callback.
+    default: () => {}
+    type: Function
+    params:
+      context:
+        desc: Payload da linha (row) -> index/row.
+        type: Object
+        params:
+          index:
+            desc: Índice da linha.
+            type: Number
+          row:
+            desc: Valores contendo na linha atual.
+            type: Object
 
   identifier-item-key:
     desc: Define um identificador para o item. O identificador será utilizado para validar exclusão do item, por exemplo.
@@ -111,6 +133,11 @@ props:
   use-animation:
     desc: Controla a animação na hora de setar o scroll.
     default: true
+    type: Boolean
+
+  use-box:
+    desc: Controla o QasBox.
+    default: false
     type: Boolean
 
   use-destroy-always:
@@ -245,6 +272,7 @@ slots:
         desc: Função para atualizar o model, passando o novo valor e o index.
         type: Function
         examples: ["updateValue({ name: 'novo valor' }, 2)"]
+
 
 events:
   '@update:model-value -> function (value)':

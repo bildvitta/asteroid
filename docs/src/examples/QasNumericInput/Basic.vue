@@ -1,7 +1,7 @@
 <template>
   <div class="container spaced">
     <div>
-      <qas-numeric-input v-model="integer" label="integer" />
+      <qas-numeric-input v-model="integer" icon-right="sym_r_person" label="integer" />
       integer: {{ integer }}
     </div>
     <div class="q-my-lg">
