@@ -41,6 +41,7 @@ import { baseProps } from '../../shared/badge-config'
 
 import {
   computed,
+  nextTick,
   onMounted,
   onUnmounted,
   ref,
@@ -225,7 +226,9 @@ function useTruncate ({ parent, props, hasBadges }) {
   watch(() => props.maxWidth, truncateText)
 
   // functions
-  function truncateText () {
+  async function truncateText () {
+    await nextTick()
+
     // Se tiver badges, então não pode ser feito calculo de width.
     if (hasBadges.value) return
 
