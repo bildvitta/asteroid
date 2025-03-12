@@ -1,10 +1,10 @@
 <template>
   <q-input ref="input" v-model="model" :autogrow="isTextarea" bottom-slots :class="classes" :counter="hasCounter" :dense="dense" :error="errorData" v-bind="$attrs" :error-message="errorMessage" :inputmode="defaultInputmode" :label="formattedLabel" :mask="currentMask" no-error-icon :outlined="outlined" :placeholder="placeholder" :unmasked-value="unmaskedValue" @paste="onPaste">
-    <template v-if="icon" #append>
+    <template v-if="icon" #prepend>
       <q-icon :name="icon" size="xs" />
     </template>
 
-    <template v-if="iconRight" #prepend>
+    <template v-if="iconRight" #append>
       <q-icon :name="iconRight" size="xs" />
     </template>
 
@@ -163,7 +163,7 @@ export default {
     },
 
     hasPrepend () {
-      return !!this.$slots.prepend || this.iconRight
+      return !!this.$slots.prepend || this.icon
     }
   },
 

@@ -10,6 +10,32 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 ### Sobre os "BREAKING CHANGES"
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
+## Não publicado
+## BREAKING CHANGE
+- `QasInput`: alterado ordem da prop `iconRight` que estava adicionando na esquerda e não na direita, verificar lugares.
+- Alterar `quasar.variables.scss`, nova cor do `$negative` sendo `$red-14`.
+
+### Adicionado
+- `QasErrorMessage`: adicionado novo componente para mostrar mensagem de erros de forma padronizada.
+- `QasRadio`: adicionado propriedades `error` e `errorMessage` em conjunto do componente `QasErrorMessage`.
+- `css/mixins/set-error-message`: mixin para aplicar os estilos diretamente no css.
+
+### Corrigido
+- `QasInput`: alterado ordem da prop `iconRight` que estava adicionando na esquerda e não na direita.
+
+### Modificado
+- `QasSelect`: ignorando propriedade `useChips` que vem através de `$attrs`.
+- `QasBadge`: alterado tipografia para `text-body2`.
+- `QasExpansionItem`: alterado borda para 1px.
+- [`QasInput`, `QasSelect`, `QasSearchInput`]:
+  - mudança de design quando com erro.
+  - mudança de design no hover.
+  - mudança de mensagem de erro utilizando o mixin `set-message-error`.
+- alterado mensagem de erro para o componente `QasErrorMessage`:
+  - QasExpansionItem
+  - QasUploader
+  - QasCheckbox
+
 ## [3.17.0] - 12-03-2025
 ## BREAKING CHANGES
 - `A fazer`:

@@ -148,6 +148,10 @@ module.exports = [
         path: '/components/empty-result-text'
       },
       {
+        name: 'ErrorMessage',
+        path: '/components/error-message'
+      },
+      {
         name: 'ExpansionItem',
         path: '/components/expansion-item'
       },
@@ -527,6 +531,10 @@ module.exports = [
       {
         name: 'set-button',
         path: '/styles/set-button'
+      },
+      {
+        name: 'set-error-message',
+        path: '/styles/set-error-message'
       },
       {
         name: 'set-typography',

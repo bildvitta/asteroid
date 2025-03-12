@@ -7,7 +7,7 @@
 
     <!-- Group -->
     <div v-else>
-      <div v-if="hasCheckboxLabel" class="q-mb-sm text-body1" :class="checkboxLabelClasses">
+      <div v-if="props.label" class="q-mb-sm text-body1" :class="labelClasses">
         {{ formattedLabel }}
       </div>
 
@@ -25,14 +25,14 @@
       </div>
     </div>
 
-    <div v-if="props.errorMessage" class="q-pt-sm qas-checkbox__error-message text-negative">
-      {{ props.errorMessage }}
-    </div>
+    <qas-error-message v-if="props.errorMessage" :message="props.errorMessage" />
   </div>
 </template>
 
 <script setup>
+import useErrorMessage, { baseErrorProps } from '../../composables/private/use-error-message'
 import { getRequiredLabel } from '../../helpers'
+
 import { watch, computed, ref, onMounted, useAttrs } from 'vue'
 
 defineOptions({
@@ -41,6 +41,8 @@ defineOptions({
 })
 
 const props = defineProps({
+  ...baseErrorProps,
+
   label: {
     default: '',
     type: String
@@ -61,34 +63,28 @@ const props = defineProps({
     type: Boolean
   },
 
-  errorMessage: {
-    type: String,
-    default: ''
-  },
-
-  error: {
-    type: Boolean
-  },
-
   required: {
     type: Boolean
   }
 })
 
+// emits
 const emit = defineEmits(['update:modelValue'])
 
+// globals
 const attrs = useAttrs()
+
+// composables
+const { labelClasses } = useErrorMessage(props)
 
 // refs
 const group = ref({})
 
-// lifecycle
+// hooks
 onMounted(handleParent)
 
 // computed
 const classes = computed(() => props.inline && 'flex q-gutter-x-sm')
-
-const hasCheckboxLabel = computed(() => !!props.label)
 
 const model = computed({
   get () {
@@ -108,10 +104,6 @@ const singleAttributes = computed(() => {
 
     label: props.label
   }
-})
-
-const checkboxLabelClasses = computed(() => {
-  return { 'text-negative': props.error }
 })
 
 const formattedLabel = computed(() => {
@@ -174,12 +166,3 @@ function getModelValue (index) {
   return group.value[index]
 }
 </script>
-
-<style lang="scss">
-.qas-checkbox {
-  &__error-message {
-    // Tamanho da fonte utilizada nos errors no q-field.
-    font-size: 11px;
-  }
-}
-</style>

@@ -4,10 +4,16 @@
       <qas-select v-model="model" v-bind="selectProps" use-filter-mode />
     </div>
 
+    <div class="q-mb-lg">
+      <qas-select v-model="model" error error-message="Mensagem de erro" v-bind="selectProps" use-filter-mode />
+    </div>
+
     <qas-box class="q-mb-lg">
       <qas-label label="Dentro de box" />
 
       <qas-select v-model="model" v-bind="selectProps" use-filter-mode />
+
+      <qas-select v-model="model" class="q-mt-lg" error error-message="Mensagem de erro" v-bind="selectProps" use-filter-mode />
     </qas-box>
 
     <div>

@@ -16,9 +16,11 @@ const uploaderProps = {
 
   error: true,
 
-  errorMessage: 'Erro de validação',
+  errorMessage: 'Campo obrigatório.',
 
   addButtonLabel: 'Botão de adicionar',
+
+  multiple: true,
 
   headerProps: {
     labelProps: {
@@ -26,14 +28,6 @@ const uploaderProps = {
     },
 
     description: 'Descrição personalizada',
-
-    badges: [
-      {
-        label: 'Badge 1',
-        color: 'primary',
-        textColor: 'white'
-      }
-    ],
 
     actionsMenuProps: {
       list: {
