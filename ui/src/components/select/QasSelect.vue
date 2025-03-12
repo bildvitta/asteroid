@@ -473,7 +473,22 @@ export default {
 
   &__menu {
     .q-item {
+
+      // &__label {
+      // }
+      color: $grey-10 !important;
       font-weight: 400 !important;
+      position: relative;
+
+      &::before {
+        content: '';
+        display: block;
+        position: absolute;
+        border-top: 1px solid $grey-4;
+        left: var(--qas-spacing-md);
+        right: var(--qas-spacing-md);
+        top: 0;
+      }
     }
   }
 
@@ -498,8 +513,22 @@ export default {
 
   .q-field__prepend,
   .q-field__append {
-    .q-icon {
+    .q-icon:not(button) {
       color: $grey-8;
+    }
+
+    button.q-icon {
+      @include set-button(
+      tertiary,
+      true,
+      false,
+      grey-10
+    );
+
+    width: 18px !important;
+    height: 18px !important;
+    min-height: 18px !important;
+      // color: $grey-10;
     }
   }
 
