@@ -10,6 +10,8 @@ Trunca um texto baseado no tamanho do elemento pai e adiciona um rotulo "ver mai
 
 <doc-example file="QasTextTruncate/Basic" title="Básico" />
 
+<doc-example file="QasTextTruncate/InsideTable" title="Dentro da tabela" />
+
 <doc-example file="QasTextTruncate/WithCounter" title="Com contador" />
 
 :::warning
