@@ -89,6 +89,10 @@ export default {
     stickyHeaderTableHeight: {
       default: '528px',
       type: String
+    },
+
+    useVirtualScroll: {
+      type: Boolean
     }
   },
 
@@ -149,6 +153,7 @@ export default {
         rowKey: this.rowKey,
         rows: this.resultsByFields,
         style: this.tableStyle,
+        virtualScroll: this.useVirtualScroll,
 
         // Eventos.
         onRowClick: this.$attrs.onRowClick && this.onRowClick
@@ -269,6 +274,9 @@ export default {
   },
 
   methods: {
+    onVirtualScroll (teste) {
+      console.log('teeste', teste)
+    },
     initializeScrollOnGrab () {
       if (this.hasScrollOnGrab) return
 

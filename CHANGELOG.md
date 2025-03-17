@@ -19,6 +19,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - `QasErrorMessage`: adicionado novo componente para mostrar mensagem de erros de forma padronizada.
 - `QasRadio`: adicionado propriedades `error` e `errorMessage` em conjunto do componente `QasErrorMessage`.
 - `css/mixins/set-error-message`: mixin para aplicar os estilos diretamente no css.
+- `QasTableGenerator`: adicionado prop `useVirtualScroll` para aplicar a renderização dinâmica dos elementos na tabela.
 
 ### Corrigido
 - `QasInput`: alterado ordem da prop `iconRight` que estava adicionando na esquerda e não na direita.
