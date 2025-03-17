@@ -22,6 +22,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 
 ### Corrigido
 - `QasInput`: alterado ordem da prop `iconRight` que estava adicionando na esquerda e não na direita.
+- `QasSelectFilter`: corrigido atribuição do valor do model externo do componente.
 
 ### Modificado
 - `QasSelect`: ignorando propriedade `useChips` que vem através de `$attrs`.
