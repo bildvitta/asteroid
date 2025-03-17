@@ -42,6 +42,11 @@ props:
     type: Function
     examples: ["(row) => ({ path: 'table-generator', params: { id: row.uuid } })"]
 
+  sticky-header-table-height:
+    desc: Usado para definir a altura máxima da tabela e exibir o scroll vertical quando a propriedade "use-sticky-header" é utilizada.
+    default: 528px
+    type: String
+
   use-box:
     desc: Controla se o componente vai usar QasBox ou div.
     default: true
@@ -62,10 +67,10 @@ props:
     default: false
     type: Boolean
 
-  sticky-header-table-height:
-    desc: Usado para definir a altura máxima da tabela e exibir o scroll vertical quando a propriedade "use-sticky-header" é utilizada.
-    default: 528px
-    type: String
+  use-virtual-scroll:
+    desc: Usado para ativar o scroll virtual da tabela.
+    default: false
+    type: Boolean
 
 slots:
   body:
