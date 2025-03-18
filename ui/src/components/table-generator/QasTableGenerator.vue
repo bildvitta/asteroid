@@ -274,9 +274,6 @@ export default {
   },
 
   methods: {
-    onVirtualScroll (teste) {
-      console.log('teeste', teste)
-    },
     initializeScrollOnGrab () {
       if (this.hasScrollOnGrab) return
 
