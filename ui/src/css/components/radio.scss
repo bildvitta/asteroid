@@ -1,18 +1,18 @@
-.q-radio {
-  &__label {
-    @include set-typography($body2);
+// .q-radio {
+//   &__label {
+//     @include set-typography($body2);
 
-    padding-left: var(--qas-spacing-sm) !important;
-  }
+//     padding-left: var(--qas-spacing-sm) !important;
+//   }
 
-  &__inner::before {
-    color: $primary;
-  }
+//   &__inner::before {
+//     color: $primary;
+//   }
 
-  &.disabled {
-    .q-radio__label,
-    .q-radio__inner {
-      color: $grey-6;
-    }
-  }
-}
+//   &.disabled {
+//     .q-radio__label,
+//     .q-radio__inner {
+//       color: $grey-6;
+//     }
+//   }
+// }

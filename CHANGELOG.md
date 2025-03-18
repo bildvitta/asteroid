@@ -22,6 +22,10 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 
 ### Corrigido
 - `QasInput`: alterado ordem da prop `iconRight` que estava adicionando na esquerda e não na direita.
+- `QasPasswordInput`:
+  - invertido ícone de toggle.
+  - corrigido label que não ficava acima do ícone ao ter foco/ativo.
+  - desabilitado botão de toggle enquanto não tem valor preenchido.
 
 ### Modificado
 - `QasSelect`: ignorando propriedade `useChips` que vem através de `$attrs`.

@@ -1,8 +1,6 @@
 <template>
-  <div>
-    <div v-if="canShowOptionGroupLabel" class="q-mb-sm text-body1" :class="labelClasses">
-      {{ props.label }}
-    </div>
+  <div class="qas-radio">
+    <qas-label v-if="canShowOptionGroupLabel" :color :label="props.label" margin="sm" typography="h5" />
 
     <component :is="component.is" v-bind="component.props" />
 
@@ -12,6 +10,7 @@
 
 <script setup>
 import useErrorMessage, { baseErrorProps } from '../../composables/private/use-error-message'
+import useScreen from '../../composables/use-screen'
 
 import { computed, useAttrs } from 'vue'
 
@@ -33,7 +32,8 @@ const props = defineProps({
 const attrs = useAttrs()
 
 // composables
-const { labelClasses } = useErrorMessage(props)
+const { color } = useErrorMessage(props)
+const screen = useScreen()
 
 // computeds
 const isOptionGroup = computed(() => !!attrs.options?.length)
@@ -50,21 +50,23 @@ const canShowOptionGroupLabel = computed(() => isOptionGroup.value && !!props.la
  * - todos os casos é usado o dense.
  */
 const component = computed(() => {
-  const { inline = true, ...payloadProps } = attrs
+  const isInline = !screen.isSmall
+
+  const { ...payloadProps } = attrs
 
   return {
     is: isOptionGroup.value ? 'q-option-group' : 'q-radio',
 
     props: {
       ...payloadProps,
-
       label: props.label,
 
       ...(isOptionGroup.value && {
-        inline,
+        inline: isInline,
         class: {
-          'q-gutter-x-md': inline,
-          'q-gutter-y-md': !inline
+          flex: true,
+          'q-gutter-md': true,
+          column: !isInline
         }
       }),
 
@@ -73,3 +75,34 @@ const component = computed(() => {
   }
 })
 </script>
+
+<style lang="scss">
+.qas-radio {
+  .q-radio {
+    &__label {
+      @include set-typography($body1);
+
+      padding-left: var(--qas-spacing-sm) !important;
+    }
+
+    &__inner {
+      width: 18px;
+      height: 18px;
+      min-width: 18px;
+
+      &::before {
+        color: $primary;
+      }
+    }
+
+    &.disabled {
+      opacity: 1 !important;
+
+      .q-radio__label,
+      .q-radio__inner {
+        color: $grey-6;
+      }
+    }
+  }
+}
+</style>
