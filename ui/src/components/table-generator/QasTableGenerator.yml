@@ -9,6 +9,11 @@ props:
     default: []
     type: Array
 
+  content-max-height:
+    desc: Usado para definir a altura máxima do conteúdo da tabela e exibir o scroll vertical quando a propriedade "use-virtual-scroll" é utilizada.
+    default: calc(100vh - 300px || 200px)
+    type: String
+
   empty-result-text:
     desc: Quando uma célula da tabela está vazia (null, undefined, ''), esta prop define qual será o valor padrão.
     default: '-'
