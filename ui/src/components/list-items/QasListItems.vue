@@ -1,32 +1,36 @@
 <template>
-  <component :is="component" class="qas-list-items" :class="classes">
-    <q-list separator>
-      <q-item v-for="(item, index) in props.list" :key="index" :clickable="props.useClickableItem" @click="onClick({ item, index }, true)">
-        <slot :index="index" :item="item" name="item">
-          <q-item-section>
-            <slot :index="index" :item="item" name="item-section">
-              <qas-label
-                v-if="item[props.labelKey]"
-                :label="item[props.labelKey]"
-                :margin="getLabelMargin(item)"
-                typography="h5"
-              />
+  <div class="qas-list-items">
+    <component :is="component" v-if="hasList" class="qas-list-items__container" :class="classes">
+      <q-list separator>
+        <q-item v-for="(item, index) in props.list" :key="index" :clickable="props.useClickableItem" @click="onClick({ item, index }, true)">
+          <slot :index="index" :item="item" name="item">
+            <q-item-section>
+              <slot :index="index" :item="item" name="item-section">
+                <qas-label
+                  v-if="item[props.labelKey]"
+                  :label="item[props.labelKey]"
+                  :margin="getLabelMargin(item)"
+                  typography="h5"
+                />
 
-              <div v-if="item[props.descriptionKey]" class="text-body1">
-                {{ item[props.descriptionKey] }}
-              </div>
-            </slot>
-          </q-item-section>
+                <div v-if="item[props.descriptionKey]" class="text-body1">
+                  {{ item[props.descriptionKey] }}
+                </div>
+              </slot>
+            </q-item-section>
 
-          <q-item-section v-if="props.useSectionActions" side>
-            <slot :index="index" :item="item" name="item-section-side">
-              <qas-btn color="grey-10" :icon="props.icon" variant="tertiary" @click="onClick({ item, index })" />
-            </slot>
-          </q-item-section>
-        </slot>
-      </q-item>
-    </q-list>
-  </component>
+            <q-item-section v-if="props.useSectionActions" side>
+              <slot :index="index" :item="item" name="item-section-side">
+                <qas-btn color="grey-10" :icon="props.icon" variant="tertiary" @click="onClick({ item, index })" />
+              </slot>
+            </q-item-section>
+          </slot>
+        </q-item>
+      </q-list>
+    </component>
+
+    <qas-empty-result-text v-else :text="props.emptyResultText" />
+  </div>
 </template>
 
 <script setup>
@@ -40,6 +44,11 @@ const props = defineProps({
   descriptionKey: {
     type: String,
     default: 'description'
+  },
+
+  emptyResultText: {
+    type: String,
+    default: undefined
   },
 
   icon: {
@@ -74,9 +83,12 @@ const props = defineProps({
 
 const emit = defineEmits(['click-item'])
 
-const classes = computed(() => ({ 'qas-list-items--no-click': !props.useClickableItem }))
+// computeds
+const classes = computed(() => ({ 'qas-list-items__container--no-click': !props.useClickableItem }))
 
 const component = computed(() => props.useBox ? 'qas-box' : 'div')
+
+const hasList = computed(() => !!props.list.length)
 
 // functions
 function onClick ({ item, index }, fromItem) {
@@ -96,29 +108,31 @@ function getLabelMargin (item) {
 
 <style lang="scss">
 .qas-list-items {
-  &--no-click {
-    .q-item {
-      .q-ripple {
-        display: none;
+  &__container {
+    &--no-click {
+      .q-item {
+        .q-ripple {
+          display: none;
+        }
       }
     }
-  }
 
-  .q-list {
-    .q-item {
-      min-height: auto;
-    }
+    .q-list {
+      .q-item {
+        min-height: auto;
+      }
 
-    & > .q-item {
-      padding: var(--qas-spacing-md) 0;
-    }
+      & > .q-item {
+        padding: var(--qas-spacing-md) 0;
+      }
 
-    & > .q-item:last-child {
-      padding-bottom: 0;
-    }
+      & > .q-item:last-child {
+        padding-bottom: 0;
+      }
 
-    & > .q-item:first-child {
-      padding-top: 0;
+      & > .q-item:first-child {
+        padding-top: 0;
+      }
     }
   }
 }

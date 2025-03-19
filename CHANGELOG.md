@@ -22,6 +22,9 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - `QasTableGenerator`: 
   - Adicionado prop `useVirtualScroll` para aplicar a renderização dinâmica dos elementos na tabela.
   - Adicionado prop `maxContentHeight` que é aplicado quando se utiliza virtualScroll.
+- `QasListItems`: 
+  - Adicionado `QasEmptyResultText` caso a lista de itens esteja vazia.
+  - Adicionado prop `emptyResultText` para modificar o texto de listagem vazia.
 
 ### Corrigido
 - `QasInput`: alterado ordem da prop `iconRight` que estava adicionando na esquerda e não na direita.

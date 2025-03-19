@@ -9,6 +9,11 @@ props:
     default: description
     type: String
 
+  empty-result-text:
+    desc: Texto repassado para o componente QasEmptyResultText para modificar o texto padrão.
+    default: undefined
+    type: String
+
   icon:
     desc: Nome do ícone
     default: sym_r_chevron_right
