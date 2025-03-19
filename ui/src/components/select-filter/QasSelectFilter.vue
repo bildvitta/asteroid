@@ -40,7 +40,7 @@ const model = defineModel({ type: String, default: '' })
 const internalModel = ref(route.query[props.name] || model.value)
 
 // watch
-watch(() => route.query[props.name], setModels)
+watch(() => route.query[props.name], setModels, { immediate: true })
 
 // functions
 /**
