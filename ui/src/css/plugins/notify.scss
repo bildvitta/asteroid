@@ -1,54 +1,43 @@
 .q-notification {
+  $root: &;
+
   &:not(.boot-notification).qas-notification {
     margin-top: 80px;
     max-width: 560px;
   }
 
+  &__progress {
+    border-radius: 0 0 var(--qas-generic-border-radius) var(--qas-generic-border-radius);
+    left: calc(var(--qas-spacing-md) * -1);
+    right: calc(var(--qas-spacing-md) * -1);
+    opacity: 1;
+  }
+
+  &__message {
+    @include set-typography($body1);
+
+    padding-top: var(--qas-spacing-md);
+    padding-bottom: var(--qas-spacing-md);
+  }
+
   &.qas-notification {
-    &--error::before,
-    &--success::before {
-      border-radius: var(--qas-generic-border-radius) 0 0 var(--qas-generic-border-radius);
-      bottom: 0;
-      content: '';
-      left: calc(var(--qas-spacing-md) * -1);
-      position: relative;
-      top: 0;
-      width: 4px;
+    &--error #{$root}__progress {
+      background-color: $negative;
     }
 
-    &--error::before {
-      background-color: var(--q-negative);
-    }
-
-    &--success::before {
-      background-color: var(--q-positive);
+    &--success #{$root}__progress {
+      background-color: $positive;
     }
 
     .q-notification__actions {
-      align-self: start;
       padding-top: var(--qas-spacing-xs);
+    }
 
-      .q-btn {
-        color: white !important;
-        height: var(--qas-spacing-md);
-        min-height: auto;
-        min-width: auto;
-        padding: 0;
-        text-align: center;
-        text-transform: none;
-        width: var(--qas-spacing-md);
+    .q-btn {
+      @include set-button(tertiary, true, true, 'white');
 
-        &__content {
-          height: var(--qas-spacing-md);
-
-          span {
-            align-self: center;
-            height: var(--qas-spacing-md);
-            line-height: 0.9;
-            width: var(--qas-spacing-md);
-          }
-        }
-      }
+      // o quasar não usa um ícone, mas sim um label "x", por isto o font-size.
+      font-size: 24px;
     }
 
     .q-notification__content {
