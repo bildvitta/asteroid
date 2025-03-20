@@ -1,19 +1,21 @@
 <template>
   <div class="container q-my-xl">
-    <qas-select-filter v-model="company" :options />
+    <qas-select-filter :options="options" />
 
-    <qas-debugger :inspect="[company]" />
+    <pre>{{ options }}</pre>
+
+    <div class="q-mt-md">
+      <qas-btn label="pagina 2" to="/test/2" />
+    </div>
+
+    <div class="q-mt-md">
+      <qas-btn label="pagina 3" to="/test/3" />
+    </div>
   </div>
 </template>
 
 <script setup>
-import { ref } from 'vue'
-
-defineOptions({ name: 'Basic' })
-
-const company = ref('')
-
-const options = ref([
+const options = [
   {
     label: 'Empresa 1',
     value: 'company-1'
@@ -34,5 +36,5 @@ const options = ref([
     label: 'Empresa 5',
     value: 'company-5'
   }
-])
+]
 </script>
