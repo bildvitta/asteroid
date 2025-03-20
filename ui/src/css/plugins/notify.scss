@@ -3,7 +3,7 @@
 
   &:not(.boot-notification).qas-notification {
     margin-top: 80px;
-    max-width: 560px;
+    max-width: 740px;
   }
 
   &__progress {
@@ -21,6 +21,8 @@
   }
 
   &.qas-notification {
+    box-shadow: none;
+
     &--error #{$root}__progress {
       background-color: $negative;
     }
@@ -30,14 +32,22 @@
     }
 
     .q-notification__actions {
+      align-self: self-start;
       padding-top: var(--qas-spacing-xs);
+    }
+
+    .q-notification__badge {
+      @include set-typography($caption);
+
+      box-shadow: none;
     }
 
     .q-btn {
       @include set-button(tertiary, true, true, 'white');
 
-      // o quasar não usa um ícone, mas sim um label "x", por isto o font-size.
+      // o quasar não usa um ícone, mas sim um label "x", por isto o font-size e font-weight.
       font-size: 24px;
+      font-weight: 400;
     }
 
     .q-notification__content {
