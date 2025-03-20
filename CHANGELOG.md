@@ -14,11 +14,13 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 ## BREAKING CHANGE
 - `QasInput`: alterado ordem da prop `iconRight` que estava adicionando na esquerda e não na direita, verificar lugares.
 - Alterar `quasar.variables.scss`, nova cor do `$negative` sendo `$red-14`.
+- `QasFilters`: removido slot `right-side`, agora a forma recomendada para quando precisar utilizar itens ao lado do componente, utilize o grid em conjunto com a prop `useFullContent`. Contém um exemplo do uso na docs.
 
 ### Adicionado
 - `QasErrorMessage`: adicionado novo componente para mostrar mensagem de erros de forma padronizada.
 - `QasRadio`: adicionado propriedades `error` e `errorMessage` em conjunto do componente `QasErrorMessage`.
 - `css/mixins/set-error-message`: mixin para aplicar os estilos diretamente no css.
+- `QasFilters`: adicionado prop `useFullContent` para que o componente ocupe 100%, recomendado para o quando precisar utilizar grids.
 
 ### Corrigido
 - `QasInput`: alterado ordem da prop `iconRight` que estava adicionando na esquerda e não na direita.
@@ -35,6 +37,9 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
   - QasExpansionItem
   - QasUploader
   - QasCheckbox
+
+### Removido
+- `QasFilters`: removido slot `right-side`, agora a forma recomendada para quando precisar utilizar itens ao lado do componente, utilize o grid em conjunto com a prop `useFullContent`. Contém um exemplo do uso na docs.
 
 ## [3.17.0] - 12-03-2025
 ## BREAKING CHANGES

@@ -1,7 +1,7 @@
 <template>
   <section class="qas-filters" :class="filtersClasses">
-    <div v-if="showFilters" class="q-col-gutter-x-md row">
-      <div v-if="showSearch" class="col-12 col-md-6">
+    <div v-if="showFilters" class="row">
+      <div v-if="showSearch" class="col-12" :class="searchContainerClasses">
         <slot :filter="filter" name="search">
           <q-form v-if="useSearch" @submit.prevent="filter()">
             <qas-search-input v-model="internalSearch" :placeholder="searchPlaceholder" :use-search-on-type="useSearchOnType" @clear="clearSearch" @filter="filter()" @update:model-value="onSearch">
@@ -19,10 +19,6 @@
         <slot :context="mx_context" :filter="filter" :filters="activeFilters" name="filter-button" :remove-filter="removeFilter">
           <pv-filters-button v-if="useFilterButton" ref="filtersButton" v-model="internalFilters" v-bind="filterButtonProps" />
         </slot>
-      </div>
-
-      <div class="col-12 col-md-6">
-        <slot name="right-side" />
       </div>
     </div>
 
@@ -84,6 +80,10 @@ export default {
       type: Boolean
     },
 
+    useFullContent: {
+      type: Boolean
+    },
+
     useSearch: {
       default: true,
       type: Boolean
@@ -116,6 +116,11 @@ export default {
     useUpdateRoute: {
       default: true,
       type: Boolean
+    },
+
+    listenerQueryKeys: {
+      type: Array,
+      default: () => []
     }
   },
 
@@ -200,6 +205,10 @@ export default {
       return formattedFieldsProps
     },
 
+    searchContainerClasses () {
+      return { 'col-md-6': !this.useFullContent }
+    },
+
     fields () {
       return getState.call(this, { entity: this.entity, key: 'filters' })
     },
@@ -268,6 +277,11 @@ export default {
         this.fetchFilters()
         this.useUpdateRoute && this.updateValues()
       }
+    },
+
+    '$route.query' (to, from) {
+      console.log(to, '<--- to')
+      console.log(from, '<--- from')
     },
 
     internalFilters: {
