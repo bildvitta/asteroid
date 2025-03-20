@@ -7,12 +7,12 @@
  * @enum
  * @type {{
  * Info: 'yellow-14',
- * Error: 'red-14'
+ * Error: 'negative'
  * }}
 */
 export const StatusColor = {
-  Info: 'yellow-14',
-  Error: 'red-14'
+  Info: 'primary',
+  Error: 'negative'
 }
 
 /**

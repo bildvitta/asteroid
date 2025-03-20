@@ -1,9 +1,23 @@
 <template>
   <div class="container spaced">
-    <qas-checkbox v-model="model" label="Checkbox com opções" :options />
+    <div>
+      <qas-checkbox v-model="model" label="Checkbox com opções" :options />
+    </div>
 
     <div class="q-mt-lg">
-      model: {{ model }}
+      <qas-checkbox v-model="model" disable label="Checkbox com opções" :options />
+    </div>
+
+    <div class="q-mt-lg">
+      <qas-checkbox v-model="model" error label="Checkbox com opções" :options />
+    </div>
+
+    <div class="q-mt-lg">
+      <qas-checkbox v-model="model" error error-message="Mensagem de erro" label="Checkbox com opções" :options />
+    </div>
+
+    <div class="q-mt-lg">
+      <qas-debugger :inspect="[model]" />
     </div>
   </div>
 </template>
@@ -13,7 +27,7 @@ import { ref } from 'vue'
 
 defineOptions({ name: 'Options' })
 
-const model = ref([])
+const model = ref([1])
 
 const options = [
   {

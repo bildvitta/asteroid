@@ -5,7 +5,7 @@
     </template>
 
     <template #append>
-      <qas-btn color="primary" :icon="icon" variant="tertiary" @click="toggle" />
+      <qas-btn color="primary" :disable="isButtonDisabled" :icon="icon" variant="tertiary" @click="toggle" />
     </template>
 
     <template v-for="(_, name) in $slots" #[name]="context">
@@ -57,7 +57,11 @@ export default {
 
   computed: {
     icon () {
-      return this.toggleType ? 'sym_r_visibility_off' : 'sym_r_visibility'
+      return this.toggleType ? 'sym_r_visibility' : 'sym_r_visibility_off'
+    },
+
+    isButtonDisabled () {
+      return !this.model.length
     },
 
     model: {

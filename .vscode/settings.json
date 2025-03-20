@@ -42,6 +42,7 @@
     "axios",
     "breakline",
     "Breakline",
+    "computeds",
     "decamelize",
     "fawmi",
     "fontfaceobserver",

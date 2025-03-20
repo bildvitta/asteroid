@@ -1,35 +1,42 @@
 <template>
-  <div class="flex items-center no-wrap qas-info text-body1 text-grey-8">
-    <qas-avatar v-bind="defaultAvatarProps" />
+  <!-- TODO: corrigir problema de espaçamento com inline dentro de outro qas-box -->
+  <div class="flex inline qas-info">
+    <qas-box v-if="displayAlert" v-bind="defaultBoxProps">
+      <div class="flex items-center no-wrap">
+        <div class="flex items-center no-wrap text-body1 text-grey-8">
+          <q-icon v-bind="iconProps" />
 
-    <component
-      :is="textComponent"
-      v-if="useRegex"
-      class="q-ml-sm"
-    />
+          <component
+            :is="textComponent"
+            v-if="useRegex"
+            class="q-ml-sm"
+          />
 
-    <span
-      v-else
-      class="q-ml-sm"
-    >
-      {{ props.text }}
-    </span>
+          <span
+            v-else
+            class="q-ml-sm"
+          >
+            {{ props.text }}
+          </span>
+        </div>
+
+        <qas-btn v-if="useCloseButton" class="q-ml-sm" color="grey-10" icon="sym_r_close" variant="tertiary" @click="close" />
+      </div>
+    </qas-box>
   </div>
 </template>
 
 <script setup>
-import { h, computed } from 'vue'
-import { RouterLink } from 'vue-router'
+import { Status, StatusColor } from '../../enums/Status'
+
+import { LocalStorage } from 'quasar'
 import { QasBtn } from 'asteroid'
+import { RouterLink } from 'vue-router'
+import { h, computed, inject } from 'vue'
 
 defineOptions({ name: 'QasInfo' })
 
 const props = defineProps({
-  avatarProps: {
-    type: Object,
-    default: () => ({})
-  },
-
   buttonProps: {
     type: Object,
     default: () => ({})
@@ -40,23 +47,76 @@ const props = defineProps({
     default: () => ({})
   },
 
+  status: {
+    type: String,
+    default: Status.Info,
+    validator: value => Object.values(Status).includes(value)
+  },
+
+  storageKey: {
+    type: String,
+    default: ''
+  },
+
   text: {
     type: String,
     required: true
   },
 
-  useRegex: {
+  useBox: {
+    type: Boolean,
+    default: undefined
+  },
+
+  useCloseButton: {
     type: Boolean,
     default: true
+  },
+
+  usePersistentModelOnClose: {
+    type: Boolean
+  },
+
+  useRegex: {
+    type: Boolean
   }
 })
 
-const defaultAvatarProps = computed(() => {
+// models
+const model = defineModel({ type: Boolean, default: true })
+
+// globals
+const isBox = inject('isBox', false)
+
+// composables
+const { displayAlert, close } = useStorageClosed()
+
+// computeds
+
+const iconProps = computed(() => {
+  const status = Object.keys(Status).find(key => Status[key] === props.status)
+  const isErrorStatus = props.status === Status.Error
+
   return {
-    color: 'red-14',
-    ...props.avatarProps,
-    icon: 'sym_r_priority_high',
+    color: StatusColor[status],
+    name: isErrorStatus ? 'sym_r_error' : 'sym_r_info',
     size: 'sm'
+  }
+})
+
+/**
+ * Por padrão, quando este componente estiver dentro de um QasBox, ele não terá
+ * shadow, terá
+ */
+const defaultBoxProps = computed(() => {
+  const hasBoxProps = props.useBox !== undefined
+
+  const useBox = hasBoxProps ? props.useBox : !isBox
+  console.log('TCL: defaultBoxProps -> useBox', useBox)
+
+  return {
+    unelevated: !useBox,
+    useSpacing: useBox
   }
 })
 
@@ -144,6 +204,31 @@ const textComponent = computed(() => {
     splitted
   )
 })
+
+// composable definitions
+function useStorageClosed () {
+  // computeds
+  const storageClosedKey = computed(() => `alert-${props.storageKey}-closed`)
+
+  const displayAlert = computed(() => {
+    const isClosed = props.usePersistentModelOnClose && LocalStorage.getItem(storageClosedKey.value)
+
+    return !isClosed.value && model.value
+  })
+
+  // functions
+  function close () {
+    if (props.usePersistentModelOnClose) LocalStorage.set(storageClosedKey.value, true)
+
+    model.value = false
+  }
+
+  return {
+    displayAlert,
+
+    close
+  }
+}
 </script>
 
 <style lang="scss">

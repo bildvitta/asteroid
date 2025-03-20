@@ -15,10 +15,25 @@ const defaultFiltersHooks = {
  * 2 - Se o filtro já estiver na query, então utiliza ele.
  * 3 - Se o filtro já estiver salvo no LocalStorage, então utiliza ele.
  *
- * @param {Object} to - Rota de destino.
- * @param {Object} _from - Rota de origem.
- * @param {Function} next - Função de redirecionamento.
- * @param {Array} queryList='company' - Lista de filtros a serem aplicados.
+ * Comportamento entre mesma entidade variando telas com multiple: true|false:
+ * 1 - Se minha tela atual for de múltiplos registros e a próxima for de um único registro,
+ * então o filtro será aplicado apenas no primeiro item.
+ * 2 - Se minha tela atual for de um único registro e a próxima for de múltiplos registros,
+ * então o filtro será aplicado em todos os registros.
+ * 3 - Se minha tela atual e a próxima forem de múltiplos registros, então o filtro será aplicado
+ * em todos os registros.
+ *
+ * @param {object} to - Rota de destino.
+ * @param {object} _from - Rota de origem.
+ * @param {function} next - Função de redirecionamento.
+ * @param {array|object} queryList='company' - Lista de filtros a serem aplicados.
+ *
+ * @example
+ * ```js
+ * setDefaultFiltersBeforeEnter(to, from, next)
+ * setDefaultFiltersBeforeEnter(to, from, next, ['company', 'properties'])
+ * setDefaultFiltersBeforeEnter(to, from, next, { company: false, properties: true // multiple })
+ * ```
  */
 export function setDefaultFiltersBeforeEnter (to, _from, next, queryList = ['company']) {
   const { getDefaultFiltersFromStorage, setFilterQuery } = useDefaultFilters()
@@ -26,31 +41,48 @@ export function setDefaultFiltersBeforeEnter (to, _from, next, queryList = ['com
   const { query } = to
   const newQuery = { ...query }
 
+  const isQueryListArray = Array.isArray(queryList)
+  const normalizedQueryList = isQueryListArray ? {} : queryList
+
+  // normaliza sempre o queryList para um objeto
+  if (isQueryListArray) {
+    queryList.forEach(name => { normalizedQueryList[name] = false })
+  }
+
   // recupera os filtros padrão do LocalStorage
   const defaultFiltersFromStorage = getDefaultFiltersFromStorage()
 
-  queryList.forEach(name => {
+  for (const key in normalizedQueryList) {
+    const filterQueryValue = filterQuery.value[key]
+
     // 1. se o filtro já estiver salvo no estado, então utiliza ele
-    if (filterQuery.value[name]) {
-      newQuery[name] = filterQuery.value[name]
-      return
+    if (filterQueryValue) {
+      // se normalizedQueryList[key] for "true" (multiple) então utiliza o filtro completo
+      if (normalizedQueryList[key]) {
+        newQuery[key] = filterQueryValue
+        continue
+      }
+
+      // filterQueryValue é um array, então pega o primeiro item
+      newQuery[key] = Array.isArray(filterQueryValue) ? filterQueryValue?.at(0) : filterQueryValue
+      continue
     }
 
     // 2. se o filtro já estiver na query, então utiliza ele
-    if (query[name]) {
-      setFilterQuery(query[name], name)
+    if (query[key]) {
+      setFilterQuery(query[key], key)
 
-      return
+      continue
     }
 
-    const storedFilter = defaultFiltersFromStorage[name]
+    const storedFilter = defaultFiltersFromStorage[key]
 
     // 3. se o filtro já estiver salvo no LocalStorage, então utiliza ele
     if (storedFilter) {
-      setFilterQuery(storedFilter, name)
-      newQuery[name] = storedFilter
+      setFilterQuery(storedFilter, key)
+      newQuery[key] = storedFilter
     }
-  })
+  }
 
   /**
    * Verifica se houve mudanças na query antes de redirecionar, sem essa validação

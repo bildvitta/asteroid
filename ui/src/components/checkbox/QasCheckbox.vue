@@ -1,5 +1,5 @@
 <template>
-  <div class="qas-checkbox">
+  <div class="qas-checkbox" :class="classes">
     <!-- Single -->
     <q-checkbox v-if="isSingle" v-model="model" v-bind="singleAttributes" dense>
       <slot />
@@ -7,30 +7,30 @@
 
     <!-- Group -->
     <div v-else>
-      <div v-if="props.label" class="q-mb-sm text-body1" :class="labelClasses">
-        {{ formattedLabel }}
-      </div>
+      <qas-label v-if="props.label" :color="labelColor" :label="formattedLabel" margin="sm" typography="h5" />
 
-      <div :class="classes">
+      <div class="flex q-col-gutter-md" :class="contentClasses">
         <div v-for="(option, index) in props.options" :key="index">
           <!-- Com children -->
-          <q-checkbox v-if="hasChildren(option)" :class="getCheckboxClass(option)" dense :indeterminate-value="false" :label="option.label" :model-value="getModelValue(index)" @update:model-value="updateCheckbox($event, option, index)" />
+          <q-checkbox v-if="hasChildren(option)" :class="getCheckboxClass(option)" dense :disable="props.disable" :indeterminate-value="false" :label="option.label" :model-value="getModelValue(index)" @update:model-value="updateCheckbox($event, option, index)" />
 
           <!-- Com children -->
-          <q-option-group v-if="hasChildren(option)" class="q-ml-xs q-mt-xs" dense :inline="props.inline" :model-value="props.modelValue" :options="option.children" type="checkbox" @update:model-value="updateChildren($event, option, index)" />
+          <q-option-group v-if="hasChildren(option)" class="q-ml-sm q-mt-sm" :class="gutterClasses" dense :disable="props.disable" :inline="isInline" :model-value="props.modelValue" :options="option.children" type="checkbox" @update:model-value="updateChildren($event, option, index)" />
 
           <!-- Sem children -->
-          <q-option-group v-else v-model="model" v-bind="attrs" dense :options="[option]" type="checkbox" />
+          <q-option-group v-else v-model="model" v-bind="attrs" dense :disable="props.disable" inline :options="[option]" type="checkbox" />
         </div>
       </div>
     </div>
 
-    <qas-error-message v-if="props.errorMessage" :message="props.errorMessage" />
+    <qas-error-message v-if="hasErrorMessage" :message="props.errorMessage" />
   </div>
 </template>
 
 <script setup>
 import useErrorMessage, { baseErrorProps } from '../../composables/private/use-error-message'
+import useScreen from '../../composables/use-screen'
+
 import { getRequiredLabel } from '../../helpers'
 
 import { watch, computed, ref, onMounted, useAttrs } from 'vue'
@@ -42,6 +42,10 @@ defineOptions({
 
 const props = defineProps({
   ...baseErrorProps,
+
+  disable: {
+    type: Boolean
+  },
 
   label: {
     default: '',
@@ -65,6 +69,11 @@ const props = defineProps({
 
   required: {
     type: Boolean
+  },
+
+  useAsTitle: {
+    type: Boolean,
+    default: false
   }
 })
 
@@ -75,7 +84,8 @@ const emit = defineEmits(['update:modelValue'])
 const attrs = useAttrs()
 
 // composables
-const { labelClasses } = useErrorMessage(props)
+const { color } = useErrorMessage(props)
+const screen = useScreen()
 
 // refs
 const group = ref({})
@@ -84,7 +94,22 @@ const group = ref({})
 onMounted(handleParent)
 
 // computed
-const classes = computed(() => props.inline && 'flex q-gutter-x-sm')
+const isInline = computed(() => !screen.isSmall)
+const isSingle = computed(() => !props.options.length)
+const isTitleMode = computed(() => props.useAsTitle && isSingle.value)
+
+const classes = computed(() => {
+  return {
+    'qas-checkbox--title': isTitleMode.value,
+    'qas-checkbox--error': props.error && isSingle.value
+  }
+})
+
+const labelColor = computed(() => props.disable ? 'grey-6' : color.value)
+const contentClasses = computed(() => !isInline.value && 'column')
+const gutterClasses = computed(() => isInline.value ? 'q-gutter-x-md' : 'q-gutter-y-md')
+
+const hasErrorMessage = computed(() => props.errorMessage && !isSingle.value)
 
 const model = computed({
   get () {
@@ -96,12 +121,10 @@ const model = computed({
   }
 })
 
-const isSingle = computed(() => !props.options.length)
-
 const singleAttributes = computed(() => {
   return {
     ...attrs,
-
+    disable: props.disable,
     label: props.label
   }
 })
@@ -166,3 +189,62 @@ function getModelValue (index) {
   return group.value[index]
 }
 </script>
+
+<style lang="scss">
+.qas-checkbox {
+  $root: &;
+
+  // aplica pra todos que não for title, uma vez que title tem tipografia própria
+  &:not(&--title) {
+    color: $grey-8;
+
+    .q-checkbox__label {
+      @include set-typography($body1);
+    }
+  }
+
+  .q-checkbox {
+    &__label {
+      padding-left: var(--qas-spacing-sm) !important;
+    }
+
+    &__inner {
+      width: 18px;
+      height: 18px;
+      min-width: 18px;
+    }
+
+    &.disabled {
+      opacity: 1 !important;
+
+      .q-checkbox__label,
+      .q-checkbox__bg,
+      .q-checkbox__inner {
+        color: $grey-6;
+      }
+    }
+  }
+
+  &--title {
+    color: $grey-10;
+
+    &:not(#{$root}--error) {
+      .q-checkbox__inner--falsy .q-checkbox__bg {
+        border-color: $grey-10;
+      }
+    }
+
+    .q-checkbox__label {
+      @include set-typography($h5);
+    }
+  }
+
+  &--error {
+    color: $negative;
+
+    .q-checkbox__bg {
+      color: $negative;
+    }
+  }
+}
+</style>
