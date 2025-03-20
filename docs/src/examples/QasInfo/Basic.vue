@@ -1,14 +1,15 @@
 <template>
   <div class="container q-py-lg">
-    <qas-info v-bind="infoProps" />
+    <qas-box>
+      <qas-info status="info" :text />
+    </qas-box>
+
+    <qas-info class="q-mt-lg" status="error" :text />
   </div>
 </template>
 
 <script setup>
-const infoProps = {
-  text: 'Usuário incompleto, [clique aqui] para completar.',
-  routerLinkProps: {
-    to: '/start/develop'
-  }
-}
+defineOptions({ name: 'Basic' })
+
+const text = 'Usuário incompleto, atualize para completar.'
 </script>

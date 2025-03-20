@@ -1,5 +1,5 @@
 <template>
-  <qas-select v-model="internalModel" :label="props.label" :options="props.options" use-filter-mode @update:model-value="onUpdateModel" />
+  <qas-select v-model="internalModel" :label="props.label" :multiple="props.multiple" :options="props.options" use-filter-mode @update:model-value="onUpdateModel" />
 </template>
 
 <script setup>
@@ -25,6 +25,11 @@ const props = defineProps({
   options: {
     type: Array,
     default: () => []
+  },
+
+  multiple: {
+    type: Boolean,
+    default: true
   }
 })
 
@@ -33,11 +38,14 @@ const router = useRouter()
 const route = useRoute()
 const { setFilterQuery, triggerDefaultFiltersChange, filterQuery } = useDefaultFilters()
 
+console.log('CHAMADO AQUI 12')
+
 // models
-const model = defineModel({ type: String, default: '' })
+const model = defineModel({ type: [String, Array], default: '' })
 
 // refs
 const internalModel = ref(route.query[props.name] || model.value)
+console.log('TCL: internalModel 2', internalModel)
 
 // watch
 watch(() => route.query[props.name], setModels)
