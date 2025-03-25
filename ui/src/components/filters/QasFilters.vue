@@ -356,7 +356,6 @@ export default {
       const { filters } = this.mx_context
 
       try {
-        console.log('buscando fetchFilters')
         const response = await getAction.call(this, {
           entity: this.entity,
           key: 'fetchFilters',
