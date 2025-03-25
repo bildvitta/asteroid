@@ -2,15 +2,10 @@
   <!-- Utilizando o list-view apenas para facilitar para recuperar os dados dos dados. -->
   <qas-list-view v-model:fields="fields" v-model:results="results" :entity="entity" use-auto-handle-on-delete :use-filter="false">
     <template #default>
-      <qas-table-generator :columns="columns" :fields="fields" :results="results" row-key="uuid" @row-click="rowClick">
+      <qas-table-generator :columns="columns" :fields="fields" :results="results" row-key="uuid">
         <template #body-cell-isActive="{ row }">
           <div class="text-weight-bold">{{ row.isActive }}</div>
         </template>
-
-        <template #body-cell-document="{ row }">
-          <qas-toggle-visibility :text="row.document" :uuid="row.uuid" />
-        </template>
-
         <template #body-cell-actions="{ row }">
           <div class="flex justify-end no-wrap q-gutter-x-sm">
             <qas-delete :custom-id="row.uuid" entity="users" icon="sym_r_delete" />
@@ -42,13 +37,6 @@ export default {
         'name',
         { align: 'right', name: 'actions' }
       ]
-    }
-  },
-
-  methods: {
-    rowClick (event, row, index) {
-      alert(`Clicou na linha ${index} do usuário "${row.name}".`)
-      // Use o Vue Router para navegar para a rota desejada.
     }
   }
 }
