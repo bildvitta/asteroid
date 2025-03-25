@@ -46,11 +46,17 @@ Caso queira usar badges nas opções, o back precisa retornar a chave em questã
   {
     label: 'Label 1',
     value: '1',
-    isTester: true // chave que vai ser usada pra validação da badge no nosso exemplo
+    isTester: true, // chave que vai ser usada pra validação da badge no nosso exemplo,
+    isAvailable: false, // chave que vai ser usada pra validação da badge no nosso exemplo,
+    company: 'company1' // chave que vai ser usada pra validação da badge no nosso exemplo,
   }
 ]
 ```
 Por padrão caso for false, não é exibido a badge, sendo que caso queira que sempre exiba, basta passar `show: true` na key desejado da `badgeProps`, assim você consegue colocar um estilo diferente de acordo com o valor enviado pelo backend.
+
+Devido cada chave ser um `callback`, podemos receber outros valores que não sejam booleans para assim termos um controle maior da personalização.
+
+Obs: Caso não encontre a props da badge em questão, a mesma não é exibida na opção do select.
 :::
 <doc-example file="QasSelect/CustomOption" title="Com opção personalizada" />
 

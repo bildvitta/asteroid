@@ -16,7 +16,13 @@
       </slot>
     </header>
 
-    <div class="qas-gallery-card__image">
+    <div v-if="props.useVideo">
+      <slot name="video">
+        <q-video v-bind="defaultVideoProps" />
+      </slot>
+    </div>
+
+    <div v-else class="qas-gallery-card__image">
       <slot name="image">
         <q-img class="rounded-borders" height="100%" :src="props.card.url" v-bind="props.imageProps">
           <template #error>
@@ -86,6 +92,15 @@ const props = defineProps({
   imageProps: {
     type: Object,
     default: () => ({})
+  },
+
+  useVideo: {
+    type: Boolean
+  },
+
+  videoProps: {
+    type: Object,
+    default: () => ({})
   }
 })
 
@@ -109,6 +124,7 @@ const errorClasses = [
   'text-subtitle2'
 ]
 
+// computeds
 const classes = computed(() => {
   return {
     'text-grey-6': props.disable
@@ -135,6 +151,16 @@ const defaultActionsMenuProps = computed(() => {
       disable: props.disable,
       ...buttonProps
     }
+  }
+})
+
+const defaultVideoProps = computed(() => {
+  return {
+    ratio: 16 / 9,
+
+    ...props.videoProps,
+
+    src: props.card.url
   }
 })
 

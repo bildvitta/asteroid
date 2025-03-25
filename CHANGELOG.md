@@ -19,9 +19,13 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - `QasErrorMessage`: adicionado novo componente para mostrar mensagem de erros de forma padronizada.
 - `QasRadio`: adicionado propriedades `error` e `errorMessage` em conjunto do componente `QasErrorMessage`.
 - `css/mixins/set-error-message`: mixin para aplicar os estilos diretamente no css.
+- `QasListView`: adicionado nova prop para personalizar o texto em casos que não tenha resultado.
+- `QasGalleryCard`: adicionado possibilidade para utilizar vídeos ao invés de imagens.
+- `QasNestedFields`: adicionado possibilidade de usar o `buttonDestroyProps` como um callback.
 
 ### Corrigido
 - `QasInput`: alterado ordem da prop `iconRight` que estava adicionando na esquerda e não na direita.
+- `QasSelect`: corrigido documentação para uso em casos de utilização de badges.
 
 ### Modificado
 - `QasSelect`: ignorando propriedade `useChips` que vem através de `$attrs`.
@@ -35,6 +39,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
   - QasExpansionItem
   - QasUploader
   - QasCheckbox
+- `QasToggleVisibiliy`: alterado área de clique para não ser apenas no botão e sim em todo elemento.
 
 ## [3.17.0] - 12-03-2025
 ## BREAKING CHANGES

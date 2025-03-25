@@ -1,6 +1,6 @@
 <template>
   <div class="qas-toggle-visibility">
-    <div class="items-center no-wrap row" :style>
+    <div class="cursor-pointer items-center no-wrap row" role="button" :style tabindex="0" @click.prevent.stop="toggleVisibility" @keydown.enter.prevent="toggleVisibility">
       <div class="ellipsis qas-toggle-visibility__content">
         <div
           v-if="isVisible"
@@ -18,11 +18,7 @@
         />
       </div>
 
-      <qas-btn
-        class="q-ml-sm qas-toggle-visibility__button"
-        :icon
-        @click.prevent.stop="toggleVisibility"
-      />
+      <qas-btn class="q-ml-sm qas-toggle-visibility__button" :icon tabindex="-1" />
     </div>
   </div>
 </template>

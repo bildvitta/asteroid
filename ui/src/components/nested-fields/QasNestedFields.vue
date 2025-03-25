@@ -105,7 +105,7 @@ export default {
     },
 
     buttonDestroyProps: {
-      type: Object,
+      type: [Object, Function],
       default: () => {
         return {
           color: 'grey-10',
@@ -356,6 +356,10 @@ export default {
     getDefaultActionsMenuList (index, row) {
       const list = {}
 
+      const destroyProps = typeof this.buttonDestroyProps === 'function'
+        ? this.buttonDestroyProps({ index, row })
+        : this.buttonDestroyProps
+
       if (this.useDuplicate) {
         list.duplicate = {
           ...this.buttonDuplicateProps,
@@ -365,7 +369,7 @@ export default {
 
       if (this.showDestroyButton) {
         list.destroy = {
-          ...this.buttonDestroyProps,
+          ...destroyProps,
           handler: () => this.destroy(index, row)
         }
       }
