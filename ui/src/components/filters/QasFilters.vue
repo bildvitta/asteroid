@@ -274,14 +274,17 @@ export default {
   watch: {
     $route (to, from) {
       if (to.name === from.name) {
-        this.fetchFilters()
+        /**
+       * Verifica se alguma chave da query que está no "listenerQueryKeys" mudou,
+       * se sim, faz bate o fetchFilters novamente.
+       */
+        const hasQueryChanged = this.listenerQueryKeys.find(
+          queryKey => to.query[queryKey] !== from.query[queryKey]
+        )
+
+        this.fetchFilters({ hasQueryChanged })
         this.useUpdateRoute && this.updateValues()
       }
-    },
-
-    '$route.query' (to, from) {
-      console.log(to, '<--- to')
-      console.log(from, '<--- from')
     },
 
     internalFilters: {
@@ -342,8 +345,8 @@ export default {
       this.filter()
     },
 
-    async fetchFilters () {
-      if (!this.useForceRefetch && (this.hasFields || !this.useFilterButton)) {
+    async fetchFilters ({ hasQueryChanged = false } = {}) {
+      if (!hasQueryChanged && !this.useForceRefetch && (this.hasFields || !this.useFilterButton)) {
         return null
       }
 
@@ -353,6 +356,7 @@ export default {
       const { filters } = this.mx_context
 
       try {
+        console.log('buscando fetchFilters')
         const response = await getAction.call(this, {
           entity: this.entity,
           key: 'fetchFilters',

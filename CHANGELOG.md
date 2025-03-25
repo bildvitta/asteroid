@@ -20,7 +20,9 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - `QasErrorMessage`: adicionado novo componente para mostrar mensagem de erros de forma padronizada.
 - `QasRadio`: adicionado propriedades `error` e `errorMessage` em conjunto do componente `QasErrorMessage`.
 - `css/mixins/set-error-message`: mixin para aplicar os estilos diretamente no css.
-- `QasFilters`: adicionado prop `useFullContent` para que o componente ocupe 100%, recomendado para o quando precisar utilizar grids.
+- `QasFilters`: 
+ - adicionado prop `useFullContent` para que o componente ocupe 100%, recomendado para quando precisar utilizar grids.
+ - adicionado prop `listenerQueryKeys` que serão chaves que o componente deve ouvir sempre que houver mudanças na query, para que bata a api novamente de `/filters`.
 
 ### Corrigido
 - `QasInput`: alterado ordem da prop `iconRight` que estava adicionando na esquerda e não na direita.
