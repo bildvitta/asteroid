@@ -33,7 +33,6 @@ export default {
     columns () {
       return [
         'isActive',
-        'document',
         'name',
         { align: 'right', name: 'actions' }
       ]

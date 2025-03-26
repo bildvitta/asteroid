@@ -26,6 +26,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 ### Corrigido
 - `QasInput`: alterado ordem da prop `iconRight` que estava adicionando na esquerda e não na direita.
 - `QasSelect`: corrigido documentação para uso em casos de utilização de badges.
+- `QasNestedfields`: corrigido documentação para uso em casos de utilização da prop `actionsMenuProps`.
 
 ### Modificado
 - `QasSelect`: ignorando propriedade `useChips` que vem através de `$attrs`.

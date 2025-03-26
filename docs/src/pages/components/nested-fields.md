@@ -73,6 +73,10 @@ A propriedade `useDestroyAlways` caso não seja repassada ao componente, assume 
 <doc-example file="QasNestedFields/DisabledRowsArray" title="Linhas desabilitadas com um array de uuids" />
 <doc-example file="QasNestedFields/DisabledRowsFunction" title="Linhas desabilitadas com uma função de callback" />
 <doc-example file="QasNestedFields/ButtonDestroyPropsFunction" title="Com callback na prop buttonDestroyProps" />
+
+:::info
+Lembre-se, para utilizar a prop `actionsMenuProps`, é necessário utilizar a prop `useInlineActions`.
+:::
 <doc-example file="QasNestedFields/ActionsMenuPropsObject" title="Propriedades do QasActionsMenu com objeto" />
 <doc-example file="QasNestedFields/ActionsMenuPropsFunction" title="Propriedades do QasActionsMenu com função de callback" />
 <doc-example file="QasNestedFields/InlineActions" title="Propriedade useInlineActions" />
