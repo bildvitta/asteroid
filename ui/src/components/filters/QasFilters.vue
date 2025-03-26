@@ -55,19 +55,9 @@ export default {
   mixins: [contextMixin],
 
   props: {
-    useChip: {
-      default: true,
-      type: Boolean
-    },
-
     entity: {
       required: true,
       type: String
-    },
-
-    fieldsProps: {
-      default: () => ({}),
-      type: Object
     },
 
     filters: {
@@ -75,12 +65,41 @@ export default {
       type: Object
     },
 
+    listenerQueryKeys: {
+      type: Array,
+      default: () => []
+    },
+
+    searchPlaceholder: {
+      default: 'Pesquisar...',
+      type: String
+    },
+
+    url: {
+      default: '',
+      type: String
+    },
+
+    useChip: {
+      default: true,
+      type: Boolean
+    },
+
     useFilterButton: {
       default: true,
       type: Boolean
     },
 
+    useForceRefetch: {
+      type: Boolean
+    },
+
     useFullContent: {
+      type: Boolean
+    },
+
+    useSpacing: {
+      default: true,
       type: Boolean
     },
 
@@ -94,33 +113,14 @@ export default {
       type: Boolean
     },
 
-    searchPlaceholder: {
-      default: 'Pesquisar...',
-      type: String
-    },
-
-    url: {
-      default: '',
-      type: String
-    },
-
-    useForceRefetch: {
-      type: Boolean
-    },
-
-    useSpacing: {
-      default: true,
-      type: Boolean
-    },
-
     useUpdateRoute: {
       default: true,
       type: Boolean
     },
 
-    listenerQueryKeys: {
-      type: Array,
-      default: () => []
+    fieldsProps: {
+      default: () => ({}),
+      type: Object
     }
   },
 
@@ -275,12 +275,10 @@ export default {
     $route (to, from) {
       if (to.name === from.name) {
         /**
-       * Verifica se alguma chave da query que está no "listenerQueryKeys" mudou,
-       * se sim, faz bate o fetchFilters novamente.
-       */
-        const hasQueryChanged = this.listenerQueryKeys.find(
-          queryKey => to.query[queryKey] !== from.query[queryKey]
-        )
+         * Verifica se alguma chave da query que está no "listenerQueryKeys" mudou,
+         * se sim, faz bate o fetchFilters novamente.
+        */
+        const hasQueryChanged = !!this.listenerQueryKeys.find(queryKey => to.query[queryKey] !== from.query[queryKey])
 
         this.fetchFilters({ hasQueryChanged })
         this.useUpdateRoute && this.updateValues()
@@ -346,6 +344,12 @@ export default {
     },
 
     async fetchFilters ({ hasQueryChanged = false } = {}) {
+      /**
+       * - Verifica se houve mudança na query com base na prop "listenerQueryKeys"
+       * - Verifica se a prop "useForceRefetch" foi passada para fazer o fetch mesmo já contendo dados na store.
+       * - Verifica se tem fields(ou seja, já foi feito o fetch antes), ou se a prop "useFilterButton" foi passada como
+       * "false", não contendo o menu lateral.
+       */
       if (!hasQueryChanged && !this.useForceRefetch && (this.hasFields || !this.useFilterButton)) {
         return null
       }

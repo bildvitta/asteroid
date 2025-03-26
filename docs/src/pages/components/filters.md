@@ -46,7 +46,7 @@ Ao utilizar a propriedade `:use-update-route="false"`, a leitura dos filtros ass
 
 <doc-example file="QasFilters/CustomFilterButton" title="Usando slot filter-button com a função 'filter'" />
 
-:::info
+:::warning
 Utilize a prop `useFullContent` quando precisar adicionar o componente em um grid.
 :::
 <doc-example file="QasFilters/WithGrid" title="Usando o qas-filters em um grid" />

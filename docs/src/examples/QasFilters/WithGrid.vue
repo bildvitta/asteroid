@@ -70,14 +70,8 @@
   </div>
 </template>
 
-<script>
-export default {
-  name: 'WithGrid',
+<script setup>
+defineOptions({ name: 'WithGrid' })
 
-  computed: {
-    entity () {
-      return 'users'
-    }
-  }
-}
+const entity = 'users'
 </script>
