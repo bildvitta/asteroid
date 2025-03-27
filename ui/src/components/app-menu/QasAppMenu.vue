@@ -1,10 +1,11 @@
 <template>
   <div class="qas-app-menu">
-    <q-drawer :key="reRenderCount" v-model="model" :behavior="behavior" class="shadow-2" :mini="isMiniMode" :mini-width="88" show-if-above :width="drawerWidth" @mouseenter="onMouseEvent" @mouseleave="onMouseEvent">
+    <q-drawer :key="reRenderCount" v-model="model" :behavior="behavior" class="shadow-2" :mini="isMiniMode" :mini-width="88" show-if-above :width="drawerWidth">
       <div class="column full-height justify-between no-wrap">
-        <div class="full-width">
+        <!-- logo + select de módulos -->
+        <div class="full-width q-pb-lg" :class="topScrollClass" @mouseenter="onMouseEvent" @mouseleave="onMouseEvent">
           <!-- Brand -->
-          <div v-if="!screen.untilLarge" class="q-mb-xl q-pt-xl qas-app-menu__label" :class="classes.spacedItem">
+          <div v-if="!screen.untilLarge" class="q-mb-lg q-pt-lg qas-app-menu__label" :class="classes.spacedItem">
             <router-link class="column flex items-center justify-center relative-position text-no-decoration" :to="rootRoute">
               <q-img v-if="normalizedBrand" :alt="props.title" class="qas-app-menu__brand qas-app-menu__label" fit="contain" height="27px" img-class="qas-app-menu__brand-img" no-spinner :src="normalizedBrand" />
 
@@ -18,76 +19,81 @@
             <q-separator />
           </div>
 
-          <div v-if="screen.untilLarge" class="q-pr-xl q-pt-md text-right">
+          <div v-if="screen.untilLarge" class="flex itens-center justify-between q-pt-md q-px-xl text-right">
+            <div>
+              <q-img v-if="normalizedBrand" :alt="props.title" class="qas-app-menu__brand qas-app-menu__label" fit="contain" height="27px" img-class="qas-app-menu__brand-img" no-spinner :src="props.miniBrand" />
+            </div>
+
             <qas-btn color="grey-10" icon="sym_r_close" variant="tertiary" @click="closeDrawer" />
           </div>
 
           <!-- Module -->
-          <div v-if="showAppMenuDropdown" class="items-center justify-between no-wrap q-mt-xl qas-app-menu__label qas-app-menu__module row" :class="classes.spacedItem">
+          <div v-if="showAppMenuDropdown" class="items-center justify-between no-wrap q-mt-lg qas-app-menu__label qas-app-menu__module row" :class="classes.spacedItem">
             <div class="full-width text-center">
               <pv-app-menu-dropdown v-bind="appMenuDropdownProps" />
             </div>
           </div>
+        </div>
 
-          <!-- List -->
-          <q-list v-if="props.items.length" class="q-mt-xl qas-app-menu__menu text-grey-10" :class="menuClasses">
-            <template v-for="(menuItem, index) in props.items">
-              <div v-if="hasChildren(menuItem)" :key="`children-${index}`" class="qas-app-menu__content" :class="classes.content">
-                <q-item class="ellipsis items-center q-py-none qas-app-menu__item qas-app-menu__item--label-mini text-weight-bold">
-                  <div class="ellipsis qas-app-menu__label text-grey-10 text-subtitle2" :class="classes.spacedItem">
-                    {{ menuItem.label }}
-                  </div>
-                </q-item>
-
-                <q-item v-for="(menuChildItem, childIndex) in menuItem.children" :key="childIndex" :active="isActive(menuChildItem)" class="qas-app-menu__children qas-app-menu__item qas-app-menu__item--children" :to="getRouterRedirect(menuChildItem)">
-                  <q-item-section v-if="menuChildItem.icon" avatar>
-                    <q-icon :name="menuChildItem.icon" />
-                  </q-item-section>
-
-                  <q-item-section>
-                    <q-item-label>
-                      <div class="ellipsis text-subtitle2">
-                        {{ menuChildItem.label }}
-                      </div>
-                    </q-item-label>
-                  </q-item-section>
-                </q-item>
-
-                <div v-if="hasSeparator(index)" class="qas-app-menu__label" :class="classes.spacedItem">
-                  <q-separator spaced />
+        <!-- lista do menu -->
+        <q-list v-if="normalizedItems.length" id="app-menu-list" ref="list" class="qas-app-menu__menu text-grey-10" @mouseleave="onMouseEvent" @mousemove="onMouseModeList">
+          <template v-for="(menuItem, index) in normalizedItems">
+            <div v-if="hasChildren(menuItem)" :key="`children-${index}`" class="qas-app-menu__content" :class="classes.content">
+              <q-item class="ellipsis items-center q-py-none qas-app-menu__item qas-app-menu__item--label-mini text-weight-bold">
+                <div class="ellipsis qas-app-menu__label text-grey-10 text-subtitle2" :class="classes.spacedItem">
+                  {{ menuItem.label }}
                 </div>
-              </div>
+              </q-item>
 
-              <!-- quando tem children vazio, não deve mostrar label do item, e a label do item
-              não tem "to", então validar se tem "to" para mostrar o item -->
-              <q-item v-else-if="menuItem.to" :key="index" :active="isActive(menuItem)" active-class="q-router-link--active" class="qas-app-menu__item" :to="getRouterRedirect(menuItem)">
-                <q-item-section v-if="menuItem.icon" avatar>
-                  <q-icon :name="menuItem.icon" />
+              <q-item v-for="(menuChildItem, childIndex) in menuItem.children" :key="childIndex" :active="isActive(menuChildItem)" class="qas-app-menu__children qas-app-menu__item qas-app-menu__item--children" :to="getRouterRedirect(menuChildItem)">
+                <q-item-section v-if="menuChildItem.icon" avatar>
+                  <q-icon :name="menuChildItem.icon" />
                 </q-item-section>
 
                 <q-item-section>
                   <q-item-label>
                     <div class="ellipsis text-subtitle2">
-                      {{ menuItem.label }}
+                      {{ menuChildItem.label }}
                     </div>
                   </q-item-label>
                 </q-item-section>
               </q-item>
-            </template>
-          </q-list>
-        </div>
 
-        <div v-if="showAppUser">
-          <!-- Chat Ajuda -->
-          <q-list v-if="useChat" class="q-mt-xl">
-            <q-item class="q-mb-md text-primary" clickable @click="toggleChat">
-              <q-item-section avatar>
-                <q-icon name="sym_r_chat" />
+              <div v-if="hasSeparator(index)" class="qas-app-menu__label" :class="classes.spacedItem">
+                <q-separator spaced />
+              </div>
+            </div>
+
+            <!-- quando tem children vazio, não deve mostrar label do item, e a label do item
+              não tem "to", então validar se tem "to" para mostrar o item -->
+            <q-item v-else-if="menuItem.to" :key="index" :active="isActive(menuItem)" active-class="q-router-link--active" class="qas-app-menu__item" :to="getRouterRedirect(menuItem)">
+              <q-item-section v-if="menuItem.icon" avatar>
+                <q-icon :name="menuItem.icon" />
               </q-item-section>
 
               <q-item-section>
                 <q-item-label>
                   <div class="ellipsis text-subtitle2">
+                    {{ menuItem.label }}
+                  </div>
+                </q-item-label>
+              </q-item-section>
+            </q-item>
+          </template>
+        </q-list>
+
+        <!-- usuário + chat ajuda -->
+        <div v-if="showAppUser" class="q-mt-auto" :class="bottomScrollClass" @mouseenter="onMouseEvent" @mouseleave="onMouseEvent">
+          <!-- Chat Ajuda -->
+          <q-list v-if="useChat" class="q-mt-md">
+            <q-item class="q-pb-none" clickable @click="toggleChat">
+              <q-item-section avatar>
+                <q-icon color="primary" name="sym_r_chat" />
+              </q-item-section>
+
+              <q-item-section>
+                <q-item-label>
+                  <div class="ellipsis text-primary text-subtitle2">
                     Solicitar ajuda
                   </div>
                 </q-item-label>
@@ -96,7 +102,7 @@
           </q-list>
 
           <!-- User -->
-          <div class="full-width q-pb-lg q-px-lg">
+          <div class="full-width q-mt-md q-mt-sm q-pb-lg q-px-lg">
             <qas-app-user v-bind="defaultAppUserProps" />
           </div>
         </div>
@@ -118,7 +124,7 @@ import { useAuthUser } from '../../composables/private'
 import { handleProcess } from '../../helpers'
 
 import Gleap from 'gleap'
-import { ref, computed, watch, onMounted } from 'vue'
+import { ref, computed, watch, onMounted, nextTick, onBeforeUnmount } from 'vue'
 import { useRouter } from 'vue-router'
 
 defineOptions({
@@ -172,22 +178,32 @@ const props = defineProps({
 
   useChat: {
     type: Boolean
+  },
+
+  useHomeItem: {
+    type: Boolean,
+    default: true
   }
 })
 
+// emits
 const emit = defineEmits(['sign-out', 'update:modelValue', 'toggle-notifications'])
 
+// composables
 const screen = useScreen()
 const router = useRouter()
 
 const { toggleChat } = useChatMenu()
 
-const rootRoute = router.hasRoute('Root') ? { name: 'Root' } : { path: '/' }
-
+// refs
 const hasOpenedMenu = ref(false)
 const hasOpenedHelpChat = ref(false)
 const isMini = ref(screen.isLarge)
 const reRenderCount = ref(0)
+const list = ref(null)
+
+// consts
+const rootRoute = router.hasRoute('Root') ? { name: 'Root' } : { path: '/' }
 
 const composableParams = {
   props,
@@ -196,10 +212,12 @@ const composableParams = {
   onToggleNotifications: () => emit('toggle-notifications')
 }
 
+// composables
 const { defaultAppUserProps, showAppUser } = useAppUser(composableParams)
 const { appMenuDropdownProps, showAppMenuDropdown } = useAppMenuDropdown(composableParams)
 const { developmentBadgeLabel, hasDevelopmentBadge } = useDevelopmentBadge()
 
+// computeds
 const model = computed({
   get () {
     return props.modelValue
@@ -210,6 +228,21 @@ const model = computed({
   }
 })
 
+const normalizedItems = computed(() => {
+  if (props.useHomeItem) {
+    return [
+      {
+        label: 'Início',
+        icon: 'sym_r_home',
+        to: rootRoute
+      },
+      ...props.items
+    ]
+  }
+
+  return props.items
+})
+
 const behavior = computed(() => screen.untilLarge ? 'mobile' : 'desktop')
 const drawerWidth = computed(() => screen.untilLarge ? 320 : 280)
 const normalizedBrand = computed(() => isMini.value ? props.miniBrand : props.brand)
@@ -217,8 +250,6 @@ const normalizedBrand = computed(() => isMini.value ? props.miniBrand : props.br
 const isMiniMode = computed(() => {
   return screen.isLarge && isMini.value && !hasOpenedMenu.value && !hasOpenedHelpChat.value
 })
-
-const menuClasses = computed(() => ({ 'qas-app-menu__menu--spaced': !props.useChat }))
 
 const classes = computed(() => {
   return {
@@ -231,6 +262,9 @@ const classes = computed(() => {
     }
   }
 })
+
+// composables
+const { bottomScrollClass, topScrollClass } = useListScroll()
 
 /**
  * @desc Recurso tecnológico temporário (ou definitivo), este bug ocorre por conta
@@ -250,7 +284,7 @@ watch(() => behavior.value, value => {
   }
 })
 
-// métodos
+// functions
 function closeDrawer () {
   emit('update:modelValue', false)
 }
@@ -276,7 +310,7 @@ function hasChildren ({ children }) {
 }
 
 function hasSeparator (index) {
-  return !!props.items[index + 1]
+  return !!normalizedItems.value[index + 1]
 }
 
 function isActive ({ to }) {
@@ -289,14 +323,39 @@ function isActive ({ to }) {
   return currentPath === itemPath
 }
 
-function onMouseEvent ({ type }) {
+function onMouseEvent (event) {
   if (!screen.isLarge) return
 
-  const isMouseLeave = type === 'mouseleave'
+  // Se o mouse estiver fora do QList
+  const isMouseLeave = event.type === 'mouseleave'
 
   isMini.value = isMouseLeave
 
   model.value = false
+}
+
+function onMouseModeList (event) {
+  // Se o menu já estiver aberto ou não for tela grande, não deve alterar o estado do menu.
+  if (!screen.isLarge || !isMini.value) return
+
+  const listElement = list.value.$el
+
+  // Obter a posição do QList na viewport
+  const { left, width } = listElement.getBoundingClientRect()
+
+  // Obter a posição do mouse relativa ao QList
+  const mouseRelativeX = event.clientX - left
+
+  // Calcular a largura do scrollbar do QList
+  const scrollbarWidth = listElement.offsetWidth - listElement.clientWidth
+
+  // Se o mouse estiver na faixa do scrollbar (última parte do QList)
+  const isOverScrollbar = mouseRelativeX > width - scrollbarWidth
+
+  // Se o mouse estiver sobre o scrollbar, não deve alterar o estado do menu
+  if (isOverScrollbar) return
+
+  onMouseEvent(event)
 }
 
 function setHasOpenedMenu (value) {
@@ -357,6 +416,70 @@ function useChatMenu () {
     toggleChat
   }
 }
+
+function useListScroll () {
+  // refs
+  const scrollConfig = ref({
+    hasScroll: false,
+    isScrollAtBottom: false,
+    isScrollAtTop: true
+  })
+
+  // hooks
+  onMounted(() => {
+    const listElement = list.value.$el
+
+    setHasScroll()
+    listElement.addEventListener('scroll', setScrollConfig)
+  })
+
+  onBeforeUnmount(() => {
+    const listElement = list.value.$el
+
+    listElement.removeEventListener('scroll', setScrollConfig)
+  })
+
+  // computeds
+  const bottomScrollClass = computed(() => {
+    const { hasScroll, isScrollAtBottom } = scrollConfig.value
+
+    return hasScroll && !isScrollAtBottom && 'qas-app-menu__scroll-shadow-bottom'
+  })
+
+  const topScrollClass = computed(() => {
+    const { hasScroll, isScrollAtTop } = scrollConfig.value
+
+    return hasScroll && !isScrollAtTop && 'qas-app-menu__scroll-shadow-top'
+  })
+
+  // watch
+  watch(() => normalizedItems.value, () => nextTick(setHasScroll))
+
+  // functions
+  function setHasScroll () {
+    const element = list.value.$el
+
+    const { scrollHeight, clientHeight } = element
+
+    scrollConfig.value.hasScroll = scrollHeight > clientHeight
+  }
+
+  function setScrollConfig () {
+    const element = list.value.$el
+    const { scrollTop, scrollHeight, clientHeight } = element
+
+    // Pequena tolerância para lidar com problemas de precisão de ponto flutuante
+    const tolerance = 1
+
+    scrollConfig.value.isScrollAtBottom = scrollTop + clientHeight >= scrollHeight - tolerance
+    scrollConfig.value.isScrollAtTop = scrollTop === 0
+  }
+
+  return {
+    bottomScrollClass,
+    topScrollClass
+  }
+}
 </script>
 
 <style lang="scss" scoped>
@@ -378,12 +501,12 @@ function useChatMenu () {
 
   &__item {
     &:not(&--label) + &:not(&--label) {
-      margin-top: var(--qas-spacing-sm);
+      margin-top: var(--qas-spacing-xs);
     }
 
     &--children.q-item {
       & + & {
-        margin-top: var(--qas-spacing-sm);
+        margin-top: var(--qas-spacing-xs);
       }
     }
   }
@@ -419,7 +542,7 @@ function useChatMenu () {
   &__content + &__content,
   &__content + &__item,
   &__item + &__content {
-    margin-top: var(--qas-spacing-sm);
+    margin-top: var(--qas-spacing-xs);
   }
 
   // User
@@ -427,18 +550,35 @@ function useChatMenu () {
     line-height: 1.25;
   }
 
+  &__scroll-shadow-bottom,
+  &__scroll-shadow-top {
+    position: relative;
+
+    &::after {
+      content: "";
+      pointer-events: none;
+      position: absolute;
+      right: 16px;
+      left: 0;
+      height: 40px;
+    }
+  }
+
+  &__scroll-shadow-bottom::after {
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.9) 51%, white 75%);
+    top: -40px;
+  }
+
+  &__scroll-shadow-top::after {
+    background: linear-gradient(0deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.9) 51%, white 75%);
+    z-index: 1;
+    bottom: -40px;
+  }
+
   // Media: untilLarge
   @media (min-width: $breakpoint-sm-max) {
     &__menu {
       overflow-x: hidden;
-
-      &:not(&--spaced) {
-        max-height: calc(100vh - 365px);
-      }
-    }
-
-    &__menu--spaced {
-      max-height: calc(100vh - 310px);
     }
   }
 }

@@ -14,6 +14,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 ## BREAKING CHANGE
 - `QasInput`: alterado ordem da prop `iconRight` que estava adicionando na esquerda e não na direita, verificar lugares.
 - Alterar `quasar.variables.scss`, nova cor do `$negative` sendo `$red-14`.
+- `QasAppMenu`: adicionado nova propriedade `useHomeItem` com default `true` para forçar padronização no item de inicio, é necessário remover esse item da prop "items" caso esteja sendo adicionado.
 
 ### Adicionado
 - `QasErrorMessage`: adicionado novo componente para mostrar mensagem de erros de forma padronizada.
@@ -39,6 +40,15 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
   - QasExpansionItem
   - QasUploader
   - QasCheckbox
+- `QasAppMenu`:
+  - adicionado nova propriedade `useHomeItem` com default `true` para forçar padronização no item de inicio.
+  - diminuído espaçamento interno entre lista de itens, logo, avatar de usuário e módulos, para caber mais conteúdos.
+  - diminuído espaçamento interno entre itens do menu.
+  - quando o ponteiro do mouse estiver encima da barra de scroll, o menu não será mais expandido, habilitando scroll em modo mini.
+  - adicionado linear gradiente na parte superior e inferior da listagem de itens do menu quando existe scroll para feedback melhorado.
+  - modificado estrutura do HTML, agora o lista de itens não tem altura fixa definida, pega todo o espaço disponível.
+  - drawer no mobile quando aberto mostra a logo mini ao lado do botão de fechar.
+  - `QasAppUser` agora mostra nome/email mesmo no mobile.
 
 ## [3.17.0] - 12-03-2025
 ## BREAKING CHANGES

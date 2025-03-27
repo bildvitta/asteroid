@@ -49,6 +49,11 @@ props:
     type: Boolean
     default: true
 
+  use-home-item:
+    desc: Propriedade que adiciona item no menu de "inicio", forçando padronização.
+    type: Boolean
+    default: true
+
 slots:
   user:
     desc: Slot para acessar o menu de usuário.

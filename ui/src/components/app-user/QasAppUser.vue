@@ -1,5 +1,5 @@
 <template>
-  <div class="cursor-pointer items-center no-wrap q-gutter-sm qas-app-user row" data-cy="app-user">
+  <div class="cursor-pointer items-center no-wrap q-gutter-x-sm qas-app-user row" data-cy="app-user">
     <div class="relative-position">
       <qas-avatar :image="props.user.photo" :size="props.avatarSize" :title="userName" />
 
@@ -283,7 +283,8 @@ function useAvatarNotifications () {
 
   @media (max-width: $breakpoint-xs) {
     &__data {
-      display: none;
+      // display: none;
+      // background-color: red !important;
     }
   }
 }

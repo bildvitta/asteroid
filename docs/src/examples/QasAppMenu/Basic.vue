@@ -93,7 +93,7 @@ export default {
             to: { path: '/why-asteroid' }
           },
           {
-            label: 'Começando',
+            label: 'Plugins',
             children: [
               {
                 label: 'Dialog',
@@ -101,9 +101,50 @@ export default {
                 icon: 'sym_r_settings_input_hdmi'
               },
               {
-                label: 'Logger',
-                to: { path: '/plugins/dialog' },
-                icon: 'sym_r_info'
+                label: 'Delete',
+                to: { path: '/plugins/delete' },
+                icon: 'sym_r_delete'
+              },
+              {
+                label: 'NotifyError',
+                to: { path: '/plugins/notify-error' },
+                icon: 'sym_r_notifications'
+              },
+              {
+                label: 'NotifySuccess',
+                to: { path: '/plugins/notify-success' },
+                icon: 'sym_r_notifications'
+              },
+              {
+                label: 'Screen',
+                to: { path: '/plugins/screen' },
+                icon: 'sym_r_screen_rotation'
+              }
+            ]
+          },
+          {
+            label: 'Components',
+            icon: 'sym_r_apps',
+            children: [
+              {
+                label: 'Avatar',
+                to: { path: '/xpto/avatar' },
+                icon: 'sym_r_account_circle'
+              },
+              {
+                label: 'BtnDropdown',
+                to: { path: '/xpto/btn-dropdown' },
+                icon: 'sym_r_more_vert'
+              },
+              {
+                label: 'Dialog',
+                to: { path: '/xpto/dialog' },
+                icon: 'sym_r_settings_input_hdmi'
+              },
+              {
+                label: 'FormView',
+                to: { path: '/xpto/form-view' },
+                icon: 'sym_r_view_list'
               }
             ]
           }
