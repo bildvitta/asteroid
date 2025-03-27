@@ -310,6 +310,10 @@ export default {
 
     formGeneratorParentClasses () {
       return this.useInlineActions ? 'col-12 justify-between q-col-gutter-x-md row' : 'full-width'
+    },
+
+    isButtonDestroyPropsFunction () {
+      return typeof this.buttonDestroyProps === 'function'
     }
   },
 
@@ -356,7 +360,7 @@ export default {
     getDefaultActionsMenuList (index, row) {
       const list = {}
 
-      const destroyProps = typeof this.buttonDestroyProps === 'function'
+      const destroyProps = this.isButtonDestroyPropsFunction
         ? this.buttonDestroyProps({ index, row })
         : this.buttonDestroyProps
 

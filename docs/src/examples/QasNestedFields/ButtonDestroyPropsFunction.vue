@@ -1,9 +1,7 @@
 <template>
   <div class="container spaced">
     <div class="q-mt-lg">
-      <div>
-        <qas-nested-fields v-model="model" :button-destroy-props="getButtonDestroyProps" class="full-width" :field :use-starts-empty="false" />
-      </div>
+      <qas-nested-fields v-model="model" :button-destroy-props="getButtonDestroyProps" class="full-width" :field :use-starts-empty="false" />
 
       <div class="q-my-lg">
         Model: <qas-debugger :inspect="[model]" />
@@ -16,6 +14,9 @@
 import { ref } from 'vue'
 
 defineOptions({ name: 'ButtonDestroyPropsFunction' })
+
+// refs
+const model = ref([])
 
 // consts
 const field = {
@@ -50,9 +51,6 @@ const field = {
     }
   }
 }
-
-// refs
-const model = ref([])
 
 // functions
 function getButtonDestroyProps ({ row }) {
