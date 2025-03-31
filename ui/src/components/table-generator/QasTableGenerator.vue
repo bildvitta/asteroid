@@ -54,7 +54,7 @@ export default {
 
     maxHeight: {
       type: String,
-      default: ''
+      default: '528px'
     },
 
     results: {
