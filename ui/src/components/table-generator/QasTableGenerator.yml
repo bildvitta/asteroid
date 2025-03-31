@@ -9,11 +9,6 @@ props:
     default: []
     type: Array
 
-  content-max-height:
-    desc: Usado para definir a altura máxima do conteúdo da tabela e exibir o scroll vertical quando a propriedade "use-virtual-scroll" é utilizada.
-    default: calc(100vh - 300px || 200px)
-    type: String
-
   empty-result-text:
     desc: Quando uma célula da tabela está vazia (null, undefined, ''), esta prop define qual será o valor padrão.
     default: '-'
@@ -31,6 +26,11 @@ props:
     type: Object
     examples: ["{ description: 'Descrição', labelProps: { label: 'Titulo do header'} }"]
 
+  max-height:
+    desc: Usado para definir a altura máxima da tabela e exibir o scroll vertical. Somente funciona quando a propriedade "use-sticky-header" ou "use-virtual-scroll" é utilizada.
+    default: ''
+    type: String
+
   results:
     desc: Lista com resultados para serem mostrados na tabela.
     default: {}
@@ -46,11 +46,6 @@ props:
     desc: Usado quando há a necessidade de alteração de rota ao clicar em um item da tabela(a linha passa ser um <a> habilitando a opção de abrir em uma nova aba).
     type: Function
     examples: ["(row) => ({ path: 'table-generator', params: { id: row.uuid } })"]
-
-  sticky-header-table-height:
-    desc: Usado para definir a altura máxima da tabela e exibir o scroll vertical quando a propriedade "use-sticky-header" é utilizada.
-    default: 528px
-    type: String
 
   use-box:
     desc: Controla se o componente vai usar QasBox ou div.

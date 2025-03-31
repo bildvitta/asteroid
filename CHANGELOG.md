@@ -14,7 +14,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 ## BREAKING CHANGE
 - `QasInput`: alterado ordem da prop `iconRight` que estava adicionando na esquerda e não na direita, verificar lugares.
 - Alterar `quasar.variables.scss`, nova cor do `$negative` sendo `$red-14`.
-- `QasTableGenerator`: removido prop `stickyHeaderTableHeight`, agora controla o tamanho da tabela pela prop `contentMaxHeight`.
+- `QasTableGenerator`: removido prop `stickyHeaderTableHeight`, agora controla o tamanho da tabela pela prop `maxHeight`.
 
 ### Adicionado
 - `QasErrorMessage`: adicionado novo componente para mostrar mensagem de erros de forma padronizada.
@@ -22,7 +22,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - `css/mixins/set-error-message`: mixin para aplicar os estilos diretamente no css.
 - `QasTableGenerator`: 
   - Adicionado prop `useVirtualScroll` para aplicar a renderização dinâmica dos elementos na tabela.
-  - Adicionado prop `contentMaxHeight` para definir o tamanho da tabela em casos de `stickHeader` e `virtualScroll`.
+  - Adicionado prop `maxHeight` para definir o tamanho da tabela em casos de `stickHeader` e `virtualScroll`.
 
 ### Corrigido
 - `QasInput`: alterado ordem da prop `iconRight` que estava adicionando na esquerda e não na direita.
@@ -42,7 +42,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
   - QasCheckbox
 
 ### Removido
-- `QasTableGenerator`: removido prop `stickyHeaderTableHeight`, agora controla o tamanho da tabela pela prop `contentMaxHeight`.
+- `QasTableGenerator`: removido prop `stickyHeaderTableHeight`, agora controla o tamanho da tabela pela prop `maxHeight`.
 
 ## [3.17.0] - 12-03-2025
 ## BREAKING CHANGES

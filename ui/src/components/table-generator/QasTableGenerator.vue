@@ -52,7 +52,7 @@ export default {
       type: Object
     },
 
-    contentMaxHeight: {
+    maxHeight: {
       type: String,
       default: ''
     },
@@ -239,7 +239,7 @@ export default {
 
     tableStyle () {
       return {
-        maxHeight: this.useStickyHeader || this.useVirtualScroll ? this.contentMaxHeight : 'initial'
+        ...((this.useStickyHeader || this.useVirtualScroll) && { maxHeight: this.maxHeight })
       }
     },
 

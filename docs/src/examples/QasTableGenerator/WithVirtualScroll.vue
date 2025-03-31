@@ -1,5 +1,5 @@
 <template>
-  <qas-table-generator class="with-virtual-scroll" content-max-height="300px" :fields="fields" :results="resultsTest" row-key="uuid" use-virtual-scroll />
+  <qas-table-generator class="with-virtual-scroll" :fields="fields" max-height="300px" :results="resultsTest" row-key="uuid" use-virtual-scroll />
 </template>
 
 <script setup>
