@@ -51,7 +51,8 @@ const user = {
 export default {
   data () {
     return {
-      isMenuOpened: true
+      isMenuOpened: true,
+      children: []
     }
   },
 
@@ -60,7 +61,9 @@ export default {
       return {
         brand: 'https://placehold.co/208x40',
         miniBrand: 'https://placehold.co/40x40',
+        useHomeItem: false,
         modules,
+        useChat: false,
         appUserProps: {
           companyProps: {
             options: [
@@ -94,33 +97,7 @@ export default {
           },
           {
             label: 'Plugins',
-            children: [
-              {
-                label: 'Dialog',
-                to: { path: '/plugins/dialog' },
-                icon: 'sym_r_settings_input_hdmi'
-              },
-              {
-                label: 'Delete',
-                to: { path: '/plugins/delete' },
-                icon: 'sym_r_delete'
-              },
-              {
-                label: 'NotifyError',
-                to: { path: '/plugins/notify-error' },
-                icon: 'sym_r_notifications'
-              },
-              {
-                label: 'NotifySuccess',
-                to: { path: '/plugins/notify-success' },
-                icon: 'sym_r_notifications'
-              },
-              {
-                label: 'Screen',
-                to: { path: '/plugins/screen' },
-                icon: 'sym_r_screen_rotation'
-              }
-            ]
+            children: this.children
           },
           {
             label: 'Components',
@@ -151,6 +128,38 @@ export default {
         ]
       }
     }
+  },
+
+  created () {
+    setTimeout(() => {
+      this.children = [
+        {
+          label: 'Dialog',
+          to: { path: '/plugins/dialog' },
+          icon: 'sym_r_settings_input_hdmi'
+        },
+        {
+          label: 'Delete',
+          to: { path: '/plugins/delete' },
+          icon: 'sym_r_delete'
+        },
+        {
+          label: 'NotifyError',
+          to: { path: '/plugins/notify-error' },
+          icon: 'sym_r_notifications'
+        },
+        {
+          label: 'NotifySuccess',
+          to: { path: '/plugins/notify-success' },
+          icon: 'sym_r_notifications'
+        },
+        {
+          label: 'Screen',
+          to: { path: '/plugins/screen' },
+          icon: 'sym_r_screen_rotation'
+        }
+      ]
+    }, 2000)
   }
 }
 </script>

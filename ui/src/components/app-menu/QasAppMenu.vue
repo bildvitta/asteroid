@@ -36,7 +36,7 @@
         </div>
 
         <!-- lista do menu -->
-        <q-list v-if="normalizedItems.length" id="app-menu-list" ref="list" class="qas-app-menu__menu text-grey-10" @mouseleave="onMouseEvent" @mousemove="onMouseModeList">
+        <q-list v-if="normalizedItems.length" id="app-menu-list" ref="list" class="qas-app-menu__menu text-grey-10" @mouseleave="onMouseEvent" @mousemove="onMouseMoveList">
           <template v-for="(menuItem, index) in normalizedItems">
             <div v-if="hasChildren(menuItem)" :key="`children-${index}`" class="qas-app-menu__content" :class="classes.content">
               <q-item class="ellipsis items-center q-py-none qas-app-menu__item qas-app-menu__item--label-mini text-weight-bold">
@@ -116,6 +116,7 @@ import PvAppMenuDropdown from './private/PvAppMenuDropdown.vue'
 import QasAppUser from '../app-user/QasAppUser.vue'
 
 import useAppMenuDropdown from './composables/use-app-menu-dropdown'
+import useScrollGradient from '../../composables/use-scroll-gradient'
 import useAppUser from './composables/use-app-user'
 import useDevelopmentBadge from './composables/use-development-badge'
 import { useScreen } from '../../composables'
@@ -216,6 +217,9 @@ const composableParams = {
 const { defaultAppUserProps, showAppUser } = useAppUser(composableParams)
 const { appMenuDropdownProps, showAppMenuDropdown } = useAppMenuDropdown(composableParams)
 const { developmentBadgeLabel, hasDevelopmentBadge } = useDevelopmentBadge()
+const { bottomScrollClass, topScrollClass } = useListScroll()
+
+useScrollGradient({ element: list, color: '#FFF' })
 
 // computeds
 const model = computed({
@@ -262,9 +266,6 @@ const classes = computed(() => {
     }
   }
 })
-
-// composables
-const { bottomScrollClass, topScrollClass } = useListScroll()
 
 /**
  * @desc Recurso tecnológico temporário (ou definitivo), este bug ocorre por conta
@@ -334,7 +335,7 @@ function onMouseEvent (event) {
   model.value = false
 }
 
-function onMouseModeList (event) {
+function onMouseMoveList (event) {
   // Se o menu já estiver aberto ou não for tela grande, não deve alterar o estado do menu.
   if (!screen.isLarge || !isMini.value) return
 
@@ -443,17 +444,20 @@ function useListScroll () {
   const bottomScrollClass = computed(() => {
     const { hasScroll, isScrollAtBottom } = scrollConfig.value
 
-    return hasScroll && !isScrollAtBottom && 'qas-app-menu__scroll-shadow-bottom'
+    return hasScroll && !isScrollAtBottom && 'qas-app-menu__scroll-gradient-bottom'
   })
 
   const topScrollClass = computed(() => {
     const { hasScroll, isScrollAtTop } = scrollConfig.value
 
-    return hasScroll && !isScrollAtTop && 'qas-app-menu__scroll-shadow-top'
+    return hasScroll && !isScrollAtTop && 'qas-app-menu__scroll-gradient-top'
   })
 
   // watch
-  watch(() => normalizedItems.value, () => nextTick(setHasScroll))
+  watch(() => props.items, () => {
+    // initializeScrollGradient()
+    nextTick(setHasScroll)
+  })
 
   // functions
   function setHasScroll () {
@@ -550,8 +554,8 @@ function useListScroll () {
     line-height: 1.25;
   }
 
-  &__scroll-shadow-bottom,
-  &__scroll-shadow-top {
+  &__scroll-gradient-bottom,
+  &__scroll-gradient-top {
     position: relative;
 
     &::after {
@@ -564,13 +568,19 @@ function useListScroll () {
     }
   }
 
-  &__scroll-shadow-bottom::after {
-    background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.9) 51%, white 75%);
+  @mixin set-scroll-gradient ($direction, $color: white) {
+    // background: linear-gradient($direction, rgba($color, 0) 0%, rgba($color, 0.9) 51%, $color 75%);
+  }
+
+  &__scroll-gradient-bottom::after {
+    @include set-scroll-gradient(to bottom);
+
     top: -40px;
   }
 
-  &__scroll-shadow-top::after {
-    background: linear-gradient(0deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.9) 51%, white 75%);
+  &__scroll-gradient-top::after {
+    @include set-scroll-gradient(0deg);
+
     z-index: 1;
     bottom: -40px;
   }

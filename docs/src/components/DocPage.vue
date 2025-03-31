@@ -36,7 +36,7 @@ export default {
 .doc-page {
   margin-left: auto;
   margin-right: auto;
-  max-width: 900px;
+  max-width: 1080;
   padding: 16px 46px;
 }
 </style>
