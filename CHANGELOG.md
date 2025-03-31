@@ -22,7 +22,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - `css/mixins/set-error-message`: mixin para aplicar os estilos diretamente no css.
 - `QasTableGenerator`: 
   - Adicionado prop `useVirtualScroll` para aplicar a renderização dinâmica dos elementos na tabela.
-  - Adicionado prop `maxHeight` para definir o tamanho da tabela em casos de `stickHeader` e `virtualScroll`.
+  - Adicionado prop `maxHeight` para definir o tamanho da tabela em casos de `useStickyHeader` e `useVirtualScroll`.
 
 ### Corrigido
 - `QasInput`: alterado ordem da prop `iconRight` que estava adicionando na esquerda e não na direita.
