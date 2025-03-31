@@ -261,12 +261,6 @@ export default {
 
     hasHeaderProps () {
       return !!Object.keys(this.headerProps).length
-    },
-
-    middleMaxHeight () {
-      const calcSize = this.$qas.screen.isSmall ? '300px' : '200px'
-
-      return this.contentMaxHeight || `calc(100vh - ${calcSize})`
     }
   },
 
@@ -433,7 +427,7 @@ export default {
   &--virtual-scroll {
     .q-table__middle {
       overflow-y: auto !important;
-      max-height: v-bind("middleMaxHeight") !important;
+      max-height: v-bind("contentMaxHeight") !important;
     }
   }
 }
