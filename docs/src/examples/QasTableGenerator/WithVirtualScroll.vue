@@ -1,88 +1,29 @@
 <template>
-  <qas-table-generator class="with-virtual-scroll" content-max-height="300px" :fields="fields" :results="results" row-key="uuid" use-virtual-scroll />
+  <qas-table-generator class="with-virtual-scroll" content-max-height="300px" :fields="fields" :results="resultsTest" row-key="uuid" use-virtual-scroll />
 </template>
 
 <script setup>
+import { computed } from 'vue'
+
 defineOptions({ name: 'WithVirtualScroll' })
 
 const fields = {
-  email: { type: 'text', name: 'email', label: 'E-mail' },
   name: { type: 'text', name: 'name', label: 'Nome' },
+  email: { type: 'text', name: 'email', label: 'E-mail' },
   phone: { type: 'text', name: 'phone', label: 'Telefone', mask: 'phone' }
 }
 
-const results = [
-  { uuid: '1a2b3c4d-1111-2222-3333-444455556666', name: 'Alice Johnson', email: 'alice@gmail.com', phone: '9999999901' },
-  { uuid: '1a2b3c4d-2222-3333-4444-555566667777', name: 'Bob Smith', email: 'bob@example.com', phone: '9999999902' },
-  { uuid: '1a2b3c4d-3333-4444-5555-666677778888', name: 'Charlie Brown', email: 'charlie@example.com', phone: '9999999903' },
-  { uuid: '1a2b3c4d-4444-5555-6666-777788889999', name: 'David White', email: 'david@example.com', phone: '9999999904' },
-  { uuid: '1a2b3c4d-5555-6666-7777-888899990000', name: 'Emma Wilson', email: 'emma@example.com', phone: '9999999905' },
-  { uuid: '1a2b3c4d-6666-7777-8888-999900001111', name: 'Frank Harris', email: 'frank@example.com', phone: '9999999906' },
-  { uuid: '1a2b3c4d-7777-8888-9999-000011112222', name: 'Grace Lee', email: 'grace@example.com', phone: '9999999907' },
-  { uuid: '1a2b3c4d-8888-9999-0000-111122223333', name: 'Hannah Taylor', email: 'hannah@example.com', phone: '9999999908' },
-  { uuid: '1a2b3c4d-9999-0000-1111-222233334444', name: 'Ian Martinez', email: 'ian@example.com', phone: '9999999909' },
-  { uuid: '1a2b3c4d-0000-1111-2222-333344445555', name: 'Jack Thompson', email: 'jack@example.com', phone: '9999999910' },
-  { uuid: '1a2b3c4d-1112-2223-3334-444555566677', name: 'Kate Adams', email: 'kate@example.com', phone: '9999999911' },
-  { uuid: '1a2b3c4d-2223-3334-4445-555666677788', name: 'Leo Johnson', email: 'leo@example.com', phone: '9999999912' },
-  { uuid: '1a2b3c4d-3334-4445-5556-666777788899', name: 'Mia Davis', email: 'mia@example.com', phone: '9999999913' },
-  { uuid: '1a2b3c4d-4445-5556-6667-777888899900', name: 'Nathan Scott', email: 'nathan@example.com', phone: '9999999914' },
-  { uuid: '1a2b3c4d-5556-6667-7778-888999900011', name: 'Olivia Brown', email: 'olivia@example.com', phone: '9999999915' },
-  { uuid: '1a2b3c4d-6667-7778-8889-999000011122', name: 'Paul Clark', email: 'paul@example.com', phone: '9999999916' },
-  { uuid: '1a2b3c4d-7778-8889-9990-000111122233', name: 'Quinn Lewis', email: 'quinn@example.com', phone: '9999999917' },
-  { uuid: '1a2b3c4d-8889-9990-0001-111222233344', name: 'Rachel Hall', email: 'rachel@example.com', phone: '9999999918' },
-  { uuid: '1a2b3c4d-9990-0001-1112-222333344455', name: 'Sam Young', email: 'sam@example.com', phone: '9999999919' },
-  { uuid: '1a2b3c4d-0001-1112-2223-333444455566', name: 'Tina King', email: 'tina@example.com', phone: '9999999920' },
-  { uuid: '1a2b3c4d-1112-2223-3334-444555566677', name: 'Uma Nelson', email: 'uma@example.com', phone: '9999999921' },
-  { uuid: '1a2b3c4d-2223-3334-4445-555666677788', name: 'Victor Carter', email: 'victor@example.com', phone: '9999999922' },
-  { uuid: '1a2b3c4d-3334-4445-5556-666777788899', name: 'Wendy Green', email: 'wendy@example.com', phone: '9999999923' },
-  { uuid: '1a2b3c4d-4445-5556-6667-777888899900', name: 'Xavier Moore', email: 'xavier@example.com', phone: '9999999924' },
-  { uuid: '1a2b3c4d-5556-6667-7778-888999900011', name: 'Yara Perry', email: 'yara@example.com', phone: '9999999925' },
-  { uuid: '1a2b3c4d-6667-7778-8889-999000011122', name: 'Zane Foster', email: 'zane@example.com', phone: '9999999926' },
-  { uuid: '1a2b3c4d-7778-8889-9990-000111122233', name: 'Amanda Baker', email: 'amanda@example.com', phone: '9999999927' },
-  { uuid: '1a2b3c4d-8889-9990-0001-111222233344', name: 'Brian Reed', email: 'brian@example.com', phone: '9999999928' },
-  { uuid: '1a2b3c4d-9990-0001-1112-222333344455', name: 'Carla Wright', email: 'carla@example.com', phone: '9999999929' },
-  { uuid: '1a2b3c4d-0001-1112-2223-333444455566', name: 'Derek Bell', email: 'derek@example.com', phone: '9999999930' },
-  { uuid: '1a2b3c4d-1112-2223-3334-444555566677', name: 'Eve Stewart', email: 'eve@example.com', phone: '9999999931' },
-  { uuid: '1a2b3c4d-2223-3334-4445-555666677788', name: 'Felix Murphy', email: 'felix@example.com', phone: '9999999932' },
-  { uuid: '1a2b3c4d-3334-4445-5556-666777788899', name: 'Gina Coleman', email: 'gina@example.com', phone: '9999999933' },
-  { uuid: '1a2b3c4d-4445-5556-6667-777888899900', name: 'Henry Patterson', email: 'henry@example.com', phone: '9999999934' },
-  { uuid: '1a2b3c4d-5556-6667-7778-888999900011', name: 'Isabel Barnes', email: 'isabel@example.com', phone: '9999999935' },
-  { uuid: '3f4a5b6c-1111-2222-3333-444455556667', name: 'Benjamin Carter', email: 'benjamin@example.com', phone: '9999999970' },
-  { uuid: '3f4a5b6c-2222-3333-4444-555566667778', name: 'Layla Morgan', email: 'layla@example.com', phone: '9999999971' },
-  { uuid: '3f4a5b6c-3333-4444-5555-666677778889', name: 'Owen Scott', email: 'owen@example.com', phone: '9999999972' },
-  { uuid: '3f4a5b6c-4444-5555-6666-777788889990', name: 'Natalie Hall', email: 'natalie@example.com', phone: '9999999973' },
-  { uuid: '3f4a5b6c-5555-6666-7777-888899990001', name: 'Caleb Wright', email: 'caleb@example.com', phone: '9999999974' },
-  { uuid: '3f4a5b6c-6666-7777-8888-999900001112', name: 'Hazel Green', email: 'hazel@example.com', phone: '9999999975' },
-  { uuid: '3f4a5b6c-7777-8888-9999-000011112223', name: 'Connor Adams', email: 'connor@example.com', phone: '9999999976' },
-  { uuid: '3f4a5b6c-8888-9999-0000-111122223334', name: 'Lucy Nelson', email: 'lucy@example.com', phone: '9999999977' },
-  { uuid: '3f4a5b6c-9999-0000-1111-222233334445', name: 'Samuel Baker', email: 'samuel@example.com', phone: '9999999978' },
-  { uuid: '3f4a5b6c-0000-1111-2222-333344445556', name: 'Avery Cooper', email: 'avery@example.com', phone: '9999999979' },
-  { uuid: '3f4a5b6c-1112-2223-3334-444555566678', name: 'Hunter Gonzalez', email: 'hunter@example.com', phone: '9999999980' },
-  { uuid: '3f4a5b6c-2223-3334-4445-555666677789', name: 'Zara Mitchell', email: 'zara@example.com', phone: '9999999981' },
-  { uuid: '3f4a5b6c-3334-4445-5556-666777788890', name: 'Elias Perez', email: 'elias@example.com', phone: '9999999982' },
-  { uuid: '3f4a5b6c-4445-5556-6667-777888899901', name: 'Leah Roberts', email: 'leah@example.com', phone: '9999999983' },
-  { uuid: '3f4a5b6c-5556-6667-7778-888999900012', name: 'Jonathan Stewart', email: 'jonathan@example.com', phone: '9999999984' },
-  { uuid: '3f4a5b6c-6667-7778-8889-999000011123', name: 'Bella Hughes', email: 'bella@example.com', phone: '9999999985' },
-  { uuid: '3f4a5b6c-7778-8889-9990-000111122234', name: 'Carson Reed', email: 'carson@example.com', phone: '9999999986' },
-  { uuid: '3f4a5b6c-8889-9990-0001-111222233345', name: 'Mila Bell', email: 'mila@example.com', phone: '9999999987' },
-  { uuid: '3f4a5b6c-9990-0001-1112-222333344456', name: 'Jayden Torres', email: 'jayden@example.com', phone: '9999999988' },
-  { uuid: '3f4a5b6c-0001-1112-2223-333444455567', name: 'Claire Patterson', email: 'claire@example.com', phone: '9999999989' },
-  { uuid: '3f4a5b6c-1112-2223-3334-444555566678', name: 'Wyatt Sanders', email: 'wyatt@example.com', phone: '9999999990' },
-  { uuid: '3f4a5b6c-2223-3334-4445-555666677789', name: 'Violet Ross', email: 'violet@example.com', phone: '9999999991' },
-  { uuid: '3f4a5b6c-3334-4445-5556-666777788890', name: 'Cole Bryant', email: 'cole@example.com', phone: '9999999992' },
-  { uuid: '3f4a5b6c-4445-5556-6667-777888899901', name: 'Stella Morris', email: 'stella@example.com', phone: '9999999993' },
-  { uuid: '3f4a5b6c-5556-6667-7778-888999900012', name: 'Maxwell Foster', email: 'maxwell@example.com', phone: '9999999994' },
-  { uuid: '3f4a5b6c-6667-7778-8889-999000011123', name: 'Madeline Hayes', email: 'madeline@example.com', phone: '9999999995' },
-  { uuid: '3f4a5b6c-7778-8889-9990-000111122234', name: 'Bennett Ramirez', email: 'bennett@example.com', phone: '9999999996' },
-  { uuid: '3f4a5b6c-8889-9990-0001-111222233345', name: 'Aurora Kelly', email: 'aurora@example.com', phone: '9999999997' },
-  { uuid: '3f4a5b6c-9990-0001-1112-222333344456', name: 'Ryder Howard', email: 'ryder@example.com', phone: '9999999998' },
-  { uuid: '3f4a5b6c-0001-1112-2223-333444455567', name: 'Delilah Watson', email: 'delilah@example.com', phone: '9999999999' },
-  { uuid: '3f4a5b6c-1112-2223-3334-444555566678', name: 'Finn Harrison', email: 'finn@example.com', phone: '9999999900' },
-  { uuid: '3f4a5b6c-2223-3334-4445-555666677789', name: 'Everly Brooks', email: 'everly@example.com', phone: '9999999901' },
-  { uuid: '3f4a5b6c-3334-4445-5556-666777788890', name: 'Parker Price', email: 'parker@example.com', phone: '9999999902' },
-  { uuid: '3f4a5b6c-4445-5556-6667-777888899901', name: 'Naomi Bennett', email: 'naomi@example.com', phone: '9999999903' },
-  { uuid: '3f4a5b6c-5556-6667-7778-888999900012', name: 'Adam Russell', email: 'adam@example.com', phone: '9999999904' },
-  { uuid: '3f4a5b6c-6667-7778-8889-999000011123', name: 'Ivy Sanchez', email: 'ivy@example.com', phone: '9999999905' },
-  { uuid: '3f4a5b6c-7778-8889-9990-000111122234', name: 'Brayden Martinez', email: 'brayden@example.com', phone: '9999999906' }
-]
+const resultsTest = computed(() => {
+  const results = []
+
+  for (let i = 0; i < 100; i++) {
+    const name = `${['Alice', 'Bob', 'Charlie'][i % 3]} ${['Johnson', 'Smith', 'Brown'][i % 3]}`
+    const email = `${name.replace(' ', '.').toLowerCase()}@example.com`
+    const phone = `99999999${i.toString().padStart(2, '0')}`
+
+    results.push({ name, email, phone })
+  }
+
+  return results
+})
 </script>

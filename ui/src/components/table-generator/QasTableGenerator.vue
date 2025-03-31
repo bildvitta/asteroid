@@ -91,11 +91,6 @@ export default {
       type: Boolean
     },
 
-    stickyHeaderTableHeight: {
-      default: '528px',
-      type: String
-    },
-
     useVirtualScroll: {
       type: Boolean
     }
@@ -148,7 +143,7 @@ export default {
     attributes () {
       const attributes = {
         tableClass: {
-          'overflow-hidden-y': !this.useStickyHeader
+          'overflow-hidden-y': !this.useStickyHeader && !this.useVirtualScroll
         },
         class: this.tableClass,
         columns: this.columnsByFields,
@@ -238,14 +233,13 @@ export default {
     tableClass () {
       return {
         'qas-table-generator--mobile': this.$qas.screen.isSmall,
-        'qas-table-generator--sticky-header': this.useStickyHeader,
-        'qas-table-generator--virtual-scroll': this.useVirtualScroll
+        'qas-table-generator--sticky-header': this.useStickyHeader
       }
     },
 
     tableStyle () {
       return {
-        maxHeight: this.useStickyHeader ? this.stickyHeaderTableHeight : 'initial'
+        maxHeight: this.useStickyHeader || this.useVirtualScroll ? this.contentMaxHeight : 'initial'
       }
     },
 
@@ -421,13 +415,6 @@ export default {
           top: 0;
         }
       }
-    }
-  }
-
-  &--virtual-scroll {
-    .q-table__middle {
-      overflow-y: auto !important;
-      max-height: v-bind("contentMaxHeight") !important;
     }
   }
 }
