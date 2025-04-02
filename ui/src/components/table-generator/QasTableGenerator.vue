@@ -26,7 +26,7 @@
 
 <script>
 import { extend } from 'quasar'
-import { isEmpty, humanize, setScrollOnGrab } from '../../helpers'
+import { isEmpty, humanize, setScrollOnGrab, setScrollGradient } from '../../helpers'
 
 export default {
   name: 'QasTableGenerator',
@@ -97,7 +97,8 @@ export default {
       scrollableElement: null,
       scrollOnGrab: {},
       elementToObserve: null,
-      resizeObserver: null
+      resizeObserver: null,
+      initializeScrollGradient: setScrollGradient({ orientation: 'x' }).initializeScrollGradient
     }
   },
 
@@ -258,6 +259,10 @@ export default {
 
     this.setObserver()
     window.addEventListener('resize', this.handleScrollOnGrab)
+
+    const scrollableElement = this.$refs.table.$el.querySelector('.q-table__middle.scroll')
+
+    this.initializeScrollGradient(scrollableElement)
   },
 
   onUnmounted () {

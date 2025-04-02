@@ -3,7 +3,7 @@
     <q-drawer :key="reRenderCount" v-model="model" :behavior="behavior" class="shadow-2" :mini="isMiniMode" :mini-width="88" show-if-above :width="drawerWidth">
       <div class="column full-height justify-between no-wrap">
         <!-- logo + select de módulos -->
-        <div class="full-width q-pb-lg" :class="topScrollClass" @mouseenter="onMouseEvent" @mouseleave="onMouseEvent">
+        <div class="full-width q-pb-lg" @mouseenter="onMouseEvent" @mouseleave="onMouseEvent">
           <!-- Brand -->
           <div v-if="!screen.untilLarge" class="q-mb-lg q-pt-lg qas-app-menu__label" :class="classes.spacedItem">
             <router-link class="column flex items-center justify-center relative-position text-no-decoration" :to="rootRoute">
@@ -83,7 +83,7 @@
         </q-list>
 
         <!-- usuário + chat ajuda -->
-        <div v-if="showAppUser" class="q-mt-auto" :class="bottomScrollClass" @mouseenter="onMouseEvent" @mouseleave="onMouseEvent">
+        <div v-if="showAppUser" class="q-mt-auto" @mouseenter="onMouseEvent" @mouseleave="onMouseEvent">
           <!-- Chat Ajuda -->
           <q-list v-if="useChat" class="q-mt-md">
             <q-item class="q-pb-none" clickable @click="toggleChat">
@@ -116,16 +116,15 @@ import PvAppMenuDropdown from './private/PvAppMenuDropdown.vue'
 import QasAppUser from '../app-user/QasAppUser.vue'
 
 import useAppMenuDropdown from './composables/use-app-menu-dropdown'
-import useScrollGradient from '../../composables/use-scroll-gradient'
 import useAppUser from './composables/use-app-user'
 import useDevelopmentBadge from './composables/use-development-badge'
 import { useScreen } from '../../composables'
 import { useAuthUser } from '../../composables/private'
 
-import { handleProcess } from '../../helpers'
+import { handleProcess, setScrollGradient } from '../../helpers'
 
 import Gleap from 'gleap'
-import { ref, computed, watch, onMounted, nextTick, onBeforeUnmount } from 'vue'
+import { ref, computed, watch, onMounted, onBeforeUnmount } from 'vue'
 import { useRouter } from 'vue-router'
 
 defineOptions({
@@ -217,9 +216,8 @@ const composableParams = {
 const { defaultAppUserProps, showAppUser } = useAppUser(composableParams)
 const { appMenuDropdownProps, showAppMenuDropdown } = useAppMenuDropdown(composableParams)
 const { developmentBadgeLabel, hasDevelopmentBadge } = useDevelopmentBadge()
-const { bottomScrollClass, topScrollClass } = useListScroll()
 
-useScrollGradient({ element: list, color: '#FFF' })
+const { initializeScrollGradient } = setScrollGradient()
 
 // computeds
 const model = computed({
@@ -284,6 +282,10 @@ watch(() => behavior.value, value => {
     reRenderCount.value += 1
   }
 })
+
+// hooks
+onMounted(() => initializeScrollGradient(list.value.$el))
+onBeforeUnmount(() => initializeScrollGradient(list.value.$el))
 
 // functions
 function closeDrawer () {
@@ -417,73 +419,6 @@ function useChatMenu () {
     toggleChat
   }
 }
-
-function useListScroll () {
-  // refs
-  const scrollConfig = ref({
-    hasScroll: false,
-    isScrollAtBottom: false,
-    isScrollAtTop: true
-  })
-
-  // hooks
-  onMounted(() => {
-    const listElement = list.value.$el
-
-    setHasScroll()
-    listElement.addEventListener('scroll', setScrollConfig)
-  })
-
-  onBeforeUnmount(() => {
-    const listElement = list.value.$el
-
-    listElement.removeEventListener('scroll', setScrollConfig)
-  })
-
-  // computeds
-  const bottomScrollClass = computed(() => {
-    const { hasScroll, isScrollAtBottom } = scrollConfig.value
-
-    return hasScroll && !isScrollAtBottom && 'qas-app-menu__scroll-gradient-bottom'
-  })
-
-  const topScrollClass = computed(() => {
-    const { hasScroll, isScrollAtTop } = scrollConfig.value
-
-    return hasScroll && !isScrollAtTop && 'qas-app-menu__scroll-gradient-top'
-  })
-
-  // watch
-  watch(() => props.items, () => {
-    // initializeScrollGradient()
-    nextTick(setHasScroll)
-  })
-
-  // functions
-  function setHasScroll () {
-    const element = list.value.$el
-
-    const { scrollHeight, clientHeight } = element
-
-    scrollConfig.value.hasScroll = scrollHeight > clientHeight
-  }
-
-  function setScrollConfig () {
-    const element = list.value.$el
-    const { scrollTop, scrollHeight, clientHeight } = element
-
-    // Pequena tolerância para lidar com problemas de precisão de ponto flutuante
-    const tolerance = 1
-
-    scrollConfig.value.isScrollAtBottom = scrollTop + clientHeight >= scrollHeight - tolerance
-    scrollConfig.value.isScrollAtTop = scrollTop === 0
-  }
-
-  return {
-    bottomScrollClass,
-    topScrollClass
-  }
-}
 </script>
 
 <style lang="scss" scoped>
@@ -552,37 +487,6 @@ function useListScroll () {
   // User
   .qas-app-user__data {
     line-height: 1.25;
-  }
-
-  &__scroll-gradient-bottom,
-  &__scroll-gradient-top {
-    position: relative;
-
-    &::after {
-      content: "";
-      pointer-events: none;
-      position: absolute;
-      right: 16px;
-      left: 0;
-      height: 40px;
-    }
-  }
-
-  @mixin set-scroll-gradient ($direction, $color: white) {
-    // background: linear-gradient($direction, rgba($color, 0) 0%, rgba($color, 0.9) 51%, $color 75%);
-  }
-
-  &__scroll-gradient-bottom::after {
-    @include set-scroll-gradient(to bottom);
-
-    top: -40px;
-  }
-
-  &__scroll-gradient-top::after {
-    @include set-scroll-gradient(0deg);
-
-    z-index: 1;
-    bottom: -40px;
   }
 
   // Media: untilLarge

@@ -29,10 +29,6 @@
           <span class="text-primary"> systemteam@bild.com.br </span>
         </div>
       </div>
-
-      <qas-select-filter :options />
-
-      <qas-btn label="ir para" to="components/select-filter" />
     </div>
   </doc-page>
 </template>
@@ -40,14 +36,8 @@
 <script>
 import { version } from 'asteroid'
 import packageInfo from '../../package.json'
-import { setDefaultFiltersBeforeEnter } from '../../../ui/src/composables/use-default-filters'
 
 export default ({
-  beforeRouteEnter: (to, from, next) => {
-    console.log('TCL: next', next)
-    setDefaultFiltersBeforeEnter(to, from, next)
-  },
-
   computed: {
     version () {
       return `Asteroid - v${version}`
@@ -57,31 +47,6 @@ export default ({
       const version = packageInfo.dependencies.quasar.replace('^', '')
 
       return `Quasar - v${version}`
-    },
-
-    options () {
-      return [
-        {
-          label: 'Empresa 1',
-          value: '1'
-        },
-        {
-          label: 'Empresa 2',
-          value: '2'
-        },
-        {
-          label: 'Empresa 3',
-          value: '3'
-        },
-        {
-          label: 'Empresa 4',
-          value: '4'
-        },
-        {
-          label: 'Empresa 5',
-          value: '5'
-        }
-      ]
     }
   }
 })

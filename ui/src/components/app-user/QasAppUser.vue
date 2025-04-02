@@ -280,12 +280,5 @@ function useAvatarNotifications () {
       margin-top: var(--qas-spacing-sm);
     }
   }
-
-  @media (max-width: $breakpoint-xs) {
-    &__data {
-      // display: none;
-      // background-color: red !important;
-    }
-  }
 }
 </style>

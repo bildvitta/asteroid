@@ -49,6 +49,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
   - modificado estrutura do HTML, agora o lista de itens não tem altura fixa definida, pega todo o espaço disponível.
   - drawer no mobile quando aberto mostra a logo mini ao lado do botão de fechar.
   - `QasAppUser` agora mostra nome/email mesmo no mobile.
+- `webkit-scrollbar`: alterado background para `transparent`.
 
 ## [3.17.0] - 12-03-2025
 ## BREAKING CHANGES
