@@ -65,7 +65,13 @@ rowExternalRouteFn () {
 Funcionalidade que permite que o cabeçalho da tabela permaneça visível na parte superior enquanto o usuário faz rolagem do conteúdo da tabela. Para utilizar atribua a prop `use-sticky-header`.
 
 :::tip
-É possível alterar a altura máxima da tabela utilizando a prop `sticky-header-table-height`.
+É possível alterar a altura máxima da tabela utilizando a prop `max-height`.
 :::
 
 <doc-example file="QasTableGenerator/StickyHeader" title="Header fixo" />
+
+:::warning
+O virtual scroll renderiza dinamicamente as linhas a serem exibidas na tabela.
+Apenas utilize virtual scroll quando realmente houver comportamentos no qual não se pode ter paginação e tiver muitos dados na tabela.
+:::
+<doc-example file="QasTableGenerator/WithVirtualScroll" title="Com virtual scroll" />

@@ -10,21 +10,29 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 ### Sobre os "BREAKING CHANGES"
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
-## Não publicado
+## [Unreleased]
+### Adicionado
+- `QasListView`: adicionado nova prop para personalizar o texto em casos que não tenha resultado.
+- `QasGalleryCard`: adicionado possibilidade para utilizar vídeos ao invés de imagens.
+- `QasNestedFields`: adicionado possibilidade de usar o `buttonDestroyProps` como um callback.
+
+## [3.18.0-beta.0] - 31-03-2025
 ## BREAKING CHANGE
 - `QasInput`: alterado ordem da prop `iconRight` que estava adicionando na esquerda e não na direita, verificar lugares.
 - Alterar `quasar.variables.scss`, nova cor do `$negative` sendo `$red-14`.
+- `QasTableGenerator`: removido prop `stickyHeaderTableHeight`, agora controla o tamanho da tabela pela prop `maxHeight`.
 
 ### Adicionado
 - `QasErrorMessage`: adicionado novo componente para mostrar mensagem de erros de forma padronizada.
 - `QasRadio`: adicionado propriedades `error` e `errorMessage` em conjunto do componente `QasErrorMessage`.
 - `css/mixins/set-error-message`: mixin para aplicar os estilos diretamente no css.
-- `QasListView`: adicionado nova prop para personalizar o texto em casos que não tenha resultado.
-- `QasGalleryCard`: adicionado possibilidade para utilizar vídeos ao invés de imagens.
-- `QasNestedFields`: adicionado possibilidade de usar o `buttonDestroyProps` como um callback.
+- `QasTableGenerator`: 
+  - Adicionado prop `useVirtualScroll` para aplicar a renderização dinâmica dos elementos na tabela.
+  - Adicionado prop `maxHeight` para definir o tamanho da tabela em casos de `useStickyHeader` e `useVirtualScroll`.
 
 ### Corrigido
 - `QasInput`: alterado ordem da prop `iconRight` que estava adicionando na esquerda e não na direita.
+- `QasSelectFilter`: corrigido atribuição do valor do model externo do componente.
 
 ### Modificado
 - `QasSelect`: ignorando propriedade `useChips` que vem através de `$attrs`.
@@ -39,6 +47,9 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
   - QasUploader
   - QasCheckbox
 - `QasToggleVisibiliy`: alterado área de clique para não ser apenas no botão e sim em todo elemento.
+
+### Removido
+- `QasTableGenerator`: removido prop `stickyHeaderTableHeight`, agora controla o tamanho da tabela pela prop `maxHeight`.
 
 ## [3.17.0] - 12-03-2025
 ## BREAKING CHANGES
@@ -3745,3 +3756,4 @@ Adicionado suporte para Pinia/Vuex Seguindo os padrões da biblioteca `@bildvitt
 [3.17.0-beta.31]: https://github.com/bildvitta/asteroid/compare/v3.17.0-beta.30...v3.17.0-beta.31?expand=1
 [3.17.0-beta.32]: https://github.com/bildvitta/asteroid/compare/v3.17.0-beta.31...v3.17.0-beta.32?expand=1
 [3.17.0]: https://github.com/bildvitta/asteroid/compare/v3.16.4...v3.17.0?expand=1
+[3.18.0-beta.0]: https://github.com/bildvitta/asteroid/compare/v3.17.0...v3.18.0-beta.0?expand=1
