@@ -52,6 +52,11 @@ export default {
       type: Object
     },
 
+    maxHeight: {
+      type: String,
+      default: '528px'
+    },
+
     results: {
       default: () => [],
       required: true,
@@ -86,9 +91,8 @@ export default {
       type: Boolean
     },
 
-    stickyHeaderTableHeight: {
-      default: '528px',
-      type: String
+    useVirtualScroll: {
+      type: Boolean
     }
   },
 
@@ -139,7 +143,7 @@ export default {
     attributes () {
       const attributes = {
         tableClass: {
-          'overflow-hidden-y': !this.useStickyHeader
+          'overflow-hidden-y': !this.useStickyHeader && !this.useVirtualScroll
         },
         class: this.tableClass,
         columns: this.columnsByFields,
@@ -149,6 +153,7 @@ export default {
         rowKey: this.rowKey,
         rows: this.resultsByFields,
         style: this.tableStyle,
+        virtualScroll: this.useVirtualScroll,
 
         // Eventos.
         onRowClick: this.$attrs.onRowClick && this.onRowClick
@@ -234,7 +239,7 @@ export default {
 
     tableStyle () {
       return {
-        maxHeight: this.useStickyHeader ? this.stickyHeaderTableHeight : 'initial'
+        ...((this.useStickyHeader || this.useVirtualScroll) && { maxHeight: this.maxHeight })
       }
     },
 
