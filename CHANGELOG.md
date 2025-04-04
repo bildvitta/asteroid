@@ -18,17 +18,19 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 ### Adicionado
 - `helpers/color`: adicionado helper para cores.
 - `helpers/setScrollGradient` adicionado helper para adicionar gradiente em áreas com scroll.
-- `QasAlert/QasInfo`: (adicionado|mesclado) props:
+- `QasAlert/QasInfo`: (adicionado|mesclado):
   - buttonProps
   - routerLinkProps
   - useBox
   - useRegex
+  - slot "default"
 - `QasAppUser`: adicionado prop `useHomeItem` para padronizar "inicio" no menu.
 - `QasCheckbox`: adicionado props:
   - disable
   - usaAsTitle
 - `QasSelectFilter`: adicionado propriedade `multiple`.
 - `css/components/menu`: adicionado estilo para adc separador em q-list > q-item dentro do `q-menu`.
+- `QasAppMenu`: adicionado nova propriedade `useHomeItem` com default `true` para forçar padronização no item de inicio, é necessário remover esse item da prop "items" caso esteja sendo adicionado.
 
 ### Corrigido
 - `QasPasswordInput`:
