@@ -9,6 +9,8 @@
 </template>
 
 <script setup>
+defineOptions({ name: 'InsideBox' })
+
 const alertProps = {
   buttonProps: {
     onClick: () => alert('Button clicked')

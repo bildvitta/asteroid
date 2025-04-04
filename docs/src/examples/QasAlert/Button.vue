@@ -5,6 +5,8 @@
 </template>
 
 <script setup>
+defineOptions({ name: 'PageButton' })
+
 const alertProps = {
   buttonProps: {
     onClick: () => alert('Button clicked')

@@ -13,8 +13,22 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 ## Não publicado
 ## BREAKING CHANGE
 - `QasAppMenu`: adicionado nova propriedade `useHomeItem` com default `true` para forçar padronização no item de inicio, é necessário remover esse item da prop "items" caso esteja sendo adicionado.
+- `QasAlert/QasInfo`: removido `QasInfo` que agora foi mesclado com o `QasAlert`, olhar documentação.
 
 ### Adicionado
+- `helpers/color`: adicionado helper para cores.
+- `helpers/setScrollGradient` adicionado helper para adicionar gradiente em áreas com scroll.
+- `QasAlert/QasInfo`: (adicionado|mesclado) props:
+  - buttonProps
+  - routerLinkProps
+  - useBox
+  - useRegex
+- `QasAppUser`: adicionado prop `useHomeItem` para padronizar "inicio" no menu.
+- `QasCheckbox`: adicionado props:
+  - disable
+  - usaAsTitle
+- `QasSelectFilter`: adicionado propriedade `multiple`.
+- `css/components/menu`: adicionado estilo para adc separador em q-list > q-item dentro do `q-menu`.
 
 ### Corrigido
 - `QasPasswordInput`:
@@ -33,6 +47,20 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
   - drawer no mobile quando aberto mostra a logo mini ao lado do botão de fechar.
   - `QasAppUser` agora mostra nome/email mesmo no mobile.
 - `webkit-scrollbar`: alterado background para `transparent`.
+- Mudanças de estilo no `NotifyError` e `NotifySuccess`.
+`QasActionsMenu`: adicionado separador entre itens.
+- `QasCheckbox`: modificado estilos.
+- `QasRadio`: modificado estilos.
+- `QasDateTimeInput`: modificado cor de ícone para primary.
+- `QasPasswordInput`: desabilitado botão de toggle enquanto não tem conteúdo.
+- `QasSelectList`: modificado estilos.
+- `QasSelect`: adicionado separador nas options e modificado estilo de botão de ação.
+- `QasToggle` modificado estilos.
+- `QasTreeGenerator`: adicionado separador nas ações.
+- `QasAlert/QasInfo`: modificado cor de error para `negative`.
+
+### Removido
+- `QasAlert/QasInfo`: removido `QasInfo` que agora foi mesclado com o `QasAlert`, olhar documentação.
 
 ## [3.18.0-beta.0] - 31-03-2025
 ## BREAKING CHANGE

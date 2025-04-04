@@ -5,6 +5,8 @@
 </template>
 
 <script setup>
+defineOptions({ name: 'ExternalLink' })
+
 const alertProps = {
   text: '[Clique aqui] para ir para o google.',
 
