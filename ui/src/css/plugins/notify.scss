@@ -6,19 +6,6 @@
     max-width: 740px;
   }
 
-  &__progress {
-    border-radius: 0 0 var(--qas-generic-border-radius) var(--qas-generic-border-radius);
-    left: calc(var(--qas-spacing-md) * -1);
-    right: calc(var(--qas-spacing-md) * -1);
-    opacity: 1;
-  }
-
-  &__message {
-    @include set-typography($body1);
-
-    padding-top: var(--qas-spacing-md);
-    padding-bottom: var(--qas-spacing-md);
-  }
 
   &.qas-notification {
     box-shadow: none;
@@ -54,6 +41,20 @@
       .q-icon {
         margin-right: var(--qas-spacing-sm);
       }
+    }
+
+    .q-notification__progress {
+      border-radius: 0 0 var(--qas-generic-border-radius) var(--qas-generic-border-radius);
+      left: calc(var(--qas-spacing-md) * -1);
+      right: calc(var(--qas-spacing-md) * -1);
+      opacity: 1;
+    }
+
+    .q-notification__message {
+      @include set-typography($body1);
+
+      padding-top: var(--qas-spacing-md);
+      padding-bottom: var(--qas-spacing-md);
     }
   }
 
