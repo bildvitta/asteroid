@@ -15,6 +15,11 @@ props:
     type: String
     required: true
 
+  home-route:
+    desc: Rota do item de "home/inicio".
+    type: [String, Object]
+    default: undefined
+
   items:
     desc: Itens do menu.
     type: Array

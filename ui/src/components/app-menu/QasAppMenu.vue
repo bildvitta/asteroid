@@ -145,6 +145,11 @@ const props = defineProps({
     type: String
   },
 
+  homeRoute: {
+    type: [String, Object],
+    default: undefined
+  },
+
   items: {
     default: () => [],
     type: Array
@@ -236,7 +241,7 @@ const normalizedItems = computed(() => {
       {
         label: 'Início',
         icon: 'sym_r_home',
-        to: rootRoute
+        to: props.homeRoute || rootRoute
       },
       ...props.items
     ]

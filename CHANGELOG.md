@@ -12,7 +12,9 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 
 ## Não publicado
 ## BREAKING CHANGE
-- `QasAppMenu`: adicionado nova propriedade `useHomeItem` com default `true` para forçar padronização no item de inicio, é necessário remover esse item da prop "items" caso esteja sendo adicionado.
+- `QasAppMenu`:
+  - adicionado nova propriedade `useHomeItem` com default `true` para forçar padronização no item de inicio, é necessário remover esse item da prop "items" caso esteja sendo adicionado.
+  - não esquecer de configurar corretamente a prop `homeRoute`.
 - `QasAlert/QasInfo`: removido `QasInfo` que agora foi mesclado com o `QasAlert`, olhar documentação.
 
 ### Adicionado
@@ -24,7 +26,9 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
   - useBox
   - useRegex
   - slot "default"
-- `QasAppUser`: adicionado prop `useHomeItem` para padronizar "inicio" no menu.
+- `QasAppUser`:
+  - adicionado prop `useHomeItem` para padronizar "inicio" no menu.
+  - adicionado prop `homeRoute` para configurar a rota de "inicio".
 - `QasCheckbox`: adicionado props:
   - disable
   - usaAsTitle
