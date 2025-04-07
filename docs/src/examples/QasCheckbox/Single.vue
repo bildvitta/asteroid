@@ -1,20 +1,12 @@
 <template>
-  <div class="container spaced">
-    <div>
-      <qas-checkbox v-model="model" :false-value="false" label="Aceitar" :true-value="true" />
-    </div>
+  <div class="container q-gutter-y-lg spaced">
+    <qas-checkbox v-model="model" :false-value="false" label="Aceitar" :true-value="true" />
 
-    <div class="q-mt-lg">
-      <qas-checkbox v-model="model" disable :false-value="false" label="Aceitar" :true-value="true" />
-    </div>
+    <qas-checkbox v-model="model" disable :false-value="false" label="Aceitar" :true-value="true" />
 
-    <div class="q-mt-lg">
-      <qas-checkbox v-model="model" error :false-value="false" label="Aceitar" :true-value="true" />
-    </div>
+    <qas-checkbox v-model="model" error :false-value="false" label="Aceitar" :true-value="true" />
 
-    <div class="q-mt-lg">
-      <qas-debugger :inspect="[model]" />
-    </div>
+    <qas-debugger :inspect="[model]" />
   </div>
 </template>
 

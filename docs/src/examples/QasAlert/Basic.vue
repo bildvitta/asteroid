@@ -1,19 +1,19 @@
 <template>
-  <div class="container q-py-lg">
+  <div class="container q-gutter-y-lg spaced">
     <div>
       <qas-alert :text />
     </div>
 
     <div>
-      <qas-alert class="q-mt-lg" status="error" :text />
+      <qas-alert status="error" :text />
     </div>
 
     <div>
-      <qas-alert class="q-mt-lg" :text use-close-button />
+      <qas-alert :text use-close-button />
     </div>
 
     <div>
-      <qas-alert class="q-mt-lg" :text use-close-button use-persistent-model-on-close />
+      <qas-alert :text use-close-button use-persistent-model-on-close />
     </div>
   </div>
 </template>

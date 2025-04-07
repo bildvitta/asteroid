@@ -119,7 +119,7 @@ export function isHex (color) {
 }
 
 export function isRgb (color) {
-  return color.startsWith('rgb')
+  return color.startsWith('rgb') && !isRgba(color)
 }
 
 /**

@@ -1,24 +1,14 @@
 <template>
-  <div class="container spaced">
-    <div>
-      <qas-checkbox v-model="model" label="Checkbox com opções" :options />
-    </div>
+  <div class="container q-gutter-y-lg spaced">
+    <qas-checkbox v-model="model" label="Checkbox com opções" :options />
 
-    <div class="q-mt-lg">
-      <qas-checkbox v-model="model" disable label="Checkbox com opções" :options />
-    </div>
+    <qas-checkbox v-model="model" disable label="Checkbox com opções" :options />
 
-    <div class="q-mt-lg">
-      <qas-checkbox v-model="model" error label="Checkbox com opções" :options />
-    </div>
+    <qas-checkbox v-model="model" error label="Checkbox com opções" :options />
 
-    <div class="q-mt-lg">
-      <qas-checkbox v-model="model" error error-message="Mensagem de erro" label="Checkbox com opções" :options />
-    </div>
+    <qas-checkbox v-model="model" error error-message="Mensagem de erro" label="Checkbox com opções" :options />
 
-    <div class="q-mt-lg">
-      <qas-debugger :inspect="[model]" />
-    </div>
+    <qas-debugger :inspect="[model]" />
   </div>
 </template>
 

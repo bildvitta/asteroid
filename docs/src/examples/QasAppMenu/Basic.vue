@@ -12,7 +12,6 @@ defineOptions({ name: 'Basic' })
 const appMenuProps = {
   brand: 'https://placehold.co/208x40',
   miniBrand: 'https://placehold.co/40x40',
-  useHomeItem: false,
   useChat: false,
 
   modules: [

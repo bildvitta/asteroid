@@ -223,7 +223,6 @@ function useStorageClosed () {
 
   return {
     displayAlert,
-
     close
   }
 }

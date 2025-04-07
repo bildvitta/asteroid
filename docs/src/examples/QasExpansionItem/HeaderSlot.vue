@@ -5,8 +5,6 @@
         <div class="items-center justify-between row">
           <qas-label label="Meu titulo" margin="none" typography="h5" />
 
-          <qas-checkbox label="titulo de teste" />
-
           <div class="text-body1 text-grey-8">
             {{ date }}
           </div>

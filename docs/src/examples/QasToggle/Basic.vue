@@ -1,18 +1,18 @@
 <template>
-  <div class="container spaced">
+  <div class="container q-gutter-y-lg spaced">
     <div>
       <qas-toggle v-model="model" label="Aceitar" />
     </div>
 
-    <div class="q-mt-lg">
+    <div>
       <qas-toggle v-model="model2" label="Aceitar" />
     </div>
 
-    <div class="q-mt-lg">
+    <div>
       <qas-toggle v-model="model" disable label="Aceitar" />
     </div>
 
-    <div class="q-mt-lg">
+    <div>
       <qas-toggle v-model="model2" disable label="Aceitar" />
     </div>
   </div>

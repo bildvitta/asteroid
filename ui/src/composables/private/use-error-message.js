@@ -19,7 +19,7 @@ export const baseErrorProps = {
 export default function useErrorMessage (props) {
   const labelClasses = computed(() => ({ 'text-negative': props.error }))
 
-  const color = computed(() => (props.error ? 'negative' : 'gray-10'))
+  const color = computed(() => (props.error ? 'negative' : 'grey-10'))
 
   return {
     labelClasses,

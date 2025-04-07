@@ -36,7 +36,7 @@
         </div>
 
         <!-- lista do menu -->
-        <q-list v-if="normalizedItems.length" id="app-menu-list" ref="list" class="qas-app-menu__menu text-grey-10" @mouseleave="onMouseEvent" @mousemove="onMouseMoveList">
+        <q-list v-if="normalizedItems.length" ref="list" class="qas-app-menu__menu text-grey-10" @mouseleave="onMouseEvent" @mousemove="onMouseMoveList">
           <template v-for="(menuItem, index) in normalizedItems">
             <div v-if="hasChildren(menuItem)" :key="`children-${index}`" class="qas-app-menu__content" :class="classes.content">
               <q-item class="ellipsis items-center q-py-none qas-app-menu__item qas-app-menu__item--label-mini text-weight-bold">
@@ -102,7 +102,7 @@
           </q-list>
 
           <!-- User -->
-          <div class="full-width q-mt-md q-mt-sm q-pb-lg q-px-lg">
+          <div class="full-width q-mt-md q-pb-lg q-px-lg">
             <qas-app-user v-bind="defaultAppUserProps" />
           </div>
         </div>
