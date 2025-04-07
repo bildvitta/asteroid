@@ -44,7 +44,7 @@ export function convertHexToRgb (hex) {
 
   // Se for o formato curto, expande para 6 dígitos
   if (cleanHex.length === 3) {
-    cleanHex = cleanHex.split('').map(c => c + c).join('')
+    cleanHex = cleanHex.split('').map(item => item + item).join('')
   }
 
   // Converte o hexadecimal para inteiro
