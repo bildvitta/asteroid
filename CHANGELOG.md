@@ -10,6 +10,65 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 ### Sobre os "BREAKING CHANGES"
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
+## Não publicado
+## BREAKING CHANGE
+- `QasAppMenu`:
+  - adicionado nova propriedade `useHomeItem` com default `true` para forçar padronização no item de inicio, é necessário remover esse item da prop "items" caso esteja sendo adicionado.
+  - não esquecer de configurar corretamente a prop `homeRoute`.
+- `QasAlert/QasInfo`: removido `QasInfo` que agora foi mesclado com o `QasAlert`, olhar documentação.
+
+### Adicionado
+- `helpers/color`: adicionado helper para cores.
+- `helpers/setScrollGradient` adicionado helper para adicionar gradiente em áreas com scroll.
+- `QasAlert/QasInfo`: (adicionado|mesclado):
+  - buttonProps
+  - routerLinkProps
+  - useBox
+  - useRegex
+  - slot "default"
+- `QasAppUser`:
+  - adicionado prop `useHomeItem` para padronizar "inicio" no menu.
+  - adicionado prop `homeRoute` para configurar a rota de "inicio".
+- `QasCheckbox`: adicionado props:
+  - disable
+  - usaAsTitle
+- `QasSelectFilter`: adicionado propriedade `multiple`.
+- `css/components/menu`: adicionado estilo para adc separador em q-list > q-item dentro do `q-menu`.
+- `QasAppMenu`: adicionado nova propriedade `useHomeItem` com default `true` para forçar padronização no item de inicio, é necessário remover esse item da prop "items" caso esteja sendo adicionado.
+- `QasAppUser`: adicionado propriedade "useDataOnSmallScreen".
+
+### Corrigido
+- `QasPasswordInput`:
+  - invertido ícone de toggle.
+  - corrigido label que não ficava acima do ícone ao ter foco/ativo.
+  - desabilitado botão de toggle enquanto não tem valor preenchido.
+
+### Modificado
+- `QasAppMenu`:
+  - adicionado nova propriedade `useHomeItem` com default `true` para forçar padronização no item de inicio.
+  - diminuído espaçamento interno entre lista de itens, logo, avatar de usuário e módulos, para caber mais conteúdos.
+  - diminuído espaçamento interno entre itens do menu.
+  - quando o ponteiro do mouse estiver encima da barra de scroll, o menu não será mais expandido, habilitando scroll em modo mini.
+  - adicionado linear gradiente na parte superior e inferior da listagem de itens do menu quando existe scroll para feedback melhorado.
+  - modificado estrutura do HTML, agora o lista de itens não tem altura fixa definida, pega todo o espaço disponível.
+  - drawer no mobile quando aberto mostra a logo mini ao lado do botão de fechar.
+  - `QasAppUser` agora mostra nome/email mesmo no mobile.
+- `webkit-scrollbar`: alterado background para `transparent`.
+- Mudanças de estilo no `NotifyError` e `NotifySuccess`.
+`QasActionsMenu`: adicionado separador entre itens.
+- `QasCheckbox`: modificado estilos.
+- `QasRadio`: modificado estilos.
+- `QasDateTimeInput`: modificado cor de ícone para primary.
+- `QasPasswordInput`: desabilitado botão de toggle enquanto não tem conteúdo.
+- `QasSelectList`: modificado estilos.
+- `QasSelect`: adicionado separador nas options e modificado estilo de botão de ação.
+- `QasToggle` modificado estilos.
+- `QasTreeGenerator`: adicionado separador nas ações.
+- `QasAlert/QasInfo`: modificado cor de error para `negative`.
+
+### Removido
+- `QasAlert/QasInfo`: removido `QasInfo` que agora foi mesclado com o `QasAlert`, olhar documentação.
+
 ## [3.18.0-beta.0] - 31-03-2025
 ## BREAKING CHANGE
 - `QasInput`: alterado ordem da prop `iconRight` que estava adicionando na esquerda e não na direita, verificar lugares.

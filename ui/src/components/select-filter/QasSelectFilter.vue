@@ -1,5 +1,5 @@
 <template>
-  <qas-select v-model="internalModel" :label="props.label" :options="props.options" use-filter-mode @update:model-value="onUpdateModel" />
+  <qas-select v-model="internalModel" :label="props.label" :multiple="props.multiple" :options="props.options" use-filter-mode @update:model-value="onUpdateModel" />
 </template>
 
 <script setup>
@@ -25,22 +25,26 @@ const props = defineProps({
   options: {
     type: Array,
     default: () => []
+  },
+
+  multiple: {
+    type: Boolean
   }
 })
+
+// models
+const model = defineModel({ type: [String, Array], default: '' })
 
 // composables
 const router = useRouter()
 const route = useRoute()
 const { setFilterQuery, triggerDefaultFiltersChange, filterQuery } = useDefaultFilters()
 
-// models
-const model = defineModel({ type: String, default: '' })
-
 // refs
-const internalModel = ref(route.query[props.name] || model.value)
+const internalModel = ref(getDefaultInternalFilters())
 
 // watch
-watch(() => route.query[props.name], setModels, { immediate: true })
+watch(() => route.query[props.name], onQueryChange, { immediate: true })
 
 // functions
 /**
@@ -61,5 +65,28 @@ function setModels (value) {
 
   setFilterQuery(value, props.name)
   nextTick(() => triggerDefaultFiltersChange(filterQuery.value, oldFilters))
+}
+
+function getDefaultInternalFilters () {
+  return getNormalizedQuery(route.query[props.name]) || model.value
+}
+
+/**
+ * Retorna o valor da query normalizado, se for multiple retorna um array, se não retorna o valor.
+ */
+function getNormalizedQuery (query) {
+  if (!query) return
+
+  if (props.multiple) {
+    return Array.isArray(query) ? query : [query]
+  }
+
+  return query
+}
+
+function onQueryChange (query) {
+  const normalizedQuery = getNormalizedQuery(query)
+
+  setModels(normalizedQuery)
 }
 </script>

@@ -38,7 +38,6 @@ import QasGridItem from './components/grid-item/QasGridItem.vue'
 import QasHeader from './components/header/QasHeader.vue'
 import QasInfiniteScroll from './components/infinite-scroll/QasInfiniteScroll.vue'
 import QasInput from './components/input/QasInput.vue'
-import QasInfo from './components/info/QasInfo.vue'
 import QasLabel from './components/label/QasLabel.vue'
 import QasLayout from './components/layout/QasLayout.vue'
 import QasListItems from './components/list-items/QasListItems.vue'
@@ -138,7 +137,6 @@ async function install (app) {
   app.component('QasHeader', QasHeader)
   app.component('QasInfiniteScroll', QasInfiniteScroll)
   app.component('QasInput', QasInput)
-  app.component('QasInfo', QasInfo)
   app.component('QasLabel', QasLabel)
   app.component('QasLayout', QasLayout)
   app.component('QasListItems', QasListItems)
@@ -240,7 +238,6 @@ export {
   QasHeader,
   QasInfiniteScroll,
   QasInput,
-  QasInfo,
   QasLabel,
   QasLayout,
   QasListItems,

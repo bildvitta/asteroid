@@ -1,46 +1,51 @@
 <template>
-  <div v-if="show" class="inline-block">
-    <div class="bg-dark flex justify-between no-wrap q-pa-md qas-alert relative-position">
-      <div class="qas-alert__border-left" :class="borderClass" />
+  <div class="inline-block qas-alert">
+    <qas-box v-if="displayAlert" v-bind="defaultBoxProps">
+      <div class="flex items-center no-wrap">
+        <div class="flex items-center no-wrap text-body1 text-grey-8">
+          <q-icon v-bind="iconProps" />
 
-      <div class="text-body1 text-white">
-        <slot>
-          {{ props.text }}
-        </slot>
+          <component
+            :is="textComponent"
+            v-if="useRegex"
+            class="q-ml-sm"
+          />
+
+          <span
+            v-else
+            class="q-ml-sm"
+          >
+            <slot>
+              {{ props.text }}
+            </slot>
+          </span>
+        </div>
+
+        <qas-btn v-if="useCloseButton" class="q-ml-sm" color="grey-10" icon="sym_r_close" variant="tertiary" @click="close" />
       </div>
-
-      <qas-btn
-        class="q-ml-xs qas-alert__close"
-        color="white"
-        icon="sym_r_close"
-        :use-hover-on-white-color="false"
-        @click="close"
-      />
-    </div>
+    </qas-box>
   </div>
 </template>
 
 <script setup>
-import { LocalStorage } from 'quasar'
 import { Status, StatusColor } from '../../enums/Status'
-import { computed, watch, ref } from 'vue'
+
+import { LocalStorage } from 'quasar'
+import { QasBtn } from 'asteroid'
+import { RouterLink } from 'vue-router'
+import { h, computed, inject } from 'vue'
 
 defineOptions({ name: 'QasAlert' })
 
 const props = defineProps({
-  modelValue: {
-    type: Boolean,
-    default: true
+  buttonProps: {
+    type: Object,
+    default: () => ({})
   },
 
-  text: {
-    type: String,
-    default: ''
-  },
-
-  storageKey: {
-    type: String,
-    default: ''
+  routerLinkProps: {
+    type: Object,
+    default: () => ({})
   },
 
   status: {
@@ -49,62 +54,184 @@ const props = defineProps({
     validator: value => Object.values(Status).includes(value)
   },
 
+  storageKey: {
+    type: String,
+    default: 'default'
+  },
+
+  text: {
+    type: String,
+    required: true
+  },
+
+  useBox: {
+    type: Boolean,
+    default: undefined
+  },
+
+  useCloseButton: {
+    type: Boolean
+  },
+
   usePersistentModelOnClose: {
+    type: Boolean
+  },
+
+  useRegex: {
     type: Boolean
   }
 })
 
-const emit = defineEmits(['update:modelValue'])
+// models
+const model = defineModel({ type: Boolean, default: true })
 
-const model = ref(props.modelValue)
+// globals
+const isBox = inject('isBox', false)
 
-watch(() => props.modelValue, value => {
-  model.value = value
-})
+// composables
+const { displayAlert, close } = useStorageClosed()
 
-const colorByStatus = computed(() => {
+// computeds
+const iconProps = computed(() => {
   const status = Object.keys(Status).find(key => Status[key] === props.status)
-  return StatusColor[status]
+  const isErrorStatus = props.status === Status.Error
+
+  return {
+    color: StatusColor[status],
+    name: isErrorStatus ? 'sym_r_error' : 'sym_r_info',
+    size: 'sm'
+  }
 })
 
-const borderClass = computed(() => `bg-${colorByStatus.value}`)
+/**
+ * Por padrão, quando este componente estiver dentro de um QasBox, ele não terá
+ * shadow, terá padding e não terá margin.
+ */
+const defaultBoxProps = computed(() => {
+  const hasBoxProps = props.useBox !== undefined
 
-const storageClosedKey = computed(() => `alert-${props.storageKey}-closed`)
+  const useBox = hasBoxProps ? props.useBox : !isBox
 
-const isClosed = computed(() => {
-  return props.usePersistentModelOnClose && LocalStorage.getItem(storageClosedKey.value)
+  return {
+    unelevated: !useBox,
+    useSpacing: useBox
+  }
 })
 
-const show = computed(() => !isClosed.value && model.value)
+const textComponent = computed(() => {
+  /**
+   * regex para encontrar caracteres que estiverem dentro de [].
+   */
+  const regex = /\[.*?\]/g
 
-function close () {
-  if (props.usePersistentModelOnClose) {
-    LocalStorage.set(storageClosedKey.value, true)
+  const [content] = props.text.match(regex)
+
+  /**
+   * dado o texto: Para saber mais, [Clique aqui].
+   *
+   * retorna: 'Clique aqui'
+   */
+  const routerLabel = content.replaceAll(/[[\]]/g, '')
+
+  /**
+   * dado o texto: Para saber mais, [Clique aqui].
+   *
+   * retorna: 'Para saber mais, $.'
+   */
+  const replacedText = props.text.replaceAll(regex, '$')
+
+  /**
+   * É necessário usar o regex ao invés de '$' para ele não remover o carácter
+   * ao fazer o split
+   *
+   * dado o texto: 'Para saber mais, [Clique aqui].'
+   *
+   * retorna: ['Para saber mais,', '$', '.']
+   *
+   */
+  const splitted = replacedText.split(/(\$)/)
+
+  const index = splitted.findIndex(item => item === '$')
+
+  const hasButtonProps = !!Object.keys(props.buttonProps).length
+
+  const getRouterLinkRender = () => {
+    return h(
+      RouterLink,
+      {
+        ...props.routerLinkProps,
+        class: 'text-primary text-subtitle1 qas-alert__link'
+      },
+      {
+        default: () => routerLabel
+      }
+    )
   }
 
-  model.value = false
+  const getQasBtnRender = () => {
+    return h(
+      QasBtn,
+      {
+        variant: 'tertiary',
+        label: routerLabel,
+        ...props.buttonProps
+      }
+    )
+  }
 
-  emit('update:modelValue', model.value)
+  /**
+   * Cria um render do router link ou QasBtn
+   *
+   * @example
+   *
+   * ```html
+   * <router-link
+   *  class="text-primary text-subtitle1 qas-alert__link"
+   *  :to="props.route"
+   * >
+   *  Clique aqui
+   * </router-link>
+   * ```
+   */
+  const renderComponent = hasButtonProps ? getQasBtnRender() : getRouterLinkRender()
+
+  splitted.splice(index, 1, renderComponent)
+
+  return h(
+    'span',
+    splitted
+  )
+})
+
+// composable definitions
+function useStorageClosed () {
+  // computeds
+  const storageClosedKey = computed(() => `alert-${props.storageKey}-closed`)
+
+  const displayAlert = computed(() => {
+    const isClosed = props.usePersistentModelOnClose && LocalStorage.getItem(storageClosedKey.value)
+
+    return !isClosed && model.value
+  })
+
+  // functions
+  function close () {
+    if (props.usePersistentModelOnClose) LocalStorage.set(storageClosedKey.value, true)
+
+    model.value = false
+  }
+
+  return {
+    displayAlert,
+    close
+  }
 }
-
 </script>
 
 <style lang="scss">
 .qas-alert {
-  border-radius: var(--qas-generic-border-radius);
-
-  &__border-left {
-    border-radius: var(--qas-generic-border-radius) 0 0 var(--qas-generic-border-radius);
-    bottom: 0;
-    content: '';
-    left: 0;
-    position: absolute;
-    top: 0;
-    width: 4px;
-  }
-
-  &__close {
-    top: calc(var(--qas-spacing-sm) * -1);
+  &__link {
+    text-decoration: none;
   }
 }
 </style>

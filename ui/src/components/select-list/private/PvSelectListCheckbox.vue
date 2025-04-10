@@ -1,5 +1,5 @@
 <template>
-  <q-checkbox class="text-body1" dense :disable="props.readonly" :label="props.result.label" :model-value="props.useActive" @update:model-value="onUpdateModelValue(result)" />
+  <qas-checkbox dense :disable="props.readonly" :label="props.result.label" :model-value="props.useActive" @update:model-value="onUpdateModelValue(result)" />
 </template>
 
 <script setup>

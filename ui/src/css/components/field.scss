@@ -32,12 +32,11 @@
   // pega o ícone imediato dos append e prepend, não os do q-chip por exemplo.
   &--error {
     .q-field__input,
-    .q-field__native {
-      color: $negative !important;
-    }
-
+    .q-field__label,
+    .q-field__native,
     .q-field__marginal > .q-icon,
-    .q-field__marginal > .qas-btn .q-icon {
+    .q-field__marginal > .qas-btn .q-icon,
+    .q-field__marginal > button.q-icon {
       color: $negative !important;
     }
 
@@ -75,7 +74,7 @@
     will-change: transform, font-size;
     transition: transform var(--qas-generic-transition), font-size var(--qas-generic-transition);
 
-    &:not(&.qas-select--filter):not(&.qas-select--has-icon) .q-field__label {
+    &:not(&.qas-select--filter):not(&.qas-select--has-icon):not(&.qas-input--has-icon) .q-field__label {
       transform: translateY(-10px) scale(0.85) !important;
     }
 
@@ -91,6 +90,7 @@
   }
 
   .q-field__label {
+    color: $grey-8;
     transition: transform var(--qas-generic-transition), font-size var(--qas-generic-transition);
   }
 
