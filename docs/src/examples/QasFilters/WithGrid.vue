@@ -55,18 +55,6 @@
         </div>
       </div>
     </div>
-
-    <div>
-      <div class="q-mb-lg">
-        <qas-label label="Caso 4" />
-
-        <div class="row">
-          <qas-select class="col-6 q-mb-lg" label="Select" />
-        </div>
-
-        <qas-filters :entity="entity" search-placeholder="Pesquisar por nome do usuário" />
-      </div>
-    </div>
   </div>
 </template>
 
