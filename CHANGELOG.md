@@ -16,6 +16,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
   - adicionado nova propriedade `useHomeItem` com default `true` para forçar padronização no item de inicio, é necessário remover esse item da prop "items" caso esteja sendo adicionado.
   - não esquecer de configurar corretamente a prop `homeRoute`.
 - `QasAlert/QasInfo`: removido `QasInfo` que agora foi mesclado com o `QasAlert`, olhar documentação.
+- `QasFilters`: removido slot `right-side`, agora a forma recomendada para quando precisar utilizar itens ao lado do componente, utilize o grid em conjunto com a prop `useFullContent`. Contém um exemplo do uso na docs.
 
 ### Adicionado
 - `helpers/color`: adicionado helper para cores.
@@ -36,6 +37,9 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - `css/components/menu`: adicionado estilo para adc separador em q-list > q-item dentro do `q-menu`.
 - `QasAppMenu`: adicionado nova propriedade `useHomeItem` com default `true` para forçar padronização no item de inicio, é necessário remover esse item da prop "items" caso esteja sendo adicionado.
 - `QasAppUser`: adicionado propriedade "useDataOnSmallScreen".
+- `QasFilters`: 
+ - adicionado prop `useFullContent` para que o componente ocupe 100%, recomendado para quando precisar utilizar grids.
+ - adicionado prop `listenerQueryKeys` que serão chaves que o componente deve ouvir sempre que houver mudanças na query, para que bata a api novamente de `/filters`.
 
 ### Corrigido
 - `QasPasswordInput`:
@@ -68,21 +72,18 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 
 ### Removido
 - `QasAlert/QasInfo`: removido `QasInfo` que agora foi mesclado com o `QasAlert`, olhar documentação.
+- `QasFilters`: removido slot `right-side`, agora a forma recomendada para quando precisar utilizar itens ao lado do componente, utilize o grid em conjunto com a prop `useFullContent`. Contém um exemplo do uso na docs.
 
 ## [3.18.0-beta.0] - 31-03-2025
 ## BREAKING CHANGE
 - `QasInput`: alterado ordem da prop `iconRight` que estava adicionando na esquerda e não na direita, verificar lugares.
 - Alterar `quasar.variables.scss`, nova cor do `$negative` sendo `$red-14`.
-- `QasFilters`: removido slot `right-side`, agora a forma recomendada para quando precisar utilizar itens ao lado do componente, utilize o grid em conjunto com a prop `useFullContent`. Contém um exemplo do uso na docs.
 - `QasTableGenerator`: removido prop `stickyHeaderTableHeight`, agora controla o tamanho da tabela pela prop `maxHeight`.
 
 ### Adicionado
 - `QasErrorMessage`: adicionado novo componente para mostrar mensagem de erros de forma padronizada.
 - `QasRadio`: adicionado propriedades `error` e `errorMessage` em conjunto do componente `QasErrorMessage`.
 - `css/mixins/set-error-message`: mixin para aplicar os estilos diretamente no css.
-- `QasFilters`: 
- - adicionado prop `useFullContent` para que o componente ocupe 100%, recomendado para quando precisar utilizar grids.
- - adicionado prop `listenerQueryKeys` que serão chaves que o componente deve ouvir sempre que houver mudanças na query, para que bata a api novamente de `/filters`.
 - `QasTableGenerator`: 
   - Adicionado prop `useVirtualScroll` para aplicar a renderização dinâmica dos elementos na tabela.
   - Adicionado prop `maxHeight` para definir o tamanho da tabela em casos de `useStickyHeader` e `useVirtualScroll`.
@@ -105,7 +106,6 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
   - QasCheckbox
 
 ### Removido
-- `QasFilters`: removido slot `right-side`, agora a forma recomendada para quando precisar utilizar itens ao lado do componente, utilize o grid em conjunto com a prop `useFullContent`. Contém um exemplo do uso na docs.
 - `QasTableGenerator`: removido prop `stickyHeaderTableHeight`, agora controla o tamanho da tabela pela prop `maxHeight`.
 
 ## [3.17.0] - 12-03-2025
