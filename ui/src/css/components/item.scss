@@ -1,5 +1,6 @@
 .q-item {
   font-size: 16px;
+  min-height: 36px;
 
   &:not(.disabled) {
     font-weight: 600;
@@ -26,11 +27,11 @@
   }
 
   &--clickable:not(&--active) {
-    color: $grey-10;
+    color: $grey-10 !important;
     transition: var(--qas-generic-transition);
 
     &:not(&.q-router-link--active):hover {
-      color: var(--q-primary-contrast);
+      color: var(--q-primary-contrast) !important;
     }
   }
 

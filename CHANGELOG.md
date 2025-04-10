@@ -12,9 +12,69 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 
 ## Não publicado
 ## BREAKING CHANGE
+- `QasAppMenu`:
+  - adicionado nova propriedade `useHomeItem` com default `true` para forçar padronização no item de inicio, é necessário remover esse item da prop "items" caso esteja sendo adicionado.
+  - não esquecer de configurar corretamente a prop `homeRoute`.
+- `QasAlert/QasInfo`: removido `QasInfo` que agora foi mesclado com o `QasAlert`, olhar documentação.
+
+### Adicionado
+- `helpers/color`: adicionado helper para cores.
+- `helpers/setScrollGradient` adicionado helper para adicionar gradiente em áreas com scroll.
+- `QasAlert/QasInfo`: (adicionado|mesclado):
+  - buttonProps
+  - routerLinkProps
+  - useBox
+  - useRegex
+  - slot "default"
+- `QasAppUser`:
+  - adicionado prop `useHomeItem` para padronizar "inicio" no menu.
+  - adicionado prop `homeRoute` para configurar a rota de "inicio".
+- `QasCheckbox`: adicionado props:
+  - disable
+  - usaAsTitle
+- `QasSelectFilter`: adicionado propriedade `multiple`.
+- `css/components/menu`: adicionado estilo para adc separador em q-list > q-item dentro do `q-menu`.
+- `QasAppMenu`: adicionado nova propriedade `useHomeItem` com default `true` para forçar padronização no item de inicio, é necessário remover esse item da prop "items" caso esteja sendo adicionado.
+- `QasAppUser`: adicionado propriedade "useDataOnSmallScreen".
+
+### Corrigido
+- `QasPasswordInput`:
+  - invertido ícone de toggle.
+  - corrigido label que não ficava acima do ícone ao ter foco/ativo.
+  - desabilitado botão de toggle enquanto não tem valor preenchido.
+
+### Modificado
+- `QasAppMenu`:
+  - adicionado nova propriedade `useHomeItem` com default `true` para forçar padronização no item de inicio.
+  - diminuído espaçamento interno entre lista de itens, logo, avatar de usuário e módulos, para caber mais conteúdos.
+  - diminuído espaçamento interno entre itens do menu.
+  - quando o ponteiro do mouse estiver encima da barra de scroll, o menu não será mais expandido, habilitando scroll em modo mini.
+  - adicionado linear gradiente na parte superior e inferior da listagem de itens do menu quando existe scroll para feedback melhorado.
+  - modificado estrutura do HTML, agora o lista de itens não tem altura fixa definida, pega todo o espaço disponível.
+  - drawer no mobile quando aberto mostra a logo mini ao lado do botão de fechar.
+  - `QasAppUser` agora mostra nome/email mesmo no mobile.
+- `webkit-scrollbar`: alterado background para `transparent`.
+- Mudanças de estilo no `NotifyError` e `NotifySuccess`.
+`QasActionsMenu`: adicionado separador entre itens.
+- `QasCheckbox`: modificado estilos.
+- `QasRadio`: modificado estilos.
+- `QasDateTimeInput`: modificado cor de ícone para primary.
+- `QasPasswordInput`: desabilitado botão de toggle enquanto não tem conteúdo.
+- `QasSelectList`: modificado estilos.
+- `QasSelect`: adicionado separador nas options e modificado estilo de botão de ação.
+- `QasToggle` modificado estilos.
+- `QasTreeGenerator`: adicionado separador nas ações.
+- `QasAlert/QasInfo`: modificado cor de error para `negative`.
+
+### Removido
+- `QasAlert/QasInfo`: removido `QasInfo` que agora foi mesclado com o `QasAlert`, olhar documentação.
+
+## [3.18.0-beta.0] - 31-03-2025
+## BREAKING CHANGE
 - `QasInput`: alterado ordem da prop `iconRight` que estava adicionando na esquerda e não na direita, verificar lugares.
 - Alterar `quasar.variables.scss`, nova cor do `$negative` sendo `$red-14`.
 - `QasFilters`: removido slot `right-side`, agora a forma recomendada para quando precisar utilizar itens ao lado do componente, utilize o grid em conjunto com a prop `useFullContent`. Contém um exemplo do uso na docs.
+- `QasTableGenerator`: removido prop `stickyHeaderTableHeight`, agora controla o tamanho da tabela pela prop `maxHeight`.
 
 ### Adicionado
 - `QasErrorMessage`: adicionado novo componente para mostrar mensagem de erros de forma padronizada.
@@ -23,9 +83,13 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - `QasFilters`: 
  - adicionado prop `useFullContent` para que o componente ocupe 100%, recomendado para quando precisar utilizar grids.
  - adicionado prop `listenerQueryKeys` que serão chaves que o componente deve ouvir sempre que houver mudanças na query, para que bata a api novamente de `/filters`.
+- `QasTableGenerator`: 
+  - Adicionado prop `useVirtualScroll` para aplicar a renderização dinâmica dos elementos na tabela.
+  - Adicionado prop `maxHeight` para definir o tamanho da tabela em casos de `useStickyHeader` e `useVirtualScroll`.
 
 ### Corrigido
 - `QasInput`: alterado ordem da prop `iconRight` que estava adicionando na esquerda e não na direita.
+- `QasSelectFilter`: corrigido atribuição do valor do model externo do componente.
 
 ### Modificado
 - `QasSelect`: ignorando propriedade `useChips` que vem através de `$attrs`.
@@ -42,6 +106,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 
 ### Removido
 - `QasFilters`: removido slot `right-side`, agora a forma recomendada para quando precisar utilizar itens ao lado do componente, utilize o grid em conjunto com a prop `useFullContent`. Contém um exemplo do uso na docs.
+- `QasTableGenerator`: removido prop `stickyHeaderTableHeight`, agora controla o tamanho da tabela pela prop `maxHeight`.
 
 ## [3.17.0] - 12-03-2025
 ## BREAKING CHANGES
@@ -3748,3 +3813,4 @@ Adicionado suporte para Pinia/Vuex Seguindo os padrões da biblioteca `@bildvitt
 [3.17.0-beta.31]: https://github.com/bildvitta/asteroid/compare/v3.17.0-beta.30...v3.17.0-beta.31?expand=1
 [3.17.0-beta.32]: https://github.com/bildvitta/asteroid/compare/v3.17.0-beta.31...v3.17.0-beta.32?expand=1
 [3.17.0]: https://github.com/bildvitta/asteroid/compare/v3.16.4...v3.17.0?expand=1
+[3.18.0-beta.0]: https://github.com/bildvitta/asteroid/compare/v3.17.0...v3.18.0-beta.0?expand=1

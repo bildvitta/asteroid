@@ -26,6 +26,11 @@ props:
     type: Object
     examples: ["{ description: 'Descrição', labelProps: { label: 'Titulo do header'} }"]
 
+  max-height:
+    desc: Usado para definir a altura máxima da tabela e exibir o scroll vertical. Somente funciona quando a propriedade "use-sticky-header" ou "use-virtual-scroll" é utilizada.
+    default: '528px'
+    type: String
+
   results:
     desc: Lista com resultados para serem mostrados na tabela.
     default: {}
@@ -62,10 +67,10 @@ props:
     default: false
     type: Boolean
 
-  sticky-header-table-height:
-    desc: Usado para definir a altura máxima da tabela e exibir o scroll vertical quando a propriedade "use-sticky-header" é utilizada.
-    default: 528px
-    type: String
+  use-virtual-scroll:
+    desc: Usado para ativar o scroll virtual da tabela.
+    default: false
+    type: Boolean
 
 slots:
   body:
