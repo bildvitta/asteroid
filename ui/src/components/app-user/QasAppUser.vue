@@ -6,7 +6,7 @@
       <qas-avatar v-if="hasNotificationInUserAvatar" v-bind="avatarNotificationCountProps" />
     </div>
 
-    <div class="ellipsis qas-app-user__data">
+    <div v-if="displayData" class="ellipsis qas-app-user__data">
       <div class="ellipsis qas-app-user__name text-grey-10">
         {{ userName }}
       </div>
@@ -73,6 +73,8 @@ import QasAvatar from '../avatar/QasAvatar.vue'
 
 import useNotifications from '../../composables/use-notifications'
 import useQueryCache from '../../composables/use-query-cache'
+import useScreen from '../../composables/use-screen'
+
 import { NotifySuccess, NotifyError } from '../../plugins'
 
 import { ref, computed, watch, inject } from 'vue'
@@ -105,6 +107,11 @@ const props = defineProps({
     default: () => ({}),
     required: true,
     type: Object
+  },
+
+  useDataOnSmallScreen: {
+    type: Boolean,
+    default: true
   }
 })
 
@@ -115,6 +122,7 @@ const emit = defineEmits(['sign-out', 'toggle-notifications'])
 const axios = inject('axios')
 
 // composables
+const screen = useScreen()
 const router = useRouter()
 
 const { isNotificationsEnabled, unreadNotificationsCount } = useNotifications()
@@ -148,6 +156,8 @@ const hasNotificationInUserAvatar = computed(() => isNotificationsEnabled && has
 
 const unreadNotificationsToString = computed(() => String(unreadNotificationsCount.value))
 const userName = computed(() => props.user.name || props.user.givenName)
+
+const displayData = computed(() => props.useDataOnSmallScreen || screen.isMedium)
 
 // watch
 watch(() => props.companyProps.modelValue, value => {

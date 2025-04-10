@@ -35,6 +35,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - `QasSelectFilter`: adicionado propriedade `multiple`.
 - `css/components/menu`: adicionado estilo para adc separador em q-list > q-item dentro do `q-menu`.
 - `QasAppMenu`: adicionado nova propriedade `useHomeItem` com default `true` para forçar padronização no item de inicio, é necessário remover esse item da prop "items" caso esteja sendo adicionado.
+- `QasAppUser`: adicionado propriedade "useDataOnSmallScreen".
 
 ### Corrigido
 - `QasPasswordInput`:
