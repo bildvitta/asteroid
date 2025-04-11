@@ -16,6 +16,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
   - adicionado nova propriedade `useHomeItem` com default `true` para forçar padronização no item de inicio, é necessário remover esse item da prop "items" caso esteja sendo adicionado.
   - não esquecer de configurar corretamente a prop `homeRoute`.
 - `QasAlert/QasInfo`: removido `QasInfo` que agora foi mesclado com o `QasAlert`, olhar documentação.
+- `QasGalleryCard`: removido prop `card`, no qual foi transformado em duas props separadas, `url` e `name`.
 
 ### Adicionado
 - `helpers/color`: adicionado helper para cores.
@@ -36,8 +37,8 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - `css/components/menu`: adicionado estilo para adc separador em q-list > q-item dentro do `q-menu`.
 - `QasAppMenu`: adicionado nova propriedade `useHomeItem` com default `true` para forçar padronização no item de inicio, é necessário remover esse item da prop "items" caso esteja sendo adicionado.
 - `QasAppUser`: adicionado propriedade "useDataOnSmallScreen".
-- `QasListView`: adicionado nova prop para personalizar o texto em casos que não tenha resultado.
-- `QasGalleryCard`: adicionado possibilidade para utilizar vídeos ao invés de imagens.
+- `QasListView`: adicionado nova prop chamada `emptyResultText` para controlar o texto do `QasEmptyResultText` em casos que não tenha resultado.
+- `QasGalleryCard`: adicionado possibilidade para utilizar vídeos ao invés de imagens através da prop `useVideo`.
 - `QasNestedFields`: adicionado possibilidade de usar o `buttonDestroyProps` como um callback.
 
 ### Corrigido
@@ -68,9 +69,11 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - `QasToggle` modificado estilos.
 - `QasTreeGenerator`: adicionado separador nas ações.
 - `QasAlert/QasInfo`: modificado cor de error para `negative`.
+- `QasGalleryCard`: modificado nome do slot `name` para `title`.
 
 ### Removido
 - `QasAlert/QasInfo`: removido `QasInfo` que agora foi mesclado com o `QasAlert`, olhar documentação.
+- `QasGalleryCard`: removido prop `card`, no qual foi transformado em duas props separadas, `url` e `name`.
 
 ## [3.18.0-beta.0] - 31-03-2025
 ## BREAKING CHANGE

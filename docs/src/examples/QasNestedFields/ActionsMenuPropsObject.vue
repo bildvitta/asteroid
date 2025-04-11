@@ -3,7 +3,7 @@
     <div class="full-width">
       <div class="q-mt-lg text-center">
         <div>
-          <qas-nested-fields v-model="model" :actions-menu-props="actionsMenuProps" class="full-width" :field="nested" :form-columns="formColumns" :row-object="rowObject" use-inline-actions :use-starts-empty="false" />
+          <qas-nested-fields v-model="model" :actions-menu-props="actionsMenuProps" class="full-width" :field="nested" :form-columns :row-object use-inline-actions :use-starts-empty="false" />
         </div>
 
         <div class="q-my-lg">

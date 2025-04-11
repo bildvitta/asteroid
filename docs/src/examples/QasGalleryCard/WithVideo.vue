@@ -13,9 +13,7 @@ defineOptions({ name: 'WithVideo' })
 
 const galleryProps = {
   useVideo: true,
-  card: {
-    name: 'Meu titulo',
-    url: 'https://www.youtube.com/embed/k3_tw44QsZQ?rel=0'
-  }
+  name: 'Meu titulo',
+  url: 'https://www.youtube.com/embed/k3_tw44QsZQ?rel=0'
 }
 </script>

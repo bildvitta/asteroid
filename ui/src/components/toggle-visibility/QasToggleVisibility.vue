@@ -1,6 +1,6 @@
 <template>
   <div class="qas-toggle-visibility">
-    <div class="cursor-pointer items-center no-wrap row" role="button" :style @click.prevent.stop="toggleVisibility">
+    <div :aria-expanded="isVisible" aria-label="Alternar visibilidade do conteúdo" class="cursor-pointer items-center no-wrap row" role="button" :style @click.prevent.stop="toggleVisibility">
       <div class="ellipsis qas-toggle-visibility__content">
         <div
           v-if="isVisible"
