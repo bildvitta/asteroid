@@ -2,37 +2,37 @@
   <div class="container q-my-xl">
     <qas-select-filter v-model="company" :options />
 
-    <div>
-      Company: <div>{{ company }}</div>
-    </div>
+    <qas-debugger :inspect="[company]" />
   </div>
 </template>
 
 <script setup>
 import { ref } from 'vue'
 
-const company = ref()
+defineOptions({ name: 'Basic' })
+
+const company = ref('')
 
 const options = ref([
   {
     label: 'Empresa 1',
-    value: '1'
+    value: 'company-1'
   },
   {
     label: 'Empresa 2',
-    value: '2'
+    value: 'company-2'
   },
   {
     label: 'Empresa 3',
-    value: '3'
+    value: 'company-3'
   },
   {
     label: 'Empresa 4',
-    value: '4'
+    value: 'company-4'
   },
   {
     label: 'Empresa 5',
-    value: '5'
+    value: 'company-5'
   }
 ])
 </script>

@@ -1,7 +1,7 @@
 <template>
   <div v-if="hasList" class="qas-actions-menu" data-cy="actions-menu">
     <qas-btn-dropdown v-bind="btnDropdownProps">
-      <q-list data-cy="actions-menu-list">
+      <q-list data-cy="actions-menu-list" separator>
         <slot v-for="(item, key) in formattedList.dropdownList" :item="item" :name="key">
           <q-item v-bind="getItemProps(item)" :key="key" active-class="primary" clickable data-cy="actions-menu-list-item" @click="setClickHandler(item)">
             <q-item-section avatar>
@@ -9,9 +9,9 @@
             </q-item-section>
 
             <q-item-section>
-              <div>
+              <q-item-label>
                 {{ item.label }}
-              </div>
+              </q-item-label>
             </q-item-section>
           </q-item>
         </slot>

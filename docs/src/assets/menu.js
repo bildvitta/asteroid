@@ -204,10 +204,6 @@ module.exports = [
         path: '/components/input'
       },
       {
-        name: 'Info',
-        path: '/components/info'
-      },
-      {
         name: 'Label',
         path: '/components/label'
       },
@@ -410,6 +406,10 @@ module.exports = [
         path: '/helpers/camelize-fields-name'
       },
       {
+        name: 'colors',
+        path: '/helpers/colors'
+      },
+      {
         name: 'constructObject',
         path: '/helpers/construct-object'
       },
@@ -484,6 +484,10 @@ module.exports = [
       {
         name: 'isLocalDevelopment',
         path: '/helpers/is-local-development'
+      },
+      {
+        name: 'setScrollGradient',
+        path: '/helpers/set-scroll-gradient'
       },
       {
         name: 'setScrollOnGrab',

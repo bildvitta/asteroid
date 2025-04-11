@@ -472,8 +472,16 @@ export default {
   }
 
   &__menu {
+    padding: var(--qas-spacing-sm) var(--qas-spacing-md);
+
+    .q-item + .q-item {
+      border-top: 1px solid $grey-4 !important;
+    }
+
     .q-item {
       font-weight: 400 !important;
+      padding-left: 0;
+      padding-right: 0;
     }
   }
 
@@ -498,8 +506,22 @@ export default {
 
   .q-field__prepend,
   .q-field__append {
-    .q-icon {
+    .q-icon:not(button) {
       color: $grey-8;
+    }
+
+    button.q-icon {
+      @include set-button(
+        tertiary,
+        false,
+        false,
+        grey-10
+      );
+
+      // necessários para sobrescrever os tamanhos aplicados pelo set-button
+      width: 18px !important;
+      height: 18px !important;
+      min-height: 18px !important;
     }
   }
 

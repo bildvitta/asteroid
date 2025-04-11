@@ -36,5 +36,10 @@ A funcionalidade de troca de vínculo de empresa é ativada quando existe mais d
 ```
 :::
 
+:::danger
+##### Propriedade "useDataOnSmallScreen"
+Esta propriedade é usada para controle dentro do `QasAppMenu` e `QasAppBar`, não altere sem a necessidade extrema.
+:::
+
 ## Uso
 <doc-example file="QasAppUser/Basic" title="Básico" />
