@@ -367,14 +367,3 @@ function useBadgeHandler () {
   }
 }
 </script>
-<style lang="scss">
-.qas-text-truncate {
-  &__dialog .qas-search-box {
-    /**
-      * Altura calculada com base no height passado para o qas-search-box.
-      * Se não passar um height, ao efetuar uma busca, o dialog vai ficar quebrando de tamanho.
-      */
-    height: 566px;
-  }
-}
-</style>

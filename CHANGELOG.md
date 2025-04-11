@@ -16,6 +16,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
   - adicionado nova propriedade `useHomeItem` com default `true` para forçar padronização no item de inicio, é necessário remover esse item da prop "items" caso esteja sendo adicionado.
   - não esquecer de configurar corretamente a prop `homeRoute`.
 - `QasAlert/QasInfo`: removido `QasInfo` que agora foi mesclado com o `QasAlert`, olhar documentação.
+- `QasSearchBox`: modificado prop `height` para `maxHeight`, pois o nome da prop era `maxHeight`, mas internamente adicionava o style como `maxHeight`.
 
 ### Adicionado
 - `helpers/color`: adicionado helper para cores.
@@ -37,6 +38,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - `QasAppMenu`: adicionado nova propriedade `useHomeItem` com default `true` para forçar padronização no item de inicio, é necessário remover esse item da prop "items" caso esteja sendo adicionado.
 - `QasAppUser`: adicionado propriedade "useDataOnSmallScreen".
 - `QasTextTruncate`: Adicionado campo de busca no dialog do componente ao conter mais de 12 itens na lista.
+- `QasSearchBox`: Adicionado prop `maxHeight` para definir uma altura máxima para o componente.
 
 ### Corrigido
 - `QasPasswordInput`:
@@ -66,6 +68,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - `QasToggle` modificado estilos.
 - `QasTreeGenerator`: adicionado separador nas ações.
 - `QasAlert/QasInfo`: modificado cor de error para `negative`.
+- `QasSearchBox`: modificado prop `height` para `maxHeight`, pois o nome da prop era `maxHeight`, mas internamente adicionava o style como `maxHeight`.
 
 ### Removido
 - `QasAlert/QasInfo`: removido `QasInfo` que agora foi mesclado com o `QasAlert`, olhar documentação.

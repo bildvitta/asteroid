@@ -58,8 +58,13 @@ export default {
       type: Object
     },
 
-    height: {
+    maxHeight: {
       default: '300px',
+      type: String
+    },
+
+    height: {
+      default: 'auto',
       type: String
     },
 
@@ -120,7 +125,11 @@ export default {
     },
 
     containerStyle () {
-      return { maxHeight: this.containerHeight }
+      return {
+        // Caso tenha height, deverá ter um tamanho fixo com base no height, portanto não terá max-height.
+        maxHeight: this.height !== 'auto' ? 'auto' : this.containerHeight,
+        height: this.height
+      }
     },
 
     hasNoOptionsOnFirstFetch () {
@@ -130,7 +139,7 @@ export default {
     containerHeight () {
       const hasEmptyList = (!this.list.length && !this.useLazyLoading) || this.hasNoOptionsOnFirstFetch
 
-      return hasEmptyList ? this.emptyListHeight : this.height
+      return hasEmptyList ? this.emptyListHeight : this.maxHeight
     },
 
     component () {
