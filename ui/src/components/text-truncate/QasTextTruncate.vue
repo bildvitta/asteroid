@@ -1,5 +1,5 @@
 <template>
-  <div ref="parent" class="qas-text-truncate" :class="classes">
+  <div ref="parent" :class="classes">
     <div class="no-wrap row text-no-wrap">
       <div ref="truncate" class="ellipsis">
         <slot>
@@ -18,7 +18,7 @@
       <qas-btn v-if="hasButton" class="q-ml-sm" :label="buttonLabel" @click.stop.prevent="toggle" />
     </div>
 
-    <qas-dialog v-model="show" v-bind="defaultProps" aria-label="Diálogo de texto completo" class="qas-text-truncate__dialog" max-width="500px" role="dialog" use-full-max-width>
+    <qas-dialog v-model="show" v-bind="defaultProps" aria-label="Diálogo de texto completo" max-width="500px" role="dialog" use-full-max-width>
       <template v-if="isCounterMode" #description>
         <component :is="dialogComponent.is" v-bind="dialogComponent.props" v-model:results="searchModel">
           <q-list separator>
