@@ -21,15 +21,23 @@
     </q-table>
 
     <qas-empty-result-text v-if="!hasResults" />
+
+    <PvTableGeneratorTd component-name="QasCopy" name="email" :row="{ email: 'text@example.com' }" />
   </component>
 </template>
 
 <script>
+import PvTableGeneratorTd from './_components/PvTableGeneratorTd.vue'
+
 import { extend } from 'quasar'
-import { isEmpty, humanize, setScrollOnGrab } from '../../helpers'
+import { isEmpty, humanize, setScrollOnGrab, setScrollGradient } from '../../helpers'
 
 export default {
   name: 'QasTableGenerator',
+
+  components: {
+    PvTableGeneratorTd
+  },
 
   props: {
     columns: {
@@ -101,7 +109,8 @@ export default {
       scrollableElement: null,
       scrollOnGrab: {},
       elementToObserve: null,
-      resizeObserver: null
+      resizeObserver: null,
+      scrollGradientX: setScrollGradient({ orientation: 'x' })
     }
   },
 
@@ -250,15 +259,26 @@ export default {
     parentComponent () {
       return {
         is: this.useBox ? 'qas-box' : 'div'
+        // is: this.useBox ? 'qas-box' : 'div'
       }
     },
 
     hasHeaderProps () {
       return !!Object.keys(this.headerProps).length
+    },
+
+    hasAutoScrollY () {
+      return this.useStickyHeader || this.useVirtualScroll
     }
   },
 
   mounted () {
+    if (!this.hasAutoScrollY) {
+      // const scrollElement = this.getScrollElement()
+
+      // this.scrollGradientX.initializeScrollGradient(scrollElement)
+    }
+
     if (!this.useScrollOnGrab) return
 
     this.setObserver()
@@ -266,6 +286,12 @@ export default {
   },
 
   onUnmounted () {
+    if (!this.hasAutoScrollY) {
+      const scrollElement = this.getScrollElement()
+
+      this.scrollGradientX.removeScrollGradient(scrollElement)
+    }
+
     if (!this.hasScrollOnGrab) return
 
     this.destroyObserver()
@@ -284,6 +310,10 @@ export default {
 
     getTableElementComponent () {
       return this.$refs?.table?.$el
+    },
+
+    getScrollElement () {
+      return this.getTableElementComponent().querySelector('.q-table__middle.scroll')
     },
 
     getTableElement () {
@@ -349,6 +379,7 @@ export default {
   .q-table {
     thead tr {
       height: 24px;
+      position: unset !important;
     }
 
     th {
@@ -369,28 +400,71 @@ export default {
       @include set-typography($body1);
 
       height: 40px;
-      padding-left: calc(var(--qas-spacing-lg) / 2);
-      padding-right: calc(var(--qas-spacing-lg) / 2);
+      padding-left: 0;
+      padding-right: 0;
+      // padding-left: calc(var(--qas-spacing-lg) / 2);
+      // padding-right: calc(var(--qas-spacing-lg) / 2);
+      padding-top: var(--qas-spacing-sm);
+      padding-bottom: var(--qas-spacing-sm);
 
       &:before {
         transition: background-color var(--qas-generic-transition);
       }
     }
 
+    &__middle {
+      margin-left: -16px;
+      padding-left: 16px;
+      margin-right: -16px;
+      // padding-right: 16px;
+      // box-shadow: 0 4px 8px var(--q-accent);
+      // padding: 16px;
+    }
+
     tr {
-      &:hover {
-        td:before {
-          background-color: var(--qas-background-color);
-        }
+      transition: background-image var(--qas-generic-transition);
+      position: relative;
+
+      &::before {
+        position: absolute;
+        content: '';
+        top: 0;
+        left: -16px;
+        right: -16px;
+        bottom: 0;
+        background-color: transparent;
+        // width: 100%;
+
       }
 
-      &:last-child td {
-        padding-bottom: 0;
+      &:hover:not(:has(td *[data-ignore-hover]:hover)) {
+        td:not(:has(*[data-ignore-hover])) * {
+          // color: var(--q-primary-contrast) !important;
+        }
+
+        // background-image: linear-gradient(90deg, rgba(15, 84, 174, 0.00) 0%, rgba(15, 84, 174, 0.05) 0.54%, rgba(15, 84, 174, 0.05) 99.48%, rgba(15, 84, 174, 0.00) 100%);
+      }
+
+      &:hover::before {
+        // background-image: linear-gradient(90deg, rgba(15, 84, 174, 0.00) 0%, rgba(15, 84, 174, 0.05) 0.54%, rgba(15, 84, 174, 0.05) 99.48%, rgba(15, 84, 174, 0.00) 100%);
+
+        background-color: red;
+        // background-color: var(--qas-background-color);
+
+        // td {
+        //   border-bottom: 1px solid var(--q-primary-contrast);;
+        // }
+
+      }
+
+      td::before {
+        // background-color: var(--qas-background-color);
+        display: none;
       }
     }
 
     thead tr:hover {
-      background-color: white;
+      // background-color: white;
     }
   }
 

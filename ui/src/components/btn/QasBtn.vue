@@ -1,5 +1,5 @@
 <template>
-  <q-btn ref="button" class="qas-btn" v-bind="attributes">
+  <q-btn ref="button" class="qas-btn" data-ignore-hover v-bind="attributes">
     <slot />
 
     <template v-for="(_, name) in nonDefaultSlots" #[name]="context">
