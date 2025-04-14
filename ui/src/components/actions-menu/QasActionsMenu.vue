@@ -5,7 +5,8 @@
         <slot v-for="(item, key) in formattedList.dropdownList" :item="item" :name="key">
           <q-item v-bind="getItemProps(item)" :key="key" active-class="primary" clickable data-cy="actions-menu-list-item" @click="setClickHandler(item)">
             <q-item-section avatar>
-              <q-icon :name="item.icon" />
+              <q-spinner v-if="item.loading" color="primary" size="sm" />
+              <q-icon v-else :name="item.icon" />
             </q-item-section>
 
             <q-item-section>
@@ -240,10 +241,10 @@ const { showTooltip, tooltipLabels } = useTooltips({ formattedList, fullList, pr
 
 // functions
 function getItemProps (item) {
-  const { disable, props: itemProps, to } = item
+  const { disable, loading, props: itemProps, to } = item
 
   return {
-    disable,
+    disable: disable || loading, // ficará desabilitado se for passado a prop "disable" ou o "loading" seja true.
     to,
     ...itemProps
   }

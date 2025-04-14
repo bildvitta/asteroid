@@ -61,3 +61,4 @@ Componente wrapper do `QasBtnDropdown` que implementa regras de negocio.
 <doc-example file="QasActionsMenu/ExDelete" title="Com deleção" />
 <doc-example file="QasActionsMenu/ExNoLabel" title="Sem label" />
 <doc-example file="QasActionsMenu/ExTooltip" title="Sem label com tooltip" />
+<doc-example file="QasActionsMenu/ExWithLoading" title="Com loading" />
