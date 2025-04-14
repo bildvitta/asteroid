@@ -64,6 +64,14 @@ const style = computed(() => ({ width: props.width }))
 
 <style lang="scss">
 .qas-toggle-visibility {
+  & > div:hover {
+    background-color: var(--qas-background-color);
+
+    & > .qas-toggle-visibility__button {
+      color: var(--q-primary-contrast) !important;
+    }
+  }
+
   &__content {
     flex-grow: 1;
   }
