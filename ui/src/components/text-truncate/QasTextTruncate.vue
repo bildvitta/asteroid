@@ -185,10 +185,10 @@ function useDialog ({ props, textContent }) {
     return props.useObjectList ? searchModel.value.map(({ label }) => label) : searchModel.value
   })
 
-  const hasSearchBox = computed(() => normalizedList.value.length > 12)
-
   const dialogComponent = computed(() => {
-    if (hasSearchBox.value) {
+    const hasSearchBox = normalizedList.value.length > 12
+
+    if (hasSearchBox) {
       return {
         is: 'qas-search-box',
         list: normalizedSearchModel.value,

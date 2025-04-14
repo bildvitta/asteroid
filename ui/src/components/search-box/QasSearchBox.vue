@@ -64,7 +64,7 @@ export default {
     },
 
     height: {
-      default: 'auto',
+      default: '',
       type: String
     },
 
@@ -127,8 +127,8 @@ export default {
     containerStyle () {
       return {
         // Caso tenha height, deverá ter um tamanho fixo com base no height, portanto não terá max-height.
-        maxHeight: this.height !== 'auto' ? 'auto' : this.containerHeight,
-        height: this.height
+        maxHeight: this.height ? 'auto' : this.containerHeight,
+        ...(this.height && { height: this.height })
       }
     },
 

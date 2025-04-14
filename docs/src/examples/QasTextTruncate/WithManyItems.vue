@@ -9,7 +9,7 @@
 </template>
 
 <script setup>
-defineOptions({ name: 'WithBadge' })
+defineOptions({ name: 'WithManyItems' })
 
 // Com array de objetos
 const list = [
