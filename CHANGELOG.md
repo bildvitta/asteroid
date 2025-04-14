@@ -17,6 +17,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
   - não esquecer de configurar corretamente a prop `homeRoute`.
 - `QasAlert/QasInfo`: removido `QasInfo` que agora foi mesclado com o `QasAlert`, olhar documentação.
 - `QasGalleryCard`: removido prop `card`, no qual foi transformado em duas props separadas, `url` e `name`.
+- `QasFilters`: removido slot `right-side`, agora a forma recomendada para quando precisar utilizar itens ao lado do componente, utilize o grid em conjunto com a prop `useFullContent`. Contém um exemplo do uso na docs.
 
 ### Adicionado
 - `helpers/color`: adicionado helper para cores.
@@ -40,6 +41,9 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - `QasListView`: adicionado nova prop chamada `emptyResultText` para controlar o texto do `QasEmptyResultText` em casos que não tenha resultado.
 - `QasGalleryCard`: adicionado possibilidade para utilizar vídeos ao invés de imagens através da prop `useVideo`.
 - `QasNestedFields`: adicionado possibilidade de usar o `buttonDestroyProps` como um callback.
+- `QasFilters`: 
+ - adicionado prop `useFullContent` para que o componente ocupe 100%, recomendado para quando precisar utilizar grids.
+ - adicionado prop `listenerQueryKeys` que serão chaves que o componente deve ouvir sempre que houver mudanças na query, para que bata a api novamente de `/filters`.
 
 ### Corrigido
 - `QasPasswordInput`:
@@ -74,6 +78,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 ### Removido
 - `QasAlert/QasInfo`: removido `QasInfo` que agora foi mesclado com o `QasAlert`, olhar documentação.
 - `QasGalleryCard`: removido prop `card`, no qual foi transformado em duas props separadas, `url` e `name`.
+- `QasFilters`: removido slot `right-side`, agora a forma recomendada para quando precisar utilizar itens ao lado do componente, utilize o grid em conjunto com a prop `useFullContent`. Contém um exemplo do uso na docs.
 
 ## [3.18.0-beta.0] - 31-03-2025
 ## BREAKING CHANGE
