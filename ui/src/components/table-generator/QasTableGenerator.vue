@@ -1,17 +1,19 @@
 <template>
-  <component :is="parentComponent.is">
+  <component :is="parentComponent.is" class="qas-table-generator" :class="tableClass">
     <slot name="parent-header">
       <qas-header v-if="hasHeaderProps" v-bind="headerProps" />
     </slot>
 
-    <q-table v-show="hasResults" ref="table" class="bg-white qas-table-generator text-grey-8" v-bind="attributes">
+    <q-table v-show="hasResults" ref="table" class="bg-white text-grey-8" v-bind="attributes">
       <template v-for="(_, name) in slots" #[name]="context">
         <slot :name="name" v-bind="context" />
       </template>
 
       <template v-for="(fieldName, index) in bodyCellNameSlots" :key="index" #[`body-cell-${fieldName}`]="context">
         <q-td>
-          <component :is="tdChildComponent" v-bind="getTdChildComponentProps(context.row)">
+          <pv-table-generator-td v-if="normalizedFieldsProps(context.row)[fieldName]" :component-data="normalizedFieldsProps(context.row)[fieldName]" :label="fields[fieldName]?.label" :name="fieldName" :row="context.row" />
+
+          <component :is="tdChildComponent" v-else v-bind="getTdChildComponentProps(context.row)">
             <slot :name="`body-cell-${fieldName}`" v-bind="context || {}">
               {{ context.row?.[fieldName] }}
             </slot>
@@ -22,7 +24,8 @@
 
     <qas-empty-result-text v-if="!hasResults" />
 
-    <PvTableGeneratorTd component-name="QasCopy" name="email" :row="{ email: 'text@example.com' }" />
+    <pre>{{ normalizedFieldsProps }}</pre>
+    <pre>{{ normalizedColumns }}</pre>
   </component>
 </template>
 
@@ -40,6 +43,11 @@ export default {
   },
 
   props: {
+    actionsMenuProps: {
+      default: () => ({}),
+      type: [Object, Function]
+    },
+
     columns: {
       default: () => [],
       type: Array
@@ -53,6 +61,11 @@ export default {
     fields: {
       default: () => ({}),
       type: [Array, Object]
+    },
+
+    fieldsProps: {
+      default: () => ({}),
+      type: [Object, Function]
     },
 
     headerProps: {
@@ -124,8 +137,8 @@ export default {
     bodyCellNameSlots () {
       if (this.hasBodyCellSlot) return []
 
-      return this.columns.length
-        ? this.columns.map(column => typeof column === 'object' ? column.name : column)
+      return this.normalizedColumns.length
+        ? this.normalizedColumns.map(column => typeof column === 'object' ? column.name : column)
         : Object.keys(this.fields)
     },
 
@@ -154,7 +167,6 @@ export default {
         tableClass: {
           'overflow-hidden-y': !this.useStickyHeader && !this.useVirtualScroll
         },
-        class: this.tableClass,
         columns: this.columnsByFields,
         flat: true,
         hideBottom: true,
@@ -173,7 +185,7 @@ export default {
 
     columnsByFields () {
       if (!this.hasFields) {
-        return this.columns.filter(column => column instanceof Object)
+        return this.normalizedColumns.filter(column => column instanceof Object)
       }
 
       const columns = []
@@ -191,7 +203,7 @@ export default {
       }
 
       // Automatic columns.
-      if (!this.columns.length) {
+      if (!this.normalizedColumns.length) {
         for (const index in this.fields) {
           columnByField(this.fields[index])
         }
@@ -200,7 +212,7 @@ export default {
       }
 
       // Sorting from the column list.
-      this.columns.forEach(column => {
+      this.normalizedColumns.forEach(column => {
         if (column instanceof Object) {
           columnByField(column)
         } else if (this.fields[column]) {
@@ -209,6 +221,49 @@ export default {
       })
 
       return columns
+    },
+
+    hasActionsMenu () {
+      const isFunction = typeof this.actionsMenuProps === 'function'
+
+      return isFunction ? !!this.actionsMenuProps : !!Object.keys(this.actionsMenuProps).length
+    },
+
+    normalizedColumns () {
+      return this.hasActionsMenu ? [...this.columns, { name: 'actions', align: 'right' }] : this.columns
+    },
+
+    normalizedFieldsProps () {
+      const isFunction = typeof this.fieldsProps === 'function'
+
+      console.log(this.actionsMenuProps, 'actionsMenuProps')
+
+      if (isFunction) {
+        return callback => {
+          return {
+            ...this.fieldsProps(callback),
+
+            actions: {
+              component: 'QasActionsMenu',
+              props: this.actionsMenuProps?.(callback)
+            }
+          }
+        }
+      }
+
+      return () => {
+        return {
+          ...this.fieldsProps,
+          actions: {
+            component: 'QasActionsMenu',
+            props: this.actionsMenuProps
+          }
+        }
+      }
+
+      // return {
+
+      // }
     },
 
     hasFields () {
@@ -240,9 +295,12 @@ export default {
     },
 
     tableClass () {
+      const hasLink = this.hasRowClick || this.rowRouteFn
+
       return {
         'qas-table-generator--mobile': this.$qas.screen.isSmall,
-        'qas-table-generator--sticky-header': this.useStickyHeader
+        'qas-table-generator--sticky-header': this.useStickyHeader,
+        'qas-table-generator--has-link': hasLink
       }
     },
 
@@ -269,6 +327,10 @@ export default {
 
     hasAutoScrollY () {
       return this.useStickyHeader || this.useVirtualScroll
+    },
+
+    hasRowClick () {
+      return typeof this.$attrs.onRowClick === 'function'
     }
   },
 
@@ -361,7 +423,7 @@ export default {
       if (!this.rowRouteFn) return
 
       return {
-        class: 'text-no-decoration text-grey-8 flex full-width items-center full-height',
+        class: 'text-no-decoration text-grey-8 flex full-width items-center full-height eae',
         [this.useExternalLink ? 'href' : 'to']: this.rowRouteFn(row),
         ...(this.useExternalLink && { target: '_blank' })
       }
@@ -369,6 +431,10 @@ export default {
 
     onRowClick () {
       this.$attrs.onRowClick(...arguments)
+    },
+
+    getComponentProps (name, row) {
+      return this.normalizedColumns.find(column => column.name === name)?.props?.(row)
     }
   }
 }
@@ -379,14 +445,23 @@ export default {
   .q-table {
     thead tr {
       height: 24px;
-      position: unset !important;
     }
 
     th {
       @include set-typography($subtitle1);
 
       border: 0 !important;
-      padding: 0 calc(var(--qas-spacing-lg) / 2);
+      padding-top: 0;
+      padding-bottom: 0;
+      padding-left: 0;
+
+      &:not(:last-child) {
+        padding-right: var(--qas-spacing-md);
+      }
+
+      &:last-child {
+        padding-right: 0;
+      }
     }
 
     td,
@@ -401,31 +476,32 @@ export default {
 
       height: 40px;
       padding-left: 0;
-      padding-right: 0;
-      // padding-left: calc(var(--qas-spacing-lg) / 2);
-      // padding-right: calc(var(--qas-spacing-lg) / 2);
       padding-top: var(--qas-spacing-sm);
       padding-bottom: var(--qas-spacing-sm);
 
-      &:before {
-        transition: background-color var(--qas-generic-transition);
+      &:not(:last-child) {
+        padding-right: var(--qas-spacing-md);
+      }
+
+      &:last-child {
+        padding-right: 0;
+      }
+
+      &::before {
+        display: none;
       }
     }
 
     &__middle {
-      margin-left: -16px;
       padding-left: 16px;
-      margin-right: -16px;
-      // padding-right: 16px;
-      // box-shadow: 0 4px 8px var(--q-accent);
-      // padding: 16px;
+      padding-right: 16px;
     }
 
     tr {
-      transition: background-image var(--qas-generic-transition);
       position: relative;
 
       &::before {
+        transition: background-color var(--qas-generic-transition);
         position: absolute;
         content: '';
         top: 0;
@@ -433,40 +509,47 @@ export default {
         right: -16px;
         bottom: 0;
         background-color: transparent;
-        // width: 100%;
+        pointer-events: none;
+      }
+    }
 
+    tbody tr {
+      &::before {
+        display: block;
+      }
+
+      &:hover::before {
+        background-color: var(--qas-background-color);
       }
 
       &:hover:not(:has(td *[data-ignore-hover]:hover)) {
         td:not(:has(*[data-ignore-hover])) * {
-          // color: var(--q-primary-contrast) !important;
+          color: var(--q-primary-contrast) !important;
         }
-
-        // background-image: linear-gradient(90deg, rgba(15, 84, 174, 0.00) 0%, rgba(15, 84, 174, 0.05) 0.54%, rgba(15, 84, 174, 0.05) 99.48%, rgba(15, 84, 174, 0.00) 100%);
-      }
-
-      &:hover::before {
-        // background-image: linear-gradient(90deg, rgba(15, 84, 174, 0.00) 0%, rgba(15, 84, 174, 0.05) 0.54%, rgba(15, 84, 174, 0.05) 99.48%, rgba(15, 84, 174, 0.00) 100%);
-
-        background-color: red;
-        // background-color: var(--qas-background-color);
-
-        // td {
-        //   border-bottom: 1px solid var(--q-primary-contrast);;
-        // }
-
-      }
-
-      td::before {
-        // background-color: var(--qas-background-color);
-        display: none;
       }
     }
 
     thead tr:hover {
-      // background-color: white;
+      background-color: white !important;
     }
   }
+
+  .q-table__container {
+    margin-left: -16px;
+    margin-right: -16px;
+  }
+
+  // &--has-link {
+  //   .q-table {
+  //     tbody tr {
+  //       &:hover:not(:has(td *[data-ignore-hover]:hover)) {
+  //         td:not(:has(*[data-ignore-hover])) * {
+  //           color: var(--q-primary-contrast) !important;
+  //         }
+  //       }
+  //     }
+  //   }
+  // }
 
   &--mobile {
     margin: 0 -10px;
