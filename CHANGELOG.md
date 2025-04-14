@@ -17,6 +17,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
   - não esquecer de configurar corretamente a prop `homeRoute`.
 - `QasAlert/QasInfo`: removido `QasInfo` que agora foi mesclado com o `QasAlert`, olhar documentação.
 - `QasSearchBox`: modificado prop `height` para `maxHeight`, pois o nome da prop era `maxHeight`, mas internamente adicionava o style como `maxHeight`.
+- `QasFilters`: removido slot `right-side`, agora a forma recomendada para quando precisar utilizar itens ao lado do componente, utilize o grid em conjunto com a prop `useFullContent`. Contém um exemplo do uso na docs.
 
 ### Adicionado
 - `helpers/color`: adicionado helper para cores.
@@ -39,6 +40,9 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - `QasAppUser`: adicionado propriedade "useDataOnSmallScreen".
 - `QasTextTruncate`: Adicionado campo de busca no dialog do componente ao conter mais de 12 itens na lista.
 - `QasSearchBox`: Adicionado prop `maxHeight` para definir uma altura máxima para o componente.
+- `QasFilters`: 
+ - adicionado prop `useFullContent` para que o componente ocupe 100%, recomendado para quando precisar utilizar grids.
+ - adicionado prop `listenerQueryKeys` que serão chaves que o componente deve ouvir sempre que houver mudanças na query, para que bata a api novamente de `/filters`.
 
 ### Corrigido
 - `QasPasswordInput`:
@@ -72,6 +76,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 
 ### Removido
 - `QasAlert/QasInfo`: removido `QasInfo` que agora foi mesclado com o `QasAlert`, olhar documentação.
+- `QasFilters`: removido slot `right-side`, agora a forma recomendada para quando precisar utilizar itens ao lado do componente, utilize o grid em conjunto com a prop `useFullContent`. Contém um exemplo do uso na docs.
 
 ## [3.18.0-beta.0] - 31-03-2025
 ## BREAKING CHANGE
