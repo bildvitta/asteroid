@@ -16,7 +16,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
   - adicionado nova propriedade `useHomeItem` com default `true` para forçar padronização no item de inicio, é necessário remover esse item da prop "items" caso esteja sendo adicionado.
   - não esquecer de configurar corretamente a prop `homeRoute`.
 - `QasAlert/QasInfo`: removido `QasInfo` que agora foi mesclado com o `QasAlert`, olhar documentação.
-- `QasSearchBox`: modificado prop `height` para `maxHeight`, pois o nome da prop era `maxHeight`, mas internamente adicionava o style como `maxHeight`.
+- `QasSearchBox`: modificado prop `height` para `maxHeight`, pois o nome da prop era `height`, mas internamente adicionava o style como `maxHeight`.
 - `QasFilters`: removido slot `right-side`, agora a forma recomendada para quando precisar utilizar itens ao lado do componente, utilize o grid em conjunto com a prop `useFullContent`. Contém um exemplo do uso na docs.
 
 ### Adicionado
@@ -72,7 +72,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - `QasToggle` modificado estilos.
 - `QasTreeGenerator`: adicionado separador nas ações.
 - `QasAlert/QasInfo`: modificado cor de error para `negative`.
-- `QasSearchBox`: modificado prop `height` para `maxHeight`, pois o nome da prop era `maxHeight`, mas internamente adicionava o style como `maxHeight`.
+- `QasSearchBox`: modificado prop `height` para `maxHeight`, pois o nome da prop era `height`, mas internamente adicionava o style como `maxHeight`.
 
 ### Removido
 - `QasAlert/QasInfo`: removido `QasInfo` que agora foi mesclado com o `QasAlert`, olhar documentação.
