@@ -65,6 +65,10 @@ const style = computed(() => ({ width: props.width }))
 
 <style lang="scss">
 .qas-toggle-visibility {
+  &__separator {
+    border-radius: var(--qas-generic-border-radius);
+  }
+
   &__container:hover {
     & .qas-toggle-visibility__separator {
       background-color: var(--q-primary-contrast);
