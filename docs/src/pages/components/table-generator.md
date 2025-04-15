@@ -6,6 +6,15 @@ Componente para criação de tabela dinâmica usando o `QTable` do Quasar.
 
 <doc-api file="table-generator/QasTableGenerator" name="QasTableGenerator" />
 
+:::info
+##### Datas para lidar com hover em tabela
+| Nome | Descrição |
+|---------------------|-----------|
+| `data-table-hover` | habilita hover quando utilizada junto dos outros data, exemplo no `QasCopy` |
+| `data-table-ignore-hover` | ignora o hover no item especifico, exemplo no `QasBadge` |
+| `data-table-ignore-tr-hover` | ignora o hover em todo tr, exemplo no `QasBtn` |
+:::
+
 :::tip
 Ao utilizar o evento `@row-click` caso tenha algum componente / elemento HTML dentro do slot `body-cell-[field-name]` que queira ignorar, adicione o seguinte evento `@click.stop`.
 

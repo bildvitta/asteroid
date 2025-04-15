@@ -1,83 +1,60 @@
 <template>
   <!-- Utilizando o list-view apenas para facilitar para recuperar os dados dos dados. -->
-  <qas-list-view v-model:fields="fields" v-model:results="results" :entity="entity" :use-filter="false">
+  <qas-list-view v-model:fields="viewState.fields" v-model:results="viewState.results" :entity :use-filter="false">
     <template #default>
-      <qas-table-generator :columns :fields="fields" :fields-props :results="results" row-key="uuid">
+      <qas-table-generator :fields="viewState.fields" :results="viewState.results" v-bind="tableGeneratorProps">
+      <!-- <qas-table-generator :columns :fields="fields" :fields-props :results="results" row-key="uuid"> -->
         <!-- <template #body-cell-name>
-          <qas-toggle-visibility data-ignore-hover text="64.829.511/0001-01" />
+          <qas-toggle-visibility data-table-ignore-hover text="64.829.511/0001-01" />
         </template> -->
       </qas-table-generator>
     </template>
   </qas-list-view>
 </template>
 
-<script>
-export default {
-  name: 'UsersList',
+<script setup>
+import { useView } from '@bildvitta/composables'
 
-  data () {
-    return {
-      fields: {},
-      results: []
-    }
-  },
+defineOptions({ name: 'Basic' })
 
-  computed: {
-    entity () {
-      return 'users'
+// composables
+const { viewState } = useView({ mode: 'list' })
+
+const entity = 'users'
+
+const tableGeneratorProps = {
+  columns: ['document', 'name', 'email', 'phone'],
+
+  fieldsProps: {
+    document: {
+      component: 'QasStatus'
     },
 
-    columns () {
-      return [
-        'document',
-        'name',
-        'email'
-      ]
-    }
-  },
-
-  methods: {
-    fieldsProps (row) {
-      return {
-        document: {
-          component: 'QasBtn',
-          props: {
-            // color: 'negative'
-          }
-        },
-
-        name: {
-          component: 'QasTextTruncate',
-          props: {
-            maxWidth: 100
-          }
-        },
-
-        email: {
-          component: 'QasCopy',
-          props: {}
-        }
-
-        // document: {
-        //   component: 'QasToggleVisibility',
-        //   props: {}
-        // }
+    name: {
+      component: 'QasTextTruncate',
+      props: {
+        maxWidth: 150
       }
     },
 
-    actionsMenuProps (row) {
-      console.log('TCL: actionsMenuProps -> row', row)
-      // console.log('TCL: actionsMenuProps -> row', row)
-      return {
-        list: {
-          visibility: {
-            icon: 'sym_r_visibility',
-            label: row.name,
-            handler: () => alert('handler ativado')
-          }
+    email: {
+      component: 'QasCopy',
+      props: {}
+    },
+
+    sla: {
+      component: 'QasBtn',
+      props: {
+        onClick: () => {
         }
       }
     }
-  }
+  },
+
+  rowRouteFn: row => {
+    return ''
+  },
+
+  onRowClick: () => ({})
 }
 </script>

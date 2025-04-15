@@ -1,5 +1,5 @@
 <template>
-  <component :is="component.is" data-ignore-hover v-bind="component.props" />
+  <component :is="component.is" v-bind="component.props" />
 </template>
 
 <script setup>

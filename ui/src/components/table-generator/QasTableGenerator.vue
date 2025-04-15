@@ -10,12 +10,14 @@
       </template>
 
       <template v-for="(fieldName, index) in bodyCellNameSlots" :key="index" #[`body-cell-${fieldName}`]="context">
-        <q-td>
-          <pv-table-generator-td v-if="normalizedFieldsProps(context.row)[fieldName]" :component-data="normalizedFieldsProps(context.row)[fieldName]" :label="fields[fieldName]?.label" :name="fieldName" :row="context.row" />
-
-          <component :is="tdChildComponent" v-else v-bind="getTdChildComponentProps(context.row)">
+        <q-td :class="getTdClasses(context.row)">
+          <component :is="tdChildComponent" v-bind="getTdChildComponentProps(context.row)">
             <slot :name="`body-cell-${fieldName}`" v-bind="context || {}">
-              {{ context.row?.[fieldName] }}
+              <pv-table-generator-td v-if="getFieldsProps(context.row)[fieldName]" :component-data="getFieldsProps(context.row)[fieldName]" :label="fields[fieldName]?.label" :name="fieldName" :row="context.row" />
+
+              <template v-else>
+                {{ context.row?.[fieldName] }}
+              </template>
             </slot>
           </component>
         </q-td>
@@ -23,9 +25,6 @@
     </q-table>
 
     <qas-empty-result-text v-if="!hasResults" />
-
-    <pre>{{ normalizedFieldsProps }}</pre>
-    <pre>{{ normalizedColumns }}</pre>
   </component>
 </template>
 
@@ -44,8 +43,8 @@ export default {
 
   props: {
     actionsMenuProps: {
-      default: () => ({}),
-      type: [Object, Function]
+      default: undefined,
+      type: Function
     },
 
     columns: {
@@ -224,46 +223,11 @@ export default {
     },
 
     hasActionsMenu () {
-      const isFunction = typeof this.actionsMenuProps === 'function'
-
-      return isFunction ? !!this.actionsMenuProps : !!Object.keys(this.actionsMenuProps).length
+      return typeof this.actionsMenuProps === 'function'
     },
 
     normalizedColumns () {
       return this.hasActionsMenu ? [...this.columns, { name: 'actions', align: 'right' }] : this.columns
-    },
-
-    normalizedFieldsProps () {
-      const isFunction = typeof this.fieldsProps === 'function'
-
-      console.log(this.actionsMenuProps, 'actionsMenuProps')
-
-      if (isFunction) {
-        return callback => {
-          return {
-            ...this.fieldsProps(callback),
-
-            actions: {
-              component: 'QasActionsMenu',
-              props: this.actionsMenuProps?.(callback)
-            }
-          }
-        }
-      }
-
-      return () => {
-        return {
-          ...this.fieldsProps,
-          actions: {
-            component: 'QasActionsMenu',
-            props: this.actionsMenuProps
-          }
-        }
-      }
-
-      // return {
-
-      // }
     },
 
     hasFields () {
@@ -295,12 +259,9 @@ export default {
     },
 
     tableClass () {
-      const hasLink = this.hasRowClick || this.rowRouteFn
-
       return {
         'qas-table-generator--mobile': this.$qas.screen.isSmall,
-        'qas-table-generator--sticky-header': this.useStickyHeader,
-        'qas-table-generator--has-link': hasLink
+        'qas-table-generator--sticky-header': this.useStickyHeader
       }
     },
 
@@ -317,7 +278,6 @@ export default {
     parentComponent () {
       return {
         is: this.useBox ? 'qas-box' : 'div'
-        // is: this.useBox ? 'qas-box' : 'div'
       }
     },
 
@@ -336,9 +296,9 @@ export default {
 
   mounted () {
     if (!this.hasAutoScrollY) {
-      // const scrollElement = this.getScrollElement()
+      const scrollElement = this.getScrollElement()
 
-      // this.scrollGradientX.initializeScrollGradient(scrollElement)
+      this.scrollGradientX.initializeScrollGradient(scrollElement)
     }
 
     if (!this.useScrollOnGrab) return
@@ -419,11 +379,27 @@ export default {
       this.resizeObserver.unobserve(this.elementToObserve)
     },
 
-    getTdChildComponentProps (row) {
-      if (!this.rowRouteFn) return
+    getTdClasses (row) {
+      const routePayload = this.rowRouteFn(row)
+      const isRoutePayloadObject = typeof routePayload === 'object'
+      const hasRoutePayload = isRoutePayloadObject ? !!Object.keys(routePayload).length : !!routePayload
 
       return {
-        class: 'text-no-decoration text-grey-8 flex full-width items-center full-height eae',
+        'qas-table-generator__td--has-action': this.hasRowClick || hasRoutePayload
+      }
+    },
+
+    getTdChildComponentProps (row) {
+      return {
+        class: [
+          'text-no-decoration',
+          'text-grey-8',
+          'flex',
+          'full-width',
+          'items-center',
+          'full-height'
+        ],
+
         [this.useExternalLink ? 'href' : 'to']: this.rowRouteFn(row),
         ...(this.useExternalLink && { target: '_blank' })
       }
@@ -433,8 +409,19 @@ export default {
       this.$attrs.onRowClick(...arguments)
     },
 
-    getComponentProps (name, row) {
-      return this.normalizedColumns.find(column => column.name === name)?.props?.(row)
+    getFieldsProps (row) {
+      const isFieldsPropsFunction = typeof this.fieldsProps === 'function'
+
+      return {
+        ...(isFieldsPropsFunction ? this.fieldsProps(row) : this.fieldsProps),
+
+        ...(this.hasActionsMenu && {
+          actions: {
+            component: 'QasActionsMenu',
+            props: this.actionsMenuProps?.(row)
+          }
+        })
+      }
     }
   }
 }
@@ -451,9 +438,9 @@ export default {
       @include set-typography($subtitle1);
 
       border: 0 !important;
-      padding-top: 0;
       padding-bottom: 0;
       padding-left: 0;
+      padding-top: 0;
 
       &:not(:last-child) {
         padding-right: var(--qas-spacing-md);
@@ -475,9 +462,9 @@ export default {
       @include set-typography($body1);
 
       height: 40px;
+      padding-bottom: var(--qas-spacing-sm);
       padding-left: 0;
       padding-top: var(--qas-spacing-sm);
-      padding-bottom: var(--qas-spacing-sm);
 
       &:not(:last-child) {
         padding-right: var(--qas-spacing-md);
@@ -493,23 +480,23 @@ export default {
     }
 
     &__middle {
-      padding-left: 16px;
-      padding-right: 16px;
+      padding-left: var(--qas-spacing-md);
+      padding-right: var(--qas-spacing-md);
     }
 
     tr {
       position: relative;
 
       &::before {
-        transition: background-color var(--qas-generic-transition);
-        position: absolute;
-        content: '';
-        top: 0;
-        left: -16px;
-        right: -16px;
-        bottom: 0;
         background-color: transparent;
+        bottom: 0;
+        content: '';
+        left: calc(var(--qas-spacing-md) * -1);
         pointer-events: none;
+        position: absolute;
+        right: calc(var(--qas-spacing-md) * -1);
+        top: 0;
+        transition: background-color var(--qas-generic-transition);
       }
     }
 
@@ -522,8 +509,9 @@ export default {
         background-color: var(--qas-background-color);
       }
 
-      &:hover:not(:has(td *[data-ignore-hover]:hover)) {
-        td:not(:has(*[data-ignore-hover])) * {
+      &:hover:not(:has(td *[data-table-ignore-tr-hover]:hover)) {
+        td:not(:has(*[data-table-ignore-tr-hover])):not(:has(*[data-table-ignore-hover])).qas-table-generator__td--has-action *,
+        td.qas-table-generator__td--has-action *[data-table-hover] {
           color: var(--q-primary-contrast) !important;
         }
       }
@@ -535,21 +523,9 @@ export default {
   }
 
   .q-table__container {
-    margin-left: -16px;
-    margin-right: -16px;
+    margin-left: calc(var(--qas-spacing-md) * -1);
+    margin-right: calc(var(--qas-spacing-md) * -1);
   }
-
-  // &--has-link {
-  //   .q-table {
-  //     tbody tr {
-  //       &:hover:not(:has(td *[data-ignore-hover]:hover)) {
-  //         td:not(:has(*[data-ignore-hover])) * {
-  //           color: var(--q-primary-contrast) !important;
-  //         }
-  //       }
-  //     }
-  //   }
-  // }
 
   &--mobile {
     margin: 0 -10px;
