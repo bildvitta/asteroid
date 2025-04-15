@@ -73,7 +73,6 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - `QasToggle` modificado estilos.
 - `QasTreeGenerator`: adicionado separador nas ações.
 - `QasAlert/QasInfo`: modificado cor de error para `negative`.
-- `QasGalleryCard`: modificado nome do slot `name` para `title`.
 
 ### Removido
 - `QasAlert/QasInfo`: removido `QasInfo` que agora foi mesclado com o `QasAlert`, olhar documentação.

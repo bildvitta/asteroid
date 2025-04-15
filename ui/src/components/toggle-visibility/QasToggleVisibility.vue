@@ -1,6 +1,6 @@
 <template>
   <div class="qas-toggle-visibility">
-    <div :aria-expanded="isVisible" aria-label="Alternar visibilidade do conteúdo" class="cursor-pointer items-center no-wrap row" role="button" :style @click.prevent.stop="toggleVisibility">
+    <div :aria-expanded="isVisible" aria-label="Alternar visibilidade do conteúdo" class="cursor-pointer items-center no-wrap qas-toggle-visibility__container row" role="button" :style @click.prevent.stop="toggleVisibility">
       <div class="ellipsis qas-toggle-visibility__content">
         <div
           v-if="isVisible"
@@ -14,6 +14,7 @@
 
         <q-separator
           v-else
+          class="qas-toggle-visibility__separator"
           size="4px"
         />
       </div>
@@ -64,10 +65,12 @@ const style = computed(() => ({ width: props.width }))
 
 <style lang="scss">
 .qas-toggle-visibility {
-  & > div:hover {
-    background-color: var(--qas-background-color);
+  &__container:hover {
+    & .qas-toggle-visibility__separator {
+      background-color: var(--q-primary-contrast);
+    }
 
-    & > .qas-toggle-visibility__button {
+    & .qas-toggle-visibility__button {
       color: var(--q-primary-contrast) !important;
     }
   }
