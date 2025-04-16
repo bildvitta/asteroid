@@ -10,7 +10,7 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 ### Sobre os "BREAKING CHANGES"
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
-## Não publicado
+## [3.18.0-beta.1] - 16-04-2025
 ## BREAKING CHANGE
 - `QasAppMenu`:
   - adicionado nova propriedade `useHomeItem` com default `true` para forçar padronização no item de inicio, é necessário remover esse item da prop "items" caso esteja sendo adicionado.
@@ -3821,3 +3821,4 @@ Adicionado suporte para Pinia/Vuex Seguindo os padrões da biblioteca `@bildvitt
 [3.17.0-beta.32]: https://github.com/bildvitta/asteroid/compare/v3.17.0-beta.31...v3.17.0-beta.32?expand=1
 [3.17.0]: https://github.com/bildvitta/asteroid/compare/v3.16.4...v3.17.0?expand=1
 [3.18.0-beta.0]: https://github.com/bildvitta/asteroid/compare/v3.17.0...v3.18.0-beta.0?expand=1
+[3.18.0-beta.1]: https://github.com/bildvitta/asteroid/compare/v3.18.0-beta.0...v3.18.0-beta.1?expand=1
