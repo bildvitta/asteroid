@@ -9,6 +9,7 @@ Componente de card de galeria (utilizado no QasUploader, QasGallery e nos produt
 ## Uso
 
 <doc-example file="QasGalleryCard/Basic" title="Básico" />
+<doc-example file="QasGalleryCard/WithVideo" title="Com vídeo" />
 <doc-example file="QasGalleryCard/Box" title="Com box" />
 <doc-example file="QasGalleryCard/ExGridAndActionsMenu" title="Com QasActionsMenu e QasGridGenerator" />
 

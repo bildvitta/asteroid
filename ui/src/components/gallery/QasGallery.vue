@@ -15,7 +15,7 @@
         </div>
       </slot>
 
-      <pv-gallery-carousel-dialog v-model="carouselDialog" v-model:imageIndex="imageIndex" :images="normalizedImages" />
+      <pv-gallery-carousel-dialog v-model="carouselDialog" v-model:image-index="imageIndex" :images="normalizedImages" />
 
       <pv-gallery-delete-dialog v-model="showDeleteDialog" v-bind="deleteGalleryDialogProps" @cancel="resetCurrentModel" @error="onDeleteError" @success="onDeleteSuccess" />
     </div>
@@ -157,9 +157,8 @@ function getActionsMenuProps ({ image, index }) {
 function getGalleryCardProps ({ image, index }) {
   return {
     actionsMenuProps: getActionsMenuProps({ image, index }),
-    card: image,
     imageProps: getImageProps({ image, index }),
-
+    ...image,
     ...props.galleryCardProps
   }
 }
