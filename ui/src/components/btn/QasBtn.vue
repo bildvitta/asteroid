@@ -1,10 +1,17 @@
 <template>
   <q-btn ref="button" class="qas-btn" v-bind="attributes">
-    <slot />
-
     <template v-for="(_, name) in nonDefaultSlots" #[name]="context">
       <slot :name="name" v-bind="context || {}" />
     </template>
+
+    <span class="items-center justify-center row text-center">
+      <q-spinner v-if="props.loading" :class="loadingClasses" size="sm" />
+      <q-icon v-if="hasIcon" :class="iconClasses" :name="props.icon" size="xs" />
+      <span v-if="showLabel">{{ props.label }}</span>
+      <q-icon v-if="hasIconRight" :class="iconRightClasses" :name="props.iconRight" size="xs" />
+    </span>
+
+    <slot />
   </q-btn>
 </template>
 
@@ -45,6 +52,11 @@ const props = defineProps({
     type: String
   },
 
+  loading: {
+    default: false,
+    type: Boolean
+  },
+
   variant: {
     default: 'tertiary',
     type: String,
@@ -83,7 +95,15 @@ const hasIconOnly = computed(() => {
   )
 })
 
+const hasIconRight = computed(() => props.iconRight && !props.loading)
+const hasIcon = computed(() => props.icon && !props.loading)
+
+const iconClasses = computed(() => ({ 'q-mr-xs': showLabel.value && props.label }))
+const iconRightClasses = computed(() => ({ 'q-ml-xs': showLabel.value && props.label }))
+const loadingClasses = computed(() => ({ 'q-mr-xs': showLabel.value && props.label }))
+
 const classes = computed(() => {
+  console.log(props.label, '<--- props.label')
   return {
     'qas-btn--primary': isPrimary.value,
     'qas-btn--secondary': isSecondary.value,
@@ -109,11 +129,15 @@ const classes = computed(() => {
 
 const attributes = computed(() => {
   const {
+    class: externalClass,
     dense,
     fab,
     fabMini,
     flat,
     glossy,
+    loading,
+    // label,
+    // icon,
     noWrap,
     outline,
     padding,
@@ -126,16 +150,15 @@ const attributes = computed(() => {
     stretch,
     textColor,
     unelevated,
-    class: externalClass,
     ...attributesPayload
   } = attrs
 
   return {
-    ...(showLabel.value && { label: props.label }),
+    // ...(showLabel.value && { label: props.label }),
 
     ...attributesPayload,
-    icon: props.icon,
-    iconRight: props.iconRight,
+    // icon: props.icon,
+    // iconRight: props.iconRight,
     class: [classes.value, externalClass]
   }
 })

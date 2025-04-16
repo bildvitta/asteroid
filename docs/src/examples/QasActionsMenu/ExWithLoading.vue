@@ -4,6 +4,24 @@
     <qas-actions-menu v-bind="props" />
 
     <qas-actions-menu v-bind="propsWithoutSplit" />
+
+    <qas-btn class="q-mt-md" icon="sym_r_person" label="Perfil" loading />
+
+    <br>
+
+    <qas-btn class="q-my-md" icon="sym_r_person" label="Perfil" loading variant="primary" />
+
+    <br>
+
+    <qas-btn icon="sym_r_person" label="Perfil" loading variant="secondary" />
+
+    <br>
+
+    <qas-btn class="q-mt-md" icon="sym_r_person" label="Perfil" variant="secondary" />
+
+    <br>
+
+    <qas-btn class="q-mt-md" icon="sym_r_person" :loading="loading.person" variant="secondary" @click="handleLoading('person')" />
   </div>
 </template>
 
@@ -51,15 +69,15 @@ const list = computed(() => {
 const props = computed(() => {
   return {
     list: list.value,
-    splitName: 'person'
+    splitName: 'edit'
   }
 })
 
-const propsWithoutSplit = computed(() => {
-  return {
-    list: list.value
-  }
-})
+// const propsWithoutSplit = computed(() => {
+//   return {
+//     list: list.value
+//   }
+// })
 
 // functions
 async function handleLoading (fieldKey) {
