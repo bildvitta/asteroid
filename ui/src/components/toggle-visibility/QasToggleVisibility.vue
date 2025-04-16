@@ -69,14 +69,12 @@ const style = computed(() => ({ width: props.width }))
     border-radius: var(--qas-generic-border-radius);
   }
 
-  &__container:hover {
-    & .qas-toggle-visibility__separator {
-      background-color: var(--q-primary-contrast);
-    }
+  &__container:hover .qas-toggle-visibility__separator {
+    background-color: var(--q-primary-contrast);
+  }
 
-    & .qas-toggle-visibility__button {
-      color: var(--q-primary-contrast) !important;
-    }
+  &__container:hover .qas-toggle-visibility__button {
+    color: var(--q-primary-contrast) !important;
   }
 
   &__content {

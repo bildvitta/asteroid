@@ -18,6 +18,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - `QasAlert/QasInfo`: removido `QasInfo` que agora foi mesclado com o `QasAlert`, olhar documentação.
 - `QasGalleryCard`: removido prop `card`, no qual foi transformado em duas props separadas, `url` e `name`.
 - `QasFilters`: removido slot `right-side`, agora a forma recomendada para quando precisar utilizar itens ao lado do componente, utilize o grid em conjunto com a prop `useFullContent`. Contém um exemplo do uso na docs.
+- `QasGallery/QasUploader`: possível breaking change ao repassar a prop `galleryCardProps`.
 
 ### Adicionado
 - `helpers/color`: adicionado helper para cores.

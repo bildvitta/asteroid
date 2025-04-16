@@ -65,11 +65,6 @@ const props = defineProps({
     default: () => ({})
   },
 
-  card: {
-    type: Object,
-    default: () => ({})
-  },
-
   disable: {
     type: Boolean
   },
