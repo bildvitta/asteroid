@@ -1,5 +1,5 @@
 <template>
-  <component :is="parentComponent.is" class="qas-table-generator" :class="tableClass">
+  <component :is="parentComponent.is" class="qas-table-generator" :class="tableClasses">
     <slot name="parent-header">
       <qas-header v-if="hasHeaderProps" v-bind="headerProps" />
     </slot>
@@ -9,9 +9,19 @@
         <slot :name="name" v-bind="context" />
       </template>
 
+      <template #header-cell="context">
+        <q-th v-if="context.col.label" :class="[context.col.headerClasses, context.col.__thClass]">
+          <qas-btn v-if="context.col.sortable" color="grey-10" icon-right="sym_r_swap_vert" :label="context.col.label" @click="$refs.table.sort(context.col)" />
+
+          <span v-else>
+            {{ context.col.label }}
+          </span>
+        </q-th>
+      </template>
+
       <template v-for="(fieldName, index) in bodyCellNameSlots" :key="index" #[`body-cell-${fieldName}`]="context">
         <q-td :class="getTdClasses(context.row)">
-          <component :is="tdChildComponent" v-bind="getTdChildComponentProps(context.row)">
+          <component :is="tdChildComponent" class="qas-table-generator__td-item" v-bind="getTdChildComponentProps(context.row)">
             <slot :name="`body-cell-${fieldName}`" v-bind="context || {}">
               <pv-table-generator-td v-if="getFieldsProps(context.row)[fieldName]" :component-data="getFieldsProps(context.row)[fieldName]" :label="fields[fieldName]?.label" :name="fieldName" :row="context.row" />
 
@@ -190,14 +200,17 @@ export default {
       const columns = []
 
       function columnByField (field) {
-        const { align, label, name } = field
+        const { label, name, sortable, sort, rawSort } = field
 
         columns.push({
-          align: align || 'left',
+          align: 'left',
           field: name,
           label,
           name,
-          headerClasses: 'text-grey-10'
+          headerClasses: 'text-grey-10',
+          sortable: sortable ?? true,
+          sort,
+          rawSort
         })
       }
 
@@ -213,7 +226,8 @@ export default {
       // Sorting from the column list.
       this.normalizedColumns.forEach(column => {
         if (column instanceof Object) {
-          columnByField(column)
+          // repassa as props e mergeia com as do field
+          columnByField({ ...column, ...this.fields[column.name] })
         } else if (this.fields[column]) {
           columnByField(this.fields[column])
         }
@@ -226,8 +240,11 @@ export default {
       return typeof this.actionsMenuProps === 'function'
     },
 
+    /**
+     * caso tenha a prop "actionsMenuProps" é adicionado automaticamente a coluna "actions" como ultimo item
+     */
     normalizedColumns () {
-      return this.hasActionsMenu ? [...this.columns, { name: 'actions', align: 'right' }] : this.columns
+      return this.hasActionsMenu ? [...this.columns, { name: 'actions' }] : this.columns
     },
 
     hasFields () {
@@ -258,10 +275,11 @@ export default {
       return this.results.length
     },
 
-    tableClass () {
+    tableClasses () {
       return {
         'qas-table-generator--mobile': this.$qas.screen.isSmall,
-        'qas-table-generator--sticky-header': this.useStickyHeader
+        'qas-table-generator--sticky-header': this.useStickyHeader,
+        'qas-table-generator--has-actions': this.hasActionsMenu
       }
     },
 
@@ -325,7 +343,7 @@ export default {
     initializeScrollOnGrab () {
       if (this.hasScrollOnGrab) return
 
-      const element = this.getTableElementComponent().querySelector('.q-table__middle.scroll')
+      const element = this.getScrollElement()
 
       this.scrollOnGrab = setScrollOnGrab(element)
     },
@@ -380,7 +398,7 @@ export default {
     },
 
     getTdClasses (row) {
-      const routePayload = this.rowRouteFn(row)
+      const routePayload = this.rowRouteFn?.(row)
       const isRoutePayloadObject = typeof routePayload === 'object'
       const hasRoutePayload = isRoutePayloadObject ? !!Object.keys(routePayload).length : !!routePayload
 
@@ -390,6 +408,8 @@ export default {
     },
 
     getTdChildComponentProps (row) {
+      if (!this.rowRouteFn) return
+
       return {
         class: [
           'text-no-decoration',
@@ -415,6 +435,10 @@ export default {
       return {
         ...(isFieldsPropsFunction ? this.fieldsProps(row) : this.fieldsProps),
 
+        /**
+         * caso tenha a prop "actionsMenuProps" é adicionado automaticamente a prop "actionsMenuProps"
+         * dentro de "fieldsProps".
+         */
         ...(this.hasActionsMenu && {
           actions: {
             component: 'QasActionsMenu',
@@ -429,6 +453,8 @@ export default {
 
 <style lang="scss">
 .qas-table-generator {
+  $root: &;
+
   .q-table {
     thead tr {
       height: 24px;
@@ -436,6 +462,17 @@ export default {
 
     th {
       @include set-typography($subtitle1);
+
+      // altera o tamanho do ícone força o botão não quebrar.
+      .qas-btn {
+        .q-icon {
+          font-size: 18px !important;
+        }
+
+        .q-btn__content {
+          flex-wrap: nowrap;
+        }
+      }
 
       border: 0 !important;
       padding-bottom: 0;
@@ -509,6 +546,15 @@ export default {
         background-color: var(--qas-background-color);
       }
 
+      /*
+        A regra só é aplicada se nenhum elemento filho com o atributo "data-table-ignore-tr-hover"
+        estiver também em estado de hover, impedindo que estilos conflitantes sejam aplicados.
+        Especificamente, dentro da célula:
+        - Elementos que não possuem filhos com "data-table-ignore-tr-hover" ou "data-table-ignore-hover"
+          receberão a cor definida pela variável CSS "--q-primary-contrast".
+        - Elementos dentro de células marcadas como tendo ações ("qas-table-generator__td--has-action")
+          e também com o atributo "data-table-hover" serão estilizados da mesma maneira.
+      */
       &:hover:not(:has(td *[data-table-ignore-tr-hover]:hover)) {
         td:not(:has(*[data-table-ignore-tr-hover])):not(:has(*[data-table-ignore-hover])).qas-table-generator__td--has-action *,
         td.qas-table-generator__td--has-action *[data-table-hover] {
@@ -525,6 +571,13 @@ export default {
   .q-table__container {
     margin-left: calc(var(--qas-spacing-md) * -1);
     margin-right: calc(var(--qas-spacing-md) * -1);
+  }
+
+  &--has-actions {
+    td:last-child #{$root}__td-item {
+      display: flex;
+      justify-content: flex-end;
+    }
   }
 
   &--mobile {

@@ -69,7 +69,9 @@ const component = computed(() => {
       props: {
         dialogTitle: props.label,
         maxWidth: 400,
-        text: defaultValue
+
+        // caso personalize o componente passando "list", não pode enviar "text" senão vai ter erro de tipo
+        text: props.componentData.props?.list?.length ? '' : defaultValue
       }
     },
 

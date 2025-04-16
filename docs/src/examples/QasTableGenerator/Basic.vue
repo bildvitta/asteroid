@@ -1,60 +1,63 @@
 <template>
-  <!-- Utilizando o list-view apenas para facilitar para recuperar os dados dos dados. -->
-  <qas-list-view v-model:fields="viewState.fields" v-model:results="viewState.results" :entity :use-filter="false">
-    <template #default>
-      <qas-table-generator :fields="viewState.fields" :results="viewState.results" v-bind="tableGeneratorProps">
-      <!-- <qas-table-generator :columns :fields="fields" :fields-props :results="results" row-key="uuid"> -->
-        <!-- <template #body-cell-name>
-          <qas-toggle-visibility data-table-ignore-hover text="64.829.511/0001-01" />
-        </template> -->
-      </qas-table-generator>
+  <qas-table-generator :fields :results v-bind="tableGeneratorProps">
+    <!-- <qas-table-generator :columns :fields="fields" :fields-props :results="results" row-key="uuid"> -->
+    <template #body-cell-name>
+      <qas-toggle-visibility data-table-ignore-hover text="64.829.511/0001-01" />
     </template>
-  </qas-list-view>
+  </qas-table-generator>
 </template>
 
 <script setup>
-import { useView } from '@bildvitta/composables'
+import { fields, results } from 'src/mocks/users'
 
 defineOptions({ name: 'Basic' })
 
-// composables
-const { viewState } = useView({ mode: 'list' })
-
-const entity = 'users'
-
 const tableGeneratorProps = {
-  columns: ['document', 'name', 'email', 'phone'],
+  columns: ['isActive', 'document', 'companies', 'createdAt', { sortable: false, name: 'date' }],
 
-  fieldsProps: {
-    document: {
-      component: 'QasStatus'
-    },
-
-    name: {
-      component: 'QasTextTruncate',
-      props: {
-        maxWidth: 150
-      }
-    },
-
-    email: {
-      component: 'QasCopy',
-      props: {}
-    },
-
-    sla: {
-      component: 'QasBtn',
-      props: {
-        onClick: () => {
+  actionsMenuProps (row) {
+    return {
+      list: {
+        visibility: {
+          label: 'Visibilidade',
+          icon: 'sym_r_person',
+          handler: () => alert(row.uuid)
         }
       }
     }
   },
 
-  rowRouteFn: row => {
-    return ''
-  },
+  fieldsProps (row) {
+    return {
+      companies: {
+        component: 'QasTextTruncate',
+        props: {
+          list: row.companies,
+          maxVisibleItems: 1
+        }
+      },
 
-  onRowClick: () => ({})
+      document: {
+        component: 'QasCopy'
+      },
+
+      name: {
+        component: 'QasTextTruncate',
+        props: {
+          maxWidth: 150
+        }
+      },
+
+      email: {
+        component: 'QasCopy'
+      }
+    }
+  }
+
+  // rowRouteFn: row => {
+  //   return ''
+  // },
+
+  // onRowClick: () => ({})
 }
 </script>
