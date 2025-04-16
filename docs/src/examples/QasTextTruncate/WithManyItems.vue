@@ -1,8 +1,6 @@
 <template>
   <div class="container q-gutter-md q-py-lg">
-    <qas-text-truncate
-      class="text-negative" dialog-title="Aqui está meu título!" :list :max-visible-item="3" :max-width="310" use-object-list
-    />
+    <qas-text-truncate class="text-negative" dialog-title="Aqui está meu título!" :list :max-visible-item="3" :max-width="310" use-object-list />
 
     <qas-text-truncate class="text-negative" dialog-title="Aqui está meu título!" :list="normalizedItems" :max-visible-item="3" :max-width="310" />
   </div>
