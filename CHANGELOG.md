@@ -12,10 +12,24 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 
 ## Não publicado
 ## BREAKING CHANGE
+- `QasSearchBox`: modificado prop `height` para `maxHeight`, pois o nome da prop era `height`, mas internamente adicionava o style como `maxHeight`.
+
+### Adicionado
+- `QasTextTruncate`: Adicionado campo de busca no dialog do componente ao conter mais de 12 itens na lista.
+- `QasSearchBox`: Adicionado prop `maxHeight` para definir uma altura máxima para o componente.
+
+### Modificado
+- `QasSearchBox`: modificado prop `height` para `maxHeight`, pois o nome da prop era `height`, mas internamente adicionava o style como `maxHeight`.
+
+## [3.18.0-beta.1] - 16-04-2025
+## BREAKING CHANGE
 - `QasAppMenu`:
   - adicionado nova propriedade `useHomeItem` com default `true` para forçar padronização no item de inicio, é necessário remover esse item da prop "items" caso esteja sendo adicionado.
   - não esquecer de configurar corretamente a prop `homeRoute`.
 - `QasAlert/QasInfo`: removido `QasInfo` que agora foi mesclado com o `QasAlert`, olhar documentação.
+- `QasGalleryCard`: removido prop `card`, no qual foi transformado em duas props separadas, `url` e `name`.
+- `QasFilters`: removido slot `right-side`, agora a forma recomendada para quando precisar utilizar itens ao lado do componente, utilize o grid em conjunto com a prop `useFullContent`. Contém um exemplo do uso na docs.
+- `QasGallery/QasUploader`: possível breaking change ao repassar a prop `galleryCardProps`.
 
 ### Adicionado
 - `helpers/color`: adicionado helper para cores.
@@ -36,6 +50,12 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - `css/components/menu`: adicionado estilo para adc separador em q-list > q-item dentro do `q-menu`.
 - `QasAppMenu`: adicionado nova propriedade `useHomeItem` com default `true` para forçar padronização no item de inicio, é necessário remover esse item da prop "items" caso esteja sendo adicionado.
 - `QasAppUser`: adicionado propriedade "useDataOnSmallScreen".
+- `QasListView`: adicionado nova prop chamada `emptyResultText` para controlar o texto do `QasEmptyResultText` em casos que não tenha resultado.
+- `QasGalleryCard`: adicionado possibilidade para utilizar vídeos ao invés de imagens através da prop `useVideo`.
+- `QasNestedFields`: adicionado possibilidade de usar o `buttonDestroyProps` como um callback.
+- `QasFilters`: 
+ - adicionado prop `useFullContent` para que o componente ocupe 100%, recomendado para quando precisar utilizar grids.
+ - adicionado prop `listenerQueryKeys` que serão chaves que o componente deve ouvir sempre que houver mudanças na query, para que bata a api novamente de `/filters`.
 
 ### Corrigido
 - `QasPasswordInput`:
@@ -68,6 +88,8 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 
 ### Removido
 - `QasAlert/QasInfo`: removido `QasInfo` que agora foi mesclado com o `QasAlert`, olhar documentação.
+- `QasGalleryCard`: removido prop `card`, no qual foi transformado em duas props separadas, `url` e `name`.
+- `QasFilters`: removido slot `right-side`, agora a forma recomendada para quando precisar utilizar itens ao lado do componente, utilize o grid em conjunto com a prop `useFullContent`. Contém um exemplo do uso na docs.
 
 ## [3.18.0-beta.0] - 31-03-2025
 ## BREAKING CHANGE
@@ -99,6 +121,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
   - QasExpansionItem
   - QasUploader
   - QasCheckbox
+- `QasToggleVisibiliy`: alterado área de clique para não ser apenas no botão e sim em todo elemento.
 
 ### Removido
 - `QasTableGenerator`: removido prop `stickyHeaderTableHeight`, agora controla o tamanho da tabela pela prop `maxHeight`.
@@ -3809,3 +3832,4 @@ Adicionado suporte para Pinia/Vuex Seguindo os padrões da biblioteca `@bildvitt
 [3.17.0-beta.32]: https://github.com/bildvitta/asteroid/compare/v3.17.0-beta.31...v3.17.0-beta.32?expand=1
 [3.17.0]: https://github.com/bildvitta/asteroid/compare/v3.16.4...v3.17.0?expand=1
 [3.18.0-beta.0]: https://github.com/bildvitta/asteroid/compare/v3.17.0...v3.18.0-beta.0?expand=1
+[3.18.0-beta.1]: https://github.com/bildvitta/asteroid/compare/v3.18.0-beta.0...v3.18.0-beta.1?expand=1

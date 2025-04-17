@@ -219,7 +219,7 @@ export default {
           }
         },
 
-        card: this.normalizedModelValue
+        ...this.normalizedModelValue
       }
     },
 
@@ -317,7 +317,7 @@ export default {
     },
 
     url () {
-      return this.normalizedCardGalleryProps?.card?.url
+      return this.normalizedCardGalleryProps?.url
     }
   },
 

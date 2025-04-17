@@ -1,7 +1,7 @@
 <template>
   <section class="qas-filters" :class="filtersClasses">
-    <div v-if="showFilters" class="q-col-gutter-x-md row">
-      <div v-if="showSearch" class="col-12 col-md-6">
+    <div v-if="showFilters" class="row">
+      <div v-if="showSearch" class="col-12" :class="searchContainerClasses">
         <slot :filter="filter" name="search">
           <q-form v-if="useSearch" @submit.prevent="filter()">
             <qas-search-input v-model="internalSearch" :placeholder="searchPlaceholder" :use-search-on-type="useSearchOnType" @clear="clearSearch" @filter="filter()" @update:model-value="onSearch">
@@ -19,10 +19,6 @@
         <slot :context="mx_context" :filter="filter" :filters="activeFilters" name="filter-button" :remove-filter="removeFilter">
           <pv-filters-button v-if="useFilterButton" ref="filtersButton" v-model="internalFilters" v-bind="filterButtonProps" />
         </slot>
-      </div>
-
-      <div class="col-12 col-md-6">
-        <slot name="right-side" />
       </div>
     </div>
 
@@ -59,19 +55,9 @@ export default {
   mixins: [contextMixin],
 
   props: {
-    useChip: {
-      default: true,
-      type: Boolean
-    },
-
     entity: {
       required: true,
       type: String
-    },
-
-    fieldsProps: {
-      default: () => ({}),
-      type: Object
     },
 
     filters: {
@@ -79,7 +65,40 @@ export default {
       type: Object
     },
 
+    listenerQueryKeys: {
+      type: Array,
+      default: () => []
+    },
+
+    searchPlaceholder: {
+      default: 'Pesquisar...',
+      type: String
+    },
+
+    url: {
+      default: '',
+      type: String
+    },
+
+    useChip: {
+      default: true,
+      type: Boolean
+    },
+
     useFilterButton: {
+      default: true,
+      type: Boolean
+    },
+
+    useForceRefetch: {
+      type: Boolean
+    },
+
+    useFullContent: {
+      type: Boolean
+    },
+
+    useSpacing: {
       default: true,
       type: Boolean
     },
@@ -94,28 +113,14 @@ export default {
       type: Boolean
     },
 
-    searchPlaceholder: {
-      default: 'Pesquisar...',
-      type: String
-    },
-
-    url: {
-      default: '',
-      type: String
-    },
-
-    useForceRefetch: {
-      type: Boolean
-    },
-
-    useSpacing: {
-      default: true,
-      type: Boolean
-    },
-
     useUpdateRoute: {
       default: true,
       type: Boolean
+    },
+
+    fieldsProps: {
+      default: () => ({}),
+      type: Object
     }
   },
 
@@ -200,6 +205,10 @@ export default {
       return formattedFieldsProps
     },
 
+    searchContainerClasses () {
+      return { 'col-md-6': !this.useFullContent }
+    },
+
     fields () {
       return getState.call(this, { entity: this.entity, key: 'filters' })
     },
@@ -265,7 +274,13 @@ export default {
   watch: {
     $route (to, from) {
       if (to.name === from.name) {
-        this.fetchFilters()
+        /**
+         * Verifica se alguma chave da query que está no "listenerQueryKeys" mudou,
+         * se sim, faz bate o fetchFilters novamente.
+        */
+        const hasQueryChanged = !!this.listenerQueryKeys.find(queryKey => to.query[queryKey] !== from.query[queryKey])
+
+        this.fetchFilters({ hasQueryChanged })
         this.useUpdateRoute && this.updateValues()
       }
     },
@@ -328,8 +343,14 @@ export default {
       this.filter()
     },
 
-    async fetchFilters () {
-      if (!this.useForceRefetch && (this.hasFields || !this.useFilterButton)) {
+    async fetchFilters ({ hasQueryChanged = false } = {}) {
+      /**
+       * - Verifica se houve mudança na query com base na prop "listenerQueryKeys"
+       * - Verifica se a prop "useForceRefetch" foi passada para fazer o fetch mesmo já contendo dados na store.
+       * - Verifica se tem fields(ou seja, já foi feito o fetch antes), ou se a prop "useFilterButton" foi passada como
+       * "false", não contendo o menu lateral.
+       */
+      if (!hasQueryChanged && !this.useForceRefetch && (this.hasFields || !this.useFilterButton)) {
         return null
       }
 

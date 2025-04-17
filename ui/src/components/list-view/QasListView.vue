@@ -22,7 +22,7 @@
           <slot v-if="mx_canShowFetchErrorSlot" name="fetch-error" />
 
           <slot v-else name="empty-results">
-            <qas-empty-result-text />
+            <qas-empty-result-text :text="emptyResultText" />
           </slot>
         </div>
 
@@ -69,6 +69,11 @@ export default {
   },
 
   props: {
+    emptyResultText: {
+      type: String,
+      default: undefined
+    },
+
     filtersProps: {
       default: () => ({}),
       type: Object
