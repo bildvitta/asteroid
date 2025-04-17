@@ -10,7 +10,7 @@ Componente para criação de tabela dinâmica usando o `QTable` do Quasar.
 ##### data-* para lidar com hover em tabela
 | Nome | Descrição |
 |---------------------|-----------|
-| `data-table-hover` | habilita hover quando utilizada junto dos outros data, exemplo no `QasCopy` |
+| `data-table-hover` | quando utilizamos `data-table-ignore-tr-hover` em um componente, ele vai remover todo o hover do componente como um todo, porém pode ter alguma área que queira o hover, então utilize este data na área desejada, exemplo no `QasCopy` |
 | `data-table-ignore-hover` | ignora o hover no item especifico, exemplo no `QasBadge` |
 | `data-table-ignore-tr-hover` | ignora o hover em todo tr, exemplo no `QasBtn` |
 :::

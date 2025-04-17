@@ -1,6 +1,7 @@
 <template>
   <div ref="parent" :class="classes">
     <div class="no-wrap row text-no-wrap">
+      <!-- "data-table-hover" habilita o hover no texto dentro do QasTableGenerator -->
       <div ref="truncate" class="ellipsis" data-table-hover>
         <slot>
           <div v-if="hasBadges" class="items-center q-col-gutter-sm row" :class="badgeParentClasses">

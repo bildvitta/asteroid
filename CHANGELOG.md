@@ -30,9 +30,9 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - `QasSearchBox`: modificado prop `height` para `maxHeight`, pois o nome da prop era `height`, mas internamente adicionava o style como `maxHeight`.
 - `QasTextTruncate`: modificado espaçamento entre texto e botão "ver mais" de sm para xs.
 - `QasTableGenerator`: modificado estilos e estilos de hover nas linhas
-- [`QasBtn`, `QasToggleVisibility`]: adicionado atributo `data-table-ignore-tr-hover`.
-- `QasCopy`: adicionado atributo `data-table-hover`.
-- `QasBadge`: adicionado atributo `data-table-ignore-hover`.
+- [`QasBtn`, `QasToggleVisibility`]: adicionado atributo `data-table-ignore-tr-hover` para uso no QasTableGenerator.
+- `QasCopy`: adicionado atributo `data-table-hover` para uso no QasTableGenerator.
+- `QasBadge`: adicionado atributo `data-table-ignore-hover` para uso no QasTableGenerator.
 
 ## [3.18.0-beta.1] - 16-04-2025
 ## BREAKING CHANGE
