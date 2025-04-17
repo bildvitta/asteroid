@@ -1,5 +1,5 @@
 <template>
-  <qas-table-generator :fields :results v-bind="tableGeneratorProps" />
+  <qas-table-generator v-bind="tableGeneratorProps" />
 </template>
 
 <script setup>
@@ -8,6 +8,9 @@ import { fields, results } from 'src/mocks/users'
 defineOptions({ name: 'WithFieldsProps' })
 
 const tableGeneratorProps = {
+  fields,
+  results,
+
   columns: [
     'isActive',
     'document',
