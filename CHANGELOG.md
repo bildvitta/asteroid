@@ -13,6 +13,9 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 ## Não publicado
 ## BREAKING CHANGE
 - `QasSearchBox`: modificado prop `height` para `maxHeight`, pois o nome da prop era `height`, mas internamente adicionava o style como `maxHeight`.
+- `QasTableGenerator`:
+  - olhar todos lugares que usam slot de actions/componentes e passar a utilizar pelas propriedades `fieldsProps` e `actionsMenuProps`.
+  - por padrão toda coluna terá `sort`, mas nem toda coluna precisa de sort, então é necessário olhar caso a caso e remover quando desnecessário.
 
 ### Adicionado
 - `QasTextTruncate`: Adicionado campo de busca no dialog do componente ao conter mais de 12 itens na lista.
