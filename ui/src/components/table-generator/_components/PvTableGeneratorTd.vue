@@ -68,7 +68,7 @@ const component = computed(() => {
       component: () => import('../../text-truncate/QasTextTruncate.vue'),
       props: {
         dialogTitle: props.label,
-        maxWidth: 400,
+        maxWidth: 260,
 
         // caso personalize o componente passando "list", não pode enviar "text" senão vai ter erro de tipo
         text: props.componentData.props?.list?.length ? '' : defaultValue

@@ -1,9 +1,5 @@
 <template>
-  <qas-table-generator :fields :results v-bind="tableGeneratorProps">
-    <template #body-cell-name>
-      <qas-toggle-visibility data-table-ignore-hover text="64.829.511/0001-01" />
-    </template>
-  </qas-table-generator>
+  <qas-table-generator :fields :results v-bind="tableGeneratorProps" />
 </template>
 
 <script setup>
@@ -12,7 +8,7 @@ import { fields, results } from 'src/mocks/users'
 defineOptions({ name: 'WithFieldsProps' })
 
 const tableGeneratorProps = {
-  columns: ['isActive', 'document', 'companies', 'createdAt', 'date'],
+  columns: ['isActive', 'document', 'companies', 'createdAt', 'company', 'date', 'email', 'observation'],
 
   actionsMenuProps (row) {
     return {
@@ -28,6 +24,17 @@ const tableGeneratorProps = {
 
   fieldsProps (row) {
     return {
+      isActive: {
+        component: 'QasStatus',
+        props: {
+          color: row.default.isActive ? 'green' : 'red'
+        }
+      },
+
+      createdAt: {
+        component: 'QasBadge'
+      },
+
       companies: {
         component: 'QasTextTruncate',
         props: {
@@ -37,7 +44,7 @@ const tableGeneratorProps = {
       },
 
       document: {
-        component: 'QasCopy'
+        component: 'QasToggleVisibility'
       },
 
       name: {
@@ -47,10 +54,20 @@ const tableGeneratorProps = {
         }
       },
 
+      company: {
+        component: 'QasTextTruncate'
+      },
+
       email: {
         component: 'QasCopy'
+      },
+
+      observation: {
+        component: 'QasTextTruncate'
       }
     }
-  }
+  },
+
+  onRowClick: () => ({})
 }
 </script>

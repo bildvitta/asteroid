@@ -143,6 +143,12 @@ export const fields = {
     name: 'date',
     label: 'date',
     type: 'date'
+  },
+
+  observation: {
+    name: 'observation',
+    label: 'Observação',
+    type: 'textarea'
   }
 }
 
@@ -158,7 +164,8 @@ export const results = [
     phone: '11912345678',
     createdAt: '2022-03-18T03:54:11.000Z',
     updatedAt: '2022-03-18T09:22:11.000Z',
-    date: '2022-03-19'
+    date: '2022-03-19',
+    observation: 'Observação 1: AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'
   },
   {
     uuid: '3102fad5-f14c-45d4-98e9-46ef0aa9580e',
@@ -171,7 +178,8 @@ export const results = [
     phone: '21987654321',
     createdAt: '2022-03-18T11:34:24.000Z',
     updatedAt: '2022-03-17T19:51:40.000Z',
-    date: '2022-03-20'
+    date: '2022-03-20',
+    observation: 'Observação 2: BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB'
   },
   {
     uuid: '1dad94b3-a0e0-4829-a7e1-be2af95348201',
@@ -184,7 +192,8 @@ export const results = [
     phone: '31912349876',
     createdAt: '2022-03-18T10:03:01.000Z',
     updatedAt: '2022-03-18T06:46:42.000Z',
-    date: '2022-03-21'
+    date: '2022-03-21',
+    observation: 'Observação 3: CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC'
   },
   {
     uuid: 'ac72e8a8-fcf9-4258-8ea2-bc49b612324dacb',
@@ -197,12 +206,14 @@ export const results = [
     phone: '41998761234',
     createdAt: '2022-03-18T04:12:22.000Z',
     updatedAt: '2022-03-18T02:47:44.000Z',
-    date: '2022-03-22'
+    date: '2022-03-22',
+    observation: 'Observação 4: DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD'
   },
   {
     uuid: 'ce2e298a-be37-408f-a789-4c7b18b4315bc',
     isActive: true,
-    company: 'Atque cum illum debitis consequatur exercitationem dolorum corporis.',
+    company:
+      'Atque cum illum debitis consequatur exercitationem dolorum corporis.',
     companies: ['empresa-9', 'empresa-10', 'empresa-11'],
     name: 'Carol King',
     email: 'Heloise_Hegmann@hotmail.com',
@@ -210,7 +221,8 @@ export const results = [
     phone: '51912345678',
     createdAt: '2022-03-18T00:00:44.000Z',
     updatedAt: '2022-03-17T23:34:47.000Z',
-    date: '2022-03-23'
+    date: '2022-03-23',
+    observation: 'Observação 5: EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE'
   },
   {
     uuid: '62fc0a79-ddea-45b5-8d21-be6f0502923296',
@@ -223,7 +235,8 @@ export const results = [
     phone: '61987654321',
     createdAt: '2022-03-17T17:54:34.000Z',
     updatedAt: '2022-03-18T13:14:01.000Z',
-    date: '2022-03-24'
+    date: '2022-03-24',
+    observation: 'Observação 6: FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF'
   },
   {
     uuid: '2f8856d0-8eca-4e41-8146-63ed2a4f23ff4c',
@@ -236,7 +249,8 @@ export const results = [
     phone: '71912345678',
     createdAt: '2022-03-17T23:50:31.000Z',
     updatedAt: '2022-03-18T02:03:29.000Z',
-    date: '2022-03-25'
+    date: '2022-03-25',
+    observation: 'Observação 7: GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG'
   },
   {
     uuid: '5bda242f-5e99-43dd-af6a-093d68cee1235f',
@@ -249,7 +263,8 @@ export const results = [
     phone: '81987654321',
     createdAt: '2022-03-17T20:21:06.000Z',
     updatedAt: '2022-03-18T15:06:04.000Z',
-    date: '2022-03-26'
+    date: '2022-03-26',
+    observation: 'Observação 8: HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH'
   },
   {
     uuid: '620c8045-acc8-4c53-b083-fe7ed991233cf5',
@@ -262,6 +277,7 @@ export const results = [
     phone: '91912345678',
     createdAt: '2022-03-17T22:51:23.000Z',
     updatedAt: '2022-03-18T03:13:33.000Z',
-    date: '2022-03-27'
+    date: '2022-03-27',
+    observation: 'Observação 9: IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII'
   }
 ]
