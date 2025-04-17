@@ -16,8 +16,42 @@ Componente para criação de tabela dinâmica usando o `QTable` do Quasar.
 :::
 
 :::info
-##### propriedade "fieldsProps"
-É possível adicionar/personalizar componentes sem abrir slot via prop, componentes aceitos:
+#### sort em tabela
+É possível remover/personalizar o sort através da propriedade "columns", por padrão, todas colunas tem sort, é preciso olhar caso a caso e remover em colunas que não são necessários.
+
+```js
+columns: [
+  'name',
+  'email',
+  'document',
+  { name: 'status', sortable: false } // remove sort da coluna "status"
+  { name: 'document', sort: (a, b, rowA, rowB) => parseInt(a, 10) - parseInt(b, 10) } // olhar documentação do quasar
+  { name: 'createdAt', rawSort: (a, b, rowA, rowB) => parseInt(a, 10) - parseInt(b, 10) } // olhar documentação do quasar
+]
+:::
+
+:::tip
+Ao utilizar o evento `@row-click` caso tenha algum componente / elemento HTML dentro do slot `body-cell-[field-name]` que queira ignorar, adicione o seguinte evento `@click.stop`.
+
+Exemplo:
+```html
+<template #body-cell-actions="{ row }">
+  <div class="flex justify-end no-wrap q-gutter-x-sm">
+    <!-- aqui o @click.stop vai fazer com que este botão não dispare o evento: @row-click -->
+    <qas-btn label="alguma ação!" @click.stop="alert('fui clicado')" />
+  </div>
+</template>
+```
+:::
+
+## Uso
+
+<doc-example file="QasTableGenerator/Basic" title="Básico" />
+
+:::info
+A propriedade "actionsMenuProps" adiciona automaticamente uma coluna "actions" na tabela e renderiza o `QasActionsMenu` por callback, é a maneira **correta** de se usar ação na ultima coluna.
+
+A propriedade "fieldsProps" pode ser uma função ou objeto, é possível adicionar/personalizar componentes sem abrir slot via prop, componentes aceitos:
 
 - QasActionsMenu
 - QasBadge
@@ -43,47 +77,22 @@ fieldsProps: {
 
   email: {
     component: 'QasCopy'
-  },
+  }
 }
 ```
 :::
-
-:::tip
-Ao utilizar o evento `@row-click` caso tenha algum componente / elemento HTML dentro do slot `body-cell-[field-name]` que queira ignorar, adicione o seguinte evento `@click.stop`.
-
-Exemplo:
-```html
-<template #body-cell-actions="{ row }">
-  <div class="flex justify-end no-wrap q-gutter-x-sm">
-    <!-- aqui o @click.stop vai fazer com que este botão não dispare o evento: @row-click -->
-    <qas-btn label="alguma ação!" @click.stop="alert('fui clicado')" />
-  </div>
-</template>
-```
-:::
-
-:::warning
-Este componente repassa **todos** os slots do [QTable](https://quasar.dev/vue-components/table#qtable-api), **exceto** o `body` que é um slot customizado.
-:::
-
-:::tip
-Componente implementa o `QasBox` repassando todas propriedades.
-:::
-
-## Uso
-
-<doc-example file="QasTableGenerator/Basic" title="Básico" />
-<!-- <doc-example file="QasTableGenerator/WithHeader" title="Com header" />
+<doc-example file="QasTableGenerator/WithFieldsProps" title="Com componentes por props e ação na ultima linha" />
+<doc-example file="QasTableGenerator/WithHeader" title="Com header" />
 <doc-example file="QasTableGenerator/HeaderSlot" title="Acessando slot do header" />
-<doc-example file="QasTableGenerator/NoBox" title="Sem box" /> -->
+<doc-example file="QasTableGenerator/NoBox" title="Sem box" />
 
 Este componente renderiza componentes dinamicamente através da prop `fields`, cada field dentro de fields tem um `name`, através dele, você consegue acessar os slots dinâmicos.
 
-<!-- <doc-example file="QasTableGenerator/CustomSlot" title="Slots personalizados" /> -->
+<doc-example file="QasTableGenerator/CustomSlot" title="Slots personalizados" />
 
 Também é possível configurar o componente para executar uma ação ao clicar em uma linha, para isso, basta escutar o evento `row-click`.
 
-<!-- <doc-example file="QasTableGenerator/ClickableRow" title="Linha clicável" /> -->
+<doc-example file="QasTableGenerator/ClickableRow" title="Linha clicável" />
 
 Caso queira que ao clicar em uma linha vá para outra rota, é possível utilizar a prop `row-route-fn` na qual o retorno deve ser com a estrutura aceita pelo vue-router.(a linha passa ser um `<a>` internamente, habilitando a opção de abrir em uma nova aba)
 
@@ -102,7 +111,7 @@ rowExternalRouteFn () {
 ```
 :::
 
-<!-- <doc-example file="QasTableGenerator/TableLink" title="Tabela com links" /> -->
+<doc-example file="QasTableGenerator/TableLink" title="Tabela com links" />
 
 Funcionalidade que permite que o cabeçalho da tabela permaneça visível na parte superior enquanto o usuário faz rolagem do conteúdo da tabela. Para utilizar atribua a prop `use-sticky-header`.
 
@@ -110,10 +119,10 @@ Funcionalidade que permite que o cabeçalho da tabela permaneça visível na par
 É possível alterar a altura máxima da tabela utilizando a prop `max-height`.
 :::
 
-<!-- <doc-example file="QasTableGenerator/StickyHeader" title="Header fixo" /> -->
+<doc-example file="QasTableGenerator/StickyHeader" title="Header fixo" />
 
 :::warning
 O virtual scroll renderiza dinamicamente as linhas a serem exibidas na tabela.
 Apenas utilize virtual scroll quando realmente houver comportamentos no qual não se pode ter paginação e tiver muitos dados na tabela.
 :::
-<!-- <doc-example file="QasTableGenerator/WithVirtualScroll" title="Com virtual scroll" /> -->
+<doc-example file="QasTableGenerator/WithVirtualScroll" title="Com virtual scroll" />

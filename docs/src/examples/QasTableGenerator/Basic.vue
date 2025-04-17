@@ -13,51 +13,6 @@ import { fields, results } from 'src/mocks/users'
 defineOptions({ name: 'Basic' })
 
 const tableGeneratorProps = {
-  columns: ['isActive', 'document', 'companies', 'createdAt', { sortable: false, name: 'date' }],
-
-  actionsMenuProps (row) {
-    return {
-      list: {
-        visibility: {
-          label: 'Visibilidade',
-          icon: 'sym_r_person',
-          handler: () => alert(row.uuid)
-        }
-      }
-    }
-  },
-
-  fieldsProps (row) {
-    return {
-      companies: {
-        component: 'QasTextTruncate',
-        props: {
-          list: row.companies,
-          maxVisibleItems: 1
-        }
-      },
-
-      document: {
-        component: 'QasCopy'
-      },
-
-      name: {
-        component: 'QasTextTruncate',
-        props: {
-          maxWidth: 150
-        }
-      },
-
-      email: {
-        component: 'QasCopy'
-      }
-    }
-  }
-
-  // rowRouteFn: row => {
-  //   return ''
-  // },
-
-  // onRowClick: () => ({})
+  columns: [{ sortable: false, name: 'isActive' }, 'document', 'createdAt', 'date']
 }
 </script>
