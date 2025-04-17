@@ -8,7 +8,16 @@ import { fields, results } from 'src/mocks/users'
 defineOptions({ name: 'WithFieldsProps' })
 
 const tableGeneratorProps = {
-  columns: ['isActive', 'document', 'companies', 'createdAt', 'company', 'date', 'email', 'observation'],
+  columns: [
+    'isActive',
+    'document',
+    'companies',
+    'createdAt',
+    'company',
+    'date',
+    'email',
+    'observation'
+  ],
 
   actionsMenuProps (row) {
     return {
