@@ -1,6 +1,5 @@
 <template>
   <span>
-    <!-- "data-table-hover" é para habilitar hover no texto no QasTableGenerator -->
     <span data-table-hover>
       <slot v-if="props.useText">
         {{ props.text }}

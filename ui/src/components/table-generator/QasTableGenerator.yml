@@ -4,6 +4,11 @@ meta:
   desc: Componente para criação de tabela dinâmica usando o `QTable` do quasar.
 
 props:
+  actions-menu-props:
+    desc: Propriedades repassadas para o "QasActionsMenu" que adiciona uma coluna "actions" de forma automática.
+    default: undefined
+    type: Function
+
   columns:
     desc: Colunas que vão ter na tabela.
     default: []
@@ -19,6 +24,12 @@ props:
     default: {}
     type: Object
     examples: ["{ email: { name: 'email', type: 'email', label: 'E-mail' } }"]
+
+  fields-props:
+    desc: Propriedade para controlar o uso de componentes dentro das row sem necessidade de abrir slot.
+    default: {}
+    type: [Object, Function]
+    examples: ["{ email: { component: 'QasCopy' } }"]
 
   header-props:
     desc: Propriedades repassadas para o componente `QasHeader`.
