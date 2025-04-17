@@ -6,6 +6,30 @@ Componente para criação de tabela dinâmica usando o `QTable` do Quasar.
 
 <doc-api file="table-generator/QasTableGenerator" name="QasTableGenerator" />
 
+:::info
+##### data-* para lidar com hover em tabela
+| Nome | Descrição |
+|---------------------|-----------|
+| `data-table-hover` | quando utilizamos `data-table-ignore-tr-hover` em um componente, ele vai remover todo o hover do componente como um todo, porém pode ter alguma área que queira o hover, então utilize este data na área desejada, exemplo no `QasCopy` |
+| `data-table-ignore-hover` | ignora o hover no item especifico, exemplo no `QasBadge` |
+| `data-table-ignore-tr-hover` | ignora o hover em todo tr, exemplo no `QasBtn` |
+:::
+
+:::info
+#### sort em tabela
+É possível remover/personalizar o sort através da propriedade "columns", por padrão, todas colunas tem sort, é preciso olhar caso a caso e remover em colunas que não são necessários.
+
+```js
+columns: [
+  'name',
+  'email',
+  'document',
+  { name: 'status', sortable: false } // remove sort da coluna "status"
+  { name: 'document', sort: (a, b, rowA, rowB) => parseInt(a, 10) - parseInt(b, 10) } // olhar documentação do quasar
+  { name: 'createdAt', rawSort: (a, b, rowA, rowB) => parseInt(a, 10) - parseInt(b, 10) } // olhar documentação do quasar
+]
+:::
+
 :::tip
 Ao utilizar o evento `@row-click` caso tenha algum componente / elemento HTML dentro do slot `body-cell-[field-name]` que queira ignorar, adicione o seguinte evento `@click.stop`.
 
@@ -20,17 +44,44 @@ Exemplo:
 ```
 :::
 
-:::warning
-Este componente repassa **todos** os slots do [QTable](https://quasar.dev/vue-components/table#qtable-api), **exceto** o `body` que é um slot customizado.
-:::
-
-:::tip
-Componente implementa o `QasBox` repassando todas propriedades.
-:::
-
 ## Uso
 
 <doc-example file="QasTableGenerator/Basic" title="Básico" />
+
+:::info
+A propriedade "actionsMenuProps" adiciona automaticamente uma coluna "actions" na tabela e renderiza o `QasActionsMenu` por callback, é a maneira **correta** de se usar ação na ultima coluna.
+
+A propriedade "fieldsProps" pode ser uma função ou objeto, é possível adicionar/personalizar componentes sem abrir slot via prop, componentes aceitos:
+
+- QasActionsMenu
+- QasBadge
+- QasBtn
+- QasCopy
+- QasStatus
+- QasTextTruncate
+- QasToggleVisibility
+
+Exemplo:
+```js
+fieldsProps: {
+  document: {
+    component: 'QasTextTruncate'
+  },
+
+  name: {
+    component: 'QasTextTruncate',
+    props: {
+      maxWidth: 150
+    }
+  },
+
+  email: {
+    component: 'QasCopy'
+  }
+}
+```
+:::
+<doc-example file="QasTableGenerator/WithFieldsProps" title="Com componentes por props e ação na ultima coluna" />
 <doc-example file="QasTableGenerator/WithHeader" title="Com header" />
 <doc-example file="QasTableGenerator/HeaderSlot" title="Acessando slot do header" />
 <doc-example file="QasTableGenerator/NoBox" title="Sem box" />

@@ -1,5 +1,6 @@
 <template>
-  <component :is="component.is" v-bind="component.props" class="q-px-sm qas-badge text-body2">
+  <!-- "data-table-ignore-hover" é para não habilitar hover no texto no QasTableGenerator -->
+  <component :is="component.is" v-bind="component.props" class="q-px-sm qas-badge text-body2" data-table-ignore-hover>
     <slot />
   </component>
 </template>

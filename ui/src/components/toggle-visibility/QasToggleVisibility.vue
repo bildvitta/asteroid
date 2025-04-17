@@ -1,6 +1,7 @@
 <template>
   <div class="qas-toggle-visibility">
-    <div :aria-expanded="isVisible" aria-label="Alternar visibilidade do conteúdo" class="cursor-pointer items-center no-wrap qas-toggle-visibility__container row" role="button" :style @click.prevent.stop="toggleVisibility">
+    <!-- "data-table-ignore-tr-hover" é para desabilitar o hover do tr no QasTableGenerator -->
+    <div :aria-expanded="isVisible" aria-label="Alternar visibilidade do conteúdo" class="cursor-pointer items-center no-wrap qas-toggle-visibility__container row" data-table-ignore-tr-hover role="button" :style @click.prevent.stop="toggleVisibility">
       <div class="ellipsis qas-toggle-visibility__content">
         <div
           v-if="isVisible"

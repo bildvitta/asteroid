@@ -1,19 +1,33 @@
 <template>
-  <component :is="parentComponent.is">
+  <component :is="parentComponent.is" class="qas-table-generator" :class="tableClasses">
     <slot name="parent-header">
       <qas-header v-if="hasHeaderProps" v-bind="headerProps" />
     </slot>
 
-    <q-table v-show="hasResults" ref="table" class="bg-white qas-table-generator text-grey-8" v-bind="attributes">
+    <q-table v-show="hasResults" ref="table" class="bg-white text-grey-8" v-bind="attributes">
       <template v-for="(_, name) in slots" #[name]="context">
         <slot :name="name" v-bind="context" />
       </template>
 
+      <template #header-cell="context">
+        <q-th v-if="context.col.label" :class="[context.col.headerClasses, context.col.__thClass]">
+          <qas-btn v-if="context.col.sortable" color="grey-10" icon-right="sym_r_swap_vert" :label="context.col.label" @click="$refs.table.sort(context.col)" />
+
+          <span v-else>
+            {{ context.col.label }}
+          </span>
+        </q-th>
+      </template>
+
       <template v-for="(fieldName, index) in bodyCellNameSlots" :key="index" #[`body-cell-${fieldName}`]="context">
-        <q-td>
-          <component :is="tdChildComponent" v-bind="getTdChildComponentProps(context.row)">
+        <q-td :class="getTdClasses(context.row)">
+          <component :is="tdChildComponent" class="qas-table-generator__td-item" v-bind="getTdChildComponentProps(context.row)">
             <slot :name="`body-cell-${fieldName}`" v-bind="context || {}">
-              {{ context.row?.[fieldName] }}
+              <pv-table-generator-td v-if="getFieldsProps(context.row, context.rowIndex)[fieldName]" :component-data="getFieldsProps(context.row, context.rowIndex)[fieldName]" :label="fields[fieldName]?.label" :name="fieldName" :row="context.row" />
+
+              <template v-else>
+                {{ context.row?.[fieldName] }}
+              </template>
             </slot>
           </component>
         </q-td>
@@ -25,13 +39,24 @@
 </template>
 
 <script>
+import PvTableGeneratorTd from './_components/PvTableGeneratorTd.vue'
+
 import { extend } from 'quasar'
-import { isEmpty, humanize, setScrollOnGrab } from '../../helpers'
+import { isEmpty, humanize, setScrollOnGrab, setScrollGradient } from '../../helpers'
 
 export default {
   name: 'QasTableGenerator',
 
+  components: {
+    PvTableGeneratorTd
+  },
+
   props: {
+    actionsMenuProps: {
+      default: undefined,
+      type: Function
+    },
+
     columns: {
       default: () => [],
       type: Array
@@ -45,6 +70,11 @@ export default {
     fields: {
       default: () => ({}),
       type: [Array, Object]
+    },
+
+    fieldsProps: {
+      default: () => ({}),
+      type: [Object, Function]
     },
 
     headerProps: {
@@ -101,7 +131,8 @@ export default {
       scrollableElement: null,
       scrollOnGrab: {},
       elementToObserve: null,
-      resizeObserver: null
+      resizeObserver: null,
+      scrollGradientX: setScrollGradient({ orientation: 'x' })
     }
   },
 
@@ -115,8 +146,8 @@ export default {
     bodyCellNameSlots () {
       if (this.hasBodyCellSlot) return []
 
-      return this.columns.length
-        ? this.columns.map(column => typeof column === 'object' ? column.name : column)
+      return this.normalizedColumns.length
+        ? this.normalizedColumns.map(column => typeof column === 'object' ? column.name : column)
         : Object.keys(this.fields)
     },
 
@@ -145,7 +176,6 @@ export default {
         tableClass: {
           'overflow-hidden-y': !this.useStickyHeader && !this.useVirtualScroll
         },
-        class: this.tableClass,
         columns: this.columnsByFields,
         flat: true,
         hideBottom: true,
@@ -164,25 +194,28 @@ export default {
 
     columnsByFields () {
       if (!this.hasFields) {
-        return this.columns.filter(column => column instanceof Object)
+        return this.normalizedColumns.filter(column => column instanceof Object)
       }
 
       const columns = []
 
       function columnByField (field) {
-        const { align, label, name } = field
+        const { label, name, sortable, sort, rawSort } = field
 
         columns.push({
-          align: align || 'left',
+          align: 'left',
           field: name,
           label,
           name,
-          headerClasses: 'text-grey-10'
+          headerClasses: 'text-grey-10',
+          sortable: sortable ?? true,
+          sort,
+          rawSort
         })
       }
 
       // Automatic columns.
-      if (!this.columns.length) {
+      if (!this.normalizedColumns.length) {
         for (const index in this.fields) {
           columnByField(this.fields[index])
         }
@@ -191,15 +224,27 @@ export default {
       }
 
       // Sorting from the column list.
-      this.columns.forEach(column => {
+      this.normalizedColumns.forEach(column => {
         if (column instanceof Object) {
-          columnByField(column)
+          // repassa as props e mergeia com as do field
+          columnByField({ ...column, ...this.fields[column.name] })
         } else if (this.fields[column]) {
           columnByField(this.fields[column])
         }
       })
 
       return columns
+    },
+
+    hasActionsMenu () {
+      return typeof this.actionsMenuProps === 'function'
+    },
+
+    /**
+     * caso tenha a prop "actionsMenuProps" é adicionado automaticamente a coluna "actions" como ultimo item
+     */
+    normalizedColumns () {
+      return this.hasActionsMenu ? [...this.columns, { name: 'actions' }] : this.columns
     },
 
     hasFields () {
@@ -230,10 +275,11 @@ export default {
       return this.results.length
     },
 
-    tableClass () {
+    tableClasses () {
       return {
         'qas-table-generator--mobile': this.$qas.screen.isSmall,
-        'qas-table-generator--sticky-header': this.useStickyHeader
+        'qas-table-generator--sticky-header': this.useStickyHeader,
+        'qas-table-generator--has-actions': this.hasActionsMenu
       }
     },
 
@@ -255,10 +301,24 @@ export default {
 
     hasHeaderProps () {
       return !!Object.keys(this.headerProps).length
+    },
+
+    hasAutoScrollY () {
+      return this.useStickyHeader || this.useVirtualScroll
+    },
+
+    hasRowClick () {
+      return typeof this.$attrs.onRowClick === 'function'
     }
   },
 
   mounted () {
+    if (!this.hasAutoScrollY) {
+      const scrollElement = this.getScrollElement()
+
+      this.scrollGradientX.initializeScrollGradient(scrollElement)
+    }
+
     if (!this.useScrollOnGrab) return
 
     this.setObserver()
@@ -266,6 +326,12 @@ export default {
   },
 
   onUnmounted () {
+    if (!this.hasAutoScrollY) {
+      const scrollElement = this.getScrollElement()
+
+      this.scrollGradientX.removeScrollGradient(scrollElement)
+    }
+
     if (!this.hasScrollOnGrab) return
 
     this.destroyObserver()
@@ -277,13 +343,17 @@ export default {
     initializeScrollOnGrab () {
       if (this.hasScrollOnGrab) return
 
-      const element = this.getTableElementComponent().querySelector('.q-table__middle.scroll')
+      const element = this.getScrollElement()
 
       this.scrollOnGrab = setScrollOnGrab(element)
     },
 
     getTableElementComponent () {
       return this.$refs?.table?.$el
+    },
+
+    getScrollElement () {
+      return this.getTableElementComponent().querySelector('.q-table__middle.scroll')
     },
 
     getTableElement () {
@@ -327,11 +397,29 @@ export default {
       this.resizeObserver.unobserve(this.elementToObserve)
     },
 
+    getTdClasses (row) {
+      const routePayload = this.rowRouteFn?.(row)
+      const isRoutePayloadObject = typeof routePayload === 'object'
+      const hasRoutePayload = isRoutePayloadObject ? !!Object.keys(routePayload).length : !!routePayload
+
+      return {
+        'qas-table-generator__td--has-action': this.hasRowClick || hasRoutePayload
+      }
+    },
+
     getTdChildComponentProps (row) {
       if (!this.rowRouteFn) return
 
       return {
-        class: 'text-no-decoration text-grey-8 flex full-width items-center full-height',
+        class: [
+          'text-no-decoration',
+          'text-grey-8',
+          'flex',
+          'full-width',
+          'items-center',
+          'full-height'
+        ],
+
         [this.useExternalLink ? 'href' : 'to']: this.rowRouteFn(row),
         ...(this.useExternalLink && { target: '_blank' })
       }
@@ -339,6 +427,25 @@ export default {
 
     onRowClick () {
       this.$attrs.onRowClick(...arguments)
+    },
+
+    getFieldsProps (row, index) {
+      const isFieldsPropsFunction = typeof this.fieldsProps === 'function'
+
+      return {
+        ...(isFieldsPropsFunction ? this.fieldsProps(row, index) : this.fieldsProps),
+
+        /**
+         * caso tenha a prop "actionsMenuProps" é adicionado automaticamente a prop "actionsMenuProps"
+         * dentro de "fieldsProps".
+         */
+        ...(this.hasActionsMenu && {
+          actions: {
+            component: 'QasActionsMenu',
+            props: this.actionsMenuProps?.(row, index)
+          }
+        })
+      }
     }
   }
 }
@@ -346,6 +453,8 @@ export default {
 
 <style lang="scss">
 .qas-table-generator {
+  $root: &;
+
   .q-table {
     thead tr {
       height: 24px;
@@ -354,8 +463,29 @@ export default {
     th {
       @include set-typography($subtitle1);
 
+      // altera o tamanho do ícone força o botão não quebrar.
+      .qas-btn {
+        .q-icon {
+          font-size: 18px !important;
+        }
+
+        .q-btn__content {
+          flex-wrap: nowrap;
+        }
+      }
+
       border: 0 !important;
-      padding: 0 calc(var(--qas-spacing-lg) / 2);
+      padding-bottom: 0;
+      padding-left: 0;
+      padding-top: 0;
+
+      &:not(:last-child) {
+        padding-right: var(--qas-spacing-md);
+      }
+
+      &:last-child {
+        padding-right: 0;
+      }
     }
 
     td,
@@ -369,28 +499,84 @@ export default {
       @include set-typography($body1);
 
       height: 40px;
-      padding-left: calc(var(--qas-spacing-lg) / 2);
-      padding-right: calc(var(--qas-spacing-lg) / 2);
+      padding-bottom: var(--qas-spacing-sm);
+      padding-left: 0;
+      padding-top: var(--qas-spacing-sm);
 
-      &:before {
+      &:not(:last-child) {
+        padding-right: var(--qas-spacing-md);
+      }
+
+      &:last-child {
+        padding-right: 0;
+      }
+
+      &::before {
+        display: none;
+      }
+    }
+
+    &__middle {
+      padding-left: var(--qas-spacing-md);
+      padding-right: var(--qas-spacing-md);
+    }
+
+    tr {
+      position: relative;
+
+      &::before {
+        background-color: transparent;
+        bottom: 0;
+        content: '';
+        left: calc(var(--qas-spacing-md) * -1);
+        pointer-events: none;
+        position: absolute;
+        right: calc(var(--qas-spacing-md) * -1);
+        top: 0;
         transition: background-color var(--qas-generic-transition);
       }
     }
 
-    tr {
-      &:hover {
-        td:before {
-          background-color: var(--qas-background-color);
-        }
+    tbody tr {
+      &::before {
+        display: block;
       }
 
-      &:last-child td {
-        padding-bottom: 0;
+      &:hover::before {
+        background-color: var(--qas-background-color);
+      }
+
+      /*
+        A regra só é aplicada se nenhum elemento filho com o atributo "data-table-ignore-tr-hover"
+        estiver também em estado de hover, impedindo que estilos conflitantes sejam aplicados.
+        Especificamente, dentro da célula:
+        - Elementos que não possuem filhos com "data-table-ignore-tr-hover" ou "data-table-ignore-hover"
+          receberão a cor definida pela variável CSS "--q-primary-contrast".
+        - Elementos dentro de células marcadas como tendo ações ("qas-table-generator__td--has-action")
+          e também com o atributo "data-table-hover" serão estilizados da mesma maneira.
+      */
+      &:hover:not(:has(td *[data-table-ignore-tr-hover]:hover)) {
+        td:not(:has(*[data-table-ignore-tr-hover])):not(:has(*[data-table-ignore-hover])).qas-table-generator__td--has-action *,
+        td.qas-table-generator__td--has-action *[data-table-hover] {
+          color: var(--q-primary-contrast) !important;
+        }
       }
     }
 
     thead tr:hover {
-      background-color: white;
+      background-color: white !important;
+    }
+  }
+
+  .q-table__container {
+    margin-left: calc(var(--qas-spacing-md) * -1);
+    margin-right: calc(var(--qas-spacing-md) * -1);
+  }
+
+  &--has-actions {
+    td:last-child #{$root}__td-item {
+      display: flex;
+      justify-content: flex-end;
     }
   }
 

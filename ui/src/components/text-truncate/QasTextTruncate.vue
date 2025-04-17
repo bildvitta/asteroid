@@ -1,7 +1,8 @@
 <template>
   <div ref="parent" :class="classes">
     <div class="no-wrap row text-no-wrap">
-      <div ref="truncate" class="ellipsis">
+      <!-- "data-table-hover" habilita o hover no texto dentro do QasTableGenerator -->
+      <div ref="truncate" class="ellipsis" data-table-hover>
         <slot>
           <div v-if="hasBadges" class="items-center q-col-gutter-sm row" :class="badgeParentClasses">
             <div v-for="(item, index) in normalizedBadgesList" :key="index">
@@ -15,7 +16,7 @@
         </slot>
       </div>
 
-      <qas-btn v-if="hasButton" class="q-ml-sm" :label="buttonLabel" @click.stop.prevent="toggle" />
+      <qas-btn v-if="hasButton" class="q-ml-xs" :label="buttonLabel" @click.stop.prevent="toggle" />
     </div>
 
     <qas-dialog v-model="show" v-bind="defaultProps" aria-label="Diálogo de texto completo" max-width="500px" role="dialog" use-full-max-width>
