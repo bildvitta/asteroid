@@ -23,7 +23,7 @@
         <q-td :class="getTdClasses(context.row)">
           <component :is="tdChildComponent" class="qas-table-generator__td-item" v-bind="getTdChildComponentProps(context.row)">
             <slot :name="`body-cell-${fieldName}`" v-bind="context || {}">
-              <pv-table-generator-td v-if="getFieldsProps(context.row)[fieldName]" :component-data="getFieldsProps(context.row)[fieldName]" :label="fields[fieldName]?.label" :name="fieldName" :row="context.row" />
+              <pv-table-generator-td v-if="getFieldsProps(context.row, context.rowIndex)[fieldName]" :component-data="getFieldsProps(context.row, context.rowIndex)[fieldName]" :label="fields[fieldName]?.label" :name="fieldName" :row="context.row" />
 
               <template v-else>
                 {{ context.row?.[fieldName] }}
@@ -429,11 +429,11 @@ export default {
       this.$attrs.onRowClick(...arguments)
     },
 
-    getFieldsProps (row) {
+    getFieldsProps (row, index) {
       const isFieldsPropsFunction = typeof this.fieldsProps === 'function'
 
       return {
-        ...(isFieldsPropsFunction ? this.fieldsProps(row) : this.fieldsProps),
+        ...(isFieldsPropsFunction ? this.fieldsProps(row, index) : this.fieldsProps),
 
         /**
          * caso tenha a prop "actionsMenuProps" é adicionado automaticamente a prop "actionsMenuProps"
@@ -442,7 +442,7 @@ export default {
         ...(this.hasActionsMenu && {
           actions: {
             component: 'QasActionsMenu',
-            props: this.actionsMenuProps?.(row)
+            props: this.actionsMenuProps?.(row, index)
           }
         })
       }

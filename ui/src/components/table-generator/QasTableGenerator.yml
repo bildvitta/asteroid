@@ -8,6 +8,13 @@ props:
     desc: Propriedades repassadas para o "QasActionsMenu" que adiciona uma coluna "actions" de forma automática.
     default: undefined
     type: Function
+    params:
+      row:
+        desc: Payload da linha da tabela.
+        type: Object
+      index:
+        desc: Índice da linha da tabela.
+        type: Number
 
   columns:
     desc: Colunas que vão ter na tabela.
@@ -30,6 +37,13 @@ props:
     default: {}
     type: [Object, Function]
     examples: ["{ email: { component: 'QasCopy' } }"]
+    params:
+      row:
+        desc: Payload da linha da tabela.
+        type: Object
+      index:
+        desc: Índice da linha da tabela.
+        type: Number
 
   header-props:
     desc: Propriedades repassadas para o componente `QasHeader`.
