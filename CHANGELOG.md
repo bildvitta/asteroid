@@ -23,13 +23,13 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - `QasTableGenerator`:
   - adicionado propriedade `fieldsProps` para controle de componente interno sem uso de slot.
   - adicionado propriedade `actionsMenuProps` para adicionar por padrão coluna `actions` com componente `QasActions` na ultima coluna com alinhamento á direita.
+  - adicionado sort default em todas colunas.
+  - adicionado scroll gradiente no eixo x.
 
 ### Modificado
 - `QasSearchBox`: modificado prop `height` para `maxHeight`, pois o nome da prop era `height`, mas internamente adicionava o style como `maxHeight`.
 - `QasTextTruncate`: modificado espaçamento entre texto e botão "ver mais" de sm para xs.
-- `QasTableGenerator`:
-  - adicionado sort default em todas colunas.
-  - modificado estilos de hover nas linhas.
+- `QasTableGenerator`: modificado estilos e estilos de hover nas linhas
 - [`QasBtn`, `QasToggleVisibility`]: adicionado atributo `data-table-ignore-tr-hover`.
 - `QasCopy`: adicionado atributo `data-table-hover`.
 - `QasBadge`: adicionado atributo `data-table-ignore-hover`.
