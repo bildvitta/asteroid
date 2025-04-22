@@ -103,7 +103,6 @@ const iconRightClasses = computed(() => ({ 'q-ml-xs': showLabel.value && props.l
 const loadingClasses = computed(() => ({ 'q-mr-xs': showLabel.value && props.label }))
 
 const classes = computed(() => {
-  console.log(props.label, '<--- props.label')
   return {
     'qas-btn--primary': isPrimary.value,
     'qas-btn--secondary': isSecondary.value,

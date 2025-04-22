@@ -111,14 +111,6 @@ const hasMenuOnLeftSide = computed(() => hasDefaultSlot.value && !props.useSplit
 const splittedButtonProps = computed(() => {
   const iconKey = screen.isSmall ? 'icon' : 'iconRight'
 
-  console.log({
-    color: 'grey-10',
-    disable: props.disable,
-    [iconKey]: props.dropdownIcon,
-    variant: 'tertiary',
-    label: 'Opções',
-    useLabelOnSmallScreen: false
-  }, '<-- retorno')
   return {
     color: 'grey-10',
     disable: props.disable,
