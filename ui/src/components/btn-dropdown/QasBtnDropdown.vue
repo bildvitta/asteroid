@@ -4,7 +4,7 @@
       <div v-for="(buttonProps, key, index) in props.buttonsPropsList" :key="key">
         <div class="flex no-wrap">
           <qas-btn :disable="props.disable" v-bind="buttonProps" no-wrap variant="tertiary" @click="onClick">
-            <q-menu v-if="hasMenuOnLeftSide" v-model="isMenuOpened" anchor="bottom right" auto-close self="top right" @update:model-value="onUpdateMenuValue">
+            <q-menu v-if="hasMenuOnLeftSide" v-model="isMenuOpened" anchor="bottom right" auto-close class="qas-menu" self="top right" @update:model-value="onUpdateMenuValue">
               <div :class="classes.menuContent">
                 <slot />
               </div>

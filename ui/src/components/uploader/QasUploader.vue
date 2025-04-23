@@ -17,7 +17,6 @@
 
           <!-- ------------------------------------ tags hidden -------------------------------------- -->
           <input ref="hiddenInput" :accept="attributes.accept" class="qas-uploader__input" :multiple="isMultiple" type="file">
-          <qas-btn ref="buttonCleanFiles" class="hidden" @click="scope.removeUploadedFiles" />
         </slot>
       </template>
 
@@ -337,13 +336,13 @@ export default {
     },
 
     dispatchUpload () {
-      this.$refs.buttonCleanFiles.$el.click()
+      this.uploader.removeUploadedFiles()
       this.hiddenInputElement.click()
     },
 
     async factory ([file]) {
       if (!this.isMultiple && !this.hasHeaderSlot) {
-        this.$refs.buttonCleanFiles.$el.click()
+        this.uploader.removeUploadedFiles()
       }
 
       const name = `${uid()}.${file.name.split('.').pop()}`
@@ -361,7 +360,7 @@ export default {
       }
     },
 
-    factoryFailed () {
+    factoryFailed (context) {
       this.hasError = true
 
       this.updateUploading(false)
@@ -660,7 +659,8 @@ export default {
 <style lang="scss">
 .qas-uploader {
   &__input {
-    display: none;
+    // display: none;
+    visibility: hidden;
   }
 
   .q-uploader {

@@ -71,7 +71,7 @@ const component = computed(() => {
         maxWidth: 260,
 
         // caso personalize o componente passando "list", não pode enviar "text" senão vai ter erro de tipo
-        text: props.componentData.props?.list?.length ? '' : defaultValue
+        text: 'list' in (props.componentData.props || {}) ? '' : defaultValue
       }
     },
 

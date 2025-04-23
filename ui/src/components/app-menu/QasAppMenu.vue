@@ -83,17 +83,17 @@
         </q-list>
 
         <!-- usuário + chat ajuda -->
-        <div v-if="showAppUser" class="q-mt-auto" @mouseenter="onMouseEvent" @mouseleave="onMouseEvent">
+        <div v-if="showAppUser" class="column justify-end no-wrap qas-app-menu__user-chat" @mouseenter="onMouseEvent" @mouseleave="onMouseEvent">
           <!-- Chat Ajuda -->
           <q-list v-if="useChat" class="q-mt-md">
-            <q-item class="q-pb-none" clickable @click="toggleChat">
-              <q-item-section avatar>
-                <q-icon color="primary" name="sym_r_chat" />
+            <q-item class="q-pb-none qas-app-menu__chat-item" clickable @click="toggleChat">
+              <q-item-section avatar class="qas-app-menu__chat-item-section text-primary">
+                <q-icon name="sym_r_chat" />
               </q-item-section>
 
-              <q-item-section>
+              <q-item-section class="qas-app-menu__chat-item-section text-primary">
                 <q-item-label>
-                  <div class="ellipsis text-primary text-subtitle2">
+                  <div class="ellipsis text-subtitle2">
                     Solicitar ajuda
                   </div>
                 </q-item-label>
@@ -428,6 +428,8 @@ function useChatMenu () {
 
 <style lang="scss" scoped>
 .qas-app-menu {
+  $root: &;
+
   // Workaround para alterar o padding interno do QSelect sem influenciar na caixa de opções.
   &__module {
     .q-field__native {
@@ -476,6 +478,19 @@ function useChatMenu () {
   &__item--label-mini {
     padding-left: 0 !important;
     padding-right: 0 !important;
+  }
+
+  // Faz com que essa área ocupe todo o tamanho restante até o QList, adicionando o evento de mouseover.
+  &__user-chat {
+    flex: 1 1 auto;
+  }
+
+  &__chat-item:hover &__chat-item-section {
+    color: var(--qas-primary-contrast) !important;
+  }
+
+  &__chat-item-section {
+    transition: color var(--qas-generic-transition);
   }
 
   .q-item:not(&__item--label-mini) {
