@@ -131,8 +131,6 @@ const classes = computed(() => {
 
 const attributes = computed(() => {
   const {
-    // icon,
-    // label,
     class: externalClass,
     dense,
     disable,
@@ -157,11 +155,7 @@ const attributes = computed(() => {
   } = attrs
 
   return {
-    // ...(showLabel.value && { label: props.label }),
-
     ...attributesPayload,
-    // icon: props.icon,
-    // iconRight: props.iconRight,
     disable: disable || props.loading,
     class: [classes.value, externalClass]
   }
