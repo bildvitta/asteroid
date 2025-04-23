@@ -193,6 +193,8 @@ export default {
     },
 
     columnsByFields () {
+      const hasMultipleResults = this.rowsPerPage > 1
+
       if (!this.hasFields) {
         return this.normalizedColumns.filter(column => column instanceof Object)
       }
@@ -208,7 +210,7 @@ export default {
           label,
           name,
           headerClasses: 'text-grey-10',
-          sortable: sortable ?? true,
+          sortable: sortable ?? hasMultipleResults,
           sort,
           rawSort
         })
