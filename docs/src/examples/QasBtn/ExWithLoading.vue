@@ -12,6 +12,10 @@
       </div>
 
       <div>
+        <qas-btn icon-right="sym_r_person" label="Editar" :loading="loading.edit" variant="secondary" @click="handleLoading('edit')" />
+      </div>
+
+      <div>
         <qas-btn icon="sym_r_person" label="Perfil" :loading="loading.person" variant="primary" @click="handleLoading('person')" />
       </div>
 
