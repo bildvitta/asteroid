@@ -5,7 +5,7 @@
         <slot v-for="(item, key) in formattedList.dropdownList" :item="item" :name="key">
           <q-item v-bind="getItemProps(item)" :key="key" active-class="primary" clickable data-cy="actions-menu-list-item" @click="setClickHandler(item)">
             <q-item-section avatar>
-              <q-spinner v-if="item.loading" color="primary" size="sm" />
+              <q-spinner v-if="item.loading" size="sm" />
               <q-icon v-else :name="item.icon" />
             </q-item-section>
 

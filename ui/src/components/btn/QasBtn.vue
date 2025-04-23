@@ -4,7 +4,7 @@
       <slot :name="name" v-bind="context || {}" />
     </template>
 
-    <span class="items-center justify-center row text-center">
+    <span class="items-center justify-center no-wrap row text-center">
       <q-spinner v-if="props.loading" :class="loadingClasses" size="sm" />
       <q-icon v-if="hasIcon" :class="iconClasses" :name="props.icon" size="xs" />
       <span v-if="showLabel">{{ props.label }}</span>
@@ -128,15 +128,16 @@ const classes = computed(() => {
 
 const attributes = computed(() => {
   const {
+    // icon,
+    // label,
     class: externalClass,
     dense,
+    disable,
     fab,
     fabMini,
     flat,
     glossy,
     loading,
-    // label,
-    // icon,
     noWrap,
     outline,
     padding,
@@ -158,6 +159,7 @@ const attributes = computed(() => {
     ...attributesPayload,
     // icon: props.icon,
     // iconRight: props.iconRight,
+    disable: disable || props.loading,
     class: [classes.value, externalClass]
   }
 })
