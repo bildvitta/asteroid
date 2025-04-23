@@ -20,7 +20,7 @@
 
     <div v-if="props.useSplit">
       <qas-btn v-bind="splittedButtonProps">
-        <q-menu v-if="hasDefaultSlot" anchor="bottom right" auto-close self="top right">
+        <q-menu v-if="hasDefaultSlot" anchor="bottom right" auto-close class="qas-menu" self="top right">
           <div :class="classes.menuContent">
             <slot />
           </div>
