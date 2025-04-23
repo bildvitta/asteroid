@@ -2,15 +2,23 @@
   <div class="container q-py-lg">
     <div class="q-mb-sm text-body1">Clique em uma ação para visualizar o exemplo com loading</div>
 
-    <qas-btn class="q-mt-md" icon="sym_r_create" label="Visualizar" :loading="loading.visibility" @click="handleLoading('visibility')" />
+    <div class="column q-gutter-y-md">
+      <div>
+        <qas-btn icon="sym_r_create" label="Visualizar" :loading="loading.visibility" @click="handleLoading('visibility')" />
+      </div>
 
-    <br>
+      <div>
+        <qas-btn icon="sym_r_person" label="Editar" :loading="loading.edit" variant="secondary" @click="handleLoading('edit')" />
+      </div>
 
-    <qas-btn class="q-my-md" icon="sym_r_person" label="Editar" :loading="loading.edit" variant="secondary" @click="handleLoading('edit')" />
+      <div>
+        <qas-btn icon="sym_r_person" label="Perfil" :loading="loading.person" variant="primary" @click="handleLoading('person')" />
+      </div>
 
-    <br>
-
-    <qas-btn icon="sym_r_person" label="Perfil" :loading="loading.person" variant="primary" @click="handleLoading('person')" />
+      <div>
+        <qas-btn icon="sym_r_person" :loading="loading.person" variant="primary" @click="handleLoading('person')" />
+      </div>
+    </div>
   </div>
 </template>
 

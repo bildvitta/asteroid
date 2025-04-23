@@ -5,9 +5,10 @@
     </template>
 
     <span class="items-center justify-center no-wrap row text-center">
-      <q-spinner v-if="props.loading" :class="loadingClasses" size="sm" />
+      <q-spinner v-if="hasLeftSpinner" :class="iconClasses" size="sm" />
       <q-icon v-if="hasIcon" :class="iconClasses" :name="props.icon" size="xs" />
       <span v-if="showLabel">{{ props.label }}</span>
+      <q-spinner v-if="hasRightSpinner" :class="iconRightClasses" size="sm" />
       <q-icon v-if="hasIconRight" :class="iconRightClasses" :name="props.iconRight" size="xs" />
     </span>
 
@@ -95,12 +96,14 @@ const hasIconOnly = computed(() => {
   )
 })
 
+const hasLeftSpinner = computed(() => props.loading && !props.iconRight)
+const hasRightSpinner = computed(() => props.loading && props.iconRight)
+
 const hasIconRight = computed(() => props.iconRight && !props.loading)
 const hasIcon = computed(() => props.icon && !props.loading)
 
 const iconClasses = computed(() => ({ 'q-mr-xs': showLabel.value && props.label }))
 const iconRightClasses = computed(() => ({ 'q-ml-xs': showLabel.value && props.label }))
-const loadingClasses = computed(() => ({ 'q-mr-xs': showLabel.value && props.label }))
 
 const classes = computed(() => {
   return {
