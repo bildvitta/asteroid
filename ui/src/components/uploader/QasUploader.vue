@@ -336,8 +336,8 @@ export default {
     },
 
     dispatchUpload () {
-      this.uploader.removeUploadedFiles()
-      this.hiddenInputElement.click()
+      this.uploader?.removeUploadedFiles?.()
+      this.hiddenInputElement?.click?.()
     },
 
     async factory ([file]) {
@@ -360,7 +360,7 @@ export default {
       }
     },
 
-    factoryFailed (context) {
+    factoryFailed () {
       this.hasError = true
 
       this.updateUploading(false)
@@ -659,8 +659,7 @@ export default {
 <style lang="scss">
 .qas-uploader {
   &__input {
-    // display: none;
-    visibility: hidden;
+    display: none;
   }
 
   .q-uploader {

@@ -428,8 +428,6 @@ function useChatMenu () {
 
 <style lang="scss" scoped>
 .qas-app-menu {
-  $root: &;
-
   // Workaround para alterar o padding interno do QSelect sem influenciar na caixa de opções.
   &__module {
     .q-field__native {
