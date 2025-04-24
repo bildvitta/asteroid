@@ -16,7 +16,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - `QasAlert`: removido da obrigatoriedade da prop `text` para quando for usado slot não gerar erros.
 - `QasAppMenu`: corrigido área de mouseover quando o menu list é pequeno.
 - `QasTableGenerator`:
-  - corrigido prop "text" default quando usando componente QasTextTruncate via `fieldsProps`.
+  - corrigido prop `text` default quando usando componente QasTextTruncate via `fieldsProps`.
   - remove automaticamente sortable de todas colunas quando tem menos de 2 resultados, uma vez que não faz sentido ter sort nestes casos.
 - `QasUploader`: corrigido ação "removeUploadedFiles" que era usado via ref em um botão hidden, agora é usado via refs do QUploader.
 - `css/menu`: alterado tamanho do icon que estava errado.
