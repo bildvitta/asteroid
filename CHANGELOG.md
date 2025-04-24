@@ -10,6 +10,17 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 ### Sobre os "BREAKING CHANGES"
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
+## Não publicado
+### Corrigido
+- [`QasActionsMenu`, `QasBtnDropdown`, `QasTreeGenerator`]: adicionado classe `qas-menu`para corrigir estilos.
+- `QasAlert`: removido da obrigatoriedade da prop `text` para quando for usado slot não gerar erros.
+- `QasAppMenu`: corrigido área de mouseover quando o menu list é pequeno.
+- `QasTableGenerator`:
+  - corrigido prop `text` default quando usando componente QasTextTruncate via `fieldsProps`.
+  - remove automaticamente sortable de todas colunas quando tem menos de 2 resultados, uma vez que não faz sentido ter sort nestes casos.
+- `QasUploader`: corrigido ação "removeUploadedFiles" que era usado via ref em um botão hidden, agora é usado via refs do QUploader.
+- `css/menu`: alterado tamanho do icon que estava errado.
+
 ## [3.18.0-beta.2] - 17-04-2025
 ## BREAKING CHANGE
 - `QasSearchBox`: modificado prop `height` para `maxHeight`, pois o nome da prop era `height`, mas internamente adicionava o style como `maxHeight`.
