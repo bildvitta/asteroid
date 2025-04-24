@@ -20,7 +20,7 @@
       </div>
     </div>
 
-    <div v-if="hasDescriptionOrOnlyActionsSection" class="bg-red items-start no-wrap q-col-gutter-sm row" :class="descriptionSectionClasses">
+    <div v-if="hasDescriptionOrOnlyActionsSection" class="items-start no-wrap q-col-gutter-sm row" :class="descriptionSectionClasses">
       <div v-if="hasDescriptionSection" class="text-body1 text-grey-8">
         <slot name="description">
           {{ props.description }}
