@@ -7,7 +7,7 @@
         </slot>
 
         <div>
-          <slot :fields="fieldsetItem.fields?.visible" :name="`legend-section-${fieldsetItemKey}`">
+          <slot :fields="getVisibleFields(fieldsetItem)" :name="`legend-section-${fieldsetItemKey}`">
             <div class="q-col-gutter-md row">
               <div class="col">
                 <div :class="fieldContainerClasses">
@@ -24,8 +24,8 @@
               </div>
             </div>
 
-            <div v-if="fieldsetItem.__hasSubset" class="column q-col-gutter-y-lg q-mt-none">
-              <div v-for="(subsetItem, subsetKey) in fieldsetItem.subset" :key="subsetKey" class="col-12 q-mt-sm">
+            <div v-if="fieldsetItem.__hasSubset" class="column q-col-gutter-y-xl q-mt-none">
+              <div v-for="(subsetItem, subsetKey) in fieldsetItem.subset" :key="subsetKey" class="col-12">
                 <qas-header v-if="subsetItem.__hasHeader" v-bind="getHeaderProps({ values: subsetItem, isSubset: true} )" />
 
                 <div :class="fieldContainerClasses">
@@ -314,6 +314,19 @@ function useFieldset ({ props }) {
  * Caso não definimos um fieldset, os fields são separados entre "visible" e "hidden"
  */
 function getVisibleFields (fieldsetItem) {
-  return fieldsetItem.__hasFieldset ? fieldsetItem.fields : fieldsetItem.fields?.visible
+  if (!fieldsetItem.__hasFieldset) return fieldsetItem.fields?.visible
+
+  const fields = {}
+
+  for (const key in fieldsetItem.fields) {
+    const fieldType = getFieldType(fieldsetItem.fields[key])
+    const isHidden = fieldType === 'hidden'
+
+    if (isHidden) continue
+
+    fields[key] = fieldsetItem.fields[key]
+  }
+
+  return fields
 }
 </script>
