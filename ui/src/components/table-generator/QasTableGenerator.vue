@@ -504,6 +504,8 @@ export default {
       padding-bottom: var(--qas-spacing-sm);
       padding-left: 0;
       padding-top: var(--qas-spacing-sm);
+      position: relative;
+      z-index: 1;
 
       &:not(:last-child) {
         padding-right: var(--qas-spacing-md);
@@ -514,8 +516,25 @@ export default {
       }
 
       &::before {
-        display: none;
+        position: absolute;
+        content: '';
+        top: 0;
+        left: 0;
+        z-index: -1;
+        background-color: transparent;
       }
+
+      &:first-child::before {
+        left: calc(var(--qas-spacing-md) * -1);
+      }
+
+      &:last-child::before {
+        right: calc(var(--qas-spacing-md) * -1);
+      }
+    }
+
+    tr:hover td::before {
+      background-color: var(--qas-background-color);
     }
 
     &__middle {
@@ -523,31 +542,7 @@ export default {
       padding-right: var(--qas-spacing-md);
     }
 
-    tr {
-      position: relative;
-
-      &::before {
-        background-color: transparent;
-        bottom: 0;
-        content: '';
-        left: calc(var(--qas-spacing-md) * -1);
-        pointer-events: none;
-        position: absolute;
-        right: calc(var(--qas-spacing-md) * -1);
-        top: 0;
-        transition: background-color var(--qas-generic-transition);
-      }
-    }
-
     tbody tr {
-      &::before {
-        display: block;
-      }
-
-      &:hover::before {
-        background-color: var(--qas-background-color);
-      }
-
       /*
         A regra só é aplicada se nenhum elemento filho com o atributo "data-table-ignore-tr-hover"
         estiver também em estado de hover, impedindo que estilos conflitantes sejam aplicados.
