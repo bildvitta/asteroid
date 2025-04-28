@@ -9,16 +9,6 @@
         <slot :name="name" v-bind="context" />
       </template>
 
-      <template #header-cell="context">
-        <q-th v-if="context.col.label" :class="[context.col.headerClasses, context.col.__thClass]">
-          <qas-btn v-if="context.col.sortable" color="grey-10" icon-right="sym_r_swap_vert" :label="context.col.label" @click="$refs.table.sort(context.col)" />
-
-          <span v-else>
-            {{ context.col.label }}
-          </span>
-        </q-th>
-      </template>
-
       <template v-for="(fieldName, index) in bodyCellNameSlots" :key="index" #[`body-cell-${fieldName}`]="context">
         <q-td :class="getTdClasses(context.row)">
           <component :is="tdChildComponent" class="qas-table-generator__td-item" v-bind="getTdChildComponentProps(context.row)">
@@ -193,8 +183,6 @@ export default {
     },
 
     columnsByFields () {
-      const hasMultipleResults = this.rowsPerPage > 1
-
       if (!this.hasFields) {
         return this.normalizedColumns.filter(column => column instanceof Object)
       }
@@ -202,17 +190,13 @@ export default {
       const columns = []
 
       function columnByField (field) {
-        const { label, name, sortable, sort, rawSort } = field
+        const { label, name } = field
 
         columns.push({
           align: 'left',
           field: name,
           label,
-          name,
-          headerClasses: 'text-grey-10',
-          sortable: sortable ?? hasMultipleResults,
-          sort,
-          rawSort
+          name
         })
       }
 
