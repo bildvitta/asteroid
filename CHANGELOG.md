@@ -12,7 +12,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 
 ## Não publicado
 ### Corrigido
-- `QasTableGenerator`: corrigido hover da linha onde que no Safari pegava a tabela toda ao invés da própria linha.
+- `QasTableGenerator`: corrigido hover da linha no Safari onde era pego toda tabela ao invés da própria linha.
 
 ## [3.18.0-beta.3] - 24-04-2025
 ### Corrigido
