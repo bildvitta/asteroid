@@ -11,6 +11,9 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
 ## Não publicado
+## BREAKING CHANGE
+- `QasBtn`: modificado a forma de exibição do loading, agora é exibido no lugar do ícone. Poderá haver breaking change visual.
+
 ### Corrigido
 - `QasActionsMenu`: adicionado validação no `q-list` do `qas-actions-menu` pra não exibir um `q-list` vazio quando só há um item.
 - `QasHeader`: corrigido exibição do container de descrição em casos de não ter `label` e `description`.
@@ -21,7 +24,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - `QasTableGenerator`: removido possibilidade de ter sort na tabela.
 
 ### Modificado
-- `QasBtn`: modificado exibição do loading, agora o spinner ficará no lugar do ícone, mas mantendo a label do botão.
+- `QasBtn`: modificado a forma de exibição do loading, agora é exibido no lugar do ícone. Poderá haver breaking change visual.
 
 ## [3.18.0-beta.3] - 24-04-2025
 ### Corrigido

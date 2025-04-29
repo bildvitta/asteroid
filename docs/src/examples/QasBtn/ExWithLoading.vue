@@ -1,6 +1,8 @@
 <template>
   <div class="container q-py-lg">
-    <div class="q-mb-sm text-body1">Clique em uma ação para visualizar o exemplo com loading</div>
+    <div class="q-mb-sm text-body1">
+      Clique em uma ação para visualizar o exemplo com loading
+    </div>
 
     <div class="column q-gutter-y-md">
       <div>

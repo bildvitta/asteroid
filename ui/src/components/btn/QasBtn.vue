@@ -7,6 +7,7 @@
 
     <span class="items-center justify-center no-wrap row text-center">
       <q-spinner v-if="hasLeftSpinner" :class="iconClasses" size="sm" />
+
       <q-icon v-if="hasIcon" :class="iconClasses" :name="props.icon" size="xs" />
 
       <span v-if="showLabel">
@@ -14,6 +15,7 @@
       </span>
 
       <q-spinner v-if="hasRightSpinner" :class="iconRightClasses" size="sm" />
+
       <q-icon v-if="hasIconRight" :class="iconRightClasses" :name="props.iconRight" size="xs" />
     </span>
 

@@ -167,7 +167,7 @@ const defaultButtonPropsList = computed(() => {
  * Procura se alguma ação está com "loading: true", para o dropdown não fechar
  * automaticamente após clicar em alguma ação.
  */
-const hasItemWithLoading = computed(() => {
+const hasActiveLoading = computed(() => {
   return Object.values(formattedList.value.dropdownList)?.some(action => action.loading)
 })
 
@@ -178,7 +178,7 @@ const btnDropdownProps = computed(() => {
     buttonsPropsList: defaultButtonPropsList.value,
     disable: props.disable,
     useSplit: hasSplit.value,
-    useAutoClose: !hasItemWithLoading.value
+    useAutoClose: !hasActiveLoading.value
   }
 })
 
@@ -256,13 +256,8 @@ const formattedList = computed(() => {
 const { showTooltip, tooltipLabels } = useTooltips({ formattedList, fullList, props })
 
 watch(
-  () => hasItemWithLoading.value,
-  (newValue, oldValue) => {
-    // Fecha o menu após o estado de loading do item passar de true para false
-    if (oldValue && !newValue) {
-      menuModel.value = false
-    }
-  }
+  () => hasActiveLoading.value,
+  (newValue, oldValue) => handleMenuModel(newValue, oldValue)
 )
 // functions
 function getItemProps (item) {
@@ -272,6 +267,13 @@ function getItemProps (item) {
     disable: disable || loading, // ficará desabilitado se for passado a prop "disable" ou o "loading" seja true.
     to,
     ...itemProps
+  }
+}
+
+function handleMenuModel (newValue, oldValue) {
+  // Fecha o menu após o estado de loading do item passar de true para false
+  if (oldValue && !newValue) {
+    menuModel.value = false
   }
 }
 </script>
