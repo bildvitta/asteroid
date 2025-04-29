@@ -256,7 +256,7 @@ const { showTooltip, tooltipLabels } = useTooltips({ formattedList, fullList, pr
 watch(
   () => hasItemWithLoading.value,
   (newValue, oldValue) => {
-    // Fechar o menu após alguma ação passou de "loading: true" para "loading: false".
+    // Fecha o menu após o estado de loading do item passar de true para false
     if (oldValue && !newValue) {
       menuModel.value = false
     }

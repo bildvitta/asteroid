@@ -54,7 +54,6 @@ const props = defineProps({
   },
 
   loading: {
-    default: false,
     type: Boolean
   },
 
