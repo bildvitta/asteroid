@@ -80,6 +80,6 @@ const tableGeneratorProps = {
     }
   },
 
-  onRowClick: () => ({})
+  onRowClick: () => alert('Clicando na linha')
 }
 </script>
