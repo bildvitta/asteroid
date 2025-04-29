@@ -1,7 +1,7 @@
 <template>
   <div v-if="hasList" class="qas-actions-menu" data-cy="actions-menu">
     <qas-btn-dropdown v-bind="btnDropdownProps" v-model:menu="menuModel">
-      <q-list data-cy="actions-menu-list">
+      <q-list v-if="hasDropdownLength" data-cy="actions-menu-list">
         <slot v-for="(item, key) in formattedList.dropdownList" :item="item" :name="key">
           <q-item v-bind="getItemProps(item)" :key="key" active-class="primary" clickable data-cy="actions-menu-list-item" @click="setClickHandler(item)">
             <q-item-section avatar>
@@ -170,6 +170,8 @@ const defaultButtonPropsList = computed(() => {
 const hasItemWithLoading = computed(() => {
   return Object.values(formattedList.value.dropdownList)?.some(action => action.loading)
 })
+
+const hasDropdownLength = computed(() => !!Object.keys(formattedList.value.dropdownList).length)
 
 const btnDropdownProps = computed(() => {
   return {

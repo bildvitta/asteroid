@@ -12,6 +12,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 
 ## Não publicado
 ### Corrigido
+- `QasActionsMenu`: adicionado validação no `q-list` do `qas-actions-menu` pra não exibir um `q-list` vazio quando só há um item.
 - `QasHeader`: corrigido exibição do container de descrição em casos de não ter `label` e `description`.
 - `QasTableGenerator`: adicionado `@click.prevent.stop` para não chamar o `rowRouteFn` e `onRowClick` quando se tem ações com botão na tabela.
 - `QasActionsMenu`: corrigido exibição de loading no componente dentro do dropdown ao ter uma prop `loading: true`.
