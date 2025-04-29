@@ -1,6 +1,11 @@
 <template>
   <span>
-    <slot v-if="props.useText">{{ props.text }}</slot>
+    <!-- "data-table-hover" é para habilitar hover no texto no QasTableGenerator -->
+    <span data-table-hover>
+      <slot v-if="props.useText">
+        {{ props.text }}
+      </slot>
+    </span>
 
     <qas-btn class="q-ml-xs" color="primary" :icon="props.icon" :loading="isLoading" variant="tertiary" @click.stop.prevent="copy">
       <q-tooltip>Copiar</q-tooltip>

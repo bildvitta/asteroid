@@ -105,7 +105,7 @@ export default {
     },
 
     buttonDestroyProps: {
-      type: Object,
+      type: [Object, Function],
       default: () => {
         return {
           color: 'grey-10',
@@ -310,6 +310,10 @@ export default {
 
     formGeneratorParentClasses () {
       return this.useInlineActions ? 'col-12 justify-between q-col-gutter-x-md row' : 'full-width'
+    },
+
+    isButtonDestroyPropsFunction () {
+      return typeof this.buttonDestroyProps === 'function'
     }
   },
 
@@ -356,6 +360,10 @@ export default {
     getDefaultActionsMenuList (index, row) {
       const list = {}
 
+      const destroyProps = this.isButtonDestroyPropsFunction
+        ? this.buttonDestroyProps({ index, row })
+        : this.buttonDestroyProps
+
       if (this.useDuplicate) {
         list.duplicate = {
           ...this.buttonDuplicateProps,
@@ -365,7 +373,7 @@ export default {
 
       if (this.showDestroyButton) {
         list.destroy = {
-          ...this.buttonDestroyProps,
+          ...destroyProps,
           handler: () => this.destroy(index, row)
         }
       }

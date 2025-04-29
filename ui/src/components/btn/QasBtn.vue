@@ -1,5 +1,8 @@
 <template>
-  <q-btn ref="button" class="qas-btn" v-bind="attributes">
+  <!-- "data-table-ignore-tr-hover" é para desabilitar o hover do tr no QasTableGenerator -->
+  <q-btn ref="button" class="qas-btn" data-table-ignore-tr-hover v-bind="attributes">
+    <slot />
+
     <template v-for="(_, name) in nonDefaultSlots" #[name]="context">
       <slot :name="name" v-bind="context || {}" />
     </template>
@@ -7,7 +10,9 @@
     <span class="items-center justify-center no-wrap row text-center">
       <q-spinner v-if="hasLeftSpinner" :class="iconClasses" size="sm" />
       <q-icon v-if="hasIcon" :class="iconClasses" :name="props.icon" size="xs" />
+
       <span v-if="showLabel">{{ props.label }}</span>
+
       <q-spinner v-if="hasRightSpinner" :class="iconRightClasses" size="sm" />
       <q-icon v-if="hasIconRight" :class="iconRightClasses" :name="props.iconRight" size="xs" />
     </span>

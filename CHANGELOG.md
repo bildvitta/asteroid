@@ -11,11 +11,57 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
 ## Não publicado
+### Corrigido
+- `QasHeader`: corrigido exibição do container de descrição em casos de não ter `label` e `description`.
+- `QasTableGenerator`: adicionado `@click.prevent.stop` para não chamar o `rowRouteFn` e `onRowClick` quando se tem ações com botão na tabela.
+
+### Removido
+- `QasTableGenerator`: removido possibilidade de ter sort na tabela.
+
+## [3.18.0-beta.3] - 24-04-2025
+### Corrigido
+- [`QasActionsMenu`, `QasBtnDropdown`, `QasTreeGenerator`]: adicionado classe `qas-menu`para corrigir estilos.
+- `QasAlert`: removido da obrigatoriedade da prop `text` para quando for usado slot não gerar erros.
+- `QasAppMenu`: corrigido área de mouseover quando o menu list é pequeno.
+- `QasTableGenerator`:
+  - corrigido prop `text` default quando usando componente QasTextTruncate via `fieldsProps`.
+  - remove automaticamente sortable de todas colunas quando tem menos de 2 resultados, uma vez que não faz sentido ter sort nestes casos.
+- `QasUploader`: corrigido ação "removeUploadedFiles" que era usado via ref em um botão hidden, agora é usado via refs do QUploader.
+- `css/menu`: alterado tamanho do icon que estava errado.
+
+## [3.18.0-beta.2] - 17-04-2025
+## BREAKING CHANGE
+- `QasSearchBox`: modificado prop `height` para `maxHeight`, pois o nome da prop era `height`, mas internamente adicionava o style como `maxHeight`.
+- `QasTableGenerator`:
+  - olhar todos lugares que usam slot de actions/componentes e passar a utilizar pelas propriedades `fieldsProps` e `actionsMenuProps`.
+  - por padrão toda coluna terá `sort`, mas nem toda coluna precisa de sort, então é necessário olhar caso a caso e remover quando desnecessário.
+
+### Adicionado
+- `QasTextTruncate`: Adicionado campo de busca no dialog do componente ao conter mais de 12 itens na lista.
+- `QasSearchBox`: Adicionado prop `maxHeight` para definir uma altura máxima para o componente.
+- `QasTableGenerator`:
+  - adicionado propriedade `fieldsProps` para controle de componente interno sem uso de slot.
+  - adicionado propriedade `actionsMenuProps` para adicionar por padrão coluna `actions` com componente `QasActions` na ultima coluna com alinhamento á direita.
+  - adicionado sort default em todas colunas.
+  - adicionado scroll gradiente no eixo x.
+
+### Modificado
+- `QasSearchBox`: modificado prop `height` para `maxHeight`, pois o nome da prop era `height`, mas internamente adicionava o style como `maxHeight`.
+- `QasTextTruncate`: modificado espaçamento entre texto e botão "ver mais" de sm para xs.
+- `QasTableGenerator`: modificado estilos e estilos de hover nas linhas
+- [`QasBtn`, `QasToggleVisibility`]: adicionado atributo `data-table-ignore-tr-hover` para uso no QasTableGenerator.
+- `QasCopy`: adicionado atributo `data-table-hover` para uso no QasTableGenerator.
+- `QasBadge`: adicionado atributo `data-table-ignore-hover` para uso no QasTableGenerator.
+
+## [3.18.0-beta.1] - 16-04-2025
 ## BREAKING CHANGE
 - `QasAppMenu`:
   - adicionado nova propriedade `useHomeItem` com default `true` para forçar padronização no item de inicio, é necessário remover esse item da prop "items" caso esteja sendo adicionado.
   - não esquecer de configurar corretamente a prop `homeRoute`.
 - `QasAlert/QasInfo`: removido `QasInfo` que agora foi mesclado com o `QasAlert`, olhar documentação.
+- `QasGalleryCard`: removido prop `card`, no qual foi transformado em duas props separadas, `url` e `name`.
+- `QasFilters`: removido slot `right-side`, agora a forma recomendada para quando precisar utilizar itens ao lado do componente, utilize o grid em conjunto com a prop `useFullContent`. Contém um exemplo do uso na docs.
+- `QasGallery/QasUploader`: possível breaking change ao repassar a prop `galleryCardProps`.
 
 ### Adicionado
 - `helpers/color`: adicionado helper para cores.
@@ -36,6 +82,12 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - `css/components/menu`: adicionado estilo para adc separador em q-list > q-item dentro do `q-menu`.
 - `QasAppMenu`: adicionado nova propriedade `useHomeItem` com default `true` para forçar padronização no item de inicio, é necessário remover esse item da prop "items" caso esteja sendo adicionado.
 - `QasAppUser`: adicionado propriedade "useDataOnSmallScreen".
+- `QasListView`: adicionado nova prop chamada `emptyResultText` para controlar o texto do `QasEmptyResultText` em casos que não tenha resultado.
+- `QasGalleryCard`: adicionado possibilidade para utilizar vídeos ao invés de imagens através da prop `useVideo`.
+- `QasNestedFields`: adicionado possibilidade de usar o `buttonDestroyProps` como um callback.
+- `QasFilters`: 
+ - adicionado prop `useFullContent` para que o componente ocupe 100%, recomendado para quando precisar utilizar grids.
+ - adicionado prop `listenerQueryKeys` que serão chaves que o componente deve ouvir sempre que houver mudanças na query, para que bata a api novamente de `/filters`.
 
 ### Corrigido
 - `QasPasswordInput`:
@@ -70,6 +122,8 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 
 ### Removido
 - `QasAlert/QasInfo`: removido `QasInfo` que agora foi mesclado com o `QasAlert`, olhar documentação.
+- `QasGalleryCard`: removido prop `card`, no qual foi transformado em duas props separadas, `url` e `name`.
+- `QasFilters`: removido slot `right-side`, agora a forma recomendada para quando precisar utilizar itens ao lado do componente, utilize o grid em conjunto com a prop `useFullContent`. Contém um exemplo do uso na docs.
 
 ## [3.18.0-beta.0] - 31-03-2025
 ## BREAKING CHANGE
@@ -101,6 +155,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
   - QasExpansionItem
   - QasUploader
   - QasCheckbox
+- `QasToggleVisibiliy`: alterado área de clique para não ser apenas no botão e sim em todo elemento.
 
 ### Removido
 - `QasTableGenerator`: removido prop `stickyHeaderTableHeight`, agora controla o tamanho da tabela pela prop `maxHeight`.
@@ -3811,3 +3866,6 @@ Adicionado suporte para Pinia/Vuex Seguindo os padrões da biblioteca `@bildvitt
 [3.17.0-beta.32]: https://github.com/bildvitta/asteroid/compare/v3.17.0-beta.31...v3.17.0-beta.32?expand=1
 [3.17.0]: https://github.com/bildvitta/asteroid/compare/v3.16.4...v3.17.0?expand=1
 [3.18.0-beta.0]: https://github.com/bildvitta/asteroid/compare/v3.17.0...v3.18.0-beta.0?expand=1
+[3.18.0-beta.1]: https://github.com/bildvitta/asteroid/compare/v3.18.0-beta.0...v3.18.0-beta.1?expand=1
+[3.18.0-beta.2]: https://github.com/bildvitta/asteroid/compare/v3.18.0-beta.1...v3.18.0-beta.2?expand=1
+[3.18.0-beta.3]: https://github.com/bildvitta/asteroid/compare/v3.18.0-beta.2...v3.18.0-beta.3?expand=1

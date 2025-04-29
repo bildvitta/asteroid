@@ -19,12 +19,6 @@ props:
     default: ''
     type: String
 
-  card:
-    desc: Informações do card, como name (nome) e url.
-    default: {}
-    type: Object
-    examples: ["{ name: 'meu nome', url: 'minha-url-da-imagem' }"]
-
   disable:
     desc: Propriedade que aplica estilos de desabilitado.
     type: Boolean
@@ -35,6 +29,25 @@ props:
 
   image-props:
     desc: Propriedades repassadas para o QImg.
+    default: {}
+    type: Object
+
+  name:
+    desc: Nome da imagem ou video que servirá como título.
+    default: ''
+    type: String
+
+  url:
+    desc: URL da imagem ou video.
+    default: ''
+    type: String
+
+  use-video:
+    desc: Controla se vai exibir o QVideo no lugar do QImg.
+    type: Boolean
+
+  video-props:
+    desc: Propriedades repassadas para o QVideo.
     default: {}
     type: Object
 
@@ -59,3 +72,6 @@ slots:
 
   name:
     desc: Slot para acessar o conteúdo do nome, acima da imagem.
+
+  video:
+    desc: Slot para acessar o conteúdo do video (onde fica o QasGridGenerator).
