@@ -14,7 +14,9 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 ### Corrigido
 - `QasActionsMenu`: adicionado validação no `q-list` do `qas-actions-menu` pra não exibir um `q-list` vazio quando só há um item.
 - `QasHeader`: corrigido exibição do container de descrição em casos de não ter `label` e `description`.
-- `QasTableGenerator`: adicionado `@click.prevent.stop` para não chamar o `rowRouteFn` e `onRowClick` quando se tem ações com botão na tabela.
+- `QasTableGenerator`: 
+  - Adicionado `@click.prevent.stop` para não chamar o `rowRouteFn` e `onRowClick` quando se tem ações com botão na tabela.
+  - Corrigido hover da linha no Safari onde era pego toda tabela ao invés da própria linha.
 
 ### Removido
 - `QasTableGenerator`: removido possibilidade de ter sort na tabela.
