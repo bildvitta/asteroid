@@ -14,9 +14,13 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 ### Corrigido
 - `QasHeader`: corrigido exibição do container de descrição em casos de não ter `label` e `description`.
 - `QasTableGenerator`: adicionado `@click.prevent.stop` para não chamar o `rowRouteFn` e `onRowClick` quando se tem ações com botão na tabela.
+- `QasActionsMenu`: corrigido exibição de loading no componente dentro do dropdown ao ter uma prop `loading: true`.
 
 ### Removido
 - `QasTableGenerator`: removido possibilidade de ter sort na tabela.
+
+### Modificado
+- `QasBtn`: modificado exibição do loading, agora o spinner ficará no lugar do ícone, mas mantendo a label do botão.
 
 ## [3.18.0-beta.3] - 24-04-2025
 ### Corrigido
@@ -94,7 +98,6 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
   - invertido ícone de toggle.
   - corrigido label que não ficava acima do ícone ao ter foco/ativo.
   - desabilitado botão de toggle enquanto não tem valor preenchido.
-- `QasActionsMenu`: corrigido exibição de loading no componente dentro do dropdown ao ter uma prop `loading: true`.
 
 ### Modificado
 - `QasAppMenu`:
@@ -118,7 +121,6 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - `QasToggle` modificado estilos.
 - `QasTreeGenerator`: adicionado separador nas ações.
 - `QasAlert/QasInfo`: modificado cor de error para `negative`.
-- `QasBtn`: modificado exibição do loading, agora o spinner ficará no lugar do ícone, mas mantendo a label do botão. 
 
 ### Removido
 - `QasAlert/QasInfo`: removido `QasInfo` que agora foi mesclado com o `QasAlert`, olhar documentação.

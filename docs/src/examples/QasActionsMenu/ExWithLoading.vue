@@ -65,12 +65,12 @@ const propsWithoutSplit = computed(() => {
 async function handleLoading (fieldKey) {
   loading.value[fieldKey] = true
 
-  await promiseSimulator()
+  await sleepPromise()
 
   loading.value[fieldKey] = false
 }
 
-function promiseSimulator () {
+function sleepPromise () {
   return new Promise(resolve => setTimeout(() => resolve(), 3000))
 }
 </script>
