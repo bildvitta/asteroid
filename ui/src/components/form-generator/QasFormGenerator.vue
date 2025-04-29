@@ -3,7 +3,7 @@
     <div v-for="(fieldsetItem, fieldsetItemKey) in normalizedFields" :key="fieldsetItemKey" :class="getFieldSetColumnClass(fieldsetItem.column)">
       <component :is="containerComponent.is" v-bind="containerComponent.props">
         <slot v-if="fieldsetItem.__hasFieldset" :name="`legend-${fieldsetItemKey}`">
-          <qas-header v-if="fieldsetItem.__hasHeader" v-bind="getHeaderProps({ values:fieldsetItem })" />
+          <qas-header v-if="fieldsetItem.__hasHeader" v-bind="getHeaderProps({ values: fieldsetItem })" />
         </slot>
 
         <div>
@@ -319,12 +319,13 @@ function getVisibleFields (fieldsetItem) {
   const fields = {}
 
   for (const key in fieldsetItem.fields) {
-    const fieldType = getFieldType(fieldsetItem.fields[key])
+    const field = fieldsetItem.fields[key]
+    const fieldType = getFieldType(field)
     const isHidden = fieldType === 'hidden'
 
     if (isHidden) continue
 
-    fields[key] = fieldsetItem.fields[key]
+    fields[key] = field
   }
 
   return fields
