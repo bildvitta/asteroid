@@ -1,8 +1,6 @@
 <template>
   <!-- "data-table-ignore-tr-hover" é para desabilitar o hover do tr no QasTableGenerator -->
   <q-btn ref="button" class="qas-btn" data-table-ignore-tr-hover v-bind="attributes">
-    <slot />
-
     <template v-for="(_, name) in nonDefaultSlots" #[name]="context">
       <slot :name="name" v-bind="context || {}" />
     </template>
