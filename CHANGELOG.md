@@ -10,6 +10,14 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 ### Sobre os "BREAKING CHANGES"
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
+## Não publicado
+### Corrigido
+- `QasHeader`: corrigido exibição do container de descrição em casos de não ter `label` e `description`.
+- `QasTableGenerator`: adicionado `@click.prevent.stop` para não chamar o `rowRouteFn` e `onRowClick` quando se tem ações com botão na tabela.
+
+### Removido
+- `QasTableGenerator`: removido possibilidade de ter sort na tabela.
+
 ## [3.18.0-beta.3] - 24-04-2025
 ### Corrigido
 - [`QasActionsMenu`, `QasBtnDropdown`, `QasTreeGenerator`]: adicionado classe `qas-menu`para corrigir estilos.

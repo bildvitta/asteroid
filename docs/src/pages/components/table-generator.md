@@ -15,21 +15,6 @@ Componente para criação de tabela dinâmica usando o `QTable` do Quasar.
 | `data-table-ignore-tr-hover` | ignora o hover em todo tr, exemplo no `QasBtn` |
 :::
 
-:::info
-#### sort em tabela
-É possível remover/personalizar o sort através da propriedade "columns", por padrão, todas colunas tem sort, é preciso olhar caso a caso e remover em colunas que não são necessários.
-
-```js
-columns: [
-  'name',
-  'email',
-  'document',
-  { name: 'status', sortable: false } // remove sort da coluna "status"
-  { name: 'document', sort: (a, b, rowA, rowB) => parseInt(a, 10) - parseInt(b, 10) } // olhar documentação do quasar
-  { name: 'createdAt', rawSort: (a, b, rowA, rowB) => parseInt(a, 10) - parseInt(b, 10) } // olhar documentação do quasar
-]
-:::
-
 :::tip
 Ao utilizar o evento `@row-click` caso tenha algum componente / elemento HTML dentro do slot `body-cell-[field-name]` que queira ignorar, adicione o seguinte evento `@click.stop`.
 
