@@ -20,7 +20,7 @@
       </div>
     </div>
 
-    <div class="items-start no-wrap q-col-gutter-sm row" :class="descriptionSectionClasses">
+    <div v-if="hasDescriptionOrOnlyActionsSection" class="items-start no-wrap q-col-gutter-sm row" :class="descriptionSectionClasses">
       <div v-if="hasDescriptionSection" class="text-body1 text-grey-8">
         <slot name="description">
           {{ props.description }}
@@ -147,6 +147,15 @@ const hasLabel = computed(() => !!Object.keys(props.labelProps).length)
 const hasDefaultButton = computed(() => !!Object.keys(props.buttonProps).length)
 const hasDefaultFilters = computed(() => !!Object.keys(props.filtersProps).length)
 const hasDefaultActionsMenu = computed(() => !!Object.keys(props.actionsMenuProps).length)
-const hasDescriptionSection = computed(() => props.description || slots.description)
+const hasDescriptionSection = computed(() => !!props.description || !!slots.description)
 const hasLabelSection = computed(() => hasLabel.value || slots.label || hasBadges.value)
+
+/**
+ * Só exibo a seção de descrição com a seção de ações ao lado quando:
+ * - Tenha descrição;
+ * - OU não tenha seção da label E tenha componente de ações.
+ */
+const hasDescriptionOrOnlyActionsSection = computed(() => {
+  return hasDescriptionSection.value || (!hasLabelSection.value && hasActionsComponent.value)
+})
 </script>

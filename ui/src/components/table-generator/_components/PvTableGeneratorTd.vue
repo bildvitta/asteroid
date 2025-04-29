@@ -1,5 +1,5 @@
 <template>
-  <component :is="component.is" v-bind="component.props" />
+  <component :is="component.is" v-bind="component.props" @click.prevent.stop />
 </template>
 
 <script setup>

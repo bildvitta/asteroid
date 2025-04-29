@@ -13,6 +13,11 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 ## Não publicado
 ### Corrigido
 - `QasTableGenerator`: corrigido hover da linha no Safari onde era pego toda tabela ao invés da própria linha.
+- `QasHeader`: corrigido exibição do container de descrição em casos de não ter `label` e `description`.
+- `QasTableGenerator`: adicionado `@click.prevent.stop` para não chamar o `rowRouteFn` e `onRowClick` quando se tem ações com botão na tabela.
+
+### Removido
+- `QasTableGenerator`: removido possibilidade de ter sort na tabela.
 
 ## [3.18.0-beta.3] - 24-04-2025
 ### Corrigido
