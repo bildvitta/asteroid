@@ -489,7 +489,7 @@ export default {
       padding-left: 0;
       padding-top: var(--qas-spacing-sm);
       position: relative;
-      z-index: 1;
+      z-index: 0;
 
       &:not(:last-child) {
         padding-right: var(--qas-spacing-md);
