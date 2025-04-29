@@ -205,7 +205,7 @@ function getNormalizedFields (items) {
     // Valida caso tenha um header
     const hasHeader = !!(label || description || Object.keys(headerProps || {}).length)
 
-    // Valida caso um subset dentro de um fieldset
+    // Valida caso tenha um subset dentro de um fieldset
     const hasSubset = !!Object.keys(subset).length
 
     // Estrutura de um fieldset e subset
@@ -311,7 +311,7 @@ function useFieldset ({ props }) {
 }
 
 /**
- * Caso não definimos um fieldset, os fields são separados entre "visible" e "hidden"
+ * Caso não tenha um fieldset definido, os fields são separados entre "visible" e "hidden"
  */
 function getVisibleFields (fieldsetItem) {
   if (!fieldsetItem.__hasFieldset) return fieldsetItem.fields?.visible
@@ -321,11 +321,9 @@ function getVisibleFields (fieldsetItem) {
   for (const key in fieldsetItem.fields) {
     const field = fieldsetItem.fields[key]
     const fieldType = getFieldType(field)
-    const isHidden = fieldType === 'hidden'
+    const isVisible = fieldType === 'visible'
 
-    if (isHidden) continue
-
-    fields[key] = field
+    if (isVisible) fields[key] = field
   }
 
   return fields
