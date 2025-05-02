@@ -5,19 +5,19 @@
       <slot :name="name" v-bind="context || {}" />
     </template>
 
-    <span class="items-center justify-center no-wrap row text-center">
+    <div class="items-center justify-center no-wrap row text-center" :class="containerClasses">
       <q-spinner v-if="hasLeftSpinner" :class="iconClasses" size="sm" />
 
       <q-icon v-if="hasIcon" :class="iconClasses" :name="props.icon" size="xs" />
 
-      <span v-if="showLabel">
+      <div v-if="showLabel" :class="labelClasses">
         {{ props.label }}
-      </span>
+      </div>
 
       <q-spinner v-if="hasRightSpinner" :class="iconRightClasses" size="sm" />
 
       <q-icon v-if="hasIconRight" :class="iconRightClasses" :name="props.iconRight" size="xs" />
-    </span>
+    </div>
 
     <slot />
   </q-btn>
@@ -108,6 +108,9 @@ const hasRightSpinner = computed(() => props.loading && props.iconRight)
 const hasIconRight = computed(() => props.iconRight && !props.loading)
 const hasIcon = computed(() => props.icon && !props.loading)
 
+const labelClasses = computed(() => ({ ellipsis: props.useEllipsis }))
+const containerClasses = computed(() => ({ 'full-width': props.useEllipsis }))
+
 const iconClasses = computed(() => ({ 'q-mr-xs': showLabel.value && props.label }))
 const iconRightClasses = computed(() => ({ 'q-ml-xs': showLabel.value && props.label }))
 
@@ -131,7 +134,7 @@ const classes = computed(() => {
     'qas-btn--no-hover-on-white': !props.useHoverOnWhiteColor,
 
     // ellipsis
-    'qas-btn--ellipsis': props.useEllipsis
+    'full-width': props.useEllipsis
   }
 })
 
