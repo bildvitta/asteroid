@@ -255,10 +255,7 @@ const formattedList = computed(() => {
 
 const { showTooltip, tooltipLabels } = useTooltips({ formattedList, fullList, props })
 
-watch(
-  () => hasActiveLoading.value,
-  (newValue, oldValue) => handleMenuModel(newValue, oldValue)
-)
+watch(() => hasActiveLoading.value, handleMenuModel)
 // functions
 function getItemProps (item) {
   const { disable, loading, props: itemProps, to } = item
