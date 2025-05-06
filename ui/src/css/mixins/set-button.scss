@@ -19,4 +19,8 @@
   @if $no-hover-on-white {
     @extend .qas-btn--no-hover-on-white;
   }
+
+  @if $ellipsis {
+    @extend .qas-btn--ellipsis;
+  }
 }

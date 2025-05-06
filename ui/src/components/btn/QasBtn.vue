@@ -8,7 +8,7 @@
     <div class="items-center justify-center no-wrap row text-center" :class="containerClasses">
       <q-spinner v-if="hasLeftSpinner" :class="iconClasses" size="sm" />
 
-      <q-icon v-if="hasIcon" :class="iconClasses" :name="props.icon" size="xs" />
+      <q-icon v-if="hasIcon" :class="iconClasses" :name="props.icon" />
 
       <div v-if="showLabel" :class="labelClasses">
         {{ props.label }}
@@ -16,7 +16,7 @@
 
       <q-spinner v-if="hasRightSpinner" :class="iconRightClasses" size="sm" />
 
-      <q-icon v-if="hasIconRight" :class="iconRightClasses" :name="props.iconRight" size="xs" />
+      <q-icon v-if="hasIconRight" :class="iconRightClasses" :name="props.iconRight" />
     </div>
 
     <slot />
@@ -111,8 +111,8 @@ const hasIcon = computed(() => props.icon && !props.loading)
 const labelClasses = computed(() => ({ ellipsis: props.useEllipsis }))
 const containerClasses = computed(() => ({ 'full-width': props.useEllipsis }))
 
-const iconClasses = computed(() => ({ 'q-mr-xs': showLabel.value && props.label }))
-const iconRightClasses = computed(() => ({ 'q-ml-xs': showLabel.value && props.label }))
+const iconClasses = computed(() => ({ 'on-left': !hasIconOnly.value }))
+const iconRightClasses = computed(() => ({ 'on-right': !hasIconOnly.value }))
 
 const classes = computed(() => {
   return {

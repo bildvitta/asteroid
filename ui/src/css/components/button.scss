@@ -81,6 +81,20 @@
     }
   }
 
+  &--ellipsis {
+    width: 100%;
+
+    .q-btn__content {
+      flex-wrap: nowrap;
+
+      .block {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+    }
+  }
+
   &.q-btn {
     &::before {
       display: none;
@@ -92,6 +106,14 @@
   }
 
   .q-icon.on-right {
+    margin-left: var(--qas-spacing-xs);
+  }
+
+  .q-spinner.on-left {
+    margin-right: var(--qas-spacing-xs);
+  }
+
+  .q-spinner.on-right {
     margin-left: var(--qas-spacing-xs);
   }
 
