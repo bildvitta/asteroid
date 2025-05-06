@@ -56,7 +56,7 @@ Muitas vezes precisamos adicionar rótulos (label) e descrições (description) 
 <doc-example file="QasFormGenerator/Fieldset" title="Agrupando fields por rótulo (label)" />
 <doc-example file="QasFormGenerator/WithButton" title="Usando botão dentro do fieldset" />
 
-:::tip
+:::info
 ##### Subset
 
 Além da possibilidade de separar em seções (rótulos), também é possível ter subseções dentro de cada seção.
@@ -100,6 +100,7 @@ Exemplo:
 ```
 :::
 <doc-example file="QasFormGenerator/WithSubsets" title="Usando com subseções" />
+<doc-example file="QasFormGenerator/WithSubsetsSlots" title="Acessando slots de subseções" />
 
 Em alguns casos, queremos acessar todo o conteúdo de um campo especifico para fazer uma logica um pouco mais detalhada, neste caso conseguimos acessar o slot de cada campo individualmente.
 <doc-example file="QasFormGenerator/CustomSlot" title="Acessando slots" />

@@ -1,6 +1,25 @@
 <template>
   <div class="container spaced">
-    <qas-form-generator v-model="model" v-bind="formGeneratorProps" />
+    <qas-form-generator v-model="model" v-bind="formGeneratorProps">
+      <template #legend-informations-others>
+        <div class="bg-blue">
+          Acessando o slot do header de um subset
+        </div>
+      </template>
+
+      <template #legend-section-informations-others="{ fields }">
+        <div class="bg-yellow q-my-md">
+          Acessando o slot dos fields de um subset
+          <pre>{{ fields }}</pre>
+        </div>
+      </template>
+
+      <template #legend-bottom-informations-others>
+        <div class="bg-green">
+          Acessando o slot do footer de um subset
+        </div>
+      </template>
+    </qas-form-generator>
 
     <div class="q-mt-lg">
       model: <qas-debugger :inspect="[model]" />
@@ -11,7 +30,7 @@
 <script setup>
 import { ref } from 'vue'
 
-defineOptions({ name: 'WithSubsets' })
+defineOptions({ name: 'WithSubsetsSlots' })
 
 // refs
 const model = ref({})
