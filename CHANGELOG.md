@@ -20,7 +20,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
   - corrigido exibição de loading no componente dentro do dropdown ao ter uma prop `loading: true`.
 - `QasHeader`: corrigido exibição do container de descrição em casos de não ter `label` e `description`.
 - `QasTableGenerator`: 
-  - adicionado `@click.prevent.stop` para não chamar o `rowRouteFn` e `onRowClick` quando se tem ações com botão na tabela.
+  - adicionado `stopPropagation` e `preventDefault` ao clicar em um `QasBtn` ou `QasActionsMenu` para não chamar o `rowRouteFn` ou `rowClick` da tabela. 
   - corrigido hover da linha no Safari onde era pego toda tabela ao invés da própria linha.
 
 ### Removido

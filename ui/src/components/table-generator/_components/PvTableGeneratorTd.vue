@@ -1,5 +1,5 @@
 <template>
-  <component :is="component.is" v-bind="component.props" @click.prevent.stop />
+  <component :is="component.is" v-bind="component.props" />
 </template>
 
 <script setup>
@@ -83,11 +83,27 @@ const component = computed(() => {
     }
   }
 
+  const isQasActionsMenu = props.componentData.component === 'QasActionsMenu'
+  const isQasBtn = props.componentData.component === 'QasBtn'
+
   return {
     is: defineAsyncComponent(componentPaths[props.componentData.component].component),
     props: {
       ...componentPaths[props.componentData.component].props,
-      ...props.componentData.props
+      ...props.componentData.props,
+
+      // Caso for QasBtn ou QasActionsMenu preciso adicionar o stopPropagation e preventDefault no click para não chamar o rowClick ou rowRouteFn caso tenha.
+      ...((isQasBtn || isQasActionsMenu) && {
+        onClick: evt => {
+          evt.stopPropagation()
+          evt.preventDefault()
+
+          // Caso for QasBtn eu repasso a ação do @click.
+          if (isQasBtn) {
+            props.componentData.props?.onClick?.(evt)
+          }
+        }
+      })
     }
   }
 })
