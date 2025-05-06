@@ -101,18 +101,12 @@
     }
   }
 
-  .q-icon.on-left {
-    margin-right: var(--qas-spacing-xs);
-  }
-
-  .q-icon.on-right {
-    margin-left: var(--qas-spacing-xs);
-  }
-
+  .q-icon.on-left,
   .q-spinner.on-left {
     margin-right: var(--qas-spacing-xs);
   }
 
+  .q-icon.on-right,
   .q-spinner.on-right {
     margin-left: var(--qas-spacing-xs);
   }
