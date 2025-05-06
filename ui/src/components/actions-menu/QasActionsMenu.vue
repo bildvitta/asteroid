@@ -1,11 +1,12 @@
 <template>
   <div v-if="hasList" class="qas-actions-menu" data-cy="actions-menu">
-    <qas-btn-dropdown v-bind="btnDropdownProps">
+    <qas-btn-dropdown v-bind="btnDropdownProps" v-model:menu="menuModel">
       <q-list v-if="hasDropdownLength" data-cy="actions-menu-list">
         <slot v-for="(item, key) in formattedList.dropdownList" :item="item" :name="key">
           <q-item v-bind="getItemProps(item)" :key="key" active-class="primary" clickable data-cy="actions-menu-list-item" @click="setClickHandler(item)">
             <q-item-section avatar>
-              <q-icon :name="item.icon" />
+              <q-spinner v-if="item.loading" size="sm" />
+              <q-icon v-else :name="item.icon" />
             </q-item-section>
 
             <q-item-section>
@@ -41,7 +42,7 @@ import useSingleSplitActions from './composables/use-single-split-actions'
 import getLabel from './utils/get-label'
 import setClickHandler from './utils/set-click-handler'
 
-import { computed, inject } from 'vue'
+import { computed, inject, ref, watch } from 'vue'
 
 const DEFAULT_COLOR = 'grey-10'
 const SPLIT_SIZE = 2
@@ -95,10 +96,15 @@ const props = defineProps({
   }
 })
 
+// refs
+const menuModel = ref(false)
+
+// composables
 const screen = useScreen()
 
 const { deleteBtnProps, hasDelete } = useDelete({ color: DEFAULT_COLOR, props, qas })
 
+// computeds
 const hasSplitName = computed(() => !!props.splitName)
 const hasList = computed(() => !!Object.keys(fullList.value).length)
 
@@ -157,13 +163,22 @@ const defaultButtonPropsList = computed(() => {
   return normalizedButtonPropsList
 })
 
+/**
+ * Procura se alguma ação está com "loading: true", para o dropdown não fechar
+ * automaticamente após clicar em alguma ação.
+ */
+const hasActiveLoading = computed(() => {
+  return Object.values(formattedList.value.dropdownList)?.some(action => action.loading)
+})
+
 const hasDropdownLength = computed(() => !!Object.keys(formattedList.value.dropdownList).length)
 
 const btnDropdownProps = computed(() => {
   return {
     buttonsPropsList: defaultButtonPropsList.value,
     disable: props.disable,
-    useSplit: hasSplit.value
+    useSplit: hasSplit.value,
+    useAutoClose: !hasActiveLoading.value
   }
 })
 
@@ -240,14 +255,22 @@ const formattedList = computed(() => {
 
 const { showTooltip, tooltipLabels } = useTooltips({ formattedList, fullList, props })
 
+watch(() => hasActiveLoading.value, handleMenuModel)
 // functions
 function getItemProps (item) {
-  const { disable, props: itemProps, to } = item
+  const { disable, loading, props: itemProps, to } = item
 
   return {
-    disable,
+    disable: disable || loading, // ficará desabilitado se for passado a prop "disable" ou o "loading" seja true.
     to,
     ...itemProps
+  }
+}
+
+function handleMenuModel (newValue, oldValue) {
+  // Fecha o menu após o estado de loading do item passar de true para false
+  if (oldValue && !newValue) {
+    menuModel.value = false
   }
 }
 </script>
