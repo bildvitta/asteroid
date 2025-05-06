@@ -83,8 +83,8 @@ const component = computed(() => {
     }
   }
 
-  const isQasActionsMenu = props.componentData.component === 'QasActionsMenu'
-  const isQasBtn = props.componentData.component === 'QasBtn'
+  // Os componentes abaixo precisam adicionar o stopPropagation e preventDefault no click para nao chamar o rowClick ou rowRouteFn
+  const hasPreventEvent = ['QasActionsMenu', 'QasBtn'].includes(props.componentData.component)
 
   return {
     is: defineAsyncComponent(componentPaths[props.componentData.component].component),
@@ -92,16 +92,12 @@ const component = computed(() => {
       ...componentPaths[props.componentData.component].props,
       ...props.componentData.props,
 
-      // Caso for QasBtn ou QasActionsMenu preciso adicionar o stopPropagation e preventDefault no click para não chamar o rowClick ou rowRouteFn caso tenha.
-      ...((isQasBtn || isQasActionsMenu) && {
-        onClick: evt => {
-          evt.stopPropagation()
-          evt.preventDefault()
+      ...(hasPreventEvent && {
+        onClick: event => {
+          event.stopPropagation()
+          event.preventDefault()
 
-          // Caso for QasBtn eu repasso a ação do @click.
-          if (isQasBtn) {
-            props.componentData.props?.onClick?.(evt)
-          }
+          props.componentData.props?.onClick?.(event)
         }
       })
     }
