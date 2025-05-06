@@ -67,7 +67,10 @@ const tableGeneratorProps = {
       },
 
       company: {
-        component: 'QasTextTruncate'
+        component: 'QasBtn',
+        props: {
+          onClick: () => alert(row.company)
+        }
       },
 
       email: {

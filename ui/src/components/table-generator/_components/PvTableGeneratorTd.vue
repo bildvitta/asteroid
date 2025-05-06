@@ -1,5 +1,5 @@
 <template>
-  <component :is="component.is" v-bind="component.props" @click.prevent.stop />
+  <component :is="component.is" v-bind="component.props" />
 </template>
 
 <script setup>
@@ -83,11 +83,23 @@ const component = computed(() => {
     }
   }
 
+  // Os componentes abaixo precisam adicionar o stopPropagation e preventDefault no click para nao chamar o rowClick ou rowRouteFn
+  const hasPreventEvent = ['QasActionsMenu', 'QasBtn'].includes(props.componentData.component)
+
   return {
     is: defineAsyncComponent(componentPaths[props.componentData.component].component),
     props: {
       ...componentPaths[props.componentData.component].props,
-      ...props.componentData.props
+      ...props.componentData.props,
+
+      ...(hasPreventEvent && {
+        onClick: event => {
+          event.stopPropagation()
+          event.preventDefault()
+
+          props.componentData.props?.onClick?.(event)
+        }
+      })
     }
   }
 })
