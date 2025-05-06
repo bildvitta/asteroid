@@ -36,6 +36,11 @@ props:
     default: false
     type: Boolean
 
+  use-auto-close:
+    desc: Controla se o comportamento de click deve fechar o menu.
+    default: true
+    type: Boolean
+
 slots:
   default:
     desc: Slot para passar o conteúdo do dropdown (menu).

@@ -11,16 +11,26 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
 ## Não publicado
+## BREAKING CHANGE
+- `QasBtn`: modificado a forma de exibição do loading, agora é exibido no lugar do ícone. Poderá haver breaking change visual. Verificar lugares onde é utilizado o `use-ellipsis` também.
+
 ### Adicionado
 - `QasFormGenerator`: adicionado possibilidade de ter subseções (`subset`) dentro de uma seção (`fieldset`). Para mais detalhes, consultar a documentação.
 
 ### Corrigido
-- `QasActionsMenu`: adicionado validação no `q-list` do `qas-actions-menu` pra não exibir um `q-list` vazio quando só há um item.
+- `QasActionsMenu`: 
+  - adicionado validação no `q-list` do `qas-actions-menu` pra não exibir um `q-list` vazio quando só há um item.
+  - corrigido exibição de loading no componente dentro do dropdown ao ter uma prop `loading: true`.
 - `QasHeader`: corrigido exibição do container de descrição em casos de não ter `label` e `description`.
-- `QasTableGenerator`: adicionado `@click.prevent.stop` para não chamar o `rowRouteFn` e `onRowClick` quando se tem ações com botão na tabela.
+- `QasTableGenerator`: 
+  - adicionado `@click.prevent.stop` para não chamar o `rowRouteFn` e `onRowClick` quando se tem ações com botão na tabela.
+  - corrigido hover da linha no Safari onde era pego toda tabela ao invés da própria linha.
 
 ### Removido
 - `QasTableGenerator`: removido possibilidade de ter sort na tabela.
+
+### Modificado
+- `QasBtn`: modificado a forma de exibição do loading, agora é exibido no lugar do ícone. Poderá haver breaking change visual. Verificar lugares onde é utilizado o `use-ellipsis` também.
 
 ## [3.18.0-beta.3] - 24-04-2025
 ### Corrigido

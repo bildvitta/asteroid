@@ -75,3 +75,5 @@ A cor "white" é usada quando necessita de um contraste, sendo possível ter ou 
 <doc-example file="QasBtn/ExBtnUseLabelOnSmallScreen" title="use-label-on-small-screen" />
 
 <doc-example file="QasBtn/ExBtnEllipsis" title="Com ellipsis" />
+
+<doc-example file="QasBtn/ExWithLoading" title="Com loading" />
