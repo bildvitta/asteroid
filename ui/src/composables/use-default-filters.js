@@ -94,6 +94,29 @@ export function setDefaultFiltersBeforeEnter (to, _from, next, queryList = ['com
 }
 
 /**
+ * Função para ser utilizada no beforeEach, na qual valida os seguintes cenários:
+ * 1 - Se estou indo para a mesma rota;
+ * 2 - Se a rota tem o beforeEnter (normalmente usado com o método setDefaultFiltersBeforeEnter);
+ * 3 - Se a rota de destino nao tem query.
+ *
+ * Dado as validações acima, ele ignora o redirecionamento. pois ao fazer o redirecionamento pra mesma rota,
+ * o beforeEnter não é chamado, assim removendo todos os filtros padrões.
+ *
+ * @param {object} to - Rota de destino.
+ * @param {object} from - Rota de origem.
+ * @param {function} next - Função de redirecionamento.
+ */
+export function onBeforeEach (to, from, next) {
+  const isSameRoute = to.name === from.name
+  const hasBeforeEnter = to.matched.some(record => record.beforeEnter)
+  const hasQuery = !!Object.keys(to.query).length
+
+  if (isSameRoute && hasBeforeEnter && !hasQuery) return
+
+  next()
+}
+
+/**
  * Este composable recupera os filtros default salvos no LocalStorage na chave 'defaultFilters'.
  */
 export default function useDefaultFilters () {
