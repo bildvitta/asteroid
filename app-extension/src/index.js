@@ -10,10 +10,10 @@ function extendQuasar (quasar, asteroidConfigFile) {
     'boot/error-pages.js',
     'boot/font-face.js',
     'boot/register.js',
-    'boot/history.js',
     'boot/loading.js',
     'boot/query-cache.js',
-    'boot/store-adapter'
+    'boot/store-adapter',
+    'boot/before-each.js'
   ))
 
   // controle dos componentes que utilizam bibliotecas terceiras.
