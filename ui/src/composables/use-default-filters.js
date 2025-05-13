@@ -44,7 +44,12 @@ export function setDefaultFiltersBeforeEnter (to, _from, next, queryList = ['com
   const isQueryListArray = Array.isArray(queryList)
   const normalizedQueryList = isQueryListArray ? {} : queryList
 
-  // Meta utilizado para saber quais são os filtros padrões da rota
+  /**
+   * Meta no qual será utilizado para recuperar os filtros padrão de determinada rota.
+   * Será utilizado no boot beforeEach, sendo que ele sempre garantirá que caso eu vá para a mesma tela de origem (normalmente
+   * em caso de menu ou breadcrumb), os filtros padrões não se percam, pois o beforeEnter não é chamado novamente ao ir
+   * para a mesma rota.
+   */
   to.meta = { defaultQuery: normalizedQueryList }
 
   // normaliza sempre o queryList para um objeto

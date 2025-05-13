@@ -6,7 +6,9 @@ import useHistory from '@bildvitta/quasar-ui-asteroid/src/composables/use-histor
  * 2 - Se a rota tem o beforeEnter (normalmente usado com o método setDefaultFiltersBeforeEnter);
  * 3 - Se a rota de destino nao tem query.
  *
- * Dado as validações acima, caso seja verdadeira, eu redireciono para rota com os filtros padrões aplicados.
+ * Devido o beforeEnter não ser chamado caso tente ir para a mesma rota (caso eu clique no menu ou no breadcrumbs), os filtros serao
+ * perdidos. Sendo assim, necessário validar pelo beforeEach as regras acima, para assim eu garantir que quando eu for para a mesma tela,
+ * eu tenha os filtros padrões aplicados (que são definidos no beforeEntar pelo método setDefaultFiltersBeforeEnter).
  *
  * @param {object} to - Rota de destino.
  * @param {object} from - Rota de origem.
