@@ -14,6 +14,9 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 ## BREAKING CHANGE
 - `QasBtn`: modificado a forma de exibição do loading, agora é exibido no lugar do ícone. Poderá haver breaking change visual. Verificar lugares onde é utilizado o `use-ellipsis` também.
 
+### Adicionado
+- `QasFormGenerator`: adicionado possibilidade de ter subseções (`subset`) dentro de uma seção (`fieldset`). Para mais detalhes, consultar a documentação.
+
 ### Corrigido
 - `QasActionsMenu`: 
   - adicionado validação no `q-list` do `qas-actions-menu` pra não exibir um `q-list` vazio quando só há um item.
