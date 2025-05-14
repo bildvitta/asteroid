@@ -10,12 +10,20 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 ### Sobre os "BREAKING CHANGES"
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
+## Não publicado
+### Adicionado
+- `boot/before-each`: boot responsável por atualizar o histórico de rotas e validar filtros padrões ao ser redirecionado para mesma rota.
+
+### Removido
+- `boot/history`: removido boot de history, sendo que agora os métodos utilizados estão no boot `before-each.js`.
+
+## [3.18.0-beta.5] - 13-05-2025
+### Adicionado
+- `QasFormGenerator`: adicionado possibilidade de ter subseções (`subset`) dentro de uma seção (`fieldset`). Para mais detalhes, consultar a documentação.
+
 ## [3.18.0-beta.4] - 06-05-2025
 ## BREAKING CHANGE
 - `QasBtn`: modificado a forma de exibição do loading, agora é exibido no lugar do ícone. Poderá haver breaking change visual. Verificar lugares onde é utilizado o `use-ellipsis` também.
-
-### Adicionado
-- `boot/before-each`: boot responsável por atualizar o histórico de rotas e validar filtros padrões ao ser redirecionado para mesma rota.
 
 ### Corrigido
 - `QasActionsMenu`: 
@@ -28,7 +36,6 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 
 ### Removido
 - `QasTableGenerator`: removido possibilidade de ter sort na tabela.
-- `boot/history`: removido boot de history, sendo que agora os métodos utilizados estão no boot `before-each.js`.
 
 ### Modificado
 - `QasBtn`: modificado a forma de exibição do loading, agora é exibido no lugar do ícone. Poderá haver breaking change visual. Verificar lugares onde é utilizado o `use-ellipsis` também.
@@ -3883,3 +3890,4 @@ Adicionado suporte para Pinia/Vuex Seguindo os padrões da biblioteca `@bildvitt
 [3.18.0-beta.2]: https://github.com/bildvitta/asteroid/compare/v3.18.0-beta.1...v3.18.0-beta.2?expand=1
 [3.18.0-beta.3]: https://github.com/bildvitta/asteroid/compare/v3.18.0-beta.2...v3.18.0-beta.3?expand=1
 [3.18.0-beta.4]: https://github.com/bildvitta/asteroid/compare/v3.18.0-beta.3...v3.18.0-beta.4?expand=1
+[3.18.0-beta.5]: https://github.com/bildvitta/asteroid/compare/v3.18.0-beta.4...v3.18.0-beta.5?expand=1
