@@ -50,8 +50,9 @@ import QasPagination from './components/pagination/QasPagination.vue'
 import QasPasswordInput from './components/password-input/QasPasswordInput.vue'
 import QasPasswordStrengthChecker from './components/password-strength-checker/QasPasswordStrengthChecker.vue'
 import QasProfile from './components/profile/QasProfile.vue'
-import QasResizer from './components/resizer/QasResizer.vue'
 import QasRadio from './components/radio/QasRadio.vue'
+import QasReportsFilters from './components/reports-filters/QasReportsFilters.vue'
+import QasResizer from './components/resizer/QasResizer.vue'
 import QasSearchBox from './components/search-box/QasSearchBox.vue'
 import QasSearchInput from './components/search-input/QasSearchInput.vue'
 import QasSelect from './components/select/QasSelect.vue'
@@ -151,6 +152,7 @@ async function install (app) {
   app.component('QasProfile', QasProfile)
   app.component('QasResizer', QasResizer)
   app.component('QasRadio', QasRadio)
+  app.component('QasReportsFilters', QasReportsFilters)
   app.component('QasSearchBox', QasSearchBox)
   app.component('QasSearchInput', QasSearchInput)
   app.component('QasSelect', QasSelect)
@@ -252,6 +254,7 @@ export {
   QasProfile,
   QasResizer,
   QasRadio,
+  QasReportsFilters,
   QasSearchBox,
   QasSearchInput,
   QasSelect,

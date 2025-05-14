@@ -256,6 +256,10 @@ module.exports = [
         path: '/components/profile'
       },
       {
+        name: 'ReportsFilters',
+        path: '/components/reports-filters'
+      },
+      {
         name: 'Radio',
         path: '/components/radio'
       },
