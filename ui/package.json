@@ -57,6 +57,15 @@
     "signature_pad": "^4.1.5",
     "sortablejs": "^1.15.3"
   },
+  "peerDependencies": {
+    "@quasar/extras": "^1.16.0",
+    "vue-router": "^4.3.2",
+    "@fawmi/vue-google-maps": "0.9.79",
+    "vue-chartjs": "^5.2.0",
+    "chart.js": "^4.3.0",
+    "chartjs-plugin-datalabels": "^2.2.0",
+    "chartjs-plugin-zoom": "^2.0.1"
+  },
   "browserslist": [
     "defaults"
   ],

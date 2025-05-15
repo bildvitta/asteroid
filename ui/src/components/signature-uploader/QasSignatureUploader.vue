@@ -126,8 +126,6 @@ export default {
   },
 
   methods: {
-    NotifyError,
-
     closeSignature () {
       this.isOpenedDialog = false
     },

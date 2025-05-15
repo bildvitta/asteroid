@@ -1,5 +1,5 @@
-import useQueryCache from '@bildvitta/quasar-ui-asteroid/src/composables/use-query-cache'
-import useHistory from '@bildvitta/quasar-ui-asteroid/src/composables/use-history'
+import useQueryCache from '@bildvitta/quasar-ui-asteroid/src/composables/use-query-cache.js'
+import useHistory from '@bildvitta/quasar-ui-asteroid/src/composables/use-history.js'
 
 const { addMany, findAll, clearAll } = useQueryCache()
 
@@ -84,11 +84,11 @@ export default ({ router }) => {
 
       isReplacingQuery = true
 
-      return next({ ...to, query: cachedQuery })
+      next({ ...to, query: cachedQuery })
+    } else {
+      isReplacingQuery = false
+
+      next()
     }
-
-    isReplacingQuery = false
-
-    next()
   })
 }

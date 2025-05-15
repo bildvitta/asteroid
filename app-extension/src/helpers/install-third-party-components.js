@@ -1,10 +1,10 @@
-module.exports = function (api, { filePath }) {
-  const thirdPartyComponentsHandler = require('./third-party-components-handler')
+import thirdPartyComponentsHandler from './third-party-components-handler.js'
 
-  const components = [
-    require('../third-party-components/map'),
-    require('../third-party-components/chart-view')
-  ]
+import chartView from '../third-party-components/chart-view.js'
+import map from '../third-party-components/map.js'
+
+export default function (api, { filePath }) {
+  const components = [chartView, map]
 
   async function exec () {
     for (const component of components) {
