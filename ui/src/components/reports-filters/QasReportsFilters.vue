@@ -4,16 +4,7 @@
       v-if="!isFetchingFilters"
       class="q-mb-lg"
     >
-      <div class="q-mb-md">
-        <qas-label
-          label="Filtros"
-          margin="xs"
-        />
-
-        <div class="text-body1">
-          {{ props.description }}
-        </div>
-      </div>
+      <qas-header v-bind="headerProps" />
 
       <q-form
         v-if="hasSettledDefaultFilters"
@@ -136,6 +127,15 @@ const isDisabledButton = computed(() => {
   }
 
   return false
+})
+
+const headerProps = computed(() => {
+  return {
+    description: props.description,
+    labelProps: {
+      label: 'Filtros'
+    }
+  }
 })
 
 // lifecycle
