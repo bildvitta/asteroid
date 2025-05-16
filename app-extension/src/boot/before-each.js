@@ -22,7 +22,7 @@ function onBeforeEach (to, from, next) {
     const defaultFromQuery = from.meta.defaultQuery
 
     // Caso for a mesma rota e tenha beforeEnter, necessário setar o to.meta também para não perder os filtros padrões.
-    to.meta = { defaultQuery: defaultFromQuery }
+    to.meta = { ...to.meta, defaultQuery: defaultFromQuery }
 
     const defaultQueryList = Object.keys(from.meta.defaultQuery || {})
     const defaultQuery = {}

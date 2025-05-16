@@ -50,7 +50,7 @@ export function setDefaultFiltersBeforeEnter (to, _from, next, queryList = ['com
    * em caso de menu ou breadcrumb), os filtros padrões não se percam, pois o beforeEnter não é chamado novamente ao ir
    * para a mesma rota.
    */
-  to.meta = { defaultQuery: normalizedQueryList }
+  to.meta = { ...to.meta, defaultQuery: normalizedQueryList }
 
   // normaliza sempre o queryList para um objeto
   if (isQueryListArray) {
