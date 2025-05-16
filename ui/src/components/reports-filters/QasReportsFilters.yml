@@ -1,7 +1,7 @@
 type: component
 
 meta:
-  desc: Componente para criação de filtros dinâmicos para relatórios.
+  desc: Componente para filtrar relatórios que serão exibidos em tela.
 
 props:
   form-generator-props:
@@ -43,5 +43,12 @@ events:
     params:
       value:
         desc: Novo valor do v-model
-        type: String
+        type: Object
+
+  '@update:default-filters -> function (value)':
+    desc: Dispara toda vez que o default dos campos são alterados.
+    params:
+      value:
+        desc: Novo valor do v-model
+        type: Object
 

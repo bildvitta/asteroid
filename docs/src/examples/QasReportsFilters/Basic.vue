@@ -2,7 +2,6 @@
   <div class="container spaced">
     <qas-reports-filters
       v-model="filtersModel"
-      v-model:has-initial-filter="canFetch"
       v-bind="reportsFiltersProps"
     />
   </div>
@@ -14,7 +13,6 @@ import { ref } from 'vue'
 defineOptions({ name: 'Basic' })
 
 const filtersModel = ref({})
-const canFetch = ref(false)
 
 const reportsFiltersProps = {
   entity: 'users',

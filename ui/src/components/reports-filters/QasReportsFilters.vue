@@ -8,7 +8,7 @@
 
       <q-form
         v-if="hasSettledDefaultFilters"
-        class="items-center q-col-gutter-y-md row"
+        class="items-center row"
         @submit="filter"
       >
         <div class="col-12">
@@ -19,13 +19,16 @@
           />
         </div>
 
-        <div class="col-12 text-right">
-          <qas-btn
-            :disabled="isDisabledButton"
-            icon="sym_r_east"
-            label="Filtrar"
-            type="submit"
-          />
+        <div class="col-12">
+          <qas-actions gutter="sm">
+            <template #primary>
+              <qas-btn class="full-width" :disabled="isDisabledButton" label="Filtrar" type="submit" variant="primary" />
+            </template>
+
+            <template #secondary>
+              <qas-btn class="full-width" label="Limpar" variant="secondary" @click="clearForm" />
+            </template>
+          </qas-actions>
         </div>
       </q-form>
     </qas-box>
@@ -97,6 +100,13 @@ const defaultFilters = defineModel('defaultFilters', { default: () => ({}), type
 // consts
 const hasQuery = !!Object.keys(route.query).length
 
+const headerProps = {
+  description: props.description,
+  labelProps: {
+    label: 'Filtros'
+  }
+}
+
 // refs
 const isFetchingFilters = ref(false)
 const hasInitialFilter = ref(false)
@@ -107,7 +117,7 @@ const hasInitialFilter = ref(false)
  */
 const hasSettledDefaultFilters = ref(props.useDefaultFilters ? false : !hasQuery)
 
-// computed
+// computeds
 const filtersFields = computed(() => {
   const fields = qas.getGetter({ entity: props.entity, key: 'filters' })
 
@@ -129,32 +139,8 @@ const isDisabledButton = computed(() => {
   return false
 })
 
-const headerProps = computed(() => {
-  return {
-    description: props.description,
-    labelProps: {
-      label: 'Filtros'
-    }
-  }
-})
-
 // lifecycle
-onMounted(async () => {
-  // copia a query para não alterar a URL (deep clone).
-  const query = { ...route.query }
-
-  // recupera os filtros do endpoint.
-  await fetchFilters()
-
-  // Se existir query, então seta os valores na model.
-  if (hasQuery) setModelByQuery(query)
-
-  // Se "props.useDefaultFilters" for true, então seta os valores default que vem no endpoint dos fields.
-  if (props.useDefaultFilters) await setDefaultModel(query)
-
-  // Se o botão estiver habilitado, então existe o filtro inicial.
-  setHasInitialFilter(!isDisabledButton.value)
-})
+onMounted(handleFilterFields)
 
 // functions
 async function fetchFilters () {
@@ -168,6 +154,23 @@ async function fetchFilters () {
       }
     }
   )
+}
+
+async function handleFilterFields () {
+  // copia a query para não alterar a URL (deep clone).
+  const query = { ...route.query }
+
+  // busca os filtros do endpoint.
+  await fetchFilters()
+
+  // Se existir query, então seta os valores na model.
+  if (hasQuery) setModelByQuery(query)
+
+  // Se "props.useDefaultFilters" for true, então seta os valores default que vem no endpoint dos fields.
+  if (props.useDefaultFilters) await setDefaultModel(query)
+
+  // Se o botão estiver habilitado, então existe o filtro inicial.
+  setHasInitialFilter(!isDisabledButton.value)
 }
 
 /**
@@ -266,5 +269,13 @@ function setHasSettledDefaultFilters (value) {
  */
 function hasValue (value) {
   return value !== undefined
+}
+
+function clearForm () {
+  hasInitialFilter.value = false
+
+  model.value = {}
+
+  router.push({ query: {} })
 }
 </script>
