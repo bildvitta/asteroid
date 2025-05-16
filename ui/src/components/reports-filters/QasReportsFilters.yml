@@ -39,7 +39,7 @@ slots:
 
 events:
   '@update:model-value -> function (value)':
-    desc: Dispara toda vez que o model do fomrulário é atualizado, também utilizado para v-model.
+    desc: Dispara toda vez que o model do formulário é atualizado, também utilizado para v-model.
     params:
       value:
         desc: Novo valor do v-model

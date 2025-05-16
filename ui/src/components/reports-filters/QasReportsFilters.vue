@@ -51,10 +51,11 @@
 </template>
 
 <script setup>
+import { parseValue, promiseHandler, camelizeFieldsName } from '../../helpers'
+import { useContext } from '../../composables'
+
 import { camelize, decamelizeKeys, decamelize } from 'humps'
 import { computed, onMounted, ref, inject } from 'vue'
-import { parseValue, promiseHandler, camelizeFieldsName } from '../../helpers'
-import useContext from '../../composables/use-context'
 import { useRoute, useRouter } from 'vue-router'
 
 defineOptions({ name: 'QasReportsFilters' })
@@ -155,9 +156,10 @@ onMounted(async () => {
   setHasInitialFilter(!isDisabledButton.value)
 })
 
+// functions
 async function fetchFilters () {
   await promiseHandler(
-    await qas.getAction({ entity: props.entity, key: 'fetchFilters', payload: { ...context.value, url: props.url } }),
+    qas.getAction({ entity: props.entity, key: 'fetchFilters', payload: { ...context.value, url: props.url } }),
     {
       errorMessage: 'Não conseguimos buscar as informações. Por favor, tente novamente em alguns minutos.',
       useLoading: false,
@@ -244,7 +246,7 @@ function setHasInitialFilter (value) {
 }
 
 /**
- * USado para saber se os filtros default já foram aplicados e assim renderizar
+ * Usado para saber se os filtros default já foram aplicados e assim renderizar
  * o formulário, se não fizer isto, os endpoints de lazyloading são chamados
  * duas vezes e removendo os filtros default.
  */
