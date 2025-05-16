@@ -39,6 +39,8 @@
       </q-form>
     </qas-box>
 
+    <slot v-if="hasInitialFilter" />
+
     <q-inner-loading :showing="isFetchingFilters">
       <q-spinner
         color="grey"
@@ -51,11 +53,9 @@
 <script setup>
 import { camelize, decamelizeKeys, decamelize } from 'humps'
 import { computed, onMounted, ref, inject } from 'vue'
-import { parseValue } from '../../helpers'
+import { parseValue, promiseHandler, camelizeFieldsName } from '../../helpers'
 import useContext from '../../composables/use-context'
-// import { parseValue, promiseHandler, useContext, camelizeFieldsName } from 'asteroid'
 import { useRoute, useRouter } from 'vue-router'
-// import { getState } from '@bildvitta/store-adapter'
 
 defineOptions({ name: 'QasReportsFilters' })
 
@@ -101,14 +101,13 @@ const { context } = useContext()
 // models
 const model = defineModel({ default: () => ({}), type: Object })
 const defaultFilters = defineModel('defaultFilters', { default: () => ({}), type: Object })
-// const hasFetched = defineModel('hasFetched', { type: Boolean })
-const hasInitialFilter = defineModel('hasInitialFilter', { type: Boolean })
 
 // consts
 const hasQuery = !!Object.keys(route.query).length
 
 // refs
 const isFetchingFilters = ref(false)
+const hasInitialFilter = ref(false)
 
 /**
  * se "props.useDefaultFilters" for true, o padrão vem do endpoint caso não
@@ -117,11 +116,11 @@ const isFetchingFilters = ref(false)
 const hasSettledDefaultFilters = ref(props.useDefaultFilters ? false : !hasQuery)
 
 // computed
-/**
- * "name" vem em snake_case então é necessário converter para camelCase.
- */
-const filtersFields = computed(() => qas.getGetter({ entity: props.entity, key: 'filters' }))
-// const filtersFields = computed(() => camelizeFieldsName(store.value?.filters || {}))
+const filtersFields = computed(() => {
+  const fields = qas.getGetter({ entity: props.entity, key: 'filters' })
+
+  return camelizeFieldsName(fields)
+})
 
 /**
  * Só habilita o botão de filtrar se:
@@ -143,9 +142,6 @@ onMounted(async () => {
   // copia a query para não alterar a URL (deep clone).
   const query = { ...route.query }
 
-  // carrega o store de acordo com a entity
-  // await loadStore()
-
   // recupera os filtros do endpoint.
   await fetchFilters()
 
@@ -159,38 +155,17 @@ onMounted(async () => {
   setHasInitialFilter(!isDisabledButton.value)
 })
 
-// async function loadStore () {
-//   console.log(qas, '<--- qas')
-//   // // Transforma a entity de camelCase para kebab-case
-//   // const decamelizedEntity = decamelize(props.entity, { separator: '-' })
-
-//   // // Importa dinamicamente a store
-//   // const useStore = await import(`stores/modules/reports/${decamelizedEntity}`)
-
-//   // // Seta minha store
-//   // store.value = useStore.default()
-// }
-
 async function fetchFilters () {
-  const response = await qas.getAction({ entity: props.entity, key: 'fetchFilters', payload: context.value })
-
-  console.log(response, '<-- response')
-  // const { filters } = context.value
-
-  // const { error } = await promiseHandler(
-  //   store.value.fetchFilters({ url: props.url, params: filters }),
-  //   {
-  //     errorMessage: 'Não conseguimos buscar as informações. Por favor, tente novamente em alguns minutos.',
-  //     useLoading: false,
-  //     onLoading: value => {
-  //       isFetchingFilters.value = value
-  //     }
-  //   }
-  // )
-
-  // if (error) return
-
-  // hasFetched.value = true
+  await promiseHandler(
+    await qas.getAction({ entity: props.entity, key: 'fetchFilters', payload: { ...context.value, url: props.url } }),
+    {
+      errorMessage: 'Não conseguimos buscar as informações. Por favor, tente novamente em alguns minutos.',
+      useLoading: false,
+      onLoading: value => {
+        isFetchingFilters.value = value
+      }
+    }
+  )
 }
 
 /**
