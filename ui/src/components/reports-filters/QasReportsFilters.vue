@@ -172,6 +172,8 @@ async function fetchFilters () {
 
 /**
  * Adiciona os valores da query na model.
+ *
+ * @param {object} query
  */
 function setModelByQuery (query) {
   const booleanQueryValues = ['true', 'false']
@@ -208,6 +210,8 @@ function setModelByQuery (query) {
 
 /**
  * Adiciona os valores default nos campos da model caso não existam na query.
+ *
+ * @param {object} query
  */
 async function setDefaultModel (query) {
   for (const key in filtersFields.value) {
