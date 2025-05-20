@@ -82,7 +82,6 @@ module.exports = configure(function (quasar) {
       // https://quasar.dev/quasar-cli/handling-webpack
       // "chain" is a webpack-chain object https://github.com/neutrinojs/webpack-chain
       chainWebpack (chain) {
-        // console.log('TCL: chainWebpack -> ComponentsWebpack', ComponentsWebpack)
         const nodePolyfillWebpackPlugin = require('node-polyfill-webpack-plugin')
 
         const AutoImportPlugin = require('unplugin-vue-components/webpack').default

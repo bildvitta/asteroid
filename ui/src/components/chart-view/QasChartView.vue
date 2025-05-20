@@ -24,7 +24,6 @@
 
 <script>
 import QasBox from '../box/QasBox.vue'
-console.log('TCL: QasBox', 'QasBox')
 
 // Importações do chart.js
 import {

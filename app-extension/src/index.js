@@ -76,11 +76,10 @@ function extendQuasar (quasar, api, asteroidConfigFile) {
 export default async function (api) {
   api.compatibleWith('quasar', '^2.0.0')
 
-  console.log('Quasar App Extension: @bildvitta/quasar-app-extension-asteroid')
-
   const asteroid = 'node_modules/@bildvitta/quasar-ui-asteroid/src/asteroid.js'
   const asteroidConfig = 'node_modules/@bildvitta/quasar-app-extension-asteroid/src/defaults/default-asteroid-config.js'
   const vueRouter = 'node_modules/vue-router/dist/vue-router.esm-bundler.js'
+  const quasar = 'node_modules/quasar'
 
   const { validate, getAsteroidConfigPath } = asteroidConfigHandler(api)
 
@@ -97,7 +96,8 @@ export default async function (api) {
         'asteroid-config': api.resolve.app(asteroidConfig),
         'asteroid-config-app': asteroidConfigPath,
         asteroid: api.resolve.app(asteroid),
-        'vue-router': api.resolve.app(vueRouter)
+        'vue-router': api.resolve.app(vueRouter),
+        quasar: api.resolve.app(quasar)
       })
 
       // optimizeDeps
@@ -129,14 +129,23 @@ export default async function (api) {
   api.extendWebpack(webpack => {
     // Adiciona um "alias" chamado "asteroid" para a aplicação
 
-    webpack.resolve.alias = {
-      ...webpack.resolve.alias,
-
+    Object.assign(webpack.resolve.alias, {
       'asteroid-config': api.resolve.app(asteroidConfig),
       'asteroid-config-app': asteroidConfigPath,
       asteroid: api.resolve.app(asteroid),
-      'vue-router': api.resolve.app(vueRouter)
-    }
+      'vue-router': api.resolve.app(vueRouter),
+      quasar: api.resolve.app(quasar)
+    })
+
+    // webpack.resolve.alias = {
+    //   ...webpack.resolve.alias,
+
+    //   'asteroid-config': api.resolve.app(asteroidConfig),
+    //   'asteroid-config-app': asteroidConfigPath,
+    //   asteroid: api.resolve.app(asteroid),
+    //   'vue-router': api.resolve.app(vueRouter),
+    //   quasar: api.resolve.app(quasar)
+    // }
 
     // Adiciona o plugin de componentes
     webpack.plugins = webpack.plugins || []

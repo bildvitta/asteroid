@@ -93,7 +93,6 @@ export default {
   watch: {
     'lazyLoadingProps.params': {
       handler (newParams, oldParams) {
-        console.log('TCL: handler -> newParams, oldParams', newParams, oldParams)
         if (!this.useLazyLoading || isEqual(newParams, oldParams)) return
 
         this.mx_cachedOptions = []
