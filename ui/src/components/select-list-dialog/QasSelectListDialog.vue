@@ -77,6 +77,8 @@
 </template>
 
 <script setup>
+import QasBox from '../box/QasBox.vue'
+
 import { computed, ref, watch, useSlots, inject } from 'vue'
 
 defineOptions({ name: 'QasSelectListDialog' })
@@ -148,7 +150,7 @@ const isBox = inject('isBox', false)
 
 const hasError = computed(() => Array.isArray(props.error) ? !!props.error.length : !!props.error)
 const errorMessage = computed(() => Array.isArray(props.error) ? props.error.join(' ') : props.error)
-const containerListComponent = computed(() => isBox ? 'div' : 'qas-box')
+const containerListComponent = computed(() => isBox ? 'div' : QasBox)
 
 const {
   listModel,

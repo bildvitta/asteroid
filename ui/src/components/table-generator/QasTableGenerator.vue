@@ -29,6 +29,7 @@
 </template>
 
 <script>
+import QasBox from '../box/QasBox.vue'
 import PvTableGeneratorTd from './_components/PvTableGeneratorTd.vue'
 
 import { extend } from 'quasar'
@@ -281,7 +282,7 @@ export default {
 
     parentComponent () {
       return {
-        is: this.useBox ? 'qas-box' : 'div'
+        is: this.useBox ? QasBox : 'div'
       }
     },
 

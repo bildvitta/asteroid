@@ -266,7 +266,7 @@ export default {
     },
 
     containerComponent () {
-      return this.useBox ? 'qas-box' : 'div'
+      return this.useBox ? QasBtn : 'div'
     },
 
     componentTag () {

@@ -39,7 +39,6 @@
 
 <script>
 import PvUploaderGalleryCard from './private/PvUploaderGalleryCard.vue'
-import QasHeader from '../header/QasHeader.vue'
 
 import { baseErrorProps } from '../../composables/private/use-error-message'
 import { getImageSize, getResizeDimensions } from '../../helpers/images.js'
@@ -53,8 +52,7 @@ export default {
   name: 'QasUploader',
 
   components: {
-    PvUploaderGalleryCard,
-    QasHeader
+    PvUploaderGalleryCard
   },
 
   inheritAttrs: false,

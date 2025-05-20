@@ -82,13 +82,23 @@ module.exports = configure(function (quasar) {
       // https://quasar.dev/quasar-cli/handling-webpack
       // "chain" is a webpack-chain object https://github.com/neutrinojs/webpack-chain
       chainWebpack (chain) {
+        // console.log('TCL: chainWebpack -> ComponentsWebpack', ComponentsWebpack)
         const nodePolyfillWebpackPlugin = require('node-polyfill-webpack-plugin')
+
+        const AutoImportPlugin = require('unplugin-vue-components/webpack').default
 
         chain.resolve.alias.set('vue', path.resolve('./node_modules/vue'))
 
         chain.plugin('node-polyfill').use(nodePolyfillWebpackPlugin)
         chain.plugin('eslint-webpack-plugin')
           .use(ESLintPlugin, [{ extensions: ['js', 'vue'] }])
+
+        chain.plugin('unplugin-vue-components')
+          .use(AutoImportPlugin({
+            dirs: ['../ui/src/components'],
+            deep: true,
+            dts: false
+          }))
 
         // Alias
         chain.resolve.alias.merge({
@@ -98,7 +108,8 @@ module.exports = configure(function (quasar) {
           'asteroid-components': path.resolve(__dirname, '../ui/src/components'),
           'asteroid-plugins': path.resolve(__dirname, '../ui/src/plugins'),
           examples: path.resolve(__dirname, 'src/examples'),
-          uuid: path.resolve(__dirname, './node_modules/uuid/dist/index.js')
+          uuid: path.resolve(__dirname, './node_modules/uuid/dist/index.js'),
+          'vue-router': path.resolve(__dirname, './node_modules/vue-router/dist/vue-router.esm-bundler.js')
         })
 
         // YAML

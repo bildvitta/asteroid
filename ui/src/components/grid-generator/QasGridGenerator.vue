@@ -33,6 +33,8 @@
 </template>
 
 <script setup>
+import QasBox from '../box/QasBox.vue'
+
 import useGenerator, { baseProps } from '../../composables/private/use-generator'
 import { isEmpty, humanize } from '../../helpers'
 import { useScreen } from '../../composables'
@@ -107,7 +109,7 @@ const hasHeader = computed(() => Object.keys(props.headerProps).length)
 
 const component = computed(() => {
   return {
-    is: props.useBox ? 'qas-box' : 'div',
+    is: props.useBox ? QasBox : 'div',
     props: props.useBox ? props.boxProps : {}
   }
 })

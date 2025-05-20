@@ -1,5 +1,5 @@
 import asteroidConfig from 'asteroid-config'
-import hasParentByClassName from '../helpers/private/has-parent-by-class-name'
+import hasParentByClassName from '../helpers/private/has-parent-by-class-name.js'
 
 import { Notify } from 'quasar'
 import { ref } from 'vue'

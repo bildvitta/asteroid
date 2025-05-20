@@ -1,12 +1,14 @@
 <template>
-  <component :is="component.is" v-bind="component" :data-cy="field.name" :model-value="formattedValue" @update:model-value="updateModel">
-    <template v-for="(_, name) in $slots" #[name]="context">
+  <!-- <component :is="component.is" v-bind="component" :data-cy="field.name" :model-value="formattedValue" @update:model-value="updateModel"> -->
+  <component :is="component.is" v-bind="component.props" :data-cy="field.name" :model-value="formattedValue" @update:model-value="updateModel">
+    <!-- <template v-for="(_, name) in $slots" #[name]="context"> -->
+    <template v-for="(_, name) in slots" #[name]="context">
       <slot :name="name" v-bind="context || {}" />
     </template>
   </component>
 </template>
 
-<script>
+<!-- <script>
 import QasCheckbox from '../checkbox/QasCheckbox.vue'
 import QasDateTimeInput from '../date-time-input/QasDateTimeInput.vue'
 import QasInput from '../input/QasInput.vue'
@@ -17,6 +19,7 @@ import QasSignatureUploader from '../signature-uploader/QasSignatureUploader.vue
 import QasUploader from '../uploader/QasUploader.vue'
 import QasToggle from '../toggle/QasToggle.vue'
 import QasRadio from '../radio/QasRadio.vue'
+import QasSelect from '../select/QasSelect'
 
 const attributesProfile = {
   maxLength: 'maxlength',
@@ -37,7 +40,8 @@ export default {
     QasSignatureUploader,
     QasUploader,
     QasToggle,
-    QasRadio
+    QasRadio,
+    QasSelect
   },
 
   inheritAttrs: false,
@@ -88,6 +92,7 @@ export default {
         useLazyLoading,
         useStrengthChecker
       } = this.formattedField
+      console.log('TCL: component -> this.formattedField', this.formattedField)
 
       // Default error attributes for Quasar.
       const error = {
@@ -157,6 +162,8 @@ export default {
         select: { is: 'qas-select', entity, name, multiple, options, useLazyLoading, ...input }
       }
 
+      console.log('TCL: component -> attrs', this.$attrs)
+
       return {
         ...(profiles[type] || profiles.default),
         ...this.$attrs
@@ -216,5 +223,390 @@ export default {
       this.$emit('update:modelValue', this.isNumberType ? Number(value) : value)
     }
   }
+}
+</script> -->
+
+<script setup>
+import { defineAsyncComponent, computed, useAttrs, useSlots } from 'vue'
+
+defineOptions({
+  name: 'QasField',
+  inheritAttrs: false
+})
+
+const props = defineProps({
+  error: {
+    type: [Array, String],
+    default: ''
+  },
+
+  field: {
+    type: Object,
+    required: true,
+    default: () => ({})
+  },
+
+  modelValue: {
+    type: [Object, Array, String, Number, Boolean],
+    default: undefined
+  }
+})
+
+const emit = defineEmits(['update:modelValue'])
+
+// composables
+const attributes = useAttrs()
+const slots = useSlots()
+
+// computeds
+const errorPayload = computed(() => {
+  return {
+    error: !!(Array.isArray(props.error) ? props.error.length : props.error) || undefined,
+    errorMessage: Array.isArray(props.error) ? props.error.join(' ') : props.error
+  }
+})
+
+const isBoolean = computed(() => props.field.type === 'boolean')
+
+const formattedField = computed(() => {
+  const field = {}
+
+  const attributesProfile = {
+    maxLength: 'maxlength',
+    minLength: 'minlength',
+    readOnly: 'readonly'
+  }
+
+  for (const key in props.field) {
+    field[attributesProfile[key] || key] = props.field[key]
+  }
+
+  return field
+})
+
+const formattedValue = computed(() => {
+  if (!isBoolean.value) return props.modelValue
+
+  const isEmptyValue = !props.modelValue && (props.modelValue === undefined || typeof props.modelValue === 'string')
+
+  if (isEmptyValue) return !!props.modelValue
+
+  return JSON.parse(props.modelValue)
+})
+
+const defaultInputProps = computed(() => {
+  const {
+    disable,
+    filled,
+    label,
+    maxlength,
+    minlength,
+    placeholder,
+    prefix,
+    readonly,
+    required,
+    suffix,
+    useIso
+  } = formattedField.value
+
+  return {
+    label,
+    hideBottomSpace: !errorPayload.value.error,
+    ...errorPayload.value,
+    readonly,
+    required,
+    disable,
+    filled,
+    maxlength,
+    minlength,
+    suffix,
+    placeholder,
+    prefix,
+    useIso
+  }
+})
+
+// components
+const qasInput = computed(() => {
+  return {
+    is: () => import('../input/QasInput.vue'),
+    props: defaultInputProps.value
+  }
+})
+
+const qasNumericInput = computed(() => {
+  const { places } = formattedField.value
+
+  return {
+    is: () => import('../numeric-input/QasNumericInput.vue'),
+    props: {
+      ...defaultInputProps.value,
+      places
+    }
+  }
+})
+
+const qasPasswordInput = computed(() => {
+  const { useStrengthChecker } = formattedField.value
+
+  return {
+    is: () => import('../password-input/QasPasswordInput.vue'),
+    props: {
+      ...defaultInputProps.value,
+      useStrengthChecker
+    }
+  }
+})
+
+const qasDateTimeInput = computed(() => {
+  const { useIso } = formattedField.value
+
+  return {
+    is: () => import('../date-time-input/QasDateTimeInput.vue'),
+    props: {
+      useIso,
+      ...defaultInputProps.value
+    }
+  }
+})
+
+const qasToggle = computed(() => {
+  const { label } = formattedField.value
+
+  return {
+    is: () => import('../toggle/QasToggle.vue'),
+    props: {
+      label,
+      ...errorPayload.value
+    }
+  }
+})
+
+const qasRadio = computed(() => {
+  const { label, options } = formattedField.value
+
+  return {
+    is: () => import('../radio/QasRadio.vue'),
+    props: {
+      label,
+      options
+    }
+  }
+})
+
+const qasCheckbox = computed(() => {
+  const { label, options, required } = formattedField.value
+
+  return {
+    is: () => import('../checkbox/QasCheckbox.vue'),
+    props: {
+      label,
+      options,
+      required,
+      ...errorPayload.value
+    }
+  }
+})
+
+const qasUploader = computed(() => {
+  const {
+    accept,
+    entity,
+    label,
+    multiple,
+    readonly,
+    maxFiles
+  } = formattedField.value
+
+  return {
+    is: () => import('../uploader/QasUploader.vue'),
+    props: {
+      accept,
+      autoUpload: true,
+      entity,
+      label,
+      multiple,
+      readonly,
+      maxFiles,
+      ...errorPayload.value
+    }
+  }
+})
+
+const qEditor = computed(() => {
+  return {
+    is: () => import('quasar').then(q => q.QEditor),
+    props: {
+      toolbar: [
+        ['undo', 'redo'],
+        ['bold', 'italic', 'underline'],
+        ['left', 'center', 'right', 'justify'],
+        ['hr', 'link'],
+        ['quote', 'unordered', 'ordered', 'outdent', 'indent'],
+        ['print', 'fullscreen']
+      ],
+      ...errorPayload.value
+    }
+  }
+})
+
+const qasSignatureUploader = computed(() => {
+  const { entity, label } = formattedField.value
+
+  return {
+    is: () => import('../signature-uploader/QasSignatureUploader.vue'),
+    props: {
+      uploaderProps: {
+        entity,
+        label,
+        ...errorPayload.value
+      }
+    }
+  }
+})
+
+const qasSelect = computed(() => {
+  const {
+    entity,
+    name,
+    multiple,
+    options,
+    useLazyLoading
+  } = formattedField.value
+
+  console.log('TCL: qasSelect -> name', options)
+  return {
+    is: () => import('../select/QasSelect.vue'),
+    props: {
+      entity,
+      name,
+      multiple,
+      options,
+      useLazyLoading,
+      ...defaultInputProps.value
+    }
+  }
+})
+
+const component = computed(() => {
+  const {
+    mask,
+    type,
+    name
+  } = formattedField.value
+
+  const profiles = {
+    default: {
+      is: qasInput.value.is,
+      props: {
+        ...qasInput.value.props,
+        mask
+      }
+    },
+
+    textarea: {
+      is: qasInput.value.is,
+      props: {
+        ...qasInput.value.props,
+        type: 'textarea'
+      }
+    },
+
+    number: {
+      is: qasInput.value.is,
+      props: {
+        ...qasInput.value.props,
+        type: 'number'
+      }
+    },
+
+    hidden: {
+      is: 'input',
+      props: {
+        name,
+        type: 'hidden'
+      }
+    },
+
+    email: {
+      is: qasInput.value.is,
+      props: {
+        ...qasInput.value.props,
+        type: 'email'
+      }
+    },
+
+    money: {
+      is: qasNumericInput.value.is,
+      props: {
+        ...qasNumericInput.value.props,
+        mode: 'money'
+      }
+    },
+
+    decimal: {
+      is: qasNumericInput.value.is,
+      props: {
+        ...qasNumericInput.value.props,
+        mode: 'decimal'
+      }
+    },
+
+    percent: {
+      is: qasNumericInput.value.is,
+      props: {
+        ...qasNumericInput.value.props,
+        mode: 'percent'
+      }
+    },
+
+    date: {
+      is: qasDateTimeInput.value.is,
+      props: {
+        ...qasDateTimeInput.value.props,
+        useDateOnly: true
+      }
+    },
+
+    time: {
+      is: qasDateTimeInput.value.is,
+      props: {
+        ...qasDateTimeInput.value.props,
+        useTimeOnly: true
+      }
+    },
+
+    checkbox: qasCheckbox.value,
+    password: qasPasswordInput.value,
+    select: qasSelect.value,
+    datetime: qasDateTimeInput.value,
+    boolean: qasToggle.value,
+    radio: qasRadio.value,
+    upload: qasUploader.value,
+    editor: qEditor.value,
+    'signature-uploader': qasSignatureUploader.value
+  }
+
+  const is = profiles[type]?.is || profiles.default?.is
+
+  const isDynamicImport = typeof is === 'function'
+
+  console.log('TCL: component -> attributes', attributes)
+  return {
+    is: isDynamicImport ? defineAsyncComponent(profiles[type]?.is || profiles.default?.is) : is,
+    props: {
+      ...(profiles[type]?.props || profiles.default?.props)
+      // ...attributes
+    }
+  }
+})
+
+// functions
+function updateModel (value) {
+  const isNumberType = props.field.type === 'number'
+
+  const newValue = isNumberType ? Number(value) : value
+
+  emit('update:modelValue', newValue)
 }
 </script>

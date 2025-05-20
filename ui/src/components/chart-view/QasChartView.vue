@@ -23,6 +23,9 @@
 </template>
 
 <script>
+import QasBox from '../box/QasBox.vue'
+console.log('TCL: QasBox', 'QasBox')
+
 // Importações do chart.js
 import {
   Chart as ChartJS,
@@ -332,7 +335,7 @@ export default {
 
     parentComponent () {
       return {
-        is: this.useBox ? 'qas-box' : 'div',
+        is: this.useBox ? QasBox : 'div',
 
         props: {
           ...(this.useBox && { ...this.boxProps })

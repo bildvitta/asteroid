@@ -25,6 +25,7 @@
 
 <script setup>
 import { useScreen } from '../../composables'
+console.log('TCL: useScreen')
 
 import { computed, useAttrs, useSlots } from 'vue'
 

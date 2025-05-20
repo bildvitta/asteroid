@@ -118,6 +118,11 @@ export default {
       type: Array
     },
 
+    prefix: {
+      type: String,
+      default: ''
+    },
+
     required: {
       type: Boolean
     },

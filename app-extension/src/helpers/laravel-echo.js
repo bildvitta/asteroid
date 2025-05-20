@@ -1,4 +1,4 @@
-import { isLocalDevelopment, handleProcess } from '@bildvitta/quasar-ui-asteroid/src/helpers'
+import { isLocalDevelopment, handleProcess } from '@bildvitta/quasar-ui-asteroid/src/helpers/index.js'
 
 import Echo from 'laravel-echo'
 import Pusher from 'pusher-js'
