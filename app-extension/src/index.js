@@ -75,6 +75,7 @@ function extendQuasar (quasar, api, asteroidConfigFile) {
 
 export default async function (api) {
   api.compatibleWith('quasar', '^2.0.0')
+  api.compatibleWith('date-fns', '^2.3.0')
 
   const asteroid = 'node_modules/@bildvitta/quasar-ui-asteroid/src/asteroid.js'
   const asteroidConfig = 'node_modules/@bildvitta/quasar-app-extension-asteroid/src/defaults/default-asteroid-config.js'
@@ -83,24 +84,34 @@ export default async function (api) {
 
   const { validate, getAsteroidConfigPath } = asteroidConfigHandler(api)
 
+  // valida se existe o arquivo de configuração do asteroid "asteroid.config.js"
   validate()
 
   const asteroidConfigPath = getAsteroidConfigPath()
   const { default: asteroidConfigFile } = await import(asteroidConfigPath)
 
+  const unpluginVueComponentsConfig = {
+    dirs: ['node_modules/@bildvitta/quasar-ui-asteroid/src/components'], // ajusta o path para a lib
+    extensions: ['vue'],
+    deep: true,
+    dts: false // desativa geração de types
+  }
+
+  const alias = {
+    'asteroid-config': api.resolve.app(asteroidConfig),
+    'asteroid-config-app': asteroidConfigPath,
+    'vue-router': api.resolve.app(vueRouter),
+    asteroid: api.resolve.app(asteroid),
+    quasar: api.resolve.app(quasar)
+  }
+
   if (api.hasVite) {
     api.compatibleWith('@quasar/app-vite', '^2.0.0')
 
     api.extendViteConf(viteConf => {
-      Object.assign(viteConf.resolve.alias, {
-        'asteroid-config': api.resolve.app(asteroidConfig),
-        'asteroid-config-app': asteroidConfigPath,
-        asteroid: api.resolve.app(asteroid),
-        'vue-router': api.resolve.app(vueRouter),
-        quasar: api.resolve.app(quasar)
-      })
+      Object.assign(viteConf.resolve.alias, alias)
 
-      // optimizeDeps
+      // optimizeDeps (necessário para funcionamento do QasMap)
       viteConf.optimizeDeps = viteConf.optimizeDeps || {}
       viteConf.optimizeDeps.include = viteConf.optimizeDeps.include || []
       viteConf.optimizeDeps.include.push(...[
@@ -109,14 +120,7 @@ export default async function (api) {
       ])
 
       viteConf.plugins = viteConf.plugins || []
-      viteConf.plugins.push(
-        ComponentsVite({
-          dirs: ['node_modules/@bildvitta/quasar-ui-asteroid/src/components'], // ajusta o path para a lib
-          extensions: ['vue'],
-          deep: true,
-          dts: false // desativa geração de types se não quiser
-        })
-      )
+      viteConf.plugins.push(ComponentsVite(unpluginVueComponentsConfig))
     })
 
     api.extendQuasarConf(quasar => extendQuasar(quasar, api, asteroidConfigFile))
@@ -127,37 +131,11 @@ export default async function (api) {
   api.compatibleWith('@quasar/app', '^3.10.0 || ^4.0.0')
 
   api.extendWebpack(webpack => {
-    // Adiciona um "alias" chamado "asteroid" para a aplicação
-
-    Object.assign(webpack.resolve.alias, {
-      'asteroid-config': api.resolve.app(asteroidConfig),
-      'asteroid-config-app': asteroidConfigPath,
-      asteroid: api.resolve.app(asteroid),
-      'vue-router': api.resolve.app(vueRouter),
-      quasar: api.resolve.app(quasar)
-    })
-
-    // webpack.resolve.alias = {
-    //   ...webpack.resolve.alias,
-
-    //   'asteroid-config': api.resolve.app(asteroidConfig),
-    //   'asteroid-config-app': asteroidConfigPath,
-    //   asteroid: api.resolve.app(asteroid),
-    //   'vue-router': api.resolve.app(vueRouter),
-    //   quasar: api.resolve.app(quasar)
-    // }
+    Object.assign(webpack.resolve.alias, alias)
 
     // Adiciona o plugin de componentes
     webpack.plugins = webpack.plugins || []
-
-    webpack.plugins.push(
-      ComponentsWebpack({
-        dirs: ['node_modules/@bildvitta/quasar-ui-asteroid/src/components'], // ajusta o path para a lib
-        extensions: ['vue'],
-        deep: true,
-        dts: false // desativa geração de types se não quiser
-      })
-    )
+    webpack.plugins.push(ComponentsWebpack(unpluginVueComponentsConfig))
   })
 
   api.extendQuasarConf(quasar => extendQuasar(quasar, api, asteroidConfigFile))
