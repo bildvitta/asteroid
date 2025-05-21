@@ -4,6 +4,7 @@ function releaseUi ({ execaSync, ora, publishCommands, packages }) {
   try {
     // reseta o cache do npm
     execaSync('npm', ['cache', 'clean', '--force'])
+    execaSync('npm', ['install'], { cwd: packages.ui.resolved })
 
     execaSync('npm', publishCommands, { cwd: packages.ui.resolved })
     publishSpinner.succeed('"ui" publicada')
