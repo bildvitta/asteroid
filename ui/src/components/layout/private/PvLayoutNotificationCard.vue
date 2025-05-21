@@ -31,6 +31,9 @@
 </template>
 
 <script setup>
+import QasBadge from '../../badge/QasBadge.vue'
+import QasBtn from '../../btn/QasBtn.vue'
+
 import { dateTime } from '../../../helpers/filters'
 
 import { computed } from 'vue'
