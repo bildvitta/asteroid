@@ -41,7 +41,12 @@
 </template>
 
 <script setup>
+import QasBadge from '../badge/QasBadge.vue'
 import QasBox from '../box/QasBox.vue'
+import QasBtn from '../btn/QasBtn.vue'
+import QasErrorMessage from '../error-message/QasErrorMessage.vue'
+import QasGridGenerator from '../grid-generator/QasGridGenerator.vue'
+import QasLabel from '../label/QasLabel.vue'
 
 import { baseErrorProps } from '../../composables/private/use-error-message'
 

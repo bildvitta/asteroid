@@ -37,6 +37,8 @@
 </template>
 
 <script setup>
+import QasLabel from '../label/QasLabel.vue'
+import QasBadge from '../badge/QasBadge.vue'
 import QasBtn from '../btn/QasBtn.vue'
 import QasActionsMenu from '../actions-menu/QasActionsMenu.vue'
 import QasFilters from '../filters/QasFilters.vue'

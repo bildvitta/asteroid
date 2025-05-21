@@ -3,6 +3,8 @@
 </template>
 
 <script setup>
+import QasSelect from '../select/QasSelect.vue'
+
 import useDefaultFilters from '../../composables/use-default-filters'
 
 import { extend } from 'quasar'

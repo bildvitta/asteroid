@@ -37,6 +37,7 @@
 <script>
 import QasBtn from '../btn/QasBtn.vue'
 import QasDialog from '../dialog/QasDialog.vue'
+import QasActions from '../actions/QasActions.vue'
 
 import { NotifyError, NotifySuccess } from '../../plugins'
 import { useHistory } from '../../composables'
@@ -54,6 +55,7 @@ export default {
   name: 'QasFormView',
 
   components: {
+    QasActions,
     QasBtn,
     QasDialog
   },

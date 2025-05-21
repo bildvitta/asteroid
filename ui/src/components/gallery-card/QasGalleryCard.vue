@@ -55,6 +55,10 @@
 </template>
 
 <script setup>
+import QasActionsMenu from '../actions-menu/QasActionsMenu.vue'
+import QasBox from '../box/QasBox.vue'
+import QasGridGenerator from '../grid-generator/QasGridGenerator.vue'
+
 import { computed, useSlots, inject } from 'vue'
 
 defineOptions({ name: 'QasGalleryCard' })
