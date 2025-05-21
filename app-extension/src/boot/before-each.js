@@ -1,45 +1,5 @@
 import useHistory from '@bildvitta/quasar-ui-asteroid/src/composables/use-history'
-
-/**
- * Função na qual valida os seguintes cenários:
- * 1 - Se estou indo para a mesma rota;
- * 2 - Se a rota tem o beforeEnter (normalmente usado com o método setDefaultFiltersBeforeEnter);
- * 3 - Se a rota de destino nao tem query.
- *
- * Devido o beforeEnter não ser chamado caso tente ir para a mesma rota (caso eu clique no menu ou no breadcrumbs), os filtros serao
- * perdidos. Sendo assim, necessário validar pelo beforeEach as regras acima, para assim eu garantir que quando eu for para a mesma tela,
- * eu tenha os filtros padrões aplicados (que são definidos no beforeEntar pelo método setDefaultFiltersBeforeEnter).
- *
- * @param {object} to - Rota de destino.
- * @param {object} from - Rota de origem.
- * @param {function} next - Função de redirecionamento.
- */
-function onBeforeEach (to, from, next) {
-  const isSameRoute = to.name === from.name
-  const hasBeforeEnter = to.matched.some(record => record.beforeEnter)
-
-  if (isSameRoute && hasBeforeEnter) {
-    const defaultFromQuery = from.meta.defaultQuery
-
-    // Caso for a mesma rota e tenha beforeEnter, necessário setar o to.meta também para não perder os filtros padrões.
-    to.meta = { ...to.meta, defaultQuery: defaultFromQuery }
-
-    const defaultQueryList = Object.keys(from.meta.defaultQuery || {})
-    const defaultQuery = {}
-
-    // Loopa com base na lista de filtros padrões da rota e seto as chaves com os filtros da rota de origem.
-    defaultQueryList.forEach(key => {
-      defaultQuery[key] = from.query[key]
-    })
-
-    const hasQuery = !!Object.keys(to.query).length
-
-    // Se a rota de destino nao tem query, eu redireciono para ela com os filtros padrões aplicados.
-    if (!hasQuery) return next({ ...to, query: defaultQuery, replace: true })
-  }
-
-  next()
-}
+import { setDefaultFiltersBeforeEach } from '@bildvitta/quasar-ui-asteroid/src/composables'
 
 export default ({ router }) => {
   router.beforeEach((to, from, next) => {
@@ -47,6 +7,6 @@ export default ({ router }) => {
 
     addRoute(to)
 
-    onBeforeEach(to, from, next)
+    setDefaultFiltersBeforeEach(to, from, next)
   })
 }

@@ -14,6 +14,9 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 ### Adicionado
 - `boot/before-each`: boot responsável por atualizar o histórico de rotas e validar filtros padrões ao ser redirecionado para mesma rota.
 
+### Modificado
+- `container.scss`: alterado tamanho máximo do container utilizado nas telas para 1920px.
+
 ### Removido
 - `boot/history`: removido boot de history, sendo que agora os métodos utilizados estão no boot `before-each.js`.
 
