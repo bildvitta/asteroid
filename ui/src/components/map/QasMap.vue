@@ -18,6 +18,7 @@
 
 <script setup>
 import { ref, onBeforeMount, getCurrentInstance } from 'vue'
+import { handleProcess } from '../../helpers'
 
 defineOptions({ name: 'QasMap' })
 
@@ -92,8 +93,10 @@ async function initializeMap () {
   // Importa o plugin dinamicamente
   const { default: VueGoogleMaps } = await import('@fawmi/vue-google-maps')
 
+  const key = handleProcess(() => process.env.MAPS_API_KEY)
+
   app.use(VueGoogleMaps, {
-    load: { libraries: 'places', key: process.env.MAPS_API_KEY }
+    load: { libraries: 'places', key }
   })
 
   counterKey.value += 1 // Force re-render to ensure the map is initialized
