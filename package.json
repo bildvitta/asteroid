@@ -1,7 +1,7 @@
 {
   "name": "@bildvitta/asteroid",
   "description": "Asteroid",
-  "version": "3.19.0-alpha.5",
+  "version": "3.19.0-alpha.6",
   "author": "Bild & Vitta <systemteam@bild.com.br>",
   "license": "MIT",
   "scripts": {
