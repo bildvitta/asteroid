@@ -1,5 +1,5 @@
 import { SessionStorage } from 'quasar'
-import { filterObject } from '../helpers'
+import filterObject from '../helpers/filter-object'
 
 let cachedFilters = SessionStorage.getItem('cachedFilters') || {}
 
