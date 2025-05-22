@@ -1,7 +1,7 @@
 {
   "name": "@bildvitta/quasar-ui-asteroid",
   "description": "Asteroid",
-  "version": "3.19.0-alpha.8",
+  "version": "3.19.0-alpha.9",
   "author": "Bild & Vitta <systemteam@bild.com.br>",
   "license": "MIT",
   "main": "dist/asteroid.cjs.min.js",
@@ -72,5 +72,13 @@
   "vetur": {
     "tags": "dist/vetur/asteroid-tags.json",
     "attributes": "dist/vetur/asteroid-attributes.json"
+  },
+  "findUnusedExports": {
+    "include": [
+      "./src/**/*.vue",
+      "./*.j",
+      "./src/*.js",
+      "**/*.js"
+    ]
   }
 }

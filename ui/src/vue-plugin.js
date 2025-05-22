@@ -76,7 +76,7 @@
 // import QasWelcome from './components/welcome/QasWelcome.vue'
 // import QasWhatsappLink from './components/whatsapp-link/QasWhatsappLink.vue'
 
-import { Notify, Loading, Quasar, Dialog as QuasarDialog } from 'quasar'
+// import { Notify, Loading, Quasar, Dialog as QuasarDialog } from 'quasar'
 
 import { getAction, getGetter } from '@bildvitta/store-adapter'
 
@@ -175,7 +175,7 @@ async function install (app) {
   // app.component('QasWelcome', QasWelcome)
   // app.component('QasWhatsappLink', QasWhatsappLink)
 
-  app.use(Quasar, { plugins: { Notify, Loading, QuasarDialog, Dialog } })
+  // app.use(Quasar, { plugins: { Notify, Loading, QuasarDialog, Dialog } })
 
   app.config.globalProperties.$qas = {
     delete: params => Delete.call(app.config.globalProperties, params),
