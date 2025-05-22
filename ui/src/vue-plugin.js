@@ -278,10 +278,10 @@ export {
   // QasWelcome,
 
   // plugins
-  Dialog,
-  NotifyError,
-  NotifySuccess,
-  Screen,
+  // Dialog,
+  // NotifyError,
+  // NotifySuccess,
+  // Screen,
 
   install
 }

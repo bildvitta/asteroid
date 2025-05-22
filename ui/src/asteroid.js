@@ -2,6 +2,7 @@ export * from './helpers'
 export * from './mixins'
 export * from './vue-plugin'
 export * from './composables'
+export * from './plugins'
 
 export { default as QasActions } from './components/actions/QasActions.vue'
 export { default as QasActionsMenu } from './components/actions-menu/QasActionsMenu.vue'
