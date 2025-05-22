@@ -117,7 +117,8 @@ export default async function (api) {
       viteConf.optimizeDeps.include = viteConf.optimizeDeps.include || []
       viteConf.optimizeDeps.include.push(...[
         '@fawmi/vue-google-maps',
-        'fast-deep-equal'
+        'fast-deep-equal',
+        'humps'
       ])
 
       viteConf.plugins = viteConf.plugins || []

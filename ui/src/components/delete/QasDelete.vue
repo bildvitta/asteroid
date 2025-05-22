@@ -7,6 +7,8 @@
 </template>
 
 <script setup>
+import QasBtn from '../btn/QasBtn.vue'
+
 import { inject, computed, useAttrs, useSlots } from 'vue'
 import { useRoute } from 'vue-router'
 
@@ -32,8 +34,8 @@ const props = defineProps({
   },
 
   tag: {
-    default: 'qas-btn',
-    type: String
+    default: QasBtn,
+    type: [String, Object]
   },
 
   url: {

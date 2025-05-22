@@ -1,5 +1,5 @@
 import { decamelize } from 'humps'
-import { isEqual } from 'lodash'
+import { isEqual } from 'lodash-es'
 import { getAction } from '@bildvitta/store-adapter'
 
 export default {
