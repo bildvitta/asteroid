@@ -1,7 +1,7 @@
 {
   "name": "@bildvitta/quasar-ui-asteroid",
   "description": "Asteroid",
-  "version": "3.19.0-alpha.10",
+  "version": "3.19.0-alpha.11",
   "author": "Bild & Vitta <systemteam@bild.com.br>",
   "license": "MIT",
   "main": "dist/asteroid.cjs.min.js",
@@ -34,7 +34,6 @@
     "autoprefixer": "^10.4.14",
     "core-js": "^3.30.2",
     "postcss": "^8.4.24",
-    "quasar": "^2.18.1",
     "rimraf": "^5.0.1",
     "rollup": "^3.23.1",
     "rollup-plugin-local-resolve": "^1.0.7",
@@ -64,7 +63,8 @@
     "vue-chartjs": "^5.2.0",
     "chart.js": "^4.3.0",
     "chartjs-plugin-datalabels": "^2.2.0",
-    "chartjs-plugin-zoom": "^2.0.1"
+    "chartjs-plugin-zoom": "^2.0.1",
+    "quasar": "^2.18.1"
   },
   "browserslist": [
     "defaults"
