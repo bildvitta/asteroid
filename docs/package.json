@@ -16,7 +16,7 @@
     "@algolia/autocomplete-js": "^1.9.2",
     "@algolia/autocomplete-theme-classic": "^1.9.2",
     "@bildvitta/composables": "^1.0.0-beta.7",
-    "@bildvitta/quasar-ui-asteroid": "file:../ui",
+    "@bildvitta/quasar-ui-asteroid": "file:../ui/src/asteroid.js",
     "@bildvitta/store-module": "^1.0.0-beta.10",
     "@bildvitta/vuex-offline": "^3.2.1",
     "@docsearch/css": "^3.4.0",

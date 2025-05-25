@@ -31,7 +31,8 @@
 <script>
 import QasActions from '../../actions/QasActions.vue'
 import QasBtn from '../../btn/QasBtn.vue'
-import QasField from '../../field/QasField.vue'
+
+import { defineAsyncComponent } from 'vue'
 
 export default {
   name: 'PvFiltersButton',
@@ -39,7 +40,7 @@ export default {
   components: {
     QasActions,
     QasBtn,
-    QasField
+    QasField: defineAsyncComponent(() => import('../../field/QasField.vue'))
   },
 
   props: {

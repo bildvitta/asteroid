@@ -28,8 +28,6 @@
 </template>
 
 <script setup>
-import QasBtnDropdown from '../btn-dropdown/QasBtnDropdown.vue'
-
 import useScreen from '../../composables/use-screen'
 
 import useDelete from './composables/use-delete'

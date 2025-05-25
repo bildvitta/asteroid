@@ -18,11 +18,14 @@
 
 <script>
 import QasDialog from '../dialog/QasDialog.vue'
-import QasUploader from '../uploader/QasUploader.vue'
 import QasSignaturePad from '../signature-pad/QasSignaturePad.vue'
 
 import { base64ToBlob } from '../../helpers'
 import { NotifyError } from '../../plugins'
+
+import { defineAsyncComponent } from 'vue'
+
+const QasUploader = defineAsyncComponent(() => import('../uploader/QasUploader.vue'))
 
 export default {
   name: 'QasSignatureUploader',

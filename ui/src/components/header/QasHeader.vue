@@ -41,12 +41,13 @@ import QasLabel from '../label/QasLabel.vue'
 import QasBadge from '../badge/QasBadge.vue'
 import QasBtn from '../btn/QasBtn.vue'
 import QasActionsMenu from '../actions-menu/QasActionsMenu.vue'
-import QasFilters from '../filters/QasFilters.vue'
 
 import { Spacing } from '../../enums/Spacing'
 import { gutterValidator } from '../../helpers/private/gutter-validator'
 
-import { computed, useSlots } from 'vue'
+import { computed, useSlots, defineAsyncComponent } from 'vue'
+
+const QasFilters = defineAsyncComponent(() => import('../filters/QasFilters.vue'))
 
 defineOptions({ name: 'QasHeader' })
 

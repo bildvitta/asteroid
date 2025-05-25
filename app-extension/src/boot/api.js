@@ -8,7 +8,7 @@ export default async ({ app }) => {
   // Defaults
   api.defaults.baseURL = process.env.SERVER_BASE_URL || '/'
 
-  api.defaults.timeout = asteroidConfig.api.serverTimeout
+  api.defaults.timeout = asteroidConfig?.api?.serverTimeout
 
   // Transformers
   api.defaults.transformResponse = [

@@ -1,8 +1,17 @@
-import asteroidConfigApp from 'asteroid-config-app'
+// import asteroidConfigApp from 'asteroid-config-app'
 
-import defaultAsteroidConfig from '../templates/js/asteroid.config.js'
+// import defaultAsteroidConfig from '../templates/js/asteroid.config.js'
 
 export default {
-  ...defaultAsteroidConfig,
-  ...asteroidConfigApp
+  api: {
+    serverTimeout: 10000
+  },
+
+  framework: {
+    featureToggle: {
+      useNotifications: true
+    }
+  }
+  // ...defaultAsteroidConfig,
+  // ...asteroidConfigApp
 }

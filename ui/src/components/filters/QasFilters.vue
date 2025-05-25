@@ -37,7 +37,6 @@
 <script>
 import QasBadge from '../badge/QasBadge.vue'
 import QasSearchInput from '../search-input/QasSearchInput.vue'
-import PvFiltersButton from './private/PvFiltersButton.vue'
 
 import debug from 'debug'
 
@@ -46,7 +45,11 @@ import { humanize, parseValue } from '../../helpers/filters.js'
 import contextMixin from '../../mixins/context.js'
 import { getState, getAction } from '@bildvitta/store-adapter'
 
+import { defineAsyncComponent } from 'vue'
+
 const log = debug('asteroid-ui:qas-filters')
+
+const PvFiltersButton = defineAsyncComponent(() => import('./private/PvFiltersButton.vue'))
 
 export default {
   name: 'QasFilters',

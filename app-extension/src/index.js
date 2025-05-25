@@ -1,6 +1,10 @@
 import ComponentsVite from 'unplugin-vue-components/vite'
 import ComponentsWebpack from 'unplugin-vue-components/webpack'
 
+import {
+  QuasarResolver
+} from 'unplugin-vue-components/resolvers'
+
 import asteroidConfigHandler from './helpers/asteroid-config-handler.js'
 
 const sourcePath = '~@bildvitta/quasar-app-extension-asteroid/src/'
@@ -11,14 +15,14 @@ function extendQuasar (quasar, api, asteroidConfigFile) {
   // https://quasar.dev/quasar-cli-vite/boot-files#introduction
   quasar.boot.push(...resolve(
     'boot/api.js',
-    'boot/debug.js',
-    'boot/error-pages.js',
-    'boot/font-face.js',
-    'boot/register.js',
-    'boot/history.js',
-    'boot/loading.js',
-    'boot/query-cache.js',
-    'boot/store-adapter.js'
+    // 'boot/debug.js',
+    // 'boot/error-pages.js',
+    // 'boot/font-face.js',
+    'boot/register.js'
+    // 'boot/history.js',
+    // 'boot/loading.js',
+    // 'boot/query-cache.js',
+    // 'boot/store-adapter.js'
   ))
 
   // controle das notificações
@@ -69,6 +73,8 @@ function extendQuasar (quasar, api, asteroidConfigFile) {
     'material-symbols-rounded'
   )
 
+  quasar.framework.directives.push('ClosePopup')
+
   quasar.framework.iconSet = 'material-symbols-rounded'
   quasar.framework.lang = 'pt-BR'
 }
@@ -77,25 +83,40 @@ export default async function (api) {
   api.compatibleWith('quasar', '^2.0.0')
   api.compatibleWith('date-fns', '^2.3.0')
 
-  const asteroid = 'node_modules/@bildvitta/quasar-ui-asteroid/src/asteroid.js'
-  const asteroidComponents = 'node_modules/@bildvitta/quasar-ui-asteroid/src/components'
+  const asteroid = 'node_modules/@bildvitta/quasar-ui-asteroid/dist/asteroid-build.es.js'
+  // const asteroidComponents = 'node_modules/@bildvitta/quasar-ui-asteroid/src/components'
   const asteroidConfig = 'node_modules/@bildvitta/quasar-app-extension-asteroid/src/defaults/default-asteroid-config.js'
   const vueRouter = 'node_modules/vue-router/dist/vue-router.esm-bundler.js'
   const quasar = 'node_modules/quasar'
 
-  const { validate, getAsteroidConfigPath } = asteroidConfigHandler(api)
+  const { getAsteroidConfigPath } = asteroidConfigHandler(api)
 
   // valida se existe o arquivo de configuração do asteroid "asteroid.config.js"
-  validate()
+  // validate()
 
   const asteroidConfigPath = getAsteroidConfigPath()
+  console.log('TCL: asteroidConfigPath acai aqui')
   const { default: asteroidConfigFile } = await import(asteroidConfigPath)
 
+  // Configure unplugin-vue-components
   const unpluginVueComponentsConfig = {
-    dirs: [api.resolve.app(asteroidComponents)], // ajusta o path para a lib
-    extensions: ['vue'],
+    dirs: [api.resolve.app('node_modules/@bildvitta/quasar-ui-asteroid/dist')], // pointing to the dist folder where built components are
+    extensions: ['js', 'vue'],
     deep: true,
-    dts: false // desativa geração de types
+    dts: false, // disable types generation
+    resolvers: [
+      name => {
+        // Custom resolver for built components
+        if (name.startsWith('Qas')) {
+          return { name, from: api.resolve.app(asteroid) }
+        }
+      },
+
+      QuasarResolver({
+        importStyle: false,
+        sassVariables: false
+      })
+    ]
   }
 
   const alias = {

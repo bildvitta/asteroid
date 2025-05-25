@@ -1,5 +1,6 @@
 import { Loading } from 'quasar'
-import { NotifySuccess, NotifyError } from '../plugins'
+import NotifySuccess from '../plugins/notify-success/NotifySuccess'
+import NotifyError from '../plugins/notify-error/NotifyError'
 
 /** Função para lidar com promises, por exemplo requests.
  *

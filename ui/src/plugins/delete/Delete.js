@@ -1,4 +1,7 @@
-import { Dialog, NotifySuccess, NotifyError } from 'asteroid'
+import Dialog from '../dialog/Dialog'
+import NotifySuccess from '../notify-success/NotifySuccess'
+import NotifyError from '../notify-error/NotifyError'
+
 import { Loading } from 'quasar'
 import { getAction } from '@bildvitta/store-adapter'
 import { useHistory } from '../../composables'

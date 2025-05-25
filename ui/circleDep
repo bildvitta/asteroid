@@ -1,0 +1,7 @@
+{
+	"../app-extension/src/defaults/default-asteroid-config.js": [
+		[
+			"../app-extension/src/defaults/default-asteroid-config.js"
+		]
+	]
+}

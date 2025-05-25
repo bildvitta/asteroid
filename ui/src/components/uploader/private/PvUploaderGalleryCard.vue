@@ -20,9 +20,12 @@
 
 <script>
 import QasDialog from '../../dialog/QasDialog.vue'
-import QasFormGenerator from '../../form-generator/QasFormGenerator.vue'
 import QasGalleryCard from '../../gallery-card/QasGalleryCard.vue'
 import QasGridGenerator from '../../grid-generator/QasGridGenerator.vue'
+
+import { defineAsyncComponent } from 'vue'
+
+const QasFormGenerator = defineAsyncComponent(() => import('../../form-generator/QasFormGenerator.vue'))
 
 import downloadFile from '../../../helpers/download-file.js'
 
