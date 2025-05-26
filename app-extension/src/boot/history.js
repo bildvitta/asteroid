@@ -1,4 +1,4 @@
-import useHistory from '@bildvitta/quasar-ui-asteroid/src/composables/use-history.js'
+import { useHistory } from 'asteroid'
 
 export default ({ router }) => {
   router.beforeEach((to, from, next) => {
