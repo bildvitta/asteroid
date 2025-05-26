@@ -44,7 +44,7 @@ function extendQuasar (quasar, api, asteroidConfigFile) {
   // quasar.build.vueLoaderOptions.whitespace = 'preserve'
 
   // Adiciona todas classes do asteroid
-  // quasar.css.push(...resolve('index.scss'))
+  quasar.css.push(...resolve('index.scss'))
 
   // Adiciona todos os Plugins obrigatório do Quasar
   const plugins = [

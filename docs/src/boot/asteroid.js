@@ -1,4 +1,4 @@
-import AsteroidPlugin from '@bildvitta/quasar-ui-asteroid/src/index.esm.js'
+import { install } from '@bildvitta/quasar-ui-asteroid/src/asteroid'
 import fontFace from 'asteroid-boot/font-face.js'
 import debug from 'asteroid-boot/debug.js'
 
@@ -9,7 +9,7 @@ import { InitializeGlobalStores } from '@bildvitta/store-adapter'
 
 export default boot(config => {
   config.app.use(InitializeGlobalStores)
-  config.app.use(AsteroidPlugin)
+  config.app.use(install)
 
   // adicionado para componentes que usam `inject` terem acesso ao axios e não quebrar na doc.
   config.app.provide('axios', axios)
