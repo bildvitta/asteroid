@@ -121,7 +121,10 @@ export default async function (api) {
         'humps',
         'debug',
         'pica',
-        'hammerjs'
+        'hammerjs',
+        'lodash-es',
+        'date-fns',
+        'date-fns/locale'
       ])
 
       viteConf.plugins = viteConf.plugins || []
