@@ -40,8 +40,6 @@
 
 <script setup>
 import QasBox from '../box/QasBox.vue'
-import QasBtn from '../btn/QasBtn.vue'
-import QasHeader from '../header/QasHeader.vue'
 
 import { gutterValidator } from '../../helpers/private/gutter-validator'
 import useGenerator, { baseProps } from '../../composables/private/use-generator'

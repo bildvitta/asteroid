@@ -35,9 +35,6 @@
 </template>
 
 <script>
-import QasBadge from '../badge/QasBadge.vue'
-import QasSearchInput from '../search-input/QasSearchInput.vue'
-
 import debug from 'debug'
 
 import { camelize, camelizeKeys, decamelize } from 'humps'
@@ -55,9 +52,7 @@ export default {
   name: 'QasFilters',
 
   components: {
-    PvFiltersButton,
-    QasBadge,
-    QasSearchInput
+    PvFiltersButton
   },
 
   mixins: [contextMixin],

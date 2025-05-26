@@ -17,7 +17,7 @@ export default {
       return {
         code: '403',
         description: 'Parece que você não tem permissão para acessar esta página. \n Sugerimos que entre em contato com o administrador.',
-        imagePath: require('../assets/big-shoes-walking-the-dog.svg'),
+        imagePath: new URL('../assets/big-shoes-walking-the-dog.svg', import.meta.url).href,
         buttonProps: {
           to: { path: '/' },
           label: 'Voltar ao início'

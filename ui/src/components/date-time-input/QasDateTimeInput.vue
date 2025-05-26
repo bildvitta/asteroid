@@ -17,10 +17,6 @@
 </template>
 
 <script setup>
-import QasInput from '../input/QasInput.vue'
-import QasDate from '../date/QasDate.vue'
-import QasBtn from '../btn/QasBtn.vue'
-
 import { date as dateFn, getPlaceholder } from '../../helpers'
 
 import { date } from 'quasar'

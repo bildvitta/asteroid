@@ -11,16 +11,8 @@
 </template>
 
 <script>
-import QasFormGenerator from '../form-generator/QasFormGenerator.vue'
-import QasFormView from '../form-view/QasFormView.vue'
-
 export default {
   name: 'QasTreeForm',
-
-  components: {
-    QasFormGenerator,
-    QasFormView
-  },
 
   props: {
     formGeneratorProps: {

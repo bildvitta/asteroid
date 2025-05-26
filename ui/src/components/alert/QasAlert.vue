@@ -28,7 +28,6 @@
 </template>
 
 <script setup>
-import QasBox from '../box/QasBox.vue'
 import QasBtn from '../btn/QasBtn.vue'
 
 import { Status, StatusColor } from '../../enums/Status'

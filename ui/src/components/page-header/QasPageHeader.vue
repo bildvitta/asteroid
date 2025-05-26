@@ -25,8 +25,6 @@
 </template>
 
 <script setup>
-import QasHeader from '../header/QasHeader.vue'
-
 import { castArray } from 'lodash-es'
 import { computed } from 'vue'
 import { useMeta } from 'quasar'

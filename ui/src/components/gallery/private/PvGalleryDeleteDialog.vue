@@ -3,8 +3,6 @@
 </template>
 
 <script setup>
-import QasDialog from '../../dialog/QasDialog.vue'
-
 import { promiseHandler } from '../../../helpers'
 import useDelete, { baseProps } from '../composables/use-delete'
 

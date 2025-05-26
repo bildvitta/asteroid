@@ -34,8 +34,6 @@
 
 <script setup>
 import QasBox from '../box/QasBox.vue'
-import QasGridItem from '../grid-item/QasGridItem.vue'
-import QasHeader from '../header/QasHeader.vue'
 
 import useGenerator, { baseProps } from '../../composables/private/use-generator'
 import { isEmpty, humanize } from '../../helpers'

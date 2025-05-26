@@ -51,18 +51,8 @@
 <script>
 import { extend } from 'quasar'
 
-import QasBtn from '../btn/QasBtn.vue'
-import QasLabel from '../label/QasLabel.vue'
-import QasSearchBox from '../search-box/QasSearchBox.vue'
-
 export default {
   name: 'QasTransfer',
-
-  components: {
-    QasBtn,
-    QasLabel,
-    QasSearchBox
-  },
 
   props: {
     emitValue: {

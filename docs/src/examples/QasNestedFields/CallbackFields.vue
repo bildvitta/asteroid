@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import filterObject from '@bildvitta/quasar-ui-asteroid/src/helpers/filter-object'
+import { filterObject } from 'asteroid'
 
 const nested = {
   name: 'nested',

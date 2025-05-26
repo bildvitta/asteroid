@@ -10,18 +10,12 @@
 </template>
 
 <script>
-import QasBtn from '../btn/QasBtn.vue'
-
 import { uid } from 'quasar'
 import { isEqual } from 'lodash-es'
 import SignaturePad from 'signature_pad'
 
 export default {
   name: 'QasSignaturePad',
-
-  components: {
-    QasBtn
-  },
 
   props: {
     empty: {

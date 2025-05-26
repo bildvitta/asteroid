@@ -113,8 +113,6 @@
 
 <script setup>
 import PvAppMenuDropdown from './private/PvAppMenuDropdown.vue'
-import QasAppUser from '../app-user/QasAppUser.vue'
-import QasBtn from '../btn/QasBtn.vue'
 
 import useAppMenuDropdown from './composables/use-app-menu-dropdown'
 import useAppUser from './composables/use-app-user'

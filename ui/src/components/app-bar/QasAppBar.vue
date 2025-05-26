@@ -21,9 +21,6 @@
 </template>
 
 <script setup>
-import QasAppUser from '../app-user/QasAppUser.vue'
-import QasBtn from '../btn/QasBtn.vue'
-
 import { useScreen } from '../../composables'
 
 import { computed } from 'vue'

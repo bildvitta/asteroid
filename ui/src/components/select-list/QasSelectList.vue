@@ -24,18 +24,12 @@
 
 <script>
 import { sortBy } from 'lodash-es'
-
-import QasBtn from '../btn/QasBtn.vue'
-import QasSearchBox from '../search-box/QasSearchBox.vue'
 import PvSelectListCheckbox from './private/PvSelectListCheckbox.vue'
 
 export default {
   name: 'QasSelectList',
 
   components: {
-    QasBtn,
-    QasSearchBox,
-
     // private
     PvSelectListCheckbox
   },

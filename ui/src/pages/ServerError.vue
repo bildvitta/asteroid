@@ -17,7 +17,7 @@ export default {
       return {
         code: '500',
         description: 'Ops... O sistema está passando por uma instabilidade. \n Já identificamos o problema e estamos trabalhando na solução.',
-        imagePath: require('../assets/big-shoes-sitting-on-rock.svg'),
+        imagePath: new URL('../assets/big-shoes-sitting-on-rock.svg', import.meta.url).href,
         buttonProps: {
           to: { path: '/' },
           label: 'Voltar ao início'

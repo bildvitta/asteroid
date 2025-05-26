@@ -68,12 +68,6 @@
 </template>
 
 <script>
-import QasBtn from '../btn/QasBtn.vue'
-import QasDialog from '../dialog/QasDialog.vue'
-import QasField from '../field/QasField.vue'
-import QasNestedFields from '../nested-fields/QasNestedFields.vue'
-import QasTreeForm from './QasTreeForm.vue'
-
 import destroyNestedChildrenByKey from '../../helpers/destroy-nested-children-by-key.js'
 import findChildrenByKey from '../../helpers/find-children-by-key.js'
 import promiseHandler from '../../helpers/promise-handler.js'
@@ -84,14 +78,6 @@ import axios from 'axios'
 
 export default {
   name: 'QasTreeGenerator',
-
-  components: {
-    QasBtn,
-    QasDialog,
-    QasField,
-    QasNestedFields,
-    QasTreeForm
-  },
 
   props: {
     formGeneratorProps: {

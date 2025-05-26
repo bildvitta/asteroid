@@ -3,8 +3,6 @@
 </template>
 
 <script setup>
-import QasCheckbox from '../../checkbox/QasCheckbox.vue'
-
 defineOptions({ name: 'PvSelectListCheckbox' })
 
 const props = defineProps({

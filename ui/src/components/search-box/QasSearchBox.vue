@@ -31,9 +31,6 @@
 </template>
 
 <script>
-import QasBox from '../box/QasBox.vue'
-import QasSearchInput from '../search-input/QasSearchInput.vue'
-import QasEmptyResultText from '../empty-result-text/QasEmptyResultText.vue'
 
 import { QInfiniteScroll } from 'quasar'
 import Fuse from 'fuse.js'
@@ -44,9 +41,6 @@ export default {
   name: 'QasSearchBox',
 
   components: {
-    QasBox,
-    QasSearchInput,
-    QasEmptyResultText,
     QInfiniteScroll
   },
 

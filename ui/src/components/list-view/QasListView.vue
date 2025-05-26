@@ -41,10 +41,6 @@
 </template>
 
 <script>
-import QasEmptyResultText from '../empty-result-text/QasEmptyResultText.vue'
-import QasFilters from '../filters/QasFilters.vue'
-import QasPagination from '../pagination/QasPagination.vue'
-
 import { viewMixin, contextMixin } from '../../mixins'
 
 import debug from 'debug'
@@ -55,12 +51,6 @@ import { computed } from 'vue'
 const log = debug('asteroid-ui:qas-list-view')
 
 export default {
-  components: {
-    QasEmptyResultText,
-    QasFilters,
-    QasPagination
-  },
-
   mixins: [contextMixin, viewMixin],
 
   provide () {

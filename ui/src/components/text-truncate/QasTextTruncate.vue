@@ -38,9 +38,6 @@
 </template>
 
 <script setup>
-import QasBadge from '../badge/QasBadge.vue'
-import QasBtn from '../btn/QasBtn.vue'
-import QasDialog from '../dialog/QasDialog.vue'
 import QasSearchBox from '../search-box/QasSearchBox.vue'
 
 import { baseProps } from '../../shared/badge-config'

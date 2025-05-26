@@ -59,13 +59,7 @@
 </template>
 
 <script>
-import QasActionsMenu from '../actions-menu/QasActionsMenu.vue'
-import QasBtn from '../btn/QasBtn.vue'
 import QasBox from '../box/QasBox.vue'
-import QasFormGenerator from '../form-generator/QasFormGenerator.vue'
-import QasInput from '../input/QasInput.vue'
-import QasLabel from '../label/QasLabel.vue'
-import QasHeader from '../header/QasHeader.vue'
 
 import { constructObject } from '../../helpers'
 import { Spacing, SpacingWithNumber } from '../../enums/Spacing'
@@ -80,13 +74,7 @@ export default {
   name: 'QasNestedFields',
 
   components: {
-    QasActionsMenu,
-    QasBtn,
     QasBox,
-    QasFormGenerator,
-    QasInput,
-    QasLabel,
-    QasHeader,
 
     // Vue
     TransitionGroup

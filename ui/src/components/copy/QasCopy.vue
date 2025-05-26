@@ -14,8 +14,6 @@
 </template>
 
 <script setup>
-import QasBtn from '../btn/QasBtn.vue'
-
 import { copyToClipboard } from '../../helpers'
 import { ref } from 'vue'
 

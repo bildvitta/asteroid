@@ -19,17 +19,10 @@
 </template>
 
 <script>
-import QasInput from '../input/QasInput.vue'
 import passwordMixin from '../../mixins/password.js'
-import QasPasswordStrengthChecker from '../password-strength-checker/QasPasswordStrengthChecker.vue'
 
 export default {
   name: 'QasPasswordInput',
-
-  components: {
-    QasInput,
-    QasPasswordStrengthChecker
-  },
 
   mixins: [passwordMixin],
 

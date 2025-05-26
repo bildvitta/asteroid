@@ -9,8 +9,6 @@
 </template>
 
 <script setup>
-import QasStepper from '../stepper/QasStepper.vue'
-
 import { ref, provide, computed } from 'vue'
 
 defineOptions({ name: 'QasStepperFormView' })

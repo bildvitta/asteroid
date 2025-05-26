@@ -24,9 +24,6 @@
 
 <script>
 import QasBox from '../box/QasBox.vue'
-import QasEmptyResultText from '../empty-result-text/QasEmptyResultText.vue'
-import QasFilters from '../filters/QasFilters.vue'
-import QasHeader from '../header/QasHeader.vue'
 
 // Importações do chart.js
 import {
@@ -69,10 +66,7 @@ export default {
     BarChart,
     DoughnutChart,
     LineChart,
-    QasBox,
-    QasEmptyResultText,
-    QasFilters,
-    QasHeader
+    QasBox
   },
 
   props: {

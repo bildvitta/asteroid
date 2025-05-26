@@ -11,25 +11,31 @@ import {
 export default defineConfig({
   plugins: [
     vue(),
-    {
-      name: 'singleHMR',
-      handleHotUpdate ({ modules, file }) {
-        if (file.match(/xml$/)) return []
-        modules.map(m => {
-          m.importedModules = new Set()
-          m.importers = new Set()
-        })
+    // {
+    //   name: 'singleHMR',
+    //   handleHotUpdate ({ modules, file }) {
+    //     if (file.match(/xml$/)) return []
+    //     modules.map(m => {
+    //       m.importedModules = new Set()
+    //       m.importers = new Set()
+    //     })
 
-        return modules
-      }
-    },
+    //     return modules
+    //   }
+    // },
     // circleDependency(),
     Components({
       resolvers: [
         QuasarResolver({
           importStyle: false,
           sassVariables: false
-        })
+        }),
+        // criar resolver para os components no /src/components
+        name => {
+          if (name.startsWith('Qas')) {
+            return { name, from: path.resolve(__dirname, 'src/asteroid.js') }
+          }
+        }
       ],
       extensions: ['js', 'vue'],
       dts: true,

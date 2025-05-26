@@ -38,10 +38,6 @@
 </template>
 
 <script>
-import QasEmptyResultText from '../empty-result-text/QasEmptyResultText.vue'
-// import QasHeader from '../header/QasHeader.vue'
-import QasErrorMessage from '../error-message/QasErrorMessage.vue'
-
 import { baseErrorProps } from '../../composables/private/use-error-message'
 import { getImageSize, getResizeDimensions } from '../../helpers/images.js'
 
@@ -55,10 +51,7 @@ export default {
   name: 'QasUploader',
 
   components: {
-    PvUploaderGalleryCard: defineAsyncComponent(() => import('./private/PvUploaderGalleryCard.vue')),
-    QasEmptyResultText,
-    QasHeader: defineAsyncComponent(() => import('../header/QasHeader.vue')),
-    QasErrorMessage
+    PvUploaderGalleryCard: defineAsyncComponent(() => import('./private/PvUploaderGalleryCard.vue'))
   },
 
   inheritAttrs: false,

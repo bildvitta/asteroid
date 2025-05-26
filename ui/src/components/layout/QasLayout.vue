@@ -24,8 +24,6 @@
 
 <script setup>
 import PvLayoutNotificationsDrawer from './private/PvLayoutNotificationsDrawer.vue'
-import QasAppBar from '../app-bar/QasAppBar.vue'
-import QasAppMenu from '../app-menu/QasAppMenu.vue'
 
 import useScreen from '../../composables/use-screen'
 import useNotifications from '../../composables/use-notifications'

@@ -1,4 +1,4 @@
-import AsteroidPlugin from '@bildvitta/quasar-ui-asteroid/src/index.esm.js'
+import * as AsteroidPlugin from 'asteroid'
 import fontFace from 'asteroid-boot/font-face.js'
 import debug from 'asteroid-boot/debug.js'
 

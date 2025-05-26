@@ -35,10 +35,6 @@
 </template>
 
 <script>
-import QasBtn from '../btn/QasBtn.vue'
-import QasDialog from '../dialog/QasDialog.vue'
-import QasActions from '../actions/QasActions.vue'
-
 import { NotifyError, NotifySuccess } from '../../plugins'
 import { useHistory } from '../../composables'
 import { viewMixin } from '../../mixins'
@@ -53,12 +49,6 @@ const log = debug('asteroid-ui:qas-form-view')
 
 export default {
   name: 'QasFormView',
-
-  components: {
-    QasActions,
-    QasBtn,
-    QasDialog
-  },
 
   mixins: [viewMixin],
 

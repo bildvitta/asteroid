@@ -31,8 +31,6 @@
 
 <script setup>
 import QasBox from '../box/QasBox.vue'
-import QasBtn from '../btn/QasBtn.vue'
-import QasLabel from '../label/QasLabel.vue'
 
 import { computed } from 'vue'
 

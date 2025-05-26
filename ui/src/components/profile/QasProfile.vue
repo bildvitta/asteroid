@@ -26,18 +26,8 @@
 <script>
 import filterObject from '../../helpers/filter-object'
 
-import QasAvatar from '../avatar/QasAvatar.vue'
-import QasBox from '../box/QasBox.vue'
-import QasGridGenerator from '../grid-generator/QasGridGenerator.vue'
-
 export default {
   name: 'QasProfile',
-
-  components: {
-    QasAvatar,
-    QasBox,
-    QasGridGenerator
-  },
 
   props: {
     columns: {

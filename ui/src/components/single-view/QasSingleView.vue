@@ -25,8 +25,6 @@
 </template>
 
 <script setup>
-import QasEmptyResultText from '../empty-result-text/QasEmptyResultText.vue'
-
 import useView, { baseProps, baseEmits } from '../../composables/private/use-view'
 
 import debug from 'debug'

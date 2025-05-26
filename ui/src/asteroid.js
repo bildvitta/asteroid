@@ -4,6 +4,7 @@ export * from './vue-plugin'
 export * from './composables'
 export * from './plugins'
 
+// components
 export { default as QasActions } from './components/actions/QasActions.vue'
 export { default as QasActionsMenu } from './components/actions-menu/QasActionsMenu.vue'
 export { default as QasAlert } from './components/alert/QasAlert.vue'
@@ -78,6 +79,15 @@ export { default as QasToggle } from './components/toggle/QasToggle.vue'
 export { default as QasToggleVisibility } from './components/toggle-visibility/QasToggleVisibility.vue'
 export { default as QasTransfer } from './components/transfer/QasTransfer.vue'
 export { default as QasTreeGenerator } from './components/tree-generator/QasTreeGenerator.vue'
+export { default as QasTreeForm } from './components/tree-generator/QasTreeForm.vue'
 export { default as QasUploader } from './components/uploader/QasUploader.vue'
 export { default as QasWelcome } from './components/welcome/QasWelcome.vue'
 export { default as QasWhatsappLink } from './components/whatsapp-link/QasWhatsappLink.vue'
+export { default as QasMap } from './components/map/QasMap.vue'
+export { default as QasChartView } from './components/chart-view/QasChartView.vue'
+
+// pages
+export { default as Forbidden } from './pages/Forbidden.vue'
+export { default as NotFound } from './pages/NotFound.vue'
+export { default as ServerError } from './pages/ServerError.vue'
+export { default as Unauthorized } from './pages/Unauthorized.vue'

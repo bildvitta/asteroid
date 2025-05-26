@@ -15,14 +15,14 @@ function extendQuasar (quasar, api, asteroidConfigFile) {
   // https://quasar.dev/quasar-cli-vite/boot-files#introduction
   quasar.boot.push(...resolve(
     'boot/api.js',
-    // 'boot/debug.js',
-    // 'boot/error-pages.js',
-    // 'boot/font-face.js',
-    'boot/register.js'
-    // 'boot/history.js',
-    // 'boot/loading.js',
-    // 'boot/query-cache.js',
-    // 'boot/store-adapter.js'
+    'boot/debug.js',
+    'boot/error-pages.js',
+    'boot/font-face.js',
+    'boot/register.js',
+    'boot/history.js',
+    'boot/loading.js',
+    'boot/query-cache.js',
+    'boot/store-adapter.js'
   ))
 
   // controle das notificações
@@ -38,8 +38,8 @@ function extendQuasar (quasar, api, asteroidConfigFile) {
     )
 
     transpileTarget.push(
-      /quasar-app-extension-asteroid[\\/]src/,
-      /@bildvitta[\\/]quasar-ui-asteroid[\\/]src/
+      /@bildvitta[\\/]quasar-ui-asteroid[\\/]dist[\\/]asteroid-build\.es\.js/
+      // /@bildvitta[\\/]quasar-ui-asteroid[\\/]src/
     )
   }
 
@@ -84,6 +84,7 @@ export default async function (api) {
   api.compatibleWith('date-fns', '^2.3.0')
 
   const asteroid = 'node_modules/@bildvitta/quasar-ui-asteroid/dist/asteroid-build.es.js'
+  const asteroidAssets = 'node_modules/@bildvitta/quasar-ui-asteroid/assets'
   // const asteroidComponents = 'node_modules/@bildvitta/quasar-ui-asteroid/src/components'
   const asteroidConfig = 'node_modules/@bildvitta/quasar-app-extension-asteroid/src/defaults/default-asteroid-config.js'
   const vueRouter = 'node_modules/vue-router/dist/vue-router.esm-bundler.js'
@@ -95,12 +96,11 @@ export default async function (api) {
   // validate()
 
   const asteroidConfigPath = getAsteroidConfigPath()
-  console.log('TCL: asteroidConfigPath acai aqui')
   const { default: asteroidConfigFile } = await import(asteroidConfigPath)
 
   // Configure unplugin-vue-components
   const unpluginVueComponentsConfig = {
-    dirs: [api.resolve.app('node_modules/@bildvitta/quasar-ui-asteroid/dist')], // pointing to the dist folder where built components are
+    dirs: [api.resolve.app(asteroid)], // pointing to the dist folder where built components are
     extensions: ['js', 'vue'],
     deep: true,
     dts: false, // disable types generation
@@ -124,6 +124,7 @@ export default async function (api) {
     'asteroid-config-app': asteroidConfigPath,
     'vue-router': api.resolve.app(vueRouter),
     asteroid: api.resolve.app(asteroid),
+    'asteroid-assets': api.resolve.app(asteroidAssets),
     quasar: api.resolve.app(quasar)
   }
 

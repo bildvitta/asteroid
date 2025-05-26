@@ -1,14 +1,14 @@
-export default function ({ router }) {
+export default async function ({ router }) {
   const routes = [
     {
       name: 'Forbidden',
       path: '/',
-      component: () => import('@bildvitta/quasar-ui-asteroid/src/pages/Forbidden.vue')
+      component: () => import('asteroid').then(module => module.Forbidden)
     },
     {
       name: 'ServerError',
       path: '/',
-      component: () => import('@bildvitta/quasar-ui-asteroid/src/pages/ServerError.vue')
+      component: () => import('asteroid').then(module => module.ServerError)
     }
   ]
 
@@ -16,7 +16,7 @@ export default function ({ router }) {
     routes.push({
       name: 'NotFound',
       path: '/:catchAll(.*)*',
-      component: () => import('@bildvitta/quasar-ui-asteroid/src/pages/NotFound.vue')
+      component: () => import('asteroid').then(module => module.NotFound)
     })
   }
 

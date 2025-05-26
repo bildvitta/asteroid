@@ -9,9 +9,6 @@
 </template>
 
 <script setup>
-import QasLabel from '../label/QasLabel.vue'
-import QasErrorMessage from '../error-message/QasErrorMessage.vue'
-
 import useErrorMessage, { baseErrorProps } from '../../composables/private/use-error-message'
 import useScreen from '../../composables/use-screen'
 

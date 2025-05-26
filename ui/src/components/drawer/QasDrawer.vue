@@ -33,9 +33,6 @@
 </template>
 
 <script setup>
-import QasDialog from '../dialog/QasDialog.vue'
-import QasBtn from '../btn/QasBtn.vue'
-
 import useScreen from '../../composables/use-screen.js'
 
 import { computed, useAttrs } from 'vue'

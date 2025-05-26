@@ -19,8 +19,6 @@
 </template>
 
 <script setup>
-import QasStatus from '../status/QasStatus.vue'
-
 import { decimal } from '../../helpers'
 
 import { computed } from 'vue'

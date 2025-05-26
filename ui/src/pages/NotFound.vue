@@ -17,7 +17,7 @@ export default {
       return {
         code: '404',
         description: 'A página que você está tentando acessar está indisponível ou não existe.',
-        imagePath: require('../assets/big-shoes-hero.svg'),
+        imagePath: new URL('../assets/big-shoes-hero.svg', import.meta.url).href,
         buttonProps: {
           to: { path: '/' },
           label: 'Voltar ao início'

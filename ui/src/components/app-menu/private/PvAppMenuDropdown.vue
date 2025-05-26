@@ -17,8 +17,6 @@
 </template>
 
 <script setup>
-import QasBtnDropdown from '../../btn-dropdown/QasBtnDropdown.vue'
-
 import { computed } from 'vue'
 
 defineOptions({ name: 'PvAppMenuDropdown' })

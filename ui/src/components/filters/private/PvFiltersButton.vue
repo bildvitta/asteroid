@@ -29,19 +29,8 @@
 </template>
 
 <script>
-import QasActions from '../../actions/QasActions.vue'
-import QasBtn from '../../btn/QasBtn.vue'
-
-import { defineAsyncComponent } from 'vue'
-
 export default {
   name: 'PvFiltersButton',
-
-  components: {
-    QasActions,
-    QasBtn,
-    QasField: defineAsyncComponent(() => import('../../field/QasField.vue'))
-  },
 
   props: {
     color: {

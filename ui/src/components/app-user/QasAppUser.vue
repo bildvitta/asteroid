@@ -69,9 +69,6 @@
 </template>
 
 <script setup>
-import QasAvatar from '../avatar/QasAvatar.vue'
-import QasSelect from '../select/QasSelect.vue'
-
 import useNotifications from '../../composables/use-notifications'
 import useQueryCache from '../../composables/use-query-cache'
 import useScreen from '../../composables/use-screen'

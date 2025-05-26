@@ -11,15 +11,15 @@
     "src"
   ],
   "sideEffects": false,
-  "main": "./dist/asteroid.es.js",
+  "main": "./dist/asteroid.cjs.js",
   "module": "./dist/asteroid.es.js",
   "exports": {
     ".": {
       "import": "./dist/asteroid.es.js",
       "require": "./dist/asteroid-build.cjs.js"
     },
-    "./plugin": "./src/vue-plugin.js",
     "./scss": "./src/index.scss",
+    "./src": "./src",
     "./styles": "./dist/assets/asteroid-build.css"
   },
   "scripts": {

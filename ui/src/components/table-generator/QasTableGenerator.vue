@@ -31,8 +31,6 @@
 <script>
 import PvTableGeneratorTd from './private/PvTableGeneratorTd.vue'
 import QasBox from '../box/QasBox.vue'
-import QasEmptyResultText from '../empty-result-text/QasEmptyResultText.vue'
-import QasHeader from '../header/QasHeader.vue'
 
 import { extend } from 'quasar'
 import { isEmpty, humanize, setScrollOnGrab, setScrollGradient } from '../../helpers'
@@ -42,9 +40,7 @@ export default {
 
   components: {
     PvTableGeneratorTd,
-    QasBox,
-    QasEmptyResultText,
-    QasHeader
+    QasBox
   },
 
   props: {
