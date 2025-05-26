@@ -1,5 +1,5 @@
 import useHistory from '@bildvitta/quasar-ui-asteroid/src/composables/use-history'
-import { setDefaultFiltersBeforeEach } from '@bildvitta/quasar-ui-asteroid'
+import { setDefaultFiltersBeforeEach } from '@bildvitta/quasar-ui-asteroid/src/composables'
 
 export default ({ router }) => {
   router.beforeEach((to, from, next) => {
