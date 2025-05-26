@@ -9,7 +9,6 @@ function releaseAppExtension ({ execaSync, ora, nextVersion, publishCommands, pa
 
   try {
     // reseta o cache do npm
-    execaSync('npm', ['install'], { cwd: packages['app-extension'].resolved })
     execaSync('npm', ['cache', 'clean', '--force'])
 
     // publica a nova versão do "app-extension"
