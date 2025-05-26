@@ -13,6 +13,13 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 ## Não publicado
 ### Adicionado
 - `QasReportsFilters`: adicionado componente responsável por lidar com filtros em relatórios.
+- `boot/before-each`: boot responsável por atualizar o histórico de rotas e validar filtros padrões ao ser redirecionado para mesma rota.
+
+### Modificado
+- `container.scss`: alterado tamanho máximo do container utilizado nas telas para 1920px.
+
+### Removido
+- `boot/history`: removido boot de history, sendo que agora os métodos utilizados estão no boot `before-each.js`.
 
 ## [3.18.0-beta.5] - 13-05-2025
 ### Adicionado
