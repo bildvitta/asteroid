@@ -6,6 +6,7 @@ export * from './vue-plugin'
 export * from './composables'
 export * from './plugins'
 
+// components
 export const QasActions = defineAsyncComponent(() => import('./components/actions/QasActions.vue'))
 export const QasActionsMenu = defineAsyncComponent(() => import('./components/actions-menu/QasActionsMenu.vue'))
 export const QasAlert = defineAsyncComponent(() => import('./components/alert/QasAlert.vue'))
@@ -83,3 +84,6 @@ export const QasTreeGenerator = defineAsyncComponent(() => import('./components/
 export const QasUploader = defineAsyncComponent(() => import('./components/uploader/QasUploader.vue'))
 export const QasWelcome = defineAsyncComponent(() => import('./components/welcome/QasWelcome.vue'))
 export const QasWhatsappLink = defineAsyncComponent(() => import('./components/whatsapp-link/QasWhatsappLink.vue'))
+export const QasReportsFilters = defineAsyncComponent(() => import('./components/reports-filters/QasReportsFilters.vue'))
+export const QasMap = defineAsyncComponent(() => import('./components/map/QasMap.vue'))
+export const QasChartView = defineAsyncComponent(() => import('./components/chart-view/QasChartView.vue'))
