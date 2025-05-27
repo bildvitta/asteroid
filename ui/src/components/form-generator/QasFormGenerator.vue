@@ -3,15 +3,15 @@
     <div v-for="(fieldsetItem, fieldsetItemKey) in normalizedFields" :key="fieldsetItemKey" :class="getFieldSetColumnClass(fieldsetItem.column)">
       <component :is="containerComponent.is" v-bind="containerComponent.props">
         <slot v-if="fieldsetItem.__hasFieldset" :name="`legend-${fieldsetItemKey}`">
-          <qas-header v-if="fieldsetItem.__hasHeader" v-bind="getHeaderProps(fieldsetItem)" />
+          <qas-header v-if="fieldsetItem.__hasHeader" v-bind="getHeaderProps({ values: fieldsetItem })" />
         </slot>
 
         <div>
-          <slot :fields="fieldsetItem.fields?.visible" :name="`legend-section-${fieldsetItemKey}`">
+          <slot :fields="getVisibleFields(fieldsetItem)" :name="`legend-section-${fieldsetItemKey}`">
             <div class="q-col-gutter-md row">
               <div class="col">
                 <div :class="fieldContainerClasses">
-                  <div v-for="(field, key) in fieldsetItem.fields.visible" :key="key" :class="getFieldClass({ index: key, fields: normalizedFields })">
+                  <div v-for="(field, key) in getVisibleFields(fieldsetItem)" :key="key" :class="getFieldClass({ index: key, fields: normalizedFields })">
                     <slot :field="field" :name="`field-${field.name}`">
                       <qas-field :disable="isFieldDisabled(field)" v-bind="props.fieldsProps[field.name]" :error="props.errors[key]" :field="field" :model-value="props.modelValue[field.name]" @update:model-value="updateModelValue({ key: field.name, value: $event })" />
                     </slot>
@@ -21,6 +21,26 @@
 
               <div v-if="hasButtonProps(fieldsetItem)" class="col-12 col-sm-auto items-end justify-end row">
                 <qas-btn v-bind="fieldsetItem.buttonProps" />
+              </div>
+            </div>
+
+            <div v-if="fieldsetItem.__hasSubset" class="column q-col-gutter-y-xl q-mt-none">
+              <div v-for="(subsetItem, subsetKey) in fieldsetItem.subset" :key="subsetKey" class="col-12">
+                <slot :name="`legend-${fieldsetItemKey}-${subsetKey}`">
+                  <qas-header v-if="subsetItem.__hasHeader" v-bind="getHeaderProps({ values: subsetItem, isSubset: true} )" />
+                </slot>
+
+                <slot :fields="subsetItem.fields" :name="`legend-section-${fieldsetItemKey}-${subsetKey}`">
+                  <div :class="fieldContainerClasses">
+                    <div v-for="(field, key) in subsetItem.fields" :key="key" :class="getFieldClass({ index: key, fields: subsetItem.fields })">
+                      <slot :field="field" :name="`field-${field.name}`">
+                        <qas-field :disable="isFieldDisabled(field)" v-bind="props.fieldsProps[field.name]" :error="props.errors[key]" :field :model-value="props.modelValue[field.name]" @update:model-value="updateModelValue({ key: field.name, value: $event })" />
+                      </slot>
+                    </div>
+                  </div>
+                </slot>
+
+                <slot :name="`legend-bottom-${fieldsetItemKey}-${subsetKey}`" />
               </div>
             </div>
 
@@ -101,6 +121,7 @@ const props = defineProps({
   }
 })
 
+// emits
 const emit = defineEmits(['update:modelValue'])
 
 provide('isFormGenerator', true)
@@ -112,11 +133,10 @@ const { fieldsetClasses, hasFieldset } = useFieldset({ props })
 
 const screen = useScreen()
 
-// constants
+// globals
 const hasNestedFormGenerator = inject('isFormGenerator', false)
 
-// computed
-
+// computeds
 /**
  * Se o QasFormGenerator tiver um elemento acima que também é um QasFormGenerator,
  * mesmo que a propriedade useBox seja true, o componente não deve renderizar o box.
@@ -169,51 +189,69 @@ const normalizedFields = computed(() => {
     }
   }
 
-  const fields = {}
+  return getNormalizedFields(props.fieldset)
+})
 
-  for (const fieldsetKey in props.fieldset) {
-    const fieldsetItem = props.fieldset[fieldsetKey]
+/**
+ * Função recursiva na qual se é utilizada para definir a estrutura de um fieldset e também de um subset (presente dentro do fieldset).
+ *
+ * @param items {Object} items - Objeto contendo a estrutura de um fieldset ou subset
+ */
+function getNormalizedFields (items) {
+  const result = {}
 
+  for (const key in items) {
+    const item = items[key]
+
+    // Propriedades que são recebidas em cada fieldset / subset desconstruida
     const {
       label,
       description,
+      headerProps,
       column,
       buttonProps,
-      headerProps
-    } = fieldsetItem
+      fields = [],
+      subset = {}
+    } = item
 
+    // Valida caso tenha um header
     const hasHeader = !!(label || description || Object.keys(headerProps || {}).length)
 
-    fields[fieldsetKey] = {
+    // Valida caso tenha um subset dentro de um fieldset
+    const hasSubset = !!Object.keys(subset).length
+
+    // Estrutura de um fieldset e subset
+    const structure = {
       label,
       description,
       column,
       buttonProps,
-      fields: { hidden: {}, visible: {} },
       headerProps,
+      fields: {},
+      subset: hasSubset ? getNormalizedFields(subset) : {},
 
-      // Indica que existe um fieldset para que o legend-bottom possa ser renderizado.
-      __hasFieldset: true,
-
-      // Indica que existe props para que o header seja renderizado.
-      __hasHeader: hasHeader
+      // Propriedades auxiliares para controle na view
+      __hasHeader: hasHeader,
+      __hasSubset: hasSubset,
+      __hasFieldset: true
     }
 
-    fieldsetItem.fields.forEach(fieldName => {
-      const field = props.fields[fieldName]
+    // Percorre as lista de fields (keys) que estão dentro do fieldset / subset
+    fields.forEach(fieldKey => {
+      // Encontra dentro da prop fields o field correspondente a key
+      const field = props.fields[fieldKey]
 
       if (!field) return
 
-      const fieldType = getFieldType(field)
-
-      Object.assign(fields[fieldsetKey].fields[fieldType], {
-        [fieldName]: field
-      })
+      // Adiciona o field ao fields da estrutura
+      Object.assign(structure.fields, { [fieldKey]: field })
     })
+
+    result[key] = structure
   }
 
-  return fields
-})
+  return result
+}
 
 const fieldContainerClasses = computed(() => {
   return [
@@ -229,16 +267,31 @@ function getFieldType ({ type }) {
   return type === 'hidden' ? 'hidden' : 'visible'
 }
 
-function getHeaderProps (fieldsetItem) {
-  return {
-    description: fieldsetItem.description,
+/**
+ * Retorna as propriedades de um header.
+ *
+ * @param {Object} values - Contém as propriedades de um fieldset/subset.
+ * @param {Boolean} isSubset - Verifica se o header será usado em um subset.
+ *
+ * @returns {Object} Retorna as propriedades do header.
+ */
+function getHeaderProps ({ values, isSubset }) {
+  const typography = isSubset ? 'h5' : 'h4'
 
+  // Separa as propriedades de label e o restante.
+  const { labelProps, ...headerProps } = values.headerProps || {}
+
+  return {
+    description: values.description,
+
+    // Mesmo que passado a tipografia no headerProps, a tipografia é sobreposta para manter a hierarquia sempre.
     labelProps: {
-      ...fieldsetItem.headerProps?.labelProps,
-      ...(fieldsetItem.label && { label: fieldsetItem.label })
+      ...labelProps,
+      ...(values.label && { label: values.label }),
+      typography
     },
 
-    ...fieldsetItem.headerProps
+    ...headerProps
   }
 }
 
@@ -275,5 +328,26 @@ function useFieldset ({ props }) {
     fieldsetClasses,
     hasFieldset
   }
+}
+
+/**
+ * Caso não tenha um fieldset definido, os fields são separados entre "visible" e "hidden"
+ *
+ * @param fieldsetItem {Object} fieldsetItem - Objeto contendo a estrutura de um fieldset
+ */
+function getVisibleFields (fieldsetItem) {
+  if (!fieldsetItem.__hasFieldset) return fieldsetItem.fields?.visible
+
+  const fields = {}
+
+  for (const key in fieldsetItem.fields) {
+    const field = fieldsetItem.fields[key]
+    const fieldType = getFieldType(field)
+    const isVisible = fieldType === 'visible'
+
+    if (isVisible) { fields[key] = field }
+  }
+
+  return fields
 }
 </script>

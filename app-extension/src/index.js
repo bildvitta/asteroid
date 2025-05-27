@@ -15,10 +15,10 @@ function extendQuasar (quasar, api, asteroidConfigFile) {
     'boot/error-pages.js',
     'boot/font-face.js',
     'boot/register.js',
-    'boot/history.js',
     'boot/loading.js',
     'boot/query-cache.js',
-    'boot/store-adapter.js'
+    'boot/store-adapter',
+    'boot/before-each.js'
   ))
 
   // controle das notificações

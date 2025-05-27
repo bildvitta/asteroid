@@ -1,9 +1,11 @@
-import { useHistory } from 'asteroid'
+import { useHistory, setDefaultFiltersBeforeEach } from 'asteroid'
 
 export default ({ router }) => {
   router.beforeEach((to, from, next) => {
     const { addRoute } = useHistory()
+
     addRoute(to)
-    next()
+
+    setDefaultFiltersBeforeEach(to, from, next)
   })
 }
