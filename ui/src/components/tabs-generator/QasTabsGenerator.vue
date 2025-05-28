@@ -24,7 +24,7 @@ import QasStatus from '../status/QasStatus.vue'
 import { decimal } from '../../helpers'
 
 import { computed } from 'vue'
-import { extend } from 'quasar'
+import { extend, QRouteTab, QTab } from 'quasar'
 
 defineOptions({ name: 'QasTabsGenerator' })
 
@@ -81,7 +81,7 @@ const formattedTabs = computed(() => {
   return tabs
 })
 
-const tabComponent = computed(() => props.useRouteTab ? 'q-route-tab' : 'q-tab')
+const tabComponent = computed(() => props.useRouteTab ? QRouteTab : QTab)
 
 // functions
 function getFormattedLabel ({ label, counter, value }) {

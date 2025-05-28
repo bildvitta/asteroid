@@ -15,6 +15,7 @@ import QasErrorMessage from '../error-message/QasErrorMessage.vue'
 import useErrorMessage, { baseErrorProps } from '../../composables/private/use-error-message'
 import useScreen from '../../composables/use-screen'
 
+import { QRadio, QOptionGroup } from 'quasar'
 import { computed, useAttrs } from 'vue'
 
 defineOptions({
@@ -58,7 +59,7 @@ const component = computed(() => {
   const { ...payloadProps } = attrs
 
   return {
-    is: isOptionGroup.value ? 'q-option-group' : 'q-radio',
+    is: isOptionGroup.value ? QOptionGroup : QRadio,
 
     props: {
       ...payloadProps,
