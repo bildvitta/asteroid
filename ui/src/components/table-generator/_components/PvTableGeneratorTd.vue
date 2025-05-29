@@ -7,6 +7,8 @@ import { computed, defineAsyncComponent } from 'vue'
 
 defineOptions({ name: 'PvTableGeneratorProps' })
 
+const QasActionsMenu = defineAsyncComponent(() => import('../../actions-menu/QasActionsMenu.vue'))
+
 const props = defineProps({
   componentData: {
     type: Object,
@@ -34,7 +36,7 @@ const component = computed(() => {
 
   const componentPaths = {
     QasActionsMenu: {
-      component: () => import('../../actions-menu/QasActionsMenu.vue'),
+      component: QasActionsMenu,
       props: {}
     },
 
@@ -86,20 +88,39 @@ const component = computed(() => {
   // Os componentes abaixo precisam adicionar o stopPropagation e preventDefault no click para nao chamar o rowClick ou rowRouteFn
   const hasPreventEvent = ['QasActionsMenu', 'QasBtn'].includes(props.componentData.component)
 
+  if (hasPreventEvent) {
+    return {
+      is: QasActionsMenu,
+      props: {
+        ...componentPaths[props.componentData.component].props,
+        ...props.componentData.props,
+
+        ...(hasPreventEvent && {
+          onClick: event => {
+            event.stopPropagation()
+            event.preventDefault()
+
+            props.componentData.props?.onClick?.(event)
+          }
+        })
+      }
+    }
+  }
+
   return {
     is: defineAsyncComponent(componentPaths[props.componentData.component].component),
     props: {
       ...componentPaths[props.componentData.component].props,
-      ...props.componentData.props,
+      ...props.componentData.props
 
-      ...(hasPreventEvent && {
-        onClick: event => {
-          event.stopPropagation()
-          event.preventDefault()
+      // ...(hasPreventEvent && {
+      //   onClick: event => {
+      //     event.stopPropagation()
+      //     event.preventDefault()
 
-          props.componentData.props?.onClick?.(event)
-        }
-      })
+      //     props.componentData.props?.onClick?.(event)
+      //   }
+      // })
     }
   }
 })
