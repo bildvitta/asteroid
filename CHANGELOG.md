@@ -12,6 +12,8 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 
 ## Não publicado
 ### Corrigido
+- `QasBtn`: ajustado espaçamento do botão, estava causando quebra em alguns lugares como no menu da aplicação.
+- `PvTableGeneratorTd`: corrigido forma de import dos componentes utilizados na tabela, os imports foram removidos da computada, o que fazia com que o componente fosse renderizado novamente sempre que a computada atualizava.
 - `setDefaultFiltersBeforeEach`: corrigido método utilizado no before each de cada rota para validar caso tenha um filtro padrão a ser aplicado, pois antes caso eu tivesse um beforeEnter sem utilizar um `setDefaultFiltersBeforeEnter`, quebrava o redirecionamento.
 
 ## [3.18.0-beta.6] - 27-05-2025

@@ -5,7 +5,7 @@
       <slot :name="name" v-bind="context || {}" />
     </template>
 
-    <div class="items-center justify-center no-wrap row text-center" :class="containerClasses">
+    <div class="items-center justify-between no-wrap row text-center" :class="containerClasses">
       <q-spinner v-if="hasLeftSpinner" :class="iconClasses" size="sm" />
 
       <q-icon v-if="hasIcon" :class="iconClasses" :name="props.icon" />
