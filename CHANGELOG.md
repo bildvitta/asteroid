@@ -10,6 +10,10 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 ### Sobre os "BREAKING CHANGES"
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
+## Não publicado
+### Corrigido
+- `PvTableGeneratorTd`: corrigido forma de import dos componentes utilizados na tabela, os imports foram removidos da computada, o que fazia com que o componente fosse renderizado novamente sempre que a computada atualizava.
+
 ## [3.18.0-beta.6] - 27-05-2025
 ### Adicionado
 - `QasReportsFilters`: adicionado componente responsável por lidar com filtros em relatórios.
