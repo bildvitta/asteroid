@@ -118,10 +118,10 @@ export function setDefaultFiltersBeforeEnter (to, _from, next, queryList = ['com
  */
 export function setDefaultFiltersBeforeEach (to, from, next) {
   const isSameRoute = to.name === from.name
-  const hasBeforeEnter = to.matched.some(record => record.beforeEnter)
+  const hasBeforeEnter = () => to.matched.some(record => record.beforeEnter)
   const defaultFiltersFromQuery = from.meta.defaultFilters
 
-  if (isSameRoute && hasBeforeEnter && !!defaultFiltersFromQuery) {
+  if (isSameRoute && !!defaultFiltersFromQuery && hasBeforeEnter()) {
     // Caso for a mesma rota e tenha beforeEnter, necessário setar o to.meta também para não perder os filtros padrões.
     to.meta = { ...to.meta, defaultFilters: defaultFiltersFromQuery }
 
