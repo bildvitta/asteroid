@@ -105,7 +105,8 @@ export function setDefaultFiltersBeforeEnter (to, _from, next, queryList = ['com
  * Função na qual valida os seguintes cenários:
  * 1 - Se estou indo para a mesma rota;
  * 2 - Se a rota tem o beforeEnter (normalmente usado com o método setDefaultFiltersBeforeEnter);
- * 3 - Se a rota de destino nao tem query.
+ * 3 - Se a rota de destino tem filtros padrões.
+ * 4 - Se a rota de destino nao tem query.
  *
  * Devido o beforeEnter não ser chamado caso tente ir para a mesma rota (caso eu clique no menu ou no breadcrumbs), os filtros serao
  * perdidos. Sendo assim, necessário validar pelo beforeEach as regras acima, para assim eu garantir que quando eu for para a mesma tela,
@@ -118,10 +119,9 @@ export function setDefaultFiltersBeforeEnter (to, _from, next, queryList = ['com
 export function setDefaultFiltersBeforeEach (to, from, next) {
   const isSameRoute = to.name === from.name
   const hasBeforeEnter = to.matched.some(record => record.beforeEnter)
+  const defaultFiltersFromQuery = from.meta.defaultFilters
 
-  if (isSameRoute && hasBeforeEnter) {
-    const defaultFiltersFromQuery = from.meta.defaultFilters
-
+  if (isSameRoute && hasBeforeEnter && !!defaultFiltersFromQuery) {
     // Caso for a mesma rota e tenha beforeEnter, necessário setar o to.meta também para não perder os filtros padrões.
     to.meta = { ...to.meta, defaultFilters: defaultFiltersFromQuery }
 
