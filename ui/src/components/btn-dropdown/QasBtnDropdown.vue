@@ -33,7 +33,7 @@
 <script setup>
 import useScreen from '../../composables/use-screen'
 
-import { ref, watch, computed, useSlots, onMounted, onUnmounted } from 'vue'
+import { ref, watch, computed, useSlots } from 'vue'
 
 defineOptions({
   name: 'QasBtnDropdown',
@@ -121,16 +121,9 @@ const splittedButtonProps = computed(() => {
   }
 })
 
-console.log('created')
-
 watch(() => props.menu, value => {
-  console.log('<--- watch')
   isMenuOpened.value = value
 }, { immediate: true })
-
-onMounted(() => console.log('onMounted'))
-
-onUnmounted(() => console.log('onUnmounted'))
 
 function onUpdateMenuValue (value) {
   emit('update:menu', value)
