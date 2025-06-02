@@ -7,6 +7,14 @@ import { computed, defineAsyncComponent } from 'vue'
 
 defineOptions({ name: 'PvTableGeneratorProps' })
 
+const QasActionsMenu = defineAsyncComponent(() => import('../../actions-menu/QasActionsMenu.vue'))
+const QasBadge = defineAsyncComponent(() => import('../../badge/QasBadge.vue'))
+const QasBtn = defineAsyncComponent(() => import('../../btn/QasBtn.vue'))
+const QasCopy = defineAsyncComponent(() => import('../../copy/QasCopy.vue'))
+const QasStatus = defineAsyncComponent(() => import('../../status/QasStatus.vue'))
+const QasTextTruncate = defineAsyncComponent(() => import('../../text-truncate/QasTextTruncate.vue'))
+const QasToggleVisibility = defineAsyncComponent(() => import('../../toggle-visibility/QasToggleVisibility.vue'))
+
 const props = defineProps({
   componentData: {
     type: Object,
@@ -34,38 +42,38 @@ const component = computed(() => {
 
   const componentPaths = {
     QasActionsMenu: {
-      component: () => import('../../actions-menu/QasActionsMenu.vue'),
+      component: QasActionsMenu,
       props: {}
     },
 
     QasBadge: {
-      component: () => import('../../badge/QasBadge.vue'),
+      component: QasBadge,
       props: {
         label: defaultValue
       }
     },
 
     QasBtn: {
-      component: () => import('../../btn/QasBtn.vue'),
+      component: QasBtn,
       props: {
         label: defaultValue
       }
     },
 
     QasCopy: {
-      component: () => import('../../copy/QasCopy.vue'),
+      component: QasCopy,
       props: {
         text: defaultValue
       }
     },
 
     QasStatus: {
-      component: () => import('../../status/QasStatus.vue'),
+      component: QasStatus,
       props: {}
     },
 
     QasTextTruncate: {
-      component: () => import('../../text-truncate/QasTextTruncate.vue'),
+      component: QasTextTruncate,
       props: {
         dialogTitle: props.label,
         maxWidth: 260,
@@ -76,7 +84,7 @@ const component = computed(() => {
     },
 
     QasToggleVisibility: {
-      component: () => import('../../toggle-visibility/QasToggleVisibility.vue'),
+      component: QasToggleVisibility,
       props: {
         text: defaultValue
       }
@@ -86,10 +94,12 @@ const component = computed(() => {
   // Os componentes abaixo precisam adicionar o stopPropagation e preventDefault no click para nao chamar o rowClick ou rowRouteFn
   const hasPreventEvent = ['QasActionsMenu', 'QasBtn'].includes(props.componentData.component)
 
+  const componentPath = componentPaths[props.componentData.component]
+
   return {
-    is: defineAsyncComponent(componentPaths[props.componentData.component].component),
+    is: componentPath.component,
     props: {
-      ...componentPaths[props.componentData.component].props,
+      ...componentPath.props,
       ...props.componentData.props,
 
       ...(hasPreventEvent && {

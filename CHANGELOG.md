@@ -10,6 +10,12 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 ### Sobre os "BREAKING CHANGES"
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
+## [3.18.0-beta.7] - 30-05-2025
+### Corrigido
+- `QasBtn`: ajustado espaçamento do botão, estava causando quebra em alguns lugares como no menu da aplicação.
+- `PvTableGeneratorTd`: corrigido forma de import dos componentes utilizados na tabela, os imports foram removidos da computada, o que fazia com que o componente fosse renderizado novamente sempre que a computada atualizava.
+- `setDefaultFiltersBeforeEach`: corrigido método utilizado no before each de cada rota para validar caso tenha um filtro padrão a ser aplicado, pois antes caso eu tivesse um beforeEnter sem utilizar um `setDefaultFiltersBeforeEnter`, quebrava o redirecionamento.
+
 ## [3.18.0-beta.6] - 27-05-2025
 ### Adicionado
 - `QasReportsFilters`: adicionado componente responsável por lidar com filtros em relatórios.
@@ -3896,3 +3902,4 @@ Adicionado suporte para Pinia/Vuex Seguindo os padrões da biblioteca `@bildvitt
 [3.18.0-beta.4]: https://github.com/bildvitta/asteroid/compare/v3.18.0-beta.3...v3.18.0-beta.4?expand=1
 [3.18.0-beta.5]: https://github.com/bildvitta/asteroid/compare/v3.18.0-beta.4...v3.18.0-beta.5?expand=1
 [3.18.0-beta.6]: https://github.com/bildvitta/asteroid/compare/v3.19.0-alpha.18...v3.18.0-beta.6?expand=1
+[3.18.0-beta.7]: https://github.com/bildvitta/asteroid/compare/v3.19.0-alpha.20...v3.18.0-beta.7?expand=1
