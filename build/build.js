@@ -211,7 +211,6 @@ async function main () {
     ora,
     execaSync,
     nextVersion,
-    isBeta,
     packages
   })
 
