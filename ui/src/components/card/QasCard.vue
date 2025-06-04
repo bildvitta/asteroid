@@ -100,12 +100,7 @@ const contentClasses = computed(() => {
   }
 })
 
-const boxCardClasses = computed(() => {
-  return {
-    'rounded-borders-right': props.statusColor,
-    'rounded-borders': !props.statusColor
-  }
-})
+const boxCardClasses = computed(() => props.statusColor ? 'rounded-borders-right' : 'rounded-borders')
 
 const titleComponent = computed(() => hasRoute.value ? 'router-link' : 'h5')
 
