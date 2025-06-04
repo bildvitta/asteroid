@@ -1,6 +1,6 @@
 <template>
   <div class="container spaced">
-    <div class="bg-red q-col-gutter-md q-pa-xl row">
+    <div class="q-col-gutter-md row">
       <div class="col-4">
         <qas-card :route="{ name: 'Root' }" title="Titulo">
           <template #default>
@@ -24,7 +24,7 @@
       <div class="col-4">
         <qas-card
           :actions-menu-props="actionsMenuProps" :expansion-props="expansionProps" :route="{ name: 'Root' }"
-          status-color="green-14" title="Titulo" use-expansion
+          status-color="red-14" title="Titulo" use-expansion
         >
           <template #default>
             <div>
