@@ -12,7 +12,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 
 ## Não publicado
 ### Modificado
-- `QasCard`: Modificado espaçamentos do card.
+- `QasCard`: Modificado espaçamento vertical do card, será `sm` somente caso tenha status ou o expansivo.
 
 ### Corrigido
 - `QasCard`: Corrigido borda à esquerda dos cards que não possuem status.

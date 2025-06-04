@@ -1,6 +1,6 @@
 <template>
   <div class="qas-card">
-    <qas-box :class="boxCardClasses" v-bind="boxProps">
+    <qas-box :class="boxClasses" v-bind="boxProps">
       <q-card class="column full-height overflow-hidden shadow-0">
         <div class="full-width items-center justify-between no-wrap row">
           <component :is="titleComponent" class="ellipsis text-h5 text-no-decoration" :class="titleClasses" :to="route">
@@ -77,6 +77,8 @@ const boxProps = computed(() => {
   return {
     outlined: isInsideBox,
     unelevated: isInsideBox,
+
+    // Terá o padding vertical menor se for um card com status ou tiver o expansion.
     spacingY: (props.statusColor || hasExpansion.value) ? 'sm' : 'md',
     style: style.value
   }
@@ -94,13 +96,9 @@ const titleClasses = computed(() => {
   }
 })
 
-const contentClasses = computed(() => {
-  return {
-    'q-mb-sm': hasFooter.value
-  }
-})
+const contentClasses = computed(() => hasFooter.value && 'q-mb-sm')
 
-const boxCardClasses = computed(() => props.statusColor ? 'rounded-borders-right' : 'rounded-borders')
+const boxClasses = computed(() => props.statusColor ? 'rounded-borders-right' : 'rounded-borders')
 
 const titleComponent = computed(() => hasRoute.value ? 'router-link' : 'h5')
 
