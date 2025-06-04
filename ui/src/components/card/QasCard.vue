@@ -1,6 +1,6 @@
 <template>
   <div class="qas-card">
-    <qas-box class="rounded-borders-right" v-bind="boxProps">
+    <qas-box :class="boxCardClasses" v-bind="boxProps">
       <q-card class="column full-height overflow-hidden shadow-0">
         <div class="full-width items-center justify-between no-wrap row">
           <component :is="titleComponent" class="ellipsis text-h5 text-no-decoration" :class="titleClasses" :to="route">
@@ -12,7 +12,7 @@
           <qas-actions-menu v-if="hasActions" v-bind="formattedActionsMenuProps" />
         </div>
 
-        <div class="q-my-sm qas-card__content">
+        <div class="q-mt-sm qas-card__content" :class="contentClasses">
           <slot name="default" />
         </div>
 
@@ -69,12 +69,15 @@ const props = defineProps({
 // consts
 const isInsideBox = inject('isBox', false)
 
+// composables
+const slots = useSlots()
+
 // computeds
 const boxProps = computed(() => {
   return {
     outlined: isInsideBox,
     unelevated: isInsideBox,
-    spacingY: 'sm',
+    spacingY: (props.statusColor || hasExpansion.value) ? 'sm' : 'md',
     style: style.value
   }
 })
@@ -91,6 +94,19 @@ const titleClasses = computed(() => {
   }
 })
 
+const contentClasses = computed(() => {
+  return {
+    'q-mb-sm': hasFooter.value
+  }
+})
+
+const boxCardClasses = computed(() => {
+  return {
+    'rounded-borders-right': props.statusColor,
+    'rounded-borders': !props.statusColor
+  }
+})
+
 const titleComponent = computed(() => hasRoute.value ? 'router-link' : 'h5')
 
 const style = computed(() => {
@@ -102,8 +118,6 @@ const style = computed(() => {
     borderLeft: `4px solid ${getPaletteColor(props.statusColor)} !important`
   }
 })
-
-const slots = useSlots()
 
 const hasFooterSlot = computed(() => !!slots.footer)
 
