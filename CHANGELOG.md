@@ -10,12 +10,16 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 ### Sobre os "BREAKING CHANGES"
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
+## Não publicado
+### Corrigido
+- `QasBtn`: corrigido alinhamento do botão no caso de usar a prop `useEllipsis`, antes acontecia do container estar sempre `justify-between`, agora existe um controle interno para isso, dando a possibilidade também de utilizar a prop `align` do próprio `QBtn`.
+
 ## [3.18.0-beta.8] - 10-06-2025
 ### Modificado
-- `QasCard`: Modificado espaçamento vertical do card, será `sm` somente caso tenha status ou o expansivo.
+- `QasCard`: modificado espaçamento vertical do card, será `sm` somente caso tenha status ou o expansivo.
 
 ### Corrigido
-- `QasCard`: Corrigido borda à esquerda dos cards que não possuem status.
+- `QasCard`: corrigido borda à esquerda dos cards que não possuem status.
 
 ## [3.18.0-beta.7] - 30-05-2025
 ### Corrigido
