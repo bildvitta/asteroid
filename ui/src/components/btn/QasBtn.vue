@@ -5,19 +5,17 @@
       <slot :name="name" v-bind="context || {}" />
     </template>
 
-    <div class="items-center justify-between no-wrap row text-center" :class="containerClasses">
-      <q-spinner v-if="hasLeftSpinner" :class="iconClasses" size="sm" />
+    <q-spinner v-if="hasLeftSpinner" :class="iconClasses" size="sm" />
 
-      <q-icon v-if="hasIcon" :class="iconClasses" :name="props.icon" />
+    <q-icon v-if="hasIcon" :class="iconClasses" :name="props.icon" />
 
-      <div v-if="showLabel" :class="labelClasses">
-        {{ props.label }}
-      </div>
-
-      <q-spinner v-if="hasRightSpinner" :class="iconRightClasses" size="sm" />
-
-      <q-icon v-if="hasIconRight" :class="iconRightClasses" :name="props.iconRight" />
+    <div v-if="showLabel" :class="labelClasses">
+      {{ props.label }}
     </div>
+
+    <q-spinner v-if="hasRightSpinner" :class="iconRightClasses" size="sm" />
+
+    <q-icon v-if="hasIconRight" :class="iconRightClasses" :name="props.iconRight" />
 
     <slot />
   </q-btn>
@@ -109,7 +107,6 @@ const hasIconRight = computed(() => props.iconRight && !props.loading)
 const hasIcon = computed(() => props.icon && !props.loading)
 
 const labelClasses = computed(() => ({ ellipsis: props.useEllipsis }))
-const containerClasses = computed(() => ({ 'full-width': props.useEllipsis }))
 
 const iconClasses = computed(() => ({ 'on-left': !hasIconOnly.value }))
 const iconRightClasses = computed(() => ({ 'on-right': !hasIconOnly.value }))
@@ -134,12 +131,13 @@ const classes = computed(() => {
     'qas-btn--no-hover-on-white': !props.useHoverOnWhiteColor,
 
     // ellipsis
-    'full-width': props.useEllipsis
+    'qas-btn--ellipsis': props.useEllipsis
   }
 })
 
 const attributes = computed(() => {
   const {
+    align,
     class: externalClass,
     dense,
     disable,
@@ -166,7 +164,14 @@ const attributes = computed(() => {
   return {
     ...attributesPayload,
     disable: disable || props.loading,
-    class: [classes.value, externalClass]
+    class: [classes.value, externalClass],
+
+    /**
+     * Alinhamento do conteúdo do botão será sempre sobrescrito caso seja passado via prop
+     * ou caso ele seja ellipsis e do tipo tertiary, deverá ser alinhado a esquerda
+     * ou padrão ser alinhado ao centro.
+     */
+    align: align || (props.useEllipsis && isTertiary.value && 'left') || 'center'
   }
 })
 
