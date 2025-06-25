@@ -156,6 +156,9 @@ export default {
       return !!(this.resultsModel || []).length
     },
 
+    /**
+     * Em casos de não utilizar store, utiliza o data do mixin.
+     */
     resultsModel () {
       if (this.useStore) return getState.call(this, { entity: this.entity, key: 'list' })
 
@@ -234,12 +237,17 @@ export default {
         const { errors, fields, metadata, results, count } = response.data
 
         this.resultsQuantity = results.length
-        this.count = count
+
+        // Seta o count com a quantidade de resultados, se não estiver usando store.
+        if (!this.useStore) {
+          this.count = count
+        }
 
         this.mx_setErrors(errors)
         this.mx_setFields(fields)
         this.mx_setMetadata(metadata)
 
+        // Em casos de não utilizar store, seta os results no data do mixin.
         !this.useStore && this.mx_setResults(results)
 
         this.mx_updateModels({
@@ -279,6 +287,7 @@ export default {
 
       const limit = payloadLimit || this.itemsPerPage
 
+      // Define os parâmetros que serão enviados para a API
       const params = {
         ...filters,
         ...othersPayload,
