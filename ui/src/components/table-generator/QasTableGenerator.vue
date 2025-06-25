@@ -269,12 +269,19 @@ export default {
   },
 
   methods: {
+    getRowRouteResult (row) {
+      return this.rowRouteFn ? this.rowRouteFn(row) : undefined
+    },
+
     getTdChildComponent (row) {
-      if (this.useExternalLink) return 'a'
+      if (this.useExternalLink) {
+        const routeResult = this.getRowRouteResult(row)
+        return routeResult !== undefined ? 'a' : 'span'
+      }
 
       if (!this.rowRouteFn) return 'span'
 
-      const routeResult = this.rowRouteFn(row)
+      const routeResult = this.getRowRouteResult(row)
       return routeResult !== undefined ? 'router-link' : 'span'
     },
 
@@ -332,10 +339,10 @@ export default {
     },
 
     getTdChildComponentProps (row) {
-      if (!this.rowRouteFn) return
+      if (!this.rowRouteFn) return {}
 
-      const routeResult = this.rowRouteFn(row)
-      if (routeResult === undefined) return
+      const routeResult = this.getRowRouteResult(row)
+      if (routeResult === undefined) return {}
 
       return {
         class: 'text-no-decoration text-grey-8 flex full-width items-center full-height',

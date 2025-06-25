@@ -45,6 +45,8 @@ Também é possível configurar o componente para executar uma ação ao clicar 
 
 Caso queira que ao clicar em uma linha vá para outra rota, é possível utilizar a prop `row-route-fn` na qual o retorno deve ser com a estrutura aceita pelo vue-router.(a linha passa ser um `<a>` internamente, habilitando a opção de abrir em uma nova aba)
 
+Para desabilitar o clique em linhas específicas, a função `row-route-fn` pode retornar `undefined`. Quando isso acontece, a linha não será clicável e não terá comportamento de navegação.
+
 :::tip
 Caso precise que a mudança de página seja um link externo, é possível utilizando a prop `use-external-link`, na qual o retorno da prop `row-route-fn` é esperado que seja um path.
 
@@ -61,6 +63,8 @@ rowExternalRouteFn () {
 :::
 
 <doc-example file="QasTableGenerator/TableLink" title="Tabela com links" />
+
+<doc-example file="QasTableGenerator/ConditionalClickableRow" title="Linha clicável condicional" />
 
 Funcionalidade que permite que o cabeçalho da tabela permaneça visível na parte superior enquanto o usuário faz rolagem do conteúdo da tabela. Para utilizar atribua a prop `use-sticky-header`.
 
