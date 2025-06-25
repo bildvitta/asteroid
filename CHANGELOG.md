@@ -10,6 +10,9 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 ### Sobre os "BREAKING CHANGES"
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
+## Unreleased
+- `QasTableGenerator`: adicionado suporte para `rowRouteFn` retornar `undefined` para desabilitar clique em linhas específicas.
+
 ## [3.17.0] - 12-03-2025
 ## BREAKING CHANGES
 - `A fazer`:
@@ -93,7 +96,6 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - `QasChartView`: adicionado novas propriedades `useBox` e `boxProps`.
 - `QasTableGenerator`: 
   - adicionado componente `QasEmptyResultText` onde será exibido no caso dos valores da tabela serem vazios.
-  - adicionado suporte para `rowRouteFn` retornar `undefined` para desabilitar clique em linhas específicas.
 - `QasListItems`: adicionado propriedades `descriptionKey` e `labelKey` para usar o componente através de propriedades ao invés de slot.
 - `QasExpansionItems`:
   - adicionado propriedade `disable`.
