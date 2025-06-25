@@ -55,6 +55,7 @@ export default {
       mx_errors: {},
       mx_fields: {},
       mx_metadata: {},
+      mx_results: [],
       mx_cancelBeforeFetch: false,
       mx_isFetching: false,
       mx_hasFetchError: false
@@ -127,6 +128,10 @@ export default {
 
     mx_setMetadata (metadata = {}) {
       this.mx_metadata = markRaw(metadata)
+    },
+
+    mx_setResults (results = []) {
+      this.mx_results = results
     },
 
     mx_updateModels (models) {

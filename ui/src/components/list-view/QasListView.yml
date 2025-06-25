@@ -45,6 +45,11 @@ props:
     default: {}
     type: Object
 
+  items-per-page:
+    desc: Quantidade de itens por pagina que será enviada no limit (somente será aplicado em casos de não utilizar store).
+    default: 36
+    type: Number
+
   metadata:
     model: true
     desc: Model de metadata, utilizado para recuperar os metadata fora do template.
@@ -93,6 +98,11 @@ props:
 
   use-results-area-only:
     desc: Controla se irá sempre ser exibido os resultados independente se não há nenhum resultado a ser exibido.
+    type: Boolean
+
+  use-store:
+    desc: Controla se vai utilizar a store.
+    default: true
     type: Boolean
 
 slots:
