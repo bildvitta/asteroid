@@ -94,8 +94,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
   - adicionado prop `emptyText` para exibição no caso do `list` ou `text` não tiver valor.
   - adicionado novas propriedade `useBadge` e `useWrapBadge`.
 - `QasChartView`: adicionado novas propriedades `useBox` e `boxProps`.
-- `QasTableGenerator`: 
-  - adicionado componente `QasEmptyResultText` onde será exibido no caso dos valores da tabela serem vazios.
+- `QasTableGenerator`: adicionado componente `QasEmptyResultText` onde será exibido no caso dos valores da tabela serem vazios.
 - `QasListItems`: adicionado propriedades `descriptionKey` e `labelKey` para usar o componente através de propriedades ao invés de slot.
 - `QasExpansionItems`:
   - adicionado propriedade `disable`.

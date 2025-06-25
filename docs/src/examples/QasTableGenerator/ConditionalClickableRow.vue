@@ -7,7 +7,6 @@
 </template>
 
 <script>
-/* eslint-disable */
 export default {
   name: 'ConditionalClickableRow',
 
@@ -29,16 +28,15 @@ export default {
       // Exemplo: apenas usuários ativos podem ser clicados
       if (row.status === 'inactive') {
         // Retorna undefined para desabilitar o clique
-        return
+        return undefined
       }
 
       // Retorna a rota para usuários ativos
-      return { 
-        name: 'user-details', 
-        params: { id: row.uuid } 
+      return {
+        name: 'user-details',
+        params: { id: row.uuid }
       }
     }
   }
 }
 </script>
-
