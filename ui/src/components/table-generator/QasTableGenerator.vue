@@ -11,7 +11,7 @@
 
       <template v-for="(fieldName, index) in bodyCellNameSlots" :key="index" #[`body-cell-${fieldName}`]="context">
         <q-td>
-          <component :is="tdChildComponent" v-bind="getTdChildComponentProps(context.row)">
+          <component :is="getTdChildComponent(context.row)" v-bind="getTdChildComponentProps(context.row)">
             <slot :name="`body-cell-${fieldName}`" v-bind="context || {}">
               {{ context.row?.[fieldName] }}
             </slot>
@@ -269,6 +269,15 @@ export default {
   },
 
   methods: {
+    getTdChildComponent (row) {
+      if (this.useExternalLink) return 'a'
+
+      if (!this.rowRouteFn) return 'span'
+
+      const routeResult = this.rowRouteFn(row)
+      return routeResult !== undefined ? 'router-link' : 'span'
+    },
+
     initializeScrollOnGrab () {
       if (this.hasScrollOnGrab) return
 
@@ -325,9 +334,12 @@ export default {
     getTdChildComponentProps (row) {
       if (!this.rowRouteFn) return
 
+      const routeResult = this.rowRouteFn(row)
+      if (routeResult === undefined) return
+
       return {
         class: 'text-no-decoration text-grey-8 flex full-width items-center full-height',
-        [this.useExternalLink ? 'href' : 'to']: this.rowRouteFn(row),
+        [this.useExternalLink ? 'href' : 'to']: routeResult,
         ...(this.useExternalLink && { target: '_blank' })
       }
     },
