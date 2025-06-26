@@ -47,6 +47,7 @@ import QasPagination from '../pagination/QasPagination.vue'
 
 import { viewMixin, contextMixin } from '../../mixins'
 
+import { decamelize } from 'humps'
 import debug from 'debug'
 import { extend } from 'quasar'
 import { getState, getAction } from '@bildvitta/store-adapter'
@@ -81,6 +82,11 @@ export default {
       type: Object
     },
 
+    resultsPerPage: {
+      type: Number,
+      default: 36
+    },
+
     results: {
       default: () => [],
       type: Array
@@ -111,6 +117,11 @@ export default {
 
     useResultsAreaOnly: {
       type: Boolean
+    },
+
+    useStore: {
+      type: Boolean,
+      default: true
     }
   },
 
@@ -124,7 +135,9 @@ export default {
   data () {
     return {
       page: 1,
+      count: null,
       resultsQuantity: 0,
+      resultsList: [],
       isFetchListSucceeded: false
     }
   },
@@ -146,12 +159,19 @@ export default {
       return !!(this.resultsModel || []).length
     },
 
+    /**
+     * Em casos de não utilizar store, utiliza o data do mixin.
+     */
     resultsModel () {
-      return getState.call(this, { entity: this.entity, key: 'list' })
+      if (this.useStore) return getState.call(this, { entity: this.entity, key: 'list' })
+
+      return this.resultsList || []
     },
 
     totalPages () {
-      return getState.call(this, { entity: this.entity, key: 'totalPages' })
+      if (this.useStore) return getState.call(this, { entity: this.entity, key: 'totalPages' })
+
+      return Math.ceil(this.count / this.resultsPerPage)
     },
 
     showResults () {
@@ -215,23 +235,30 @@ export default {
           ...externalPayload
         }
 
-        const response = await getAction.call(this, {
-          entity: this.entity,
-          key: 'fetchList',
-          payload
-        })
+        const response = await this.handleFetchList(payload)
 
-        const { errors, fields, metadata, results } = response.data
+        const { errors, fields, metadata, results, count } = response.data
+
         this.resultsQuantity = results.length
+
+        // Seta o count com a quantidade total de itens se não estiver usando store.
+        if (!this.useStore) {
+          this.count = count
+        }
 
         this.mx_setErrors(errors)
         this.mx_setFields(fields)
         this.mx_setMetadata(metadata)
 
+        // Em casos de não utilizar store, seta os results no data do mixin.
+        !this.useStore && this.setResults(results)
+
         this.mx_updateModels({
           errors: this.mx_errors,
           fields: this.mx_fields,
-          metadata: this.mx_metadata
+          metadata: this.mx_metadata,
+
+          ...(!this.useStore && { results: this.resultsList })
         })
 
         this.isFetchListSucceeded = true
@@ -248,6 +275,38 @@ export default {
       } finally {
         this.mx_isFetching = false
       }
+    },
+
+    setResults (results) {
+      this.resultsList = results
+    },
+
+    async handleFetchList (payload) {
+      if (this.useStore) {
+        return getAction.call(this, {
+          entity: this.entity,
+          key: 'fetchList',
+          payload
+        })
+      }
+
+      const { url: payloadURL, page, filters, limit: payloadLimit, ...payloadParams } = payload
+
+      const limit = payloadLimit || this.resultsPerPage
+
+      // Define os parâmetros que serão enviados para a API
+      const params = {
+        ...filters,
+        ...payloadParams,
+        limit,
+        offset: ((page || 1) - 1) * limit
+      }
+
+      const decamelizedEntity = decamelize(this.entity, { separator: '-' })
+
+      const url = payloadURL || decamelizedEntity
+
+      return this.$axios.get(url, { params })
     },
 
     async refresh (done) {
