@@ -45,7 +45,7 @@ props:
     default: {}
     type: Object
 
-  items-per-page:
+  results-per-page:
     desc: Quantidade de itens por pagina que será enviada no limit (somente será aplicado em casos de não utilizar store).
     default: 36
     type: Number

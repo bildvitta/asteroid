@@ -80,7 +80,7 @@ export default {
       type: Object
     },
 
-    itemsPerPage: {
+    resultsPerPage: {
       type: Number,
       default: 36
     },
@@ -135,6 +135,7 @@ export default {
       page: 1,
       count: null,
       resultsQuantity: 0,
+      resultsList: [],
       isFetchListSucceeded: false
     }
   },
@@ -162,13 +163,13 @@ export default {
     resultsModel () {
       if (this.useStore) return getState.call(this, { entity: this.entity, key: 'list' })
 
-      return this.mx_results || []
+      return this.resultsList || []
     },
 
     totalPages () {
       if (this.useStore) return getState.call(this, { entity: this.entity, key: 'totalPages' })
 
-      return Math.ceil(this.count / this.itemsPerPage)
+      return Math.ceil(this.count / this.resultsPerPage)
     },
 
     showResults () {
@@ -232,13 +233,13 @@ export default {
           ...externalPayload
         }
 
-        const response = await this.handleAction(payload)
+        const response = await this.handleFetchList(payload)
 
         const { errors, fields, metadata, results, count } = response.data
 
         this.resultsQuantity = results.length
 
-        // Seta o count com a quantidade de resultados, se não estiver usando store.
+        // Seta o count com a quantidade total de itens se não estiver usando store.
         if (!this.useStore) {
           this.count = count
         }
@@ -248,14 +249,14 @@ export default {
         this.mx_setMetadata(metadata)
 
         // Em casos de não utilizar store, seta os results no data do mixin.
-        !this.useStore && this.mx_setResults(results)
+        !this.useStore && this.setResults(results)
 
         this.mx_updateModels({
           errors: this.mx_errors,
           fields: this.mx_fields,
           metadata: this.mx_metadata,
 
-          ...(!this.useStore && { results: this.mx_results })
+          ...(!this.useStore && { results: this.resultsList })
         })
 
         this.isFetchListSucceeded = true
@@ -274,7 +275,11 @@ export default {
       }
     },
 
-    async handleAction (payload) {
+    setResults (results) {
+      this.resultsList = results
+    },
+
+    async handleFetchList (payload) {
       if (this.useStore) {
         return getAction.call(this, {
           entity: this.entity,
@@ -283,14 +288,14 @@ export default {
         })
       }
 
-      const { url: payloadURL, page, filters, limit: payloadLimit, ...othersPayload } = payload
+      const { url: payloadURL, page, filters, limit: payloadLimit, ...payloadParams } = payload
 
-      const limit = payloadLimit || this.itemsPerPage
+      const limit = payloadLimit || this.resultsPerPage
 
       // Define os parâmetros que serão enviados para a API
       const params = {
         ...filters,
-        ...othersPayload,
+        ...payloadParams,
         limit,
         offset: ((page || 1) - 1) * limit
       }
