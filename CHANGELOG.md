@@ -10,6 +10,141 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 ### Sobre os "BREAKING CHANGES"
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
+## Não publicado
+## BREAKING CHANGE
+- `QasInput`: alterado ordem da prop `iconRight` que estava adicionando na esquerda e não na direita, verificar lugares.
+- Alterar `quasar.variables.scss`, nova cor do `$negative` sendo `$red-14`.
+- `QasAppMenu`:
+  - adicionado nova propriedade `useHomeItem` com default `true` para forçar padronização no item de inicio, é necessário remover esse item da prop "items" caso esteja sendo adicionado.
+  - não esquecer de configurar corretamente a prop `homeRoute`.
+- `QasAlert/QasInfo`: removido `QasInfo` que agora foi mesclado com o `QasAlert`, olhar documentação.
+- `QasGalleryCard`: removido prop `card`, no qual foi transformado em duas props separadas, `url` e `name`.
+- `QasFilters`: removido slot `right-side`, agora a forma recomendada para quando precisar utilizar itens ao lado do componente, utilize o grid em conjunto com a prop `useFullContent`. Contém um exemplo do uso na docs.
+- `QasGallery/QasUploader`: possível breaking change ao repassar a prop `galleryCardProps`.
+- `QasSearchBox`: modificado prop `height` para `maxHeight`, pois o nome da prop era `height`, mas internamente adicionava o style como `maxHeight`.
+- `QasTableGenerator`:
+  - removido prop `stickyHeaderTableHeight`, agora controla o tamanho da tabela pela prop `maxHeight`.
+  - olhar todos lugares que usam slot de actions/componentes e passar a utilizar pelas propriedades `fieldsProps` e `actionsMenuProps`.
+  - por padrão toda coluna terá `sort`, mas nem toda coluna precisa de sort, então é necessário olhar caso a caso e remover quando desnecessário.
+- `QasBtn`: modificado a forma de exibição do loading, agora é exibido no lugar do ícone. Poderá haver breaking change visual. Verificar lugares onde é utilizado o `use-ellipsis` também.
+
+### Adicionado
+- `QasErrorMessage`: adicionado novo componente para mostrar mensagem de erros de forma padronizada.
+- `QasRadio`: adicionado propriedades `error` e `errorMessage` em conjunto do componente `QasErrorMessage`.
+- `css/mixins/set-error-message`: mixin para aplicar os estilos diretamente no css.
+- `QasTableGenerator`: 
+  - Adicionado prop `useVirtualScroll` para aplicar a renderização dinâmica dos elementos na tabela.
+  - Adicionado prop `maxHeight` para definir o tamanho da tabela em casos de `useStickyHeader` e `useVirtualScroll`.
+  - adicionado propriedade `fieldsProps` para controle de componente interno sem uso de slot.
+  - adicionado propriedade `actionsMenuProps` para adicionar por padrão coluna `actions` com componente `QasActions` na ultima coluna com alinhamento á direita.
+  - adicionado sort default em todas colunas.
+  - adicionado scroll gradiente no eixo x.
+- `helpers/color`: adicionado helper para cores.
+- `helpers/setScrollGradient` adicionado helper para adicionar gradiente em áreas com scroll.
+- `QasAlert/QasInfo`: (adicionado|mesclado):
+  - buttonProps
+  - routerLinkProps
+  - useBox
+  - useRegex
+  - slot "default"
+- `QasAppUser`:
+  - adicionado prop `useHomeItem` para padronizar "inicio" no menu.
+  - adicionado prop `homeRoute` para configurar a rota de "inicio".
+  - adicionado propriedade "useDataOnSmallScreen".
+- `QasCheckbox`: adicionado props:
+  - disable
+  - usaAsTitle
+- `QasSelectFilter`: adicionado propriedade `multiple`.
+- `css/components/menu`: adicionado estilo para adc separador em q-list > q-item dentro do `q-menu`.
+- `QasAppMenu`: adicionado nova propriedade `useHomeItem` com default `true` para forçar padronização no item de inicio, é necessário remover esse item da prop "items" caso esteja sendo adicionado.
+- `QasListView`:
+  - Adicionado propriedade `use-store` para dar a possibilidade de utilizar o componente sem a store do vuex/pinia.
+  - adicionado nova prop chamada `emptyResultText` para controlar o texto do `QasEmptyResultText` em casos que não tenha resultado.
+- `QasGalleryCard`: adicionado possibilidade para utilizar vídeos ao invés de imagens através da prop `useVideo`.
+- `QasNestedFields`: adicionado possibilidade de usar o `buttonDestroyProps` como um callback.
+- `QasFilters`:
+ - adicionado prop `useFullContent` para que o componente ocupe 100%, recomendado para quando precisar utilizar grids.
+ - adicionado prop `listenerQueryKeys` que serão chaves que o componente deve ouvir sempre que houver mudanças na query, para que bata a api novamente de `/filters`.
+- `QasTextTruncate`: Adicionado campo de busca no dialog do componente ao conter mais de 12 itens na lista.
+- `QasSearchBox`: Adicionado prop `maxHeight` para definir uma altura máxima para o componente.
+- `QasFormGenerator`: adicionado possibilidade de ter subseções (`subset`) dentro de uma seção (`fieldset`). Para mais detalhes, consultar a documentação.
+- `QasReportsFilters`: adicionado componente responsável por lidar com filtros em relatórios.
+- `boot/before-each`: boot responsável por atualizar o histórico de rotas e validar filtros padrões ao ser redirecionado para mesma rota.
+
+### Corrigido
+- `QasInput`: alterado ordem da prop `iconRight` que estava adicionando na esquerda e não na direita.
+- `QasSelectFilter`: corrigido atribuição do valor do model externo do componente.
+- `QasPasswordInput`:
+  - invertido ícone de toggle.
+  - corrigido label que não ficava acima do ícone ao ter foco/ativo.
+  - desabilitado botão de toggle enquanto não tem valor preenchido.
+- [`QasActionsMenu`, `QasBtnDropdown`, `QasTreeGenerator`]: adicionado classe `qas-menu`para corrigir estilos.
+- `QasAlert`: removido da obrigatoriedade da prop `text` para quando for usado slot não gerar erros.
+- `QasAppMenu`: corrigido área de mouseover quando o menu list é pequeno.
+- `QasUploader`: corrigido ação "removeUploadedFiles" que era usado via ref em um botão hidden, agora é usado via refs do QUploader.
+- `css/menu`: alterado tamanho do icon que estava errado.
+- `QasActionsMenu`:
+  - adicionado validação no `q-list` do `qas-actions-menu` pra não exibir um `q-list` vazio quando só há um item.
+  - corrigido exibição de loading no componente dentro do dropdown ao ter uma prop `loading: true`.
+- `QasHeader`: corrigido exibição do container de descrição em casos de não ter `label` e `description`.
+- `setDefaultFiltersBeforeEach`: corrigido método utilizado no before each de cada rota para validar caso tenha um filtro padrão a ser aplicado, pois antes caso eu tivesse um beforeEnter sem utilizar um `setDefaultFiltersBeforeEnter`, quebrava o redirecionamento.
+- `QasCard`: Corrigido borda à esquerda dos cards que não possuem status.
+
+### Modificado
+- `QasSelect`:
+  - ignorando propriedade `useChips` que vem através de `$attrs`.
+  - adicionado separador nas options e modificado estilo de botão de ação.
+- `QasBadge`:
+  - alterado tipografia para `text-body2`.
+  - adicionado atributo `data-table-ignore-hover` para uso no QasTableGenerator.
+- `QasExpansionItem`: alterado borda para 1px.
+- [`QasInput`, `QasSelect`, `QasSearchInput`]:
+  - mudança de design quando com erro.
+  - mudança de design no hover.
+  - mudança de mensagem de erro utilizando o mixin `set-message-error`.
+- alterado mensagem de erro para o componente `QasErrorMessage`:
+  - QasExpansionItem
+  - QasUploader
+  - QasCheckbox
+- `QasToggleVisibiliy`: alterado área de clique para não ser apenas no botão e sim em todo elemento.
+- `QasAppMenu`:
+  - adicionado nova propriedade `useHomeItem` com default `true` para forçar padronização no item de inicio.
+  - diminuído espaçamento interno entre lista de itens, logo, avatar de usuário e módulos, para caber mais conteúdos.
+  - diminuído espaçamento interno entre itens do menu.
+  - quando o ponteiro do mouse estiver encima da barra de scroll, o menu não será mais expandido, habilitando scroll em modo mini.
+  - adicionado linear gradiente na parte superior e inferior da listagem de itens do menu quando existe scroll para feedback melhorado.
+  - modificado estrutura do HTML, agora o lista de itens não tem altura fixa definida, pega todo o espaço disponível.
+  - drawer no mobile quando aberto mostra a logo mini ao lado do botão de fechar.
+  - `QasAppUser` agora mostra nome/email mesmo no mobile.
+- `webkit-scrollbar`: alterado background para `transparent`.
+- Mudanças de estilo no `NotifyError` e `NotifySuccess`.
+`QasActionsMenu`: adicionado separador entre itens.
+- `QasCheckbox`: modificado estilos.
+- `QasRadio`: modificado estilos.
+- `QasDateTimeInput`: modificado cor de ícone para primary.
+- `QasPasswordInput`: desabilitado botão de toggle enquanto não tem conteúdo.
+- `QasSelectList`: modificado estilos.
+- `QasToggle` modificado estilos.
+- `QasTreeGenerator`: adicionado separador nas ações.
+- `QasAlert/QasInfo`: modificado cor de error para `negative`.
+- `QasSearchBox`: modificado prop `height` para `maxHeight`, pois o nome da prop era `height`, mas internamente adicionava o style como `maxHeight`.
+- `QasTextTruncate`: modificado espaçamento entre texto e botão "ver mais" de sm para xs.
+- `QasTableGenerator`: modificado estilos e estilos de hover nas linhas
+- [`QasBtn`, `QasToggleVisibility`]: adicionado atributo `data-table-ignore-tr-hover` para uso no QasTableGenerator.
+- `QasCopy`: adicionado atributo `data-table-hover` para uso no QasTableGenerator.
+- `QasBtn`: modificado a forma de exibição do loading, agora é exibido no lugar do ícone. Poderá haver breaking change visual. Verificar lugares onde é utilizado o `use-ellipsis` também.
+- `container.scss`: alterado tamanho máximo do container utilizado nas telas para 1920px.
+- `QasCard`: Modificado espaçamento vertical do card, será `sm` somente caso tenha status ou o expansivo.
+
+### Removido
+- `QasTableGenerator`:
+  - removido prop `stickyHeaderTableHeight`, agora controla o tamanho da tabela pela prop `maxHeight`.
+  - removido possibilidade de ter sort na tabela.
+- `QasAlert/QasInfo`: removido `QasInfo` que agora foi mesclado com o `QasAlert`, olhar documentação.
+- `QasGalleryCard`: removido prop `card`, no qual foi transformado em duas props separadas, `url` e `name`.
+- `QasFilters`: removido slot `right-side`, agora a forma recomendada para quando precisar utilizar itens ao lado do componente, utilize o grid em conjunto com a prop `useFullContent`. Contém um exemplo do uso na docs.
+- `boot/history`: removido boot de history, sendo que agora os métodos utilizados estão no boot `before-each.js`.
+
 ## [3.18.0-beta.9] - 26-06-2025
 ### Adicionado
 - `QasListView`: Adicionado propriedade `use-store` para dar a possibilidade de utilizar o componente sem a store do vuex/pinia.
