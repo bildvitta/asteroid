@@ -15,13 +15,8 @@
             </template>
           </qas-header>
 
-          <div v-if="errorMessage" class="q-mt-xs text-caption text-negative">
-            {{ errorMessage }}
-          </div>
-
           <!-- ------------------------------------ tags hidden -------------------------------------- -->
           <input ref="hiddenInput" :accept="attributes.accept" class="qas-uploader__input" :multiple="isMultiple" type="file">
-          <qas-btn ref="buttonCleanFiles" class="hidden" @click="scope.removeUploadedFiles" />
         </slot>
       </template>
 
@@ -33,6 +28,8 @@
         </div>
 
         <qas-empty-result-text v-else />
+
+        <qas-error-message v-if="errorMessage" :message="errorMessage" />
       </template>
     </q-uploader>
 
@@ -44,9 +41,11 @@
 import PvUploaderGalleryCard from './private/PvUploaderGalleryCard.vue'
 import QasHeader from '../header/QasHeader.vue'
 
+import { baseErrorProps } from '../../composables/private/use-error-message'
+import { getImageSize, getResizeDimensions } from '../../helpers/images.js'
+
 import { uid, extend } from 'quasar'
 import { NotifyError } from '../../plugins'
-import { getImageSize, getResizeDimensions } from '../../helpers/images.js'
 
 import Pica from 'pica'
 
@@ -61,6 +60,8 @@ export default {
   inheritAttrs: false,
 
   props: {
+    ...baseErrorProps,
+
     addButtonFn: {
       type: Function,
       default: undefined
@@ -95,15 +96,6 @@ export default {
 
     entity: {
       required: true,
-      type: String
-    },
-
-    error: {
-      type: Boolean
-    },
-
-    errorMessage: {
-      default: '',
       type: String
     },
 
@@ -344,13 +336,13 @@ export default {
     },
 
     dispatchUpload () {
-      this.$refs.buttonCleanFiles.$el.click()
-      this.hiddenInputElement.click()
+      this.uploader?.removeUploadedFiles?.()
+      this.hiddenInputElement?.click?.()
     },
 
     async factory ([file]) {
       if (!this.isMultiple && !this.hasHeaderSlot) {
-        this.$refs.buttonCleanFiles.$el.click()
+        this.uploader.removeUploadedFiles()
       }
 
       const name = `${uid()}.${file.name.split('.').pop()}`

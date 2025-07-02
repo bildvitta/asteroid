@@ -13,10 +13,8 @@ export default {
   computed: {
     props () {
       return {
-        card: {
-          name: 'Meu titulo',
-          url: 'https://picsum.photos/200/300.jpg'
-        }
+        name: 'Meu titulo',
+        url: 'https://picsum.photos/200/300.jpg'
       }
     }
   }

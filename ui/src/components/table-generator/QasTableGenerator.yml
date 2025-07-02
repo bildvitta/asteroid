@@ -4,6 +4,18 @@ meta:
   desc: Componente para criação de tabela dinâmica usando o `QTable` do quasar.
 
 props:
+  actions-menu-props:
+    desc: Propriedades repassadas para o "QasActionsMenu" que adiciona uma coluna "actions" de forma automática.
+    default: undefined
+    type: Function
+    params:
+      row:
+        desc: Payload da linha da tabela.
+        type: Object
+      index:
+        desc: Índice da linha da tabela.
+        type: Number
+
   columns:
     desc: Colunas que vão ter na tabela.
     default: []
@@ -20,11 +32,29 @@ props:
     type: Object
     examples: ["{ email: { name: 'email', type: 'email', label: 'E-mail' } }"]
 
+  fields-props:
+    desc: Propriedade para controlar o uso de componentes dentro das row sem necessidade de abrir slot.
+    default: {}
+    type: [Object, Function]
+    examples: ["{ email: { component: 'QasCopy' } }"]
+    params:
+      row:
+        desc: Payload da linha da tabela.
+        type: Object
+      index:
+        desc: Índice da linha da tabela.
+        type: Number
+
   header-props:
     desc: Propriedades repassadas para o componente `QasHeader`.
     default: {}
     type: Object
     examples: ["{ description: 'Descrição', labelProps: { label: 'Titulo do header'} }"]
+
+  max-height:
+    desc: Usado para definir a altura máxima da tabela e exibir o scroll vertical. Somente funciona quando a propriedade "use-sticky-header" ou "use-virtual-scroll" é utilizada.
+    default: '528px'
+    type: String
 
   results:
     desc: Lista com resultados para serem mostrados na tabela.
@@ -62,10 +92,10 @@ props:
     default: false
     type: Boolean
 
-  sticky-header-table-height:
-    desc: Usado para definir a altura máxima da tabela e exibir o scroll vertical quando a propriedade "use-sticky-header" é utilizada.
-    default: 528px
-    type: String
+  use-virtual-scroll:
+    desc: Usado para ativar o scroll virtual da tabela.
+    default: false
+    type: Boolean
 
 slots:
   body:

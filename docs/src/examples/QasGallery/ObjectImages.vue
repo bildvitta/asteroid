@@ -13,49 +13,49 @@ export default {
       images: [
         {
           name: 'Imagem vermelha',
-          url: 'https://via.placeholder.com/200x300/ff0000/969696',
+          url: 'https://placehold.co/600x400/orange/white',
           uuid: 'imagem-vermelha',
           destroyable: true
         },
         {
           name: 'Imagem verde',
-          url: 'https://via.placeholder.com/200x300/09ff00/969696',
+          url: 'https://placehold.co/600x400',
           uuid: 'imagem-verde',
           destroyable: true
         },
         {
           name: 'Imagem azul',
-          url: 'https://via.placeholder.com/200x300/0044ff/969696',
+          url: 'https://placehold.co/600x400/blue/white',
           uuid: 'imagem-azul',
           destroyable: false
         },
         {
           name: 'Imagem vermelha 2',
-          url: 'https://via.placeholder.com/200x300/ff0000/969696',
+          url: 'https://placehold.co/600x400/orange/white',
           uuid: 'imagem-vermelha-2',
           destroyable: true
         },
         {
           name: 'Imagem vermelha 3',
-          url: 'https://via.placeholder.com/200x300/ff0000/969696',
+          url: 'https://placehold.co/600x400/orange/white',
           uuid: 'imagem-vermelha-3',
           destroyable: true
         },
         {
           name: 'Imagem verde 2',
-          url: 'https://via.placeholder.com/200x300/09ff00/969696',
+          url: 'https://placehold.co/600x400',
           uuid: 'imagem-verde-2',
           destroyable: true
         },
         {
           name: 'Imagem azul 2',
-          url: 'https://via.placeholder.com/200x300/0044ff/969696',
+          url: 'https://placehold.co/600x400/blue/white',
           uuid: 'imagem-azul-2',
           destroyable: true
         },
         {
           name: 'Imagem vermelha 4',
-          url: 'https://via.placeholder.com/200x300/ff0000/969696',
+          url: 'https://placehold.co/600x400/orange/white',
           uuid: 'imagem-vermelha-4',
           destroyable: true
         }

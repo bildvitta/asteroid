@@ -1,6 +1,7 @@
 <template>
   <div class="qas-toggle-visibility">
-    <div class="items-center no-wrap row" :style>
+    <!-- "data-table-ignore-tr-hover" é para desabilitar o hover do tr no QasTableGenerator -->
+    <div :aria-expanded="isVisible" aria-label="Alternar visibilidade do conteúdo" class="cursor-pointer items-center no-wrap qas-toggle-visibility__container row" data-table-ignore-tr-hover role="button" :style @click.prevent.stop="toggleVisibility">
       <div class="ellipsis qas-toggle-visibility__content">
         <div
           v-if="isVisible"
@@ -14,15 +15,12 @@
 
         <q-separator
           v-else
+          class="qas-toggle-visibility__separator"
           size="4px"
         />
       </div>
 
-      <qas-btn
-        class="q-ml-sm qas-toggle-visibility__button"
-        :icon
-        @click.prevent.stop="toggleVisibility"
-      />
+      <qas-btn class="q-ml-sm qas-toggle-visibility__button" :icon />
     </div>
   </div>
 </template>
@@ -68,6 +66,18 @@ const style = computed(() => ({ width: props.width }))
 
 <style lang="scss">
 .qas-toggle-visibility {
+  &__separator {
+    border-radius: var(--qas-generic-border-radius);
+  }
+
+  &__container:hover .qas-toggle-visibility__separator {
+    background-color: var(--q-primary-contrast);
+  }
+
+  &__container:hover .qas-toggle-visibility__button {
+    color: var(--q-primary-contrast) !important;
+  }
+
   &__content {
     flex-grow: 1;
   }

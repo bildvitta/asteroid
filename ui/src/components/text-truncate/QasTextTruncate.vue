@@ -1,7 +1,8 @@
 <template>
   <div ref="parent" :class="classes">
     <div class="no-wrap row text-no-wrap">
-      <div ref="truncate" class="ellipsis">
+      <!-- "data-table-hover" habilita o hover no texto dentro do QasTableGenerator -->
+      <div ref="truncate" class="ellipsis" data-table-hover>
         <slot>
           <div v-if="hasBadges" class="items-center q-col-gutter-sm row" :class="badgeParentClasses">
             <div v-for="(item, index) in normalizedBadgesList" :key="index">
@@ -15,20 +16,22 @@
         </slot>
       </div>
 
-      <qas-btn v-if="hasButton" class="q-ml-sm" :label="buttonLabel" @click.stop.prevent="toggle" />
+      <qas-btn v-if="hasButton" class="q-ml-xs" :label="buttonLabel" @click.stop.prevent="toggle" />
     </div>
 
-    <qas-dialog v-model="show" v-bind="defaultProps" aria-label="Diálogo de texto completo" role="dialog">
+    <qas-dialog v-model="show" v-bind="defaultProps" aria-label="Diálogo de texto completo" max-width="500px" role="dialog" use-full-max-width>
       <template v-if="isCounterMode" #description>
-        <div class="q-col-gutter-y-sm row">
-          <div
-            v-for="(item, index) in normalizedList"
-            :key="index"
-            class="col-12"
-          >
-            {{ item }}
-          </div>
-        </div>
+        <component :is="dialogComponent.is" v-bind="dialogComponent.props" v-model:results="searchModel">
+          <q-list separator>
+            <q-item v-for="(item, index) in dialogComponent.list" :key="index" class="q-px-none">
+              <q-item-section>
+                <div class="text-body1">
+                  {{ item }}
+                </div>
+              </q-item-section>
+            </q-item>
+          </q-list>
+        </component>
       </template>
     </qas-dialog>
   </div>
@@ -135,7 +138,9 @@ const {
 
 const {
   defaultProps,
+  dialogComponent,
   show,
+  searchModel,
   toggle
 } = useDialog({ props, textContent })
 
@@ -158,6 +163,7 @@ const formattedText = computed(() => props.list.length || props.text ? displayTe
 function useDialog ({ props, textContent }) {
   // reactive vars
   const show = ref(false)
+  const searchModel = ref([])
 
   // computed
   const description = computed(() => props.text || textContent.value)
@@ -176,6 +182,31 @@ function useDialog ({ props, textContent }) {
     }
   })
 
+  const normalizedSearchModel = computed(() => {
+    return props.useObjectList ? searchModel.value.map(({ label }) => label) : searchModel.value
+  })
+
+  const dialogComponent = computed(() => {
+    const hasSearchBox = normalizedList.value.length > 12
+
+    if (hasSearchBox) {
+      return {
+        is: 'qas-search-box',
+        list: normalizedSearchModel.value,
+        props: {
+          height: '510px',
+          list: props.list,
+          ...(props.useObjectList && { fuseOptions: { keys: ['label'] } })
+        }
+      }
+    }
+
+    return {
+      is: 'div',
+      list: normalizedList.value
+    }
+  })
+
   // functions
   function toggle () {
     show.value = !show.value
@@ -183,8 +214,10 @@ function useDialog ({ props, textContent }) {
 
   return {
     defaultProps,
+    dialogComponent,
 
     show,
+    searchModel,
 
     toggle
   }

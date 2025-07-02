@@ -160,6 +160,8 @@ export default {
 
   computed: {
     attributes () {
+      const { useChips, ...attrs } = this.$attrs
+
       return {
         clearable: this.isSearchable,
         emitValue: true,
@@ -171,7 +173,7 @@ export default {
         popupContentClass: `qas-select__menu ${this.popupContentClass}`,
         useChips: this.isMultiple && this.isPopupContentOpen,
 
-        ...this.$attrs,
+        ...attrs,
 
         label: this.formattedLabel,
         error: this.hasError,
@@ -200,10 +202,6 @@ export default {
 
     isSearchable () {
       return this.hasFuse || this.useLazyLoading
-    },
-
-    isBordered () {
-      return (this.isBox || this.isDialog) && this.useFilterMode
     },
 
     hasError () {
@@ -261,11 +259,14 @@ export default {
 
     // redesign
     componentClasses () {
+      const isBordered = (this.isBox || this.isDialog) && this.useFilterMode
+
+      // estilos definidos no arquivo field.scss
       return {
         ...(this.useFilterMode && {
-          'qas-select--filter rounded-borders': true,
-          'shadow-2': !this.isBordered,
-          bordered: this.isBordered
+          'qas-select--filter': true,
+          'qas-select--filter-border': isBordered,
+          'qas-select--filter-shadow': !isBordered
         }),
 
         'qas-select--has-icon': this.hasAppend || this.hasIcon,
@@ -470,15 +471,17 @@ export default {
     }
   }
 
-  &--filter {
-    .q-field__control:before {
-      border: 0;
-    }
-  }
-
   &__menu {
+    padding: var(--qas-spacing-sm) var(--qas-spacing-md);
+
+    .q-item + .q-item {
+      border-top: 1px solid $grey-4 !important;
+    }
+
     .q-item {
       font-weight: 400 !important;
+      padding-left: 0;
+      padding-right: 0;
     }
   }
 
@@ -503,19 +506,26 @@ export default {
 
   .q-field__prepend,
   .q-field__append {
-    .q-icon {
+    .q-icon:not(button) {
       color: $grey-8;
+    }
+
+    button.q-icon {
+      @include set-button(
+        tertiary,
+        false,
+        false,
+        grey-10
+      );
+
+      // necessários para sobrescrever os tamanhos aplicados pelo set-button
+      width: 18px !important;
+      height: 18px !important;
+      min-height: 18px !important;
     }
   }
 
-  .q-field__focusable-action {
-    opacity: 1;
-  }
-
-  .q-chip {
-    font-size: 11px;
-  }
-
+  .q-field__focusable-action,
   .q-chip__icon--remove {
     opacity: 1;
   }

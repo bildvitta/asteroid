@@ -15,6 +15,11 @@ props:
     type: String
     required: true
 
+  home-route:
+    desc: Rota do item de "home/inicio".
+    type: [String, Object]
+    default: undefined
+
   items:
     desc: Itens do menu.
     type: Array
@@ -46,6 +51,11 @@ props:
 
   use-chat:
     desc: Componente para controlar se vai ter ou não o chat.
+    type: Boolean
+    default: true
+
+  use-home-item:
+    desc: Propriedade que adiciona item no menu de "inicio", forçando padronização.
     type: Boolean
     default: true
 

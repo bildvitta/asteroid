@@ -10,14 +10,18 @@
           <span v-if="hasMenuButton(node)" class="q-ml-sm">
             <!-- TODO: rever para o uso QasActionsMenu -->
             <qas-btn color="grey-10" icon="sym_r_more_vert" variant="tertiary" @click.stop.prevent>
-              <q-menu auto-close>
-                <q-list separator>
+              <q-menu auto-close class="qas-menu">
+                <q-list>
                   <q-item v-if="useAddButton" v-ripple class="qas-tree-generator__item" clickable @click="handleTreeFormDialog(node, true, tree)">
                     <q-item-section avatar>
                       <q-icon name="sym_r_add_circle_outline" />
                     </q-item-section>
 
-                    <q-item-section>Adicionar subnível</q-item-section>
+                    <q-item-section>
+                      <q-item-label>
+                        Adicionar subnível
+                      </q-item-label>
+                    </q-item-section>
                   </q-item>
 
                   <q-item v-if="useEditButton" v-ripple class="qas-tree-generator__item" clickable @click="handleTreeFormDialog(node)">
@@ -25,7 +29,11 @@
                       <q-icon name="sym_r_edit" />
                     </q-item-section>
 
-                    <q-item-section>Editar</q-item-section>
+                    <q-item-section>
+                      <q-item-label>
+                        Editar
+                      </q-item-label>
+                    </q-item-section>
                   </q-item>
 
                   <q-item v-if="hasDestroyButton(node)" v-ripple class="qas-tree-generator__item" clickable @click="onDestroy(node)">

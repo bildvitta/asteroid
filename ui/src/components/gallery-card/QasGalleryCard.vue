@@ -3,8 +3,8 @@
     <header class="flat items-center no-wrap row" :class="headerClasses">
       <slot name="header">
         <div class="ellipsis q-mr-xs qas-gallery__name text-subtitle1">
-          <slot v-if="props.card.name" name="name">
-            {{ props.card.name }}
+          <slot v-if="props.name" name="name">
+            {{ name }}
           </slot>
         </div>
 
@@ -16,9 +16,15 @@
       </slot>
     </header>
 
-    <div class="qas-gallery-card__image">
+    <div v-if="props.useVideo">
+      <slot name="video">
+        <q-video v-bind="defaultVideoProps" />
+      </slot>
+    </div>
+
+    <div v-else class="qas-gallery-card__image">
       <slot name="image">
-        <q-img class="rounded-borders" height="100%" :src="props.card.url" v-bind="props.imageProps">
+        <q-img class="rounded-borders" height="100%" :src="props.url" v-bind="props.imageProps">
           <template #error>
             <div :class="errorClasses">
               <div class="text-center">
@@ -59,11 +65,6 @@ const props = defineProps({
     default: () => ({})
   },
 
-  card: {
-    type: Object,
-    default: () => ({})
-  },
-
   disable: {
     type: Boolean
   },
@@ -84,6 +85,25 @@ const props = defineProps({
   },
 
   imageProps: {
+    type: Object,
+    default: () => ({})
+  },
+
+  name: {
+    type: String,
+    default: ''
+  },
+
+  url: {
+    type: String,
+    default: ''
+  },
+
+  useVideo: {
+    type: Boolean
+  },
+
+  videoProps: {
     type: Object,
     default: () => ({})
   }
@@ -109,6 +129,7 @@ const errorClasses = [
   'text-subtitle2'
 ]
 
+// computeds
 const classes = computed(() => {
   return {
     'text-grey-6': props.disable
@@ -117,10 +138,10 @@ const classes = computed(() => {
 
 const headerClasses = computed(() => {
   return {
-    'justify-between': props.card.name,
-    'justify-right': !props.card.name,
+    'justify-between': props.name,
+    'justify-right': !props.name,
     'text-grey-10': !props.disable,
-    'q-mb-md': hasActions.value || props.card.name
+    'q-mb-md': hasActions.value || props.name
   }
 })
 
@@ -135,6 +156,16 @@ const defaultActionsMenuProps = computed(() => {
       disable: props.disable,
       ...buttonProps
     }
+  }
+})
+
+const defaultVideoProps = computed(() => {
+  return {
+    ratio: 16 / 9,
+
+    ...props.videoProps,
+
+    src: props.url
   }
 })
 

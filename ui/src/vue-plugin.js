@@ -24,6 +24,7 @@ import QasDialog from './components/dialog/QasDialog.vue'
 import QasDialogRouter from './components/dialog-router/QasDialogRouter.vue'
 import QasDrawer from './components/drawer/QasDrawer.vue'
 import QasEmptyResultText from './components/empty-result-text/QasEmptyResultText.vue'
+import QasErrorMessage from './components/error-message/QasErrorMessage.vue'
 import QasExpansionItem from './components/expansion-item/QasExpansionItem.vue'
 import QasField from './components/field/QasField.vue'
 import QasFilters from './components/filters/QasFilters.vue'
@@ -37,7 +38,6 @@ import QasGridItem from './components/grid-item/QasGridItem.vue'
 import QasHeader from './components/header/QasHeader.vue'
 import QasInfiniteScroll from './components/infinite-scroll/QasInfiniteScroll.vue'
 import QasInput from './components/input/QasInput.vue'
-import QasInfo from './components/info/QasInfo.vue'
 import QasLabel from './components/label/QasLabel.vue'
 import QasLayout from './components/layout/QasLayout.vue'
 import QasListItems from './components/list-items/QasListItems.vue'
@@ -50,8 +50,9 @@ import QasPagination from './components/pagination/QasPagination.vue'
 import QasPasswordInput from './components/password-input/QasPasswordInput.vue'
 import QasPasswordStrengthChecker from './components/password-strength-checker/QasPasswordStrengthChecker.vue'
 import QasProfile from './components/profile/QasProfile.vue'
-import QasResizer from './components/resizer/QasResizer.vue'
 import QasRadio from './components/radio/QasRadio.vue'
+import QasReportsFilters from './components/reports-filters/QasReportsFilters.vue'
+import QasResizer from './components/resizer/QasResizer.vue'
 import QasSearchBox from './components/search-box/QasSearchBox.vue'
 import QasSearchInput from './components/search-input/QasSearchInput.vue'
 import QasSelect from './components/select/QasSelect.vue'
@@ -123,6 +124,7 @@ async function install (app) {
   app.component('QasDialogRouter', QasDialogRouter)
   app.component('QasDrawer', QasDrawer)
   app.component('QasEmptyResultText', QasEmptyResultText)
+  app.component('QasErrorMessage', QasErrorMessage)
   app.component('QasExpansionItem', QasExpansionItem)
   app.component('QasField', QasField)
   app.component('QasFilters', QasFilters)
@@ -136,7 +138,6 @@ async function install (app) {
   app.component('QasHeader', QasHeader)
   app.component('QasInfiniteScroll', QasInfiniteScroll)
   app.component('QasInput', QasInput)
-  app.component('QasInfo', QasInfo)
   app.component('QasLabel', QasLabel)
   app.component('QasLayout', QasLayout)
   app.component('QasListItems', QasListItems)
@@ -151,6 +152,7 @@ async function install (app) {
   app.component('QasProfile', QasProfile)
   app.component('QasResizer', QasResizer)
   app.component('QasRadio', QasRadio)
+  app.component('QasReportsFilters', QasReportsFilters)
   app.component('QasSearchBox', QasSearchBox)
   app.component('QasSearchInput', QasSearchInput)
   app.component('QasSelect', QasSelect)
@@ -224,6 +226,7 @@ export {
   QasDialogRouter,
   QasDrawer,
   QasEmptyResultText,
+  QasErrorMessage,
   QasExpansionItem,
   QasField,
   QasFilters,
@@ -237,7 +240,6 @@ export {
   QasHeader,
   QasInfiniteScroll,
   QasInput,
-  QasInfo,
   QasLabel,
   QasLayout,
   QasListItems,
@@ -252,6 +254,7 @@ export {
   QasProfile,
   QasResizer,
   QasRadio,
+  QasReportsFilters,
   QasSearchBox,
   QasSearchInput,
   QasSelect,

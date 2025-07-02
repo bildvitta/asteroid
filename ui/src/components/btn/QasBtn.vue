@@ -1,10 +1,25 @@
 <template>
-  <q-btn ref="button" class="qas-btn" v-bind="attributes">
-    <slot />
-
+  <!-- "data-table-ignore-tr-hover" é para desabilitar o hover do tr no QasTableGenerator -->
+  <q-btn ref="button" class="qas-btn" data-table-ignore-tr-hover v-bind="attributes">
     <template v-for="(_, name) in nonDefaultSlots" #[name]="context">
       <slot :name="name" v-bind="context || {}" />
     </template>
+
+    <div class="items-center justify-between no-wrap row text-center" :class="containerClasses">
+      <q-spinner v-if="hasLeftSpinner" :class="iconClasses" size="sm" />
+
+      <q-icon v-if="hasIcon" :class="iconClasses" :name="props.icon" />
+
+      <div v-if="showLabel" :class="labelClasses">
+        {{ props.label }}
+      </div>
+
+      <q-spinner v-if="hasRightSpinner" :class="iconRightClasses" size="sm" />
+
+      <q-icon v-if="hasIconRight" :class="iconRightClasses" :name="props.iconRight" />
+    </div>
+
+    <slot />
   </q-btn>
 </template>
 
@@ -45,6 +60,10 @@ const props = defineProps({
     type: String
   },
 
+  loading: {
+    type: Boolean
+  },
+
   variant: {
     default: 'tertiary',
     type: String,
@@ -83,6 +102,18 @@ const hasIconOnly = computed(() => {
   )
 })
 
+const hasLeftSpinner = computed(() => props.loading && !props.iconRight)
+const hasRightSpinner = computed(() => props.loading && props.iconRight)
+
+const hasIconRight = computed(() => props.iconRight && !props.loading)
+const hasIcon = computed(() => props.icon && !props.loading)
+
+const labelClasses = computed(() => ({ ellipsis: props.useEllipsis }))
+const containerClasses = computed(() => ({ 'full-width': props.useEllipsis }))
+
+const iconClasses = computed(() => ({ 'on-left': !hasIconOnly.value }))
+const iconRightClasses = computed(() => ({ 'on-right': !hasIconOnly.value }))
+
 const classes = computed(() => {
   return {
     'qas-btn--primary': isPrimary.value,
@@ -103,17 +134,20 @@ const classes = computed(() => {
     'qas-btn--no-hover-on-white': !props.useHoverOnWhiteColor,
 
     // ellipsis
-    'qas-btn--ellipsis': props.useEllipsis
+    'full-width': props.useEllipsis
   }
 })
 
 const attributes = computed(() => {
   const {
+    class: externalClass,
     dense,
+    disable,
     fab,
     fabMini,
     flat,
     glossy,
+    loading,
     noWrap,
     outline,
     padding,
@@ -126,16 +160,12 @@ const attributes = computed(() => {
     stretch,
     textColor,
     unelevated,
-    class: externalClass,
     ...attributesPayload
   } = attrs
 
   return {
-    ...(showLabel.value && { label: props.label }),
-
     ...attributesPayload,
-    icon: props.icon,
-    iconRight: props.iconRight,
+    disable: disable || props.loading,
     class: [classes.value, externalClass]
   }
 })

@@ -148,6 +148,10 @@ module.exports = [
         path: '/components/empty-result-text'
       },
       {
+        name: 'ErrorMessage',
+        path: '/components/error-message'
+      },
+      {
         name: 'ExpansionItem',
         path: '/components/expansion-item'
       },
@@ -200,10 +204,6 @@ module.exports = [
         path: '/components/input'
       },
       {
-        name: 'Info',
-        path: '/components/info'
-      },
-      {
         name: 'Label',
         path: '/components/label'
       },
@@ -254,6 +254,10 @@ module.exports = [
       {
         name: 'Profile',
         path: '/components/profile'
+      },
+      {
+        name: 'ReportsFilters',
+        path: '/components/reports-filters'
       },
       {
         name: 'Radio',
@@ -406,6 +410,10 @@ module.exports = [
         path: '/helpers/camelize-fields-name'
       },
       {
+        name: 'colors',
+        path: '/helpers/colors'
+      },
+      {
         name: 'constructObject',
         path: '/helpers/construct-object'
       },
@@ -482,6 +490,10 @@ module.exports = [
         path: '/helpers/is-local-development'
       },
       {
+        name: 'setScrollGradient',
+        path: '/helpers/set-scroll-gradient'
+      },
+      {
         name: 'setScrollOnGrab',
         path: '/helpers/set-scroll-on-grab'
       }
@@ -527,6 +539,10 @@ module.exports = [
       {
         name: 'set-button',
         path: '/styles/set-button'
+      },
+      {
+        name: 'set-error-message',
+        path: '/styles/set-error-message'
       },
       {
         name: 'set-typography',

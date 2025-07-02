@@ -21,6 +21,11 @@ props:
     examples: [v-model"value"]
     model: true
 
+  multiple:
+    desc: Habilita multi-seleção.
+    default: false
+    type: Boolean
+
   options:
     desc: Opções para gerar os checkbox.
     default: []
