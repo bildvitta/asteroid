@@ -10,7 +10,7 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 ### Sobre os "BREAKING CHANGES"
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
-## Não publicado
+## [3.18.0] - 02-07-2025
 ## BREAKING CHANGE
 - `QasInput`: alterado ordem da prop `iconRight` que estava adicionando na esquerda e não na direita, verificar lugares.
 - Alterar `quasar.variables.scss`, nova cor do `$negative` sendo `$red-14`.
@@ -4051,3 +4051,4 @@ Adicionado suporte para Pinia/Vuex Seguindo os padrões da biblioteca `@bildvitt
 [3.18.0-beta.7]: https://github.com/bildvitta/asteroid/compare/v3.19.0-alpha.20...v3.18.0-beta.7?expand=1
 [3.18.0-beta.8]: https://github.com/bildvitta/asteroid/compare/v3.19.0-alpha.22...v3.18.0-beta.8?expand=1
 [3.18.0-beta.9]: https://github.com/bildvitta/asteroid/compare/v3.18.0-beta.8...v3.18.0-beta.9?expand=1
+[3.18.0]: https://github.com/bildvitta/asteroid/compare/v3.19.0-alpha.25...v3.18.0?expand=1
