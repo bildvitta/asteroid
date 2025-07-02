@@ -1,7 +1,8 @@
+import asteroidConfigHandler from './helpers/asteroid-config-handler.js'
+
 import ComponentsVite from 'unplugin-vue-components/vite'
 import ComponentsWebpack from 'unplugin-vue-components/webpack'
-
-import asteroidConfigHandler from './helpers/asteroid-config-handler.js'
+import { pathToFileURL } from 'url'
 
 const sourcePath = '~@bildvitta/quasar-app-extension-asteroid/src/'
 const resolve = (...paths) => paths.map(path => sourcePath + path)
@@ -89,7 +90,7 @@ export default async function (api) {
   validate()
 
   const asteroidConfigPath = getAsteroidConfigPath()
-  const { default: asteroidConfigFile } = await import(asteroidConfigPath)
+  const { default: asteroidConfigFile } = await import(pathToFileURL(asteroidConfigPath).href)
 
   const unpluginVueComponentsConfig = {
     dirs: [api.resolve.app(asteroidComponents)], // ajusta o path para a lib
