@@ -10,6 +10,99 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 ### Sobre os "BREAKING CHANGES"
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
+## Não publicado
+## BREAKING CHANGES
+- Todos locais que usarem component dinâmico `<component :is="QasBtn" />` do asteroid, precisa ser importado do asteroid `import { QasBtn } from 'asteroid'`, porque o auto import não consegue identificar o componente sozinho.
+- Removido opção "thirdPartyComponents" e "autoRemoveThirdDependencies", agora precisa instalar/desinstalar manualmente as libs necessárias para o `QasMap` e `QasChartView`.
+- Instalar dependências manualmente para os componentes `QasMap` e `QasChartView`.
+- `QasDelete`: propriedade agora aceita receber um componente além de string, caso esteja passando algum component do asteroid com string, usar import diretamente.
+- remover personalização do `quasar.variables.css`.
+
+### Adicionado
+- Adicionado suporte para Vite, mantendo suporte para Webpack.
+- `build/*`: adicionado suporte para lançar versões alpha do asteroid para testes mais rápidos e precisos.
+- adicionado cores defaults internamente no componente sem necessidade de fazer isto no projeto no arquivo `quasar.variables.scss`
+
+### Modificado
+- Modificado arquivo `asteroid.config.js`.
+- `QasMap`: modificações para utilizar plugin do import `@fawmi/vue-google-maps` dentro do próprio arquivo .vue, ao invés de utilizar no boot.
+- `app-extension/src/boot/error-pages.js`: modificado import estático de paginas para import dinâmico.
+- Mudanças necessárias para dar suporte ao vite, como:
+  - modificado `modules.exports` por `export default`.
+  - import manual de todos os componentes do asteroid internamente.
+- `QasField`: Modificado imports estático de componentes para import dinâmico com `defineAsyncComponent` e alterado para composition API.
+- import manual de componentes/scripts do Asteroid:
+  - QasAlert
+  - QasAppMenu
+  - PvAppMenuDropdown
+  - QasAppUser
+  - QasBadge
+  - QasBoardGenerator
+  - QasDropdown
+  - QasCardImage
+  - QasCard
+  - QasChartView
+  - QasCheckbox
+  - QasCopy
+  - QasDateTimeInput
+  - QasDelete
+  - QasDialog
+  - QasDrawer
+  - QasExpansionItem
+  - QasFilters
+  - QasFormGenerator
+  - QasFormView
+  - QasGalleryCard
+  - QasGallery
+  - PvGalleryCarouselDialog
+  - PvGalleryDeleteDialog
+  - QasGridGenerator
+  - QasHeader
+  - QasInfiniteScroll
+  - PvLayoutNotificationCard
+  - PvLayoutNotificationsDrawer
+  - QasListItems
+  - QasNestedFields
+  - QasPasswordInput
+  - QasRadio
+  - QasSearchBox
+  - QasSearchInput
+  - QasSelectFilter
+  - QasSelectListDialog
+  - PvSelectListCheckbox
+  - QasSelect
+  - QasSignaturePad
+  - QasSingleView
+  - QasStepperFormView
+  - QasTableGenerator
+  - QasTabsGenerator
+  - QasTextTruncate
+  - QasToggleVisibility
+  - QasTreeGenerator
+  - QasUploader
+  - QasUploader
+  - QasWelcome
+  - QasWhatsappLink
+  - ui/src/composables/use-notifications.js
+  - ui/src/composables/use-query-cache.js
+  - ui/src/pages/ErrorComponent.vue
+  - ui/src/pages/Forbidden.vue
+  - ui/src/pages/NotFound.vue
+  - ui/src/pages/ServerError.vue
+  - ui/src/pages/Unauthorized.vue
+  - app-extension/src/boot/notifications.js
+  - app-extension/src/boot/query-cache.js
+  - app-extension/src/boot/register.js
+  - app-extension/src/defaults/default-asteroid-config.js
+  - app-extension/src/helpers/asteroid-config-handler.js
+  - app-extension/src/helpers/install-third-party-components.js
+  - app-extension/src/helpers/laravel-echo.js
+  - app-extension/src/helpers/notifications-channels.js
+  - ui/src/asteroid.js
+
+### Removido
+- Removido opção "thirdPartyComponents" e "autoRemoveThirdDependencies", agora precisa instalar/desinstalar manualmente as libs necessárias para o `QasMap` e `QasChartView` no arquivo `asteroid.config.js`.
+
 ## [3.18.0] - 02-07-2025
 ## BREAKING CHANGE
 - `QasInput`: alterado ordem da prop `iconRight` que estava adicionando na esquerda e não na direita, verificar lugares.

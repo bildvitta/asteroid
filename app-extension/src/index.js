@@ -40,10 +40,6 @@ function extendQuasar (quasar, api, asteroidConfigFile) {
     )
   }
 
-  // Preserva whitespaces!
-  // https://github.com/vuejs/core/pull/1600
-  // quasar.build.vueLoaderOptions.whitespace = 'preserve'
-
   // Adiciona todas classes do asteroid
   quasar.css.push(...resolve('index.scss'))
 
