@@ -100,9 +100,7 @@ export default {
         this.mx_filterOptionsByStore('')
 
         setTimeout(() => this.$emit('update:modelValue', undefined))
-      },
-
-      deep: true
+      }
     }
   },
 

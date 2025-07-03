@@ -16,12 +16,12 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 - Removido opção "thirdPartyComponents" e "autoRemoveThirdDependencies", agora precisa instalar/desinstalar manualmente as libs necessárias para o `QasMap` e `QasChartView`.
 - Instalar dependências manualmente para os componentes `QasMap` e `QasChartView`.
 - `QasDelete`: propriedade agora aceita receber um componente além de string, caso esteja passando algum component do asteroid com string, usar import diretamente.
-- remover personalização do `quasar.variables.css`.
+- Remover personalização do `quasar.variables.css`.
 
 ### Adicionado
 - Adicionado suporte para Vite, mantendo suporte para Webpack.
 - `build/*`: adicionado suporte para lançar versões alpha do asteroid para testes mais rápidos e precisos.
-- adicionado cores defaults internamente no componente sem necessidade de fazer isto no projeto no arquivo `quasar.variables.scss`
+- Adicionado cores defaults internamente no componente sem necessidade de fazer isto no projeto no arquivo `quasar.variables.scss`
 
 ### Modificado
 - Modificado arquivo `asteroid.config.js`.

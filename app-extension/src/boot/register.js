@@ -4,7 +4,5 @@
 import { install } from 'asteroid'
 
 export default ({ app }) => {
-  app.use({
-    install
-  })
+  app.use({ install })
 }

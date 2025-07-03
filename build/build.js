@@ -68,7 +68,11 @@ async function main () {
   const isBeta = currentBranch === 'develop'
   const isAlpha = /^feature\/.+/.test(currentBranch)
 
-  if (!acceptableBranch.some(branch => typeof branch === 'string' ? branch === currentBranch : branch.test(currentBranch))) {
+  const isAcceptableBranch = acceptableBranch.some(branch => {
+    return typeof branch === 'string' ? branch === currentBranch : branch.test(currentBranch)
+  })
+
+  if (!isAcceptableBranch) {
     ora('Só é possível publicar nas branchs "main", "develop" e "feature/*"').fail()
     return
   }

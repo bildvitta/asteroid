@@ -99,7 +99,8 @@ async function initializeMap () {
     load: { libraries: 'places', key }
   })
 
-  counterKey.value += 1 // Force re-render to ensure the map is initialized
+  // Força o re-render do componente para garantir que o mapa seja inicializado
+  counterKey.value += 1
 }
 </script>
 
