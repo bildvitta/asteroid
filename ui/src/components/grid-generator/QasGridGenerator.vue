@@ -40,7 +40,7 @@ import QasHeader from '../header/QasHeader.vue'
 import useGenerator, { baseProps } from '../../composables/private/use-generator'
 import { isEmpty, humanize } from '../../helpers'
 import { useScreen } from '../../composables'
-import { isObject } from 'lodash-es'
+import isObject from 'lodash-es/isObject'
 import { ref, computed, watch } from 'vue'
 
 // define component name

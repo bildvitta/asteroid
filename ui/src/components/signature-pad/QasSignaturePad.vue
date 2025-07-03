@@ -13,7 +13,7 @@
 import QasBtn from '../btn/QasBtn.vue'
 
 import { uid } from 'quasar'
-import { isEqual } from 'lodash-es'
+import isEqual from 'lodash-es/isEqual'
 import SignaturePad from 'signature_pad'
 
 export default {

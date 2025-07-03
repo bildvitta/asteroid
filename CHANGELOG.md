@@ -99,6 +99,13 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
   - app-extension/src/helpers/laravel-echo.js
   - app-extension/src/helpers/notifications-channels.js
   - ui/src/asteroid.js
+- Modificado import do lodash para import default:
+  - QasFormView
+  - QasGridGenerator
+  - QasPageHeader
+  - QasSelectList
+  - QasSignaturePad
+  - mixins/search-filter.js
 
 ### Removido
 - Removido opção "thirdPartyComponents" e "autoRemoveThirdDependencies", agora precisa instalar/desinstalar manualmente as libs necessárias para o `QasMap` e `QasChartView` no arquivo `asteroid.config.js`.

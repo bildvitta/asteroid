@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import { sortBy } from 'lodash-es'
+import sortBy from 'lodash-es/sortBy'
 
 import QasBtn from '../btn/QasBtn.vue'
 import QasSearchBox from '../search-box/QasSearchBox.vue'
