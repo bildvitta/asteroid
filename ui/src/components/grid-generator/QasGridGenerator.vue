@@ -33,10 +33,14 @@
 </template>
 
 <script setup>
+import QasBox from '../box/QasBox.vue'
+import QasGridItem from '../grid-item/QasGridItem.vue'
+import QasHeader from '../header/QasHeader.vue'
+
 import useGenerator, { baseProps } from '../../composables/private/use-generator'
 import { isEmpty, humanize } from '../../helpers'
 import { useScreen } from '../../composables'
-import { isObject } from 'lodash-es'
+import isObject from 'lodash-es/isObject'
 import { ref, computed, watch } from 'vue'
 
 // define component name
@@ -107,7 +111,7 @@ const hasHeader = computed(() => Object.keys(props.headerProps).length)
 
 const component = computed(() => {
   return {
-    is: props.useBox ? 'qas-box' : 'div',
+    is: props.useBox ? QasBox : 'div',
     props: props.useBox ? props.boxProps : {}
   }
 })

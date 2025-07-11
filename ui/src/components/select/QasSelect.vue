@@ -65,6 +65,8 @@
 </template>
 
 <script>
+import QasBadge from '../badge/QasBadge.vue'
+
 import { getRequiredLabel } from '../../helpers'
 import { searchFilterMixin } from '../../mixins'
 import fuseConfig from '../../shared/fuse-config'
@@ -74,6 +76,10 @@ import Fuse from 'fuse.js'
 
 export default {
   name: 'QasSelect',
+
+  components: {
+    QasBadge
+  },
 
   mixins: [searchFilterMixin],
 
@@ -116,6 +122,11 @@ export default {
     options: {
       default: () => [],
       type: Array
+    },
+
+    prefix: {
+      type: String,
+      default: ''
     },
 
     required: {

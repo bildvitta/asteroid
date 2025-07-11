@@ -26,10 +26,9 @@ props:
     type: String
 
   tag:
-    desc: Tag do componente.
-    default: qas-btn
-    type: String
-    examples: [q-item]
+    desc: Tag ou Componente do componente.
+    default: QasBtn
+    type: [String, Object]
 
   url:
     desc: Envia como parâmetro para a action "fetchSingle" do modulo correspondente a "entity".

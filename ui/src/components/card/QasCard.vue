@@ -33,8 +33,10 @@
 </template>
 
 <script setup>
-import { computed, useSlots, inject } from 'vue'
+import QasActionsMenu from '../actions-menu/QasActionsMenu.vue'
+import QasBox from '../box/QasBox.vue'
 
+import { computed, useSlots, inject } from 'vue'
 import { colors } from 'quasar'
 
 defineOptions({ name: 'QasCard' })

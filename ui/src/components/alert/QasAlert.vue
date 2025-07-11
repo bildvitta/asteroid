@@ -28,10 +28,12 @@
 </template>
 
 <script setup>
+import QasBox from '../box/QasBox.vue'
+import QasBtn from '../btn/QasBtn.vue'
+
 import { Status, StatusColor } from '../../enums/Status'
 
 import { LocalStorage } from 'quasar'
-import { QasBtn } from 'asteroid'
 import { RouterLink } from 'vue-router'
 import { h, computed, inject } from 'vue'
 

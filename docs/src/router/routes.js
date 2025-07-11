@@ -14,6 +14,11 @@ const routes = [
   },
 
   {
+    path: '/paginas/unauthorized',
+    component: () => import('../../../ui/src/pages/Unauthorized.vue')
+  },
+
+  {
     path: '/paginas/forbidden',
     component: () => import('../../../ui/src/pages/Forbidden.vue')
   },

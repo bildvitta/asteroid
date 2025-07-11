@@ -59,6 +59,11 @@
 </template>
 
 <script setup>
+import QasBox from '../box/QasBox.vue'
+import QasBtn from '../btn/QasBtn.vue'
+import QasField from '../field/QasField.vue'
+import QasHeader from '../header/QasHeader.vue'
+
 import { gutterValidator } from '../../helpers/private/gutter-validator'
 import useGenerator, { baseProps } from '../../composables/private/use-generator'
 import { Spacing } from '../../enums/Spacing'
@@ -140,7 +145,7 @@ const containerComponent = computed(() => {
   const hasBox = props.useBox && !hasNestedFormGenerator
 
   return {
-    is: hasBox ? 'qas-box' : 'div',
+    is: hasBox ? QasBox : 'div',
     props: {
       ...(hasBox && { ...props.boxProps })
     }

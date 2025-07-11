@@ -37,6 +37,12 @@
 </template>
 
 <script setup>
+import QasLabel from '../label/QasLabel.vue'
+import QasBadge from '../badge/QasBadge.vue'
+import QasBtn from '../btn/QasBtn.vue'
+import QasActionsMenu from '../actions-menu/QasActionsMenu.vue'
+import QasFilters from '../filters/QasFilters.vue'
+
 import { Spacing } from '../../enums/Spacing'
 import { gutterValidator } from '../../helpers/private/gutter-validator'
 
@@ -110,7 +116,7 @@ const defaultLabelProps = computed(() => {
 const actionsComponent = computed(() => {
   const component = {
     [hasDefaultButton.value]: {
-      is: 'qas-btn',
+      is: QasBtn,
       props: {
         ...props.buttonProps,
         useLabelOnSmallScreen: false
@@ -118,12 +124,12 @@ const actionsComponent = computed(() => {
     },
 
     [hasDefaultActionsMenu.value]: {
-      is: 'qas-actions-menu',
+      is: QasActionsMenu,
       props: props.actionsMenuProps
     },
 
     [hasDefaultFilters.value]: {
-      is: 'qas-filters',
+      is: QasFilters,
       props: {
         useSearch: false,
         useChip: false,

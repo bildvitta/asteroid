@@ -1,7 +1,7 @@
 {
   "name": "@bildvitta/asteroid-docs",
   "description": "Asteroid",
-  "version": "3.18.0",
+  "version": "3.19.0-alpha.27",
   "author": "Bild & Vitta <systemteam@bild.com.br>",
   "license": "MIT",
   "productName": "Asteroid Docs",
@@ -31,6 +31,7 @@
     "highlight.js": "^11.8.0",
     "markdown-it": "^13.0.1",
     "quasar": "^2.18.1",
+    "unplugin-vue-components": "^28.5.0",
     "vue": "3.4.0",
     "vue-chartjs": "^5.3.1",
     "vue-router": "^4.3.2",
@@ -38,9 +39,9 @@
     "web-vitals": "^3.3.2"
   },
   "devDependencies": {
-    "@babel/eslint-parser": "^7.21.8",
+    "@babel/eslint-parser": "7.21.8",
     "@quasar/app-webpack": "^3.15.1",
-    "eslint-webpack-plugin": "^4.0.1",
+    "eslint-webpack-plugin": "4.0.1",
     "gray-matter": "^4.0.3",
     "markdown-it-container": "^3.0.0",
     "node-polyfill-webpack-plugin": "^2.0.1",

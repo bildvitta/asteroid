@@ -37,6 +37,7 @@
 <script>
 import QasBtn from '../btn/QasBtn.vue'
 import QasDialog from '../dialog/QasDialog.vue'
+import QasActions from '../actions/QasActions.vue'
 
 import { NotifyError, NotifySuccess } from '../../plugins'
 import { useHistory } from '../../composables'
@@ -45,7 +46,7 @@ import { viewMixin } from '../../mixins'
 import debug from 'debug'
 import { extend } from 'quasar'
 import { getAction } from '@bildvitta/store-adapter'
-import { isEqualWith } from 'lodash-es'
+import isEqualWith from 'lodash-es/isEqual'
 import { onBeforeRouteLeave } from 'vue-router'
 
 const log = debug('asteroid-ui:qas-form-view')
@@ -54,6 +55,7 @@ export default {
   name: 'QasFormView',
 
   components: {
+    QasActions,
     QasBtn,
     QasDialog
   },

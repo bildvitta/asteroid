@@ -603,6 +603,10 @@ module.exports = [
         path: '/paginas/forbidden'
       },
       {
+        name: 'Unauthorized - 401',
+        path: '/paginas/unauthorized'
+      },
+      {
         name: 'NotFound - 404',
         path: '/paginas/not-found'
       },

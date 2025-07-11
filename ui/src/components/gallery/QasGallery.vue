@@ -26,6 +26,7 @@
 import PvGalleryCarouselDialog from './private/PvGalleryCarouselDialog.vue'
 import PvGalleryDeleteDialog from './private/PvGalleryDeleteDialog.vue'
 import QasBtn from '../btn/QasBtn.vue'
+import QasGalleryCard from '../gallery-card/QasGalleryCard.vue'
 
 import { baseProps } from './composables/use-delete'
 import { useScreen } from '../../composables'

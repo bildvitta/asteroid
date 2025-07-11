@@ -39,6 +39,7 @@
 <script setup>
 import QasActions from '../actions/QasActions.vue'
 import QasBtn from '../btn/QasBtn.vue'
+import QasLabel from '../label/QasLabel.vue'
 
 import useCancel from './composables/use-cancel'
 import useDynamicComponents from './composables/use-dynamic-components'

@@ -6,6 +6,8 @@
 </template>
 
 <script setup>
+import { QChip, QBadge } from 'quasar'
+
 import { baseProps } from '../../shared/badge-config'
 
 import { computed } from 'vue'
@@ -24,7 +26,7 @@ const component = computed(() => {
   const isChip = props.removable
 
   return {
-    is: isChip ? 'q-chip' : 'q-badge',
+    is: isChip ? QChip : QBadge,
     props: {
       // comum
       color: props.color,

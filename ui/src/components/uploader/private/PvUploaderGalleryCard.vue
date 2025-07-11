@@ -19,10 +19,22 @@
 </template>
 
 <script>
+import QasDialog from '../../dialog/QasDialog.vue'
+import QasFormGenerator from '../../form-generator/QasFormGenerator.vue'
+import QasGalleryCard from '../../gallery-card/QasGalleryCard.vue'
+import QasGridGenerator from '../../grid-generator/QasGridGenerator.vue'
+
 import downloadFile from '../../../helpers/download-file.js'
 
 export default {
   name: 'PvUploaderGalleryCard',
+
+  components: {
+    QasDialog,
+    QasFormGenerator,
+    QasGalleryCard,
+    QasGridGenerator
+  },
 
   inheritAttrs: false,
 

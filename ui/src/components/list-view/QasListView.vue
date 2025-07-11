@@ -41,6 +41,7 @@
 </template>
 
 <script>
+import QasEmptyResultText from '../empty-result-text/QasEmptyResultText.vue'
 import QasFilters from '../filters/QasFilters.vue'
 import QasPagination from '../pagination/QasPagination.vue'
 
@@ -56,6 +57,7 @@ const log = debug('asteroid-ui:qas-list-view')
 
 export default {
   components: {
+    QasEmptyResultText,
     QasFilters,
     QasPagination
   },

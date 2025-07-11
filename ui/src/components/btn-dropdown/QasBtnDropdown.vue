@@ -31,6 +31,8 @@
 </template>
 
 <script setup>
+import QasBtn from '../btn/QasBtn.vue'
+
 import useScreen from '../../composables/use-screen'
 
 import { ref, watch, computed, useSlots } from 'vue'

@@ -23,6 +23,11 @@
 </template>
 
 <script>
+import QasBox from '../box/QasBox.vue'
+import QasEmptyResultText from '../empty-result-text/QasEmptyResultText.vue'
+import QasFilters from '../filters/QasFilters.vue'
+import QasHeader from '../header/QasHeader.vue'
+
 // Importações do chart.js
 import {
   Chart as ChartJS,
@@ -63,7 +68,11 @@ export default {
   components: {
     BarChart,
     DoughnutChart,
-    LineChart
+    LineChart,
+    QasBox,
+    QasEmptyResultText,
+    QasFilters,
+    QasHeader
   },
 
   props: {
@@ -332,7 +341,7 @@ export default {
 
     parentComponent () {
       return {
-        is: this.useBox ? 'qas-box' : 'div',
+        is: this.useBox ? QasBox : 'div',
 
         props: {
           ...(this.useBox && { ...this.boxProps })
