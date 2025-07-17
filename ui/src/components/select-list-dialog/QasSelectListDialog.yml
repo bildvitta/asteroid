@@ -66,6 +66,9 @@ props:
     type: Boolean
 
 slots:
+  content:
+    desc: Slot para personalizar o conteúdo dos itens adicionados.
+
   dialog-actions:
     desc: Slot para substituir ações do dialog.
 

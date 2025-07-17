@@ -1,20 +1,6 @@
 <template>
   <div class="app-select-list-dialog full-width">
-    <header class="flex items-center justify-between no-wrap">
-      <qas-label v-bind="labelProps" />
-
-      <qas-btn
-        v-bind="defaultAddButtonProps"
-        @click="toggleDialog"
-      />
-    </header>
-
-    <div
-      v-if="props.description"
-      class="q-mt-md text-body1 text-grey-8"
-    >
-      {{ props.description }}
-    </div>
+    <qas-header v-bind="headerProps" />
 
     <component
       :is="containerListComponent"
@@ -25,17 +11,19 @@
         {{ props.listLabel }}
       </span>
 
-      <q-virtual-scroll #default="{ item, index }" class="app-select-list-dialog__list q-mt-md" :items="selectedOptions" separator>
-        <q-item class="q-px-none text-body1 text-grey-8">
-          <q-item-section>
-            {{ item.label }}
-          </q-item-section>
+      <slot name="content">
+        <q-virtual-scroll #default="{ item, index }" class="app-select-list-dialog__list q-mt-md" :items="selectedOptions" separator>
+          <q-item class="q-px-none text-body1 text-grey-8">
+            <q-item-section>
+              {{ item.label }}
+            </q-item-section>
 
-          <q-item-section avatar>
-            <qas-btn v-bind="getRemoveButtonProps({ index, option: item })" />
-          </q-item-section>
-        </q-item>
-      </q-virtual-scroll>
+            <q-item-section avatar>
+              <qas-btn v-bind="getRemoveButtonProps({ index, option: item })" />
+            </q-item-section>
+          </q-item>
+        </q-virtual-scroll>
+      </slot>
 
       <q-inner-loading :showing="props.loading">
         <q-spinner
@@ -140,16 +128,16 @@ const props = defineProps({
   }
 })
 
+// emits
 const emit = defineEmits(['add', 'remove', 'update:modelValue'])
 
+// slots
 const slots = useSlots()
 
+// globals
 const isBox = inject('isBox', false)
 
-const hasError = computed(() => Array.isArray(props.error) ? !!props.error.length : !!props.error)
-const errorMessage = computed(() => Array.isArray(props.error) ? props.error.join(' ') : props.error)
-const containerListComponent = computed(() => isBox ? 'div' : 'qas-box')
-
+// composables
 const {
   listModel,
   showDialog,
@@ -172,25 +160,37 @@ const {
   getRemoveButtonProps
 } = useList()
 
+// expose
 defineExpose({ add, removeAll, remove })
 
+// refs
 const model = ref([...props.modelValue])
 
-const defaultAddButtonProps = computed(() => {
-  return {
-    icon: 'sym_r_add',
-    useLabelOnSmallScreen: false,
-    ...props.addButtonProps,
-    disable: props.disable,
-    loading: props.loading
-  }
-})
+// computeds
+const hasError = computed(() => Array.isArray(props.error) ? !!props.error.length : !!props.error)
+const errorMessage = computed(() => Array.isArray(props.error) ? props.error.join(' ') : props.error)
+const containerListComponent = computed(() => isBox ? 'div' : 'qas-box')
 
-const labelProps = computed(() => {
+const headerProps = computed(() => {
   return {
-    label: props.label,
-    margin: 'none',
-    color: hasError.value ? 'negative' : 'grey-10'
+    labelProps: {
+      label: props.label,
+      margin: 'none',
+      color: hasError.value ? 'negative' : 'grey-10'
+    },
+
+    description: props.description,
+
+    buttonProps: {
+      icon: 'sym_r_add',
+      useLabelOnSmallScreen: false,
+      ...props.addButtonProps,
+      disable: props.disable,
+      loading: props.loading,
+
+      // events
+      onClick: toggleDialog
+    }
   }
 })
 
@@ -202,6 +202,7 @@ watch(() => props.modelValue, newValue => {
   model.value = [...newValue]
 })
 
+// functions
 function updateModel () {
   emit('update:modelValue', model.value)
 }
