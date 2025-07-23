@@ -232,7 +232,7 @@ function useList () {
   /**
    * Valida se tenho opções ou se está carregando para mostrar o container da listagem.
    */
-  const canShowContainerList = computed(() => hasFilteredOptions.value || props.loading)
+  const canShowContainerList = computed(() => hasFilteredOptions.value || props.loading || !!slots.content)
   const hasFilteredOptions = computed(() => model.value.length)
 
   /*
