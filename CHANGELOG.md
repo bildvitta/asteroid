@@ -17,7 +17,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 
 ### Modificado
 - `QasSelectListDialog`: Modificado header para utilizar o componente `QasHeader`.
-
+- `QasNumericInput`: Alterado input para aplicar estilo tanto de `readonly` quanto de `disabled`, sendo que antes só aplicava `disabled` mesmo quando enviasse a prop `readonly`.
 
 ## [3.18.0] - 02-07-2025
 ## BREAKING CHANGE
