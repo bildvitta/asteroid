@@ -8,7 +8,7 @@
     <qas-dialog v-model="showDialog">
       <template #description>
         <div class="q-mb-md">
-          Este exemplo de um QasCard dentro de um QasDialog.
+          Este é um exemplo de um QasCard dentro de um QasDialog.
         </div>
 
         <qas-card :route="{ name: 'Root' }" title="Titulo">
