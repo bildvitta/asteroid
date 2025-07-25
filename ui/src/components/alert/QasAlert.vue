@@ -89,6 +89,7 @@ const model = defineModel({ type: Boolean, default: true })
 
 // globals
 const isBox = inject('isBox', false)
+const isDialog = inject('isDialog', false)
 
 // composables
 const { displayAlert, close } = useStorageClosed()
@@ -106,13 +107,13 @@ const iconProps = computed(() => {
 })
 
 /**
- * Por padrão, quando este componente estiver dentro de um QasBox, ele não terá
+ * Por padrão, quando este componente estiver dentro de um QasBox | QasDialog, ele não terá
  * shadow, terá padding e não terá margin.
  */
 const defaultBoxProps = computed(() => {
   const hasBoxProps = props.useBox !== undefined
 
-  const useBox = hasBoxProps ? props.useBox : !isBox
+  const useBox = hasBoxProps ? props.useBox : !isBox && !isDialog
 
   return {
     unelevated: !useBox,
