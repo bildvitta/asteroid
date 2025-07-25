@@ -12,7 +12,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 
 ## Não publicado
 ### Modificado
-- `QasAlert`: Modificado comportamento para não ter box quando estivar dentro de um `QasDialog`.
+- `QasAlert`: Modificado comportamento para não ter box quando estiver dentro de um `QasDialog`.
 
 ## [3.19.0-beta.0] - 11-07-2025
 ## BREAKING CHANGES
