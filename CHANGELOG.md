@@ -12,7 +12,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 
 ## Não publicado
 ### Modificado
-- `QasTableGenerator`: Alterado cor da título da coluna (th) para o `grey-10`.
+- `QasTableGenerator`: Alterado cor do título da coluna (th) para o `grey-10`.
 
 ## [3.19.0-beta.0] - 11-07-2025
 ## BREAKING CHANGES
