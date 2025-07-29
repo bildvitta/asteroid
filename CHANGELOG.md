@@ -13,7 +13,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 ## Não publicado
 ### Adicionado
 - `QasNestedFields`: Adicionado nova prop `use-header` para controlar quando irá ter ou não o header em cada linha.
-- `QasSelectListDialog`: Adicionado novo slot `content` para poder personalizar todos os itens adicionados.
+- `QasSelectListDialog`: Adicionado novo slot `selected-content` para poder personalizar todos os itens adicionados.
 
 ### Modificado
 - `QasSelectListDialog`: Modificado header para utilizar o componente `QasHeader`.
