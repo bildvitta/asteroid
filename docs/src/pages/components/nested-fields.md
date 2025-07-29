@@ -73,7 +73,7 @@ A propriedade `useDestroyAlways` caso não seja repassada ao componente, assume 
 Opte por usar o `use-single-label` apenas quando utilizar o `use-inline-actions`.
 :::
 <doc-example file="QasNestedFields/ExSingleLabel" title="Label única" />
-<doc-example file="QasNestedFields/SingleLabelAndNotHeader" title="Label única e sem header em todas as linhas" />
+<doc-example file="QasNestedFields/NotHeader" title="Sem header em todas as linhas" />
 
 <doc-example file="QasNestedFields/StartsEmptyFalse" title="Começando com formulário" />
 <doc-example file="QasNestedFields/DisabledRowsArray" title="Linhas desabilitadas com um array de uuids" />

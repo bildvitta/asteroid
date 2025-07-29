@@ -2,9 +2,7 @@
   <div class="container spaced">
     <div class="full-width">
       <div class="q-mt-lg text-center">
-        <div>
-          <qas-nested-fields v-model="model" class="full-width" v-bind="nestedFieldsProps" />
-        </div>
+        <qas-nested-fields v-model="model" class="full-width" v-bind="nestedFieldsProps" />
 
         <div class="q-my-lg">
           Model: <qas-debugger :inspect="[model]" />
@@ -54,7 +52,6 @@ const nestedFieldsProps = {
 
   formCommonColumns: { col: 4 },
   useInlineActions: true,
-  useSingleLabel: true,
   useHeader: false
 }
 
