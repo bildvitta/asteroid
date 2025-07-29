@@ -66,9 +66,6 @@ props:
     type: Boolean
 
 slots:
-  content:
-    desc: Slot para personalizar o conteúdo dos itens adicionados.
-
   dialog-actions:
     desc: Slot para substituir ações do dialog.
 
@@ -77,6 +74,9 @@ slots:
 
   dialog-header:
     desc: Slot para substituir cabeçalho do dialog.
+
+  selected-content:
+    desc: Slot para personalizar o conteúdo dos itens adicionados.
 
 events:
   '@add -> function(items)':

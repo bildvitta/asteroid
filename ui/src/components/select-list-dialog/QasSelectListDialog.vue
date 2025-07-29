@@ -11,7 +11,7 @@
         {{ props.listLabel }}
       </span>
 
-      <slot name="content">
+      <slot name="selected-content">
         <q-virtual-scroll #default="{ item, index }" class="app-select-list-dialog__list q-mt-md" :items="selectedOptions" separator>
           <q-item class="q-px-none text-body1 text-grey-8">
             <q-item-section>
@@ -232,7 +232,7 @@ function useList () {
   /**
    * Valida se tenho opções ou se está carregando para mostrar o container da listagem.
    */
-  const canShowContainerList = computed(() => hasFilteredOptions.value || props.loading || !!slots.content)
+  const canShowContainerList = computed(() => hasFilteredOptions.value || props.loading || !!slots['selected-content'])
   const hasFilteredOptions = computed(() => model.value.length)
 
   /*
