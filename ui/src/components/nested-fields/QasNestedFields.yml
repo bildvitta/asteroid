@@ -169,6 +169,11 @@ props:
     default: true
     type: Boolean
 
+  use-header:
+    desc: Controla se vai ter um header em cada linha.
+    default: true
+    type: Boolean
+
   use-index-label:
     desc: Se tiver "rowLabel" esta prop controla se cada label da linha vai ter o index como sufixo.
     type: Boolean

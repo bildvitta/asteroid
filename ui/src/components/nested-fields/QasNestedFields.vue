@@ -223,6 +223,11 @@ export default {
       default: true
     },
 
+    useHeader: {
+      type: Boolean,
+      default: true
+    },
+
     useIndexLabel: {
       type: Boolean
     },
@@ -541,7 +546,7 @@ export default {
     },
 
     hasHeader ({ row }) {
-      return this.hasBlockActions(row) || !this.useSingleLabel
+      return (this.hasBlockActions(row) || !this.useSingleLabel) && this.useHeader
     },
 
     getHeaderProps ({ index, row }) {
