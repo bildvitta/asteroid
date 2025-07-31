@@ -14,6 +14,18 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 Devemos adicionar o comentário `<!-- N/A -->` (Não adicionar), para que não precise adicionar um item do changelog ao lançar uma nova versão stable.
 Caso adicionado no escopo inicial, todos os conteúdos abaixo não serão adicionados. Caso adicionado na linha, será considerado apenas ela.
 
+## Não publicado
+### Adicionado
+- `QasNestedFields`: Adicionado nova prop `use-header` para controlar quando irá ter ou não o header em cada linha.
+- `QasSelectListDialog`: Adicionado novo slot `selected-content` para poder personalizar todos os itens adicionados.
+
+### Corrigido
+`QasSelectListDialog`: Corrigido espaçamento abaixo do header, no qual estava adicionando sem necessidade.
+
+### Modificado
+- `QasSelectListDialog`: Modificado header para utilizar o componente `QasHeader`.
+- `QasNumericInput`: Alterado input para aplicar estilo tanto de `readonly` quanto de `disabled`, sendo que antes só aplicava `disabled` mesmo quando enviasse a prop `readonly`.
+
 ## [3.19.0-beta.1] - 31-07-2025
 ### Adicionado
 - `QasNestedFields`: Adicionado nova prop `use-header` para controlar quando irá ter ou não o header em cada linha.
@@ -4181,3 +4193,4 @@ Adicionado suporte para Pinia/Vuex Seguindo os padrões da biblioteca `@bildvitt
 [3.18.1]: https://github.com/bildvitta/asteroid/compare/v3.19.0-alpha.27...v3.18.1?expand=1
 [3.19.0-beta.0]: https://github.com/bildvitta/asteroid/compare/v3.19.0-alpha.27...v3.19.0-beta.0?expand=1
 [3.19.0-beta.1]: https://github.com/bildvitta/asteroid/compare/v3.18.1...v3.19.0-beta.1?expand=1
+[3.18.2]: https://github.com/bildvitta/asteroid/compare/v3.18.1...v3.18.2?expand=1
