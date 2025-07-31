@@ -123,6 +123,10 @@ Caso adicionado no escopo inicial, todos os conteúdos abaixo não serão adicio
 ### Removido
 - Removido opção "thirdPartyComponents" e "autoRemoveThirdDependencies", agora precisa instalar/desinstalar manualmente as libs necessárias para o `QasMap` e `QasChartView` no arquivo `asteroid.config.js`.
 
+## [3.18.2] - 31-07-2025
+### Corrigido
+`QasSelectListDialog`: Corrigido espaçamento abaixo do header, no qual estava adicionando sem necessidade.
+
 ## [3.18.1] - 30-07-2025
 ### Adicionado
 - `QasNestedFields`: Adicionado nova prop `use-header` para controlar quando irá ter ou não o header em cada linha.
