@@ -179,6 +179,7 @@ const headerProps = computed(() => {
       color: hasError.value ? 'negative' : 'grey-10'
     },
 
+    spacing: 'none',
     description: props.description,
 
     buttonProps: {
