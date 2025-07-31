@@ -75,6 +75,9 @@ slots:
   dialog-header:
     desc: Slot para substituir cabeçalho do dialog.
 
+  selected-content:
+    desc: Slot para personalizar o conteúdo dos itens adicionados.
+
 events:
   '@add -> function(items)':
     desc: Dispara toda vez que é adicionado novos itens.
