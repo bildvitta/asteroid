@@ -10,7 +10,7 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 ### Sobre os "BREAKING CHANGES"
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
-## Não publicado
+## [3.18.2] - 31-07-2025
 ### Corrigido
 `QasSelectListDialog`: Corrigido espaçamento abaixo do header, no qual estava adicionando sem necessidade.
 
@@ -4066,3 +4066,4 @@ Adicionado suporte para Pinia/Vuex Seguindo os padrões da biblioteca `@bildvitt
 [3.18.0-beta.9]: https://github.com/bildvitta/asteroid/compare/v3.18.0-beta.8...v3.18.0-beta.9?expand=1
 [3.18.0]: https://github.com/bildvitta/asteroid/compare/v3.19.0-alpha.25...v3.18.0?expand=1
 [3.18.1]: https://github.com/bildvitta/asteroid/compare/v3.19.0-alpha.27...v3.18.1?expand=1
+[3.18.2]: https://github.com/bildvitta/asteroid/compare/v3.18.1...v3.18.2?expand=1
