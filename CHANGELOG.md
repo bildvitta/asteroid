@@ -20,7 +20,9 @@ Caso adicionado no escopo inicial, todos os conteúdos abaixo não serão adicio
 - `QasSelectListDialog`: Adicionado novo slot `selected-content` para poder personalizar todos os itens adicionados.
 
 ### Corrigido
-`QasSelectListDialog`: Corrigido espaçamento abaixo do header, no qual estava adicionando sem necessidade.
+`QasSelectListDialog`: 
+  - Corrigido espaçamento abaixo do header, no qual estava adicionando sem necessidade;
+  - Corrigido import do componente de `QasHeader`.
 
 ### Modificado
 - `QasSelectListDialog`: Modificado header para utilizar o componente `QasHeader`.
