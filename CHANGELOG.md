@@ -15,18 +15,10 @@ Devemos adicionar o comentário `<!-- N/A -->` (Não adicionar), para que não p
 Caso adicionado no escopo inicial, todos os conteúdos abaixo não serão adicionados. Caso adicionado na linha, será considerado apenas ela.
 
 ## Não publicado <!-- N/A -->
-### Adicionado
-- `QasNestedFields`: Adicionado nova prop `use-header` para controlar quando irá ter ou não o header em cada linha.
-- `QasSelectListDialog`: Adicionado novo slot `selected-content` para poder personalizar todos os itens adicionados.
-
 ### Corrigido
 `QasSelectListDialog`: 
   - Corrigido espaçamento abaixo do header, no qual estava adicionando sem necessidade;
   - Corrigido import do componente de `QasHeader`.
-
-### Modificado
-- `QasSelectListDialog`: Modificado header para utilizar o componente `QasHeader`.
-- `QasNumericInput`: Alterado input para aplicar estilo tanto de `readonly` quanto de `disabled`, sendo que antes só aplicava `disabled` mesmo quando enviasse a prop `readonly`.
 
 ## [3.19.0-beta.1] - 31-07-2025
 ### Adicionado
