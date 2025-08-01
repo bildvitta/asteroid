@@ -10,9 +10,28 @@ Neste arquivo (CHANGELOG.MD) você encontrará somente as mudanças referentes a
 ### Sobre os "BREAKING CHANGES"
 Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de serem pequenas, podem alterar o comportamento da funcionalidade caso não seja feita uma atualização, **preste muita atenção** nas breaking changes dentro das versões quando existirem.
 
+### Sobre comentário N/A
+Devemos adicionar o comentário `<!-- N/A -->` (Não adicionar), para que não precise adicionar um item do changelog ao lançar uma nova versão stable.
+Caso adicionado no escopo inicial, todos os conteúdos abaixo não serão adicionados. Caso adicionado na linha, será considerado apenas ela.
+
 ## Não publicado
 ### Modificado
 - `QasTableGenerator`: Alterado cor do título da coluna (th) para o `grey-10`.
+
+## [3.19.0-beta.2] - 01-08-2025 <!-- N/A -->
+### Corrigido
+`QasSelectListDialog`:
+  - Corrigido espaçamento abaixo do header, no qual estava adicionando sem necessidade;
+  - Corrigido import do componente de `QasHeader`.
+
+## [3.19.0-beta.1] - 31-07-2025
+### Adicionado
+- `QasNestedFields`: Adicionado nova prop `use-header` para controlar quando irá ter ou não o header em cada linha.
+- `QasSelectListDialog`: Adicionado novo slot `selected-content` para poder personalizar todos os itens adicionados.
+
+### Modificado
+- `QasSelectListDialog`: Modificado header para utilizar o componente `QasHeader`.
+- `QasNumericInput`: Alterado input para aplicar estilo tanto de `readonly` quanto de `disabled`, sendo que antes só aplicava `disabled` mesmo quando enviasse a prop `readonly`.
 
 ## [3.19.0-beta.0] - 11-07-2025
 ## BREAKING CHANGES
@@ -113,6 +132,19 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 
 ### Removido
 - Removido opção "thirdPartyComponents" e "autoRemoveThirdDependencies", agora precisa instalar/desinstalar manualmente as libs necessárias para o `QasMap` e `QasChartView` no arquivo `asteroid.config.js`.
+
+## [3.18.2] - 31-07-2025
+### Corrigido
+`QasSelectListDialog`: Corrigido espaçamento abaixo do header, no qual estava adicionando sem necessidade.
+
+## [3.18.1] - 30-07-2025
+### Adicionado
+- `QasNestedFields`: Adicionado nova prop `use-header` para controlar quando irá ter ou não o header em cada linha.
+- `QasSelectListDialog`: Adicionado novo slot `selected-content` para poder personalizar todos os itens adicionados.
+
+### Modificado
+- `QasSelectListDialog`: Modificado header para utilizar o componente `QasHeader`.
+- `QasNumericInput`: Alterado input para aplicar estilo tanto de `readonly` quanto de `disabled`, sendo que antes só aplicava `disabled` mesmo quando enviasse a prop `readonly`.
 
 ## [3.18.0] - 02-07-2025
 ## BREAKING CHANGE
@@ -4157,3 +4189,8 @@ Adicionado suporte para Pinia/Vuex Seguindo os padrões da biblioteca `@bildvitt
 [3.18.0-beta.9]: https://github.com/bildvitta/asteroid/compare/v3.18.0-beta.8...v3.18.0-beta.9?expand=1
 [3.18.0]: https://github.com/bildvitta/asteroid/compare/v3.19.0-alpha.25...v3.18.0?expand=1
 [3.19.0-beta.0]: https://github.com/bildvitta/asteroid/compare/v3.19.0-alpha.27...v3.19.0-beta.0?expand=1
+[3.18.1]: https://github.com/bildvitta/asteroid/compare/v3.19.0-alpha.27...v3.18.1?expand=1
+[3.19.0-beta.0]: https://github.com/bildvitta/asteroid/compare/v3.19.0-alpha.27...v3.19.0-beta.0?expand=1
+[3.19.0-beta.1]: https://github.com/bildvitta/asteroid/compare/v3.18.1...v3.19.0-beta.1?expand=1
+[3.18.2]: https://github.com/bildvitta/asteroid/compare/v3.18.1...v3.18.2?expand=1
+[3.19.0-beta.2]: https://github.com/bildvitta/asteroid/compare/v3.18.2...v3.19.0-beta.2?expand=1
