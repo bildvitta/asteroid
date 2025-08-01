@@ -107,7 +107,7 @@ const iconProps = computed(() => {
 })
 
 /**
- * Por padrão, quando este componente estiver dentro de um QasBox | QasDialog, ele não terá
+ * Por padrão, quando este componente estiver dentro de um QasBox ou QasDialog, ele não terá
  * shadow, terá padding e não terá margin.
  */
 const defaultBoxProps = computed(() => {
