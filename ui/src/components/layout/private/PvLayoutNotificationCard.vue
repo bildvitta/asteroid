@@ -64,7 +64,7 @@ const hasBadge = computed(() => isRecentNotification.value && !markedAsRead.valu
 const dateLabel = computed(() => {
   return isRecentNotification.value
     ? 'Agora mesmo'
-    : dateTime(props.notification.createdAt, 'dd/MM/yyyy HH:mm')
+    : dateTime(props.notification.createdAt)
 })
 
 const buttonProps = computed(() => {
