@@ -65,6 +65,7 @@
 </template>
 
 <script setup>
+import QasHeader from '../header/QasHeader.vue'
 import QasBtn from '../btn/QasBtn.vue'
 import QasDialog from '../dialog/QasDialog.vue'
 import QasSelectList from '../select-list/QasSelectList.vue'
@@ -183,6 +184,7 @@ const headerProps = computed(() => {
       color: hasError.value ? 'negative' : 'grey-10'
     },
 
+    spacing: 'none',
     description: props.description,
 
     buttonProps: {
