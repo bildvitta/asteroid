@@ -23,7 +23,7 @@ function date (value, token = 'dd/MM/yyyy', options) {
   return __format(value, token, options)
 }
 
-function dateTime (value, token = 'dd/MM/yyyy HH:mm:ss', options) {
+function dateTime (value, token = "dd/MM/yyyy 'às' HH:mm:ss", options) {
   return __format(value, token, options)
 }
 
