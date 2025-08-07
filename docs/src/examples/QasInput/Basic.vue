@@ -21,6 +21,8 @@
         <qas-btn icon="sym_r_search" />
       </template>
     </qas-input>
+
+    <qas-input v-model="model" class="col-4" label="Meu input readonly" readonly />
   </div>
 </template>
 
