@@ -14,6 +14,16 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 Devemos adicionar o comentário `<!-- N/A -->` (Não adicionar), para que não precise adicionar um item do changelog ao lançar uma nova versão stable.
 Caso adicionado no escopo inicial, todos os conteúdos abaixo não serão adicionados. Caso adicionado na linha, será considerado apenas ela.
 
+## Não publicado
+## BREAKING CHANGES
+- `dateTime`: Alguns lugares podem apresentar divergências na forma de exibição.
+
+### Modificado
+- `QasAlert`: Modificado comportamento para não ter box quando estiver dentro de um `QasDialog`. [[#1288](https://github.com/bildvitta/asteroid/issues/1288)]
+- `QasTableGenerator`: Alterado cor do título da coluna (th) para o `grey-10`. ([#1287](https://github.com/bildvitta/asteroid/issues/1287))
+- `dateTime | PvLayoutNotificationCard`: Alterado padrão de data para `"dd/MM/yyyy 'às' HH:mm:ss"` para melhorar a legibilidade. ([#1294](https://github.com/bildvitta/asteroid/issues/1294))
+- `QasCard`: Modificado estilo do card para utilizar bordas ao invés de box quando estiver dentro de um `QasDialog`. ([#1289](https://github.com/bildvitta/asteroid/issues/1289))
+
 ## [3.19.0-beta.2] - 01-08-2025 <!-- N/A -->
 ### Corrigido
 `QasSelectListDialog`:
@@ -4184,6 +4194,7 @@ Adicionado suporte para Pinia/Vuex Seguindo os padrões da biblioteca `@bildvitt
 [3.18.0-beta.8]: https://github.com/bildvitta/asteroid/compare/v3.19.0-alpha.22...v3.18.0-beta.8?expand=1
 [3.18.0-beta.9]: https://github.com/bildvitta/asteroid/compare/v3.18.0-beta.8...v3.18.0-beta.9?expand=1
 [3.18.0]: https://github.com/bildvitta/asteroid/compare/v3.19.0-alpha.25...v3.18.0?expand=1
+[3.19.0-beta.0]: https://github.com/bildvitta/asteroid/compare/v3.19.0-alpha.27...v3.19.0-beta.0?expand=1
 [3.18.1]: https://github.com/bildvitta/asteroid/compare/v3.19.0-alpha.27...v3.18.1?expand=1
 [3.19.0-beta.0]: https://github.com/bildvitta/asteroid/compare/v3.19.0-alpha.27...v3.19.0-beta.0?expand=1
 [3.19.0-beta.1]: https://github.com/bildvitta/asteroid/compare/v3.18.1...v3.19.0-beta.1?expand=1
