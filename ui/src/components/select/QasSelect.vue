@@ -212,7 +212,7 @@ export default {
     },
 
     isSearchable () {
-      return this.hasFuse || this.useLazyLoading
+      return (this.hasFuse || this.useLazyLoading) && !(this.isDisabled || this.isReadonly)
     },
 
     hasError () {
@@ -288,6 +288,10 @@ export default {
 
     isDisabled () {
       return this.$attrs.disable || this.$attrs.disable === ''
+    },
+
+    isReadonly () {
+      return this.$attrs.readonly || this.$attrs.readonly === ''
     },
 
     isMultiple () {
@@ -534,6 +538,10 @@ export default {
       height: 18px !important;
       min-height: 18px !important;
     }
+  }
+
+  &.q-field--readonly .q-field__append {
+    display: none;
   }
 
   .q-field__focusable-action,
