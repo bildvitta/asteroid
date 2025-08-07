@@ -260,12 +260,21 @@ export default {
       const hasModelValue = Array.isArray(this.modelValue) ? !!this.modelValue.length : !!this.modelValue
 
       /**
-       * Posso setar o default quando:
+       * Só posso setar uma opção default quando:
        * - O campo for required ou tiver a prop useAutoSelect
        * - Tiver apenas uma option
        * - O modelValue estiver vazio
+       *
+       * Caso o campo for lazyLoading, também valida:
+       * - O count de requisições for maior que 0 (this.mx_fetchCount > 0);
+       * - E não estiver buscando mais opções (this.mx_isFetching === false).
        */
-      return (this.required || this.useAutoSelect) && this.options.length === 1 && !hasModelValue
+      return (
+        (this.required || this.useAutoSelect) &&
+        this.mx_filteredOptions.length === 1 &&
+        !hasModelValue &&
+        (this.useLazyLoading ? (!!this.mx_fetchCount && !this.mx_isFetching) : true)
+      )
     },
 
     // redesign
@@ -324,15 +333,31 @@ export default {
       this.setDefaultOption()
     },
 
+    /**
+     * Caso tenha realizado o primeiro fetch do lazy loading, chama o `setDefaultOption` se o
+     * `canSetDefaultOption` for true.
+     */
+    mx_hasFetched: {
+      async handler (value) {
+        /**
+         * Necessário utilizar o nextTick para garantir que as opções do select sejam atualizadas, pois primeiro é
+         * trocado o fetched e somente depois seta as opção, então preciso esperar para conseguir seta.
+         */
+        await this.$nextTick()
+
+        if (value && this.canSetDefaultOption) this.setDefaultOption()
+      }
+    },
+
     options: {
       handler () {
         if (this.useLazyLoading && this.mx_hasFilteredOptions) return
 
         if (this.fuse || this.hasFuse) this.setFuse()
 
-        if (this.canSetDefaultOption) this.setDefaultOption()
-
         this.mx_filteredOptions = [...this.options]
+
+        if (this.canSetDefaultOption) this.setDefaultOption()
       },
 
       deep: true,
@@ -414,8 +439,8 @@ export default {
 
     setDefaultOption () {
       const modelValue = this.attributes.emitValue
-        ? this.options[0].value
-        : this.options[0]
+        ? this.mx_filteredOptions[0].value
+        : this.mx_filteredOptions[0]
 
       this.$emit('update:modelValue', modelValue)
     },
