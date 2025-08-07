@@ -113,6 +113,7 @@ const iconProps = computed(() => {
 const defaultBoxProps = computed(() => {
   const hasBoxProps = props.useBox !== undefined
 
+  // Se não tiver a prop useBox, assume que está dentro de um QasBox ou QasDialog
   const useBox = hasBoxProps ? props.useBox : !isBox && !isDialog
 
   return {
