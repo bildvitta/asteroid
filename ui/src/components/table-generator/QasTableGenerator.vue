@@ -455,6 +455,8 @@ export default {
     th {
       @include set-typography($subtitle1);
 
+      color: $grey-10;
+
       // altera o tamanho do ícone força o botão não quebrar.
       .qas-btn {
         .q-icon {

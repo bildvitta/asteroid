@@ -70,15 +70,21 @@ const props = defineProps({
 
 // consts
 const isInsideBox = inject('isBox', false)
+const isInsideDialog = inject('isDialog', false)
 
 // composables
 const slots = useSlots()
 
 // computeds
+/**
+ * Quando o card está dentro de um box ou dialog, ele terá bordas ao invés da box.
+ */
 const boxProps = computed(() => {
+  const useBorder = isInsideBox || isInsideDialog
+
   return {
-    outlined: isInsideBox,
-    unelevated: isInsideBox,
+    outlined: useBorder,
+    unelevated: useBorder,
 
     // Terá o padding vertical menor se for um card com status ou tiver o expansion.
     spacingY: (props.statusColor || hasExpansion.value) ? 'sm' : 'md',
