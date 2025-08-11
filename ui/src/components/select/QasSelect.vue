@@ -339,13 +339,15 @@ export default {
      */
     mx_hasFetched: {
       async handler (value) {
+        if (!value) return
+
         /**
          * Necessário utilizar o nextTick para garantir que as opções do select sejam atualizadas, pois primeiro é
-         * trocado o fetched e somente depois seta as opção, então preciso esperar para conseguir seta.
+         * trocado o fetched e somente depois seta as opções, então preciso esperar para conseguir seta.
          */
         await this.$nextTick()
 
-        if (value && this.canSetDefaultOption) this.setDefaultOption()
+        if (this.canSetDefaultOption) this.setDefaultOption()
       }
     },
 
