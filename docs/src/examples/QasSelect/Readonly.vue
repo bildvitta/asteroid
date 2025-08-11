@@ -11,6 +11,8 @@
 </template>
 
 <script setup>
+defineOptions({ name: 'Readonly' })
+
 import { ref } from 'vue'
 
 const model = ref(1)

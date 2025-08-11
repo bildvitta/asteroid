@@ -14,6 +14,19 @@
     }
   }
 
+  &--disabled {
+    .q-field__control > div {
+      opacity: 1 !important;
+    }
+
+    .q-field__native,
+    .q-field__label,
+    .q-field__append,
+    .q-field__prepend {
+      color: $grey-6 !important;
+    }
+  }
+
   &--standard &__control:hover::before {
     border-color: var(--q-primary-contrast) !important;
   }
@@ -81,7 +94,10 @@
     will-change: transform, font-size;
     transition: transform var(--qas-generic-transition), font-size var(--qas-generic-transition);
 
-    &:not(&.qas-select--filter):not(&.qas-select--has-icon):not(&.qas-input--has-icon) .q-field__label {
+    &:not(&.qas-select--filter)
+    &:not(&.qas-select--has-icon)
+    &:not(&.qas-input--has-icon)
+    &:not(&.qas-numeric-input--has-icon) .q-field__label {
       transform: translateY(-10px) scale(0.85) !important;
     }
 

@@ -18,7 +18,8 @@
 
       <template #append>
         <q-icon name="sym_r_edit" size="xs" />
-        <qas-btn icon="sym_r_search" />
+
+        <qas-btn disable icon="sym_r_search" />
       </template>
     </qas-input>
 

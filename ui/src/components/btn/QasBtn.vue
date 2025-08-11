@@ -40,6 +40,10 @@ const props = defineProps({
     validator: value => ['grey-10', 'primary', 'white'].includes(value)
   },
 
+  disable: {
+    type: Boolean
+  },
+
   icon: {
     default: undefined,
     type: String
@@ -165,7 +169,7 @@ const attributes = computed(() => {
 
   return {
     ...attributesPayload,
-    disable: disable || props.loading,
+    disable: props.disable || props.loading,
     class: [classes.value, externalClass]
   }
 })

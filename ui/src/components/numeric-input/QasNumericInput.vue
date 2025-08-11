@@ -4,11 +4,11 @@
       <input v-show="floatingLabel" :id="id" ref="input" class="q-field__input" :disabled="$attrs.disable" inputmode="numeric" :placeholder :readonly="$attrs.readonly" @blur="emitValue" @click="setSelect" @input="emitUpdateModel($event.target.value)">
     </template>
 
-    <template v-if="icon" #append>
+    <template v-if="icon" #prepend>
       <q-icon :name="icon" size="xs" />
     </template>
 
-    <template v-if="iconRight" #prepend>
+    <template v-if="iconRight" #append>
       <q-icon :name="iconRight" size="xs" />
     </template>
   </q-field>
@@ -120,7 +120,7 @@ export default {
     },
 
     hasPrepend () {
-      return !!this.$slots.prepend || this.iconRight
+      return !!this.$slots.prepend || this.icon
     },
 
     placeholder () {
@@ -192,7 +192,9 @@ export default {
     },
 
     emitValue () {
-      this.$emit('update:modelValue', this.autoNumeric.getNumber())
+      const isEmptyValue = this.autoNumeric.lastVal === ''
+
+      return this.$emit('update:modelValue', isEmptyValue ? undefined : this.autoNumeric.getNumber())
     },
 
     emitUpdateModel (value) {
