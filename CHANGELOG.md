@@ -22,7 +22,7 @@ Caso adicionado no escopo inicial, todos os conteúdos abaixo não serão adicio
   - `QasNumericInput`: modificado comportamento do componente ao apagar o valor, antes, ao apagar o valor o componente sempre setava o valor `0`, agora fica com comportamento dos demais campos input e seta o valor `undefined` (verificar se nada quebra).
 
 ### Adicionado
-- `QasInput`: adicionado prop `use-copy` para adicionar nativamente botão de ação "copiar" no input, que funciona apenas em conjunto da prop readonly.
+- `QasInput`: adicionado prop `use-copy` para adicionar nativamente botão de ação "copiar" no input, que funciona apenas em conjunto da prop readonly ([1326](https://github.com/bildvitta/asteroid/issues/1326)).
 
 ### Corrigido
 - `QasNumericInput`:
@@ -44,7 +44,7 @@ Caso adicionado no escopo inicial, todos os conteúdos abaixo não serão adicio
 - `QasNumericInput`: modificado comportamento do componente ao apagar o valor, antes, ao apagar o valor o componente sempre setava o valor `0`, agora fica com comportamento dos demais campos input e seta o valor `undefined`.
 - [`QasSelect`, `QasInput`, .q-field]:
   - removido cor de borda diferente no hover quando readonly.
-  - setado cor grey-6 para borda do readonly
+  - setado cor grey-6 para borda do readonly.
 
 ## [3.19.0-beta.2] - 01-08-2025 <!-- N/A -->
 ### Corrigido
