@@ -265,7 +265,7 @@ export default {
        * - Tiver apenas uma option
        * - O modelValue estiver vazio
        *
-       * Caso o campo for lazyLoading, também valida:
+       * Caso o campo for lazyLoading, precisamos validar se já realizou a requisição, então também valida:
        * - O count de requisições for maior que 0 (this.mx_fetchCount > 0);
        * - E não estiver buscando mais opções (this.mx_isFetching === false).
        */
