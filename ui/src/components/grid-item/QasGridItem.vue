@@ -53,7 +53,6 @@ const classes = computed(() => {
   return {
     container: {
       flex: isInline,
-      'q-col-gutter-x-md': isInline,
       'justify-between': isInline,
       'col-12': isInline,
       'no-wrap': isInline
@@ -61,7 +60,13 @@ const classes = computed(() => {
 
     header: {
       'text-caption': !isInline,
-      'text-body1': isInline
+      'text-body1': isInline,
+
+      /**
+       * Necessário adicionar o padding à direita no header ao invés do gutter, pois ao usar o gutter no eixo x,
+       * ele adiciona um espaçamento à direita do content de forma errada, deixando o espaçamento maior que o do header.
+       */
+      'q-pr-md': isInline
     },
 
     content: {

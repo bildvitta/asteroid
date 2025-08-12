@@ -157,6 +157,8 @@ const formattedFields = computed(() => {
 // watch
 watch(() => formattedFields.value, setFieldsByResult, { immediate: true })
 
+watch(() => props.result, setFieldsByResult)
+
 // functions
 function getFieldsByResult () {
   if (!hasResult.value || !hasFields.value) return {}
