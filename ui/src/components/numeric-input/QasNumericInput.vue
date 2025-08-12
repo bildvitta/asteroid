@@ -192,15 +192,19 @@ export default {
     },
 
     emitValue () {
-      const isEmptyValue = this.autoNumeric.lastVal === ''
+      /**
+       * O autonumeric retorna uma lista de histórico contendo os valores digitados, precisamos pegar
+       * pelo histórico porque ele retorna o raw value neste caso.
+       */
+      const isEmptyValue = this.autoNumeric.historyTable[this.autoNumeric.historyTableIndex]?.value === ''
 
       /**
        * Essa validação corrige um problema de quando o campo é limpo mais de 1x,
-       * que ficava vazio mas com um valor de 0, mas sem mostrar o valor.
+       * que ficava vazio mas com o model de 0, mas sem mostrar o valor em tela, bugando a label.
        */
       if (isEmptyValue) this.autoNumeric.set(0)
 
-      return this.$emit('update:modelValue', this.autoNumeric.getNumber())
+      this.$emit('update:modelValue', this.autoNumeric.getNumber())
     },
 
     emitUpdateModel (value) {
