@@ -194,7 +194,13 @@ export default {
     emitValue () {
       const isEmptyValue = this.autoNumeric.lastVal === ''
 
-      return this.$emit('update:modelValue', isEmptyValue ? undefined : this.autoNumeric.getNumber())
+      /**
+       * Essa validação corrige um problema de quando o campo é limpo mais de 1x,
+       * que ficava vazio mas com um valor de 0, mas sem mostrar o valor.
+       */
+      if (isEmptyValue) this.autoNumeric.set(0)
+
+      return this.$emit('update:modelValue', this.autoNumeric.getNumber())
     },
 
     emitUpdateModel (value) {
