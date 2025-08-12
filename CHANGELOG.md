@@ -19,7 +19,6 @@ Caso adicionado no escopo inicial, todos os conteúdos abaixo não serão adicio
 - `dateTime`: Alguns lugares podem apresentar divergências na forma de exibição.
 - `QasNumericInput`:
   - corrigido props `icon` e `iconRight` que estavam invertidas (iconRight mostrava a esquerda).
-  - `QasNumericInput`: modificado comportamento do componente ao apagar o valor, antes, ao apagar o valor o componente sempre setava o valor `0`, agora fica com comportamento dos demais campos input e seta o valor `undefined` (verificar se nada quebra).
 
 ### Adicionado
 - `QasInput`: adicionado prop `use-copy` para adicionar nativamente botão de ação "copiar" no input, que funciona apenas em conjunto da prop readonly ([1326](https://github.com/bildvitta/asteroid/issues/1326)).
@@ -41,7 +40,6 @@ Caso adicionado no escopo inicial, todos os conteúdos abaixo não serão adicio
 - `QasCard`: Modificado estilo do card para utilizar bordas ao invés de box quando estiver dentro de um `QasDialog`. ([#1289](https://github.com/bildvitta/asteroid/issues/1289))
 - `QasSelect`: removido ícone arrow-down (a direita) quando esta `readonly`. ([#1309](https://github.com/bildvitta/asteroid/issues/1309))
 - `QasSelect`: removido ícone searchable quando readonly ou disable.
-- `QasNumericInput`: modificado comportamento do componente ao apagar o valor, antes, ao apagar o valor o componente sempre setava o valor `0`, agora fica com comportamento dos demais campos input e seta o valor `undefined`.
 - [`QasSelect`, `QasInput`, .q-field]:
   - removido cor de borda diferente no hover quando readonly.
   - setado cor grey-6 para borda do readonly.
