@@ -18,11 +18,11 @@
     {
       "uuid": "3102fad5-f14c-45d4-98e9-46ef0aa9580e",
       "isActive": true,
-      "company": "",
+      "company": "empresa-1",
       "name": "Id incidunt in esse.",
       "email": "Esta.Bernier@hotmail.com",
       "document": "Minus reprehenderit officia.",
-      "phone": "Ab sint et iure autem temporibus aliquam laboriosam et.",
+      "phone": "Ab sint et iure autem temporibus aliquam laboriosam et testando com ellipsis grande teste texto.",
       "createdAt": "2022-03-18T11:34:24.000Z",
       "updatedAt": "2022-03-17T19:51:40.000Z"
     },

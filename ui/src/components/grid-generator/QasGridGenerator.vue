@@ -5,7 +5,7 @@
     <div :class="classes">
       <div v-for="(field, key) in fieldsByResult" :key="key" :class="getContainerClasses({ key })">
         <slot :field="field" :name="`field-${field.name}`">
-          <qas-grid-item :use-ellipsis="hasEllipsis(field)" :use-inline="props.useInline">
+          <qas-grid-item v-bind="getGridItemProps(field)">
             <template #header>
               <slot :field="field" :name="`header-field-${field.name}`">
                 <slot :field="field" name="header">
@@ -58,13 +58,18 @@ const props = defineProps({
   },
 
   contentClass: {
-    default: '',
-    type: [Array, Object, String]
+    type: [Array, Object, String],
+    default: ''
+  },
+
+  fieldsProps: {
+    type: Object,
+    default: () => ({})
   },
 
   headerClass: {
-    default: '',
-    type: [Array, Object, String]
+    type: [Array, Object, String],
+    default: ''
   },
 
   headerProps: {
@@ -73,13 +78,13 @@ const props = defineProps({
   },
 
   emptyResultText: {
-    default: '-',
-    type: String
+    type: String,
+    default: '-'
   },
 
   result: {
-    default: () => ({}),
-    type: Object
+    type: Object,
+    default: () => ({})
   },
 
   useBox: {
@@ -87,13 +92,13 @@ const props = defineProps({
   },
 
   useEmptyResult: {
-    default: true,
-    type: Boolean
+    type: Boolean,
+    default: true
   },
 
   useEllipsis: {
-    default: true,
-    type: Boolean
+    type: Boolean,
+    default: true
   },
 
   useInline: {
@@ -212,5 +217,14 @@ function getContentClasses (field) {
       ellipsis: !screen.isSmall && hasEllipsis(field)
     }
   ]
+}
+
+function getGridItemProps (field) {
+  return {
+    useEllipsis: hasEllipsis(field),
+    useInline: props.useInline,
+
+    ...(props.fieldsProps[field.name] || {})
+  }
 }
 </script>

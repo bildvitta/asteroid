@@ -1,9 +1,13 @@
 <template>
   <div :class="classes.container">
-    <header v-bind="headerProps">
+    <header :class="classes.header">
       <slot name="header">
-        {{ props.label }}
+        <div v-bind="textProps">
+          {{ props.label }}
+        </div>
       </slot>
+
+      <qas-tip v-if="props.tip" class="q-ml-xs" :text="props.tip" />
     </header>
 
     <div v-bind="contentProps">
@@ -39,6 +43,16 @@ const props = defineProps({
   value: {
     type: [String, Number, Boolean],
     default: ''
+  },
+
+  tip: {
+    type: String,
+    default: ''
+  },
+
+  content: {
+    type: Object,
+    default: () => ({})
   }
 })
 
@@ -49,6 +63,8 @@ const hasEllipsis = computed(() => props.useEllipsis && !screen.isSmall)
 
 const classes = computed(() => {
   const isInline = props.useInline && !screen.isSmall
+
+  const { typography } = props.content
 
   return {
     container: {
@@ -66,22 +82,25 @@ const classes = computed(() => {
        * Necessário adicionar o padding à direita no header ao invés do gutter, pois ao usar o gutter no eixo x,
        * ele adiciona um espaçamento à direita do content de forma errada, deixando o espaçamento maior que o do header.
        */
-      'q-pr-md': isInline
+      'q-pr-md': isInline,
+
+      // classes por conta do tip.
+      row: !!props.tip,
+      'items-center': !!props.tip || !!typography,
+      'no-wrap': !!props.tip,
+      flex: !!typography
     },
 
     content: {
       'text-grey-10': true,
-      'text-body1': !isInline,
-      'text-subtitle1': isInline,
+
+      // tipografias
+      [`text-${typography}`]: !!typography,
+      'text-body1': !isInline && !typography,
+      'text-subtitle1': isInline && !typography,
+
       ellipsis: hasEllipsis.value
     }
-  }
-})
-
-const headerProps = computed(() => {
-  return {
-    class: classes.value.header,
-    ...(hasEllipsis.value && { title: props.label })
   }
 })
 
@@ -90,5 +109,11 @@ const contentProps = computed(() => {
     class: classes.value.content,
     ...(hasEllipsis.value && { title: props.value })
   }
+})
+
+const textProps = computed(() => {
+  if (!hasEllipsis.value) return
+
+  return { title: props.label }
 })
 </script>
