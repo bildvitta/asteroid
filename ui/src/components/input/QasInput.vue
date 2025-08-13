@@ -183,13 +183,13 @@ export default {
       return !!this.$slots.prepend || this.icon
     },
 
+    /**
+     * Só existe o componente QasCopy quando utilizado em conjunto com a prop readonly.
+     */
     hasCopy () {
       return this.useCopy && this.readonly
     },
 
-    /**
-     * Só existe o componente QasCopy quando utilizado em conjunto com a prop readonly.
-     */
     hasAppendComponent () {
       return this.hasCopy || !!this.iconRight
     },
