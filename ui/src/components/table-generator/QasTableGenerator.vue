@@ -9,10 +9,12 @@
         <slot :name="name" v-bind="context" />
       </template>
 
+      <!-- Necessário para sobrescrever o QCheckbox e usar o QasCheckbox. -->
       <template #header-selection="props">
         <qas-checkbox v-model="props.selected" />
       </template>
 
+      <!-- Necessário para sobrescrever o QCheckbox e usar o QasCheckbox. -->
       <template #body-selection="props">
         <qas-checkbox v-model="props.selected" />
       </template>
@@ -114,22 +116,22 @@ export default {
       type: Array
     },
 
-    useSelection: {
-      type: Boolean
-    },
-
-    useEmitRowSelected: {
-      type: Boolean
-    },
-
     useBox: {
       type: Boolean,
       default: true
     },
 
+    useSelection: {
+      type: Boolean
+    },
+
     useScrollOnGrab: {
       type: Boolean,
       default: true
+    },
+
+    useObjectSelectedModel: {
+      type: Boolean
     },
 
     useExternalLink: {
@@ -153,7 +155,6 @@ export default {
       scrollOnGrab: {},
       elementToObserve: null,
       resizeObserver: null,
-      selectedModel: [],
       scrollGradientX: setScrollGradient({ orientation: 'x' })
     }
   },
@@ -203,7 +204,9 @@ export default {
         rows: this.resultsByFields,
         style: this.tableStyle,
         virtualScroll: this.useVirtualScroll,
-        selection: 'multiple',
+
+        // fixo, sempre será múltipla
+        ...(this.useSelection && { selection: 'multiple' }),
 
         tableClass: {
           'overflow-hidden-y': !this.useStickyHeader && !this.useVirtualScroll
@@ -329,16 +332,28 @@ export default {
 
     hasRowClick () {
       return typeof this.$attrs.onRowClick === 'function'
-    }
-  },
+    },
 
-  watch: {
-    selectedModel (rows) {
-      /**
-       * Se a prop "useEmitRowSelected" for passada, o evento "update:selected" é emitido com o objeto completo da linha.
-       * Caso contrário, é emitido apenas o valor da chave da linha (rowKey).
-       */
-      this.$emit('update:selected', this.useEmitRowSelected ? rows : rows.map(row => row[this.rowKey]))
+    selectedModel: {
+      get () {
+        if (!this.useSelection) return []
+
+        return this.selected.map(row => {
+          // Caso a prop "useObjectSelectedModel" for passada, o retorno é o objeto completo da linha.
+          if (this.useObjectSelectedModel) return row
+
+          // Caso contrário, é retornado apenas o valor da chave da linha (rowKey).
+          return this.results.find(result => result[this.rowKey] === row)
+        })
+      },
+
+      set (rows) {
+        /**
+         * Se a prop "useObjectSelectedModel" for passada, o evento "update:selected" é emitido com o objeto completo da linha.
+         * Caso contrário, é emitido apenas o valor da chave da linha (rowKey).
+         */
+        this.$emit('update:selected', this.useObjectSelectedModel ? rows : rows.map(row => row[this.rowKey]))
+      }
     }
   },
 
