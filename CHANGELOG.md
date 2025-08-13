@@ -18,6 +18,9 @@ Caso adicionado no escopo inicial, todos os conteúdos abaixo não serão adicio
 ## BREAKING CHANGES
 - `dateTime`: Alguns lugares podem apresentar divergências na forma de exibição.
 
+### Corrigido
+- `QasChartView`: Corrigido comportamento no qual quando se era passado `options` personalizadas para o gráfico, aplicavam as mesmas customizações para os demais gráficos do mesmo tipo.
+
 ### Modificado
 - `QasAlert`: Modificado comportamento para não ter box quando estiver dentro de um `QasDialog`. [[#1288](https://github.com/bildvitta/asteroid/issues/1288)]
 - `QasTableGenerator`: Alterado cor do título da coluna (th) para o `grey-10`. ([#1287](https://github.com/bildvitta/asteroid/issues/1287))

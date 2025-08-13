@@ -240,7 +240,11 @@ export default {
     chartOptions () {
       const { options, type } = this
 
-      return extend(true, charts[type], options)
+      // Clona o objeto base para evitar mutação do objeto original
+      const baseConfig = extend(true, {}, charts[type])
+      const mergedOptions = extend(true, baseConfig, options)
+
+      return mergedOptions
     },
 
     chartPlugins () {
