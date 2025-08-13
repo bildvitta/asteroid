@@ -4,9 +4,17 @@
       <qas-header v-if="hasHeaderProps" v-bind="headerProps" />
     </slot>
 
-    <q-table v-show="hasResults" ref="table" class="bg-white text-grey-8" v-bind="attributes">
+    <q-table v-show="hasResults" ref="table" v-bind="attributes" v-model:selected="selectedModel" class="bg-white text-grey-8">
       <template v-for="(_, name) in slots" #[name]="context">
         <slot :name="name" v-bind="context" />
+      </template>
+
+      <template #header-selection="props">
+        <qas-checkbox v-model="props.selected" />
+      </template>
+
+      <template #body-selection="props">
+        <qas-checkbox v-model="props.selected" />
       </template>
 
       <template v-for="(fieldName, index) in bodyCellNameSlots" :key="index" #[`body-cell-${fieldName}`]="context">
@@ -33,6 +41,7 @@ import PvTableGeneratorTd from './private/PvTableGeneratorTd.vue'
 import QasBox from '../box/QasBox.vue'
 import QasEmptyResultText from '../empty-result-text/QasEmptyResultText.vue'
 import QasHeader from '../header/QasHeader.vue'
+import QasCheckbox from '../checkbox/QasCheckbox.vue'
 
 import { extend } from 'quasar'
 import { isEmpty, humanize, setScrollOnGrab, setScrollGradient } from '../../helpers'
@@ -44,7 +53,8 @@ export default {
     PvTableGeneratorTd,
     QasBox,
     QasEmptyResultText,
-    QasHeader
+    QasHeader,
+    QasCheckbox
   },
 
   props: {
@@ -99,6 +109,19 @@ export default {
       type: String
     },
 
+    selected: {
+      default: () => [],
+      type: Array
+    },
+
+    useSelection: {
+      type: Boolean
+    },
+
+    useEmitRowSelected: {
+      type: Boolean
+    },
+
     useBox: {
       type: Boolean,
       default: true
@@ -122,12 +145,15 @@ export default {
     }
   },
 
+  emits: ['update:selected'],
+
   data () {
     return {
       scrollableElement: null,
       scrollOnGrab: {},
       elementToObserve: null,
       resizeObserver: null,
+      selectedModel: [],
       scrollGradientX: setScrollGradient({ orientation: 'x' })
     }
   },
@@ -169,9 +195,6 @@ export default {
 
     attributes () {
       const attributes = {
-        tableClass: {
-          'overflow-hidden-y': !this.useStickyHeader && !this.useVirtualScroll
-        },
         columns: this.columnsByFields,
         flat: true,
         hideBottom: true,
@@ -180,6 +203,11 @@ export default {
         rows: this.resultsByFields,
         style: this.tableStyle,
         virtualScroll: this.useVirtualScroll,
+        selection: 'multiple',
+
+        tableClass: {
+          'overflow-hidden-y': !this.useStickyHeader && !this.useVirtualScroll
+        },
 
         // Eventos.
         onRowClick: this.$attrs.onRowClick && this.onRowClick
@@ -301,6 +329,16 @@ export default {
 
     hasRowClick () {
       return typeof this.$attrs.onRowClick === 'function'
+    }
+  },
+
+  watch: {
+    selectedModel (rows) {
+      /**
+       * Se a prop "useEmitRowSelected" for passada, o evento "update:selected" é emitido com o objeto completo da linha.
+       * Caso contrário, é emitido apenas o valor da chave da linha (rowKey).
+       */
+      this.$emit('update:selected', this.useEmitRowSelected ? rows : rows.map(row => row[this.rowKey]))
     }
   },
 
@@ -532,6 +570,11 @@ export default {
     &__middle {
       padding-left: var(--qas-spacing-md);
       padding-right: var(--qas-spacing-md);
+    }
+
+    // Necessário para não ter cor de fundo quando uma linha estiver sido selecionada pela prop "selected".
+    tbody td:after {
+      background-color: transparent;
     }
 
     tbody tr {

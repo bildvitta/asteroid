@@ -31,9 +31,10 @@ Exemplo:
 
 ## Uso
 
-<doc-example file="QasTableGenerator/Basic" title="Básico" />
+<!-- <doc-example file="QasTableGenerator/Basic" title="Básico" /> -->
+<doc-example file="QasTableGenerator/Selection" title="Selecionável" />
 
-:::info
+<!-- :::info
 A propriedade "actionsMenuProps" adiciona automaticamente uma coluna "actions" na tabela e renderiza o `QasActionsMenu` por callback, é a maneira **correta** de se usar ação na ultima coluna.
 
 A propriedade "fieldsProps" pode ser uma função ou objeto, é possível adicionar/personalizar componentes sem abrir slot via prop, componentes aceitos:
@@ -110,4 +111,4 @@ Funcionalidade que permite que o cabeçalho da tabela permaneça visível na par
 O virtual scroll renderiza dinamicamente as linhas a serem exibidas na tabela.
 Apenas utilize virtual scroll quando realmente houver comportamentos no qual não se pode ter paginação e tiver muitos dados na tabela.
 :::
-<doc-example file="QasTableGenerator/WithVirtualScroll" title="Com virtual scroll" />
+<doc-example file="QasTableGenerator/WithVirtualScroll" title="Com virtual scroll" /> -->
