@@ -13,6 +13,11 @@ props:
     type: String
     examples: ['grey-10', 'primary', 'white']
 
+  disable:
+    desc: Desabilita o botão.
+    default: false
+    type: Boolean
+
   icon:
     desc: Ícone a esquerda.
     type: String

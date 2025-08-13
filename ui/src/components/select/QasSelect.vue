@@ -94,6 +94,10 @@ export default {
       type: Object
     },
 
+    disable: {
+      type: Boolean
+    },
+
     fuseOptions: {
       default: () => ({}),
       type: Object
@@ -114,6 +118,10 @@ export default {
       type: [Array, Object, String, Number, Boolean]
     },
 
+    multiple: {
+      type: Boolean
+    },
+
     noOptionLabel: {
       default: 'Nenhum resultado foi encontrado.',
       type: String
@@ -127,6 +135,10 @@ export default {
     prefix: {
       type: String,
       default: ''
+    },
+
+    readonly: {
+      type: Boolean
     },
 
     required: {
@@ -182,7 +194,8 @@ export default {
         dropdownIcon: 'sym_r_expand_more',
         clearIcon: 'sym_r_close',
         popupContentClass: `qas-select__menu ${this.popupContentClass}`,
-        useChips: this.isMultiple && this.isPopupContentOpen,
+        useChips: this.multiple && this.isPopupContentOpen,
+        multiple: this.multiple,
 
         ...attrs,
 
@@ -212,7 +225,7 @@ export default {
     },
 
     isSearchable () {
-      return this.hasFuse || this.useLazyLoading
+      return (this.hasFuse || this.useLazyLoading) && !(this.disable || this.readonly)
     },
 
     hasError () {
@@ -284,14 +297,6 @@ export default {
         'qas-select--closed': !this.isPopupContentOpen,
         'qas-select--loading': this.hasLoading
       }
-    },
-
-    isDisabled () {
-      return this.$attrs.disable || this.$attrs.disable === ''
-    },
-
-    isMultiple () {
-      return this.$attrs.multiple || this.$attrs.multiple === ''
     },
 
     hasAppend () {
@@ -534,6 +539,10 @@ export default {
       height: 18px !important;
       min-height: 18px !important;
     }
+  }
+
+  &.q-field--readonly .q-field__append {
+    display: none;
   }
 
   .q-field__focusable-action,
