@@ -1,11 +1,14 @@
 <template>
-  <q-input ref="input" v-model="model" :autogrow="isTextarea" bottom-slots :class="classes" :counter="hasCounter" :dense="dense" :error="errorData" v-bind="$attrs" :error-message="errorMessage" :inputmode="defaultInputmode" :label="formattedLabel" :mask="currentMask" no-error-icon :outlined="outlined" :placeholder="placeholder" :unmasked-value="unmaskedValue" @paste="onPaste">
+  <q-input ref="input" v-model="model" :autogrow="isTextarea" bottom-slots :class="classes" :counter="hasCounter" :dense="dense" :error="errorData" v-bind="$attrs" :error-message="errorMessage" :inputmode="defaultInputmode" :label="formattedLabel" :mask="currentMask" no-error-icon :outlined="outlined" :placeholder="placeholder" :readonly :unmasked-value="unmaskedValue" @paste="onPaste">
     <template v-if="icon" #prepend>
       <q-icon :name="icon" size="xs" />
     </template>
 
-    <template v-if="iconRight" #append>
-      <q-icon :name="iconRight" size="xs" />
+    <template v-if="hasAppendComponent" #append>
+      <component
+        :is="appendComponent.is"
+        v-bind="appendComponent.props"
+      />
     </template>
 
     <template v-for="(_, name) in $slots" #[name]="context">
@@ -17,6 +20,8 @@
 <script>
 import { getRequiredLabel, getPlaceholder } from '../../helpers'
 
+import { defineAsyncComponent } from 'vue'
+
 const Masks = {
   CompanyDocument: 'company-document',
   Document: 'document',
@@ -27,6 +32,10 @@ const Masks = {
 
 export default {
   name: 'QasInput',
+
+  components: {
+    QasCopy: defineAsyncComponent(() => import('../copy/QasCopy.vue'))
+  },
 
   inheritAttrs: false,
 
@@ -59,6 +68,10 @@ export default {
       type: Boolean
     },
 
+    readonly: {
+      type: Boolean
+    },
+
     required: {
       type: Boolean
     },
@@ -80,6 +93,10 @@ export default {
     iconRight: {
       type: String,
       default: ''
+    },
+
+    useCopy: {
+      type: Boolean
     }
   },
 
@@ -164,6 +181,40 @@ export default {
 
     hasPrepend () {
       return !!this.$slots.prepend || this.icon
+    },
+
+    /**
+     * Só existe o componente QasCopy quando utilizado em conjunto com a prop readonly.
+     */
+    hasCopy () {
+      return this.useCopy && this.readonly
+    },
+
+    hasAppendComponent () {
+      return this.hasCopy || !!this.iconRight
+    },
+
+    /**
+     * Importa o dinamicamente os componentes para ser usado no append.
+     *
+     * a propriedade "useCopy" tem prioridade sobre a propriedade "iconRight".
+     */
+    appendComponent () {
+      return {
+        is: this.hasCopy ? 'qas-copy' : 'q-icon',
+        props: {
+          ...(this.hasCopy && {
+            text: this.model,
+            useText: false,
+            disable: true
+          }),
+
+          ...(this.iconRight && {
+            name: this.iconRight,
+            size: 'xs'
+          })
+        }
+      }
     }
   },
 

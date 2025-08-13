@@ -17,12 +17,32 @@ Caso adicionado no escopo inicial, todos os conteúdos abaixo não serão adicio
 ## Não publicado
 ## BREAKING CHANGES
 - `dateTime`: Alguns lugares podem apresentar divergências na forma de exibição.
+- `QasNumericInput`:
+  - corrigido props `icon` e `iconRight` que estavam invertidas (iconRight mostrava a esquerda).
+
+### Adicionado
+- `QasInput`: adicionado prop `use-copy` para adicionar nativamente botão de ação "copiar" no input, que funciona apenas em conjunto da prop readonly ([1326](https://github.com/bildvitta/asteroid/issues/1326)).
+
+### Corrigido
+- `QasNumericInput`:
+  - corrigido estilo do componente quando usado com ícone no slot.
+  - corrigido bug quando apagava 2 vezes os valores do campo, onde a label não decima para a posição padrão de quando fica sem valor e o model mesmo apagado ficava com valor `0`.
+  - corrigido props `icon` e `iconRight` que estavam invertidas (iconRight mostrava a esquerda).
+- `QasBtn`: Declarado prop `readonly` para não precisar manipula-las via `$attrs`, facilitando e corrigindo problemas em alguns cenários (sem mudanças para o uso dos componentes).
+- `QasDateTimeInput`: Declarado props `readonly` e `disable` para não precisar manipula-las via `$attrs`, facilitando e corrigindo problemas em alguns cenários (sem mudanças para o uso dos componentes)
+- `QasInput`: Declarado prop `readonly` para não precisar manipula-las via `$attrs`, facilitando e corrigindo problemas em alguns cenários (sem mudanças para o uso dos componentes).
+- `QasSelect`: Declarado as prop `readonly`, `disable`e `multiple` para não precisar manipula-las via `$attrs`, facilitando e corrigindo problemas em alguns cenários (sem mudanças para o uso dos componentes).
 
 ### Modificado
 - `QasAlert`: Modificado comportamento para não ter box quando estiver dentro de um `QasDialog`. [[#1288](https://github.com/bildvitta/asteroid/issues/1288)]
 - `QasTableGenerator`: Alterado cor do título da coluna (th) para o `grey-10`. ([#1287](https://github.com/bildvitta/asteroid/issues/1287))
 - `dateTime | PvLayoutNotificationCard`: Alterado padrão de data para `"dd/MM/yyyy 'às' HH:mm:ss"` para melhorar a legibilidade. ([#1294](https://github.com/bildvitta/asteroid/issues/1294))
 - `QasCard`: Modificado estilo do card para utilizar bordas ao invés de box quando estiver dentro de um `QasDialog`. ([#1289](https://github.com/bildvitta/asteroid/issues/1289))
+- `QasSelect`: removido ícone arrow-down (a direita) quando esta `readonly`. ([#1309](https://github.com/bildvitta/asteroid/issues/1309))
+- `QasSelect`: removido ícone searchable quando readonly ou disable.
+- [`QasSelect`, `QasInput`, .q-field]:
+  - removido cor de borda diferente no hover quando readonly.
+  - setado cor grey-6 para borda do readonly.
 
 ## [3.19.0-beta.2] - 01-08-2025 <!-- N/A -->
 ### Corrigido
