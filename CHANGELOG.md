@@ -19,7 +19,9 @@ Caso adicionado no escopo inicial, todos os conteúdos abaixo não serão adicio
 - `dateTime`: Alguns lugares podem apresentar divergências na forma de exibição.
 
 ### Corrigido
-- `QasChartView`: Corrigido comportamento no qual quando se era passado `options` personalizadas para o gráfico, aplicavam as mesmas customizações para os demais gráficos do mesmo tipo.
+- `QasChartView`: 
+  - Corrigido comportamento no qual quando se era passado `options` personalizadas para o gráfico, aplicavam as mesmas customizações para os demais gráficos do mesmo tipo.
+  - Corrigido nome do slot para exibição do botão de filtrar, sendo o correto `actions`.
 
 ### Modificado
 - `QasAlert`: Modificado comportamento para não ter box quando estiver dentro de um `QasDialog`. [[#1288](https://github.com/bildvitta/asteroid/issues/1288)]

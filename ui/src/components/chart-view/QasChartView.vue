@@ -1,7 +1,7 @@
 <template>
   <component :is="parentComponent.is" v-bind="parentComponent.props">
     <qas-header v-if="hasHeader" v-bind="headerProps">
-      <template #right>
+      <template #actions>
         <qas-filters v-bind="chartFiltersProps" />
       </template>
     </qas-header>
