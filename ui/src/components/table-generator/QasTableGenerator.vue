@@ -11,12 +11,16 @@
 
       <!-- Necessário para sobrescrever o QCheckbox e usar o QasCheckbox. -->
       <template #header-selection="props">
-        <qas-checkbox v-model="props.selected" />
+        <div class="qas-table-generator__cancel-mouse-target" data-table-ignore-tr-hover>
+          <qas-checkbox v-model="props.selected" />
+        </div>
       </template>
 
       <!-- Necessário para sobrescrever o QCheckbox e usar o QasCheckbox. -->
       <template #body-selection="props">
-        <qas-checkbox v-model="props.selected" />
+        <div class="qas-table-generator__cancel-mouse-target" data-table-ignore-tr-hover>
+          <qas-checkbox v-model="props.selected" />
+        </div>
       </template>
 
       <template v-for="(fieldName, index) in bodyCellNameSlots" :key="index" #[`body-cell-${fieldName}`]="context">
@@ -45,8 +49,9 @@ import QasEmptyResultText from '../empty-result-text/QasEmptyResultText.vue'
 import QasHeader from '../header/QasHeader.vue'
 import QasCheckbox from '../checkbox/QasCheckbox.vue'
 
-import { extend } from 'quasar'
 import { isEmpty, humanize, setScrollOnGrab, setScrollGradient } from '../../helpers'
+
+import { extend } from 'quasar'
 
 export default {
   name: 'QasTableGenerator',
@@ -334,24 +339,37 @@ export default {
       return typeof this.$attrs.onRowClick === 'function'
     },
 
+    /**
+     * Computada responsável por retornar o modelo selecionado normalizando os dados de acordo
+     * com a prop "useObjectSelectedModel".
+     *
+     * @example - selectedModel
+     * [{ uuid: '2f8856d0-8eca-4e41-8146-63ed2a4f23ff4c' }] // considerando que a prop "rowKey" é "uuid"
+     */
     selectedModel: {
       get () {
         if (!this.useSelection) return []
 
-        return this.selected.map(row => {
-          // Caso a prop "useObjectSelectedModel" for passada, o retorno é o objeto completo da linha.
-          if (this.useObjectSelectedModel) return row
+        /**
+         * Caso a prop "useObjectSelectedModel" for passada, o retorno é o objeto completo da linha, que já o padrão
+         * do quasar, então não é necessário fazer nada.
+         */
+        if (this.useObjectSelectedModel) return this.selected
 
-          // Caso contrário, é retornado apenas o valor da chave da linha (rowKey).
-          return this.results.find(result => result[this.rowKey] === row)
-        })
+        /**
+         * É necessário retornar o objeto completo da linha, pois o QasTableGenerator espera receber o objeto que
+         * contém a chave "rowKey" para poder identificar a linha selecionada.
+         *
+         * @example - selected ['2f8856d0-8eca-4e41-8146-63ed2a4f23ff4c']
+         */
+        return this.selected.map(row => ({ [this.rowKey]: row }))
       },
 
+      /**
+       * Se a prop "useObjectSelectedModel" for passada, o evento "update:selected" é emitido array com o objeto completo
+       * da linha, caso contrário, é emitido apenas o array com valor da chave da linha (rowKey).
+       */
       set (rows) {
-        /**
-         * Se a prop "useObjectSelectedModel" for passada, o evento "update:selected" é emitido com o objeto completo da linha.
-         * Caso contrário, é emitido apenas o valor da chave da linha (rowKey).
-         */
         this.$emit('update:selected', this.useObjectSelectedModel ? rows : rows.map(row => row[this.rowKey]))
       }
     }
@@ -390,7 +408,7 @@ export default {
 
       const element = this.getScrollElement()
 
-      this.scrollOnGrab = setScrollOnGrab(element)
+      this.scrollOnGrab = setScrollOnGrab(element, {}, 'qas-table-generator__cancel-mouse-target')
     },
 
     getTableElementComponent () {
