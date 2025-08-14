@@ -6,8 +6,8 @@
       <q-separator v-if="hasSeparator(fieldsetItemKey)" class="q-my-md" />
 
       <qas-header v-if="fieldsetItem.__hasHeader" v-bind="getHeaderProps({ values: fieldsetItem })" />
-  
-      <div :class="classes" class="cleyton">
+
+      <div :class="classes">
         <div v-for="(field, key) in fieldsetItem.fields" :key="key" :class="getContainerClasses({ key })">
           <slot :field="field" :name="`field-${field.name}`">
             <qas-grid-item v-bind="getGridItemProps(field)">
@@ -20,7 +20,7 @@
                   </slot>
                 </slot>
               </template>
-  
+
               <template #content>
                 <slot :field="field" :name="`content-field-${field.name}`">
                   <slot :field="field" name="content">
