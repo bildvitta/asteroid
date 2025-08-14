@@ -189,6 +189,7 @@ const normalizedFields = computed(() => {
     }
   }
 
+  console.log(getNormalizedFields(props.fieldset), '<-- getNormalizedFields')
   return getNormalizedFields(props.fieldset)
 })
 
