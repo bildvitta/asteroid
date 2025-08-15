@@ -25,8 +25,8 @@ por completo.
 :::
 
 ## Uso
-<doc-example file="QasGridGenerator/Basic" title="Básico" />
+<!-- <doc-example file="QasGridGenerator/Basic" title="Básico" />
 <doc-example file="QasGridGenerator/BoxAndHeader" title="Box e header" />
-<!-- <doc-example file="QasGridGenerator/ExGridCommonColumns" title="Common Columns" />
+<doc-example file="QasGridGenerator/ExGridCommonColumns" title="Common Columns" />
 <doc-example file="QasGridGenerator/Slots" title="Slots" /> -->
 <doc-example file="QasGridGenerator/UseInline" title="Inline" />

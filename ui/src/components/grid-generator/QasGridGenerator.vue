@@ -1,37 +1,75 @@
 <template>
   <component :is="component.is" v-bind="component.props">
-    <div v-for="(fieldsetItem, fieldsetItemKey) in normalizedFields" :key="fieldsetItemKey">
-      <!-- <qas-header v-if="hasHeader" v-bind="props.headerProps" /> -->
+    <div class="q-gutter-y-lg">
+      <div v-for="(fieldsetItem, fieldsetItemKey) in normalizedFields" :key="fieldsetItemKey">
+        <q-separator v-if="hasSeparator({ item: fieldsetItem })" class="q-my-lg" />
 
-      <q-separator v-if="hasSeparator(fieldsetItemKey)" class="q-my-md" />
+        <qas-header v-if="fieldsetItem.__hasHeader" v-bind="getHeaderProps({ values: fieldsetItem })" />
 
-      <qas-header v-if="fieldsetItem.__hasHeader" v-bind="getHeaderProps({ values: fieldsetItem })" />
-
-      <div :class="classes">
-        <div v-for="(field, key) in fieldsetItem.fields" :key="key" :class="getContainerClasses({ key })">
-          <slot :field="field" :name="`field-${field.name}`">
-            <qas-grid-item v-bind="getGridItemProps(field)">
-              <template #header>
-                <slot :field="field" :name="`header-field-${field.name}`">
-                  <slot :field="field" name="header">
-                    <div :class="headerClass" :data-cy="`grid-generator-${field.name}-field`" :title="getTitle(field, 'label')">
-                      {{ field.label }}
-                    </div>
+        <div :class="classes">
+          <div v-for="(field, key) in fieldsetItem.fields" :key="key" :class="getContainerClasses({ key })">
+            <slot :field="field" :name="`field-${field.name}`">
+              <qas-grid-item v-bind="getGridItemProps(field)">
+                <template #header>
+                  <slot :field="field" :name="`header-field-${field.name}`">
+                    <slot :field="field" name="header">
+                      <div :class="headerClass" :data-cy="`grid-generator-${field.name}-field`" :title="getTitle(field, 'label')">
+                        {{ field.label }}
+                      </div>
+                    </slot>
                   </slot>
-                </slot>
-              </template>
+                </template>
 
-              <template #content>
-                <slot :field="field" :name="`content-field-${field.name}`">
-                  <slot :field="field" name="content">
-                    <div :class="getContentClasses(field)" :data-cy="`grid-generator-${field.name}-result`" :title="getTitle(field, 'formattedResult')">
-                      {{ field.formattedResult }}
-                    </div>
+                <template #content>
+                  <slot :field="field" :name="`content-field-${field.name}`">
+                    <slot :field="field" name="content">
+                      <div :class="getContentClasses(field)" :data-cy="`grid-generator-${field.name}-result`" :title="getTitle(field, 'formattedResult')">
+                        {{ field.formattedResult }}
+                      </div>
+                    </slot>
                   </slot>
+                </template>
+              </qas-grid-item>
+            </slot>
+          </div>
+        </div>
+
+        <div v-if="fieldsetItem.__hasSubset" class="q-gutter-y-md q-mt-md">
+          <div v-for="(subsetItem, subsetKey) in fieldsetItem.subset" :key="subsetKey">
+            <div v-if="hasSeparator({ item: subsetItem, isSubset: true })" class="q-pb-md">
+              <q-separator />
+            </div>
+
+            <qas-header v-if="subsetItem.__hasHeader" v-bind="getHeaderProps({ values: subsetItem, isSubset: true })" />
+
+            <div :class="classes">
+              <div v-for="(field, key) in subsetItem.fields" :key="key" :class="getContainerClasses({ key })">
+                <slot :field="field" :name="`field-${field.name}`">
+                  <qas-grid-item v-bind="getGridItemProps(field)">
+                    <template #header>
+                      <slot :field="field" :name="`header-field-${field.name}`">
+                        <slot :field="field" name="header">
+                          <div :class="headerClass" :data-cy="`grid-generator-${field.name}-field`" :title="getTitle(field, 'label')">
+                            {{ field.label }}
+                          </div>
+                        </slot>
+                      </slot>
+                    </template>
+
+                    <template #content>
+                      <slot :field="field" :name="`content-field-${field.name}`">
+                        <slot :field="field" name="content">
+                          <div :class="getContentClasses(field)" :data-cy="`grid-generator-${field.name}-result`" :title="getTitle(field, 'formattedResult')">
+                            {{ field.formattedResult }}
+                          </div>
+                        </slot>
+                      </slot>
+                    </template>
+                  </qas-grid-item>
                 </slot>
-              </template>
-            </qas-grid-item>
-          </slot>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -204,13 +242,12 @@ function getNormalizedFields (items) {
       column,
       buttonProps,
       fields = [],
-      subset = {}
+      subset = {},
+      useSeparator
     } = item
 
     // Valida caso tenha um header
     const hasHeader = !!(label || description || Object.keys(headerProps || {}).length)
-
-    console.log(headerProps, '<-- headerProps')
 
     // Valida caso tenha um subset dentro de um fieldset
     const hasSubset = !!Object.keys(subset).length
@@ -222,6 +259,7 @@ function getNormalizedFields (items) {
       column,
       buttonProps,
       headerProps,
+      useSeparator,
       fields: {},
       subset: hasSubset ? getNormalizedFields(subset) : {},
 
@@ -308,14 +346,17 @@ function getFormattedFields ({ fields, result, hasResult }) {
   return formattedFields
 }
 
-function hasSeparator (fieldsetItemKey) {
-  const fieldsetKeys = Object.keys(normalizedFields.value)
+function hasSeparator ({ item, isSubset }) {
+  /**
+   * No caso de for subset, por padrão terá o separator, à não ser que for passado
+   * o separator como false.
+   */
+  if (isSubset) {
+    return item.useSeparator === undefined ? true : item.useSeparator
+  }
 
-  console.log(fieldsetKeys, '<-- fieldsetKeys')
-  console.log(fieldsetItemKey, '<-- fieldsetItemKey')
-
-  // Terá o separator se conter mais de um item no fieldset, e não for o primeiro.
-  return fieldsetKeys.length > 1 && fieldsetKeys[0] !== fieldsetItemKey
+  // Caso seja um fieldset, verificar se foi passado a chave "useSeparator".
+  return item.useSeparator
 }
 
 // TODO: Adicionar no use-generator
