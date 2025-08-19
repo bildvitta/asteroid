@@ -181,7 +181,6 @@ const headerClass = computed(() => {
 })
 
 const normalizedFields = computed(() => {
-  console.log('to linkado')
   // No caso de não ter "fieldset", virá via props o result e fields.
   if (!hasFieldset.value) {
     return {
