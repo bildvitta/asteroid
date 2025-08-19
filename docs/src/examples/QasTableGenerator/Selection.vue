@@ -29,9 +29,15 @@ const entity = 'users'
 const tableGeneratorProps = computed(() => {
   return {
     fields: viewState.value.fields,
-    results: viewState.value.results,
+    results: [
+      ...viewState.value.results,
+      ...viewState.value.results,
+
+      ...viewState.value.results
+    ],
+    maxHeight: '300px',
     rowKey: 'uuid',
-    useSelection: true
+    useSelection: false
   }
 })
 

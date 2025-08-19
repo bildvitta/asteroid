@@ -33,6 +33,7 @@ Exemplo:
 
 <!-- <doc-example file="QasTableGenerator/Basic" title="Básico" /> -->
 <doc-example file="QasTableGenerator/Selection" title="Selecionável" />
+<doc-example file="QasTableGenerator/NoBox" title="Sem box" />
 
 <!-- :::info
 A propriedade "actionsMenuProps" adiciona automaticamente uma coluna "actions" na tabela e renderiza o `QasActionsMenu` por callback, é a maneira **correta** de se usar ação na ultima coluna.

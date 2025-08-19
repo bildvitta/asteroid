@@ -23,6 +23,22 @@
         </div>
       </template>
 
+      <template
+        v-if="useStickyLastRow"
+        #bottom-row="context"
+      >
+        <q-tr class="qas-table-generator__sticky-total">
+          <td
+            v-for="(col, index) in context.cols"
+            :key="index"
+          >
+            <span>
+              {{ getTotalInfo(col) }}
+            </span>
+          </td>
+        </q-tr>
+      </template>
+
       <template v-for="(fieldName, index) in bodyCellNameSlots" :key="index" #[`body-cell-${fieldName}`]="context">
         <q-td :class="getTdClasses(context.row)">
           <component :is="tdChildComponent" class="qas-table-generator__td-item" v-bind="getTdChildComponentProps(context.row)">
@@ -147,6 +163,11 @@ export default {
       type: Boolean
     },
 
+    useStickyLastRow: {
+      type: Boolean,
+      default: true
+    },
+
     useVirtualScroll: {
       type: Boolean
     }
@@ -214,7 +235,7 @@ export default {
         ...(this.useSelection && { selection: 'multiple' }),
 
         tableClass: {
-          'overflow-hidden-y': !this.useStickyHeader && !this.useVirtualScroll
+          'overflow-hidden-y': !this.useStickyHeader && !this.useVirtualScroll && !this.useStickyLastRow
         },
 
         // Eventos.
@@ -307,13 +328,14 @@ export default {
       return {
         'qas-table-generator--mobile': this.$qas.screen.isSmall,
         'qas-table-generator--sticky-header': this.useStickyHeader,
-        'qas-table-generator--has-actions': this.hasActionsMenu
+        'qas-table-generator--has-actions': this.hasActionsMenu,
+        'qas-table-generator--sticky-last-row': this.useStickyLastRow
       }
     },
 
     tableStyle () {
       return {
-        ...((this.useStickyHeader || this.useVirtualScroll) && { maxHeight: this.maxHeight })
+        ...((this.useStickyHeader || this.useVirtualScroll || this.useStickyLastRow) && { maxHeight: this.maxHeight })
       }
     },
 
@@ -332,7 +354,7 @@ export default {
     },
 
     hasAutoScrollY () {
-      return this.useStickyHeader || this.useVirtualScroll
+      return this.useStickyHeader || this.useVirtualScroll || this.useStickyLastRow
     },
 
     hasRowClick () {
@@ -509,6 +531,27 @@ export default {
           }
         })
       }
+    },
+
+    getTotalInfo ({ name }) {
+      // O último resultado é sempre o total geral.
+      const lastResult = this.results.at(-1)
+
+      return humanize(this.fields[name], lastResult[name])
+    },
+
+    getHighlightsClasses (context) {
+      const { row, rowIndex: index } = context
+
+      const hasHighlightsFn = !!this.highlights
+
+      if (!hasHighlightsFn) return
+
+      const isHighlighted = this.highlights?.({ row, index })
+
+      return {
+        'qas-table-generator__row-highlighted': isHighlighted || true
+      }
     }
   }
 }
@@ -650,6 +693,63 @@ export default {
 
     .q-table {
       margin-left: 10px;
+    }
+  }
+
+  &--sticky-last-row {
+    tbody tr:last-child td {
+      box-shadow: 0 -5px 5px -5px $grey-3;
+    }
+  }
+
+  &__row-highlighted {
+    td {
+      background-color: $light-blue-1 !important;
+      color: $grey-10;
+
+      &:first-child {
+        border-bottom-left-radius: var(--qas-generic-border-radius);
+        border-top-left-radius: var(--qas-generic-border-radius);
+      }
+
+      &:last-child {
+        border-bottom-right-radius: var(--qas-generic-border-radius);
+        border-top-right-radius: var(--qas-generic-border-radius);
+      }
+    }
+  }
+
+  &__sticky-total {
+    background-color: $light-blue-1 !important;
+    bottom: 0;
+    position: sticky;
+    transition: box-shadow var(--qas-generic-transition);
+
+    td {
+      background-color: $light-blue-1 !important;
+      color: $grey-10;
+    }
+
+    td {
+      z-index: 0;
+      position: relative;
+
+      &::before {
+        position: absolute;
+        content: '';
+        top: 0;
+        left: 0;
+        z-index: -1;
+        background-color: $light-blue-1 !important;
+      }
+
+      &:first-child::before {
+        left: calc(var(--qas-spacing-md) * -1);
+      }
+
+      &:last-child::before {
+        right: calc(var(--qas-spacing-md) * -1);
+      }
     }
   }
 
