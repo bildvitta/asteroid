@@ -25,8 +25,18 @@ por completo.
 :::
 
 ## Uso
-<!-- <doc-example file="QasGridGenerator/Basic" title="Básico" />
+<doc-example file="QasGridGenerator/Basic" title="Básico" />
 <doc-example file="QasGridGenerator/BoxAndHeader" title="Box e header" />
 <doc-example file="QasGridGenerator/ExGridCommonColumns" title="Common Columns" />
-<doc-example file="QasGridGenerator/Slots" title="Slots" /> -->
+<doc-example file="QasGridGenerator/Slots" title="Slots" />
 <doc-example file="QasGridGenerator/UseInline" title="Inline" />
+
+:::info
+Por padrão, entre `subsets` terá separadores, mas é possível controlar passando um `useSeparator: false` caso não seja necessário. Para o `fieldset`, o padrão é que não tenha separadores entre eles, mas é possível passar um `useSeparator: true`.
+:::
+<doc-example file="QasGridGenerator/WithFieldset" title="Com fieldset" />
+
+:::info
+É possível adicionar um tip ou alterar a tipografia de um item através do `fieldsProps`.
+:::
+<doc-example file="QasGridGenerator/WithFieldsProps" title="Com fieldsProps" />

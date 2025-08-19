@@ -22,6 +22,12 @@ Caso adicionado no escopo inicial, todos os conteúdos abaixo não serão adicio
 
 ### Adicionado
 - `QasInput`: adicionado prop `use-copy` para adicionar nativamente botão de ação "copiar" no input, que funciona apenas em conjunto da prop readonly ([1326](https://github.com/bildvitta/asteroid/issues/1326)).
+- `QasGridGenerator`: [[#1325](https://github.com/bildvitta/asteroid/issues/1325)]
+ - Adicionado opção de separador entre fieldset ou subset.
+ - Adicionado opção de tip nos titulos dos campos através do fieldsProps.
+ - Adicionado opção de alterar a tipografia do valor do campos através do fieldsProps.
+- `QasTip`: Adicionado componente de tip.
+- `QasToolTip`: Adicionado componente de tooltip.
 
 ### Corrigido
 - `QasNumericInput`:
@@ -32,6 +38,7 @@ Caso adicionado no escopo inicial, todos os conteúdos abaixo não serão adicio
 - `QasDateTimeInput`: Declarado props `readonly` e `disable` para não precisar manipula-las via `$attrs`, facilitando e corrigindo problemas em alguns cenários (sem mudanças para o uso dos componentes)
 - `QasInput`: Declarado prop `readonly` para não precisar manipula-las via `$attrs`, facilitando e corrigindo problemas em alguns cenários (sem mudanças para o uso dos componentes).
 - `QasSelect`: Declarado as prop `readonly`, `disable`e `multiple` para não precisar manipula-las via `$attrs`, facilitando e corrigindo problemas em alguns cenários (sem mudanças para o uso dos componentes).
+- `QasGridGenerator`: Correção de espaçamento do gutter quando modo `useInline: true`. [[#1325](https://github.com/bildvitta/asteroid/issues/1325)]
 
 ### Modificado
 - `QasAlert`: Modificado comportamento para não ter box quando estiver dentro de um `QasDialog`. [[#1288](https://github.com/bildvitta/asteroid/issues/1288)]

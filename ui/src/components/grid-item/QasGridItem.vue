@@ -19,6 +19,7 @@
 </template>
 
 <script setup>
+import QasTip from '../tip/QasTip.vue'
 import { useScreen } from '../../composables'
 
 import { computed } from 'vue'
