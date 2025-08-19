@@ -45,8 +45,7 @@ const gridGeneratorProps = computed(() => {
 
         subset: {
           summary: {
-            fields: ['company'],
-            useSeparator: true
+            fields: ['company']
           }
         }
       }
