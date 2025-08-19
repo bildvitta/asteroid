@@ -4,11 +4,11 @@
       <input v-show="floatingLabel" :id="id" ref="input" class="q-field__input" :disabled="$attrs.disable" inputmode="numeric" :placeholder :readonly="$attrs.readonly" @blur="emitValue" @click="setSelect" @input="emitUpdateModel($event.target.value)">
     </template>
 
-    <template v-if="icon" #append>
+    <template v-if="icon" #prepend>
       <q-icon :name="icon" size="xs" />
     </template>
 
-    <template v-if="iconRight" #prepend>
+    <template v-if="iconRight" #append>
       <q-icon :name="iconRight" size="xs" />
     </template>
   </q-field>
@@ -120,7 +120,7 @@ export default {
     },
 
     hasPrepend () {
-      return !!this.$slots.prepend || this.iconRight
+      return !!this.$slots.prepend || this.icon
     },
 
     placeholder () {
@@ -192,6 +192,18 @@ export default {
     },
 
     emitValue () {
+      /**
+       * O autonumeric retorna uma lista de histórico contendo os valores digitados, precisamos pegar
+       * pelo histórico porque ele retorna o raw value neste caso.
+       */
+      const isEmptyValue = this.autoNumeric.historyTable[this.autoNumeric.historyTableIndex]?.value === ''
+
+      /**
+       * Essa validação corrige um problema de quando o campo é limpo mais de 1x,
+       * que ficava vazio mas com o model de 0, mas sem mostrar o valor em tela, bugando a label.
+       */
+      if (isEmptyValue) this.autoNumeric.set(0)
+
       this.$emit('update:modelValue', this.autoNumeric.getNumber())
     },
 
