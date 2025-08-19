@@ -1,6 +1,8 @@
+import isObject from 'lodash-es/isObject'
 import { Spacing } from '../../enums/Spacing'
 import { gutterValidator } from '../../helpers/private/gutter-validator'
 import useScreen from '../use-screen'
+import { isEmpty, humanize, filterObject } from '../../helpers'
 
 import { computed } from 'vue'
 
@@ -88,6 +90,192 @@ export default function ({ props = {}, isGrid = false }) {
     if (!column) return 'col-12'
 
     return typeof column === 'string' ? _getStringColumns(column) : _getBreakpoint(column)
+  }
+
+  /**
+   * @function
+   * @param {Object} options
+   * @param {Object} options.values - Contém as propriedades de um fieldset/subset.
+   * @param {boolean} options.isSubset - Verifica se o header será usado em um subset.
+   *
+   * @returns {Object} Retorna as propriedades do header.
+   */
+  function getHeaderProps ({ values, isSubset }) {
+    const typography = isSubset ? 'h5' : 'h4'
+
+    // Separa as propriedades de label e o restante.
+    const { labelProps, ...headerProps } = values.headerProps || {}
+
+    return {
+      description: values.description,
+
+      // Mesmo que passado a tipografia no headerProps, a tipografia é sobreposta para manter a hierarquia sempre.
+      labelProps: {
+        ...labelProps,
+        ...(values.label && { label: values.label }),
+        typography
+      },
+
+      ...headerProps
+    }
+  }
+
+  /**
+   * @function
+   * @param {Object} params
+   * @param {Object} params.items - Objeto contendo a estrutura de um fieldset ou subset
+   * @param {Object} params.fields - Campos
+   * @param {Object} params.result - Resultado com base nos fields
+   * @param {Boolean} params.isGrid - Chave para indicar se é um grid-generator.
+   * @param {Boolean} params.useEmptyResult - Se o resultado de algum campo for vazio e esta propriedade for "false", ele remove todo o campo.
+   *
+   * @returns {Object} - Retorna um objeto com a estrutura do fieldset.
+   */
+  function getNormalizedFields (params) {
+    const result = {}
+
+    for (const key in params.items) {
+      const item = params.items[key]
+
+      // Propriedades que são recebidas em cada fieldset / subset desconstruida
+      const {
+        label,
+        description,
+        headerProps,
+        column,
+        buttonProps,
+        fields = [],
+        subset = {},
+        useSeparator
+      } = item
+
+      // Valida caso tenha um header
+      const hasHeader = !!(label || description || Object.keys(headerProps || {}).length)
+
+      // Valida caso tenha um subset dentro de um fieldset
+      const hasSubset = !!Object.keys(subset).length
+
+      // Estrutura de um fieldset e subset
+      const structure = {
+        label,
+        description,
+        column,
+        buttonProps,
+        headerProps,
+        useSeparator,
+        fields: {},
+
+        subset: hasSubset
+          ? getNormalizedFields({
+            items: subset,
+            isGrid: params.isGrid,
+            fields: params.fields,
+            result: params.result,
+            useEmptyResult: params.useEmptyResult
+          })
+          : {},
+
+        // Propriedades auxiliares para controle na view
+        __hasHeader: hasHeader,
+        __hasSubset: hasSubset,
+        __hasFieldset: true
+      }
+
+      // Pegar os fields com base na key.
+      const fieldsByfieldsKeys = filterObject(params.fields, fields)
+
+      if (params.isGrid) {
+      // Adicionar "formattedResult" com base no result.
+        const formattedFields = getFieldsByResult({
+          fields: fieldsByfieldsKeys,
+          result: params.result,
+          useEmptyResult: params.useEmptyResult
+        })
+
+        // Adiciona o fields no structure
+        Object.assign(structure.fields, formattedFields)
+      } else {
+        Object.assign(structure.fields, fieldsByfieldsKeys)
+      }
+
+      result[key] = structure
+    }
+
+    return result
+  }
+
+  /**
+   * Para todos campos passados, adiciona o "formattedResult" já formatado com base no result
+   *
+   * @function
+   * @param {Object} params
+   * @param {Object} params.fields - Campos
+   * @param {Object} params.result - Resultado com base nos fields
+   * @param {Boolean} params.useEmptyResult - Se o resultado de algum campo for vazio e esta propriedade for "false", ele remove todo o campo.
+   *
+   * @returns {Object} - Retorna os "fields" com um "formattedResult" pra cada field.
+   */
+  function getFieldsByResult ({ fields, result, useEmptyResult }) {
+    const hasFields = Object.keys(fields).length
+    const hasResult = Object.keys(result).length
+
+    if (!hasResult || !hasFields) return {}
+
+    const unformattedResult = { ...result }
+    const fieldsByResult = {}
+
+    const formattedFields = _getFormattedFields({ fields, result, hasResult, useEmptyResult })
+
+    for (const key in formattedFields) {
+      const field = formattedFields[key] || {}
+
+      if (!field.type) continue
+
+      const humanizedResult = humanize(field, unformattedResult[key])
+      const formattedResult = isEmpty({ value: humanizedResult }) ? props.emptyResultText : humanizedResult
+
+      fieldsByResult[key] = {
+        ...field,
+        formattedResult
+      }
+    }
+
+    return fieldsByResult
+  }
+
+  /**
+   * @private
+   * @function
+   * @param {Object} params
+   * @param {Object} params.fields - Campos
+   * @param {Object} params.result - Resultado com base nos fields
+   * @param {Boolean} params.hasResult - Casotenha resultado
+   * @param {Boolean} params.useEmptyResult - Se o resultado de algum campo for vazio e esta propriedade for "false", ele remove todo o campo.
+   *
+   * @returns {Object} - Retorna os "fields" formatados, caso a propriedade "useEmptyResult" seja "true",
+   * retorna todos os "fields", mesmo que não tenha resultado. Caso a propriedade "useEmptyResult" seja "false",
+   * retorna apenas os "fields" que possuem resultado.
+   */
+  function _getFormattedFields ({ fields, result, hasResult, useEmptyResult }) {
+    if (useEmptyResult) return fields
+
+    if (!hasResult) return {}
+
+    const formattedFields = {}
+
+    for (const key in fields) {
+      const currentResult = result[key]
+
+      const validate = Array.isArray(currentResult)
+        ? currentResult.length
+        : isObject(currentResult) ? Object.keys(currentResult).length : result
+
+      if (validate) {
+        formattedFields[key] = fields[key]
+      }
+    }
+
+    return formattedFields
   }
 
   /**
@@ -184,6 +372,10 @@ export default function ({ props = {}, isGrid = false }) {
     classes,
 
     getFieldClass,
-    getFieldSetColumnClass
+    getFieldSetColumnClass,
+
+    getHeaderProps,
+    getNormalizedFields,
+    getFieldsByResult
   }
 }

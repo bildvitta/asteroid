@@ -127,7 +127,13 @@ const emit = defineEmits(['update:modelValue'])
 provide('isFormGenerator', true)
 
 // composables
-const { classes, getFieldClass, getFieldSetColumnClass } = useGenerator({ props })
+const {
+  classes,
+  getFieldClass,
+  getFieldSetColumnClass,
+  getHeaderProps,
+  getNormalizedFields
+} = useGenerator({ props })
 
 const { fieldsetClasses, hasFieldset } = useFieldset({ props })
 
@@ -189,70 +195,12 @@ const normalizedFields = computed(() => {
     }
   }
 
-  console.log(getNormalizedFields(props.fieldset), '<-- getNormalizedFields')
-  return getNormalizedFields(props.fieldset)
+  return getNormalizedFields({
+    items: props.fieldset,
+    fields: props.fields,
+    result: props.modelValue
+  })
 })
-
-/**
- * Função recursiva na qual se é utilizada para definir a estrutura de um fieldset e também de um subset (presente dentro do fieldset).
- *
- * @param items {Object} items - Objeto contendo a estrutura de um fieldset ou subset
- */
-function getNormalizedFields (items) {
-  const result = {}
-
-  for (const key in items) {
-    const item = items[key]
-
-    // Propriedades que são recebidas em cada fieldset / subset desconstruida
-    const {
-      label,
-      description,
-      headerProps,
-      column,
-      buttonProps,
-      fields = [],
-      subset = {}
-    } = item
-
-    // Valida caso tenha um header
-    const hasHeader = !!(label || description || Object.keys(headerProps || {}).length)
-
-    // Valida caso tenha um subset dentro de um fieldset
-    const hasSubset = !!Object.keys(subset).length
-
-    // Estrutura de um fieldset e subset
-    const structure = {
-      label,
-      description,
-      column,
-      buttonProps,
-      headerProps,
-      fields: {},
-      subset: hasSubset ? getNormalizedFields(subset) : {},
-
-      // Propriedades auxiliares para controle na view
-      __hasHeader: hasHeader,
-      __hasSubset: hasSubset,
-      __hasFieldset: true
-    }
-
-    // Percorre as lista de fields (keys) que estão dentro do fieldset / subset
-    fields.forEach(fieldKey => {
-      // Encontra dentro da prop fields o field correspondente a key
-      const field = props.fields[fieldKey]
-
-      if (!field) return
-
-      // Adiciona o field ao fields da estrutura
-      Object.assign(structure.fields, { [fieldKey]: field })
-    })
-
-    result[key] = structure
-  }
-
-  return result
-}
 
 const fieldContainerClasses = computed(() => {
   return [
@@ -266,34 +214,6 @@ const fieldContainerClasses = computed(() => {
 // functions
 function getFieldType ({ type }) {
   return type === 'hidden' ? 'hidden' : 'visible'
-}
-
-/**
- * Retorna as propriedades de um header.
- *
- * @param {Object} values - Contém as propriedades de um fieldset/subset.
- * @param {Boolean} isSubset - Verifica se o header será usado em um subset.
- *
- * @returns {Object} Retorna as propriedades do header.
- */
-function getHeaderProps ({ values, isSubset }) {
-  const typography = isSubset ? 'h5' : 'h4'
-
-  // Separa as propriedades de label e o restante.
-  const { labelProps, ...headerProps } = values.headerProps || {}
-
-  return {
-    description: values.description,
-
-    // Mesmo que passado a tipografia no headerProps, a tipografia é sobreposta para manter a hierarquia sempre.
-    labelProps: {
-      ...labelProps,
-      ...(values.label && { label: values.label }),
-      typography
-    },
-
-    ...headerProps
-  }
 }
 
 function isFieldDisabled ({ disable }) {
