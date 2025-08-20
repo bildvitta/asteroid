@@ -2,7 +2,7 @@
 title: QasTooltip
 ---
 
-Componente para exibir tooltips.
+Componente wrapper do [QTooltip](https://quasar.dev/vue-components/tooltip#introduction).
 
 <doc-api file="tooltip/QasTooltip" name="QasTooltip" />
 

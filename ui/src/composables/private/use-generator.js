@@ -93,6 +93,8 @@ export default function ({ props = {}, isGrid = false }) {
   }
 
   /**
+   * Normaliza as propriedades do header, e a tipografia com base se é um subset.
+   *
    * @function
    * @param {Object} options
    * @param {Object} options.values - Contém as propriedades de um fieldset/subset.
@@ -121,13 +123,15 @@ export default function ({ props = {}, isGrid = false }) {
   }
 
   /**
+   * Normaliza o objeto para retornar um fieldset.
+   *
    * @function
    * @param {Object} params
    * @param {Object} params.items - Objeto contendo a estrutura de um fieldset ou subset
    * @param {Object} params.fields - Campos
    * @param {Object} params.result - Resultado com base nos fields
-   * @param {Boolean} params.isGrid - Chave para indicar se é um grid-generator.
-   * @param {Boolean} params.useEmptyResult - Se o resultado de algum campo for vazio e esta propriedade for "false", ele remove todo o campo.
+   * @param {boolean} params.isGrid - Chave para indicar se é um grid-generator.
+   * @param {boolean} params.useEmptyResult - Se o resultado de algum campo for vazio e esta propriedade for "false", ele remove todo o campo.
    *
    * @returns {Object} - Retorna um objeto com a estrutura do fieldset.
    */
@@ -184,6 +188,11 @@ export default function ({ props = {}, isGrid = false }) {
       // Pegar os fields com base na key.
       const fieldsByfieldsKeys = filterObject(params.fields, fields)
 
+      /**
+       * Foi adicionado essa lógica para o grid-generator, pois cada field deve ter o "formattedResult", onde o
+       * "formattedResult" é basicamente o result formatado com base no tipo do field através do humanize,
+       * exemplo: field do tipo "date", virá do back "2025-08-20", e deverá exibir "20/08/2025".
+       */
       if (params.isGrid) {
       // Adicionar "formattedResult" com base no result.
         const formattedFields = getFieldsByResult({
@@ -211,7 +220,7 @@ export default function ({ props = {}, isGrid = false }) {
    * @param {Object} params
    * @param {Object} params.fields - Campos
    * @param {Object} params.result - Resultado com base nos fields
-   * @param {Boolean} params.useEmptyResult - Se o resultado de algum campo for vazio e esta propriedade for "false", ele remove todo o campo.
+   * @param {boolean} params.useEmptyResult - Se o resultado de algum campo for vazio e esta propriedade for "false", ele remove todo o campo.
    *
    * @returns {Object} - Retorna os "fields" com um "formattedResult" pra cada field.
    */
@@ -224,14 +233,20 @@ export default function ({ props = {}, isGrid = false }) {
     const unformattedResult = { ...result }
     const fieldsByResult = {}
 
-    const formattedFields = _getFormattedFields({ fields, result, hasResult, useEmptyResult })
+    /**
+     * Retorna os "fields" com base na prop "useEmptyResult". se ela for "false",
+     * ela remove todo campo com valor vazio.
+     */
+    const formattedFields = getFormattedFields({ fields, result, hasResult, useEmptyResult })
 
     for (const key in formattedFields) {
       const field = formattedFields[key] || {}
 
       if (!field.type) continue
 
+      // Formata o result com base no "type", exemplo tipo date: "2025-08-20" -> "20/08/2025"
       const humanizedResult = humanize(field, unformattedResult[key])
+
       const formattedResult = isEmpty({ value: humanizedResult }) ? props.emptyResultText : humanizedResult
 
       fieldsByResult[key] = {
@@ -245,18 +260,19 @@ export default function ({ props = {}, isGrid = false }) {
 
   /**
    * @private
+   *
    * @function
    * @param {Object} params
    * @param {Object} params.fields - Campos
    * @param {Object} params.result - Resultado com base nos fields
-   * @param {Boolean} params.hasResult - Casotenha resultado
-   * @param {Boolean} params.useEmptyResult - Se o resultado de algum campo for vazio e esta propriedade for "false", ele remove todo o campo.
+   * @param {boolean} params.hasResult - Casotenha resultado
+   * @param {boolean} params.useEmptyResult - Se o resultado de algum campo for vazio e esta propriedade for "false", ele remove todo o campo.
    *
    * @returns {Object} - Retorna os "fields" formatados, caso a propriedade "useEmptyResult" seja "true",
    * retorna todos os "fields", mesmo que não tenha resultado. Caso a propriedade "useEmptyResult" seja "false",
    * retorna apenas os "fields" que possuem resultado.
    */
-  function _getFormattedFields ({ fields, result, hasResult, useEmptyResult }) {
+  function getFormattedFields ({ fields, result, hasResult, useEmptyResult }) {
     if (useEmptyResult) return fields
 
     if (!hasResult) return {}
@@ -266,6 +282,7 @@ export default function ({ props = {}, isGrid = false }) {
     for (const key in fields) {
       const currentResult = result[key]
 
+      // Verifica se o field tem result, caso tenha, adiciona no "formattedFields"
       const validate = Array.isArray(currentResult)
         ? currentResult.length
         : isObject(currentResult) ? Object.keys(currentResult).length : result

@@ -1,8 +1,8 @@
 <template>
   <component :is="component.is" v-bind="component.props">
-    <div class="q-gutter-y-lg">
+    <div class="column q-col-gutter-y-lg">
       <div v-for="(fieldsetItem, fieldsetItemKey) in normalizedFields" :key="fieldsetItemKey">
-        <q-separator v-if="hasSeparator({ item: fieldsetItem })" class="q-my-lg" />
+        <q-separator v-if="hasSeparator({ item: fieldsetItem })" class="q-mb-lg" />
 
         <qas-header v-if="fieldsetItem.__hasHeader" v-bind="getHeaderProps({ values: fieldsetItem })" />
 
@@ -13,7 +13,7 @@
                 <template #header>
                   <slot :field="field" :name="`header-field-${field.name}`">
                     <slot :field="field" name="header">
-                      <div :class="headerClass" :data-cy="`grid-generator-${field.name}-field`" :title="getTitle(field, 'label')">
+                      <div :class="headerClasses" :data-cy="`grid-generator-${field.name}-field`" :title="getTitle(field, 'label')">
                         {{ field.label }}
                       </div>
                     </slot>
@@ -49,7 +49,7 @@
                     <template #header>
                       <slot :field="field" :name="`header-field-${field.name}`">
                         <slot :field="field" name="header">
-                          <div :class="headerClass" :data-cy="`grid-generator-${field.name}-field`" :title="getTitle(field, 'label')">
+                          <div :class="headerClasses" :data-cy="`grid-generator-${field.name}-field`" :title="getTitle(field, 'label')">
                             {{ field.label }}
                           </div>
                         </slot>
@@ -170,7 +170,7 @@ const component = computed(() => {
   }
 })
 
-const headerClass = computed(() => {
+const headerClasses = computed(() => {
   return [
     props.headerClass,
 
@@ -181,8 +181,10 @@ const headerClass = computed(() => {
 })
 
 const normalizedFields = computed(() => {
+  const hasFieldset = !!Object.keys(props.fieldset).length
+
   // No caso de não ter "fieldset", virá via props o result e fields.
-  if (!hasFieldset.value) {
+  if (!hasFieldset) {
     return {
       default: {
         fields: getFieldsByResult({ fields: props.fields, result: props.result }),
@@ -200,8 +202,6 @@ const normalizedFields = computed(() => {
     isGrid: true
   })
 })
-
-const hasFieldset = computed(() => !!Object.keys(props.fieldset).length)
 
 // functions
 function getContainerClasses ({ key }) {
@@ -243,13 +243,8 @@ function getGridItemProps (field) {
 function hasSeparator ({ item, isSubset }) {
   /**
    * No caso de for subset, por padrão terá o separator, à não ser que for passado
-   * o separator como false.
+   * o separator como false. Caso seja um fieldset, verificar se foi passado a chave "useSeparator".
    */
-  if (isSubset) {
-    return item.useSeparator === undefined ? true : item.useSeparator
-  }
-
-  // Caso seja um fieldset, verificar se foi passado a chave "useSeparator".
-  return item.useSeparator
+  return isSubset ? (item.useSeparator ?? true) : item.useSeparator
 }
 </script>

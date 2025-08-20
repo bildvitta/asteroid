@@ -5,8 +5,6 @@
 </template>
 
 <script setup>
-import { computed } from 'vue'
-
 defineOptions({ name: 'QasTooltip' })
 
 const props = defineProps({
@@ -16,12 +14,10 @@ const props = defineProps({
   }
 })
 
-// computeds
-const tooltipProps = computed(() => {
-  return {
-    anchor: 'center right',
-    self: 'center left',
-    offset: [5, 5]
-  }
-})
+// consts
+const tooltipProps = {
+  anchor: 'center right',
+  self: 'center left',
+  offset: [5, 5]
+}
 </script>

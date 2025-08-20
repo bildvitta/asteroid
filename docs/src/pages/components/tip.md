@@ -2,7 +2,7 @@
 title: QasTip
 ---
 
- Componente usado como info com tooltip.
+Componente de dica com tooltip.
 
 <doc-api file="tip/QasTip" name="QasTip" />
 

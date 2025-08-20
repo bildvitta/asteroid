@@ -2,7 +2,7 @@
   <div :class="classes.container">
     <header :class="classes.header">
       <slot name="header">
-        <div v-bind="textProps">
+        <div v-bind="textAttributes">
           {{ props.label }}
         </div>
       </slot>
@@ -69,34 +69,30 @@ const classes = computed(() => {
 
   return {
     container: {
-      flex: isInline,
-      'justify-between': isInline,
-      'col-12': isInline,
-      'no-wrap': isInline
+      'flex justify-between col-12 no-wrap': isInline
     },
 
     header: {
       'text-caption': !isInline,
-      'text-body1': isInline,
 
       /**
        * Necessário adicionar o padding à direita no header ao invés do gutter, pois ao usar o gutter no eixo x,
        * ele adiciona um espaçamento à direita do content de forma errada, deixando o espaçamento maior que o do header.
        */
-      'q-pr-md': isInline,
+      'text-body1 q-pr-md': isInline,
 
       // classes por conta do tip.
-      row: !!props.tip,
-      'items-center': !!props.tip || !!typography,
-      'no-wrap': !!props.tip,
-      flex: !!typography
+      'row no-wrap': props.tip,
+      'items-center': props.tip || typography,
+      flex: typography
     },
 
     content: {
       'text-grey-10': true,
 
-      // tipografias
-      [`text-${typography}`]: !!typography,
+      // é possível passar uma tipografia personalizada.
+      [`text-${typography}`]: typography,
+
       'text-body1': !isInline && !typography,
       'text-subtitle1': isInline && !typography,
 
@@ -112,9 +108,7 @@ const contentProps = computed(() => {
   }
 })
 
-const textProps = computed(() => {
-  if (!hasEllipsis.value) return
-
-  return { title: props.label }
+const textAttributes = computed(() => {
+  return hasEllipsis.value ? { title: props.label } : undefined
 })
 </script>

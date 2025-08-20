@@ -1,7 +1,7 @@
 type: component
 
 meta:
-  desc: Componente usado como info com tooltip
+  desc: Componente de dica com tooltip
 
 props:
   text:

@@ -1,7 +1,7 @@
 type: component
 
 meta:
-  desc: Componente para exibir tooltips.
+  desc: Componente wrapper do [QTooltip](https://quasar.dev/vue-components/tooltip#introduction).
 
 props:
   text:

@@ -1,5 +1,5 @@
 <template>
-  <q-icon v-bind="iconProps">
+  <q-icon v-bind="iconProps" aria-hidden="false" :aria-label="props.text" class="qas-tip">
     <qas-tooltip :text="props.text" />
   </q-icon>
 </template>
@@ -35,16 +35,12 @@ const props = defineProps({
 })
 
 // computeds
-const formattedSize = computed(() => {
+const iconProps = computed(() => {
   const spacingKey = getNormalizedSpacingKey(props.size)
 
-  return SpacingWithUnit[spacingKey]
-})
-
-const iconProps = computed(() => {
   return {
     name: props.icon,
-    size: formattedSize.value,
+    size: SpacingWithUnit[spacingKey],
     color: props.color
   }
 })
@@ -52,12 +48,19 @@ const iconProps = computed(() => {
 // functions
 /**
  * Necessário para encontrar a chave correta no enum SpacingWithUnit.
- * @param key {string}
+ *
+ * @param spacing {string} - spacing ('xs', 'sm', 'md', 'lg', 'xl', '2xl', '3xl', '4xl', '5xl')
  */
-function getNormalizedSpacingKey (key) {
+function getNormalizedSpacingKey (spacing) {
   // Normaliza a primeira letra (ex: 'md' => 'Md')
-  const capitalized = key.charAt(0).toUpperCase() + key.slice(1)
+  const capitalized = spacing.charAt(0).toUpperCase() + spacing.slice(1)
 
+  // Valida se existe a chave "Md" no enum
   if (Object.prototype.hasOwnProperty.call(SpacingWithUnit, capitalized)) return capitalized
 }
 </script>
+<style lang="scss">
+.qas-tip {
+  cursor: help;
+}
+</style>

@@ -26,7 +26,7 @@ Caso adicionado no escopo inicial, todos os conteúdos abaixo não serão adicio
  - Adicionado opção de separador entre fieldset ou subset.
  - Adicionado opção de tip nos titulos dos campos através do fieldsProps.
  - Adicionado opção de alterar a tipografia do valor do campos através do fieldsProps.
-- `QasTip`: Adicionado componente de tip.
+- `QasTip`: Adicionado componente de dica.
 - `QasToolTip`: Adicionado componente de tooltip.
 
 ### Corrigido

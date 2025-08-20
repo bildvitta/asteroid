@@ -1,19 +1,19 @@
 <template>
   <!-- Usando qas-single-view apenas para recuperar os dados -->
-  <qas-single-view v-model:fields="fields" v-model:result="result" :custom-id="customId" :entity="entity">
+  <qas-single-view v-model:fields="viewState.fields" v-model:result="viewState.result" :custom-id :entity>
     <template #default>
-      <qas-grid-generator v-bind="gridGeneratorProps" class="q-mt-md" />
+      <qas-grid-generator v-bind="gridGeneratorProps" />
     </template>
   </qas-single-view>
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
+import { useView } from '@bildvitta/composables'
+import { computed } from 'vue'
 
 defineOptions({ name: 'WithFieldset' })
 
-const fields = ref({})
-const result = ref({})
+const { viewState } = useView({ mode: 'single' })
 
 const entity = 'users'
 
@@ -22,8 +22,8 @@ const customId = '3102fad5-f14c-45d4-98e9-46ef0aa9580e'
 
 const gridGeneratorProps = computed(() => {
   return {
-    fields: fields.value,
-    result: result.value,
+    fields: viewState.value.fields,
+    result: viewState.value.result,
     useBox: true,
 
     columns: {
@@ -69,7 +69,7 @@ const gridGeneratorProps = computed(() => {
           }
         },
         fields: ['email'],
-        useSeparator: true, // É possível utilizar separador entre fieldset.
+        // useSeparator: true, // É possível utilizar separador entre fieldset.
 
         subset: {
           document: {
@@ -85,6 +85,19 @@ const gridGeneratorProps = computed(() => {
           }
         }
       }
+
+      // cleyton: {
+      //   description: 'Descrição do terceiro fieldset',
+      //   label: 'Label do terceiro fieldset',
+      //   useSeparator: true, // É possível utilizar separador entre fieldset.
+      //   subset: {
+      //     cleytinho: {
+      //       label: 'Cleyton',
+      //       description: 'Descrição do Cleyton',
+      //       fields: ['phone', 'name']
+      //     }
+      //   }
+      // }
     }
   }
 })
