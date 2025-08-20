@@ -60,7 +60,7 @@ const gridGeneratorProps = computed(() => {
         headerProps: {
           description: 'Descrição do segundo fieldset',
           labelProps: {
-            label: 'Label do primeiro fieldset'
+            label: 'Label do segundo fieldset'
           },
 
           buttonProps: {
@@ -69,7 +69,7 @@ const gridGeneratorProps = computed(() => {
           }
         },
         fields: ['email'],
-        // useSeparator: true, // É possível utilizar separador entre fieldset.
+        useSeparator: true, // É possível utilizar separador entre fieldset.
 
         subset: {
           document: {
@@ -85,19 +85,6 @@ const gridGeneratorProps = computed(() => {
           }
         }
       }
-
-      // cleyton: {
-      //   description: 'Descrição do terceiro fieldset',
-      //   label: 'Label do terceiro fieldset',
-      //   useSeparator: true, // É possível utilizar separador entre fieldset.
-      //   subset: {
-      //     cleytinho: {
-      //       label: 'Cleyton',
-      //       description: 'Descrição do Cleyton',
-      //       fields: ['phone', 'name']
-      //     }
-      //   }
-      // }
     }
   }
 })

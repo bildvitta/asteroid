@@ -50,6 +50,7 @@ Caso adicionado no escopo inicial, todos os conteúdos abaixo não serão adicio
 - [`QasSelect`, `QasInput`, .q-field]:
   - removido cor de borda diferente no hover quando readonly.
   - setado cor grey-6 para borda do readonly.
+- `QasFormGenerator`: gutter entre subsets agora é `md`.
 
 ## [3.19.0-beta.2] - 01-08-2025 <!-- N/A -->
 ### Corrigido

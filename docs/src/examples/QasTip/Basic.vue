@@ -1,10 +1,8 @@
 <template>
-  <div class="column container flex justify-center q-gutter-y-md q-my-md">
+  <div class="column container q-my-md">
     <qas-tip text="Texto do tooltip" />
 
-    <qas-tip icon="sym_r_visibility" size="lg" text="Texto do tooltip" />
-
-    <qas-tip color="red" text="Texto do tooltip" />
+    <qas-tip class="q-mt-md" color="red" text="Texto do tooltip" />
   </div>
 </template>
 

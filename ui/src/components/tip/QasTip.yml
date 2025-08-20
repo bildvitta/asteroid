@@ -17,8 +17,8 @@ props:
   size:
     desc: Tamanho do ícone.
     type: String
-    default: md
-    examples: ['xs', 'sm', 'md', 'lg', 'xl', '2xl', '3xl', '4xl', '5xl']
+    default: 16px
+    examples: ['sm', '24px']
 
   color:
     desc: Cor do ícone.

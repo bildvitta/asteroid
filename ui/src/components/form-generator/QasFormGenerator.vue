@@ -24,7 +24,7 @@
               </div>
             </div>
 
-            <div v-if="fieldsetItem.__hasSubset" class="column q-col-gutter-y-xl q-mt-none">
+            <div v-if="fieldsetItem.__hasSubset" class="column q-col-gutter-y-md q-mt-none">
               <div v-for="(subsetItem, subsetKey) in fieldsetItem.subset" :key="subsetKey" class="col-12">
                 <slot :name="`legend-${fieldsetItemKey}-${subsetKey}`">
                   <qas-header v-if="subsetItem.__hasHeader" v-bind="getHeaderProps({ values: subsetItem, isSubset: true} )" />
