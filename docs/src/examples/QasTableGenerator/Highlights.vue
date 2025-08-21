@@ -1,0 +1,58 @@
+<template>
+  <qas-list-view v-model:fields="viewState.fields" v-model:results="viewState.results" :entity :use-filter="false">
+    <template #default>
+      <qas-table-generator v-model:selected="selectedUsers" v-bind="tableGeneratorProps" />
+
+      <qas-debugger :inspect="[selectedUsers]" />
+
+      <qas-btn label="Alterar valor" @click="changeSelection" />
+    </template>
+  </qas-list-view>
+</template>
+
+<script setup>
+import { useView } from '@bildvitta/composables'
+import { computed, ref } from 'vue'
+
+defineOptions({ name: 'Highlights' })
+
+// composables
+const { viewState } = useView({ mode: 'list' })
+
+// refs
+const selectedUsers = ref([])
+
+// consts
+const entity = 'users'
+
+// computeds
+const tableGeneratorProps = computed(() => {
+  return {
+    fields: viewState.value.fields,
+    results: [
+      ...viewState.value.results,
+      ...viewState.value.results,
+
+      ...viewState.value.results
+    ],
+
+    highlights: context => {
+      // Retorna 3 true seguidos, 3 false seguidos...
+      return Math.floor(context.index / 3) % 2 !== 0
+      // return context.index % 1 !== 0
+    },
+    maxHeight: '300px',
+    rowKey: 'uuid',
+    useSelection: false,
+    rowRouteFn: row => '/'
+  }
+})
+
+// functions
+function changeSelection () {
+  selectedUsers.value = [
+    '2f8856d0-8eca-4e41-8146-63ed2a4f23ff4c',
+    '943e4923-12c0-473e-a07f-63eb28201a91-24'
+  ]
+}
+</script>

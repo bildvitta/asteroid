@@ -39,7 +39,23 @@
         </q-tr>
       </template>
 
-      <template v-for="(fieldName, index) in bodyCellNameSlots" :key="index" #[`body-cell-${fieldName}`]="context">
+      <template #body="context">
+        <q-tr :class="getHighlightsClasses(context)">
+          <q-td v-for="(fieldName, index) in bodyCellNameSlots" :key="index" :class="getTdClasses(context.row)">
+            <component :is="tdChildComponent" class="qas-table-generator__td-item" v-bind="getTdChildComponentProps(context.row)">
+              <slot :name="`body-cell-${fieldName}`" v-bind="context || {}">
+                <pv-table-generator-td v-if="getFieldsProps(context.row, context.rowIndex)[fieldName]" :component-data="getFieldsProps(context.row, context.rowIndex)[fieldName]" :label="fields[fieldName]?.label" :name="fieldName" :row="context.row" />
+
+                <template v-else>
+                  {{ context.row?.[fieldName] }}
+                </template>
+              </slot>
+            </component>
+          </q-td>
+        </q-tr>
+      </template>
+
+      <!-- <template v-for="(fieldName, index) in bodyCellNameSlots" :key="index" #[`body-cell-${fieldName}`]="context">
         <q-td :class="getTdClasses(context.row)">
           <component :is="tdChildComponent" class="qas-table-generator__td-item" v-bind="getTdChildComponentProps(context.row)">
             <slot :name="`body-cell-${fieldName}`" v-bind="context || {}">
@@ -51,7 +67,7 @@
             </slot>
           </component>
         </q-td>
-      </template>
+      </template> -->
     </q-table>
 
     <qas-empty-result-text v-if="!hasResults" />
@@ -130,6 +146,11 @@ export default {
     emptyResultText: {
       default: '-',
       type: String
+    },
+
+    highlights: {
+      type: Function,
+      default: undefined
     },
 
     selected: {
@@ -554,7 +575,7 @@ export default {
       const isHighlighted = this.highlights?.({ row, index })
 
       return {
-        'qas-table-generator__row-highlighted': isHighlighted || true
+        'qas-table-generator__row-highlighted': isHighlighted
       }
     }
   }
@@ -644,7 +665,8 @@ export default {
     }
 
     tr:hover td::before {
-      background-color: var(--qas-background-color);
+      background-color: $grey-2;
+      // background-color: var(--qas-background-color);
     }
 
     &__middle {
@@ -700,25 +722,90 @@ export default {
     }
   }
 
+  // .q-table tr.qas-table-generator__row-highlighted {
+  //   td {
+  //     border: 0 !important;
+  //   }
+  // }
+
+  // Alternativa mais robusta usando pseudo-seletores
+  .q-table tr {
+    // &.qas-table-generator__row-highlighted td {
+    //   border: 0
+    // }
+    // Remove border-bottom se a próxima linha for destacada
+    &:not(.qas-table-generator__row-highlighted):has(+ .qas-table-generator__row-highlighted) td {
+      border-bottom: 0 !important;
+    }
+
+    // Remove border-top se a linha anterior for destacada
+    // &:not(.qas-table-generator__row-highlighted) td {
+    //   border-top: 1px solid $grey-4; // Borda padrão
+    // }
+
+    &.qas-table-generator__row-highlighted + &:not(.qas-table-generator__row-highlighted) td {
+      border-top: 0 !important;
+    }
+
+    &.qas-table-generator__row-highlighted:hover td::before {
+      background-color:  $grey-2 !important;
+    }
+
+    &.qas-table-generator__row-highlighted:hover td {
+      background-color:  $grey-2 !important;
+    }
+
+    &.qas-table-generator__sticky-total & {
+      td {
+        border-bottom: 0 !important;
+        background-color: red;
+      }
+    }
+  }
+
   &--sticky-last-row {
     tbody tr:last-child td {
-      box-shadow: 0 -5px 5px -5px $grey-3;
+      // box-shadow: 0 -5px 5px -5px #333;
     }
   }
 
   &__row-highlighted {
     td {
-      background-color: $light-blue-1 !important;
+      border: 0;
+      z-index: 0;
+      position: relative;
+      background-color: $light-blue-1;
       color: $grey-10;
 
+      border: 0 !important;
+
+      &::before {
+        position: absolute;
+        content: '';
+        top: 0;
+        left: 0;
+        z-index: -1;
+        border-top: 1px solid $grey-4;
+        border-bottom: 1px solid $grey-4;
+        background-color: $light-blue-1 !important;
+      }
+
+      &:first-child::before {
+        left: calc(var(--qas-spacing-md) * -1);
+      }
+
+      &:last-child::before {
+        right: calc(var(--qas-spacing-md) * -1);
+      }
+
       &:first-child {
-        border-bottom-left-radius: var(--qas-generic-border-radius);
-        border-top-left-radius: var(--qas-generic-border-radius);
+        // border-bottom-left-radius: var(--qas-generic-border-radius);
+        // border-top-left-radius: var(--qas-generic-border-radius);
       }
 
       &:last-child {
-        border-bottom-right-radius: var(--qas-generic-border-radius);
-        border-top-right-radius: var(--qas-generic-border-radius);
+        // border-bottom-right-radius: var(--qas-generic-border-radius);
+        // border-top-right-radius: var(--qas-generic-border-radius);
       }
     }
   }
@@ -727,7 +814,6 @@ export default {
     background-color: $light-blue-1 !important;
     bottom: 0;
     position: sticky;
-    transition: box-shadow var(--qas-generic-transition);
 
     td {
       background-color: $light-blue-1 !important;
@@ -740,6 +826,7 @@ export default {
 
       &::before {
         position: absolute;
+        border-top: 1px solid $grey-4;
         content: '';
         top: 0;
         left: 0;

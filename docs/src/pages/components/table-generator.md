@@ -30,8 +30,9 @@ Exemplo:
 :::
 
 ## Uso
+<doc-example file="QasTableGenerator/Highlights" title="Highlights" />
 
-<doc-example file="QasTableGenerator/Basic" title="Básico" />
+<!-- <doc-example file="QasTableGenerator/Basic" title="Básico" />
 <doc-example file="QasTableGenerator/Selection" title="Selecionável" />
 <doc-example file="QasTableGenerator/NoBox" title="Sem box" />
 
@@ -112,4 +113,4 @@ Funcionalidade que permite que o cabeçalho da tabela permaneça visível na par
 O virtual scroll renderiza dinamicamente as linhas a serem exibidas na tabela.
 Apenas utilize virtual scroll quando realmente houver comportamentos no qual não se pode ter paginação e tiver muitos dados na tabela.
 :::
-<doc-example file="QasTableGenerator/WithVirtualScroll" title="Com virtual scroll" />
+<doc-example file="QasTableGenerator/WithVirtualScroll" title="Com virtual scroll" /> -->
