@@ -196,6 +196,8 @@ export default {
         popupContentClass: `qas-select__menu ${this.popupContentClass}`,
         useChips: this.multiple && this.isPopupContentOpen,
         multiple: this.multiple,
+        disable: this.disable,
+        readonly: this.readonly,
 
         ...attrs,
 
