@@ -100,7 +100,7 @@ props:
     type: Boolean
 
   use-object-selected-model:
-    desc: Usado para definir o modelo de seleção como um array de objeto objeto ao invés de um array de string.
+    desc: Usado para definir o modelo de seleção como um array de objeto ao invés de um array de string.
     default: false
     type: Boolean
 
