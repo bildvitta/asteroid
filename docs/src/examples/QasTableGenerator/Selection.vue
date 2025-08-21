@@ -5,7 +5,7 @@
 
       <qas-debugger :inspect="[selectedUsers]" />
 
-      <qas-btn label="Resetar" @click="reset" />
+      <qas-btn label="Alterar valor" @click="changeSelection" />
     </template>
   </qas-list-view>
 </template>
@@ -36,7 +36,7 @@ const tableGeneratorProps = computed(() => {
 })
 
 // functions
-function reset () {
+function changeSelection () {
   selectedUsers.value = [
     '2f8856d0-8eca-4e41-8146-63ed2a4f23ff4c',
     '943e4923-12c0-473e-a07f-63eb28201a91-24'

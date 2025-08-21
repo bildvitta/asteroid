@@ -213,6 +213,10 @@ export default {
         // fixo, sempre será múltipla
         ...(this.useSelection && { selection: 'multiple' }),
 
+        /**
+         * Necessário para aplicar o scroll vertical no container, essa funcionalidade existe quando a prop
+         * "useStickyHeader" ou "useVirtualScroll" for passada.
+         */
         tableClass: {
           'overflow-hidden-y': !this.useStickyHeader && !this.useVirtualScroll
         },
@@ -351,8 +355,8 @@ export default {
         if (!this.useSelection) return []
 
         /**
-         * Caso a prop "useObjectSelectedModel" for passada, o retorno é o objeto completo da linha, que já o padrão
-         * do quasar, então não é necessário fazer nada.
+         * Caso a prop "useObjectSelectedModel" for passada, que já é o padrão, o retorno é o objeto completo da linha,
+         * que já o padrão do quasar, então não é necessário fazer nada.
          */
         if (this.useObjectSelectedModel) return this.selected
 
