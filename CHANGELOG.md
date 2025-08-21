@@ -22,6 +22,7 @@ Caso adicionado no escopo inicial, todos os conteúdos abaixo não serão adicio
 
 ### Adicionado
 - `QasInput`: adicionado prop `use-copy` para adicionar nativamente botão de ação "copiar" no input, que funciona apenas em conjunto da prop readonly ([1326](https://github.com/bildvitta/asteroid/issues/1326)).
+- `QasTableGenerator`: Adicionado novo recurso de seleção de linhas na tabela através das novas props `useSelection`, `useObjectSelectedModel` e pelo model `v-model:selected`.
 
 ### Corrigido
 - `QasNumericInput`:
