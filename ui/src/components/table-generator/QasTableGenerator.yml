@@ -72,6 +72,13 @@ props:
     type: Function
     examples: ["(row) => ({ path: 'table-generator', params: { id: row.uuid } })"]
 
+  selected:
+    desc: Usado como model das linhas selecionadas.
+    default: []
+    type: Array
+    model: true
+    examples: ["['uuid1', 'uuid2']"]
+
   use-box:
     desc: Controla se o componente vai usar QasBox ou div.
     default: true
@@ -82,9 +89,19 @@ props:
     default: false
     type: Boolean
 
+  use-selection:
+    desc: Usado para ativar a seleção de múltiplas linhas da tabela .
+    default: false
+    type: Boolean
+
   use-scroll-on-grab:
     desc: Adiciona scroll pelo mouse ao arrastar tabela em todas as telas (Celular, Desktop).
     default: true
+    type: Boolean
+
+  use-object-selected-model:
+    desc: Usado para definir o modelo de seleção como um array de objeto objeto ao invés de um array de string.
+    default: false
     type: Boolean
 
   use-sticky-header:
@@ -122,3 +139,10 @@ events:
       index:
         desc: Índice da linha.
         type: Number
+
+  '@update:selected -> function(values)':
+    desc: Dispara toda vez que que o usuário seleciona uma linha, pode ser array de objetos ou array de string, dependendo de como configurou pela prop "useObjectSelectedModel".
+    params:
+      values:
+        desc: Array de objeto ou array de string.
+        type: Array
