@@ -76,6 +76,7 @@ props:
     desc: Usado como model das linhas selecionadas.
     default: []
     type: Array
+    model: true
     examples: ["['uuid1', 'uuid2']"]
 
   use-box:
@@ -99,7 +100,7 @@ props:
     type: Boolean
 
   use-object-selected-model:
-    desc: Usado para definir o modelo de seleção como um array de objeto objeto ao invés de um array de string.
+    desc: Usado para definir o modelo de seleção como um array de objeto ao invés de um array de string.
     default: false
     type: Boolean
 
