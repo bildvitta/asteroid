@@ -14,7 +14,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 Devemos adicionar o comentário `<!-- N/A -->` (Não adicionar), para que não precise adicionar um item do changelog ao lançar uma nova versão stable.
 Caso adicionado no escopo inicial, todos os conteúdos abaixo não serão adicionados. Caso adicionado na linha, será considerado apenas ela.
 
-## Não publicado
+## [3.19.0-beta.3] - 22-08-2025
 ## BREAKING CHANGES
 - `dateTime`: Alguns lugares podem apresentar divergências na forma de exibição.
 - `QasNumericInput`:
@@ -28,6 +28,7 @@ Caso adicionado no escopo inicial, todos os conteúdos abaixo não serão adicio
  - Adicionado opção de alterar a tipografia do valor do campos através do fieldsProps.
 - `QasTip`: Adicionado componente de dica.
 - `QasToolTip`: Adicionado componente de tooltip.
+- `QasTableGenerator`: Adicionado novo recurso de seleção de linhas na tabela através das novas props `useSelection`, `useObjectSelectedModel` e pelo model `v-model:selected`.
 
 ### Corrigido
 - `QasNumericInput`:
@@ -39,6 +40,11 @@ Caso adicionado no escopo inicial, todos os conteúdos abaixo não serão adicio
 - `QasInput`: Declarado prop `readonly` para não precisar manipula-las via `$attrs`, facilitando e corrigindo problemas em alguns cenários (sem mudanças para o uso dos componentes).
 - `QasSelect`: Declarado as prop `readonly`, `disable`e `multiple` para não precisar manipula-las via `$attrs`, facilitando e corrigindo problemas em alguns cenários (sem mudanças para o uso dos componentes).
 - `QasGridGenerator`: Correção de espaçamento do gutter quando modo `useInline: true`. [[#1325](https://github.com/bildvitta/asteroid/issues/1325)]
+
+### Corrigido
+- `QasChartView`: 
+  - Corrigido comportamento no qual quando se era passado `options` personalizadas para o gráfico, aplicavam as mesmas customizações para os demais gráficos do mesmo tipo.
+  - Corrigido nome do slot para exibição do botão de filtrar, sendo o correto `actions`.
 
 ### Modificado
 - `QasAlert`: Modificado comportamento para não ter box quando estiver dentro de um `QasDialog`. [[#1288](https://github.com/bildvitta/asteroid/issues/1288)]
@@ -4228,3 +4234,4 @@ Adicionado suporte para Pinia/Vuex Seguindo os padrões da biblioteca `@bildvitt
 [3.19.0-beta.1]: https://github.com/bildvitta/asteroid/compare/v3.18.1...v3.19.0-beta.1?expand=1
 [3.18.2]: https://github.com/bildvitta/asteroid/compare/v3.18.1...v3.18.2?expand=1
 [3.19.0-beta.2]: https://github.com/bildvitta/asteroid/compare/v3.18.2...v3.19.0-beta.2?expand=1
+[3.19.0-beta.3]: https://github.com/bildvitta/asteroid/compare/v3.19.0-beta.3-alpha.3...v3.19.0-beta.3?expand=1
