@@ -1,6 +1,6 @@
 <template>
   <q-dialog ref="dialogRef" class="qas-dialog" :class="classes" data-cy="dialog" v-bind="dialogProps" :persistent="true" @update:model-value="updateModelValue">
-    <div class="bg-white q-pa-md full-width qas-dialog__container" :style="style">
+    <div class="bg-white full-width q-pa-md qas-dialog__container" :style="style">
       <header v-if="hasHeader" class="q-mb-md">
         <slot name="header">
           <div class="items-center justify-between row">
@@ -23,11 +23,11 @@
             <slot name="actions">
               <qas-actions v-bind="defaultActionsProps">
                 <template v-if="hasOk" #primary>
-                  <qas-btn class="qas-dialog__btn" v-close-popup="!props.useForm" data-cy="dialog-ok-btn" variant="primary" v-bind="defaultOk" />
+                  <qas-btn v-close-popup="!props.useForm" class="qas-dialog__btn" data-cy="dialog-ok-btn" variant="primary" v-bind="defaultOk" />
                 </template>
 
                 <template v-if="hasCancel" #secondary>
-                  <qas-btn class="qas-dialog__btn" v-close-popup data-cy="dialog-cancel-btn" v-bind="defaultCancel" variant="secondary" />
+                  <qas-btn v-close-popup class="qas-dialog__btn" data-cy="dialog-cancel-btn" v-bind="defaultCancel" variant="secondary" />
                 </template>
               </qas-actions>
             </slot>
@@ -92,7 +92,7 @@ const props = defineProps({
   size: {
     type: String,
     default: 'md',
-    validator: (value) => ['sm', 'md', 'lg', 'xl'].includes(value)
+    validator: value => ['sm', 'md', 'lg', 'xl'].includes(value)
   },
 
   title: {
