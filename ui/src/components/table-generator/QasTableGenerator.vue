@@ -351,7 +351,6 @@ export default {
 
     tableClasses () {
       return {
-        'qas-table-generator--mobile': this.$qas.screen.isSmall,
         'qas-table-generator--sticky-header': this.useStickyHeader,
         'qas-table-generator--has-actions': this.hasActionsMenu,
         'qas-table-generator--sticky-last-row': this.useStickyLastRow
@@ -714,14 +713,6 @@ export default {
     }
   }
 
-  &--mobile {
-    margin: 0 -10px;
-
-    .q-table {
-      margin-left: 10px;
-    }
-  }
-
   // .q-table tr.qas-table-generator__row-highlighted {
   //   td {
   //     border: 0 !important;
@@ -736,6 +727,10 @@ export default {
     // Remove border-bottom se a próxima linha for destacada
     &:not(.qas-table-generator__row-highlighted):has(+ .qas-table-generator__row-highlighted) td {
       border-bottom: 0 !important;
+
+      &::before {
+        border-bottom: 1px solid $grey-4;
+      }
     }
 
     // Remove border-top se a linha anterior for destacada
@@ -769,6 +764,10 @@ export default {
     }
   }
 
+  &__row-highlighted + &__row-highlighted td::before {
+    border-top: 1px solid $grey-4;
+  }
+
   &__row-highlighted {
     td {
       border: 0;
@@ -785,8 +784,8 @@ export default {
         top: 0;
         left: 0;
         z-index: -1;
-        border-top: 1px solid $grey-4;
-        border-bottom: 1px solid $grey-4;
+        // border-top: 1px solid $grey-4;
+        // border-bottom: 1px solid $grey-4;
         background-color: $light-blue-1 !important;
       }
 
