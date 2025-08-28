@@ -14,6 +14,25 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 Devemos adicionar o comentário `<!-- N/A -->` (Não adicionar), para que não precise adicionar um item do changelog ao lançar uma nova versão stable.
 Caso adicionado no escopo inicial, todos os conteúdos abaixo não serão adicionados. Caso adicionado na linha, será considerado apenas ela.
 
+## Não publicado
+## BREAKING CHANGE
+- [`QasFormGenerator`, `QasGridGenerator`]: lógicas de fieldset/subset adicionadas no composable `useGenerator`, validar se nada quebra.
+
+### Adicionado
+- `QasGridGenerator`: [[#1325](https://github.com/bildvitta/asteroid/issues/1325)]
+ - Adicionado opção de separador entre fieldset ou subset.
+ - Adicionado opção de tip nos títulos dos campos através do fieldsProps.
+ - Adicionado opção de alterar a tipografia do valor do campos através do fieldsProps.
+- `QasTip`: Adicionado componente de dica.
+- `QasToolTip`: Adicionado componente de tooltip.
+
+### Corrigido
+- `QasGridGenerator`: Correção de espaçamento do gutter quando modo `useInline: true`. [[#1325](https://github.com/bildvitta/asteroid/issues/1325)]
+- `QasFormGenerator`: gutter entre subsets agora é `md`.
+
+### Modificado
+- `QasFormGenerator`: Logica de fieldset/subset movida para composable `useGenerator`.
+
 ## [3.19.0-beta.3] - 22-08-2025
 ## BREAKING CHANGES
 - `dateTime`: Alguns lugares podem apresentar divergências na forma de exibição.
@@ -22,12 +41,6 @@ Caso adicionado no escopo inicial, todos os conteúdos abaixo não serão adicio
 
 ### Adicionado
 - `QasInput`: adicionado prop `use-copy` para adicionar nativamente botão de ação "copiar" no input, que funciona apenas em conjunto da prop readonly ([1326](https://github.com/bildvitta/asteroid/issues/1326)).
-- `QasGridGenerator`: [[#1325](https://github.com/bildvitta/asteroid/issues/1325)]
- - Adicionado opção de separador entre fieldset ou subset.
- - Adicionado opção de tip nos titulos dos campos através do fieldsProps.
- - Adicionado opção de alterar a tipografia do valor do campos através do fieldsProps.
-- `QasTip`: Adicionado componente de dica.
-- `QasToolTip`: Adicionado componente de tooltip.
 - `QasTableGenerator`: Adicionado novo recurso de seleção de linhas na tabela através das novas props `useSelection`, `useObjectSelectedModel` e pelo model `v-model:selected`.
 
 ### Corrigido
@@ -39,10 +52,7 @@ Caso adicionado no escopo inicial, todos os conteúdos abaixo não serão adicio
 - `QasDateTimeInput`: Declarado props `readonly` e `disable` para não precisar manipula-las via `$attrs`, facilitando e corrigindo problemas em alguns cenários (sem mudanças para o uso dos componentes)
 - `QasInput`: Declarado prop `readonly` para não precisar manipula-las via `$attrs`, facilitando e corrigindo problemas em alguns cenários (sem mudanças para o uso dos componentes).
 - `QasSelect`: Declarado as prop `readonly`, `disable`e `multiple` para não precisar manipula-las via `$attrs`, facilitando e corrigindo problemas em alguns cenários (sem mudanças para o uso dos componentes).
-- `QasGridGenerator`: Correção de espaçamento do gutter quando modo `useInline: true`. [[#1325](https://github.com/bildvitta/asteroid/issues/1325)]
-
-### Corrigido
-- `QasChartView`: 
+- `QasChartView`:
   - Corrigido comportamento no qual quando se era passado `options` personalizadas para o gráfico, aplicavam as mesmas customizações para os demais gráficos do mesmo tipo.
   - Corrigido nome do slot para exibição do botão de filtrar, sendo o correto `actions`.
 
@@ -56,7 +66,6 @@ Caso adicionado no escopo inicial, todos os conteúdos abaixo não serão adicio
 - [`QasSelect`, `QasInput`, .q-field]:
   - removido cor de borda diferente no hover quando readonly.
   - setado cor grey-6 para borda do readonly.
-- `QasFormGenerator`: gutter entre subsets agora é `md`.
 
 ## [3.19.0-beta.2] - 01-08-2025 <!-- N/A -->
 ### Corrigido
