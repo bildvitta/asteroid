@@ -332,12 +332,20 @@ module.exports = [
         path: '/components/text-truncate'
       },
       {
+        name: 'Tip',
+        path: '/components/tip'
+      },
+      {
         name: 'Toggle',
         path: '/components/toggle'
       },
       {
         name: 'ToggleVisibility',
         path: '/components/toggle-visibility'
+      },
+      {
+        name: 'Tooltip',
+        path: '/components/tooltip'
       },
       {
         name: 'Timeline',
