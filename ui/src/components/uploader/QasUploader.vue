@@ -3,7 +3,7 @@
     <q-uploader ref="uploader" auto-upload class="bg-transparent" :class="uploaderClasses" v-bind="attributes" :factory="factory" flat :max-files="maxFiles" method="PUT" @factory-failed="factoryFailed" @uploaded="uploaded" @uploading="updateUploading(true)">
       <template #header="scope">
         <slot name="header" :scope="scope">
-          <qas-header class="q-mb-none" v-bind="getHeaderProps(scope)">
+          <qas-header v-if="useHeader" class="q-mb-none" v-bind="getHeaderProps(scope)">
             <template #description>
               <div :class="headerDescriptionClasses">
                 {{ headerProps.description }}
@@ -27,9 +27,11 @@
           </div>
         </div>
 
-        <qas-empty-result-text v-else />
+        <qas-empty-result-text v-else-if="useEmptyResultText" />
 
         <qas-error-message v-if="errorMessage" :message="errorMessage" />
+
+        <slot :context="self" name="bottom-list" />
       </template>
     </q-uploader>
 
@@ -169,6 +171,16 @@ export default {
     useDownload: {
       default: true,
       type: Boolean
+    },
+
+    useEmptyResultText: {
+      type: Boolean,
+      default: true
+    },
+
+    useHeader: {
+      type: Boolean,
+      default: true
     },
 
     useObjectModel: {
@@ -312,7 +324,7 @@ export default {
     this.hiddenInputElement = this.$refs.hiddenInput
     this.uploader = this.$refs.uploader
 
-    this.hiddenInputElement?.addEventListener?.('change', this.addFiles)
+    this.hiddenInputElement?.addEventListener?.('change', () => this.addFiles())
 
     if (this.useObjectModel) {
       window.addEventListener('submit-success', this.handleSubmitSuccess)
@@ -320,7 +332,7 @@ export default {
   },
 
   unmounted () {
-    this.hiddenInputElement?.removeEventListener?.('change', this.addFiles)
+    this.hiddenInputElement?.removeEventListener?.('change', () => this.addFiles())
 
     if (this.useObjectModel) {
       window.removeEventListener('submit-success', this.handleSubmitSuccess)
@@ -328,11 +340,21 @@ export default {
   },
 
   methods: {
-    async addFiles () {
-      const filesList = Array.from(this.hiddenInputElement.files)
+    /**
+     * É possível passar os arquivos como parâmetro ou pegar os arquivos do input hidden,
+     * isto será útil para casos onde precisa manipular o QasUploader pelo lado de fora
+     * via ref.
+     *
+     * @param {File[]|FileList} files
+     */
+    async addFiles (files) {
+      const filesList = Array.from(files || this.hiddenInputElement.files)
       const processedFiles = []
 
-      this.$refs.hiddenInput.value = ''
+      // previne erro caso não exista hiddenInput
+      if (this.$refs.hiddenInput) {
+        this.$refs.hiddenInput.value = ''
+      }
 
       filesList.forEach(file => processedFiles.push(this.resizeImage(file)))
 
@@ -340,6 +362,7 @@ export default {
     },
 
     dispatchUpload () {
+      console.log('dispatchUpload')
       this.uploader?.removeUploadedFiles?.()
       this.hiddenInputElement?.click?.()
     },

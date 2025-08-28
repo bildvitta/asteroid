@@ -49,14 +49,15 @@ Usar o ícone à esquerda para ações diretas e o ícone à direita para açõe
 :::
 
 ## Uso
+<doc-example file="QasBtn/ExBtnSizes" title='Variante "primary"' />
 
 #### primary
 Os botões primários são utilizados em ações positivas e/ou primárias, como confirmar, avançar, ir para, acessar. Eles também são usados quando houver somente um botão disponível, como entendi, ok. Esses botões primários são utilizados para indicar ao usuário a ação principal que deve ser realizada, como salvar, adicionar, excluir, ativar, desativar. Eles são utilizados como uma forma de "guiar" o usuário, indicando qual é a ação principal que deve ser tomada. O objetivo é tornar a interface clara e intuitiva para o usuário, facilitando a navegação e a realização das ações desejadas.
-<doc-example file="QasBtn/ExPrimaryVariant" title='Variante "primary"' />
+<!-- <doc-example file="QasBtn/ExPrimaryVariant" title='Variante "primary"' /> -->
 
 #### secondary
 O botão secundário é utilizado em casos em que há dois botões de ação disponíveis, mas sua função não é chamar a atenção do usuário para a ação principal. Um exemplo típico de botão secundário é o de "cancelar", que tem a função de desfazer a ação anterior. Esses botões secundários são usados para ações negativas ou secundárias, como voltar, cancelar, recusar, voltar para, remover. O objetivo é fornecer uma opção de desfazer a ação principal, ajudando o usuário a navegar de forma segura e intuitiva na interface.
-<doc-example file="QasBtn/ExSecondaryVariant" title='Variante "secondary"' />
+<!-- <doc-example file="QasBtn/ExSecondaryVariant" title='Variante "secondary"' /> -->
 
 #### tertiary
 Os botões terciários são utilizados para ações complementares ou secundárias, que requerem menos destaque na tela. Eles são usados quando já há um botão primário e/ou um botão secundário na tela. Exemplos de ações que podem ser realizadas por meio de botões terciários incluem: criar conta, ir para ajuda, adicionar uma opção, baixar planilha. É importante lembrar que eles são menos chamativos e devem ser utilizados para ações secundárias.
@@ -70,10 +71,10 @@ A cor "grey-10" é usado para quando não é uma ação direta ou ação negativ
 
 ###### white
 A cor "white" é usada quando necessita de um contraste, sendo possível ter ou não uma cor de hover, sendo possível modificar através da prop `useHoverOnWhiteColor`.
-<doc-example file="QasBtn/ExTertiaryVariant" title='Variante "tertiary"' />
+<!-- <doc-example file="QasBtn/ExTertiaryVariant" title='Variante "tertiary"' />
 
 <doc-example file="QasBtn/ExBtnUseLabelOnSmallScreen" title="use-label-on-small-screen" />
 
 <doc-example file="QasBtn/ExBtnEllipsis" title="Com ellipsis" />
 
-<doc-example file="QasBtn/ExWithLoading" title="Com loading" />
+<doc-example file="QasBtn/ExWithLoading" title="Com loading" /> -->

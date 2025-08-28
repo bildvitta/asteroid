@@ -6,7 +6,7 @@
     </template>
 
     <div class="items-center justify-between no-wrap row text-center" :class="containerClasses">
-      <q-spinner v-if="hasLeftSpinner" :class="iconClasses" size="sm" />
+      <q-spinner v-if="hasLeftSpinner" :class="iconClasses" :size="spinnerSize" />
 
       <q-icon v-if="hasIcon" :class="iconClasses" :name="props.icon" />
 
@@ -14,7 +14,7 @@
         {{ props.label }}
       </div>
 
-      <q-spinner v-if="hasRightSpinner" :class="iconRightClasses" size="sm" />
+      <q-spinner v-if="hasRightSpinner" :class="iconRightClasses" :size="spinnerSize" />
 
       <q-icon v-if="hasIconRight" :class="iconRightClasses" :name="props.iconRight" />
     </div>
@@ -37,7 +37,7 @@ const props = defineProps({
   color: {
     default: 'primary',
     type: String,
-    validator: value => ['grey-10', 'primary', 'white'].includes(value)
+    validator: value => ['grey-10', 'primary', 'white', 'negative'].includes(value)
   },
 
   disable: {
@@ -52,6 +52,12 @@ const props = defineProps({
   iconRight: {
     default: undefined,
     type: String
+  },
+
+  size: {
+    default: 'lg',
+    type: String,
+    validator: value => ['sm', 'md', 'lg'].includes(value)
   },
 
   useLabelOnSmallScreen: {
@@ -119,27 +125,35 @@ const iconClasses = computed(() => ({ 'on-left': !hasIconOnly.value }))
 const iconRightClasses = computed(() => ({ 'on-right': !hasIconOnly.value }))
 
 const classes = computed(() => {
-  return {
-    'qas-btn--primary': isPrimary.value,
-    'qas-btn--secondary': isSecondary.value,
-    'qas-btn--tertiary': isTertiary.value,
+  return [
+    `qas-btn--${props.size}`,
+    {
+      'qas-btn--primary': isPrimary.value,
+      'qas-btn--secondary': isSecondary.value,
+      'qas-btn--tertiary': isTertiary.value,
 
-    // color
-    [`qas-btn--tertiary-${props.color}`]: isTertiary.value,
+      // color
+      [`qas-btn--tertiary-${props.color}`]: isTertiary.value,
+      [`qas-btn--primary-${props.color}`]: isPrimary.value,
+      [`qas-btn--secondary-${props.color}`]: isSecondary.value,
 
-    // icon
-    'qas-btn--icon-only': hasIconOnly.value,
+      // icon
+      'qas-btn--icon-only': hasIconOnly.value,
 
-    'qas-btn--primary-icon-only': hasIconOnly.value && isPrimary.value,
-    'qas-btn--secondary-icon-only': hasIconOnly.value && isSecondary.value,
-    'qas-btn--tertiary-icon-only': hasIconOnly.value && isTertiary.value,
+      'qas-btn--primary-icon-only': hasIconOnly.value && isPrimary.value,
+      'qas-btn--secondary-icon-only': hasIconOnly.value && isSecondary.value,
+      'qas-btn--tertiary-icon-only': hasIconOnly.value && isTertiary.value,
 
-    // hover
-    'qas-btn--no-hover-on-white': !props.useHoverOnWhiteColor,
+      // hover
+      'qas-btn--no-hover-on-white': !props.useHoverOnWhiteColor,
 
-    // ellipsis
-    'full-width': props.useEllipsis
-  }
+      // loading
+      'qas-btn--loading': props.loading,
+
+      // ellipsis
+      'full-width': props.useEllipsis
+    }
+  ]
 })
 
 const attributes = computed(() => {
@@ -179,4 +193,6 @@ const nonDefaultSlots = computed(() => {
 
   return nonDefaults
 })
+
+const spinnerSize = computed(() => props.size === 'sm' ? 'xs' : 'sm')
 </script>
