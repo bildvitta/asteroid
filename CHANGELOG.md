@@ -16,7 +16,7 @@ Caso adicionado no escopo inicial, todos os conteúdos abaixo não serão adicio
 
 ## Não publicado
 ### Corrigido
-- `QasActionsMenu`: corrigido alinhamento quando está dentro de outro container, como por exemplo o `QasPageHeader`. [[#1337](https://github.com/bildvitta/asteroid/issues/1337)]
+- `QasActionsMenu`: corrigido alinhamento quando está dentro de outro container, como por exemplo o `QasPageHeader`. ([#1337](https://github.com/bildvitta/asteroid/issues/1337))
 - `QasReportsFilters`: corrigido imports dos componentes internos.
 
 ## [3.19.0-beta.4] - 28-08-2025
@@ -24,7 +24,7 @@ Caso adicionado no escopo inicial, todos os conteúdos abaixo não serão adicio
 - [`QasFormGenerator`, `QasGridGenerator`]: lógicas de fieldset/subset adicionadas no composable `useGenerator`, validar se nada quebra.
 
 ### Adicionado
-- `QasGridGenerator`: [[#1325](https://github.com/bildvitta/asteroid/issues/1325)]
+- `QasGridGenerator`: ([#1325](https://github.com/bildvitta/asteroid/issues/1325))
  - Adicionado opção de separador entre fieldset ou subset.
  - Adicionado opção de tip nos títulos dos campos através do fieldsProps.
  - Adicionado opção de alterar a tipografia do valor do campos através do fieldsProps.
@@ -32,7 +32,7 @@ Caso adicionado no escopo inicial, todos os conteúdos abaixo não serão adicio
 - `QasToolTip`: Adicionado componente de tooltip.
 
 ### Corrigido
-- `QasGridGenerator`: Correção de espaçamento do gutter quando modo `useInline: true`. [[#1325](https://github.com/bildvitta/asteroid/issues/1325)]
+- `QasGridGenerator`: Correção de espaçamento do gutter quando modo `useInline: true`. ([#1325](https://github.com/bildvitta/asteroid/issues/1325))
 - `QasFormGenerator`: gutter entre subsets agora é `md`.
 
 ### Modificado
@@ -62,7 +62,7 @@ Caso adicionado no escopo inicial, todos os conteúdos abaixo não serão adicio
   - Corrigido nome do slot para exibição do botão de filtrar, sendo o correto `actions`.
 
 ### Modificado
-- `QasAlert`: Modificado comportamento para não ter box quando estiver dentro de um `QasDialog`. [[#1288](https://github.com/bildvitta/asteroid/issues/1288)]
+- `QasAlert`: Modificado comportamento para não ter box quando estiver dentro de um `QasDialog`. ([#1288](https://github.com/bildvitta/asteroid/issues/1288))
 - `QasTableGenerator`: Alterado cor do título da coluna (th) para o `grey-10`. ([#1287](https://github.com/bildvitta/asteroid/issues/1287))
 - `dateTime | PvLayoutNotificationCard`: Alterado padrão de data para `"dd/MM/yyyy 'às' HH:mm:ss"` para melhorar a legibilidade. ([#1294](https://github.com/bildvitta/asteroid/issues/1294))
 - `QasCard`: Modificado estilo do card para utilizar bordas ao invés de box quando estiver dentro de um `QasDialog`. ([#1289](https://github.com/bildvitta/asteroid/issues/1289))
