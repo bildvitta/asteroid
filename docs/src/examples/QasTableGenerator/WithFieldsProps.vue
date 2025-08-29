@@ -69,6 +69,7 @@ const tableGeneratorProps = {
       company: {
         component: 'QasBtn',
         props: {
+          size: 'lg',
           onClick: () => alert(row.company)
         }
       },

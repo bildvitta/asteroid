@@ -26,7 +26,7 @@
 <script setup>
 import { useScreen } from '../../composables'
 
-import { computed, useAttrs, useSlots } from 'vue'
+import { computed, useAttrs, useSlots, inject } from 'vue'
 
 defineOptions({
   name: 'QasBtn',
@@ -35,7 +35,7 @@ defineOptions({
 
 const props = defineProps({
   color: {
-    default: 'primary',
+    default: undefined,
     type: String,
     validator: value => ['grey-10', 'primary', 'white', 'negative'].includes(value)
   },
@@ -55,7 +55,7 @@ const props = defineProps({
   },
 
   size: {
-    default: 'lg',
+    default: undefined,
     type: String,
     validator: value => ['sm', 'md', 'lg'].includes(value)
   },
@@ -75,7 +75,7 @@ const props = defineProps({
   },
 
   variant: {
-    default: 'tertiary',
+    default: undefined,
     type: String,
     validator: value => {
       const variants = ['primary', 'secondary', 'tertiary']
@@ -98,10 +98,23 @@ const attrs = useAttrs()
 const slots = useSlots()
 const screen = useScreen()
 
+// defaults
+const btnPropsDefaults = {
+  size: 'lg',
+  variant: 'tertiary',
+  color: 'primary',
+  ...inject('btnPropsDefaults', {})
+}
+console.log('TCL: ', inject('btnPropsDefaults', {}))
+
+const defaultSize = computed(() => props.size || btnPropsDefaults.size)
+const defaultVariant = computed(() => props.variant || btnPropsDefaults.variant)
+const defaultColor = computed(() => props.color || btnPropsDefaults.color)
+
 // variantes
-const isPrimary = computed(() => props.variant === 'primary')
-const isSecondary = computed(() => props.variant === 'secondary')
-const isTertiary = computed(() => props.variant === 'tertiary')
+const isPrimary = computed(() => defaultVariant.value === 'primary')
+const isSecondary = computed(() => defaultVariant.value === 'secondary')
+const isTertiary = computed(() => defaultVariant.value === 'tertiary')
 
 const showLabel = computed(() => props.useLabelOnSmallScreen || !screen.isSmall)
 
@@ -126,16 +139,16 @@ const iconRightClasses = computed(() => ({ 'on-right': !hasIconOnly.value }))
 
 const classes = computed(() => {
   return [
-    `qas-btn--${props.size}`,
+    `qas-btn--${defaultSize.value}`,
     {
       'qas-btn--primary': isPrimary.value,
       'qas-btn--secondary': isSecondary.value,
       'qas-btn--tertiary': isTertiary.value,
 
       // color
-      [`qas-btn--tertiary-${props.color}`]: isTertiary.value,
-      [`qas-btn--primary-${props.color}`]: isPrimary.value,
-      [`qas-btn--secondary-${props.color}`]: isSecondary.value,
+      [`qas-btn--tertiary-${defaultColor.value}`]: isTertiary.value,
+      [`qas-btn--primary-${defaultColor.value}`]: isPrimary.value,
+      [`qas-btn--secondary-${defaultColor.value}`]: isSecondary.value,
 
       // icon
       'qas-btn--icon-only': hasIconOnly.value,

@@ -64,6 +64,14 @@ export default {
     QasCheckbox
   },
 
+  provide () {
+    return {
+      btnPropsDefaults: {
+        size: 'md'
+      }
+    }
+  },
+
   props: {
     actionsMenuProps: {
       default: undefined,

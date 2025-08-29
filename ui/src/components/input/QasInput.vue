@@ -37,6 +37,15 @@ export default {
     QasCopy: defineAsyncComponent(() => import('../copy/QasCopy.vue'))
   },
 
+  provide () {
+    return {
+      btnPropsDefaults: {
+        size: 'md',
+        variant: 'tertiary'
+      }
+    }
+  },
+
   inheritAttrs: false,
 
   props: {
