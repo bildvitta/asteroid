@@ -14,7 +14,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 Devemos adicionar o comentário `<!-- N/A -->` (Não adicionar), para que não precise adicionar um item do changelog ao lançar uma nova versão stable.
 Caso adicionado no escopo inicial, todos os conteúdos abaixo não serão adicionados. Caso adicionado na linha, será considerado apenas ela.
 
-## Não publicado
+## [3.19.0-beta.5] - 29-08-2025
 ### Corrigido
 - `QasActionsMenu`: corrigido alinhamento quando está dentro de outro container, como por exemplo o `QasPageHeader`. ([#1337](https://github.com/bildvitta/asteroid/issues/1337))
 - `QasReportsFilters`: corrigido imports dos componentes internos.
@@ -4250,3 +4250,4 @@ Adicionado suporte para Pinia/Vuex Seguindo os padrões da biblioteca `@bildvitt
 [3.19.0-beta.2]: https://github.com/bildvitta/asteroid/compare/v3.18.2...v3.19.0-beta.2?expand=1
 [3.19.0-beta.3]: https://github.com/bildvitta/asteroid/compare/v3.19.0-beta.3-alpha.3...v3.19.0-beta.3?expand=1
 [3.19.0-beta.4]: https://github.com/bildvitta/asteroid/compare/v3.19.0-beta.3...v3.19.0-beta.4?expand=1
+[3.19.0-beta.5]: https://github.com/bildvitta/asteroid/compare/v3.19.0-beta.5-alpha.0...v3.19.0-beta.5?expand=1
