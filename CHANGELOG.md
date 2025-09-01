@@ -17,6 +17,7 @@ Caso adicionado no escopo inicial, todos os conteúdos abaixo não serão adicio
 ## Não publicado
 ### Adicionado
 - `QasActions`: adicionado possibilidade de passar props dos botões sem necessariamente precisar abrir slot.
+- `QasInfiniteScroll`: adicionado função `fetchList` no expose.
 
 ## [3.19.0-beta.5] - 29-08-2025
 ### Corrigido
