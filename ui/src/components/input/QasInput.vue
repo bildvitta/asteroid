@@ -20,7 +20,7 @@
 <script>
 import { getRequiredLabel, getPlaceholder } from '../../helpers'
 
-import { defineAsyncComponent } from 'vue'
+import { defineAsyncComponent, computed } from 'vue'
 
 const Masks = {
   CompanyDocument: 'company-document',
@@ -39,10 +39,16 @@ export default {
 
   provide () {
     return {
-      btnPropsDefaults: {
-        size: 'md',
-        variant: 'tertiary'
-      }
+      /**
+       * @see QasBtn.vue - Injetando os valores padrões para o QasBtn.
+       */
+      btnPropsDefaults: computed(() => {
+        return {
+          size: 'md',
+          variant: 'tertiary',
+          ...(this.hasError && { color: 'negative' })
+        }
+      })
     }
   },
 
@@ -121,7 +127,7 @@ export default {
 
   computed: {
     hasError () {
-      return this.inputReference.hasError
+      return this.inputReference?.hasError
     },
 
     masks () {

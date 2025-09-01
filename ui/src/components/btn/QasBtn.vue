@@ -26,7 +26,7 @@
 <script setup>
 import { useScreen } from '../../composables'
 
-import { computed, useAttrs, useSlots, inject } from 'vue'
+import { computed, useAttrs, useSlots, inject, isRef } from 'vue'
 
 defineOptions({
   name: 'QasBtn',
@@ -94,22 +94,33 @@ const props = defineProps({
   }
 })
 
+// globals
+const injectedDefaults = inject('btnPropsDefaults', {}) // Inject reativo ou não reativo com fallback vazio
+
+// composables
 const attrs = useAttrs()
 const slots = useSlots()
 const screen = useScreen()
 
-// defaults
-const btnPropsDefaults = {
-  size: 'lg',
-  variant: 'tertiary',
-  color: 'primary',
-  ...inject('btnPropsDefaults', {})
-}
-console.log('TCL: ', inject('btnPropsDefaults', {}))
+// computeds
+/**
+ * Seta os valores padrões, dando prioridade:
+ *  1. Props
+ *  2. Injetado (pode ser reativo ou não reativo)
+ *  3. Hardcoded (tertiary, md, primary)
+ */
+const btnPropsDefaults = computed(() => {
+  return {
+    size: 'lg',
+    variant: 'tertiary',
+    color: 'primary',
+    ...(isRef(injectedDefaults) ? injectedDefaults.value : injectedDefaults)
+  }
+})
 
-const defaultSize = computed(() => props.size || btnPropsDefaults.size)
-const defaultVariant = computed(() => props.variant || btnPropsDefaults.variant)
-const defaultColor = computed(() => props.color || btnPropsDefaults.color)
+const defaultSize = computed(() => props.size || btnPropsDefaults.value.size)
+const defaultVariant = computed(() => props.variant || btnPropsDefaults.value.variant)
+const defaultColor = computed(() => props.color || btnPropsDefaults.value.color)
 
 // variantes
 const isPrimary = computed(() => defaultVariant.value === 'primary')
@@ -140,6 +151,7 @@ const iconRightClasses = computed(() => ({ 'on-right': !hasIconOnly.value }))
 const classes = computed(() => {
   return [
     `qas-btn--${defaultSize.value}`,
+
     {
       'qas-btn--primary': isPrimary.value,
       'qas-btn--secondary': isSecondary.value,
@@ -152,7 +164,6 @@ const classes = computed(() => {
 
       // icon
       'qas-btn--icon-only': hasIconOnly.value,
-
       'qas-btn--primary-icon-only': hasIconOnly.value && isPrimary.value,
       'qas-btn--secondary-icon-only': hasIconOnly.value && isSecondary.value,
       'qas-btn--tertiary-icon-only': hasIconOnly.value && isTertiary.value,
@@ -207,5 +218,5 @@ const nonDefaultSlots = computed(() => {
   return nonDefaults
 })
 
-const spinnerSize = computed(() => props.size === 'sm' ? 'xs' : 'sm')
+const spinnerSize = computed(() => defaultSize.value === 'sm' ? 'xs' : 'sm')
 </script>

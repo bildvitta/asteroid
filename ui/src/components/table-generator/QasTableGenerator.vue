@@ -66,6 +66,9 @@ export default {
 
   provide () {
     return {
+      /**
+       * @see QasBtn.vue - Injetando os valores padrões para o QasBtn.
+       */
       btnPropsDefaults: {
         size: 'md'
       }

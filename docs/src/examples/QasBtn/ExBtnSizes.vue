@@ -4,7 +4,7 @@
       <div class="q-gutter-y-md">
         <qas-label label="Primary" typography="h5" />
 
-        <div class="q-gutter-sm">
+        <!-- <div class="q-gutter-sm">
           <qas-btn icon="sym_r_person" label="Tamanho lg" size="lg" variant="primary" />
 
           <qas-btn icon="sym_r_person" label="Tamanho md" size="md" variant="primary" />
@@ -42,12 +42,12 @@
           <qas-btn icon="sym_r_person" size="md" variant="primary" />
 
           <qas-btn icon="sym_r_person" size="sm" variant="primary" />
-        </div>
+        </div> -->
 
         <!-- Secondary -->
         <qas-label label="Secondary" typography="h5" />
 
-        <div class="q-gutter-sm">
+        <!-- <div class="q-gutter-sm">
           <qas-btn icon="sym_r_person" label="Tamanho lg" size="lg" variant="secondary" />
 
           <qas-btn icon="sym_r_person" label="Tamanho md" size="md" variant="secondary" />
@@ -85,12 +85,12 @@
           <qas-btn icon="sym_r_person" size="md" variant="secondary" />
 
           <qas-btn icon="sym_r_person" size="sm" variant="secondary" />
-        </div>
+        </div> -->
 
         <!-- Tertiary -->
         <qas-label label="Tertiary" typography="h5" />
 
-        <div class="q-gutter-sm">
+        <!-- <div class="q-gutter-sm">
           <qas-btn icon="sym_r_person" label="Tamanho lg" size="lg" variant="tertiary" />
 
           <qas-btn icon="sym_r_person" label="Tamanho md" size="md" variant="tertiary" />
@@ -144,15 +144,29 @@
           <qas-btn color="white" icon="sym_r_person" label="Tamanho md" size="md" :use-hover-on-white-color="false" variant="tertiary" />
 
           <qas-btn color="white" icon="sym_r_person" label="Tamanho sm" size="sm" :use-hover-on-white-color="false" variant="tertiary" />
-        </div>
+        </div> -->
 
         <div>
           <q-btn class="test">eae</q-btn>
         </div>
+
+        <qas-input v-model="test" :rules="[value => required(value)]">
+          <template #append>
+            <qas-btn class="123 teste">eae</qas-btn>
+          </template>
+        </qas-input>
       </div>
     </div>
   </div>
 </template>
+
+<script setup>
+import { required } from 'asteroid'
+import { ref } from 'vue'
+
+const test = ref()
+
+</script>
 
 <style lang="scss">
 // $
