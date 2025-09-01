@@ -15,8 +15,8 @@ Devemos adicionar o comentário `<!-- N/A -->` (Não adicionar), para que não p
 Caso adicionado no escopo inicial, todos os conteúdos abaixo não serão adicionados. Caso adicionado na linha, será considerado apenas ela.
 
 ## Não publicado
-### Modificado
-- `QasActions`: modificado componente possibilitando passar props dos botões sem necessariamente precisar abrir slot.
+### Adicionado
+- `QasActions`: adicionado possibilidade de passar props dos botões sem necessariamente precisar abrir slot.
 
 ## [3.19.0-beta.5] - 29-08-2025
 ### Corrigido
