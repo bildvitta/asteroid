@@ -1,15 +1,21 @@
 <template>
   <div class="q-mt-sm" :class="classes">
-    <div v-if="hasTertiarySlot" :class="columnClasses">
-      <slot name="tertiary" />
+    <div v-if="hasTertiaryButton" :class="columnClasses">
+      <slot name="tertiary">
+        <qas-btn v-bind="formattedButtonsProps.tertiary" />
+      </slot>
     </div>
 
-    <div v-if="hasSecondarySlot" :class="columnClasses">
-      <slot name="secondary" />
+    <div v-if="hasSecondaryButton" :class="columnClasses">
+      <slot name="secondary">
+        <qas-btn v-bind="formattedButtonsProps.secondary" />
+      </slot>
     </div>
 
-    <div v-if="hasPrimarySlot" :class="columnClasses">
-      <slot name="primary" />
+    <div v-if="hasPrimaryButton" :class="columnClasses">
+      <slot name="primary">
+        <qas-btn v-bind="formattedButtonsProps.primary" />
+      </slot>
     </div>
   </div>
 </template>
@@ -34,6 +40,11 @@ const props = defineProps({
     default: '',
     type: String,
     validator: value => !value || Object.values(Spacing).includes(value)
+  },
+
+  buttonsProps: {
+    type: Object,
+    default: () => ({})
   },
 
   useFullWidth: {
@@ -78,4 +89,16 @@ const columnClasses = computed(() => {
 const hasPrimarySlot = computed(() => !!slots.primary)
 const hasSecondarySlot = computed(() => !!slots.secondary)
 const hasTertiarySlot = computed(() => !!slots.tertiary)
+
+const hasPrimaryButton = computed(() => hasPrimarySlot.value || props.buttonsProps.primary)
+const hasSecondaryButton = computed(() => hasSecondarySlot.value || props.buttonsProps.secondary)
+const hasTertiaryButton = computed(() => hasTertiarySlot.value || props.buttonsProps.tertiary)
+
+const formattedButtonsProps = computed(() => {
+  return {
+    primary: { ...props.buttonsProps.primary, variant: 'primary' },
+    secondary: { ...props.buttonsProps.secondary, variant: 'secondary' },
+    tertiary: { ...props.buttonsProps.tertiary, variant: 'tertiary' }
+  }
+})
 </script>

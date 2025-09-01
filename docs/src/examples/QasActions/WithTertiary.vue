@@ -1,21 +1,26 @@
 <template>
   <div class="container q-py-lg">
-    <qas-actions>
-      <template #primary>
-        <qas-btn class="full-width" label="Primeiro" variant="primary" />
-      </template>
-
-      <template #secondary>
-        <qas-btn class="full-width" label="Segundo" variant="secondary" />
-      </template>
-
-      <template #tertiary>
-        <qas-btn class="full-width" label="Terciário" variant="tertiary" />
-      </template>
-    </qas-actions>
+    <qas-actions :buttons-props />
   </div>
 </template>
 
 <script setup>
 defineOptions({ name: 'WithTertiary' })
+
+const buttonsProps = {
+  primary: {
+    label: 'Primário',
+    onClick: () => alert('Botão primário clicado')
+  },
+
+  secondary: {
+    label: 'Secundário',
+    onClick: () => alert('Botão secundário clicado')
+  },
+
+  tertiary: {
+    label: 'Terciário',
+    onClick: () => alert('Botão terciário clicado')
+  }
+}
 </script>
