@@ -1,5 +1,5 @@
 <template>
-  <q-form class="container spaced">
+  <qas-box class="container spaced">
     <qas-uploader v-model="model" v-bind="uploaderProps">
       <template #bottom-list="{ context }">
         <qas-input>
@@ -11,7 +11,7 @@
     </qas-uploader>
 
     <qas-debugger :inspect="[model]" />
-  </q-form>
+  </qas-box>
 </template>
 
 <script setup>
@@ -26,6 +26,9 @@ const model = ref([
 const uploaderProps = {
   entity: 'serviceOrders',
   useEmptyResultText: false,
-  useHeader: false
+  useHeader: false,
+  useDownload: false,
+  multiple: true,
+  useGalleryCard: false
 }
 </script>

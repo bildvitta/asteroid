@@ -1,6 +1,6 @@
 <template>
   <div>
-    <qas-gallery-card v-bind="defaultGalleryCardProps">
+    <qas-gallery-card v-if="useGalleryCard" v-bind="defaultGalleryCardProps">
       <template v-if="hasGenerator" #bottom>
         <div>
           <qas-grid-generator v-if="hasGridGenerator" v-bind="defaultGridGeneratorProps" />
@@ -9,6 +9,10 @@
         </div>
       </template>
     </qas-gallery-card>
+
+    <qas-box v-else v-bind="cardBoxProps">
+      <qas-header v-bind="cardHeaderProps" />
+    </qas-box>
 
     <qas-dialog v-model="showDialog" use-form use-validation-all-at-once v-bind="dialogProps" @validate="onValidate">
       <template #description>
@@ -23,6 +27,8 @@ import QasDialog from '../../dialog/QasDialog.vue'
 import QasFormGenerator from '../../form-generator/QasFormGenerator.vue'
 import QasGalleryCard from '../../gallery-card/QasGalleryCard.vue'
 import QasGridGenerator from '../../grid-generator/QasGridGenerator.vue'
+import QasBox from '../../box/QasBox.vue'
+import QasHeader from '../../header/QasHeader.vue'
 
 import downloadFile from '../../../helpers/download-file.js'
 
@@ -30,10 +36,18 @@ export default {
   name: 'PvUploaderGalleryCard',
 
   components: {
+    QasBox,
     QasDialog,
     QasFormGenerator,
     QasGalleryCard,
-    QasGridGenerator
+    QasGridGenerator,
+    QasHeader
+  },
+
+  inject: {
+    isBox: {
+      default: false
+    }
   },
 
   inheritAttrs: false,
@@ -94,6 +108,11 @@ export default {
 
     useObjectModel: {
       type: Boolean
+    },
+
+    useGalleryCard: {
+      type: Boolean,
+      default: false
     }
   },
 
@@ -155,11 +174,11 @@ export default {
        *
        * buttonProps: deve sempre ser possível excluir a imagem, por isso o disable do botão é "false".
        * errorMessage: o label do erro deve ser "Falha ao carregar arquivo."
-       * errorIcon: o ícone do erro deve ser "sym_r_cancel".
+       * errorIcon: o ícone do erro deve ser "sym_r_error".
        */
       const buttonProps = this.hasError ? { ...btnProps, disable: false } : btnProps
       const errorMessage = this.hasError ? 'Falha ao carregar arquivo.' : error || this.fileType
-      const errorIcon = this.hasError ? 'sym_r_cancel' : icon
+      const errorIcon = this.hasError ? 'sym_r_error' : icon
 
       return {
         disable: this.hasError,
@@ -324,12 +343,42 @@ export default {
            * Obs: esta URL fake é usada apenas para aparecer a imagem de "Falha ao enviar arquivo."
            * e não é adicionada ao model.
            */
-          : { url: this.url || 'error-on-upload-file', ...this.file }
+          : { ...this.file, url: this.file.url || this.url || 'error-on-upload-file' }
       )
     },
 
     url () {
       return this.normalizedCardGalleryProps?.url
+    },
+
+    cardBoxProps () {
+      const isBordered = (this.isBox || this.hasError)
+
+      return {
+        outlined: isBordered,
+        unelevated: isBordered
+      }
+    },
+
+    cardHeaderProps () {
+      return {
+        actionsMenuProps: {
+          useLabel: false,
+          ...this.defaultGalleryCardProps.actionsMenuProps
+        },
+
+        labelProps: {
+          label: this.file.name || this.fileName,
+          typography: 'h5',
+
+          ...(this.hasError && { color: 'negative' })
+        },
+
+        ...(this.hasError && { description: 'Falha ao carregar o arquivo.' }),
+
+        spacing: 'none',
+        useEllipsis: true
+      }
     }
   },
 

@@ -1,7 +1,7 @@
 <template>
   <div :class="containerClasses">
     <div v-if="hasLabelSection" class="full-width items-center justify-between no-wrap row" :class="labelSectionClasses">
-      <div class="items-center q-col-gutter-sm row">
+      <div class="items-center overflow-hidden q-col-gutter-sm row">
         <slot name="label">
           <qas-label v-if="hasLabel" v-bind="defaultLabelProps" />
         </slot>
@@ -85,6 +85,11 @@ const props = defineProps({
     default: Spacing.Md,
     type: String,
     validator: gutterValidator
+  },
+
+  useEllipsis: {
+    type: Boolean,
+    default: false
   }
 })
 
@@ -108,6 +113,10 @@ const descriptionSectionClasses = computed(() => {
 
 const defaultLabelProps = computed(() => {
   return {
+    class: {
+      ellipsis: props.useEllipsis
+    },
+
     margin: 'none',
     ...props.labelProps
   }

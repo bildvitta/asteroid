@@ -24,18 +24,18 @@
 
     <div v-else class="qas-gallery-card__image">
       <slot name="image">
-        <q-img class="rounded-borders" height="100%" :src="props.url" v-bind="props.imageProps">
+        <q-img class="rounded-borders" height="100%" :src="props.url" v-bind="defaultImgProps">
           <template #error>
             <div :class="errorClasses">
               <div class="text-center">
                 <slot name="image-error-icon">
                   <div v-if="props.errorIcon">
-                    <q-icon :name="props.errorIcon" size="sm" />
+                    <q-icon class="text-negative" :name="props.errorIcon" size="md" />
                   </div>
                 </slot>
 
                 <slot name="image-error">
-                  <div>
+                  <div class="q-mt-xs">
                     {{ props.errorMessage }}
                   </div>
                 </slot>
@@ -59,7 +59,7 @@ import QasActionsMenu from '../actions-menu/QasActionsMenu.vue'
 import QasBox from '../box/QasBox.vue'
 import QasGridGenerator from '../grid-generator/QasGridGenerator.vue'
 
-import { computed, useSlots, inject } from 'vue'
+import { computed, useSlots, inject, ref } from 'vue'
 
 defineOptions({ name: 'QasGalleryCard' })
 
@@ -113,15 +113,16 @@ const props = defineProps({
   }
 })
 
-const slots = useSlots()
-
+// globals
 const isInsideBox = inject('isBox', false)
 
-const boxProps = {
-  outlined: isInsideBox,
-  unelevated: isInsideBox
-}
+// composables
+const slots = useSlots()
 
+// refs
+const hasError = ref(false)
+
+// consts
 const errorClasses = [
   'bg-grey-4',
   'flex',
@@ -130,7 +131,7 @@ const errorClasses = [
   'items-center',
   'justify-center',
   'text-grey-10',
-  'text-subtitle2'
+  'text-subtitle1'
 ]
 
 // computeds
@@ -140,11 +141,29 @@ const classes = computed(() => {
   }
 })
 
+/**
+ * Vai ser "bordered" quando:
+ * - Estiver dentro de um QasBox (isInsideBox)
+ * - Ou quando houver erro (hasError)
+ * Se não, terá shadow.
+ */
+const boxProps = computed(() => {
+  const hasPadding = !!(props.name || hasActions.value)
+  const isBordered = (isInsideBox || hasError.value)
+
+  return {
+    outlined: isBordered,
+    unelevated: isBordered,
+    useSpacing: hasPadding
+  }
+})
+
 const headerClasses = computed(() => {
   return {
     'justify-between': props.name,
     'justify-right': !props.name,
-    'text-grey-10': !props.disable,
+    'text-grey-10': !props.disable && !hasError.value,
+    'text-negative': hasError.value,
     'q-mb-md': hasActions.value || props.name
   }
 })
@@ -158,7 +177,19 @@ const defaultActionsMenuProps = computed(() => {
 
     buttonProps: {
       disable: props.disable,
-      ...buttonProps
+      ...buttonProps,
+      ...(hasError.value && { color: 'negative' })
+    }
+  }
+})
+
+const defaultImgProps = computed(() => {
+  return {
+    ...props.imageProps,
+
+    onError: () => {
+      setHasError()
+      props.imageProps?.onError?.() // repassa o evento onError se existir
     }
   }
 })
@@ -177,6 +208,11 @@ const hasActionsSlot = computed(() => !!slots.actions)
 const hasActions = computed(() => !!Object.keys(props.actionsMenuProps).length || hasActionsSlot.value)
 const hasGridGenerator = computed(() => !!Object.keys(props.gridGeneratorProps).length)
 const hasBottom = computed(() => !!slots.bottom || hasGridGenerator.value)
+
+// functions
+function setHasError () {
+  hasError.value = true
+}
 </script>
 
 <style lang="scss">

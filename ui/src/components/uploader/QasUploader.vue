@@ -31,7 +31,9 @@
 
         <qas-error-message v-if="errorMessage" :message="errorMessage" />
 
-        <slot :context="self" name="bottom-list" />
+        <div v-if="hasBottomListSlot" class="q-mt-md">
+          <slot :context="self" name="bottom-list" />
+        </div>
       </template>
     </q-uploader>
 
@@ -178,6 +180,11 @@ export default {
       default: true
     },
 
+    useGalleryCard: {
+      type: Boolean,
+      default: false
+    },
+
     useHeader: {
       type: Boolean,
       default: true
@@ -250,10 +257,21 @@ export default {
     },
 
     defaultColumns () {
+      const hasDefaultColumn = !!Object.keys(this.columns).length
+
+      if (hasDefaultColumn) return this.columns
+
+      const hasSmallSize = this.useGalleryCard && this.isMultiple
+
+      // return !this.multiple || !this.useGalleryCard ? { col: 12, sm: 6 } : { col: 12, sm: 6, md: 4, lg: 3 }
+
       return {
-        ...(this.isMultiple ? { col: 12, sm: 6, md: 4, lg: 3 } : { col: 12, sm: 6 }),
-        ...this.columns
+        col: 12,
+        sm: 6,
+        ...(hasSmallSize && { md: 4, lg: 3 })
       }
+
+      // return this.isMultiple && ? { col: 12, sm: 6, md: 4, lg: 3 } : { col: 12, sm: 6 }
     },
 
     defaultPicaResizeOptions () {
@@ -273,7 +291,8 @@ export default {
         gridGeneratorProps,
         useDownload,
         useObjectModel,
-        dialogProps
+        dialogProps,
+        useGalleryCard
       } = this.$props
 
       return {
@@ -284,6 +303,7 @@ export default {
         gridGeneratorProps,
         useDownload,
         useObjectModel,
+        useGalleryCard,
 
         useMultiple: this.isMultiple
       }
@@ -305,6 +325,10 @@ export default {
 
     hasHeaderSlot () {
       return this.$slots.header
+    },
+
+    hasBottomListSlot () {
+      return this.$slots['bottom-list']
     },
 
     isMultiple () {
@@ -362,7 +386,6 @@ export default {
     },
 
     dispatchUpload () {
-      console.log('dispatchUpload')
       this.uploader?.removeUploadedFiles?.()
       this.hiddenInputElement?.click?.()
     },
@@ -691,6 +714,43 @@ export default {
 
   .q-uploader {
     max-height: 100%;
+    position: relative;
+    transition: padding var(--qas-generic-transition) ease, background var(--qas-generic-transition) ease;
+
+    // Referente ao drag and drop.
+    &--dnd {
+      padding: var(--qas-spacing-md) !important;
+    }
+
+    // Referente ao drag and drop.
+    &__dnd {
+      align-items: center;
+      background: $primary !important;
+      background: white !important;
+      border-radius: $generic-border-radius !important;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      justify-content: center;
+      opacity: 0.9;
+      outline-offset: 0 !important;
+      outline: 1px dashed var(--q-primary) !important;
+
+      // content e font-family para adicionar ícone do material icons.
+      &::before {
+        color: var(--q-primary);
+        content: "attach_file_add";
+        font-family: 'Material Symbols Rounded';
+        font-size: 24px;
+      }
+
+      &::after {
+        @include set-typography($subtitle1);
+
+        color: var(--q-primary);
+        content: 'Solte o arquivo aqui.';
+      }
+    }
 
     &__header {
       background-color: transparent;

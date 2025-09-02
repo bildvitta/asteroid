@@ -10,7 +10,7 @@
       </div>
 
       <slot>
-        <div v-if="!hideShowMore" class="full-width text-center">
+        <div v-if="!hideShowMore" class="full-width" :class="actionsClasses">
           <qas-btn color="primary" data-cy="gallery-btn-show-more" :label="props.showMoreLabel" variant="tertiary" @click="showMore" />
         </div>
       </slot>
@@ -48,6 +48,12 @@ const props = defineProps({
     type: Number,
     default: 4,
     validator: value => [1, 2, 3, 4, 6, 12].includes(value)
+  },
+
+  showModeAlign: {
+    type: String,
+    default: 'center',
+    validator: value => ['center', 'left', 'right'].includes(value)
   },
 
   showMoreLabel: {
@@ -98,6 +104,8 @@ const imageToBeDestroyed = ref({ index: null })
 const galleryCardCountToReRender = ref(1)
 
 // computed
+const actionsClasses = computed(() => `text-${props.showModeAlign}`)
+
 const galleryColumnsClasses = computed(() => {
   const size = 12 / props.initialSize
   const col = `col-${size}`
@@ -241,3 +249,52 @@ function showMore () {
   displayedImages.value += displayedImages.value
 }
 </script>
+
+<style lang="scss">
+.qas-gallery {
+  .qas-gallery-card__image {
+    transition: transform var(--qas-generic-transition);
+    border-radius: var(--qas-generic-border-radius);
+    position: relative;
+    z-index: 1;
+
+    &::before,
+    &::after {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      right: 0;
+      left: 0;
+      transition: transform var(--qas-generic-transition);
+      transform: scale(0);
+      pointer-events: none;
+    }
+
+    &::before {
+      border-radius: var(--qas-generic-border-radius);
+      background-color: black;
+      content: '';
+      opacity: 0.7;
+      z-index: 2;
+    }
+
+    &::after {
+      color: white;
+      content: 'zoom_out_map';
+      align-items: center;
+      font-family: 'Material Symbols Rounded';
+      display: flex;
+      justify-content: center;
+      font-size: 24px;
+      z-index: 3;
+    }
+
+    &:hover {
+      &::after,
+      &::before {
+        transform: scale(100%);
+      }
+    }
+  }
+}
+</style>
