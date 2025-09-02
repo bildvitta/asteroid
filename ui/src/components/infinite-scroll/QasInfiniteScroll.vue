@@ -67,7 +67,7 @@ const props = defineProps({
   }
 })
 
-defineExpose({ refresh, remove })
+defineExpose({ refresh, remove, fetchList })
 
 const emit = defineEmits(['fetch-success', 'fetch-error'])
 
