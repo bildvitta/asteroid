@@ -1,13 +1,13 @@
 <template>
   <div class="container q-py-lg">
-    <qas-actions v-bind="buttonsProps" />
+    <qas-actions v-bind="actionsProps" />
   </div>
 </template>
 
 <script setup>
 defineOptions({ name: 'Basic' })
 
-const buttonsProps = {
+const actionsProps = {
   primaryButtonProps: {
     label: 'Botão primário',
     onClick: () => alert('Botão primário clicado')
