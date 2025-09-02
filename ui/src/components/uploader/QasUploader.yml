@@ -139,6 +139,21 @@ props:
     default: true
     type: Boolean
 
+  use-empty-result-text:
+    desc: Controla se o texto de resultado vazio será exibido.
+    default: true
+    type: Boolean
+
+  use-gallery-card:
+    desc: Controla se o componente vai usar o "QasGalleryCard" para exibir os arquivos.
+    default: true
+    type: Boolean
+
+  use-header:
+    desc: Controla se o header do componente será exibido.
+    default: true
+    type: Boolean
+
   use-object-model:
     desc: Controla se a model retornará um array de objetos.
     type: Boolean

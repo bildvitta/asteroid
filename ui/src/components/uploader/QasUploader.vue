@@ -182,7 +182,7 @@ export default {
 
     useGalleryCard: {
       type: Boolean,
-      default: false
+      default: true
     },
 
     useHeader: {
@@ -256,6 +256,13 @@ export default {
       return classes
     },
 
+    /**
+     * Controla o valor default das colunas do grid
+     *
+     * Se o usuário passar alguma coluna, utiliza a passada
+     * Se for múltiplo e estiver usando o gallery card, exibe 4 "{ col: 12, sm: 6, md: 4, lg: 3 }"
+     * Senão, exibe "{ col: 12, sm: 6 }"
+     */
     defaultColumns () {
       const hasDefaultColumn = !!Object.keys(this.columns).length
 
@@ -263,15 +270,11 @@ export default {
 
       const hasSmallSize = this.useGalleryCard && this.isMultiple
 
-      // return !this.multiple || !this.useGalleryCard ? { col: 12, sm: 6 } : { col: 12, sm: 6, md: 4, lg: 3 }
-
       return {
         col: 12,
         sm: 6,
         ...(hasSmallSize && { md: 4, lg: 3 })
       }
-
-      // return this.isMultiple && ? { col: 12, sm: 6, md: 4, lg: 3 } : { col: 12, sm: 6 }
     },
 
     defaultPicaResizeOptions () {

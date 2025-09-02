@@ -112,7 +112,7 @@ export default {
 
     useGalleryCard: {
       type: Boolean,
-      default: false
+      default: true
     }
   },
 

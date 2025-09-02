@@ -42,26 +42,24 @@ O formato padrão do model de objeto é:
 
 ## Uso
 
-<doc-example file="QasUploader/ExUploaderCustom" title="Custom" />
-<!-- <doc-example file="QasUploader/Basic" title="Básico" /> -->
+<doc-example file="QasUploader/Basic" title="Básico" />
+<doc-example file="QasUploader/ExUploaderCustom" title="Custom list e card sem imagem" />
 
 :::info
 - Caso utilize o `headerProps`, por padrão sempre teremos o item `add` para realizar a adição dos arquivos, caso queira sobrescrever a ação de upload, basta passar um outro item `add` em list.
 :::
-<!-- <doc-example file="QasUploader/WithHeaderProps" title="Usando HeaderProps" />
-
+<doc-example file="QasUploader/WithHeaderProps" title="Usando HeaderProps" />
 <doc-example file="QasUploader/WithError" title="Com erro" />
-
 <doc-example file="QasUploader/ExUploaderMultiple" title="Múltiplo" />
 <doc-example file="QasUploader/ExUploaderMultipleObjectModel" title="Múltiplo com useObjectModel" />
 <doc-example file="QasUploader/ExUploaderSingleObjectModel" title="Múltiplo com useObjectModel" />
-<doc-example file="QasUploader/ExUploaderCardCallback" title="Múltiplo com callback nos cards" /> -->
+<doc-example file="QasUploader/ExUploaderCardCallback" title="Múltiplo com callback nos cards" />
 
 :::info
 - Para que o modo com grid funcione, é necessário utilizar a propriedade `useObjectModel` e que exista pelo menos a propriedade `fields` ou então o fields dentro de `gridGeneratorProps`.
 :::
 
-<!-- <doc-example file="QasUploader/ExUploaderMultipleGrid" title="Múltiplo e com grid" /> -->
+<doc-example file="QasUploader/ExUploaderMultipleGrid" title="Múltiplo e com grid" />
 
 :::info
 - Quando o componente pode ser editável, sempre que for adicionado novos arquivos **antes** de salvar, vai ter a opção de editar os campos no próprio card (não é possível simular pois o upload não funciona na documentação). Se o arquivo já esta salvo ou foi salvo, a opção de editar fica dentro do menu de ações de cada card.
@@ -71,6 +69,5 @@ O formato padrão do model de objeto é:
 - Para que o modo edição funcione, é necessário utilizar a propriedade `useObjectModel` e que exista pelo menos a propriedade `fields` ou então o fields dentro de `formGeneratorProps`.
 :::
 
-<!-- <doc-print :src="require('assets/prints/uploader-editable.png')" />
-
-<doc-example file="QasUploader/ExUploaderMultipleEditable" title="Múltiplo e editável" /> -->
+<doc-print :src="require('assets/prints/uploader-editable.png')" />
+<doc-example file="QasUploader/ExUploaderMultipleEditable" title="Múltiplo e editável" />
