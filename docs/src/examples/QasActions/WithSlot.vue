@@ -4,6 +4,7 @@
       <template #primary>
         <qas-btn class="full-width" label="Primeiro" variant="primary" />
       </template>
+
       <template #secondary>
         <qas-btn class="full-width" label="Segundo" variant="secondary" />
       </template>

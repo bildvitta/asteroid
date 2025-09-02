@@ -42,7 +42,17 @@ const props = defineProps({
     validator: value => !value || Object.values(Spacing).includes(value)
   },
 
-  buttonsProps: {
+  primaryButtonProps: {
+    type: Object,
+    default: () => ({})
+  },
+
+  secondaryButtonProps: {
+    type: Object,
+    default: () => ({})
+  },
+
+  tertiaryButtonProps: {
     type: Object,
     default: () => ({})
   },
@@ -90,15 +100,15 @@ const hasPrimarySlot = computed(() => !!slots.primary)
 const hasSecondarySlot = computed(() => !!slots.secondary)
 const hasTertiarySlot = computed(() => !!slots.tertiary)
 
-const hasPrimaryButton = computed(() => hasPrimarySlot.value || props.buttonsProps.primary)
-const hasSecondaryButton = computed(() => hasSecondarySlot.value || props.buttonsProps.secondary)
-const hasTertiaryButton = computed(() => hasTertiarySlot.value || props.buttonsProps.tertiary)
+const hasPrimaryButton = computed(() => hasPrimarySlot.value || props.primaryButtonProps)
+const hasSecondaryButton = computed(() => hasSecondarySlot.value || props.secondaryButtonProps)
+const hasTertiaryButton = computed(() => hasTertiarySlot.value || props.tertiaryButtonProps)
 
 const formattedButtonsProps = computed(() => {
   return {
-    primary: { ...props.buttonsProps.primary, variant: 'primary' },
-    secondary: { ...props.buttonsProps.secondary, variant: 'secondary' },
-    tertiary: { ...props.buttonsProps.tertiary, variant: 'tertiary' }
+    primary: { ...props.primaryButtonProps, variant: 'primary' },
+    secondary: { ...props.secondaryButtonProps, variant: 'secondary' },
+    tertiary: { ...props.tertiaryButtonProps, variant: 'tertiary' }
   }
 })
 </script>

@@ -1,6 +1,6 @@
 <template>
   <div class="container q-py-lg">
-    <qas-actions :buttons-props />
+    <qas-actions v-bind="buttonsProps" />
   </div>
 </template>
 
@@ -8,17 +8,17 @@
 defineOptions({ name: 'WithTertiary' })
 
 const buttonsProps = {
-  primary: {
+  primaryButtonProps: {
     label: 'Primário',
     onClick: () => alert('Botão primário clicado')
   },
 
-  secondary: {
+  secondaryButtonProps: {
     label: 'Secundário',
     onClick: () => alert('Botão secundário clicado')
   },
 
-  tertiary: {
+  tertiaryButtonProps: {
     label: 'Terciário',
     onClick: () => alert('Botão terciário clicado')
   }
