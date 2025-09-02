@@ -1,15 +1,21 @@
 <template>
   <div class="q-mt-sm" :class="classes">
-    <div v-if="hasTertiarySlot" :class="columnClasses">
-      <slot name="tertiary" />
+    <div v-if="hasTertiaryButton" :class="columnClasses">
+      <slot name="tertiary">
+        <qas-btn v-bind="formattedButtonsProps.tertiary" />
+      </slot>
     </div>
 
-    <div v-if="hasSecondarySlot" :class="columnClasses">
-      <slot name="secondary" />
+    <div v-if="hasSecondaryButton" :class="columnClasses">
+      <slot name="secondary">
+        <qas-btn v-bind="formattedButtonsProps.secondary" />
+      </slot>
     </div>
 
-    <div v-if="hasPrimarySlot" :class="columnClasses">
-      <slot name="primary" />
+    <div v-if="hasPrimaryButton" :class="columnClasses">
+      <slot name="primary">
+        <qas-btn v-bind="formattedButtonsProps.primary" />
+      </slot>
     </div>
   </div>
 </template>
@@ -34,6 +40,21 @@ const props = defineProps({
     default: '',
     type: String,
     validator: value => !value || Object.values(Spacing).includes(value)
+  },
+
+  primaryButtonProps: {
+    type: Object,
+    default: () => ({})
+  },
+
+  secondaryButtonProps: {
+    type: Object,
+    default: () => ({})
+  },
+
+  tertiaryButtonProps: {
+    type: Object,
+    default: () => ({})
   },
 
   useFullWidth: {
@@ -78,4 +99,16 @@ const columnClasses = computed(() => {
 const hasPrimarySlot = computed(() => !!slots.primary)
 const hasSecondarySlot = computed(() => !!slots.secondary)
 const hasTertiarySlot = computed(() => !!slots.tertiary)
+
+const hasPrimaryButton = computed(() => hasPrimarySlot.value || props.primaryButtonProps)
+const hasSecondaryButton = computed(() => hasSecondarySlot.value || props.secondaryButtonProps)
+const hasTertiaryButton = computed(() => hasTertiarySlot.value || props.tertiaryButtonProps)
+
+const formattedButtonsProps = computed(() => {
+  return {
+    primary: { ...props.primaryButtonProps, variant: 'primary' },
+    secondary: { ...props.secondaryButtonProps, variant: 'secondary' },
+    tertiary: { ...props.tertiaryButtonProps, variant: 'tertiary' }
+  }
+})
 </script>
