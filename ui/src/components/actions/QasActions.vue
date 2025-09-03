@@ -100,9 +100,9 @@ const hasPrimarySlot = computed(() => !!slots.primary)
 const hasSecondarySlot = computed(() => !!slots.secondary)
 const hasTertiarySlot = computed(() => !!slots.tertiary)
 
-const hasPrimaryButton = computed(() => hasPrimarySlot.value || props.primaryButtonProps)
-const hasSecondaryButton = computed(() => hasSecondarySlot.value || props.secondaryButtonProps)
-const hasTertiaryButton = computed(() => hasTertiarySlot.value || props.tertiaryButtonProps)
+const hasPrimaryButton = computed(() => hasPrimarySlot.value || Object.keys(props.primaryButtonProps).length)
+const hasSecondaryButton = computed(() => hasSecondarySlot.value || Object.keys(props.secondaryButtonProps).length)
+const hasTertiaryButton = computed(() => hasTertiarySlot.value || Object.keys(props.tertiaryButtonProps).length)
 
 const formattedButtonsProps = computed(() => {
   return {
