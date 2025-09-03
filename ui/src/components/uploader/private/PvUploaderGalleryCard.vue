@@ -1,6 +1,22 @@
 <template>
   <div>
     <qas-gallery-card v-if="useGalleryCard" v-bind="defaultGalleryCardProps">
+      <!-- Seção onde não há erro no upload do arquivo, mas sim no carregamento da imagem (ex: PDF). -->
+
+      <template v-if="!hasError && !url" #image-error-container>
+        <div class="bg-blue-grey-2 flex full-height full-width items-center justify-center text-blue-grey-8">
+          <div>
+            <div>
+              <q-icon name="sym_r_draft" size="lg" />
+            </div>
+
+            <div class="q-mt-xs text-blue-grey-8 text-center text-h4">
+              {{ file }}
+            </div>
+          </div>
+        </div>
+      </template>
+
       <template v-if="hasGenerator" #bottom>
         <div>
           <qas-grid-generator v-if="hasGridGenerator" v-bind="defaultGridGeneratorProps" />
@@ -177,8 +193,8 @@ export default {
        * errorIcon: o ícone do erro deve ser "sym_r_error".
        */
       const buttonProps = this.hasError ? { ...btnProps, disable: false } : btnProps
-      const errorMessage = this.hasError ? 'Falha ao carregar arquivo.' : error || this.fileType
-      const errorIcon = this.hasError ? 'sym_r_error' : icon
+      // const errorMessage = this.hasError ? 'Falha ao carregar arquivo.' : error || this.fileType
+      const errorIcon = this.hasError ? 'sym_r_upload' : icon
 
       return {
         disable: this.hasError,
@@ -186,7 +202,8 @@ export default {
         ...this.normalizedCardGalleryProps,
 
         errorIcon,
-        errorMessage,
+
+        ...(this.hasError && { errorMessage: 'Falha ao enviar o arquivo.' }),
 
         imageProps: {
           ...imageProps,
@@ -199,58 +216,66 @@ export default {
           }
         },
 
-        actionsMenuProps: {
-          ...actionsMenuProps,
-
-          buttonProps: {
-            disable: false,
-            ...buttonProps
+        headerProps: {
+          labelProps: {
+            label: this.normalizedModelValue.name,
+            ...(this.hasError && { color: 'negative' })
           },
 
-          list: {
-            ...(
-              this.hasEditButton &&
-              {
-                edit: {
-                  label: 'Editar',
-                  icon: 'sym_r_edit',
+          actionsMenuProps: {
+            ...actionsMenuProps,
 
-                  // callback
-                  handler: () => {
-                    this.dialogValues = { ...this.currentModelValue }
-                    this.toggleDialog()
-                  }
-                }
-              }
-            ),
-
-            ...(
-              this.hasDownloadButton &&
-              {
-                download: {
-                  label: 'Baixar arquivo',
-                  icon: 'sym_r_download',
-
-                  // callback
-                  handler: () => downloadFile(this.normalizedModelValue)
-                }
-              }
-            ),
-
-            destroy: {
-              label: 'Excluir',
-              color: 'grey-10',
-              icon: 'sym_r_delete',
-
-              // callback
-              handler: () => this.$emit('remove')
+            buttonProps: {
+              disable: false,
+              ...buttonProps,
+              ...(this.hasError && { color: 'negative' })
             },
 
-            ...list
+            list: {
+              ...(
+                this.hasEditButton &&
+                {
+                  edit: {
+                    label: 'Editar',
+                    icon: 'sym_r_edit',
+
+                    // callback
+                    handler: () => {
+                      this.dialogValues = { ...this.currentModelValue }
+                      this.toggleDialog()
+                    }
+                  }
+                }
+              ),
+
+              ...(
+                this.hasDownloadButton &&
+                {
+                  download: {
+                    label: 'Baixar arquivo',
+                    icon: 'sym_r_download',
+
+                    // callback
+                    handler: () => downloadFile(this.normalizedModelValue)
+                  }
+                }
+              ),
+
+              destroy: {
+                label: 'Excluir',
+                color: 'grey-10',
+                icon: 'sym_r_delete',
+
+                // callback
+                handler: () => this.$emit('remove')
+              },
+
+              ...list
+            }
           }
         },
 
-        ...this.normalizedModelValue
+        url: this.normalizedModelValue?.url
       }
     },
 
@@ -297,7 +322,7 @@ export default {
     },
 
     hasError () {
-      return this.file.isFailed
+      return 'isFailed' in this.file && this.file.isFailed
     },
 
     hasFormFields () {
@@ -348,7 +373,7 @@ export default {
     },
 
     url () {
-      return this.normalizedCardGalleryProps?.url
+      return this.defaultGalleryCardProps?.url
     },
 
     cardBoxProps () {

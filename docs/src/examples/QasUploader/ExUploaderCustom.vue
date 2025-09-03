@@ -17,6 +17,8 @@
 <script setup>
 import { ref } from 'vue'
 
+defineOptions({ name: 'ExUploaderCustom' })
+
 const model = ref([
   'https://placehold.co/600x400/orange/white?text=img1',
   'https://placehold.co/600x400/red/white?text=img2',
@@ -29,6 +31,7 @@ const uploaderProps = {
   useHeader: false,
   useDownload: false,
   multiple: true,
-  useGalleryCard: false
+  useGalleryCard: false,
+  maxFileSize: 20000000
 }
 </script>

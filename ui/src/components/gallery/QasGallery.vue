@@ -147,16 +147,12 @@ function getActionsMenuProps ({ image, index }) {
   return {
     useLabel: false,
 
-    buttonProps: {
-      disable: isDestroyDisabled(image)
-    },
-
     list: {
       destroy: {
         label: 'Excluir',
         color: 'grey-10',
         icon: 'sym_r_delete',
-
+        disable: isDestroyDisabled(image),
         handler: () => onDelete(image, index)
       }
     }
@@ -165,9 +161,21 @@ function getActionsMenuProps ({ image, index }) {
 
 function getGalleryCardProps ({ image, index }) {
   return {
-    actionsMenuProps: getActionsMenuProps({ image, index }),
     imageProps: getImageProps({ image, index }),
+
     ...image,
+
+    headerProps: {
+      ...image.headerProps,
+      ...props.galleryCardProps?.headerProps,
+
+      actionsMenuProps: {
+        ...getActionsMenuProps({ image, index }),
+        ...image.headerProps?.actionsMenuProps,
+        ...props.galleryCardProps?.headerProps?.actionsMenuProps
+      }
+    },
+
     ...props.galleryCardProps
   }
 }

@@ -1,20 +1,6 @@
 <template>
   <qas-box class="bg-white qas-gallery-card" :class="classes" v-bind="boxProps">
-    <header class="flat items-center no-wrap row" :class="headerClasses">
-      <slot name="header">
-        <div class="ellipsis q-mr-xs qas-gallery__name text-subtitle1">
-          <slot v-if="props.name" name="name">
-            {{ name }}
-          </slot>
-        </div>
-
-        <div v-if="hasActions">
-          <slot name="actions">
-            <qas-actions-menu v-bind="defaultActionsMenuProps" />
-          </slot>
-        </div>
-      </slot>
-    </header>
+    <qas-header v-if="hasHeader" v-bind="defaultHeaderProps" />
 
     <div v-if="props.useVideo">
       <slot name="video">
@@ -24,23 +10,25 @@
 
     <div v-else class="qas-gallery-card__image">
       <slot name="image">
-        <q-img class="rounded-borders" height="100%" :src="props.url" v-bind="defaultImgProps">
+        <q-img class="rounded-borders" height="100%" :src="props.url" v-bind="props.imageProps">
           <template #error>
-            <div :class="errorClasses">
-              <div class="text-center">
-                <slot name="image-error-icon">
-                  <div v-if="props.errorIcon">
-                    <q-icon class="text-negative" :name="props.errorIcon" size="md" />
-                  </div>
-                </slot>
+            <slot name="image-error-container">
+              <div :class="errorClasses">
+                <div class="text-center">
+                  <slot name="image-error-icon">
+                    <div v-if="props.errorIcon">
+                      <q-icon class="text-negative" :name="props.errorIcon" size="md" />
+                    </div>
+                  </slot>
 
-                <slot name="image-error">
-                  <div class="q-mt-xs">
-                    {{ props.errorMessage }}
-                  </div>
-                </slot>
+                  <slot name="image-error">
+                    <div class="q-mt-xs">
+                      {{ props.errorMessage }}
+                    </div>
+                  </slot>
+                </div>
               </div>
-            </div>
+            </slot>
           </template>
         </q-img>
       </slot>
@@ -55,11 +43,11 @@
 </template>
 
 <script setup>
-import QasActionsMenu from '../actions-menu/QasActionsMenu.vue'
 import QasBox from '../box/QasBox.vue'
 import QasGridGenerator from '../grid-generator/QasGridGenerator.vue'
+import QasHeader from '../header/QasHeader.vue'
 
-import { computed, useSlots, inject, ref } from 'vue'
+import { computed, useSlots, inject } from 'vue'
 
 defineOptions({ name: 'QasGalleryCard' })
 
@@ -75,12 +63,17 @@ const props = defineProps({
 
   errorIcon: {
     type: String,
-    default: ''
+    default: 'sym_r_error'
   },
 
   errorMessage: {
     type: String,
-    default: ''
+    default: 'Falha ao carregar imagem.'
+  },
+
+  headerProps: {
+    type: Object,
+    default: () => ({})
   },
 
   gridGeneratorProps: {
@@ -119,9 +112,6 @@ const isInsideBox = inject('isBox', false)
 // composables
 const slots = useSlots()
 
-// refs
-const hasError = ref(false)
-
 // consts
 const errorClasses = [
   'bg-grey-4',
@@ -141,6 +131,34 @@ const classes = computed(() => {
   }
 })
 
+// const headerClasses = computed(() => {
+//   return {
+//     'justify-between': props.name,
+//     'justify-right': !props.name,
+//     'text-grey-10': !props.disable,
+//     'q-mb-md': hasActions.value || props.name
+//   }
+// })
+
+const hasHeader = computed(() => {
+  return props.headerProps?.labelProps?.label || Object.keys(props.headerProps?.actionsMenuProps || {}).length
+})
+
+// const defaultActionsMenuProps = computed(() => {
+//   const { buttonProps } = props.actionsMenuProps
+
+//   return {
+//     useLabel: false,
+//     ...props.actionsMenuProps,
+
+//     buttonProps: {
+//       disable: props.disable,
+//       ...buttonProps,
+//       // ...(hasError.value && { color: 'negative' })
+//     }
+//   }
+// })
+
 /**
  * Vai ser "bordered" quando:
  * - Estiver dentro de um QasBox (isInsideBox)
@@ -148,48 +166,40 @@ const classes = computed(() => {
  * Se não, terá shadow.
  */
 const boxProps = computed(() => {
-  const hasPadding = !!(props.name || hasActions.value)
-  const isBordered = (isInsideBox || hasError.value)
+  const hasPadding = !!(
+    props.headerProps.labelProps?.label ||
+    hasActions.value ||
+    hasBottom.value ||
+    hasGridGenerator.value
+  )
 
   return {
-    outlined: isBordered,
-    unelevated: isBordered,
+    outlined: isInsideBox,
+    unelevated: isInsideBox,
     useSpacing: hasPadding
   }
 })
 
-const headerClasses = computed(() => {
+const defaultHeaderProps = computed(() => {
   return {
-    'justify-between': props.name,
-    'justify-right': !props.name,
-    'text-grey-10': !props.disable && !hasError.value,
-    'text-negative': hasError.value,
-    'q-mb-md': hasActions.value || props.name
-  }
-})
+    ...props.headerProps,
 
-const defaultActionsMenuProps = computed(() => {
-  const { buttonProps } = props.actionsMenuProps
+    useEllipsis: props.headerProps.useEllipsis ?? true,
 
-  return {
-    useLabel: false,
-    ...props.actionsMenuProps,
+    labelProps: {
+      ...props.headerProps?.labelProps,
+      typography: 'h5'
+    },
 
-    buttonProps: {
-      disable: props.disable,
-      ...buttonProps,
-      ...(hasError.value && { color: 'negative' })
-    }
-  }
-})
+    actionsMenuProps: {
+      useLabel: false,
 
-const defaultImgProps = computed(() => {
-  return {
-    ...props.imageProps,
+      buttonProps: {
+        disable: props.disable,
+        ...props.headerProps.actionsMenuProps?.buttonProps
+      },
 
-    onError: () => {
-      setHasError()
-      props.imageProps?.onError?.() // repassa o evento onError se existir
+      ...props.headerProps?.actionsMenuProps
     }
   }
 })
@@ -204,15 +214,10 @@ const defaultVideoProps = computed(() => {
   }
 })
 
-const hasActionsSlot = computed(() => !!slots.actions)
-const hasActions = computed(() => !!Object.keys(props.actionsMenuProps).length || hasActionsSlot.value)
+// const hasActionsSlot = computed(() => !!slots.actions)
+const hasActions = computed(() => !!Object.keys(props.headerProps.actionsMenuProps || {}).length)
 const hasGridGenerator = computed(() => !!Object.keys(props.gridGeneratorProps).length)
 const hasBottom = computed(() => !!slots.bottom || hasGridGenerator.value)
-
-// functions
-function setHasError () {
-  hasError.value = true
-}
 </script>
 
 <style lang="scss">
