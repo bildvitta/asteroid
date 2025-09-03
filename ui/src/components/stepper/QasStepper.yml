@@ -20,6 +20,11 @@ props:
     model: true
     type: [Number, String]
 
+  use-vertical:
+    desc: Define se o stepper deve ser exibido na vertical.
+    default: false
+    type: Boolean
+
 events:
   '@update:model-value -> function(value)':
     desc: Dispara quando o model-value altera, também usado para v-model.
