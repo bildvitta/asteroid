@@ -316,7 +316,7 @@ export default {
     },
 
     hasError () {
-      return 'isFailed' in this.file && this.file.isFailed
+      return this.file.isFailed
     },
 
     hasFormFields () {

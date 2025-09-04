@@ -52,11 +52,6 @@ import { computed, useSlots, inject } from 'vue'
 defineOptions({ name: 'QasGalleryCard' })
 
 const props = defineProps({
-  actionsMenuProps: {
-    type: Object,
-    default: () => ({})
-  },
-
   disable: {
     type: Boolean
   },
@@ -84,11 +79,6 @@ const props = defineProps({
   imageProps: {
     type: Object,
     default: () => ({})
-  },
-
-  name: {
-    type: String,
-    default: ''
   },
 
   url: {
@@ -180,7 +170,6 @@ const defaultVideoProps = computed(() => {
   }
 })
 
-// const hasActionsSlot = computed(() => !!slots.actions)
 const hasActions = computed(() => !!Object.keys(props.headerProps.actionsMenuProps || {}).length)
 const hasGridGenerator = computed(() => !!Object.keys(props.gridGeneratorProps).length)
 const hasBottom = computed(() => !!slots.bottom || hasGridGenerator.value)
