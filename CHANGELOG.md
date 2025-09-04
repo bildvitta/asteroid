@@ -21,7 +21,7 @@ Caso adicionado no escopo inicial, todos os conteúdos abaixo não serão adicio
 - `QasStepper`: Adicionado prop `useVertical` para ter possibilidade de utilizá-lo na vertical.
 
 ### Modificado
-- `QasStepper`: Modificado cor da linha do primeiro stepper (do primeiro até o segundo) não ser `primary` quando não estiver finalizado.
+- `QasStepper`: Modificado exibição da cor primária nas linhas de cada step.
 
 ## [3.19.0-beta.5] - 29-08-2025
 ### Corrigido

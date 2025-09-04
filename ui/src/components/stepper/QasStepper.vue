@@ -182,15 +182,27 @@ function previous () {
       .q-stepper {
         &__tab {
           &--done {
-            .q-stepper__line::after,
-            .q-stepper__line::before {
-              background-color: var(--q-primary);
+            // Quando a step está finalizada e a próxima é ativa, seta a cor no before da linha.
+            & + .q-stepper__tab--active {
+              .q-stepper__line::before {
+                background-color: var(--q-primary);
+              }
             }
-          }
 
-          & + .q-stepper__tab--active {
-            .q-stepper__line::before {
-              background-color: var(--q-primary);
+            // Quando a step está finalizada e a próxima também está finalizada, seta a cor no before da linha.
+            & + .q-stepper__tab--done {
+              .q-stepper__line::before {
+                background-color: var(--q-primary);
+              }
+            }
+
+            // Quando a step está finalizada e é a primeira, seta a cor no after da linha
+            // Quando a step está finalizada e a próxima é ativa, seta a cor no after da linha.
+            &:first-child,
+            &:has(+ .q-stepper__tab.q-stepper__tab--active) {
+              .q-stepper__line::after {
+                 background-color: var(--q-primary);
+              }
             }
           }
         }
@@ -198,9 +210,9 @@ function previous () {
     }
 
     &--vertical {
-      .q-stepper {
-        padding: 0;
+      padding: 0;
 
+      .q-stepper {
         &__dot {
           margin-right: var(--qas-spacing-md);
         }
