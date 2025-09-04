@@ -2,16 +2,15 @@
   <div>
     <qas-gallery-card v-if="useGalleryCard" v-bind="defaultGalleryCardProps">
       <!-- Seção onde não há erro no upload do arquivo, mas sim no carregamento da imagem (ex: PDF). -->
-
-      <template v-if="!hasError && !url" #image-error-container>
+      <template v-if="!hasError" #image-error-container>
         <div class="bg-blue-grey-2 flex full-height full-width items-center justify-center text-blue-grey-8">
-          <div>
+          <div class="text-center">
             <div>
               <q-icon name="sym_r_draft" size="lg" />
             </div>
 
             <div class="q-mt-xs text-blue-grey-8 text-center text-h4">
-              {{ file }}
+              {{ fileType }}
             </div>
           </div>
         </div>
@@ -180,7 +179,6 @@ export default {
 
         buttonProps: btnProps,
         errorMessage: error,
-        errorIcon: icon,
 
         ...actionsMenuProps
       } = this.normalizedCardGalleryProps
@@ -189,21 +187,15 @@ export default {
        * Quando hasError for "true", significa que é falha ao enviar o arquivo ao servidor (upload), e nestes casos:
        *
        * buttonProps: deve sempre ser possível excluir a imagem, por isso o disable do botão é "false".
-       * errorMessage: o label do erro deve ser "Falha ao carregar arquivo."
-       * errorIcon: o ícone do erro deve ser "sym_r_error".
        */
       const buttonProps = this.hasError ? { ...btnProps, disable: false } : btnProps
-      // const errorMessage = this.hasError ? 'Falha ao carregar arquivo.' : error || this.fileType
-      const errorIcon = this.hasError ? 'sym_r_upload' : icon
 
       return {
         disable: this.hasError,
 
         ...this.normalizedCardGalleryProps,
 
-        errorIcon,
-
-        ...(this.hasError && { errorMessage: 'Falha ao enviar o arquivo.' }),
+        errorMessage: 'Falha ao carregar o arquivo.',
 
         imageProps: {
           ...imageProps,
@@ -302,7 +294,9 @@ export default {
     },
 
     fileType () {
-      return this.fileName.split('.').pop()
+      const type = this.fileName.split('.').pop() || ''
+
+      return type.toUpperCase()
     },
 
     formFields () {
@@ -389,7 +383,7 @@ export default {
       return {
         actionsMenuProps: {
           useLabel: false,
-          ...this.defaultGalleryCardProps.actionsMenuProps
+          ...this.defaultGalleryCardProps.headerProps?.actionsMenuProps
         },
 
         labelProps: {
@@ -404,6 +398,13 @@ export default {
         spacing: 'none',
         useEllipsis: true
       }
+    },
+
+    /**
+     * Indica se há slot customizado para exibir o erro somente nos casos onde:
+     */
+    hasCustomErrorSlot () {
+      return !this.hasError && this.file.isUploaded
     }
   },
 

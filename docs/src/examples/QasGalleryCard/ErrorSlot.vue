@@ -10,9 +10,9 @@
                   <q-icon name="sym_r_draft" size="lg" />
                 </div>
 
-                <div class="q-mt-xs text-blue-grey-8 text-center text-h4">
+                <h4 class="q-mt-xs text-blue-grey-8 text-center text-h4">
                   PDF
-                </div>
+                </h4>
               </div>
             </div>
           </template>

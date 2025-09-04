@@ -2,7 +2,7 @@
   <qas-box class="bg-white qas-gallery-card" :class="classes" v-bind="boxProps">
     <qas-header v-if="hasHeader" v-bind="defaultHeaderProps" />
 
-    <div v-if="props.useVideo">
+    <div v-if="props.useVideo" class="rounded-borders">
       <slot name="video">
         <q-video v-bind="defaultVideoProps" />
       </slot>
@@ -13,7 +13,7 @@
         <q-img class="rounded-borders" height="100%" :src="props.url" v-bind="props.imageProps">
           <template #error>
             <slot name="image-error-container">
-              <div :class="errorClasses">
+              <div class="bg-grey-4 flex full-height full-width items-center justify-center text-grey-10 text-subtitle1">
                 <div class="text-center">
                   <slot name="image-error-icon">
                     <div v-if="props.errorIcon">
@@ -112,18 +112,6 @@ const isInsideBox = inject('isBox', false)
 // composables
 const slots = useSlots()
 
-// consts
-const errorClasses = [
-  'bg-grey-4',
-  'flex',
-  'full-height',
-  'full-width',
-  'items-center',
-  'justify-center',
-  'text-grey-10',
-  'text-subtitle1'
-]
-
 // computeds
 const classes = computed(() => {
   return {
@@ -131,33 +119,9 @@ const classes = computed(() => {
   }
 })
 
-// const headerClasses = computed(() => {
-//   return {
-//     'justify-between': props.name,
-//     'justify-right': !props.name,
-//     'text-grey-10': !props.disable,
-//     'q-mb-md': hasActions.value || props.name
-//   }
-// })
-
 const hasHeader = computed(() => {
   return props.headerProps?.labelProps?.label || Object.keys(props.headerProps?.actionsMenuProps || {}).length
 })
-
-// const defaultActionsMenuProps = computed(() => {
-//   const { buttonProps } = props.actionsMenuProps
-
-//   return {
-//     useLabel: false,
-//     ...props.actionsMenuProps,
-
-//     buttonProps: {
-//       disable: props.disable,
-//       ...buttonProps,
-//       // ...(hasError.value && { color: 'negative' })
-//     }
-//   }
-// })
 
 /**
  * Vai ser "bordered" quando:
@@ -181,25 +145,27 @@ const boxProps = computed(() => {
 })
 
 const defaultHeaderProps = computed(() => {
+  const { labelProps, actionsMenuProps } = props.headerProps || {}
+
   return {
+    useEllipsis: true,
+
     ...props.headerProps,
 
-    useEllipsis: props.headerProps.useEllipsis ?? true,
-
     labelProps: {
-      ...props.headerProps?.labelProps,
+      ...labelProps,
       typography: 'h5'
     },
 
     actionsMenuProps: {
       useLabel: false,
 
+      ...actionsMenuProps,
+
       buttonProps: {
         disable: props.disable,
-        ...props.headerProps.actionsMenuProps?.buttonProps
-      },
-
-      ...props.headerProps?.actionsMenuProps
+        ...actionsMenuProps?.buttonProps
+      }
     }
   }
 })

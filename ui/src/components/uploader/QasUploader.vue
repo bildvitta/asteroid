@@ -1,6 +1,6 @@
 <template>
   <div class="qas-uploader">
-    <q-uploader ref="uploader" auto-upload class="bg-transparent" :class="uploaderClasses" v-bind="attributes" :factory="factory" flat :max-file-size :max-files="maxFiles" method="PUT" @factory-failed="factoryFailed" @rejected="onRejected" @uploaded="uploaded" @uploading="updateUploading(true)">
+    <q-uploader ref="uploader" auto-upload class="bg-transparent" :class="uploaderClasses" v-bind="attributes" :factory flat :max-file-size :max-files method="PUT" @factory-failed="factoryFailed" @rejected="onRejected" @uploaded="uploaded" @uploading="updateUploading(true)">
       <template #header="scope">
         <slot name="header" :scope="scope">
           <qas-header v-if="useHeader" class="q-mb-none" v-bind="getHeaderProps(scope)">
@@ -217,8 +217,7 @@ export default {
       hasError: false,
       hiddenInputElement: null,
       savedFiles: {},
-      uploader: null,
-      quantityFilesToBeAdded: 0
+      uploader: null
     }
   },
 
@@ -383,12 +382,6 @@ export default {
     async addFiles (files) {
       const filesList = Array.from(files || this.hiddenInputElement.files)
 
-      /**
-       * registra a quantidade de arquivos que o usuário tentou adicionar, não necessariamente
-       * serão todos aceitos, pois podem ser rejeitados por tamanho máximo, tipo, etc.
-       */
-      this.quantityFilesToBeAdded = filesList.length
-
       const processedFiles = []
 
       // previne erro caso não exista hiddenInput
@@ -426,7 +419,7 @@ export default {
       }
     },
 
-    factoryFailed () {
+    factoryFailed (context) {
       this.hasError = true
 
       this.updateUploading(false)
@@ -735,28 +728,11 @@ export default {
       const megaByte = `${this.maxFileSize / 1000000}Mb` // converte para MB
       const isSingleFile = maxFileSizeErrorsSize === 1 // apenas 1 arquivo
 
-      /**
-       * Cenário onde TODOS os arquivos que o usuário tentou adicionar ultrapassaram o limite
-       * de tamanho máximo permitido.
-       */
-      if (maxFileSizeErrorsSize === this.quantityFilesToBeAdded) {
-        NotifyError(
-          isSingleFile
-            ? `Não conseguimos selecionar o arquivo, ele ultrapassa o limite de ${megaByte}. Por favor, escolha um arquivo dentro do limite permitido.`
-            : `Não conseguimos selecionar os arquivos, eles ultrapassam o limite de ${megaByte} cada. Por favor, escolha um arquivo dentro do limite permitido.`
-        )
-
-        return
-      }
-
-      /**
-       * Cenário onde apenas alguns arquivos que o usuário tentou adicionar ultrapassaram o limite
-       * de tamanho máximo permitido.
-       */
+      // TODO-ISSUE: rever essa validação simples até issue #1365 ser resolvida.
       NotifyError(
         isSingleFile
           ? `Não conseguimos selecionar 1 arquivo, ele ultrapassa o limite de ${megaByte}. Por favor, escolha um arquivo dentro do limite permitido.`
-          : `Não conseguimos selecionar ${maxFileSizeErrorsSize} arquivos, eles ultrapassam o limite de ${megaByte} cada. Por favor, escolha um arquivo dentro do limite permitido.`
+          : `Não conseguimos selecionar ${maxFileSizeErrorsSize} arquivos, eles ultrapassam o limite de ${megaByte} definido para cada um. Por favor, escolha um arquivo dentro do limite permitido.`
       )
     }
   }

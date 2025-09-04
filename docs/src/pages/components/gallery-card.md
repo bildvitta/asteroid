@@ -9,7 +9,8 @@ Componente de card de galeria (utilizado no QasUploader, QasGallery e nos produt
 ## Uso
 
 <doc-example file="QasGalleryCard/Basic" title="Básico" />
-<doc-example file="QasGalleryCard/ErrorSlot" title="Básico" />
+<doc-example file="QasGalleryCard/WithError" title="Com erro ao carregar imagem" />
+<doc-example file="QasGalleryCard/ErrorSlot" title="Slot image-error-container" />
 <doc-example file="QasGalleryCard/WithVideo" title="Com vídeo" />
 <doc-example file="QasGalleryCard/Box" title="Com box" />
 <doc-example file="QasGalleryCard/ExGridAndActionsMenu" title="Com QasActionsMenu e QasGridGenerator" />
