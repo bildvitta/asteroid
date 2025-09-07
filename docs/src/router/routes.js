@@ -9,6 +9,18 @@ const routes = [
   },
 
   {
+    path: '/pagina1',
+    name: 'Page1',
+    component: () => import('src/pages/page1.vue')
+  },
+
+  {
+    path: '/pagina2',
+    name: 'Page2',
+    component: () => import('src/pages/page2.vue')
+  },
+
+  {
     path: '/paginas/not-found',
     component: () => import('../../../ui/src/pages/NotFound.vue')
   },
