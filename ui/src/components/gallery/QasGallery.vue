@@ -264,7 +264,6 @@ function showMore () {
     transition: transform var(--qas-generic-transition);
     border-radius: var(--qas-generic-border-radius);
     position: relative;
-    z-index: 1;
 
     &::before,
     &::after {

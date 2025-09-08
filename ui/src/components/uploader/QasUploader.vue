@@ -720,10 +720,10 @@ export default {
         maxFileSize: 0
       }
 
-      console.log('TCL: onRejected -> rejectedFiles', rejectedFiles)
       rejectedFiles.forEach(({ failedPropValidation }) => {
         if (failedPropValidation === 'accept') {
           errorsSize.accept += 1
+
           return
         }
 
@@ -732,7 +732,6 @@ export default {
         }
       })
 
-      console.log('TCL: errorsSize', errorsSize)
       const hasMaxFileSizeErrors = !!errorsSize.maxFileSize
       const hasAcceptErrors = !!errorsSize.accept
 
@@ -770,46 +769,6 @@ export default {
         errorsSize.accept === 1
           ? 'Não conseguimos selecionar 1 arquivo, este tipo não é permitido. Por favor, escolha um arquivo válido.'
           : `Não conseguimos selecionar ${errorsSize.accept} arquivos, estes tipos não são permitidos. Por favor, escolha arquivos válidos.`
-      )
-
-      // // Filtra apenas os arquivos que foram rejeitados por tamanho máximo.
-      // const maxFileSizeErrors = rejectedFiles.filter(({ failedPropValidation }) => {
-      //   return failedPropValidation === 'max-file-size'
-      // })
-
-      // const maxFileSizeErrorsSize = maxFileSizeErrors.length
-
-      // // Foi rejeitado, mas não por tamanho máximo, então não mostra notificação.
-      // if (!maxFileSizeErrorsSize) return
-
-      // const megaByte = `${this.maxFileSize / 1000000}Mb` // converte para MB
-      // const isSingleFile = maxFileSizeErrorsSize === 1 // apenas 1 arquivo
-
-      // // TODO-ISSUE: rever essa validação simples até issue #1365 ser resolvida.
-      // NotifyError(
-      //   isSingleFile
-      //     ? `Não conseguimos selecionar 1 arquivo, ele ultrapassa o limite de ${megaByte}. Por favor, escolha um arquivo dentro do limite permitido.`
-      //     : `Não conseguimos selecionar ${maxFileSizeErrorsSize} arquivos, eles ultrapassam o limite de ${megaByte} definido para cada um. Por favor, escolha um arquivo dentro do limite permitido.`
-      // )
-    },
-
-    notifyByMaxFileSize (errorsSize, isSingleError) {
-      const megaByte = `${this.maxFileSize / 1000000}Mb` // converte para MB
-
-      // TODO-ISSUE: rever essa validação simples até issue #1365 ser resolvida.
-      NotifyError(
-        isSingleError
-          ? `Não conseguimos selecionar 1 arquivo, ele ultrapassa o limite de ${megaByte}. Por favor, escolha um arquivo dentro do limite permitido.`
-          : `Não conseguimos selecionar ${errorsSize} arquivos, eles ultrapassam o limite de ${megaByte} definido para cada um. Por favor, escolha um arquivo dentro do limite permitido.`
-      )
-    },
-
-    notifyByAccept (errorsSize, isSingleError) {
-      // TODO-ISSUE: rever essa validação simples até issue #1365 ser resolvida.
-      NotifyError(
-        isSingleError
-          ? 'Não conseguimos selecionar 1 arquivo, este tipo não é permitido. Por favor, escolha um arquivo válido.'
-          : `Não conseguimos selecionar ${errorsSize} arquivos, estes tipos não são permitidos. Por favor, escolha arquivos válidos.`
       )
     }
   }

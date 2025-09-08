@@ -17,6 +17,7 @@ export default {
               label: 'Imagem vermelha'
             }
           },
+
           url: 'https://placehold.co/600x400/orange/white',
           uuid: 'imagem-vermelha',
           destroyable: false
@@ -27,6 +28,7 @@ export default {
               label: 'Imagem verde'
             }
           },
+
           url: 'https://placehold.co/600x400',
           uuid: 'imagem-verde',
           destroyable: true
@@ -37,6 +39,7 @@ export default {
               label: 'Imagem azul'
             }
           },
+
           url: 'https://placehold.co/600x400/blue/white',
           uuid: 'imagem-azul',
           destroyable: false
@@ -47,6 +50,7 @@ export default {
               label: 'Imagem vermelha 2'
             }
           },
+
           url: 'https://placehold.co/600x400/orange/white',
           uuid: 'imagem-vermelha-2',
           destroyable: true
@@ -57,6 +61,7 @@ export default {
               label: 'Imagem vermelha 3'
             }
           },
+
           url: 'https://placehold.co/600x400/orange/white',
           uuid: 'imagem-vermelha-3',
           destroyable: true
@@ -67,6 +72,7 @@ export default {
               label: 'Imagem verde 2'
             }
           },
+
           url: 'https://placehold.co/600x400',
           uuid: 'imagem-verde-2',
           destroyable: true
@@ -77,6 +83,7 @@ export default {
               label: 'Imagem azul 2'
             }
           },
+
           url: 'https://placehold.co/600x400/blue/white',
           uuid: 'imagem-azul-2',
           destroyable: true
@@ -87,6 +94,7 @@ export default {
               label: 'Imagem vermelha 4'
             }
           },
+
           url: 'https://placehold.co/600x400/orange/white',
           uuid: 'imagem-vermelha-4',
           destroyable: true

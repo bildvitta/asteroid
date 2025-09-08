@@ -88,8 +88,7 @@ const props = defineProps({
   },
 
   useEllipsis: {
-    type: Boolean,
-    default: false
+    type: Boolean
   }
 })
 

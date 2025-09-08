@@ -23,6 +23,8 @@
 </template>
 
 <script setup>
+defineOptions({ name: 'ErrorSlot' })
+
 const galleryCardProps = {
   useHeaderErrorMode: false,
   url: 'https://dhaw-crmap01-assets.s3.amazonaws.com/uploads/customers/import/upload/43e8aaef-6237-4e51-9cfd-f6b2c923f152.pdf'
