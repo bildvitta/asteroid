@@ -24,6 +24,7 @@
 
           <div class="column items-start q-gutter-sm">
             <qas-btn label="Voltar" @click="previous" />
+
             <qas-btn label="Próximo" @click="next" />
           </div>
         </q-step>
@@ -33,6 +34,7 @@
 
           <div class="column items-start q-gutter-sm">
             <qas-btn label="Voltar" @click="previous" />
+
             <qas-btn label="Próximo" @click="next" />
           </div>
         </q-step>

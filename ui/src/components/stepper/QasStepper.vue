@@ -21,6 +21,10 @@ const props = defineProps({
     type: Boolean
   },
 
+  headerNav: {
+    type: Boolean
+  },
+
   modelValue: {
     type: [String, Number],
     default: 0
@@ -69,7 +73,8 @@ const stepperProps = computed(() => {
     errorIcon: 'sym_r_close',
     errorColor: 'white',
     headerClass: `text-subtitle1 q-pb-${props.spacing}`,
-    inactiveColor: attrs['header-nav'] || (attrs.headerNav || attrs['header-nav'] === '') ? 'grey-10' : 'grey-6',
+    headerNav: props.headerNav,
+    inactiveColor: props.headerNav ? 'grey-10' : 'grey-6',
     vertical: props.useVertical
   }
 
@@ -118,6 +123,7 @@ function previous () {
 
     &__caption {
       @include set-typography($caption);
+
       color: $grey-6;
     }
 
@@ -217,8 +223,7 @@ function previous () {
               }
             }
 
-            // Quando a step está finalizada e é a primeira, seta a cor no after da linha
-            // Quando a step está finalizada e a próxima é ativa, seta a cor no after da linha.
+            // Seta a cor do after da linha quando a step está finalizada, é a primeira step ou a próxima é ativa.
             &:first-child,
             &:has(+ .q-stepper__tab.q-stepper__tab--active) {
               .q-stepper__line::after {
