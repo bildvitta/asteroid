@@ -25,6 +25,8 @@ import useScreen from '../../composables/use-screen'
 import { FlexAlign } from '../../enums/Align'
 import { Spacing } from '../../enums/Spacing'
 
+import QasBtn from '../btn/QasBtn.vue'
+
 import { computed, useSlots } from 'vue'
 
 defineOptions({ name: 'QasActions' })
