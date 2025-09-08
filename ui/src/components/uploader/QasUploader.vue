@@ -712,6 +712,12 @@ export default {
       }
     },
 
+    /**
+     * Trata os erros de arquivos rejeitados pelo QUploader para adicionar
+     * feedback com toast, trata os sequites erros:
+     * - accept
+     * - maxFileSize
+     */
     onRejected (rejectedFiles) {
       this.$emit('rejected', rejectedFiles)
 

@@ -110,11 +110,13 @@ const classes = computed(() => {
 })
 
 const hasHeader = computed(() => {
-  return props.headerProps?.labelProps?.label || Object.keys(props.headerProps?.actionsMenuProps || {}).length
+  const { labelProps, actionsMenuProps } = props.headerProps
+
+  return labelProps?.label || Object.keys(actionsMenuProps || {}).length
 })
 
 /**
- * Vai ser "bordered" quando:
+ * Vai ser "outlined" quando:
  * - Estiver dentro de um QasBox (isInsideBox)
  * - Ou quando houver erro (hasError)
  * Se não, terá shadow.

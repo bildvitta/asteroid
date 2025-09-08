@@ -14,8 +14,6 @@ export default boot(config => {
   // adicionado para componentes que usam `inject` terem acesso ao axios e não quebrar na doc.
   config.app.provide('axios', axios)
 
-  config.app.config.globalProperties.$axios = axios
-
   debug()
   fontFace()
 })

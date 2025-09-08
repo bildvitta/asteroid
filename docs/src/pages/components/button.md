@@ -7,39 +7,6 @@ Tem a função de criar gatilhos para ações. Eles podem ser utilizados isolada
 
 <doc-api file="btn/QasBtn" name="QasBtn" />
 
-:::info
-#### Injetando propriedades padrões via provide
-Use o provide `btnPropsDefaults` para alterar os valores padrão do QasBtn dentro de um componente pai (ex.: QasTableGenerator). O objeto pode ser parcial — apenas as chaves que quiser sobrescrever — e pode ser reativo (ref/computed) para atualização em tempo de execução.
-
-Comportamento e precedência:
-- Valores que podem ser aplicados: `variant`, `size`, `color`.
-- Ordem de prioridade: prop passada > valor vindo do `provide` > defaults internos do QasBtn.
-
-1) Provide simples (não reativo)
-```js
-// Componente pai
-provide('btnPropsDefaults', { size: 'sm' })
-// Todos os QasBtn filhos usarão size 'sm' a menos que a prop size seja passada.
-```
-
-2) Provide reativo com computed (recomendado quando precisa atualizar dinamicamente)
-```js
-import { computed, provide } from 'vue'
-
-const btnDefaults = computed(() => {
-  return algumLogica.value ? { size: 'md', color: 'negative' } : { size: 'lg', color: 'grey-10' }
-})
-
-provide('btnPropsDefaults', btnDefaults)
-```
-
-Boas práticas:
-- Utilize em casos específicos, exemplos de uso: QasTableGenerator e QasInput.
-- Prefira passar um `ref`/`computed` se espera trocar os defaults dinamicamente.
-- Não confunda provide com prop: quando a prop é informada no componente filho, ela sempre sobrescreve o valor provido.
-- Documente no pai quando estiver alterando os defaults (ex.: comentário `@see QasBtn.vue`) para facilitar manutenção.
-:::
-
 :::danger
 Sempre que utilizar "label" e "ícone", certifique-se de usar as propriedades correspondentes, como `label`, `icon` e `iconRight`. Evite usar esses conteúdos através do slot padrão, pois essa prática pode causar problemas de estilo. O slot padrão deve ser reservado para casos específicos, como chamar um `QMenu` dentro dele. Se você não utilizar as propriedades `label`, `icon` e `iconRight` e adicionar esses conteúdos via slot, há uma grande possibilidade de ocorrerem problemas de estilo.
 :::
@@ -133,3 +100,37 @@ A cor "negative" é usada em casos de erros no geral.
 <doc-example file="QasBtn/ExBtnUseLabelOnSmallScreen" title="use-label-on-small-screen" />
 <doc-example file="QasBtn/ExBtnEllipsis" title="Com ellipsis" />
 <doc-example file="QasBtn/ExWithLoading" title="Com loading" />
+
+:::info
+#### Injetando propriedades padrões via provide
+Use o provide `btnPropsDefaults` para alterar os valores padrão do QasBtn dentro de um componente pai (ex.: QasTableGenerator). O objeto pode ser parcial — apenas as chaves que quiser sobrescrever — e pode ser reativo (ref/computed) para atualização em tempo de execução.
+
+Comportamento e precedência:
+- Valores que podem ser aplicados: `variant`, `size`, `color`.
+- Ordem de prioridade: prop passada > valor vindo do `provide` > defaults internos do QasBtn.
+
+1) Provide simples (não reativo)
+```js
+// Componente pai
+provide('btnPropsDefaults', { size: 'sm' })
+// Todos os QasBtn filhos usarão size 'sm' a menos que a prop size seja passada.
+```
+
+2) Provide reativo com computed (recomendado quando precisa atualizar dinamicamente)
+```js
+import { computed, provide } from 'vue'
+
+const btnDefaults = computed(() => {
+  return algumLogica.value ? { size: 'md', color: 'negative' } : { size: 'lg', color: 'grey-10' }
+})
+
+provide('btnPropsDefaults', btnDefaults)
+```
+
+Boas práticas:
+- Utilize em casos específicos, exemplos de uso: QasTableGenerator e QasInput.
+- Prefira passar um `ref`/`computed` se espera trocar os defaults dinamicamente.
+- Não confunda provide com prop: quando a prop é informada no componente filho, ela sempre sobrescreve o valor passado pelo provide.
+- Documente no pai quando estiver alterando os defaults (ex.: comentário `@see QasBtn.vue`) para facilitar manutenção.
+:::
+<doc-example file="QasBtn/ExWithInputDefault" title="Propriedades padrões dentro do QasInput" />

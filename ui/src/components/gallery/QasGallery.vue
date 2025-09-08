@@ -160,6 +160,8 @@ function getActionsMenuProps ({ image, index }) {
 }
 
 function getGalleryCardProps ({ image, index }) {
+  const { headerProps } = props.galleryCardProps
+
   return {
     imageProps: getImageProps({ image, index }),
 
@@ -167,12 +169,12 @@ function getGalleryCardProps ({ image, index }) {
 
     headerProps: {
       ...image.headerProps,
-      ...props.galleryCardProps?.headerProps,
+      ...headerProps,
 
       actionsMenuProps: {
         ...getActionsMenuProps({ image, index }),
         ...image.headerProps?.actionsMenuProps,
-        ...props.galleryCardProps?.headerProps?.actionsMenuProps
+        ...headerProps?.actionsMenuProps
       }
     },
 
