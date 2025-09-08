@@ -21,7 +21,7 @@
                     </div>
                   </slot>
 
-                  <slot name="image-error">
+                  <slot name="image-error-message">
                     <div class="q-mt-xs">
                       {{ props.errorMessage }}
                     </div>

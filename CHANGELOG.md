@@ -19,6 +19,7 @@ Caso adicionado no escopo inicial, todos os conteúdos abaixo não serão adicio
 - `QasGalleryCard`:
   - removido propriedades `name` e `actionsMenuProps` em favor de usar a nova propriedade `headerProps`.
   - removido slot `header`, `actions` e `name`.
+  - modificado slot `image-error` para `image-error-message` para o nome fazer mais sentido com o que de fato faz.
 - rever todos locais para passar a propriedade `galleryCardProps` no novo padrão do `QasGalleryCard`:
   - QasGalleryCard.
   - QasUploader.
@@ -75,6 +76,7 @@ Caso adicionado no escopo inicial, todos os conteúdos abaixo não serão adicio
   - modificado header para utilizar componente `QasHeader` através da propriedade `headerProps`.
   - modificado default da prop `errorIcon` para `sym_r_error`.
   - modificado default da prop `errorMessage` para `Falha ao carregar imagem.`.
+  - modificado slot `image-error` para `image-error-message` para o nome fazer mais sentido com o que de fato faz.
 - `QasGallery`: mudanças necessárias para se adaptar as mudanças do `QasGalleryCard`.
 - `QasHeader`: modificado logica para não mostrar elemento do header em casos de conteúdos vazio pela computada `hasHeaderContent`.
 

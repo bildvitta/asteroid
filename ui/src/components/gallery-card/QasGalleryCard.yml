@@ -53,8 +53,8 @@ slots:
   image:
     desc: Slot para acessar o conteúdo da imagem (onde fica o QasGridGenerator).
 
-  image-error:
-    desc: Slot para acessar o conteúdo da imagem quando existe algum erro com a imagem.
+  image-error-message:
+    desc: Slot para acessar o conteúdo de mensagem da imagem quando existe algum erro com a imagem.
 
   image-error-icon:
     desc: Slot para acessar o conteúdo de ícone quando existe algum erro com a imagem.
