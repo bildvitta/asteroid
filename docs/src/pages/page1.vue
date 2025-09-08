@@ -10,11 +10,12 @@
 <script setup>
 import { inject } from 'vue'
 
-const dialogRouter = inject('dialogRouter')
+const dialogRouter = inject('dialogRouter', {})
+const isInsideDialogRouter = inject('isInsideDialogRouter', false)
 
 // const dialogRouterRef = ref(null)
 
 function openDialog () {
-  dialogRouter.show({ name: 'Page2' })
+  if (isInsideDialogRouter) dialogRouter.show({ name: 'Page2' })
 }
 </script>
