@@ -29,6 +29,8 @@ function installNextUi ({ execaSync, ora, nextVersion, packages, retry = false }
       return { success: false, error: true }
     }
 
+    execaSync('npm', ['cache', 'clean', '--force'])
+
     /*
     * Se der erro ao instalar ele tenta novamente mas desta vez removendo
     * o package-lock e node_modules antes
