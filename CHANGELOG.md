@@ -54,6 +54,7 @@ Caso adicionado no escopo inicial, todos os conteúdos abaixo não serão adicio
 - `QasUploader`:
   - corrigido exibição do QasGalleryCard quando um upload falha.
   - corrigido exibição no QasGalleryCard para arquivos que não carregam no QImg, ex: PDF, DOCX.
+- `QasGallery`: corrigido elemento "ver mais", que estava alocado em um elemento com gutter que gerava inconsistência de tamanho.
 
 ### Modificado
 - `QasUploader`:

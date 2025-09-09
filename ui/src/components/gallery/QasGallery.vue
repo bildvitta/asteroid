@@ -8,17 +8,19 @@
           </template>
         </qas-gallery-card>
       </div>
+    </div>
 
+    <div class="q-mt-md">
       <slot>
-        <div v-if="!hideShowMore" class="full-width" :class="actionsClasses">
+        <div v-if="!hideShowMore" :class="actionsClasses">
           <qas-btn color="primary" data-cy="gallery-btn-show-more" :label="props.showMoreLabel" variant="tertiary" @click="showMore" />
         </div>
       </slot>
-
-      <pv-gallery-carousel-dialog v-model="carouselDialog" v-model:image-index="imageIndex" :images="normalizedImages" />
-
-      <pv-gallery-delete-dialog v-model="showDeleteDialog" v-bind="deleteGalleryDialogProps" @cancel="resetCurrentModel" @error="onDeleteError" @success="onDeleteSuccess" />
     </div>
+
+    <pv-gallery-carousel-dialog v-model="carouselDialog" v-model:image-index="imageIndex" :images="normalizedImages" />
+
+    <pv-gallery-delete-dialog v-model="showDeleteDialog" v-bind="deleteGalleryDialogProps" @cancel="resetCurrentModel" @error="onDeleteError" @success="onDeleteSuccess" />
   </div>
 </template>
 
@@ -50,7 +52,7 @@ const props = defineProps({
     validator: value => [1, 2, 3, 4, 6, 12].includes(value)
   },
 
-  showModeAlign: {
+  showMoreAlign: {
     type: String,
     default: 'center',
     validator: value => ['center', 'left', 'right'].includes(value)
@@ -104,7 +106,7 @@ const imageToBeDestroyed = ref({ index: null })
 const galleryCardCountToReRender = ref(1)
 
 // computed
-const actionsClasses = computed(() => `text-${props.showModeAlign}`)
+const actionsClasses = computed(() => `text-${props.showMoreAlign}`)
 
 const galleryColumnsClasses = computed(() => {
   const size = 12 / props.initialSize

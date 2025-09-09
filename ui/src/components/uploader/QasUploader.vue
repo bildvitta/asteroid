@@ -741,6 +741,9 @@ export default {
       const hasMaxFileSizeErrors = !!errorsSize.maxFileSize
       const hasAcceptErrors = !!errorsSize.accept
 
+      // Caso o erro não seja de accept ou maxFileSize, não exibe nenhuma mensagem.
+      if (!hasMaxFileSizeErrors && !hasAcceptErrors) return
+
       /**
        * Mensagem genérica para quando hover erro de accept e maxFileSize de uma vez.
        */
