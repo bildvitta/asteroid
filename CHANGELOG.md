@@ -49,6 +49,9 @@ Caso adicionado no escopo inicial, todos os conteúdos abaixo não serão adicio
   - adicionado nova propriedade `showMoreAlign`.
   - adicionado efeito no hover da img do QasGalleryCard para feedback visual.
 - `QasHeader`: adicionada propriedade `useEllipsis`.
+- `QasStepper`:
+  - Adicionado prop `useVertical` para ter possibilidade de utilizá-lo na vertical.
+  - Adicionado prop `headerNav` (substituído o attrs) para controle de navegação entre as steps.
 
 ### Corrigido
 - `QasUploader`:
@@ -80,6 +83,7 @@ Caso adicionado no escopo inicial, todos os conteúdos abaixo não serão adicio
   - modificado slot `image-error` para `image-error-message` para o nome fazer mais sentido com o que de fato faz.
 - `QasGallery`: mudanças necessárias para se adaptar as mudanças do `QasGalleryCard`.
 - `QasHeader`: modificado logica para não mostrar elemento do header em casos de conteúdos vazio pela computada `hasHeaderContent`.
+- `QasStepper`: Modificado exibição da cor primária nas linhas de cada step.
 
 ### Removido
 - `QasGalleryCard`:
