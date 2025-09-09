@@ -21,6 +21,10 @@ const props = defineProps({
     type: Boolean
   },
 
+  headerNav: {
+    type: Boolean
+  },
+
   modelValue: {
     type: [String, Number],
     default: 0
@@ -30,6 +34,10 @@ const props = defineProps({
     default: Spacing.Lg,
     type: [String, Boolean],
     validator: gutterValidator
+  },
+
+  useVertical: {
+    type: Boolean
   }
 })
 
@@ -65,7 +73,9 @@ const stepperProps = computed(() => {
     errorIcon: 'sym_r_close',
     errorColor: 'white',
     headerClass: `text-subtitle1 q-pb-${props.spacing}`,
-    inactiveColor: attrs['header-nav'] || attrs.headerNav ? 'grey-10' : 'grey-6'
+    headerNav: props.headerNav,
+    inactiveColor: props.headerNav ? 'grey-10' : 'grey-6',
+    vertical: props.useVertical
   }
 
   return {
@@ -107,6 +117,22 @@ function previous () {
   .q-stepper {
     background-color: transparent;
 
+    &__title {
+      @include set-typography($subtitle2);
+    }
+
+    &__caption {
+      @include set-typography($caption);
+
+      color: $grey-6;
+    }
+
+    &__title,
+    &__caption,
+    &__dot {
+      transition: var(--qas-generic-transition);
+    }
+
     &__tab {
       padding: 0;
 
@@ -121,13 +147,32 @@ function previous () {
         }
       }
 
-      &:not(.q-stepper__tab--active).q-stepper__tab--error-with-icon  {
+      &--disabled {
+        cursor: not-allowed;
+      }
+
+      &--navigation:hover {
+        .q-stepper__dot {
+          background-color: var(--q-primary-contrast) !important;
+        }
+
+        .q-stepper {
+          &__caption,
+          &__title {
+            color: var(--q-primary-contrast) !important;
+          }
+        }
+      }
+
+      &:not(.q-stepper__tab--active).q-stepper__tab--error-with-icon {
         .q-stepper__title {
           color: $grey-10;
         }
 
-        .q-stepper__dot {
-          background-color: $negative !important;
+        &:not(.q-stepper__tab--navigation:hover) {
+          .q-stepper__dot {
+            background-color: $negative !important;
+          }
         }
 
         .q-icon {
@@ -136,9 +181,76 @@ function previous () {
       }
     }
 
-    &__caption {
-      @include set-typography($caption);
-      color: $grey-6;
+    &__header {
+      &--standard-labels .q-stepper__tab {
+        min-height: auto;
+      }
+
+      &--contracted {
+        .q-stepper__tab:first-child .q-stepper__dot,
+        .q-stepper__tab:last-child .q-stepper__dot {
+          transform: translateX(0);
+        }
+      }
+    }
+
+    &__nav,
+    &__step-inner {
+      padding: 0;
+    }
+
+    &--horizontal {
+      .q-stepper__line::before,
+      .q-stepper__line::after {
+        height: 4px;
+        border-radius: var(--qas-generic-border-radius);
+      }
+
+      .q-stepper {
+        &__tab {
+          &--done {
+            // Quando a step está finalizada e a próxima é ativa, seta a cor no before da linha.
+            & + .q-stepper__tab--active {
+              .q-stepper__line::before {
+                background-color: var(--q-primary);
+              }
+            }
+
+            // Quando a step está finalizada e a próxima também está finalizada, seta a cor no before da linha.
+            & + .q-stepper__tab--done {
+              .q-stepper__line::before {
+                background-color: var(--q-primary);
+              }
+            }
+
+            // Seta a cor do after da linha quando a step está finalizada, é a primeira step ou a próxima é ativa.
+            &:first-child,
+            &:has(+ .q-stepper__tab.q-stepper__tab--active) {
+              .q-stepper__line::after {
+                 background-color: var(--q-primary);
+              }
+            }
+          }
+        }
+      }
+    }
+
+    &--vertical {
+      padding: 0;
+
+      .q-stepper {
+        &__dot {
+          margin-right: var(--qas-spacing-md);
+        }
+
+        &__tab {
+          padding: var(--qas-spacing-sm) 0;
+        }
+
+        &__step-inner {
+          padding: var(--qas-spacing-sm) var(--qas-spacing-2xl) var(--qas-spacing-md);
+        }
+      }
     }
   }
 
@@ -154,42 +266,6 @@ function previous () {
         background-color: $grey-6 !important;
       }
     }
-  }
-
-  .q-stepper--horizontal .q-stepper__line::before,
-  .q-stepper--horizontal .q-stepper__line::after {
-    height: 4px;
-    border-radius: var(--qas-generic-border-radius);
-  }
-
-  .q-stepper__header--standard-labels .q-stepper__tab {
-    min-height: auto;
-  }
-
-  .q-stepper__tab:nth-child(1),
-  .q-stepper__tab--done {
-
-    .q-stepper__line::after,
-    .q-stepper__line::before {
-      background-color: var(--q-primary);
-    }
-  }
-
-  .q-stepper__tab:nth-child(2),
-  .q-stepper__tab--active {
-    .q-stepper__line::before {
-      background-color: var(--q-primary);
-    }
-  }
-
-  .q-stepper__nav,
-  .q-stepper__step-inner {
-    padding: 0;
-  }
-
-  .q-stepper__header--contracted .q-stepper__tab:first-child .q-stepper__dot,
-  .q-stepper__header--contracted .q-stepper__tab:last-child .q-stepper__dot {
-    transform: translateX(0);
   }
 
   .q-focus-helper {

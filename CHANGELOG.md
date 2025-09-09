@@ -18,6 +18,12 @@ Caso adicionado no escopo inicial, todos os conteúdos abaixo não serão adicio
 ### Adicionado
 - `QasActions`: adicionado possibilidade de passar props dos botões sem necessariamente precisar abrir slot. ([#1332](https://github.com/bildvitta/asteroid/issues/1332))
 - `QasInfiniteScroll`: adicionado função `fetchList` no expose. ([#1315](https://github.com/bildvitta/asteroid/issues/1315))
+- `QasStepper`:
+  - Adicionado prop `useVertical` para ter possibilidade de utilizá-lo na vertical.
+  - Adicionado prop `headerNav` (substituído o attrs) para controle de navegação entre as steps.
+
+### Modificado
+- `QasStepper`: Modificado exibição da cor primária nas linhas de cada step.
 
 ## [3.19.0-beta.5] - 29-08-2025
 ### Corrigido
