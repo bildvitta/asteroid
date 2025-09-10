@@ -81,6 +81,7 @@ Caso adicionado no escopo inicial, todos os conteúdos abaixo não serão adicio
   - modificado default da prop `errorIcon` para `sym_r_error`.
   - modificado default da prop `errorMessage` para `Falha ao carregar imagem.`.
   - modificado slot `image-error` para `image-error-message` para o nome fazer mais sentido com o que de fato faz.
+  - modificado layout para outlined quando estiver dentro do QasDialog.
 - `QasGallery`: mudanças necessárias para se adaptar as mudanças do `QasGalleryCard`.
 - `QasHeader`: modificado logica para não mostrar elemento do header em casos de conteúdos vazio pela computada `hasHeaderContent`.
 - `QasStepper`: Modificado exibição da cor primária nas linhas de cada step.

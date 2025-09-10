@@ -21,6 +21,7 @@ Tipos de arquivos aceitos:
 - pdf
 - xlsx
 - xls
+- csv
 :::
 <doc-example file="QasGalleryCard/PdfFile" title="Carregando arquivos sem ser imagem." />
 <doc-example file="QasGalleryCard/WithVideo" title="Com vídeo" />

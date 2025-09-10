@@ -110,6 +110,7 @@ const props = defineProps({
 
 // globals
 const isInsideBox = inject('isBox', false)
+const isInsideDialog = inject('isDialog', false)
 
 // composables
 const slots = useSlots()
@@ -129,11 +130,13 @@ const hasHeader = computed(() => {
 
 /**
  * Vai ser "outlined" quando:
- * - Estiver dentro de um QasBox (isInsideBox)
+ * - Estiver dentro de um QasBox (isInsideBox) ou
+ * - Estiver dentro de um QasDialog (isInsideDialog) ou
  * - Ou quando houver erro (hasError)
  * Se não, terá shadow.
  */
 const boxProps = computed(() => {
+  const isOutlined = isInsideBox || isInsideDialog
   const hasPadding = !!(
     props.headerProps.labelProps?.label ||
     hasActions.value ||
@@ -142,8 +145,8 @@ const boxProps = computed(() => {
   )
 
   return {
-    outlined: isInsideBox,
-    unelevated: isInsideBox,
+    outlined: isOutlined,
+    unelevated: isOutlined,
     useSpacing: hasPadding
   }
 })
@@ -185,7 +188,7 @@ const defaultVideoProps = computed(() => {
 })
 
 /**
- * File type (extensão) do arquivo, retorna apenas para arquivos: doc, docx, pdf, xls, xlsx.
+ * File type (extensão) do arquivo, retorna apenas para arquivos: doc, docx, pdf, xls, xlsx e csv.
  * Se for outro tipo de arquivo, retorna vazio para ser carregado o slot de erro padrão.
  */
 const fileType = computed(() => {
@@ -196,7 +199,7 @@ const fileType = computed(() => {
   const splitted = url.pathname.split('.')
   const type = splitted.pop() || ''
 
-  const acceptableTypes = ['doc', 'docx', 'pdf', 'xls', 'xlsx']
+  const acceptableTypes = ['doc', 'docx', 'pdf', 'xls', 'xlsx', 'csv']
 
   /**
    * Se tiver menos que 2 partes, é pq não tem extensão (ex: "https://minhaurl.com/imagem") ou,
