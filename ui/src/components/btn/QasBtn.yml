@@ -26,6 +26,12 @@ props:
     desc: Ícone a direita.
     type: String
 
+  size:
+    desc: Tamanho do botão, podendo ser "sm", "md" ou "lg".
+    default: lg
+    type: String
+    examples: ['sm', 'md', 'lg']
+
   use-ellipsis:
     desc: adiciona ellipsis no label caso o label seja maior que a área total do botão.
     default: false

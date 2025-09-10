@@ -16,11 +16,11 @@
 
         <qas-actions gutter="sm" use-equal-width>
           <template #primary>
-            <qas-btn class="full-width" data-cy="filters-submit-btn" label="Filtrar" type="submit" variant="primary" />
+            <qas-btn class="full-width" data-cy="filters-submit-btn" label="Filtrar" size="sm" type="submit" variant="primary" />
           </template>
 
           <template #secondary>
-            <qas-btn class="full-width" data-cy="filters-clear-btn" label="Limpar" variant="secondary" @click="$emit('clear')" />
+            <qas-btn class="full-width" data-cy="filters-clear-btn" label="Limpar" size="sm" variant="secondary" @click="$emit('clear')" />
           </template>
         </qas-actions>
       </q-form>

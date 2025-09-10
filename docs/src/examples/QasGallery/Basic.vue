@@ -1,8 +1,6 @@
 <template>
   <div class="container spaced">
-    <div>
-      <qas-gallery v-model="images" />
-    </div>
+    <qas-gallery v-model="images" />
   </div>
 </template>
 
