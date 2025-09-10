@@ -13,7 +13,19 @@
         <q-img class="rounded-borders" height="100%" :src="props.url" v-bind="props.imageProps">
           <template #error>
             <slot name="image-error-container">
-              <div class="bg-grey-4 flex full-height full-width items-center justify-center text-grey-10 text-subtitle1">
+              <div v-if="hasFileType" class="bg-blue-grey-2 flex full-height full-width items-center justify-center text-blue-grey-8">
+                <div class="text-center">
+                  <div>
+                    <q-icon name="sym_r_draft" size="lg" />
+                  </div>
+
+                  <div class="q-mt-xs text-blue-grey-8 text-center text-h4">
+                    {{ fileType }}
+                  </div>
+                </div>
+              </div>
+
+              <div v-else class="bg-grey-4 flex full-height full-width items-center justify-center text-grey-10 text-subtitle1">
                 <div class="text-center">
                   <slot name="image-error-icon">
                     <div v-if="props.errorIcon">
@@ -172,9 +184,53 @@ const defaultVideoProps = computed(() => {
   }
 })
 
+/**
+ * File type (extensão) do arquivo, retorna apenas para arquivos: doc, docx, pdf, xls, xlsx.
+ * Se for outro tipo de arquivo, retorna vazio para ser carregado o slot de erro padrão.
+ */
+const fileType = computed(() => {
+  const url = getURL()
+
+  if (props.useVideo || !url) return ''
+
+  const splitted = url.pathname.split('.')
+  const type = splitted.pop() || ''
+
+  const acceptableTypes = ['doc', 'docx', 'pdf', 'xls', 'xlsx']
+
+  /**
+   * Se tiver menos que 2 partes, é pq não tem extensão (ex: "https://minhaurl.com/imagem") ou,
+   * se tiver extensão, mas não for um tipo aceitável (ex: "https://minhaurl.com/imagem.png") retorna vazio.
+   *
+   */
+  if (splitted.length < 2 && !acceptableTypes.includes(type)) return ''
+
+  return type.toUpperCase()
+})
+
+const hasFileType = computed(() => !!fileType.value)
+
 const hasActions = computed(() => !!Object.keys(props.headerProps.actionsMenuProps || {}).length)
 const hasGridGenerator = computed(() => !!Object.keys(props.gridGeneratorProps).length)
 const hasBottom = computed(() => !!slots.bottom || hasGridGenerator.value)
+
+// functions
+/**
+ * Função que garante o retorno de uma URL válida ou null.
+ * Se a URL for inválida, o construtor do objeto URL lança um erro.
+ * Se a URL for inválida, retorna null para evitar erros no console.
+ */
+function getURL () {
+  const mergedURL = props.url || props.imageProps?.src
+
+  if (!mergedURL) return null
+
+  try {
+    return new URL(props.url || props.imageProps.src)
+  } catch {
+    return null
+  }
+}
 </script>
 
 <style lang="scss">

@@ -97,6 +97,11 @@ props:
     default: undefined
     type: Number
 
+  max-file-size:
+    desc: Tamanho máximo do arquivo em bytes.
+    default: 10485760
+    type: Number
+
   model-value:
     desc: Model do componente, caso seja múltiplo, retorna um array de string, senão somente uma string.
     default: true

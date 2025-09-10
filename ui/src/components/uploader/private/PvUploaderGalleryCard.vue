@@ -1,21 +1,6 @@
 <template>
   <div>
     <qas-gallery-card v-if="useGalleryCard" v-bind="defaultGalleryCardProps">
-      <!-- Seção onde não há erro no upload do arquivo, mas sim no carregamento da imagem (ex: PDF). -->
-      <template v-if="!hasError" #image-error-container>
-        <div class="bg-blue-grey-2 flex full-height full-width items-center justify-center text-blue-grey-8">
-          <div class="text-center">
-            <div>
-              <q-icon name="sym_r_draft" size="lg" />
-            </div>
-
-            <div class="q-mt-xs text-blue-grey-8 text-center text-h4">
-              {{ fileType }}
-            </div>
-          </div>
-        </div>
-      </template>
-
       <template v-if="hasGenerator" #bottom>
         <div>
           <qas-grid-generator v-if="hasGridGenerator" v-bind="defaultGridGeneratorProps" />
@@ -291,12 +276,6 @@ export default {
 
     fileName () {
       return this.url ? this.url.split('/').pop() : ''
-    },
-
-    fileType () {
-      const type = this.fileName.split('.').pop() || ''
-
-      return type.toUpperCase()
     },
 
     formFields () {

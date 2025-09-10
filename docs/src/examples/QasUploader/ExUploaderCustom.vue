@@ -1,17 +1,19 @@
 <template>
-  <qas-box class="container spaced">
-    <qas-uploader v-model="model" v-bind="uploaderProps">
-      <template #bottom-list="{ context }">
-        <qas-input>
-          <template #append>
-            <qas-btn color="grey-10" icon="sym_r_attach_file" label="Anexar arquivo" @click="context.dispatchUpload" />
-          </template>
-        </qas-input>
-      </template>
-    </qas-uploader>
+  <div class="container spaced">
+    <qas-box>
+      <qas-uploader v-model="model" v-bind="uploaderProps">
+        <template #bottom-list="{ context }">
+          <qas-input>
+            <template #append>
+              <qas-btn color="grey-10" icon="sym_r_attach_file" label="Anexar arquivo" @click="context.dispatchUpload" />
+            </template>
+          </qas-input>
+        </template>
+      </qas-uploader>
 
-    <qas-debugger :inspect="[model]" />
-  </qas-box>
+      <qas-debugger :inspect="[model]" />
+    </qas-box>
+  </div>
 </template>
 
 <script setup>
