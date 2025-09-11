@@ -1,6 +1,6 @@
 <template>
   <q-dialog ref="dialogRef" class="qas-dialog" :class="classes" data-cy="dialog" v-bind="dialogProps" :persistent="true" @update:model-value="updateModelValue">
-    <div class="bg-white full-width q-pa-md qas-dialog__container" :style="style">
+    <div class="bg-white full-width q-pa-md qas-dialog__container">
       <header v-if="hasHeader" class="q-mb-md">
         <slot name="header">
           <div class="items-center justify-between row">
@@ -19,19 +19,19 @@
             </component>
           </slot>
 
-          <div v-if="!isInfoDialog">
-            <slot name="actions">
-              <qas-actions v-bind="defaultActionsProps">
-                <template v-if="hasOk" #primary>
-                  <qas-btn v-close-popup="!props.useForm" class="qas-dialog__btn" data-cy="dialog-ok-btn" variant="primary" v-bind="defaultOk" />
-                </template>
+          <!-- <div v-if="!isInfoDialog"> -->
+          <slot name="actions">
+            <qas-actions v-if="hasActions" v-bind="defaultActionsProps">
+              <template v-if="hasOk" #primary>
+                <qas-btn v-close-popup="!props.useForm" class="qas-dialog__btn" data-cy="dialog-ok-btn" size="sm" variant="primary" v-bind="defaultOk" />
+              </template>
 
-                <template v-if="hasCancel" #secondary>
-                  <qas-btn v-close-popup class="qas-dialog__btn" data-cy="dialog-cancel-btn" v-bind="defaultCancel" variant="secondary" />
-                </template>
-              </qas-actions>
-            </slot>
-          </div>
+              <template v-if="hasCancel" #secondary>
+                <qas-btn v-close-popup="props.useCancelClosePopup" class="qas-dialog__btn" data-cy="dialog-cancel-btn" size="sm" v-bind="defaultCancel" variant="secondary" />
+              </template>
+            </qas-actions>
+          </slot>
+          <!-- </div> -->
         </component>
       </section>
     </div>
@@ -64,19 +64,9 @@ const props = defineProps({
     type: [Object, Boolean]
   },
 
-  card: {
-    default: () => ({}),
-    type: Object
-  },
-
   description: {
     type: String,
     default: ''
-  },
-
-  maxWidth: {
-    default: '',
-    type: String
   },
 
   minWidth: {
@@ -112,12 +102,13 @@ const props = defineProps({
     type: Boolean
   },
 
-  useFullMaxWidth: {
+  useValidationAllAtOnce: {
     type: Boolean
   },
 
-  useValidationAllAtOnce: {
-    type: Boolean
+  useCancelClosePopup: {
+    type: Boolean,
+    default: true
   }
 })
 
@@ -133,6 +124,9 @@ const emit = defineEmits([
   // eventos do plugin
   ...useDialogPluginComponent.emits
 ])
+
+// models
+// const model = defineModel({ type: Boolean })
 
 provide('isDialog', true)
 
@@ -163,10 +157,10 @@ const classes = computed(() => {
   const isLeftPosition = attrs.position === 'left'
 
   const sizes = {
-    sm: 'qas-dialog--sm',
-    md: 'qas-dialog--md',
-    lg: 'qas-dialog--lg',
-    xl: 'qas-dialog--xl'
+    sm: 'qas-dialog--sm', // 450px
+    md: 'qas-dialog--md', // 550px
+    lg: 'qas-dialog--lg', // 800px
+    xl: 'qas-dialog--xl' // 1100px
   }
 
   return [
@@ -189,17 +183,8 @@ const dialogProps = computed(() => {
   }
 })
 
-const style = computed(() => {
-  return {
-    ...(props.useFullMaxWidth && { width: '100%' }),
-
-    maxWidth: props.maxWidth || '470px',
-    minWidth: props.minWidth || (screen.isSmall ? '' : '366px')
-  }
-})
-
 const hasHeader = computed(() => !!slots.header || props.title)
-const isInfoDialog = computed(() => !hasOk.value && !hasCancel.value)
+const hasActions = computed(() => hasOk.value || hasCancel.value)
 
 const defaultActionsProps = computed(() => {
   return {
@@ -228,6 +213,8 @@ function updateModelValue (value) {
 
 <style lang="scss">
 .qas-dialog {
+  $root: &;
+
   .q-dialog__inner > div {
     box-shadow: $shadow-2;
   }
@@ -249,10 +236,32 @@ function updateModelValue (value) {
     }
   }
 
-  &__container {
-
+  // tamanhos
+  &--sm {
+    #{$root}__container {
+      max-width: 450px !important;
+    }
   }
 
+  &--md {
+    #{$root}__container {
+      max-width: 550px !important;
+    }
+  }
+
+  &--lg {
+    #{$root}__container {
+      max-width: 800px !important;
+    }
+  }
+
+  &--xl {
+    #{$root}__container {
+      max-width: 1100px !important;
+    }
+  }
+
+  // tamanho mínimo dos botões
   &__btn {
     min-width: 120px;
     width: 100%;
