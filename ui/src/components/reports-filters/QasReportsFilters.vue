@@ -45,6 +45,12 @@
 </template>
 
 <script setup>
+import QasBox from '../box/QasBox.vue'
+import QasHeader from '../header/QasHeader.vue'
+import QasFormGenerator from '../form-generator/QasFormGenerator.vue'
+import QasActions from '../actions/QasActions.vue'
+import QasBtn from '../btn/QasBtn.vue'
+
 import { parseValue, promiseHandler, camelizeFieldsName } from '../../helpers'
 import { useContext } from '../../composables'
 

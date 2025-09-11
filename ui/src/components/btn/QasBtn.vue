@@ -6,7 +6,7 @@
     </template>
 
     <div class="items-center justify-between no-wrap row text-center" :class="containerClasses">
-      <q-spinner v-if="hasLeftSpinner" :class="iconClasses" size="sm" />
+      <q-spinner v-if="hasLeftSpinner" :class="iconClasses" :size="spinnerSize" />
 
       <q-icon v-if="hasIcon" :class="iconClasses" :name="props.icon" />
 
@@ -14,7 +14,7 @@
         {{ props.label }}
       </div>
 
-      <q-spinner v-if="hasRightSpinner" :class="iconRightClasses" size="sm" />
+      <q-spinner v-if="hasRightSpinner" :class="iconRightClasses" :size="spinnerSize" />
 
       <q-icon v-if="hasIconRight" :class="iconRightClasses" :name="props.iconRight" />
     </div>
@@ -26,7 +26,7 @@
 <script setup>
 import { useScreen } from '../../composables'
 
-import { computed, useAttrs, useSlots } from 'vue'
+import { computed, useAttrs, useSlots, inject, isRef } from 'vue'
 
 defineOptions({
   name: 'QasBtn',
@@ -35,9 +35,9 @@ defineOptions({
 
 const props = defineProps({
   color: {
-    default: 'primary',
+    default: undefined,
     type: String,
-    validator: value => ['grey-10', 'primary', 'white'].includes(value)
+    validator: value => ['grey-10', 'primary', 'white', 'negative'].includes(value)
   },
 
   disable: {
@@ -52,6 +52,12 @@ const props = defineProps({
   iconRight: {
     default: undefined,
     type: String
+  },
+
+  size: {
+    default: undefined,
+    type: String,
+    validator: value => ['sm', 'md', 'lg'].includes(value)
   },
 
   useLabelOnSmallScreen: {
@@ -69,7 +75,7 @@ const props = defineProps({
   },
 
   variant: {
-    default: 'tertiary',
+    default: undefined,
     type: String,
     validator: value => {
       const variants = ['primary', 'secondary', 'tertiary']
@@ -88,14 +94,38 @@ const props = defineProps({
   }
 })
 
+// globals
+const injectedDefaults = inject('btnPropsDefaults', {}) // Inject reativo ou não reativo com fallback vazio
+
+// composables
 const attrs = useAttrs()
 const slots = useSlots()
 const screen = useScreen()
 
+// computeds
+/**
+ * Seta os valores padrões, dando prioridade:
+ *  1. Props
+ *  2. Injetado (pode ser reativo ou não reativo)
+ *  3. Hardcoded (tertiary, md, primary)
+ */
+const btnPropsDefaults = computed(() => {
+  return {
+    size: 'lg',
+    variant: 'tertiary',
+    color: 'primary',
+    ...(isRef(injectedDefaults) ? injectedDefaults.value : injectedDefaults)
+  }
+})
+
+const defaultSize = computed(() => props.size || btnPropsDefaults.value.size)
+const defaultVariant = computed(() => props.variant || btnPropsDefaults.value.variant)
+const defaultColor = computed(() => props.color || btnPropsDefaults.value.color)
+
 // variantes
-const isPrimary = computed(() => props.variant === 'primary')
-const isSecondary = computed(() => props.variant === 'secondary')
-const isTertiary = computed(() => props.variant === 'tertiary')
+const isPrimary = computed(() => defaultVariant.value === 'primary')
+const isSecondary = computed(() => defaultVariant.value === 'secondary')
+const isTertiary = computed(() => defaultVariant.value === 'tertiary')
 
 const showLabel = computed(() => props.useLabelOnSmallScreen || !screen.isSmall)
 
@@ -119,27 +149,35 @@ const iconClasses = computed(() => ({ 'on-left': !hasIconOnly.value }))
 const iconRightClasses = computed(() => ({ 'on-right': !hasIconOnly.value }))
 
 const classes = computed(() => {
-  return {
-    'qas-btn--primary': isPrimary.value,
-    'qas-btn--secondary': isSecondary.value,
-    'qas-btn--tertiary': isTertiary.value,
+  return [
+    `qas-btn--${defaultSize.value}`,
 
-    // color
-    [`qas-btn--tertiary-${props.color}`]: isTertiary.value,
+    {
+      'qas-btn--primary': isPrimary.value,
+      'qas-btn--secondary': isSecondary.value,
+      'qas-btn--tertiary': isTertiary.value,
 
-    // icon
-    'qas-btn--icon-only': hasIconOnly.value,
+      // color
+      [`qas-btn--tertiary-${defaultColor.value}`]: isTertiary.value,
+      [`qas-btn--primary-${defaultColor.value}`]: isPrimary.value,
+      [`qas-btn--secondary-${defaultColor.value}`]: isSecondary.value,
 
-    'qas-btn--primary-icon-only': hasIconOnly.value && isPrimary.value,
-    'qas-btn--secondary-icon-only': hasIconOnly.value && isSecondary.value,
-    'qas-btn--tertiary-icon-only': hasIconOnly.value && isTertiary.value,
+      // icon
+      'qas-btn--icon-only': hasIconOnly.value,
+      'qas-btn--primary-icon-only': hasIconOnly.value && isPrimary.value,
+      'qas-btn--secondary-icon-only': hasIconOnly.value && isSecondary.value,
+      'qas-btn--tertiary-icon-only': hasIconOnly.value && isTertiary.value,
 
-    // hover
-    'qas-btn--no-hover-on-white': !props.useHoverOnWhiteColor,
+      // hover
+      'qas-btn--no-hover-on-white': !props.useHoverOnWhiteColor,
 
-    // ellipsis
-    'full-width': props.useEllipsis
-  }
+      // loading
+      'qas-btn--loading': props.loading,
+
+      // ellipsis
+      'full-width': props.useEllipsis
+    }
+  ]
 })
 
 const attributes = computed(() => {
@@ -179,4 +217,6 @@ const nonDefaultSlots = computed(() => {
 
   return nonDefaults
 })
+
+const spinnerSize = computed(() => defaultSize.value === 'sm' ? 'xs' : 'sm')
 </script>

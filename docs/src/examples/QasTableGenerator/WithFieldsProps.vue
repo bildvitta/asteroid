@@ -29,6 +29,11 @@ const tableGeneratorProps = {
           label: 'Visibilidade',
           icon: 'sym_r_person',
           handler: () => alert(row.uuid)
+        },
+        edit: {
+          label: 'Editar',
+          icon: 'sym_r_edit',
+          handler: () => alert(row.uuid)
         }
       }
     }
@@ -69,6 +74,7 @@ const tableGeneratorProps = {
       company: {
         component: 'QasBtn',
         props: {
+          size: 'lg',
           onClick: () => alert(row.company)
         }
       },
