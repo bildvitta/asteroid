@@ -451,6 +451,7 @@ export default {
         ? this.mx_filteredOptions[0].value
         : this.mx_filteredOptions[0]
 
+      // Quando for múltiplo adiciona o valor em um array
       this.$emit('update:modelValue', this.multiple ? [modelValue] : modelValue)
     },
 
