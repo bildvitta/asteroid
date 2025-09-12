@@ -451,7 +451,7 @@ export default {
         ? this.mx_filteredOptions[0].value
         : this.mx_filteredOptions[0]
 
-      this.$emit('update:modelValue', modelValue)
+      this.$emit('update:modelValue', this.multiple ? [modelValue] : modelValue)
     },
 
     getFilteredBadgeList (payload = {}) {
