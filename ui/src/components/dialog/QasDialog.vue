@@ -19,19 +19,17 @@
             </component>
           </slot>
 
-          <!-- <div v-if="!isInfoDialog"> -->
           <slot name="actions">
             <qas-actions v-if="hasActions" v-bind="defaultActionsProps">
               <template v-if="hasOk" #primary>
-                <qas-btn v-close-popup="!props.useForm" class="qas-dialog__btn" data-cy="dialog-ok-btn" size="sm" variant="primary" v-bind="defaultOk" />
+                <qas-btn v-close-popup="!props.useForm" class="qas-dialog__btn" data-cy="dialog-ok-btn" variant="primary" v-bind="defaultOk" />
               </template>
 
               <template v-if="hasCancel" #secondary>
-                <qas-btn v-close-popup="props.useCancelClosePopup" class="qas-dialog__btn" data-cy="dialog-cancel-btn" size="sm" v-bind="defaultCancel" variant="secondary" />
+                <qas-btn v-close-popup="props.useCancelClosePopup" class="qas-dialog__btn" data-cy="dialog-cancel-btn" v-bind="defaultCancel" variant="secondary" />
               </template>
             </qas-actions>
           </slot>
-          <!-- </div> -->
         </component>
       </section>
     </div>
@@ -67,11 +65,6 @@ const props = defineProps({
   description: {
     type: String,
     default: ''
-  },
-
-  minWidth: {
-    default: '',
-    type: String
   },
 
   ok: {
@@ -129,6 +122,7 @@ const emit = defineEmits([
 // const model = defineModel({ type: Boolean })
 
 provide('isDialog', true)
+provide('btnPropsDefaults', { size: 'md' })
 
 const attrs = useAttrs()
 const screen = useScreen()
