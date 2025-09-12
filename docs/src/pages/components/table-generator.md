@@ -7,6 +7,25 @@ Componente para criação de tabela dinâmica usando o `QTable` do Quasar.
 <doc-api file="table-generator/QasTableGenerator" name="QasTableGenerator" />
 
 :::info
+##### QasBtn com padrões alterados via provide
+Quando utilizar o QasBtn nos slots, eles terão seus padrões alterados internamente, isto significa que não é recomendado passar props `variant` e principalmente `size` diretamente no componente.
+
+**Definição interna**
+```js
+provide () {
+  return {
+    /**
+     * @see QasBtn.vue - Injetando os valores padrões para o QasBtn.
+     */
+    btnPropsDefaults: {
+      size: 'md'
+    }
+  }
+}
+```
+:::
+
+:::info
 ##### data-* para lidar com hover em tabela
 | Nome | Descrição |
 |---------------------|-----------|
@@ -32,6 +51,7 @@ Exemplo:
 ## Uso
 
 <doc-example file="QasTableGenerator/Basic" title="Básico" />
+<doc-example file="QasTableGenerator/Selection" title="Selecionável" />
 
 :::info
 A propriedade "actionsMenuProps" adiciona automaticamente uma coluna "actions" na tabela e renderiza o `QasActionsMenu` por callback, é a maneira **correta** de se usar ação na ultima coluna.

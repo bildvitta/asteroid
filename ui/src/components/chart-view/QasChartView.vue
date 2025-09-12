@@ -1,7 +1,7 @@
 <template>
   <component :is="parentComponent.is" v-bind="parentComponent.props">
     <qas-header v-if="hasHeader" v-bind="headerProps">
-      <template #right>
+      <template #actions>
         <qas-filters v-bind="chartFiltersProps" />
       </template>
     </qas-header>
@@ -240,7 +240,8 @@ export default {
     chartOptions () {
       const { options, type } = this
 
-      return extend(true, charts[type], options)
+      // Retorna as opções do gráfico mescladas com as opções padrão em uma copia para evitar mutação
+      return extend(true, {}, charts[type], options)
     },
 
     chartPlugins () {

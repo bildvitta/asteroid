@@ -13,6 +13,11 @@ props:
     type: String
     examples: ['grey-10', 'primary', 'white']
 
+  disable:
+    desc: Desabilita o botão.
+    default: false
+    type: Boolean
+
   icon:
     desc: Ícone a esquerda.
     type: String
@@ -20,6 +25,12 @@ props:
   icon-right:
     desc: Ícone a direita.
     type: String
+
+  size:
+    desc: Tamanho do botão, podendo ser "sm", "md" ou "lg".
+    default: lg
+    type: String
+    examples: ['sm', 'md', 'lg']
 
   use-ellipsis:
     desc: adiciona ellipsis no label caso o label seja maior que a área total do botão.

@@ -97,6 +97,11 @@ props:
     default: undefined
     type: Number
 
+  max-file-size:
+    desc: Tamanho máximo do arquivo em bytes.
+    default: 10485760
+    type: Number
+
   model-value:
     desc: Model do componente, caso seja múltiplo, retorna um array de string, senão somente uma string.
     default: true
@@ -136,6 +141,21 @@ props:
 
   use-download:
     desc: Habilita a opção de fazer download por arquivo.
+    default: true
+    type: Boolean
+
+  use-empty-result-text:
+    desc: Controla se o texto de resultado vazio será exibido.
+    default: true
+    type: Boolean
+
+  use-gallery-card:
+    desc: Controla se o componente vai usar o "QasGalleryCard" para exibir os arquivos.
+    default: true
+    type: Boolean
+
+  use-header:
+    desc: Controla se o header do componente será exibido.
     default: true
     type: Boolean
 

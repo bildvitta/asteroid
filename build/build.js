@@ -34,11 +34,6 @@ const packageCore = {
   license: 'MIT'
 }
 
-// Methods
-function logError (error) {
-  return console.error(error.red)
-}
-
 // Main
 async function main () {
   const { execaSync } = await import('execa') // https://github.com/sindresorhus/execa
@@ -86,17 +81,7 @@ async function main () {
     name: 'nextVersion',
     type: 'input',
     message: 'Qual será o número da próxima versão?',
-    initial: currentVersion,
-
-    validate (value) {
-      value = semver.clean(value)
-
-      if (!value || semver.lt(value, currentVersion)) {
-        return logError('\n✘ Informe uma versão válida e superior a atual.')
-      }
-
-      return true
-    }
+    initial: currentVersion
   })
 
   const nextVersion = semver.clean(responses.nextVersion)

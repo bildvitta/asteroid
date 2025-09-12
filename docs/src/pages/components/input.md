@@ -6,6 +6,39 @@ Componente para input que implementa o "QInput" repassando propriedades, slots e
 
 <doc-api file="input/QasInput" name="QasInput" />
 
+:::info
+##### QasBtn com padrões alterados via provide
+Quando utilizar o QasBtn nos slots `append` ou `prepend`, eles terão seus padrões alterados internamente, isto significa que não é recomendado passar props `variant`, `color` e principalmente `size` diretamente no componente.
+
+**Uso recomendado:**
+```html
+<qas-input v-model="model">
+  <template #append>
+    <qas-btn label="Label 123" icon="sym_r_person" />
+  </template>
+</qas-input>
+```
+Repare que não foi utilizado props de color, variant ou size, porém `color` é uma das props que provavelmente vai ser necessário ser modificada com mais frequência.
+
+**Definição interna**
+```js
+provide () {
+  return {
+    /**
+     * @see QasBtn.vue - Injetando os valores padrões para o QasBtn.
+     */
+    btnPropsDefaults: computed(() => {
+      return {
+        size: 'md',
+        variant: 'tertiary',
+        ...(this.hasError && { color: 'negative' })
+      }
+    })
+  }
+}
+```
+:::
+
 :::warning
 Neste componente é um "wrapper" do [QInput](https://quasar.dev/vue-components/input#introduction) o que significa que ele repassa todos os slots, eventos e propriedades.
 :::
@@ -43,6 +76,7 @@ Caso seja passado uma mask que não seja essas acima, será usado a que foi pass
 <doc-example file="QasInput/Basic" title="Básico" />
 <doc-example file="QasInput/Textarea" title="Textarea" />
 <doc-example file="QasInput/Required" title="Obrigatório" />
+<doc-example file="QasInput/Readonly" title="Readonly" />
 <doc-example file="QasInput/Masks" title="Mascaras" />
 
 :::info

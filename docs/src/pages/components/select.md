@@ -98,3 +98,5 @@ _Opcional:_ Com base nas props `entity` e `name`, a função de fetchOptions dos
   decamelizeFieldName: Boolean // Caso utilize da URL padrão, esse parâmetro irá transformar o `fieldName` para `field-name` no momento de montar a URL da API.
 }
 ```
+
+<doc-example file="QasSelect/Readonly" title="Readonly" />

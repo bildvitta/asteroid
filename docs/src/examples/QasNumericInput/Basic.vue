@@ -1,7 +1,7 @@
 <template>
   <div class="container spaced">
     <div>
-      <qas-numeric-input v-model="integer" icon-right="sym_r_person" label="integer" />
+      <qas-numeric-input v-model="integer" icon="sym_r_person" label="integer" />
       integer: {{ integer }}
     </div>
     <div class="q-my-lg">
@@ -23,7 +23,7 @@
 export default {
   data () {
     return {
-      integer: 10,
+      integer: undefined,
       decimal: 0.10,
       percent: 0.10,
       money: 0.10

@@ -4,9 +4,23 @@
       <qas-header v-if="hasHeaderProps" v-bind="headerProps" />
     </slot>
 
-    <q-table v-show="hasResults" ref="table" class="bg-white text-grey-8" v-bind="attributes">
+    <q-table v-show="hasResults" ref="table" v-bind="attributes" v-model:selected="selectedModel" class="bg-white text-grey-8">
       <template v-for="(_, name) in slots" #[name]="context">
         <slot :name="name" v-bind="context" />
+      </template>
+
+      <!-- Necessário para sobrescrever o QCheckbox e usar o QasCheckbox. -->
+      <template #header-selection="props">
+        <div class="qas-table-generator__cancel-mouse-target" data-table-ignore-tr-hover>
+          <qas-checkbox v-model="props.selected" />
+        </div>
+      </template>
+
+      <!-- Necessário para sobrescrever o QCheckbox e usar o QasCheckbox. -->
+      <template #body-selection="props">
+        <div class="qas-table-generator__cancel-mouse-target" data-table-ignore-tr-hover>
+          <qas-checkbox v-model="props.selected" />
+        </div>
       </template>
 
       <template v-for="(fieldName, index) in bodyCellNameSlots" :key="index" #[`body-cell-${fieldName}`]="context">
@@ -33,9 +47,11 @@ import PvTableGeneratorTd from './private/PvTableGeneratorTd.vue'
 import QasBox from '../box/QasBox.vue'
 import QasEmptyResultText from '../empty-result-text/QasEmptyResultText.vue'
 import QasHeader from '../header/QasHeader.vue'
+import QasCheckbox from '../checkbox/QasCheckbox.vue'
+
+import { isEmpty, humanize, setScrollOnGrab, setScrollGradient } from '../../helpers'
 
 import { extend } from 'quasar'
-import { isEmpty, humanize, setScrollOnGrab, setScrollGradient } from '../../helpers'
 
 export default {
   name: 'QasTableGenerator',
@@ -44,7 +60,19 @@ export default {
     PvTableGeneratorTd,
     QasBox,
     QasEmptyResultText,
-    QasHeader
+    QasHeader,
+    QasCheckbox
+  },
+
+  provide () {
+    return {
+      /**
+       * @see QasBtn.vue - Injetando os valores padrões para o QasBtn.
+       */
+      btnPropsDefaults: {
+        size: 'md'
+      }
+    }
   },
 
   props: {
@@ -99,14 +127,27 @@ export default {
       type: String
     },
 
+    selected: {
+      default: () => [],
+      type: Array
+    },
+
     useBox: {
       type: Boolean,
       default: true
     },
 
+    useSelection: {
+      type: Boolean
+    },
+
     useScrollOnGrab: {
       type: Boolean,
       default: true
+    },
+
+    useObjectSelectedModel: {
+      type: Boolean
     },
 
     useExternalLink: {
@@ -121,6 +162,8 @@ export default {
       type: Boolean
     }
   },
+
+  emits: ['update:selected'],
 
   data () {
     return {
@@ -169,9 +212,6 @@ export default {
 
     attributes () {
       const attributes = {
-        tableClass: {
-          'overflow-hidden-y': !this.useStickyHeader && !this.useVirtualScroll
-        },
         columns: this.columnsByFields,
         flat: true,
         hideBottom: true,
@@ -180,6 +220,17 @@ export default {
         rows: this.resultsByFields,
         style: this.tableStyle,
         virtualScroll: this.useVirtualScroll,
+
+        // fixo, sempre será múltipla
+        ...(this.useSelection && { selection: 'multiple' }),
+
+        /**
+         * Necessário para aplicar o scroll vertical no container, essa funcionalidade existe quando a prop
+         * "useStickyHeader" ou "useVirtualScroll" for passada.
+         */
+        tableClass: {
+          'overflow-hidden-y': !this.useStickyHeader && !this.useVirtualScroll
+        },
 
         // Eventos.
         onRowClick: this.$attrs.onRowClick && this.onRowClick
@@ -301,6 +352,41 @@ export default {
 
     hasRowClick () {
       return typeof this.$attrs.onRowClick === 'function'
+    },
+
+    /**
+     * Computada responsável por retornar o modelo selecionado normalizando os dados de acordo
+     * com a prop "useObjectSelectedModel".
+     *
+     * @example - selectedModel
+     * [{ uuid: '2f8856d0-8eca-4e41-8146-63ed2a4f23ff4c' }] // considerando que a prop "rowKey" é "uuid"
+     */
+    selectedModel: {
+      get () {
+        if (!this.useSelection) return []
+
+        /**
+         * Caso a prop "useObjectSelectedModel" for passada, que já é o padrão, o retorno é o objeto completo da linha,
+         * que já o padrão do quasar, então não é necessário fazer nada.
+         */
+        if (this.useObjectSelectedModel) return this.selected
+
+        /**
+         * É necessário retornar o objeto completo da linha, pois o QasTableGenerator espera receber o objeto que
+         * contém a chave "rowKey" para poder identificar a linha selecionada.
+         *
+         * @example - selected ['2f8856d0-8eca-4e41-8146-63ed2a4f23ff4c']
+         */
+        return this.selected.map(row => ({ [this.rowKey]: row }))
+      },
+
+      /**
+       * Se a prop "useObjectSelectedModel" for passada, o evento "update:selected" é emitido array com o objeto completo
+       * da linha, caso contrário, é emitido apenas o array com valor da chave da linha (rowKey).
+       */
+      set (rows) {
+        this.$emit('update:selected', this.useObjectSelectedModel ? rows : rows.map(row => row[this.rowKey]))
+      }
     }
   },
 
@@ -337,7 +423,7 @@ export default {
 
       const element = this.getScrollElement()
 
-      this.scrollOnGrab = setScrollOnGrab(element)
+      this.scrollOnGrab = setScrollOnGrab(element, {}, 'qas-table-generator__cancel-mouse-target')
     },
 
     getTableElementComponent () {
@@ -532,6 +618,11 @@ export default {
     &__middle {
       padding-left: var(--qas-spacing-md);
       padding-right: var(--qas-spacing-md);
+    }
+
+    // Necessário para não ter cor de fundo quando uma linha estiver sido selecionada pela prop "selected".
+    tbody td:after {
+      background-color: transparent;
     }
 
     tbody tr {

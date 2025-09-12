@@ -12,8 +12,12 @@
 defineOptions({ name: 'WithVideo' })
 
 const galleryProps = {
+  headerProps: {
+    labelProps: {
+      label: 'Meu titulo'
+    }
+  },
   useVideo: true,
-  name: 'Meu titulo',
   url: 'https://www.youtube.com/embed/k3_tw44QsZQ?rel=0'
 }
 </script>
