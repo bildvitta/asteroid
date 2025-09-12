@@ -16,10 +16,10 @@ Caso adicionado no escopo inicial, todos os conteúdos abaixo não serão adicio
 
 ## [Unreleased]
 ## BREAKING CHANGES
-- `QasSelect`: Corrigido forma na qual se é setado uma opção padrão quando se tem apenas um item e o campo seja múltiplo, esteva setando como string, sendo que deveria ser como array com uma única opção dentro.
+- Rever lugares que utilizam lazy loading nos campos, pois pode gerar breaking changes.
 
 ### Corrigido
-- `QasSelect`: Corrigido 
+- `QasSelect`: Corrigido forma na qual se é setado uma opção padrão quando se tem apenas um item e o campo seja múltiplo, esteva setando como string, sendo que deveria ser como array com uma única opção dentro.
 
 ### Modificado
 - `QasSelect`: Modificado a forma na qual se é setado o valor default do campo, validando também os campos que são lazy loading e as opções recebidas. [[#1324](https://github.com/bildvitta/asteroid/issues/1324)]
