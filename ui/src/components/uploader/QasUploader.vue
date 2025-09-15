@@ -1,9 +1,9 @@
 <template>
   <div class="qas-uploader">
-    <q-uploader ref="uploader" auto-upload class="bg-transparent" :class="uploaderClasses" v-bind="attributes" :factory="factory" flat :max-files="maxFiles" method="PUT" @factory-failed="factoryFailed" @uploaded="uploaded" @uploading="updateUploading(true)">
+    <q-uploader ref="uploader" auto-upload class="bg-transparent" :class="uploaderClasses" v-bind="attributes" :factory flat :max-file-size :max-files method="PUT" @factory-failed="factoryFailed" @rejected="onRejected" @uploaded="uploaded" @uploading="updateUploading(true)">
       <template #header="scope">
         <slot name="header" :scope="scope">
-          <qas-header class="q-mb-none" v-bind="getHeaderProps(scope)">
+          <qas-header v-if="useHeader" class="q-mb-none" v-bind="getHeaderProps(scope)">
             <template #description>
               <div :class="headerDescriptionClasses">
                 {{ headerProps.description }}
@@ -27,9 +27,13 @@
           </div>
         </div>
 
-        <qas-empty-result-text v-else />
+        <qas-empty-result-text v-else-if="useEmptyResultText" />
 
         <qas-error-message v-if="errorMessage" :message="errorMessage" />
+
+        <div v-if="hasBottomListSlot" class="q-mt-md">
+          <slot :context="self" name="bottom-list" />
+        </div>
       </template>
     </q-uploader>
 
@@ -138,6 +142,11 @@ export default {
       type: Number
     },
 
+    maxFileSize: {
+      default: undefined,
+      type: Number
+    },
+
     modelValue: {
       default: '',
       type: [String, Array, Object]
@@ -171,6 +180,21 @@ export default {
       type: Boolean
     },
 
+    useEmptyResultText: {
+      type: Boolean,
+      default: true
+    },
+
+    useGalleryCard: {
+      type: Boolean,
+      default: true
+    },
+
+    useHeader: {
+      type: Boolean,
+      default: true
+    },
+
     useObjectModel: {
       type: Boolean
     },
@@ -186,7 +210,7 @@ export default {
     }
   },
 
-  emits: ['update:modelValue', 'update:uploading'],
+  emits: ['update:modelValue', 'update:uploading', 'rejected'],
 
   data () {
     return {
@@ -237,10 +261,24 @@ export default {
       return classes
     },
 
+    /**
+     * Controla o valor default das colunas do grid
+     *
+     * Se o usuário passar alguma coluna, utiliza a passada
+     * Se for múltiplo e estiver usando o gallery card, exibe 4 "{ col: 12, sm: 6, md: 4, lg: 3 }"
+     * Senão, exibe "{ col: 12, sm: 6 }"
+     */
     defaultColumns () {
+      const hasDefaultColumn = !!Object.keys(this.columns).length
+
+      if (hasDefaultColumn) return this.columns
+
+      const hasSmallSize = this.useGalleryCard && this.isMultiple
+
       return {
-        ...(this.isMultiple ? { col: 12, sm: 6, md: 4, lg: 3 } : { col: 12, sm: 6 }),
-        ...this.columns
+        col: 12,
+        sm: 6,
+        ...(hasSmallSize && { md: 4, lg: 3 })
       }
     },
 
@@ -261,7 +299,8 @@ export default {
         gridGeneratorProps,
         useDownload,
         useObjectModel,
-        dialogProps
+        dialogProps,
+        useGalleryCard
       } = this.$props
 
       return {
@@ -272,6 +311,7 @@ export default {
         gridGeneratorProps,
         useDownload,
         useObjectModel,
+        useGalleryCard,
 
         useMultiple: this.isMultiple
       }
@@ -295,6 +335,10 @@ export default {
       return this.$slots.header
     },
 
+    hasBottomListSlot () {
+      return this.$slots['bottom-list']
+    },
+
     isMultiple () {
       return this.$attrs.multiple || this.$attrs.multiple === ''
     },
@@ -312,7 +356,7 @@ export default {
     this.hiddenInputElement = this.$refs.hiddenInput
     this.uploader = this.$refs.uploader
 
-    this.hiddenInputElement?.addEventListener?.('change', this.addFiles)
+    this.hiddenInputElement?.addEventListener?.('change', () => this.addFiles())
 
     if (this.useObjectModel) {
       window.addEventListener('submit-success', this.handleSubmitSuccess)
@@ -320,7 +364,7 @@ export default {
   },
 
   unmounted () {
-    this.hiddenInputElement?.removeEventListener?.('change', this.addFiles)
+    this.hiddenInputElement?.removeEventListener?.('change', () => this.addFiles())
 
     if (this.useObjectModel) {
       window.removeEventListener('submit-success', this.handleSubmitSuccess)
@@ -328,11 +372,22 @@ export default {
   },
 
   methods: {
-    async addFiles () {
-      const filesList = Array.from(this.hiddenInputElement.files)
+    /**
+     * É possível passar os arquivos como parâmetro ou pegar os arquivos do input hidden,
+     * isto será útil para casos onde precisa manipular o QasUploader pelo lado de fora
+     * via ref.
+     *
+     * @param {File[]|FileList} files
+     */
+    async addFiles (files) {
+      const filesList = Array.from(files || this.hiddenInputElement.files)
+
       const processedFiles = []
 
-      this.$refs.hiddenInput.value = ''
+      // previne erro caso não exista hiddenInput
+      if (this.$refs.hiddenInput) {
+        this.$refs.hiddenInput.value = ''
+      }
 
       filesList.forEach(file => processedFiles.push(this.resizeImage(file)))
 
@@ -655,6 +710,75 @@ export default {
 
         ...othersHeaderProps
       }
+    },
+
+    /**
+     * Trata os erros de arquivos rejeitados pelo QUploader para adicionar
+     * feedback com toast, trata os sequites erros:
+     * - accept
+     * - maxFileSize
+     */
+    onRejected (rejectedFiles) {
+      this.$emit('rejected', rejectedFiles)
+
+      const errorsSize = {
+        accept: 0,
+        maxFileSize: 0
+      }
+
+      rejectedFiles.forEach(({ failedPropValidation }) => {
+        if (failedPropValidation === 'accept') {
+          errorsSize.accept += 1
+
+          return
+        }
+
+        if (failedPropValidation === 'max-file-size') {
+          errorsSize.maxFileSize += 1
+        }
+      })
+
+      const hasMaxFileSizeErrors = !!errorsSize.maxFileSize
+      const hasAcceptErrors = !!errorsSize.accept
+
+      // Caso o erro não seja de accept ou maxFileSize, não exibe nenhuma mensagem.
+      if (!hasMaxFileSizeErrors && !hasAcceptErrors) return
+
+      /**
+       * Mensagem genérica para quando hover erro de accept e maxFileSize de uma vez.
+       */
+      if (hasMaxFileSizeErrors && hasAcceptErrors) {
+        const mergedErrorsSize = errorsSize.maxFileSize + errorsSize.accept
+
+        NotifyError(`Não conseguimos selecionar ${mergedErrorsSize} arquivos. Por favor, escolha arquivos válidos.`)
+
+        return
+      }
+
+      /**
+       * Mensagens de erro para quando houver apenas erros de maxFileSize.
+       */
+      if (hasMaxFileSizeErrors) {
+        const megaByte = `${this.maxFileSize / 1000000}Mb` // converte para MB
+
+        // TODO-ISSUE: rever essa validação simples até issue #1365 ser resolvida.
+        NotifyError(
+          errorsSize.maxFileSize === 1
+            ? `Não conseguimos selecionar 1 arquivo, ele ultrapassa o limite de ${megaByte}. Por favor, escolha um arquivo dentro do limite permitido.`
+            : `Não conseguimos selecionar ${errorsSize.maxFileSize} arquivos, eles ultrapassam o limite de ${megaByte} definido para cada um. Por favor, escolha um arquivo dentro do limite permitido.`
+        )
+
+        return
+      }
+
+      /**
+       * Mensagens de erro para quando houver apenas erros de accept.
+       */
+      NotifyError(
+        errorsSize.accept === 1
+          ? 'Não conseguimos selecionar 1 arquivo, este tipo não é permitido. Por favor, escolha um arquivo válido.'
+          : `Não conseguimos selecionar ${errorsSize.accept} arquivos, estes tipos não são permitidos. Por favor, escolha arquivos válidos.`
+      )
     }
   }
 }
@@ -668,6 +792,43 @@ export default {
 
   .q-uploader {
     max-height: 100%;
+    position: relative;
+    transition: padding var(--qas-generic-transition) ease, background var(--qas-generic-transition) ease;
+
+    // Referente ao drag and drop.
+    &--dnd {
+      padding: var(--qas-spacing-md) !important;
+    }
+
+    // Referente ao drag and drop.
+    &__dnd {
+      align-items: center;
+      background: $primary !important;
+      background: white !important;
+      border-radius: $generic-border-radius !important;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      justify-content: center;
+      opacity: 0.9;
+      outline-offset: 0 !important;
+      outline: 1px dashed var(--q-primary) !important;
+
+      // content e font-family para adicionar ícone do material icons.
+      &::before {
+        color: var(--q-primary);
+        content: 'attach_file_add';
+        font-family: 'Material Symbols Rounded';
+        font-size: 24px;
+      }
+
+      &::after {
+        @include set-typography($subtitle1);
+
+        color: var(--q-primary);
+        content: 'Solte o arquivo aqui.';
+      }
+    }
 
     &__header {
       background-color: transparent;

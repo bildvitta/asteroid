@@ -1,7 +1,7 @@
 <template>
-  <div :class="containerClasses">
+  <div v-if="hasHeaderContent" :class="containerClasses">
     <div v-if="hasLabelSection" class="full-width items-center justify-between no-wrap row" :class="labelSectionClasses">
-      <div class="items-center q-col-gutter-sm row">
+      <div class="items-center overflow-hidden q-col-gutter-sm row">
         <slot name="label">
           <qas-label v-if="hasLabel" v-bind="defaultLabelProps" />
         </slot>
@@ -85,6 +85,10 @@ const props = defineProps({
     default: Spacing.Md,
     type: String,
     validator: gutterValidator
+  },
+
+  useEllipsis: {
+    type: Boolean
   }
 })
 
@@ -108,6 +112,10 @@ const descriptionSectionClasses = computed(() => {
 
 const defaultLabelProps = computed(() => {
   return {
+    class: {
+      ellipsis: props.useEllipsis
+    },
+
     margin: 'none',
     ...props.labelProps
   }
@@ -155,6 +163,10 @@ const hasDefaultFilters = computed(() => !!Object.keys(props.filtersProps).lengt
 const hasDefaultActionsMenu = computed(() => !!Object.keys(props.actionsMenuProps).length)
 const hasDescriptionSection = computed(() => !!props.description || !!slots.description)
 const hasLabelSection = computed(() => hasLabel.value || slots.label || hasBadges.value)
+
+const hasHeaderContent = computed(() => {
+  return hasLabelSection.value || hasDescriptionSection.value || hasActionsSection.value
+})
 
 /**
  * Só exibo a seção de descrição com a seção de ações ao lado quando:

@@ -1,22 +1,8 @@
 <template>
   <qas-box class="bg-white qas-gallery-card" :class="classes" v-bind="boxProps">
-    <header class="flat items-center no-wrap row" :class="headerClasses">
-      <slot name="header">
-        <div class="ellipsis q-mr-xs qas-gallery__name text-subtitle1">
-          <slot v-if="props.name" name="name">
-            {{ name }}
-          </slot>
-        </div>
+    <qas-header v-if="hasHeader" v-bind="defaultHeaderProps" />
 
-        <div v-if="hasActions">
-          <slot name="actions">
-            <qas-actions-menu v-bind="defaultActionsMenuProps" />
-          </slot>
-        </div>
-      </slot>
-    </header>
-
-    <div v-if="props.useVideo">
+    <div v-if="props.useVideo" class="rounded-borders">
       <slot name="video">
         <q-video v-bind="defaultVideoProps" />
       </slot>
@@ -26,21 +12,35 @@
       <slot name="image">
         <q-img class="rounded-borders" height="100%" :src="props.url" v-bind="props.imageProps">
           <template #error>
-            <div :class="errorClasses">
-              <div class="text-center">
-                <slot name="image-error-icon">
-                  <div v-if="props.errorIcon">
-                    <q-icon :name="props.errorIcon" size="sm" />
-                  </div>
-                </slot>
-
-                <slot name="image-error">
+            <slot name="image-error-container">
+              <div v-if="hasFileType" class="bg-blue-grey-2 flex full-height full-width items-center justify-center text-blue-grey-8">
+                <div class="text-center">
                   <div>
-                    {{ props.errorMessage }}
+                    <q-icon name="sym_r_draft" size="lg" />
                   </div>
-                </slot>
+
+                  <div class="q-mt-xs text-blue-grey-8 text-center text-h4">
+                    {{ fileType }}
+                  </div>
+                </div>
               </div>
-            </div>
+
+              <div v-else class="bg-grey-4 flex full-height full-width items-center justify-center text-grey-10 text-subtitle1">
+                <div class="text-center">
+                  <slot name="image-error-icon">
+                    <div v-if="props.errorIcon">
+                      <q-icon class="text-negative" :name="props.errorIcon" size="md" />
+                    </div>
+                  </slot>
+
+                  <slot name="image-error-message">
+                    <div class="q-mt-xs">
+                      {{ props.errorMessage }}
+                    </div>
+                  </slot>
+                </div>
+              </div>
+            </slot>
           </template>
         </q-img>
       </slot>
@@ -55,32 +55,32 @@
 </template>
 
 <script setup>
-import QasActionsMenu from '../actions-menu/QasActionsMenu.vue'
 import QasBox from '../box/QasBox.vue'
 import QasGridGenerator from '../grid-generator/QasGridGenerator.vue'
+import QasHeader from '../header/QasHeader.vue'
 
 import { computed, useSlots, inject } from 'vue'
 
 defineOptions({ name: 'QasGalleryCard' })
 
 const props = defineProps({
-  actionsMenuProps: {
-    type: Object,
-    default: () => ({})
-  },
-
   disable: {
     type: Boolean
   },
 
   errorIcon: {
     type: String,
-    default: ''
+    default: 'sym_r_error'
   },
 
   errorMessage: {
     type: String,
-    default: ''
+    default: 'Falha ao carregar imagem.'
+  },
+
+  headerProps: {
+    type: Object,
+    default: () => ({})
   },
 
   gridGeneratorProps: {
@@ -91,11 +91,6 @@ const props = defineProps({
   imageProps: {
     type: Object,
     default: () => ({})
-  },
-
-  name: {
-    type: String,
-    default: ''
   },
 
   url: {
@@ -113,25 +108,12 @@ const props = defineProps({
   }
 })
 
-const slots = useSlots()
-
+// globals
 const isInsideBox = inject('isBox', false)
+const isInsideDialog = inject('isDialog', false)
 
-const boxProps = {
-  outlined: isInsideBox,
-  unelevated: isInsideBox
-}
-
-const errorClasses = [
-  'bg-grey-4',
-  'flex',
-  'full-height',
-  'full-width',
-  'items-center',
-  'justify-center',
-  'text-grey-10',
-  'text-subtitle2'
-]
+// composables
+const slots = useSlots()
 
 // computeds
 const classes = computed(() => {
@@ -140,25 +122,57 @@ const classes = computed(() => {
   }
 })
 
-const headerClasses = computed(() => {
+const hasHeader = computed(() => {
+  const { labelProps, actionsMenuProps } = props.headerProps
+
+  return labelProps?.label || Object.keys(actionsMenuProps || {}).length
+})
+
+/**
+ * Vai ser "outlined" quando:
+ * - Estiver dentro de um QasBox (isInsideBox) ou
+ * - Estiver dentro de um QasDialog (isInsideDialog) ou
+ * - Ou quando houver erro (hasError)
+ * Se não, terá shadow.
+ */
+const boxProps = computed(() => {
+  const isOutlined = isInsideBox || isInsideDialog
+  const hasPadding = !!(
+    props.headerProps.labelProps?.label ||
+    hasActions.value ||
+    hasBottom.value ||
+    hasGridGenerator.value
+  )
+
   return {
-    'justify-between': props.name,
-    'justify-right': !props.name,
-    'text-grey-10': !props.disable,
-    'q-mb-md': hasActions.value || props.name
+    outlined: isOutlined,
+    unelevated: isOutlined,
+    useSpacing: hasPadding
   }
 })
 
-const defaultActionsMenuProps = computed(() => {
-  const { buttonProps } = props.actionsMenuProps
+const defaultHeaderProps = computed(() => {
+  const { labelProps, actionsMenuProps } = props.headerProps || {}
 
   return {
-    useLabel: false,
-    ...props.actionsMenuProps,
+    useEllipsis: true,
 
-    buttonProps: {
-      disable: props.disable,
-      ...buttonProps
+    ...props.headerProps,
+
+    labelProps: {
+      ...labelProps,
+      typography: 'h5'
+    },
+
+    actionsMenuProps: {
+      useLabel: false,
+
+      ...actionsMenuProps,
+
+      buttonProps: {
+        disable: props.disable,
+        ...actionsMenuProps?.buttonProps
+      }
     }
   }
 })
@@ -173,10 +187,53 @@ const defaultVideoProps = computed(() => {
   }
 })
 
-const hasActionsSlot = computed(() => !!slots.actions)
-const hasActions = computed(() => !!Object.keys(props.actionsMenuProps).length || hasActionsSlot.value)
+/**
+ * File type (extensão) do arquivo, retorna apenas para arquivos: doc, docx, pdf, xls, xlsx e csv.
+ * Se for outro tipo de arquivo, retorna vazio para ser carregado o slot de erro padrão.
+ */
+const fileType = computed(() => {
+  const url = getURL()
+
+  if (props.useVideo || !url) return ''
+
+  const splitted = url.pathname.split('.')
+  const type = splitted.pop() || ''
+
+  const acceptableTypes = ['doc', 'docx', 'pdf', 'xls', 'xlsx', 'csv']
+
+  /**
+   * Se tiver menos que 2 partes, é pq não tem extensão (ex: "https://minhaurl.com/imagem") ou,
+   * se tiver extensão, mas não for um tipo aceitável (ex: "https://minhaurl.com/imagem.png") retorna vazio.
+   *
+   */
+  if (splitted.length < 2 && !acceptableTypes.includes(type)) return ''
+
+  return type.toUpperCase()
+})
+
+const hasFileType = computed(() => !!fileType.value)
+
+const hasActions = computed(() => !!Object.keys(props.headerProps.actionsMenuProps || {}).length)
 const hasGridGenerator = computed(() => !!Object.keys(props.gridGeneratorProps).length)
 const hasBottom = computed(() => !!slots.bottom || hasGridGenerator.value)
+
+// functions
+/**
+ * Função que garante o retorno de uma URL válida ou null.
+ * Se a URL for inválida, o construtor do objeto URL lança um erro.
+ * Se a URL for inválida, retorna null para evitar erros no console.
+ */
+function getURL () {
+  const mergedURL = props.url || props.imageProps?.src
+
+  if (!mergedURL) return null
+
+  try {
+    return new URL(props.url || props.imageProps.src)
+  } catch {
+    return null
+  }
+}
 </script>
 
 <style lang="scss">
