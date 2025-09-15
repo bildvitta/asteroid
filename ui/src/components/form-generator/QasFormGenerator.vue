@@ -195,12 +195,6 @@ const normalizedFields = computed(() => {
     }
   }
 
-  console.log(getNormalizedFields({
-    items: props.fieldset,
-    fields: props.fields,
-    result: props.modelValue
-  }), '<------ normalized')
-
   return getNormalizedFields({
     items: props.fieldset,
     fields: props.fields,
