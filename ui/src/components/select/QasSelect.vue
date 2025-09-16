@@ -275,7 +275,7 @@ export default {
       const hasModelValue = Array.isArray(this.modelValue) ? !!this.modelValue.length : !!this.modelValue
 
       /**
-       * Só posso setar uma opção default quando:
+       * Só pode setar uma opção default quando:
        * - O campo for required ou tiver a prop useAutoSelect
        * - Tiver apenas uma option
        * - O modelValue estiver vazio
