@@ -6,7 +6,7 @@
           <div class="items-center justify-between row">
             <qas-label data-cy="dialog-title" :label="props.title" margin="none" />
 
-            <qas-btn v-close-popup color="grey-10" data-cy="dialog-close-btn" icon="sym_r_close" variant="tertiary" />
+            <qas-btn v-close-popup color="grey-10" data-cy="dialog-close-btn" :disable="isCloseDisabled" icon="sym_r_close" variant="tertiary" />
           </div>
         </slot>
       </header>
@@ -67,6 +67,10 @@ const props = defineProps({
     default: ''
   },
 
+  disableCloseButton: {
+    type: Boolean
+  },
+
   ok: {
     default: () => ({}),
     type: [Object, Boolean]
@@ -89,6 +93,11 @@ const props = defineProps({
 
   modelValue: {
     type: Boolean
+  },
+
+  persistent: {
+    type: Boolean,
+    default: true
   },
 
   usePlugin: {
@@ -124,6 +133,7 @@ const emit = defineEmits([
 provide('isDialog', true)
 provide('btnPropsDefaults', { size: 'md' })
 
+// composables
 const attrs = useAttrs()
 const screen = useScreen()
 const slots = useSlots()
@@ -131,16 +141,17 @@ const slots = useSlots()
 // usado para o plugin
 const { dialogRef, onDialogHide } = useDialogPluginComponent()
 
-// QForm template
+// refs
 const form = ref(null)
 
+/// consts
 const composablesParams = { emit, form, props, screen, slots }
 
 const { defaultCancel, hasCancel } = useCancel(composablesParams)
 const { defaultOk, hasOk, onOk } = useOk(composablesParams)
 const { descriptionComponent, mainComponent } = useDynamicComponents({ ...composablesParams, onOk, hasOk })
 
-// composables
+// computeds
 /**
  * Classes criadas para serem utilizadas quando usado com a prop "position", pois
  * o comportamento do dialog muda, e não é possível usar em conjunto com a prop
@@ -200,6 +211,18 @@ const defaultActionsProps = computed(() => {
   // }
 })
 
+const isCloseDisabled = computed(() => {
+  const { loading, disable } = props.ok || {}
+  const { loading: cancelLoading, disable: cancelDisable } = props.cancel || {}
+
+  return (
+    props.disableCloseButton ||
+    (loading || disable) ||
+    (cancelLoading || cancelDisable)
+  )
+})
+
+// functions
 function updateModelValue (value) {
   emit('update:modelValue', value)
 }
