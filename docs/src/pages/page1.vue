@@ -1,8 +1,10 @@
 <template>
   <div>
-    Pagina 1
+    <div>
+      Pagina 1
+    </div>
 
-    <qas-btn label="Abrir dialog" @click="openDialog" />
+    <qas-btn label="Abrir pagina 2" @click="openDialog" />
   </div>
   <!-- <qas-dialog-router ref="dialogRouterRef" /> -->
 </template>
@@ -18,4 +20,5 @@ const isInsideDialogRouter = inject('isInsideDialogRouter', false)
 function openDialog () {
   if (isInsideDialogRouter) dialogRouter.show({ name: 'Page2' })
 }
+
 </script>

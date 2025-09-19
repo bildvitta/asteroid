@@ -21,6 +21,12 @@ const routes = [
   },
 
   {
+    path: '/pagina3',
+    name: 'Page3',
+    component: () => import('src/pages/page3.vue')
+  },
+
+  {
     path: '/paginas/not-found',
     component: () => import('../../../ui/src/pages/NotFound.vue')
   },

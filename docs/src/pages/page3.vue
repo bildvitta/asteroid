@@ -1,10 +1,10 @@
 <template>
   <div>
     <div>
-      Pagina 2
+      Pagina 3
     </div>
 
-    <qas-btn label="Abrir pagina 3" @click="openDialog" />
+    <qas-btn label="Abrir pagina 1" @click="openDialog" />
   </div>
   <!-- <qas-dialog-router ref="dialogRouterRef" /> -->
 </template>
@@ -17,12 +17,6 @@ const dialogRouter = inject('dialogRouter')
 // const dialogRouterRef = ref(null)
 
 function openDialog () {
-  dialogRouter.show({ path: '/page3' })
+  dialogRouter.show({ path: '/page2' })
 }
-
-// onBeforeRouteLeave((to, from) => {
-//   console.log('TCL: to, from page2', { to, from })
-
-//   return false
-// })
 </script>
