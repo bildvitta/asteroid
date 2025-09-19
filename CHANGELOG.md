@@ -19,7 +19,7 @@ Caso adicionado no escopo inicial, todos os conteúdos abaixo não serão adicio
 - `QasFormGenerator`: corrigido erro ao não passar a propriedade `columns` quando há subset. ([#1299](https://github.com/bildvitta/asteroid/issues/1299))
 
 ### Modificado
-- `QasExpansionItem`: Modificado para o expansion não ter box e sim bordas quando estiver dentro de um dialog. 
+- `QasExpansionItem`: Modificado para o expansion não ter box e sim bordas quando estiver dentro de um dialog. ([#1373](https://github.com/bildvitta/asteroid/issues/1373))
 
 ## [3.19.0-beta.6] - 10-09-2025
 ## BREAKING CHANGES
