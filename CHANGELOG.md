@@ -18,6 +18,9 @@ Caso adicionado no escopo inicial, todos os conteúdos abaixo não serão adicio
 ### Corrigido
 - `QasFormGenerator`: corrigido erro ao não passar a propriedade `columns` quando há subset. ([#1299](https://github.com/bildvitta/asteroid/issues/1299))
 
+### Adicionado
+- `QasPdfViewer`: adicionado componente para renderização de documentos PDF diretamente no navegador com estados de loading, erro e suporte a múltiplas páginas.
+
 ## [3.19.0-beta.6] - 10-09-2025
 ## BREAKING CHANGES
 - `QasGalleryCard`:
