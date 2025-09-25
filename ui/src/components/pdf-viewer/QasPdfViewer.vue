@@ -1,6 +1,6 @@
 <template>
   <div class="qas-pdf-viewer">
-    <div class="qas-pdf-viewer__container">
+    <div class="border-grey qas-pdf-viewer__container">
       <!-- Estado de Loading: Exibe spinner e mensagem enquanto carrega o PDF -->
       <div
         v-if="isLoading"
@@ -73,6 +73,7 @@ onMounted(async () => {
   loadPDF()
 })
 
+// functions
 /**
  * Função principal para carregar e renderizar o PDF
  */
@@ -145,8 +146,6 @@ async function renderPage (canvas, page) {
 <style lang="scss">
 .qas-pdf-viewer {
   &__container {
-    border: 1px solid $grey-4; // Borda sutil para delimitar a área do PDF
-    border-radius: var(--qas-generic-border-radius); // Cantos arredondados seguindo padrão do Asteroid
     overflow-y: auto; // Scroll vertical quando conteúdo excede altura máxima
   }
 }
