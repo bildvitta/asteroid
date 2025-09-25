@@ -1,5 +1,7 @@
 <template>
-  <qas-pdf-viewer :url />
+  <div class="container spaced">
+    <qas-pdf-viewer :url />
+  </div>
 </template>
 
 <script setup>
