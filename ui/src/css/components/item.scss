@@ -10,6 +10,12 @@
     color: $grey-8;
   }
 
+  &.q-manual-focusable {
+    &--focused {
+      color: var(--q-primary-contrast) !important;
+    }
+  }
+
   &.q-router-link--active {
     background-color: transparent !important;
     font-weight: 600;
@@ -27,7 +33,10 @@
   }
 
   &--clickable:not(&--active) {
-    color: $grey-10 !important;
+    &:not(.q-manual-focusable--focused) {
+      color: $grey-10 !important;
+    }
+
     transition: var(--qas-generic-transition);
 
     &:not(&.q-router-link--active):hover {
@@ -51,3 +60,4 @@
     padding-right: var(--qas-spacing-sm);
   }
 }
+
