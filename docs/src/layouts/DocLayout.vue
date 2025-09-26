@@ -32,10 +32,14 @@
     <q-page-container>
       <router-view />
     </q-page-container>
+
+    <PvLayoutOverlayDrawer />
   </q-layout>
 </template>
 
 <script>
+// TODO: passar path correto quando lançar versão
+import PvLayoutOverlayDrawer from '../../../ui/src/components/layout/private/PvLayoutOverlayDrawer.vue'
 
 import { version } from 'asteroid'
 import { createMetaMixin } from 'quasar'
@@ -46,6 +50,10 @@ import menuItems from 'assets/menu.js'
 import '@docsearch/css'
 
 export default {
+  components: {
+    PvLayoutOverlayDrawer
+  },
+
   mixins: [createMetaMixin({
     title: 'Asteroid Docs',
     titleTemplate: title => `${title} | Asteroid Docs`

@@ -1,6 +1,7 @@
 import { install } from '@bildvitta/quasar-ui-asteroid/src/asteroid'
 import fontFace from 'asteroid-boot/font-face.js'
 import debug from 'asteroid-boot/debug.js'
+import overlayNavigation from 'asteroid-boot/overlay-navigation.js'
 
 import axios from 'axios'
 import { boot } from 'quasar/wrappers'
@@ -16,4 +17,5 @@ export default boot(config => {
 
   debug()
   fontFace()
+  overlayNavigation(config)
 })
