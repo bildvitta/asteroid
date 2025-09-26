@@ -107,7 +107,8 @@ const slots = defineSlots()
 const expansionItem = ref(null)
 const showContent = ref(false)
 
-// constants
+// consts
+// TODO-ISSUE: rever quando a issue #1377 para ter um inject geral for resolvida.
 const isNestedExpansionItem = inject('isExpansionItem', false)
 const isNestedBox = inject('isBox', false)
 const isDialog = inject('isDialog', false)
