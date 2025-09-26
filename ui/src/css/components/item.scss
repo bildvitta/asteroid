@@ -11,11 +11,11 @@
   }
 
   &.q-manual-focusable {
-    &--focused {
-      color: var(--q-primary-contrast) !important;
-    }
   }
 
+  &.q-manual-focusable--focused {
+    color: var(--q-primary-contrast) !important;
+  }
   &.q-router-link--active {
     background-color: transparent !important;
     font-weight: 600;
