@@ -10,12 +10,10 @@
     color: $grey-8;
   }
 
-  &.q-manual-focusable {
-  }
-
   &.q-manual-focusable--focused {
     color: var(--q-primary-contrast) !important;
   }
+
   &.q-router-link--active {
     background-color: transparent !important;
     font-weight: 600;
