@@ -15,11 +15,16 @@ Devemos adicionar o comentário `<!-- N/A -->` (Não adicionar), para que não p
 Caso adicionado no escopo inicial, todos os conteúdos abaixo não serão adicionados. Caso adicionado na linha, será considerado apenas ela.
 
 ## Não publicado
+## BREAKING CHANGES
+- Rever lugares que utilizam lazy loading nos campos, pois pode gerar breaking changes.
+
 ### Corrigido
+- `QasSelect`: Corrigido forma no qual é setado uma opção padrão quando se tem apenas um item e o campo seja múltiplo, esteva setando como string, sendo que deveria ser como array com uma única opção dentro.
 - `QasFormGenerator`: corrigido erro ao não passar a propriedade `columns` quando há subset. ([#1299](https://github.com/bildvitta/asteroid/issues/1299))
 
 ### Modificado
 - `QasExpansionItem`: Modificado para o expansion não ter box e sim bordas quando estiver dentro de um dialog. ([#1373](https://github.com/bildvitta/asteroid/issues/1373))
+- `QasSelect`: Modificado a forma na qual se é setado o valor default do campo, validando também os campos que são lazy loading e as opções recebidas. [[#1324](https://github.com/bildvitta/asteroid/issues/1324)]
 
 ## [3.19.0-beta.6] - 10-09-2025
 ## BREAKING CHANGES
