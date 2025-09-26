@@ -27,9 +27,15 @@
         <!-- Estado de Erro: Exibe mensagem quando falha ao carregar PDF -->
         <div
           v-else
-          class="q-my-xl text-body1 text-center"
+          class="bg-grey-4 q-py-xl text-center text-grey-10 text-subtitle1"
         >
-          Erro ao carregar PDF
+          <div>
+            <q-icon class="text-negative" name="sym_r_wifi_off" size="md" />
+          </div>
+
+          <div class="q-mt-xs">
+            Falha ao carregar o arquivo.
+          </div>
         </div>
       </div>
     </div>
