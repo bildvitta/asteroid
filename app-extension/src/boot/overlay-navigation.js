@@ -111,7 +111,6 @@ async function onBeforeEach (to, from, next, router) {
       try {
         const resolvedRoute = router.resolve(basePath)
         const component = await getComponentByRoute(resolvedRoute)
-        console.log('TCL: getBackgroundComponent -> component', component)
 
         if (component) {
           return {

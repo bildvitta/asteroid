@@ -20,10 +20,14 @@
     </div>
 
     <slot />
+
+    <qas-tooltip v-if="props.tooltip" :text="props.tooltip" />
   </q-btn>
 </template>
 
 <script setup>
+import QasTooltip from '../tooltip/QasTooltip.vue'
+
 import { useScreen } from '../../composables'
 
 import { computed, useAttrs, useSlots, inject, isRef } from 'vue'
@@ -82,6 +86,11 @@ const props = defineProps({
 
       return variants.includes(value)
     }
+  },
+
+  tooltip: {
+    type: String,
+    default: ''
   },
 
   useEllipsis: {

@@ -1,4 +1,4 @@
-// import getPages from './pages.js'
+import getPages from './pages.js'
 
 const routes = [
   {
@@ -7,13 +7,16 @@ const routes = [
     component: () => import('src/layouts/DocLayout.vue'),
     meta: {
       useOverlay: true
-    }
-    // children: getPages()
+    },
+    children: getPages()
   },
 
   {
     path: '/paginas/not-found',
-    component: () => import('../../../ui/src/pages/NotFound.vue')
+    component: () => import('../../../ui/src/pages/NotFound.vue'),
+    meta: {
+      useOverlay: true
+    }
   },
 
   {
