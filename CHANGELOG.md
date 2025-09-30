@@ -14,6 +14,11 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 Devemos adicionar o comentário `<!-- N/A -->` (Não adicionar), para que não precise adicionar um item do changelog ao lançar uma nova versão stable.
 Caso adicionado no escopo inicial, todos os conteúdos abaixo não serão adicionados. Caso adicionado na linha, será considerado apenas ela.
 
+## Não publicado
+### Corrigido
+- `QasSelect`: Corrigido cor de foco nas opções durante a navegação com teclado (teclas de seta para cima/baixo).
+- `QasNumericInput`: Corrigido foco do campo, pois quando utilizado via tab, o campo não focava.
+
 ## [3.19.0-beta.7] - 26-09-2025
 ## BREAKING CHANGES
 - Rever lugares que utilizam lazy loading nos campos, pois pode gerar breaking changes.
