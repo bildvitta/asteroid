@@ -16,7 +16,9 @@ Caso adicionado no escopo inicial, todos os conteúdos abaixo não serão adicio
 
 ## Não publicado
 ### Corrigido
-- `QasSelect`: Corrigido cor de foco nas opções durante a navegação com teclado (teclas de seta para cima/baixo).
+- `QasSelect`: 
+  - Corrigido cor de foco nas opções durante a navegação com teclado (teclas de seta para cima/baixo).
+  - Corrigido uso de badges na opção, no qual quebrava quando utilizado como objeto ao invés de função.
 - `QasNumericInput`: Corrigido foco do campo, pois quando utilizado via tab, o campo não focava.
 
 ## [3.19.0-beta.7] - 26-09-2025
