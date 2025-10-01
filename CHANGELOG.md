@@ -15,14 +15,11 @@ Devemos adicionar o comentário `<!-- N/A -->` (Não adicionar), para que não p
 Caso adicionado no escopo inicial, todos os conteúdos abaixo não serão adicionados. Caso adicionado na linha, será considerado apenas ela.
 
 ## Não publicado
-## BREAKING CHANGES
-- Possível breaking changes visual por conta dos loadings adicionados no `QasFormView` e `QasSingleView`. Verificar telas para remover loadings desnecessários como por exemplo utlizados com `promiseHandler`.
-
 ### Adicionado
 - `QasPdfViewer`: adicionado componente para renderização de documentos PDF diretamente no navegador com estados de loading, erro e suporte a múltiplas páginas.
 
 ### Corrigido
-- [`QasFormView`, `QasSingleView`]: corrigido problema do loading travar a tela toda, foi resolvido adicionando classe "relative-position" no container. ([#1342](https://github.com/bildvitta/asteroid/issues/1342))
+- [`QasFormView`, `QasSingleView`]: corrigido problema do loading travar a tela toda no dialog, foi resolvido adicionando classe "relative-position" no container. ([#1342](https://github.com/bildvitta/asteroid/issues/1342))
 - `QasSelect`: Corrigido cor de foco nas opções durante a navegação com teclado (teclas de seta para cima/baixo).
 - `QasNumericInput`: Corrigido foco do campo, pois quando utilizado via tab, o campo não focava.
 

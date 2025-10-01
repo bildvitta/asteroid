@@ -1,5 +1,5 @@
 <template>
-  <div class="relative-position" :class="componentClass">
+  <div :class="componentClass">
     <header v-if="hasHeaderSlot">
       <slot name="header" />
     </header>
