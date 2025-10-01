@@ -14,14 +14,17 @@
 
         <qas-btn color="grey-10" icon="sym_r_zoom_out_map" label="Tela cheia" @click="expandToFullPage" />
       </div>
+
+      <pre>{{ { hasPreviousRoute, history: history?.list.length } }}</pre>
     </template>
 
     <template #default>
-      <q-page-container>
+      <qas-btn label="navegar" :to="getRoute({ path: 'paginas/not-found' })"></qas-btn>
+      <router-view name="overlay" />
+      <!-- <q-page-container>
         <q-page>
-          <router-view name="overlay" />
         </q-page>
-      </q-page-container>
+      </q-page-container> -->
     </template>
   </qas-drawer>
 </template>
@@ -31,6 +34,7 @@ import QasDrawer from '../../drawer/QasDrawer.vue'
 import QasBtn from '../../btn/QasBtn.vue'
 
 import useOverlayNavigation from '../../../composables/use-overlay-navigation'
+import useHistory from '../../../composables/use-history'
 
 import { ref, provide, watch } from 'vue'
 import { useRoute } from 'vue-router'
@@ -40,7 +44,8 @@ defineOptions({ name: 'PvLayoutOverlayDrawer' })
 provide('isOverlay', true)
 
 const route = useRoute()
-const { closeOverlay, expandToFullPage } = useOverlayNavigation()
+const { closeOverlay, expandToFullPage, getRoute } = useOverlayNavigation()
+const { hasPreviousRoute, history } = useHistory()
 
 const drawerModel = ref(false)
 

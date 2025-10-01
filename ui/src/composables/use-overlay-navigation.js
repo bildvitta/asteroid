@@ -1,9 +1,12 @@
 import { computed, inject } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
+import useHistory from './use-history'
 
 export default function useOverlayNavigation () {
   const route = useRoute()
   const router = useRouter()
+
+  const { hasPreviousRoute } = useHistory()
 
   const backgroundRoute = computed(() => route.meta.backgroundRoute || {})
 
@@ -53,6 +56,7 @@ export default function useOverlayNavigation () {
     route: defaultRoute,
     isOverlay,
     getRoute,
+    hasPreviousRoute,
     backgroundRoute,
     isBackgroundOverlay,
     closeOverlay,

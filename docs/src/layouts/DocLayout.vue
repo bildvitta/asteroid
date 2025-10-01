@@ -13,6 +13,7 @@
 
         <div class="text-bold">v{{ version }}</div>
       </q-toolbar>
+      <q-btn label="open" :to="{ name: 'Root', query: { overlay: true } }" />
     </q-header>
 
     <q-drawer v-model="leftDrawerState" bordered show-if-above side="left" @hide="handleRestartDocSearch" @show="handleRestartDocSearch">

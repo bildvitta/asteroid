@@ -1,4 +1,4 @@
-import getPages from './pages.js'
+// import getPages from './pages.js'
 
 const routes = [
   {
@@ -7,8 +7,8 @@ const routes = [
     component: () => import('src/layouts/DocLayout.vue'),
     meta: {
       useOverlay: true
-    },
-    children: getPages()
+    }
+    // children: getPages()
   },
 
   {
