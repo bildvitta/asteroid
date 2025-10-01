@@ -1,7 +1,4 @@
-// import { useRouter } from 'vue-router'
-
-// TODO: adicionar path '@bildvitta/quasar-ui-asteroid'
-import useOverlayNavigation from '../../../ui/src/composables/use-overlay-navigation.js'
+import useOverlayNavigation from '@bildvitta/quasar-ui-asteroid/src/composables/use-overlay-navigation'
 
 export default async function ({ router }) {
   router.beforeEach((to, from, next) => onBeforeEach(to, from, next, router))
