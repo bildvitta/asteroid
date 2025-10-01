@@ -7,19 +7,17 @@
 
           <q-separator class="q-mx-md" vertical />
 
-          <qas-btn color="grey-10" icon="sym_r_keyboard_arrow_left" tooltip="Voltar para pagina anterior" />
+          <qas-btn color="grey-10" :disable="!hasPreviousRoute" icon="sym_r_keyboard_arrow_left" tooltip="Voltar para pagina anterior" @click="goBack" />
 
-          <qas-btn color="grey-10" icon="sym_r_keyboard_arrow_right" tooltip="Ir para proxima pagina" />
+          <qas-btn color="grey-10" :disable="!hasNextRoute" icon="sym_r_keyboard_arrow_right" tooltip="Ir para proxima pagina" @click="goForward" />
         </div>
 
         <qas-btn color="grey-10" icon="sym_r_zoom_out_map" label="Tela cheia" @click="expandToFullPage" />
       </div>
-
-      <pre>{{ { hasPreviousRoute, history: history?.list.length } }}</pre>
     </template>
 
     <template #default>
-      <qas-btn label="navegar" :to="getRoute({ path: 'paginas/not-found' })"></qas-btn>
+      <qas-btn label="navegar" :to="getRoute({ path: '/paginas/not-found' })" />
       <router-view name="overlay" />
       <!-- <q-page-container>
         <q-page>
@@ -34,9 +32,8 @@ import QasDrawer from '../../drawer/QasDrawer.vue'
 import QasBtn from '../../btn/QasBtn.vue'
 
 import useOverlayNavigation from '../../../composables/use-overlay-navigation'
-import useHistory from '../../../composables/use-history'
 
-import { ref, provide, watch } from 'vue'
+import { ref, provide, watch, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 
 defineOptions({ name: 'PvLayoutOverlayDrawer' })
@@ -44,8 +41,15 @@ defineOptions({ name: 'PvLayoutOverlayDrawer' })
 provide('isOverlay', true)
 
 const route = useRoute()
-const { closeOverlay, expandToFullPage, getRoute } = useOverlayNavigation()
-const { hasPreviousRoute, history } = useHistory()
+const {
+  closeOverlay,
+  expandToFullPage,
+  getRoute,
+  hasNextRoute,
+  hasPreviousRoute,
+  goBack,
+  goForward
+} = useOverlayNavigation()
 
 const drawerModel = ref(false)
 
@@ -55,9 +59,12 @@ const drawerProps = {
   dialogProps: {
     onHide: closeOverlay,
     noRouteDismiss: true
-    // persistent: true
   }
 }
+
+onMounted(() => {
+  console.log('Mounted overlay drawer')
+})
 
 watch(() => route.query.overlay, newValue => {
   // Configura os componentes baseado na query overlay
