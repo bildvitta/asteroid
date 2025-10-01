@@ -20,7 +20,9 @@ Caso adicionado no escopo inicial, todos os conteúdos abaixo não serão adicio
 
 ### Adicionado
 - `QasPdfViewer`: adicionado componente para renderização de documentos PDF diretamente no navegador com estados de loading, erro e suporte a múltiplas páginas.
-- [`QasFormView`, `QasSingleView`]: adicionado classe "relative-position" no container para que o loading não fique na tela toda, e sim em relação ao container. ([#1342](https://github.com/bildvitta/asteroid/issues/1342))
+
+### Corrigido
+- [`QasFormView`, `QasSingleView`]: corrigido problema do loading travar a tela toda, foi resolvido adicionando classe "relative-position" no container. ([#1342](https://github.com/bildvitta/asteroid/issues/1342))
 
 ## [3.19.0-beta.7] - 26-09-2025
 ## BREAKING CHANGES
