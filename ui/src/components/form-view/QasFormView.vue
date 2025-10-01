@@ -1,5 +1,5 @@
 <template>
-  <div class="qas-form-view" :class="mx_componentClass">
+  <div class="qas-form-view relative-position" :class="mx_componentClass">
     <header v-if="mx_hasHeaderSlot">
       <slot name="header" />
     </header>

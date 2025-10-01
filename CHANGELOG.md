@@ -15,8 +15,12 @@ Devemos adicionar o comentário `<!-- N/A -->` (Não adicionar), para que não p
 Caso adicionado no escopo inicial, todos os conteúdos abaixo não serão adicionados. Caso adicionado na linha, será considerado apenas ela.
 
 ## Não publicado
+## BREAKING CHANGES
+- Possível breaking changes visual por conta dos loadings adicionados no `QasFormView` e `QasSingleView`. Verificar telas para remover loadings desnecessários como por exemplo utlizados com `promiseHandler`.
+
 ### Adicionado
 - `QasPdfViewer`: adicionado componente para renderização de documentos PDF diretamente no navegador com estados de loading, erro e suporte a múltiplas páginas.
+- [`QasFormView`, `QasSingleView`]: adicionado classe "relative-position" no container para que o loading não fique na tela toda, e sim em relação ao container. ([#1342](https://github.com/bildvitta/asteroid/issues/1342))
 
 ## [3.19.0-beta.7] - 26-09-2025
 ## BREAKING CHANGES

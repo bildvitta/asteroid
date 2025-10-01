@@ -30,7 +30,7 @@
           class="bg-grey-4 q-py-xl text-center text-grey-10 text-subtitle1"
         >
           <div>
-            <q-icon class="text-negative" name="sym_r_wifi_off" size="md" />
+            <q-icon class="text-negative" name="sym_r_error" size="md" />
           </div>
 
           <div class="q-mt-xs">
