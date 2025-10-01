@@ -17,12 +17,7 @@
     </template>
 
     <template #default>
-      <qas-btn label="navegar" :to="getRoute({ path: '/paginas/not-found' })" />
       <router-view name="overlay" />
-      <!-- <q-page-container>
-        <q-page>
-        </q-page>
-      </q-page-container> -->
     </template>
   </qas-drawer>
 </template>
@@ -33,7 +28,7 @@ import QasBtn from '../../btn/QasBtn.vue'
 
 import useOverlayNavigation from '../../../composables/use-overlay-navigation'
 
-import { ref, provide, watch, onMounted } from 'vue'
+import { ref, provide, watch } from 'vue'
 import { useRoute } from 'vue-router'
 
 defineOptions({ name: 'PvLayoutOverlayDrawer' })
@@ -44,7 +39,6 @@ const route = useRoute()
 const {
   closeOverlay,
   expandToFullPage,
-  getRoute,
   hasNextRoute,
   hasPreviousRoute,
   goBack,
@@ -61,10 +55,6 @@ const drawerProps = {
     noRouteDismiss: true
   }
 }
-
-onMounted(() => {
-  console.log('Mounted overlay drawer')
-})
 
 watch(() => route.query.overlay, newValue => {
   // Configura os componentes baseado na query overlay

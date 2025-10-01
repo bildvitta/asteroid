@@ -1,4 +1,6 @@
 import { camelizeFieldsName } from '../helpers'
+import { useOverlayNavigation } from '../composables'
+
 import { markRaw } from 'vue'
 
 export default {
@@ -57,7 +59,8 @@ export default {
       mx_metadata: {},
       mx_cancelBeforeFetch: false,
       mx_isFetching: false,
-      mx_hasFetchError: false
+      mx_hasFetchError: false,
+      mx_isOverlay: useOverlayNavigation().isOverlay
     }
   },
 
@@ -69,7 +72,7 @@ export default {
 
   computed: {
     mx_componentClass () {
-      return this.useBoundary && 'container spaced'
+      return !this.mx_isOverlay && this.useBoundary && 'container spaced'
     },
 
     mx_hasFooterSlot () {
