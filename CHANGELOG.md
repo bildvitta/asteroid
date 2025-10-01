@@ -23,6 +23,8 @@ Caso adicionado no escopo inicial, todos os conteúdos abaixo não serão adicio
 
 ### Corrigido
 - [`QasFormView`, `QasSingleView`]: corrigido problema do loading travar a tela toda, foi resolvido adicionando classe "relative-position" no container. ([#1342](https://github.com/bildvitta/asteroid/issues/1342))
+- `QasSelect`: Corrigido cor de foco nas opções durante a navegação com teclado (teclas de seta para cima/baixo).
+- `QasNumericInput`: Corrigido foco do campo, pois quando utilizado via tab, o campo não focava.
 
 ## [3.19.0-beta.7] - 26-09-2025
 ## BREAKING CHANGES
