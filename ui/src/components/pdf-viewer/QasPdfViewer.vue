@@ -111,8 +111,10 @@ async function loadPDF () {
       canvas.height = viewport.height
       canvas.width = viewport.width
 
-      // Configura altura máxima do container
-      // Usa viewBox[3] que representa a altura correta da folha do PDF
+      /**
+       * Configura altura máxima do container
+       * Usa viewBox[3] que representa a altura correta da folha do PDF
+       */
       pdfWrapper.value.style.maxHeight = props.maxHeight ?? `${viewport.viewBox[3]}px`
 
       // Adiciona canvas ao container DOM
@@ -132,7 +134,7 @@ async function loadPDF () {
  * Função responsável por renderizar uma página específica do PDF em um canvas
  *
  * @param {HTMLCanvasElement} canvas - Canvas onde a página será renderizada
- * @param {Number} page - Página do PDF a ser renderizada
+ * @param {number} page - Página do PDF a ser renderizada
  */
 async function renderPage (canvas, page) {
   // Obtém contexto 2D do canvas para desenho
