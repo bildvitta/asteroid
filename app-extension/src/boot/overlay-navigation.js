@@ -1,4 +1,4 @@
-import useOverlayNavigation from '@bildvitta/quasar-ui-asteroid/src/composables/use-overlay-navigation'
+import useOverlayNavigation from '@bildvitta/quasar-ui-asteroid/src/composables/use-overlay-navigation.js'
 
 export default async function ({ router }) {
   router.beforeEach((to, from, next) => onBeforeEach(to, from, next, router))
