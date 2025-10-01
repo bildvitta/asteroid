@@ -16,6 +16,7 @@ Caso adicionado no escopo inicial, todos os conteúdos abaixo não serão adicio
 
 ## Não publicado
 ### Corrigido
+- `QasFormGenerator`: corrigido comportamento quando `fields` está vazio, agora não exibe nenhum campo ao invés de exibir todos os campos disponíveis.
 - `QasSelect`: Corrigido cor de foco nas opções durante a navegação com teclado (teclas de seta para cima/baixo).
 - `QasNumericInput`: Corrigido foco do campo, pois quando utilizado via tab, o campo não focava.
 

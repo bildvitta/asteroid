@@ -185,8 +185,11 @@ export default function ({ props = {}, isGrid = false }) {
         __hasFieldset: true
       }
 
-      // Pegar os fields com base na key.
-      const fieldsByfieldsKeys = filterObject(params.fields, fields)
+      /**
+       * Pegar os fields com base na key. É feito essa lógica porque o filterObject no caso de passar um array vazio
+       * para as keys, ele retorna todos os fields, e o comportamento esperado é que retorne um objeto vazio.
+       */
+      const fieldsByfieldsKeys = fields.length ? filterObject(params.fields, fields) : {}
 
       /**
        * Foi adicionado essa lógica para o grid-generator, pois cada field deve ter o "formattedResult", onde o
