@@ -14,6 +14,18 @@ const historyRoute = ref({
   currentIndex: -1
 })
 
+/**
+ * Definição de callbacks locais para esta instância.
+ */
+const callbackFunctions = {
+  onCloseOverlay: () => {},
+  onExpandToFullPage: () => {},
+  onHideOverlay: () => {}
+}
+
+/**
+ * Composable para gerenciar navegação em overlays, sempre que for lidar com overlays utilize esse composable.
+ */
 export default function useOverlayNavigation () {
   // composables
   const route = useRoute()
@@ -63,6 +75,16 @@ export default function useOverlayNavigation () {
    *
    * @param {import('vue-router').RouteLocationNormalized} externalRoute
    * @param {boolean=true} useOverlay
+   *
+   * @example
+   * ```js
+   * const { getRoute } = useOverlayNavigation()
+   *
+   * const route = getRoute({ name: 'MyRoute' }) // { name: 'MyRoute', query: { overlay: true, backgroundOverlay: 'ROTA_ATUAL_CODIFICADA' } }
+   *
+   * router.push(route)
+   * ```
+   *
    * @return {import('vue-router').RouteLocationNormalized}
    */
   function getRoute (externalRoute, useOverlay = true) {
@@ -84,6 +106,10 @@ export default function useOverlayNavigation () {
   function closeOverlay () {
     if (!hasOverlay.value) return
 
+    // callbacks
+    callbackFunctions.onCloseOverlay()
+    callbackFunctions.onHideOverlay()
+
     const query = { ...route.query }
 
     delete query.overlay
@@ -100,6 +126,10 @@ export default function useOverlayNavigation () {
    */
   async function expandToFullPage () {
     if (!hasOverlay.value) return
+
+    // callbacks
+    callbackFunctions.onExpandToFullPage()
+    callbackFunctions.onHideOverlay()
 
     const query = { ...route.query }
 
@@ -122,7 +152,7 @@ export default function useOverlayNavigation () {
 
     const currentRoute = {
       name: to.name,
-      params: to.params || {},
+      params: to.params,
       fullPath: to.fullPath,
       path: to.path,
       query: to.query
@@ -196,19 +226,81 @@ export default function useOverlayNavigation () {
     }
   }
 
+  // callbacks
+  /**
+   * callback para quando o overlay for fechado (exceto ao expandir para tela cheia).
+   *
+   * @example
+   * ```js
+   * const { onCloseOverlay } = useOverlayNavigation()
+   *
+   * onCloseOverlay(() => {
+   *  // Lógica a ser executada quando o overlay for fechado
+   * })
+   * ```
+   */
+  function onCloseOverlay (callback) {
+    callbackFunctions.onCloseOverlay = callback
+  }
+
+  /**
+   * callback para quando o overlay for expandido para tela cheia (exceto ao fechar).
+   *
+   * @example
+   * ```js
+   * const { onExpandToFullPage } = useOverlayNavigation()
+   *
+   * onExpandToFullPage(() => {
+   *  // Lógica a ser executada quando o overlay for expandido para tela cheia
+   * })
+   * ```
+   */
+  function onExpandToFullPage (callback) {
+    callbackFunctions.onExpandToFullPage = callback
+  }
+
+  /**
+   * callback para quando o overlay for ocultado, esta função é chamada tanto ao fechar o overlay
+   * quanto ao expandir para tela cheia.
+   *
+   * @example
+   * ```js
+   * const { onHideOverlay } = useOverlayNavigation()
+   *
+   * onHideOverlay(() => {
+   *   // Lógica a ser executada quando o overlay for ocultado
+   * })
+   * ```
+   */
+  function onHideOverlay (callback) {
+    callbackFunctions.onHideOverlay = callback
+  }
+
   return {
-    route: defaultRoute.value,
+    // consts (inject)
     isOverlay,
+
+    // refs
     historyRoute,
+
+    // computeds
+    backgroundRoute,
     hasNextRoute,
     hasPreviousRoute,
+    isBackgroundOverlay,
+    route: defaultRoute.value, // feito dessa forma para ser usado como o padrão "route" que não tem ".value"
+
+    // functions
     addRouteToHistory,
+    closeOverlay,
+    expandToFullPage,
+    getRoute,
     goBack,
     goForward,
-    getRoute,
-    backgroundRoute,
-    isBackgroundOverlay,
-    closeOverlay,
-    expandToFullPage
+
+    // callbacks functions
+    onCloseOverlay,
+    onExpandToFullPage,
+    onHideOverlay
   }
 }
