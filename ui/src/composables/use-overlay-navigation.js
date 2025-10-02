@@ -43,15 +43,15 @@ export default function useOverlayNavigation () {
   const backgroundRoute = computed(() => route.meta.backgroundRoute || {})
 
   /**
-   * Retorna "true" quando for chamado em uma pagina que está sendo exibida abaixo de um overlay.
-   * Esta propriedade só funciona quando o componente pai não é um overlay.
-   */
-  const isBackgroundOverlay = computed(() => !isOverlay && route.query.overlay === 'true')
-
-  /**
    * Retorna "true" quando a rota atual está em um overlay, não necessariamente sendo o overlay ou background.
    */
   const hasOverlay = computed(() => route.query.overlay === 'true')
+
+  /**
+   * Retorna "true" quando for chamado em uma pagina que está sendo exibida abaixo de um overlay.
+   * Esta propriedade só funciona quando o componente pai não é um overlay.
+   */
+  const isBackgroundOverlay = computed(() => !isOverlay && hasOverlay.value)
 
   /**
    * Computada para ser utilizada tanto no background quanto no overlay, substituindo o uso padrão do "route".
