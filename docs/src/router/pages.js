@@ -9,6 +9,6 @@ export default function () {
 
     const path = filePath.replace(isIndex(fileName) ? /[^/]*$/ : /\.\w+$/, '')
 
-    return { component: () => import(`../pages/${filePath}`), path, meta: { backgroundOverlayName: 'Root' } }
+    return { component: () => import(`../pages/${filePath}`), path }
   })
 }

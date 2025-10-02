@@ -34,13 +34,12 @@
       <router-view />
     </q-page-container>
 
-    <PvLayoutOverlayDrawer />
+    <pv-layout-overlay-drawer />
   </q-layout>
 </template>
 
 <script>
-// TODO: passar path correto quando lançar versão
-import PvLayoutOverlayDrawer from '../../../ui/src/components/layout/private/PvLayoutOverlayDrawer.vue'
+import PvLayoutOverlayDrawer from '@bildvitta/quasar-ui-asteroid/src/components/layout/private/PvLayoutOverlayDrawer.vue'
 
 import { version } from 'asteroid'
 import { createMetaMixin } from 'quasar'

@@ -132,7 +132,7 @@ export default {
     },
 
     useCancelButton: {
-      default: true,
+      default: undefined,
       type: Boolean
     },
 
@@ -181,8 +181,16 @@ export default {
       return this.url ? (`${this.url}/${this.isCreateMode ? 'new' : 'edit'}`) : ''
     },
 
+    /**
+     * O botão de cancelar é mostrado quando:
+     * - A propriedade cancelRoute não está explicitamente definida como false (boolean false)
+     * - E ou useCancelButton é true OU o componente não está em modo overlay
+     */
     hasCancelButton () {
-      return !(typeof this.cancelRoute === 'boolean' && !this.cancelRoute) && this.useCancelButton
+      return (
+        !(typeof this.cancelRoute === 'boolean' && !this.cancelRoute) &&
+        (this.useCancelButton || !this.mx_isOverlay)
+      )
     },
 
     id () {

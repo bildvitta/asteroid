@@ -76,7 +76,7 @@ const router = useRouter()
 useMeta(() => ({ title: props.title }))
 
 // computed
-const hasBreadcrumbs = computed(() => props.useBreadcrumbs && !isOverlay.value)
+const hasBreadcrumbs = computed(() => props.useBreadcrumbs && !isOverlay)
 const transformedBreadcrumbs = computed(() => {
   const list = [...castArray(props.breadcrumbs || props.title)]
 

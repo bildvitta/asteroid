@@ -23,10 +23,7 @@
 </template>
 
 <script setup>
-import QasDrawer from '../../drawer/QasDrawer.vue'
-import QasBtn from '../../btn/QasBtn.vue'
-
-import useOverlayNavigation from '../../../composables/use-overlay-navigation'
+import useOverlayNavigation from '../../../ui/src/composables/use-overlay-navigation'
 
 import { ref, provide, watch } from 'vue'
 import { useRoute } from 'vue-router'

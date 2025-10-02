@@ -1,14 +1,16 @@
 <template>
-  <q-page class="doc-page" padding>
+  <component :is="component.is" v-bind="component.props">
     <div v-if="title" class="row">
       <doc-heading :badge="badge" :title="title" />
     </div>
 
     <slot />
-  </q-page>
+  </component>
 </template>
 
 <script>
+import useOverlayNavigation from '../../../ui/src/composables/use-overlay-navigation'
+
 import { createMetaMixin } from 'quasar'
 
 export default {
@@ -27,6 +29,22 @@ export default {
     title: {
       default: '',
       type: String
+    }
+  },
+
+  computed: {
+    component () {
+      const { isOverlay } = useOverlayNavigation()
+
+      return {
+        is: isOverlay ? 'div' : 'q-page',
+        props: {
+          ...(!isOverlay && {
+            padding: true,
+            class: 'doc-page'
+          })
+        }
+      }
     }
   }
 }
