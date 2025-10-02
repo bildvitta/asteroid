@@ -123,7 +123,6 @@ const defaultBoxProps = computed(() => {
 })
 
 const textComponent = computed(() => {
-
   // Regex para encontrar caracteres que estiverem dentro de [].
   const regex = /\[.*?\]/g
 
@@ -189,7 +188,7 @@ const textComponent = computed(() => {
       }
 
       const getQasBtnRender = () => {
-          return h(
+        return h(
           QasBtn,
           {
             variant: 'tertiary',
