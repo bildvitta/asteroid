@@ -8,7 +8,7 @@ props:
     desc: Props do componente QasBtn.
     default:
       variant: primary
-    type: Object
+    type: [Object, Array]
 
   model-value:
     desc: Model do componente, controla se o componente aparece ou não.
@@ -27,7 +27,7 @@ props:
   router-link-props:
     desc: Propriedades do componente RouterLink.
     default: {}
-    type: Object
+    type: [Object, Array]
 
   text:
     desc: Texto a ser exibido.
