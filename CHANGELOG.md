@@ -15,6 +15,9 @@ Devemos adicionar o comentário `<!-- N/A -->` (Não adicionar), para que não p
 Caso adicionado no escopo inicial, todos os conteúdos abaixo não serão adicionados. Caso adicionado na linha, será considerado apenas ela.
 
 ## Não publicado
+### Adicionado
+- `QasAlert`: Adicionado possibilidade do componente ter vários `QasBtn` ou `RouterLink`.
+
 ### Corrigido
 - `QasFormGenerator`: corrigido comportamento quando `fields` está vazio, agora não exibe nenhum campo ao invés de exibir todos os campos disponíveis.
 - `QasSelect`: Corrigido cor de foco nas opções durante a navegação com teclado (teclas de seta para cima/baixo).
