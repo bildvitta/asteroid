@@ -9,10 +9,6 @@ const routes = [
       useOverlay: true
     },
     children: [
-      // {
-      //   path: 'components',
-      //   redirect: { name: 'Root' }
-      // },
       ...getPages()
     ]
   },

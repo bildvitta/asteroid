@@ -16,11 +16,14 @@ const historyRoute = ref({
 
 /**
  * Definição de callbacks locais para esta instância.
+ * Obs: são arrays para permitir múltiplos callbacks, ex se você usa "onCloseOverlay" em 2 componentes diferentes,
+ * ambos serão executados.
  */
 const callbackFunctions = {
-  onCloseOverlay: () => {},
-  onExpandToFullPage: () => {},
-  onHideOverlay: () => {}
+  onCloseOverlay: [],
+  onExpandToFullPage: [],
+  onHideOverlay: [],
+  onBackgroundChange: []
 }
 
 /**
@@ -107,8 +110,8 @@ export default function useOverlayNavigation () {
     if (!hasOverlay.value) return
 
     // callbacks
-    callbackFunctions.onCloseOverlay()
-    callbackFunctions.onHideOverlay()
+    execCallbackFunctions('onCloseOverlay')
+    execCallbackFunctions('onHideOverlay')
 
     const query = { ...route.query }
 
@@ -128,8 +131,8 @@ export default function useOverlayNavigation () {
     if (!hasOverlay.value) return
 
     // callbacks
-    callbackFunctions.onExpandToFullPage()
-    callbackFunctions.onHideOverlay()
+    execCallbackFunctions('onExpandToFullPage')
+    execCallbackFunctions('onHideOverlay')
 
     const query = { ...route.query }
 
@@ -228,8 +231,53 @@ export default function useOverlayNavigation () {
 
   // callbacks
   /**
+   * @private
+   * @param {string} callbackName - Nome do callback a ser executado.
+   */
+  function execCallbackFunctions (callbackName) {
+    callbackFunctions[callbackName].forEach(fn => fn())
+  }
+
+  /**
+   * Função para disparar mudanças no background componente.
+   *
+   * @param {*} payload - Qualquer tipo de dado que será passado para o callback registrado.
+   * @see {onBackgroundChange}
+   * @example
+   * ```js
+   * const { triggerBackgroundChanges } = useOverlayNavigation()
+   *
+   * // Disparar a mudança
+   * triggerBackgroundChanges({ someData: 123 })
+   * ```
+   */
+  function triggerBackgroundChanges (payload) {
+    callbackFunctions.onBackgroundChange(payload)
+  }
+
+  /**
+   * callback para quando ter alguma mudança no background componente, executado logo após a função
+   * "triggerBackgroundChanges" ser executada.
+   *
+   * @param {Function} callback
+   * @see {triggerBackgroundChanges}
+   * @example
+   * ```js
+   * const { onBackgroundChange } = useOverlayNavigation()
+   *
+   * onBackgroundChange((payload) => {
+   *  // Lógica a ser executada quando o background sofrer alguma mudança
+   * })
+   * ```
+   */
+  function onBackgroundChange (callback) {
+    callbackFunctions.onBackgroundChange.push(callback)
+  }
+
+  /**
    * callback para quando o overlay for fechado (exceto ao expandir para tela cheia).
    *
+   * @param {Function} callback
    * @example
    * ```js
    * const { onCloseOverlay } = useOverlayNavigation()
@@ -240,12 +288,13 @@ export default function useOverlayNavigation () {
    * ```
    */
   function onCloseOverlay (callback) {
-    callbackFunctions.onCloseOverlay = callback
+    callbackFunctions.onCloseOverlay.push(callback)
   }
 
   /**
    * callback para quando o overlay for expandido para tela cheia (exceto ao fechar).
    *
+   * @param {Function} callback
    * @example
    * ```js
    * const { onExpandToFullPage } = useOverlayNavigation()
@@ -256,13 +305,14 @@ export default function useOverlayNavigation () {
    * ```
    */
   function onExpandToFullPage (callback) {
-    callbackFunctions.onExpandToFullPage = callback
+    callbackFunctions.onExpandToFullPage.push(callback)
   }
 
   /**
    * callback para quando o overlay for ocultado, esta função é chamada tanto ao fechar o overlay
    * quanto ao expandir para tela cheia.
    *
+   * @param {Function} callback
    * @example
    * ```js
    * const { onHideOverlay } = useOverlayNavigation()
@@ -273,7 +323,7 @@ export default function useOverlayNavigation () {
    * ```
    */
   function onHideOverlay (callback) {
-    callbackFunctions.onHideOverlay = callback
+    callbackFunctions.onHideOverlay.push(callback)
   }
 
   return {
@@ -297,8 +347,10 @@ export default function useOverlayNavigation () {
     getRoute,
     goBack,
     goForward,
+    triggerBackgroundChanges,
 
     // callbacks functions
+    onBackgroundChange,
     onCloseOverlay,
     onExpandToFullPage,
     onHideOverlay
