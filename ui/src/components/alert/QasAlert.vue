@@ -126,8 +126,10 @@ const textComponent = computed(() => {
   // Regex para encontrar caracteres que estiverem dentro de [].
   const regex = /\[.*?\]/g
 
+  // Encontra todos os matches no texto, ou seja, todas as partes que estiverem dentro de [].
   const matches = props.text.match(regex) || []
 
+  // Se não houver matches, retorna um span simples com o texto.
   if (!matches.length) return h('span', props.text)
 
   let processedText = props.text
@@ -143,6 +145,14 @@ const textComponent = computed(() => {
   // Divide o texto pelos placeholders
   const parts = processedText.split(/\$\d+/)
 
+  /**
+   * Extrai os placeholders ($0, $1, $2...) do texto processado.
+   * Estes marcadores temporários indicam onde cada botão/link deve ser inserido.
+   *
+   * @example
+   * // Texto: "Clique em $0 ou $1"
+   * // Result: ["$0", "$1"]
+   */
   const placeholders = processedText.match(/\$\d+/g) || []
 
   const result = []
@@ -160,10 +170,14 @@ const textComponent = computed(() => {
       // Remove os colchetes do match. Ex: [Clique aqui] para Clique aqui
       const routerLabel = match.replaceAll(/[[\]]/g, '')
 
-      // Determina as props do botão/link baseado no índice
+      // Verifica se as props são arrays
       const isButtonPropsArray = Array.isArray(props.buttonProps)
       const isRouterPropsArray = Array.isArray(props.routerLinkProps)
 
+      /**
+       * Determina as props do botão/link baseado no índice, se as props forem arrays, pega a prop correta pelo índice.
+       * Caso sejam objetos, usa o objeto diretamente.
+       */
       const buttonPropsForIndex = isButtonPropsArray
         ? props.buttonProps[placeholderIndex]
         : props.buttonProps
