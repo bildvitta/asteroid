@@ -12,7 +12,7 @@
           <qas-btn color="grey-10" :disable="!hasNextRoute" icon="sym_r_keyboard_arrow_right" tooltip="Ir para próxima página." @click="goForward" />
         </div>
 
-        <qas-btn color="grey-10" icon="sym_r_zoom_out_map" label="Tela cheia" @click="expandToFullPage" />
+        <qas-btn color="grey-10" icon="sym_r_zoom_out_map" label="Tela cheia" @click="expandOverlay" />
       </div>
     </template>
 
@@ -40,7 +40,7 @@ provide('isOverlay', true)
 const route = useRoute()
 const {
   closeOverlay,
-  expandToFullPage,
+  expandOverlay,
   hasNextRoute,
   hasPreviousRoute,
   goBack,

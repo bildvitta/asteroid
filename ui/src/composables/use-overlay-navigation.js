@@ -21,7 +21,7 @@ const historyRoute = ref({
  */
 const callbackFunctions = {
   onCloseOverlay: [],
-  onExpandToFullPage: [],
+  onExpandOverlay: [],
   onHideOverlay: [],
   onBackgroundChange: []
 }
@@ -96,7 +96,7 @@ export default function useOverlayNavigation () {
       query: {
         ...externalRoute.query,
         overlay: useOverlay,
-        ...(!isOverlay.value && { backgroundOverlay: encodeURIComponent(route.fullPath) }),
+        ...(!isOverlay && { backgroundOverlay: encodeURIComponent(route.fullPath) }),
         ...(route.query.backgroundOverlay && { backgroundOverlay: route.query.backgroundOverlay })
       }
     }
@@ -127,11 +127,11 @@ export default function useOverlayNavigation () {
    * Função para expandir o overlay para tela cheia, removendo as queries e redirecionando para a rota atual.
    * Obs: Essa função não funciona se o componente atual não estiver em um overlay.
    */
-  async function expandToFullPage () {
+  async function expandOverlay () {
     if (!hasOverlay.value) return
 
     // callbacks
-    execCallbackFunctions('onExpandToFullPage')
+    execCallbackFunctions('onExpandOverlay')
     execCallbackFunctions('onHideOverlay')
 
     const query = { ...route.query }
@@ -297,15 +297,15 @@ export default function useOverlayNavigation () {
    * @param {Function} callback
    * @example
    * ```js
-   * const { onExpandToFullPage } = useOverlayNavigation()
+   * const { onExpandOverlay } = useOverlayNavigation()
    *
-   * onExpandToFullPage(() => {
+   * onExpandOverlay(() => {
    *  // Lógica a ser executada quando o overlay for expandido para tela cheia
    * })
    * ```
    */
-  function onExpandToFullPage (callback) {
-    callbackFunctions.onExpandToFullPage.push(callback)
+  function onExpandOverlay (callback) {
+    callbackFunctions.onExpandOverlay.push(callback)
   }
 
   /**
@@ -343,7 +343,7 @@ export default function useOverlayNavigation () {
     // functions
     addRouteToHistory,
     closeOverlay,
-    expandToFullPage,
+    expandOverlay,
     getRoute,
     goBack,
     goForward,
@@ -352,7 +352,7 @@ export default function useOverlayNavigation () {
     // callbacks functions
     onBackgroundChange,
     onCloseOverlay,
-    onExpandToFullPage,
+    onExpandOverlay,
     onHideOverlay
   }
 }

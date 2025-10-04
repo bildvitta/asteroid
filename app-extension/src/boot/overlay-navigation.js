@@ -13,9 +13,30 @@ async function onBeforeEach (to, from, next, router) {
 
   addRouteToHistory(to, from)
 
-  const lastToMatchedIndex = to.matched.length - 1
+  const matchedSize = to.matched.length
+  /**
+   * Se houver mais de 2 níveis de rota, isto significa que esta rota tem 2 componentes pais, (sendo o primeiro o Root),
+   * nestes cenários, o componente overlay precisa ser o segundo componente pai, para renderizar de forma completa.
+   * Vamos supor o seguinte cenário: tenho uma lista de contatos, ao clicar em um contato, abro o overlay com o
+   * detalhe do contato, porém o detalhe do contato também possui um layout com rotas filhas, como "Resumo", neste
+   * cenário, o overlay precisa ser o componente pai do "detalhe" e não somente o resumo.
+   *
+   * @example
+   * [
+   *  {
+   *    "path": "/"
+   *  },
+   *  {
+   *    "path": "/customers/:id" -> componente que precisa ser o overlay
+   *  },
+   *  {
+   *    "path": "/customers/:id/summary"
+   *  }
+   * ]
+   */
+  const matchedIndex = matchedSize > 1 ? matchedSize - 1 : 0
 
-  const { overlay, default: defaultComponent } = to.matched[lastToMatchedIndex]?.components || {}
+  const { overlay, default: defaultComponent } = to.matched[matchedIndex]?.components || {}
 
   const overlayComponent = await getResolvedComponent(overlay || defaultComponent)
 
@@ -33,13 +54,13 @@ async function onBeforeEach (to, from, next, router) {
         query: resolvedRoute?.query || {}
       }
 
-      to.matched[lastToMatchedIndex].components = {
+      to.matched[matchedIndex].components = {
         default: backgroundComponent,
         overlay: overlayComponent
       }
     }
   } else {
-    to.matched[lastToMatchedIndex].components = {
+    to.matched[matchedIndex].components = {
       default: overlayComponent
     }
   }
