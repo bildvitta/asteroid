@@ -13,7 +13,6 @@ async function onBeforeEach (to, from, next, router) {
 
   addRouteToHistory(to, from)
 
-  const matchedSize = to.matched.length
   /**
    * Se houver mais de 2 níveis de rota, isto significa que esta rota tem 2 componentes pais, (sendo o primeiro o Root),
    * nestes cenários, o componente overlay precisa ser o segundo componente pai, para renderizar de forma completa.
@@ -34,7 +33,7 @@ async function onBeforeEach (to, from, next, router) {
    *  }
    * ]
    */
-  const matchedIndex = matchedSize > 1 ? matchedSize - 1 : 0
+  const matchedIndex = to.matched.length > 1 ? 1 : 0
 
   const { overlay, default: defaultComponent } = to.matched[matchedIndex]?.components || {}
 
