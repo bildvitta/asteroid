@@ -1,6 +1,6 @@
 <template>
-  <div class="inline-block qas-alert">
-    <qas-box v-if="displayAlert" v-bind="defaultBoxProps">
+  <div v-if="displayAlert" class="inline-block qas-alert">
+    <component :is="component">
       <div class="flex items-center no-wrap">
         <div class="flex items-center no-wrap text-body1 text-grey-8">
           <q-icon v-bind="iconProps" />
@@ -23,7 +23,7 @@
 
         <qas-btn v-if="useCloseButton" class="q-ml-sm" color="grey-10" icon="sym_r_close" variant="tertiary" @click="close" />
       </div>
-    </qas-box>
+    </component>
   </div>
 </template>
 
@@ -110,16 +110,13 @@ const iconProps = computed(() => {
  * Por padrão, quando este componente estiver dentro de um QasBox ou QasDialog, ele não terá
  * shadow, terá padding e não terá margin.
  */
-const defaultBoxProps = computed(() => {
+const component = computed(() => {
   const hasBoxProps = props.useBox !== undefined
 
   // Se não tiver a prop useBox, assume que está dentro de um QasBox ou QasDialog
   const useBox = hasBoxProps ? props.useBox : !isBox && !isDialog
 
-  return {
-    unelevated: !useBox,
-    useSpacing: useBox
-  }
+  return useBox ? QasBox : 'div'
 })
 
 const textComponent = computed(() => {

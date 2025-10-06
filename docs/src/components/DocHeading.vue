@@ -2,12 +2,17 @@
   <div class="doc-heading">
     <component :is="tag" :id="titleId" ref="parentComponent" class="doc-heading__title" :class="titleClass">
       <slot>{{ title }}</slot>
+
       <q-badge v-if="badge" class="doc-heading__badge q-ml-sm" color="brand-primary" :label="badge" />
+
+      <q-btn v-if="hasOverlayButton" class="q-ml-sm" color="primary" label="Abrir em overlay" outline size="sm" :to="overlayNavigation.getRoute({ name: $route.name })" unelevated />
     </component>
   </div>
 </template>
 
 <script>
+import { useOverlayNavigation } from '@bildvitta/quasar-ui-asteroid/src/composables'
+
 export default {
   props: {
     badge: {
@@ -31,7 +36,8 @@ export default {
 
   data () {
     return {
-      titleId: ''
+      titleId: '',
+      overlayNavigation: useOverlayNavigation()
     }
   },
 
@@ -42,6 +48,10 @@ export default {
 
     titleClass () {
       return `doc-heading__title--level-${this.level}`
+    },
+
+    hasOverlayButton () {
+      return this.level === 1 && !this.overlayNavigation.isOverlay
     }
   },
 
