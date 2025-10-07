@@ -16,6 +16,7 @@ Caso adicionado no escopo inicial, todos os conteúdos abaixo não serão adicio
 
 ## Não publicado
 ### Adicionado
+- `QasAlert`: Adicionado possibilidade do componente ter vários `QasBtn` ou `RouterLink`.
 - `QasPdfViewer`: adicionado componente para renderização de documentos PDF diretamente no navegador com estados de loading, erro e suporte a múltiplas páginas.
 
 ### Corrigido
