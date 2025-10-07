@@ -142,8 +142,14 @@ const textComponent = computed(() => {
     processedText = processedText.replace(match, `$${index}`)
   })
 
-  // Divide o texto pelos placeholders
-  const parts = processedText.split(/\$\d+/)
+  /**
+   * Divide o texto pelos placeholders, separando em segmentos de texto puro.
+   *
+   * @example
+   * // Texto: "Clique em $0 ou $1"
+   * // Result: ["Clique em ", " ou ", ""]
+   */
+  const textSegments = processedText.split(/\$\d+/)
 
   /**
    * Extrai os placeholders ($0, $1, $2...) do texto processado.
@@ -157,9 +163,10 @@ const textComponent = computed(() => {
 
   const result = []
 
-  parts.forEach((part, index) => {
-    if (part) result.push(part)
+  textSegments.forEach((segment, index) => {
+    if (segment) result.push(segment)
 
+    // Verifica se existe um placeholder para ser processado na posição atual.
     if (index < placeholders.length) {
       // Pega o índice do placeholder para encontrar o match correto
       const placeholderIndex = parseInt(placeholders[index].replace('$', ''))
@@ -212,6 +219,20 @@ const textComponent = computed(() => {
         )
       }
 
+      /**
+       * Cria um render do router link ou QasBtn
+       *
+       * @example
+       *
+       * ```html
+       * <router-link
+       *  class="text-primary text-subtitle1 qas-alert__link"
+       *  :to="props.route"
+       * >
+       *  Clique aqui
+       * </router-link>
+       * ```
+       */
       result.push(hasButtonProps ? getQasBtnRender() : getRouterLinkRender())
     }
   })
