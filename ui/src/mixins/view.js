@@ -133,6 +133,7 @@ export default {
     },
 
     mx_updateModels (models) {
+      console.log('TCL: mx_updateModels -> models', models)
       for (const key in models) {
         if (!models[key]) continue
 

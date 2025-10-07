@@ -90,12 +90,37 @@ async function onBeforeEach (to, from, next, router) {
 
     if (backgroundPath) {
       try {
-        const resolvedRoute = router.resolve(decodeURIComponent(backgroundPath))
+        /**
+         * A url pode vir com query, ex: "/customers?tab=info", então precisamos separar a query para repassar depois.
+         *
+         * @example
+         * const normalizedURL = decodeURIComponent(backgroundPath) // "/customers?tab=info"
+         * const queryString = normalizedURL.split('?')[1] // "tab=info"
+         * const queryParams = normalizedURL ? new URLSearchParams(queryString) : {} // URLSearchParams { tab: 'info' }
+         */
+        const normalizedURL = decodeURIComponent(backgroundPath)
+        const queryString = normalizedURL.split('?')[1]
+        const queryParams = normalizedURL ? new URLSearchParams(queryString) : {}
+
+        const queryObject = {}
+
+        queryParams.forEach((value, key) => {
+          queryObject[key] = value
+        })
+
+        const resolvedRoute = router.resolve(normalizedURL)
 
         const component = await getComponentByRoute(resolvedRoute)
 
         if (component) {
-          return { component, resolvedRoute }
+          return {
+            component,
+            resolvedRoute: {
+              ...resolvedRoute,
+              query: queryObject,
+              params: resolvedRoute.params
+            }
+          }
         }
       } catch {
         return null

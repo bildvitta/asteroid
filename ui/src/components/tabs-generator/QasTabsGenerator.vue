@@ -23,7 +23,8 @@ import QasStatus from '../status/QasStatus.vue'
 
 import { decimal } from '../../helpers'
 
-import { computed } from 'vue'
+import { computed, watch } from 'vue'
+import { useRoute } from 'vue-router'
 import { extend, QRouteTab, QTab } from 'quasar'
 
 defineOptions({ name: 'QasTabsGenerator' })
@@ -45,12 +46,21 @@ const props = defineProps({
     type: [Object, Array]
   },
 
+  querySlug: {
+    default: 'status',
+    type: String
+  },
+
   useRouteTab: {
     type: Boolean
   }
 })
 
+// emits
 const emit = defineEmits(['update:modelValue'])
+
+// composables
+const route = useRoute()
 
 // computed
 const model = computed({
@@ -82,6 +92,13 @@ const formattedTabs = computed(() => {
 })
 
 const tabComponent = computed(() => props.useRouteTab ? QRouteTab : QTab)
+
+// watch
+watch(() => route.query[props.querySlug], newValue => {
+  if (newValue && newValue !== model.value) {
+    // model.value = newValue
+  }
+}, { immediate: true })
 
 // functions
 function getFormattedLabel ({ label, counter, value }) {

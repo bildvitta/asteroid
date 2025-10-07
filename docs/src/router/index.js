@@ -16,9 +16,14 @@ export default route(function (/* { store, ssrContext } */) {
 
     routes,
 
-    scrollBehavior: (to, _, savedPosition) => (
-      to.hash.length > 1 ? false : (savedPosition || { left: 0, top: 0 })
-    )
+    scrollBehavior (to, from, savedPosition) {
+      console.log('TCL: scrollBehavior -> to, from, savedPosition', to, from, savedPosition)
+      return savedPosition || { top: 0 }
+    }
+    // scrollBehavior: (to, _, savedPosition) => (
+    //   savedPosition || { top: 0 }
+    //   // to.hash.length > 1 ? false : (savedPosition || { left: 0, top: 0 })
+    // )
   })
 
   return Router
