@@ -132,8 +132,8 @@ export default {
 
     masks () {
       return {
-        [Masks.CompanyDocument]: () => '##.###.###/####-##',
-        [Masks.Document]: () => this.toggleMask('###.###.###-###', '##.###.###/####-##'),
+        [Masks.CompanyDocument]: () => 'XX.XXX.XXX/XXXX-##',
+        [Masks.Document]: () => this.toggleDocumentMask('XXX.XXX.XXX-XXX', 'XX.XXX.XXX/XXXX-##'),
         [Masks.PersonalDocument]: () => '###.###.###-##',
         [Masks.Phone]: () => this.toggleMask('(##) ####-#####', '(##) #####-####'),
         [Masks.PostalCode]: () => '#####-###'
@@ -144,8 +144,8 @@ export default {
       const { inputmode, type } = this.$attrs
 
       const defaults = {
-        [Masks.CompanyDocument]: 'numeric',
-        [Masks.Document]: 'numeric',
+        [Masks.CompanyDocument]: 'text',
+        [Masks.Document]: 'text',
         [Masks.PersonalDocument]: 'numeric',
         [Masks.Phone]: 'tel',
         [Masks.PostalCode]: 'numeric',
@@ -273,9 +273,20 @@ export default {
       return this.inputReference.resetValidation()
     },
 
-    toggleMask (first, second) {
-      const length = first.split('#').length - 2
+    toggleMask (first, second, character = '#') {
+      const length = first.split(character).length - 2
+
       return this.modelValue?.length > length ? second : first
+    },
+
+    toggleDocumentMask (firstMask, secondMask) {
+      const regex = /[a-zA-Z]/
+      const containsLyrics = regex.test(this.modelValue)
+
+      // Caso contenha letras, aplica a máscara de CNPJ
+      if (containsLyrics) return secondMask
+
+      return this.toggleMask(firstMask, secondMask, 'X')
     },
 
     validate (value) {
