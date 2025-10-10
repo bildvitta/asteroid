@@ -414,11 +414,7 @@ export default {
           ...externalPayload
         }
 
-        const response = await getAction.call(this, {
-          entity: this.entity,
-          key: this.mode,
-          payload
-        })
+        const response = await this.handleSubmitAction(payload)
 
         const modelValue = { ...this.modelValue, ...response.data.result }
 
@@ -475,6 +471,33 @@ export default {
       this.ignoreRouterGuard = this.id === id && this.entity === entity
     },
 
+    getFormattedURL (payload, { isSubmit = false } = {}) {
+      const { url: customURL } = payload
+      const decamelizedEntity = decamelize(this.entity, { separator: '-' })
+
+      /**
+       * Utiliza a URL passada via prop, ou monta a URL baseada na entity e id.
+       */
+      const baseURL = this.url || (this.id ? `${decamelizedEntity}/${this.id}` : decamelizedEntity)
+
+      /**
+       * Utiliza a customURL que pode vir via payload, no caso de um beforeSubmit por exemplo
+       * Caso for uma ação de submit, retorna a customURL ou a baseURL (sem o mode new ou edit).
+       */
+      if (isSubmit) {
+        console.log('to caindo no if')
+        return customURL || baseURL
+      }
+
+      const mode = this.isCreateMode ? 'new' : 'edit'
+
+      /**
+       * Utiliza a customURL que pode vir via payload, no caso de um beforeFetch por exemplo,
+       * ou então concatena a baseURL com o mode (new ou edit).
+       */
+      return customURL || `${baseURL}/${mode}`
+    },
+
     handleFetchAction (payload) {
       if (this.useStore) {
         return getAction.call(this, {
@@ -484,20 +507,41 @@ export default {
         })
       }
 
-      const { id: unusedID, url: customURL, form: unusedForm, ...externalPayload } = payload
-
-      const decamelizedEntity = decamelize(this.entity, { separator: '-' })
-      /**
-       * Utiliza a URL passada via prop, ou monta a URL baseada na entity e id.
-       */
-      const baseURL = this.url || (this.id ? `${decamelizedEntity}/${this.id}` : decamelizedEntity)
-      const mode = this.isCreateMode ? 'new' : 'edit'
+      const { id: unusedID, url: unusedURL, form: unusedForm, ...externalPayload } = payload
 
       /**
-       * Utiliza a customURL que pode vir via payload, no caso de um beforeFetch por exemplo,
-       * ou então concatena a baseURL com o mode (new ou edit).
+       * Formata a url com base em mode, entity, url via props, etc
        */
-      return this.$axios.get(customURL || `${baseURL}/${mode}`, { ...externalPayload })
+      const fetchURL = this.getFormattedURL(payload)
+
+      return this.$axios.get(fetchURL, { ...externalPayload })
+    },
+
+    handleSubmitAction (payload) {
+      if (this.useStore) {
+        return getAction.call(this, {
+          entity: this.entity,
+          key: this.mode,
+          payload
+        })
+      }
+
+      const methods = {
+        create: 'post',
+        update: 'patch',
+        replace: 'put'
+      }
+
+      /**
+       * Formata a url com base em mode, entity, url via props, etc
+       */
+      const url = this.getFormattedURL(payload, { isSubmit: true })
+
+      return this.$axios({
+        method: methods[this.mode],
+        url,
+        data: this.modelValue
+      })
     }
   }
 }

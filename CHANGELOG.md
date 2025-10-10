@@ -14,6 +14,10 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 Devemos adicionar o comentário `<!-- N/A -->` (Não adicionar), para que não precise adicionar um item do changelog ao lançar uma nova versão stable.
 Caso adicionado no escopo inicial, todos os conteúdos abaixo não serão adicionados. Caso adicionado na linha, será considerado apenas ela.
 
+## Não publicado
+### Adicionado
+- `QasFormView`: Adicionado propriedade `use-store` para dar a possibilidade de utilizar o componente sem a store do vuex/pinia.
+
 ## [3.19.0-beta.8] - 07-10-2025
 ### Adicionado
 - `QasAlert`: Adicionado possibilidade do componente ter vários `QasBtn` ou `RouterLink`.

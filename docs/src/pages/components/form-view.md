@@ -7,6 +7,12 @@ Componente para C.R.U.D. responsável pela pela criação (Create) e edição (U
 <doc-api file="form-view/QasFormView" name="QasFormView" />
 
 :::danger
+#### useStore
+- Utilize esta propriedade como "false" apenas em casos específicos como quando precisar utilizar este componente dentro de um dialog.
+- Caso esteja usando "useStore" como "false", e esteja passando a propriedade "entity", o componente tentará criar uma url automaticamente transformando entity em `kebab-case` e concatenando com o id da URL caso exista, é possível sobrescrever passando a prop "url".
+:::
+
+:::danger
 ###### Propriedade "useNotifySuccess"
 Desative as notificações de sucesso apenas em situações particulares, como, por exemplo, em um 'stepper' no qual não é apropriado mostrar uma notificação de sucesso enquanto o processo ainda não atingiu a etapa final.
 :::
