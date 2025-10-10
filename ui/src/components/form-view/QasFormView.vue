@@ -144,6 +144,11 @@ export default {
     useSubmitButton: {
       default: true,
       type: Boolean
+    },
+
+    useStore: {
+      type: Boolean,
+      default: true
     }
   },
 
@@ -287,11 +292,7 @@ export default {
           ...externalPayload
         }
 
-        const response = await getAction.call(this, {
-          entity: this.entity,
-          key: 'fetchSingle',
-          payload
-        })
+        const response = await this.handleGetAction(payload)
 
         const { errors, fields, metadata, result } = response.data
 
@@ -471,6 +472,20 @@ export default {
 
     setIgnoreRouterGuard ({ detail: { id, entity } }) {
       this.ignoreRouterGuard = this.id === id && this.entity === entity
+    },
+
+    handleGetAction (payload) {
+      if (this.useStore) {
+        return getAction.call(this, {
+          entity: this.entity,
+          key: 'fetchSingle',
+          payload
+        })
+      }
+
+      console.log(payload, '<-- payload')
+
+      // return this.$axios.get(this.fetchURL, { ...externalPayload })
     }
   }
 }
