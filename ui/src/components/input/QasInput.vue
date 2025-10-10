@@ -132,10 +132,15 @@ export default {
 
     masks () {
       return {
-        [Masks.CompanyDocument]: () => '##.###.###/####-##',
-        [Masks.Document]: () => this.toggleMask('###.###.###-###', '##.###.###/####-##'),
+        [Masks.CompanyDocument]: () => 'XX.XXX.XXX/XXXX-##',
+
+        [Masks.Document]: () => this.toggleDocumentMask({
+          firstMask: 'XXX.XXX.XXX-XXX',
+          secondMask: 'XX.XXX.XXX/XXXX-##'
+        }),
+
         [Masks.PersonalDocument]: () => '###.###.###-##',
-        [Masks.Phone]: () => this.toggleMask('(##) ####-#####', '(##) #####-####'),
+        [Masks.Phone]: () => this.toggleMask({ firstMask: '(##) ####-#####', secondMask: '(##) #####-####' }),
         [Masks.PostalCode]: () => '#####-###'
       }
     },
@@ -144,8 +149,8 @@ export default {
       const { inputmode, type } = this.$attrs
 
       const defaults = {
-        [Masks.CompanyDocument]: 'numeric',
-        [Masks.Document]: 'numeric',
+        [Masks.CompanyDocument]: 'text',
+        [Masks.Document]: 'text',
         [Masks.PersonalDocument]: 'numeric',
         [Masks.Phone]: 'tel',
         [Masks.PostalCode]: 'numeric',
@@ -273,9 +278,34 @@ export default {
       return this.inputReference.resetValidation()
     },
 
-    toggleMask (first, second) {
-      const length = first.split('#').length - 2
-      return this.modelValue?.length > length ? second : first
+    /**
+     * Com base na quantidade de caracteres digitados, alterna entre duas máscaras.
+     * @param {Object} params
+     * @param {string} params.firstMask - Máscara inicial (ex: CPF -> ###.###.###-##)
+     * @param {string} params.secondMask - Máscara secundária (ex: CNPJ -> XX.XXX.XXX/XXXX-##)
+     * @param {string} [params.character='#'] - Token da máscara
+     */
+    toggleMask ({ firstMask, secondMask, character = '#' }) {
+      const length = firstMask.split(character).length - 2
+
+      return this.modelValue?.length > length ? secondMask : firstMask
+    },
+
+    /**
+     * Com base na quantidade de caracteres digitados, alterna entre duas máscaras de CPF e CNPJ.
+     * @param {Object} params
+     * @param {string} params.firstMask - Máscara inicial -> ###.###.###-##
+     * @param {string} params.secondMask - Máscara secundária -> XX.XXX.XXX/XXXX-##
+     */
+    toggleDocumentMask ({ firstMask, secondMask }) {
+      // Verifica se tem letras no model.
+      const regex = /[a-zA-Z]/
+      const containsLyrics = regex.test(this.modelValue)
+
+      // Caso contenha letras, aplica a máscara de CNPJ, pois o CPF não possui letras.
+      if (containsLyrics) return secondMask
+
+      return this.toggleMask({ firstMask, secondMask, character: 'X' })
     },
 
     validate (value) {

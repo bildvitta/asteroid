@@ -15,13 +15,16 @@ Devemos adicionar o comentário `<!-- N/A -->` (Não adicionar), para que não p
 Caso adicionado no escopo inicial, todos os conteúdos abaixo não serão adicionados. Caso adicionado na linha, será considerado apenas ela.
 
 ## Não publicado
+### Modificado
+- `QasInput`: Modificado máscara de CNPJ para aceitar letras conforme o novo padrão.
+
 ### Corrigido
 - `QasGridGenerator`: Corrigido container de fields no qual não respeitava o tamanho do container pai.
 
 ## [3.19.0-beta.8] - 07-10-2025
 ### Adicionado
 - `QasAlert`: Adicionado possibilidade do componente ter vários `QasBtn` ou `RouterLink`.
-- `QasPdfViewer`: adicionado componente para renderização de documentos PDF diretamente no navegador com estados de loading, erro e suporte a múltiplas páginas.
+- `QasPdfViewer`: Adicionado componente para renderização de documentos PDF diretamente no navegador com estados de loading, erro e suporte a múltiplas páginas.
 
 ### Corrigido
 - `QasSingleView`: corrigido problema do loading travar a tela toda no dialog, foi resolvido adicionando classe "relative-position" no container. ([#1342](https://github.com/bildvitta/asteroid/issues/1342))
