@@ -18,6 +18,9 @@ Caso adicionado no escopo inicial, todos os conteúdos abaixo não serão adicio
 ### Modificado
 - `QasInput`: Modificado máscara de CNPJ para aceitar letras conforme o novo padrão.
 
+### Corrigido
+- `QasGridGenerator`: Corrigido container de fields no qual não respeitava o tamanho do container pai.
+
 ## [3.19.0-beta.8] - 07-10-2025
 ### Adicionado
 - `QasAlert`: Adicionado possibilidade do componente ter vários `QasBtn` ou `RouterLink`.
