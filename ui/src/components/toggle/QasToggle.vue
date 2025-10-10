@@ -1,5 +1,11 @@
 <template>
-  <q-toggle class="qas-toggle" v-bind="attrs" dense />
+  <div class="row">
+    <span v-if="props.title" class="col-12 q-mb-xs text-caption">
+      {{ props.title }}
+    </span>
+
+    <q-toggle class="qas-toggle" v-bind="attrs" dense />
+  </div>
 </template>
 
 <script setup>
@@ -10,6 +16,14 @@ defineOptions({
   inheritAttrs: false
 })
 
+const props = defineProps({
+  title: {
+    type: String,
+    default: ''
+  }
+})
+
+// composables
 const attrs = useAttrs()
 </script>
 
