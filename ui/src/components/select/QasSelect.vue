@@ -186,7 +186,7 @@ export default {
       const { useChips, ...attrs } = this.$attrs
 
       return {
-        clearable: this.isSearchable,
+        clearable: !this.required,
         emitValue: true,
         mapOptions: true,
         outlined: this.useFilterMode,
