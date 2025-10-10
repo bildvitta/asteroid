@@ -43,6 +43,7 @@ import { NotifyError, NotifySuccess } from '../../plugins'
 import { useHistory } from '../../composables'
 import { viewMixin } from '../../mixins'
 
+import { decamelize } from 'humps'
 import debug from 'debug'
 import { extend } from 'quasar'
 import { getAction } from '@bildvitta/store-adapter'
@@ -292,7 +293,7 @@ export default {
           ...externalPayload
         }
 
-        const response = await this.handleGetAction(payload)
+        const response = await this.handleFetchAction(payload)
 
         const { errors, fields, metadata, result } = response.data
 
@@ -474,7 +475,7 @@ export default {
       this.ignoreRouterGuard = this.id === id && this.entity === entity
     },
 
-    handleGetAction (payload) {
+    handleFetchAction (payload) {
       if (this.useStore) {
         return getAction.call(this, {
           entity: this.entity,
@@ -483,9 +484,20 @@ export default {
         })
       }
 
-      console.log(payload, '<-- payload')
+      const { id: unusedID, url: customURL, form: unusedForm, ...externalPayload } = payload
 
-      // return this.$axios.get(this.fetchURL, { ...externalPayload })
+      const decamelizedEntity = decamelize(this.entity, { separator: '-' })
+      /**
+       * Utiliza a URL passada via prop, ou monta a URL baseada na entity e id.
+       */
+      const baseURL = this.url || (this.id ? `${decamelizedEntity}/${this.id}` : decamelizedEntity)
+      const mode = this.isCreateMode ? 'new' : 'edit'
+
+      /**
+       * Utiliza a customURL que pode vir via payload, no caso de um beforeFetch por exemplo,
+       * ou então concatena a baseURL com o mode (new ou edit).
+       */
+      return this.$axios.get(customURL || `${baseURL}/${mode}`, { ...externalPayload })
     }
   }
 }
