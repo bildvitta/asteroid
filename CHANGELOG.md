@@ -16,10 +16,10 @@ Caso adicionado no escopo inicial, todos os conteúdos abaixo não serão adicio
 
 ## Não publicado
 ### Adicionado
-- `QasToggle`: Adicionado prop `title` para ter a possibilidade de ter um título acima do toggle.
+- `QasToggle`: Adicionado prop `title` para ter a possibilidade de ter um título acima do toggle. [[#1316](https://github.com/bildvitta/asteroid/issues/1316)]
 
 ### Modificado
-- `QasSelect`: Modificado para utilizar o `clearable` (botão de remover seleção) por padrão quando o campo **não for required**, antes estava apenas quando o campo tinha opção de pesquisar.
+- `QasSelect`: Modificado para utilizar o `clearable` (botão de remover seleção) por padrão quando o campo **não for required**, antes estava apenas quando o campo tinha opção de pesquisar. [[#1394](https://github.com/bildvitta/asteroid/issues/1394)]
 
 ## [3.19.0-beta.9] - 10-10-2025
 ### Modificado
