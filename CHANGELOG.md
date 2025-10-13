@@ -18,10 +18,17 @@ Caso adicionado no escopo inicial, todos os conteúdos abaixo não serão adicio
 ### Adicionado
 - `QasFormView`: Adicionado propriedade `use-store` para dar a possibilidade de utilizar o componente sem a store do vuex/pinia.
 
+## [3.19.0-beta.9] - 10-10-2025
+### Modificado
+- `QasInput`: Modificado máscara de CNPJ para aceitar letras conforme o novo padrão.
+
+### Corrigido
+- `QasGridGenerator`: Corrigido container de fields no qual não respeitava o tamanho do container pai.
+
 ## [3.19.0-beta.8] - 07-10-2025
 ### Adicionado
 - `QasAlert`: Adicionado possibilidade do componente ter vários `QasBtn` ou `RouterLink`.
-- `QasPdfViewer`: adicionado componente para renderização de documentos PDF diretamente no navegador com estados de loading, erro e suporte a múltiplas páginas.
+- `QasPdfViewer`: Adicionado componente para renderização de documentos PDF diretamente no navegador com estados de loading, erro e suporte a múltiplas páginas.
 
 ### Corrigido
 - `QasSingleView`: corrigido problema do loading travar a tela toda no dialog, foi resolvido adicionando classe "relative-position" no container. ([#1342](https://github.com/bildvitta/asteroid/issues/1342))
@@ -4358,3 +4365,4 @@ Adicionado suporte para Pinia/Vuex Seguindo os padrões da biblioteca `@bildvitt
 [3.19.0-beta.6]: https://github.com/bildvitta/asteroid/compare/v3.19.0-beta.6-alpha.7...v3.19.0-beta.6?expand=1
 [3.19.0-beta.7]: https://github.com/bildvitta/asteroid/compare/v3.19.0-beta.6...v3.19.0-beta.7?expand=1
 [3.19.0-beta.8]: https://github.com/bildvitta/asteroid/compare/v3.19.0-beta.8-alpha.11...v3.19.0-beta.8?expand=1
+[3.19.0-beta.9]: https://github.com/bildvitta/asteroid/compare/v3.19.0-beta.8...v3.19.0-beta.9?expand=1
