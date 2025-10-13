@@ -16,9 +16,25 @@ Caso adicionado no escopo inicial, todos os conteúdos abaixo não serão adicio
 
 ## Não publicado
 ### Corrigido
-- `QasSelect`: 
-  - Corrigido cor de foco nas opções durante a navegação com teclado (teclas de seta para cima/baixo).
-  - Corrigido uso de badges na opção, no qual quebrava quando utilizado como objeto ao invés de função. ([#1329](https://github.com/bildvitta/asteroid/issues/1329))
+- `QasSelect`: Corrigido uso de badges na opção, no qual quebrava quando utilizado como objeto ao invés de função. ([#1329](https://github.com/bildvitta/asteroid/issues/1329))
+
+
+## [3.19.0-beta.9] - 10-10-2025
+### Modificado
+- `QasInput`: Modificado máscara de CNPJ para aceitar letras conforme o novo padrão.
+
+### Corrigido
+- `QasGridGenerator`: Corrigido container de fields no qual não respeitava o tamanho do container pai.
+
+## [3.19.0-beta.8] - 07-10-2025
+### Adicionado
+- `QasAlert`: Adicionado possibilidade do componente ter vários `QasBtn` ou `RouterLink`.
+- `QasPdfViewer`: Adicionado componente para renderização de documentos PDF diretamente no navegador com estados de loading, erro e suporte a múltiplas páginas.
+
+### Corrigido
+- `QasSingleView`: corrigido problema do loading travar a tela toda no dialog, foi resolvido adicionando classe "relative-position" no container. ([#1342](https://github.com/bildvitta/asteroid/issues/1342))
+- `QasFormGenerator`: corrigido comportamento quando `fields` está vazio, agora não exibe nenhum campo ao invés de exibir todos os campos disponíveis. ([#1361](https://github.com/bildvitta/asteroid/issues/1361))
+- `QasSelect`: Corrigido cor de foco nas opções durante a navegação com teclado (teclas de seta para cima/baixo).
 - `QasNumericInput`: Corrigido foco do campo, pois quando utilizado via tab, o campo não focava.
 
 ## [3.19.0-beta.7] - 26-09-2025
@@ -4349,3 +4365,5 @@ Adicionado suporte para Pinia/Vuex Seguindo os padrões da biblioteca `@bildvitt
 [3.19.0-beta.5]: https://github.com/bildvitta/asteroid/compare/v3.19.0-beta.5-alpha.0...v3.19.0-beta.5?expand=1
 [3.19.0-beta.6]: https://github.com/bildvitta/asteroid/compare/v3.19.0-beta.6-alpha.7...v3.19.0-beta.6?expand=1
 [3.19.0-beta.7]: https://github.com/bildvitta/asteroid/compare/v3.19.0-beta.6...v3.19.0-beta.7?expand=1
+[3.19.0-beta.8]: https://github.com/bildvitta/asteroid/compare/v3.19.0-beta.8-alpha.11...v3.19.0-beta.8?expand=1
+[3.19.0-beta.9]: https://github.com/bildvitta/asteroid/compare/v3.19.0-beta.8...v3.19.0-beta.9?expand=1

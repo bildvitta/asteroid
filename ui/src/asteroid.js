@@ -58,6 +58,7 @@ export const QasPageHeader = defineAsyncComponent(() => import('./components/pag
 export const QasPagination = defineAsyncComponent(() => import('./components/pagination/QasPagination.vue'))
 export const QasPasswordInput = defineAsyncComponent(() => import('./components/password-input/QasPasswordInput.vue'))
 export const QasPasswordStrengthChecker = defineAsyncComponent(() => import('./components/password-strength-checker/QasPasswordStrengthChecker.vue'))
+export const QasPdfViewer = defineAsyncComponent(() => import('./components/pdf-viewer/QasPdfViewer.vue'))
 export const QasProfile = defineAsyncComponent(() => import('./components/profile/QasProfile.vue'))
 export const QasResizer = defineAsyncComponent(() => import('./components/resizer/QasResizer.vue'))
 export const QasRadio = defineAsyncComponent(() => import('./components/radio/QasRadio.vue'))
