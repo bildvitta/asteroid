@@ -18,7 +18,6 @@ Caso adicionado no escopo inicial, todos os conteúdos abaixo não serão adicio
 ### Corrigido
 - `QasSelect`: Corrigido uso de badges na opção, no qual quebrava quando utilizado como objeto ao invés de função. ([#1329](https://github.com/bildvitta/asteroid/issues/1329))
 
-
 ## [3.19.0-beta.9] - 10-10-2025
 ### Modificado
 - `QasInput`: Modificado máscara de CNPJ para aceitar letras conforme o novo padrão.
