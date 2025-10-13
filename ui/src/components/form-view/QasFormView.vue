@@ -485,7 +485,6 @@ export default {
        * Caso for uma ação de submit, retorna a customURL ou a baseURL (sem o mode new ou edit).
        */
       if (isSubmit) {
-        console.log('to caindo no if')
         return customURL || baseURL
       }
 
