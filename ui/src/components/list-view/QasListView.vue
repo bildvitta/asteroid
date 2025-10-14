@@ -46,6 +46,7 @@ import QasFilters from '../filters/QasFilters.vue'
 import QasPagination from '../pagination/QasPagination.vue'
 
 import { viewMixin, contextMixin } from '../../mixins'
+import { useOverlayNavigation } from '../../composables'
 
 import { decamelize } from 'humps'
 import debug from 'debug'
@@ -133,12 +134,16 @@ export default {
   ],
 
   data () {
+    const { route, isBackgroundOverlay } = useOverlayNavigation()
+
     return {
       page: 1,
       count: null,
       resultsQuantity: 0,
       resultsList: [],
-      isFetchListSucceeded: false
+      isFetchListSucceeded: false,
+      route,
+      isBackgroundOverlay
     }
   },
 
@@ -185,6 +190,8 @@ export default {
 
   watch: {
     $route (to, from) {
+      if (this.isBackgroundOverlay) return
+
       if (to.name === from.name) {
         this.mx_fetchHandler({ ...this.mx_context, url: this.url }, this.fetchList)
         this.setCurrentPage()

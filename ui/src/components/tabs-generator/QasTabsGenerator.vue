@@ -24,7 +24,7 @@ import QasStatus from '../status/QasStatus.vue'
 import { decimal } from '../../helpers'
 
 import { computed, watch } from 'vue'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import { extend, QRouteTab, QTab } from 'quasar'
 
 defineOptions({ name: 'QasTabsGenerator' })
@@ -47,7 +47,7 @@ const props = defineProps({
   },
 
   querySlug: {
-    default: 'status',
+    default: '',
     type: String
   },
 
@@ -61,6 +61,7 @@ const emit = defineEmits(['update:modelValue'])
 
 // composables
 const route = useRoute()
+const router = useRouter()
 
 // computed
 const model = computed({
@@ -96,8 +97,24 @@ const tabComponent = computed(() => props.useRouteTab ? QRouteTab : QTab)
 // watch
 watch(() => route.query[props.querySlug], newValue => {
   if (newValue && newValue !== model.value) {
-    // model.value = newValue
+    model.value = newValue
   }
+}, { immediate: true })
+
+watch(() => model.value, newValue => {
+  if (!props.querySlug) return
+
+  const { ...query } = route.query
+
+  if (!newValue && props.querySlug) {
+    delete query[props.querySlug]
+
+    router.push({ query: { ...query } })
+
+    return
+  }
+
+  router.push({ query: { ...query, [props.querySlug]: newValue } })
 }, { immediate: true })
 
 // functions

@@ -32,14 +32,18 @@ export default {
     }
   },
 
+  data () {
+    return {
+      isOverlay: useOverlayNavigation().isOverlay
+    }
+  },
+
   computed: {
     component () {
-      const { isOverlay } = useOverlayNavigation()
-
       return {
-        is: isOverlay ? 'div' : 'q-page',
+        is: this.isOverlay ? 'div' : 'q-page',
         props: {
-          ...(!isOverlay && {
+          ...(!this.isOverlay && {
             padding: true,
             class: 'doc-page'
           })

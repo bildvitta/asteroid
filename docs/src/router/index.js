@@ -17,7 +17,6 @@ export default route(function (/* { store, ssrContext } */) {
     routes,
 
     scrollBehavior (to, from, savedPosition) {
-      console.log('TCL: scrollBehavior -> to, from, savedPosition', to, from, savedPosition)
       return savedPosition || { top: 0 }
     }
     // scrollBehavior: (to, _, savedPosition) => (

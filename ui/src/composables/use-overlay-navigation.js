@@ -48,7 +48,7 @@ export default function useOverlayNavigation () {
   /**
    * Retorna "true" quando a rota atual está em um overlay, não necessariamente sendo o overlay ou background.
    */
-  const hasOverlay = computed(() => route.query.overlay === 'true')
+  const hasOverlay = computed(() => route?.query?.overlay === 'true')
 
   /**
    * Retorna "true" quando for chamado em uma pagina que está sendo exibida abaixo de um overlay.
@@ -59,7 +59,9 @@ export default function useOverlayNavigation () {
   /**
    * Computada para ser utilizada tanto no background quanto no overlay, substituindo o uso padrão do "route".
    */
-  const defaultRoute = computed(() => isBackgroundOverlay.value ? backgroundRoute.value : route)
+  const defaultRoute = computed(() => {
+    return isBackgroundOverlay.value ? backgroundRoute.value : route
+  })
 
   /**
    * Indica se existe uma rota anterior no histórico de navegação.
@@ -102,6 +104,10 @@ export default function useOverlayNavigation () {
     }
   }
 
+  function getNormalizedRoute (routePayload) {
+    return isOverlay ? getRoute(routePayload) : routePayload
+  }
+
   /**
    *
    * Função para fechar o overlay, removendo as queries e redirecionando para a rota de background.
@@ -118,7 +124,13 @@ export default function useOverlayNavigation () {
     delete query.overlay
     delete query.backgroundOverlay
 
-    router.push({ path: backgroundRoute.value.fullPath, query: { ...query, ...backgroundRoute.value.query } })
+    router.push({
+      path: backgroundRoute.value.fullPath,
+      query: { ...backgroundRoute.value.query },
+      meta: {
+        sla: true
+      }
+    })
 
     resetHistory()
   }
@@ -348,6 +360,7 @@ export default function useOverlayNavigation () {
     goBack,
     goForward,
     triggerBackgroundChanges,
+    getNormalizedRoute,
 
     // callbacks functions
     onBackgroundChange,

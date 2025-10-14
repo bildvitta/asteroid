@@ -39,6 +39,8 @@ import QasBadge from '../badge/QasBadge.vue'
 import QasSearchInput from '../search-input/QasSearchInput.vue'
 import PvFiltersButton from './private/PvFiltersButton.vue'
 
+import { useOverlayNavigation } from '../../composables'
+
 import debug from 'debug'
 
 import { camelize, camelizeKeys, decamelize } from 'humps'
@@ -137,12 +139,15 @@ export default {
   ],
 
   data () {
+    const { isBackgroundOverlay } = useOverlayNavigation()
+
     return {
       currentFilters: {},
       hasFetchError: false,
       internalFilters: {},
       internalSearch: '',
       isFetching: false,
+      isBackgroundOverlay,
       /**
        * O objeto funciona como um auxiliar para armazenar opções selecionadas do lazy loading.
        * Isso é necessário porque, por padrão, não há opções no campo. As opções selecionadas servem
@@ -278,12 +283,15 @@ export default {
 
   watch: {
     $route (to, from) {
+      if (this.isBackgroundOverlay) return
+
       if (to.name === from.name) {
         /**
          * Verifica se alguma chave da query que está no "listenerQueryKeys" mudou,
          * se sim, faz bate o fetchFilters novamente.
         */
         const hasQueryChanged = !!this.listenerQueryKeys.find(queryKey => to.query[queryKey] !== from.query[queryKey])
+        console.log('TCL: $route -> hasQueryChanged', hasQueryChanged)
 
         this.fetchFilters({ hasQueryChanged })
         this.useUpdateRoute && this.updateValues()
