@@ -1,7 +1,7 @@
 <template>
   <component :is="component.is" v-bind="component.props">
     <div class="column q-col-gutter-y-lg">
-      <div v-for="(fieldsetItem, fieldsetItemKey) in normalizedFields" :key="fieldsetItemKey">
+      <div v-for="(fieldsetItem, fieldsetItemKey) in normalizedFields" :key="fieldsetItemKey" class="full-width">
         <q-separator v-if="hasSeparator({ item: fieldsetItem })" class="q-mb-lg" />
 
         <qas-header v-if="fieldsetItem.__hasHeader" v-bind="getHeaderProps({ values: fieldsetItem })" />

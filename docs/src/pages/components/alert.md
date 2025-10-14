@@ -24,4 +24,5 @@ Componente para informações.
 <doc-example file="QasAlert/InsideBox" title="Dentro de box" />
 <doc-example file="QasAlert/InsideDialog" title="Dentro de dialog" />
 <doc-example file="QasAlert/Button" title="Com botão" />
+<doc-example file="QasAlert/MultipleButtons" title="Com múltiplos botões / links" />
 <doc-example file="QasAlert/ExternalLink" title="Link externo" />

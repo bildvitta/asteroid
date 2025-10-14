@@ -47,13 +47,11 @@ Neste componente é um "wrapper" do [QInput](https://quasar.dev/vue-components/i
 ##### mask
 Propriedade `mask` vem do `QInput` e serve para definir um máscara para o input, porem nosso componente implementa algumas mascaras pré-definidas, como:
 
-```bash
-- company-document (CNPJ) -> ##.###.###/####-##
-- document (CPF/CNPJ) -> ###.###.###-### | ##.###.###/####-##
-- personal-document (RG) -> ##.###.###-##
-- phone (Telefone) -> (##) ####-##### | (##) #####-####
-- postal-code (CEP) -> #####-###
-```
+- `company-document` (CNPJ) → `XX.XXX.XXX/XXXX-##`
+- `document` (CPF/CNPJ) → `###.###.###-##` | `XX.XXX.XXX/XXXX-##`
+- `personal-document` (RG) → `###.###.###-##`
+- `phone` (Telefone) → `(##) ####-#####` | `(##) #####-####`
+- `postal-code` (CEP) → `#####-###`
 
 Caso seja passado uma mask que não seja essas acima, será usado a que foi passada.
 
@@ -62,8 +60,8 @@ Caso seja passado uma mask que não seja essas acima, será usado a que foi pass
 É possível repassar propriedades nativas para o input, como inputmode, por padrão os inputs que possuem mascara default já possuem um inputmode default, assim como o input type `email`, porém é possível sobrescrever esse inputmode.
 
 ```bash
-- company-document (CNPJ) -> numeric
-- document (CPF/CNPJ) -> numeric
+- company-document (CNPJ) -> text
+- document (CPF/CNPJ) -> text
 - personal-document (RG) -> numeric
 - phone (Telefone) -> tel
 - postal-code (CEP) -> numeric

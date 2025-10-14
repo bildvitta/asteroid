@@ -1,7 +1,7 @@
 <template>
   <q-field class="qas-numeric-input" :class="classes" dense :label="formattedLabel" :model-value="modelValue" no-error-icon>
-    <template #control="{ floatingLabel, id }">
-      <input v-show="floatingLabel" :id="id" ref="input" class="q-field__input" :disabled="$attrs.disable" inputmode="numeric" :placeholder :readonly="$attrs.readonly" @blur="emitValue" @click="setSelect" @input="emitUpdateModel($event.target.value)">
+    <template #control="{ id }">
+      <input :id ref="input" class="q-field__input" :disabled="$attrs.disable" inputmode="numeric" :placeholder :readonly="$attrs.readonly" @blur="emitValue" @click="setSelect" @input="emitUpdateModel($event.target.value)">
     </template>
 
     <template v-if="icon" #prepend>
