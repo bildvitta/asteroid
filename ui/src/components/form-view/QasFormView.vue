@@ -471,13 +471,11 @@ export default {
       this.ignoreRouterGuard = this.id === id && this.entity === entity
     },
 
-    getFormattedURL (payload, { isSubmit = false } = {}) {
+    getFormattedURL ({ payload, isSubmit = false } = {}) {
       const { url: customURL } = payload
       const decamelizedEntity = decamelize(this.entity, { separator: '-' })
 
-      /**
-       * Utiliza a URL passada via prop, ou monta a URL baseada na entity e id.
-       */
+      // Utiliza a URL passada via prop, ou monta a URL baseada na entity e id.
       const baseURL = this.url || (this.id ? `${decamelizedEntity}/${this.id}` : decamelizedEntity)
 
       /**
@@ -508,10 +506,8 @@ export default {
 
       const { id: unusedID, url: unusedURL, form: unusedForm, ...externalPayload } = payload
 
-      /**
-       * Formata a url com base em mode, entity, url via props, etc
-       */
-      const fetchURL = this.getFormattedURL(payload)
+      // Formata a url com base em mode, entity, url via props, etc
+      const fetchURL = this.getFormattedURL({ payload })
 
       return this.$axios.get(fetchURL, { ...externalPayload })
     },
@@ -531,10 +527,8 @@ export default {
         replace: 'put'
       }
 
-      /**
-       * Formata a url com base em mode, entity, url via props, etc
-       */
-      const url = this.getFormattedURL(payload, { isSubmit: true })
+      // Formata a url com base em mode, entity, url via props, etc
+      const url = this.getFormattedURL({ payload, isSubmit: true })
 
       return this.$axios({
         method: methods[this.mode],
