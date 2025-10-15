@@ -44,8 +44,8 @@
       v-bind="defaultDialogProps"
       v-model="showDialog"
     >
-      <template v-for="(_, name) in slots" #[name]="context">
-        <slot :name="`dialog-${name}`" v-bind="context || {}" />
+      <template v-for="(_, name) in slots" #[getDialogSlot(name)]="context">
+        <slot :name v-bind="context || {}" />
       </template>
 
       <template #description>
@@ -178,11 +178,13 @@ const containerListComponent = computed(() => isBox ? 'div' : 'qas-box')
 
 const headerProps = computed(() => {
   return {
-    labelProps: {
-      label: props.label,
-      margin: 'none',
-      color: hasError.value ? 'negative' : 'grey-10'
-    },
+    ...(props.label && {
+      labelProps: {
+        label: props.label,
+        margin: 'none',
+        color: hasError.value ? 'negative' : 'grey-10'
+      }
+    }),
 
     spacing: 'none',
     description: props.description,
@@ -211,6 +213,14 @@ watch(() => props.modelValue, newValue => {
 // functions
 function updateModel () {
   emit('update:modelValue', model.value)
+}
+
+/**
+ * Retorna o nome do slot do dialog removendo o prefixo 'dialog-'
+ * Isso é necessário para pois os slots recebidos nesse componente tem o prefixo `dialog`, porém o QasDialog não.
+ */
+function getDialogSlot (name) {
+  return name.replace('dialog-', '')
 }
 
 // ------------------------- composable functions ------------------------------
