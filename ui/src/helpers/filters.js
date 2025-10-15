@@ -62,7 +62,10 @@ function formatPercent (value = 0, places = 2) {
 }
 
 function formatCompanyDocument (value) {
-  return value.replace(/^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/g, '$1.$2.$3/$4-$5')
+  return value.replace(
+    /^([A-Za-z0-9]{2})([A-Za-z0-9]{3})([A-Za-z0-9]{3})([A-Za-z0-9]{4})([A-Za-z0-9]{2})/g,
+    '$1.$2.$3/$4-$5'
+  )
 }
 
 function formatDocument (value) {
