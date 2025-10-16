@@ -14,7 +14,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 Devemos adicionar o comentário `<!-- N/A -->` (Não adicionar), para que não precise adicionar um item do changelog ao lançar uma nova versão stable.
 Caso adicionado no escopo inicial, todos os conteúdos abaixo não serão adicionados. Caso adicionado na linha, será considerado apenas ela.
 
-## Não publicado
+## [3.19.0-beta.11] - 16-10-2025
 ### Corrigido
 - `humanize`: corrigido função para formatar a máscara de CNPJ, aceitando letras. Função usada por exemplo no `QasGridGenerator`, `QasTableGenerator`.
 
@@ -4371,3 +4371,4 @@ Adicionado suporte para Pinia/Vuex Seguindo os padrões da biblioteca `@bildvitt
 [3.19.0-beta.8]: https://github.com/bildvitta/asteroid/compare/v3.19.0-beta.8-alpha.11...v3.19.0-beta.8?expand=1
 [3.19.0-beta.9]: https://github.com/bildvitta/asteroid/compare/v3.19.0-beta.8...v3.19.0-beta.9?expand=1
 [3.19.0-beta.10]: https://github.com/bildvitta/asteroid/compare/v3.19.0-beta.8-alpha.14...v3.19.0-beta.10?expand=1
+[3.19.0-beta.11]: https://github.com/bildvitta/asteroid/compare/v3.19.0-beta.11-alpha.0...v3.19.0-beta.11?expand=1
