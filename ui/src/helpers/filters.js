@@ -61,8 +61,22 @@ function formatPercent (value = 0, places = 2) {
   return value ? value.toLocaleString('pt-BR', { style: 'percent', minimumFractionDigits: places }) : ''
 }
 
+/**
+ * Formata documento de empresa (CNPJ) aplicando máscara XX.XXX.XXX/XXXX-XX
+ * Aceita caracteres alfanuméricos (letras e números)
+ *
+ * @param {string} value - String com 14 caracteres
+ * @returns {string} - String formatada como CNPJ
+ *
+ * @example
+ * formatCompanyDocument('12345678000195') // '12.345.678/0001-95'
+ * formatCompanyDocument('ODH8LCRV000146') // 'OD.H8L.CRV/0001-46'
+ */
 function formatCompanyDocument (value) {
-  return value.replace(/^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/g, '$1.$2.$3/$4-$5')
+  return value.replace(
+    /^([A-Za-z0-9]{2})([A-Za-z0-9]{3})([A-Za-z0-9]{3})([A-Za-z0-9]{4})([A-Za-z0-9]{2})/g,
+    '$1.$2.$3/$4-$5'
+  )
 }
 
 function formatDocument (value) {
