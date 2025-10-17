@@ -1,7 +1,7 @@
 <template>
   <q-field class="qas-numeric-input" :class="classes" dense :label="formattedLabel" :model-value="modelValue" no-error-icon>
-    <template #control="{ id }">
-      <input :id ref="input" class="q-field__input" :disabled="$attrs.disable" inputmode="numeric" :placeholder :readonly="$attrs.readonly" @blur="emitValue" @click="setSelect" @input="emitUpdateModel($event.target.value)">
+    <template #control="{ id, floatingLabel }">
+      <input :id ref="input" class="q-field__input" :class="getInputClasses(floatingLabel)" :disabled="$attrs.disable" inputmode="numeric" :placeholder :readonly="$attrs.readonly" @blur="emitValue" @click="setSelect" @input="emitUpdateModel($event.target.value)">
     </template>
 
     <template v-if="icon" #prepend>
@@ -191,6 +191,19 @@ export default {
       this.$refs?.input?.select()
     },
 
+    /**
+     * Quando o label não está flutuando, o input fica com opacidade 0 para evitar exibir o conteúdo do Autonumeric.
+     * O elemento input deve estar na DOM, para funcionar a navegação via teclado e leitores de tela.
+     *
+     * @param {boolean} floatingLabel - Booleano que indica se o label está flutuando, ou seja,
+     * se o campo está focado ou preenchido.
+     */
+    getInputClasses (floatingLabel) {
+      return {
+        'qas-numeric-input__input': !floatingLabel
+      }
+    },
+
     emitValue () {
       /**
        * O autonumeric retorna uma lista de histórico contendo os valores digitados, precisamos pegar
@@ -216,3 +229,11 @@ export default {
   }
 }
 </script>
+
+<style lang="scss">
+.qas-numeric-input {
+  &__input {
+    opacity: 0;
+  }
+}
+</style>
