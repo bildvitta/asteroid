@@ -16,7 +16,7 @@ Caso adicionado no escopo inicial, todos os conteúdos abaixo não serão adicio
 
 ## Não publicado
 ### Adicioando
--`QasSelectListDialog`:
+- `QasSelectListDialog`:
   - Adicionado model chamado `select-list-model` com os itens selecionados dentro do dialog.
   - Adicionado o método `toggleDialog` no define expose.
 
