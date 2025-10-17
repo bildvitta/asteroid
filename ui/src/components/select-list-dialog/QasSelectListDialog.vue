@@ -55,7 +55,7 @@
           </div>
 
           <qas-select-list
-            v-model="listModel"
+            v-model="selectListModel"
             v-bind="defaultSelectListProps"
           />
         </slot>
@@ -142,9 +142,11 @@ const slots = useSlots()
 // globals
 const isBox = inject('isBox', false)
 
+// models
+const selectListModel = defineModel('selectListModel', { default: [], type: Array })
+
 // composables
 const {
-  listModel,
   showDialog,
 
   defaultDialogProps,
@@ -166,7 +168,7 @@ const {
 } = useList()
 
 // expose
-defineExpose({ add, removeAll, remove })
+defineExpose({ add, removeAll, remove, toggleDialog })
 
 // refs
 const model = ref([...props.modelValue])
@@ -318,7 +320,6 @@ function useList () {
 
 function useSelectDialog () {
   const showDialog = ref(false)
-  const listModel = ref([])
 
   const defaultDialogProps = computed(() => {
     return {
@@ -327,7 +328,7 @@ function useSelectDialog () {
       ...props.dialogProps,
 
       onBeforeShow: event => {
-        resetListModel()
+        resetSelectListModel()
 
         props.dialogProps.onBeforeShow && props.dialogProps.onBeforeShow(event)
       },
@@ -335,7 +336,7 @@ function useSelectDialog () {
       ok: {
         label: 'Adicionar',
 
-        disable: !listModel.value.length,
+        disable: !selectListModel.value.length,
 
         ...props.dialogProps.ok,
 
@@ -370,16 +371,15 @@ function useSelectDialog () {
     showDialog.value = !showDialog.value
   }
 
-  function resetListModel () {
-    listModel.value = []
+  function resetSelectListModel () {
+    selectListModel.value = []
   }
 
   function onAdd () {
-    if (listModel.value.length) add({ options: listModel.value })
+    if (selectListModel.value.length) add({ options: selectListModel.value })
   }
 
   return {
-    listModel,
     showDialog,
 
     defaultDialogProps,
