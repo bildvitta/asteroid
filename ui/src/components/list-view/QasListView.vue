@@ -144,7 +144,7 @@ export default {
 
   computed: {
     hasDeleteEventListener () {
-      return this.useAutoHandleOnDelete || this.useAutoRefetchOnDelete
+      return this.useAutoHandleOnDelete || this.useAutoRefetchOnDelete || (!this.useStore && this.entity)
     },
 
     hasHeaderSlot () {
@@ -358,7 +358,7 @@ export default {
     },
 
     onDeleteResult (event) {
-      if (this.useAutoRefetchOnDelete) {
+      if (this.useAutoRefetchOnDelete || !this.useStore) {
         this.mx_fetchHandler({ ...this.mx_context, url: this.url }, this.fetchList)
         return
       }

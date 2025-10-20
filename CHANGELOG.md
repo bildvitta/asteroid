@@ -17,6 +17,7 @@ Caso adicionado no escopo inicial, todos os conteúdos abaixo não serão adicio
 ## Não publicado
 ### Adicionado
 - `QasFormView`: Adicionado propriedade `use-store` para dar a possibilidade de utilizar o componente sem a store do vuex/pinia.
+- `QasListView`: Adicionado refetch automático após deleção de itens quando `use-store` está desabilitado (`false`).
 
 ## [3.19.0-beta.11] - 16-10-2025
 ### Corrigido
