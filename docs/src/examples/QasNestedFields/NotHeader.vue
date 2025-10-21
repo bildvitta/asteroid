@@ -15,7 +15,7 @@
 <script setup>
 import { ref } from 'vue'
 
-defineOptions({ name: 'SingleLabelAndNotHeader' })
+defineOptions({ name: 'NotHeader' })
 
 // refs
 const model = ref([])

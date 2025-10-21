@@ -15,14 +15,15 @@ Devemos adicionar o comentário `<!-- N/A -->` (Não adicionar), para que não p
 Caso adicionado no escopo inicial, todos os conteúdos abaixo não serão adicionados. Caso adicionado na linha, será considerado apenas ela.
 
 ## Não publicado
-### Adicioando
+### Adicionado
+- `QasFormView`: Adicionado propriedade `use-store` para dar a possibilidade de utilizar o componente sem a store do vuex/pinia.
 - `QasSelectListDialog`:
   - Adicionado model chamado `select-list-model` com os itens selecionados dentro do dialog.
   - Adicionado o método `toggleDialog` no define expose.
 
 ### Corrigido
-- `QasActions`: Corrigido tamanho do botão quando passado via props e utilizado junto com `useEqualWidth`.
-- `QasNumericInput`: Corrigido exibição do input, no qual exibia o conteúdo da lib `Autonumeric` ao dar hover, sendo que deve ser exibida apenas quando tem foco ou valor no campo.
+- `QasActions`: Corrigido tamanho do botão quando passado via props e utilizado junto com `useEqualWidth`. ([[#1400](https://github.com/bildvitta/asteroid/issues/1400)])
+- `QasNumericInput`: Corrigido exibição do input, no qual exibia o conteúdo da lib `Autonumeric` ao dar hover, sendo que deve ser exibida apenas quando tem foco ou valor no campo. ([[#1403](https://github.com/bildvitta/asteroid/issues/1403)])
 - `QasSelectListDialog`:
   - Corrigido slots do dialog que não funcionavam.
   - Corrigido alinhamento do botão de adicionar item quando não se tem label no header.

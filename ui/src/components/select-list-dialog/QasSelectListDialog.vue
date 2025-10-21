@@ -143,7 +143,7 @@ const slots = useSlots()
 const isBox = inject('isBox', false)
 
 // models
-const selectListModel = defineModel('selectListModel', { default: [], type: Array })
+const selectListModel = defineModel('selectListModel', { default: () => [], type: Array })
 
 // composables
 const {
