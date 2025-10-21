@@ -26,6 +26,9 @@ Caso adicionado no escopo inicial, todos os conteúdos abaixo não serão adicio
 - `QasSelectListDialog`:
   - Corrigido slots do dialog que não funcionavam.
   - Corrigido alinhamento do botão de adicionar item quando não se tem label no header.
+- `QasNumericInput`:
+  - Corrigido inconsistência de valores entre navegação por Tab e clique ao perder foco, garantindo que ambos métodos produzam o mesmo resultado.
+  - Corrigido precisão decimal no model para modo percentual, onde o `places` agora controla corretamente as casas decimais do valor final (places=2 resulta em 4 casas decimais para percentuais, ex: 0.0133).
 
 ## [3.19.0-beta.11] - 16-10-2025
 ### Corrigido
