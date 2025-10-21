@@ -16,6 +16,7 @@ Caso adicionado no escopo inicial, todos os conteúdos abaixo não serão adicio
 
 ## Não publicado
 ### Adicioando
+- `QasFormView`: Adicionado propriedade `use-store` para dar a possibilidade de utilizar o componente sem a store do vuex/pinia.
 - `QasSelectListDialog`:
   - Adicionado model chamado `select-list-model` com os itens selecionados dentro do dialog.
   - Adicionado o método `toggleDialog` no define expose.
