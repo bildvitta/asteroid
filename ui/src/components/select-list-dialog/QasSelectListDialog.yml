@@ -59,7 +59,7 @@ props:
     desc: Model dos itens selecionados dentro do dialog.
     type: Array
     default: []
-    examples: [v-model:list-model="selectedItems"]
+    examples: [v-model:select-list-model="selectedItems"]
     model: true
 
   select-list-props:
