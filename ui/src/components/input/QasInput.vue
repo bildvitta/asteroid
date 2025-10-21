@@ -262,6 +262,13 @@ export default {
       },
 
       immediate: true
+    },
+
+    /**
+     * Pode acontecer da máscara ser alternada, entre CNPJ e CPF por exemplo.
+     */
+    mask () {
+      this.handleMask()
     }
   },
 
@@ -335,8 +342,6 @@ export default {
     },
 
     handleMask () {
-      if (!this.modelValue?.length) return
-
       const hasDefaultMask = Object.prototype.hasOwnProperty.call(this.masks, this.mask)
 
       this.$nextTick(() => {
