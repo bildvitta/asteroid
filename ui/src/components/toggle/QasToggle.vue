@@ -4,7 +4,7 @@
       {{ props.title }}
     </span>
 
-    <q-toggle class="qas-toggle" v-bind="attrs" dense />
+    <q-toggle class="col-12 qas-toggle" v-bind="attrs" dense />
   </div>
 </template>
 
