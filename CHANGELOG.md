@@ -18,6 +18,9 @@ Caso adicionado no escopo inicial, todos os conteúdos abaixo não serão adicio
 ### Adicionado
 - `QasFormView`: Adicionado propriedade `use-store` para dar a possibilidade de utilizar o componente sem a store do vuex/pinia.
 
+### Corrigido
+- `QasSelect`: Corrigido uso de badges na opção, no qual quebrava quando utilizado como objeto ao invés de função. ([#1329](https://github.com/bildvitta/asteroid/issues/1329))
+
 ## [3.19.0-beta.11] - 16-10-2025
 ### Corrigido
 - `humanize`: corrigido função para formatar a máscara de CNPJ, aceitando letras. Função usada por exemplo no `QasGridGenerator`, `QasTableGenerator`.
