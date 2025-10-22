@@ -15,11 +15,11 @@ Devemos adicionar o comentário `<!-- N/A -->` (Não adicionar), para que não p
 Caso adicionado no escopo inicial, todos os conteúdos abaixo não serão adicionados. Caso adicionado na linha, será considerado apenas ela.
 
 ## Não publicado
-### Corrigido
-- `QasSelect`: Corrigido uso de badges na opção, no qual quebrava quando utilizado como objeto ao invés de função. ([#1329](https://github.com/bildvitta/asteroid/issues/1329))
-
 ### Adicionado
 - `QasFormView`: Adicionado propriedade `use-store` para dar a possibilidade de utilizar o componente sem a store do vuex/pinia.
+
+### Corrigido
+- `QasSelect`: Corrigido uso de badges na opção, no qual quebrava quando utilizado como objeto ao invés de função. ([#1329](https://github.com/bildvitta/asteroid/issues/1329))
 
 ## [3.19.0-beta.11] - 16-10-2025
 ### Corrigido
