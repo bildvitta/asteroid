@@ -14,6 +14,26 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 Devemos adicionar o comentário `<!-- N/A -->` (Não adicionar), para que não precise adicionar um item do changelog ao lançar uma nova versão stable.
 Caso adicionado no escopo inicial, todos os conteúdos abaixo não serão adicionados. Caso adicionado na linha, será considerado apenas ela.
 
+## Não publicado
+### Adicionado
+- `QasFormView`: Adicionado propriedade `use-store` para dar a possibilidade de utilizar o componente sem a store do vuex/pinia.
+- `QasToggle`: Adicionado prop `title` para ter a possibilidade de ter um título acima do toggle. [[#1316](https://github.com/bildvitta/asteroid/issues/1316)]
+
+### Corrigido
+- `QasAlert`: Corrigido para remover do HTML o componente quando ele for fechado (prop `useCloseBtn`). [[#1381](https://github.com/bildvitta/asteroid/issues/1381)]
+- `QasSelect`: Corrigido uso de badges na opção, no qual quebrava quando utilizado como objeto ao invés de função. ([#1329](https://github.com/bildvitta/asteroid/issues/1329))
+
+### Modificado
+- `QasSelect`: Modificado para utilizar o `clearable` (botão de remover seleção) por padrão quando o campo **não for required**, antes estava apenas quando o campo tinha opção de pesquisar. [[#1394](https://github.com/bildvitta/asteroid/issues/1394)]
+
+## [3.19.0-beta.11] - 16-10-2025
+### Corrigido
+- `humanize`: corrigido função para formatar a máscara de CNPJ, aceitando letras. Função usada por exemplo no `QasGridGenerator`, `QasTableGenerator`.
+
+## [3.19.0-beta.10] - 15-10-2025
+### Corrigido
+- `QasInput`: Corrigido máscara no caso que precisa alternar entre diversas máscaras, onde acontece por exemplo alternando entre CPF e CNPJ.
+
 ## [3.19.0-beta.9] - 10-10-2025
 ### Modificado
 - `QasInput`: Modificado máscara de CNPJ para aceitar letras conforme o novo padrão.
@@ -4362,3 +4382,5 @@ Adicionado suporte para Pinia/Vuex Seguindo os padrões da biblioteca `@bildvitt
 [3.19.0-beta.7]: https://github.com/bildvitta/asteroid/compare/v3.19.0-beta.6...v3.19.0-beta.7?expand=1
 [3.19.0-beta.8]: https://github.com/bildvitta/asteroid/compare/v3.19.0-beta.8-alpha.11...v3.19.0-beta.8?expand=1
 [3.19.0-beta.9]: https://github.com/bildvitta/asteroid/compare/v3.19.0-beta.8...v3.19.0-beta.9?expand=1
+[3.19.0-beta.10]: https://github.com/bildvitta/asteroid/compare/v3.19.0-beta.8-alpha.14...v3.19.0-beta.10?expand=1
+[3.19.0-beta.11]: https://github.com/bildvitta/asteroid/compare/v3.19.0-beta.11-alpha.0...v3.19.0-beta.11?expand=1
