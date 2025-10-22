@@ -76,6 +76,8 @@ export default function (config = {}) {
       onDeleteSuccess(response)
 
       redirectRoute && replaceRoute(this)
+
+      !useLoading && dialog.hide()
     } catch (error) {
       onDeleteError(error)
 
@@ -85,13 +87,8 @@ export default function (config = {}) {
 
       useLoading
         ? Loading.hide()
-        : onHideDialog()
+        : setLoadingState(false)
     }
-  }
-
-  function onHideDialog () {
-    setLoadingState(false)
-    dialog.hide()
   }
 
   function replaceRoute (context) {
