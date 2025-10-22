@@ -7,9 +7,9 @@
 
           <q-separator class="q-mx-md" vertical />
 
-          <qas-btn color="grey-10" :disable="!hasPreviousRoute" icon="sym_r_keyboard_arrow_left" tooltip="Voltar para página anterior." @click="goBack" />
+          <qas-btn color="grey-10" :disable="!hasPreviousRoute" icon="sym_r_keyboard_arrow_left" tooltip="Voltar para página anterior." @click="router.go(-1)" />
 
-          <qas-btn color="grey-10" :disable="!hasNextRoute" icon="sym_r_keyboard_arrow_right" tooltip="Ir para próxima página." @click="goForward" />
+          <qas-btn color="grey-10" :disable="!hasNextRoute" icon="sym_r_keyboard_arrow_right" tooltip="Ir para próxima página." @click="router.go(1)" />
         </div>
 
         <qas-btn color="grey-10" icon="sym_r_zoom_out_map" label="Tela cheia" @click="expandOverlay" />
@@ -26,7 +26,7 @@
 import useOverlayNavigation from '../../../ui/src/composables/use-overlay-navigation'
 
 import { ref, provide, watch } from 'vue'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 
 defineOptions({ name: 'PvLayoutOverlayDrawer' })
 
@@ -35,13 +35,13 @@ provide('isOverlay', true)
 
 // composables
 const route = useRoute()
+const router = useRouter()
+
 const {
   closeOverlay,
   expandOverlay,
   hasNextRoute,
-  hasPreviousRoute,
-  goBack,
-  goForward
+  hasPreviousRoute
 } = useOverlayNavigation()
 
 // refs

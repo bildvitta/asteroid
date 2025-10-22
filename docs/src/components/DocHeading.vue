@@ -5,7 +5,7 @@
 
       <q-badge v-if="badge" class="doc-heading__badge q-ml-sm" color="brand-primary" :label="badge" />
 
-      <q-btn v-if="hasOverlayButton" class="q-ml-sm" color="primary" label="Abrir em overlay" outline size="sm" :to="overlayNavigation.getRoute({ name: $route.name })" unelevated />
+      <q-btn v-if="hasOverlayButton" class="q-ml-sm" color="primary" label="Abrir em overlay" outline size="sm" :to="overlayNavigation.getOverlayRoute({ name: $route.name })" unelevated />
     </component>
   </div>
 </template>

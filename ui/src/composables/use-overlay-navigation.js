@@ -83,21 +83,21 @@ export default function useOverlayNavigation () {
    *
    * @example
    * ```js
-   * const { getRoute } = useOverlayNavigation()
+   * const { getOverlayRoute } = useOverlayNavigation()
    *
-   * const route = getRoute({ name: 'MyRoute' }) // { name: 'MyRoute', query: { overlay: true, backgroundOverlay: 'ROTA_ATUAL_CODIFICADA' } }
+   * const route = getOverlayRoute({ name: 'MyRoute' }) // { name: 'MyRoute', query: { overlay: true, backgroundOverlay: 'ROTA_ATUAL_CODIFICADA' } }
    *
    * router.push(route)
    * ```
    *
    * @return {import('vue-router').RouteLocationNormalized}
    */
-  function getRoute (externalRoute, useOverlay = true) {
+  function getOverlayRoute (externalRoute) {
     return {
       ...externalRoute,
       query: {
         ...externalRoute.query,
-        overlay: useOverlay,
+        overlay: true,
         ...(!isOverlay && { backgroundOverlay: encodeURIComponent(route.fullPath) }),
         ...(route.query.backgroundOverlay && { backgroundOverlay: route.query.backgroundOverlay })
       }
@@ -105,7 +105,7 @@ export default function useOverlayNavigation () {
   }
 
   function getNormalizedRoute (routePayload) {
-    return isOverlay ? getRoute(routePayload) : routePayload
+    return isOverlay ? getOverlayRoute(routePayload) : routePayload
   }
 
   /**
@@ -356,7 +356,7 @@ export default function useOverlayNavigation () {
     addRouteToHistory,
     closeOverlay,
     expandOverlay,
-    getRoute,
+    getOverlayRoute,
     goBack,
     goForward,
     triggerBackgroundChanges,
