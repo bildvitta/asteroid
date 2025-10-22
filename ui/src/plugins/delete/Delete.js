@@ -1,5 +1,4 @@
 import { Dialog, NotifySuccess, NotifyError } from 'asteroid'
-import { Loading } from 'quasar'
 import { getAction } from '@bildvitta/store-adapter'
 import { useHistory } from '../../composables'
 
@@ -9,7 +8,6 @@ export default function (config = {}) {
     deleteActionParams = {},
     useAutoDeleteRoute,
     redirectRoute,
-    useLoading = false,
 
     // callbacks
     onDelete = () => {},
@@ -21,7 +19,7 @@ export default function (config = {}) {
   const { entity, id, url } = deleteActionParams
 
   const defaultDialogProps = {
-    useForm: !useLoading,
+    useForm: true,
 
     ...dialogProps,
 
@@ -47,7 +45,7 @@ export default function (config = {}) {
 
   async function destroy () {
     try {
-      useLoading ? Loading.show() : setLoadingState(true)
+      setLoadingState(true)
 
       onDelete(true)
 
@@ -77,7 +75,7 @@ export default function (config = {}) {
 
       redirectRoute && replaceRoute(this)
 
-      !useLoading && dialog.hide()
+      dialog.hide()
     } catch (error) {
       onDeleteError(error)
 
@@ -85,9 +83,7 @@ export default function (config = {}) {
     } finally {
       onDelete(false)
 
-      useLoading
-        ? Loading.hide()
-        : setLoadingState(false)
+      setLoadingState(false)
     }
   }
 
