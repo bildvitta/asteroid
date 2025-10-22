@@ -40,6 +40,8 @@ Quando o select for `required` ou tiver a prop `use-auto-select` e houver apenas
 <doc-example file="QasSelect/Searchable" title="Com pesquisa" />
 
 :::info
+Para usar opções customizadas, é necessário adicionar a prop `use-custom-options`.
+
 Caso queira usar badges nas opções, o back precisa retornar a chave em questão dizendo qual badge será mostrada, ex:
 ```js
 [

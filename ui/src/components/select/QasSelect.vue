@@ -186,7 +186,7 @@ export default {
       const { useChips, ...attrs } = this.$attrs
 
       return {
-        clearable: this.isSearchable,
+        clearable: !this.required,
         emitValue: true,
         mapOptions: true,
         outlined: this.useFilterMode,
@@ -489,7 +489,9 @@ export default {
     hasBadge (badge) {
       const model = Object.keys(badge)[0]
 
-      return badge[model] || this.badgeProps[model](badge[model]).show
+      const isFunction = typeof this.badgeProps[model] === 'function'
+
+      return badge[model] || (isFunction && this.badgeProps[model]?.(badge[model])?.show)
     },
 
     getCaptionArray (caption) {
