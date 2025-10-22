@@ -169,7 +169,6 @@ export default {
       showDialog: false,
       ignoreRouterGuard: false,
       hasUserInteraction: false,
-      isInitialLoad: true,
       hasRecentFocus: false,
 
       defaultDialogProps: {
@@ -240,11 +239,8 @@ export default {
 
     modelValue: {
       handler () {
-        // Só considera mudança do usuário se:
-        // 1. Não é carregamento inicial
-        // 2. Houve foco recente em algum campo (indica interação)
-        // 3. Ainda não marcou como interação do usuário
-        if (!this.isInitialLoad && this.hasRecentFocus && !this.hasUserInteraction) {
+        // Só considera mudança do usuário se houve foco recente e ainda não marcou interação
+        if (this.hasRecentFocus && !this.hasUserInteraction) {
           this.hasUserInteraction = true
           console.log('User model change detected')
         }
@@ -262,11 +258,6 @@ export default {
   },
 
   mounted () {
-    // Marca fim do carregamento inicial após próximo tick
-    this.$nextTick(() => {
-      this.isInitialLoad = false
-    })
-
     // Adiciona listener simples para detectar foco em campos
     this.setupFocusTracking()
   },
