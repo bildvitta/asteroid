@@ -9,6 +9,7 @@ export default function (config = {}) {
     deleteActionParams = {},
     useAutoDeleteRoute,
     redirectRoute,
+    useLoading = false,
 
     // callbacks
     onDelete = () => {},
@@ -20,9 +21,12 @@ export default function (config = {}) {
   const { entity, id, url } = deleteActionParams
 
   const defaultDialogProps = {
+    useForm: !useLoading,
+
     ...dialogProps,
 
     card: {
+      title: 'Excluir',
       description: 'Tem certeza que deseja excluir este item?',
 
       ...dialogProps.card
@@ -42,9 +46,9 @@ export default function (config = {}) {
   }
 
   async function destroy () {
-    Loading.show()
-
     try {
+      useLoading ? Loading.show() : setLoadingState(true)
+
       onDelete(true)
 
       const hasDeleteAction = typeof deleteAction === 'function'
@@ -79,8 +83,15 @@ export default function (config = {}) {
     } finally {
       onDelete(false)
 
-      Loading.hide()
+      useLoading
+        ? Loading.hide()
+        : onHideDialog()
     }
+  }
+
+  function onHideDialog () {
+    setLoadingState(false)
+    dialog.hide()
   }
 
   function replaceRoute (context) {
@@ -103,5 +114,17 @@ export default function (config = {}) {
     window.dispatchEvent(event)
   }
 
-  Dialog(defaultDialogProps)
+  function setLoadingState (isDeleting) {
+    dialog.update({
+      ...defaultDialogProps,
+
+      ok: {
+        ...defaultDialogProps.ok,
+
+        loading: isDeleting
+      }
+    })
+  }
+
+  const dialog = Dialog(defaultDialogProps)
 }
