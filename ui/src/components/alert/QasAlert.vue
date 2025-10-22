@@ -97,11 +97,24 @@ const { displayAlert, close } = useStorageClosed()
 // computeds
 const iconProps = computed(() => {
   const status = Object.keys(Status).find(key => Status[key] === props.status)
-  const isErrorStatus = props.status === Status.Error
+
+  const statusList = {
+    [Status.Info]: {
+      icon: 'sym_r_info'
+    },
+
+    [Status.Error]: {
+      icon: 'sym_r_error'
+    },
+
+    [Status.Success]: {
+      icon: 'sym_r_check_circle'
+    }
+  }
 
   return {
     color: StatusColor[status],
-    name: isErrorStatus ? 'sym_r_error' : 'sym_r_info',
+    name: statusList[props.status].icon,
     size: 'sm'
   }
 })
