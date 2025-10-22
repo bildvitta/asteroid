@@ -47,7 +47,6 @@ import { decamelize } from 'humps'
 import debug from 'debug'
 import { extend } from 'quasar'
 import { getAction } from '@bildvitta/store-adapter'
-import isEqualWith from 'lodash-es/isEqual'
 import { onBeforeRouteLeave } from 'vue-router'
 
 const log = debug('asteroid-ui:qas-form-view')
@@ -169,6 +168,9 @@ export default {
       isSubmitting: false,
       showDialog: false,
       ignoreRouterGuard: false,
+      hasUserInteraction: false,
+      isInitialLoad: true,
+      hasRecentFocus: false,
 
       defaultDialogProps: {
         card: {
@@ -234,6 +236,20 @@ export default {
 
     '$route.path' () {
       this.ignoreRouterGuard = false
+    },
+
+    modelValue: {
+      handler () {
+        // Só considera mudança do usuário se:
+        // 1. Não é carregamento inicial
+        // 2. Houve foco recente em algum campo (indica interação)
+        // 3. Ainda não marcou como interação do usuário
+        if (!this.isInitialLoad && this.hasRecentFocus && !this.hasUserInteraction) {
+          this.hasUserInteraction = true
+          console.log('User model change detected')
+        }
+      },
+      deep: true
     }
   },
 
@@ -245,29 +261,33 @@ export default {
     this.mx_fetchHandler({ form: true, id: this.id, url: this.fetchURL }, this.fetchSingle)
   },
 
+  mounted () {
+    // Marca fim do carregamento inicial após próximo tick
+    this.$nextTick(() => {
+      this.isInitialLoad = false
+    })
+
+    // Adiciona listener simples para detectar foco em campos
+    this.setupFocusTracking()
+  },
+
   onUnmounted () {
     window.removeEventListener('delete-success', this.setIgnoreRouterGuard)
+    this.removeFocusTracking()
   },
 
   methods: {
     beforeRouteLeave (to, from, next) {
-      const clonedModelValue = extend(true, {}, this.modelValue)
-      const clonedCachedResult = extend(true, {}, this.cachedResult)
-
       /**
        * Se a propriedade "useDialogOnUnsavedChanges" for false ou a variável
        * "ignoreRouterGuard" for true, então **não** iremos checar se o usuário
-       * alterou algum campo antes de sair da pagina, senão iremos validar pela função isEqualWith
-       * e mostrar um dialog antes do usuário sair da página.
+       * alterou algum campo antes de sair da pagina, senão iremos validar se houve
+       * interação real do usuário e mostrar um dialog antes do usuário sair da página.
       */
       if (
         !this.useDialogOnUnsavedChanges ||
         this.ignoreRouterGuard ||
-        isEqualWith(
-          clonedModelValue,
-          clonedCachedResult,
-          this.handleIgnoreKeysInUnsavedChanges
-        )
+        !this.hasUserInteraction
       ) {
         return next()
       }
@@ -368,15 +388,31 @@ export default {
       this.showDialog = true
     },
 
-    // ignora chaves na hora de validar quando usuário está saindo da página
-    handleIgnoreKeysInUnsavedChanges (firstValue, secondValue) {
-      if (!this.ignoreKeysInUnsavedChanges.length) return
+    resetUserInteractionFlag () {
+      // Reseta as flags de interação do usuário após salvar com sucesso
+      this.hasUserInteraction = false
+      this.hasRecentFocus = false
+    },
 
-      this.ignoreKeysInUnsavedChanges.forEach(key => {
-        if (firstValue) delete firstValue[key]
+    setupFocusTracking () {
+      // Adiciona listener simples apenas para focusin (quando usuário interage)
+      this.$refs.form?.$el?.addEventListener('focusin', this.handleFocus, true)
+    },
 
-        if (secondValue) delete secondValue[key]
-      })
+    removeFocusTracking () {
+      // Remove listener de foco
+      this.$refs.form?.$el?.removeEventListener('focusin', this.handleFocus, true)
+    },
+
+    handleFocus (event) {
+      // Marca que houve foco recente em campo do formulário
+      const isFormField = event.target.closest('.q-field') ||
+        ['INPUT', 'TEXTAREA', 'SELECT'].includes(event.target.tagName)
+
+      if (isFormField) {
+        this.hasRecentFocus = true
+        console.log('Focus detected on form field')
+      }
     },
 
     /**
@@ -433,6 +469,9 @@ export default {
         if (this.useNotifySuccess) {
           NotifySuccess(response.data.status.text || this.defaultNotifyMessages.success)
         }
+
+        // Reseta a flag de interação do usuário após salvar com sucesso
+        this.resetUserInteractionFlag()
 
         log(`[${this.entity}]:submit:success`, { response, modelValue })
       } catch (error) {
