@@ -105,6 +105,7 @@ const props = defineProps({
 
 // globals
 const injectedDefaults = inject('btnPropsDefaults', {}) // Inject reativo ou não reativo com fallback vazio
+const isInsideBox = inject('isBox', false)
 
 // composables
 const attrs = useAttrs()
@@ -119,15 +120,19 @@ const screen = useScreen()
  *  3. Hardcoded (tertiary, md, primary)
  */
 const btnPropsDefaults = computed(() => {
+  const defaultProps = isRef(injectedDefaults) ? injectedDefaults.value : injectedDefaults
+
+  const isTertiary = (props.variant || defaultProps.variant) === 'tertiary'
+
   return {
-    size: 'lg',
+    size: isInsideBox && !isTertiary ? 'sm' : 'lg',
     variant: 'tertiary',
     color: 'primary',
-    ...(isRef(injectedDefaults) ? injectedDefaults.value : injectedDefaults)
+    ...defaultProps
   }
 })
 
-const defaultSize = computed(() => props.size || btnPropsDefaults.value.size)
+const defaultSize = computed(() => props.size || btnPropsDefaults.value.size || (isInsideBox ? 'sm' : btnPropsDefaults.value.size))
 const defaultVariant = computed(() => props.variant || btnPropsDefaults.value.variant)
 const defaultColor = computed(() => props.color || btnPropsDefaults.value.color)
 

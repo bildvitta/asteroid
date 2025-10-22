@@ -323,6 +323,7 @@ export default {
     async clearFilters () {
       const { filters } = this.mx_context
       const query = { ...this.$route.query }
+
       const activeFilters = {
         ...filters,
         ...this.internalFilters
