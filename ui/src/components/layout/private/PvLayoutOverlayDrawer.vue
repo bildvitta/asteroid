@@ -3,16 +3,16 @@
     <template #header>
       <div class="flex items-center justify-between">
         <div class="flex items-center">
-          <qas-btn color="grey-10" icon="sym_r_keyboard_double_arrow_right" label="Fechar" @click="closeOverlay" />
+          <qas-btn color="grey-10" :disable="isDisabled" icon="sym_r_keyboard_double_arrow_right" label="Fechar" @click="closeOverlay" />
 
           <q-separator class="q-mx-md" vertical />
 
-          <qas-btn color="grey-10" :disable="!hasPreviousRoute" icon="sym_r_keyboard_arrow_left" tooltip="Voltar para página anterior." @click="goBack" />
+          <qas-btn color="grey-10" :disable="isBackButtonDisabled" icon="sym_r_keyboard_arrow_left" tooltip="Voltar para página anterior." @click="router.go(-1)" />
 
-          <qas-btn color="grey-10" :disable="!hasNextRoute" icon="sym_r_keyboard_arrow_right" tooltip="Ir para próxima página." @click="goForward" />
+          <qas-btn color="grey-10" :disable="isForwardButtonDisabled" icon="sym_r_keyboard_arrow_right" tooltip="Ir para próxima página." @click="router.go(1)" />
         </div>
 
-        <qas-btn color="grey-10" icon="sym_r_zoom_out_map" label="Tela cheia" @click="expandOverlay" />
+        <qas-btn color="grey-10" :disable="isDisabled" icon="sym_r_zoom_out_map" label="Ampliar" @click="expandOverlay" />
       </div>
     </template>
 
@@ -28,8 +28,8 @@ import QasBtn from '../../btn/QasBtn.vue'
 
 import useOverlayNavigation from '../../../composables/use-overlay-navigation'
 
-import { ref, provide, watch } from 'vue'
-import { useRoute } from 'vue-router'
+import { ref, provide, watch, computed } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
 
 defineOptions({ name: 'PvLayoutOverlayDrawer' })
 
@@ -38,27 +38,36 @@ provide('isOverlay', true)
 
 // composables
 const route = useRoute()
+const router = useRouter()
+
 const {
   closeOverlay,
   expandOverlay,
   hasNextRoute,
   hasPreviousRoute,
-  goBack,
-  goForward
+  canLeaveOverlay
 } = useOverlayNavigation()
 
 // refs
 const drawerModel = ref(false)
 
-// consts
-const drawerProps = {
-  position: 'right',
-  maxWidth: '90%',
-  dialogProps: {
-    onHide: closeOverlay,
-    noRouteDismiss: true
+// computeds
+const isDisabled = computed(() => !canLeaveOverlay.value)
+
+const isBackButtonDisabled = computed(() => !hasPreviousRoute.value || isDisabled.value)
+const isForwardButtonDisabled = computed(() => !hasNextRoute.value || isDisabled.value)
+
+const drawerProps = computed(() => {
+  return {
+    position: 'right',
+    maxWidth: '90%',
+    dialogProps: {
+      onHide: closeOverlay,
+      noRouteDismiss: true,
+      persistent: isDisabled.value
+    }
   }
-}
+})
 
 // watchers
 watch(() => route.query.overlay, overlay => {

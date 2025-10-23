@@ -14,6 +14,8 @@ const historyRoute = ref({
   currentIndex: -1
 })
 
+const canLeaveOverlay = ref(true)
+
 /**
  * Definição de callbacks locais para esta instância.
  * Obs: são arrays para permitir múltiplos callbacks, ex se você usa "onCloseOverlay" em 2 componentes diferentes,
@@ -23,7 +25,8 @@ const callbackFunctions = {
   onCloseOverlay: [],
   onExpandOverlay: [],
   onHideOverlay: [],
-  onBackgroundChange: []
+  onBackgroundChange: [],
+  onOverlayChange: []
 }
 
 /**
@@ -241,13 +244,21 @@ export default function useOverlayNavigation () {
     }
   }
 
+  /**
+   * Define se o overlay pode ser fechado, ampliado ou ter navegação.
+   * @param {boolean} value
+   */
+  function toggleCanLeaveOverlay (value) {
+    canLeaveOverlay.value = value
+  }
+
   // callbacks
   /**
    * @private
    * @param {string} callbackName - Nome do callback a ser executado.
    */
-  function execCallbackFunctions (callbackName) {
-    callbackFunctions[callbackName].forEach(fn => fn())
+  function execCallbackFunctions (callbackName, payload) {
+    callbackFunctions[callbackName].forEach(fn => fn(payload))
   }
 
   /**
@@ -257,22 +268,38 @@ export default function useOverlayNavigation () {
    * @see {onBackgroundChange}
    * @example
    * ```js
-   * const { triggerBackgroundChanges } = useOverlayNavigation()
+   * const { triggerBackgroundChange } = useOverlayNavigation()
    *
    * // Disparar a mudança
-   * triggerBackgroundChanges({ someData: 123 })
+   * triggerBackgroundChange({ someData: 123 })
    * ```
    */
-  function triggerBackgroundChanges (payload) {
-    callbackFunctions.onBackgroundChange(payload)
+  function triggerBackgroundChange (payload) {
+    execCallbackFunctions('onBackgroundChange', payload)
+  }
+
+  /**
+   * Dispara mudanças no overlay componente.
+   * @param {*} payload
+   * @see {onOverlayChange}
+   * @example
+   * ```js
+   * const { triggerOverlayChange } = useOverlayNavigation()
+   *
+   * // Disparar a mudança
+   * triggerOverlayChange({ someData: 123 })
+   * ```
+   */
+  function triggerOverlayChange (payload) {
+    execCallbackFunctions('onOverlayChange', payload)
   }
 
   /**
    * callback para quando ter alguma mudança no background componente, executado logo após a função
-   * "triggerBackgroundChanges" ser executada.
+   * "triggerBackgroundChange" ser executada.
    *
    * @param {Function} callback
-   * @see {triggerBackgroundChanges}
+   * @see {triggerBackgroundChange}
    * @example
    * ```js
    * const { onBackgroundChange } = useOverlayNavigation()
@@ -284,6 +311,25 @@ export default function useOverlayNavigation () {
    */
   function onBackgroundChange (callback) {
     callbackFunctions.onBackgroundChange.push(callback)
+  }
+
+  /**
+   * callback para quando ter alguma mudança no overlay componente, executado logo após a função
+   * "triggerOverlayChange" ser executada.
+   *
+   * @param {Function} callback
+   * @see {triggerOverlayChange}
+   * @example
+   * ```js
+   * const { onOverlayChange } = useOverlayNavigation()
+   *
+   * onOverlayChange((payload) => {
+   *  // Lógica a ser executada quando o overlay sofrer alguma mudança
+   * })
+   * ```
+   */
+  function onOverlayChange (callback) {
+    callbackFunctions.onOverlayChange.push(callback)
   }
 
   /**
@@ -344,6 +390,7 @@ export default function useOverlayNavigation () {
 
     // refs
     historyRoute,
+    canLeaveOverlay,
 
     // computeds
     backgroundRoute,
@@ -359,11 +406,14 @@ export default function useOverlayNavigation () {
     getOverlayRoute,
     goBack,
     goForward,
-    triggerBackgroundChanges,
+    triggerBackgroundChange,
+    triggerOverlayChange,
     getNormalizedRoute,
+    toggleCanLeaveOverlay,
 
     // callbacks functions
     onBackgroundChange,
+    onOverlayChange,
     onCloseOverlay,
     onExpandOverlay,
     onHideOverlay

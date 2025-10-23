@@ -40,7 +40,7 @@ import QasDialog from '../dialog/QasDialog.vue'
 import QasActions from '../actions/QasActions.vue'
 
 import { NotifyError, NotifySuccess } from '../../plugins'
-import { useHistory } from '../../composables'
+import { useHistory, useOverlayNavigation } from '../../composables'
 import { viewMixin } from '../../mixins'
 
 import { decamelize } from 'humps'
@@ -164,7 +164,11 @@ export default {
   ],
 
   data () {
+    const { toggleCanLeaveOverlay } = useOverlayNavigation()
+
     return {
+      toggleCanLeaveOverlay,
+
       cachedResult: {},
       isSubmitting: false,
       showDialog: false,
@@ -414,6 +418,8 @@ export default {
 
       this.isSubmitting = true
 
+      this.toggleCanLeaveOverlay(false)
+
       try {
         const payload = {
           id: this.id,
@@ -462,6 +468,7 @@ export default {
         log(`[${this.entity}]:submit:error`, error)
       } finally {
         this.isSubmitting = false
+        this.toggleCanLeaveOverlay(true)
       }
     },
 
