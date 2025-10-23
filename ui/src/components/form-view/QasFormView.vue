@@ -63,6 +63,12 @@ export default {
 
   mixins: [viewMixin],
 
+  provide () {
+    return {
+      updateCachedResult: this.updateCachedResult
+    }
+  },
+
   props: {
     beforeSubmit: {
       default: null,
@@ -254,6 +260,9 @@ export default {
       const clonedModelValue = extend(true, {}, this.modelValue)
       const clonedCachedResult = extend(true, {}, this.cachedResult)
 
+      console.log(clonedModelValue, '<--- clonedModelValue')
+      console.log(clonedCachedResult, '<--- clonedCachedResult')
+
       /**
        * Se a propriedade "useDialogOnUnsavedChanges" for false ou a variável
        * "ignoreRouterGuard" for true, então **não** iremos checar se o usuário
@@ -311,11 +320,12 @@ export default {
 
         result && Object.assign(modelValue, result)
 
+        this.$emit('update:modelValue', modelValue)
+
         if (this.useDialogOnUnsavedChanges) {
-          this.cachedResult = extend(true, {}, result || modelValue)
+          this.updateCachedResult()
         }
 
-        this.$emit('update:modelValue', modelValue)
         this.$emit('fetch-success', response, this.modelValue)
 
         log(`[${this.entity}]:fetchSingle:success`, { response, modelValue })
@@ -419,7 +429,7 @@ export default {
         const modelValue = { ...this.modelValue, ...response.data.result }
 
         if (this.useDialogOnUnsavedChanges) {
-          this.cachedResult = extend(true, {}, modelValue)
+          this.updateCachedResult()
         }
 
         this.mx_setErrors()
@@ -534,6 +544,12 @@ export default {
         method: methods[this.mode],
         url,
         data: this.modelValue
+      })
+    },
+
+    updateCachedResult () {
+      this.$nextTick(() => {
+        this.cachedResult = extend(true, {}, this.modelValue)
       })
     }
   }

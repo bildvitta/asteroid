@@ -85,7 +85,8 @@ export default {
 
   inject: {
     isBox: { default: false },
-    isDialog: { default: false }
+    isDialog: { default: false },
+    updateCachedResult: { default: () => {} }
   },
 
   props: {
@@ -447,12 +448,20 @@ export default {
     },
 
     setDefaultOption () {
+      console.log('<----- setDefaultOption called ----->')
       const modelValue = this.attributes.emitValue
         ? this.mx_filteredOptions[0].value
         : this.mx_filteredOptions[0]
 
       // Quando for múltiplo adiciona o valor em um array
       this.$emit('update:modelValue', this.multiple ? [modelValue] : modelValue)
+
+      /**
+       * Atualiza o model de cache dos dados do formulário no QasFormView,
+       * usado para fazer o comparativo para saber se houve mudanças no formulário,
+       * para exibir o dialog.
+       */
+      this.updateCachedResult()
     },
 
     getFilteredBadgeList (payload = {}) {
