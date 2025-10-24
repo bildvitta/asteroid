@@ -38,7 +38,7 @@ Caso adicionado no escopo inicial, todos os conteúdos abaixo não serão adicio
 
 ### Modificado
 - `QasSelect`: Modificado para utilizar o `clearable` (botão de remover seleção) por padrão quando o campo **não for required**, antes estava apenas quando o campo tinha opção de pesquisar. ([#1394](https://github.com/bildvitta/asteroid/issues/1394))
-- `Delete`: Alterado para o loading do plugin de delete estar apenas no botão do dialog ao invés da tela inteira. 
+- `Delete`: Alterado para o loading do plugin de delete estar apenas no botão do dialog ao invés da tela inteira. ([[#1304](https://github.com/bildvitta/asteroid/issues/1304)])
 
 ## [3.19.0-beta.11] - 16-10-2025
 ### Corrigido
