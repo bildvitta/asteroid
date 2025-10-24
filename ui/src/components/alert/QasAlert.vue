@@ -1,6 +1,6 @@
 <template>
-  <div class="inline-block qas-alert">
-    <qas-box v-if="displayAlert" v-bind="defaultBoxProps">
+  <div v-if="displayAlert" class="inline-block qas-alert">
+    <qas-box v-bind="defaultBoxProps">
       <div class="flex items-center no-wrap">
         <div class="flex items-center no-wrap text-body1 text-grey-8">
           <q-icon v-bind="iconProps" />

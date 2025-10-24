@@ -1,7 +1,7 @@
 <template>
   <q-field class="qas-numeric-input" :class="classes" dense :label="formattedLabel" :model-value="modelValue" no-error-icon>
     <template #control="{ id, floatingLabel }">
-      <input :id ref="input" class="q-field__input" :class="getInputClasses(floatingLabel)" :disabled="$attrs.disable" inputmode="numeric" :placeholder :readonly="$attrs.readonly" @blur="emitValue" @click="setSelect" @input="emitUpdateModel($event.target.value)" @keydown.tab="onTabPressed" />
+      <input :id ref="input" class="q-field__input" :class="getInputClasses(floatingLabel)" :disabled="$attrs.disable" inputmode="numeric" :placeholder :readonly="$attrs.readonly" @blur="emitValue" @click="setSelect" @input="emitUpdateModel($event.target.value)" @keydown.tab="onTabPressed">
     </template>
 
     <template v-if="icon" #prepend>
@@ -227,6 +227,11 @@ export default {
       })
     },
 
+    /**
+     * Foi necessário, pois ao pressionar tab para ir para o próximo campo em um formulário,
+     * o valor exibido ficava incorreto, exemplo: setei "43%" e apertei tab, formatava para "0,43%".
+     * Desa forma, forçamos sempre o valor correto ao pressionar tab.
+     */
     onTabPressed () {
       this.autoNumeric.set(this.getFormattedNumber())
     },

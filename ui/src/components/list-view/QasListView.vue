@@ -143,8 +143,16 @@ export default {
   },
 
   computed: {
+    /**
+     * Terá o listener de delete se:
+     * - a prop useAutoHandleOnDelete for true ou
+     * - a prop useAutoRefetchOnDelete for true ou
+     * - não estiver usando store e existir uma entity definida. Necessário, pois sem store, ao deletar um item,
+     * precisa refazer a busca para atualizar a lista, diferente de quando usa store, que o estado é atualizado
+     * automaticamente.
+     */
     hasDeleteEventListener () {
-      return this.useAutoHandleOnDelete || this.useAutoRefetchOnDelete
+      return this.useAutoHandleOnDelete || this.useAutoRefetchOnDelete || (!this.useStore && this.entity)
     },
 
     hasHeaderSlot () {
@@ -358,7 +366,7 @@ export default {
     },
 
     onDeleteResult (event) {
-      if (this.useAutoRefetchOnDelete) {
+      if (this.useAutoRefetchOnDelete || !this.useStore) {
         this.mx_fetchHandler({ ...this.mx_context, url: this.url }, this.fetchList)
         return
       }
