@@ -7,46 +7,42 @@
     </template>
 
     <template #default>
-      <qas-table-generator :columns="columns" :fields="fields" :results="results" row-key="uuid">
-        <template #body-cell-isActive="{ row }">
-          <div class="text-weight-bold">{{ row.isActive }}</div>
-        </template>
-        <template #body-cell-actions="{ row }">
-          <div class="flex justify-end no-wrap q-gutter-x-sm">
-            <qas-btn icon="sym_r_edit" />
-            <qas-delete :custom-id="row.uuid" entity="users" icon="sym_r_delete" />
-          </div>
-        </template>
-      </qas-table-generator>
+      <qas-table-generator v-bind="tableGeneratorProps" />
     </template>
   </qas-list-view>
 </template>
 
-<script>
-export default {
-  name: 'UsersList',
+<script setup>
+import { ref, computed } from 'vue'
 
-  data () {
-    return {
-      fields: {},
-      errors: {},
-      results: [],
-      metadata: {}
-    }
-  },
+defineOptions({ name: 'ExAutoRefetchOnDelete' })
 
-  computed: {
-    entity () {
-      return 'users'
-    },
+// refs
+const fields = ref({})
+const results = ref([])
 
-    columns () {
-      return [
-        'isActive',
-        'name',
-        { align: 'right', name: 'actions' }
-      ]
+// consts
+const entity = 'users'
+
+// computeds
+const tableGeneratorProps = computed(() => {
+  return {
+    rowKey: 'uuid',
+    fields: fields.value,
+    results: results.value,
+    columns: ['name', 'email', 'isActive'],
+
+    actionsMenuProps: row => {
+      return {
+        deleteProps: {
+          deleteActionParams: {
+            entity,
+            id: row.uuid
+          }
+        }
+
+      }
     }
   }
-}
+})
 </script>

@@ -1,15 +1,15 @@
 <template>
-  <component v-bind="attributes" :is="props.tag" @click.stop.prevent="onDelete">
+  <qas-btn v-bind="attributes" @click.stop.prevent="onDelete">
     <template v-for="(_, name) in slots" #[name]="context">
       <slot :name="name" v-bind="context || {}" />
     </template>
-  </component>
+  </qas-btn>
 </template>
 
 <script setup>
 import QasBtn from '../btn/QasBtn.vue'
 
-import { inject, computed, useAttrs, useSlots } from 'vue'
+import { inject, computed, useSlots } from 'vue'
 import { useRoute } from 'vue-router'
 
 defineOptions({
@@ -18,6 +18,11 @@ defineOptions({
 })
 
 const props = defineProps({
+  buttonProps: {
+    default: () => ({}),
+    type: Object
+  },
+
   customId: {
     default: '',
     type: [Number, String]
@@ -31,11 +36,6 @@ const props = defineProps({
   entity: {
     required: true,
     type: String
-  },
-
-  tag: {
-    default: QasBtn,
-    type: [String, Object]
   },
 
   url: {
@@ -58,25 +58,32 @@ const props = defineProps({
   }
 })
 
+// emits
 const emit = defineEmits(['success', 'error', 'update:deleting'])
 
+// composables
 const slots = useSlots()
-const attrs = useAttrs()
 const route = useRoute()
 
 // global
 const qas = inject('qas')
 
+// computeds
 const id = computed(() => props.customId || route.params.id)
-const isButton = computed(() => !!(typeof props.tag === 'object' && props.tag.name === 'QasBtn'))
 
 const attributes = computed(() => {
   return {
-    ...attrs,
-    color: isButton.value ? 'grey-10' : attrs.color
+    // Propriedades padrão do botão de delete
+    color: 'grey-10',
+    label: 'Excluir',
+    icon: 'sym_r_delete',
+
+    ...props.buttonProps
+
   }
 })
 
+// functions
 function onDelete () {
   qas.delete({
     deleteActionParams: {

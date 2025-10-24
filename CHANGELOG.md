@@ -15,6 +15,9 @@ Devemos adicionar o comentário `<!-- N/A -->` (Não adicionar), para que não p
 Caso adicionado no escopo inicial, todos os conteúdos abaixo não serão adicionados. Caso adicionado na linha, será considerado apenas ela.
 
 ## Não publicado
+## BREAKING CHANGES
+- `QasDelete`: Removido prop tag, sendo que agora o sempre será um botão. Validar lugares que utilizam pois pode ocorrer quebra no layout.
+
 ### Adicionado
 - `QasFormView`: Adicionado propriedade `use-store` para dar a possibilidade de utilizar o componente sem a store do vuex/pinia. ([#1083](https://github.com/bildvitta/asteroid/issues/1083))
 - `QasSelectListDialog`:
@@ -22,6 +25,7 @@ Caso adicionado no escopo inicial, todos os conteúdos abaixo não serão adicio
   - Adicionado o método `toggleDialog` no define expose.
 - `QasToggle`: Adicionado prop `title` para ter a possibilidade de ter um título acima do toggle. ([#1316](https://github.com/bildvitta/asteroid/issues/1316))
 - `QasListView`: Adicionado refetch automático após deleção de itens quando `use-store` está desabilitado (`false`). ([#1404](https://github.com/bildvitta/asteroid/issues/1404))
+- `QasDelete`: Adicionado prop `buttonProps` para repassar as propriedades para o botão para o `QasBtn`.
 
 ### Corrigido
 - `QasActions`: Corrigido tamanho do botão quando passado via props e utilizado junto com `useEqualWidth`. ([#1400](https://github.com/bildvitta/asteroid/issues/1400))
@@ -34,11 +38,13 @@ Caso adicionado no escopo inicial, todos os conteúdos abaixo não serão adicio
   - Corrigido precisão decimal no model para modo percentual, onde o `places` agora controla corretamente as casas decimais do valor final (places=2 resulta em 4 casas decimais para percentuais, ex: 0.0133).
 - `QasAlert`: Corrigido para remover do HTML o componente quando ele for fechado (prop `useCloseBtn`). ([#1381](https://github.com/bildvitta/asteroid/issues/1381))
 - `QasSelect`: Corrigido uso de badges na opção, no qual quebrava quando utilizado como objeto ao invés de função. ([#1329](https://github.com/bildvitta/asteroid/issues/1329))
-- `QasDelete`: Corrigido validação para renderizar um `QasBtn`.
 
 ### Modificado
 - `QasSelect`: Modificado para utilizar o `clearable` (botão de remover seleção) por padrão quando o campo **não for required**, antes estava apenas quando o campo tinha opção de pesquisar. ([#1394](https://github.com/bildvitta/asteroid/issues/1394))
 - `Delete`: Alterado para o loading do plugin de delete estar apenas no botão do dialog ao invés da tela inteira. ([[#1304](https://github.com/bildvitta/asteroid/issues/1304)])
+
+### Removido
+- `QasDelete`: Removido prop tag, sendo que agora o sempre será um botão.
 
 ## [3.19.0-beta.11] - 16-10-2025
 ### Corrigido
