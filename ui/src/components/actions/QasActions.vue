@@ -2,19 +2,19 @@
   <div class="q-mt-sm" :class="classes">
     <div v-if="hasTertiaryButton" :class="columnClasses">
       <slot name="tertiary">
-        <qas-btn v-bind="formattedButtonsProps.tertiary" />
+        <qas-btn v-bind="formattedButtonsProps.tertiary" class="full-width" />
       </slot>
     </div>
 
     <div v-if="hasSecondaryButton" :class="columnClasses">
       <slot name="secondary">
-        <qas-btn v-bind="formattedButtonsProps.secondary" />
+        <qas-btn v-bind="formattedButtonsProps.secondary" class="full-width" />
       </slot>
     </div>
 
     <div v-if="hasPrimaryButton" :class="columnClasses">
       <slot name="primary">
-        <qas-btn v-bind="formattedButtonsProps.primary" />
+        <qas-btn v-bind="formattedButtonsProps.primary" class="full-width" />
       </slot>
     </div>
   </div>

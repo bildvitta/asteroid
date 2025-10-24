@@ -16,18 +16,29 @@ Caso adicionado no escopo inicial, todos os conteúdos abaixo não serão adicio
 
 ## Não publicado
 ### Adicionado
-- `QasFormView`: Adicionado propriedade `use-store` para dar a possibilidade de utilizar o componente sem a store do vuex/pinia.
+- `QasFormView`: Adicionado propriedade `use-store` para dar a possibilidade de utilizar o componente sem a store do vuex/pinia. ([#1083](https://github.com/bildvitta/asteroid/issues/1083))
+- `QasSelectListDialog`:
+  - Adicionado model chamado `select-list-model` com os itens selecionados dentro do dialog.
+  - Adicionado o método `toggleDialog` no define expose.
+- `QasToggle`: Adicionado prop `title` para ter a possibilidade de ter um título acima do toggle. ([#1316](https://github.com/bildvitta/asteroid/issues/1316))
 - `QasListView`: Adicionado refetch automático após deleção de itens quando `use-store` está desabilitado (`false`). ([#1404](https://github.com/bildvitta/asteroid/issues/1404))
-- `QasToggle`: Adicionado prop `title` para ter a possibilidade de ter um título acima do toggle. [[#1316](https://github.com/bildvitta/asteroid/issues/1316)]
 - `container.scss`: Adicionado padding-bottom no container pra quando existir o botão do gleap, pra o botão não sobrepor o conteúdo da página.
 
 ### Corrigido
-- `QasAlert`: Corrigido para remover do HTML o componente quando ele for fechado (prop `useCloseBtn`). [[#1381](https://github.com/bildvitta/asteroid/issues/1381)]
+- `QasActions`: Corrigido tamanho do botão quando passado via props e utilizado junto com `useEqualWidth`. ([#1400](https://github.com/bildvitta/asteroid/issues/1400))
+- `QasSelectListDialog`:
+  - Corrigido slots do dialog que não funcionavam.
+  - Corrigido alinhamento do botão de adicionar item quando não se tem label no header.
+- `QasNumericInput`:
+  - Corrigido exibição do input, no qual exibia o conteúdo da lib `Autonumeric` ao dar hover, sendo que deve ser exibida apenas quando tem foco ou valor no campo. ([[#1403](https://github.com/bildvitta/asteroid/issues/1403)])
+  - Corrigido inconsistência de valores entre navegação por Tab e clique ao perder foco, garantindo que ambos métodos produzam o mesmo resultado.
+  - Corrigido precisão decimal no model para modo percentual, onde o `places` agora controla corretamente as casas decimais do valor final (places=2 resulta em 4 casas decimais para percentuais, ex: 0.0133).
+- `QasAlert`: Corrigido para remover do HTML o componente quando ele for fechado (prop `useCloseBtn`). ([#1381](https://github.com/bildvitta/asteroid/issues/1381))
 - `QasSelect`: Corrigido uso de badges na opção, no qual quebrava quando utilizado como objeto ao invés de função. ([#1329](https://github.com/bildvitta/asteroid/issues/1329))
 - `QasFormView`: Corrigido comportamento do dialog de descarte de alterações sendo exibido em momentos errados. Para casos específicos, onde o model é manipulado externamente, é necessário atualizar o `cachedResult` para um comparativo é possível ter acesso a fn `updateCachedResult` via inject ou via ref.
 
 ### Modificado
-- `QasSelect`: Modificado para utilizar o `clearable` (botão de remover seleção) por padrão quando o campo **não for required**, antes estava apenas quando o campo tinha opção de pesquisar. [[#1394](https://github.com/bildvitta/asteroid/issues/1394)]
+- `QasSelect`: Modificado para utilizar o `clearable` (botão de remover seleção) por padrão quando o campo **não for required**, antes estava apenas quando o campo tinha opção de pesquisar. ([#1394](https://github.com/bildvitta/asteroid/issues/1394))
 
 ## [3.19.0-beta.11] - 16-10-2025
 ### Corrigido
