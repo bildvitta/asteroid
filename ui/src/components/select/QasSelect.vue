@@ -86,7 +86,7 @@ export default {
   inject: {
     isBox: { default: false },
     isDialog: { default: false },
-    updateCachedResult: { default: () => {} }
+    setCachedResultForUnsavedChanges: { default: () => {} }
   },
 
   props: {
@@ -460,7 +460,7 @@ export default {
        * usado para fazer o comparativo para saber se houve mudanças no formulário,
        * para exibir o dialog.
        */
-      this.updateCachedResult()
+      this.setCachedResultForUnsavedChanges()
     },
 
     getFilteredBadgeList (payload = {}) {

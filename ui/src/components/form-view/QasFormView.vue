@@ -65,7 +65,7 @@ export default {
 
   provide () {
     return {
-      updateCachedResult: this.updateCachedResult
+      setCachedResultForUnsavedChanges: this.setCachedResultForUnsavedChanges
     }
   },
 
@@ -320,7 +320,7 @@ export default {
         this.$emit('update:modelValue', modelValue)
 
         if (this.useDialogOnUnsavedChanges) {
-          this.updateCachedResult()
+          this.setCachedResultForUnsavedChanges()
         }
 
         this.$emit('fetch-success', response, this.modelValue)
@@ -426,7 +426,7 @@ export default {
         const modelValue = { ...this.modelValue, ...response.data.result }
 
         if (this.useDialogOnUnsavedChanges) {
-          this.updateCachedResult()
+          this.setCachedResultForUnsavedChanges()
         }
 
         this.mx_setErrors()
@@ -544,7 +544,7 @@ export default {
       })
     },
 
-    updateCachedResult () {
+    setCachedResultForUnsavedChanges () {
       this.$nextTick(() => {
         this.cachedResult = extend(true, {}, this.modelValue)
       })
