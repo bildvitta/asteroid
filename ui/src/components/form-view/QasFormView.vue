@@ -260,9 +260,6 @@ export default {
       const clonedModelValue = extend(true, {}, this.modelValue)
       const clonedCachedResult = extend(true, {}, this.cachedResult)
 
-      console.log(clonedModelValue, '<--- clonedModelValue')
-      console.log(clonedCachedResult, '<--- clonedCachedResult')
-
       /**
        * Se a propriedade "useDialogOnUnsavedChanges" for false ou a variável
        * "ignoreRouterGuard" for true, então **não** iremos checar se o usuário

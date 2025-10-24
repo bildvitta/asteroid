@@ -23,6 +23,7 @@ Caso adicionado no escopo inicial, todos os conteúdos abaixo não serão adicio
 ### Corrigido
 - `QasAlert`: Corrigido para remover do HTML o componente quando ele for fechado (prop `useCloseBtn`). [[#1381](https://github.com/bildvitta/asteroid/issues/1381)]
 - `QasSelect`: Corrigido uso de badges na opção, no qual quebrava quando utilizado como objeto ao invés de função. ([#1329](https://github.com/bildvitta/asteroid/issues/1329))
+- `QasFormView`: Corrigido comportamento do dialog de descarte de alterações sendo exibido em momentos errados. Para casos específicos, onde o model é manipulado externamente, é necessário atualizar o `cachedResult` para um comparativo correto, sendo possível ter acesso a fn `updateCachedResult` via inject ou via ref.
 
 ### Modificado
 - `QasSelect`: Modificado para utilizar o `clearable` (botão de remover seleção) por padrão quando o campo **não for required**, antes estava apenas quando o campo tinha opção de pesquisar. [[#1394](https://github.com/bildvitta/asteroid/issues/1394)]

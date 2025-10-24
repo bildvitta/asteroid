@@ -448,7 +448,6 @@ export default {
     },
 
     setDefaultOption () {
-      console.log('<----- setDefaultOption called ----->')
       const modelValue = this.attributes.emitValue
         ? this.mx_filteredOptions[0].value
         : this.mx_filteredOptions[0]
