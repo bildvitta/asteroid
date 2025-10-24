@@ -45,7 +45,7 @@ export default function (config = {}) {
 
   async function destroy () {
     try {
-      setLoadingState(true)
+      setLoadingStateOnDialog(true)
 
       onDelete(true)
 
@@ -83,7 +83,7 @@ export default function (config = {}) {
     } finally {
       onDelete(false)
 
-      setLoadingState(false)
+      setLoadingStateOnDialog(false)
     }
   }
 
@@ -107,7 +107,7 @@ export default function (config = {}) {
     window.dispatchEvent(event)
   }
 
-  function setLoadingState (isDeleting) {
+  function setLoadingStateOnDialog (isDeleting) {
     dialog.update({
       ...defaultDialogProps,
 
