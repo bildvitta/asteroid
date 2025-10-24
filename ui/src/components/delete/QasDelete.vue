@@ -68,7 +68,7 @@ const route = useRoute()
 const qas = inject('qas')
 
 const id = computed(() => props.customId || route.params.id)
-const isButton = computed(() => !!(typeof props.tag === 'object' && props.tag.name))
+const isButton = computed(() => !!(typeof props.tag === 'object' && props.tag.name === 'QasBtn'))
 
 const attributes = computed(() => {
   return {
