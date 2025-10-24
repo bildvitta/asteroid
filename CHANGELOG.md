@@ -19,11 +19,12 @@ Caso adicionado no escopo inicial, todos os conteúdos abaixo não serão adicio
 - `QasFormView`: Adicionado propriedade `use-store` para dar a possibilidade de utilizar o componente sem a store do vuex/pinia.
 - `QasListView`: Adicionado refetch automático após deleção de itens quando `use-store` está desabilitado (`false`). ([#1404](https://github.com/bildvitta/asteroid/issues/1404))
 - `QasToggle`: Adicionado prop `title` para ter a possibilidade de ter um título acima do toggle. [[#1316](https://github.com/bildvitta/asteroid/issues/1316)]
+- `container.scss`: Adicionado padding-bottom no container pra quando existir o botão do gleap, pra o botão não sobrepor o conteúdo da página.
 
 ### Corrigido
 - `QasAlert`: Corrigido para remover do HTML o componente quando ele for fechado (prop `useCloseBtn`). [[#1381](https://github.com/bildvitta/asteroid/issues/1381)]
 - `QasSelect`: Corrigido uso de badges na opção, no qual quebrava quando utilizado como objeto ao invés de função. ([#1329](https://github.com/bildvitta/asteroid/issues/1329))
-- `QasFormView`: Corrigido comportamento do dialog de descarte de alterações sendo exibido em momentos errados. Para casos específicos, onde o model é manipulado externamente, é necessário atualizar o `cachedResult` para um comparativo correto, sendo possível ter acesso a fn `updateCachedResult` via inject ou via ref.
+- `QasFormView`: Corrigido comportamento do dialog de descarte de alterações sendo exibido em momentos errados. Para casos específicos, onde o model é manipulado externamente, é necessário atualizar o `cachedResult` para um comparativo é possível ter acesso a fn `updateCachedResult` via inject ou via ref.
 
 ### Modificado
 - `QasSelect`: Modificado para utilizar o `clearable` (botão de remover seleção) por padrão quando o campo **não for required**, antes estava apenas quando o campo tinha opção de pesquisar. [[#1394](https://github.com/bildvitta/asteroid/issues/1394)]
