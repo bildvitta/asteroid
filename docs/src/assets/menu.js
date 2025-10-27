@@ -116,6 +116,10 @@ module.exports = [
         path: '/components/checkbox'
       },
       {
+        name: 'Container',
+        path: '/components/container'
+      },
+      {
         name: 'Date',
         path: '/components/date'
       },

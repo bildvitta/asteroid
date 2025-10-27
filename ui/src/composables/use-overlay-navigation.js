@@ -397,7 +397,7 @@ export default function useOverlayNavigation () {
     hasNextRoute,
     hasPreviousRoute,
     isBackgroundOverlay,
-    route: defaultRoute.value, // feito dessa forma para ser usado como o padrão "route" que não tem ".value"
+    route: defaultRoute, // feito dessa forma para ser usado como o padrão "route" que não tem ".value"
 
     // functions
     addRouteToHistory,

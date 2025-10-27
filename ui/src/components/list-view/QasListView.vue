@@ -134,7 +134,7 @@ export default {
   ],
 
   data () {
-    const { route, isBackgroundOverlay } = useOverlayNavigation()
+    const { isBackgroundOverlay } = useOverlayNavigation()
 
     return {
       page: 1,
@@ -142,7 +142,6 @@ export default {
       resultsQuantity: 0,
       resultsList: [],
       isFetchListSucceeded: false,
-      route,
       isBackgroundOverlay
     }
   },

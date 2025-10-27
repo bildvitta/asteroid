@@ -5,7 +5,7 @@ export default function () {
   const { route } = useOverlayNavigation()
 
   const context = computed(() => {
-    const { limit, ordering, page, search, ...filters } = route.query
+    const { limit, ordering, page, search, ...filters } = route.value.query
 
     return { filters, limit, ordering, page: page ? parseInt(page) : 1, search }
   })

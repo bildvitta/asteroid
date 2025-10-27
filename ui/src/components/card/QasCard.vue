@@ -2,15 +2,25 @@
   <div class="qas-card">
     <qas-box :class="boxClasses" v-bind="boxProps">
       <q-card class="column full-height overflow-hidden shadow-0">
-        <div class="full-width items-center justify-between no-wrap row">
-          <component :is="titleComponent" class="ellipsis text-h5 text-no-decoration" :class="titleClasses" :to="route">
-            <slot name="title">
-              {{ props.title }}
-            </slot>
-          </component>
+        <header class="full-width items-center justify-between no-wrap row">
+          <slot name="header">
+            <div class="ellipsis flex no-wrap">
+              <slot v-if="props.useSelection" name="header-left">
+                <qas-checkbox v-model="selected" :false-value="props.falseValue" :true-value="props.trueValue" />
+              </slot>
 
-          <qas-actions-menu v-if="hasActions" v-bind="formattedActionsMenuProps" />
-        </div>
+              <component :is="titleComponent.is" class="ellipsis text-h5 text-no-decoration" v-bind="titleComponent.props">
+                <slot name="title">
+                  {{ props.title }}
+                </slot>
+
+                <qas-tooltip v-if="props.tooltip" :text="props.tooltip" />
+              </component>
+            </div>
+
+            <qas-actions-menu v-if="hasActions" v-bind="formattedActionsMenuProps" />
+          </slot>
+        </header>
 
         <div class="q-mt-sm qas-card__content" :class="contentClasses">
           <slot name="default" />
@@ -33,7 +43,9 @@
 </template>
 
 <script setup>
+import QasTooltip from '../tooltip/QasTooltip.vue'
 import QasActionsMenu from '../actions-menu/QasActionsMenu.vue'
+import QasCheckbox from '../checkbox/QasCheckbox.vue'
 import QasBox from '../box/QasBox.vue'
 
 import { computed, useSlots, inject } from 'vue'
@@ -52,6 +64,11 @@ const props = defineProps({
     default: () => ({})
   },
 
+  falseValue: {
+    type: [Boolean, String, Number, Array, Object],
+    default: false
+  },
+
   route: {
     type: Object,
     default: () => ({})
@@ -65,8 +82,25 @@ const props = defineProps({
   title: {
     type: String,
     default: ''
+  },
+
+  tooltip: {
+    type: String,
+    default: ''
+  },
+
+  trueValue: {
+    type: [Boolean, String, Number, Array, Object],
+    default: true
+  },
+
+  useSelection: {
+    type: Boolean
   }
 })
+
+// models
+const selected = defineModel('selected', { type: [Boolean, String, Number, Array, Object], default: false })
 
 // consts
 const isInsideBox = inject('isBox', false)
@@ -98,17 +132,29 @@ const hasExpansion = computed(() => !!Object.keys(props.expansionProps).length)
 
 const hasRoute = computed(() => !!Object.keys(props.route).length)
 
-const titleClasses = computed(() => {
-  return {
-    'qas-card__router ': hasRoute.value
-  }
-})
+// const titleClasses = computed(() => {
+//   return {
+//     ' ': hasRoute.value
+//   }
+// })
 
 const contentClasses = computed(() => hasFooter.value && 'q-mb-sm')
 
 const boxClasses = computed(() => props.statusColor ? 'rounded-borders-right' : 'rounded-borders')
 
-const titleComponent = computed(() => hasRoute.value ? 'router-link' : 'h5')
+// const titleComponent = computed(() => hasRoute.value ? 'router-link' : 'h5')
+
+const titleComponent = computed(() => {
+  return {
+    is: hasRoute.value ? 'router-link' : 'h5',
+    props: {
+      ...(hasRoute.value && {
+        to: props.route,
+        class: 'qas-card__router'
+      })
+    }
+  }
+})
 
 const style = computed(() => {
   if (!props.statusColor) return
@@ -130,6 +176,7 @@ const formattedActionsMenuProps = computed(() => {
     useLabel: false
   }
 })
+
 </script>
 
 <style lang="scss">

@@ -28,7 +28,7 @@ import QasBtn from '../../btn/QasBtn.vue'
 
 import useOverlayNavigation from '../../../composables/use-overlay-navigation'
 
-import { ref, provide, watch, computed } from 'vue'
+import { ref, watch, computed, provide } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 
 defineOptions({ name: 'PvLayoutOverlayDrawer' })

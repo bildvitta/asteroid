@@ -117,22 +117,23 @@ const screen = useScreen()
  * Seta os valores padrões, dando prioridade:
  *  1. Props
  *  2. Injetado (pode ser reativo ou não reativo)
- *  3. Hardcoded (tertiary, md, primary)
+ *  3. Caso esteja dentro do QasBox, seta o size para 'sm' se for primary ou secondary.
+ *  4. Hardcoded (tertiary, md, primary)
  */
 const btnPropsDefaults = computed(() => {
   const defaultProps = isRef(injectedDefaults) ? injectedDefaults.value : injectedDefaults
 
-  const isTertiary = (props.variant || defaultProps.variant) === 'tertiary'
+  const isSmallVariant = ['primary', 'secondary'].includes(props.variant || defaultProps.variant)
 
   return {
-    size: isInsideBox && !isTertiary ? 'sm' : 'lg',
+    size: isInsideBox && isSmallVariant ? 'sm' : 'lg',
     variant: 'tertiary',
     color: 'primary',
     ...defaultProps
   }
 })
 
-const defaultSize = computed(() => props.size || btnPropsDefaults.value.size || (isInsideBox ? 'sm' : btnPropsDefaults.value.size))
+const defaultSize = computed(() => props.size || btnPropsDefaults.value.size)
 const defaultVariant = computed(() => props.variant || btnPropsDefaults.value.variant)
 const defaultColor = computed(() => props.color || btnPropsDefaults.value.color)
 

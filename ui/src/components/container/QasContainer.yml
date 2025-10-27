@@ -1,0 +1,10 @@
+type: component
+
+meta:
+  desc: Componente utilizado para encapsular outros componentes ou elementos HTML, com logica adicionado do overlay navigation.
+
+props:
+  use-spaced:
+    default: true
+    desc: Indica se vai aplicar espaçamento y (top e bottom).
+    type: Boolean
