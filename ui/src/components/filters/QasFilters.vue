@@ -291,7 +291,6 @@ export default {
          * se sim, faz bate o fetchFilters novamente.
         */
         const hasQueryChanged = !!this.listenerQueryKeys.find(queryKey => to.query[queryKey] !== from.query[queryKey])
-        console.log('TCL: $route -> hasQueryChanged', hasQueryChanged)
 
         this.fetchFilters({ hasQueryChanged })
         this.useUpdateRoute && this.updateValues()
