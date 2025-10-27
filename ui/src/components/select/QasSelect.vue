@@ -86,7 +86,7 @@ export default {
   inject: {
     isBox: { default: false },
     isDialog: { default: false },
-    updateUnsavedChangesCache: { default: () => {} }
+    updateUnsavedChangesCache: { default: null }
   },
 
   props: {
@@ -458,9 +458,9 @@ export default {
       /**
        * Atualiza o model de cache dos dados do formulário no QasFormView,
        * usado para fazer o comparativo para saber se houve mudanças no formulário,
-       * para exibir o dialog.
+       * para exibir o dialog. Só terá essa funcionalidade se o componente estiver dentro de um QasFormView.
        */
-      this.updateUnsavedChangesCache()
+      if (this.updateUnsavedChangesCache) this.updateUnsavedChangesCache()
     },
 
     getFilteredBadgeList (payload = {}) {
