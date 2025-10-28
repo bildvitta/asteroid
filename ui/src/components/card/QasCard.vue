@@ -2,7 +2,7 @@
   <div class="qas-card">
     <qas-box :class="boxClasses" v-bind="boxProps">
       <q-card class="column full-height overflow-hidden shadow-0">
-        <header class="full-width items-center justify-between no-wrap row">
+        <header v-if="hasHeader" class="full-width items-center justify-between no-wrap q-mb-sm row">
           <slot name="header">
             <div class="ellipsis flex no-wrap">
               <slot v-if="props.useSelection" name="header-left">
@@ -22,7 +22,7 @@
           </slot>
         </header>
 
-        <div class="q-mt-sm qas-card__content" :class="contentClasses">
+        <div class="qas-card__content" :class="contentClasses">
           <slot name="default" />
         </div>
 
@@ -167,6 +167,13 @@ const style = computed(() => {
 })
 
 const hasFooterSlot = computed(() => !!slots.footer)
+
+const hasHeader = computed(() => {
+  const hasHeaderSlot = !!slots.header
+  const hasTitleSlot = !!slots.title
+
+  return hasHeaderSlot || hasTitleSlot || !!props.title
+})
 
 const hasFooter = computed(() => hasFooterSlot.value || hasExpansion.value)
 

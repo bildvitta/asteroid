@@ -6,6 +6,12 @@ module.exports = [
   },
 
   {
+    icon: 'sym_r_arrow_menu_open',
+    name: 'Navegação em overlay (drawer)',
+    path: '/overlay-navigation'
+  },
+
+  {
     icon: 'sym_r_flight_takeoff',
     name: 'Começando',
     children: [

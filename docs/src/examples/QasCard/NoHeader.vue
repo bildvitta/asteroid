@@ -2,7 +2,7 @@
   <div class="container spaced">
     <div class="q-col-gutter-md row">
       <div class="col-4">
-        <qas-card v-model:selected="selected" :route="{ name: 'Root' }" title="Titulo" use-selection>
+        <qas-card v-model:selected="selected" :route="{ name: 'Root' }">
           <template #default>
             <div>
               Meu conteúdo
@@ -10,16 +10,10 @@
           </template>
         </qas-card>
       </div>
-
-      <div class="col-12">Model: {{ selected }}</div>
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref } from 'vue'
-
-defineOptions({ name: 'PageSelection' })
-
-const selected = ref(false)
+defineOptions({ name: 'PageNoHeader' })
 </script>
