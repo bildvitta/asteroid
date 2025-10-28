@@ -62,51 +62,6 @@ function openEdit(user) {
 
 ---
 
-## O que o composable oferece
-
-Use `useOverlayNavigation()` em qualquer componente ligado a essas rotas. Os helpers mais usados:
-
-| Função | Quando usar |
-| --- | --- |
-| `closeOverlay()` | Fechar o drawer e voltar para o background configurado automaticamente. |
-| `expandOverlay()` | Abrir a página como tela cheia removendo as queries de overlay. |
-| `getOverlayRoute(route)` | Garantir que o link abra dentro do painel. |
-| `goBack()` / `goForward()` | Navegar pelo histórico de rotas visitadas dentro do overlay. |
-| `backgroundRoute` | Saber qual rota está por trás do painel (útil para breadcrumbs, por exemplo). |
-
-### Exemplo: formulário de edição simples
-
-```html
-<script setup>
-import { ref } from 'vue'
-import { useOverlayNavigation } from 'asteroid'
-import userService from '@/services/userService'
-
-const user = ref({ name: '', email: '' })
-const { closeOverlay, triggerBackgroundChange } = useOverlayNavigation()
-
-async function saveUser() {
-  await userService.save(user.value)
-  triggerBackgroundChange({ action: 'user-saved', user: user.value })
-  closeOverlay()
-}
-</script>
-
-<template>
-  <qas-form @submit="saveUser">
-    <qas-input v-model="user.name" label="Nome" />
-    <qas-input v-model="user.email" label="Email" />
-
-    <div class="flex gap-sm">
-      <qas-btn label="Salvar" type="submit" />
-      <qas-btn label="Cancelar" @click="closeOverlay" />
-    </div>
-  </qas-form>
-</template>
-```
-
----
-
 ## Cenários rápidos
 
 ### 1. Lista ➡️ detalhes
@@ -142,20 +97,10 @@ function notifyBackground() {
 
 ---
 
-## Problemas comuns e como resolver
-
-- **Overlay abre como página normal:** verifique se **todas** as rotas da pilha (lista, detalhe, filhos) têm `meta.useOverlay = true`.
-- **Voltar não funciona:** use `goBack()` em vez de `router.go(-1)` para respeitar o histórico interno do overlay.
-- **Tela branca ao abrir:** confirme se o componente realmente existe na rota e se o import é padrão (`module.default`).
-- **Background incorreto:** passe `backgroundOverlay` na query com `getOverlayRoute` ou defina `backgroundOverlayName` na meta.
-
----
-
 ## Checklist final
 
 - [ ] Rotas com `meta.useOverlay = true`.
 - [ ] Links criados com `getOverlayRoute()`.
 - [ ] Componentes usando `useOverlayNavigation()` para controlar histórico e eventos.
-- [ ] Tests manuais de fechar, expandir e navegar para frente/atrás.
 
 Com isso, a experiência de overlay fica previsível, rápida e fácil de manter.

@@ -606,6 +606,10 @@ module.exports = [
         path: '/composables/use-notifications'
       },
       {
+        name: 'useOverlayNavigation',
+        path: '/composables/use-overlay-navigation'
+      },
+      {
         name: 'useQueryCache',
         path: '/composables/use-query-cache'
       },
