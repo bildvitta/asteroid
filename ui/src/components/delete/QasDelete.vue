@@ -77,9 +77,7 @@ const attributes = computed(() => {
     color: 'grey-10',
     label: 'Excluir',
     icon: 'sym_r_delete',
-
     ...props.buttonProps
-
   }
 })
 

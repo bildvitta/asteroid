@@ -1,5 +1,5 @@
 <template>
-  <qas-list-view v-model:fields="fields" v-model:results="results" :entity="entity" use-auto-refetch-on-delete>
+  <qas-list-view v-model:fields="viewState.fields" v-model:results="viewState.results" :entity="entity" use-auto-refetch-on-delete>
     <template #header>
       <qas-page-header title="Lista de materiais" :use-breadcrumbs="false">
         <qas-btn icon="sym_r_add" label="Novo [item]" />
@@ -13,13 +13,13 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
+import { computed } from 'vue'
+import { useView } from '@bildvitta/composables'
 
 defineOptions({ name: 'ExAutoRefetchOnDelete' })
 
-// refs
-const fields = ref({})
-const results = ref([])
+// composables
+const { viewState } = useView({ mode: 'list' })
 
 // consts
 const entity = 'users'
@@ -28,8 +28,8 @@ const entity = 'users'
 const tableGeneratorProps = computed(() => {
   return {
     rowKey: 'uuid',
-    fields: fields.value,
-    results: results.value,
+    fields: viewState.value.fields,
+    results: viewState.value.results,
     columns: ['name', 'email', 'isActive'],
 
     actionsMenuProps: row => {
@@ -40,7 +40,6 @@ const tableGeneratorProps = computed(() => {
             id: row.uuid
           }
         }
-
       }
     }
   }
