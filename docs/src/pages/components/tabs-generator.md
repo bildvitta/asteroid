@@ -64,10 +64,11 @@ O uso recomendado da propriedade `tabs` é como array.
 
 ## Uso
 
-<!-- <doc-example file="QasTabsGenerator/Basic" title="Básico" />
+<doc-example file="QasTabsGenerator/Basic" title="Básico" />
+<doc-example file="QasTabsGenerator/QuerySlug" title="Alteração automática via prop querySlug" />
 <doc-example file="QasTabsGenerator/ExWithIcon" title="Tabs com ícone" />
 <doc-example file="QasTabsGenerator/ExWithStatus" title="Tabs com status" />
-<doc-example file="QasTabsGenerator/ExWithCounter" title="Tabs com contador na propriedade tabs" /> -->
+<doc-example file="QasTabsGenerator/ExWithCounter" title="Tabs com contador na propriedade tabs" />
 
 :::tip
 Saiba mais sobre o funcionamento do `QRouteTab` na [documentação do Quasar](https://quasar.dev/vue-components/tabs#qroutetab-api)
@@ -82,5 +83,5 @@ Ao usar o `QRouteTab` não é recomendado usar também um `v-model` (embora voc�
 :::
 <doc-example file="QasTabsGenerator/RouteTab" title="Tabs com QRouteTab" />
 
-<!-- <doc-example file="QasTabsGenerator/CustomSlotTab" title="Slot: tab-[nome-da-chave]" />
-<doc-example file="QasTabsGenerator/CustomSlotAfter" title="Slot: tab-after-[nome-da-chave]" /> -->
+<doc-example file="QasTabsGenerator/CustomSlotTab" title="Slot: tab-[nome-da-chave]" />
+<doc-example file="QasTabsGenerator/CustomSlotAfter" title="Slot: tab-after-[nome-da-chave]" />

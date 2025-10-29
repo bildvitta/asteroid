@@ -4,6 +4,12 @@ export default async function ({ router }) {
   router.beforeEach((to, from, next) => onBeforeEach(to, from, next, router))
 }
 
+/**
+ * @param {import('vue-router').RouteLocationNormalized} to
+ * @param {import('vue-router').RouteLocationNormalized} from
+ * @param {Function} next
+ * @param {import('vue-router').Router} router
+ */
 async function onBeforeEach (to, from, next, router) {
   const useOverlay = to.matched.some(item => item.meta.useOverlay)
 
@@ -39,19 +45,16 @@ async function onBeforeEach (to, from, next, router) {
 
   const overlayComponent = await getResolvedComponent(overlay || defaultComponent)
 
+  // "overlay" vem como string na query da URL.
   if (to.query.overlay === 'true') {
     const backgroundResult = await getBackgroundComponent()
 
     if (backgroundResult) {
       const { component: backgroundComponent, resolvedRoute } = backgroundResult
 
-      to.meta.backgroundRoute = {
-        name: resolvedRoute?.name,
-        params: resolvedRoute?.params || {},
-        fullPath: resolvedRoute?.fullPath,
-        path: resolvedRoute?.path,
-        query: resolvedRoute?.query || {}
-      }
+      const { name, params = {}, fullPath, path, query = {} } = resolvedRoute || {}
+
+      to.meta.backgroundRoute = { name, params, fullPath, path, query }
 
       to.matched[matchedIndex].components = {
         default: backgroundComponent,

@@ -95,27 +95,8 @@ const formattedTabs = computed(() => {
 const tabComponent = computed(() => props.useRouteTab ? QRouteTab : QTab)
 
 // watch
-watch(() => route.query[props.querySlug], newValue => {
-  if (newValue && newValue !== model.value) {
-    model.value = newValue
-  }
-}, { immediate: true })
-
-watch(() => model.value, newValue => {
-  if (!props.querySlug) return
-
-  const { ...query } = route.query
-
-  if (!newValue && props.querySlug) {
-    delete query[props.querySlug]
-
-    router.push({ query: { ...query } })
-
-    return
-  }
-
-  router.push({ query: { ...query, [props.querySlug]: newValue } })
-}, { immediate: true })
+watch(() => route.query[props.querySlug], onQuerySlugChange, { immediate: true })
+watch(() => model.value, onTabsChange, { immediate: true })
 
 // functions
 function getFormattedLabel ({ label, counter, value }) {
@@ -132,6 +113,28 @@ function getTabProps (tab) {
   const { icon, label, ...payload } = tab
 
   return payload
+}
+
+function onTabsChange (value) {
+  if (!props.querySlug) return
+
+  const { ...query } = route.query
+
+  if (!value && props.querySlug) {
+    delete query[props.querySlug]
+
+    router.push({ query: { ...query } })
+
+    return
+  }
+
+  router.push({ query: { ...query, [props.querySlug]: value } })
+}
+
+function onQuerySlugChange (value) {
+  if (value && value !== model.value) {
+    model.value = value
+  }
 }
 </script>
 

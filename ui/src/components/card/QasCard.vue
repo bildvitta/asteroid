@@ -130,25 +130,17 @@ const hasActions = computed(() => !!Object.keys(props.actionsMenuProps).length)
 
 const hasExpansion = computed(() => !!Object.keys(props.expansionProps).length)
 
-const hasRoute = computed(() => !!Object.keys(props.route).length)
-
-// const titleClasses = computed(() => {
-//   return {
-//     ' ': hasRoute.value
-//   }
-// })
-
 const contentClasses = computed(() => hasFooter.value && 'q-mb-sm')
 
 const boxClasses = computed(() => props.statusColor ? 'rounded-borders-right' : 'rounded-borders')
 
-// const titleComponent = computed(() => hasRoute.value ? 'router-link' : 'h5')
-
 const titleComponent = computed(() => {
+  const hasRoute = !!Object.keys(props.route).length
+
   return {
-    is: hasRoute.value ? 'router-link' : 'h5',
+    is: hasRoute ? 'router-link' : 'h5',
     props: {
-      ...(hasRoute.value && {
+      ...(hasRoute && {
         to: props.route,
         class: 'qas-card__router'
       })

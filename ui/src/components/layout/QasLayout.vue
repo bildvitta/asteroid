@@ -16,13 +16,6 @@
       </q-page-container>
     </slot>
 
-    <!-- <qas-drawer>
-      <q-page-container>
-        <q-page>
-          <router-view name="overlay" />
-        </q-page>
-      </q-page-container>
-    </qas-drawer> -->
     <pv-layout-overlay-drawer />
 
     <q-ajax-bar color="primary" position="bottom" size="2px" />

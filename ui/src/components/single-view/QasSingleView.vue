@@ -1,5 +1,5 @@
 <template>
-  <div :class="componentClass">
+  <qas-container :use-boundary="props.useBoundary">
     <header v-if="hasHeaderSlot">
       <slot name="header" />
     </header>
@@ -21,10 +21,11 @@
     <q-inner-loading :showing="viewState.fetching">
       <q-spinner color="grey" size="3em" />
     </q-inner-loading>
-  </div>
+  </qas-container>
 </template>
 
 <script setup>
+import QasContainer from '../container/QasContainer.vue'
 import QasEmptyResultText from '../empty-result-text/QasEmptyResultText.vue'
 
 import useView, { baseProps, baseEmits } from '../../composables/private/use-view'
@@ -77,7 +78,6 @@ const {
   viewState,
 
   // computed
-  componentClass,
   hasHeaderSlot,
   hasFooterSlot,
   canShowFetchErrorSlot,

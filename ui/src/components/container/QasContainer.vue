@@ -15,6 +15,11 @@ const props = defineProps({
   useSpaced: {
     type: Boolean,
     default: true
+  },
+
+  useBoundary: {
+    type: Boolean,
+    default: true
   }
 })
 
@@ -23,8 +28,8 @@ const { isOverlay } = useOverlayNavigation()
 
 const classes = computed(() => {
   return {
-    container: !isOverlay,
-    spaced: props.useSpaced && !isOverlay
+    container: !isOverlay && props.useBoundary,
+    spaced: props.useSpaced && !isOverlay && props.useBoundary
   }
 })
 </script>

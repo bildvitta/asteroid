@@ -1,8 +1,6 @@
 import { NotifyError } from '../../plugins'
 import { camelizeFieldsName } from '../../helpers'
 
-import useOverlayNavigation from '../use-overlay-navigation.js'
-
 import { useView as useViewComposable } from '@bildvitta/composables'
 import { ref, computed, watch, markRaw } from 'vue'
 import { useRouter } from 'vue-router'
@@ -77,7 +75,6 @@ export default function useView (config) {
   } = config
 
   // composables
-  const { isOverlay } = useOverlayNavigation()
   const router = useRouter()
   const { viewState } = useViewComposable({ mode })
 
@@ -89,7 +86,6 @@ export default function useView (config) {
   const fetchErrorMessage = 'Ops… Não conseguimos acessar as informações. Por favor, tente novamente em alguns minutos.'
 
   // computed
-  const componentClass = computed(() => !isOverlay && props.useBoundary && 'container spaced')
   const hasFooterSlot = computed(() => !!slots.footer)
   const hasHeaderSlot = computed(() => !!slots.header)
   const hasFetchErrorSlot = computed(() => !!slots['fetch-error'])
@@ -172,7 +168,6 @@ export default function useView (config) {
     fetchErrorMessage,
 
     // computed
-    componentClass,
     hasFooterSlot,
     hasHeaderSlot,
     canShowFetchErrorSlot,

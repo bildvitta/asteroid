@@ -5,20 +5,13 @@ const routes = [
     path: '/',
     name: 'Root',
     component: () => import('src/layouts/DocLayout.vue'),
-    meta: {
-      useOverlay: true
-    },
-    children: [
-      ...getPages()
-    ]
+    meta: { useOverlay: true },
+    children: getPages()
   },
 
   {
     path: '/paginas/not-found',
-    component: () => import('../../../ui/src/pages/NotFound.vue'),
-    meta: {
-      useOverlay: true
-    }
+    component: () => import('../../../ui/src/pages/NotFound.vue')
   },
 
   {

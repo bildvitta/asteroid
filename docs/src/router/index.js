@@ -16,13 +16,9 @@ export default route(function (/* { store, ssrContext } */) {
 
     routes,
 
-    scrollBehavior (to, from, savedPosition) {
-      return savedPosition || { top: 0 }
-    }
-    // scrollBehavior: (to, _, savedPosition) => (
-    //   savedPosition || { top: 0 }
-    //   // to.hash.length > 1 ? false : (savedPosition || { left: 0, top: 0 })
-    // )
+    scrollBehavior: (to, _, savedPosition) => (
+      to.hash.length > 1 ? false : (savedPosition || { left: 0, top: 0 })
+    )
   })
 
   return Router

@@ -1,5 +1,5 @@
 <template>
-  <div class="qas-form-view" :class="mx_componentClass">
+  <qas-container class="qas-form-view" :use-boundary>
     <header v-if="mx_hasHeaderSlot">
       <slot name="header" />
     </header>
@@ -31,13 +31,14 @@
     <q-inner-loading :showing="mx_isFetching">
       <q-spinner color="grey" size="3em" />
     </q-inner-loading>
-  </div>
+  </qas-container>
 </template>
 
 <script>
-import QasBtn from '../btn/QasBtn.vue'
-import QasDialog from '../dialog/QasDialog.vue'
 import QasActions from '../actions/QasActions.vue'
+import QasBtn from '../btn/QasBtn.vue'
+import QasContainer from '../container/QasContainer.vue'
+import QasDialog from '../dialog/QasDialog.vue'
 
 import { NotifyError, NotifySuccess } from '../../plugins'
 import { useHistory, useOverlayNavigation } from '../../composables'
@@ -58,6 +59,7 @@ export default {
   components: {
     QasActions,
     QasBtn,
+    QasContainer,
     QasDialog
   },
 
@@ -164,10 +166,11 @@ export default {
   ],
 
   data () {
-    const { toggleCanLeaveOverlay } = useOverlayNavigation()
+    const { toggleCanLeaveOverlay, isOverlay } = useOverlayNavigation()
 
     return {
       toggleCanLeaveOverlay,
+      isOverlay,
 
       cachedResult: {},
       isSubmitting: false,
@@ -200,7 +203,7 @@ export default {
       // return !(typeof this.cancelRoute === 'boolean' && !this.cancelRoute) && this.useCancelButton
       return (
         !(typeof this.cancelRoute === 'boolean' && !this.cancelRoute) &&
-        (this.useCancelButton ?? !this.mx_isOverlay)
+        (this.useCancelButton ?? !this.isOverlay)
       )
     },
 

@@ -50,6 +50,9 @@ export default {
       return `doc-heading__title--level-${this.level}`
     },
 
+    /**
+     * Só tem botão de overlay em headings de nível 1 e que não estão dentro de um overlay.
+     */
     hasOverlayButton () {
       return this.level === 1 && !this.overlayNavigation.isOverlay
     }

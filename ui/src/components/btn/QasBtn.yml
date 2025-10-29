@@ -52,6 +52,10 @@ props:
     desc: Rótulo do botão.
     type: String
 
+  tooltip:
+    desc: Texto do tooltip que aparecerá ao passar o mouse sobre o botão.
+    type: String
+
   variant:
     desc: Variantes do botão, que define para qual comportamento o botão será usado, podendo ser "primary", "secondary" ou "tertiary".
     default: tertiary
