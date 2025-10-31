@@ -49,6 +49,7 @@ import QasErrorMessage from '../error-message/QasErrorMessage.vue'
 
 import { baseErrorProps } from '../../composables/private/use-error-message'
 import { getImageSize, getResizeDimensions } from '../../helpers/images.js'
+import { constructObject } from '../../helpers'
 
 import { uid, extend } from 'quasar'
 import { NotifyError } from '../../plugins'
@@ -69,6 +70,16 @@ export default {
 
   props: {
     ...baseErrorProps,
+
+    name: {
+      type: String,
+      default: ''
+    },
+
+    errors: {
+      type: Object,
+      default: () => ({})
+    },
 
     addButtonFn: {
       type: Function,
@@ -217,7 +228,9 @@ export default {
       hasError: false,
       hiddenInputElement: null,
       savedFiles: {},
-      uploader: null
+      uploader: null,
+      amountFilesSent: 0,
+      amountFilesRejected: 0
     }
   },
 
@@ -349,12 +362,22 @@ export default {
 
     uploaderClasses () {
       return this.hasCustomUpload ? 'hidden' : 'fit'
+    },
+
+    transformedErrors () {
+      return Array.isArray(this.errors) ? this.errors : constructObject(this.name, this.errors)
+    },
+
+    hasAllFileRejected () {
+      console.log('TCL: hasAllFileRejected -> this.amountFilesSent', { amountFilesSent: this.amountFilesSent, amountFilesRejected: this.amountFilesRejected })
+      return this.amountFilesSent === this.amountFilesRejected
     }
   },
 
   mounted () {
     this.hiddenInputElement = this.$refs.hiddenInput
     this.uploader = this.$refs.uploader
+    console.log(this.uploader)
 
     this.hiddenInputElement?.addEventListener?.('change', () => this.addFiles())
 
@@ -382,6 +405,8 @@ export default {
     async addFiles (files) {
       const filesList = Array.from(files || this.hiddenInputElement.files)
 
+      this.amountFilesSent = filesList.length
+
       const processedFiles = []
 
       // previne erro caso não exista hiddenInput
@@ -389,7 +414,42 @@ export default {
         this.$refs.hiddenInput.value = ''
       }
 
-      filesList.forEach(file => processedFiles.push(this.resizeImage(file)))
+      const rejectedFiles = []
+
+      for (const file of filesList) {
+        if (file.type === 'application/pdf' && await isPDFEncrypted(file)) {
+          rejectedFiles.push({
+            failedPropValidation: 'use-encrypted-pdf',
+            file
+          })
+        } else {
+          processedFiles.push(this.resizeImage(file))
+        }
+      }
+
+      if (rejectedFiles.length) {
+        this.onRejected(rejectedFiles)
+      }
+
+      async function isPDFEncrypted (file) {
+        return new Promise(resolve => {
+          const reader = new FileReader()
+
+          reader.onload = function (e) {
+            const arrayBuffer = e.target.result
+            const decoder = new TextDecoder('utf-8')
+            const text = decoder.decode(arrayBuffer)
+
+            const isEncrypted = text.includes('/Encrypt')
+
+            resolve(isEncrypted) // PDF encriptado
+          }
+
+          reader.readAsArrayBuffer(file)
+        })
+      }
+
+      if (!processedFiles.length) return
 
       this.uploader.addFiles(await Promise.all(processedFiles))
     },
@@ -419,12 +479,12 @@ export default {
       }
     },
 
-    factoryFailed () {
+    factoryFailed (error) {
       this.hasError = true
 
       this.updateUploading(false)
 
-      NotifyError('Falha ao carregar arquivo.')
+      NotifyError(error || 'Falha ao carregar arquivo.')
     },
 
     async fetchCredentials (filename) {
@@ -509,11 +569,20 @@ export default {
       return {
         ...this.defaultUploaderGalleryCardProps,
 
+        formGeneratorProps: {
+          ...this.defaultUploaderGalleryCardProps.formGeneratorProps,
+          errors: {
+            ...this.defaultUploaderGalleryCardProps.formGeneratorProps.errors,
+            ...this.transformedErrors[index]
+          }
+        },
+
+        hasError1: true,
+
         currentModelValue: modelValue,
         file,
         fileKey: key,
         savedFiles: this.savedFiles,
-
         // eventos
         onRemove: () => this.removeFile(key, scope, file),
         onUpdateModel: value => this.updateModelValue({ index, payload: value })
@@ -719,11 +788,15 @@ export default {
      * - maxFileSize
      */
     onRejected (rejectedFiles) {
+      console.log('TCL: onRejected -> rejectedFiles', rejectedFiles)
+      this.amountFilesRejected = rejectedFiles.length
+
       this.$emit('rejected', rejectedFiles)
 
       const errorsSize = {
         accept: 0,
-        maxFileSize: 0
+        maxFileSize: 0,
+        useEncryptedPdf: 0
       }
 
       rejectedFiles.forEach(({ failedPropValidation }) => {
@@ -736,21 +809,39 @@ export default {
         if (failedPropValidation === 'max-file-size') {
           errorsSize.maxFileSize += 1
         }
+
+        if (failedPropValidation === 'use-encrypted-pdf') {
+          errorsSize.useEncryptedPdf += 1
+        }
       })
 
       const hasMaxFileSizeErrors = !!errorsSize.maxFileSize
       const hasAcceptErrors = !!errorsSize.accept
+      const hasUseEncryptedPDFErrors = !!errorsSize.useEncryptedPdf
 
       // Caso o erro não seja de accept ou maxFileSize, não exibe nenhuma mensagem.
-      if (!hasMaxFileSizeErrors && !hasAcceptErrors) return
+      if (!hasMaxFileSizeErrors && !hasAcceptErrors && !hasUseEncryptedPDFErrors) return
 
       /**
        * Mensagem genérica para quando hover erro de accept e maxFileSize de uma vez.
        */
-      if (hasMaxFileSizeErrors && hasAcceptErrors) {
-        const mergedErrorsSize = errorsSize.maxFileSize + errorsSize.accept
+      if (hasMaxFileSizeErrors && hasAcceptErrors && hasUseEncryptedPDFErrors) {
+        const mergedErrorsSize = errorsSize.maxFileSize + errorsSize.accept + errorsSize.useEncryptedPdf
 
         NotifyError(`Não conseguimos selecionar ${mergedErrorsSize} arquivos. Por favor, escolha arquivos válidos.`)
+
+        return
+      }
+
+      /**
+       * Mensagens de erro para quando houver apenas erros de use-encrypted-pdf.
+       */
+      if (hasUseEncryptedPDFErrors) {
+        NotifyError(
+          errorsSize.useEncryptedPdf === 1
+            ? 'Não conseguimos selecionar 1 PDF, ele está protegido por senha. Por favor, escolha um arquivo sem senha.'
+            : `Não conseguimos selecionar ${errorsSize.useEncryptedPdf} PDFs, eles estão protegidos por senha. Por favor, escolha arquivos sem senha.`
+        )
 
         return
       }
@@ -812,14 +903,14 @@ export default {
       justify-content: center;
       opacity: 0.9;
       outline-offset: 0 !important;
-      outline: 1px dashed var(--q-primary) !important;
+      outline: .0625rem dashed var(--q-primary) !important;
 
       // content e font-family para adicionar ícone do material icons.
       &::before {
         color: var(--q-primary);
         content: 'attach_file_add';
         font-family: 'Material Symbols Rounded';
-        font-size: 24px;
+        font-size: 1.5rem;
       }
 
       &::after {

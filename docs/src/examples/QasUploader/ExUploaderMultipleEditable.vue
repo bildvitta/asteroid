@@ -1,6 +1,6 @@
 <template>
   <q-form class="container spaced">
-    <qas-uploader v-model="model" add-button-label="Adicionar imagem" entity="serviceOrders" :fields="fields" label="Meu uploader" multiple use-object-model />
+    <qas-uploader v-model="model" add-button-label="Adicionar imagem" entity="serviceOrders" :errors :fields="fields" :form-generator-props label="Meu uploader" multiple name="documents" use-object-model />
     <qas-debugger :inspect="[model]" />
   </q-form>
 </template>
@@ -35,9 +35,29 @@ export default {
   },
 
   computed: {
+    errors () {
+      // return []
+      return {
+        'documents.0.format': [
+          'Este arquivo PDF está protegido por senha.'
+        ],
+        'documents.4.format': [
+          'Este arquivo PDF está protegido por senha.'
+        ]
+      }
+    },
+    formGeneratorProps () {
+      return {
+        // errors: {
+        //   format: ['eae']
+        // }
+      }
+    },
+
     fields () {
       return {
         format: {
+          error: true,
           name: 'format',
           label: 'Formato',
           type: 'text'
