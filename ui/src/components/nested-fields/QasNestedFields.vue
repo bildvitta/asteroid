@@ -312,8 +312,6 @@ export default {
       // Caso a prop "useDestroyButton" seja false, nunca exibirá o botão.
       if (!this.useDestroyButton) return false
 
-      console.log(this.nested.filter(item => !item[this.destroyKey]).length > 1)
-
       /**
        * Caso a prop "useDestroyButton" seja true,
        * verifica se existe mais de um item na lista que possa ser deletado ou
