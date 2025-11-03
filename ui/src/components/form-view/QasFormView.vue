@@ -426,7 +426,7 @@ export default {
         const modelValue = { ...this.modelValue, ...response.data.result }
 
         if (this.useDialogOnUnsavedChanges) {
-          this.updateUnsavedChangesCache()
+          this.updateUnsavedChangesCache(modelValue)
         }
 
         this.mx_setErrors()
@@ -544,9 +544,9 @@ export default {
       })
     },
 
-    updateUnsavedChangesCache () {
+    updateUnsavedChangesCache (newValues) {
       this.$nextTick(() => {
-        this.cachedResult = extend(true, {}, this.modelValue)
+        this.cachedResult = extend(true, {}, (newValues || this.modelValue))
       })
     }
   }
