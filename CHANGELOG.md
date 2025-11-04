@@ -15,6 +15,9 @@ Devemos adicionar o comentário `<!-- N/A -->` (Não adicionar), para que não p
 Caso adicionado no escopo inicial, todos os conteúdos abaixo não serão adicionados. Caso adicionado na linha, será considerado apenas ela.
 
 ## Não publicado
+### Corrigido
+- `formatPercent`: Corrigido formatação do campo percentual quando o valor é 0.
+
 ### Modificado
 - `Delete - Plugin`: Alterado para bloquear o botão de cancelar quando estiver deletando o item. [[#1417](https://github.com/bildvitta/asteroid/issues/1417)]
 
