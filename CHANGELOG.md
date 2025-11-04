@@ -14,6 +14,10 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 Devemos adicionar o comentário `<!-- N/A -->` (Não adicionar), para que não precise adicionar um item do changelog ao lançar uma nova versão stable.
 Caso adicionado no escopo inicial, todos os conteúdos abaixo não serão adicionados. Caso adicionado na linha, será considerado apenas ela.
 
+## Não publicado
+### Modificado
+- `Delete - Plugin`: Alterado para bloquear o botão de cancelar quando estiver deletando o item. [[#1417](https://github.com/bildvitta/asteroid/issues/1417)]
+
 ## [3.19.0-beta.13] - 03-11-2025
 ### Corrigido
 - `QasFormView`: Corrigido validação para não exibir o dialog de descarte após a criação.
