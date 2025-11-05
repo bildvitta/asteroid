@@ -886,13 +886,18 @@ export default {
         throw error
       }
 
+      /**
+       * Se a prop useValidateEncryptedPdf for true e o tipo do arquivo for PDF, faz a validação.
+       */
       if (this.useValidateEncryptedPdf && file.type === 'application/pdf' && await this.isPDFEncrypted(file)) {
-        this.amountFilesRejected += 1
+        this.amountFilesRejected += 1 // arquivo rejeitado por estar encriptado
 
+        // remove o arquivo do uploader para ser semelhante ao comportamento do "onRejected".
         this.uploader.removeFile(file)
 
         const error = { customMessage: 'Não é possível selecionar PDFs protegidos por senha.' }
 
+        // marca o arquivo como encriptado para não validar novamente.
         file.__isEncryptedPDF = true
 
         throw error
