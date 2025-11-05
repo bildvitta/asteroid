@@ -16,10 +16,10 @@ Caso adicionado no escopo inicial, todos os conteúdos abaixo não serão adicio
 
 ## Não publicado
 ### Corrigido
-- `formatPercent`: Corrigido formatação do campo percentual quando o valor é 0. [[#1350](https://github.com/bildvitta/asteroid/issues/1350)]
+- `formatPercent`: Corrigido formatação do campo percentual quando o valor é 0. ([#1350](https://github.com/bildvitta/asteroid/issues/1350))
 
 ### Modificado
-- `Delete - Plugin`: Alterado para bloquear o botão de cancelar quando estiver deletando o item. [[#1417](https://github.com/bildvitta/asteroid/issues/1417)]
+- `Delete - Plugin`: Alterado para bloquear o botão de cancelar quando estiver deletando o item. ([#1417](https://github.com/bildvitta/asteroid/issues/1417))
 
 ## [3.19.0-beta.13] - 03-11-2025
 ### Corrigido
