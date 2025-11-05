@@ -257,7 +257,6 @@ function getURL () {
   }
 }
 
-// functions
 /**
  * Extrai extensão de uma string se for um tipo de arquivo válido\
  *
