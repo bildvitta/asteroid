@@ -54,6 +54,11 @@ props:
     required: true
     type: String
 
+  field-name:
+    desc: Nome do campo para normalizar `errors` dentro da propriedade `form-generator-props`.
+    default: ''
+    type: String
+
   error:
     desc: Habilita modo erro.
     default: false

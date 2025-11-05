@@ -229,8 +229,7 @@ export default {
       savedFiles: {},
       uploader: null,
       amountFilesSent: 0,
-      amountFilesRejected: 0,
-      originalAddFiles: null
+      amountFilesRejected: 0
     }
   },
 
@@ -370,6 +369,9 @@ export default {
       return Array.isArray(errors) ? errors : constructObject(this.fieldName, errors)
     },
 
+    /**
+     * Computada para ser usada para controle externamente do componente.
+     */
     hasAllFileRejected () {
       return this.amountFilesSent === this.amountFilesRejected
     }
@@ -928,14 +930,14 @@ export default {
       justify-content: center;
       opacity: 0.9;
       outline-offset: 0 !important;
-      outline: .0625rem dashed var(--q-primary) !important;
+      outline: 1px dashed var(--q-primary) !important;
 
       // content e font-family para adicionar ícone do material icons.
       &::before {
         color: var(--q-primary);
         content: 'attach_file_add';
         font-family: 'Material Symbols Rounded';
-        font-size: 1.5rem;
+        font-size: 24px;
       }
 
       &::after {
