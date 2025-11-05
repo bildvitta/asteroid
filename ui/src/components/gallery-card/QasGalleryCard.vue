@@ -260,14 +260,14 @@ function getURL () {
 /**
  * Extrai extensão de uma string se for um tipo de arquivo válido\
  *
- * @param {string} str
+ * @param {string} value
  */
-function extractExtension (str) {
-  if (!str) return ''
+function extractExtension (value) {
+  if (!value) return ''
 
   const acceptableTypes = ['doc', 'docx', 'pdf', 'xls', 'xlsx', 'csv']
 
-  const parts = str.split('.')
+  const parts = value.split('.')
 
   if (parts.length < 2) return ''
 

@@ -371,6 +371,8 @@ export default {
 
     /**
      * Computada para ser usada para controle externamente do componente.
+     *
+     * Retorna true quando todos os arquivos enviados foram rejeitados.
      */
     hasAllFileRejected () {
       return this.amountFilesSent === this.amountFilesRejected
