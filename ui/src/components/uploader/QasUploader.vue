@@ -1,6 +1,6 @@
 <template>
   <div class="qas-uploader">
-    <q-uploader ref="uploader" auto-upload class="bg-transparent" :class="uploaderClasses" v-bind="attributes" :factory flat :max-file-size :max-files method="PUT" @factory-failed="factoryFailed" @rejected="onRejected" @uploaded="uploaded" @uploading="updateUploading(true)">
+    <q-uploader ref="uploader" auto-upload class="bg-transparent" :class="uploaderClasses" v-bind="attributes" :factory flat :max-file-size :max-files method="PUT" @added="onAdded" @factory-failed="factoryFailed" @rejected="onRejected" @uploaded="uploaded" @uploading="updateUploading(true)">
       <template #header="scope">
         <slot name="header" :scope="scope">
           <qas-header v-if="useHeader" class="q-mb-none" v-bind="getHeaderProps(scope)">
@@ -49,6 +49,7 @@ import QasErrorMessage from '../error-message/QasErrorMessage.vue'
 
 import { baseErrorProps } from '../../composables/private/use-error-message'
 import { getImageSize, getResizeDimensions } from '../../helpers/images.js'
+import { constructObject } from '../../helpers'
 
 import { uid, extend } from 'quasar'
 import { NotifyError } from '../../plugins'
@@ -69,6 +70,11 @@ export default {
 
   props: {
     ...baseErrorProps,
+
+    fieldName: {
+      type: String,
+      default: ''
+    },
 
     addButtonFn: {
       type: Function,
@@ -185,6 +191,10 @@ export default {
       default: true
     },
 
+    useValidateEncryptedPdf: {
+      type: Boolean
+    },
+
     useGalleryCard: {
       type: Boolean,
       default: true
@@ -217,7 +227,9 @@ export default {
       hasError: false,
       hiddenInputElement: null,
       savedFiles: {},
-      uploader: null
+      uploader: null,
+      amountFilesSent: 0,
+      amountFilesRejected: 0
     }
   },
 
@@ -349,6 +361,21 @@ export default {
 
     uploaderClasses () {
       return this.hasCustomUpload ? 'hidden' : 'fit'
+    },
+
+    transformedFormGeneratorErrors () {
+      const { errors } = this.formGeneratorProps || {}
+
+      return Array.isArray(errors) ? errors : constructObject(this.fieldName, errors)
+    },
+
+    /**
+     * Computada para ser usada para controle externamente do componente.
+     *
+     * Retorna true quando todos os arquivos enviados foram rejeitados.
+     */
+    hasAllFileRejected () {
+      return this.amountFilesSent === this.amountFilesRejected
     }
   },
 
@@ -394,6 +421,14 @@ export default {
       this.uploader.addFiles(await Promise.all(processedFiles))
     },
 
+    /**
+     * @param {FileList} files
+     */
+    onAdded (files) {
+      // seta a quantidade de arquivos enviados, independentemente se forem aceitos ou rejeitados.
+      this.amountFilesSent += files.length
+    },
+
     dispatchUpload () {
       this.uploader?.removeUploadedFiles?.()
       this.hiddenInputElement?.click?.()
@@ -403,6 +438,9 @@ export default {
       if (!this.isMultiple && !this.hasHeaderSlot) {
         this.uploader.removeUploadedFiles()
       }
+
+      // valida se o PDF está encriptado
+      await this.validateEncryptedPDF(file)
 
       const name = `${uid()}.${file.name.split('.').pop()}`
       const { endpoint } = await this.fetchCredentials(name) || {}
@@ -419,12 +457,22 @@ export default {
       }
     },
 
-    factoryFailed () {
+    /**
+     * - Se existir o "byPass" como true, não faz nada.
+     * - Se existir o "customMessage", exibe a mensagem personalizada.
+     *
+     * @param {{ byPass?: boolean, customMessage?: string }} error
+     */
+    factoryFailed (error) {
+      if (error?.byPass) return
+
       this.hasError = true
 
       this.updateUploading(false)
 
-      NotifyError('Falha ao carregar arquivo.')
+      const message = error?.customMessage || 'Falha ao carregar arquivo.'
+
+      NotifyError(message)
     },
 
     async fetchCredentials (filename) {
@@ -509,11 +557,15 @@ export default {
       return {
         ...this.defaultUploaderGalleryCardProps,
 
+        formGeneratorProps: {
+          ...this.defaultUploaderGalleryCardProps.formGeneratorProps,
+          errors: this.transformedFormGeneratorErrors[index]
+        },
+
         currentModelValue: modelValue,
         file,
         fileKey: key,
         savedFiles: this.savedFiles,
-
         // eventos
         onRemove: () => this.removeFile(key, scope, file),
         onUpdateModel: value => this.updateModelValue({ index, payload: value })
@@ -714,11 +766,17 @@ export default {
 
     /**
      * Trata os erros de arquivos rejeitados pelo QUploader para adicionar
-     * feedback com toast, trata os sequites erros:
+     * feedback com toast, trata os seguintes erros:
      * - accept
      * - maxFileSize
      */
     onRejected (rejectedFiles) {
+      // seta a quantidade de arquivos rejeitados.
+      this.amountFilesRejected += rejectedFiles.length
+
+      // seta a quantidade de arquivos enviados, é necessário usar no rejected porque esses arquivos não caem no onAdded.
+      this.amountFilesSent += rejectedFiles.length
+
       this.$emit('rejected', rejectedFiles)
 
       const errorsSize = {
@@ -779,6 +837,73 @@ export default {
           ? 'Não conseguimos selecionar 1 arquivo, este tipo não é permitido. Por favor, escolha um arquivo válido.'
           : `Não conseguimos selecionar ${errorsSize.accept} arquivos, estes tipos não são permitidos. Por favor, escolha arquivos válidos.`
       )
+    },
+
+    /**
+     * Verifica se o PDF está encriptado.
+     *
+     * @param {File} file
+     */
+    async isPDFEncrypted (file) {
+      return new Promise(resolve => {
+        const reader = new FileReader()
+
+        reader.onload = function (e) {
+          const arrayBuffer = e.target.result
+          const decoder = new TextDecoder('utf-8')
+          const text = decoder.decode(arrayBuffer)
+
+          const isEncrypted = text.includes('/Encrypt')
+
+          resolve(isEncrypted) // PDF encriptado
+        }
+
+        reader.readAsArrayBuffer(file)
+      })
+    },
+
+    /**
+     * TODO-ISSUE: Manter validação até issue #1419 ser resolvida.
+     *
+     * Valida se o PDF está encriptado:
+     * - se a prop useEncryptedPdf for false.
+     * - se o tipo do arquivo for PDF.
+     * - se o PDF for encriptado.
+     *
+     * @param {File} file
+     */
+    async validateEncryptedPDF (file) {
+      /**
+       * O callback "factory" é chamado sempre que um arquivo é adicionado, porém caso tenha algum arquivo já tenha dado erro
+       * ele tenta adicionar novamente o arquivo, exemplo:
+       * 1 - Enviei um arquivo PDF encriptado, deu erro.
+       * 2 - Tentei enviar um novo arquivo que não é encriptado, porém o arquivo encriptado anterior tenta ser adicionado novamente, chamando o factory 2x ao enviar 1 arquivo.
+       * 3 - Para evitar esse erro, é criada uma flag no arquivo para identificar que ele já foi validado como encriptado.
+       */
+      if (file.__isEncryptedPDF) {
+        const error = { byPass: true }
+
+        this.uploader.removeFile(file)
+
+        throw error
+      }
+
+      /**
+       * Se a prop useValidateEncryptedPdf for true e o tipo do arquivo for PDF, faz a validação.
+       */
+      if (this.useValidateEncryptedPdf && file.type === 'application/pdf' && await this.isPDFEncrypted(file)) {
+        this.amountFilesRejected += 1 // arquivo rejeitado por estar encriptado
+
+        // remove o arquivo do uploader para ser semelhante ao comportamento do "onRejected".
+        this.uploader.removeFile(file)
+
+        const error = { customMessage: 'Não é possível selecionar PDFs protegidos por senha.' }
+
+        // marca o arquivo como encriptado para não validar novamente.
+        file.__isEncryptedPDF = true
+
+        throw error
+      }
     }
   }
 }
