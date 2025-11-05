@@ -174,6 +174,11 @@ props:
     default: true
     type: Boolean
 
+  use-validate-encrypted-pdf:
+    desc: Controla se o componente vai validar se o PDF está encriptado antes de fazer o upload.
+    default: false
+    type: Boolean
+
 slots:
   header:
     desc: Acesso ao header do <q-uploader />.

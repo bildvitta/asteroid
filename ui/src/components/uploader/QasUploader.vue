@@ -1,6 +1,6 @@
 <template>
   <div class="qas-uploader">
-    <q-uploader ref="uploader" auto-upload class="bg-transparent" :class="uploaderClasses" v-bind="attributes" :factory flat :max-file-size :max-files method="PUT" @factory-failed="factoryFailed" @rejected="onRejected" @uploaded="uploaded" @uploading="updateUploading(true)">
+    <q-uploader ref="uploader" auto-upload class="bg-transparent" :class="uploaderClasses" v-bind="attributes" :factory flat :max-file-size :max-files method="PUT" @added="onAdded" @factory-failed="factoryFailed" @rejected="onRejected" @uploaded="uploaded" @uploading="updateUploading(true)">
       <template #header="scope">
         <slot name="header" :scope="scope">
           <qas-header v-if="useHeader" class="q-mb-none" v-bind="getHeaderProps(scope)">
@@ -71,14 +71,9 @@ export default {
   props: {
     ...baseErrorProps,
 
-    name: {
+    fieldName: {
       type: String,
       default: ''
-    },
-
-    errors: {
-      type: Object,
-      default: () => ({})
     },
 
     addButtonFn: {
@@ -196,6 +191,10 @@ export default {
       default: true
     },
 
+    useValidateEncryptedPdf: {
+      type: Boolean
+    },
+
     useGalleryCard: {
       type: Boolean,
       default: true
@@ -230,7 +229,8 @@ export default {
       savedFiles: {},
       uploader: null,
       amountFilesSent: 0,
-      amountFilesRejected: 0
+      amountFilesRejected: 0,
+      originalAddFiles: null
     }
   },
 
@@ -364,12 +364,13 @@ export default {
       return this.hasCustomUpload ? 'hidden' : 'fit'
     },
 
-    transformedErrors () {
-      return Array.isArray(this.errors) ? this.errors : constructObject(this.name, this.errors)
+    transformedFormGeneratorErrors () {
+      const { errors } = this.formGeneratorProps || {}
+
+      return Array.isArray(errors) ? errors : constructObject(this.fieldName, errors)
     },
 
     hasAllFileRejected () {
-      console.log('TCL: hasAllFileRejected -> this.amountFilesSent', { amountFilesSent: this.amountFilesSent, amountFilesRejected: this.amountFilesRejected })
       return this.amountFilesSent === this.amountFilesRejected
     }
   },
@@ -377,7 +378,6 @@ export default {
   mounted () {
     this.hiddenInputElement = this.$refs.hiddenInput
     this.uploader = this.$refs.uploader
-    console.log(this.uploader)
 
     this.hiddenInputElement?.addEventListener?.('change', () => this.addFiles())
 
@@ -405,8 +405,6 @@ export default {
     async addFiles (files) {
       const filesList = Array.from(files || this.hiddenInputElement.files)
 
-      this.amountFilesSent = filesList.length
-
       const processedFiles = []
 
       // previne erro caso não exista hiddenInput
@@ -414,44 +412,17 @@ export default {
         this.$refs.hiddenInput.value = ''
       }
 
-      const rejectedFiles = []
-
-      for (const file of filesList) {
-        if (file.type === 'application/pdf' && await isPDFEncrypted(file)) {
-          rejectedFiles.push({
-            failedPropValidation: 'use-encrypted-pdf',
-            file
-          })
-        } else {
-          processedFiles.push(this.resizeImage(file))
-        }
-      }
-
-      if (rejectedFiles.length) {
-        this.onRejected(rejectedFiles)
-      }
-
-      async function isPDFEncrypted (file) {
-        return new Promise(resolve => {
-          const reader = new FileReader()
-
-          reader.onload = function (e) {
-            const arrayBuffer = e.target.result
-            const decoder = new TextDecoder('utf-8')
-            const text = decoder.decode(arrayBuffer)
-
-            const isEncrypted = text.includes('/Encrypt')
-
-            resolve(isEncrypted) // PDF encriptado
-          }
-
-          reader.readAsArrayBuffer(file)
-        })
-      }
-
-      if (!processedFiles.length) return
+      filesList.forEach(file => processedFiles.push(this.resizeImage(file)))
 
       this.uploader.addFiles(await Promise.all(processedFiles))
+    },
+
+    /**
+     * @param {FileList} files
+     */
+    onAdded (files) {
+      // seta a quantidade de arquivos enviados, independentemente se forem aceitos ou rejeitados.
+      this.amountFilesSent += files.length
     },
 
     dispatchUpload () {
@@ -463,6 +434,9 @@ export default {
       if (!this.isMultiple && !this.hasHeaderSlot) {
         this.uploader.removeUploadedFiles()
       }
+
+      // valida se o PDF está encriptado
+      await this.validateEncryptedPDF(file)
 
       const name = `${uid()}.${file.name.split('.').pop()}`
       const { endpoint } = await this.fetchCredentials(name) || {}
@@ -479,12 +453,22 @@ export default {
       }
     },
 
+    /**
+     * - Se existir o "byPass" como true, não faz nada.
+     * - Se existir o "customMessage", exibe a mensagem personalizada.
+     *
+     * @param {{ byPass?: boolean, customMessage?: string }} error
+     */
     factoryFailed (error) {
+      if (error?.byPass) return
+
       this.hasError = true
 
       this.updateUploading(false)
 
-      NotifyError(error || 'Falha ao carregar arquivo.')
+      const message = error?.customMessage || 'Falha ao carregar arquivo.'
+
+      NotifyError(message)
     },
 
     async fetchCredentials (filename) {
@@ -571,13 +555,8 @@ export default {
 
         formGeneratorProps: {
           ...this.defaultUploaderGalleryCardProps.formGeneratorProps,
-          errors: {
-            ...this.defaultUploaderGalleryCardProps.formGeneratorProps.errors,
-            ...this.transformedErrors[index]
-          }
+          errors: this.transformedFormGeneratorErrors[index]
         },
-
-        hasError1: true,
 
         currentModelValue: modelValue,
         file,
@@ -783,20 +762,22 @@ export default {
 
     /**
      * Trata os erros de arquivos rejeitados pelo QUploader para adicionar
-     * feedback com toast, trata os sequites erros:
+     * feedback com toast, trata os seguintes erros:
      * - accept
      * - maxFileSize
      */
     onRejected (rejectedFiles) {
-      console.log('TCL: onRejected -> rejectedFiles', rejectedFiles)
-      this.amountFilesRejected = rejectedFiles.length
+      // seta a quantidade de arquivos rejeitados.
+      this.amountFilesRejected += rejectedFiles.length
+
+      // seta a quantidade de arquivos enviados, é necessário usar no rejected porque esses arquivos não caem no onAdded.
+      this.amountFilesSent += rejectedFiles.length
 
       this.$emit('rejected', rejectedFiles)
 
       const errorsSize = {
         accept: 0,
-        maxFileSize: 0,
-        useEncryptedPdf: 0
+        maxFileSize: 0
       }
 
       rejectedFiles.forEach(({ failedPropValidation }) => {
@@ -809,39 +790,21 @@ export default {
         if (failedPropValidation === 'max-file-size') {
           errorsSize.maxFileSize += 1
         }
-
-        if (failedPropValidation === 'use-encrypted-pdf') {
-          errorsSize.useEncryptedPdf += 1
-        }
       })
 
       const hasMaxFileSizeErrors = !!errorsSize.maxFileSize
       const hasAcceptErrors = !!errorsSize.accept
-      const hasUseEncryptedPDFErrors = !!errorsSize.useEncryptedPdf
 
       // Caso o erro não seja de accept ou maxFileSize, não exibe nenhuma mensagem.
-      if (!hasMaxFileSizeErrors && !hasAcceptErrors && !hasUseEncryptedPDFErrors) return
+      if (!hasMaxFileSizeErrors && !hasAcceptErrors) return
 
       /**
        * Mensagem genérica para quando hover erro de accept e maxFileSize de uma vez.
        */
-      if (hasMaxFileSizeErrors && hasAcceptErrors && hasUseEncryptedPDFErrors) {
-        const mergedErrorsSize = errorsSize.maxFileSize + errorsSize.accept + errorsSize.useEncryptedPdf
+      if (hasMaxFileSizeErrors && hasAcceptErrors) {
+        const mergedErrorsSize = errorsSize.maxFileSize + errorsSize.accept
 
         NotifyError(`Não conseguimos selecionar ${mergedErrorsSize} arquivos. Por favor, escolha arquivos válidos.`)
-
-        return
-      }
-
-      /**
-       * Mensagens de erro para quando houver apenas erros de use-encrypted-pdf.
-       */
-      if (hasUseEncryptedPDFErrors) {
-        NotifyError(
-          errorsSize.useEncryptedPdf === 1
-            ? 'Não conseguimos selecionar 1 PDF, ele está protegido por senha. Por favor, escolha um arquivo sem senha.'
-            : `Não conseguimos selecionar ${errorsSize.useEncryptedPdf} PDFs, eles estão protegidos por senha. Por favor, escolha arquivos sem senha.`
-        )
 
         return
       }
@@ -870,6 +833,68 @@ export default {
           ? 'Não conseguimos selecionar 1 arquivo, este tipo não é permitido. Por favor, escolha um arquivo válido.'
           : `Não conseguimos selecionar ${errorsSize.accept} arquivos, estes tipos não são permitidos. Por favor, escolha arquivos válidos.`
       )
+    },
+
+    /**
+     * Verifica se o PDF está encriptado.
+     *
+     * @param {File} file
+     */
+    async isPDFEncrypted (file) {
+      return new Promise(resolve => {
+        const reader = new FileReader()
+
+        reader.onload = function (e) {
+          const arrayBuffer = e.target.result
+          const decoder = new TextDecoder('utf-8')
+          const text = decoder.decode(arrayBuffer)
+
+          const isEncrypted = text.includes('/Encrypt')
+
+          resolve(isEncrypted) // PDF encriptado
+        }
+
+        reader.readAsArrayBuffer(file)
+      })
+    },
+
+    /**
+     * TODO-ISSUE: Manter validação até issue #1419 ser resolvida.
+     *
+     * Valida se o PDF está encriptado:
+     * - se a prop useEncryptedPdf for false.
+     * - se o tipo do arquivo for PDF.
+     * - se o PDF for encriptado.
+     *
+     * @param {File} file
+     */
+    async validateEncryptedPDF (file) {
+      /**
+       * O callback "factory" é chamado sempre que um arquivo é adicionado, porém caso tenha algum arquivo já tenha dado erro
+       * ele tenta adicionar novamente o arquivo, exemplo:
+       * 1 - Enviei um arquivo PDF encriptado, deu erro.
+       * 2 - Tentei enviar um novo arquivo que não é encriptado, porém o arquivo encriptado anterior tenta ser adicionado novamente, chamando o factory 2x ao enviar 1 arquivo.
+       * 3 - Para evitar esse erro, é criada uma flag no arquivo para identificar que ele já foi validado como encriptado.
+       */
+      if (file.__isEncryptedPDF) {
+        const error = { byPass: true }
+
+        this.uploader.removeFile(file)
+
+        throw error
+      }
+
+      if (this.useValidateEncryptedPdf && file.type === 'application/pdf' && await this.isPDFEncrypted(file)) {
+        this.amountFilesRejected += 1
+
+        this.uploader.removeFile(file)
+
+        const error = { customMessage: 'Não é possível selecionar PDFs protegidos por senha.' }
+
+        file.__isEncryptedPDF = true
+
+        throw error
+      }
     }
   }
 }
