@@ -206,21 +206,6 @@ const normalizedFileType = computed(() => {
 
   if (props.useVideo || !url) return ''
 
-  const acceptableTypes = ['doc', 'docx', 'pdf', 'xls', 'xlsx', 'csv']
-
-  // Extrai extensão de uma string se for um tipo de arquivo válido
-  const extractExtension = str => {
-    if (!str) return ''
-
-    const parts = str.split('.')
-
-    if (parts.length < 2) return ''
-
-    const ext = parts.pop().toLowerCase()
-
-    return acceptableTypes.includes(ext) ? ext : ''
-  }
-
   // 1. Primeiro tenta extrair da pathname
   let extension = extractExtension(url.pathname)
 
@@ -270,6 +255,26 @@ function getURL () {
   } catch {
     return null
   }
+}
+
+// functions
+/**
+ * Extrai extensão de uma string se for um tipo de arquivo válido\
+ *
+ * @param {string} str
+ */
+function extractExtension (str) {
+  if (!str) return ''
+
+  const acceptableTypes = ['doc', 'docx', 'pdf', 'xls', 'xlsx', 'csv']
+
+  const parts = str.split('.')
+
+  if (parts.length < 2) return ''
+
+  const ext = parts.pop().toLowerCase()
+
+  return acceptableTypes.includes(ext) ? ext : ''
 }
 </script>
 
