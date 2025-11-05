@@ -14,7 +14,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 Devemos adicionar o comentário `<!-- N/A -->` (Não adicionar), para que não precise adicionar um item do changelog ao lançar uma nova versão stable.
 Caso adicionado no escopo inicial, todos os conteúdos abaixo não serão adicionados. Caso adicionado na linha, será considerado apenas ela.
 
-## Não publicado
+## [3.19.0-beta.14] - 05-11-2025
 ### Adicionado
 - `QasUploader`:
   - adicionado propriedade `useValidateEncryptedPdf` para validar PDF com senha.
@@ -4423,3 +4423,4 @@ Adicionado suporte para Pinia/Vuex Seguindo os padrões da biblioteca `@bildvitt
 [3.19.0-beta.11]: https://github.com/bildvitta/asteroid/compare/v3.19.0-beta.11-alpha.0...v3.19.0-beta.11?expand=1
 [3.19.0-beta.12]: https://github.com/bildvitta/asteroid/compare/v3.19.0-beta.8-alpha.19...v3.19.0-beta.12?expand=1
 [3.19.0-beta.13]: https://github.com/bildvitta/asteroid/compare/v3.19.0-beta.12...v3.19.0-beta.13?expand=1
+[3.19.0-beta.14]: https://github.com/bildvitta/asteroid/compare/v3.19.0-beta.13...v3.19.0-beta.14?expand=1
