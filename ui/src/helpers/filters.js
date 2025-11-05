@@ -57,9 +57,11 @@ function squareArea (value = 0, suffix = 'm²') {
 }
 
 function formatPercent (value = 0, places = 2) {
-  value = Number(value)
+  const numericValue = Number(value)
 
-  return value.toLocaleString('pt-BR', { style: 'percent', minimumFractionDigits: places })
+  return isNaN(numericValue)
+    ? ''
+    : numericValue.toLocaleString('pt-BR', { style: 'percent', minimumFractionDigits: places })
 }
 
 /**
