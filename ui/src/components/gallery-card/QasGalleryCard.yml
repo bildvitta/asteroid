@@ -18,6 +18,11 @@ props:
     desc: Propriedade que aplica estilos de desabilitado.
     type: Boolean
 
+  file-type:
+    desc: Extensão do arquivo (usado para mostrar quando a imagem não carrega).
+    default: ''
+    type: String
+
   grid-generator-props:
     desc: Propriedades repassadas para o QasGridGenerator.
     type: Boolean

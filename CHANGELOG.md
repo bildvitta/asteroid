@@ -19,6 +19,10 @@ Caso adicionado no escopo inicial, todos os conteúdos abaixo não serão adicio
 - `QasUploader`:
   - adicionado propriedade `useValidateEncryptedPdf` para validar PDF com senha.
   - adicionado propriedade `fieldName` para normalizar `errors` dentro da propriedade `formGeneratorProps`.
+- `QasGalleryCard`: adicionado propriedade `fileType` para definir o tipo de arquivo quando não conseguir exibir imagem.
+
+### Corrigido
+- `QasGalleryCard`: Corrigido exibição do tipo de arquivo quando não conseguir carregar imagem.
 
 ## [3.19.0-beta.13] - 03-11-2025
 ### Corrigido

@@ -20,7 +20,7 @@
                   </div>
 
                   <div class="q-mt-xs text-blue-grey-8 text-center text-h4">
-                    {{ fileType }}
+                    {{ normalizedFileType }}
                   </div>
                 </div>
               </div>
@@ -76,6 +76,11 @@ const props = defineProps({
   errorMessage: {
     type: String,
     default: 'Falha ao carregar imagem.'
+  },
+
+  fileType: {
+    type: String,
+    default: ''
   },
 
   headerProps: {
@@ -188,30 +193,62 @@ const defaultVideoProps = computed(() => {
 })
 
 /**
- * File type (extensão) do arquivo, retorna apenas para arquivos: doc, docx, pdf, xls, xlsx e csv.
- * Se for outro tipo de arquivo, retorna vazio para ser carregado o slot de erro padrão.
+ * File type (extensão) do arquivo, usado para mostrar quando a imagem não carrega.
+ * Caso passe o prop "fileType", ele tem prioridade.
+ * Se não passar, tenta extrair da URL de forma automática (pathname e query parameters).
  */
-const fileType = computed(() => {
+const normalizedFileType = computed(() => {
+  if (props.fileType) {
+    return props.fileType.toUpperCase()
+  }
+
   const url = getURL()
 
   if (props.useVideo || !url) return ''
 
-  const splitted = url.href.split('.')
-  const type = splitted.pop() || ''
-
   const acceptableTypes = ['doc', 'docx', 'pdf', 'xls', 'xlsx', 'csv']
 
-  /**
-   * Se tiver menos que 2 partes, é pq não tem extensão (ex: "https://minhaurl.com/imagem") ou,
-   * se tiver extensão, mas não for um tipo aceitável (ex: "https://minhaurl.com/imagem.png") retorna vazio.
-   *
-   */
-  if (splitted.length < 2 && !acceptableTypes.includes(type)) return ''
+  // Extrai extensão de uma string se for um tipo de arquivo válido
+  const extractExtension = str => {
+    if (!str) return ''
 
-  return type.toUpperCase()
+    const parts = str.split('.')
+
+    if (parts.length < 2) return ''
+
+    const ext = parts.pop().toLowerCase()
+
+    return acceptableTypes.includes(ext) ? ext : ''
+  }
+
+  // 1. Primeiro tenta extrair da pathname
+  let extension = extractExtension(url.pathname)
+
+  // 2. Se não encontrou, procura em TODOS os query parameters
+  if (!extension && url.search) {
+    const params = new URLSearchParams(url.search)
+
+    for (const [key, value] of params) {
+      extension = extractExtension(value)
+
+      if (extension) break
+
+      // Também verifica se o próprio key contém uma extensão
+      extension = extractExtension(key)
+
+      if (extension) break
+    }
+  }
+
+  // 3. Se ainda não encontrou, tenta na URL completa como último recurso
+  if (!extension) {
+    extension = extractExtension(url.href)
+  }
+
+  return extension ? extension.toUpperCase() : ''
 })
 
-const hasFileType = computed(() => !!fileType.value)
+const hasFileType = computed(() => !!normalizedFileType.value)
 
 const hasActions = computed(() => !!Object.keys(props.headerProps.actionsMenuProps || {}).length)
 const hasGridGenerator = computed(() => !!Object.keys(props.gridGeneratorProps).length)
