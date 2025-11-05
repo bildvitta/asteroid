@@ -196,7 +196,7 @@ const fileType = computed(() => {
 
   if (props.useVideo || !url) return ''
 
-  const splitted = url.pathname.split('.')
+  const splitted = url.href.split('.')
   const type = splitted.pop() || ''
 
   const acceptableTypes = ['doc', 'docx', 'pdf', 'xls', 'xlsx', 'csv']
