@@ -1,7 +1,6 @@
 <template>
   <section class="qas-filters" :class="filtersClasses">
     <div v-if="showFilters" class="justify-between q-col-gutter-lg row">
-      <!-- <div v-if="showFilters" class="row"> -->
       <div v-if="showSearch" class="col-12" :class="searchContainerClasses">
         <slot :filter="filter" name="search">
           <q-form v-if="useSearch" @submit.prevent="filter()">
