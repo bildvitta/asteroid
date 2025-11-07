@@ -43,7 +43,6 @@
 import QasSelect from '../select/QasSelect.vue'
 import QasBadge from '../badge/QasBadge.vue'
 import QasSearchInput from '../search-input/QasSearchInput.vue'
-// import PvFiltersButton from './private/PvFiltersButton.vue'
 import PvFiltersActions from './private/PvFiltersActions.vue'
 
 import debug from 'debug'
@@ -60,7 +59,6 @@ export default {
 
   components: {
     QasSelect,
-    // PvFiltersButton,
     QasBadge,
     QasSearchInput,
     PvFiltersActions
