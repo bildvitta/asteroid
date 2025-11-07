@@ -127,6 +127,7 @@ const hasOrderBy = computed(() => props.useOrderBy && screen.untilLarge)
 
 // functions
 /**
+ * Retorna se a opção de ordenação está ativa.
  *
  * @param {string} value
  */
