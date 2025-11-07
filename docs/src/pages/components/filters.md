@@ -28,6 +28,16 @@ Este componente serve para lidar com **filtros dinâmicos**, e normalmente utili
 
 ## Uso
 <doc-example file="QasFilters/Basic" title="Básico" />
+
+:::info
+- Quando usado com ordenação o componente irá aplicar uma query `order_by` na URL.
+- Comportamento muda dependendo do breakpoint:
+  - Até telas de tablet mostra um botão dentro do input de pesquisa.
+  - A partir de tablet mostra um select ao lado direito de ordenação.
+- Use a propriedade `useOrderByButtonOnly` em cenários onde esta manipulando o select de ordenação fora do componente mas precisa que ele apareça dentro do input de pesquisa no tablet.
+- Caso precise usar a propriedade `useFullContent` faça o controle do select manual e sete `useOrderByButtonOnly: true`.
+:::
+<doc-example file="QasFilters/OrderBy" title="Com ordenação" />
 <doc-example file="QasFilters/ExNoUseSearchOnType" title="Sem pesquisa automática ao digitar" />
 
 Normalmente este componente é utilizando junto ao `QasListView` para filtrar os dados.

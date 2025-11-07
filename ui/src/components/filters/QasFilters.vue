@@ -1,13 +1,14 @@
 <template>
   <section class="qas-filters" :class="filtersClasses">
-    <div v-if="showFilters" class="row">
+    <div v-if="showFilters" class="justify-between q-col-gutter-lg row">
+      <!-- <div v-if="showFilters" class="row"> -->
       <div v-if="showSearch" class="col-12" :class="searchContainerClasses">
         <slot :filter="filter" name="search">
           <q-form v-if="useSearch" @submit.prevent="filter()">
             <qas-search-input v-model="internalSearch" :placeholder="searchPlaceholder" :use-search-on-type="useSearchOnType" @clear="clearSearch" @filter="filter()" @update:model-value="onSearch">
               <template v-if="showFilterButton" #after-clear>
                 <slot :context="mx_context" :filter="filter" :filters="activeFilters" name="filter-button" :remove-filter="removeFilter">
-                  <pv-filters-button v-if="useFilterButton" ref="filtersButton" v-model="internalFilters" v-bind="filterButtonProps" />
+                  <pv-filters-actions ref="filtersActions" v-model:filtersButton="internalFilters" v-bind="filtersActionsProps" />
                 </slot>
               </template>
             </qas-search-input>
@@ -15,9 +16,13 @@
         </slot>
       </div>
 
-      <div v-else-if="showFilterButton" class="col-12">
+      <div v-if="hasOrderBySelect" class="col-3">
+        <qas-select v-model="orderByModel" v-bind="orderByProps" />
+      </div>
+
+      <div v-if="showFilterButton && !showSearch" class="col-12">
         <slot :context="mx_context" :filter="filter" :filters="activeFilters" name="filter-button" :remove-filter="removeFilter">
-          <pv-filters-button v-if="useFilterButton" ref="filtersButton" v-model="internalFilters" v-bind="filterButtonProps" />
+          <pv-filters-actions ref="filtersActions" v-model:filtersButton="internalFilters" v-bind="filtersActionsProps" />
         </slot>
       </div>
     </div>
@@ -35,9 +40,11 @@
 </template>
 
 <script>
+import QasSelect from '../select/QasSelect.vue'
 import QasBadge from '../badge/QasBadge.vue'
 import QasSearchInput from '../search-input/QasSearchInput.vue'
-import PvFiltersButton from './private/PvFiltersButton.vue'
+// import PvFiltersButton from './private/PvFiltersButton.vue'
+import PvFiltersActions from './private/PvFiltersActions.vue'
 
 import debug from 'debug'
 
@@ -52,9 +59,11 @@ export default {
   name: 'QasFilters',
 
   components: {
-    PvFiltersButton,
+    QasSelect,
+    // PvFiltersButton,
     QasBadge,
-    QasSearchInput
+    QasSearchInput,
+    PvFiltersActions
   },
 
   mixins: [contextMixin],
@@ -70,9 +79,19 @@ export default {
       type: Object
     },
 
+    fieldsProps: {
+      default: () => ({}),
+      type: Object
+    },
+
     listenerQueryKeys: {
       type: Array,
       default: () => []
+    },
+
+    orderByOptions: {
+      default: () => ([]),
+      type: Array
     },
 
     searchPlaceholder: {
@@ -123,9 +142,8 @@ export default {
       type: Boolean
     },
 
-    fieldsProps: {
-      default: () => ({}),
-      type: Object
+    useOrderByButtonOnly: {
+      type: Boolean
     }
   },
 
@@ -148,7 +166,8 @@ export default {
        * Isso é necessário porque, por padrão, não há opções no campo. As opções selecionadas servem
        * para exibir as "tags" dos filtros ativos na tela.
       */
-      lazyLoadingSelectedOptions: {}
+      lazyLoadingSelectedOptions: {},
+      orderByModel: this.$route.query.order_by || ''
     }
   },
 
@@ -228,25 +247,30 @@ export default {
       return this.hasActiveFilters ? 'primary' : 'grey-10'
     },
 
-    filterButtonProps () {
+    filtersActionsProps () {
       return {
-        color: this.filterButtonColor,
-        error: this.hasFetchError,
-        fields: this.fields,
-        fieldsProps: this.formattedFieldsProps,
-        loading: this.isFetching,
-        menuProps: {
-          /**
-           * O tratamento no onHide do menu é que como o menu é recriado toda vez que o filtro é aberto, ocorre que as
-           * opções selecionadas anteriormente (e que não foram filtradas) não ficam salvas na memória, ocasionando em
-           * campos lazy loading um problema de exibir o uuid da opção por não achar essa opção no array de options do field.
-           * Para solucionar esse problema, sempre ao fechar os filtros as opções não filtradas são removidas,
-           * voltando o filtro para o seu estado anterior.
-          */
-          onHide: this.setInternalFilters
+        orderByOptions: this.orderByOptions,
+        useOrderBy: this.hasOrderByOptions,
+        useFilterButton: this.useFilterButton,
+
+        filtersButtonProps: {
+          color: this.filterButtonColor,
+          error: this.hasFetchError,
+          fields: this.fields,
+          fieldsProps: this.formattedFieldsProps,
+          loading: this.isFetching
         },
 
-        onClear: this.clearFilters,
+        /**
+         * O tratamento no onHide do menu é que como o menu é recriado toda vez que o filtro é aberto, ocorre que as
+         * opções selecionadas anteriormente (e que não foram filtradas) não ficam salvas na memória, ocasionando em
+         * campos lazy loading um problema de exibir o uuid da opção por não achar essa opção no array de options do field.
+         * Para solucionar esse problema, sempre ao fechar os filtros as opções não filtradas são removidas,
+         * voltando o filtro para o seu estado anterior.
+        */
+        onHideFiltersMenu: this.setInternalFilters,
+        onClearFilters: this.clearFilters,
+        onChangeOrder: this.changeOrderBy,
         onFilter: () => this.filter()
       }
     },
@@ -260,7 +284,7 @@ export default {
     },
 
     showFilterButton () {
-      return !!this.$slots.filterButton || this.useFilterButton
+      return !!this.$slots.filterButton || this.useFilterButton || this.hasOrderByOptions
     },
 
     showFilters () {
@@ -268,11 +292,28 @@ export default {
     },
 
     showSearch () {
-      return !!this.$slots.search || this.useSearch
+      return !!this.$slots.search || this.useSearch || this.hasOrderByOptions
     },
 
     hasChip () {
       return this.useChip && this.hasActiveFilters
+    },
+
+    hasOrderByOptions () {
+      return !!this.orderByOptions.length
+    },
+
+    hasOrderBySelect () {
+      return this.hasOrderByOptions && !this.$qas.screen.untilLarge && this.useSearch && !this.useOrderByButtonOnly
+    },
+
+    orderByProps () {
+      return {
+        label: 'Ordenar por',
+        useFilterMode: true,
+        options: this.orderByOptions,
+        'onUpdate:modelValue': this.changeOrderBy
+      }
     }
   },
 
@@ -299,6 +340,10 @@ export default {
 
     filters (value) {
       this.internalFilters = value
+    },
+
+    '$route.query.order_by' (value) {
+      this.orderByModel = value || ''
     }
   },
 
@@ -411,7 +456,7 @@ export default {
     },
 
     hideFiltersMenu () {
-      this.$refs.filtersButton?.hideMenu()
+      this.$refs.filtersActions?.hideFiltersMenu()
     },
 
     setInternalFilters () {
@@ -484,6 +529,10 @@ export default {
       for (const key in filters) {
         this.internalFilters[key] = parseValue(this.normalizeValues(filters[key], this.fields[key]?.multiple))
       }
+    },
+
+    changeOrderBy (value) {
+      this.filter({ order_by: value })
     }
   }
 }
