@@ -34,6 +34,11 @@ props:
     default: []
     type: Array
 
+  order-by-options:
+    desc: Opções de ordenação que serão exibidas no botão de ordenar.
+    default: []
+    type: Array
+
   search-placeholder:
     desc: Placeholder do campo de busca.
     default: Pesquisar...
@@ -59,6 +64,11 @@ props:
 
   use-full-content:
     desc: Para que o componente ocupe 100%, recomendado para quando precisar utilizar grids.
+    type: Boolean
+
+  use-order-by-button-only:
+    desc: Habilita apenas o botão de ordenação (em telas até tablet).
+    default: false
     type: Boolean
 
   use-update-route:
