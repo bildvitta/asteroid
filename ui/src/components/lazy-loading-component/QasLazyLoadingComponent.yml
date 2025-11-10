@@ -1,5 +1,3 @@
-name: QasLazyLoadingComponent
-category: feedback
 type: component
 
 meta:
@@ -11,21 +9,16 @@ props:
     default: 0.1
     type: Number
   
-  rootMargin:
-    desc: Margem do root para o IntersectionObserver
-    default: "50px"
+  root-margin:
+    desc: Margem extra ao redor do viewport para pré-carregamento
+    default: '0px'
+    type: String
+
+  placeholder-height:
+    desc: Altura do placeholder exibido enquanto o elemento não está visível
+    default: '500px'
     type: String
 
 slots:
   default:
-    desc: Elementos/componentes que serão carregados conforme ficam visíveis
-  
-  placeholder:
-    desc: Placeholder customizado exibido enquanto o elemento não está visível
-    scope:
-      index: Índice do item sendo carregado
-
-events: []
-
-description: Componente de lazy loading que carrega elementos do slot apenas quando ficam visíveis na viewport.
-
+    desc: Elementos/componentes que serão carregados conforme ficam visíveis, onde cada elemento irmão dentro do slot será tratado individualmente para o lazy loading.

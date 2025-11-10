@@ -147,19 +147,52 @@ function createObserver () {
 }
 
 /**
- * Extrai os VNodes do slot default e armazena diretamente em items
- * Cada vnode representa um componente filho passado ao slot
+ * Extrai e achata os VNodes do slot default
+ * Suporta múltiplos cenários:
+ * - Componentes individuais: <ComponenteA /> <ComponenteB />
+ * - v-for: <Component v-for="..." />
+ * - template v-for: <template v-for="..."><Component /></template>
+ *
+ * @param {Array} vnodes - Array de VNodes
+ * @returns {Array} Array de VNodes achatado
+ */
+function flattenVNodes (vnodes) {
+  const flattened = []
+
+  vnodes.forEach(vnode => {
+    // Ignora VNodes vazios (comentários, whitespace)
+    if (!vnode || typeof vnode !== 'object') return
+
+    // Se for um Fragment (template v-for, etc), achata recursivamente
+    if (vnode.type === Symbol.for('v-fgt') || vnode.type === Symbol.for('v-txt')) {
+      if (Array.isArray(vnode.children)) {
+        flattened.push(...flattenVNodes(vnode.children))
+      }
+    } else {
+      // VNode normal (componente)
+      flattened.push(vnode)
+    }
+  })
+
+  return flattened
+}
+
+/**
+ * Extrai os VNodes do slot default e armazena em items
+ * Achata automaticamente fragments e v-for
  *
  * Exemplo de uso:
  * <qas-lazy-loading-component>
  *   <ComponenteA />  <- vnode 0
  *   <ComponenteB />  <- vnode 1
+ *   <Component v-for="item in 10" /> <- vnode 2-11
  * </qas-lazy-loading-component>
  */
 function setItems () {
   const slotContent = slots.default?.() || []
+  const flattenedItems = flattenVNodes(slotContent)
 
-  items.value = slotContent
+  items.value = flattenedItems
 }
 
 /**
