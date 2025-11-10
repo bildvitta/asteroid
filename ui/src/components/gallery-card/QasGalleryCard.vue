@@ -2,48 +2,52 @@
   <qas-box class="bg-white qas-gallery-card" :class="classes" v-bind="boxProps">
     <qas-header v-if="hasHeader" v-bind="defaultHeaderProps" />
 
-    <div v-if="props.useVideo" class="rounded-borders">
+    <div v-if="props.useVideo" class="q-mb-md rounded-borders">
       <slot name="video">
         <q-video v-bind="defaultVideoProps" />
       </slot>
     </div>
 
-    <div v-else class="qas-gallery-card__image">
-      <slot name="image">
-        <q-img class="rounded-borders" height="100%" :src="props.url" v-bind="props.imageProps">
-          <template #error>
-            <slot name="image-error-container">
-              <div v-if="hasFileType" class="bg-blue-grey-2 flex full-height full-width items-center justify-center text-blue-grey-8">
-                <div class="text-center">
-                  <div>
-                    <q-icon name="sym_r_draft" size="lg" />
-                  </div>
+    <div v-else class="q-mb-md">
+      <div class="qas-gallery-card__image">
+        <slot name="image">
+          <q-img class="rounded-borders" height="100%" :src="props.url" v-bind="props.imageProps">
+            <template #error>
+              <slot name="image-error-container">
+                <div v-if="hasFileType" class="bg-blue-grey-2 flex full-height full-width items-center justify-center text-blue-grey-8">
+                  <div class="text-center">
+                    <div>
+                      <q-icon name="sym_r_draft" size="lg" />
+                    </div>
 
-                  <div class="q-mt-xs text-blue-grey-8 text-center text-h4">
-                    {{ normalizedFileType }}
+                    <div class="q-mt-xs text-blue-grey-8 text-center text-h4">
+                      {{ normalizedFileType }}
+                    </div>
                   </div>
                 </div>
-              </div>
 
-              <div v-else class="bg-grey-4 flex full-height full-width items-center justify-center text-grey-10 text-subtitle1">
-                <div class="text-center">
-                  <slot name="image-error-icon">
-                    <div v-if="props.errorIcon">
-                      <q-icon class="text-negative" :name="props.errorIcon" size="md" />
-                    </div>
-                  </slot>
+                <div v-else class="bg-grey-4 flex full-height full-width items-center justify-center text-grey-10 text-subtitle1">
+                  <div class="text-center">
+                    <slot name="image-error-icon">
+                      <div v-if="props.errorIcon">
+                        <q-icon class="text-negative" :name="props.errorIcon" size="md" />
+                      </div>
+                    </slot>
 
-                  <slot name="image-error-message">
-                    <div class="q-mt-xs">
-                      {{ props.errorMessage }}
-                    </div>
-                  </slot>
+                    <slot name="image-error-message">
+                      <div class="q-mt-xs">
+                        {{ props.errorMessage }}
+                      </div>
+                    </slot>
+                  </div>
                 </div>
-              </div>
-            </slot>
-          </template>
-        </q-img>
-      </slot>
+              </slot>
+            </template>
+          </q-img>
+        </slot>
+      </div>
+
+      <slot name="image-bottom" />
     </div>
 
     <div v-if="hasBottom" class="q-mt-md">

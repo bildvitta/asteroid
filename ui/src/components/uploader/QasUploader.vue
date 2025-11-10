@@ -1,6 +1,6 @@
 <template>
   <div class="qas-uploader">
-    <q-uploader ref="uploader" auto-upload class="bg-transparent" :class="uploaderClasses" v-bind="attributes" :factory flat :max-file-size :max-files method="PUT" @added="onAdded" @factory-failed="factoryFailed" @rejected="onRejected" @uploaded="uploaded" @uploading="updateUploading(true)">
+    <q-uploader ref="uploader" auto-upload class="bg-transparent" :class="uploaderClasses" v-bind="attributes" :factory flat :max-file-size :max-files method="PUT" @added="onAdded" @factory-failed="factoryFailed" @rejected="onRejected" @start="onStart" @uploaded="uploaded" @uploading="updateUploading(true)">
       <template #header="scope">
         <slot name="header" :scope="scope">
           <qas-header v-if="useHeader" class="q-mb-none" v-bind="getHeaderProps(scope)">
@@ -70,6 +70,11 @@ export default {
 
   props: {
     ...baseErrorProps,
+
+    errors: {
+      type: [Array, Object],
+      default: () => ({})
+    },
 
     fieldName: {
       type: String,
@@ -220,7 +225,7 @@ export default {
     }
   },
 
-  emits: ['update:modelValue', 'update:uploading', 'rejected'],
+  emits: ['update:modelValue', 'update:uploading', 'rejected', 'update:errors'],
 
   data () {
     return {
@@ -369,6 +374,14 @@ export default {
       return Array.isArray(errors) ? errors : constructObject(this.fieldName, errors)
     },
 
+    isErrorArray () {
+      return Array.isArray(this.errors)
+    },
+
+    transformedErrors () {
+      return this.isErrorArray ? this.errors : constructObject(this.fieldName, this.errors)
+    },
+
     /**
      * Computada para ser usada para controle externamente do componente.
      *
@@ -440,7 +453,7 @@ export default {
       }
 
       // valida se o PDF está encriptado
-      await this.validateEncryptedPDF(file)
+      // await this.validateEncryptedPDF(file)
 
       const name = `${uid()}.${file.name.split('.').pop()}`
       const { endpoint } = await this.fetchCredentials(name) || {}
@@ -553,21 +566,22 @@ export default {
 
     getUploaderGalleryCardProps ({ index, key, file, scope }) {
       const modelValue = this.getModelValue(index)
-
       return {
         ...this.defaultUploaderGalleryCardProps,
 
-        formGeneratorProps: {
-          ...this.defaultUploaderGalleryCardProps.formGeneratorProps,
-          errors: this.transformedFormGeneratorErrors[index]
-        },
+        errors: this.transformedErrors[index],
+
+        // formGeneratorProps: {
+        //   ...this.defaultUploaderGalleryCardProps.formGeneratorProps,
+        //   errors: this.transformedFormGeneratorErrors[index]
+        // },
 
         currentModelValue: modelValue,
         file,
         fileKey: key,
         savedFiles: this.savedFiles,
         // eventos
-        onRemove: () => this.removeFile(key, scope, file),
+        onRemove: () => this.removeFile(key, scope, file, index),
         onUpdateModel: value => this.updateModelValue({ index, payload: value })
       }
     },
@@ -588,7 +602,23 @@ export default {
       return this.addButtonFn ? this.addButtonFn(scope) : this.$refs.hiddenInput.click()
     },
 
-    removeFile (key, scope, file) {
+    removeFile (key, scope, file, index) {
+      /**
+       * Remove o erro referente ao arquivo removido para não correr o risco
+       * de manter erros de arquivos que já foram removidos ao adicionar novos arquivos.
+       */
+      if (this.transformedErrors[index]) {
+        const errors = this.isErrorArray ? [...this.transformedErrors] : { ...this.transformedErrors }
+
+        if (this.isErrorArray) {
+          errors.splice(index, 1)
+        } else {
+          delete errors[index]
+        }
+
+        this.$emit('update:errors', errors)
+      }
+
       if (file.isUploaded) {
         scope.removeFile(scope.files[file.indexToDelete])
       }
@@ -839,6 +869,12 @@ export default {
       )
     },
 
+    onStart () {
+      console.log('eae')
+
+      this.$emit('update:errors', {})
+    },
+
     /**
      * Verifica se o PDF está encriptado.
      *
@@ -855,7 +891,14 @@ export default {
 
           const isEncrypted = text.includes('/Encrypt')
 
-          resolve(isEncrypted) // PDF encriptado
+          const isSigned = (
+            text.includes('/Sig') ||
+            text.includes('/ByteRange') ||
+            text.includes('/Contents') ||
+            text.includes('/AcroForm')
+          )
+
+          resolve(isEncrypted && !isSigned) // PDF encriptado
         }
 
         reader.readAsArrayBuffer(file)

@@ -1,6 +1,6 @@
 <template>
   <q-form class="container spaced">
-    <qas-uploader v-model="model" add-button-label="Adicionar imagem" entity="customers/import/upload" label="Meu uploader" />
+    <qas-uploader v-model="model" add-button-label="Adicionar imagem" entity="customers/import/upload" label="Meu uploader" use-validate-encrypted-pdf />
     <qas-debugger :inspect="[model]" />
   </q-form>
 </template>
