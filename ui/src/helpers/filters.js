@@ -42,8 +42,17 @@ function decimal (value = 0) {
 }
 
 function money (value = 0, options = { style: 'currency', currency: 'BRL' }) {
+  if (value === null || value === undefined) {
+    return ''
+  }
+
   value = Number(value)
-  return isNaN(value) ? '' : value.toLocaleString('pt-BR', options)
+
+  if (isNaN(value)) {
+    return ''
+  }
+
+  return value.toLocaleString('pt-BR', options)
 }
 
 function percent (value = 0, places = 2) {
@@ -57,11 +66,17 @@ function squareArea (value = 0, suffix = 'm²') {
 }
 
 function formatPercent (value = 0, places = 2) {
+  if (value === null || value === undefined) {
+    return ''
+  }
+
   const numericValue = Number(value)
 
-  return isNaN(numericValue)
-    ? ''
-    : numericValue.toLocaleString('pt-BR', { style: 'percent', minimumFractionDigits: places })
+  if (isNaN(numericValue)) {
+    return ''
+  }
+
+  return numericValue.toLocaleString('pt-BR', { style: 'percent', minimumFractionDigits: places })
 }
 
 /**
