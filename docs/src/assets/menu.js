@@ -212,6 +212,10 @@ module.exports = [
         path: '/components/layout'
       },
       {
+        name: 'LazyLoadingComponent',
+        path: '/components/lazy-loading-component'
+      },
+      {
         name: 'ListItems',
         path: '/components/list-items'
       },
