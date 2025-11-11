@@ -14,6 +14,21 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 Devemos adicionar o comentário `<!-- N/A -->` (Não adicionar), para que não precise adicionar um item do changelog ao lançar uma nova versão stable.
 Caso adicionado no escopo inicial, todos os conteúdos abaixo não serão adicionados. Caso adicionado na linha, será considerado apenas ela.
 
+## Não publicado
+## BREAKING CHANGES
+- `QasUploader`: removido propriedade `useValidateEncryptedPdf` e removido validação de PDF protegido por senha, uma vez que a validação retornava true para PDFs com certificado digital e para validar corretamente teria que fazer o uso de lib externa, agora o backend valida e retornamos isto via prop `errors`.
+- `QasUploader`: modificado uso de `errors` dentro do `QasFormGenerator`, não utilize ele via `formGeneratorProps` mas sim via `errors`.
+
+### Adicionado
+- `QasUploader`: adicionado nova propriedade `errors`.
+- `QasGalleryCard`: adicionado novo slot `image-bottom` para uso dentro do `QasUploader`.
+
+### Modificado
+- `QasUploader`: modificado uso de `errors` dentro do `QasFormGenerator`, não utilize ele via `formGeneratorProps` mas sim via `errors`.
+
+### Removido
+- `QasUploader`: removido propriedade `useValidateEncryptedPdf` e removido validação de PDF protegido por senha, uma vez que a validação retornava true para PDFs com certificado digital e para validar corretamente teria que fazer o uso de lib externa, agora o backend valida e retornamos isto via prop `errors`.
+
 ## [3.19.0-beta.14] - 05-11-2025
 ### Adicionado
 - `QasUploader`:

@@ -70,4 +70,15 @@ O formato padrão do model de objeto é:
 :::
 
 <doc-print :src="require('assets/prints/uploader-editable.png')" />
+
+:::info
+A propriedade `errors` é repassada para o `QasGridGenerator`, mas quando existe a key `url` dentro de errors (objeto ou array), ela é reservada para o card, isso significa que url não será repassada para o `QasGridGenerator`, mas vai aparecer uma msg no card referente ao erro.
+
+```js
+{
+  'documents.0.format': ['Mensagem de erro.'], // mensagem do campo "format"
+  'documents.0.url': ['Mensagem de erro.'], // mensagem do card..
+  'documents.3.format': ['Mensagem de erro.'] // mensagem do campo "format"
+}
+:::
 <doc-example file="QasUploader/ExUploaderMultipleEditable" title="Múltiplo e editável" />

@@ -2,13 +2,13 @@
   <qas-box class="bg-white qas-gallery-card" :class="classes" v-bind="boxProps">
     <qas-header v-if="hasHeader" v-bind="defaultHeaderProps" />
 
-    <div v-if="props.useVideo" class="q-mb-md rounded-borders">
+    <div v-if="props.useVideo" class="rounded-borders">
       <slot name="video">
         <q-video v-bind="defaultVideoProps" />
       </slot>
     </div>
 
-    <div v-else class="q-mb-md">
+    <div v-else>
       <div class="qas-gallery-card__image">
         <slot name="image">
           <q-img class="rounded-borders" height="100%" :src="props.url" v-bind="props.imageProps">

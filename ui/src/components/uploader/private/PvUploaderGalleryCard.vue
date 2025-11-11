@@ -336,7 +336,7 @@ export default {
 
       if (!this.hasFormFields && hasFields) return true
 
-      return this.isGalleryMode && hasFields && !this.hasError
+      return this.isGalleryMode && hasFields && !this.file.isFailed
     },
 
     isGalleryMode () {

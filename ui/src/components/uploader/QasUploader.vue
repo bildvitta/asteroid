@@ -1,6 +1,6 @@
 <template>
   <div class="qas-uploader">
-    <q-uploader ref="uploader" auto-upload class="bg-transparent" :class="uploaderClasses" v-bind="attributes" :factory flat :max-file-size :max-files method="PUT" @added="onAdded" @factory-failed="factoryFailed" @rejected="onRejected" @start="onStart" @uploaded="uploaded" @uploading="updateUploading(true)">
+    <q-uploader ref="uploader" auto-upload class="bg-transparent" :class="uploaderClasses" v-bind="attributes" :factory flat :max-file-size :max-files method="PUT" @added="onAdded" @factory-failed="factoryFailed" @rejected="onRejected" @uploaded="uploaded" @uploading="updateUploading(true)">
       <template #header="scope">
         <slot name="header" :scope="scope">
           <qas-header v-if="useHeader" class="q-mb-none" v-bind="getHeaderProps(scope)">
@@ -196,10 +196,6 @@ export default {
       default: true
     },
 
-    useValidateEncryptedPdf: {
-      type: Boolean
-    },
-
     useGalleryCard: {
       type: Boolean,
       default: true
@@ -368,12 +364,6 @@ export default {
       return this.hasCustomUpload ? 'hidden' : 'fit'
     },
 
-    transformedFormGeneratorErrors () {
-      const { errors } = this.formGeneratorProps || {}
-
-      return Array.isArray(errors) ? errors : constructObject(this.fieldName, errors)
-    },
-
     isErrorArray () {
       return Array.isArray(this.errors)
     },
@@ -452,9 +442,6 @@ export default {
         this.uploader.removeUploadedFiles()
       }
 
-      // valida se o PDF está encriptado
-      // await this.validateEncryptedPDF(file)
-
       const name = `${uid()}.${file.name.split('.').pop()}`
       const { endpoint } = await this.fetchCredentials(name) || {}
 
@@ -470,22 +457,12 @@ export default {
       }
     },
 
-    /**
-     * - Se existir o "byPass" como true, não faz nada.
-     * - Se existir o "customMessage", exibe a mensagem personalizada.
-     *
-     * @param {{ byPass?: boolean, customMessage?: string }} error
-     */
-    factoryFailed (error) {
-      if (error?.byPass) return
-
+    factoryFailed () {
       this.hasError = true
 
       this.updateUploading(false)
 
-      const message = error?.customMessage || 'Falha ao carregar arquivo.'
-
-      NotifyError(message)
+      NotifyError('Falha ao carregar arquivo.')
     },
 
     async fetchCredentials (filename) {
@@ -566,20 +543,16 @@ export default {
 
     getUploaderGalleryCardProps ({ index, key, file, scope }) {
       const modelValue = this.getModelValue(index)
+
       return {
         ...this.defaultUploaderGalleryCardProps,
 
-        errors: this.transformedErrors[index],
-
-        // formGeneratorProps: {
-        //   ...this.defaultUploaderGalleryCardProps.formGeneratorProps,
-        //   errors: this.transformedFormGeneratorErrors[index]
-        // },
-
         currentModelValue: modelValue,
+        errors: this.transformedErrors[index],
         file,
         fileKey: key,
         savedFiles: this.savedFiles,
+
         // eventos
         onRemove: () => this.removeFile(key, scope, file, index),
         onUpdateModel: value => this.updateModelValue({ index, payload: value })
@@ -867,86 +840,6 @@ export default {
           ? 'Não conseguimos selecionar 1 arquivo, este tipo não é permitido. Por favor, escolha um arquivo válido.'
           : `Não conseguimos selecionar ${errorsSize.accept} arquivos, estes tipos não são permitidos. Por favor, escolha arquivos válidos.`
       )
-    },
-
-    onStart () {
-      console.log('eae')
-
-      this.$emit('update:errors', {})
-    },
-
-    /**
-     * Verifica se o PDF está encriptado.
-     *
-     * @param {File} file
-     */
-    async isPDFEncrypted (file) {
-      return new Promise(resolve => {
-        const reader = new FileReader()
-
-        reader.onload = function (e) {
-          const arrayBuffer = e.target.result
-          const decoder = new TextDecoder('utf-8')
-          const text = decoder.decode(arrayBuffer)
-
-          const isEncrypted = text.includes('/Encrypt')
-
-          const isSigned = (
-            text.includes('/Sig') ||
-            text.includes('/ByteRange') ||
-            text.includes('/Contents') ||
-            text.includes('/AcroForm')
-          )
-
-          resolve(isEncrypted && !isSigned) // PDF encriptado
-        }
-
-        reader.readAsArrayBuffer(file)
-      })
-    },
-
-    /**
-     * TODO-ISSUE: Manter validação até issue #1419 ser resolvida.
-     *
-     * Valida se o PDF está encriptado:
-     * - se a prop useEncryptedPdf for false.
-     * - se o tipo do arquivo for PDF.
-     * - se o PDF for encriptado.
-     *
-     * @param {File} file
-     */
-    async validateEncryptedPDF (file) {
-      /**
-       * O callback "factory" é chamado sempre que um arquivo é adicionado, porém caso tenha algum arquivo já tenha dado erro
-       * ele tenta adicionar novamente o arquivo, exemplo:
-       * 1 - Enviei um arquivo PDF encriptado, deu erro.
-       * 2 - Tentei enviar um novo arquivo que não é encriptado, porém o arquivo encriptado anterior tenta ser adicionado novamente, chamando o factory 2x ao enviar 1 arquivo.
-       * 3 - Para evitar esse erro, é criada uma flag no arquivo para identificar que ele já foi validado como encriptado.
-       */
-      if (file.__isEncryptedPDF) {
-        const error = { byPass: true }
-
-        this.uploader.removeFile(file)
-
-        throw error
-      }
-
-      /**
-       * Se a prop useValidateEncryptedPdf for true e o tipo do arquivo for PDF, faz a validação.
-       */
-      if (this.useValidateEncryptedPdf && file.type === 'application/pdf' && await this.isPDFEncrypted(file)) {
-        this.amountFilesRejected += 1 // arquivo rejeitado por estar encriptado
-
-        // remove o arquivo do uploader para ser semelhante ao comportamento do "onRejected".
-        this.uploader.removeFile(file)
-
-        const error = { customMessage: 'Não é possível selecionar PDFs protegidos por senha.' }
-
-        // marca o arquivo como encriptado para não validar novamente.
-        file.__isEncryptedPDF = true
-
-        throw error
-      }
     }
   }
 }
