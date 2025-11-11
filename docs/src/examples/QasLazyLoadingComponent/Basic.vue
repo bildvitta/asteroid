@@ -5,7 +5,8 @@
         Primeira box
       </qas-box>
 
-      <qas-box class="q-mb-md">
+      <!-- atributo pra sobrepor a altura do placeholder(prop placeholderHeight) -->
+      <qas-box class="q-mb-md" data-placeholder-height="200px">
         <grid-generator />
       </qas-box>
 

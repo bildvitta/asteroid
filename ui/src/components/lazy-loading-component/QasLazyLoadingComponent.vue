@@ -9,7 +9,7 @@
     v-for="(item, index) in items"
     :key="index"
   >
-    <transition name="qas-lazy-fade">
+    <transition enter-active-class="animated fadeIn slow">
       <!-- Componente real - renderizado quando visível -->
       <component
         :is="item"
@@ -206,15 +206,11 @@ function setPlaceholderRef (element, index) {
   if (!element) return
 
   placeholderRefs.set(index, element)
+
+  /**
+   * Define a altura do placeholder com base no atributo "data-placeholder-height" caso queira customizar pra
+   * o elemento específico, e não o definido na prop placeholderHeight.
+   */
+  element.style.height = items.value[index].props?.['data-placeholder-height'] || props.placeholderHeight
 }
 </script>
-
-<style scoped>
-.qas-lazy-fade-enter-active {
-  transition: opacity 0.6s ease;
-}
-
-.qas-lazy-fade-enter-from {
-  opacity: 0;
-}
-</style>
