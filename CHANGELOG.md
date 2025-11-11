@@ -14,7 +14,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 Devemos adicionar o comentário `<!-- N/A -->` (Não adicionar), para que não precise adicionar um item do changelog ao lançar uma nova versão stable.
 Caso adicionado no escopo inicial, todos os conteúdos abaixo não serão adicionados. Caso adicionado na linha, será considerado apenas ela.
 
-## Não publicado
+## [3.19.0-beta.15] - 11-11-2025
 ## BREAKING CHANGES
 - `QasUploader`: removido propriedade `useValidateEncryptedPdf` e removido validação de PDF protegido por senha, uma vez que a validação retornava true para PDFs com certificado digital e para validar corretamente teria que fazer o uso de lib externa, agora o backend valida e retornamos isto via prop `errors`.
 - `QasUploader`: modificado uso de `errors` dentro do `QasFormGenerator`, não utilize ele via `formGeneratorProps` mas sim via `errors`.
@@ -4439,3 +4439,4 @@ Adicionado suporte para Pinia/Vuex Seguindo os padrões da biblioteca `@bildvitt
 [3.19.0-beta.12]: https://github.com/bildvitta/asteroid/compare/v3.19.0-beta.8-alpha.19...v3.19.0-beta.12?expand=1
 [3.19.0-beta.13]: https://github.com/bildvitta/asteroid/compare/v3.19.0-beta.12...v3.19.0-beta.13?expand=1
 [3.19.0-beta.14]: https://github.com/bildvitta/asteroid/compare/v3.19.0-beta.13...v3.19.0-beta.14?expand=1
+[3.19.0-beta.15]: https://github.com/bildvitta/asteroid/compare/v3.19.0-beta.14...v3.19.0-beta.15?expand=1
