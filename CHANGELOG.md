@@ -16,7 +16,7 @@ Caso adicionado no escopo inicial, todos os conteúdos abaixo não serão adicio
 
 ## Não publicado
 ### Adicionado
-- `QasLazyLoadingComponent`: adicionado componente responsável por carregar elementos somente quando ficam visíveis na viewport, otimizando performance da página. 
+- `QasLazyLoadingComponent`: adicionado componente responsável por carregar elementos somente quando ficam visíveis na viewport, otimizando performance da página. ([#1339](https://github.com/bildvitta/asteroid/issues/1339))
 
 ## [3.19.0-beta.14] - 05-11-2025
 ### Adicionado
