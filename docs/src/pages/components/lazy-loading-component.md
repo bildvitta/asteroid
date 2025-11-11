@@ -6,9 +6,9 @@ Componente de para carregar somente os componentes visiveis.
 
 <doc-api file="lazy-loading-component/QasLazyLoadingComponent" name="QasLazyLoadingComponent" />
 
-::info
+:::info
 Para visualizar melhor o comportamento do lazy loading, abra o DevTools e inspecione os elementos enquanto rola a página. Você verá os placeholders sendo substituídos pelos componentes reais conforme entram no viewport.
-::
+:::
 
 ## Uso
 <doc-example file="QasLazyLoadingComponent/Basic" title="Básico" />
