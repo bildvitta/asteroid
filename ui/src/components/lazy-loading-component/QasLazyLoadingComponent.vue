@@ -164,7 +164,7 @@ function flattenVNodes (vnodes) {
     if (!vnode || typeof vnode !== 'object') return
 
     /**
-     * Se for um Fragment (v-for, template, etc), achata recursivamente os children
+     * Se for um Fragment (v-for, template, v-if, etc), achata recursivamente os children
      * Fragments são wrappers que o Vue cria para agrupar múltiplos elementos
      */
     const isFragment = typeof vnode.type === 'symbol' && Array.isArray(vnode.children)
