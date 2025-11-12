@@ -65,6 +65,12 @@ export default {
 
   mixins: [viewMixin],
 
+  provide () {
+    return {
+      updateUnsavedChangesCache: this.updateUnsavedChangesCache
+    }
+  },
+
   props: {
     beforeSubmit: {
       default: null,
@@ -327,11 +333,12 @@ export default {
 
         result && Object.assign(modelValue, result)
 
+        this.$emit('update:modelValue', modelValue)
+
         if (this.useDialogOnUnsavedChanges) {
-          this.cachedResult = extend(true, {}, result || modelValue)
+          this.updateUnsavedChangesCache()
         }
 
-        this.$emit('update:modelValue', modelValue)
         this.$emit('fetch-success', response, this.modelValue)
 
         log(`[${this.entity}]:fetchSingle:success`, { response, modelValue })
@@ -437,7 +444,7 @@ export default {
         const modelValue = { ...this.modelValue, ...response.data.result }
 
         if (this.useDialogOnUnsavedChanges) {
-          this.cachedResult = extend(true, {}, modelValue)
+          this.updateUnsavedChangesCache(modelValue)
         }
 
         this.mx_setErrors()
@@ -553,6 +560,12 @@ export default {
         method: methods[this.mode],
         url,
         data: this.modelValue
+      })
+    },
+
+    updateUnsavedChangesCache (newValues) {
+      this.$nextTick(() => {
+        this.cachedResult = extend(true, {}, (newValues || this.modelValue))
       })
     }
   }

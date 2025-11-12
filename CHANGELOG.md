@@ -14,7 +14,48 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 Devemos adicionar o comentário `<!-- N/A -->` (Não adicionar), para que não precise adicionar um item do changelog ao lançar uma nova versão stable.
 Caso adicionado no escopo inicial, todos os conteúdos abaixo não serão adicionados. Caso adicionado na linha, será considerado apenas ela.
 
-## Não publicado
+## [3.19.0-beta.16] - 12-11-2025
+### Corrigido
+- `formatPercent | money`: Corrigido formatação do campo percentual quando o valor é 0. ([#1350](https://github.com/bildvitta/asteroid/issues/1350))
+- `QasTip`: Corrigido import do componente `QasTooltip` no qual estava sendo importado.
+
+### Modificado
+- `Delete - Plugin`: Alterado para bloquear o botão de cancelar quando estiver deletando o item. ([#1417](https://github.com/bildvitta/asteroid/issues/1417))
+
+## [3.19.0-beta.15] - 11-11-2025
+## BREAKING CHANGES
+- `QasUploader`: removido propriedade `useValidateEncryptedPdf` e removido validação de PDF protegido por senha, uma vez que a validação retornava true para PDFs com certificado digital e para validar corretamente teria que fazer o uso de lib externa, agora o backend valida e retornamos isto via prop `errors`.
+- `QasUploader`: modificado uso de `errors` dentro do `QasFormGenerator`, não utilize ele via `formGeneratorProps` mas sim via `errors`.
+
+### Adicionado
+- `QasUploader`: adicionado nova propriedade `errors`.
+- `QasGalleryCard`: adicionado novo slot `image-bottom` para uso dentro do `QasUploader`.
+
+### Modificado
+- `QasUploader`: modificado uso de `errors` dentro do `QasFormGenerator`, não utilize ele via `formGeneratorProps` mas sim via `errors`.
+
+### Removido
+- `QasUploader`: removido propriedade `useValidateEncryptedPdf` e removido validação de PDF protegido por senha, uma vez que a validação retornava true para PDFs com certificado digital e para validar corretamente teria que fazer o uso de lib externa, agora o backend valida e retornamos isto via prop `errors`.
+
+## [3.19.0-beta.14] - 05-11-2025
+### Adicionado
+- `QasUploader`:
+  - adicionado propriedade `useValidateEncryptedPdf` para validar PDF com senha.
+  - adicionado propriedade `fieldName` para normalizar `errors` dentro da propriedade `formGeneratorProps`.
+- `QasGalleryCard`: adicionado propriedade `fileType` para definir o tipo de arquivo quando não conseguir exibir imagem.
+
+### Corrigido
+- `QasGalleryCard`: Corrigido exibição do tipo de arquivo quando não conseguir carregar imagem.
+
+## [3.19.0-beta.13] - 03-11-2025
+### Corrigido
+- `QasFormView`: Corrigido validação para não exibir o dialog de descarte após a criação.
+- `QasGalleryCard`: Corrigido lógica pra exibir o tipo do arquivo no card(pdf, docx, etc), onde pra determinado padrão de url não era possível obter o tipo anteriormente.
+
+## [3.19.0-beta.12] - 29-10-2025
+## BREAKING CHANGES
+- `QasDelete`: Removido prop tag, sendo que agora o sempre será um botão. Validar lugares que utilizam pois pode ocorrer quebra no layout.
+
 ### Adicionado
 - `QasFormView`: Adicionado propriedade `use-store` para dar a possibilidade de utilizar o componente sem a store do vuex/pinia. ([#1083](https://github.com/bildvitta/asteroid/issues/1083))
 - `QasSelectListDialog`:
@@ -22,6 +63,8 @@ Caso adicionado no escopo inicial, todos os conteúdos abaixo não serão adicio
   - Adicionado o método `toggleDialog` no define expose.
 - `QasToggle`: Adicionado prop `title` para ter a possibilidade de ter um título acima do toggle. ([#1316](https://github.com/bildvitta/asteroid/issues/1316))
 - `QasListView`: Adicionado refetch automático após deleção de itens quando `use-store` está desabilitado (`false`). ([#1404](https://github.com/bildvitta/asteroid/issues/1404))
+- `QasDelete`: Adicionado prop `buttonProps` para repassar as propriedades para o botão para o `QasBtn`.
+- `container.scss`: Adicionado padding-bottom no container pra quando existir o botão do gleap, pra o botão não sobrepor o conteúdo da página.
 
 ### Corrigido
 - `QasActions`: Corrigido tamanho do botão quando passado via props e utilizado junto com `useEqualWidth`. ([#1400](https://github.com/bildvitta/asteroid/issues/1400))
@@ -34,9 +77,14 @@ Caso adicionado no escopo inicial, todos os conteúdos abaixo não serão adicio
   - Corrigido precisão decimal no model para modo percentual, onde o `places` agora controla corretamente as casas decimais do valor final (places=2 resulta em 4 casas decimais para percentuais, ex: 0.0133).
 - `QasAlert`: Corrigido para remover do HTML o componente quando ele for fechado (prop `useCloseBtn`). ([#1381](https://github.com/bildvitta/asteroid/issues/1381))
 - `QasSelect`: Corrigido uso de badges na opção, no qual quebrava quando utilizado como objeto ao invés de função. ([#1329](https://github.com/bildvitta/asteroid/issues/1329))
+- `QasFormView`: Corrigido comportamento do dialog de descarte de alterações sendo exibido em momentos errados. Para casos específicos, onde o model é manipulado externamente, é necessário atualizar o `cachedResult` para um comparativo é possível ter acesso a fn `updateUnsavedChangesCache` via inject ou via ref.
 
 ### Modificado
 - `QasSelect`: Modificado para utilizar o `clearable` (botão de remover seleção) por padrão quando o campo **não for required**, antes estava apenas quando o campo tinha opção de pesquisar. ([#1394](https://github.com/bildvitta/asteroid/issues/1394))
+- `Delete`: Alterado para o loading do plugin de delete estar apenas no botão do dialog ao invés da tela inteira. ([[#1304](https://github.com/bildvitta/asteroid/issues/1304)])
+
+### Removido
+- `QasDelete`: Removido prop tag, sendo que agora o sempre será um botão.
 
 ## [3.19.0-beta.11] - 16-10-2025
 ### Corrigido
@@ -4396,3 +4444,8 @@ Adicionado suporte para Pinia/Vuex Seguindo os padrões da biblioteca `@bildvitt
 [3.19.0-beta.9]: https://github.com/bildvitta/asteroid/compare/v3.19.0-beta.8...v3.19.0-beta.9?expand=1
 [3.19.0-beta.10]: https://github.com/bildvitta/asteroid/compare/v3.19.0-beta.8-alpha.14...v3.19.0-beta.10?expand=1
 [3.19.0-beta.11]: https://github.com/bildvitta/asteroid/compare/v3.19.0-beta.11-alpha.0...v3.19.0-beta.11?expand=1
+[3.19.0-beta.12]: https://github.com/bildvitta/asteroid/compare/v3.19.0-beta.8-alpha.19...v3.19.0-beta.12?expand=1
+[3.19.0-beta.13]: https://github.com/bildvitta/asteroid/compare/v3.19.0-beta.12...v3.19.0-beta.13?expand=1
+[3.19.0-beta.14]: https://github.com/bildvitta/asteroid/compare/v3.19.0-beta.13...v3.19.0-beta.14?expand=1
+[3.19.0-beta.15]: https://github.com/bildvitta/asteroid/compare/v3.19.0-beta.14...v3.19.0-beta.15?expand=1
+[3.19.0-beta.16]: https://github.com/bildvitta/asteroid/compare/v3.19.0-beta.15...v3.19.0-beta.16?expand=1
