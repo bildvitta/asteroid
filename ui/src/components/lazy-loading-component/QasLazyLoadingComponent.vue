@@ -160,16 +160,19 @@ function flattenVNodes (vnodes) {
   const flattened = []
 
   vnodes.forEach(vnode => {
-    // Ignora VNodes vazios (comentários, whitespace)
+    // Ignora VNodes inválidos (null, undefined, primitivos)
     if (!vnode || typeof vnode !== 'object') return
 
-    // Se for um Fragment (template v-for, etc), achata recursivamente
-    if (vnode.type === Symbol.for('v-fgt') || vnode.type === Symbol.for('v-txt')) {
-      if (Array.isArray(vnode.children)) {
-        flattened.push(...flattenVNodes(vnode.children))
-      }
+    /**
+     * Se for um Fragment (v-for, template, etc), achata recursivamente os children
+     * Fragments são wrappers que o Vue cria para agrupar múltiplos elementos
+     */
+    const isFragment = typeof vnode.type === 'symbol' && Array.isArray(vnode.children)
+
+    if (isFragment) {
+      flattened.push(...flattenVNodes(vnode.children))
     } else {
-      // VNode normal (componente)
+      // VNode normal (componente ou elemento HTML)
       flattened.push(vnode)
     }
   })
