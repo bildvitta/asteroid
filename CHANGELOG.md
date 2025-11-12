@@ -14,6 +14,14 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 Devemos adicionar o comentário `<!-- N/A -->` (Não adicionar), para que não precise adicionar um item do changelog ao lançar uma nova versão stable.
 Caso adicionado no escopo inicial, todos os conteúdos abaixo não serão adicionados. Caso adicionado na linha, será considerado apenas ela.
 
+## Não publicado
+### Corrigido
+- `formatPercent | money`: Corrigido formatação do campo percentual quando o valor é 0. ([#1350](https://github.com/bildvitta/asteroid/issues/1350))
+- `QasTip`: Corrigido import do componente `QasTooltip` no qual estava sendo importado.
+
+### Modificado
+- `Delete - Plugin`: Alterado para bloquear o botão de cancelar quando estiver deletando o item. ([#1417](https://github.com/bildvitta/asteroid/issues/1417))
+
 ## [3.19.0-beta.15] - 11-11-2025
 ## BREAKING CHANGES
 - `QasUploader`: removido propriedade `useValidateEncryptedPdf` e removido validação de PDF protegido por senha, uma vez que a validação retornava true para PDFs com certificado digital e para validar corretamente teria que fazer o uso de lib externa, agora o backend valida e retornamos isto via prop `errors`.
