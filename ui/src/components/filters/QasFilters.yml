@@ -66,11 +66,6 @@ props:
     desc: Para que o componente ocupe 100%, recomendado para quando precisar utilizar grids.
     type: Boolean
 
-  use-order-by-button-only:
-    desc: Habilita apenas o botão de ordenação (em telas até tablet).
-    default: false
-    type: Boolean
-
   use-update-route:
     desc: Habilita ou não a atualização da rota com base nos filtros.
     default: true
