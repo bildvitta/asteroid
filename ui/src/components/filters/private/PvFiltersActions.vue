@@ -52,8 +52,6 @@ import QasBtn from '../../btn/QasBtn.vue'
 import QasBtnDropdown from '../../btn-dropdown/QasBtnDropdown.vue'
 import QasField from '../../field/QasField.vue'
 
-import { useScreen } from '../../../composables'
-
 import { useRoute } from 'vue-router'
 import { computed, ref } from 'vue'
 
@@ -93,7 +91,6 @@ const filtersButtonMenu = ref(null)
 
 // composables
 const route = useRoute()
-const screen = useScreen()
 
 // computeds
 const btnDropdownProps = computed(() => {
@@ -108,7 +105,7 @@ const btnDropdownProps = computed(() => {
         }
       }),
 
-      ...(hasOrderBy.value && {
+      ...(props.useOrderBy && {
         orderBy: {
           color: 'grey-10',
           label: 'Ordenar',
@@ -119,11 +116,6 @@ const btnDropdownProps = computed(() => {
     }
   }
 })
-
-/**
- * Só existe ordenação se a prop estiver ativa e a tela for até table.
- */
-const hasOrderBy = computed(() => props.useOrderBy && screen.untilLarge)
 
 // functions
 /**

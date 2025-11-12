@@ -20,7 +20,6 @@ Caso adicionado no escopo inicial, todos os conteúdos abaixo não serão adicio
 - `QasFilters`:
   - adicionado feature para ordenação.
   - adicionado prop `orderByOptions`.
-  - adicionado prop `useOrderByButtonOnly`.
 
 ## [3.19.0-beta.14] - 05-11-2025
 ### Adicionado

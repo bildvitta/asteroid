@@ -1,11 +1,11 @@
 <template>
   <section class="qas-filters" :class="filtersClasses">
-    <div v-if="showFilters" class="justify-between q-col-gutter-lg row">
+    <div v-if="showFilters" class="row">
       <div v-if="showSearch" class="col-12" :class="searchContainerClasses">
         <slot :filter="filter" name="search">
           <q-form v-if="useSearch" @submit.prevent="filter()">
             <qas-search-input v-model="internalSearch" :placeholder="searchPlaceholder" :use-search-on-type="useSearchOnType" @clear="clearSearch" @filter="filter()" @update:model-value="onSearch">
-              <template v-if="showFilterButton" #after-clear>
+              <template v-if="showFilterActions" #after-clear>
                 <slot :context="mx_context" :filter="filter" :filters="activeFilters" name="filter-button" :remove-filter="removeFilter">
                   <pv-filters-actions ref="filtersActions" v-model:filtersButton="internalFilters" v-bind="filtersActionsProps" />
                 </slot>
@@ -15,11 +15,7 @@
         </slot>
       </div>
 
-      <div v-if="hasOrderBySelect" class="col-3">
-        <qas-select v-model="orderByModel" v-bind="orderByProps" />
-      </div>
-
-      <div v-if="showFilterButton && !showSearch" class="col-12">
+      <div v-else-if="showFilterActions" class="col-12">
         <slot :context="mx_context" :filter="filter" :filters="activeFilters" name="filter-button" :remove-filter="removeFilter">
           <pv-filters-actions ref="filtersActions" v-model:filtersButton="internalFilters" v-bind="filtersActionsProps" />
         </slot>
@@ -27,6 +23,12 @@
     </div>
 
     <div v-if="hasChip" class="q-mt-md">
+      <qas-badge v-if="hasOrderByChip" color="grey-4" removable text-color="black" @remove="changeOrderBy(undefined)">
+        <div class="ellipsis qas-filters__badge-content" :title="orderByLabel">
+          Ordenar por: "{{ orderByLabel }}"
+        </div>
+      </qas-badge>
+
       <qas-badge v-for="(filterItem, key) in activeFilters" :key="key" :data-cy="`filters-${filterItem.value}-chip`" removable @remove="removeFilter(filterItem)">
         <div class="ellipsis qas-filters__badge-content" :title="getChipValue(filterItem.value)">
           {{ filterItem.label }}: "{{ getChipValue(filterItem.value) }}"
@@ -39,7 +41,6 @@
 </template>
 
 <script>
-import QasSelect from '../select/QasSelect.vue'
 import QasBadge from '../badge/QasBadge.vue'
 import QasSearchInput from '../search-input/QasSearchInput.vue'
 import PvFiltersActions from './private/PvFiltersActions.vue'
@@ -57,7 +58,6 @@ export default {
   name: 'QasFilters',
 
   components: {
-    QasSelect,
     QasBadge,
     QasSearchInput,
     PvFiltersActions
@@ -137,10 +137,6 @@ export default {
     useUpdateRoute: {
       default: true,
       type: Boolean
-    },
-
-    useOrderByButtonOnly: {
-      type: Boolean
     }
   },
 
@@ -163,8 +159,7 @@ export default {
        * Isso é necessário porque, por padrão, não há opções no campo. As opções selecionadas servem
        * para exibir as "tags" dos filtros ativos na tela.
       */
-      lazyLoadingSelectedOptions: {},
-      orderByModel: this.$route.query.order_by || ''
+      lazyLoadingSelectedOptions: {}
     }
   },
 
@@ -280,37 +275,36 @@ export default {
       return !!Object.keys(this.fields || {}).length
     },
 
-    showFilterButton () {
+    showFilterActions () {
       return !!this.$slots.filterButton || this.useFilterButton || this.hasOrderByOptions
     },
 
     showFilters () {
-      return this.useFilterButton || this.showSearch
+      return this.useFilterButton || this.showSearch || this.hasOrderByOptions
     },
 
     showSearch () {
-      return !!this.$slots.search || this.useSearch || this.hasOrderByOptions
+      return !!this.$slots.search || this.useSearch
     },
 
     hasChip () {
-      return this.useChip && this.hasActiveFilters
+      return this.useChip && (this.hasActiveFilters || this.orderBy)
     },
 
     hasOrderByOptions () {
       return !!this.orderByOptions.length
     },
 
-    hasOrderBySelect () {
-      return this.hasOrderByOptions && !this.$qas.screen.untilLarge && this.useSearch && !this.useOrderByButtonOnly
+    hasOrderByChip () {
+      return !!this.orderBy && this.hasOrderByOptions
     },
 
-    orderByProps () {
-      return {
-        label: 'Ordenar por',
-        useFilterMode: true,
-        options: this.orderByOptions,
-        'onUpdate:modelValue': this.changeOrderBy
-      }
+    orderBy () {
+      return this.$route.query.order_by
+    },
+
+    orderByLabel () {
+      return this.orderByOptions.find(option => option.value === this.orderBy)?.label
     }
   },
 
@@ -337,10 +331,6 @@ export default {
 
     filters (value) {
       this.internalFilters = value
-    },
-
-    '$route.query.order_by' (value) {
-      this.orderByModel = value || ''
     }
   },
 
