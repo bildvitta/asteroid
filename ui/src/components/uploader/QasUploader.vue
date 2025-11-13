@@ -1,6 +1,6 @@
 <template>
   <div class="qas-uploader">
-    <q-uploader ref="uploader" auto-upload class="bg-transparent" :class="uploaderClasses" v-bind="attributes" :factory flat :max-file-size :max-files method="PUT" @factory-failed="factoryFailed" @rejected="onRejected" @uploaded="uploaded" @uploading="updateUploading(true)">
+    <q-uploader ref="uploader" auto-upload class="bg-transparent" :class="uploaderClasses" v-bind="attributes" :factory flat :max-file-size :max-files method="PUT" @added="onAdded" @factory-failed="factoryFailed" @rejected="onRejected" @uploaded="uploaded" @uploading="updateUploading(true)">
       <template #header="scope">
         <slot name="header" :scope="scope">
           <qas-header v-if="useHeader" class="q-mb-none" v-bind="getHeaderProps(scope)">
@@ -49,6 +49,7 @@ import QasErrorMessage from '../error-message/QasErrorMessage.vue'
 
 import { baseErrorProps } from '../../composables/private/use-error-message'
 import { getImageSize, getResizeDimensions } from '../../helpers/images.js'
+import { constructObject } from '../../helpers'
 
 import { uid, extend } from 'quasar'
 import { NotifyError } from '../../plugins'
@@ -69,6 +70,16 @@ export default {
 
   props: {
     ...baseErrorProps,
+
+    errors: {
+      type: [Array, Object],
+      default: () => ({})
+    },
+
+    fieldName: {
+      type: String,
+      default: ''
+    },
 
     addButtonFn: {
       type: Function,
@@ -210,14 +221,16 @@ export default {
     }
   },
 
-  emits: ['update:modelValue', 'update:uploading', 'rejected'],
+  emits: ['update:modelValue', 'update:uploading', 'rejected', 'update:errors'],
 
   data () {
     return {
       hasError: false,
       hiddenInputElement: null,
       savedFiles: {},
-      uploader: null
+      uploader: null,
+      amountFilesSent: 0,
+      amountFilesRejected: 0
     }
   },
 
@@ -349,6 +362,23 @@ export default {
 
     uploaderClasses () {
       return this.hasCustomUpload ? 'hidden' : 'fit'
+    },
+
+    isErrorArray () {
+      return Array.isArray(this.errors)
+    },
+
+    transformedErrors () {
+      return this.isErrorArray ? this.errors : constructObject(this.fieldName, this.errors)
+    },
+
+    /**
+     * Computada para ser usada para controle externamente do componente.
+     *
+     * Retorna true quando todos os arquivos enviados foram rejeitados.
+     */
+    hasAllFileRejected () {
+      return this.amountFilesSent === this.amountFilesRejected
     }
   },
 
@@ -392,6 +422,14 @@ export default {
       filesList.forEach(file => processedFiles.push(this.resizeImage(file)))
 
       this.uploader.addFiles(await Promise.all(processedFiles))
+    },
+
+    /**
+     * @param {FileList} files
+     */
+    onAdded (files) {
+      // seta a quantidade de arquivos enviados, independentemente se forem aceitos ou rejeitados.
+      this.amountFilesSent += files.length
     },
 
     dispatchUpload () {
@@ -510,12 +548,13 @@ export default {
         ...this.defaultUploaderGalleryCardProps,
 
         currentModelValue: modelValue,
+        errors: this.transformedErrors[index],
         file,
         fileKey: key,
         savedFiles: this.savedFiles,
 
         // eventos
-        onRemove: () => this.removeFile(key, scope, file),
+        onRemove: () => this.removeFile(key, scope, file, index),
         onUpdateModel: value => this.updateModelValue({ index, payload: value })
       }
     },
@@ -536,7 +575,23 @@ export default {
       return this.addButtonFn ? this.addButtonFn(scope) : this.$refs.hiddenInput.click()
     },
 
-    removeFile (key, scope, file) {
+    removeFile (key, scope, file, index) {
+      /**
+       * Remove o erro referente ao arquivo removido para não correr o risco
+       * de manter erros de arquivos que já foram removidos ao adicionar novos arquivos.
+       */
+      if (this.transformedErrors[index]) {
+        const errors = this.isErrorArray ? [...this.transformedErrors] : { ...this.transformedErrors }
+
+        if (this.isErrorArray) {
+          errors.splice(index, 1)
+        } else {
+          delete errors[index]
+        }
+
+        this.$emit('update:errors', errors)
+      }
+
       if (file.isUploaded) {
         scope.removeFile(scope.files[file.indexToDelete])
       }
@@ -714,11 +769,17 @@ export default {
 
     /**
      * Trata os erros de arquivos rejeitados pelo QUploader para adicionar
-     * feedback com toast, trata os sequites erros:
+     * feedback com toast, trata os seguintes erros:
      * - accept
      * - maxFileSize
      */
     onRejected (rejectedFiles) {
+      // seta a quantidade de arquivos rejeitados.
+      this.amountFilesRejected += rejectedFiles.length
+
+      // seta a quantidade de arquivos enviados, é necessário usar no rejected porque esses arquivos não caem no onAdded.
+      this.amountFilesSent += rejectedFiles.length
+
       this.$emit('rejected', rejectedFiles)
 
       const errorsSize = {

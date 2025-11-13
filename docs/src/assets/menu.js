@@ -252,6 +252,10 @@ module.exports = [
         path: '/components/password-strength-checker'
       },
       {
+        name: 'PdfViewer',
+        path: '/components/pdf-viewer'
+      },
+      {
         name: 'Profile',
         path: '/components/profile'
       },

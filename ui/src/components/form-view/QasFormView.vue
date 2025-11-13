@@ -43,6 +43,7 @@ import { NotifyError, NotifySuccess } from '../../plugins'
 import { useHistory } from '../../composables'
 import { viewMixin } from '../../mixins'
 
+import { decamelize } from 'humps'
 import debug from 'debug'
 import { extend } from 'quasar'
 import { getAction } from '@bildvitta/store-adapter'
@@ -61,6 +62,12 @@ export default {
   },
 
   mixins: [viewMixin],
+
+  provide () {
+    return {
+      updateUnsavedChangesCache: this.updateUnsavedChangesCache
+    }
+  },
 
   props: {
     beforeSubmit: {
@@ -144,6 +151,11 @@ export default {
     useSubmitButton: {
       default: true,
       type: Boolean
+    },
+
+    useStore: {
+      type: Boolean,
+      default: true
     }
   },
 
@@ -287,11 +299,7 @@ export default {
           ...externalPayload
         }
 
-        const response = await getAction.call(this, {
-          entity: this.entity,
-          key: 'fetchSingle',
-          payload
-        })
+        const response = await this.handleFetchAction(payload)
 
         const { errors, fields, metadata, result } = response.data
 
@@ -309,11 +317,12 @@ export default {
 
         result && Object.assign(modelValue, result)
 
+        this.$emit('update:modelValue', modelValue)
+
         if (this.useDialogOnUnsavedChanges) {
-          this.cachedResult = extend(true, {}, result || modelValue)
+          this.updateUnsavedChangesCache()
         }
 
-        this.$emit('update:modelValue', modelValue)
         this.$emit('fetch-success', response, this.modelValue)
 
         log(`[${this.entity}]:fetchSingle:success`, { response, modelValue })
@@ -412,16 +421,12 @@ export default {
           ...externalPayload
         }
 
-        const response = await getAction.call(this, {
-          entity: this.entity,
-          key: this.mode,
-          payload
-        })
+        const response = await this.handleSubmitAction(payload)
 
         const modelValue = { ...this.modelValue, ...response.data.result }
 
         if (this.useDialogOnUnsavedChanges) {
-          this.cachedResult = extend(true, {}, modelValue)
+          this.updateUnsavedChangesCache(modelValue)
         }
 
         this.mx_setErrors()
@@ -471,6 +476,78 @@ export default {
 
     setIgnoreRouterGuard ({ detail: { id, entity } }) {
       this.ignoreRouterGuard = this.id === id && this.entity === entity
+    },
+
+    getFormattedURL ({ payload, isSubmit = false } = {}) {
+      const { url: customURL } = payload
+      const decamelizedEntity = decamelize(this.entity, { separator: '-' })
+
+      // Utiliza a URL passada via prop, ou monta a URL baseada na entity e id.
+      const baseURL = this.url || (this.id ? `${decamelizedEntity}/${this.id}` : decamelizedEntity)
+
+      /**
+       * Utiliza a customURL que pode vir via payload, no caso de um beforeSubmit por exemplo
+       * Caso for uma ação de submit, retorna a customURL ou a baseURL (sem o mode new ou edit).
+       */
+      if (isSubmit) {
+        return customURL || baseURL
+      }
+
+      const mode = this.isCreateMode ? 'new' : 'edit'
+
+      /**
+       * Utiliza a customURL que pode vir via payload, no caso de um beforeFetch por exemplo,
+       * ou então concatena a baseURL com o mode (new ou edit).
+       */
+      return customURL || `${baseURL}/${mode}`
+    },
+
+    handleFetchAction (payload) {
+      if (this.useStore) {
+        return getAction.call(this, {
+          entity: this.entity,
+          key: 'fetchSingle',
+          payload
+        })
+      }
+
+      const { id: unusedID, url: unusedURL, form: unusedForm, ...externalPayload } = payload
+
+      // Formata a url com base em mode, entity, url via props, etc
+      const fetchURL = this.getFormattedURL({ payload })
+
+      return this.$axios.get(fetchURL, { ...externalPayload })
+    },
+
+    handleSubmitAction (payload) {
+      if (this.useStore) {
+        return getAction.call(this, {
+          entity: this.entity,
+          key: this.mode,
+          payload
+        })
+      }
+
+      const methods = {
+        create: 'post',
+        update: 'patch',
+        replace: 'put'
+      }
+
+      // Formata a url com base em mode, entity, url via props, etc
+      const url = this.getFormattedURL({ payload, isSubmit: true })
+
+      return this.$axios({
+        method: methods[this.mode],
+        url,
+        data: this.modelValue
+      })
+    },
+
+    updateUnsavedChangesCache (newValues) {
+      this.$nextTick(() => {
+        this.cachedResult = extend(true, {}, (newValues || this.modelValue))
+      })
     }
   }
 }

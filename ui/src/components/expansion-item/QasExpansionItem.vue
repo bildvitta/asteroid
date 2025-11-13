@@ -107,9 +107,11 @@ const slots = defineSlots()
 const expansionItem = ref(null)
 const showContent = ref(false)
 
-// constants
+// consts
+// TODO-ISSUE: rever quando a issue #1377 para ter um inject geral for resolvida.
 const isNestedExpansionItem = inject('isExpansionItem', false)
 const isNestedBox = inject('isBox', false)
+const isDialog = inject('isDialog', false)
 
 // computed
 const hasBadges = computed(() => !!props.badges.length)
@@ -165,10 +167,10 @@ const expansionProps = computed(() => {
 
 const boxProps = computed(() => {
   /**
-   * Caso o QasExpansionItem estiver dentro de um QasBox ou for um QasExpansionItem
+   * Caso o QasExpansionItem estiver dentro de um QasBox, QasDialog ou for um QasExpansionItem
    * dentro de outro QasExpansionItem, o componente terá uma borda.
   */
-  const isBoxed = isNestedBox || isNestedExpansionItem
+  const isBoxed = isNestedBox || isNestedExpansionItem || isDialog
 
   if (!isBoxed) return {}
 

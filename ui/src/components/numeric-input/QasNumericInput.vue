@@ -1,7 +1,7 @@
 <template>
   <q-field class="qas-numeric-input" :class="classes" dense :label="formattedLabel" :model-value="modelValue" no-error-icon>
-    <template #control="{ floatingLabel, id }">
-      <input v-show="floatingLabel" :id="id" ref="input" class="q-field__input" :disabled="$attrs.disable" inputmode="numeric" :placeholder :readonly="$attrs.readonly" @blur="emitValue" @click="setSelect" @input="emitUpdateModel($event.target.value)">
+    <template #control="{ id, floatingLabel }">
+      <input :id ref="input" class="q-field__input" :class="getInputClasses(floatingLabel)" :disabled="$attrs.disable" inputmode="numeric" :placeholder :readonly="$attrs.readonly" @blur="emitValue" @click="setSelect" @input="emitUpdateModel($event.target.value)" @keydown.tab="onTabPressed">
     </template>
 
     <template v-if="icon" #prepend>
@@ -191,6 +191,19 @@ export default {
       this.$refs?.input?.select()
     },
 
+    /**
+     * Quando o label não está flutuando, o input fica com opacidade 0 para evitar exibir o conteúdo do Autonumeric.
+     * O elemento input deve estar na DOM, para funcionar a navegação via teclado e leitores de tela.
+     *
+     * @param {boolean} floatingLabel - Booleano que indica se o label está flutuando, ou seja,
+     * se o campo está focado ou preenchido.
+     */
+    getInputClasses (floatingLabel) {
+      return {
+        'qas-numeric-input__input': !floatingLabel
+      }
+    },
+
     emitValue () {
       /**
        * O autonumeric retorna uma lista de histórico contendo os valores digitados, precisamos pegar
@@ -204,15 +217,45 @@ export default {
        */
       if (isEmptyValue) this.autoNumeric.set(0)
 
-      this.$emit('update:modelValue', this.autoNumeric.getNumber())
+      this.$emit('update:modelValue', this.getFormattedNumber())
     },
 
     emitUpdateModel (value) {
       this.$emit('update-model', {
         value,
-        raw: this.autoNumeric.getNumber()
+        raw: this.getFormattedNumber()
       })
+    },
+
+    /**
+     * Foi necessário, pois ao pressionar tab para ir para o próximo campo em um formulário,
+     * o valor exibido ficava incorreto, exemplo: setei "43%" e apertei tab, formatava para "0,43%".
+     * Desa forma, forçamos sempre o valor correto ao pressionar tab.
+     */
+    onTabPressed () {
+      this.autoNumeric.set(this.getFormattedNumber())
+    },
+
+    /**
+     * Ajusta a quantidade de casas decimais, pois pra um valor "0,35%" por exemplo,
+     * o getNumber() pode acabar retornando um valor quebrado, algo como "0.0034999999999999996".
+     * Dessa forma, com base no places sempre forçamos o número de casa exatas.
+     * Pra this.places = 2, "0,35%" seria 0.0035, seria 4 casas depois do ".", então this.places + 2 casas.
+     * Pra this.places = 3, "0,353%" seria 0.00353, seria 5 casas depois do ".",  então this.places + 2 casas.
+     */
+    getFormattedNumber () {
+      const rawValue = this.autoNumeric.getNumber()
+
+      return parseFloat((rawValue).toFixed(this.places + 2))
     }
   }
 }
 </script>
+
+<style lang="scss">
+.qas-numeric-input {
+  &__input {
+    opacity: 0;
+  }
+}
+</style>
