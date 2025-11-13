@@ -123,7 +123,7 @@ function onTabsChange (value) {
   if (!value && props.querySlug) {
     delete query[props.querySlug]
 
-    router.push({ query: { ...query } })
+    router.push({ query })
 
     return
   }

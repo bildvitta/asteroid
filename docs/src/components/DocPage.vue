@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import useOverlayNavigation from '../../../ui/src/composables/use-overlay-navigation'
+import { useOverlayNavigation } from 'asteroid'
 
 import { createMetaMixin } from 'quasar'
 

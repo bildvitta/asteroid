@@ -1,5 +1,8 @@
 import useOverlayNavigation from '@bildvitta/quasar-ui-asteroid/src/composables/use-overlay-navigation.js'
 
+/**
+ * @param {import('vue-router').Router} router
+ */
 export default async function ({ router }) {
   router.beforeEach((to, from, next) => onBeforeEach(to, from, next, router))
 }
@@ -72,12 +75,39 @@ async function onBeforeEach (to, from, next, router) {
   // functions
   function getComponentByRoute (route) {
     const lastIndex = route.matched.length - 1
+    const matched = route.matched[lastIndex]
 
-    const component = route.matched[lastIndex]?.components?.default || route.matched[lastIndex]?.component
+    /**
+     * Busca o componente da rota. Pode vir em dois formatos:
+     *
+     * 1. `.components.default` - Quando:
+     *  - A rota usa named views (múltiplos componentes)
+     *  - A rota foi processada pelo overlay (criamos a estrutura { default, overlay })
+     *  - Exemplo: { components: { default: MainComponent, sidebar: SidebarComponent } }
+     *
+     * 2. `.component` (sem 's') - Quando:
+     *  - A rota tem um único componente simples
+     *  - Lazy loading: component: () => import('./Component.vue')
+     *  - Exemplo: { component: LoginComponent }
+     */
+    const component = matched?.components?.default || matched?.component
 
     return getResolvedComponent(component)
   }
 
+  /**
+   * Resolve um componente Vue, seja ele estático ou lazy-loaded.
+   *
+   * Componentes podem vir de duas formas:
+   * 1. **Estático**: Já importado - `LoginComponent`
+   * 2. **Lazy**: Função que retorna import - `() => import('./Login.vue')`
+   *
+   * Esta função garante que ambos os casos sejam tratados e retornem
+   * o componente pronto para uso.
+   *
+   * @param {Object|Function} component - O componente a ser resolvido
+   * @returns {Promise<Object>} Uma Promise que resolve com o componente Vue
+   */
   function getResolvedComponent (component) {
     return new Promise((resolve, reject) => {
       if (typeof component === 'function') {
@@ -155,8 +185,21 @@ async function onBeforeEach (to, from, next, router) {
       }
     }
 
-    // 3. Fallback automático: rota base
+    /**
+     * 3. Fallback automático: rota base
+     *
+     * Tenta usar a rota "pai" como background quando não há outras opções.
+     *
+     * Pega o primeiro segmento da URL para criar uma rota base.
+     * Por exemplo: se estou em "/customers/123/details", tenta usar "/customers"
+     *
+     * @example
+     * // URL atual: "/customers/123/edit"
+     * // Segments: ["customers", "123", "edit"]
+     * // Base path: "/customers" (primeiro segmento)
+     */
     const segments = to.path.split('/').filter(Boolean)
+
     if (segments.length >= 2) {
       const basePath = `/${segments[0]}`
 

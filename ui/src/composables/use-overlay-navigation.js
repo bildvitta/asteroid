@@ -127,13 +127,7 @@ export default function useOverlayNavigation () {
     delete query.overlay
     delete query.backgroundOverlay
 
-    router.push({
-      path: backgroundRoute.value.fullPath,
-      query: { ...backgroundRoute.value.query },
-      meta: {
-        sla: true
-      }
-    })
+    router.push({ path: backgroundRoute.value.fullPath, query: { ...backgroundRoute.value.query } })
 
     resetHistory()
   }

@@ -102,6 +102,11 @@ A cor "negative" é usada em casos de erros no geral.
 ## Uso
 <doc-example file="QasBtn/ExBtnSizes" title='Básico' />
 <doc-example file="QasBtn/ExBtnUseLabelOnSmallScreen" title="use-label-on-small-screen" />
+
+:::info
+A prop `disabledTooltip` tem prioridade sobre a prop `tooltip`, porém ela só é aplicada quando o botão esta desabilitado, enquanto a prop `tooltip` sempre aparece quando aplicada.
+:::
+<doc-example file="QasBtn/ExBtnTooltip" title="Com tooltip" />
 <doc-example file="QasBtn/ExBtnEllipsis" title="Com ellipsis" />
 <doc-example file="QasBtn/ExWithLoading" title="Com loading" />
 

@@ -206,7 +206,6 @@ export default {
      * - E ou useCancelButton é true OU o componente não está em modo overlay
      */
     hasCancelButton () {
-      // return !(typeof this.cancelRoute === 'boolean' && !this.cancelRoute) && this.useCancelButton
       return (
         !(typeof this.cancelRoute === 'boolean' && !this.cancelRoute) &&
         (this.useCancelButton ?? !this.isOverlay)

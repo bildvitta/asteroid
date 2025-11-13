@@ -1,6 +1,6 @@
 ## BREAKING CHANGES
 - **Possíveis breaking changes**: mudanças referentes ao overlay pode quebrar alguns componentes a nível de rota, ou então a nível de layout.
-- adicionado validação `isBackgroundOverlay` no watch da rota por conta do overlay navigation.
+- Adicionado validação `isBackgroundOverlay` no watch da rota por conta do overlay navigation.
   - `QasChartView`.
   - `QasFilters`.
   - `QasListView`.
@@ -35,7 +35,7 @@
 - `QasBtn`: alterado default da prop `size` interna para `sm` quando o botão estiver dentro de um `QasBtn` e for variante `primary` ou `secondary`.
 - `QasCard`: removido elemento HTML header e espaçamento do header quando não tiver slot header, title ou prop title. ([#1395](https://github.com/bildvitta/asteroid/issues/1395))
 - `QasTooltip`: modificado tipografia para `text-caption`.
-- adicionado validação `isBackgroundOverlay` no watch da rota por conta do overlay navigation.
+- Adicionado validação `isBackgroundOverlay` no watch da rota por conta do overlay navigation.
   - `QasChartView`.
   - `QasFilters`.
   - `QasListView`.

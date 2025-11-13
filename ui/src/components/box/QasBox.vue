@@ -44,7 +44,7 @@ const props = defineProps({
 // globals
 provide('isBox', true)
 
-// computeds
+// composables
 const { isOverlay } = useOverlayNavigation()
 
 // computed

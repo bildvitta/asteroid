@@ -26,6 +26,7 @@ const props = defineProps({
 // composables
 const { isOverlay } = useOverlayNavigation()
 
+// computeds
 const classes = computed(() => {
   return {
     container: !isOverlay && props.useBoundary,

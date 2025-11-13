@@ -175,7 +175,6 @@ const formattedActionsMenuProps = computed(() => {
     useLabel: false
   }
 })
-
 </script>
 
 <style lang="scss">

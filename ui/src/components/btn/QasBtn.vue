@@ -21,7 +21,7 @@
 
     <slot />
 
-    <qas-tooltip v-if="props.tooltip" :text="props.tooltip" />
+    <qas-tooltip v-if="hasTooltip" :text="tooltipText" />
   </q-btn>
 </template>
 
@@ -46,6 +46,11 @@ const props = defineProps({
 
   disable: {
     type: Boolean
+  },
+
+  disabledTooltip: {
+    type: String,
+    default: ''
   },
 
   icon: {
@@ -234,4 +239,9 @@ const nonDefaultSlots = computed(() => {
 })
 
 const spinnerSize = computed(() => defaultSize.value === 'sm' ? 'xs' : 'sm')
+
+// tooltips
+const hasDisabledTooltip = computed(() => props.disable && props.disabledTooltip)
+const hasTooltip = computed(() => props.tooltip || hasDisabledTooltip.value)
+const tooltipText = computed(() => hasDisabledTooltip.value ? props.disabledTooltip : props.tooltip)
 </script>
