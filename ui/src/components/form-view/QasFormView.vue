@@ -177,9 +177,7 @@ export default {
       ignoreRouterGuard: false,
 
       defaultDialogProps: {
-        card: {
-          description: 'Você está deixando a página e suas alterações serão perdidas. Tem certeza que deseja sair sem salvar?'
-        },
+        description: 'Você está deixando a página e suas alterações serão perdidas. Tem certeza que deseja sair sem salvar?',
 
         ok: { label: 'Continuar editando' },
 

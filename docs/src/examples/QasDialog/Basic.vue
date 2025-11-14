@@ -19,21 +19,23 @@ export default {
       return {
         title: 'Título do dialog',
         description: 'Cerca elétrica perto do corrimão risco iminente de choque. Código da ordem de serviço: 159488 CRM ID: 1179512',
-        ok: {
-          label: 'Salvar'
-        },
-        cancel: {
-          label: 'Cancelar',
-          disable: true
-        },
-        actionsProps: {
-          tertiaryButtonProps: {
-            label: 'Excluir',
-            variant: 'danger'
-          }
-        }
-        // cancel: false,
-        // ok: false
+        // ok: {
+        //   label: 'Novo contato'
+        // },
+        // cancel: {
+        //   label: 'Abrir tarefa'
+        //   // disable: true
+        // },
+        useForm: true,
+        // actionsProps: {
+        //   tertiaryButtonProps: {
+        //     label: 'Ver resumo',
+        //     variant: 'danger'
+        //   }
+        // },
+        // useForm: true
+        cancel: false,
+        ok: false
       }
     }
   },

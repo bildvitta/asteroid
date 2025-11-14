@@ -14,6 +14,17 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 Devemos adicionar o comentário `<!-- N/A -->` (Não adicionar), para que não precise adicionar um item do changelog ao lançar uma nova versão stable.
 Caso adicionado no escopo inicial, todos os conteúdos abaixo não serão adicionados. Caso adicionado na linha, será considerado apenas ela.
 
+## Não publicado
+## BREAKING CHANGES
+- Componentes que usam dialog:
+  - QasBoardGenerator -> prop `confirmDialogProps`.
+  - QasGallery -> prop `dialogProps`.
+  - QasSelectListDialog -> prop `dialogProps`.
+  - QasSignatureUploader -> prop `dialogProps`.
+  - QasTextTruncate -> prop `dialogProps`.
+  - QasUploader -> prop `dialogProps`.
+  - QasDrawer -> prop `dialogProps`.
+
 ## [3.19.0-beta.16] - 12-11-2025
 ### Corrigido
 - `formatPercent | money`: Corrigido formatação do campo percentual quando o valor é 0. ([#1350](https://github.com/bildvitta/asteroid/issues/1350))

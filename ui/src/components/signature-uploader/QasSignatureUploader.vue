@@ -3,10 +3,6 @@
     <qas-uploader ref="uploader" v-model="model" :add-button-fn="openDialog" :use-resize="false" v-bind="defaultUploaderProps" />
 
     <qas-dialog v-model="isOpenedDialog" v-bind="defaultDialogProps">
-      <template #header>
-        <div class="text-bold text-center">Insira sua assinatura digital no campo abaixo</div>
-      </template>
-
       <template #description>
         <div :style="signaturePadWidth">
           <qas-signature-pad ref="signaturePadModal" v-model:empty="isEmpty" :height="signaturePadHeight" />
@@ -82,10 +78,11 @@ export default {
 
     defaultDialogProps () {
       return {
-        maxWidth: '620px',
+        title: 'Assinatura digital',
+        size: 'md',
         ...this.dialogProps,
         ok: {
-          label: 'Salvar',
+          label: 'Assinar',
           onClick: () => this.getSignatureData()
         }
       }
@@ -113,9 +110,9 @@ export default {
 
     signaturePadWidth () {
       const sizes = {
-        [this.$qas.screen.isSmall]: { width: '100%' },
-        [this.$qas.screen.isMedium]: { width: '570px' },
-        [this.$qas.screen.isLarge]: { width: '350px' }
+        [this.$qas.screen.isSmall]: { width: '100%' }
+        // [this.$qas.screen.isMedium]: { width: '570px' },
+        // [this.$qas.screen.isLarge]: { width: '350px' }
       }
 
       return sizes.true

@@ -1,35 +1,23 @@
 <template>
-  <q-dialog ref="dialogRef" class="qas-dialog" :class="classes" data-cy="dialog" v-bind="dialogProps" :persistent="true" @update:model-value="updateModelValue">
+  <q-dialog ref="dialogRef" v-model="model" class="qas-dialog" :class="classes" data-cy="dialog" v-bind="dialogProps" @update:model-value="updateModelValue">
     <div class="bg-white full-width q-pa-md qas-dialog__container">
-      <header v-if="hasHeader" class="q-mb-md">
-        <slot name="header">
-          <div class="items-center justify-between row">
-            <qas-label data-cy="dialog-title" :label="props.title" margin="none" />
-
-            <qas-btn v-close-popup color="grey-10" data-cy="dialog-close-btn" :disable="isCloseDisabled" icon="sym_r_close" variant="tertiary" />
-          </div>
-        </slot>
+      <header v-if="hasHeaderSlot" class="q-mb-md">
+        <slot name="header" />
       </header>
+
+      <qas-header v-else-if="props.title" v-bind="headerProps" />
 
       <section class="relative-position text-body1 text-grey-8">
         <component :is="mainComponent.is" ref="form" v-bind="mainComponent.props">
           <slot name="description">
-            <component :is="descriptionComponent" data-cy="dialog-description">
+            <div v-if="props.useHtmlDescription" data-cy="dialog-description" v-html="props.description" />
+
+            <component :is="descriptionComponent" v-else data-cy="dialog-description">
               {{ props.description }}
             </component>
           </slot>
 
-          <slot name="actions">
-            <qas-actions v-if="hasActions" v-bind="defaultActionsProps">
-              <template v-if="hasOk" #primary>
-                <qas-btn v-close-popup="!props.useForm" class="qas-dialog__btn" data-cy="dialog-ok-btn" variant="primary" v-bind="defaultOk" />
-              </template>
-
-              <template v-if="hasCancel" #secondary>
-                <qas-btn v-close-popup="props.useCancelClosePopup" class="qas-dialog__btn" data-cy="dialog-cancel-btn" v-bind="defaultCancel" variant="secondary" />
-              </template>
-            </qas-actions>
-          </slot>
+          <qas-actions v-if="hasActions" class="qas-dialog__actions" v-bind="defaultActionsProps" />
         </component>
       </section>
     </div>
@@ -38,23 +26,17 @@
 
 <script setup>
 import QasActions from '../actions/QasActions.vue'
-import QasBtn from '../btn/QasBtn.vue'
-import QasLabel from '../label/QasLabel.vue'
+import QasHeader from '../header/QasHeader.vue'
 
-import useCancel from './composables/use-cancel'
-import useDynamicComponents from './composables/use-dynamic-components'
-import useOk from './composables/use-ok'
-import { useScreen } from '../../composables'
-
-import { computed, ref, useAttrs, useSlots, provide } from 'vue'
-import { useDialogPluginComponent } from 'quasar'
+import { computed, ref, useAttrs, provide, useSlots, inject } from 'vue'
+import { useDialogPluginComponent, QForm } from 'quasar'
 
 defineOptions({ name: 'QasDialog' })
 
 const props = defineProps({
-  actionsProps: {
-    default: () => ({}),
-    type: Object
+  badges: {
+    default: () => [],
+    type: [Array, Object]
   },
 
   cancel: {
@@ -63,7 +45,7 @@ const props = defineProps({
   },
 
   description: {
-    type: String,
+    type: [String, Object],
     default: ''
   },
 
@@ -78,7 +60,7 @@ const props = defineProps({
 
   size: {
     type: String,
-    default: 'md',
+    default: 'sm',
     validator: value => ['sm', 'md', 'lg', 'xl'].includes(value)
   },
 
@@ -87,37 +69,40 @@ const props = defineProps({
     default: ''
   },
 
+  tertiary: {
+    default: () => ({ }),
+    type: Object
+  },
+
   useForm: {
     type: Boolean
-  },
-
-  modelValue: {
-    type: Boolean
-  },
-
-  persistent: {
-    type: Boolean,
-    default: true
   },
 
   usePlugin: {
     type: Boolean
   },
 
-  useValidationAllAtOnce: {
+  useAutoCloseOnActions: {
+    type: Boolean,
+    default: true
+  },
+
+  useCloseButton: {
+    type: Boolean,
+    default: true
+  },
+
+  useHtmlDescription: {
     type: Boolean
   },
 
-  useCancelClosePopup: {
-    type: Boolean,
-    default: true
+  useValidationAllAtOnce: {
+    type: Boolean
   }
 })
 
+// emtis
 const emit = defineEmits([
-  // model
-  'update:modelValue',
-
   // actions
   'cancel',
   'ok',
@@ -128,28 +113,26 @@ const emit = defineEmits([
 ])
 
 // models
-// const model = defineModel({ type: Boolean })
+const model = defineModel({ type: Boolean })
 
+// globals
 provide('isDialog', true)
-provide('btnPropsDefaults', { size: 'md' })
+provide('btnPropsDefaults', { size: 'md' }) // define o tamanho padrão para os botões dentro do dialog
+
+const isDrawer = inject('isDrawer', false)
 
 // composables
-const attrs = useAttrs()
-const screen = useScreen()
 const slots = useSlots()
-
-// usado para o plugin
-const { dialogRef, onDialogHide } = useDialogPluginComponent()
+const attrs = useAttrs()
+const { dialogRef, onDialogHide } = useDialogPluginComponent() // usado para o plugin
 
 // refs
 const form = ref(null)
 
-/// consts
-const composablesParams = { emit, form, props, screen, slots }
-
-const { defaultCancel, hasCancel } = useCancel(composablesParams)
-const { defaultOk, hasOk, onOk } = useOk(composablesParams)
-const { descriptionComponent, mainComponent } = useDynamicComponents({ ...composablesParams, onOk, hasOk })
+// composables
+const { defaultCancel, hasCancel } = useCancel()
+const { defaultOk, hasOk, onOk } = useOk()
+const { descriptionComponent, mainComponent } = useDynamicComponents()
 
 // computeds
 /**
@@ -183,48 +166,191 @@ const dialogProps = computed(() => {
   return {
     ...(!props.usePlugin && { modelValue: props.modelValue }),
     ...attributes,
+    persistent: isDrawer ? false : hasActions.value,
 
     onHide: onDialogHide
   }
 })
 
-const hasHeader = computed(() => !!slots.header || props.title)
-const hasActions = computed(() => hasOk.value || hasCancel.value)
+const hasActions = computed(() => hasOk.value || hasCancel.value || !!Object.keys(props.tertiary).length)
+
+const headerProps = computed(() => {
+  return {
+    labelProps: {
+      label: props.title
+    },
+
+    badges: props.badges,
+
+    buttonProps: {
+      ...(props.useCloseButton && {
+        color: 'grey-10',
+        disable: props.disableCloseButton,
+        icon: 'sym_r_close',
+        variant: 'tertiary',
+        'data-cy': 'dialog-close-btn',
+        onClick: () => updateModelValue(false)
+      })
+    }
+  }
+})
 
 const defaultActionsProps = computed(() => {
   return {
-    ...props.actionsProps,
+    ...(hasOk.value && { primaryButtonProps: defaultOk.value }),
+    ...(hasCancel.value && { secondaryButtonProps: defaultCancel.value }),
+
+    tertiary: {
+      ...props.tertiary,
+      'data-cy': 'dialog-tertiary-btn'
+    },
+
     gutter: 'md'
   }
-  // const { useFullWidth, useEqualWidth } = props.actionsProps
-
-  // if (useFullWidth || useEqualWidth) return props.actionsProps
-
-  // const hasAllActions = hasOk.value && hasCancel.value
-  // const hasSingleAction = (hasOk.value && !hasCancel.value) || (!hasOk.value && hasCancel.value)
-
-  // return {
-  //   useFullWidth: hasSingleAction,
-  //   // useEqualWidth: hasAllActions,
-
-  //   ...props.actionsProps
-  // }
 })
 
-const isCloseDisabled = computed(() => {
-  const { loading, disable } = props.ok || {}
-  const { loading: cancelLoading, disable: cancelDisable } = props.cancel || {}
-
-  return (
-    props.disableCloseButton ||
-    (loading || disable) ||
-    (cancelLoading || cancelDisable)
-  )
-})
+const hasHeaderSlot = computed(() => !!slots.header)
 
 // functions
 function updateModelValue (value) {
-  emit('update:modelValue', value)
+  model.value = value
+}
+
+// composable definitions
+function useOk () {
+  // computeds
+  const defaultOk = computed(() => {
+    const { onClick, ...attrs } = props.ok
+
+    return {
+      label: 'Ok',
+      type: (props.ok?.type || props.useForm) ? 'submit' : 'button',
+      'data-cy': 'dialog-ok-btn',
+
+      ...attrs,
+
+      // adiciona somente se não estiver usando useForm pois o controle ficará no submit.
+      ...(!props.useForm && { onClick: onOk })
+    }
+  })
+
+  const hasOk = computed(() => typeof props.ok === 'boolean' ? props.ok : !!Object.keys(props.ok))
+
+  // functions
+  function onOk () {
+    if (!props.useForm && props.useAutoCloseOnActions) {
+      updateModelValue(false)
+    }
+
+    props.ok.onClick?.()
+
+    emit('ok')
+  }
+
+  return {
+    defaultOk,
+    hasOk,
+    onOk
+  }
+}
+
+function useCancel () {
+  // computeds
+  const defaultCancel = computed(() => {
+    return {
+      label: 'Cancelar',
+      'data-cy': 'dialog-cancel-btn',
+
+      ...props.cancel,
+
+      onClick: onCancel
+    }
+  })
+
+  const hasCancel = computed(() => typeof props.cancel === 'boolean' ? props.cancel : !!Object.keys(props.cancel))
+
+  // functions
+  function onCancel () {
+    props.cancel.onClick?.()
+
+    if (props.useAutoCloseOnActions) {
+      updateModelValue(false)
+    }
+
+    emit('cancel')
+  }
+
+  return {
+    defaultCancel,
+    hasCancel
+  }
+}
+
+function useDynamicComponents () {
+  // computeds
+  const mainComponent = computed(() => {
+    return {
+      is: props.useForm ? QForm : 'div',
+
+      /**
+       * adiciona evento de submit caso useForm seja true,
+       * uma vez que somente o q-form possui este evento.
+       */
+      props: {
+        ...(props.useForm && { onSubmit })
+      }
+    }
+  })
+
+  const hasRenderFunction = computed(() => {
+    const description = props.description
+
+    return typeof description === 'object' && description !== null && !Array.isArray(description)
+  })
+
+  const descriptionComponent = computed(() => hasRenderFunction.value ? props.description : 'div')
+
+  // functions
+  function submitHandler () {
+    if (!props.useForm) return
+
+    if (props.useValidationAllAtOnce) {
+      let isAllComponentValid = true
+      const components = form.value.getValidationComponents() || []
+
+      for (const component of components) {
+        const isValid = component?.validate?.()
+
+        if (!isValid) {
+          isAllComponentValid = false
+        }
+      }
+
+      emit('validate', isAllComponentValid)
+
+      return
+    }
+
+    emit('validate', form.value.validate())
+  }
+
+  /**
+   * Sem este método, ao clicar enter com a prop useForm ativada a tela era recarregada,
+   * e a ação de click do botão não era chamada pois ele não esta dentro do form.
+   */
+  function onSubmit (event) {
+    event.preventDefault()
+
+    if (hasOk.value) {
+      onOk()
+      submitHandler()
+    }
+  }
+
+  return {
+    mainComponent,
+    descriptionComponent
+  }
 }
 </script>
 
@@ -278,10 +404,13 @@ function updateModelValue (value) {
     }
   }
 
-  // tamanho mínimo dos botões
-  &__btn {
-    min-width: 120px;
-    width: 100%;
+  // tamanho mínimo dos botões de ação (primário e secundário)
+  &__actions {
+    .qas-btn--primary,
+    .qas-btn--secondary {
+      min-width: 120px;
+      width: 100%;
+    }
   }
 }
 </style>

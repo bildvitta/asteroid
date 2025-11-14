@@ -38,7 +38,7 @@ import QasBtn from '../btn/QasBtn.vue'
 
 import useScreen from '../../composables/use-screen.js'
 
-import { computed, useAttrs } from 'vue'
+import { computed, useAttrs, provide } from 'vue'
 
 defineOptions({
   name: 'QasDrawer',
@@ -72,13 +72,22 @@ const props = defineProps({
   }
 })
 
+// emits
 const emit = defineEmits(['update:modelValue'])
 
+// globals
+provide('isDrawer', true)
+
+// composables
 const attrs = useAttrs()
 const screen = useScreen()
 
 // computed
 const normalizedMaxWidth = computed(() => screen.isSmall ? '100%' : props.maxWidth)
+
+const drawerStyles = computed(() => ({
+  '--drawer-max-width': normalizedMaxWidth.value
+}))
 
 const loadingStyle = computed(() => {
   return {
@@ -96,7 +105,7 @@ const attributes = computed(() => {
     ...props.dialogProps,
 
     cancel: false,
-    maxWidth: normalizedMaxWidth.value,
+    // maxWidth: normalizedMaxWidth.value,
     maximized: true,
     ok: false,
     position: props.position,
@@ -116,6 +125,10 @@ function onUpdateModelValue (value) {
     left: 0;
     position: absolute;
     top: 0;
+  }
+
+  &.qas-dialog.qas-dialog--sm .qas-dialog__container {
+    max-width: v-bind(drawerStyles) !important;
   }
 }
 </style>

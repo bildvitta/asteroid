@@ -317,7 +317,11 @@ export default {
       } = this.$props
 
       return {
-        dialogProps,
+        dialogProps: {
+          ...dialogProps,
+          size: 'md'
+        },
+
         fields,
         formGeneratorProps,
         galleryCardProps,
