@@ -25,9 +25,7 @@ export default {
       return {
         useForm: true,
 
-        card: {
-          title: 'Título do dialog'
-        },
+        title: 'Título do dialog',
 
         ok: {
           label: 'Fechar',

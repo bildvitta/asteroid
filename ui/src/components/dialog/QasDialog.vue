@@ -1,6 +1,6 @@
 <template>
   <q-dialog ref="dialogRef" v-model="model" class="qas-dialog" :class="classes" data-cy="dialog" v-bind="dialogProps" @update:model-value="updateModelValue">
-    <div class="bg-white full-width q-pa-md qas-dialog__container">
+    <div class="bg-white full-width q-pa-md qas-dialog__container" :style="containerStyles">
       <header v-if="hasHeaderSlot" class="q-mb-md">
         <slot name="header" />
       </header>
@@ -119,7 +119,7 @@ const model = defineModel({ type: Boolean })
 provide('isDialog', true)
 provide('btnPropsDefaults', { size: 'md' }) // define o tamanho padrão para os botões dentro do dialog
 
-const isDrawer = inject('isDrawer', false)
+const defaultProps = inject('dialogDefaultProps', null)
 
 // composables
 const slots = useSlots()
@@ -133,6 +133,11 @@ const form = ref(null)
 const { defaultCancel, hasCancel } = useCancel()
 const { defaultOk, hasOk, onOk } = useOk()
 const { descriptionComponent, mainComponent } = useDynamicComponents()
+
+/**
+ * Necessária logica via provide para controle interno no componente QasDrawer.
+ */
+const hasDefaultMaxWidth = computed(() => !!defaultProps?.value.maxWidth)
 
 // computeds
 /**
@@ -152,12 +157,23 @@ const classes = computed(() => {
   }
 
   return [
-    sizes[props.size],
     {
+      [sizes[props.size]]: !hasDefaultMaxWidth.value,
       'qas-dialog--right': isRightPosition,
       'qas-dialog--left': isLeftPosition
     }
   ]
+})
+
+/**
+ * Manter dessa forma até issue #1431 ser resolvida.
+ */
+const containerStyles = computed(() => {
+  if (!hasDefaultMaxWidth.value) return
+
+  return {
+    maxWidth: defaultProps?.value?.maxWidth
+  }
 })
 
 const dialogProps = computed(() => {
@@ -166,7 +182,7 @@ const dialogProps = computed(() => {
   return {
     ...(!props.usePlugin && { modelValue: props.modelValue }),
     ...attributes,
-    persistent: isDrawer ? false : hasActions.value,
+    persistent: defaultProps?.value?.persistent ?? hasActions.value,
 
     onHide: onDialogHide
   }
@@ -200,7 +216,7 @@ const defaultActionsProps = computed(() => {
     ...(hasOk.value && { primaryButtonProps: defaultOk.value }),
     ...(hasCancel.value && { secondaryButtonProps: defaultCancel.value }),
 
-    tertiary: {
+    tertiaryButtonProps: {
       ...props.tertiary,
       'data-cy': 'dialog-tertiary-btn'
     },

@@ -23,7 +23,7 @@ Caso adicionado no escopo inicial, todos os conteúdos abaixo não serão adicio
   - QasSignatureUploader -> prop `dialogProps`.
   - QasTextTruncate -> prop `dialogProps`.
   - QasUploader -> prop `dialogProps`.
-  - QasDrawer -> prop `dialogProps`.
+  - QasDrawer -> prop `dialogProps` (prop `persistent` saiu do `dialogProps` e agora é passado diretamente para o QasDrawer).
 
 ## [3.19.0-beta.16] - 12-11-2025
 ### Corrigido

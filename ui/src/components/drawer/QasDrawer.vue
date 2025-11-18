@@ -1,5 +1,5 @@
 <template>
-  <qas-dialog class="qas-drawer" v-bind="attributes" @update:model-value="onUpdateModelValue">
+  <qas-dialog v-model="model" class="qas-drawer" v-bind="attributes">
     <template #header>
       <div class="items-center justify-between row">
         <span data-cy="drawer-title">
@@ -10,7 +10,9 @@
           </slot>
         </span>
 
-        <qas-btn v-close-popup class="z-max" color="grey-10" data-cy="drawer-close-btn" icon="sym_r_close" variant="tertiary" @click="emit('update:modelValue', false)" />
+        <div>
+          <qas-btn class="z-max" color="grey-10" data-cy="drawer-close-btn" icon="sym_r_close" variant="tertiary" @click="close" />
+        </div>
       </div>
     </template>
 
@@ -38,7 +40,7 @@ import QasBtn from '../btn/QasBtn.vue'
 
 import useScreen from '../../composables/use-screen.js'
 
-import { computed, useAttrs, provide } from 'vue'
+import { computed, provide } from 'vue'
 
 defineOptions({
   name: 'QasDrawer',
@@ -54,6 +56,10 @@ const props = defineProps({
   maxWidth: {
     type: String,
     default: '60%'
+  },
+
+  persistent: {
+    type: Boolean
   },
 
   position: {
@@ -73,21 +79,13 @@ const props = defineProps({
 })
 
 // emits
-const emit = defineEmits(['update:modelValue'])
-
-// globals
-provide('isDrawer', true)
+const model = defineModel({ type: Boolean })
 
 // composables
-const attrs = useAttrs()
 const screen = useScreen()
 
 // computed
-const normalizedMaxWidth = computed(() => screen.isSmall ? '100%' : props.maxWidth)
-
-const drawerStyles = computed(() => ({
-  '--drawer-max-width': normalizedMaxWidth.value
-}))
+const normalizedMaxWidth = computed(() => screen.isSmall ? '95%' : props.maxWidth)
 
 const loadingStyle = computed(() => {
   return {
@@ -96,39 +94,41 @@ const loadingStyle = computed(() => {
 })
 
 const attributes = computed(() => {
-  const { modelValue } = attrs
-
   return {
-    persistent: false,
-    modelValue,
-
     ...props.dialogProps,
 
+    title: props.title,
     cancel: false,
-    // maxWidth: normalizedMaxWidth.value,
     maximized: true,
     ok: false,
-    position: props.position,
-    useFullMaxWidth: true
+    position: props.position
   }
 })
 
-function onUpdateModelValue (value) {
-  emit('update:modelValue', value)
+// globals
+/**
+ * Manter dessa forma até issue #1431 ser resolvida.
+ */
+provide('dialogDefaultProps', computed(() => {
+  return {
+    maxWidth: normalizedMaxWidth.value,
+    persistent: props.persistent
+  }
+}))
+
+// functions
+function close () {
+  model.value = false
 }
 </script>
 
-<style lang="scss">
+<style>
 .qas-drawer {
   &__loading {
     height: 100vh;
     left: 0;
     position: absolute;
     top: 0;
-  }
-
-  &.qas-dialog.qas-dialog--sm .qas-dialog__container {
-    max-width: v-bind(drawerStyles) !important;
   }
 }
 </style>
