@@ -128,9 +128,10 @@ function createObserver () {
         const list = Array.from(placeholderRefs.entries())
 
         // Encontra o índice do placeholder no Map
-        const index = list.find(([_, element]) => element === entry.target)?.[0]
+        const index = list.findIndex(([_, element]) => element === entry.target)
 
-        if (index === undefined) return
+        // Verifica se encontrou o índice (index !== -1)
+        if (!~index) return
 
         // Adiciona ao Set para renderizar o componente real
         visibleItems.value.add(index)
