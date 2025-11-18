@@ -122,7 +122,7 @@ function close () {
 }
 </script>
 
-<style>
+<style lang="scss">
 .qas-drawer {
   &__loading {
     height: 100vh;

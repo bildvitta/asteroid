@@ -4,7 +4,7 @@
 
     <qas-dialog v-model="isOpenedDialog" v-bind="defaultDialogProps">
       <template #description>
-        <div :style="signaturePadWidth">
+        <div>
           <qas-signature-pad ref="signaturePadModal" v-model:empty="isEmpty" :height="signaturePadHeight" />
         </div>
       </template>
@@ -103,16 +103,6 @@ export default {
         [this.$qas.screen.isSmall]: '250',
         [this.$qas.screen.isMedium]: '400',
         [this.$qas.screen.isLarge]: '250'
-      }
-
-      return sizes.true
-    },
-
-    signaturePadWidth () {
-      const sizes = {
-        [this.$qas.screen.isSmall]: { width: '100%' }
-        // [this.$qas.screen.isMedium]: { width: '570px' },
-        // [this.$qas.screen.isLarge]: { width: '350px' }
       }
 
       return sizes.true
