@@ -70,7 +70,7 @@ const props = defineProps({
   },
 
   tertiary: {
-    default: () => ({ }),
+    default: () => ({}),
     type: Object
   },
 
@@ -119,6 +119,7 @@ const model = defineModel({ type: Boolean })
 provide('isDialog', true)
 provide('btnPropsDefaults', { size: 'md' }) // define o tamanho padrão para os botões dentro do dialog
 
+// necessário para pegar as props default do dialog quando usado no QasDrawer
 const defaultProps = inject('dialogDefaultProps', null)
 
 // composables
