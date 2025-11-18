@@ -1,10 +1,10 @@
 ---
-title: QasLazyLoadingComponent
+title: QasLazyLoadingComponents
 ---
 
 Componente de para carregar somente os componentes visiveis.
 
-<doc-api file="lazy-loading-component/QasLazyLoadingComponent" name="QasLazyLoadingComponent" />
+<doc-api file="lazy-loading-components/QasLazyLoadingComponents" name="QasLazyLoadingComponents" />
 
 :::info
 Para visualizar melhor o comportamento do lazy loading, abra o DevTools e inspecione os elementos enquanto rola a página. Você verá os placeholders sendo substituídos pelos componentes reais conforme entram no viewport.
@@ -15,5 +15,5 @@ Para visualizar melhor o comportamento do lazy loading, abra o DevTools e inspec
 :::
 
 ## Uso
-<doc-example file="QasLazyLoadingComponent/Basic" title="Básico" />
-<doc-example file="QasLazyLoadingComponent/DynamicItems" title="Elementos dinâmicos" />
+<doc-example file="QasLazyLoadingComponents/Basic" title="Básico" />
+<doc-example file="QasLazyLoadingComponents/DynamicItems" title="Elementos dinâmicos" />

@@ -29,7 +29,7 @@
 <script setup>
 import { ref, onMounted, onBeforeUnmount, useSlots, nextTick } from 'vue'
 
-defineOptions({ name: 'QasLazyLoadingComponent' })
+defineOptions({ name: 'QasLazyLoadingComponents' })
 
 const props = defineProps({
   // Porcentagem de visibilidade necessária para ativar (0.0 a 1.0)
@@ -51,17 +51,16 @@ const props = defineProps({
   }
 })
 
-const slots = useSlots()
-
+// refs
 /**
  * Lista de VNodes extraídos do slot default
  * Cada item é um VNode que representa um componente filho
  *
  * Exemplo:
- * <qas-lazy-loading-component>
+ * <qas-lazy-loading-components>
  *   <ComponenteA /> <- items[0]
  *   <ComponenteB /> <- items[1]
- * </qas-lazy-loading-component>
+ * </qas-lazy-loading-components>
  */
 const items = ref([])
 
@@ -72,6 +71,10 @@ const items = ref([])
  */
 const visibleItems = ref(new Set())
 
+// composables
+const slots = useSlots()
+
+// consts
 /**
  * Map que armazena referências aos elementos placeholder
  * Chave: índice do componente
@@ -121,9 +124,11 @@ function createObserver () {
       entries.forEach(entry => {
         if (!entry.isIntersecting) return
 
+        // Converte Map em Array para facilitar busca
+        const list = Array.from(placeholderRefs.entries())
+
         // Encontra o índice do placeholder no Map
-        const index = Array.from(placeholderRefs.entries())
-          .find(([_, element]) => element === entry.target)?.[0]
+        const index = list.find(([_, element]) => element === entry.target)?.[0]
 
         if (index === undefined) return
 
@@ -185,11 +190,11 @@ function flattenVNodes (vnodes) {
  * Achata automaticamente fragments e v-for
  *
  * Exemplo de uso:
- * <qas-lazy-loading-component>
+ * <qas-lazy-loading-components>
  *   <ComponenteA />  <- vnode 0
  *   <ComponenteB />  <- vnode 1
  *   <Component v-for="item in 10" /> <- vnode 2-11
- * </qas-lazy-loading-component>
+ * </qas-lazy-loading-components>
  */
 function setItems () {
   const slotContent = slots.default?.() || []

@@ -1,6 +1,6 @@
 <template>
   <div class="container spaced">
-    <qas-lazy-loading-component>
+    <qas-lazy-loading-components>
       <qas-box class="q-mb-md" :style="styleBox">
         Primeira box
       </qas-box>
@@ -13,7 +13,7 @@
       <qas-box class="q-mb-md">
         <ex-grid-common-columns />
       </qas-box>
-    </qas-lazy-loading-component>
+    </qas-lazy-loading-components>
   </div>
 </template>
 
