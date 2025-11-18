@@ -49,6 +49,9 @@ Caso adicionado no escopo inicial, todos os conteúdos abaixo não serão adicio
   - removido prop `actionsProps`.
   - removido props `useFullMaxWidth`, `maxWidth`, `minWidth` em favor de utilizar a prop `size`.
 
+### Corrigido
+- `QasInfiniteScroll`: Corrigido exibição do texto quando não há resultados, pois estava cortando ao definir tamanho máximo de altura. ([#1347](https://github.com/bildvitta/asteroid/issues/1347))
+
 ### Modificado
 - `QasDialog`:
   - mudanças gerais do dialog ([#1346](https://github.com/bildvitta/asteroid/issues/1346)).
