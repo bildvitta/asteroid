@@ -201,9 +201,7 @@ export default {
 
     formDialogConfig () {
       return {
-        card: {
-          title: this.isAdd ? 'Adicionar ramo' : 'Editar ramo'
-        },
+        title: this.isAdd ? 'Adicionar ramo' : 'Editar ramo',
         ok: {
           label: 'Salvar',
           loading: this.isSubmitting

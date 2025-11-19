@@ -9,7 +9,7 @@
 <script setup>
 import { ref } from 'vue'
 
-defineOptions({ name: 'Basic' })
+defineOptions({ name: 'DialogWithTertiary' })
 
 // refs
 const isDialogOpened = ref(false)
@@ -17,7 +17,9 @@ const isDialogOpened = ref(false)
 const dialogProps = {
   title: 'Título do dialog',
   description: 'Cerca elétrica perto do corrimão risco iminente de choque. Código da ordem de serviço: 159488 CRM ID: 1179512',
-  useForm: true
+  tertiary: {
+    label: 'Ação terciária'
+  }
 }
 
 // functions

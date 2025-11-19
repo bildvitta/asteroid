@@ -14,6 +14,41 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 Devemos adicionar o comentário `<!-- N/A -->` (Não adicionar), para que não precise adicionar um item do changelog ao lançar uma nova versão stable.
 Caso adicionado no escopo inicial, todos os conteúdos abaixo não serão adicionados. Caso adicionado na linha, será considerado apenas ela.
 
+## Não publicado
+## BREAKING CHANGES
+- Componentes que usam dialog:
+  - QasBoardGenerator -> prop `confirmDialogProps`.
+  - QasGallery -> prop `dialogProps`.
+  - QasSelectListDialog -> prop `dialogProps`.
+  - QasSignatureUploader -> prop `dialogProps`.
+  - QasTextTruncate -> prop `dialogProps`.
+  - QasUploader -> prop `dialogProps`.
+  - QasDrawer -> prop `dialogProps` (prop `persistent` saiu do `dialogProps` e agora é passado diretamente para o QasDrawer).
+- `QasDrawer`: adicionado propriedade `persistent` para não utilizar dentro de `dialogProps`.
+- `QasDialog`:
+  - removido prop `card` em favor de suar as props `title` e `description`.
+  - removido slot `actions` em favor de fazer os controles somente por `ok`, `cancel` e `tertiary`.
+  - removido prop `persistent`, agora é feito sempre de forma automática.
+  - removido prop `actionsProps`.
+  - removido props `useFullMaxWidth`, `maxWidth`, `minWidth` em favor de utilizar a prop `size`.
+
+### Adicionado
+- `QasDialog`:
+  - adicionado propriedade `size` com default `sm`.
+  - adicionado propriedades `title` e `description` para ser usado no lugar da prop `card`.
+  - adicionada propriedade `disableCloseButton` para desabilitar botão de fechar (x).
+  - adicionada propriedade `tertiary`.
+  - adicionada propriedade `useAutoCloseOnActions` ([#1360](https://github.com/bildvitta/asteroid/issues/1360))([#1121](https://github.com/bildvitta/asteroid/issues/1121))
+  - adicionada propriedade `useCloseButton` para remover botão de fechar (x).
+  - adicionada propriedade `useHtmlDescription`.
+- `QasDrawer`: adicionado propriedade `persistent` para não utilizar dentro de `dialogProps`.
+- `QasDialog`:
+  - removido prop `card` em favor de suar as props `title` e `description`.
+  - removido slot `actions` em favor de fazer os controles somente por `ok`, `cancel` e `tertiary`.
+  - removido prop `persistent`, agora é feito sempre de forma automática.
+  - removido prop `actionsProps`.
+  - removido props `useFullMaxWidth`, `maxWidth`, `minWidth` em favor de utilizar a prop `size`.
+
 ## [3.20.0-beta.0] - 19-11-2025
 ## BREAKING CHANGES
 - **Possíveis breaking changes**: mudanças referentes ao overlay pode quebrar alguns componentes a nível de rota, ou então a nível de layout.
@@ -321,6 +356,30 @@ Caso adicionado no escopo inicial, todos os conteúdos abaixo não serão adicio
 ## [3.19.0-beta.17] - 18-11-2025
 ### Corrigido
 - `QasInfiniteScroll`: Corrigido exibição do texto quando não há resultados, pois estava cortando ao definir tamanho máximo de altura. ([#1347](https://github.com/bildvitta/asteroid/issues/1347))
+
+### Modificado
+- `QasDialog`:
+  - mudanças gerais do dialog ([#1346](https://github.com/bildvitta/asteroid/issues/1346)).
+  - removido uso de composable em arquivos separados para centralizar tudo no arquivo vue.
+- `QasHeader`: modificado propriedade `badges` para aceitar objeto quando tiver apenas 1 badge.
+- `QasSignatureUploader`: Modificado label e tamanho do dialog.
+- Normalização dos dialogs:
+  - QasSignatureUploader.
+  - QasTreeGenerator.
+  - QasTextTruncate.
+  - QasSelectListDialog.
+  - QasFormView.
+  - QasGallery -> PvGalleryCarouselDialog.
+  - composables/use-delete.js
+  - QasDrawer.
+
+### Removido
+- `QasDialog`:
+  - removido prop `card` em favor de suar as props `title` e `description`.
+  - removido slot `actions` em favor de fazer os controles somente por `ok`, `cancel` e `tertiary`.
+  - removido prop `persistent`, agora é feito sempre de forma automática.
+  - removido prop `actionsProps`.
+  - removido props `useFullMaxWidth`, `maxWidth`, `minWidth` em favor de utilizar a prop `size`.
 
 ## [3.19.0-beta.16] - 12-11-2025
 ### Corrigido

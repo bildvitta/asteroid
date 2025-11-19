@@ -323,8 +323,7 @@ function useSelectDialog () {
 
   const defaultDialogProps = computed(() => {
     return {
-      useFullMaxWidth: true,
-
+      size: 'md',
       ...props.dialogProps,
 
       onBeforeShow: event => {

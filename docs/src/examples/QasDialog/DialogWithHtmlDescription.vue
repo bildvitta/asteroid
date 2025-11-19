@@ -9,15 +9,15 @@
 <script setup>
 import { ref } from 'vue'
 
-defineOptions({ name: 'Basic' })
+defineOptions({ name: 'DialogWithHtmlDescription' })
 
 // refs
 const isDialogOpened = ref(false)
 
 const dialogProps = {
   title: 'Título do dialog',
-  description: 'Cerca elétrica perto do corrimão risco iminente de choque. Código da ordem de serviço: 159488 CRM ID: 1179512',
-  useForm: true
+  description: 'Cerca <strong>elétrica</strong> perto do corrimão risco iminente de choque. Código da ordem de serviço: 159488 CRM ID: 1179512',
+  useHtmlDescription: true
 }
 
 // functions

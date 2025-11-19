@@ -28,9 +28,7 @@ export default function useDelete ({ props, destroyFn, emit }) {
 
   const defaultDialogProps = computed(() => {
     return {
-      card: {
-        description: 'Tem certeza que deseja excluir este item?'
-      },
+      description: 'Tem certeza que deseja excluir este item?',
 
       ok: {
         label: 'Excluir',

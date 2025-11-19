@@ -1,5 +1,5 @@
 <template>
-  <qas-dialog class="qas-drawer" v-bind="attributes" @update:model-value="onUpdateModelValue">
+  <qas-dialog v-model="model" class="qas-drawer" v-bind="attributes">
     <template #header>
       <slot name="header">
         <div class="items-center justify-between row">
@@ -11,7 +11,7 @@
             </slot>
           </span>
 
-          <qas-btn v-close-popup class="z-max" color="grey-10" data-cy="drawer-close-btn" icon="sym_r_close" variant="tertiary" @click="emit('update:modelValue', false)" />
+          <qas-btn class="z-max" color="grey-10" data-cy="drawer-close-btn" icon="sym_r_close" variant="tertiary" @click="close" />
         </div>
       </slot>
     </template>
@@ -40,7 +40,7 @@ import QasBtn from '../btn/QasBtn.vue'
 
 import useScreen from '../../composables/use-screen.js'
 
-import { computed, useAttrs } from 'vue'
+import { computed, provide } from 'vue'
 
 defineOptions({
   name: 'QasDrawer',
@@ -56,6 +56,10 @@ const props = defineProps({
   maxWidth: {
     type: String,
     default: '60%'
+  },
+
+  persistent: {
+    type: Boolean
   },
 
   position: {
@@ -74,9 +78,10 @@ const props = defineProps({
   }
 })
 
-const emit = defineEmits(['update:modelValue'])
+// emits
+const model = defineModel({ type: Boolean })
 
-const attrs = useAttrs()
+// composables
 const screen = useScreen()
 
 // computed
@@ -89,25 +94,31 @@ const loadingStyle = computed(() => {
 })
 
 const attributes = computed(() => {
-  const { modelValue } = attrs
-
   return {
-    persistent: false,
-    modelValue,
-
     ...props.dialogProps,
 
+    title: props.title,
     cancel: false,
-    maxWidth: normalizedMaxWidth.value,
     maximized: true,
     ok: false,
-    position: props.position,
-    useFullMaxWidth: true
+    position: props.position
   }
 })
 
-function onUpdateModelValue (value) {
-  emit('update:modelValue', value)
+// globals
+/**
+ * Manter dessa forma até issue #1431 ser resolvida.
+ */
+provide('dialogDefaultProps', computed(() => {
+  return {
+    maxWidth: normalizedMaxWidth.value,
+    persistent: props.persistent
+  }
+}))
+
+// functions
+function close () {
+  model.value = false
 }
 </script>
 
