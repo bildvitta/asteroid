@@ -1,19 +1,19 @@
 <template>
   <qas-dialog v-model="model" class="qas-drawer" v-bind="attributes">
     <template #header>
-      <div class="items-center justify-between row">
-        <span data-cy="drawer-title">
-          <slot name="title">
-            <h3 v-if="props.title" class="text-h3">
-              {{ props.title }}
-            </h3>
-          </slot>
-        </span>
+      <slot name="header">
+        <div class="items-center justify-between row">
+          <span data-cy="drawer-title">
+            <slot name="title">
+              <h3 v-if="props.title" class="text-h3">
+                {{ props.title }}
+              </h3>
+            </slot>
+          </span>
 
-        <div>
           <qas-btn class="z-max" color="grey-10" data-cy="drawer-close-btn" icon="sym_r_close" variant="tertiary" @click="close" />
         </div>
-      </div>
+      </slot>
     </template>
 
     <template #description>
