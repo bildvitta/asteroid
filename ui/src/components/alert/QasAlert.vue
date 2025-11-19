@@ -1,6 +1,6 @@
 <template>
-  <div class="inline-block qas-alert">
-    <qas-box v-if="displayAlert" v-bind="defaultBoxProps">
+  <div v-if="displayAlert" class="inline-block qas-alert">
+    <qas-box v-bind="defaultBoxProps">
       <div class="flex items-center no-wrap">
         <div class="flex items-center no-wrap text-body1 text-grey-8">
           <q-icon v-bind="iconProps" />
@@ -28,10 +28,12 @@
 </template>
 
 <script setup>
+import QasBox from '../box/QasBox.vue'
+import QasBtn from '../btn/QasBtn.vue'
+
 import { Status, StatusColor } from '../../enums/Status'
 
 import { LocalStorage } from 'quasar'
-import { QasBtn } from 'asteroid'
 import { RouterLink } from 'vue-router'
 import { h, computed, inject } from 'vue'
 
@@ -39,12 +41,12 @@ defineOptions({ name: 'QasAlert' })
 
 const props = defineProps({
   buttonProps: {
-    type: Object,
+    type: [Object, Array],
     default: () => ({})
   },
 
   routerLinkProps: {
-    type: Object,
+    type: [Object, Array],
     default: () => ({})
   },
 
@@ -87,6 +89,7 @@ const model = defineModel({ type: Boolean, default: true })
 
 // globals
 const isBox = inject('isBox', false)
+const isDialog = inject('isDialog', false)
 
 // composables
 const { displayAlert, close } = useStorageClosed()
@@ -104,13 +107,14 @@ const iconProps = computed(() => {
 })
 
 /**
- * Por padrão, quando este componente estiver dentro de um QasBox, ele não terá
+ * Por padrão, quando este componente estiver dentro de um QasBox ou QasDialog, ele não terá
  * shadow, terá padding e não terá margin.
  */
 const defaultBoxProps = computed(() => {
   const hasBoxProps = props.useBox !== undefined
 
-  const useBox = hasBoxProps ? props.useBox : !isBox
+  // Se não tiver a prop useBox, assume que está dentro de um QasBox ou QasDialog
+  const useBox = hasBoxProps ? props.useBox : !isBox && !isDialog
 
   return {
     unelevated: !useBox,
@@ -119,88 +123,86 @@ const defaultBoxProps = computed(() => {
 })
 
 const textComponent = computed(() => {
-  /**
-   * regex para encontrar caracteres que estiverem dentro de [].
-   */
+  // Regex para encontrar caracteres que estiverem dentro de [].
   const regex = /\[.*?\]/g
 
-  const [content] = props.text.match(regex)
+  const matches = props.text.match(regex) || []
+
+  if (!matches.length) return h('span', props.text)
+
+  let processedText = props.text
 
   /**
-   * dado o texto: Para saber mais, [Clique aqui].
-   *
-   * retorna: 'Clique aqui'
+   * Substitui cada match por um placeholder único na ordem correta
+   * Exemplo: "Clique [aqui] para [ver mais]" vira "Clique $0 para $1"
    */
-  const routerLabel = content.replaceAll(/[[\]]/g, '')
+  matches.forEach((match, index) => {
+    processedText = processedText.replace(match, `$${index}`)
+  })
 
-  /**
-   * dado o texto: Para saber mais, [Clique aqui].
-   *
-   * retorna: 'Para saber mais, $.'
-   */
-  const replacedText = props.text.replaceAll(regex, '$')
+  // Divide o texto pelos placeholders
+  const parts = processedText.split(/\$\d+/)
 
-  /**
-   * É necessário usar o regex ao invés de '$' para ele não remover o carácter
-   * ao fazer o split
-   *
-   * dado o texto: 'Para saber mais, [Clique aqui].'
-   *
-   * retorna: ['Para saber mais,', '$', '.']
-   *
-   */
-  const splitted = replacedText.split(/(\$)/)
+  const placeholders = processedText.match(/\$\d+/g) || []
 
-  const index = splitted.findIndex(item => item === '$')
+  const result = []
 
-  const hasButtonProps = !!Object.keys(props.buttonProps).length
+  parts.forEach((part, index) => {
+    if (part) result.push(part)
 
-  const getRouterLinkRender = () => {
-    return h(
-      RouterLink,
-      {
-        ...props.routerLinkProps,
-        class: 'text-primary text-subtitle1 qas-alert__link'
-      },
-      {
-        default: () => routerLabel
+    if (index < placeholders.length) {
+      // Pega o índice do placeholder para encontrar o match correto
+      const placeholderIndex = parseInt(placeholders[index].replace('$', ''))
+
+      // Pega o texto original do match. Ex: '[Clique aqui]'
+      const match = matches[placeholderIndex]
+
+      // Remove os colchetes do match. Ex: [Clique aqui] para Clique aqui
+      const routerLabel = match.replaceAll(/[[\]]/g, '')
+
+      // Determina as props do botão/link baseado no índice
+      const isButtonPropsArray = Array.isArray(props.buttonProps)
+      const isRouterPropsArray = Array.isArray(props.routerLinkProps)
+
+      const buttonPropsForIndex = isButtonPropsArray
+        ? props.buttonProps[placeholderIndex]
+        : props.buttonProps
+
+      const routerLinkPropsForIndex = isRouterPropsArray
+        ? props.routerLinkProps[placeholderIndex]
+        : props.routerLinkProps
+
+      const hasButtonProps = buttonPropsForIndex && !!Object.keys(buttonPropsForIndex).length
+
+      const getRouterLinkRender = () => {
+        return h(
+          RouterLink,
+          {
+            ...routerLinkPropsForIndex,
+            class: 'text-primary text-subtitle1 qas-alert__link'
+          },
+          {
+            default: () => routerLabel
+          }
+        )
       }
-    )
-  }
 
-  const getQasBtnRender = () => {
-    return h(
-      QasBtn,
-      {
-        variant: 'tertiary',
-        label: routerLabel,
-        ...props.buttonProps
+      const getQasBtnRender = () => {
+        return h(
+          QasBtn,
+          {
+            variant: 'tertiary',
+            label: routerLabel,
+            ...buttonPropsForIndex
+          }
+        )
       }
-    )
-  }
 
-  /**
-   * Cria um render do router link ou QasBtn
-   *
-   * @example
-   *
-   * ```html
-   * <router-link
-   *  class="text-primary text-subtitle1 qas-alert__link"
-   *  :to="props.route"
-   * >
-   *  Clique aqui
-   * </router-link>
-   * ```
-   */
-  const renderComponent = hasButtonProps ? getQasBtnRender() : getRouterLinkRender()
+      result.push(hasButtonProps ? getQasBtnRender() : getRouterLinkRender())
+    }
+  })
 
-  splitted.splice(index, 1, renderComponent)
-
-  return h(
-    'span',
-    splitted
-  )
+  return h('span', result)
 })
 
 // composable definitions

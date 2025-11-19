@@ -34,3 +34,11 @@
 .container-lg {
   max-width: $breakpoint-lg !important;
 }
+
+/**
+ * Adiciona padding no container para evitar que o botão do Gleap fique sobreposto ao conteúdo da página.
+ * O Gleap é exibido em todas as páginas, então aplicamos o padding sempre que ele estiver presente.
+ */
+body:has(.bb-feedback-button) .container {
+  padding-bottom: 80px;
+}

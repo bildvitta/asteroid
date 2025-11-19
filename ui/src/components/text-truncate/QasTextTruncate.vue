@@ -38,7 +38,10 @@
 </template>
 
 <script setup>
+import QasBadge from '../badge/QasBadge.vue'
+import QasBtn from '../btn/QasBtn.vue'
 import QasDialog from '../dialog/QasDialog.vue'
+import QasSearchBox from '../search-box/QasSearchBox.vue'
 
 import { baseProps } from '../../shared/badge-config'
 
@@ -191,7 +194,7 @@ function useDialog ({ props, textContent }) {
 
     if (hasSearchBox) {
       return {
-        is: 'qas-search-box',
+        is: QasSearchBox,
         list: normalizedSearchModel.value,
         props: {
           height: '510px',

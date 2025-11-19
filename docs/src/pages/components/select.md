@@ -40,6 +40,8 @@ Quando o select for `required` ou tiver a prop `use-auto-select` e houver apenas
 <doc-example file="QasSelect/Searchable" title="Com pesquisa" />
 
 :::info
+Para usar opções customizadas, é necessário adicionar a prop `use-custom-options`.
+
 Caso queira usar badges nas opções, o back precisa retornar a chave em questão dizendo qual badge será mostrada, ex:
 ```js
 [
@@ -98,3 +100,5 @@ _Opcional:_ Com base nas props `entity` e `name`, a função de fetchOptions dos
   decamelizeFieldName: Boolean // Caso utilize da URL padrão, esse parâmetro irá transformar o `fieldName` para `field-name` no momento de montar a URL da API.
 }
 ```
+
+<doc-example file="QasSelect/Readonly" title="Readonly" />

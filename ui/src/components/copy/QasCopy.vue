@@ -8,12 +8,15 @@
     </span>
 
     <qas-btn class="q-ml-xs" color="primary" :icon="props.icon" :loading="isLoading" variant="tertiary" @click.stop.prevent="copy">
-      <q-tooltip>Copiar</q-tooltip>
+      <qas-tooltip text="Copiar" />
     </qas-btn>
   </span>
 </template>
 
 <script setup>
+import QasBtn from '../btn/QasBtn.vue'
+import QasTooltip from '../tooltip/QasTooltip.vue'
+
 import { copyToClipboard } from '../../helpers'
 import { ref } from 'vue'
 

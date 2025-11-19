@@ -26,6 +26,8 @@
 </template>
 
 <script setup>
+import QasBtn from '../btn/QasBtn.vue'
+
 import { useToggleVisibility } from '../../composables/private'
 
 import { uid } from 'quasar'

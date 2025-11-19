@@ -19,6 +19,7 @@
 </template>
 
 <script>
+import QasBtn from '../btn/QasBtn.vue'
 import QasInput from '../input/QasInput.vue'
 import passwordMixin from '../../mixins/password.js'
 import QasPasswordStrengthChecker from '../password-strength-checker/QasPasswordStrengthChecker.vue'
@@ -28,7 +29,8 @@ export default {
 
   components: {
     QasInput,
-    QasPasswordStrengthChecker
+    QasPasswordStrengthChecker,
+    QasBtn
   },
 
   mixins: [passwordMixin],

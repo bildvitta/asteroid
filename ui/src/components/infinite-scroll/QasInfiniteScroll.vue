@@ -22,6 +22,8 @@
 </template>
 
 <script setup>
+import QasEmptyResultText from '../empty-result-text/QasEmptyResultText.vue'
+
 import { ref, computed, inject, nextTick } from 'vue'
 import { NotifyError } from '../../plugins'
 
@@ -65,7 +67,7 @@ const props = defineProps({
   }
 })
 
-defineExpose({ refresh, remove })
+defineExpose({ refresh, remove, fetchList })
 
 const emit = defineEmits(['fetch-success', 'fetch-error'])
 
@@ -96,7 +98,7 @@ const isEmptyList = computed(() => !listLength.value && !isFetching.value)
 const hasNoResults = computed(() => isEmptyList.value && hasMadeFirstFetch.value)
 
 const containerStyle = computed(() => ({
-  ...(props.maxHeight && { maxHeight: props.maxHeight, overflow: 'auto' })
+  ...(props.maxHeight && { maxHeight: props.maxHeight, overflow: hasNoResults.value ? 'initial' : 'auto' })
 }))
 
 async function onLoad (_, done) {

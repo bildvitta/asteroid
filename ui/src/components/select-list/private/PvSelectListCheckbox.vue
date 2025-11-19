@@ -3,9 +3,9 @@
 </template>
 
 <script setup>
-defineOptions({
-  name: 'PvSelectListCheckbox'
-})
+import QasCheckbox from '../../checkbox/QasCheckbox.vue'
+
+defineOptions({ name: 'PvSelectListCheckbox' })
 
 const props = defineProps({
   result: {

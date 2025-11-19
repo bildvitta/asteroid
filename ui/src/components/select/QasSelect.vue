@@ -65,6 +65,8 @@
 </template>
 
 <script>
+import QasBadge from '../badge/QasBadge.vue'
+
 import { getRequiredLabel } from '../../helpers'
 import { searchFilterMixin } from '../../mixins'
 import fuseConfig from '../../shared/fuse-config'
@@ -75,17 +77,26 @@ import Fuse from 'fuse.js'
 export default {
   name: 'QasSelect',
 
+  components: {
+    QasBadge
+  },
+
   mixins: [searchFilterMixin],
 
   inject: {
     isBox: { default: false },
-    isDialog: { default: false }
+    isDialog: { default: false },
+    updateUnsavedChangesCache: { default: null }
   },
 
   props: {
     badgeProps: {
       default: () => ({}),
       type: Object
+    },
+
+    disable: {
+      type: Boolean
     },
 
     fuseOptions: {
@@ -108,6 +119,10 @@ export default {
       type: [Array, Object, String, Number, Boolean]
     },
 
+    multiple: {
+      type: Boolean
+    },
+
     noOptionLabel: {
       default: 'Nenhum resultado foi encontrado.',
       type: String
@@ -116,6 +131,15 @@ export default {
     options: {
       default: () => [],
       type: Array
+    },
+
+    prefix: {
+      type: String,
+      default: ''
+    },
+
+    readonly: {
+      type: Boolean
     },
 
     required: {
@@ -163,7 +187,7 @@ export default {
       const { useChips, ...attrs } = this.$attrs
 
       return {
-        clearable: this.isSearchable,
+        clearable: !this.required,
         emitValue: true,
         mapOptions: true,
         outlined: this.useFilterMode,
@@ -171,7 +195,10 @@ export default {
         dropdownIcon: 'sym_r_expand_more',
         clearIcon: 'sym_r_close',
         popupContentClass: `qas-select__menu ${this.popupContentClass}`,
-        useChips: this.isMultiple && this.isPopupContentOpen,
+        useChips: this.multiple && this.isPopupContentOpen,
+        multiple: this.multiple,
+        disable: this.disable,
+        readonly: this.readonly,
 
         ...attrs,
 
@@ -201,7 +228,7 @@ export default {
     },
 
     isSearchable () {
-      return this.hasFuse || this.useLazyLoading
+      return (this.hasFuse || this.useLazyLoading) && !(this.disable || this.readonly)
     },
 
     hasError () {
@@ -249,12 +276,21 @@ export default {
       const hasModelValue = Array.isArray(this.modelValue) ? !!this.modelValue.length : !!this.modelValue
 
       /**
-       * Posso setar o default quando:
+       * Só pode setar uma opção default quando:
        * - O campo for required ou tiver a prop useAutoSelect
        * - Tiver apenas uma option
        * - O modelValue estiver vazio
+       *
+       * Caso o campo for lazyLoading, precisamos validar se já realizou a requisição, então também valida:
+       * - O count de requisições for maior que 0 (this.mx_fetchCount > 0);
+       * - E não estiver buscando mais opções (this.mx_isFetching === false).
        */
-      return (this.required || this.useAutoSelect) && this.options.length === 1 && !hasModelValue
+      return (
+        (this.required || this.useAutoSelect) &&
+        this.mx_filteredOptions.length === 1 &&
+        !hasModelValue &&
+        (this.useLazyLoading ? (!!this.mx_fetchCount && !this.mx_isFetching) : true)
+      )
     },
 
     // redesign
@@ -273,14 +309,6 @@ export default {
         'qas-select--closed': !this.isPopupContentOpen,
         'qas-select--loading': this.hasLoading
       }
-    },
-
-    isDisabled () {
-      return this.$attrs.disable || this.$attrs.disable === ''
-    },
-
-    isMultiple () {
-      return this.$attrs.multiple || this.$attrs.multiple === ''
     },
 
     hasAppend () {
@@ -313,15 +341,33 @@ export default {
       this.setDefaultOption()
     },
 
+    /**
+     * Caso tenha realizado o primeiro fetch do lazy loading, chama o `setDefaultOption` se o
+     * `canSetDefaultOption` for true.
+     */
+    mx_hasFetched: {
+      async handler (value) {
+        if (!value) return
+
+        /**
+         * Necessário utilizar o nextTick para garantir que as opções do select sejam atualizadas, pois primeiro é
+         * trocado o fetched e somente depois seta as opções, então preciso esperar para conseguir seta.
+         */
+        await this.$nextTick()
+
+        if (this.canSetDefaultOption) this.setDefaultOption()
+      }
+    },
+
     options: {
       handler () {
         if (this.useLazyLoading && this.mx_hasFilteredOptions) return
 
         if (this.fuse || this.hasFuse) this.setFuse()
 
-        if (this.canSetDefaultOption) this.setDefaultOption()
-
         this.mx_filteredOptions = [...this.options]
+
+        if (this.canSetDefaultOption) this.setDefaultOption()
       },
 
       deep: true,
@@ -403,10 +449,18 @@ export default {
 
     setDefaultOption () {
       const modelValue = this.attributes.emitValue
-        ? this.options[0].value
-        : this.options[0]
+        ? this.mx_filteredOptions[0].value
+        : this.mx_filteredOptions[0]
 
-      this.$emit('update:modelValue', modelValue)
+      // Quando for múltiplo adiciona o valor em um array
+      this.$emit('update:modelValue', this.multiple ? [modelValue] : modelValue)
+
+      /**
+       * Atualiza o model de cache dos dados do formulário no QasFormView,
+       * usado para fazer o comparativo para saber se houve mudanças no formulário,
+       * para exibir o dialog. Só terá essa funcionalidade se o componente estiver dentro de um QasFormView.
+       */
+      if (this.updateUnsavedChangesCache) this.updateUnsavedChangesCache()
     },
 
     getFilteredBadgeList (payload = {}) {
@@ -443,7 +497,9 @@ export default {
     hasBadge (badge) {
       const model = Object.keys(badge)[0]
 
-      return badge[model] || this.badgeProps[model](badge[model]).show
+      const isFunction = typeof this.badgeProps[model] === 'function'
+
+      return badge[model] || (isFunction && this.badgeProps[model]?.(badge[model])?.show)
     },
 
     getCaptionArray (caption) {
@@ -523,6 +579,10 @@ export default {
       height: 18px !important;
       min-height: 18px !important;
     }
+  }
+
+  &.q-field--readonly .q-field__append {
+    display: none;
   }
 
   .q-field__focusable-action,

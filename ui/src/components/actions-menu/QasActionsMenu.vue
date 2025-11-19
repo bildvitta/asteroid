@@ -1,5 +1,5 @@
 <template>
-  <div v-if="hasList" class="qas-actions-menu" data-cy="actions-menu">
+  <div v-if="hasList" class="flex qas-actions-menu" data-cy="actions-menu">
     <qas-btn-dropdown v-bind="btnDropdownProps" v-model:menu="menuModel">
       <q-list v-if="hasDropdownLength" data-cy="actions-menu-list">
         <slot v-for="(item, key) in formattedList.dropdownList" :item="item" :name="key">

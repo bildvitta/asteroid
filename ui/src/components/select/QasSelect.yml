@@ -13,6 +13,11 @@ props:
     examples: ["{ isTester: () => { return { color: 'grey-8', label: 'Tester', textColor: 'white' }} }"]
     type: Object
 
+  disable:
+    desc: Desabilita o componente.
+    default: false
+    type: Boolean
+
   entity:
     desc: Entidade enviada para a action "fetchFieldOptions" (usar somente quando "useLazyLoading" estiver habilitada).
     default: ''
@@ -67,6 +72,11 @@ props:
     examples: [v-model="value"]
     model: true
 
+  multiple:
+    desc: Controla se o select vai permitir múltiplas seleções.
+    default: false
+    type: Boolean
+
   name:
     desc: Nome do campo a ser enviado para a action "fetchFieldOptions" (usar somente quando "useLazyLoading" estiver habilitada).
     type: String
@@ -81,6 +91,11 @@ props:
     desc: Opções do select.
     default: []
     type: Array
+
+  readonly:
+    desc: Controla se o componente é somente leitura.
+    default: false
+    type: Boolean
 
   required:
     desc: Controla label do campo, se for "true" adiciona sufixo "*".

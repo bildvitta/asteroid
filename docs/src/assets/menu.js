@@ -252,6 +252,10 @@ module.exports = [
         path: '/components/password-strength-checker'
       },
       {
+        name: 'PdfViewer',
+        path: '/components/pdf-viewer'
+      },
+      {
         name: 'Profile',
         path: '/components/profile'
       },
@@ -332,12 +336,20 @@ module.exports = [
         path: '/components/text-truncate'
       },
       {
+        name: 'Tip',
+        path: '/components/tip'
+      },
+      {
         name: 'Toggle',
         path: '/components/toggle'
       },
       {
         name: 'ToggleVisibility',
         path: '/components/toggle-visibility'
+      },
+      {
+        name: 'Tooltip',
+        path: '/components/tooltip'
       },
       {
         name: 'Timeline',
@@ -601,6 +613,10 @@ module.exports = [
       {
         name: 'Forbidden - 403',
         path: '/paginas/forbidden'
+      },
+      {
+        name: 'Unauthorized - 401',
+        path: '/paginas/unauthorized'
       },
       {
         name: 'NotFound - 404',

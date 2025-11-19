@@ -13,7 +13,6 @@ export default {
   computed: {
     props () {
       return {
-        name: 'Meu titulo',
         url: 'https://picsum.photos/200/300.jpg'
       }
     }

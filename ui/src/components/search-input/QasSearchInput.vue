@@ -15,8 +15,16 @@
 </template>
 
 <script>
+import QasInput from '../input/QasInput.vue'
+import QasBtn from '../btn/QasBtn.vue'
+
 export default {
   name: 'QasSearchInput',
+
+  components: {
+    QasInput,
+    QasBtn
+  },
 
   inject: {
     isBox: { default: false },

@@ -1,7 +1,7 @@
 <template>
-  <div :class="containerClasses">
+  <div v-if="hasHeaderContent" :class="containerClasses">
     <div v-if="hasLabelSection" class="full-width items-center justify-between no-wrap row" :class="labelSectionClasses">
-      <div class="items-center q-col-gutter-sm row">
+      <div class="items-center overflow-hidden q-col-gutter-sm row">
         <slot name="label">
           <qas-label v-if="hasLabel" v-bind="defaultLabelProps" />
         </slot>
@@ -37,6 +37,12 @@
 </template>
 
 <script setup>
+import QasLabel from '../label/QasLabel.vue'
+import QasBadge from '../badge/QasBadge.vue'
+import QasBtn from '../btn/QasBtn.vue'
+import QasActionsMenu from '../actions-menu/QasActionsMenu.vue'
+import QasFilters from '../filters/QasFilters.vue'
+
 import { Spacing } from '../../enums/Spacing'
 import { gutterValidator } from '../../helpers/private/gutter-validator'
 
@@ -79,6 +85,10 @@ const props = defineProps({
     default: Spacing.Md,
     type: String,
     validator: gutterValidator
+  },
+
+  useEllipsis: {
+    type: Boolean
   }
 })
 
@@ -102,6 +112,10 @@ const descriptionSectionClasses = computed(() => {
 
 const defaultLabelProps = computed(() => {
   return {
+    class: {
+      ellipsis: props.useEllipsis
+    },
+
     margin: 'none',
     ...props.labelProps
   }
@@ -110,7 +124,7 @@ const defaultLabelProps = computed(() => {
 const actionsComponent = computed(() => {
   const component = {
     [hasDefaultButton.value]: {
-      is: 'qas-btn',
+      is: QasBtn,
       props: {
         ...props.buttonProps,
         useLabelOnSmallScreen: false
@@ -118,12 +132,12 @@ const actionsComponent = computed(() => {
     },
 
     [hasDefaultActionsMenu.value]: {
-      is: 'qas-actions-menu',
+      is: QasActionsMenu,
       props: props.actionsMenuProps
     },
 
     [hasDefaultFilters.value]: {
-      is: 'qas-filters',
+      is: QasFilters,
       props: {
         useSearch: false,
         useChip: false,
@@ -149,6 +163,10 @@ const hasDefaultFilters = computed(() => !!Object.keys(props.filtersProps).lengt
 const hasDefaultActionsMenu = computed(() => !!Object.keys(props.actionsMenuProps).length)
 const hasDescriptionSection = computed(() => !!props.description || !!slots.description)
 const hasLabelSection = computed(() => hasLabel.value || slots.label || hasBadges.value)
+
+const hasHeaderContent = computed(() => {
+  return hasLabelSection.value || hasDescriptionSection.value || hasActionsSection.value
+})
 
 /**
  * Só exibo a seção de descrição com a seção de ações ao lado quando:

@@ -11,7 +11,7 @@
         </slot>
       </header>
 
-      <section class="text-body1 text-grey-8">
+      <section class="relative-position text-body1 text-grey-8">
         <component :is="mainComponent.is" ref="form" v-bind="mainComponent.props">
           <slot name="description">
             <component :is="descriptionComponent" data-cy="dialog-description">{{ props.card.description }}</component>
@@ -39,6 +39,7 @@
 <script setup>
 import QasActions from '../actions/QasActions.vue'
 import QasBtn from '../btn/QasBtn.vue'
+import QasLabel from '../label/QasLabel.vue'
 
 import useCancel from './composables/use-cancel'
 import useDynamicComponents from './composables/use-dynamic-components'

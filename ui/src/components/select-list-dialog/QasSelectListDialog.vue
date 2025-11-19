@@ -44,8 +44,8 @@
       v-bind="defaultDialogProps"
       v-model="showDialog"
     >
-      <template v-for="(_, name) in slots" #[name]="context">
-        <slot :name="`dialog-${name}`" v-bind="context || {}" />
+      <template v-for="(_, name) in slots" #[getDialogSlot(name)]="context">
+        <slot :name v-bind="context || {}" />
       </template>
 
       <template #description>
@@ -55,7 +55,7 @@
           </div>
 
           <qas-select-list
-            v-model="listModel"
+            v-model="selectListModel"
             v-bind="defaultSelectListProps"
           />
         </slot>
@@ -65,6 +65,11 @@
 </template>
 
 <script setup>
+import QasHeader from '../header/QasHeader.vue'
+import QasBtn from '../btn/QasBtn.vue'
+import QasDialog from '../dialog/QasDialog.vue'
+import QasSelectList from '../select-list/QasSelectList.vue'
+
 import { computed, ref, watch, useSlots, inject } from 'vue'
 
 defineOptions({ name: 'QasSelectListDialog' })
@@ -137,9 +142,11 @@ const slots = useSlots()
 // globals
 const isBox = inject('isBox', false)
 
+// models
+const selectListModel = defineModel('selectListModel', { default: () => [], type: Array })
+
 // composables
 const {
-  listModel,
   showDialog,
 
   defaultDialogProps,
@@ -161,7 +168,7 @@ const {
 } = useList()
 
 // expose
-defineExpose({ add, removeAll, remove })
+defineExpose({ add, removeAll, remove, toggleDialog })
 
 // refs
 const model = ref([...props.modelValue])
@@ -173,11 +180,13 @@ const containerListComponent = computed(() => isBox ? 'div' : 'qas-box')
 
 const headerProps = computed(() => {
   return {
-    labelProps: {
-      label: props.label,
-      margin: 'none',
-      color: hasError.value ? 'negative' : 'grey-10'
-    },
+    ...(props.label && {
+      labelProps: {
+        label: props.label,
+        margin: 'none',
+        color: hasError.value ? 'negative' : 'grey-10'
+      }
+    }),
 
     spacing: 'none',
     description: props.description,
@@ -206,6 +215,14 @@ watch(() => props.modelValue, newValue => {
 // functions
 function updateModel () {
   emit('update:modelValue', model.value)
+}
+
+/**
+ * Retorna o nome do slot do dialog removendo o prefixo 'dialog-'
+ * Isso é necessário para pois os slots recebidos nesse componente tem o prefixo `dialog`, porém o QasDialog não.
+ */
+function getDialogSlot (name) {
+  return name.replace('dialog-', '')
 }
 
 // ------------------------- composable functions ------------------------------
@@ -303,7 +320,6 @@ function useList () {
 
 function useSelectDialog () {
   const showDialog = ref(false)
-  const listModel = ref([])
 
   const defaultDialogProps = computed(() => {
     return {
@@ -312,7 +328,7 @@ function useSelectDialog () {
       ...props.dialogProps,
 
       onBeforeShow: event => {
-        resetListModel()
+        resetSelectListModel()
 
         props.dialogProps.onBeforeShow && props.dialogProps.onBeforeShow(event)
       },
@@ -320,7 +336,7 @@ function useSelectDialog () {
       ok: {
         label: 'Adicionar',
 
-        disable: !listModel.value.length,
+        disable: !selectListModel.value.length,
 
         ...props.dialogProps.ok,
 
@@ -355,16 +371,15 @@ function useSelectDialog () {
     showDialog.value = !showDialog.value
   }
 
-  function resetListModel () {
-    listModel.value = []
+  function resetSelectListModel () {
+    selectListModel.value = []
   }
 
   function onAdd () {
-    if (listModel.value.length) add({ options: listModel.value })
+    if (selectListModel.value.length) add({ options: selectListModel.value })
   }
 
   return {
-    listModel,
     showDialog,
 
     defaultDialogProps,

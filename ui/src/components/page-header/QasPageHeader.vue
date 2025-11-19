@@ -27,7 +27,7 @@
 <script setup>
 import QasHeader from '../header/QasHeader.vue'
 
-import { castArray } from 'lodash-es'
+import castArray from 'lodash-es/castArray'
 import { computed } from 'vue'
 import { useMeta } from 'quasar'
 import { useRouter } from 'vue-router'

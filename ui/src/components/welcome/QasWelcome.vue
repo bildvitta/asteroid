@@ -34,6 +34,8 @@
 
 <script>
 import PvWelcomeShortcutCard from './private/PvWelcomeShortcutCard.vue'
+import QasActionsMenu from '../actions-menu/QasActionsMenu.vue'
+import QasLabel from '../label/QasLabel.vue'
 
 import { date } from 'quasar'
 import dateConfig from '../../shared/date-config.js'
@@ -42,7 +44,9 @@ export default {
   name: 'QasWelcome',
 
   components: {
-    PvWelcomeShortcutCard
+    PvWelcomeShortcutCard,
+    QasActionsMenu,
+    QasLabel
   },
 
   props: {

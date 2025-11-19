@@ -1,7 +1,7 @@
 <template>
   <component :is="parentComponent.is" v-bind="parentComponent.props">
     <qas-header v-if="hasHeader" v-bind="headerProps">
-      <template #right>
+      <template #actions>
         <qas-filters v-bind="chartFiltersProps" />
       </template>
     </qas-header>
@@ -23,6 +23,11 @@
 </template>
 
 <script>
+import QasBox from '../box/QasBox.vue'
+import QasEmptyResultText from '../empty-result-text/QasEmptyResultText.vue'
+import QasFilters from '../filters/QasFilters.vue'
+import QasHeader from '../header/QasHeader.vue'
+
 // Importações do chart.js
 import {
   Chart as ChartJS,
@@ -63,7 +68,11 @@ export default {
   components: {
     BarChart,
     DoughnutChart,
-    LineChart
+    LineChart,
+    QasBox,
+    QasEmptyResultText,
+    QasFilters,
+    QasHeader
   },
 
   props: {
@@ -231,7 +240,8 @@ export default {
     chartOptions () {
       const { options, type } = this
 
-      return extend(true, charts[type], options)
+      // Retorna as opções do gráfico mescladas com as opções padrão em uma copia para evitar mutação
+      return extend(true, {}, charts[type], options)
     },
 
     chartPlugins () {
@@ -332,7 +342,7 @@ export default {
 
     parentComponent () {
       return {
-        is: this.useBox ? 'qas-box' : 'div',
+        is: this.useBox ? QasBox : 'div',
 
         props: {
           ...(this.useBox && { ...this.boxProps })
