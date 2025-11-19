@@ -14,7 +14,7 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 Devemos adicionar o comentário `<!-- N/A -->` (Não adicionar), para que não precise adicionar um item do changelog ao lançar uma nova versão stable.
 Caso adicionado no escopo inicial, todos os conteúdos abaixo não serão adicionados. Caso adicionado na linha, será considerado apenas ela.
 
-## Não publicado
+## [3.20.0-beta.0] - 19-11-2025
 ## BREAKING CHANGES
 - **Possíveis breaking changes**: mudanças referentes ao overlay pode quebrar alguns componentes a nível de rota, ou então a nível de layout.
 - Adicionado validação `isBackgroundOverlay` no watch da rota por conta do overlay navigation.
@@ -4759,3 +4759,4 @@ Adicionado suporte para Pinia/Vuex Seguindo os padrões da biblioteca `@bildvitt
 [3.19.0-beta.16]: https://github.com/bildvitta/asteroid/compare/v3.19.0-beta.15...v3.19.0-beta.16?expand=1
 [3.19.0-beta.17]: https://github.com/bildvitta/asteroid/compare/v3.19.0-beta.16...v3.19.0-beta.17?expand=1
 [3.19.0]: https://github.com/bildvitta/asteroid/compare/v3.18.2...v3.19.0?expand=1
+[3.20.0-beta.0]: https://github.com/bildvitta/asteroid/compare/v3.19.0...v3.20.0-beta.0?expand=1
