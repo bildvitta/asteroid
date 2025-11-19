@@ -260,6 +260,8 @@ function validateDateAndTime (value) {
 }
 
 function validateDateTimeOnBlur () {
+  autoFillMissingTime()
+
   const valueLength = currentValue.value?.replace?.(/_/g, '')?.length
 
   // valida se o tamanho digitado é o tamanho que a mascara espera receber
@@ -282,5 +284,27 @@ function resetError () {
   if (!currentValue.value) {
     error.value = false
   }
+}
+
+function autoFillMissingTime () {
+  if (props.useDateOnly || props.useTimeOnly) return
+
+  const value = currentValue.value
+
+  if (!value) return
+
+  const [rawDate = '', rawTime = ''] = value.split(' ')
+
+  const hasCompleteDate = !!rawDate && !rawDate.includes('_')
+  const hasTimeDigits = rawTime.replace(/[^0-9]/g, '').length > 0
+
+  if (!hasCompleteDate || hasTimeDigits) return
+
+  const defaultTime = props.timeMask.replace(/[a-zA-Z]/g, '0')
+  const nextValue = `${rawDate} ${defaultTime}`.trim()
+
+  if (nextValue === value) return
+
+  updateModelValue(nextValue)
 }
 </script>
