@@ -4,11 +4,11 @@
     <template #default>
       <qas-grid-generator v-bind="gridGeneratorProps">
         <template #fieldset-informations-after-header>
-          <qas-alert text="Texto de exemplo do alert" />
+          <qas-alert text="Utilizando o slot after-header" />
         </template>
 
         <template #fieldset-informations-header-description>
-          <div>minha descrição customizada xDD</div>
+          <strong>Com descrição personalizada através do slot</strong>
         </template>
       </qas-grid-generator>
     </template>
