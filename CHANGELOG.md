@@ -14,6 +14,25 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 Devemos adicionar o comentário `<!-- N/A -->` (Não adicionar), para que não precise adicionar um item do changelog ao lançar uma nova versão stable.
 Caso adicionado no escopo inicial, todos os conteúdos abaixo não serão adicionados. Caso adicionado na linha, será considerado apenas ela.
 
+## Não publicado
+## BREAKING CHANGES
+- **Possíveis breaking changes**: foi adicionado um espaçamento no slot `legend-bottom` do `QasFormGenerator`, pra ficar padronizado, isso pode ter alguma quebra em algum lugar que foi adicionado externamente.
+
+### Adicionado
+- `QasGridGenerator`:
+  - Adicionado slot `legend-top-${fieldsetName}` para adicionar um conteúdo após o header do fieldset.
+  - Adicionado slot `legend-bottom-${fieldsetName}` para adicionar um conteúdo após o fieldset.
+  - Adicionado slot `legend-top-${fieldsetName}-${subsetName}` para adicionar um conteúdo após o header do subset.
+  - Adicionado slot `legend-bottom-${fieldsetName}-${subsetName}` para adicionar um conteúdo após o subset.
+- `QasFormGenerator`:
+  - Adicionado slot `legend-top-${fieldsetName}` para adicionar um conteúdo após o header do fieldset.
+  - Adicionado slot `legend-top-${fieldsetName}-${subsetName}` para adicionar um conteúdo após o header do subset.
+
+### Modificado
+- `QasFormGenerator`:
+  - Modificado lógica do slot `legend-bottom-${fieldsetName}`, sendo adicionado também um espaçamento interno.
+  - Modificado lógica do slot `legend-top-${fieldsetName}-${subsetName}`, sendo adicionado também um espaçamento interno.
+
 ## [3.20.0-beta.0] - 19-11-2025
 ## BREAKING CHANGES
 - **Possíveis breaking changes**: mudanças referentes ao overlay pode quebrar alguns componentes a nível de rota, ou então a nível de layout.
