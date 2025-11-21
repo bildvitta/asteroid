@@ -4,7 +4,15 @@
       <div v-for="(fieldsetItem, fieldsetItemKey) in normalizedFields" :key="fieldsetItemKey" class="full-width">
         <q-separator v-if="hasSeparator({ item: fieldsetItem })" class="q-mb-lg" />
 
-        <qas-header v-if="fieldsetItem.__hasHeader" v-bind="getHeaderProps({ values: fieldsetItem })" />
+        <qas-header v-if="fieldsetItem.__hasHeader" v-bind="getHeaderProps({ values: fieldsetItem })">
+          <template v-for="slotName in getHeaderSlots(fieldsetItemKey)" :key="slotName" #[getHeaderSlotName(slotName)]="slotProps">
+            <slot :name="slotName" v-bind="slotProps || {}" />
+          </template>
+        </qas-header>
+
+        <div v-if="hasFieldsetAfterHeader(fieldsetItemKey)" class="col-12 q-mb-md">
+          <slot :name="`fieldset-${fieldsetItemKey}-after-header`" />
+        </div>
 
         <div :class="classes">
           <div v-for="(field, key) in fieldsetItem.fields" :key="key" :class="getContainerClasses({ key })">
@@ -83,7 +91,7 @@ import QasHeader from '../header/QasHeader.vue'
 
 import useGenerator, { baseProps } from '../../composables/private/use-generator'
 import { useScreen } from '../../composables'
-import { computed } from 'vue'
+import { computed, useSlots } from 'vue'
 
 // define component name
 defineOptions({ name: 'QasGridGenerator' })
@@ -161,6 +169,8 @@ const {
   getNormalizedFields,
   getFieldsByResult
 } = useGenerator({ props, isGrid: true })
+
+const slots = useSlots()
 
 // computeds
 const component = computed(() => {
@@ -246,5 +256,37 @@ function hasSeparator ({ item, isSubset }) {
    * o separator como false. Caso seja um fieldset, verificar se foi passado a chave "useSeparator".
    */
   return isSubset ? (item.useSeparator ?? true) : item.useSeparator
+}
+
+function hasFieldsetAfterHeader (fieldsetItemKey) {
+  return !!slots[`fieldset-${fieldsetItemKey}-after-header`]
+}
+
+/**
+ * Retorna os slots do header específicos de um fieldset
+ * @param {string} fieldsetKey - Chave do fieldset (ex: 'personal', 'address')
+ * @returns {string[]} Array com nomes dos slots filtrados
+ * @example
+ * Procura por: fieldset-personal-header-actions, fieldset-personal-header-label, etc
+ * getHeaderSlots('personal')
+ */
+function getHeaderSlots (fieldsetKey) {
+  const prefix = `fieldset-${fieldsetKey}-header-`
+  return Object.keys(slots).filter(slotName => slotName.startsWith(prefix))
+}
+
+/**
+ * Remove o prefixo do fieldset e "header-" para passar o slot correto pro qas-header
+ * @param {string} slotName - Nome completo do slot
+ * @returns {string} Nome do slot sem prefixo
+ * @example
+ * "fieldset-personal-header-actions" vira "actions"
+ * getHeaderSlotName('fieldset-personal-header-actions'), retorno -> 'actions'
+ */
+function getHeaderSlotName (slotName) {
+  // Remove "fieldset-{key}-header-" deixando apenas o nome do slot (actions, label, description)
+  const parts = slotName.split('-header-')
+
+  return parts[1] || slotName
 }
 </script>

@@ -14,6 +14,12 @@ Podemos ter pequenas breaking changes sem alterar o `major` version, apesar de s
 Devemos adicionar o comentário `<!-- N/A -->` (Não adicionar), para que não precise adicionar um item do changelog ao lançar uma nova versão stable.
 Caso adicionado no escopo inicial, todos os conteúdos abaixo não serão adicionados. Caso adicionado na linha, será considerado apenas ela.
 
+## Não publicado
+### Adicionado
+- `QasGridGenerator`:
+  - Adicionado slot `fieldset-${fieldsetName}$-after-header` para adicionar um conteúdo após o header.
+  - Adicionado possibilidade de utilizar os slots do header por fieldset, exemplo `fieldset-${fieldsetName}$-header-${headerSlotName}$`.
+
 ## [3.20.0-beta.0] - 19-11-2025
 ## BREAKING CHANGES
 - **Possíveis breaking changes**: mudanças referentes ao overlay pode quebrar alguns componentes a nível de rota, ou então a nível de layout.
