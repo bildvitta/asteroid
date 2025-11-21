@@ -36,7 +36,7 @@ Por padrão, entre `subsets` terá separadores, mas é possível controlar passa
 :::
 <doc-example file="QasGridGenerator/WithFieldset" title="Com fieldset" />
 
-<doc-example file="QasGridGenerator/WithHeaderSlot" title="Com slots no header" />
+<doc-example file="QasGridGenerator/WithLegend" title="Com legend-bottom e legend-top" />
 
 :::info
 É possível adicionar um tip ou alterar a tipografia de um item através do `fieldsProps`.
