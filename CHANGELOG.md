@@ -18,8 +18,40 @@ Caso adicionado no escopo inicial, todos os conteúdos abaixo não serão adicio
 ### BREAKING CHANGES
 - Removido suporte ao webpack; a documentação e o fluxo de desenvolvimento passam a considerar apenas Vite.
 
+### Modificado
+- Removido suporte ao webpack; a documentação e o fluxo de desenvolvimento passam a considerar apenas Vite.
+
+## [3.20.0-beta.31] - 03-09-2026
+### Adicionado
+- `QasToggleVisibility`: adicionados os eventos `show` e `hide`, emitidos ao exibir e ocultar o conteúdo, respectivamente.
+
+### Corrigido
+- `QasAppUser`: corrigido posicionamento do avatar de notificação, adicionando position: absolute.
+- `QasTimeline`: corrigido especificidade do CSS do subtitle, que dependia da ordem não determinística de extração dos chunks no build.
+
+## [3.20.0-beta.30] - 28-08-2026
+### Adicionado
+- `QasToggleVisibility`: adicionado prop `scope` para tratamento de rate limit por escopo.
+
+## [3.20.0-beta.29] - 26-08-2026
+### Adicionado
+- `QasToggleVisibility`: adicionado rate limit para as visualizações do conteúdo. Ao atingir o limite, novas exibições ficam bloqueadas até a janela expirar.
+
+## [3.20.0-beta.28] - 24-08-2026
+## BREAKING CHANGES
+- `mixins/search-filter.js`: os eventos `fetch-options-success` e `fetch-options-error` foram renomeados para `fetchOptionsSuccess` e `fetchOptionsError`. Atualize os listeners para camelCase ao utilizar no script.
+
+### Adicionado
+- `QasWhatsappLink`: adicionado tooltip `Enviar mensagem`.
+- `QasToggleVisibility`: adicionado `user-select: none` para o usuário não conseguir selecionar o conteúdo exibido dentro do componente.
+
 ### Corrigido
 - `QasDialogFilePreview`: adicionado validação de altura para imagens, pra não ser criado scroll em imagens maiores.
+- `mixins/search-filter.js`: corrigido forma de utilizar os eventos de `fetch-options-success` e `fetch-options-error`. Da forma que estava sendo emitido/declarado, quando utilizado no script, era obrigado a utilizar em kebab, não em camelCase. ([#1611](https://github.com/appnave/asteroid/issues/1611))
+- `QasExpansionItem`: corrigido bug do componente ao ter um v-model e ele iniciar com valor `true`, não renderizava o expansivo aberto. ([#1561](https://github.com/appnave/asteroid/issues/1561))
+
+### Modificado
+- `QasTooltip`: modificado comportamento para não exibir dois tooltips ao mesmo tempo.
 
 ### Modificado
 - Atualizado `.nvmrc` de `lts/iron` (Node 20) para `lts/jod` (Node 22).
@@ -5221,3 +5253,7 @@ Adicionado suporte para Pinia/Vuex Seguindo os padrões da biblioteca `@bildvitt
 [3.20.0-beta.25]: https://github.com/bildvitta/asteroid/compare/v3.20.0-beta.24...v3.20.0-beta.25?expand=1
 [3.20.0-beta.26]: https://github.com/bildvitta/asteroid/compare/v3.20.0-beta.26-alpha.9...v3.20.0-beta.26?expand=1
 [3.20.0-beta.27]: https://github.com/bildvitta/asteroid/compare/v3.20.0-beta.27-alpha.2...v3.20.0-beta.27?expand=1
+[3.20.0-beta.28]: https://github.com/bildvitta/asteroid/compare/v3.20.0-beta.28-alpha.6...v3.20.0-beta.28?expand=1
+[3.20.0-beta.29]: https://github.com/bildvitta/asteroid/compare/v3.20.0-beta.28...v3.20.0-beta.29?expand=1
+[3.20.0-beta.30]: https://github.com/bildvitta/asteroid/compare/v3.20.0-beta.29...v3.20.0-beta.30?expand=1
+[3.20.0-beta.31]: https://github.com/bildvitta/asteroid/compare/v3.20.0-beta.31-alpha.1...v3.20.0-beta.31?expand=1
