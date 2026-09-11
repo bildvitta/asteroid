@@ -176,9 +176,11 @@ async function setCompanies (value) {
   loading.value = true
 
   try {
-    await axios.patch('users/me', {
+    const response = await axios.patch('users/me', {
       [IS_ME_VERSION_2 ? 'currentMainCompany' : 'companies']: value
     })
+
+    window.postMessage({ type: 'setUser', user: response.data.result })
 
     setTimeout(() => location.reload(), 1500)
 

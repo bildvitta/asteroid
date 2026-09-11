@@ -18,6 +18,9 @@ Caso adicionado no escopo inicial, todos os conteúdos abaixo não serão adicio
 ### BREAKING CHANGES
 - Removido suporte ao webpack; a documentação e o fluxo de desenvolvimento passam a considerar apenas Vite.
 
+### Adicionado
+- `QasAppUser`: adicionado o postMessage `setUser` pra o `@appnave/quasar-app-extension-hub` atualizar o `user` no localStorage ao alterar o vínculo.
+
 ### Modificado
 - Removido suporte ao webpack; a documentação e o fluxo de desenvolvimento passam a considerar apenas Vite.
 
