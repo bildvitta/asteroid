@@ -28,6 +28,12 @@ function installNextUi ({ execaSync, ora, nextVersion, packages, retry = false }
 
     return { success: true, error: false }
   } catch (error) {
+    // mostra o erro real do npm install (execa expõe stderr/stdout/shortMessage)
+    console.error('\n[install-next-ui] Erro ao rodar "npm install":')
+    console.error(error.shortMessage || error.message)
+    if (error.stderr) console.error('stderr:\n' + error.stderr)
+    if (error.stdout) console.error('stdout:\n' + error.stdout)
+
     if (retry) {
       installSpinner.fail('Falha ao instalar "ui" no "app-extension')
       return { success: false, error: true }
